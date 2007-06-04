@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.14 2007/05/30 22:02:00 thuss Exp $
+ * $Id: SessionContext.java,v 1.15 2007/06/04 17:43:39 thuss Exp $
  */
 package gs.web.util.context;
 
@@ -71,7 +71,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     private String _pathway;
     private String _remoteAddress;
-    private String _abVersion;
+    private String _abVersion = "a";
 
     private ApplicationContext _applicationContext;
     private IPropertyDao _propertyDao;
@@ -249,27 +249,12 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     }
 
     /**
-     * Returns either (lowercase) "a" or "b" based on the odd/even-ness of
-     * the remote host's ip address.  "a" is for even, "b" is for odd.
+     * Returns either (lowercase) "a" or "b", initialized in ResponseInterceptor
      *
      * @return a <code>String</code>type
      */
     public String getABVersion() {
-        if (_abVersion != null) {
-            return _abVersion;
-        } else {
-            String version = "a";
-            if (_remoteAddress != null) {
-                String digit =
-                        _remoteAddress.substring(_remoteAddress.length() - 1,
-                                _remoteAddress.length());
-                if ("12367".indexOf(digit) > -1) {
-                    version = "b";                    
-                }
-            }
-            return version;
-        }
-        //return getMultivariateVersion(2);
+        return _abVersion;
     }
 
     public IPropertyDao getPropertyDao() {

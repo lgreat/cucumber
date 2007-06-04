@@ -2,14 +2,13 @@ package gs.web.util;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 
 /**
  * Interceptor to set http response headers
@@ -18,47 +17,63 @@ import gs.web.util.context.SessionContext;
  */
 public class ResponseInterceptor implements HandlerInterceptor {
 
-    /**
-     * Cookie name used to track repeat usage and other stats
-     */
-    public static final String TRNO_COOKIE = "TRNO";
-    public static final String COBRAND_COOKIE = "COBRAND";
-
     public static final String HEADER_CACHE_CONTROL = "Cache-Control";
 
     public static final String HEADER_PRAGMA = "Pragma";
 
     public static final String HEADER_EXPIRES = "Expires";
 
-    private static final Log _log = LogFactory.getLog(ResponseInterceptor.class);
     public static final int EXPIRE_AT_END_OF_SESSION = -1;
     public static final int EXPIRE_NOW = 0;
 
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        
-        /*
-         * Don't create a cookie for this URL.
-         * This is somewhat poorly done since it's not configurable. I'd prefer some
-         * way to turn off certain interceptors for certain URLs, but I don't see these
-         * the way things are set up.
-         */
-        if (request.getRequestURI().indexOf("/content/box/v1") == -1) {
-            setTrnoCookie(request, response);
+        SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+
+        // TRNO Cookie
+        long trnoSecondsSinceEpoch = 0;
+        Cookie trno = findCookie(request, SessionContextUtil.TRNO_COOKIE);
+        if (trno == null) {
+            trnoSecondsSinceEpoch = System.currentTimeMillis() / 1000;
+            String ipAddress = request.getHeader("x_forwarded_for");
+
+            if (ipAddress == null) {
+                ipAddress = request.getRemoteAddr();
+            }
+
+            String cookieValue = String.valueOf(trnoSecondsSinceEpoch) + "." + ipAddress;
+
+            //cookie expires approx. two years from now
+            Cookie c = new Cookie(SessionContextUtil.TRNO_COOKIE, cookieValue);
+            c.setPath("/");
+            c.setMaxAge(63113852);
+            response.addCookie(c);
+        } else {
+            String trnoValue = trno.getValue();
+            try {
+                // Extract the time from the TRNO (180654739.127.0.0.1 => 180654739)  
+                trnoSecondsSinceEpoch = Long.valueOf(trnoValue.substring(0, trnoValue.indexOf(".")));
+            } catch (Exception e) {
+                // do nothing
+            }
         }
 
-        SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-        Cookie cobrandCookie = findCookie(request, COBRAND_COOKIE);
+        // Use the time from when TRNO was set to determine if user is A or B variant
+        if (trnoSecondsSinceEpoch % 2 == 0) {
+            sessionContext.setAbVersion("b");
+        }
+
+        // COBRAND cookie
+        Cookie cobrandCookie = findCookie(request, SessionContextUtil.COBRAND_COOKIE);
         if (sessionContext.isCobranded() && !sessionContext.isFramed()) {
             String hostName = sessionContext.getHostName();
             if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
-                cobrandCookie = new Cookie(COBRAND_COOKIE, hostName);
+                cobrandCookie = new Cookie(SessionContextUtil.COBRAND_COOKIE, hostName);
                 cobrandCookie.setPath("/");
                 cobrandCookie.setDomain(".greatschools.net");
                 response.addCookie(cobrandCookie);
             }
-        }
-        else {
+        } else {
             if (cobrandCookie != null) {
                 cobrandCookie.setValue("");
                 cobrandCookie.setMaxAge(EXPIRE_NOW);
@@ -72,30 +87,10 @@ public class ResponseInterceptor implements HandlerInterceptor {
     }
 
 
-    private void setTrnoCookie(HttpServletRequest request, HttpServletResponse response) {
-        if (findCookie(request, TRNO_COOKIE) == null) {
-            Long secondsSinceEpoch = new Long(System.currentTimeMillis() / 1000);
-            String ipAddress = request.getHeader("x_forwarded_for");
-
-            if (ipAddress == null) {
-                ipAddress = request.getRemoteAddr();
-            }
-
-            String cookieValue = String.valueOf(secondsSinceEpoch.intValue()) + "." + ipAddress;
-
-            //cookie expires approx. two years from now
-            Cookie c = new Cookie(TRNO_COOKIE, cookieValue);
-            c.setPath("/");
-            c.setMaxAge(63113852);
-            response.addCookie(c);
-        }
-    }
-
     private Cookie findCookie(HttpServletRequest request, String cookieName) {
-        Cookie cookies [] = request.getCookies();
+        Cookie cookies[] = request.getCookies();
         if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                Cookie cookie = cookies[i];
+            for (Cookie cookie : cookies) {
                 if (cookieName.equals(cookie.getName())) {
                     return cookie;
                 }

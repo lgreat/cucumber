@@ -26,9 +26,14 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         super.setUp();
 
         _interceptor = new ResponseInterceptor();
-        _mockSessionContext = MockClassControl.createNiceControl(SessionContext.class);
-        _sessionContext = (SessionContext) _mockSessionContext.getMock();
+        _sessionContext = new SessionContext();
         _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+    }
+
+    private void setUpSessionContext(boolean isCobranded, boolean isFramed) {
+        if (isCobranded) _sessionContext.setCobrand("sfgate");
+        if (isFramed) _sessionContext.setCobrand("framed");
+        _sessionContext.setHostName(_requestedServer);
     }
 
     public void testPreHandle() throws Exception {
@@ -41,7 +46,16 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         Cookie cookies[] = response.getCookies();
         assertNotNull(cookies);
         for (int i = 0; i < cookies.length; i++) {
-            if (ResponseInterceptor.TRNO_COOKIE.equals(cookies[i].getName())) hasCookie = true;
+            if (SessionContextUtil.TRNO_COOKIE.equals(cookies[i].getName())) {
+                hasCookie = true;
+                String trnoValue = cookies[i].getValue();
+                long trnoSecondsSinceEpoch = Long.valueOf(trnoValue.substring(0, trnoValue.indexOf(".")));
+                if (trnoSecondsSinceEpoch % 2 == 0) {
+                    assertEquals("b", _sessionContext.getABVersion());
+                } else {
+                    assertEquals("a", _sessionContext.getABVersion());
+                }
+            }
         }
         assertTrue(hasCookie);
     }
@@ -71,7 +85,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
     }
 
     public void testCobrandCookieNotReSetForCobrand() throws Exception {
-        _request.setCookies(new Cookie[]{new Cookie(ResponseInterceptor.COBRAND_COOKIE, _requestedServer)});
+        _request.setCookies(new Cookie[]{new Cookie(SessionContextUtil.COBRAND_COOKIE, _requestedServer)});
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, false);
 
@@ -102,7 +116,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
     }
 
     public void testCobrandCookieUnSetForNonCobrand() throws Exception {
-        _request.setCookies(new Cookie[]{new Cookie(ResponseInterceptor.COBRAND_COOKIE, _requestedServer)});
+        _request.setCookies(new Cookie[]{new Cookie(SessionContextUtil.COBRAND_COOKIE, _requestedServer)});
         _request.setServerName(_requestedServer);
         setUpSessionContext(false, false);
 
@@ -116,7 +130,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
     }
 
     public void testCobrandCookieUnSetForFramedCobrand() throws Exception {
-        _request.setCookies(new Cookie[]{new Cookie(ResponseInterceptor.COBRAND_COOKIE, _requestedServer)});
+        _request.setCookies(new Cookie[]{new Cookie(SessionContextUtil.COBRAND_COOKIE, _requestedServer)});
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, true);
 
@@ -131,7 +145,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
 
 
     public void testPreHandleUpdatesCobrandCookie() throws Exception {
-        _request.setCookies(new Cookie[]{new Cookie(ResponseInterceptor.COBRAND_COOKIE, "some.other.domain")});
+        _request.setCookies(new Cookie[]{new Cookie(SessionContextUtil.COBRAND_COOKIE, "some.other.domain")});
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, false);
 
@@ -143,21 +157,11 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         assertEquals("Unexpected cobrand cookie age", ResponseInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
     }
 
-    private void setUpSessionContext(boolean isCobranded, boolean isFramed) {
-        _sessionContext.isCobranded();
-        _mockSessionContext.setReturnValue(isCobranded);
-        _sessionContext.isFramed();
-        _mockSessionContext.setReturnValue(isFramed);
-        _sessionContext.getHostName();
-        _mockSessionContext.setReturnValue(_requestedServer);
-        _mockSessionContext.replay();
-    }
-
     private Cookie findCobrandCookie() {
         Cookie cookies[] = _response.getCookies();
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
-                if (ResponseInterceptor.COBRAND_COOKIE.equals(cookies[i].getName())) {
+                if (SessionContextUtil.COBRAND_COOKIE.equals(cookies[i].getName())) {
                     return cookies[i];
                 }
             }

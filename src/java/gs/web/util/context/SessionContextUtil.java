@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.14 2007/05/29 23:51:44 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.15 2007/06/04 17:43:39 thuss Exp $
  */
 
 package gs.web.util.context;
@@ -61,6 +61,16 @@ public class SessionContextUtil implements ApplicationContextAware {
      * but now it the default (www.greatschools.net or cobrand domain).
      */
     public static final String MEMBER_ID_COOKIE = "MEMID";
+
+    /**
+     * TRNO cookie we set to uniquely identify a visitor
+     */
+    public static final String TRNO_COOKIE = "TRNO";
+
+    /**
+     * Cookie we set to track what cobrand a user is on
+     */
+    public static final String COBRAND_COOKIE = "COBRAND";
 
     /* Browsing state session cookies */
     // STATE, PATHWAY

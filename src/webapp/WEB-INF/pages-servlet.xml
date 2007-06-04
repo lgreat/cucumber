@@ -42,6 +42,7 @@
         <property name="urlMap">
             <map>
                 <entry key="/chart/pie.page" value="pieController"/>
+                <entry key="/content/box/v1/*/*.page" value="contentBoxController"/>                
             </map>
         </property>
     </bean>
@@ -692,7 +693,7 @@
         where
         pagename matches something on the perl side.
     -->
-    <bean name="/content/box/v1/*/*.page"
+    <bean name="contentBoxController"
           class="gs.web.content.ContentBoxViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
