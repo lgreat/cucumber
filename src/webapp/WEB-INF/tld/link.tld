@@ -1452,5 +1452,28 @@
             <description>target window to open link in</description>
         </attribute>
     </tag>
+    <tag>
+        <name>communityLanding</name>
+        <tag-class>gs.web.jsp.link.CommunityLandingTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>communityLanding</display-name>
+        <description>
+            <![CDATA[Link to our community landing page.</code>.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Title attribute</description>
+        </attribute>
+    </tag>
 </taglib>
 

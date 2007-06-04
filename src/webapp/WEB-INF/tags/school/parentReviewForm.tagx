@@ -48,7 +48,7 @@
                value="Enter your email address" class="emailAddress"/>
         <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
                onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
-               class="button" alt="GO" src="/res/img/school/review/submitReview.gif" type="image" />
+               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/review/submitReview.gif" type="image" />
     </c:set>
 
     <c:set var="parentReviewsPageLayout">
@@ -86,7 +86,7 @@
                onfocus="if(this.value=='Enter your email address'){this.value='';}"
                value="Enter your email address" class="emailAddress"/>
         <input id="submitReview"
-               class="button" alt="GO" src="/res/img/school/parentReviews/submit.gif" type="image" />
+               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
     </c:set>
 
     <c:if test="${pageName eq 'parentReviews'}">
