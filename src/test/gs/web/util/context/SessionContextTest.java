@@ -327,25 +327,10 @@ public class SessionContextTest extends BaseTestCase {
     }
 
     public void testABVersion() {
-        SessionContextUtil util = new SessionContextUtil();
-        util.setStateManager(new StateManager());
         SessionContext ctx = new SessionContext();
-
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setRemoteAddr("123.456.789.012");
-        util.updateFromRequestAttributes(request, ctx);
-        assertEquals("b", ctx.getABVersion());
-
-        GsMockHttpServletRequest bRequest = new GsMockHttpServletRequest();
-        bRequest.setRemoteAddr("123.456.789.123");
-        util.updateFromRequestAttributes(bRequest, ctx);
-        assertEquals("b", ctx.getABVersion());
-
-        GsMockHttpServletRequest cRequest = new GsMockHttpServletRequest();
-        cRequest.setRemoteAddr("123.456.789.000");
-        util.updateFromRequestAttributes(cRequest, ctx);
+        // We just test that it defaults to A here. The real
+        // logic for setting this is in ResponseInterceptor
         assertEquals("a", ctx.getABVersion());
-
     }
 
 
