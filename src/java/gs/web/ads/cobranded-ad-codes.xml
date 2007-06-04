@@ -127,26 +127,30 @@
     <cobrand id="encarta">
         <ad id="x40">
             <![CDATA[
-                <script type="text/javascript" src="http://Ads1.msn.com/library/dap.js"></script>
-                <script type="text/javascript">dap("&PG=ENCEEA&AP=1089",300,250);</script>
+            <iframe src="http://encarta.msn.com/encnet/external/greatschools/ad.htm"
+            width="300" height="260" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
             ]]>
         </ad>
         <ad id="x48">
             <![CDATA[
-                <script type="text/javascript" src="http://Ads1.msn.com/library/dap.js"></script>
-                <script type="text/javascript">dap("&PG=ENCEEA&AP=1089",300,250);</script>
+            <iframe src="http://encarta.msn.com/encnet/external/greatschools/ad.htm"
+            width="300" height="260" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
             ]]>
         </ad>
         <ad id="x66">
             <![CDATA[
-                <script type="text/javascript" src="http://Ads1.msn.com/library/dap.js"></script>
-                <script type="text/javascript">dap("&PG=ENCEEA&AP=1089",300,250);</script>
+            <iframe src="http://encarta.msn.com/encnet/external/greatschools/ad.htm"
+            width="300" height="260" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
             ]]>
         </ad>
         <ad id="x70">
             <![CDATA[
-                <script type="text/javascript" src="http://Ads1.msn.com/library/dap.js"></script>
-                <script type="text/javascript">dap("&PG=ENCEEA&AP=1089",300,250);</script>
+            <iframe src="http://encarta.msn.com/encnet/external/greatschools/ad.htm"
+            width="300" height="260" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
             ]]>
         </ad>
     </cobrand>
