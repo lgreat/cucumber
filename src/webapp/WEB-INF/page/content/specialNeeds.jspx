@@ -68,8 +68,8 @@
                 <p class="question">Q: My Struggling Son Doesn't Qualify for Special Ed</p>
                 <p class="answer"><gsweb:articlelink articleId="671">Read the answer &gt;</gsweb:articlelink></p>
 
-                <p class="question">Q: Ask the Experts About Special Needs</p>
-                <p class="answer"><gsweb:articlelink articleId="992">Read the answer &gt;</gsweb:articlelink></p>
+                <p class="question">Q: The Teacher Thinks My Child Needs Medication</p>
+                <p class="answer"><gsweb:articlelink articleId="791">Read the answer &gt;</gsweb:articlelink></p>
             </div>
 
             <content:micrositeFreeNewsletters pageName="${pageName}"/>
