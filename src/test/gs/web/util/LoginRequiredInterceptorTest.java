@@ -9,6 +9,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.data.community.User;
 
+import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
 import java.io.IOException;
 
@@ -34,7 +35,8 @@ public class LoginRequiredInterceptorTest extends BaseControllerTestCase {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setUser(user);
         String hash = AuthenticationManager.generateCookieValue(user);
-        sc.setUserHash(hash);
+        sc.setHostName("dev.greatschools.net");
+        getRequest().setCookies(new Cookie[] {new Cookie("community_dev", hash)});
 
         assertNotNull(SessionContextUtil.getSessionContext(getRequest()).getUser());
         assertNull(getResponse().getRedirectedUrl());
@@ -60,7 +62,8 @@ public class LoginRequiredInterceptorTest extends BaseControllerTestCase {
         User user2 = new User();
         user2.setId(2);
         String hash = AuthenticationManager.generateCookieValue(user2);
-        sc.setUserHash(hash);
+        sc.setHostName("dev.greatschools.net");
+        getRequest().setCookies(new Cookie[] {new Cookie("community_dev", hash)});
 
         assertNull(getResponse().getRedirectedUrl());
         boolean rval = _interceptor.preHandle(getRequest(), getResponse(), _dummyHandler);

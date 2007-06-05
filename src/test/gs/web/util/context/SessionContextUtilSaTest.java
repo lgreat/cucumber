@@ -47,27 +47,27 @@ public class SessionContextUtilSaTest extends BaseTestCase {
     public void testGetServerName() {
         // dev environment
         setServerName("dev.greatschools.net");
-        assertEquals("dev", _sessionContextUtil.getServerName(_request));
+        assertEquals("dev", SessionContextUtil.getServerName(_request));
 
         setServerName("aroy.office.greatschools.net");
-        assertEquals("dev", _sessionContextUtil.getServerName(_request));
+        assertEquals("dev", SessionContextUtil.getServerName(_request));
 
         setServerName("localhost:8080");
-        assertEquals("dev", _sessionContextUtil.getServerName(_request));
+        assertEquals("dev", SessionContextUtil.getServerName(_request));
 
         // staging environment
         setServerName("staging.greatschools.net");
-        assertEquals("staging", _sessionContextUtil.getServerName(_request));
+        assertEquals("staging", SessionContextUtil.getServerName(_request));
 
         setServerName("sfgate.staging.greatschools.net");
-        assertEquals("staging", _sessionContextUtil.getServerName(_request));
+        assertEquals("staging", SessionContextUtil.getServerName(_request));
 
         // live environment
         setServerName("www.greatschools.net");
-        assertEquals("www", _sessionContextUtil.getServerName(_request));
+        assertEquals("www", SessionContextUtil.getServerName(_request));
 
         setServerName("sfgate.greatschools.net");
-        assertEquals("www", _sessionContextUtil.getServerName(_request));
+        assertEquals("www", SessionContextUtil.getServerName(_request));
     }
 
     public void testChangeAuthorizationRememberMe() {

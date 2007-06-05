@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.42 2007/05/29 23:51:44 aroy Exp $
+ * $Id: PageHelper.java,v 1.43 2007/06/05 23:05:35 aroy Exp $
  */
 
 package gs.web.util;
@@ -16,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -500,8 +501,15 @@ public class PageHelper {
      * @return true if the session context contains a member id and a user hash string.
      */
     public static boolean isCommunityCookieSet(HttpServletRequest request) {
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        return context.getMemberId() != null && StringUtils.isNotEmpty(context.getUserHash());
+        if (request.getCookies() != null) {
+            String cookieName = "community_" + SessionContextUtil.getServerName(request);
+            for (Cookie cookie: request.getCookies()) {
+                if (cookieName.equals(cookie.getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -511,13 +519,23 @@ public class PageHelper {
      * @return True if SessionContext contains a valid member id and hash
      */
     public static boolean isMemberAuthorized(HttpServletRequest request) {
+        if (request.getCookies() == null) {
+            return false;
+        }
         try {
+            String cookieName = "community_" + SessionContextUtil.getServerName(request);
+            String storedHash = null;
+            Integer memberId = null;
+            for (Cookie cookie: request.getCookies()) {
+                if (cookieName.equals(cookie.getName())) {
+                    memberId = AuthenticationManager.getUserIdFromCookieValue(cookie.getValue());
+                    storedHash = AuthenticationManager.getHashFromCookieValue(cookie.getValue());
+                }
+            }
             SessionContext context = SessionContextUtil.getSessionContext(request);
-            Integer memberId = context.getMemberId();
-            String storedHash = context.getUserHash();
             return memberId != null && StringUtils.isNotEmpty(storedHash) &&
-                    isMemberAuthorized(context.getUser(), storedHash);
-        } catch (NoSuchAlgorithmException e) {
+                    isMemberAuthorized(context.getUser(), storedHash + memberId);
+        } catch (Exception e) {
             _log.error(e);
             return false;
         }

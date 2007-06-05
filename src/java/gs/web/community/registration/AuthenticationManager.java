@@ -43,4 +43,14 @@ public class AuthenticationManager {
         String idString = cookieValue.substring(DigestUtil.MD5_HASH_LENGTH);
         return new Integer(idString);
     }
+
+    /**
+     * Parses the user id out of a string. The string is assumed to begin with an md5 hash
+     * and be immediately followed by the user id.
+     * @return user id
+     * @param cookieValue String consisting of an md5 hash concatenated with the user id
+     */
+    public static String getHashFromCookieValue(String cookieValue) {
+        return cookieValue.substring(0, DigestUtil.MD5_HASH_LENGTH);
+    }
 }

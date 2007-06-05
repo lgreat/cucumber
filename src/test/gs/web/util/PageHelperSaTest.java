@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.32 2007/05/29 23:51:44 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.33 2007/06/05 23:05:35 aroy Exp $
  */
 
 package gs.web.util;
@@ -424,6 +424,7 @@ public class PageHelperSaTest extends TestCase {
         assertNotNull(cookie);
         ClientSideSessionCache sessionCache = ClientSideSessionCache.createClientSideSessionCache(cookie.getValue());
         assertEquals(hash, sessionCache.getUserHash());
+        assertNotNull("Community cookie is not set!", _response.getCookie("community_dev"));
     }
 
     public void testIsMemberAuthorized() throws NoSuchAlgorithmException {
@@ -432,32 +433,24 @@ public class PageHelperSaTest extends TestCase {
 
         user.setId(123);
         user.setEmail("testSetMemberCookie@greatschools.net");
-        String hash = "rgTkMapq+oP5MTpxH3lEUQ==123";
         PageHelper.setMemberAuthorized(_request, _response, user);
 
         // this step normally occurs automatically, but for this test must be done programmatically
         SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
-        sessionContext.setUserHash(hash);
         sessionContext.setUser(user);
+        sessionContext.setHostName("dev.greatschools.net");
 
+        _request.setCookies(new Cookie[] {_response.getCookie("community_dev")});
         assertTrue(PageHelper.isMemberAuthorized(_request));
     }
 
     public void testIsCommunityCookieSet() {
-        SessionContext sessionContext = (SessionContext) SessionContextUtil.getSessionContext(_request);
-        assertNull(sessionContext.getUserHash());
-        assertNull(sessionContext.getMemberId());
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
+        sessionContext.setHostName("dev.greatschools.net");
         assertFalse(PageHelper.isCommunityCookieSet(_request));
-        sessionContext.setUserHash("blahblah");
-        // no good ... must have member id AND cookie
-        assertFalse(PageHelper.isCommunityCookieSet(_request));
-        sessionContext.setUserHash(null);
-        sessionContext.setMemberId(new Integer(123));
-        // no good ... must have member id AND cookie
-        assertFalse(PageHelper.isCommunityCookieSet(_request));
-        sessionContext.setUserHash("blahblah");
-        // now it's good, even though the hash is garbage
-        assertTrue(PageHelper.isCommunityCookieSet(_request));
+
+        _request.setCookies(new Cookie[] {new Cookie("community_dev", "blahblah23")});
+        assertTrue(PageHelper.isCommunityCookieSet(_request));        
     }
 
     public void testFindsBetaPage() {

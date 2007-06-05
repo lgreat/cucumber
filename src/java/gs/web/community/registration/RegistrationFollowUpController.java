@@ -39,11 +39,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public static final String BEAN_ID = "/community/registration2.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
-    public static final int NUMBER_PREVIOUS_SCHOOLS = 3;
-    public static final int ABOUT_ME_MAX_LENGTH = 3000;
-    public static final int STUDENT_NAME_MAX_LENGTH = 50;
-    public static final int OTHER_INTEREST_MAX_LENGTH = 255;
-
     public static final String ERROR_GRADE_MISSING = "Please select your child's grade and school.";
     public static final String ERROR_SCHOOL_MISSING = "Please select your child's school. " +
             "If you cannot find the school, please select \"My child's school is not listed.\"";
@@ -309,8 +304,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
 
-        //PageHelper.setMemberAuthorized(request, response, user);
-        PageHelper.setMemberCookie(request, response, user);
+        PageHelper.setMemberAuthorized(request, response, user);
+        //PageHelper.setMemberCookie(request, response, user);
         if (StringUtils.isEmpty(fupCommand.getRedirect())) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
             builder.addParameter("message", "Thank you for joining the GreatSchools Community! You'll be the first to know when we launch!");

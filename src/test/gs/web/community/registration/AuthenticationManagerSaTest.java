@@ -58,4 +58,16 @@ public class AuthenticationManagerSaTest extends TestCase {
         assertEquals(new Integer(155803),
                 AuthenticationManager.getUserIdFromCookieValue("tNWDVqW/+whaciBffVpUdA==155803"));
     }
+
+    public void testGetHashFromCookieValue() throws NoSuchAlgorithmException {
+        String cookieValue = AuthenticationManager.generateCookieValue(_user);
+        String hash = AuthenticationManager.getHashFromCookieValue(cookieValue);
+
+        assertNotNull(hash);
+        assertEquals(DigestUtil.MD5_HASH_LENGTH, hash.length());
+        // verify method works according to spec
+        assertEquals("tNWDVqW/+whaciBffVpUdA==",
+                AuthenticationManager.getHashFromCookieValue("tNWDVqW/+whaciBffVpUdA==155803"));
+    }
+
 }

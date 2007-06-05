@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.16 2007/06/04 21:00:40 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.17 2007/06/05 23:05:35 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -466,7 +466,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         }
     }
 
-    protected String getServerName(HttpServletRequest request) {
+    public static String getServerName(HttpServletRequest request) {
         PageHelper pageHelper = new PageHelper(getSessionContext(request), request);
         if (pageHelper.isStagingServer()) {
             return "staging";
