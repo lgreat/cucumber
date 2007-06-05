@@ -78,8 +78,8 @@
 <td class="left" style="width: 173px;" valign="top">
     <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="688" wrappingElement="li"/>
-        <gsweb:articlelink articleId="946" wrappingElement="li"/>
+        <gsweb:articlelink articleId="535" wrappingElement="li"/>
+        <gsweb:articlelink articleId="966" wrappingElement="li"/>
         <gsweb:articlelink articleId="882" wrappingElement="li"/>
         <gsweb:articlelink articleId="716" wrappingElement="li"/>
         <gsweb:articlelink articleId="684" wrappingElement="li"/>
@@ -161,16 +161,17 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/965" styleClass="noHover">Alternate Routes to High School Success</gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/1016" styleClass="noHover">Why Learn a Language?</gsml:a>
     </div>
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/965" styleClass="noHover">
-            Does your student feel like he doesn't fit in? There are alternatives. Independent study, college or online
-            courses are some of the ways to engage your restless high school student.
+        <gsml:a href="/cgi-bin/showarticle/$STATE/1016" styleClass="noHover">
+            Students used to learn enough French, German or Spanish to pass grammar tests but not
+            enough to communicate. That's changing. Learning a language is a key job skill, and studies
+            show it builds brain power.  
         </gsml:a>
     </div>
     <div align="right">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/965" styleClass="seeFullArticle">See full article &gt;</gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/1016" styleClass="seeFullArticle">See full article &gt;</gsml:a>
     </div>
 
     <div class="midDotLine" >
@@ -190,20 +191,20 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/948" styleClass="noHover">
-            The 10 Hottest Careers for College Grads?
+        <gsml:a href="/cgi-bin/showarticle/$STATE/1011" styleClass="noHover">
+            How <i>Not</i> To Be a Helicopter Parent
         </gsml:a>
     </div>
 
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/948" styleClass="noHover">
-            As your child starts thinking about a future career, government economists have
-            made their predictions of where jobs will be in 2014 for grads with
-            associate's or bachelor's degrees.
+        <gsml:a href="/cgi-bin/showarticle/$STATE/1011" styleClass="noHover">
+            "Helicopter parents" hover over their college-age kids, intervening in their roommate
+            disputes and making their academic decisions. The results are bad for everyone involved.
+            Learn how you can learn to help without hovering. 
         </gsml:a>
     </div>
 
-    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/948" styleClass="seeFullArticle">See full article
+    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/1011" styleClass="seeFullArticle">See full article
         &gt;</gsml:a></div>
 
     <div class="midDashLine">
@@ -219,14 +220,14 @@
                 </td>
                 <td valign="top">
                     <ul class="quickFindLinks" style="padding-top:15px;">
-                        <li style="padding-top:0;margin-top:0"><a href="http://www.collegeboard.com/student/csearch/majors_careers/index.html"
-                               target="_blank">Majors and Careers Central</a></li>
-                        <li><a href="http://www.collegeboard.com/csearch/majors_careers/profiles/"
-                               target="_blank">Major and Career Profiles</a></li>
-                        <li><a href="http://www.collegeboard.com/student/csearch/majors_careers/237.html"
-                               target="_blank">10 Industries With the Fastest Employment Growth</a></li>
-                        <li><a href="http://www.collegeboard.com/student/csearch/majors_careers/49485.html"
-                               target="_blank">Career of the Week</a></li>
+                        <li style="padding-top:0;margin-top:0"><a href="http://www.collegeboard.com/parents/apply/sending-kids-college/50006.html"
+                               target="_blank">10 Ways to Help Your Child Become Self-Reliant</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21382.html"
+                               target="_blank">Preparing for Your Child's Move to College</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/apply/sending-kids-college/49141.html"
+                               target="_blank">Homesickness: How to Help Your Child</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21381.html"
+                               target="_blank">Off-to-College Checklist</a></li>
                     </ul>
                 </td>
             </tr>
@@ -293,9 +294,8 @@
                    <tr>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Have your child finalize her summer plans. Encourage her to
-                               read <a href="http://www.collegeboard.com/parents/plan/hs-steps/21281.html">great literature</a> this
-                               summer. Ask teachers or the school librarian for suggestions.
+                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21285.html" target="_blank">Volunteering this summer</a>
+                               can broaden your child's perspective and help him get ready for college and a career. 
                            </span><br/>
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a>
                        </td>
@@ -303,9 +303,9 @@
                        <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Help your child <a href="http://www.collegeboard.com/student/testing/sat/reg.html" target="_blank">register online</a> early
-                               for fall <a href="http://www.collegeboard.com/parents/tests/meet-tests/31065.html" target="_blank">SAT tests</a>. Review
-                               your child's <gsweb:articlelink articleId="847">summer reading list</gsweb:articlelink>. Encourage him to read at least four books this summer.
+                               Still making summer plans? There may still be
+                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21283.html" target="_blank">jobs, internships, volunteer opportunities</a>
+                               or athletic programs available in your community.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
                    </tr>
@@ -315,17 +315,17 @@
                    <tr>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               <a href="http://www.collegeboard.com/parents/csearch/explore-colleges/21178.html" target="_blank">Visit college campuses</a> with your
-                               child, if you can. Together, <a href="http://www.collegeboard.com/parents/apply/college-applications/21357.html" target="_blank">mark a calendar</a> with
-                               important application and <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21404.html" target="_blank">financial aid dates and deadlines</a> for senior year.
+                               Discuss different <a href="http://www.collegeboard.com/parents/plan/getting-ready/21289.html" target="_blank">college majors</a>
+                               with your child. By the end of summer, your child should narrow his 
+                               <a href="http://www.collegeboard.com/parents/apply/college-applications/21346.html" target="_blank">college list</a>
+                               to include "safe," "reach" and "realistic" schools.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
                        <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               A final transcript should be sent to your child's college. Notify
-                               the financial aid office of your child's college about any
-                               scholarships she's been offered. 
+                               Have your child send thank-you notes to scholarship programs that have given her aid.
+                               Then, give her a chance to relax and enjoy herself this summer. She's earned it!
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
                    </tr>
