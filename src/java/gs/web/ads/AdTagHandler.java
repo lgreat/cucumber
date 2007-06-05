@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.10 2007/05/22 22:03:34 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.11 2007/06/05 00:32:50 dlee Exp $
  */
 package gs.web.ads;
 
@@ -55,9 +55,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
         StringBuffer buffer = new StringBuffer();
 
-        //TODO remove once we start serving ads in google ad server
-        String style = (_adPosition.isGAMPosition()) ? " style=\"display:none;\"" : "";
-
         buffer.append("<div id=\"")
                 .append(getAdId())
                 .append("\" class=\"")
@@ -65,7 +62,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 .append("ad").append(" ")
                 .append("noprint")
                 .append("\"")
-                .append(style)
                 .append(">");
 
         if (pageHelper.isAdServedByCobrand()) {

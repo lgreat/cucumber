@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.8 2007/05/22 22:03:34 dlee Exp $
+ * $Id: AdTagHandlerTest.java,v 1.9 2007/06/05 00:32:50 dlee Exp $
  */
 package gs.web.ads;
 
@@ -93,7 +93,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         String output = _tag.getDeferredContent();
         //_log.debug(output);
 
-        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\" style=\"display:none;\"><script type=\"text/javascript\">GA_googleFillSlot('Top_300x137');</script></div>", output);
+        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('Top_300x137');</script></div>", output);
         assertTrue(pageHelper.getAdPositions().contains(AdPosition.Top_300x137));
 
         assertEquals(false, _tag.isDeferred());
@@ -117,7 +117,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, "SchoolProfile_");
 
         String output = _tag.getDeferredContent();
-        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\" style=\"display:none;\"><script type=\"text/javascript\">GA_googleFillSlot('SchoolProfile_Top_300x137');</script></div>", output);
+        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('SchoolProfile_Top_300x137');</script></div>", output);
         assertTrue(pageHelper.getAdPositions().contains(AdPosition.Top_300x137));
 
         //try to set the same ad position
