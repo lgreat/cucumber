@@ -30,6 +30,13 @@ public class ParentReviewController extends AbstractSchoolController {
     protected static final String PARAM_SORT_BY = "sortBy";
     protected static final String PARAM_PAGER_OFFSET = "pager.offset";
 
+    private static final Comparator<Review> OVERALL_RATING_DESC_DATE_DESC =
+            Review.createCompositeComparator(Collections.reverseOrder(Review.OVERALL_RATING_COMPARATOR),
+                                Collections.reverseOrder(Review.DATE_POSTED_COMPARATOR));
+
+    private static final Comparator<Review> OVERALL_RATING_ASC_DATE_DESC =
+            Review.createCompositeComparator(Review.OVERALL_RATING_COMPARATOR,
+                                Collections.reverseOrder(Review.DATE_POSTED_COMPARATOR));
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map model = new HashMap();
@@ -47,18 +54,18 @@ public class ParentReviewController extends AbstractSchoolController {
                 cmd.setSortBy("dd");
             }
             /**
-             * dd - date descending
-             * da - date ascending
-             * rd - overall rating descending
-             * ra - overall rating ascending
+             * dd - date descending: newer to older
+             * da - date ascending: older to newer
+             * rd - overall rating descending: higher to lower
+             * ra - overall rating ascending: lower to higher
              */
             if ("da".equals(cmd.getSortBy())) {
+                //since sorted by date desc when it comes out of database
                 Collections.reverse(reviews);
             } else if ("rd".equals(cmd.getSortBy())) {
-                Collections.sort(reviews, Review.OVERALL_RATING_COMPARATOR);
-                Collections.reverse(reviews);
+                Collections.sort(reviews, OVERALL_RATING_DESC_DATE_DESC);
             } else if ("ra".equals(cmd.getSortBy())) {
-                Collections.sort(reviews, Review.OVERALL_RATING_COMPARATOR);
+                Collections.sort(reviews, OVERALL_RATING_ASC_DATE_DESC);
             } else {
                 cmd.setSortBy("dd");
             }
