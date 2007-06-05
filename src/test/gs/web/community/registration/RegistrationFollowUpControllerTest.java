@@ -198,6 +198,8 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _subscriptionDao.saveSubscription(sub);
         _subscriptionControl.setMatcher(new SubscriptionMatcher());
 
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY), null);
+
         _subscriptionControl.replay();
 
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -237,9 +239,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _userControl.replay();
 
         // controller checks for previous subscriptions
-        _subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
         // detects none
-        _subscriptionControl.setReturnValue(null);
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT), null);
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY), null);
         _subscriptionControl.replay();
 
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -317,6 +319,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         newsletterSubscription.setState(State.GA);
 
         _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY), null);
         _subscriptionDao.saveSubscription(newsletterSubscription);
         _subscriptionControl.replay();
 
@@ -342,6 +345,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         // no call to saveSubscription expected
         _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY), null);
         _subscriptionControl.replay();
 
         // user dao behavior is validated elsewhere

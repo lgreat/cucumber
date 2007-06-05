@@ -273,25 +273,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
         _contactSubs = new HashSet<String>();
         deleteSubscriptionsForProduct(user, SubscriptionProduct.PARENT_CONTACT);
-        if (existingProfile.getNumSchoolChildren() == 0) {
-            // there is an odd case where they specified 0 children but then entered
-            // a child's info in the default provided field.
-            // try to detect this case, and increment their number of children.
-            if (fupCommand.getStudents().size() == 1) {
-                Student student = fupCommand.getStudents().get(0);
-                // grade and state are automatically set, so only check the child name and
-                // school id fields. If either of those have changed, assume they changed
-                // their mind and actually have one child
-                if (student.getSchoolId() != null ||
-                        (student.getName() != null && !student.getName().equals("Child #1"))) {
-                    user.addStudent(student);
-                    if (Boolean.valueOf(fupCommand.getRecontact())) {
-                        addContactSubscriptionFromStudent(student, user);
-                    }
-                    existingProfile.setNumSchoolChildren(1);
-                }
-            }
-        } else {
+        if (existingProfile.getNumSchoolChildren() > 0) {
             for (Student student: fupCommand.getStudents()) {
                 if ("y".equals(fupCommand.getRecontact())) {
                     addContactSubscriptionFromStudent(student, user);
@@ -329,15 +311,11 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
         //PageHelper.setMemberAuthorized(request, response, user);
         PageHelper.setMemberCookie(request, response, user);
-        //AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
         if (StringUtils.isEmpty(fupCommand.getRedirect())) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
             builder.addParameter("message", "Thank you for joining the GreatSchools Community! You'll be the first to know when we launch!");
             fupCommand.setRedirect(builder.asFullUrl(request));
         }
-        // bounce to webcrossing so they can create user
-//        mAndV.setViewName("redirect:" + _authenticationManager.generateRedirectUrl
-//            (fupCommand.getRedirect(), authInfo));
         mAndV.setViewName("redirect:" + fupCommand.getRedirect());
 
         return mAndV;
