@@ -153,6 +153,18 @@
 
         <c:choose>
             <c:when test="${requestScope.context.ABVersion eq 'b'}">
+                <c:choose>
+                    <c:when test="${schoolType != 'private'}">
+                        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false">
+                            <p class="email" style="text-decoration:underline;color:#39A;">Email me updates about this school</p>
+                        </promo:mssHover>
+                    </c:when>
+                    <c:otherwise>
+                        <promo:nthGraderHover referredBy="schoolProfile" isForm="false">
+                            <p class="email" style="text-decoration:underline;color:#39A;">Email me grade-by-grade updates</p>
+                        </promo:nthGraderHover>
+                    </c:otherwise>
+                </c:choose>
                 <p id="compare"><link:schoolCompareSchool school="${school}" from="header">Compare this school</link:schoolCompareSchool></p>
             </c:when>
             <c:otherwise>

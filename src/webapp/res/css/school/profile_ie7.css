@@ -32,15 +32,6 @@ Internet Explorer 7 specific styles
     margin-top: 7px;
 }
 
-x#tools xp#compare {
-    font: bold 13px "Trebuchet MS", Arial, sans-serif;
-    background: url(../../img/school/tools_compare.gif) no-repeat 0 center;
-    float:left;
-    text-decoration:underline;
-    padding:0 0 0 17px;
-    margin:10px 0 0 0;
-}
-
 #tools .enterEmail {
 	height: 14px;
     margin-top: 4px;

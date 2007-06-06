@@ -15,7 +15,7 @@
     <gsml:url var="url" value="/community/newsletters/popup/mss/page1.page"/>
 
     <c:choose>
-        <c:when test="${empty(isForm)}">
+        <c:when test="${isForm ne 'true'}">
             <pageHelper:addOnLoadHandler handler="initPopUp('${hoverName}')"/>
             <a href="${url}?state=${school.databaseState}&amp;amp;schoolId=${school.id}&amp;amp;referrer=${referredBy}" class="submodal-480-500" target="mss">
              <jsp:doBody/>

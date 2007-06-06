@@ -15,9 +15,8 @@
     <gsml:url var="url" value="/community/newsletters/popup/newsletter.page"/>
 
     <c:choose>
-        <c:when test="${empty(isForm)}">
+        <c:when test="${isForm ne 'true'}">
             <pageHelper:addOnLoadHandler handler="initPopUp('${hoverName}')"/>
-
             <gsml:a href="${url}?referrer=${referredBy}${(not empty autocheck) ? '&amp;autocheck=' : ''}${autocheck}"
                     onClick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=500,left=50,top=50'); return false;"
                     styleClass="submodal-480-500">
