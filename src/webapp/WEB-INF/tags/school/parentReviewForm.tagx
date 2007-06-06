@@ -64,7 +64,6 @@
                         <option value="parent">parent</option>
                         <option value="student">student</option>
                         <option value="teacher">teacher</option>
-                        <option value="principal">principal</option>
                         <option value="other">other</option>
                     </select>
                     &amp;nbsp;and I accept</td></tr>
