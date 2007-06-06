@@ -264,11 +264,11 @@ hr { /* has IE 7 equivalent */
 }
 
 #ratingsBoth #rating_parent { /* has IE 7 equivalent */
-	float: right;
+    float: right;
 	text-align: center;
-	margin: 19px 35px 0 0;
+	margin: 19px 15px 0 0;
 	_margin: 20px 17px 17px 0; /* IE 6 hack */
-	width: 102px;
+	width: 140px;
 }
 
 
@@ -295,9 +295,9 @@ hr { /* has IE 7 equivalent */
 #ratingsParentOnly #rating_parent { /* has IE 7 equivalent */
 	float: right;
 	text-align: center;
-	margin: 19px 40px 0 0;
+	margin: 19px 20px 0 0;
 	_margin: 18px 20px 15px 0; /* IE 6 hack */
-	width: 115px;
+	width: 135px;
 }
 
 #ratingsParentOnly a {
