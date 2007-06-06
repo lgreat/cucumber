@@ -30,7 +30,8 @@
                 <option value="parent">parent</option>
                 <option value="student">student</option>
                 <option value="teacher">teacher</option>
-                <option value="principal">principal</option>
+                <!-- removed per GS-3540 -->
+                <!--<option value="principal">principal</option>-->
                 <option value="other">other</option>
             </select>
             <label>and I accept the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
