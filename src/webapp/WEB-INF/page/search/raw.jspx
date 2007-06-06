@@ -4,90 +4,170 @@
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
-    <jsp:directive.page contentType="text/html"/>
-    <html>
-    <head>
-        <title>GS Raw Search</title>
-        <style type="text/css">
-            ul {
-                margin-top:0px;
-            }
+<jsp:directive.page contentType="text/html"/>
 
-            td {
-                border-bottom:1px solid #BBBBBB;
-                vertical-align:top;
-                padding:3px 5px 3px 5px;
-            }
+<html>
+<head>
+    <title>GS Raw Search</title>
+    <style type="text/css">
+        ul {
+            margin-top: 0;
+        }
 
-            td.id, td.state {
-                width:50px;
-                text-align:center;
-            }
-        </style>
-        <script type="text/javascript">
-            function showExplanation(d) {
-                var e = $('ex'+d);
-                e.toggle();
-                return false;
-            }
-        </script>
-        <script type="text/javascript" src="/res/js/prototype.js" ></script>
+        tr {
+            vertical-align: top;
+        }
 
-    </head>
-    
-    <body onload="document.getElementById('qfield').focus()">
-    <center>
-        <gsweb:form action="/search/raw.page" method="get">
-            <input id="qfield" type="text" name="q" size="70" value="${param.q}"/>
-            <c:out value=" " escapeXml="true"/>
-            <input type="submit" value="search"/>
-            <c:out value=" " escapeXml="true"/>
-            <select name="analyzer">
-                <![CDATA[<option ]]>
-                <c:if test="${param.analyzer eq 'standard'}">
-                    selected
+        #resultsTable td, #termFreqTable td {
+            border-bottom: 1px solid #BBBBBB;
+            vertical-align: top;
+            padding: 3px 5px 3px 5px;
+        }
+
+        td.id, td.state {
+            width: 50px;
+            text-align: center;
+        }
+
+        th.fieldTerms {
+            text-align: left;
+            padding: 0 20px 0 0;
+        }
+
+        .total {
+            font-weight: bold;
+        }
+
+        #fields {
+            border: 1px solid #BBBBBB;
+            background: #EEEEEE;
+            padding: 10px 20px 0 0;
+            margin: 0 20px 0 0;
+            float: left;
+            text-align: left;
+        }
+
+        #fieldsTitle {
+            font-weight: bold;
+            text-decoration: underline;
+            padding: 0 0 0 20px;
+        }
+
+        div#searchForm {
+            border: 1px solid;
+            width: 550px;
+            padding: 17px 0 0 35px;
+            margin: 0 0 30px 0;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function showExplanation(d) {
+            var e = $('ex' + d);
+            e.toggle();
+            return false;
+        }
+    </script>
+    <script type="text/javascript" src="/res/js/prototype.js"></script>
+
+</head>
+
+<body onload="document.getElementById('qfield').focus()">
+<center>
+    <table id="main">
+        <tr>
+            <td>
+                <div id="fields">
+                    <span id="fieldsTitle">index fields</span>
+                    <ul>
+                        <c:forEach var="field" items="${fields}">
+                            <li>
+                                <gsml:a href="/search/raw.page?q=field:${field}&amp;analyzer=standard">${field}</gsml:a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </td>
+            <td>
+                <div id="searchForm">
+                    <gsweb:form action="/search/raw.page" method="get">
+                        <input id="qfield" type="text" name="q" size="70"
+                               value="${param.q}"/>
+                        <c:out value=" " escapeXml="true"/>
+                        <input type="submit" value="search"/>
+                    </gsweb:form>
+                </div>
+
+                <c:if test="${not empty fieldTerms}">
+                        <span class="total">
+                            Results of term/freq search.
+                        </span>
+                    <hr/>
+                    <table id="termFreqTable">
+                        <tr>
+                            <th class="fieldTerms">Term</th>
+                            <th class="fieldTerms">Frequency</th>
+                        </tr>
+                        <c:forEach items="${fieldTerms}" var="term">
+                            <tr>
+                                <td>${term.term}</td>
+                                <td>${term.freq}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </c:if>
-                <![CDATA[ value="standard">Standard Analyzer</option>
-                <option ]]>
-                <c:if test="${param.analyzer eq 'gs'}">
-                    selected
+
+                <c:if test="${not empty results}">
+                        <span class="total">
+                            <c:out value="total results: ${total}" escapeXml="true"/>
+                        </span>
+                    <hr/>
+                    <table id="resultsTable" cellspacing="0">
+                        <tr>
+                            <th>#</th>
+                            <th>Type</th>
+                            <th>State</th>
+                            <th>ID</th>
+                            <th>Result</th>
+                            <th>Score</th>
+                        </tr>
+                        <c:forEach items="${results}" var="result">
+                            <tr>
+                                <td>
+                                    <c:out value="${result.number}" escapeXml="true"/>
+                                </td>
+                                <td>
+                                    <c:out value="${result.type}" escapeXml="true"/>
+                                </td>
+                                <td class="state">
+                                    <c:out value="${result.state}" escapeXml="true"/>
+                                </td>
+                                <td class="id">
+                                    <c:out value="${result.id}" escapeXml="true"/>
+                                </td>
+                                <td>
+                                    <c:out value="${result.val}" escapeXml="true"/>
+                                </td>
+                                <td>
+                                    <a href="#"
+                                       onclick="return showExplanation('${result.number}')">
+                                        <c:out value="${result.score}"/>
+                                    </a>
+
+                                    <div id="ex${result.number}" style="display:none;"
+                                         class="explanation">
+                                        <c:out value="${result.explanation}"
+                                               escapeXml="false"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </c:if>
-                <![CDATA[ value="gs">GSAnalyzer</option> ]]>
-            </select>
-        </gsweb:form>
-
-
-        <c:if test="${not empty param.q}">
-            <c:out value="total results: ${total}" escapeXml="true"/>
-        </c:if>
-
-        <hr/>
-        <c:if test="${not empty results}">
-            <table cellspacing="0">
-                <tr>
-                    <th>#</th>
-                    <th>Type</th>
-                    <th>State</th>
-                    <th>ID</th>
-                    <th>Result</th>
-                    <th>Score</th>
-                </tr>
-                <c:forEach items="${results}" var="result">
-                    <tr>
-                        <td><c:out value="${result.number}" escapeXml="true"/></td>
-                        <td><c:out value="${result.type}" escapeXml="true"/></td>
-                        <td class="state"><c:out value="${result.state}" escapeXml="true"/></td>
-                        <td class="id"><c:out value="${result.id}" escapeXml="true"/></td>
-                        <td><c:out value="${result.val}" escapeXml="true"/></td>
-                        <td>
-                            <a href="#" onclick="return showExplanation('${result.number}')"><c:out value="${result.score}"/></a>
-                            <div id="ex${result.number}" style="display:none;" class="explanation"><c:out value="${result.explanation}" escapeXml="false"/></div>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </c:if>
-    </center>
-    </body>
-    </html>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>
 </jsp:root>

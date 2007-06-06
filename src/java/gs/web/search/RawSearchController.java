@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 import gs.data.search.Searcher;
-import gs.data.search.GSAnalyzer;
 
 
 /**
@@ -31,14 +30,13 @@ public class RawSearchController extends AbstractController {
 
     public static final String BEAN_ID = "/search/raw.page";
     private Searcher _searcher;
-    private Map<String, Analyzer> _analyzerMap;
+    private Analyzer _analyzer;
     private static final int RESULT_LIMIT = 100;
+    private Collection cachedFields;
 
     public RawSearchController() {
         super();
-        _analyzerMap = new HashMap<String, Analyzer>();
-        _analyzerMap.put("gs", new GSAnalyzer());
-        _analyzerMap.put("standard", new StandardAnalyzer());
+        _analyzer = new StandardAnalyzer();
     }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest,
@@ -46,22 +44,41 @@ public class RawSearchController extends AbstractController {
 
         ModelAndView mAndV = new ModelAndView("search/raw");
         String queryString = httpServletRequest.getParameter("q");
-
-        String analyzerKey = httpServletRequest.getParameter("analyzer");
-        Analyzer analyzer = (Analyzer)_analyzerMap.get(analyzerKey);
+        mAndV.getModel().put("fields", getFieldNames());
 
         if (StringUtils.isNotBlank(queryString)) {
-
             httpServletRequest.setAttribute("q", URLEncoder.encode(queryString, "UTF-8"));
-            Query query = QueryParser.parse(queryString, "text", analyzer);
-//            mAndV.getModel().put("query", query.toString());
-            Hits hits = _searcher.search(query, null, null, null);
-            if (hits != null) {
-                mAndV.getModel().put("total", String.valueOf(hits.length()));
-                mAndV.getModel().put("results", makeResultList(query, hits));
+
+            if (queryString.startsWith("field:")) {
+                queryString = queryString.substring(6);
+                System.out.println ("qs: " + queryString);
+                PriorityQueue terms = _searcher.getTermsForField(queryString);
+                mAndV.getModel().put("fieldTerms", terms);
+            } else {
+                Query query = QueryParser.parse(queryString, "text", _analyzer);
+                Hits hits = _searcher.search(query, null, null, null);
+                if (hits != null) {
+                    mAndV.getModel().put("total", String.valueOf(hits.length()));
+                    mAndV.getModel().put("results", makeResultList(query, hits));
+                }
             }
         }
         return mAndV;
+    }
+
+    /**
+     * Returns a Collection of all of the index fields used by the search system.
+     * This can be cached as the list of field names can only change when the code
+     * changes in GSData.
+     * 
+     * @return a Collection
+     * @throws IOException if the IndexReader has a problem.
+     */
+    protected Collection getFieldNames() throws IOException {
+        if (cachedFields == null) {
+            cachedFields = _searcher.getFieldNames();
+        }
+        return cachedFields;
     }
 
     private List makeResultList(Query q, Hits hits) throws IOException {
