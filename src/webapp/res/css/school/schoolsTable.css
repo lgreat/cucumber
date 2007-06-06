@@ -66,6 +66,7 @@ td.headline {
 }
 
 table.school_results_only th {
+    width:365px;
     padding: 4px 5px 2px 5px;
     border-bottom: 1px solid #CCCCCC;
 }
@@ -384,4 +385,8 @@ tr.school td.checkbox {
     vertical-align: top;
     padding: 8px 7px 0 4px;
     max-width:8%;
+}
+
+.compareSpacer {
+    padding-left:30px;
 }

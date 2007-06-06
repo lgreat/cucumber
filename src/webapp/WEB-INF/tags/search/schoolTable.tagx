@@ -61,9 +61,9 @@
                     <c:out value="${gsweb:capitalize(school.type.schoolTypeName)}"/> school
                     &#32;&#183;&#32;
                     <c:set var="grades" value="${school.gradeLevels.rangeString}"/>
-                    Grades <c:out value="${(empty grades) ? '' : grades}"/>
+                    Grade${(fn:length(grades) > 2) ? 's' : ''} <c:out value="${(empty grades) ? '' : grades}"/>
                     <c:if test="${not empty school.enrollment}">
-                        <c:out value="&#32;&#183;&#32;${school.enrollment} students"/>
+                        <c:out value="&#32;&#183;&#32;${school.enrollment} student${(school.enrollment eq 1) ? '' : 's'}"/>
                     </c:if>
                     <br/>
                     <div style="padding-right:33px;"><c:out value="${school.physicalAddress}"/></div>
