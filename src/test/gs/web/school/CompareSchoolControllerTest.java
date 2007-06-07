@@ -20,7 +20,7 @@ public class CompareSchoolControllerTest extends BaseControllerTestCase {
     public void testSubmit() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
-        assertEquals("/cgi-bin/cs_compare/null?compare_type=null&city=null&school_selected=null&level=",
+        assertEquals("/cgi-bin/cs_compare/null?compare_type=null&city=null&school_selected=null&level=&from=form",
                 ((RedirectView)mAndV.getView()).getUrl());
     }
 }

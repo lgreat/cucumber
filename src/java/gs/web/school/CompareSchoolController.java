@@ -29,6 +29,7 @@ public class CompareSchoolController extends AbstractController {
         if (levels != null) {
             urlBuffer.append(levels.substring(0, 1));  // use only the first level
         }
+        urlBuffer.append("&from=form");
         return new ModelAndView(new RedirectView(urlBuffer.toString()));
     }
 }
