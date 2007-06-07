@@ -7,9 +7,13 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="anchor" required="true" type="gs.web.util.list.Anchor"
                              description="the anchor link model to use"/>
+    <jsp:directive.attribute name="before" required="false" type="java.lang.String"
+                             description="text to appear before list items (imposed by the view, whereas anchor.before
+                             is imposed by the controller)"/>
 
     <c:if test="${not empty anchor.styleClass}">
         <li class="${anchor.styleClass}">
+            ${not empty before ? before : ""}
             ${not empty anchor.before ? anchor.before : ""}
             <a href="${anchor.hrefXml}">${anchor.contents}</a>
             <c:if test="${anchor.image!=null}">
@@ -20,6 +24,7 @@
     </c:if>
     <c:if test="${empty anchor.styleClass}">
         <li>
+            ${not empty before ? before : ""}
             ${not empty anchor.before ? anchor.before : ""}
             <a href="${anchor.hrefXml}">${anchor.contents}</a>
             <c:if test="${anchor.image!=null}">

@@ -49,21 +49,21 @@
         <c:if test="${not empty filteredCities and not empty filteredCities.results}">
             <c:set var="hasCityResults" value="true"/>
             <div id="filtered" class="rollup">
-                <gsml:list model="${filteredCities}"/>
+                <gsml:list model="${filteredCities}" between="&#160;|&#160;"/>
             </div>
         </c:if>
 
         <c:if test="${not empty cities and not empty cities.results}">
             <c:set var="hasCityResults" value="true"/>
             <div class="rollup city">
-                <gsml:list model="${cities}"/>
+                <gsml:list model="${cities}" between="&#160;|&#160;"/>
             </div>
         </c:if>
 
         <c:if test="${not empty districts and not empty districts.results}">
             <c:set var="hasDistrictResults" value="true"/>
             <div class="rollup district">
-                <gsml:list model="${districts}"/>
+                <gsml:list model="${districts}" between="&#160;|&#160;"/>
             </div>
         </c:if>
 

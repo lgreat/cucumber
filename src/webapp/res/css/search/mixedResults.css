@@ -56,18 +56,11 @@ City and district rollups
 }
 
 .rollup ul li {
-    padding: 0em 0.4em 0em 0.5em;
     display: inline;
-    border-right: 1px solid #000000;
-}
-
-.rollup ul li.first {
-    padding-left: 0pt;
 }
 
 .rollup ul li.last {
     border-right-width: 0;
-    padding-right: 0pt;
 }
 
 #searchResults {

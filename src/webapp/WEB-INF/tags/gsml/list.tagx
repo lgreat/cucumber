@@ -31,10 +31,14 @@
         <c:when test="${empty columns or columns lt 2}">
             <ul>
                 <c:forEach var="i" items="${list}">
-                    <c:if test="${not empty between}">
-                        <c:if test="${i ne list[0]}">${between}</c:if>
-                    </c:if>
-                    <gsml:listItem anchor="${i}"/>
+                    <c:choose>
+                        <c:when test="${i ne list[0]}" >
+                            <gsml:listItem anchor="${i}" before="${between}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <gsml:listItem anchor="${i}"/>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </ul>
         </c:when>
