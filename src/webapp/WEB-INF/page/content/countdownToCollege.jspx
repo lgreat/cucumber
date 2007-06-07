@@ -267,8 +267,7 @@
 
     <c:choose>
         <c:when test="${!requestScope.pageHelper.adServedByCobrand}">
-            <ad:x49 blurb="Countdown to College Sponsored By:"/>
-            <ad:BelowFold_Top_300x125/>
+            <ad:BelowFold_Top_300x125 blurb="Countdown to College Sponsored By:"/>
         </c:when>
         <c:otherwise>
             <div id="bottomAdFiller" style="height:140px;"/>

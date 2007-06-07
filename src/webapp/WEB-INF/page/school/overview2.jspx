@@ -240,7 +240,6 @@
 		<!-- begin right column -->
         <div id="col_right">
             <div class="ad_top">
-                <ad:x11/>
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
                 <ad:Top_300x137/>
             </div>

@@ -10,11 +10,8 @@
     <c:if test="${!requestScope.pageHelper.adFree}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
             <div class="multiTextAd">
-                <ad:x49 blurb="${blurb}"/>
-                <ad:BelowFold_Top_300x125/>
-                <ad:x50/>
+                <ad:BelowFold_Top_300x125 blurb="${blurb}"/>
                 <ad:BelowFold_Bottom_300x125/>
-                <!--<ad:x51/>-->
             </div>
         </c:if>
     </c:if>    

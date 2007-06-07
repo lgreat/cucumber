@@ -165,7 +165,6 @@
 
                 <div id="col_right">
                     <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
-                    <ad:x11/>
                     <ad:Top_300x137/>
                     <ad:x48/>
                     <ad:AboveFold_300x250/>
