@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.27 2007/06/07 16:59:13 droy Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.28 2007/06/07 20:24:35 droy Exp $
  */
 
 package gs.web.test.rating;
@@ -169,6 +169,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
                 else if(state.equals(State.NC)){
                     label = "EOC";
+                }
+                else if(state.equals(State.NY)){
+                    label = "Regents Exams";
                 }
                 else if(state.equals(State.OK)){
                     label = "OCCT EOI";
