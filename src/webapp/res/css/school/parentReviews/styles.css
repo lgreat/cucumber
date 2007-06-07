@@ -26,7 +26,8 @@ Parent Review Page
 	width: 540px;
 	float: left;
 	padding-right: 9px;
-	border-right: 1px solid #dedede;
+    _padding-right: 5px;
+    border-right: 1px solid #dedede;
 	/*background: url(../../../COL_LEFT_TEMP.gif) no-repeat;*/
 }
 
