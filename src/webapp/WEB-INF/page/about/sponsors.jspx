@@ -22,7 +22,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>Sponsors and Partners</title>
 
-    <style>
+    <style type="text/css">
         #dqc {
            padding:10px 0px 0px 30px;
         }
@@ -62,7 +62,7 @@
     <li>Annie E. Casey Foundation</li>
     <li>The William H. Donner Foundation</li>
     <li>Fordham Foundation</li>
-    <li>Bill &amp; Melinda Gates Foundation</li>
+    <li>Bill <![CDATA[&amp;]]> Melinda Gates Foundation</li>
     <li>William and Flora Hewlett Foundation</li>
     <li>New Schools Venture Fund</li>
     <li>Pisces Foundation</li>
@@ -76,20 +76,20 @@
 <h3>Major Media Partners</h3>
 <ul class="singleSpacedList">
 
-    <li><a href="http://realestate.yahoo.com">Yahoo! Real Estate</a></li>
     <li>azcentral.com</li>
     <li>BabyCenter.com</li>
     <li>Common Sense Media</li>
     <li>Cox Newspapers</li>
     <li>Dallas Morning News</li>
+    <li><a href="http://www.family.com" target="_blank">Disney Family.com</a></li>
     <li>MSN Encarta</li>
     <li>latimes.com</li>
     <li>MySanAntonio.com</li>
     <li>New York Times</li>
     <li>OrlandoSentinel.com</li>
-    <li><a href="http://www.family.com">Disney Family.com</a></li>
     <li>SFGate.com</li>
     <li>SignOnSanDiego.com </li>
+    <li><a href="http://realestate.yahoo.com" target="_blank">Yahoo! Real Estate</a></li>
 </ul>
 
 <![CDATA[ <a name="education"></a> ]]>
@@ -97,7 +97,7 @@
 <h3>Education Partners</h3>
 <ul class="singleSpacedList">
 
-    <li>College Board</li>
+    <li>The College Board<![CDATA[&reg;]]></li>
     <li><i>Education Week</i></li>
     <li>Just for the Kids</li>
     <li>Fund for Public Schools</li>    
@@ -123,10 +123,10 @@
 <ul class="singleSpacedList">
 
     <li>Adobe</li>
-    <li><a href="http://www.atlassian.com/software/jira/">Atlassian: Jira</a></li>
-    <li><a href="http://www.cenqua.com/clover/">Cenqua: Clover</a></li>
-    <li>Covington &amp; Burling</li>
-    <li><a href="http://www.jetbrains.com/idea/">Jetbrains: IntelliJ IDEA</a></li>
+    <li><a href="http://www.atlassian.com/software/jira/" target="_blank">Atlassian: Jira</a></li>
+    <li><a href="http://www.cenqua.com/clover/" target="_blank">Cenqua: Clover</a></li>
+    <li>Covington <![CDATA[&amp;]]> Burling</li>
+    <li><a href="http://www.jetbrains.com/idea/" target="_blank">Jetbrains: IntelliJ IDEA</a></li>
     <li>Microsoft, Inc.</li>
     <li>Orrick, Herrington and Sutcliffe</li>
     <li>Symantec</li>
@@ -153,7 +153,7 @@
 <h3>Advertising Sponsorships</h3>
 <ul class="singleSpacedList">
 
-    <li>A&amp;E</li> 
+    <li>A<![CDATA[&amp;]]>E</li>
     <li>AOL History Education</li>
     <li>Century 21</li>
     <li>Citibank</li>
@@ -161,7 +161,7 @@
     <li>Disney</li>
     <li>Homegain</li>
     <li>Honda</li>
-    <li>Johnson &amp; Johnson</li>
+    <li>Johnson <![CDATA[&amp;]]> Johnson</li>
     <li>K-12</li>
     <li>Kaplan</li>
     <li>Kodak</li>
@@ -188,11 +188,12 @@
     <gsml:img src="/res/img/about/dqc_logo_200.jpg" alt="Data Quality Campaign" id="dqc_icon"/>
 </gsml:a>
 <ul class="singleSpacedList">
-    <li>Data Quality Campaign</li>
-    <div id="dqc">
-        Greatschools is an endorsing partner of the Data Quality Campaign, to provide our users with the highest quality of
-        information about schools.
-    </div>
+    <li>Data Quality Campaign
+        <div id="dqc">
+            Greatschools is an endorsing partner of the Data Quality Campaign, to provide our users with the highest quality of
+            information about schools.
+        </div>
+    </li>
     <li>National Center for Education Statistics</li>
     <li>State departments of education for all 50 states and Washington, D.C.</li>
 </ul>
