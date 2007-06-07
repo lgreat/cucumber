@@ -55,7 +55,7 @@
                                           headerId="knowLegalRights"
                                           articleIds="978,993,986,987,989"/>
 
-            <content:micrositeArticleList title="Specific Learning Disabilities"
+            <content:micrositeArticleList title="Specific Learning Problems"
                                           headerId="specificDisabilities"
                                           articleIds="988,999,998,389,385,990" lower="true"/>
 
