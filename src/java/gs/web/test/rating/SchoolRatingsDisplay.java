@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.26 2007/05/03 16:45:57 dlee Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.27 2007/06/07 16:59:13 droy Exp $
  */
 
 package gs.web.test.rating;
@@ -174,7 +174,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                     label = "OCCT EOI";
                 }
                 else if(state.equals(State.UT)){
-                    label = "EOC";
+                    label = "CRT";
                 }
                 else if(state.equals(State.VA)){
                     label = "EOC";
