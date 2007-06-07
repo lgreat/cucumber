@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.23 2007/06/06 21:51:38 chriskimm Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.24 2007/06/07 23:49:17 chriskimm Exp $
  */
 
 package gs.web.search;
@@ -92,6 +92,8 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         out.print("<h1 style=\"display:inline;font-size:inherited; color: inherited\">");
         out.print(district.getName());
         out.print(" public schools</h1>: ");
+
+        possiblyAddLinebreak(district.getName(), out);
 
         UrlBuilder compareBuilder = new UrlBuilder(request,
                 "/cgi-bin/cs_compare/" + getState().getAbbreviationLowerCase());
