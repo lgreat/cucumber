@@ -63,7 +63,6 @@
                                 <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif" alt="Overall Parent Rating - ${school.name} parent reviews and overall parent rating" styleClass="parentTitle" />
                                 <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.avgQuality}.gif" alt="Overall rating: ${cmd.ratings.avgQuality} out of 5 stars" styleClass="stars" />
                                 <link:schoolProfileAddParentReview school="${school}"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif" alt="Rate it" styleClass="rateIt" /></link:schoolProfileAddParentReview>
-
                                 <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
                             </div><!-- end: rating_parent -->
 
@@ -123,12 +122,18 @@
                             </div>
                             <c:forEach var="review" items="${cmd.reviews}">
                                 <pg:item>
+                                    <!-- does user permit name to display-->
                                     <div class="review">
                                         <c:if test="${review.quality.name ne 'decline'}">
                                             <gsml:img src="/res/img/school/parentReviews/stars_med_${review.quality.name}.gif" styleClass="stars" alt="${review.quality.name} out of 5 stars" />
                                         </c:if>
                                         <p class="author">Posted by a ${review.who} ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
-                                        <p>${review.comments}</p>
+                                        <c:choose>
+                                            <c:when test="${review.namePermit eq '1' and not empty(review.user) and not empty(review.user.firstName)}">
+                                                <p>${review.comments}<br/> - ${review.user.firstName} <c:if test="${not empty(review.user.lastName)}">${review.user.lastName}</c:if></p>
+                                            </c:when>
+                                            <c:otherwise><p>${review.comments}</p></c:otherwise>
+                                        </c:choose>
                                         <p class="respond"><link:schoolProfileAddParentReview school="${school}">Respond by writing a review</link:schoolProfileAddParentReview></p>
                                     </div><!-- end: review -->
                                 </pg:item>

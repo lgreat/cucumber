@@ -73,7 +73,7 @@ Parent Review Page
     font-style: italic;
     text-align: center;
     margin: 30px 0 20px 0; /* bottom-margin sets white space for module */
-    _margin: 23px 0 20px 0; /* IE 6 hack */
+    _margin: 45px 0 20px 0; /* IE 6 hack */
 }
 
 #showParentRatings ul { /* has IE 7 equivalent */
@@ -316,11 +316,13 @@ Parent Review Page
 
 #showParentReviews .stars {
     float: left;
+    margin-right:14px;
+    _margin-right:14px; /* IE 6 hack */
 }
 
 #showParentReviews .review .author { /* has IE 7 equivalent */
-    margin: 12px 0 0 14px;
-    _margin: 12px 0 0 14px; /* IE 6 hack */
+    margin: 12px 0 0 0;
+    _margin: 12px 0 0 0; /* IE 6 hack */
     font-size: 11px;
     font-style: italic;
     _float: left; /* IE 6 hack */
@@ -333,6 +335,8 @@ Parent Review Page
     margin-top: 2px;
     font-size: 12px;
     line-height: 18px;
+    width: 490px;
+    _width: 500px; /* IE 6 hack */    
 }
 
 #showParentReviews .review a {
@@ -347,7 +351,6 @@ Parent Review Page
 
 #reviewPromo { /* has IE 7 equivalent */
 	margin: 15px 0 0 25px;
-	_margin: -8px 0 -5px 25px; /* IE 6 hack */
 }
 
 

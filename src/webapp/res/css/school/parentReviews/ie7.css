@@ -15,7 +15,7 @@ IE 7 styles
 #parentReview #rating_parent {
     width: 176px;
     float: left;
-    background: url(../../img/pagename/bg_rating_parent.gif) top no-repeat;
+    background: url(/res/img/school/parentReviews/bg_rating_parent.gif) top no-repeat;
     /*border: 1px solid #ddd;*/
 }
 
@@ -25,11 +25,9 @@ IE 7 styles
 }
 
 #rating_parent .stars {
-    margin: 9px 0 0 28px;    float: left;
+    margin: 9px 0 0 28px;
+    float: left;
 }
-
-#rating_parent .rateIt {
-    margin: 17px 0 0 5px;}
 
 #showParentRatings .ratingsNumber {
     font-size: 11px;
@@ -83,7 +81,7 @@ IE 7 styles
 }
 
 #parentReview #rateReview h2 {
-    width: 514x;
+    width: 514px;
     height: 19px;
     color: #fff;
     padding: 3px 0 0 16px;
@@ -186,8 +184,7 @@ IE 7 styles
 }
 
 #showParentReviews .review .author {
-    margin: 12px 0 0 14px;
-    _margin: 12px 0 0 14px; /* IE 6 hack */
+    margin: 12px 0 0 0px;
     font-size: 11px;
     font-style: italic;
     float: left;
@@ -200,8 +197,4 @@ IE 7 styles
     margin-top: 2px;
     font-size: 12px;
     line-height: 18px;
-}
-
-#reviewPromo {
-    margin: -7px 0 0 25px; /* IE 6 hack */
 }
