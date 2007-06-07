@@ -127,7 +127,7 @@
                                         <c:if test="${review.quality.name ne 'decline'}">
                                             <gsml:img src="/res/img/school/parentReviews/stars_med_${review.quality.name}.gif" styleClass="stars" alt="${review.quality.name} out of 5 stars" />
                                         </c:if>
-                                        <p class="author">Posted by a ${review.who} ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
+                                        <p class="author">Posted <c:if test="${not empty(review.who) and review.who ne 'other'}">by a ${review.who}</c:if> ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
                                         <c:choose>
                                             <c:when test="${review.namePermit eq '1' and not empty(review.user) and not empty(review.user.firstName)}">
                                                 <p>${review.comments}<br/> - ${review.user.firstName} <c:if test="${not empty(review.user.lastName)}">${review.user.lastName}</c:if></p>
@@ -174,7 +174,9 @@
                     <ad:x48/>
                     <ad:AboveFold_300x250/>
                     <ad:multiTextAd blurb="Advertiser links"/>
-                    <school:nearbySchools school="${school}"/>
+                    <c:if test="${empty param.hideMap}">
+                        <school:nearbySchools school="${school}"/>
+                    </c:if>                    
                 </div><!-- end: col_right -->
         </div><!-- end: parentReview -->
         </school:profile>
