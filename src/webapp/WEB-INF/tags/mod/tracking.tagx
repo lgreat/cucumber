@@ -106,7 +106,7 @@
         s.prop6 = "${query}";
         s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
         s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
-        s.prop9 = "${empty(referringPage) ? "" : referringPage}";
+        s.prop9 = "${empty(referringPage) ? pageName : referringPage}";
         s.prop10 = "${requestScope.context.screenName}";
         s.events = "${events}";
         s.hier1 = "${hier1}";
