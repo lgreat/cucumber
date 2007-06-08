@@ -326,8 +326,8 @@ Parent Review Page
     _margin: 12px 0 0 0; /* IE 6 hack */
     font-size: 11px;
     font-style: italic;
+    width:375px;
     _float: left; /* IE 6 hack */
-    _width: 375px; /* IE 6 hack */
 }
 
 #showParentReviews .review p { /* has IE 7 equivalent */
