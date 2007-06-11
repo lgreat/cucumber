@@ -1,14 +1,4 @@
-/*------------------------------------------------------
-
-GreatSchools
-
-School Overview
-
-Internet Explorer 7 styles
-
--------------------------------------------------------*/
-
-
+/* GreatSchools School Overview Internet Explorer 7 styles */
 hr {
 	width: 177px; /* width of modules plus 2 2px border (4px) */
 	background: #dee;
@@ -17,10 +7,7 @@ hr {
 	border: 1px solid #dee;
 }
 
-
-/* Editor
-----------------------------------*/
-
+/* Editor */
 #editor h3 {
 	font: bold 13px/16px Trebuchet MS, sans-serif;
 	color: #888;
@@ -37,10 +24,7 @@ hr {
     margin-top: -5px;
 }
 
-
-/* Ratings
-----------------------------------*/
-
+/* Ratings */
 .stars {
     margin: 9px 0 0 0;
 	border: 0;
@@ -88,10 +72,7 @@ hr {
 	width: 102px;
 }
 
-
-/* Compare This School To
-----------------------------------*/
-
+/* Compare This School To */
 #compareSchool form input {
 	float: left;
 	margin: 6px 2px -5px 0;
@@ -102,10 +83,7 @@ hr {
 	margin: 7px 0 0 0;
 }
 
-
-/* Ratings
-----------------------------------*/
-
+/* Ratings */
 #rating_parent {
 	float: right;
 	text-align: center;

@@ -1,14 +1,7 @@
-/* SiteCatalyst code version: H.2.
-Copyright 1997-2005 Omniture, Inc. More info available at
-http://www.omniture.com */
-/* Specify the Report Suite ID(s) to track here */
+/* SiteCatalyst code version: H.2. */
 var s_account="gsnet"
 var s=s_gi(s_account)
-/************************** CONFIG SECTION **************************/
-/* You may add or alter any code config here. */
-/* E-commerce Config */
 s.currencyCode="USD"
-/* Link Tracking Config */
 s.trackDownloadLinks=true
 s.trackExternalLinks=true
 s.trackInlineStats=true
@@ -17,14 +10,7 @@ s.linkInternalFilters="javascript:,greatschools,schools"
 s.linkLeaveQueryString=false
 s.linkTrackVars="None"
 s.linkTrackEvents="None"
-
-/* WARNING: Changing the visitor namespace will cause drastic changes
-to how your visitor data is collected.  Changes should only be made
-when instructed to do so by your account manager.*/
 s.visitorNamespace="greatschools"
-
-
-/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
 var s_objectID;function s_c2fe(f){var x='',s=0,e,a,b,c;while(1){e=
 f.indexOf('"',s);b=f.indexOf('\\',s);c=f.indexOf("\n",s);if(e<0||(b>=
 0&&b<e))e=b;if(e<0||(c>=0&&c<e))e=c;if(e>=0){x+=(e>s?f.substring(s,e):
@@ -250,7 +236,6 @@ s=s.co(s);s.un=un;s.uns();return s}}if(e>0){a=parseInt(i=v.substring(e
 );else a=parseFloat(v);if(a>=5&&v.indexOf('Opera')<0&&u.indexOf(
 'Opera')<0){eval(c);return new s_c(un,pg,ss)}else s=s_c2f(c);return s(
 un,pg,ss)}
-
 /* Plugin Config */
 s.usePlugins=true
 function s_doPlugins(s) {
@@ -258,12 +243,8 @@ function s_doPlugins(s) {
 s.eVar3=s.getQueryParam('cpn');
 }
 s.doPlugins=s_doPlugins
-/************************** PLUGINS SECTION *************************/
 /* You may insert any plugins you wish to use here.                 */
-
-/*
- * Plugin: getQueryParam 1.3 - Return query string parameter values
- */
+/* Plugin: getQueryParam 1.3 - Return query string parameter values */
 s.getQueryParam=new Function("qp","d",""
 +"var s=this,v='',i,t;d=d?d:'';while(qp){i=qp.indexOf(',');i=i<0?qp.l"
 +"ength:i;t=s.gcgi(qp.substring(0,i));if(t)v+=v?d+t:t;qp=qp.substring"

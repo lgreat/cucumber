@@ -1,10 +1,4 @@
-/*
-   Greatschools.net Base Styles
-   font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
-*/
-
-/*   General
------------------------------------------------ */
+/*   General */
 html, body {
     width: 100%;
     height: 100%;
@@ -102,10 +96,6 @@ div.verticalcontainer {
     white-space: nowrap;
 }
 
-/*
-Cobrand doesn't quite fit in the width required, so I squish the text for them.
-*/
-
 .cobranded .topCities li,
     .cobranded h3 {
     font-size: small;
@@ -121,8 +111,7 @@ Cobrand doesn't quite fit in the width required, so I squish the text for them.
 }
 
 
-/*  Structure
------------------------------------------------ */
+/*  Structure */
 #main {
     margin: 5px 0px 0px 0px;
 }
@@ -146,8 +135,7 @@ table.bottomcontent tr td img {
 }
 
 
-/*  Search
------------------------------------------------ */
+/*  Search */
 .browselinks {
     padding: 10px 0px 10px 0px;
     width: 100%;
@@ -159,9 +147,7 @@ table.bottomcontent tr td img {
     white-space: nowrap;
 }
 
-/*  Headings
------------------------------------------------ */
-
+/*  Headings */
 h4.tagline b {
     font-weight: bold;
 }
@@ -193,8 +179,7 @@ h3.tagline {
     padding: 0px 0px 5px 0px;
 }
 
-/*  Lists
------------------------------------------------ */
+/*  Lists */
 .result_title {
     font-size: small;
     padding: 0px 20px 0px 0px;
@@ -209,8 +194,7 @@ h3.tagline {
     padding: 0px 20px 1px 0px;
 }
 
-/*  Forms
------------------------------------------------ */
+/* Forms */
 input.checkbox {
     margin: 0px 0px -2px 0px;
 }
@@ -244,11 +228,8 @@ input.btn {
     border: 0;
 }
 
-/*  Links
------------------------------------------------ */
-
-/*  Misc
------------------------------------------------ */
+/* Links */
+/* Misc */
 .parentPoll {
     text-align: center;
 }
@@ -266,9 +247,7 @@ input.btn {
     white-space: nowrap;
 }
 
-/* PROMOS
------------------------------------------------ */
-
+/* PROMOS */
 .featuredarticle {
     margin: 0px 0px 0px 5px;
 }
@@ -427,7 +406,6 @@ table.promoMembershipMedium h5 {
 }
 
 .schoolchoicecenter ul {
-/*border-left: 1px solid #999;*/
     padding: 0px 5px .3em 10px;
 }
 
@@ -457,18 +435,10 @@ div.about li {
     font-size: small;
 }
 
-/* Boxes
------------------------------------------------ */
+/* Boxes */
 .BG {
     vertical-align: middle;
 }
-
-/**
-Page Layout styles.
-A surrounding div is set to have one of these classes.
-All the "about us" corporate pages, and a few others share the
-"twoColumnLayout" layout. Please use this when possible.
-*/
 
 .twoColumnLayout  .contentGS a:link,
     .singleTextOnlyColumnLayout  .contentGS a:link {
@@ -609,4 +579,3 @@ div#printandemail {
         border: 0px solid   #fff;
     }
 }
-

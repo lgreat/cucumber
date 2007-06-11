@@ -1,11 +1,6 @@
-/*------------------------------------------------------
-
-School Profile header
-
--------------------------------------------------------*/
+/* School Profile header */
 #schoolProfileHeader { /* Has IE 7 equivalent */
 	width: 860px;
-    /*height: 92px; */
     float: left;
 	border: 2px solid #dee;
     border-bottom: 0;
@@ -15,12 +10,9 @@ School Profile header
 .overview #schoolProfileHeader { /* Has IE 7 equivalent */
     padding-bottom: 20px;
     _padding-bottom: 21px;
-    /*height: 87px;
-    _height: 86px; */
 }
 
 /* breadcrumbs */
-
 #breadcrumbs {
 	margin: 2px 0 0 24px;
 	_margin: 2px 0 12px 24px; /* IE 6 hack */
@@ -42,7 +34,6 @@ School Profile header
 
 
 /* tools */
-
 #tools { /* has IE 7 equivalent */
 	width: 240px;
 	float: right;
@@ -126,7 +117,6 @@ School Profile header
 
 
 /* school name */
-
 #schoolProfile #schoolName { /* has IE 7 equivalent */
     width: 550px;
     float: left;
@@ -144,16 +134,12 @@ School Profile header
     _margin: 10px 0 8px 12px;
 }
 
-#schoolProfile.overview #schoolProfileHeader h1 { /* makes the school name larger, centers it vertically */
+#schoolProfile.overview #schoolProfileHeader h1 {
 	font: bold 26px "Trebuchet MS", Arial, sans-serif;
 	color: #5bc;
 }
 
-
-
-
 /* Ratings */
-
 #ratings {
 	margin: 8px 0 0 25px;
 	width: 300px;
@@ -178,7 +164,6 @@ a:hover.parent_rating {
 }
 
 /* Parent Ratings rollovers */
-
 .parent_0 { /* displays the "no star" parent rating */
 	background: url(../../img/school/ratings/ratings_parent_head_no.gif) no-repeat;
 }
@@ -207,9 +192,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	background: url(../../img/school/ratings/ratings_parent_head_5.gif) no-repeat;
 }
 
-
 /* main navigation */
-
 #navigation {
 	background: #6cc;
 	text-transform: uppercase;
@@ -221,13 +204,9 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #navigation td {
 	font: bold 11px/13px "Trebuchet MS", Arial, sans-serif;
-    /*font: bold 10px/11px Lucinda Grande, Lucida Grande, lucida, verdana, sans-serif;*/
-    /*letter-spacing: -0.5px;*/
-    /*_letter-spacing: -1.5px;*/
     color: #fff;
 	text-decoration: none;
 	text-align: center;
-	/*border-right: 1px dotted #fff;*/
 	background: url(../../img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
 }
 
@@ -243,7 +222,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 #navigation td a:hover {
 	color: #5bc;
 	text-decoration: none;
-    background: #dee url(../../img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
+    background: #dee url(../../img/school/border_dotted.gif) repeat-y right;
 }
 
 /* Do not add dotted border on right of last cell, even during hover */
@@ -257,7 +236,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #navigation .on { /* sets the "on" state for the tabs */
 	color: #5bc;
-    background: #dee url(../../img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
+    background: #dee url(../../img/school/border_dotted.gif) repeat-y right;
 }
 
 
@@ -272,7 +251,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	color: #ccc;
     border-bottom: 1px dashed #fff;
     _border-bottom: 1px dashed #dee;
-    margin-bottom: 9px; /* NOTE: this bottom margin has been added such that the space between the header and the content is consistent regardless of the presence of the header */
+    margin-bottom: 9px;
 }
 
 #subnav ul {
@@ -308,10 +287,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     _float: none; /* IE 6 hack */
 }
 
-/*
- * Styles that mirror global.css (so this stylesheet is still effective in perl land which doesn't use global)
- */
-
+/* Styles that mirror global.css (so this stylesheet is still effective in perl land which doesn't use global) */
 #schoolProfileHeader ul, #schoolProfileHeader ol, #schoolProfileHeader li,
     #schoolProfileHeader h1, #schoolProfileHeader h2, #schoolProfileHeader h3,
     #schoolProfileHeader h4, #schoolProfileHeader h5, #schoolProfileHeader h6,
@@ -341,18 +317,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     padding: 0
 }
 
-/**********************
- *                    *
- *                    *
- *                    *
- **********************
- * O L D  S T Y L E S *
- **********************
- *                    *
- *                    *
- *                    *
- **********************/
-
+/* O L D  S T Y L E S */
 #schoolProfile #bodyContents {
     font-size:12px;
     text-align:left;
@@ -386,11 +351,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     border-top: 1px solid #ccc;
 }
 
-
-/***************************
- * P R I N T   S T Y L E S *
- ***************************/
-
+/* P R I N T   S T Y L E S */
 @media print {
     .search, #adLeaderboard, #footer, .noprint, #promoContent  {
         display:none;
@@ -412,7 +373,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     }
     #schoolProfileHeader {
         border: 0 solid #fff;
-        float: none; /* Fix Firefox bug where print truncates after first page, see GS-3241 */
+        float: none; /* GS-3241 */
     }
     #schoolProfile #navigation, #schoolProfile #subnav, #schoolProfileHeader #tools {
         display: none;

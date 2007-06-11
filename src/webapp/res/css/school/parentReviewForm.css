@@ -16,7 +16,7 @@
 #rateReview h2 {
 	background: url(/res/img/school/review/header_rateReview.gif) no-repeat 19px 6px #c5c5c5;
 	height: 25px;
-	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+	text-indent: -1000px;
 }
 
 #ratingTitle {
@@ -114,8 +114,7 @@
     text-decoration: underline;
 }
 
-/****** Stars *******/
-
+/* Stars */
 .starbar {
     position: relative;
     height: 23px;
