@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:spring="http://www.springframework.org/tags"
@@ -19,94 +19,64 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:setPathway pathway="LIBRARY"/>
+<pageHelper:setPathway pathway="SEASONAL"/>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <title>GreatSchools.net: Back-to-School</title>
+    <meta name="Description" content="GreatSchools.net: Back to School"/>
+    <title>GreatSchools.net: Back to School</title>
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>
     <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
 </head>
 <c:set var="pageName" value="Back to School"/>
 
-
-
 <gsml:body adPageName="content/backToSchool" pageLayout="backToSchool" startAdHierarchyAtPage="true">
 <div>
-<div class="wrapBorder">
-<jsp:include page="/content/leftNav.module" />
+    <div class="wrapBorder">
+        <jsp:include page="/content/leftNav.module" />
 
-<div class="middle">
-    <div id="contentHeaderImage">
-        <h1 id="title">${pageName}</h1>
-        <gsml:img src="/res/img/content/backtoschool/photo4kids.jpg" alt="Back to School" style="float:left;"/>
+        <div class="middle">
+            <div id="contentHeaderImage">
+                <h1 id="backToSchoolText" class="pageHeading">${pageName}</h1>
+                <gsml:img src="/res/img/content/backtoschool/girlWithBackpack.jpg"
+                          alt="Photo of girl wearing backpack with mom in background"/>
+            </div>
+
+            <content:micrositeArticleList title="Get the Gear for a Great Year"
+                                          headerId="getTheGear"
+                                          articleIds="327,657,361,329,324,381"/>
+
+            <content:micrositeArticleList title="Start Here for School Success"
+                                          headerId="startHere"
+                                          articleIds="328,332,331,60,204,997"/>
+
+            <content:micrositeArticleList title="Especially for Tweens and Teens"
+                                          headerId="especiallyFor"
+                                          articleIds="996,325,700,684,728"/>
+
+            <content:micrositeArticleList title="Give Your Child a Healthy Start"
+                                          headerId="giveYourChild"
+                                          articleIds="995,330,256,333" lower="true"/>
+
+            <div class="question">
+                <h3 id="askTheExperts">Ask the Experts</h3>
+                <p>Q: How can I make this school year more successful and less frantic for my whole family?
+                    <gsweb:articlelink articleId="403">Read the answer &gt;</gsweb:articlelink>
+                </p>
+            </div>
+
+            <content:micrositeFreeNewsletters pageName="${pageName}"/>
+        </div>
     </div>
 
-    <div>
-        <h2 id="subTitle1">Start Here for School Success</h2>
-        <ul class="plain">
-            <gsweb:articlelink articleId="4" wrappingElement="li"/>
-            <gsweb:articlelink articleId="60" wrappingElement="li"/>
-            <gsweb:articlelink articleId="332" wrappingElement="li"/>
-            <gsweb:articlelink articleId="325" wrappingElement="li"/>
-            <gsweb:articlelink articleId="191" wrappingElement="li"/>
-            <gsweb:articlelink articleId="310" wrappingElement="li"/>
-        </ul>
+    <div id="promos">
+        <content:promos referredBy="${pageName}"/>
     </div>
-
-    <div style="border-bottom: 1px dashed #ccc;">
-        <h2 id="subTitle2">Get the Gear for a Great Year</h2>
-        <ul class="plain">
-            <gsweb:articlelink articleId="327" wrappingElement="li"/>
-            <gsweb:articlelink articleId="674" wrappingElement="li"/>
-            <gsweb:articlelink articleId="657" wrappingElement="li"/>
-            <gsweb:articlelink articleId="381" wrappingElement="li"/>
-            <gsweb:articlelink articleId="361" wrappingElement="li"/>
-        </ul>
-    </div>
-
-    <div style="border-bottom: 1px dashed #ccc;">
-        <h3 id="askTheExperts">Ask an Expert</h3>
-        <br style="clear:left;"/>
-        <p>Q: How Can I Help My Child With Homework?
-            <gsweb:articlelink articleId="403">Read the answer</gsweb:articlelink>
-        </p>
-    </div>
-
-    <div style="border-bottom: 1px dashed #ccc;">
-        <h3 id="theTwinsStartKindergarten">The Twins Start Kindergarten</h3>
-        <p>Follow this family's story as their twins Anna and Beth start kindergarten. <a
-                href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our Back to School
-            Blog</a>
-        </p>
-    </div>
-
-    <div style="border-bottom: 1px dashed #ccc;">
-        <h3 id="freeNewsletters">Free Newsletters</h3>
-        <p>Is your child on track?
-            Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
-        </p>
-    </div>
-
-    <div style="border-bottom: 1px dashed #ccc;">
-        <h3 id="ourNewLook">Our New Look</h3>
-
-        <p>We're rolling out a new site design. What do you think about our new look?
-            <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Tell us now</gsml:a>
-        </p>
-    </div>
-
-    </div>
-    </div>
-
-<div id="promos">
-    <content:promos referredBy="${pageName}"/>
-</div>
-<br style="clear:both;"/>
+    <br style="clear:both;"/>
 </div>
 
-    <mod:tracking pageType="article"
-                  pageName="${pageName}"
-                  hier1="Article,Back to School Home"/>
+<mod:tracking pageType="article"
+              pageName="${pageName}"
+              hier1="Article,Back to School"/>
 
 </gsml:body>
 

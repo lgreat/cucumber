@@ -1,86 +1,20 @@
-h1#title {
-    text-indent: -5000px;
+h1#backToSchoolText {
     background: url( "../../img/content/backtoschool/backToSchool.gif" ) no-repeat;
-    width: 155px;
-    height: 192px;
-    float: left;
 }
 
-h2#subTitle1 {
-    text-indent: -5000px;
-    background: url( "../../img/content/backtoschool/yellow_banner_starthere.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
-}
-
-h2#subTitle2 {
-    text-indent: -5000px;
+h2#getTheGear {
     background: url( "../../img/content/backtoschool/yellow_banner_getthegear.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
 }
 
-h3#askTheExperts {
-    text-indent: -5000px;
-    background: url( "../../img/content/backtoschool/askTheExperts.gif" ) no-repeat;
-    width: 155px;
-    height: 192px;
-    float: left;
+h2#startHere {
+    background: url( "../../img/content/backtoschool/yellow_banner_starthere.gif" ) no-repeat;
 }
 
-h3#parentPoll {
-    text-indent: -5000px;
-    background: url( "../../img/content/backtoschool/parentPoll.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
+h2#especiallyFor {
+    background: url( "../../img/content/backtoschool/yellow_banner_tweensandteens.gif" ) no-repeat;
 }
 
-h3#theTwinsStartKindergarten {
-    text-indent: -5000px;
-    background: url( "../../img/content/backtoschool/theTwinsStartKindergarten.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
+h2#giveYourChild {
+    background: url( "../../img/content/backtoschool/yellow_banner_giveyourchild.gif" ) no-repeat;
 }
 
-h3#applyAndEnroll {
-    text-indent: -5000px;
-    background: url( "../../img/content/backtoschool/freeNewsletters.gif" ) no-repeat;
-    width: 174px;
-    height: 20px;
-}
-
-
-h3#askTheExperts {
-    text-indent: -5000px;
-    background: url( "../../img/content/backtoschool/askTheExperts.gif" ) no-repeat;
-    width: 169px;
-    height: 23px;
-}
-
-h3#freeNewsletters {
-    text-indent: -5000px;
-    background: url( "../../img/content/backtoschool/freeNewsletters.gif" ) no-repeat;
-    width: 174px;
-    height: 20px;
-}
-
-h3#ourNewLook {
-    text-indent: -5000px;
-    background: url( "../../img/content/backtoschool/ourNewLook.gif" ) no-repeat;
-    width: 174px;
-    height: 20px;
-}
-
-#contentGS .middle h2 {
-    padding:0;
-}
-
-#contentGS .middle h1 {
-    font-family:inherit;
-    font-size:100%;
-    font-weight:normal;
-    padding:0;
-    color: #fff;
-    background-color: #6cc;
-    margin-bottom:0;
-}

@@ -18,8 +18,8 @@
 <div class="left">
     <h3>Featured Topics</h3>
     <ul class="plain">
+        <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif" alt=""/>&amp;nbsp;<gsml:a href="/content/backToSchool.page">Back to School</gsml:a></li>
         <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif" alt=""/>&amp;nbsp;<gsml:a href="/content/summerReading.page">Summer Reading</gsml:a></li>
-        <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif" alt=""/>&amp;nbsp;<gsml:a href="/content/summerPlanning.page">Summer Planning</gsml:a></li>
         <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif" alt=""/>&amp;nbsp;<gsml:a href="/content/schoolChoiceCenter.page">School Choice Tips</gsml:a></li>
         <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif" alt=""/>&amp;nbsp;<gsml:a href="/content/specialNeeds.page">Special Needs</gsml:a></li>
         <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif" alt=""/>&amp;nbsp;<gsml:a href="/content/mediaChoices.page">Media and Your Child</gsml:a></li>
