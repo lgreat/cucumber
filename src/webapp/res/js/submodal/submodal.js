@@ -1,64 +1,37 @@
-/**
- * This derivative version of subModal can be downloaded from http://gabrito.com/files/subModal/
- * Original By Seth Banks (webmaster at subimage dot com)  http://www.subimage.com/
- * Contributions by Eric Angel (tab index code), Scott (hiding/showing selects for IE users), Todd Huss (submodal class on hrefs, moving div containers into javascript, phark method for putting close.gif into CSS), and Thomas Risberg (safari fixes for scroll amount)
- */
-
-// Popup code
 var gPopupMask = null;
 var gPopupContainer = null;
 var gPopFrame = null;
-
-//popup container names
 var POP_CONTAINER_ID    = 'popupContainer';
 var POP_MASK_ID         = 'popupMask';
 var POP_FRAME_ID        = 'popupFrame';
 var STATE_WIDGET        = 'stateWidget'
-
 var gReturnFunc;
 var gPopupIsShown = false;
 var gHideSelects = false;
 var gLoading = "loading.html";
-
-//A reference to a link object.
-//If assigned, user will be redirected to this page when the modal dialog is closed.
 var gRedirectAnchor = null;
-
 var gTabIndexes = new Array();
-// Pre-defined list of tags we want to disable/enable tabbing into
 var gTabbableTags = new Array("A","BUTTON","TEXTAREA","INPUT","IFRAME");
-
-// If using Mozilla or Firefox, use Tab-key trap.
 if (!document.all) {
 	document.onkeypress = keyDownHandler;
 }
 
-//getElementById shortname
-function getElement(id) {
-	return document.getElementById(id);
-}
+function getElement(id) { return document.getElementById(id); }
 
 function frameLoading() {
     return '<html><body><p><center>Loading...</center></p></body></html>';
 }
 
-/**
- * Initializes popup code on load.
- */
 function initPopUp(hoverName) {
-
     var body = document.getElementsByTagName('body')[0];
     var popmask = createContainer(body, POP_MASK_ID, true);
     var popcont = createContainer(body, POP_CONTAINER_ID, true);
-
     // check to see if this is IE version 6 or lower. hide select boxes if so
 	// maybe they'll fix this in version 7?
 	var brsVersion = parseInt(window.navigator.appVersion.charAt(0), 10);
 	if (brsVersion <= 6 && window.navigator.userAgent.indexOf("MSIE") > -1) {
 		gHideSelects = true;
 	}
-
-	// Add onclick handlers to 'a' elements of class submodal or submodal-width-height
 	var elms = document.getElementsByTagName('a');
 	for (i = 0; i < elms.length; i++) {
 		if (elms[i].className.indexOf("submodal") == 0) {
@@ -77,13 +50,6 @@ function initPopUp(hoverName) {
 		}
 	}
 }
-
- /**
-	* @argument width - int in pixels
-	* @argument height - int in pixels
-	* @argument url - url to display
-	* @argument returnFunc - function to call when returning true from the window.
-	*/
 
 function showPopWin(url, width, height, returnFunc, hoverName) {
     if (!getElement(POP_MASK_ID)) {
@@ -118,7 +84,6 @@ function showPopWin(url, width, height, returnFunc, hoverName) {
     hideContainers();
 }
 
-//
 var gi = 0;
 function centerPopWin(width, height) {
 	var popContainer = getElement(POP_CONTAINER_ID);
@@ -132,7 +97,6 @@ function centerPopWin(width, height) {
 		}
 		var fullHeight = getViewportHeight();
 		var fullWidth = getViewportWidth();
-		// scLeft and scTop changes by Thomas Risberg
 		var scLeft,scTop;
 		if (self.pageYOffset) {
 			scLeft = self.pageXOffset;
@@ -152,24 +116,17 @@ function centerPopWin(width, height) {
 		popMask.style.left = scLeft + "px";
 		window.status = popMask.style.top + " " + popMask.style.left + " " + gi++;
         var titleBarHeight = parseInt(document.getElementById("popupTitleBar").offsetHeight, 10);
-        //check that user's screen is big enough for auto centering...
         if (fullHeight > height) {
             popContainer.style.top = (scTop + ((fullHeight - (height+titleBarHeight)) / 2)) + "px";
         }
         if (fullWidth > width) {
             popContainer.style.left =  (scLeft + ((fullWidth - width) / 2)) + "px";
         }
-        //alert(fullWidth + " " + width + " " + gPopupContainer.style.left);
     }
 }
 addEvent(window, "resize", centerPopWin);
-//addEvent(window, "scroll", centerPopWin);
 window.onscroll = centerPopWin;
 
-/**
- * @argument callReturnFunc - bool - determines if we call the return function specified
- * @argument returnVal - anything - return value
- */
 function hidePopWin(callReturnFunc) {
 	gPopupIsShown = false;
 	restoreTabIndexes();
@@ -198,18 +155,11 @@ function hidePopWin(callReturnFunc) {
     }
 }
 
-/**
- * Sets the popup title based on the title of the html document it contains.
- * Also adds a base attribute so links and forms will jump out out of the iframe
- * unless a base or target is already explicitly set.
- * Uses a timeout to keep checking until the title is valid.
- */
 function setPopTitleAndRewriteTargets() {
 	if (window.frames["popupFrame"].document.title == null) {
 		window.setTimeout("setPopTitleAndRewriteTargets();", 10);
 	} else {
 		var popupDocument = window.frames["popupFrame"].document;
-		//document.getElementById("popupTitle").innerHTML = popupDocument.title;
 		if (popupDocument.getElementsByTagName('base').length < 1) {
 			var aList  = window.frames["popupFrame"].document.getElementsByTagName('a');
 			for (var i = 0; i < aList.length; i++) {
@@ -223,13 +173,10 @@ function setPopTitleAndRewriteTargets() {
 	}
 }
 
-// Tab key trap. iff popup is shown and key was [TAB], suppress it.
-// @argument e - event - keyboard event that caused this function to be called.
 function keyDownHandler(e) {
     if (gPopupIsShown && e.keyCode == 9)  return false;
 }
 
-// For IE.  Go through predefined tags and disable tabbing into them.
 function disableTabIndexes() {
 	if (document.all) {
 		var i = 0;
@@ -244,7 +191,6 @@ function disableTabIndexes() {
 	}
 }
 
-// For IE. Restore tab-indexes.
 function restoreTabIndexes() {
 	if (document.all) {
 		var i = 0;
@@ -259,12 +205,6 @@ function restoreTabIndexes() {
 	}
 }
 
-/**
- * X-browser event handler attachment and detachment
- * @argument obj - the object to attach event to
- * @argument evType - name of the event - DONT ADD "on", pass only "mouseover", etc
- * @argument fn - function to call
- */
 function addEvent(obj, evType, fn){
  if (obj.addEventListener){
     obj.addEventListener(evType, fn, false);
@@ -277,11 +217,6 @@ function addEvent(obj, evType, fn){
  }
 }
 
-/**
- * Code below taken from - http://www.evolt.org/article/document_body_doctype_switching_and_more/17/30655/ *
- * Modified 4/22/04 to work with Opera/Moz (by webmaster at subimage dot com)
- * Gets the full width/height because it's different for most browsers.
- */
 function getViewportHeight() {
 	if (window.innerHeight!=window.undefined) return window.innerHeight;
 	if (document.compatMode=='CSS1Compat') return document.documentElement.clientHeight;
@@ -296,13 +231,11 @@ function getViewportWidth() {
 	return window.undefined;
 }
 
-
 function hideContainers() {
 var hidden = getElementsByCondition(
     function(el) {
         try {
             if(el.id.indexOf("ad")==0){el.style.display='none';return el}
-            //IE wants select boxes to have highest z-index
             else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="hidden";return el}
         } catch(err) {}
     }
@@ -314,14 +247,12 @@ function showContainers() {
         function(el){
             try {
                 if(el.id.indexOf("ad")==0){el.style.display='block';return el}
-                //IE wants select boxes to have highest z-index
                 else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="visible";return el}
             } catch(err) {}
         }
         )
 }
 
-//Show the modal dialog when user exits the current page by way of an outbound link
 function showPopWinOnExit(url, width, height, returnFunc, hoverName, forceShow) {
     if (forceShow || showHover()) {
         var arr = getElementsByCondition(
@@ -355,7 +286,7 @@ function showPopWinOnLoad(url, width, height, returnFunc, hoverName, forceShow) 
         showPopWin(url, width, height, returnFunc, hoverName);
     }
 }
-//code from http://www.webmasterworld.com/forum91/1729.htm
+
 function getElementsByCondition(condition,container) {
     container = container||document
     var all = container.all||container.getElementsByTagName('*')
@@ -371,7 +302,6 @@ function getElementsByCondition(condition,container) {
     return arr
 }
 
-//Clear onclick references for all links in order to free memory
 function freeOnClickMem() {
     var alltags=document.getElementsByTagName("A");
 
@@ -382,7 +312,6 @@ function freeOnClickMem() {
 
 function setHoverCookie(hoverName) {
     var oneDay=24 * 60 * 60 * 1000, expDate=new Date(), curDate=new Date();
-    //expire cookie in 30 days
     expDate.setTime(expDate.getTime()+oneDay * 15);
     document.cookie=hoverName+'='+curDate.toGMTString()+';expires='+expDate.toGMTString()+';path=/';
 }
@@ -434,9 +363,6 @@ function modalWindowHtml(title,showCloseWindow) {
     return html;
 }
 
-/*
- * Create a container, default is hidden
- */
 function createContainer(parent, id, hidden) {
     var _div = document.createElement('div');
     _div.id = id;

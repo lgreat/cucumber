@@ -1,14 +1,3 @@
-/*
-Copyright (c) 2006 GreatSchools.net
-All Rights Reserved.
-
-$Id: global.js,v 1.18 2007/05/09 21:02:34 cpickslay Exp $
-*/
-
-/*
-Generic Utilities
-*/
-
 //read cookie, return "" if cookie not found or cookie not set
 function readCookie(cookieName) {
     var cookie = "" + document.cookie;
@@ -19,10 +8,8 @@ function readCookie(cookieName) {
     return unescape(cookie.substring(i + cookieName.length + 1, j));
 }
 
-
 /* Finds the HTML element specified by the ID and switches it between
-   block and 'none' display. Should not be used on other types of elements
-   as its behavior is not defined. */
+   block and 'none' display. */
 function toggleById(elementId) {
     var layer = document.getElementById(elementId);
     if (layer.style.display == 'block') {
@@ -56,17 +43,11 @@ function getRadioValue(radioButtons)
     }
 }
 
-
 /*
   GS-site specific
 */
-/* From the old perl code. Probably not needed */
-function issues() {
-    window.open("", "issues", 'width=400,height=300,scrollbars=yes')
-}
-function definitions() {
-    window.open("", "issues", 'width=500,height=400,scrollbars=yes')
-}
+function issues() { window.open("", "issues", 'width=400,height=300,scrollbars=yes') }
+function definitions() { window.open("", "issues", 'width=500,height=400,scrollbars=yes') }
 
 function jumpToCounty(newLoc, state) {
     newPage = newLoc.options[newLoc.selectedIndex].text;
@@ -82,13 +63,11 @@ function getState() {
     return readCookie('STATE');
 }
 
-
 /*
   Top-nav specific
 */
 /*
- * Used by the global search widget to make sure that a user
- * selects a state.
+ * Used by the global search widget to make sure that a user selects a state.
  */
 function topNavSubmitSearch(theForm) {
     var val = document.getElementById('stateSelector').value;
@@ -128,13 +107,7 @@ function topNavSelectTopicSearch(x) {
     return true;
 }
 
-
-/**
- TO BE REMOVED
- */
-/* Sets the search prompt in the global header
-@todo remove in 5.9 or later
-*/
+/* Sets the search prompt in the global header */
 function setSearchPrompt(s) {
 
     var d = document.getElementById('slabel');
@@ -159,17 +132,9 @@ function setSearchPrompt(s) {
     e.select();
 }
 
-//get element by id
-// @todo remove this -- it's not doing much
-function getElement(id) {
-    return document.getElementById(id);
-}
-
-
 /*
  * Used by the global search widget to make sure that a user
  * selects a state.
- * @todo legacy, remove 5.9 or after
  */
 function checkSearchStateSelected(theForm, selectorId) {
     var returnVal = true;
@@ -185,11 +150,6 @@ function checkSearchStateSelected(theForm, selectorId) {
 }
 
 //inspired by http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
-// note that the's a bug in this function if one of the divs has top and/or bottom padding
-// the padding is included in scrollHeight, which then is assigned to height, which doesn't include padding
-// as a result, the box ends up too tall by padding-top + padding-bottom
-// in theory, this could be fixed by subtracting id.style.paddingTop and id.style.paddingBottom from curHeight
-// but those properties appear to be write-only
 var BoxHeights = {
 	equalize: function() {
         var maxH = 0;
@@ -211,5 +171,3 @@ var BoxHeights = {
         for (var i=0;i<numCols;i++) column[i].style.height = maxH+"px";
 	}
 };
-
-

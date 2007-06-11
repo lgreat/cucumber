@@ -41,8 +41,8 @@
             if (getState() != '') {
                 return;
             }
-            if (getElement('topnav_research')) {
-                var link = getElement('topnav_research');
+            if (document.getElementById('topnav_research')) {
+                var link = document.getElementById('topnav_research');
                 link.onclick = function () {
                     toggleStateSelector(this);
                     return false;
