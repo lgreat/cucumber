@@ -117,15 +117,15 @@
                     <gsml:img src="/res/img/school/review/${latestReviewsModel.latestRating}star.gif" alt="" styleClass="rating" />
                     <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
                         ${latestReviewsModel.randomRating}</em>
-                        <gsml:a href="/modperl/parents/${state}/${sid}" title="Parent Reviews">Learn more &#62;</gsml:a>
+                        <link:schoolProfileParentReview school="${school}" title="Parent Reviews">Learn more &#62;</link:schoolProfileParentReview>
                     </p>
                     <p>${latestReviewsModel.comment}
-                        <gsml:a href="/modperl/parents/${state}/${sid}" title="Read all reviews">
+                        <link:schoolProfileParentReview school="${school}" title="Read all reviews">
                             <c:choose>
                                 <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
                                 <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
                             </c:choose>
-                        </gsml:a>
+                        </link:schoolProfileParentReview>
                     </p>
                 </div>
             </c:if>
