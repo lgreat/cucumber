@@ -130,7 +130,7 @@
                 </div>
             </c:if>
 
-            <school:parentReviewForm school="${school}"/>
+            <school:parentReviewForm school="${school}" pageName="overview"/>
 
             <div id="learnSchool">
 

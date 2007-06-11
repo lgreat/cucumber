@@ -7,7 +7,7 @@
           xmlns:gsweb="gstaglib">
 
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
-    <jsp:directive.attribute name="pageName" required="false" description="Page this module appears on"/>
+    <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
     <pageHelper:externalCss file="/res/css/school/parentReviewForm.css"/>
     <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
 
@@ -132,7 +132,7 @@
             <gsweb:form action="/cgi-bin/send_rating/${state}/${schoolId}/" method="post" onsubmit="setSubmitFields();">
                 <input type="hidden" name="schoolname" value="${school.name}" />
                 <input type="hidden" name="schooltype" value="${school.type.schoolTypeName}" />
-                <input type="hidden" name="source" value="overview" />
+                <input type="hidden" name="source" value="${pageName}" />
                 <input type="hidden" name="recontact" value="N" />
                 <input id="quality" type="hidden" name="quality" value="decline" />
                 <input id="confirm" type="hidden" name="confirm" value="" />
