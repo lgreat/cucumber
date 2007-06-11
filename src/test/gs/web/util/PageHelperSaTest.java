@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.33 2007/06/05 23:05:35 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.34 2007/06/11 17:40:20 dlee Exp $
  */
 
 package gs.web.util;
@@ -481,6 +481,10 @@ public class PageHelperSaTest extends TestCase {
         assertEquals(true, pageHelper.isAdServedByCobrand());
 
         sessionContext.setCobrand("encarta");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals(true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("arkansasonline");
         pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
         assertEquals(true, pageHelper.isAdServedByCobrand());
     }

@@ -154,4 +154,31 @@
             ]]>
         </ad>
     </cobrand>
+    <cobrand id="arkansasonline">
+        <ad id="Footer_728x90">
+            <![CDATA[
+                <script type="text/javascript" src="http://oascentral.arkansasonline.com/RealMedia/ads/adstream_jx.ads/homesarkansas.net/1234/@Top"/>
+            ]]>
+        </ad>
+        <ad id="x40">
+            <![CDATA[
+                <script type="text/javascript" src="http://oascentral.arkansasonline.com/RealMedia/ads/adstream_jx.ads/homesarkansas.net/1234/@Top"/>            
+            ]]>
+        </ad>
+        <ad id="x48">
+            <![CDATA[
+                <script type="text/javascript" src="http://oascentral.arkansasonline.com/RealMedia/ads/adstream_jx.ads/homesarkansas.net/1234/@Middle"></script>
+            ]]>
+        </ad>
+        <ad id="x66">
+            <![CDATA[
+                <script type="text/javascript" src="http://oascentral.arkansasonline.com/RealMedia/ads/adstream_jx.ads/homesarkansas.net/1234/@Middle"></script>
+            ]]>
+        </ad>
+        <ad id="x70">
+            <![CDATA[
+                <script type="text/javascript" src="http://oascentral.arkansasonline.com/RealMedia/ads/adstream_jx.ads/homesarkansas.net/1234/@Middle"></script>
+            ]]>
+        </ad>
+    </cobrand>
 </cobrand-ad-codes>

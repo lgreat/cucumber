@@ -1,22 +1,22 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.43 2007/06/05 23:05:35 aroy Exp $
+ * $Id: PageHelper.java,v 1.44 2007/06/11 17:40:20 dlee Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.web.ads.AdPosition;
+import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.community.registration.AuthenticationManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -340,7 +340,7 @@ public class PageHelper {
 
     public boolean isAdServedByCobrand() {
         return _sessionContext.getCobrand() != null &&
-                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta");
+                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta|arkansasonline");
     }
     /**
      * A String of the onload script(s) to be included in the body tag.
