@@ -64,9 +64,9 @@
         <hr />
         <school:bigPicture school="${school}"/>
         
-        <!-- survey link -->
+        <!-- promo link -->
         <hr />
-        <a href="http://www.surveymonkey.com/s.asp?u=795713770339" target="_blank"><gsml:img src="/res/img/promo/newlook.gif" alt="GreatSchools has a new look. Tell us what you think."/></a>
+        <gsml:a href="/promo/webbyAwardWinner.page"><gsml:img src="/res/img/promo/webby/webby.jpg" alt="2007 Webby Awards - Best Family Parenting Site"/></gsml:a>
 
 		<!-- Editor -->
         <hr />
