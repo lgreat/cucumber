@@ -55,7 +55,7 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         tagHandler = new ParentReviewTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/modperl/parents/wy/8", builder.asSiteRelative(null));
+        assertEquals("/school/parentReviews.page?id=8&state=WY", builder.asSiteRelative(null));
 
         tagHandler = new PrincipalViewTagHandler();
         tagHandler.setSchool(school);

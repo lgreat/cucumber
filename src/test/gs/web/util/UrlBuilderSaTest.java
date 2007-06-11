@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.64 2007/05/31 18:15:27 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.65 2007/06/11 19:38:16 dlee Exp $
  */
 
 package gs.web.util;
@@ -130,7 +130,7 @@ public class UrlBuilderSaTest extends TestCase {
         school.setPhysicalAddress(address);
 
         UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
-        assertEquals("/modperl/parents/wy/8", builder.asSiteRelativeXml(null));
+        assertEquals("/school/parentReviews.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
 
         try {
             builder = new UrlBuilder(school, null);
