@@ -1,0 +1,106 @@
+/* container */
+
+#content {
+	margin: 0;
+	padding: 10px;
+	border: 2px solid #ddeeee;
+    height: 572px;
+}
+
+#outline { /* creates the darker blue outer outline around #content, contains no other styling */
+	border: 3px solid #66cccc;
+}
+
+/* Page content */
+
+#leftSide {
+    float: left;
+    padding-right: 45px;
+    padding-bottom: 15px;
+}
+
+#rightSide {
+    float: left;
+    width: 415px;
+    padding-top:50px;
+}
+
+#bottomPadding {
+    height: 118px;
+    background-color: #DEEFEF;
+    margin: 7px 0 0 0;
+}
+
+#content #rightSide p {
+    margin-top:20px;
+    font: 14px/16px Trebuchet MS, Arial, sans-serif;
+    color: #777777;
+}
+
+.header {
+    font-size:25px;
+    font-weight:normal;
+}
+
+.grey {
+    color:#aaa;
+}
+
+.green {
+    color:#97cf64;
+}
+
+#rightSide #learnMore {
+    color:#cc5566;
+    text-transform:uppercase;
+    font-size:smaller;
+}
+
+#links li a {
+    color: #3399aa;
+    text-decoration: underline;
+}
+
+/* Award panel */
+
+#awardPanel {
+    border-top: 2px dotted #ccc;
+    padding: 15px 0 0 10px;
+}
+
+#awardPanel div.moreAwards {
+    font-size: 18px;
+    color: #55BBCC;
+    font-weight: bold;
+}
+
+#awardPanel p.centeredText {
+    text-align:center;
+    font: 13px/15px Trebuchet MS, Arial, sans-serif;
+    color: #777777;
+}
+
+#awardPanel div img {
+    padding-left: 25px;
+    padding-top: 15px;
+}
+
+#awardPanel div#peninsula img {
+    padding-left: 55px;
+}
+
+#charity, #peninsula, #mofe {
+    float: left;
+}
+
+div#charity {
+    padding: 0 135px 0 10px;
+}
+
+div#peninsula {
+    padding: 0 0 0 0;
+}
+
+div#mofe {
+    padding: 0 10px 0 135px;
+}

@@ -8,20 +8,10 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>GreatSchools THANKS YOU for your support!</title>
-        <style type="text/css">            
-            #rightSide {
-                padding-top:50px;
-            }
-            #rightSide p {margin-top:20px;}
-            .header {font-size:25px;font-weight:normal;}
-            .grey {color:#aaa;}
-            .green {color:#97cf64;}
-            #rightSide #learnMore {color:#cc5566;text-transform:uppercase;font-size:smaller;}
-            #links li a {color: #3399aa;text-decoration: underline;}            
-        </style>
+        <pageHelper:externalCss file="/res/css/promo/webbyAwardWinner.css"/>
+        <pageHelper:hideFooterAd/>
     </head>
 <gsml:body adPageName="promo/webbyAwardWinner">
-    <pageHelper:externalCss file="/res/css/community/registration/communityLanding.css"/>
     <div id="outline"><!-- creates darker blue outer outline -->
         <div id="content">
             <div id="leftSide">
@@ -44,6 +34,46 @@
                     <li><gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">Read the press release &amp;gt;</gsml:a></li>
                     <li><a href="http://www.webbyawards.com/webbys/current.php?season=11#webby_entry_family" target="_blank">View all Webby Award winners &amp;gt;</a></li>
                 </ul>
+            </div>
+            <br style="clear:both;"/>
+            <div id="awardPanel">
+                <div class="moreAwards">
+                    MORE OF OUR AWARDS
+                </div>
+                <br style="clear: both;"/>
+                <div id="charity">
+                    <p class="centeredText">
+                        GreatSchools earned four<br/>
+                        stars, the highest rating,<br/>
+                        for demonstrating exceptional<br/>
+                        financial health in 2007
+                    </p>
+                    <gsml:a href="http://www.charitynavigator.org/index.cfm/bay/search.summary/orgid/8729.htm" target="_blank">
+                        <gsml:img src="/res/img/promo/webby/CharityNavigator120x60_BW.bmp" alt="Charity Navigator Four Star Charity"/>
+                    </gsml:a>
+                </div>
+                <div id="peninsula">
+                    <p class="centeredText">
+                        GreatSchools is a six-time award<br/>
+                        winner in the Peninsula Press<br/>
+                        Club's annual Professional<br/>
+                        Journalism Awards Competition
+                    </p>
+                    <gsml:a href="http://penpressclub.org/contest.html" target="_blank">
+                        <gsml:img src="/res/img/promo/webby/PPC_Logo.jpg" alt="The Peninsula Press Club"/>
+                    </gsml:a>
+                </div>
+                <div id="mofe">
+                    <p class="centeredText">
+                        GreatSchools was honored<br/>
+                        in 2007 for being among<br/>
+                        the best in database<br/>
+                        information publishing
+                    </p>
+                    <gsml:a href="http://www.infocommercegroup.com/awards/2007winners.shtml" target="_blank">
+                        <gsml:img src="/res/img/promo/webby/MofEClearLogo.jpg" alt="InfoCommerce MofE Award Winner"/>
+                    </gsml:a>
+                </div>
             </div>
         </div>
     </div>

@@ -124,10 +124,12 @@
    <li><gsml:a href="/cgi-bin/static/whoweare.inc/$STATE">Board of
    Directors and Staff</gsml:a></li>
 
-   <li><gsml:a href="/cgi-bin/static/jobs.inc/$STATE">Employment
-   Opportunities</gsml:a></li>
+   <li><link:webbyAwardThanks>Our Awards</link:webbyAwardThanks></li>
 
    <li><gsml:a href="/about/pressRoom.page?state=$STATE">Press Room</gsml:a></li>
+
+   <li><gsml:a href="/cgi-bin/static/jobs.inc/$STATE">Employment
+   Opportunities</gsml:a></li>
 
    <li><gsml:a href="/cgi-bin/feedback/$STATE">Contact Us</gsml:a></li>
    </ul>
