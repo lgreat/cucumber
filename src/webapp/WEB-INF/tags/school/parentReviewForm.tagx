@@ -73,14 +73,16 @@
                     <span class="label2">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
                 </td>
             </tr>
-            <tr>
-                <td id="acceptUpdates">
-                    <input checked="checked" value="yes" name="mssSignup" type="checkbox"/>
-                </td>
-                <td>
-                    <label>Send me updates about this school</label>
-                </td>
-            </tr>
+            <c:if test="${school.type.schoolTypeName ne 'private'}">
+                <tr>
+                    <td id="acceptUpdates">
+                        <input checked="checked" value="yes" name="mssSignup" type="checkbox"/>
+                    </td>
+                    <td>
+                        <label>Send me updates about this school</label>
+                    </td>
+                </tr>
+            </c:if>
         </table>
         <input type="text" name="email" id="reviewEmail"
                onfocus="if(this.value=='Enter your email address'){this.value='';}"

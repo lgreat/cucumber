@@ -23,7 +23,7 @@
     <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
     <c:set var="school" value="${cmd.school}"/>
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-    <c:set var="addr" value="${school.physicalAddress.city},${school.databaseState.longName} - ${stateAbbrev}"/>
+    <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
     <head>
         <title>Parent Reviews of ${school.name} - ${addr}</title>
         <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
