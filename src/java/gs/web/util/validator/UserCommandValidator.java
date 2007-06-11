@@ -38,11 +38,11 @@ public class UserCommandValidator implements IRequestAwareValidator {
     private static final String ERROR_FIRST_NAME_LENGTH =
             "Your first name must be 2-24 characters long.";
     private static final String ERROR_SCREEN_NAME_LENGTH =
-            "Your screen name must be 6-14 characters long.";
+            "Your username must be 6-14 characters long.";
     private static final String ERROR_SCREEN_NAME_BAD =
-            "Your screen name may only contain letters and numbers.";
+            "Your username may only contain letters and numbers.";
     private static final String ERROR_SCREEN_NAME_TAKEN =
-            "We're sorry, that screen name is already taken. Please try another screen name.";
+            "We're sorry, that username is already taken. Please try another username.";
     private static final String ERROR_EMAIL_MISSING =
             "Please enter your email address.";
     public static final String ERROR_EMAIL_LENGTH = "Your email must be less than 128 characters long.";

@@ -202,9 +202,10 @@
   <!-- Yes ... willing to answer questions... -->
   <div class="yesno">
       <label><span class="required">*</span><strong>Yes!</strong>
-          I am willing to answer questions from other parents interested in learning
-          more about the schools that my children attend. (GreatSchools won't reveal my name or email
-          address.)</label>
+          I want to be a Parent Ambassador for the schools my children attend.
+          I want to represent my children's schools on the GreatSchools Web site
+          for other interested parents.
+      </label>
 
       <div class="inputs recontact">
           <gsml:radio name="recontactStr" value="y" styleId="yesRecontact"

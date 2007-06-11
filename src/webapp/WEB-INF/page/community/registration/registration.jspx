@@ -105,12 +105,13 @@
                     </p>
                     <gsml:errorMessage command="userCmd" field="firstName" useImage="true" styleClass="warning"/>
 
-                    <p><label><span class="required">*</span>Screen name<br/><span class="details">(6-14 characters)</span></label>
+                    <p><label><span class="required">*</span>Username<br/><span class="details">(6-14 characters)</span></label>
                         <spring:bind path="userCmd.screenName">
                             <input id="screenName" type="text" name="${status.expression}" value="${status.value}" tabindex="5"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="screenName" useImage="true" styleClass="warning"/>
+                    <p class="userDisclaimer">Choose carefully - username can't be changed</p>
 
                     <p class="email"><label><span class="required">*</span>Email address<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private"
                                                               styleClass="private"/></label>
