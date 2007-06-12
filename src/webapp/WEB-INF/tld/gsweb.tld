@@ -57,6 +57,18 @@
             periodBetweenDates(java.util.Date, java.util.Date)</function-signature>        
     </function>
 
+    <function>
+        <name>pluralizeWord</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String pluralizeWord(int,java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>pluralizeWordWithPluralForm</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String pluralizeWordWithPluralForm(int,java.lang.String,java.lang.String)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

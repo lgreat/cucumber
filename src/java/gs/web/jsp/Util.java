@@ -175,6 +175,35 @@ public class Util {
     }
 
     /**
+     * Only here because jsp utility method defined in gsweb.tld cannot use varargs yet
+     * Backed by #pluralize
+     *
+     * @param count number of items
+     * @param singular word form
+     * @return pluralized word
+     * 
+     * @deprecated Use #pluralize
+     */
+    public static String pluralizeWord(int count, String singular) {
+        return pluralize(count, singular);
+    }
+
+    /**
+     * Only here because jsp utility method defined in gsweb.tld cannot use varags yet.
+     * Backed by #pluralize
+     *
+     * @param count number of items
+     * @param singular singular form
+     * @param plural plural form
+     * @return pluralized word
+     *
+     * @deprecated Use #pluralize
+     */
+    public static String pluralizeWordWithPluralForm(int count, String singular, String plural) {
+        return pluralize(count, singular, plural);
+    }
+
+    /**
      * Wordify the period between two dates.
      *
      * If period is over a year, the year and month is part of the return string.

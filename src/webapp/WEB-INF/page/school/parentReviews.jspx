@@ -95,7 +95,7 @@
                     <!-- begin Parent Reviews -->
                     <c:if test="${cmd.totalReviews gt 0}">
                         <div id="showParentReviews">
-                        <h2>Parent Reviews <span class="reviewTotal">(${cmd.totalReviews} reviews)</span></h2>
+                        <h2>Parent Reviews <span class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralizeWord(cmd.totalReviews, 'review')})</span></h2>
                         <select id="sltRatingSort" onchange="go(this);" class="sortReviews">
                             <option value="">Sort by</option>
                             <option value="dd">Date: newest to oldest</option>
@@ -134,7 +134,7 @@
 
                                         <c:choose>
                                             <c:when test="${who eq 'principal'}">
-                                                <p class="author"><span class="principal">Comments from the principal ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</span></p>
+                                                <p class="author"><span class="principal">Posted by the principal ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</span></p>
                                             </c:when>
                                             <c:otherwise>
                                                 <p class="author">Posted <c:if test="${who ne ''}">by a ${who}</c:if> ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
