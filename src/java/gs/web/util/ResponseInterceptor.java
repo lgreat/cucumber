@@ -65,22 +65,12 @@ public class ResponseInterceptor implements HandlerInterceptor {
 
         // COBRAND cookie
         Cookie cobrandCookie = findCookie(request, SessionContextUtil.COBRAND_COOKIE);
-        if (sessionContext.isCobranded() && !sessionContext.isFramed()) {
-            String hostName = sessionContext.getHostName();
-            if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
-                cobrandCookie = new Cookie(SessionContextUtil.COBRAND_COOKIE, hostName);
-                cobrandCookie.setPath("/");
-                cobrandCookie.setDomain(".greatschools.net");
-                response.addCookie(cobrandCookie);
-            }
-        } else {
-            if (cobrandCookie != null) {
-                cobrandCookie.setValue("");
-                cobrandCookie.setMaxAge(EXPIRE_NOW);
-                cobrandCookie.setPath("/");
-                cobrandCookie.setDomain(".greatschools.net");
-                response.addCookie(cobrandCookie);
-            }
+        String hostName = sessionContext.getHostName();
+        if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
+            cobrandCookie = new Cookie(SessionContextUtil.COBRAND_COOKIE, hostName);
+            cobrandCookie.setPath("/");
+            cobrandCookie.setDomain(".greatschools.net");
+            response.addCookie(cobrandCookie);
         }
 
         return true;
