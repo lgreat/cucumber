@@ -30,13 +30,32 @@ public class ParentReviewController extends AbstractSchoolController {
     protected static final String PARAM_SORT_BY = "sortBy";
     protected static final String PARAM_PAGER_OFFSET = "pager.offset";
 
-    private static final Comparator<Review> OVERALL_RATING_DESC_DATE_DESC =
-            Review.createCompositeComparator(Collections.reverseOrder(Review.OVERALL_RATING_COMPARATOR),
-                                Collections.reverseOrder(Review.DATE_POSTED_COMPARATOR));
+    //Compare on who, then overall rating descending, then date posted descending
+    private static final Comparator<Review> PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC =
+            Review.createCompositeComparator(
+                    Collections.reverseOrder(Review.POSTED_BY_PRINCIPAL_COMPARATOR),
+                    Collections.reverseOrder(Review.OVERALL_RATING_COMPARATOR),
+                    Collections.reverseOrder(Review.DATE_POSTED_COMPARATOR));
 
-    private static final Comparator<Review> OVERALL_RATING_ASC_DATE_DESC =
-            Review.createCompositeComparator(Review.OVERALL_RATING_COMPARATOR,
-                                Collections.reverseOrder(Review.DATE_POSTED_COMPARATOR));
+    //Compare on who, then overall rating ascending, then date posted descending
+    private static final Comparator<Review> PRINCIPAL_OVERALL_RATING_ASC_DATE_DESC =
+            Review.createCompositeComparator(
+                    Collections.reverseOrder(Review.POSTED_BY_PRINCIPAL_COMPARATOR),
+                    Review.OVERALL_RATING_COMPARATOR,
+                    Collections.reverseOrder(Review.DATE_POSTED_COMPARATOR));
+
+    //Compare on who, then date posted descending
+    private static final Comparator<Review> PRINCIPAL_DATE_DESC =
+            Review.createCompositeComparator(
+                    Collections.reverseOrder(Review.POSTED_BY_PRINCIPAL_COMPARATOR),
+                    Collections.reverseOrder(Review.DATE_POSTED_COMPARATOR));
+
+    //compare on who, then date posted ascending
+    private static final Comparator<Review> PRINCIPAL_DATE_ASC =
+            Review.createCompositeComparator(
+                    Collections.reverseOrder(Review.POSTED_BY_PRINCIPAL_COMPARATOR),
+                    Review.DATE_POSTED_COMPARATOR);
+
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map model = new HashMap();
@@ -45,31 +64,30 @@ public class ParentReviewController extends AbstractSchoolController {
         if (null != school) {
             List reviews = _reviewDao.getPublishedReviewsBySchool(school);
             ParentReviewCommand cmd = new ParentReviewCommand();
-            cmd.setSortBy(request.getParameter(PARAM_SORT_BY));
 
             Ratings ratings = _reviewDao.findRatingsBySchool(school);            
             cmd.setRatings(ratings);
 
-            if (StringUtils.isBlank(cmd.getSortBy())) {
-                cmd.setSortBy("dd");
-            }
+
             /**
              * dd - date descending: newer to older
              * da - date ascending: older to newer
              * rd - overall rating descending: higher to lower
              * ra - overall rating ascending: lower to higher
              */
-            if ("da".equals(cmd.getSortBy())) {
-                //since sorted by date desc when it comes out of database
-                Collections.reverse(reviews);
-            } else if ("rd".equals(cmd.getSortBy())) {
-                Collections.sort(reviews, OVERALL_RATING_DESC_DATE_DESC);
-            } else if ("ra".equals(cmd.getSortBy())) {
-                Collections.sort(reviews, OVERALL_RATING_ASC_DATE_DESC);
+            String paramSortBy = request.getParameter(PARAM_SORT_BY);
+            if ("da".equals(paramSortBy)) {
+                Collections.sort(reviews, PRINCIPAL_DATE_ASC);
+            } else if ("rd".equals(paramSortBy)) {
+                Collections.sort(reviews, PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC);
+            } else if ("ra".equals(paramSortBy)) {
+                Collections.sort(reviews, PRINCIPAL_OVERALL_RATING_ASC_DATE_DESC);
             } else {
-                cmd.setSortBy("dd");
+                Collections.sort(reviews, PRINCIPAL_DATE_DESC);
+                //is user passes in junk, set this as default
+                paramSortBy = "dd";
             }
-            
+            cmd.setSortBy(paramSortBy);
             cmd.setSchool(school);
             cmd.setReviews(reviews);
             cmd.setTotalReviews(reviews.size());
@@ -82,7 +100,7 @@ public class ParentReviewController extends AbstractSchoolController {
                 cmd.setMaxReviewsPerPage(MAX_REVIEWS_PER_PAGE);
             }
 
-            String pagerOffset = (String) request.getParameter(PARAM_PAGER_OFFSET);
+            String pagerOffset = request.getParameter(PARAM_PAGER_OFFSET);
             if (StringUtils.isBlank(pagerOffset) || "0".equals(pagerOffset)) {
                 cmd.setShowParentReviewForm(true);
             } else {

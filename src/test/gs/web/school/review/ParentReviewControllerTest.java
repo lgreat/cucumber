@@ -40,7 +40,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         List<Review> reviews = new ArrayList<Review>();
         Review r1 = new Review();
         r1.setId(1);
-        r1.setQuality(CategoryRating.RATING_1);
+        r1.setQuality(CategoryRating.RATING_3);
         r1.setPosted(df.parse("2002-1-1"));
 
         Review r2 = new Review();
@@ -50,19 +50,28 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
 
         Review r3 = new Review();
         r3.setId(3);
-        r3.setQuality(CategoryRating.RATING_3);
+        r3.setQuality(CategoryRating.RATING_1);
         r3.setPosted(df.parse("2002-1-3"));
 
         Review r4 = new Review();
         r4.setId(4);
-        r4.setQuality(CategoryRating.RATING_4);
+        r4.setQuality(CategoryRating.RATING_5);
         r4.setPosted(df.parse("2002-1-4"));
 
         Review r5 = new Review();
         r5.setId(5);
-        r5.setQuality(CategoryRating.RATING_5);
+        r5.setQuality(CategoryRating.RATING_4);
         r5.setPosted(df.parse("2002-1-5"));
 
+        //this review is oldest by date but it was submitted by a principal
+        //so it should be sorted first always
+        Review r6 = new Review();
+        r6.setId(6);
+        r6.setQuality(CategoryRating.RATING_3);
+        r6.setPosted(df.parse("2000-1-1"));
+        r6.setWho("principal");
+
+        reviews.add(r6);
         reviews.add(r5);
         reviews.add(r4);
         reviews.add(r3);
@@ -75,7 +84,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         _controller.setReviewDao(reviewDao);
     }
 
-    public void testHandleRequestSortDateDescDefaultCase() throws Exception {
+    public void testHandleRequestSortPrincipalDateDescDefaultCase() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
@@ -92,11 +101,16 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
 
         List<Review> reviews = cmd.getReviews();
         assertNotNull(reviews);
-        assertEquals(5, reviews.size());
-        assertEquals(new Integer(5), reviews.get(0).getId());
+        assertEquals(6, reviews.size());
+        assertEquals(new Integer(6), reviews.get(0).getId());
+        assertEquals(new Integer(5), reviews.get(1).getId());
+        assertEquals(new Integer(4), reviews.get(2).getId());
+        assertEquals(new Integer(3), reviews.get(3).getId());
+        assertEquals(new Integer(2), reviews.get(4).getId());
+        assertEquals(new Integer(1), reviews.get(5).getId());
     }
 
-    public void testHandleRequestSortDateAsc() throws Exception {
+    public void testHandleRequestSortPrincipalDateAsc() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
@@ -109,11 +123,17 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
 
         List<Review> reviews = cmd.getReviews();
         assertNotNull(reviews);
-        assertEquals(5, reviews.size());
-        assertEquals(new Integer(1), reviews.get(0).getId());                
+        assertEquals(6, reviews.size());
+        assertEquals(new Integer(6), reviews.get(0).getId());
+        assertEquals(new Integer(1), reviews.get(1).getId());
+        assertEquals(new Integer(2), reviews.get(2).getId());
+        assertEquals(new Integer(3), reviews.get(3).getId());
+        assertEquals(new Integer(4), reviews.get(4).getId());
+        assertEquals(new Integer(5), reviews.get(5).getId());
+
     }
 
-    public void testHandleRequestSortRatingDesc() throws Exception {
+    public void testHandleRequestSortPrincipalRatingDesc() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
@@ -126,12 +146,19 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
 
         List<Review> reviews = cmd.getReviews();
         assertNotNull(reviews);
-        assertEquals(5, reviews.size());
-        assertEquals("sorted by rating desc should yield id 5 as the first one", new Integer(5), reviews.get(0).getId());
+        assertEquals(6, reviews.size());
         assertEquals("not a crawler so don't get all ratings on one page",ParentReviewController.MAX_REVIEWS_PER_PAGE, cmd.getMaxReviewsPerPage());
+
+        assertEquals(new Integer(6), reviews.get(0).getId());
+        assertEquals(new Integer(4), reviews.get(1).getId());
+        assertEquals(new Integer(5), reviews.get(2).getId());
+        assertEquals(new Integer(1), reviews.get(3).getId());
+        assertEquals(new Integer(2), reviews.get(4).getId());
+        assertEquals(new Integer(3), reviews.get(5).getId());
+
     }
 
-    public void testHandleRequestSortRatingAsc() throws Exception {
+    public void testHandleRequestSortPrincipalRatingAsc() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
@@ -144,8 +171,14 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
 
         List<Review> reviews = cmd.getReviews();
         assertNotNull(reviews);
-        assertEquals(5, reviews.size());
-        assertEquals("sorted by rating asc yields rating 1 first", new Integer(1), reviews.get(0).getId());
+        assertEquals(6, reviews.size());
+        assertEquals(new Integer(6), reviews.get(0).getId());
+        assertEquals(new Integer(3), reviews.get(1).getId());
+        assertEquals(new Integer(2), reviews.get(2).getId());
+        assertEquals(new Integer(1), reviews.get(3).getId());
+        assertEquals(new Integer(5), reviews.get(4).getId());
+        assertEquals(new Integer(4), reviews.get(5).getId());
+
     }
 
     public void testCrawlerShowsAllReviewsOnPage() throws Exception {

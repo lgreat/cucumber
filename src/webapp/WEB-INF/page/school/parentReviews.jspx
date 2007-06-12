@@ -124,10 +124,23 @@
                                 <pg:item>
                                     <!-- does user permit name to display-->
                                     <div class="review">
-                                        <c:if test="${review.quality.name ne 'decline'}">
+                                        <c:set var="who" value=""/>
+                                        <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+                                            <c:set var="who" value="${review.who}"/>
+                                        </c:if>
+                                        <c:if test="${(review.quality.name ne 'decline') and (who ne 'principal')}">
                                             <gsml:img src="/res/img/school/parentReviews/stars_med_${review.quality.name}.gif" styleClass="stars" alt="${review.quality.name} out of 5 stars" />
                                         </c:if>
-                                        <p class="author">Posted <c:if test="${not empty(review.who) and review.who ne 'other'}">by a ${review.who}</c:if> ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
+
+                                        <c:choose>
+                                            <c:when test="${who eq 'principal'}">
+                                                <p class="author"><span class="principal">Comments from the principal ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</span></p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p class="author">Posted <c:if test="${who ne ''}">by a ${who}</c:if> ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                         <c:choose>
                                             <c:when test="${review.namePermit eq '1' and not empty(review.user) and not empty(review.user.firstName)}">
                                                 <p>${review.comments}<br/> - ${review.user.firstName} <c:if test="${not empty(review.user.lastName)}">${review.user.lastName}</c:if></p>

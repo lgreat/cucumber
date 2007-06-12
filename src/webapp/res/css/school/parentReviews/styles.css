@@ -330,6 +330,11 @@ Parent Review Page
     _float: left; /* IE 6 hack */
 }
 
+.principal {
+    font-weight: bold;
+    font-size: 12px;
+}
+
 #showParentReviews .review p { /* has IE 7 equivalent */
     float: left;
     _float: none; /* IE 6 hack */
