@@ -359,6 +359,9 @@ Parent Review Page
 	margin: 15px 0 0 25px;
 }
 
+#submitWrapper {
+    _padding-top: 7px;
+}
 
 /* Callouts
 ----------------------------------*/

@@ -22,16 +22,17 @@
                   rows="" cols="">${comment}</textarea>
     </c:set>
     <c:set var="cbxPermit"><input name="permit" type="checkbox" checked="checked"/></c:set>
-    <c:set var="sltWho">
-        <c:set var="who" value="${(not empty param.who) ? param.who : ''}" />
-        <c:set var="selected">" selected="selected</c:set>        
-        <select name="who">
-            <option value="parent${who eq 'parent' ? selected : ''}">parent</option>
-            <option value="student${who eq 'student' ? selected : ''}">student</option>
-            <option value="teacher${who eq 'teacher' ? selected : ''}">teacher</option>
-            <option value="other${who eq 'other' ? selected : ''}">other</option>
-        </select>
-    </c:set>
+
+    <!-- select box start-->
+    <c:set var="who" value="${(not empty param.who) ? param.who : ''}" />
+    <c:set var="selected">" selected="selected</c:set>
+    <c:set var="sltWho"><select name="who" class="select">
+    <option value="parent${who eq 'parent' ? selected : ''}">parent</option>
+    <option value="student${who eq 'student' ? selected : ''}">student</option>
+    <option value="teacher${who eq 'teacher' ? selected : ''}">teacher</option>
+    <option value="other${who eq 'other' ? selected : ''}">other</option>
+</select></c:set>
+    <!--end select box-->
     <c:set var="cbxMss"><input type="checkbox" name="mssSignup" value="yes" checked="checked"/></c:set>
     <c:set var="txtEmail">
         <c:set var="email" value="${(not empty param.email) ? param.email : 'Enter your email address'}" />
@@ -92,9 +93,7 @@
                                 <td>${cbxPermit}</td>
                                 <td>
                                     <!-- added spaces to label, added class to select -->
-                                    <label>I'm a&amp;nbsp;</label>
-                                    ${sltWho}
-                                    &amp;nbsp;and I accept</td></tr>
+                                    <label>I'm a&amp;nbsp;</label>${sltWho}&amp;nbsp;and I accept</td></tr>
                             <tr>
                                 <td>&amp;nbsp;</td>
                                 <td valign="top">
@@ -111,10 +110,12 @@
                                     </td>
                                 </tr>
                             </c:if>
-                        </table>
+                        </table>                        
                         ${txtEmail}
+                        <div id="submitWrapper">
                         <input id="submitReview"
                                class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
+                        </div>
                     </c:when>
                     <c:otherwise>
                         ${commentInputBox}
