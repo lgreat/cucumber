@@ -42,7 +42,8 @@
         <property name="urlMap">
             <map>
                 <entry key="/chart/pie.page" value="pieController"/>
-                <entry key="/content/box/v1/*/*.page" value="contentBoxController"/>                
+                <entry key="/util/isValidEmail.page" value="isValidEmailController"/>
+                <entry key="/content/box/v1/*/*.page" value="contentBoxController"/>
             </map>
         </property>
     </bean>
@@ -1033,13 +1034,12 @@
         <property name="mailSender" ref="mailSender"/>
     </bean>
 
-
     <bean name="pieController"
           autowire="byName"
           class="gs.web.chart.PieController"
           lazy-init="true"/>
 
-    <bean name="/util/isValidEmail.page"
+    <bean name="isValidEmailController"
           class="gs.web.util.IsValidEmailController"
           autowire="byName" lazy-init="true"/>
 
