@@ -271,8 +271,8 @@ hr { /* has IE 7 equivalent */
 #ratingsParentOnly #rating_parent { /* has IE 7 equivalent */
 	float: right;
 	text-align: center;
-	margin: 19px 20px 0 0;
-	_margin: 18px 20px 15px 0; /* IE 6 hack */
+	margin: 19px 33px 0 0;
+	_margin: 18px 33px 15px 0; /* IE 6 hack */
 	width: 135px;
 }
 
