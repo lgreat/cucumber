@@ -1039,6 +1039,10 @@
           class="gs.web.chart.PieController"
           lazy-init="true"/>
 
+    <bean name="/util/isValidEmail.page"
+          class="gs.web.util.IsValidEmailController"
+          autowire="byName" lazy-init="true"/>
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">

@@ -24,10 +24,9 @@ public class IsValidEmailController implements Controller {
      */
     public ModelAndView handleRequest(HttpServletRequest request,
                                       HttpServletResponse response) throws Exception {
-        String email = request.getParameter("email");
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
-        out.print(EmailUtils.isValidEmail(email));
+        out.print(EmailUtils.isValidEmail(request.getParameter("email")));
         out.flush();
         return null;
     }
