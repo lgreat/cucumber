@@ -21,76 +21,24 @@
                   onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
                   rows="" cols="">${comment}</textarea>
     </c:set>
-
-    <c:set var="defaultLayout">
-        ${commentInputBox}
-        <div id="acceptTerms">
-            <input name="permit" type="checkbox" checked="checked"/><label>I'm a</label>
-            <select name="who">
-                <option value="parent">parent</option>
-                <option value="student">student</option>
-                <option value="teacher">teacher</option>
-                <!-- removed per GS-3540 -->
-                <!--<option value="principal">principal</option>-->
-                <option value="other">other</option>
-            </select>
-            <label>and I accept the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
-        </div>
-
-        <c:if test="${school.type.schoolTypeName ne 'private'}">
-            <div id="acceptUpdates">
-                <input type="checkbox" name="mssSignup" value="yes" checked="checked"/><label>Email me monthly
-                updates about this school</label>
-            </div>
-        </c:if>
-
+    <c:set var="cbxPermit"><input name="permit" type="checkbox" checked="checked"/></c:set>
+    <c:set var="sltWho">
+        <c:set var="who" value="${(not empty param.who) ? param.who : ''}" />
+        <c:set var="selected">" selected="selected</c:set>        
+        <select name="who">
+            <option value="parent${who eq 'parent' ? selected : ''}">parent</option>
+            <option value="student${who eq 'student' ? selected : ''}">student</option>
+            <option value="teacher${who eq 'teacher' ? selected : ''}">teacher</option>
+            <option value="other${who eq 'other' ? selected : ''}">other</option>
+        </select>
+    </c:set>
+    <c:set var="cbxMss"><input type="checkbox" name="mssSignup" value="yes" checked="checked"/></c:set>
+    <c:set var="txtEmail">
+        <c:set var="email" value="${(not empty param.email) ? param.email : 'Enter your email address'}" />
         <input type="text" name="email" id="reviewEmail"
                onfocus="if(this.value=='Enter your email address'){this.value='';}"
-               value="Enter your email address" class="emailAddress"/>
-        <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
-               onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
-               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/review/submitReview.gif" type="image" />
+               value="${email}" class="emailAddress"/>
     </c:set>
-
-    <c:set var="parentReviewsPageLayout">
-        ${commentInputBox}
-        <table border="0" cellpadding="0" cellspacing="0">
-            <tr>
-                <td><input checked="checked" type="checkbox" name="permit" /></td>
-                <td>
-                    <!-- added spaces to label, added class to select -->
-                    <label>I'm a&amp;nbsp;</label>
-                    <select name="who" class="select">
-                        <option value="parent">parent</option>
-                        <option value="student">student</option>
-                        <option value="teacher">teacher</option>
-                        <option value="other">other</option>
-                    </select>
-                    &amp;nbsp;and I accept</td></tr>
-            <tr>
-                <td>&amp;nbsp;</td>
-                <td valign="top">
-                    <span class="label2">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
-                </td>
-            </tr>
-            <c:if test="${school.type.schoolTypeName ne 'private'}">
-                <tr>
-                    <td id="acceptUpdates">
-                        <input checked="checked" value="yes" name="mssSignup" type="checkbox"/>
-                    </td>
-                    <td>
-                        <label>Send me updates about this school</label>
-                    </td>
-                </tr>
-            </c:if>
-        </table>
-        <input type="text" name="email" id="reviewEmail"
-               onfocus="if(this.value=='Enter your email address'){this.value='';}"
-               value="Enter your email address" class="emailAddress"/>
-        <input id="submitReview"
-               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
-    </c:set>
-
     <c:if test="${pageName eq 'parentReviews'}">
         <h2 id="rateReviewH2">Rate &amp; Review ${school.name}</h2>
     </c:if>
@@ -138,10 +86,53 @@
                 <input id="confirm" type="hidden" name="confirm" value="" />
                 <c:choose>
                     <c:when test="${pageName eq 'parentReviews'}">
-                        ${parentReviewsPageLayout}
+                        ${commentInputBox}
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td>${cbxPermit}</td>
+                                <td>
+                                    <!-- added spaces to label, added class to select -->
+                                    <label>I'm a&amp;nbsp;</label>
+                                    ${sltWho}
+                                    &amp;nbsp;and I accept</td></tr>
+                            <tr>
+                                <td>&amp;nbsp;</td>
+                                <td valign="top">
+                                    <span class="label2">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
+                                </td>
+                            </tr>
+                            <c:if test="${school.type.schoolTypeName ne 'private'}">
+                                <tr>
+                                    <td id="acceptUpdates">
+                                        ${cbxMss}
+                                    </td>
+                                    <td>
+                                        <label>Send me updates about this school</label>
+                                    </td>
+                                </tr>
+                            </c:if>
+                        </table>
+                        ${txtEmail}
+                        <input id="submitReview"
+                               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
                     </c:when>
                     <c:otherwise>
-                        ${defaultLayout}
+                        ${commentInputBox}
+                        <div id="acceptTerms">
+                            ${cbxPermit}<label>I'm a</label>
+                            ${sltWho}
+                            <label>and I accept the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
+                        </div>
+
+                        <c:if test="${school.type.schoolTypeName ne 'private'}">
+                            <div id="acceptUpdates">
+                                ${cbxMss}<label>Email me monthly updates about this school</label>
+                            </div>
+                        </c:if>
+                        ${txtEmail}
+                        <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
+                               onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
+                               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/review/submitReview.gif" type="image" />
                     </c:otherwise>
                 </c:choose>
             </gsweb:form>
