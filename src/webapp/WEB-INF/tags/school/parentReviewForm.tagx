@@ -41,11 +41,11 @@
                value="${email}" class="emailAddress"/>
     </c:set>
     <c:if test="${pageName eq 'parentReviews'}">
-        <h2 id="rateReviewH2">Rate &amp; Review ${school.name}</h2>
+        <h2 id="rateReviewH2"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/></h2>
     </c:if>
     <div id="rateReview">
         <c:if test="${pageName ne 'parentReviews'}">
-            <h2><a name="rReview">Rate ${school.name}</a></h2>
+            <h2><a name="rReview"><c:out escapeXml="true" value="Rate ${school.name}"/></a></h2>
         </c:if>
         <div id="rateReview_module">
             <div id="ratingTitle">Rate this school</div>
