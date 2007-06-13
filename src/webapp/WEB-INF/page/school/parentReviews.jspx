@@ -115,10 +115,14 @@
                             <pg:param name="state" value="${stateAbbrev}"/>
                             <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
 
-                            <div class="pageControls">
+                            <c:set var="pageControls">
                                 <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
                                 <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page of ${school.name} parent reviews" /></gsml:a></div></pg:next>
                                 <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page of ${school.name} parent reviews" /></gsml:a></div></pg:prev>
+                            </c:set>
+
+                            <div class="pageControls">
+                                ${pageControls}
                             </div>
                             <c:forEach var="review" items="${cmd.reviews}">
                                 <pg:item>
@@ -145,7 +149,7 @@
                                             <c:when test="${review.namePermit eq '1' and not empty(review.user) and not empty(review.user.firstName)}">
                                                 <p><c:out value="${review.comments}" escapeXml="true"/><br/> - ${review.user.firstName} <c:if test="${not empty(review.user.lastName)}">${review.user.lastName}</c:if></p>
                                             </c:when>
-                                            <c:otherwise><p>${review.comments}</p></c:otherwise>
+                                            <c:otherwise><p><c:out value="${review.comments}" escapeXml="true"/></p></c:otherwise>
                                         </c:choose>
                                         <p class="respond"><link:schoolProfileAddParentReview school="${school}">Respond by writing a review</link:schoolProfileAddParentReview></p>
                                     </div><!-- end: review -->
@@ -153,9 +157,7 @@
                             </c:forEach>
 
                             <div class="pageControls bottomNav">
-                                <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
-                                <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page of ${school.name} parent reviews" /></gsml:a></div></pg:next>
-                                <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page of ${school.name} parent reviews" /></gsml:a></div></pg:prev>
+                                ${pageControls}
                             </div><!-- end: pageControls -->
                         </pg:pager>
                         </div><!-- end: showParentReviews -->
