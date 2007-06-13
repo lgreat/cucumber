@@ -1,3 +1,7 @@
+table#nthgraderfields{
+   padding-left: 40px;
+}
+
 table#nthgraderfields td{
    padding:0 7px 8px 0;
    font-weight:bold;
