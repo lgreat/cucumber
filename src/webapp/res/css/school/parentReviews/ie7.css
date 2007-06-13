@@ -48,13 +48,7 @@ IE 7 styles
 
 #parentReview #rateReview {
     float: left;
-    height: 184px;
-    width: 530px;
-    margin-top: 0;
     _margin-top: -2px; /* IE 6 hack */
-    border-bottom: 2px solid #dee;
-    border-left: 2px solid #dee;
-    border-right: 2px solid #dee;
     border-top: 0;
 }
 

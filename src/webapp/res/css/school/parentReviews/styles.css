@@ -121,6 +121,7 @@ Parent Review Page
     border-left: 2px solid #dee;
     border-bottom: 2px solid #dee;
     border-top: none;
+    margin-bottom:18px;
 }
 
 #parentReview #rateReview_module { /* has IE 7 equivalent */
@@ -245,7 +246,6 @@ Parent Review Page
 #showParentReviews {
     float: left;
     width: 533px;
-    margin-top: 14px;
     border-bottom: 1px solid #ddd;
 }
 
