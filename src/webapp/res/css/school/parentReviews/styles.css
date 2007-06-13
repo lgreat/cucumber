@@ -56,17 +56,15 @@ Parent Review Page
 }
 
 #rating_parent .parentTitle { /* has IE 7 equivalent */
-    margin: 20px 0 0 32px;
+    margin: 22px 0 0 34px;
 }
 
 #rating_parent .stars { /* has IE 7 equivalent */
-    margin: 9px 0 0 28px;
-    _margin: 4px 0 0 28px; /* IE 6 hack */
+    margin: 11px 0 0 37px;
 }
 
-#rating_parent .rateIt { /* has IE 7 equivalent */
-    margin: 17px 0 0 51px;
-    _margin: 12px 0 0 51px; /* IE 6 hack */
+#rating_parent .rateIt {
+    margin: 17px 0 0 52px;
 }
 
 #showParentRatings .ratingsNumber { /* has IE 7 equivalent */
@@ -74,7 +72,6 @@ Parent Review Page
     font-style: italic;
     text-align: center;
     margin: 30px 0 20px 0; /* bottom-margin sets white space for module */
-    _margin: 45px 0 20px 0; /* IE 6 hack */
 }
 
 #showParentRatings ul { /* has IE 7 equivalent */
@@ -369,7 +366,7 @@ Parent Review Page
 #callouts {
     width: 532px;
     height: 116px;
-    margin: 25px 0 18px 0;
+    margin: 25px 0 10px 0;
     float: left;
 	border: 1px solid #ddd;
 }
@@ -403,7 +400,8 @@ Parent Review Page
 
 #parentReview .disclaimer {
 	font-size: 10px;
-	width: 500px;
+    line-height:110%;
+    width: 500px;
 }
 
 .clear {

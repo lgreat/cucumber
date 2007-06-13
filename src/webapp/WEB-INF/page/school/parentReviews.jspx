@@ -68,7 +68,7 @@
 
                             <ul>
                                 <c:if test="${not empty cmd.ratings.avgPrincipal}">
-                                    <li>Principal leadership<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgPrincipal}.gif" alt="Principal leadership: ${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
+                                    <li>Principal Leadership<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgPrincipal}.gif" alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
                                 </c:if>
                                 <c:if test="${not empty cmd.ratings.avgTeachers}">
                                     <li>Teacher Quality<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgTeachers}.gif" alt="Teacher Quality: ${cmd.ratings.avgTeachers} out of 5 stars" styleClass="sm_stars" /></li>
@@ -80,7 +80,7 @@
                                     <li>Parent Involvement<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgParents}.gif" alt="Parent Involvement: ${cmd.ratings.avgParents} out of 5 stars" styleClass="sm_stars" /></li>
                                 </c:if>
                                 <c:if test="${not empty cmd.ratings.avgSafety}">
-                                    <li>Safety and discipline<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgSafety}.gif" alt="Safety and discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
+                                    <li>Safety and Discipline<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgSafety}.gif" alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
                                 </c:if>
                             </ul>
 
@@ -177,7 +177,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
-                        <div class="tellUsMore"><p>Principals and school officials, we encourage you to <link:schoolProfileEspLogin school="${school}">tell us more about your school</link:schoolProfileEspLogin></p></div>
+                        <div class="tellUsMore"><p>Principals and school officials, we encourage you to <link:schoolProfileEspLogin school="${school}">tell us more about your school</link:schoolProfileEspLogin>.</p></div>
                     </div><!-- end: callouts -->
 
                     <p class="disclaimer">Parent ratings and review do not represent the views of GreatSchools.net nor does GreatSchools.net check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
@@ -186,9 +186,11 @@
                 <div id="col_right">
                     <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
                     <ad:Top_300x137/>
-                    <ad:x48/>
+                    <ad:x47/>
                     <ad:AboveFold_300x250/>
                     <ad:multiTextAd blurb="Advertiser links"/>
+                    <ad:x67/>
+                    <ad:AboveFold_Right_120x600/>
                     <c:if test="${empty param.hideMap}">
                         <school:nearbySchools school="${school}"/>
                     </c:if>                    
