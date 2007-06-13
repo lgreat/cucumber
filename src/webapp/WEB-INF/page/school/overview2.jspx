@@ -105,7 +105,7 @@
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
             <c:if test="${requestScope.context.ABVersion eq 'b'}">
-                <div style="float:left; padding-bottom:25px;">
+                <div id="topCompare" style="float:left; padding-bottom:25px;">
                     <school:compareSchool school="${school}"/>
                 </div>
             </c:if>

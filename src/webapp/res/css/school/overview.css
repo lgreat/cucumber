@@ -219,7 +219,7 @@ hr { /* has IE 7 equivalent */
 #ratingsBoth h2 {
 	background: url(/res/img/school/overview/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
 	height: 27px;
-	_width: 352px; /* IE 6 hack */
+	_width: 353px; /* IE 6 hack */
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
 
@@ -242,9 +242,9 @@ hr { /* has IE 7 equivalent */
 
 #ratingsBoth #rating_parent { /* has IE 7 equivalent */
     float: right;
-	text-align: center;
+    text-align: center;
 	margin: 19px 15px 0 0;
-	_margin: 20px 17px 17px 0; /* IE 6 hack */
+	_margin: 20px 8px 17px 0px; /* IE 6 hack */
 	width: 140px;
 }
 
@@ -272,7 +272,7 @@ hr { /* has IE 7 equivalent */
 	float: right;
 	text-align: center;
 	margin: 19px 33px 0 0;
-	_margin: 18px 33px 15px 0; /* IE 6 hack */
+	_margin: 18px 16px 15px 0; /* IE 6 hack */
 	width: 135px;
 }
 
@@ -541,4 +541,8 @@ hr { /* has IE 7 equivalent */
 
 .clear {
 	clear: both;
+}
+
+div#topCompare div#compareSchool {
+    margin-top:0;
 }
