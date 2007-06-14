@@ -116,14 +116,14 @@
                             <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
 
                             <c:set var="pageControls">
-                                <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
-                                <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page of ${school.name} parent reviews" /></gsml:a></div></pg:next>
-                                <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page of ${school.name} parent reviews" /></gsml:a></div></pg:prev>
+                                <div class="pageControls">
+                                    <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
+                                    <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page of ${school.name} parent reviews" /></gsml:a></div></pg:next>
+                                    <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page of ${school.name} parent reviews" /></gsml:a></div></pg:prev>
+                                </div>
                             </c:set>
 
-                            <div class="pageControls">
-                                ${pageControls}
-                            </div>
+                            ${pageControls}
                             <c:forEach var="review" items="${cmd.reviews}">
                                 <pg:item>
                                     <!-- does user permit name to display-->
@@ -155,10 +155,7 @@
                                     </div><!-- end: review -->
                                 </pg:item>
                             </c:forEach>
-
-                            <div class="pageControls bottomNav">
-                                ${pageControls}
-                            </div><!-- end: pageControls -->
+                            ${pageControls}
                         </pg:pager>
                         </div><!-- end: showParentReviews -->
                         <link:schoolProfileAddParentReview school="${school}"><gsml:img src="/res/img/school/parentReviews/promo_DoYouAgree.gif" alt="Do you agree with what parents wrote about this school? Review ${school.name} and tell us what you think!" id="reviewPromo" /></link:schoolProfileAddParentReview>                        

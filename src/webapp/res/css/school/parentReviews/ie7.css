@@ -116,37 +116,3 @@ IE 7 styles
 	margin: -14px 100px 0 0;
 	float: right;
 }
-
-
-/* Parent Reviews
-----------------------------------*/
-
-#showParentReviews .bottomNav {
-	margin-top: 20px;
-	_margin-bottom: 28px;
-	border: 1px solid white; /* very necessary for some reason */
-}
-
-#showParentReviews .review {
-    float: left;
-    width: 490px;
-    width: 500px;
-    margin: 0 0 23px 16px;
-    _margin: 0 0 23px 10px;
-}
-
-#showParentReviews .review .author {
-    margin: 12px 0 0 0px;
-    font-size: 11px;
-    font-style: italic;
-    float: left;
-    width: 375px;
-}
-
-#showParentReviews .review p {
-    float: left;
-    _float: none; /* IE 6 hack */
-    margin-top: 2px;
-    font-size: 12px;
-    line-height: 18px;
-}

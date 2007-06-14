@@ -268,27 +268,27 @@ Parent Review Page
     float: left;
 }
 
-#showParentReviews .pageControls { /* has IE 7 equivalent */
+#showParentReviews .pageControls {
     float: right;
     width: 298px;
     margin: 0 0 25px 0;
     _margin: 0 0 25px 0; /* IE 6 hack */
 }
 
-#showParentReviews .bottom { /* has IE 7 equivalent */
+#showParentReviews .bottom {
 	margin-top: 20px;
 	_margin-bottom: 28px;
 	_border: 1px solid white; /* IE 6 hack, very necessary for some reason */
 }
 
-.nextPage { /* has IE 7 equivalent */
+.nextPage {
     width: 105px;
     height: 19px;
     float: right;
     _margin-top: 2px; /* IE 6 hack */
 }
 
-.previousPage { /* has IE 7 equivalent */
+.previousPage {
     width: 107px;
     height: 19px;
     margin-right: 5px;
@@ -302,7 +302,7 @@ Parent Review Page
     margin-top: 3px;
 }
 
-#showParentReviews .review { /* has IE 7 equivalent */
+#showParentReviews .review {
     float: left;
     width: 490px;
     _width: 500px; /* IE 6 hack */
@@ -316,7 +316,7 @@ Parent Review Page
     _margin-right:14px; /* IE 6 hack */
 }
 
-#showParentReviews .review .author { /* has IE 7 equivalent */
+#showParentReviews .review .author {
     margin: 12px 0 0 0;
     _margin: 12px 0 0 0; /* IE 6 hack */
     font-size: 11px;
@@ -330,7 +330,7 @@ Parent Review Page
     font-size: 12px;
 }
 
-#showParentReviews .review p { /* has IE 7 equivalent */
+#showParentReviews .review p {
     float: left;
     _float: none; /* IE 6 hack */
     margin-top: 2px;
