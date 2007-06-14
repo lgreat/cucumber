@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.13 2007/02/27 18:04:54 dlee Exp $
+ * $Id: RecentParentReviewsController.java,v 1.14 2007/06/14 22:45:47 dlee Exp $
  */
 
 package gs.web.school.review;
@@ -11,7 +11,6 @@ import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
-import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -60,13 +59,13 @@ public class RecentParentReviewsController extends AbstractController {
     public interface IParentReviewModel {
         String getSchoolName();
 
-        String getSchoolLink();
-
         int getStars();
 
         String getDate();
 
         String getQuip();
+
+        School getSchool();
     }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -120,11 +119,6 @@ public class RecentParentReviewsController extends AbstractController {
             return _school.getName();
         }
 
-        public String getSchoolLink() {
-            UrlBuilder builder = new UrlBuilder(_school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
-            return builder.asSiteRelativeXml(null);
-        }
-
         public int getStars() {
             final CategoryRating quality = _review.getQuality();
 
@@ -161,6 +155,9 @@ public class RecentParentReviewsController extends AbstractController {
             return q;
         }
 
+        public School getSchool() {
+            return _school;
+        }
     }
 
 }

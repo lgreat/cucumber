@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.4 2006/12/19 01:04:17 thuss Exp $
+ * $Id: RecentParentReviewsControllerTest.java,v 1.5 2007/06/14 22:45:47 dlee Exp $
  */
 
 package gs.web.school.review;
@@ -57,8 +57,8 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 
             assertNotNull(review.getQuip());
             assertNotNull(review.getDate());
-            assertNotNull(review.getSchoolLink());
             assertNotNull(review.getSchoolName());
+            assertNotNull(review.getSchool());
             assertTrue(review.getStars() > 0);
             assertTrue(review.getStars() <= 5);
         }
