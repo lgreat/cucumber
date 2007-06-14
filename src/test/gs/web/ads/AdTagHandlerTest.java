@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.9 2007/06/05 00:32:50 dlee Exp $
+ * $Id: AdTagHandlerTest.java,v 1.10 2007/06/14 23:28:38 dlee Exp $
  */
 package gs.web.ads;
 
@@ -150,6 +150,21 @@ public class AdTagHandlerTest extends BaseTestCase {
                 "        </div>";
         
         XMLAssert.assertXMLEqual(encode(expectedOutput), encode(output));
+    }
+
+    public void testCustomCobrandWithNoAdPositionDefinedReturnsEmptyString() throws Exception {
+        _sessionContext.setCobrand("yahoo");
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _tag.setJspContext(jspContext);
+        _tag.setPosition("x67");
+
+        String output = _tag.getDeferredContent();
+        assertEquals("", output);
     }
 
     /**

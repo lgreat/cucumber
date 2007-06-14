@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.11 2007/06/05 00:32:50 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.12 2007/06/14 23:28:39 dlee Exp $
  */
 package gs.web.ads;
 
@@ -67,7 +67,11 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         if (pageHelper.isAdServedByCobrand()) {
             AdTagManager adManager = AdTagManager.getInstance();
             String customAdTag = adManager.getAdTag(sc.getCobrand(), _adPosition);
-            buffer.append(customAdTag);
+            if (StringUtils.isEmpty(customAdTag)) {
+                return "";
+            } else {
+                buffer.append(customAdTag);
+            }
         } else {
             //make sure position has not been previously used on this page.
             Set <AdPosition> adPositions = pageHelper.getAdPositions();
