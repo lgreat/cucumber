@@ -86,22 +86,10 @@ public class SearchResult {
             if (StringUtils.isNotBlank(street)) {
                 addressBuffer.append(street);
             }
-            String city = _doc.get("city");
-            if (StringUtils.isNotBlank(city)) {
+            String cityStateZip = getCityStateZip();
+            if (StringUtils.isNotBlank(cityStateZip)) {
                 addressBuffer.append(",  ");
-                addressBuffer.append(city);
-            }
-
-            String state = getState().toUpperCase();
-            if (StringUtils.isNotBlank(state)) {
-                addressBuffer.append(", ");
-                addressBuffer.append(state);
-            }
-
-            String zip = _doc.get("zip");
-            if (StringUtils.isNotBlank(zip)) {
-                addressBuffer.append(" ");
-                addressBuffer.append(zip);
+                addressBuffer.append(cityStateZip);
             }
             _address = addressBuffer.toString ();
         }
@@ -155,5 +143,26 @@ public class SearchResult {
 
     public String getStreetAddress() {
         return _doc.get("street");
+    }
+
+    public String getCityStateZip() {
+        StringBuffer addressBuffer = new StringBuffer();
+        String city = _doc.get("city");
+        if (StringUtils.isNotBlank(city)) {
+            addressBuffer.append(city);
+        }
+
+        String state = getState().toUpperCase();
+        if (StringUtils.isNotBlank(state)) {
+            addressBuffer.append(", ");
+            addressBuffer.append(state);
+        }
+
+        String zip = _doc.get("zip");
+        if (StringUtils.isNotBlank(zip)) {
+            addressBuffer.append(" ");
+            addressBuffer.append(zip);
+        }
+        return addressBuffer.toString();
     }
 }

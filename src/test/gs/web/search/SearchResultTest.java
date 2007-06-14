@@ -143,6 +143,16 @@ public class SearchResultTest extends TestCase {
         assertEquals("Street address should not include city", "222 2nd St.", result.getStreetAddress());
     }
 
+    public void testGetCityStateZip() {
+        Document doc = new Document();
+        doc.add(Field.Text("city", "Tahachepe"));
+        doc.add(Field.Text("state", "ca"));
+        doc.add(Field.Text("zip", "12345"));
+        SearchResult result = new SearchResult(doc);
+
+        assertEquals("Unexpected city state zip", "Tahachepe, CA 12345", result.getCityStateZip());
+    }
+
     public void testGetSchoolType() {
         Document doc = new Document();
         SearchResult result = new SearchResult(doc);
