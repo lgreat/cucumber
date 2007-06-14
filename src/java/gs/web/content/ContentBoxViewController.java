@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ContentBoxViewController.java,v 1.5 2006/05/03 01:22:50 apeterson Exp $
+ * $Id: ContentBoxViewController.java,v 1.6 2007/06/14 17:29:27 thuss Exp $
  */
 
 package gs.web.content;
@@ -11,47 +11,61 @@ import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Cookie;
 import java.util.Date;
+
+import gs.web.util.UrlUtil;
 
 /**
  * Controller for the content box. Figures out what page to show and
  * and sets cache control to cache the page.
+ * <p/>
+ * http://localhost:8080/gs-web/content/box/v1/WY/feature01.page
+ * http://localhost:8080/gs-web/content/box/v1/WY/tipOfTheWeek.page
+ * <p/>
+ * Gets the content from
+ * <p/>
+ * http://spreadsheets.google.com/pub?key=pouqRkV5D_eZo2j7CmCj0OQ
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author apeterson
+ * @author thuss
  */
 public class ContentBoxViewController extends ParameterizableViewController {
 
-    public static final String MODEL_PERL_PAGE = "framedUri";
-    public static final String MODEL_STATE_ABBREV = "stateAbbrev";
+    public static final String MODEL_STATE = "state";
+
+    public static final String MODEL_FEATURE = "feature";
+
+    public static final String MODEL_WORKSHEET = "worksheet";
+
+    public static final String BEAN_ID = "contentBoxController";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-
         String uri = request.getRequestURI();
-
-        // This looks like this:
-        //     /gs-web/content/box/v1/CA/articleName.page
-        uri = uri.replaceAll(".page", "");
-        //     /gs-web/content/box/v1/CA/articleName
         String[] s = StringUtils.split(uri, '/');
-        String articleName = s[s.length - 1];
-        String stateStr = s[s.length - 2];
 
-        request.setAttribute(MODEL_PERL_PAGE, "http://" +
-                request.getServerName() +
-                //"dev.greatschools.net" +
-                "/content/box/" +
-                articleName +
-                ".html");
-        request.setAttribute(MODEL_STATE_ABBREV, stateStr);
+        // Feature name such as tipOfTheWeek (key in spreadsheet)
+        String feature = s[s.length - 1];
+        feature = feature.replaceFirst(".page", "");
+        request.setAttribute(MODEL_FEATURE, feature);
+
+        // State abbreviation
+        String state = s[s.length - 2];
+        request.setAttribute(MODEL_STATE, state.toUpperCase());
+
+        // Determine whether to use the DevStaging worksheet or the Production worksheet
+        UrlUtil util = new UrlUtil();
+        if (util.isDevEnvironment(request.getServerName())) {
+            request.setAttribute(MODEL_WORKSHEET, "od6"); // od6 is always the first worksheet
+        } else {
+            request.setAttribute(MODEL_WORKSHEET, "od7");
+        }
 
         // Allow caching
         response.setHeader("Cache-Control", "public; max-age: 600");
         response.setHeader("Pragma", "");
         Date date = new Date();
         response.setDateHeader("Expires", date.getTime() + 600000);
-
 
         return super.handleRequestInternal(request, response);
     }
