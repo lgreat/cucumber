@@ -152,4 +152,8 @@ public class SearchResult {
         }
         return explanation.trim();
     }
+
+    public String getStreetAddress() {
+        return _doc.get("street");
+    }
 }

@@ -134,6 +134,15 @@ public class SearchResultTest extends TestCase {
         assertEquals("222 2nd St.,  Tahachepe, CA 12345", result.getAddress());
     }
 
+    public void testGetStreetAddress() {
+        Document doc = new Document();
+        doc.add(Field.Text("street", "222 2nd St."));
+        doc.add(Field.Text("city", "Tahachepe"));
+        SearchResult result = new SearchResult(doc);
+
+        assertEquals("Street address should not include city", "222 2nd St.", result.getStreetAddress());
+    }
+
     public void testGetSchoolType() {
         Document doc = new Document();
         SearchResult result = new SearchResult(doc);
