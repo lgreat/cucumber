@@ -48,11 +48,6 @@
     </head>
     <gsml:body adPageName="parentReviews" pageLayout="parentReviews">
     <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
-    <![CDATA[
-    <!--[if IE 7]>
-        <link rel="stylesheet" type="text/css" href="/res/css/school/parentReviews/ie7.css" />
-    <![endif]-->
-    ]]>
         <school:profile school="${school}" tab="parentReviews">
             <gsml:equalizeColumns ids="'col_left','col_right'"/>
             <div id="parentReview">

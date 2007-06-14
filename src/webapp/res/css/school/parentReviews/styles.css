@@ -107,7 +107,7 @@ Parent Review Page
 /* Rate & Review
 ----------------------------------*/
 
-#parentReview #rateReview { /* has IE 7 equivalent */
+#parentReview #rateReview {
     float: left;
     /*height: 203px;*/
     /*_height: 202px;*/ /* IE 6 hack */
@@ -122,7 +122,7 @@ Parent Review Page
     margin-bottom:18px;
 }
 
-#parentReview #rateReview_module { /* has IE 7 equivalent */
+#parentReview #rateReview_module {
     margin: 0;
     padding: 0;
     width: 510px;
@@ -164,7 +164,7 @@ Parent Review Page
     width: 125px;
 }
 
-#parentReview #rateReview_module #reviewText { /* has IE 7 equivalent */
+#parentReview #rateReview_module #reviewText {
 	font: 12px/15px Trebuchet MS;
 	color: #666;
 	padding: 4px 0 5px 7px;
@@ -175,27 +175,28 @@ Parent Review Page
 	float: left;
 }
 
-#parentReview #rateReview_module form { /* has IE 7 equivalent */
+#parentReview #rateReview_module form {
 	margin: 10px 0 0 0;
-	_width: 505px; /* IE 6 hack */
+    width:505px;
+    float:left;
 }
 
-#parentReview #rateReview_module .select { /* has IE 7 equivalent */
+#parentReview #rateReview_module table {
+    margin: -3px 0 0 0;
+    _margin: -2px 0 0 18px; /* IE 6 hack */
+    float:left;
+}
+
+#parentReview #rateReview_module .select {
     _margin-top: 2px; /* IE 6 hack */
 }
 
-#parentReview #rateReview_module table { /* has IE 7 equivalent */
-    margin: -3px 0 0 2px;
-    _margin: -2px 0 0 18px; /* IE 6 hack */
-    _float: left; /* IE 6 hack */
-}
-
-#parentReview #rateReview_module #acceptUpdates { /* has IE 7 equivalent */
+#parentReview #rateReview_module #acceptUpdates {
     height: 26px;
     _height: 24px; /* IE 6 hack */
 }
 
-#parentReview #rateReview_module label { /* has IE 7 equivalent */
+#parentReview #rateReview_module label {
 	font-size: 12px;
 	line-height: 14px;
 	color: #666;
@@ -208,29 +209,34 @@ Parent Review Page
     _margin: -7px 0 0 1px; /* IE 6 hack */
 }
 
-#parentReview #rateReview_module .emailAddress { /* has IE 7 equivalent */
-	margin: 8px 0 0 3px;
-	_margin: 8px 0 0 22px; /* IE 6 hack */
-	font: 12px/15px Trebuchet MS;
-	color: #666;
-	padding: 1px;
-	padding-left: 4px;
-	width: 142px;
-	_width: 138px; /* IE 6 hack */
-	height: 15px;
-	float: left;
+
+#parentReview #rateReview_module .emailAddress {
+    margin: 8px 0 0 3px;
+    _margin: 8px 0 0 22px; /* IE 6 hack */
+    font: 12px/15px Trebuchet MS;
+    color: #666;
+    padding: 1px;
+    padding-left: 4px;
+    width: 142px;
+    _width: 138px; /* IE 6 hack */
+    height: 15px;
+    float: left;
 }
 
-#parentReview #rateReview_module #submitReview { /* has IE 7 equivalent */
-	width: 62px;
-	height: 19px;
-	float: right;
-	margin: 9px 6px 0 0;
-	_margin: 1px 1px 0 0; /* IE 6 hack */
-	text-decoration: none;
+#parentReview #rateReview_module #submitReview {
+    width: 62px;
+    height: 19px;
+    float: right;
+    margin: 9px 0 0 6px;
+    _margin: 1px 1px 0 0; /* IE 6 hack */
+    text-decoration: none;
 }
 
-#parentReview #rateReview_module .privacyPolicy { /* has IE 7 equivalent */
+#submitWrapper {
+    _padding-top: 7px;
+}
+
+#parentReview #rateReview_module .privacyPolicy {
 	font-size: 10px;
 	margin: -14px 100px 0 0;
 	_margin: -14px 50px 0 0; /* IE 6 hack */
@@ -353,11 +359,6 @@ Parent Review Page
 #reviewPromo { /* has IE 7 equivalent */
 	margin: 15px 0 25px 25px;
 }
-
-#submitWrapper {
-    _padding-top: 7px;
-}
-
 /* Callouts
 ----------------------------------*/
 
