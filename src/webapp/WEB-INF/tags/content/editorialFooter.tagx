@@ -154,13 +154,17 @@
                                       border="0" alt=""/><br/>
 
                     <div class="billsBlog">
-                        <div class="billsBlogImg">Photo of apple and jar of pencils</div>
+                        <div class="billsBlogImg">Photo of Bill Jackson</div>
 
-                        <div class="blueTitleText">Teacher Gift Ideas</div>
+                        <div class="blueTitleText">Bill's Blog</div>
 
-                        You don't have to be Martha Stewart to create a gift that says,
-                        "Thanks for a great year." 
-                        <div class="middleBottom"><gsml:a href="/cgi-bin/showarticle/$STATE/162" styleClass="border10Links">Ideas galore that won't break your budget &gt;</gsml:a></div>
+                        <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="6" alt=""/>
+
+                        <cache:cache scope="application" name="blog" key="bill3">
+                            <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
+                                              defaultTitle="Bill's thoughts on education"
+                                              defaultUrl="http://billsblog.greatschools.net"/>
+                        </cache:cache>
                     </div></td>
                 <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"
                                                          width="1" height="1" alt="" border="0"/></td>
@@ -168,18 +172,19 @@
                                       alt="" border="0"/><br/>
 
                     <div class="healthyKids">
-                        <div class="healthyKidsImg">Photo of blueberries</div>
-                        <div class="blueTitleText">Healthy Kids</div>
-                        Got the lunchbox blahs?
-                        <gsml:a href="/cgi-bin/showarticle/$STATE/330" styleClass="border10Links">Try these ideas to add pizzazz &gt;</gsml:a>
-                        <div class="middleBottom"><gsml:a href="/content/healthyKids.page" styleClass="border10Links">See more &gt;</gsml:a></div>
-                        <center>
-                        <span class="granolaBites">
-                            <!--BROUGHT TO YOU BY QUAKER OATS -->
-                            Brought to you by<br/>Quaker Snack Bars<br/>
-                            <gsml:img src="/res/img/content/research/QSB_Logo_88x31.gif" alt="Logo of Quaker Oats Snack Bars"/>
-                        </span>
-                        </center>
+                        <div class="healthyKidsImg">Photo of apple and jar of pencils</div>
+                        <div class="blueTitleText">Back to School</div>
+                        Tips for shopping, getting a head start on a great year!
+                        <div class="middleBottom"><gsml:a href="/content/backToSchool.page" styleClass="border10Links">See more &gt;</gsml:a></div>
+                        <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
+                            <center>
+                            <span class="granolaBites">
+                                <!--BROUGHT TO YOU BY QUAKER OATS -->
+                                Brought to you by<br/>Quaker Snack Bars<br/>
+                                <gsml:img src="/res/img/content/research/QSB_Logo_88x31.gif" alt="Logo of Quaker Oats Snack Bars"/>
+                            </span>
+                            </center>
+                        </c:if>
                     </div>
                 </td>
             </tr>

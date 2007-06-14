@@ -84,7 +84,7 @@
 }
 
 #editorialFooter div.healthyKids .middleBottom {
-	padding-top: 12px;
+	padding-top: 6px;
     padding-bottom: 12px;
 }
 
@@ -131,11 +131,11 @@
 #editorialFooter .billsBlogImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(../../img/content/research/teachergiftapple.jpg);
+	background-image: url(../../img/content/research/img_bills_blog.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
-	height: 86px;
+	height: 85px;
 }
 
 #editorialFooter div.healthyKids {
@@ -151,7 +151,7 @@
 #editorialFooter .healthyKidsImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(../../img/content/research/blueberries.jpg);
+	background-image: url(../../img/content/research/teachergiftapple.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
