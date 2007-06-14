@@ -189,6 +189,7 @@ Parent Review Page
 
 #parentReview #rateReview_module .select {
     _margin-top: 2px; /* IE 6 hack */
+    font-size:11px;
 }
 
 #parentReview #rateReview_module #acceptUpdates {
@@ -251,6 +252,7 @@ Parent Review Page
     float: left;
     width: 533px;
     border-bottom: 1px solid #ddd;
+    color: #666666;
 }
 
 #showParentReviews h2 {
@@ -272,6 +274,7 @@ Parent Review Page
     width: 164px;
     font-size: 11px;
     float: left;
+    color: #666666;
 }
 
 #showParentReviews .pageControls {
@@ -343,7 +346,7 @@ Parent Review Page
     font-size: 12px;
     line-height: 18px;
     width: 490px;
-    _width: 500px; /* IE 6 hack */    
+    _width: 500px; /* IE 6 hack */
 }
 
 #showParentReviews .review a {
@@ -368,6 +371,7 @@ Parent Review Page
     margin: 0 0 10px 0;
     float: left;
 	border: 1px solid #ddd;
+    color: #666666;
 }
 
 #callouts .learnMore {
@@ -401,6 +405,7 @@ Parent Review Page
 	font-size: 10px;
     line-height:110%;
     width: 500px;
+    color:#666666;
 }
 
 .clear {
