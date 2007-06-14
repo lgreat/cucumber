@@ -47,19 +47,17 @@ Parent Review Page
 }
 
 /* rating_parent */
-
-#rating_parent { /* has IE 7 equivalent */
+#rating_parent {
     width: 176px;
     float: left;
     background: url(/res/img/school/parentReviews/bg_rating_parent.gif) top no-repeat;
-    /*border: 1px solid #ddd;*/
 }
 
-#rating_parent .parentTitle { /* has IE 7 equivalent */
+#rating_parent .parentTitle {
     margin: 22px 0 0 34px;
 }
 
-#rating_parent .stars { /* has IE 7 equivalent */
+#rating_parent .stars {
     margin: 11px 0 0 37px;
 }
 
@@ -67,14 +65,14 @@ Parent Review Page
     margin: 17px 0 0 52px;
 }
 
-#showParentRatings .ratingsNumber { /* has IE 7 equivalent */
+#showParentRatings .ratingsNumber {
     font-size: 11px;
     font-style: italic;
     text-align: center;
     margin: 30px 0 20px 0; /* bottom-margin sets white space for module */
 }
 
-#showParentRatings ul { /* has IE 7 equivalent */
+#showParentRatings ul {
     width: 307px;
     margin: 13px 15px 0 0;
     _margin: 11px 7px 0 0; /* IE 6 hack */

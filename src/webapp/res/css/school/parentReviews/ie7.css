@@ -1,51 +1,10 @@
 /*------------------------------------------------------
-
-GreatSchools
-
 Parent Review Page
 IE 7 styles
-
 -------------------------------------------------------*/
-
-/* Show Parent Ratings
-----------------------------------*/
-
-/* rating_parent */
-
-#parentReview #rating_parent {
-    width: 176px;
-    float: left;
-    background: url(/res/img/school/parentReviews/bg_rating_parent.gif) top no-repeat;
-    /*border: 1px solid #ddd;*/
-}
-
-#rating_parent .parentTitle {
-    margin: 20px 0 0 32px;
-    float: left;
-}
-
-#rating_parent .stars {
-    float: left;
-}
-
-#showParentRatings .ratingsNumber {
-    font-size: 11px;
-    font-style: italic;
-    text-align: center;
-    margin: 30px 0 20px 0;
-}
-
-#showParentRatings ul {
-    width: 307px;
-    margin: 13px 15px 0 0;
-    _margin: 11px 7px 0 0; /* IE 6 hack */
-    float: right;
-}
-
 
 /* Rate & Review
 ----------------------------------*/
-
 #parentReview #rateReview {
     float: left;
     _margin-top: -2px; /* IE 6 hack */
