@@ -77,7 +77,7 @@ public class ResultsPager {
     }
 
 
-    public static void setSchoolDao(ISchoolDao schoolDao) {
+    public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
     }
 
