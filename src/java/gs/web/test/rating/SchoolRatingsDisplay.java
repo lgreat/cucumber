@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.28 2007/06/07 20:24:35 droy Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.29 2007/06/15 19:29:12 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -160,6 +160,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             if(label.startsWith("Grade All")){
                 if(state.equals(State.AR)){
                     label = "EOC";
+                }
+                else if(state.equals(State.DC)){
+                    label = "DC-CAS";
                 }
                 else if(state.equals(State.MD)){
                     label = "HSA";
