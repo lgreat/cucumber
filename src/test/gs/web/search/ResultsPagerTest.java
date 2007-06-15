@@ -22,62 +22,39 @@ import org.apache.lucene.index.Term;
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class ResultsPagerTest extends TestCase {
-
     private static Hits _hits;
 
-    public void testNullArguments() {
-        ResultsPager pager = new ResultsPager(null, null);
-        assertNotNull(pager.getResults(1, 1));
+    protected void setUp() throws Exception {
+        getHits();
+    }
 
-        ResultsPager pager2 = new ResultsPager(null, "school");
+    public void testNullArguments() {
+        ResultsPager pager2 = new ResultsPager(null, ResultsPager.ResultType.SCHOOLS);
         assertNotNull(pager2.getResults(1, 1));
     }
 
-    public void testPagerNullConstraint() {
-        Hits h = getHits();
-        System.out.println ("hits: " + h.length());
-        ResultsPager rp = new ResultsPager(h, null);
-        List results = rp.getResults(1, 10);
-        assertEquals(10, results.size());
-
-        List r2 = rp.getResults(0, 10);
-        assertEquals(10, r2.size());
-    }
-
-    public void testGetSchoolsTotal() {
-        ResultsPager rp1 = new ResultsPager(getHits(), "foo");
-        assertEquals(0, rp1.getSchoolsTotal());
-
-        ResultsPager rp2 = new ResultsPager(getHits(), "school");
-        assertEquals(50, rp2.getSchoolsTotal());
-    }
-
     public void testPagerConstraint() {
-        ResultsPager rp = new ResultsPager(getHits(), "foo");
+        ResultsPager rp = new ResultsPager(_hits, ResultsPager.ResultType.ARTICLES);
         List results = rp.getResults(1, 10);
         assertEquals(10, results.size());
     }
 
     public void testPageSizes() {
-        ResultsPager rp = new ResultsPager(getHits(), "school");
+        ResultsPager rp = new ResultsPager(_hits, ResultsPager.ResultType.ARTICLES);
         List results = rp.getResults(1, 0);
-        assertEquals(50, results.size());
+        assertEquals("All hits should be returned if page size is 0", _hits.length(), results.size());
 
         List r2 = rp.getResults(1, 50);
         assertEquals(50, r2.size());
+
+        //TODO: test page size variations and school results
     }
 
-    public void testGetSchools() {
-        ResultsPager rp = new ResultsPager(getHits(), "foo");
-        List shouldBeEmpty = rp.getSchools(1, 10);
-        assertEquals(0, shouldBeEmpty.size());
-
-        ResultsPager rp2 = new ResultsPager(getHits(), "school");
-        List shouldHave9 = rp2.getSchools(1, 10);
-        assertEquals(9, shouldHave9.size());
+    public void testGetPageOfSchoolResults() {
+        ResultsPager rp = new ResultsPager(_hits, ResultsPager.ResultType.SCHOOLS);
     }
 
-    private static Hits getHits() {
+    private static void getHits() {
         if (_hits == null) {
             try {
                 Directory directory = new RAMDirectory();
@@ -104,6 +81,5 @@ public class ResultsPagerTest extends TestCase {
             }
 
         }
-        return _hits;
     }
 }

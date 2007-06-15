@@ -207,7 +207,7 @@ public class SearchController extends AbstractFormController {
 
         boolean resultsToShow = false;
         Hits hits = _searcher.search(searchCommand);
-        ResultsPager _resultsPager = new ResultsPager(hits, searchCommand.getType());
+        ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.fromSearchCommand(searchCommand));
         if (hits != null && hits.length() > 0) {
             if (debug) {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
