@@ -39,12 +39,6 @@ public class ResultsPagerTest extends TestCase {
         assertNotNull(pager.getResults(1, 1));
     }
 
-    public void testPagerConstraint() {
-        ResultsPager rp = new ResultsPager(_hits, ResultsPager.ResultType.ARTICLES);
-        List results = rp.getResults(1, 10);
-        assertEquals(10, results.size());
-    }
-
     public void testPageSizes() {
         ResultsPager rp = new ResultsPager(_hits, ResultsPager.ResultType.ARTICLES);
         List results = rp.getResults(1, 0);
