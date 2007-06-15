@@ -118,7 +118,7 @@ public class UtilTest extends TestCase {
         } catch(IllegalArgumentException e) {}
 
         try {
-            Util.pluralize(0, null);
+            Util.pluralize(0, null, null);
             fail("passed a null word and plural word");
         } catch(IllegalArgumentException e) {}
     }
@@ -132,12 +132,12 @@ public class UtilTest extends TestCase {
         assertEquals("two years and one month ago", d("2002-1-1", "2004-2-2"));
 
         assertEquals("one month ago", d("2002-1-1", "2002-2-2"));
-        assertEquals("thirty days ago", d("2002-1-2", "2002-2-1"));
+        assertEquals("30 days ago", d("2002-1-2", "2002-2-1"));
         assertEquals("one month ago", d("2002-1-2", "2002-2-2"));
         assertEquals("two months ago", d("2002-1-1", "2002-3-28"));
 
         assertEquals("one month ago", d("2003-1-1", "2003-2-28"));
-        assertEquals("twenty two days ago", d("2002-1-29", "2002-2-20"));
+        assertEquals("22 days ago", d("2002-1-29", "2002-2-20"));
 
         assertEquals("one day ago", d("2002-1-1", "2002-1-2"));
         assertEquals("two days ago", d("2002-1-1", "2002-1-3"));

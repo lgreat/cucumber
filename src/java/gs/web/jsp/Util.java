@@ -147,73 +147,52 @@ public class Util {
     }
 
     /**
-     * Method that pluralizes a singular word by appending a 's'.
-     *
-     * Example:
-     *      pluralize(1, "cat") returns cat
-     *      pluralize(2, "cats") returns cats
-     *
-     *      pluralize(1, "potato") returns potato
-     *      pluralize(2, "potato") returns potatos
-     *      pluralize(2, "potato", "potatoes") returns potatoes
+     * Given a count and a word, append 's' to word if count is not equal to 1
      *
      * @param count number of items
-     * @param arguments The a non-nullable word to pluralize (required), the non nullable plural form (optional)
+     * @param singular singular form
      * @return pluralized word
+     *
      */
-    public static String pluralize(int count, String... arguments) {
-        if (null == arguments) {
-            throw new IllegalArgumentException("word to pluralize cannot be null");
-        } else if (arguments.length == 0) {
-            throw new IllegalArgumentException("You did not specify a word to pluralize");
-        } else if (arguments.length > 2) {
-            throw new IllegalArgumentException("You can only pass up to 2 arguments: the word to pluralize and it's plural form.");
-        } else if (arguments.length == 2 && null == arguments[1]) {
-            throw new IllegalArgumentException("Plural form of word cannot be null");
+    public static String pluralize(int count, String singular) {
+        if (null == singular) {
+            throw new IllegalArgumentException("Input cannot be null");
+        } else {
+            return (count == 1) ? singular : singular + "s";
         }
-        return (count == 1) ? arguments[0] : ((arguments.length ==1) ? arguments[0] + "s" : arguments[1]);
     }
 
     /**
-     * Only here because jsp utility method defined in gsweb.tld cannot use varargs yet
-     * Backed by #pluralize
-     *
-     * @param count number of items
-     * @param singular word form
-     * @return pluralized word
-     * 
-     * @deprecated Use #pluralize
-     */
-    public static String pluralizeWord(int count, String singular) {
-        return pluralize(count, singular);
-    }
-
-    /**
-     * Only here because jsp utility method defined in gsweb.tld cannot use varags yet.
-     * Backed by #pluralize
+     * Given a count, word, and plural word, return singular form if count is 1
+     * and plural form if count is not equal to one
      *
      * @param count number of items
      * @param singular singular form
      * @param plural plural form
      * @return pluralized word
      *
-     * @deprecated Use #pluralize
      */
-    public static String pluralizeWordWithPluralForm(int count, String singular, String plural) {
-        return pluralize(count, singular, plural);
+    public static String pluralize(int count, String singular, String plural) {
+        if (null == singular || null == plural) {
+            throw new IllegalArgumentException("Input cannot be null");
+        } else {
+            return (count == 1) ? singular : plural;
+        }
     }
 
     /**
      * Wordify the period between two dates.
      *
+     * Our GS style is one to nine, we write out the word, for  10 and above we use numerals.
+     *
      * If period is over a year, the year and month is part of the return string.
-     *      Ex: one year and 2 months ago, one year and 1 month ago
+     *      Ex: one year and two months ago, one year and two months ago
      *
      * If period is over a month, the month is part of the return string.
-     *      Ex: one month ago, 2 months ago
+     *      Ex: one month ago, two months ago
      *
      * If period is under a month, the number of days is part of the return string.
-     *      Ex: 1 day ago, 23 days ago
+     *      Ex: one day ago, 20 days ago
      *
      * If start and end date is the same day, then 'today' is returned
      *
@@ -224,15 +203,17 @@ public class Util {
      */
     public static String periodBetweenDates(Date start, Date end) {
 
+        //style guide...0-9 we write out the word, 10 and above we use numerals
+        //0 is never used, just so we don't have to offset
         final String [] numAsWord = {
                 "zero",
                 "one", "two", "three", "four", "five",
-                "six", "seven", "eight", "nine", "ten",
-                "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-                "sixteen", "seventeen", "eighteen", "nineteen", "twenty",
-                "twenty one", "twenty two", "twenty three", "twenty four", "twenty five",
-                "twenty six", "twenty seven", "twenty eight", "twenty nine", "thirty",
-                "thirty one"
+                "six", "seven", "eight", "nine", "10",
+                "11", "12", "13", "14", "15",
+                "16", "17", "18", "19", "20",
+                "21", "22", "23", "24", "25",
+                "26", "27", "28", "29", "30",
+                "31"
         };
 
         if (null == start || null == end) {

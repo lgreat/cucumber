@@ -199,6 +199,21 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         assertTrue("crawler should get all ratings on one page", cmd.getMaxReviewsPerPage() > ParentReviewController.MAX_REVIEWS_PER_PAGE);
     }
 
+    public void testShowAllParameter() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setAttribute("state", State.CA);
+        request.setParameter("id", "1");
+        request.setParameter(ParentReviewController.PARAM_SORT_BY, "ra");
+        request.setMethod("GET");
+        request.setParameter(ParentReviewController.PARAM_VIEW_ALL, "");
+
+        ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
+        assertNotNull(cmd);
+        assertEquals("show all on one page", ParentReviewController.MAX_REVIEWS_PER_PAGE, cmd.getMaxReviewsPerPage());        
+    }
+
     public void testShowParentReviewModuleFormOnlyAppearsOnFirstPage() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);

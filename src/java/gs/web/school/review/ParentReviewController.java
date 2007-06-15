@@ -29,6 +29,7 @@ public class ParentReviewController extends AbstractSchoolController {
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
     protected static final String PARAM_SORT_BY = "sortBy";
     protected static final String PARAM_PAGER_OFFSET = "pager.offset";
+    protected static final String PARAM_VIEW_ALL = "lr";
 
     //Compare on who, then overall rating descending, then date posted descending
     private static final Comparator<Review> PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC =
@@ -94,7 +95,7 @@ public class ParentReviewController extends AbstractSchoolController {
             cmd.setCurrentDate(new Date());
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            if (sessionContext.isCrawler()) {
+            if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
                 cmd.setMaxReviewsPerPage(reviews.size());
             } else {
                 cmd.setMaxReviewsPerPage(MAX_REVIEWS_PER_PAGE);

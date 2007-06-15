@@ -90,7 +90,7 @@
                     <!-- begin Parent Reviews -->
                     <c:if test="${cmd.totalReviews gt 0}">
                         <div id="showParentReviews">
-                        <h2>Parent Reviews <span class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralizeWord(cmd.totalReviews, 'review')})</span></h2>
+                        <h2>Parent Reviews <span class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')})</span></h2>
                         <select id="sltRatingSort" onchange="go(this);" class="sortReviews">
                             <option value="">Sort by</option>
                             <option value="dd">Date: newest to oldest</option>
