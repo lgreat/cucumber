@@ -14,6 +14,7 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
+          xmlns:form="http://www.springframework.org/tags/form"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -32,17 +33,6 @@
             function go(box) {
                 option = box.options[box.selectedIndex].value;
                 if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option;
-            }
-            function initSortBy() {
-                var selectedOption = '${cmd.sortBy}';
-                var select = document.getElementById('sltRatingSort');
-                var options = select.options;
-                for (var i=0;i&lt;options.length;i++) {
-                    if (options[i].value == selectedOption) {
-                        options[i].selected = true;
-                        break;
-                    }
-                }
             }
         <![CDATA[--></script>]]>
     </head>
@@ -91,14 +81,15 @@
                     <c:if test="${cmd.totalReviews gt 0}">
                         <div id="showParentReviews">
                         <h2>Parent Reviews <span class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')})</span></h2>
-                        <select id="sltRatingSort" onchange="go(this);" class="sortReviews">
-                            <option value="">Sort by</option>
-                            <option value="dd">Date: newest to oldest</option>
-                            <option value="da">Date: oldest to newest</option>
-                            <option value="rd">Rating: highest to lowest</option>
-                            <option value="ra">Rating: lowest to highest</option>
-                        </select>
-                        <script type="text/javascript">initSortBy();</script>
+
+                         <form:select path="cmd.sortBy" cssClass="sortReviews" id="sltRatingSort" onchange="go(this);">
+                            <form:option value="">Sort by</form:option>
+                            <form:option value="dd">Date: newest to oldest</form:option>
+                            <form:option value="da">Date: oldest to newest</form:option>
+                            <form:option value="rd">Rating: highest to lowest</form:option>
+                            <form:option value="ra">Rating: lowest to highest</form:option>
+                        </form:select>
+
                         <pg:pager
                                 maxPageItems="${cmd.maxReviewsPerPage}"
                                 items="${cmd.totalReviews}"
