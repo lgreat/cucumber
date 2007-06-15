@@ -175,9 +175,8 @@
                         <div class="healthyKidsImg">Photo of apple and jar of pencils</div>
                         <div class="blueTitleText">Back to School</div>
                         Tips for
-                        <gsweb:articlelink articleId="657" styleClass="border10Links">shopping</gsweb:articlelink>,
-                        getting a
-                        <gsweb:articlelink articleId="332" styleClass="border10Links">head start</gsweb:articlelink>
+                        <gsweb:articlelink articleId="657" styleClass="border10Links">shopping</gsweb:articlelink> and
+                        <gsweb:articlelink articleId="332" styleClass="border10Links">getting a head start</gsweb:articlelink>
                         on a great year!
                         <div class="middleBottom"><gsml:a href="/content/backToSchool.page" styleClass="border10Links">See more &gt;</gsml:a></div>
                         <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
