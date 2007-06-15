@@ -12,8 +12,6 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.io.IOException;
@@ -30,12 +28,18 @@ import java.util.List;
  */
 public class ResultsPager {
     private static final Logger _log = Logger.getLogger(ResultsPager.class);
-    private static final StateManager _stateManager;
+    private static StateManager _stateManager;
     private static ISchoolDao _schoolDao;
+    private Hits _hits;
+    private ResultType _type;
+    private Searcher _searcher;
+    private Query _explanationQuery;
 
     static {
         _stateManager = (StateManager) SpringUtil.getApplicationContext().getBean(StateManager.BEAN_ID);
+        _schoolDao = (ISchoolDao) SpringUtil.getApplicationContext().getBean(ISchoolDao.BEAN_ID);
     }
+
 
     /**
      * Spring bean id
@@ -54,31 +58,17 @@ public class ResultsPager {
         }
     }
 
-    private Hits _hits;
-    private ResultType _type;
-    private Searcher _searcher;
-    private Query _explanationQuery;
-
     public ResultsPager(Hits hits, ResultType type) {
         _hits = hits;
         _type = type;
     }
 
-    private static ISchoolDao getSchoolDao() {
-        if (_schoolDao == null) {
-            String[] paths = {"gs/data/applicationContext-data.xml",
-                    "gs/data/dao/hibernate/applicationContext-hibernate.xml",
-                    "gs/data/school/performance/applicationContext-performance.xml"
-            };
-            ApplicationContext _applicationContext = new ClassPathXmlApplicationContext(paths);
-            _schoolDao = (ISchoolDao) _applicationContext.getBean(ISchoolDao.BEAN_ID);
-        }
-        return _schoolDao;
-    }
-
-
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
     }
 
     public void enableExplanation(Searcher searcher, Query q) {
@@ -90,10 +80,12 @@ public class ResultsPager {
      * Returns page of hits encapsulated as a <code>List</code> of
      * <code>SearchResult</code> objects
      *
-     * @return a <code>java.util.List</code> type
+     * @return If _type is SCHOOLS, a List of School objects. Otherwise, a List of SearchResult objects 
+     * @param page  The numbered page to retrieve. 1 for the first page, 2 for the second, etc.
+     * @param pageSize  The number of results to include in each page
      */
-    public List getResults(int page, int pageSize) {
-        List searchResults = new ArrayList();
+    public List<Object> getResults(int page, int pageSize) {
+        List<Object> searchResults = new ArrayList<Object>();
         if (_hits != null) {
             if (page < 1) {
                 page = 1;
@@ -120,7 +112,7 @@ public class ResultsPager {
                             String id = d.get("id");
                             if (StringUtils.isNotBlank(id)) {
                                 try {
-                                    final School schoolById = getSchoolDao().getSchoolById(state,
+                                    final School schoolById = _schoolDao.getSchoolById(state,
                                             Integer.valueOf(id));
                                     searchResults.add(schoolById);
                                 } catch (NumberFormatException e) {

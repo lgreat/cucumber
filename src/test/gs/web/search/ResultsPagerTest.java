@@ -17,8 +17,11 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 import gs.data.school.ISchoolDao;
+import gs.data.school.School;
+import gs.data.state.StateManager;
+import gs.data.state.State;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -26,10 +29,13 @@ import gs.data.school.ISchoolDao;
 public class ResultsPagerTest extends TestCase {
     private static Hits _hits;
     private ISchoolDao _schoolDao;
+    private StateManager _stateManager;
     private static final int NUMBER_OF_HITS = 50;
+    private static final String SEARCH_STATE = "CA";
 
     protected void setUp() throws Exception {
         _schoolDao = createMock(ISchoolDao.class);
+        _stateManager = createMock(StateManager.class);
         getHits();
     }
 
@@ -40,32 +46,46 @@ public class ResultsPagerTest extends TestCase {
     }
 
     public void testPageSizes() {
-        ResultsPager rp = new ResultsPager(_hits, ResultsPager.ResultType.ARTICLES);
-        List results = rp.getResults(1, 0);
+        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.ARTICLES);
+        List results = pager.getResults(1, 0);
         assertEquals("All hits should be returned if page size is 0", NUMBER_OF_HITS, results.size());
 
-        results = rp.getResults(1, NUMBER_OF_HITS);
+        results = pager.getResults(1, NUMBER_OF_HITS);
         assertEquals("All hits should be returned if page size is same as result size", NUMBER_OF_HITS, results.size());
 
-        results = rp.getResults(1, 10);
+        results = pager.getResults(1, 10);
         assertEquals("Expected (page size) results on first page", 10, results.size());
 
-        results = rp.getResults(2, 10);
+        results = pager.getResults(2, 10);
         assertEquals("Expected (page size) results on middle page", 10, results.size());
 
-        results = rp.getResults(5, 10);
+        results = pager.getResults(5, 10);
         assertEquals("Expected (page size) results on last page", 10, results.size());
 
-        results = rp.getResults(6, 10);
+        results = pager.getResults(6, 10);
         assertEquals("No hits should be returned if pages * page size > # of hits", 0, results.size());
 
-        results = rp.getResults(6, 9);
+        results = pager.getResults(6, 9);
         assertEquals("Expected total hits - (page * page size)", 5, results.size());
     }
 
     public void testGetPageOfSchoolResults() {
         ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.SCHOOLS);
         pager.setSchoolDao(_schoolDao);
+        pager.setStateManager(_stateManager);
+        expect(_stateManager.getState(SEARCH_STATE))
+                .andReturn(State.CA)
+                .anyTimes();
+        expect(_schoolDao.getSchoolById(eq(State.CA), isA(Integer.class)))
+                .andReturn(new School())
+                .anyTimes();
+        replay(_stateManager);
+        replay(_schoolDao);
+
+        List results = pager.getResults(1, 10);
+        for (Object school : results) {
+            assertTrue("Each result should be a School object", school instanceof School);
+        }
     }
 
     private static void getHits() {
@@ -84,7 +104,7 @@ public class ResultsPagerTest extends TestCase {
                         d.add(Field.Text("type", "blah"));
                     }
                     d.add(Field.Text("test", "x"));
-                    d.add(Field.Text("state", "CA"));
+                    d.add(Field.Text("state", SEARCH_STATE));
                     writer.addDocument(d);
                 }
                 writer.close();
