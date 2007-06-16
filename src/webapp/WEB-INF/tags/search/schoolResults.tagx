@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
+    <jsp:directive.attribute name="total" required="true" type="java.lang.Integer"/>
+    <div id="searchResultsHeader">
+        <div id="schoolResultsHeader">
+            School
+        </div>
+        <div id="ratingsHeader">
+            GreatSchools<br />Rating
+        </div>
+        <div id="reviewsHeader">
+            <!--Parent Rating-->
+        </div>
+    </div>
+    <div id="searchResultsList">
+        <c:forEach var="school" items="${results}" >
+            <div class="result">
+                <h3><link:schoolProfileOverview school="${school}" title="${school.name}"><c:out value="${school.name}"/></link:schoolProfileOverview></h3>
+                <div class="about">
+                    <span class="st">${school.type.schoolTypeName}</span>
+                    <c:if test="${not empty school.gradeLevels.rangeString}">
+                        &#160;&#183;&#160;<span class="gl">${school.gradeLevels.rangeString}</span>
+                    </c:if>
+                </div>
+                <address>
+                    <c:out value="${school.physicalAddress.street}"/><br />
+                    <c:out value="${school.physicalAddress.cityStateZip}"/>
+                </address>
+                <div class="phone">
+                    <c:out value="${school.phone}"/>
+                </div>
+            </div>
+            <div class="rating">
+                10
+            </div>
+            <div class="review">
+                4
+            </div>
+        </c:forEach>
+    </div>
+</jsp:root>
