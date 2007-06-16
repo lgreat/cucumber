@@ -68,9 +68,8 @@
         </c:if>
 
     <div id="searchResults">
-    <gsweb:mainResults results="${mainResults}"
-                       total="${total}"
-                       debug="${param.debug}">
+        <search:schoolResults results="${mainResults}"
+                           total="${total}"/>
         <c:if test="${not empty noResultsExplanation}">
             <div class="noResultsExplanation">
                 <h4>${noResultsExplanation}</h4>
@@ -97,7 +96,6 @@
                                       fieldLength="30"/>
             </c:if>
         </div>
-    </gsweb:mainResults>
     </div>
 
 </div>
