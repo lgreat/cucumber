@@ -39,11 +39,10 @@ City and district rollups
     padding-left: 5px;
     margin-bottom: 5px;
     font-size: medium;
-    border-bottom: 1px solid #ccc;
 }
 
 .rollup  h3 {
-    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
+    background-image: url( /res/img/bullet/pinkarrow.gif );
     background-repeat: no-repeat;
     background-position: .1em .4em;
     padding: 5px 0 0 18px;
@@ -63,10 +62,83 @@ City and district rollups
     border-right-width: 0;
 }
 
+/*
+Search results
+*/
+
 #searchResults {
     float: left;
     width: 525px;
     padding-top: 10px;
+}
+
+#searchResults div.about,
+    #searchResults address,
+    #searchResults div.phone {
+    font-size: small;
+    padding-left: 18px;
+}
+
+#searchResults h3 {
+    font-size: medium;
+}
+
+
+#searchResults span.st,
+    #searchResults span.gl {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+#searchResultsHeader {
+    float: left;
+    width: 525px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    vertical-align: bottom;
+    font-size: small;
+}
+
+#schoolResultsHeader {
+    float: left;
+    width: 30px;
+    padding-right: 270px;
+    /*border: 1px solid blue*/
+}
+
+#ratingsHeader {
+    float: left;
+    width: 30px;
+    padding-right: 270px;
+    /*border: 1px solid red*/
+}
+
+#reviewsHeader {
+    float: left;
+    width: 30px;
+    /*border: 1px solid green*/
+}
+
+#searchResultsList {
+    clear: left;
+}
+
+#searchResultsList .result {
+    float: left;
+    width: 300px;
+    /*border: 1px solid blue    */
+}
+
+#searchResultsList .rating {
+    float: left;
+    width: 100px;
+    /*border: 1px solid red*/
+}
+
+#searchResultsList .review {
+    float: left;
+    width: 100px;
+    /*border: 1px solid green*/
 }
 
 #searchFooter {
@@ -285,46 +357,11 @@ pre.explanation {
 }
 
 .noResultsExplanation h4 {
-    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
+    background-image: url( /res/img/bullet/pinkarrow.gif );
     background-repeat: no-repeat;
     background-position: .1em .4em;
     padding: 5px 0 0 18px;
     display: block;
-}
-
-
-/*
-   List item
-*/
-table#mainresults tr td {
-    margin: 0 0 15px 0;
-    padding: 0 40px 10px 0;
-    color: #333;
-}
-
-table#mainresults h3 {
-    font-size: medium;
-}
-
-table#mainresults div.about,
-    table#mainresults address,
-    table#mainresults div.phone,
-    table#mainresults p {
-    font-size: small;
-    padding-left: 18px;
-}
-
-table#mainresults span.st,
-    table#mainresults span.gl {
-    font-weight: bold;
-    text-transform: capitalize;
-}
-
-tr td.checkbox {
-    vertical-align: top;
-    padding-top: 8px;
-    padding-left: 4px;
-    padding-right: 7px;
 }
 
 /* used on "Show all" and "View district profile" links on schoolresults */
