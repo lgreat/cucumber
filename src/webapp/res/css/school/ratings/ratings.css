@@ -90,6 +90,31 @@
 	padding: 0;
 }
 
+/* Article Link
+----------------------------------*/
+
+#issuesLink {
+	width: 528px;
+    height: 40px;
+    border: 2px solid #dee;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 22px;
+}
+
+#issuesLink a {
+    color: #3399AA;
+    text-decoration: underline;
+}
+
+#issuesLink h3 {
+	font: 12px/15px Trebuchet MS, sans-serif;
+	color: #666;
+	margin-top: 10px;
+    margin-left: 10px;
+    padding: 0;
+}
+
 /* Compare This School To
 ----------------------------------*/
 

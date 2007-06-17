@@ -99,6 +99,14 @@
             <type>java.lang.Boolean</type>
             <description>Should the article be tagged as featured? Generates a different path for tracking purposes, but points to the same article.</description>
         </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        
         <!--attribute>
             <name>state</name>
             <required>false</required>

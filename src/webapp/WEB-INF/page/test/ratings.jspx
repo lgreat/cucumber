@@ -88,7 +88,7 @@
                                 on a comparison of test results for all<br/>
                                 schools in the state.
                             </p>
-                            <p><gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">What our ratings tell you &gt;</gsml:a></p>
+                            <p><link:article articleId="1023" target="_blank">What our ratings tell you &gt;</link:article></p>
                             <c:if test="${hasRating == 'true'}">
                                 <p><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
                             </c:if>
@@ -97,6 +97,12 @@
                     <c:if test="${hasRating == 'true'}">
                         <ratings:table ratingsDisplay="${ratingsDisplay}"/>
                     </c:if>
+                    <!-- <school:ratingsIssuesLink/>   -->
+                    <div id="issuesLink">
+                       <h3>GreatSchools Ratings are based on test results.
+                           <gsml:a href="/issues/$LCSTATE/ratings.htm" onClick="issues();" target="issues">See which tests were used&gt;</gsml:a></h3>
+                   </div>
+                    
                     <school:bigPicture school="${school}"/>
                     <school:compareSchool school="${school}"/>
                 </div>
