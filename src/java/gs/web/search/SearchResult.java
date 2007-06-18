@@ -20,7 +20,7 @@ public class SearchResult {
     public final static int TOPIC    = 5;
 
     private String _address;
-    private Document _doc;
+    Document _doc;
     private Explanation _ex;
 
     public SearchResult(Document doc) {
