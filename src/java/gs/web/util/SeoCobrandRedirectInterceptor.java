@@ -46,10 +46,11 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
                 }
 
                 // Do the redirect
-                response.setStatus(301);
                 String redirectUrl = newUrl.toString();
                 String redirect = response.encodeRedirectURL(redirectUrl);
-                response.sendRedirect(redirect);
+                response.setStatus(301);
+                response.setHeader("Location", redirect);
+                response.setHeader("Connection", "close");
                 logRedirect(request, redirectUrl);
                 return false;
             }
