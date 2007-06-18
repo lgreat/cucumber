@@ -81,7 +81,6 @@ var schoolArray = new Array();
 function initSchoolInfo() {
     var mySchool;
 <c:forEach var="school" items="${schools}">
-  // School info for ${school.name}
   <c:if test="${not empty school.lon}">
     <c:choose>
       <c:when test="${'private' == school.type.schoolTypeName}">

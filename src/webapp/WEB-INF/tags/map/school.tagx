@@ -81,8 +81,7 @@ function initSchoolInfo() {
     var mySchool;
     var schoolRatingImg;
 <c:forEach var="nearbySchool" items="${schools}">
-  <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
-    // School info for ${curSchool.name}
+  <c:set var="curSchool" value="${nearbySchool.neighbor}"/>   
   <c:if test="${not empty curSchool.lon}">
     mySchool = new Object();
 
