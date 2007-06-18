@@ -30,6 +30,11 @@
     text-align: right;
 }
 
+.query {
+    font-weight: 700;
+    color: #C56;
+}
+
 /*
 City and district rollups
 */
@@ -345,12 +350,6 @@ tr.control_row td {
     padding-bottom: 5px;
     font-weight: 700;
     font-size: small;
-}
-
-.query {
-    padding-bottom: 5px;
-    font-weight: 700;
-    color: #FE894C;
 }
 
 pre.explanation {
