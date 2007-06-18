@@ -100,7 +100,7 @@
                     <!-- <school:ratingsIssuesLink/>   -->
                     <div id="issuesLink">
                        <h3>GreatSchools Ratings are based on test results.
-                           <gsml:a href="/issues/$LCSTATE/ratings.htm" onClick="issues();" target="issues">See which tests were used&gt;</gsml:a></h3>
+                           <gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">See which tests were used&gt;</gsml:a></h3>
                    </div>
                     
                     <school:bigPicture school="${school}"/>
