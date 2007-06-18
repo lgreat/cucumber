@@ -1,0 +1,17 @@
+body {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #666;
+	letter-spacing: 0px;
+}
+
+#contentGS a:link, #contentGS a:visited, #contentGS a:active {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	color: #69c5d2;
+	text-decoration: none;
+}
+
+#contentGS a:hover {
+	text-decoration: underline;
+}
