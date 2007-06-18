@@ -22,6 +22,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.StateManager;
 import gs.data.state.State;
+import gs.data.search.Indexer;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -76,15 +77,24 @@ public class ResultsPagerTest extends TestCase {
         expect(_stateManager.getState(SEARCH_STATE))
                 .andReturn(State.CA)
                 .anyTimes();
-        expect(_schoolDao.getSchoolById(eq(State.CA), isA(Integer.class)))
-                .andReturn(new School())
-                .anyTimes();
+        for (int i=0; i<11; i++) {
+            School school = new School();
+            school.setId(i);
+            expect(_schoolDao.getSchoolById(State.CA, i))
+                    .andReturn(school)
+                    .anyTimes();
+        }
         replay(_stateManager);
         replay(_schoolDao);
 
         List results = pager.getResults(1, 10);
-        for (Object school : results) {
-            assertTrue("Each result should be a School object", school instanceof School);
+        for (Object result : results) {
+            assertTrue("Each result should be a SchoolSearchResult object", result instanceof SchoolSearchResult);
+            SchoolSearchResult schoolResult = (SchoolSearchResult) result;
+            assertNotNull("School should be set in result object", schoolResult.getSchool());
+            assertNotNull("GreatSchools rating should not be null", schoolResult.getGreatSchoolsRating());
+            assertEquals("Based on test data setup, rating should equal school ID",
+                    schoolResult.getGreatSchoolsRating(), schoolResult.getSchool().getId().toString());
         }
     }
 
@@ -98,13 +108,14 @@ public class ResultsPagerTest extends TestCase {
                 for (int j = 0; j < NUMBER_OF_HITS; j++) {
                     Document d = new Document();
                     if (j > 0 && j < 11) {
-                        d.add(Field.Text("type", "school"));
-                        d.add(Field.Text("id", String.valueOf(j)));
+                        d.add(Field.Text(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL));
+                        d.add(Field.Text(Indexer.ID, String.valueOf(j)));
+                        d.add(Field.Text(Indexer.OVERALL_RATING, String.valueOf(j)));
                     } else {
-                        d.add(Field.Text("type", "blah"));
+                        d.add(Field.Text(Indexer.DOCUMENT_TYPE, "blah"));
                     }
                     d.add(Field.Text("test", "x"));
-                    d.add(Field.Text("state", SEARCH_STATE));
+                    d.add(Field.Text(Indexer.STATE, SEARCH_STATE));
                     writer.addDocument(d);
                 }
                 writer.close();

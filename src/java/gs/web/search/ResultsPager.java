@@ -114,7 +114,9 @@ public class ResultsPager {
                                 try {
                                     final School schoolById = _schoolDao.getSchoolById(state,
                                             Integer.valueOf(id));
-                                    searchResults.add(schoolById);
+                                    SchoolSearchResult result = new SchoolSearchResult(d);
+                                    result.setSchool(schoolById);
+                                    searchResults.add(result);
                                 } catch (NumberFormatException e) {
                                     _log.warn("Couldn't find school " + id + " in " + state, e);
                                 } catch (ObjectRetrievalFailureException e) {
