@@ -40,10 +40,10 @@
                 </div>
             </div>
             <div class="rating">
-                10
+                <gsml:img src="/res/img/school/ratings/10.gif" alt="GreatSchools Rating: 10 out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
             </div>
             <div class="review">
-                4
+                <!--4-->
             </div>
         </c:forEach>
     </div>
