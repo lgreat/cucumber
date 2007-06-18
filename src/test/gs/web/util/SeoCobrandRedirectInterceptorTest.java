@@ -23,12 +23,12 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
      */
     public void testNoRedirect() throws Exception {
         assertTrue(_interceptor.preHandle(getRequest(), getResponse(), null));
-        assertNull(getResponse().getRedirectedUrl());
+        assertNull(getResponse().getHeader("Location"));
 
         // Verify that even on a cobrand there is no redirect for a normal user
         _sessionContext.setCobrand("sfgate");
         assertTrue(_interceptor.preHandle(getRequest(), getResponse(), null));
-        assertNull(getResponse().getRedirectedUrl());
+        assertNull(getResponse().getHeader("Location"));
     }
 
     /**
@@ -42,7 +42,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         getRequest().setQueryString("foo=1&bar=2");
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
-        assertEquals("http://www.greatschools.net/content/allArticles.page?foo=1&bar=2", getResponse().getRedirectedUrl());
+        assertEquals("http://www.greatschools.net/content/allArticles.page?foo=1&bar=2", getResponse().getHeader("Location"));
     }
 
     /**
@@ -55,7 +55,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         _sessionContext.setCobrand("sfgate");
         getRequest().setMethod("POST");
         assertTrue(_interceptor.preHandle(getRequest(), getResponse(), null));
-        assertNull(getResponse().getRedirectedUrl());
+        assertNull(getResponse().getHeader("Location"));
     }
 
     /**
@@ -68,7 +68,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         _sessionContext.setCobrand("yahooed");
         getRequest().addHeader("User-Agent", "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)");
         assertTrue(_interceptor.preHandle(getRequest(), getResponse(), null));
-        assertNull(getResponse().getRedirectedUrl());
+        assertNull(getResponse().getHeader("Location"));
     }
 
     /**
@@ -89,7 +89,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         getRequest().addParameter("id", "13933");
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
-        assertEquals("http://www.greatschools.net/modperl/browse_school/ca/13933", getResponse().getRedirectedUrl());
+        assertEquals("http://www.greatschools.net/modperl/browse_school/ca/13933", getResponse().getHeader("Location"));
     }
 
     /**
@@ -104,7 +104,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         getRequest().addParameter("state", "CA");
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
-        assertEquals("http://www.greatschools.net/modperl/go/CA", getResponse().getRedirectedUrl());
+        assertEquals("http://www.greatschools.net/modperl/go/CA", getResponse().getHeader("Location"));
     }
 
     /**
@@ -118,7 +118,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         getRequest().setRequestURI("/index.page");
         assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
         assertEquals(301, getResponse().getStatus());
-        assertEquals("http://www.greatschools.net/", getResponse().getRedirectedUrl());
+        assertEquals("http://www.greatschools.net/", getResponse().getHeader("Location"));
     }
 
 }
