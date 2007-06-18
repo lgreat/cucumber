@@ -10,10 +10,12 @@
     <jsp:directive.attribute name="total" required="true" type="java.lang.Integer"/>
     <div id="searchResultsHeader">
         <div id="schoolResultsHeader">
+            <br />
             School
         </div>
         <div id="ratingsHeader">
-            GreatSchools<br />Rating
+            GreatSchools<br />
+            Rating
         </div>
         <div id="reviewsHeader">
             <!--Parent Rating-->
