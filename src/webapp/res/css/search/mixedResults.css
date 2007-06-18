@@ -81,6 +81,7 @@ Search results
 
 #searchResults h3 {
     font-size: medium;
+    margin-bottom: 5px;
 }
 
 
@@ -130,6 +131,7 @@ Search results
     float: left;
     width: 300px;
     padding-left: 5px;
+    margin-bottom: 10px;
     /*border: 1px solid blue    */
 }
 
