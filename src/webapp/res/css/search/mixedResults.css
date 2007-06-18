@@ -15,7 +15,7 @@
     font-size: medium;
     padding: 15px 0 10px 0;
     border-bottom: 1px solid #ccc;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     width: 525px;
 }
 
@@ -94,29 +94,32 @@ Search results
     float: left;
     width: 525px;
     border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
     text-align: center;
-    vertical-align: bottom;
     font-size: small;
 }
 
 #schoolResultsHeader {
     float: left;
-    width: 30px;
-    padding-right: 270px;
-    /*border: 1px solid blue*/
+    text-align:left;
+    width: 260px;
+    height: 30px;
+    padding-left: 5px;
+    /*border: 1px solid blue;*/
 }
 
 #ratingsHeader {
     float: left;
-    width: 30px;
-    padding-right: 270px;
-    /*border: 1px solid red*/
+    width: 90px;
+    padding-right: 20px;
+    /*border: 1px solid red;*/
 }
 
 #reviewsHeader {
     float: left;
-    width: 30px;
-    /*border: 1px solid green*/
+    width: 90px;
+    /*border: 1px solid green;*/
 }
 
 #searchResultsList {
@@ -126,6 +129,7 @@ Search results
 #searchResultsList .result {
     float: left;
     width: 300px;
+    padding-left: 5px;
     /*border: 1px solid blue    */
 }
 
