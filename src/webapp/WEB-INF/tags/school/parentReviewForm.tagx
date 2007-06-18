@@ -93,7 +93,7 @@
                                 <td>${cbxPermit}</td>
                                 <td>
                                     <!-- added spaces to label, added class to select -->
-                                    <label>I'm a&amp;nbsp;</label>${sltWho}&amp;nbsp;and I accept</td></tr>
+                                    <label>I'm a&amp;nbsp;</label>${sltWho}<label>&amp;nbsp;and I accept</label></td></tr>
                             <tr>
                                 <td>&amp;nbsp;</td>
                                 <td valign="top">

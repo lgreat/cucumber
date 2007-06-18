@@ -11,7 +11,7 @@ Parent Review Page
 	float: left;
 	margin: 5px 0 0 0;
 	font-family: Trebuchet MS, sans-serif;
-	color: #777;
+	color: #666;
 }
 
 #parentReview a {
@@ -23,12 +23,10 @@ Parent Review Page
 ----------------------------------*/
 
 #parentReview #col_left {
-	width: 540px;
+    width: 532px;
+    padding-right:19px;
 	float: left;
-	padding-right: 9px;
-    _padding-right: 5px;
     border-right: 1px solid #dedede;
-	/*background: url(../../../COL_LEFT_TEMP.gif) no-repeat;*/
 }
 
 #parentReview #col_right {
@@ -41,9 +39,10 @@ Parent Review Page
 ----------------------------------*/
 
 #showParentRatings {
-    margin: 0 8px 20px 0;
+    margin: 0 0 20px 0;
     float: left;
     border-bottom: 1px solid #ddd;
+    color: #777;
 }
 
 /* rating_parent */
@@ -166,7 +165,6 @@ Parent Review Page
 
 #parentReview #rateReview_module #reviewText {
 	font: 12px/15px Trebuchet MS;
-	color: #666;
 	padding: 4px 0 5px 7px;
 	height: 96px;
 	width: 256px;
@@ -189,6 +187,7 @@ Parent Review Page
 
 #parentReview #rateReview_module .select {
     _margin-top: 2px; /* IE 6 hack */
+    width:63px;
     font-size:11px;
 }
 
@@ -200,7 +199,6 @@ Parent Review Page
 #parentReview #rateReview_module label {
 	font-size: 12px;
 	line-height: 14px;
-	color: #666;
 	margin: -2px 0 0 6px;
 	_margin: 4px 0 0 0; /* IE 6 hack */
 }
@@ -215,7 +213,6 @@ Parent Review Page
     margin: 8px 0 0 3px;
     _margin: 8px 0 0 22px; /* IE 6 hack */
     font: 12px/15px Trebuchet MS;
-    color: #666;
     padding: 1px;
     padding-left: 4px;
     width: 142px;
@@ -250,9 +247,8 @@ Parent Review Page
 
 #showParentReviews {
     float: left;
-    width: 533px;
+    width: 532px;
     border-bottom: 1px solid #ddd;
-    color: #666666;
 }
 
 #showParentReviews h2 {
@@ -274,7 +270,7 @@ Parent Review Page
     width: 164px;
     font-size: 11px;
     float: left;
-    color: #666666;
+    color: #666;
 }
 
 #showParentReviews .pageControls {
@@ -371,7 +367,6 @@ Parent Review Page
     margin: 0 0 10px 0;
     float: left;
 	border: 1px solid #ddd;
-    color: #666666;
 }
 
 #callouts .learnMore {
@@ -405,7 +400,6 @@ Parent Review Page
 	font-size: 10px;
     line-height:110%;
     width: 500px;
-    color:#666666;
 }
 
 .clear {

@@ -28,7 +28,6 @@
     <head>
         <title>Parent Reviews of ${school.name} - ${addr}</title>
         <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
-        <pageHelper:externalCss file="/res/css/school/overview.css"/>
             <![CDATA[<script type="text/javascript"><!--]]>
             function go(box) {
                 option = box.options[box.selectedIndex].value;
