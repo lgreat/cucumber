@@ -358,7 +358,7 @@ h1 span {
 	font-size: 10px;
 	font-style: italic;
 	color: #8f8f8f;
-	margin: -4px 0 12px 144px;
+	margin: -4px 0 12px 136px;
     width: 344px; /* for IE 7 */
     _width: 244px; /* for IE 6 */
     height: 12px;
@@ -378,11 +378,11 @@ h1 span {
 	font-size: 10px;
 	font-style: italic;
 	color: #8f8f8f;
-	margin: -24px 0 12px 144px;
+	margin: -24px 0 12px 136px;
     width: 344px; /* for IE 7 */
     _width: 244px; /* for IE 6 */
     height: 12px;
-	_margin: -23px 120px 12px 70px; /* for IE 6 */
+	_margin: -26px 120px 12px 70px; /* for IE 6 */
 }
 
 /* Email address */
