@@ -58,8 +58,8 @@
           autowire="byName">
         <property name="stateCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
-                <property name="cookieName" value="STATE"/>
-                <!--<property name="cookieDomain" value=".greatschools.net"/> -->
+                <property name="cookieName" value="STATE2"/>
+                <property name="cookieDomain" value=".greatschools.net"/>
                 <!--
                     The Java site uses a cookie to track the user's locale.
 

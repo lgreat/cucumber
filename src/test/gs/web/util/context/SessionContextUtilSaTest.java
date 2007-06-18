@@ -3,6 +3,8 @@ package gs.web.util.context;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.BaseTestCase;
 import gs.data.community.User;
+import gs.data.state.State;
+import gs.data.state.StateManager;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
 
@@ -37,6 +39,13 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         sccGen.setCookieName("SESSION_CACHE");
         _sessionContextUtil.setSessionCacheCookieGenerator(sccGen);
         _sessionContextUtil.setCommunityCookieGenerator(new CookieGenerator());
+        _sessionContextUtil.setHasSearchedCookieGenerator(new CookieGenerator());
+        CookieGenerator stateGen = new CookieGenerator();
+        stateGen.setCookieName("STATE2");
+        _sessionContextUtil.setStateCookieGenerator(stateGen);
+
+
+        _sessionContextUtil.setStateManager(new StateManager());
     }
 
     private void setServerName(String serverName) {
@@ -96,5 +105,29 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         assertNotNull("Cookie should exist under name community_dev", cookie);
         assertEquals(".greatschools.net", cookie.getDomain());
         assertEquals(-1, cookie.getMaxAge());
+    }
+
+    public void testStateCookie() {
+        Cookie newStateCookie = new Cookie("STATE2", "CA");
+        Cookie oldStateCookie = new Cookie("STATE", "AK");
+
+        assertNull(_sessionContext.getState());
+
+        _request.setCookies(new Cookie[] {newStateCookie});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Value not read from STATE2 cookie", State.CA, _sessionContext.getState());
+
+        _request.setCookies(new Cookie[] {oldStateCookie});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Value did not fall back to old STATE cookie", State.AK, _sessionContext.getState());
+
+        _request.setCookies(new Cookie[] {newStateCookie, oldStateCookie});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Value should always default to new STATE2 cookie", State.CA, _sessionContext.getState());
+
+        // make sure order of cookie doesn't matter
+        _request.setCookies(new Cookie[] {oldStateCookie, newStateCookie});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Value should always default to new STATE2 cookie", State.CA, _sessionContext.getState());
     }
 }

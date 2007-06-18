@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.17 2007/06/05 23:05:35 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.18 2007/06/18 18:04:54 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -97,7 +97,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     public SessionContextUtil() {
     }
 
-    private void readCookies(HttpServletRequest httpServletRequest,
+    protected void readCookies(HttpServletRequest httpServletRequest,
                              final SessionContext context) {
         // Find the cookie that pertains to the user
         // We don't need to do this every time, but for now
@@ -113,9 +113,10 @@ public class SessionContextUtil implements ApplicationContextAware {
         ClientSideSessionCache cache = null;
         if (cookies != null) {
 
+            State cookiedState = null;
+            State oldCookiedState = null;
             // Collect all the cookies
-            for (int i = 0; i < cookies.length; i++) {
-                Cookie thisCookie = cookies[i];
+            for (Cookie thisCookie : cookies) {
                 if (MEMBER_ID_INSIDER_COOKIE.equals(thisCookie.getName())) {
                     String id = thisCookie.getValue();
                     try {
@@ -138,10 +139,25 @@ public class SessionContextUtil implements ApplicationContextAware {
                     String state = thisCookie.getValue();
                     State s = _stateManager.getState(state);
                     if (s != null) {
+                        cookiedState = s;
                         context.setState(s);
                     }
                 } else if (StringUtils.equals(_sessionCacheCookieGenerator.getCookieName(), thisCookie.getName())) {
                     cache = ClientSideSessionCache.createClientSideSessionCache(thisCookie.getValue());
+                } else if (StringUtils.equals("STATE", thisCookie.getName())) {
+                    // Check for this value in case new state cookie isn't present.
+                    // This allows old users to retain their state cookie.
+                    // The value will be transferred from the SessionContext into a STATE2 cookie in
+                    // the response.
+                    String state = thisCookie.getValue();
+                    State s = _stateManager.getState(state);
+                    if (s != null) {
+                        oldCookiedState = s;
+                    }
+                }
+                // If new state cookie is not set, check for old state cookie and use that value if present
+                if (cookiedState == null && oldCookiedState != null) {
+                    context.setState(oldCookiedState);
                 }
             }
 
