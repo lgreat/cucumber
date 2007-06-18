@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsControllerTest.java,v 1.4 2007/06/17 16:30:19 eddie Exp $
+ * $Id: RatingsControllerTest.java,v 1.5 2007/06/18 16:43:54 eddie Exp $
  */
 package gs.web.test.rating;
 
@@ -93,6 +93,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
         mockTestDataSetDao.findValue(null, null);
         SchoolTestValue value = new SchoolTestValue();
         value.setValueFloat(new Float(10.0));
+        value.setActive(true);
         testDataSetDaoControl.setDefaultReturnValue(value);
         testDataSetDaoControl.replay();
 
@@ -175,9 +176,8 @@ public class RatingsControllerTest extends BaseControllerTestCase {
 
         Map model = _controller.referenceData(getRequest(), command, errors);
         command = (RatingsCommand) model.get(_controller.getCommandName());
-
-        //assertEquals(Integer.valueOf("10"), command.getOverallRating().getRating());
-        //assertNotNull(command.getRatingsDisplay());
+        assertEquals(Integer.valueOf("10"), command.getOverallRating().getRating());
+        assertNotNull(command.getRatingsDisplay());
     }
 
 }
