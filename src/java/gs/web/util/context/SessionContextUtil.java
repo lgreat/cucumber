@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.18 2007/06/18 18:04:54 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.19 2007/06/19 22:22:27 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -204,6 +204,16 @@ public class SessionContextUtil implements ApplicationContextAware {
             context.setState((State) s);
         }
         context.setRemoteAddress(httpServletRequest.getRemoteAddr());
+
+        String uri = httpServletRequest.getRequestURI();
+        if (uri != null && uri.contains("/content/")) {
+            context.setIsTopicPage(true);
+        } else {
+            String queryString = httpServletRequest.getQueryString();
+            if (queryString != null && queryString.contains("c=topic")) {
+                context.setIsTopicPage(true);
+            }
+        }
     }
 
     /**

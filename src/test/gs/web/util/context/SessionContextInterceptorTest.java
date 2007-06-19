@@ -7,6 +7,8 @@ import gs.data.state.State;
 
 import javax.servlet.http.Cookie;
 
+import org.springframework.mock.web.MockHttpServletResponse;
+
 /**
  * @author thuss
  */
@@ -54,5 +56,16 @@ public class SessionContextInterceptorTest extends BaseControllerTestCase {
         assertEquals(new Integer(1), sessionContext.getMemberId());
         assertTrue(sessionContext.getHasSearched());
         assertEquals(State.OR, sessionContext.getState());
+        assertFalse(sessionContext.isTopicPage());
+
+        _request.setRequestURI("/content/backToSchool.page");
+        SessionContextUtil ctxUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
+        sessionContext = ctxUtil.prepareSessionContext(_request, new MockHttpServletResponse());
+        assertTrue(sessionContext.isTopicPage());
+
+        _request.setRequestURI("/search/search.page");
+        _request.setQueryString("q=nclb&state=ca&c=topic");
+        sessionContext = ctxUtil.prepareSessionContext(_request, new MockHttpServletResponse());
+        assertTrue(sessionContext.isTopicPage());
     }
 }

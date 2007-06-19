@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.15 2007/06/04 17:43:39 thuss Exp $
+ * $Id: SessionContext.java,v 1.16 2007/06/19 22:22:27 chriskimm Exp $
  */
 package gs.web.util.context;
 
@@ -81,6 +81,12 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private boolean _readFromClient = false;
     private boolean _hasSearched = false;
     private boolean _crawler = false;
+
+    /**
+     * This is true for pages that have primarily editorial (topic) content and shoul
+     * display the topics search control by default.
+     */
+    private boolean _isTopicPage = false;
 
     /**
      * Created by Spring as needed.
@@ -372,5 +378,13 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setCrawler(boolean crawler) {
         _crawler = crawler;
+    }
+
+    public boolean isTopicPage() {
+        return _isTopicPage;
+    }
+
+    public void setIsTopicPage(boolean topicPage) {
+        _isTopicPage = topicPage;
     }
 }

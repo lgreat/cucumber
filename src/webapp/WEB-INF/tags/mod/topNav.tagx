@@ -95,7 +95,14 @@
                     <tr>
                         <td style="width:202px">
                             <div id="slabel" class="searchLabel">
-                                <gsml:img id="searchPrompt" src="/res/img/search/enter_school.gif" alt="Enter School"/>
+                                <c:choose>
+                                    <c:when test="${requestScope.context.topicPage}">
+                                        <gsml:img id="searchPrompt" src="/res/img/search/enter_keyword.gif" alt="Enter Keyword"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <gsml:img id="searchPrompt" src="/res/img/search/enter_school.gif" alt="Enter School"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </td>
                         <td style="width:10px">
@@ -104,9 +111,10 @@
 
                         <td style="width:50px">
                             <div class="searchLabel" style="display:block">
-                                <gsml:img id="searchInLabel" src="/res/img/search/search_in.gif" alt="Search In"/>
+                                <gsml:img id="searchInLabel" src="/res/img/search/search_in.gif" 
+                                          alt="Search In"
+                                          style="display:${requestScope.context.topicPage ? 'none': 'block'}"/>
                             </div>
-
                         </td>
 
                         <td style="width:43px;vertical-align: middle">
@@ -114,14 +122,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td id="searchBox">
+                        <td id="searchBox" colspan="${requestScope.context.topicPage ? 5 : 1}">
                             <input type="text" style="width: 100%; font-size: 11px;" name="q" id="q"/>
                         </td>
                         <td style="width:10px">
                             <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
                         </td>
                         <td>
-                            <div id="stateDropDown" style="display:block">
+                            <div id="stateDropDown" style="display:${requestScope.context.topicPage ? 'none': 'block'}">
                                 <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                                      noStateLabel="--"
                                                      usingLongNames="false"
@@ -133,20 +141,31 @@
                             <gsml:url var="go" value="/res/img/header/btn_go.gif"/>
                             <input type="image" src="${go}" alt="GO" style="width:37px;height:20px"
                                    class="button"/>
-
-
                         </td>
                     </tr>
                     <tr>
 
                         <td style="height:21px" class="searchRadios">
-                            <input name="c" type="radio" value="school" checked="checked"
-                                   onclick="topNavSelectSchoolSearch(this)"/>
-                            <span>Schools</span>
-                            &#160;
-                            <input name="c" type="radio" value="topic"
-                                   onclick="topNavSelectTopicSearch(this);"/>
-                            <span>Articles</span>
+                            <c:choose>
+                                <c:when test="${requestScope.context.topicPage}">
+                                    <input name="c" type="radio" value="school"
+                                           onclick="topNavSelectSchoolSearch(this)"/>
+                                    <span>Schools</span>
+                                    &#160;
+                                    <input name="c" type="radio" value="topic" checked="checked"
+                                           onclick="topNavSelectTopicSearch(this);"/>
+                                    <span>Articles</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <input name="c" type="radio" value="school" checked="checked"
+                                           onclick="topNavSelectSchoolSearch(this)"/>
+                                    <span>Schools</span>
+                                    &#160;
+                                    <input name="c" type="radio" value="topic"
+                                           onclick="topNavSelectTopicSearch(this);"/>
+                                    <span>Articles</span>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
 
                         <td style="height:21px">
