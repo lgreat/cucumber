@@ -9,6 +9,8 @@
         >
 <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag body-content="empty"
                    description="Draw a map of schools." />
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
@@ -28,10 +30,11 @@ TODO I'd like to color the markers or use different icons depending on the level
    beginnings of this are here.)
 I'd like to use a consistent display of school information in the info window.
 -->
-<map:setup/>
-<pageHelper:addOnLoadHandler handler="doMapSchools()"/>
-<jsp:scriptlet>
-<![CDATA[
+<jsp:scriptlet><![CDATA[
+
+    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+    // Save bandwidth, don't write out maps for crawlers
+    request.setAttribute("isCrawler", Boolean.valueOf(sessionContext.isCrawler()));
     if (centerSchool != null && centerSchool.getLat() != null && centerSchool.getLon() != null) {
         // if requested to center on a school, do so
         // note if school has no latlong then map is centered around nearby schools instead
@@ -45,8 +48,11 @@ I'd like to use a consistent display of school information in the info window.
             request.setAttribute("center", new LatLon(lat.floatValue(), lon.floatValue()));
         }
     }
-]]>
-</jsp:scriptlet>
+
+    ]]></jsp:scriptlet>
+<c:if test="${not isCrawler}">
+<map:setup/>
+<pageHelper:addOnLoadHandler handler="doMapSchools()"/>
 <script type="text/javascript">
 <![CDATA[
 <!--
@@ -178,5 +184,5 @@ function doMapSchools() {
 }
 -->
 </script>
-
+</c:if>
 </jsp:root>
