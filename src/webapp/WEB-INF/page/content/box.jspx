@@ -9,7 +9,7 @@
     <jsp:directive.page contentType="text/html"/>
     <html>
     <head>
-        <title></title>
+        <![CDATA[<title></title>]]>
         <style type="text/css">
             body {
                 font-family: Arial, Helvetica, sans-serif;
@@ -57,9 +57,11 @@
         <base target="_top"/>
     </head>
     <body>
+    <![CDATA[
         <h4><a href="#" id="title"></a></h4>
-        <div id="content">&#160;</div>
+        <div id="content"></div>
         <a href="#" id="link"></a>
+    ]]>
     </body>
     </html>
 </jsp:root>
