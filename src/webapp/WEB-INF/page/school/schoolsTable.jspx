@@ -170,7 +170,9 @@
             </c:if>
         </c:if>
         <pageHelper:externalCss file="/res/css/mod/browseState.css"/>
-        <mod:browseState state="${state}"/>
+        <div id="browseStateControl">
+            <mod:browseState state="${state}"/>
+        </div>
     </td>
     <td valign="top" class="middleColumn">
 
