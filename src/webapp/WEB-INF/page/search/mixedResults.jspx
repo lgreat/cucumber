@@ -69,8 +69,14 @@
         </c:if>
 
     <div id="searchResults">
-        <search:schoolResults results="${mainResults}"
-                           total="${total}"/>
+        <c:choose>
+            <c:when test="${param.c eq 'school'}">
+                <search:schoolResults results="${mainResults}"/>
+            </c:when>
+            <c:otherwise>
+                <search:articleResults results="${mainResults}"/>
+            </c:otherwise>
+        </c:choose>
         <c:if test="${not empty noResultsExplanation}">
             <div class="noResultsExplanation">
                 <h4>${noResultsExplanation}</h4>
