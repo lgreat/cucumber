@@ -28,8 +28,10 @@
             <c:if test="${empty rating}">
                 <c:set var="rating" value="na"/>
             </c:if>
-            <div class="result">
-                <h3><link:schoolProfileOverview school="${school}" title="${school.name}"><c:out value="${school.name}"/></link:schoolProfileOverview></h3>
+            <div class="school result">
+                <h3><link:schoolProfileOverview school="${school}" title="${school.name}">
+                        <c:out value="${gsweb:highlight(school.name, q, 'name')}" escapeXml="false"/>
+                    </link:schoolProfileOverview></h3>
                 <div class="about">
                     <span class="st">${school.type.schoolTypeName}</span>
                     <c:if test="${not empty school.gradeLevels.rangeString}">
@@ -45,7 +47,10 @@
                 </div>
             </div>
             <div class="rating">
-                <gsml:img src="/res/img/school/ratings/${rating}.gif" alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                <link:schoolProfileRating school="${school}">
+                    <gsml:img src="/res/img/school/ratings/${rating}.gif"
+                              alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                </link:schoolProfileRating>
             </div>
             <div class="review">
                 <!--4-->
