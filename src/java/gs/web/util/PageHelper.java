@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.44 2007/06/11 17:40:20 dlee Exp $
+ * $Id: PageHelper.java,v 1.45 2007/06/19 21:46:45 thuss Exp $
  */
 
 package gs.web.util;
@@ -321,12 +321,13 @@ public class PageHelper {
 
     /**
      * Determine if this site is a totally ad free site. This will return TRUE if advertising is turned off either
-     * because of a cobrand agreement or advertising is manually turned off.
+     * because of a cobrand agreement or advertising is manually turned off. We also don't serve ads to crawlers to
+     * conserve bandwidth.
      *
      * @return true if it's ad free
      */
     public boolean isAdFree() {
-        return !_sessionContext.isAdvertisingOnline() || isFramed();
+        return !_sessionContext.isAdvertisingOnline() || isFramed() || _sessionContext.isCrawler();
     }
 
     /**
