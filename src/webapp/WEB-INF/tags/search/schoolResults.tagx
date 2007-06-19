@@ -22,7 +22,12 @@
         </div>
     </div>
     <div id="searchResultsList">
-        <c:forEach var="school" items="${results}" >
+        <c:forEach var="schoolResult" items="${results}" >
+            <c:set var="school" value="${schoolResult.school}"/>
+            <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
+            <c:if test="${empty rating}">
+                <c:set var="rating" value="na"/>
+            </c:if>
             <div class="result">
                 <h3><link:schoolProfileOverview school="${school}" title="${school.name}"><c:out value="${school.name}"/></link:schoolProfileOverview></h3>
                 <div class="about">
@@ -40,7 +45,7 @@
                 </div>
             </div>
             <div class="rating">
-                <gsml:img src="/res/img/school/ratings/10.gif" alt="GreatSchools Rating: 10 out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                <gsml:img src="/res/img/school/ratings/${rating}.gif" alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
             </div>
             <div class="review">
                 <!--4-->
