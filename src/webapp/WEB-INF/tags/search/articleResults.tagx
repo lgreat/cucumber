@@ -7,7 +7,6 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
     <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
-    <jsp:directive.attribute name="total" required="true" type="java.lang.Integer"/>
     <div id="searchResultsHeader">
         <div id="articleResultsHeader">
             Article
