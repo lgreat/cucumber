@@ -38,7 +38,8 @@
         </th>
     </tr>
 
-    <c:forEach items="${schools}" var="school">
+    <c:forEach items="${schools}" var="schoolResult">
+        <c:set var="school" value="${schoolResult.school}"/>
         <c:if test="${not empty school}">
             <c:set var="stateAbbrev"
                    value="${school.databaseState.abbreviationLowerCase}"/>

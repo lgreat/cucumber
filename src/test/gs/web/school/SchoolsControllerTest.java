@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.18 2006/10/24 21:34:07 thuss Exp $
+ * $Id: SchoolsControllerTest.java,v 1.19 2007/06/19 00:27:19 cpickslay Exp $
  */
 
 package gs.web.school;
@@ -12,6 +12,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.search.Searcher;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.search.SchoolSearchResult;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -85,9 +86,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_TOTAL));
-        List list = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < list.size(); i++) {
-            School s = (School) list.get(i);
+        List<SchoolSearchResult> list = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        for (SchoolSearchResult schoolResult : list) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Alameda", s.getPhysicalAddress().getCity());
         }
 
@@ -139,9 +140,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_TOTAL));
-        List list = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < list.size(); i++) {
-            School s = (School) list.get(i);
+        List<SchoolSearchResult> list = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        for (SchoolSearchResult schoolResult : list) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong district for " + s, "Alameda", s.getPhysicalAddress().getCity());
         }
 
@@ -167,9 +168,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
-        List p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < p1schools.size(); i++) {
-            School s = (School) p1schools.get(i);
+        List<SchoolSearchResult> p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        for (SchoolSearchResult schoolResult : p1schools) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
         }
 
@@ -189,9 +190,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
-        List p2schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < p2schools.size(); i++) {
-            School s = (School) p2schools.get(i);
+        List<SchoolSearchResult> p2schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        for (SchoolSearchResult schoolResult : p2schools) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
         }
@@ -206,9 +207,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
-        List p10schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < p10schools.size(); i++) {
-            School s = (School) p10schools.get(i);
+        List<SchoolSearchResult> p10schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        for (SchoolSearchResult schoolResult : p10schools) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
             assertTrue("Found the same school on two pages", p2schools.indexOf(s) == -1);
@@ -224,10 +225,10 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
-        List p11schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        List<SchoolSearchResult> p11schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         assertEquals(2, p11schools.size());
-        for (int i = 0; i < p11schools.size(); i++) {
-            School s = (School) p11schools.get(i);
+        for (SchoolSearchResult schoolResult : p11schools) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
             assertTrue("Found the same school on two pages", p2schools.indexOf(s) == -1);
@@ -253,9 +254,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(77), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(77), modelResults.get(SchoolsController.MODEL_TOTAL));
-        List p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < p1schools.size(); i++) {
-            School s = (School) p1schools.get(i);
+        List<SchoolSearchResult> p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        for (SchoolSearchResult schoolResult : p1schools) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Wrong level included", s.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL));
         }
@@ -278,8 +279,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(41), modelResults.get(SchoolsController.MODEL_TOTAL));
         p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < p1schools.size(); i++) {
-            School s = (School) p1schools.get(i);
+        for (SchoolSearchResult schoolResult : p1schools) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Wrong level included", s.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL) ||
                     s.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL));
@@ -310,9 +311,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(74), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(74), modelResults.get(SchoolsController.MODEL_TOTAL));
-        List p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < p1schools.size(); i++) {
-            School s = (School) p1schools.get(i);
+        List<SchoolSearchResult> p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        for (SchoolSearchResult schoolResult : p1schools) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Wrong type", s.getType().equals(SchoolType.PUBLIC));
         }
@@ -333,8 +334,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_TOTAL));
         p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < p1schools.size(); i++) {
-            School s = (School) p1schools.get(i);
+        for (SchoolSearchResult schoolResult : p1schools) {
+            School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Wrong type", s.getType().equals(SchoolType.PRIVATE));
         }
