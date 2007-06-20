@@ -49,7 +49,7 @@
                 <div class="rating">
                     <c:choose>
                         <c:when test="${empty rating}">
-                            <gsml:img src="/res/img/school/ratings/na.gif" alt="No rating for this school."/>
+                            <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
                         </c:when>
                         <c:otherwise>
                             <link:schoolProfileRating school="${school}">
