@@ -10,9 +10,14 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:search="http://java.sun.com/jsp/jstl/core">
 <jsp:directive.tag import="gs.web.util.PageHelper"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag body-content="empty"/>
 
 <jsp:scriptlet>
+    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+    // Save bandwidth and better SEO, don't write out search form for crawlers
+    request.setAttribute("isCrawler", Boolean.valueOf(sessionContext.isCrawler()));
     request.setAttribute("tabs", PageHelper.pageIds);
 </jsp:scriptlet>
 
@@ -36,7 +41,7 @@
             </c:when>
             <c:otherwise>
                 <jsp:scriptlet>
-                    request.setAttribute("communityAuth", 
+                    request.setAttribute("communityAuth",
                             Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
                 </jsp:scriptlet>
                 <c:choose>
@@ -84,7 +89,8 @@
         <div style="padding:18px 0 0 85px;"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks></div>
     </c:when>
     <c:otherwise>
-        <div class="search" >
+        <c:if test="${not isCrawler}">
+          <div class="search" >
             <gsweb:form method="get"
                         action="/search/search.page"
                         onsubmit="return topNavSubmitSearch(this)">
@@ -144,7 +150,6 @@
                         </td>
                     </tr>
                     <tr>
-
                         <td style="height:21px" class="searchRadios">
                             <c:choose>
                                 <c:when test="${requestScope.context.topicPage}">
@@ -174,7 +179,8 @@
                     </tr>
                 </table>
             </gsweb:form>
-        </div>
+          </div>
+        </c:if>
     </c:otherwise>
 </c:choose>
 </td>
