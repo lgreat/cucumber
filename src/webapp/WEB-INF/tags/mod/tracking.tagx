@@ -8,8 +8,6 @@
 <jsp:directive.tag import="gs.data.school.LevelCode"/>
 <jsp:directive.tag import="gs.data.util.Address"/>
 <jsp:directive.tag import="java.util.Iterator"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="pageType" required="true"/>
     <jsp:directive.attribute name="pageName" required="true"/>
@@ -56,9 +54,6 @@
             required="false"/>
 
     <jsp:scriptlet>
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        // Save bandwidth, don't write out maps for crawlers
-        request.setAttribute("isCrawler", Boolean.valueOf(sessionContext.isCrawler()));
         request.setAttribute("scheme", request.getScheme());
         if (null != school) {
             try {
@@ -86,7 +81,7 @@
             }
         }
     </jsp:scriptlet>
-    <c:if test="${not isCrawler}">
+    <c:if test="${!requestScope.context.crawler}">
         <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
         <c:if test="${requestScope.pageHelper.devEnvironment}">
             <gsml:url var="js" value="/res/js/s_code_dev.js"/>
