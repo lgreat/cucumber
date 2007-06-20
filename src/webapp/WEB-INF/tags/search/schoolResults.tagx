@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
     <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
@@ -12,13 +13,15 @@
             <br />
             School
         </div>
-        <div id="ratingsHeader">
-            GreatSchools<br />
-            Rating
-        </div>
-        <div id="reviewsHeader">
-            <!--Parent Rating-->
-        </div>
+        <variant:b>
+            <div id="ratingsHeader">
+                GreatSchools<br />
+                Rating
+            </div>
+            <div id="reviewsHeader">
+                <!--Parent Rating-->
+            </div>
+        </variant:b>
     </div>
     <div id="searchResultsList">
         <c:forEach var="schoolResult" items="${results}" >
@@ -42,22 +45,24 @@
                     <c:out value="${school.phone}"/>
                 </div>
             </div>
-            <div class="rating">
-                <c:choose>
-                    <c:when test="${empty rating}">
-                        <gsml:img src="/res/img/school/ratings/na.gif" alt="No rating for this school."/>
-                    </c:when>
-                    <c:otherwise>
-                        <link:schoolProfileRating school="${school}">
-                            <gsml:img src="/res/img/school/ratings/${rating}.gif"
-                                      alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                        </link:schoolProfileRating>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-            <div class="review">
-                <!--4-->
-            </div>
+            <variant:b>
+                <div class="rating">
+                    <c:choose>
+                        <c:when test="${empty rating}">
+                            <gsml:img src="/res/img/school/ratings/na.gif" alt="No rating for this school."/>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolProfileRating school="${school}">
+                                <gsml:img src="/res/img/school/ratings/${rating}.gif"
+                                          alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                            </link:schoolProfileRating>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="review">
+                    <!--4-->
+                </div>
+            </variant:b>
         </c:forEach>
     </div>
 </jsp:root>
