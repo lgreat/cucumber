@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.19 2007/06/19 22:22:27 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.20 2007/06/20 22:39:40 cpickslay Exp $
  */
 
 package gs.web.util.context;
@@ -245,12 +245,6 @@ public class SessionContextUtil implements ApplicationContextAware {
             context.setCrawler(true);
         } else {
             context.setCrawler(false);
-        }
-
-        // Set the a/b version - 'a' is the default
-        String versionParam = request.getParameter(VERSION_PARAM);
-        if (StringUtils.isNotBlank(versionParam)) {
-            context.setAbVersion(versionParam.trim());
         }
 
         // Now see if we need to override the hostName
