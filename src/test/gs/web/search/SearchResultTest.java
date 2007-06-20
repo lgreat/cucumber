@@ -14,8 +14,8 @@ public class SearchResultTest extends TestCase {
 
     public void testGetFields() {
         Document doc = new Document();
-        doc.add(Field.Text("name", "pablo"));
-        doc.add(Field.Text("id", "1234"));
+        doc.add(new Field("name", "pablo", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field("id", "1234", Field.Store.YES, Field.Index.TOKENIZED));
 
         SearchResult sr = new SearchResult(doc);
         assertEquals("pablo", sr.getName());
@@ -25,19 +25,19 @@ public class SearchResultTest extends TestCase {
     public void testGetHeadline() {
         // note that the order the fields are added is important.
         Document doc = new Document();
-        doc.add(Field.Text("city", "San Francisco"));
+        doc.add(new Field("city", "San Francisco", Field.Store.YES, Field.Index.TOKENIZED));
         SearchResult result = new SearchResult(doc);
         assertEquals("San Francisco", result.getHeadline());
 
-        doc.add(Field.Text("term", "SAT"));
+        doc.add(new Field("term", "SAT", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals("SAT", result.getHeadline());
 
-        doc.add(Field.Text("title", "How my cat ate my mother."));
+        doc.add(new Field("title", "How my cat ate my mother.", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals("How my cat ate my mother.", result.getHeadline());
 
-        doc.add(Field.Text("name", "West High School"));
+        doc.add(new Field("name", "West High School", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals("West High School", result.getHeadline());
     }
@@ -47,27 +47,30 @@ public class SearchResultTest extends TestCase {
         SearchResult result = new SearchResult(doc);
         assertNull(result.getContext());
 
-        doc.add(Field.Text("type", "district"));
+        doc.add(new Field("type", "district", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertNull(result.getContext());
 
         doc = new Document();
-        doc.add(Field.Text("type", "term"));
-        doc.add(Field.Text("definition", "to dig a hole, with gusto"));
+        doc.add(new Field("type", "term", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field("definition", "to dig a hole, with gusto",
+                Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals(SearchResult.TERM, result.getType());
         assertEquals("to dig a hole, with gusto", result.getContext());
 
         doc = new Document();
-        doc.add(Field.Text("type", "article"));
-        doc.add(Field.Text("definition", "to dig a hole, with gusto"));
-        doc.add(Field.Text("abstract", "jasper johns was a silly penguin"));
+        doc.add(new Field("type", "article", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field("definition", "to dig a hole, with gusto",
+                Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field("abstract", "jasper johns was a silly penguin",
+                Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals(SearchResult.ARTICLE, result.getType());
         assertEquals("jasper johns was a silly penguin", result.getContext());
 
         doc = new Document();
-        doc.add(Field.Text("type", "school"));
+        doc.add(new Field("type", "school", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals(SearchResult.SCHOOL, result.getType());
         assertTrue(StringUtils.isBlank(result.getContext()));
@@ -76,13 +79,13 @@ public class SearchResultTest extends TestCase {
 
     public void testGetType() {
         Document doc = new Document();
-        doc.add(Field.Text("type", "school"));
+        doc.add(new Field("type", "school", Field.Store.YES, Field.Index.TOKENIZED));
         SearchResult sr = new SearchResult(doc);
         assertEquals(SearchResult.SCHOOL, sr.getType());
 
         doc = new Document();
-        doc.add(Field.Text("type", "city"));
-        doc.add(Field.Text("city", "New Orleans"));
+        doc.add(new Field("type", "city", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field("city", "New Orleans", Field.Store.YES, Field.Index.TOKENIZED));
         sr = new SearchResult(doc);
         assertEquals(SearchResult.CITY, sr.getType());
         assertEquals("New Orleans", sr.getCity());
@@ -105,7 +108,8 @@ public class SearchResultTest extends TestCase {
         assertEquals(0, result.getSchools());
 
         doc = new Document();
-        doc.add(Field.Text(IndexField.NUMBER_OF_SCHOOLS, "1234"));
+        doc.add(new Field(IndexField.NUMBER_OF_SCHOOLS, "1234",
+                Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals(1234, result.getSchools());
     }
@@ -115,19 +119,21 @@ public class SearchResultTest extends TestCase {
         SearchResult result = new SearchResult(doc);
         assertTrue(StringUtils.isBlank(result.getAddress()));
 
-        doc.add(Field.Text("street", "222 2nd St."));
+        doc.add(new Field("street", "222 2nd St.",
+                Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals("222 2nd St.", result.getAddress());
 
-        doc.add(Field.Text("city", "Tahachepe"));
+        doc.add(new Field("city", "Tahachepe",
+                Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals("222 2nd St.,  Tahachepe", result.getAddress());
 
-        doc.add(Field.Text("state", "ca"));
+        doc.add(new Field("state", "ca", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals("222 2nd St.,  Tahachepe, CA", result.getAddress());
 
-        doc.add(Field.Text("zip", "12345"));
+        doc.add(new Field("zip", "12345", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals("222 2nd St.,  Tahachepe, CA 12345", result.getAddress());
         // this repleated assert tests a conditional in getAddress();
@@ -136,8 +142,8 @@ public class SearchResultTest extends TestCase {
 
     public void testGetStreetAddress() {
         Document doc = new Document();
-        doc.add(Field.Text("street", "222 2nd St."));
-        doc.add(Field.Text("city", "Tahachepe"));
+        doc.add(new Field("street", "222 2nd St.", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field("city", "Tahachepe", Field.Store.YES, Field.Index.TOKENIZED));
         SearchResult result = new SearchResult(doc);
 
         assertEquals("Street address should not include city", "222 2nd St.", result.getStreetAddress());
@@ -145,9 +151,9 @@ public class SearchResultTest extends TestCase {
 
     public void testGetCityStateZip() {
         Document doc = new Document();
-        doc.add(Field.Text("city", "Tahachepe"));
-        doc.add(Field.Text("state", "ca"));
-        doc.add(Field.Text("zip", "12345"));
+        doc.add(new Field("city", "Tahachepe", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field("state", "ca", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field("zip", "12345", Field.Store.YES, Field.Index.TOKENIZED));
         SearchResult result = new SearchResult(doc);
 
         assertEquals("Unexpected city state zip", "Tahachepe, CA 12345", result.getCityStateZip());
@@ -158,7 +164,7 @@ public class SearchResultTest extends TestCase {
         SearchResult result = new SearchResult(doc);
         assertNull(result.getSchoolType());
 
-        doc.add(Field.Text("schooltype", "public"));
+        doc.add(new Field("schooltype", "public", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
         assertEquals("public", result.getSchoolType());
     }

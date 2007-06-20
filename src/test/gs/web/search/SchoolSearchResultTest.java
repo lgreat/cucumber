@@ -9,7 +9,7 @@ import gs.data.school.School;
 public class SchoolSearchResultTest extends TestCase {
     public void testGreatSchoolsRatingComesFromIndex() {
         Document doc = new Document();
-        doc.add(Field.Text(Indexer.OVERALL_RATING, "4"));
+        doc.add(new Field(Indexer.OVERALL_RATING, "4", Field.Store.YES, Field.Index.TOKENIZED));
         SchoolSearchResult result = new SchoolSearchResult(doc);
 
         assertEquals("Unexpected greatschools rating", "4", result.getGreatSchoolsRating());

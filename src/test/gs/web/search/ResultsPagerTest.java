@@ -108,14 +108,14 @@ public class ResultsPagerTest extends TestCase {
                 for (int j = 0; j < NUMBER_OF_HITS; j++) {
                     Document d = new Document();
                     if (j > 0 && j < 11) {
-                        d.add(Field.Text(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL));
-                        d.add(Field.Text(Indexer.ID, String.valueOf(j)));
-                        d.add(Field.Text(Indexer.OVERALL_RATING, String.valueOf(j)));
+                        d.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
+                        d.add(new Field(Indexer.ID, String.valueOf(j), Field.Store.YES, Field.Index.TOKENIZED));
+                        d.add(new Field(Indexer.OVERALL_RATING, String.valueOf(j), Field.Store.YES, Field.Index.TOKENIZED));
                     } else {
-                        d.add(Field.Text(Indexer.DOCUMENT_TYPE, "blah"));
+                        d.add(new Field(Indexer.DOCUMENT_TYPE, "blah", Field.Store.YES, Field.Index.TOKENIZED));
                     }
-                    d.add(Field.Text("test", "x"));
-                    d.add(Field.Text(Indexer.STATE, SEARCH_STATE));
+                    d.add(new Field("test", "x", Field.Store.YES, Field.Index.TOKENIZED));
+                    d.add(new Field(Indexer.STATE, SEARCH_STATE, Field.Store.YES, Field.Index.TOKENIZED));
                     writer.addDocument(d);
                 }
                 writer.close();

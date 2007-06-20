@@ -55,7 +55,8 @@ public class RawSearchController extends AbstractController {
                 PriorityQueue terms = _searcher.getTermsForField(queryString);
                 mAndV.getModel().put("fieldTerms", terms);
             } else {
-                Query query = QueryParser.parse(queryString, "text", _analyzer);
+                QueryParser parser = new QueryParser("text", _analyzer);
+                Query query = parser.parse(queryString);
                 Hits hits = _searcher.search(query, null, null, null);
                 if (hits != null) {
                     mAndV.getModel().put("total", String.valueOf(hits.length()));

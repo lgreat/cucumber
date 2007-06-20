@@ -20,10 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.Hits;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractFormController;
@@ -347,12 +344,13 @@ public class SearchController extends AbstractFormController {
     protected BooleanQuery createBaseQuery(SessionContext sessionContext, State state, String queryString) {
         BooleanQuery baseQuery = new BooleanQuery();
         if (sessionContext.getState() != null) {
-            baseQuery.add(new TermQuery(new Term("state", state.getAbbreviationLowerCase())), true, false);
+            baseQuery.add(new TermQuery(new Term("state",
+                    state.getAbbreviationLowerCase())), BooleanClause.Occur.MUST);
         }
 
         try {
             Query keywordQuery = _queryParser.parse(queryString);
-            baseQuery.add(keywordQuery, true, false);
+            baseQuery.add(keywordQuery, BooleanClause.Occur.MUST);
         } catch (ParseException pe) {
             _log.warn("error parsing: " + queryString, pe);
         }
@@ -469,8 +467,9 @@ public class SearchController extends AbstractFormController {
 
     protected Hits searchForDistricts(BooleanQuery baseQuery) {
         BooleanQuery districtQuery = new BooleanQuery();
-        districtQuery.add(new TermQuery(new Term("type", "district")), true, false);
-        districtQuery.add(baseQuery, true, false);
+        districtQuery.add(new TermQuery(new Term("type", "district")),
+                BooleanClause.Occur.MUST);
+        districtQuery.add(baseQuery, BooleanClause.Occur.MUST);
         Hits districtHits = _searcher.search(districtQuery, null, null, null);
         return districtHits;
     }
