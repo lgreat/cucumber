@@ -37,46 +37,48 @@
 <div id="col_left">
     <div id="resultsheader">
         <div id="rh_col_left">
-                    ${heading1}
+            ${heading1}
         </div>
         <div id="rh_col_right">
-                    <c:if test="${total gt 0}">
-                        <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
-                        <c:set var="px" value="${(page * 10)}"/>
-                        <c:out value="${px + 1} - ${(total lt px + 10) ? (total) : (px + 10)} of ${total}"/>
-                    </c:if>
+            <c:if test="${total gt 0}">
+                <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                <c:set var="px" value="${(page * 10)}"/>
+                <c:out value="${px + 1} - ${(total lt px + 10) ? (total) : (px + 10)} of ${total}"/>
+            </c:if>
         </div>
     </div>
-        <c:if test="${not empty filteredCities and not empty filteredCities.results}">
-            <c:set var="hasCityResults" value="true"/>
-            <div id="filtered" class="rollup">
-                <gsml:list model="${filteredCities}" between="&#160;|&#160;"/>
-            </div>
-        </c:if>
+    <c:if test="${not empty filteredCities and not empty filteredCities.results}">
+        <c:set var="hasCityResults" value="true"/>
+        <div id="filtered" class="rollup">
+            <gsml:list model="${filteredCities}" between="&#160;|&#160;"/>
+        </div>
+    </c:if>
 
-        <c:if test="${not empty cities and not empty cities.results}">
-            <c:set var="hasCityResults" value="true"/>
-            <div class="rollup city">
-                <gsml:list model="${cities}" between="&#160;|&#160;"/>
-            </div>
-        </c:if>
+    <c:if test="${not empty cities and not empty cities.results}">
+        <c:set var="hasCityResults" value="true"/>
+        <div class="rollup city">
+            <gsml:list model="${cities}" between="&#160;|&#160;"/>
+        </div>
+    </c:if>
 
-        <c:if test="${not empty districts and not empty districts.results}">
-            <c:set var="hasDistrictResults" value="true"/>
-            <div class="rollup district">
-                <gsml:list model="${districts}" between="&#160;|&#160;"/>
-            </div>
-        </c:if>
+    <c:if test="${not empty districts and not empty districts.results}">
+        <c:set var="hasDistrictResults" value="true"/>
+        <div class="rollup district">
+            <gsml:list model="${districts}" between="&#160;|&#160;"/>
+        </div>
+    </c:if>
 
     <div id="searchResults">
-        <c:choose>
-            <c:when test="${param.c eq 'school'}">
-                <search:schoolResults results="${mainResults}"/>
-            </c:when>
-            <c:otherwise>
-                <search:articleResults results="${mainResults}"/>
-            </c:otherwise>
-        </c:choose>
+        <c:if test="${not empty mainResults}">
+            <c:choose>
+                <c:when test="${param.c eq 'school'}">
+                    <search:schoolResults results="${mainResults}"/>
+                </c:when>
+                <c:otherwise>
+                    <search:articleResults results="${mainResults}"/>
+                </c:otherwise>
+            </c:choose>
+        </c:if>
         <c:if test="${not empty noResultsExplanation}">
             <div class="noResultsExplanation">
                 <h4>${noResultsExplanation}</h4>
@@ -84,12 +86,12 @@
         </c:if>
         <c:if test="${showSuggestions}">
             <div id="suggestions">
-            <h4>Suggestions:</h4>
-            <ul>
-                <li>Make sure all words are spelled correctly.</li>
-                <li>Try different or fewer key words.</li>
-                <li>Try more general key words.</li>
-            </ul>
+                <h4>Suggestions:</h4>
+                <ul>
+                    <li>Make sure all words are spelled correctly.</li>
+                    <li>Try different or fewer key words.</li>
+                    <li>Try more general key words.</li>
+                </ul>
             </div>
         </c:if>
         <div id="pagination">
@@ -109,9 +111,10 @@
     </div>
 
 </div>
+
 <div id="col_right">
-    <promo:summerReading />
-    <ad:setSlotPrefix slotPrefix="Search_Site"/>    
+    <promo:summerReading/>
+    <ad:setSlotPrefix slotPrefix="Search_Site"/>
     <ad:x47/>
     <ad:AboveFold_300x600/>
     <ad:multiTextAd blurb="Advertiser Links"/>
@@ -127,6 +130,7 @@
         <c:set var="pagename" value="School Search"/>
     </c:otherwise>
 </c:choose>
+
 <!--Build the Omniture results variable-->
 <c:choose>
     <c:when test="${total gt 0}">
