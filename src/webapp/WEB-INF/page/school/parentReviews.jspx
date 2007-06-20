@@ -162,7 +162,7 @@
                         <div class="tellUsMore"><p>Principals and school officials, we encourage you to <link:schoolProfileEspLogin school="${school}">tell us more about your school</link:schoolProfileEspLogin>.</p></div>
                     </div><!-- end: callouts -->
 
-                    <p class="disclaimer">Parent ratings and review do not represent the views of GreatSchools.net nor does GreatSchools.net check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
+                    <p class="disclaimer">Parent ratings and reviews do not represent the views of GreatSchools.net nor does GreatSchools.net check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
                 </div><!-- end: col_left" -->
 
                 <div id="col_right">
