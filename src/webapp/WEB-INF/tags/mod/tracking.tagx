@@ -8,6 +8,8 @@
 <jsp:directive.tag import="gs.data.school.LevelCode"/>
 <jsp:directive.tag import="gs.data.util.Address"/>
 <jsp:directive.tag import="java.util.Iterator"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="pageType" required="true"/>
     <jsp:directive.attribute name="pageName" required="true"/>
@@ -54,6 +56,9 @@
             required="false"/>
 
     <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        // Save bandwidth, don't write out maps for crawlers
+        request.setAttribute("isCrawler", Boolean.valueOf(sessionContext.isCrawler()));
         request.setAttribute("scheme", request.getScheme());
         if (null != school) {
             try {
@@ -64,7 +69,7 @@
                 if (address != null) {
                     jspContext.setAttribute("locale", address.getCity());
                 } else {
-                    jspContext.setAttribute("locale", school.getCounty());    
+                    jspContext.setAttribute("locale", school.getCounty());
                 }
 
                 StringBuffer buffer = new StringBuffer(30);
@@ -81,48 +86,48 @@
             }
         }
     </jsp:scriptlet>
-
-    <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
-    <c:if test="${requestScope.pageHelper.devEnvironment}">
-        <gsml:url var="js" value="/res/js/s_code_dev.js"/>
-        <c:set var="gsnet" value="gsnetdev"/>
+    <c:if test="${not isCrawler}">
+        <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
+        <c:if test="${requestScope.pageHelper.devEnvironment}">
+            <gsml:url var="js" value="/res/js/s_code_dev.js"/>
+            <c:set var="gsnet" value="gsnetdev"/>
+        </c:if>
+        <c:if test="${not requestScope.pageHelper.devEnvironment}">
+            <gsml:url var="js" value="/res/js/s_code.js"/>
+            <c:set var="gsnet" value="gsnet"/>
+        </c:if>
+        <script type="text/javascript" src="${js}">
+            <![CDATA[</script>
+            <script type="text/javascript" > ]]>
+            s.pageName = "${pageName}";
+            s.server = "${requestScope.context.hostName}";
+            s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
+            s.pageType = "${empty(pageType) ? "" : pageType}";
+            s.prop1 = "${empty(id) ? "" : id}";
+            s.prop2 = "${empty(schoolType) ? "" : schoolType}";
+            s.prop3 = "${empty(schoolLevel) ? "" : schoolLevel}";
+            s.prop4 = "${empty(locale) ? "" : locale}";
+            s.prop5 = "${empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}";
+            s.prop6 = "${query}";
+            s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
+            s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
+            s.prop9 = "${empty(referringPage) ? pageName : referringPage}";
+            s.prop10 = "${requestScope.context.screenName}";
+            s.events = "${events}";
+            s.hier1 = "${hier1}";
+        </script>
+        <![CDATA[
+    <script type="text/javascript" language="JavaScript"><!--
+    var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+    <script type="text/javascript" language="JavaScript"><!--
+    if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+    //--></script><noscript><img
+    src="${scheme}://${gsnet}.122.2O7.net/b/ss/${gsnet}/1/H.2--NS/0"
+    height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+    <!-- End SiteCatalyst code version: H.2. -->
+    ]]>
+        <c:set var="rand" value="${gsweb:randomNumber(1000)}"/>
+        <gsml:url var="tracker" value="/modperl/promos/image//${rand}/${requestScope.context.stateOrDefault.abbreviation}//3"/>
+        <img alt="tracker" src="${tracker}" />
     </c:if>
-    <c:if test="${not requestScope.pageHelper.devEnvironment}">
-        <gsml:url var="js" value="/res/js/s_code.js"/>
-        <c:set var="gsnet" value="gsnet"/>
-    </c:if>
-    <script type="text/javascript" src="${js}">
-        <![CDATA[</script>
-        <script type="text/javascript" > ]]>
-        s.pageName = "${pageName}";
-        s.server = "${requestScope.context.hostName}";
-        s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
-        s.pageType = "${empty(pageType) ? "" : pageType}";
-        s.prop1 = "${empty(id) ? "" : id}";
-        s.prop2 = "${empty(schoolType) ? "" : schoolType}";
-        s.prop3 = "${empty(schoolLevel) ? "" : schoolLevel}";
-        s.prop4 = "${empty(locale) ? "" : locale}";
-        s.prop5 = "${empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}";
-        s.prop6 = "${query}";
-        s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
-        s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
-        s.prop9 = "${empty(referringPage) ? pageName : referringPage}";
-        s.prop10 = "${requestScope.context.screenName}";
-        s.events = "${events}";
-        s.hier1 = "${hier1}";
-
-    </script>
-    <![CDATA[
-<script type="text/javascript" language="JavaScript"><!--
-var s_code=s.t();if(s_code)document.write(s_code)//--></script>
-<script type="text/javascript" language="JavaScript"><!--
-if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
-//--></script><noscript><img
-src="${scheme}://${gsnet}.122.2O7.net/b/ss/${gsnet}/1/H.2--NS/0"
-height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
-<!-- End SiteCatalyst code version: H.2. -->
-]]>
-    <c:set var="rand" value="${gsweb:randomNumber(1000)}"/>
-    <gsml:url var="tracker" value="/modperl/promos/image//${rand}/${requestScope.context.stateOrDefault.abbreviation}//3"/>
-    <img alt="tracker" src="${tracker}" />
 </jsp:root>

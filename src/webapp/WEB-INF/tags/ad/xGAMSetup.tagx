@@ -38,7 +38,7 @@
             request.setAttribute("GAMadKeywords", pageHelper.getAdKeywords());
         }
         ]]></jsp:scriptlet>
-        <c:if test="${!empty GAMadNames}">
+        <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
             <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
             <script type="text/javascript">                 
               GS_googleAddAdSenseService("ca-pub-9662012843341888");
