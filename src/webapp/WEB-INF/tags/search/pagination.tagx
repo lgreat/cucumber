@@ -10,30 +10,33 @@
     <jsp:directive.attribute name="resultCount" required="true" type="java.lang.Integer"/>
 
     <jsp:scriptlet><![CDATA[
-        int start = (currentPage < 10) ? 1 : (currentPage - 5);
-        int end = (resultCount / pageSize) + ((resultCount % pageSize) > 0 ? 1 : 0);
-        int lastToDisplay = Math.min(start + 10, end);
-        request.setAttribute("start", start);
-        request.setAttribute("end", end);
-        request.setAttribute("lastToDisplay", lastToDisplay);
+        if (resultCount > pageSize) {
+            int start = (currentPage < 10) ? 1 : (currentPage - 5);
+            int end = (resultCount / pageSize) + ((resultCount % pageSize) > 0 ? 1 : 0);
+            int lastToDisplay = Math.min(start + 10, end);
+            request.setAttribute("start", start);
+            request.setAttribute("end", end);
+            request.setAttribute("lastToDisplay", lastToDisplay);
+        }
         ]]></jsp:scriptlet>
-    <c:if test="${currentPage gt 1}">
-        <link:search styleClass="page" page="${currentPage - 1}">&lt;&#160;Previous</link:search>
+    <c:if test="${resultCount gt pageSize}">
+        <c:if test="${currentPage gt 1}">
+            <link:search styleClass="page" page="${currentPage - 1}">&lt;&#160;Previous</link:search>
+        </c:if>
+
+        <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
+            <c:choose>
+                <c:when test="${count eq currentPage}">
+                    <span class="page"><c:out value="${count}"/></span>
+                </c:when>
+                <c:otherwise>
+                    <link:search styleClass="page" page="${count}"><c:out value="${count}"/></link:search>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+        <c:if test="${currentPage lt end}">
+            <link:search styleClass="page" page="${currentPage + 1}">Next&#160;&gt;</link:search>
+        </c:if>
     </c:if>
-
-    <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
-        <c:choose>
-            <c:when test="${count eq currentPage}">
-                <span class="page"><c:out value="${count}"/></span>
-            </c:when>
-            <c:otherwise>
-                <link:search styleClass="page" page="${count}"><c:out value="${count}"/></link:search>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-
-    <c:if test="${currentPage lt end}">
-        <link:search styleClass="page" page="${currentPage + 1}">Next&#160;&gt;</link:search>
-    </c:if>
-
 </jsp:root>
