@@ -138,7 +138,8 @@
     </div>
     <!-- end: breadcrumbs -->
 
-    <!-- begin tool links -->
+    <!-- begin tool links : don't show for crawlers -->
+    <c:if test="${!requestScope.context.crawler}">
     <div id="tools">
         <link:mySchoolList school="${school}" styleClass="add" title="Add to My School List">Add to My School List</link:mySchoolList>
 
@@ -176,8 +177,8 @@
                 </c:choose>
             </c:otherwise>
         </c:choose>
-
     </div>
+    </c:if>
     <!-- end tools -->
 
     <!-- School name -->

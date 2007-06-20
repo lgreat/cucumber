@@ -24,6 +24,7 @@
                                alt="GreatSchools: The Parents' Guide to K-12 Success"
             /></gsml:a>
 </td>
+<c:if test="${!requestScope.context.crawler}">
 <td class="member" >
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member noprint">
     <tr>
@@ -37,7 +38,7 @@
             <c:otherwise>
                 <jsp:scriptlet>
                     request.setAttribute("communityAuth",
-                            Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                            PageHelper.isCommunityCookieSet(request));
                 </jsp:scriptlet>
                 <c:choose>
                     <c:when test="${requestScope.context.cobranded eq false and communityAuth eq true}">
@@ -84,7 +85,6 @@
         <div style="padding:18px 0 0 85px;"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks></div>
     </c:when>
     <c:otherwise>
-        <c:if test="${!requestScope.context.crawler}">
           <div class="search" >
             <gsweb:form method="get"
                         action="/search/search.page"
@@ -175,10 +175,10 @@
                 </table>
             </gsweb:form>
           </div>
-        </c:if>
     </c:otherwise>
 </c:choose>
 </td>
+</c:if>
 </tr>
 </table>
 
