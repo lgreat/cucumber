@@ -24,9 +24,6 @@
         <c:forEach var="schoolResult" items="${results}" >
             <c:set var="school" value="${schoolResult.school}"/>
             <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
-            <c:if test="${empty rating}">
-                <c:set var="rating" value="na"/>
-            </c:if>
             <div class="school result">
                 <h3><link:schoolProfileOverview school="${school}" title="${school.name}">
                         <c:out value="${gsweb:highlight(school.name, q, 'name')}" escapeXml="false"/>
@@ -46,10 +43,17 @@
                 </div>
             </div>
             <div class="rating">
-                <link:schoolProfileRating school="${school}">
-                    <gsml:img src="/res/img/school/ratings/${rating}.gif"
-                              alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                </link:schoolProfileRating>
+                <c:choose>
+                    <c:when test="${empty rating}">
+                        <gsml:img src="/res/img/school/ratings/na.gif" alt="No rating for this school."/>
+                    </c:when>
+                    <c:otherwise>
+                        <link:schoolProfileRating school="${school}">
+                            <gsml:img src="/res/img/school/ratings/${rating}.gif"
+                                      alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                        </link:schoolProfileRating>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div class="review">
                 <!--4-->
