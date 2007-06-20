@@ -104,11 +104,7 @@
 <script type="text/javascript" language="javascript">
 <![CDATA[
     var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
-
-    function openDelicious() {
-        // to get around popup blockers
-        location.href=deliciousUrl;
-    }
+    function openDelicious() { location.href=deliciousUrl; }
 ]]></script>
 
 <c:set var="state" value="${school.physicalAddress.state}"/>
