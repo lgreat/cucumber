@@ -166,6 +166,20 @@ Search results
     /*border: 1px solid green*/
 }
 
+/* pagination controls */
+
+#pagination {
+    float: right;
+    clear: left;
+    margin-bottom: 10px;
+}
+
+.page {
+    padding-left: 10px;
+}
+
+/* search footer */
+
 #searchFooter {
     float: left;
     width: 487px;
@@ -237,15 +251,6 @@ Search results
     padding-left: 20px;
 }
 
-.results_pagenav a.pad {
-    padding: 0 0 0 10px;
-}
-
-.active {
-    color: #000;
-    padding-left: 10px
-}
-
 #mainresults {
     padding-top: 5px;
     margin-left: 18px;
@@ -254,90 +259,6 @@ Search results
 .abstract {
     font-size: small;
     padding-left: 18px;
-}
-
-
-
-
-
-
-
-
-table#header {
-    width: 100%;
-    margin: 0px 0px 0px 0px;
-}
-
-table#header td.left {
-    width: 180px;
-}
-
-div.verticalcontainer {
-    position: relative;
-    height: 270px;
-}
-
-table#header td.stretchycolumn {
-    padding: 0px 6px 0px 6px;
-    height: 250px;
-}
-
-
-.checkbox {
-    padding: 0;
-    margin: 0;
-    font-size: 90%;
-}
-
-.main, .columns {
-    width: 100%;
-}
-
-td.leftColumn {
-    font-size: large;
-    padding-right: 5px;
-    width: 160px;
-    vertical-align: top;
-}
-
-td.middleColumn {
-    border-left: 1px solid #bbb;
-    padding-left: 10px;
-}
-
-td.rightColumn {
-    width: 160px;
-    vertical-align: top;
-}
-
-td #searchlinks a {
-    font-size: small;
-    padding-left: 7px;
-    padding-right: 7px;
-}
-
-th.result_title {
-    padding: 0px 20px 0px 0px;
-    border-bottom: 1px solid #999;
-    margin-right: 10px;
-    font-size: small;
-}
-
-td.results_pagenav {
-    text-align: right;
-    font-weight: normal;
-    font-size: 80%;
-    white-space: nowrap;
-}
-
-tr.last_row td {
-    padding: 10px 0px 0px 0px;
-    border-bottom: 0px;
-}
-
-tr.control_row td {
-    padding: 0px 0px 0px 0px;
-    border-bottom: 1px
 }
 
 .highlight {

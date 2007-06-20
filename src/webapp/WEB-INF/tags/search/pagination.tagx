@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pg="http://jsptags.com/tags/navigation/pager"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer"/>
+    <jsp:directive.attribute name="currentPage" required="true" type="java.lang.Integer"/>
+    <jsp:directive.attribute name="resultCount" required="true" type="java.lang.Integer"/>
+
+    <jsp:scriptlet><![CDATA[
+        int start = (currentPage < 10) ? 1 : (currentPage - 5);
+        int end = (resultCount / pageSize) + ((resultCount % pageSize) > 0 ? 1 : 0);
+        int lastToDisplay = Math.min(start + 10, end);
+        request.setAttribute("start", start);
+        request.setAttribute("end", end);
+        request.setAttribute("lastToDisplay", lastToDisplay);
+        ]]></jsp:scriptlet>
+    <c:if test="${currentPage gt 1}">
+        <link:search styleClass="page" page="${currentPage - 1}">&lt;&#160;Previous</link:search>
+    </c:if>
+
+    <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
+        <c:choose>
+            <c:when test="${count eq currentPage}">
+                <span class="page"><c:out value="${count}"/></span>
+            </c:when>
+            <c:otherwise>
+                <link:search styleClass="page" page="${count}"><c:out value="${count}"/></link:search>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+
+    <c:if test="${currentPage lt end}">
+        <link:search styleClass="page" page="${currentPage + 1}">Next&#160;&gt;</link:search>
+    </c:if>
+
+</jsp:root>

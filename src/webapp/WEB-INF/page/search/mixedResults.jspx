@@ -92,6 +92,9 @@
             </ul>
             </div>
         </c:if>
+        <div id="pagination">
+            <search:pagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>
+        </div>
         <div id="searchFooter">
             <c:if test="${showQueryAgain}">
                 <c:if test="${showWhatStateTheySearchedIn}">
