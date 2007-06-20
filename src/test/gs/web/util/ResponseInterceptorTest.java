@@ -31,7 +31,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         _sessionContext.setHostName(_requestedServer);
     }
 
-    public void testPreHandle() throws Exception {
+    public void testPreHandleShouldSetTrnoCookie() throws Exception {
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
         assertTrue(_interceptor.preHandle(request, response, null));
@@ -43,16 +43,43 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         for (Cookie cooky : cookies) {
             if (SessionContextUtil.TRNO_COOKIE.equals(cooky.getName())) {
                 hasCookie = true;
-                String trnoValue = cooky.getValue();
-                long trnoSecondsSinceEpoch = Long.valueOf(trnoValue.substring(0, trnoValue.indexOf(".")));
-                if (trnoSecondsSinceEpoch % 2 == 0) {
-                    assertEquals("b", _sessionContext.getABVersion());
-                } else {
-                    assertEquals("a", _sessionContext.getABVersion());
-                }
             }
         }
         assertTrue(hasCookie);
+    }
+
+    public void testTrnoValueDefinesABVersion() throws Exception {
+        Cookie trnoCookieA = new Cookie("TRNO", "1.192.1.1.1");
+        MockHttpServletRequest request = getRequest();
+        MockHttpServletResponse response = getResponse();
+        request.setCookies(new Cookie[]{trnoCookieA});
+        _interceptor.preHandle(request, response, null);
+
+        assertEquals("Odd number before initial dot in TRNO cookie should set A/B version to a", "a", _sessionContext.getABVersion());
+
+        Cookie trnoCookieB = new Cookie("TRNO", "2.192.1.1.1");
+        request.setCookies(new Cookie[]{trnoCookieB});
+        _interceptor.preHandle(request, response, null);
+
+        assertEquals("Even number before initial dot in TRNO cookie should set A/B version to b", "b", _sessionContext.getABVersion());
+    }
+
+    public void testVersionParameterShouldOverrideABValueFromTrnoCooki() throws Exception {
+        Cookie trnoCookieA = new Cookie("TRNO", "1.192.1.1.1");
+        MockHttpServletRequest request = getRequest();
+        MockHttpServletResponse response = getResponse();
+        request.setCookies(new Cookie[]{trnoCookieA});
+        request.setParameter(SessionContextUtil.VERSION_PARAM, "b");
+        _interceptor.preHandle(request, response, null);
+
+        assertEquals("Version parameter should override A/B version from TRNO cookie", "b", _sessionContext.getABVersion());
+
+        Cookie trnoCookieB = new Cookie("TRNO", "2.192.1.1.1");
+        request.setCookies(new Cookie[]{trnoCookieB});
+        request.setParameter(SessionContextUtil.VERSION_PARAM, "a");
+        _interceptor.preHandle(request, response, null);
+
+        assertEquals("Version parameter should override A/B version from TRNO cookie", "a", _sessionContext.getABVersion());
     }
 
     public void testPostHandle() throws Exception {

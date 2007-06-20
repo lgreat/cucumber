@@ -2,6 +2,7 @@ package gs.web.util;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,16 +17,11 @@ import gs.web.util.context.SessionContextUtil;
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class ResponseInterceptor implements HandlerInterceptor {
-
     public static final String HEADER_CACHE_CONTROL = "Cache-Control";
-
     public static final String HEADER_PRAGMA = "Pragma";
-
     public static final String HEADER_EXPIRES = "Expires";
-
     public static final int EXPIRE_AT_END_OF_SESSION = -1;
     public static final int EXPIRE_NOW = 0;
-
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
@@ -34,33 +30,29 @@ public class ResponseInterceptor implements HandlerInterceptor {
         long trnoSecondsSinceEpoch = 0;
         Cookie trno = findCookie(request, SessionContextUtil.TRNO_COOKIE);
         if (trno == null) {
-            trnoSecondsSinceEpoch = System.currentTimeMillis() / 1000;
-            String ipAddress = request.getHeader("x_forwarded_for");
-
-            if (ipAddress == null) {
-                ipAddress = request.getRemoteAddr();
-            }
-
-            String cookieValue = String.valueOf(trnoSecondsSinceEpoch) + "." + ipAddress;
-
-            //cookie expires approx. two years from now
-            Cookie c = new Cookie(SessionContextUtil.TRNO_COOKIE, cookieValue);
-            c.setPath("/");
-            c.setMaxAge(63113852);
-            response.addCookie(c);
-        } else {
-            String trnoValue = trno.getValue();
-            try {
-                // Extract the time from the TRNO (180654739.127.0.0.1 => 180654739)  
-                trnoSecondsSinceEpoch = Long.valueOf(trnoValue.substring(0, trnoValue.indexOf(".")));
-            } catch (Exception e) {
-                // do nothing
-            }
+            trno = buildTrnoCookie(request);
+            response.addCookie(trno);
         }
 
-        // Use the time from when TRNO was set to determine if user is A or B variant
-        if (trnoSecondsSinceEpoch % 2 == 0) {
-            sessionContext.setAbVersion("b");
+        String trnoValue = trno.getValue();
+        try {
+            // Extract the time from the TRNO (180654739.127.0.0.1 => 180654739)
+            trnoSecondsSinceEpoch = Long.valueOf(trnoValue.substring(0, trnoValue.indexOf(".")));
+        } catch (Exception e) {
+            // do nothing
+        }
+
+        // Set the a/b version - 'a' is the default
+        String versionParam = request.getParameter("version");
+        if (StringUtils.isNotBlank(versionParam)) {
+            sessionContext.setAbVersion(versionParam.trim());
+        } else {
+            // Use the time from when TRNO was set to determine if user is A or B variant
+            if (trnoSecondsSinceEpoch % 2 == 0) {
+                sessionContext.setAbVersion("b");
+            } else {
+                sessionContext.setAbVersion("a");
+            }
         }
 
         // COBRAND cookie
@@ -74,6 +66,22 @@ public class ResponseInterceptor implements HandlerInterceptor {
         }
 
         return true;
+    }
+
+    private Cookie buildTrnoCookie(HttpServletRequest request) {
+        String ipAddress = request.getHeader("x_forwarded_for");
+
+        if (ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
+        }
+
+        String cookieValue = String.valueOf(System.currentTimeMillis() / 1000) + "." + ipAddress;
+
+        //cookie expires approx. two years from now
+        Cookie c = new Cookie(SessionContextUtil.TRNO_COOKIE, cookieValue);
+        c.setPath("/");
+        c.setMaxAge(63113852);
+        return c;
     }
 
 
