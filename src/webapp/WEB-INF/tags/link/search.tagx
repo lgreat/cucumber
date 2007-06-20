@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
+    <jsp:directive.attribute name="styleClass" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="page" required="true" type="java.lang.Integer"/>
+    <jsp:scriptlet>
+        <![CDATA[
+            UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
+            builder.addParametersFromRequest(request);
+            builder.setParameter("p", String.valueOf(page));
+            request.setAttribute("url", builder.asSiteRelativeXml(request));
+            ]]>
+    </jsp:scriptlet>
+    <a href="${url}" class="${styleClass}">
+        <jsp:doBody/>
+    </a>
+</jsp:root>
