@@ -1,4 +1,4 @@
-package gs.web.content;
+package gs.web.jsp.link;
 
 import gs.web.jsp.link.LinkTagHandler;
 import gs.web.util.UrlBuilder;
