@@ -1,11 +1,11 @@
 package gs.web.search;
 
+import gs.data.search.IndexField;
 import junit.framework.TestCase;
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.search.Explanation;
-import org.apache.commons.lang.StringUtils;
-import gs.data.search.IndexField;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -56,7 +56,7 @@ public class SearchResultTest extends TestCase {
         doc.add(new Field("definition", "to dig a hole, with gusto",
                 Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
-        assertEquals(SearchResult.TERM, result.getType());
+        assertEquals(SearchResult.Type.term, result.getType());
         assertEquals("to dig a hole, with gusto", result.getContext());
 
         doc = new Document();
@@ -66,28 +66,27 @@ public class SearchResultTest extends TestCase {
         doc.add(new Field("abstract", "jasper johns was a silly penguin",
                 Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
-        assertEquals(SearchResult.ARTICLE, result.getType());
+        assertEquals(SearchResult.Type.article, result.getType());
         assertEquals("jasper johns was a silly penguin", result.getContext());
 
         doc = new Document();
         doc.add(new Field("type", "school", Field.Store.YES, Field.Index.TOKENIZED));
         result = new SearchResult(doc);
-        assertEquals(SearchResult.SCHOOL, result.getType());
+        assertEquals(SearchResult.Type.school, result.getType());
         assertTrue(StringUtils.isBlank(result.getContext()));
-        //assertEquals("jasper johns was a silly penguin", result.getContext());
     }
 
     public void testGetType() {
         Document doc = new Document();
         doc.add(new Field("type", "school", Field.Store.YES, Field.Index.TOKENIZED));
         SearchResult sr = new SearchResult(doc);
-        assertEquals(SearchResult.SCHOOL, sr.getType());
+        assertEquals(SearchResult.Type.school, sr.getType());
 
         doc = new Document();
         doc.add(new Field("type", "city", Field.Store.YES, Field.Index.TOKENIZED));
         doc.add(new Field("city", "New Orleans", Field.Store.YES, Field.Index.TOKENIZED));
         sr = new SearchResult(doc);
-        assertEquals(SearchResult.CITY, sr.getType());
+        assertEquals(SearchResult.Type.city, sr.getType());
         assertEquals("New Orleans", sr.getCity());
     }
 
