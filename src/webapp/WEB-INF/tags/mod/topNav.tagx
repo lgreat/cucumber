@@ -38,7 +38,7 @@
             <c:otherwise>
                 <jsp:scriptlet>
                     request.setAttribute("communityAuth",
-                            PageHelper.isCommunityCookieSet(request));
+                            Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
                 </jsp:scriptlet>
                 <c:choose>
                     <c:when test="${requestScope.context.cobranded eq false and communityAuth eq true}">
