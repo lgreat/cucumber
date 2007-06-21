@@ -15,9 +15,16 @@
             <c:set var="articleTitle" value="${gsweb:highlight(articleResult.headline, q, 'name')}"/>
             <div class="article result">
                 <h3>
-                    <link:article articleId="${articleResult.id}" >
-                        <c:out value="${articleTitle}" escapeXml="false"/>
-                    </link:article>
+                    <c:if test="${articleResult.type eq 'article'}">
+                        <link:article articleId="${articleResult.id}" >
+                            <c:out value="${articleTitle}" escapeXml="false"/>
+                        </link:article>
+                    </c:if>
+                    <c:if test="${articleResult.type eq 'term'}">
+                        <link:glossaryTerm termId="${articleResult.id}" >
+                            <c:out value="${articleTitle}" escapeXml="false"/>
+                        </link:glossaryTerm>
+                    </c:if>
                 </h3>
                 <div class="abstract">
                     <c:out value="${gsweb:highlight(articleResult.context, q, 'context')}" escapeXml="false"/>
