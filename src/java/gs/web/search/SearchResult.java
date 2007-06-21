@@ -1,9 +1,11 @@
 package gs.web.search;
 
+import gs.data.search.IndexField;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Explanation;
-import org.apache.commons.lang.StringUtils;
-import gs.data.search.IndexField;
 
 /**
  * This is a data structure to hold search result values based on lucene
@@ -11,13 +13,16 @@ import gs.data.search.IndexField;
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class SearchResult {
+    private static final Log _log = LogFactory.getLog(SearchResult.class);
 
-    public final static int DISTRICT = 0;
-    public final static int SCHOOL   = 1;
-    public final static int CITY     = 2;
-    public final static int ARTICLE  = 3;
-    public final static int TERM     = 4;
-    public final static int TOPIC    = 5;
+    public enum Type {
+        distirct,
+        school,
+        city,
+        article,
+        term,
+        topic
+    }
 
     private String _address;
     Document _doc;
@@ -43,10 +48,10 @@ public class SearchResult {
 
     public String getContext() {
         String context = null;
-        int t = getType();
-        if (t == SCHOOL) {
+        Type type = getType();
+        if (type == Type.school) {
             context = getAddress();
-        } else if (t == TERM || t == ARTICLE || t == TOPIC) {
+        } else if (type == Type.term || type == Type.article || type == Type.topic) {
             context = _doc.get("abstract");
             if (context == null) {
                 context = _doc.get("definition");
@@ -61,20 +66,12 @@ public class SearchResult {
      * ARTICLE, TERM.
      * @return an int.
      */
-    public int getType() {
-        int type = -1; // undefined
-        String t = _doc.get("type");
-        // t should never be null - NPE if it is.
-        if ("district".equals(t)) {
-            type = DISTRICT;
-        } else if ("school".equals(t)) {
-            type = SCHOOL;
-        } else if ("city".equals(t)) {
-            type = CITY;
-        } else if ("article".equals(t)) {
-            type = ARTICLE;
-        } else if ("term".equals(t)) {
-            type = TERM;
+    public Type getType() {
+        Type type = null;
+        try {
+            type = Type.valueOf(_doc.get("type"));
+        } catch (Exception e) {
+            _log.error("Unknown type in search result", e);
         }
         return type;
     }
