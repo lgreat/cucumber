@@ -148,8 +148,8 @@
             Rate it!
         </link:schoolProfileAddParentReview>
 
-        <c:choose>
-            <c:when test="${requestScope.context.ABVersion eq 'b'}">
+        <!--<c:choose>-->
+            <!--<c:when test="${requestScope.context.ABVersion eq 'b'}">-->
                 <c:choose>
                     <c:when test="${schoolType != 'private'}">
                         <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false">
@@ -163,20 +163,20 @@
                     </c:otherwise>
                 </c:choose>
                 <p id="compare"><link:schoolCompareSchool school="${school}" from="header">Compare this school</link:schoolCompareSchool></p>
-            </c:when>
-            <c:otherwise>
-                <c:choose>
-                    <c:when test="${schoolType != 'private'}">
-                        <p class="email">Email me updates about this school</p>
-                        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="true"></promo:mssHover>
-                    </c:when>
-                    <c:otherwise>
-                        <p class="email">Email me grade-by-grade updates</p>
-                        <promo:nthGraderHover referredBy="schoolProfile" isForm="true"></promo:nthGraderHover>
-                    </c:otherwise>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
+            <!--</c:when>-->
+            <!--<c:otherwise>-->
+                <!--<c:choose>-->
+                    <!--<c:when test="${schoolType != 'private'}">-->
+                        <!--<p class="email">Email me updates about this school</p>-->
+                        <!--<promo:mssHover referredBy="schoolProfile" school="${school}" isForm="true"></promo:mssHover>-->
+                    <!--</c:when>-->
+                    <!--<c:otherwise>-->
+                        <!--<p class="email">Email me grade-by-grade updates</p>-->
+                        <!--<promo:nthGraderHover referredBy="schoolProfile" isForm="true"></promo:nthGraderHover>-->
+                    <!--</c:otherwise>-->
+                <!--</c:choose>-->
+            <!--</c:otherwise>-->
+        <!--</c:choose>-->
     </div>
     </c:if>
     <!-- end tools -->

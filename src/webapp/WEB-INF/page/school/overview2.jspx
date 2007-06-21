@@ -104,12 +104,11 @@
 
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
-            <c:if test="${requestScope.context.ABVersion eq 'b'}">
-                <div id="topCompare" style="float:left; padding-bottom:25px;">
-                    <school:compareSchool school="${school}"/>
-                </div>
-            </c:if>
-
+            <!--<c:if test="${requestScope.context.ABVersion eq 'b'}">-->
+            <div id="topCompare" style="float:left; padding-bottom:25px;">
+                <school:compareSchool school="${school}"/>
+            </div>
+            <!--</c:if>-->
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${not empty latestReviewsModel}">
                 <div id="parentReviews">
@@ -231,9 +230,9 @@
                 </c:if>
             </div>
 
-            <c:if test="${requestScope.context.ABVersion eq 'a'}">
-                <school:compareSchool school="${school}"/>
-            </c:if>
+            <!--<c:if test="${requestScope.context.ABVersion eq 'a'}">-->
+                <!--<school:compareSchool school="${school}"/>-->
+            <!--</c:if>-->
 
         </div><!-- end: col_center -->
 

@@ -56,14 +56,14 @@
                 </link:schoolProfileRating>
                 <p>
                     <link:schoolProfileRating school="${school}">
-                        <c:choose>
-                             <c:when test="${requestScope.context.ABVersion eq 'b'}">
-                                 More about this rating &#62;                                                                  
-                             </c:when>
-                            <c:otherwise>
+                        <!--<c:choose>-->
+                             <!--<c:when test="${requestScope.context.ABVersion eq 'b'}">-->
+                                 <!--More about this rating &#62;                                                                  -->
+                             <!--</c:when>-->
+                            <!--<c:otherwise>-->
                                 View all &#62;
-                            </c:otherwise>
-                        </c:choose>
+                            <!--</c:otherwise>-->
+                        <!--</c:choose>-->
                     </link:schoolProfileRating>
                 </p>
             </div><!-- end: rating_gs -->
@@ -91,17 +91,17 @@
                     </link:schoolProfileAddParentReview>
                     <p>
                         <link:schoolProfileParentReview school="${school}">
-                            <c:choose>
-                                <c:when test="${requestScope.context.ABVersion eq 'b'}">
-                                    <c:choose>
-                                        <c:when test="${latestReviewsModel.totalReviews eq 1}">View the full review &#62;</c:when>
-                                        <c:otherwise>View all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
-                                    </c:choose>                                    
-                                </c:when>
-                                <c:otherwise>
+                            <!--<c:choose>-->
+                                <!--<c:when test="${requestScope.context.ABVersion eq 'b'}">-->
+                                    <!--<c:choose>-->
+                                        <!--<c:when test="${latestReviewsModel.totalReviews eq 1}">View the full review &#62;</c:when>-->
+                                        <!--<c:otherwise>View all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>-->
+                                    <!--</c:choose>                                    -->
+                                <!--</c:when>-->
+                                <!--<c:otherwise>-->
                                     View all &#62;
-                                </c:otherwise>
-                            </c:choose>
+                                <!--</c:otherwise>-->
+                            <!--</c:choose>-->
                         </link:schoolProfileParentReview>
                     </p>
                 </c:otherwise>
