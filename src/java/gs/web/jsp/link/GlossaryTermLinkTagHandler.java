@@ -1,9 +1,8 @@
 package gs.web.jsp.link;
 
-import gs.web.jsp.link.LinkTagHandler;
+import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
-import gs.data.state.State;
 
 public class GlossaryTermLinkTagHandler extends LinkTagHandler {
     private String _termId;
