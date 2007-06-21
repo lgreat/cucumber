@@ -267,32 +267,6 @@
     </tag>
 
     <tag>
-        <name>mainResults</name>
-        <tag-class>gs.web.search.MixedResultsTagHandler</tag-class>
-        <body-content>scriptless</body-content>
-        <attribute>
-            <name>results</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>total</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>constraint</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>debug</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
-    <tag>
         <name>schoolTable</name>
         <tag-class>gs.web.search.SchoolTableTagHandler</tag-class>
         <body-content>scriptless</body-content>
