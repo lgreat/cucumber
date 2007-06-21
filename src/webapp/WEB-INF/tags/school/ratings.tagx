@@ -93,7 +93,10 @@
                         <link:schoolProfileParentReview school="${school}">
                             <c:choose>
                                 <c:when test="${requestScope.context.ABVersion eq 'b'}">
-                                    View all ${latestReviewsModel.totalReviews} reviews &#62;
+                                    <c:choose>
+                                        <c:when test="${latestReviewsModel.totalReviews eq 1}">View the full review &#62;</c:when>
+                                        <c:otherwise>View all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
+                                    </c:choose>                                    
                                 </c:when>
                                 <c:otherwise>
                                     View all &#62;
