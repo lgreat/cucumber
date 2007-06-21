@@ -111,7 +111,7 @@
 
                 <!-- Enrollment -->
                 <c:if test="${not empty school.enrollment}">
-                    <li>${school.enrollment} students</li>
+                    <li>${school.enrollment} ${gsweb:pluralize(school.enrollment, 'student')}</li>
                 </c:if>
 
                 <!-- Subtype(s) -->
