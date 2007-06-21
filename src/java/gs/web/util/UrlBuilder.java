@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.79 2007/06/11 19:38:16 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.80 2007/06/21 19:18:59 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -77,6 +77,7 @@ public class UrlBuilder {
      * A page that provides an overview of our entire article library.
      */
     public static final VPage ARTICLE_LIBRARY = new VPage("vpage:articleLibrary");
+    public static final VPage GLOSSARY_TERM = new VPage("vpage:glossaryTerm");
 
     public static final VPage CITY_PAGE = new VPage("vpage:city");
     public static final VPage CITIES = new VPage("vpage:cities"); // all the cities in a state
@@ -637,6 +638,10 @@ public class UrlBuilder {
         } else if (PARENT_REVIEW_GUIDELINES.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/static/guidelines.html/" + state.getAbbreviationLowerCase() + "/";
+        } else if (GLOSSARY_TERM.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/glossary_single/" + state.getAbbreviation() + "/";
+            setParameter("id", param0);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

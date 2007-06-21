@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.65 2007/06/11 19:38:16 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.66 2007/06/21 19:18:59 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -406,4 +406,11 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/cgi-bin/getBIReg/CA/15/321", builder.asSiteRelative(request));
     }
 
+    public void testGlossaryTermBuilder() {
+        GsMockHttpServletRequest request = getMockRequest();
+        State state = State.AZ;
+        String glossaryId = "123";
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.GLOSSARY_TERM, state, glossaryId);
+        assertEquals("Unexpected URL for glossary term", "/cgi-bin/glossary_single/AZ/?id=123", builder.asSiteRelative(request));
+    }
 }
