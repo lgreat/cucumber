@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 import gs.data.search.Searcher;
+import gs.data.search.TermFreq;
 
 
 /**
@@ -51,8 +52,7 @@ public class RawSearchController extends AbstractController {
 
             if (queryString.startsWith("field:")) {
                 queryString = queryString.substring(6);
-                System.out.println ("qs: " + queryString);
-                PriorityQueue terms = _searcher.getTermsForField(queryString);
+                Set terms = _searcher.getTermsForField(queryString);
                 mAndV.getModel().put("fieldTerms", terms);
             } else {
                 QueryParser parser = new QueryParser("text", _analyzer);
