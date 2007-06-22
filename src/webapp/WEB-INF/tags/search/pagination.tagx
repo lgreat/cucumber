@@ -10,13 +10,16 @@
     <jsp:directive.attribute name="resultCount" required="true" type="java.lang.Integer"/>
 
     <jsp:scriptlet><![CDATA[
-        if (resultCount > pageSize) {
-            int start = (currentPage < 10) ? 1 : (currentPage - 5);
-            int end = (resultCount / pageSize) + ((resultCount % pageSize) > 0 ? 1 : 0);
+        if (resultCount.intValue() > pageSize.intValue()) {
+            int rc = resultCount.intValue();
+            int ps = pageSize.intValue();
+            int cp = currentPage.intValue();
+            int start = (cp < 10) ? 1 : (cp - 5);
+            int end = (rc / ps) + ((rc % ps) > 0 ? 1 : 0);
             int lastToDisplay = Math.min(start + 10, end);
-            request.setAttribute("start", start);
-            request.setAttribute("end", end);
-            request.setAttribute("lastToDisplay", lastToDisplay);
+            request.setAttribute("start", new Integer(start));
+            request.setAttribute("end", new Integer(end));
+            request.setAttribute("lastToDisplay", new Integer(lastToDisplay));
         }
         ]]></jsp:scriptlet>
     <c:if test="${resultCount gt pageSize}">
