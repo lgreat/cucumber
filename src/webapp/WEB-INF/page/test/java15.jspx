@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:scriptlet>
+        <![CDATA[
+            request.setAttribute("testPrimitiveAutoboxing", 1.5);
+        ]]>
+    </jsp:scriptlet>
+    <html>
+        <body>
+            Java <c:out value="${testPrimitiveAutoboxing}"/> features enabled in JSP.
+        </body>
+    </html>
+</jsp:root>
