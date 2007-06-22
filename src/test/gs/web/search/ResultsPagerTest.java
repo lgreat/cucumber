@@ -1,28 +1,27 @@
 package gs.web.search;
 
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
+import gs.data.search.Indexer;
+import gs.data.state.State;
+import gs.data.state.StateManager;
 import junit.framework.TestCase;
-
-import java.util.List;
-import java.io.IOException;
-
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.SimpleAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.search.Hits;
-import org.apache.lucene.search.Searcher;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Searcher;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.SimpleAnalyzer;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.Term;
 import static org.easymock.classextension.EasyMock.*;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
-import gs.data.state.StateManager;
-import gs.data.state.State;
-import gs.data.search.Indexer;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -41,13 +40,13 @@ public class ResultsPagerTest extends TestCase {
     }
 
     public void testNullArguments() {
-        ResultsPager pager = new ResultsPager(null, ResultsPager.ResultType.SCHOOLS);
+        ResultsPager pager = new ResultsPager(null, ResultsPager.ResultType.school);
         pager.setSchoolDao(_schoolDao);
         assertNotNull(pager.getResults(1, 1));
     }
 
     public void testPageSizes() {
-        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.ARTICLES);
+        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.topic);
         List results = pager.getResults(1, 0);
         assertEquals("All hits should be returned if page size is 0", NUMBER_OF_HITS, results.size());
 
@@ -71,7 +70,7 @@ public class ResultsPagerTest extends TestCase {
     }
 
     public void testGetPageOfSchoolResults() {
-        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.SCHOOLS);
+        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school);
         pager.setSchoolDao(_schoolDao);
         pager.setStateManager(_stateManager);
         expect(_stateManager.getState(SEARCH_STATE))

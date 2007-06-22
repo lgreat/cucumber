@@ -3,7 +3,6 @@ package gs.web.search;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.search.Searcher;
-import gs.data.search.SearchCommand;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.SpringUtil;
@@ -47,15 +46,9 @@ public class ResultsPager {
     public static final String BEAN_ID = "resultsPager";
 
     public enum ResultType {
-        SCHOOLS,
-        ARTICLES;
-
-        public static ResultType fromSearchCommand(SearchCommand searchCommand) {
-            if ("school".equals(searchCommand.getType())) {
-                return SCHOOLS;
-            }
-            return ARTICLES;
-        }
+        school,
+        topic,
+        all
     }
 
     public ResultsPager(Hits hits, ResultType type) {
@@ -106,7 +99,7 @@ public class ResultsPager {
                 for (int i = startIndex; i < endIndex; i++) {
                     Document d = _hits.doc(i);
 
-                    if (_type == ResultType.SCHOOLS) {
+                    if (_type == ResultType.school) {
                         State state = _stateManager.getState(d.get("state"));
                         if (state != null) {
                             String id = d.get("id");
@@ -138,6 +131,10 @@ public class ResultsPager {
             }
         }
         return searchResults;
+    }
+
+    public ResultType getType() {
+        return _type;
     }
 }
 

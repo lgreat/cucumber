@@ -73,6 +73,7 @@ public class SearchController extends AbstractFormController {
     private static final String MODEL_PAGE_SIZE = "pageSize";
     protected static final String MODEL_RESULTS = "mainResults";
     private static final String MODEL_TOTAL_HITS = "total";
+    public static final String MODEL_SEARCH_TYPE = "type";
 
     private static final String MODEL_QUERY = "q";
     private static final String MODEL_PAGE = "p";
@@ -204,7 +205,7 @@ public class SearchController extends AbstractFormController {
 
         boolean resultsToShow = false;
         Hits hits = _searcher.search(searchCommand);
-        ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.fromSearchCommand(searchCommand));
+        ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
         if (hits != null && hits.length() > 0) {
             if (debug) {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
@@ -215,6 +216,7 @@ public class SearchController extends AbstractFormController {
             }
             model.put(MODEL_PAGE_SIZE, new Integer(pageSize));
             model.put(MODEL_RESULTS, _resultsPager.getResults(page, pageSize));
+            model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
             model.put(MODEL_TOTAL_HITS, new Integer(hits.length()));
             resultsToShow = true;
         }

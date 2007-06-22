@@ -71,7 +71,7 @@
     <div id="searchResults">
         <c:if test="${not empty mainResults}">
             <c:choose>
-                <c:when test="${param.c eq 'school'}">
+                <c:when test="${type eq 'school'}">
                     <search:schoolResults results="${mainResults}"/>
                 </c:when>
                 <c:otherwise>

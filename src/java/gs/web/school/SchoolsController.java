@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.31 2007/06/15 21:11:51 cpickslay Exp $
+ * $Id: SchoolsController.java,v 1.32 2007/06/22 17:56:10 cpickslay Exp $
  */
 
 package gs.web.school;
@@ -214,7 +214,7 @@ public class SchoolsController extends AbstractController {
         // Build the results and the model
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
-            ResultsPager _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.SCHOOLS);
+            ResultsPager _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
             Map resultsModel = new HashMap();
             resultsModel.put(MODEL_SCHOOLS_TOTAL, new Integer(hts.length()));
             resultsModel.put(MODEL_SCHOOLS, _resultsPager.getResults(page, schoolsPageSize));
