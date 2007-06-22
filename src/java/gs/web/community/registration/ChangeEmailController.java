@@ -5,22 +5,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import org.apache.xmlrpc.client.TimingOutCallback;
-import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
-import org.apache.xmlrpc.client.XmlRpcClient;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.soap.CreateOrUpdateUserRequestBean;
+import gs.web.soap.CreateOrUpdateUserRequest;
+import gs.web.soap.CreateOrUpdateUserRequestException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
-import java.net.URL;
-import java.net.MalformedURLException;
 import java.util.Date;
 
 /**
@@ -38,8 +35,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             "The email address you entered has already been registered with GreatSchools.";
 
     private IUserDao _userDao;
-    private String _rpcServerUrl;
-    private int _timeOutMs;
+    private CreateOrUpdateUserRequest _soapRequest;
 
     protected Object formBackingObject(HttpServletRequest request) {
         return new ChangeEmailCommand();
@@ -93,64 +89,50 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
         if (request.getParameter("submit") != null || request.getParameter("submit.x") != null) {
             ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
+            String message;
 
             User user = SessionContextUtil.getSessionContext(request).getUser();
+            String oldEmail = user.getEmail();
             user.setEmail(command.getNewEmail());
-            user.setUpdated(new Date());
-            _userDao.updateUser(user);
-            PageHelper.setMemberAuthorized(request, response, user);
-            notifyCommunity(user);
-            mAndV.getModel().put("message", "Your email has been updated to: " + user.getEmail());
+            if (notifyCommunity(user)) {
+                // success
+                user.setUpdated(new Date());
+                _userDao.updateUser(user);
+                PageHelper.setMemberAuthorized(request, response, user);
+                message = "Your email has been updated to: " + user.getEmail();
+            } else {
+                // failure
+                user.setEmail(oldEmail);
+                message = "We're sorry! There was an error updating your email. " +
+                        "Please try again in a few minutes.";
+            }
+            mAndV.getModel().put("message", message);
         }
 
         mAndV.setViewName(getSuccessView());
         return mAndV;
     }
 
-    protected String notifyCommunity(User user) {
-        String email = null;
-        //times out after _timeOutMs milliseconds
-        TimingOutCallback callback = new TimingOutCallback(_timeOutMs);
-        XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+    /**
+     * Fires off a SOAP request to community updating the email address. If there is an error,
+     * this method returns FALSE, otherwise TRUE.
+     * @param user User with updated email address
+     * @return TRUE if successful, FALSE Otherwise
+     */
+    protected boolean notifyCommunity(User user) {
+        CreateOrUpdateUserRequestBean soapBean = new CreateOrUpdateUserRequestBean
+                (user.getId(), user.getUserProfile().getScreenName(), user.getEmail());
+
+        CreateOrUpdateUserRequest soapRequest = getSoapRequest();
         try {
-            config.setServerURL(new URL(getRpcServerUrl()));
-            config.setEnabledForExtensions(false);
-        } catch (MalformedURLException e) {
-            _log.error("Error notifying community of changed email address for user " + user +
-                    ", error=" + e);
+            soapRequest.createOrUpdateUserRequest(soapBean);
+        } catch (CreateOrUpdateUserRequestException couure) {
+            _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
+            // send to error page
+            return false;
         }
 
-        XmlRpcClient client = new XmlRpcClient();
-        client.setConfig(config);
-
-        Object[] params = new Object[]{
-                user.getId(), // id to identify user
-                user.getEmail() // new email address to update user with
-        };
-
-        String result;
-
-        try {
-            client.executeAsync("gsUpdateEmail", params, callback);
-            result = (String) callback.waitForResponse();
-            _log.info("gsUpdateEmail result: " + result);
-            if (StringUtils.isBlank(result)) {
-                _log.error("Error notifying community of changed email address for user " + user +
-                        ", error=empty response");
-            } else if (result.startsWith("error") && !result.startsWith("error: user not found")) {
-                _log.error("Error notifying community of changed email address for user " + user +
-                        ", error=" + result);
-            } else if (result.startsWith("error: user not found")) {
-                // we don't care if the user exists on their end or not
-                email = user.getEmail(); // fake a success here
-            } else {
-                email = result;
-            }
-        } catch (Throwable t) {
-            _log.error("Error notifying community of changed email address for user " + user +
-                    ", error=" + t);
-        }
-        return email;
+        return true;
     }
 
     public IUserDao getUserDao() {
@@ -161,20 +143,18 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
         _userDao = userDao;
     }
 
-    public String getRpcServerUrl() {
-        return _rpcServerUrl;
+    /**
+     * Encapsulate into method so the testing class can mock it
+     */
+    public CreateOrUpdateUserRequest getSoapRequest() {
+        if (_soapRequest == null) {
+            _soapRequest = new CreateOrUpdateUserRequest();
+        }
+        return _soapRequest;
     }
 
-    public void setRpcServerUrl(String rpcServerUrl) {
-        _rpcServerUrl = rpcServerUrl;
-    }
-
-    public int getTimeOutMs() {
-        return _timeOutMs;
-    }
-
-    public void setTimeOutMs(int timeOutMs) {
-        _timeOutMs = timeOutMs;
+    public void setSoapRequest(CreateOrUpdateUserRequest soapRequest) {
+        _soapRequest = soapRequest;
     }
 
     public static class ChangeEmailCommand implements EmailValidator.IEmail {

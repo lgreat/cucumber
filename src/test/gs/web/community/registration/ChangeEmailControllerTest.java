@@ -4,16 +4,21 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.soap.CreateOrUpdateUserRequest;
+import gs.web.soap.CreateOrUpdateUserRequestBean;
+import gs.web.soap.CreateOrUpdateUserRequestException;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.User;
 import gs.data.community.IUserDao;
+import gs.data.community.UserProfile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
-import org.easymock.MockControl;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
+
+import static org.easymock.EasyMock.*;
 
 /**
  * Provides testing for the controller that changes a user's email address.
@@ -23,20 +28,26 @@ import java.util.Calendar;
 public class ChangeEmailControllerTest extends BaseControllerTestCase {
     private ChangeEmailController _controller;
     private IUserDao _userDao;
-    private MockControl _userControl;
+    private User _user;
+    private CreateOrUpdateUserRequest _soapRequest;
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = new ChangeEmailController();
 
-        _userControl = MockControl.createControl(IUserDao.class);
-        _userDao = (IUserDao) _userControl.getMock();
+        _userDao = createMock(IUserDao.class);
+        _soapRequest = new CreateOrUpdateUserRequest() {
+            public void createOrUpdateUserRequest(CreateOrUpdateUserRequestBean bean) {}
+        };
 
         _controller.setUserDao(_userDao);
+        _controller.setSoapRequest(_soapRequest);
 
-        _controller.setRpcServerUrl
-                ("http://aroy.dev.greatschools.net/cgi-bin/xmlrpc/changeEmail.cgi");
-        _controller.setTimeOutMs(5000);
+        _user = new User();
+        _user.setId(123);
+        _user.setEmail("oldEmail@address.org");
+        _user.setUserProfile(new UserProfile());
+        _user.getUserProfile().setScreenName("screenName");
     }
 
     public void testValidate() throws Exception {
@@ -46,12 +57,13 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         command.setNewEmail("email@address.org");
         command.setConfirmNewEmail("email@address.org");
 
-        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists("email@address.org"), null);
-        _userControl.replay();
+
+        expect(_userDao.findUserFromEmailIfExists("email@address.org")).andReturn(null);
+        replay(_userDao);
 
         assertFalse(errors.hasErrors());
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse(errors.hasErrors());
     }
 
@@ -62,26 +74,23 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         command.setNewEmail("email@address.org");
         command.setConfirmNewEmail("email@address.org");
 
-        User user = new User();
-        user.setEmail("oldEmail@address.org");
-        user.setId(new Integer(123));
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, -1);
-        user.setUpdated(cal.getTime());
-        assertTrue(user.getUpdated().equals(cal.getTime()));
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
-        context.setUser(user);
+        _user.setUpdated(cal.getTime());
+        assertTrue(_user.getUpdated().equals(cal.getTime()));
+        SessionContext context = SessionContextUtil.getSessionContext(getRequest());
+        context.setUser(_user);
 
-        _userDao.updateUser(user);
-        _userControl.replay();
+        _userDao.updateUser(_user);
+        replay(_userDao);
 
         getRequest().setParameter("submit", "submit");
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertNotNull(mAndV);
-        assertEquals("email@address.org", user.getEmail());
+        assertEquals("email@address.org", _user.getEmail());
         assertEquals(_controller.getSuccessView(), mAndV.getViewName());
-        assertFalse(user.getUpdated().equals(cal.getTime()));
+        assertFalse(_user.getUpdated().equals(cal.getTime()));
     }
 
     public void testMismatchedEmails() throws Exception {
@@ -103,20 +112,17 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         command.setNewEmail("email@address.org");
         command.setConfirmNewEmail("email@address.org");
 
-        User user = new User();
-        user.setEmail("oldEmail@address.org");
-        user.setId(new Integer(123));
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
-        context.setUser(user);
+        SessionContext context =SessionContextUtil.getSessionContext(getRequest());
+        context.setUser(_user);
 
-        _userDao.updateUser(user);
-        _userControl.replay();
+        _userDao.updateUser(_user);
+        replay(_userDao);
 
         getRequest().setParameter("submit", "submit");
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertNotNull(mAndV);
-        assertEquals("email@address.org", user.getEmail());
+        assertEquals("email@address.org", _user.getEmail());
         assertEquals(_controller.getSuccessView(), mAndV.getViewName());
     }
 
@@ -127,14 +133,11 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         command.setNewEmail("email@address.org");
         command.setConfirmNewEmail("email@address.org");
 
-        User user = new User();
-        user.setEmail("oldEmail@address.org");
-        user.setId(new Integer(123));
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
-        context.setUser(user);
+        SessionContext context = SessionContextUtil.getSessionContext(getRequest());
+        context.setUser(_user);
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        assertEquals("oldEmail@address.org", user.getEmail());
+        assertEquals("oldEmail@address.org", _user.getEmail());
         assertEquals(_controller.getSuccessView(), mAndV.getViewName());
     }
 
@@ -164,67 +167,26 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         command.setConfirmNewEmail(email);
 
         User user = new User();
-        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), user);
-        _userControl.replay();
+        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(user);
+        replay(_userDao);
 
         assertFalse(errors.hasErrors());
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue(errors.hasErrors());
     }
 
     public void testNotifyCommunity() {
-        User user = new User();
-        user.setEmail("aroy@greatschools.net");
-        user.setId(new Integer(123));
-        
-        String email = _controller.notifyCommunity(user);
-        assertNotNull(email);
-        assertEquals("aroy+1@greatschools.net", email);
-    }
+        assertTrue(_controller.notifyCommunity(_user));
 
-    public void testNotifyCommunityWithRpcFault() {
-        User user = new User();
-        user.setEmail("aroy@greatschools.net");
-        user.setId(new Integer(123));
+        _soapRequest = new CreateOrUpdateUserRequest() {
+            public void createOrUpdateUserRequest(CreateOrUpdateUserRequestBean bean) throws CreateOrUpdateUserRequestException {
+                throw new CreateOrUpdateUserRequestException();
+            }
+        };
 
-        _controller.setRpcServerUrl(_controller.getRpcServerUrl() + "?test=error");
+        _controller.setSoapRequest(_soapRequest);
 
-        String email = _controller.notifyCommunity(user);
-        assertNull(email);
-    }
-
-    public void testNotifyCommunityWithUnexpectedError() {
-        User user = new User();
-        user.setEmail("aroy@greatschools.net");
-        user.setId(new Integer(123));
-
-        _controller.setRpcServerUrl(_controller.getRpcServerUrl() + "?test=errorUnexpected");
-
-        String email = _controller.notifyCommunity(user);
-        assertNull(email);
-    }
-
-    public void testNotifyCommunityWithExpectedError() {
-        User user = new User();
-        user.setEmail("aroy@greatschools.net");
-        user.setId(new Integer(123));
-
-        _controller.setRpcServerUrl(_controller.getRpcServerUrl() + "?test=errorNoUser");
-
-        String email = _controller.notifyCommunity(user);
-        assertNotNull(email);
-        assertEquals("aroy@greatschools.net", email);
-    }
-
-    public void testNotifyCommunityWithBlankResponse() {
-        User user = new User();
-        user.setEmail("aroy@greatschools.net");
-        user.setId(new Integer(123));
-
-        _controller.setRpcServerUrl(_controller.getRpcServerUrl() + "?test=blank");
-
-        String email = _controller.notifyCommunity(user);
-        assertNull(email);
+        assertFalse(_controller.notifyCommunity(_user));
     }
 }
