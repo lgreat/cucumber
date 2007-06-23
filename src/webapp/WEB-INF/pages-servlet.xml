@@ -702,6 +702,14 @@
         </property>
     </bean>
 
+    <bean name="/ads/interstitial.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>/ads/interstitial</value>
+        </property>
+    </bean>
+
     <bean id="newsCheckBoxValidator" class="gs.web.community.newsletters.popup.NewsletterCheckBoxValidator"
           autowire="byName" lazy-init="true"/>
 

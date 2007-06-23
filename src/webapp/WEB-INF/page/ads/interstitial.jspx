@@ -1,0 +1,44 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <title>Interstitial Ad</title>
+        <!--<meta http-equiv="refresh" content="20;url=${passThroughURI}"/>-->
+        <link rel="stylesheet" type="text/css" href="/res/css/global.css"/>
+        <link rel="stylesheet" type="text/css" href="/res/css/frame.css"/>
+        <link rel="stylesheet" type="text/css" href="/res/css/brand.css"/>
+        <link rel="stylesheet" type="text/css" href="/res/css/ads/interstitial.css"/>
+    </head>
+    <body>
+    <div id="marginGS" class="marginGS">
+        <div id="pageGS" class="pageGS">
+            <gsml:a href="/">
+                <gsml:img src="/res/img/logo/logo_GS_330x110.gif"
+                          alt="GreatSchools: The Parents&#039; Guide to K-12 Success" id="logo"/>
+            </gsml:a>
+            <div id="skip">
+                <gsml:a href="${passThroughURI}">To skip this ad, click here
+                    <gsml:img src="/res/img/ad/two_pink_arrows_right.gif" alt="To skip this ad, click here"
+                              id="arrows"/>
+                </gsml:a>
+            </div>
+            <div id="background">
+                <div id="frame">
+                    <div id="ad">
+                        <div id="message">You will see the page you requested shortly</div>
+                        <ad:interstitial/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+</jsp:root>

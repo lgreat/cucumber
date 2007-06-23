@@ -1,0 +1,4 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    <gsml:img src="/res/img/ad/Score_interstitial_JUN07.gif" alt=""/>
+</jsp:root>

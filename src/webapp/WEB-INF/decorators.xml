@@ -17,6 +17,7 @@
     <excludes>
         <!-- Regularly used pages that shouldn't be decorated -->
         <pattern>*/monitor.page*</pattern>
+        <pattern>*/interstitial.page*</pattern>
         <pattern>*/batch.page*</pattern>
         <pattern>*/sorry.page*</pattern>
         <pattern>*/compareSchools.page*</pattern>

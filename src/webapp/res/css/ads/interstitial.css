@@ -1,0 +1,40 @@
+#logo {
+    float: left;
+    margin-left: 40px;
+}
+
+#skip {
+    float: right;
+    color: #39A;
+    margin: 75px 25px 0 0;
+}
+
+#arrows {
+    margin-left: 5px;    
+}
+
+#background {
+    clear: left;
+    background-color: #DEE;
+    margin: 0 18px 18px 18px;
+    padding-top: 15px;
+    text-align: center;
+    border: 1px solid blue;
+}
+
+#frame {
+    background-color: #8BCBCB;
+    border: 1px solid blue;
+    text-align: center;
+    display: table;
+    padding: 15px;
+}
+
+#ad {
+    text-align: left;
+    border: 1px solid blue;
+}
+
+#message {
+    color: white;
+}
