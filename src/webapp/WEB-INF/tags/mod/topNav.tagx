@@ -8,7 +8,8 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:search="http://java.sun.com/jsp/jstl/core">
+          xmlns:search="http://java.sun.com/jsp/jstl/core"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
 <jsp:directive.tag import="gs.web.util.PageHelper"/>
 <jsp:directive.tag body-content="empty"/>
 
@@ -94,28 +95,38 @@
                 </c:if>
                 <table style="width:301px" border="0" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td style="width:202px">
-                            <div id="slabel" class="searchLabel">
-                                <c:choose>
-                                    <c:when test="${requestScope.context.topicPage}">
-                                        <gsml:img id="searchPrompt" src="/res/img/search/enter_keyword.gif" alt="Enter Keyword"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <gsml:img id="searchPrompt" src="/res/img/search/enter_school.gif" alt="Enter School"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
+                        <td style="width:202px;">
+                            <variant:a>
+                                <div id="slabel" class="searchLabel">
+                                    <c:choose>
+                                        <c:when test="${requestScope.context.topicPage}">
+                                            <gsml:img id="searchPrompt" src="/res/img/search/enter_keyword.gif" alt="Enter Keyword"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <gsml:img id="searchPrompt" src="/res/img/search/enter_school.gif" alt="Enter School"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </variant:a>
+                            <variant:b>
+                                <gsml:img src="/res/img/pixel.gif" alt="" style="width:146px;height:17px"/>
+                            </variant:b>
                         </td>
                         <td style="width:10px">
                             <gsml:img src="/res/img/pixel.gif" alt="" style="width:12px;height:6px"/>
                         </td>
 
-                        <td style="width:50px">
-                            <div class="searchLabel" style="display:block">
-                                <gsml:img id="searchInLabel" src="/res/img/search/search_in.gif" 
-                                          alt="Search In"
-                                          style="display:${requestScope.context.topicPage ? 'none': 'block'}"/>
-                            </div>
+                        <td style="width:50px;">
+                            <variant:a>
+                                <div class="searchLabel" style="display:block">
+                                    <gsml:img id="searchInLabel" src="/res/img/search/search_in.gif"
+                                              alt="Search In"
+                                              style="display:${requestScope.context.topicPage ? 'none': 'block'}"/>
+                                </div>
+                            </variant:a>
+                            <variant:b>
+                                <gsml:img src="/res/img/pixel.gif" alt="" style="width:54px;height:11px"/>
+                            </variant:b>
                         </td>
 
                         <td style="width:43px;vertical-align: middle">
@@ -123,8 +134,55 @@
                         </td>
                     </tr>
                     <tr>
+                        <variant:b>
+                            <c:set var="searchBoxValue"
+                                   value="${requestScope.context.topicPage ?
+                                   'Search by keyword' :
+                                   'Search for school, district or city'}"/>
+                            <c:set var="searchBoxOnClick"
+                                value="clearValueInBox(this);"/>
+                            <script type="text/javascript">
+                                function clearValueInBox(x) {
+                                    if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city') {
+                                        x.value = '';
+                                    }
+                                }
+                                function topNavSelectSchoolSearchB(x) {
+                                    var e = document.getElementById('stateDropDown');
+                                    e.style.display = 'block';
+                                    setColSpan('searchBox', 1);
+                                    e = document.getElementById('stateSelector');
+                                    e.name = 'state';
+
+                                    e = document.getElementById('q');
+                                    if (e.value == 'Search by keyword') {
+                                        e.value='Search for school, district or city';
+                                    }
+                                    e.focus();
+                                    e.select();
+                                    return true;
+                                }
+
+                                function topNavSelectTopicSearchB(x) {
+                                    var e = document.getElementById('stateDropDown');
+                                    e.style.display = 'none';
+                                    e = document.getElementById('stateSelector');
+                                    e.name = 'hiddenState';
+                                    setColSpan('searchBox', 5);
+
+                                    e = document.getElementById('q');
+                                    if (e.value == 'Search for school, district or city') {
+                                        e.value='Search by keyword';
+                                    }
+                                    e.focus();
+                                    e.select();
+                                    return true;
+                                }
+                            </script>
+                        </variant:b>
                         <td id="searchBox" colspan="${requestScope.context.topicPage ? 5 : 1}">
-                            <input type="text" style="width: 100%; font-size: 11px;" name="q" id="q"/>
+                            <input type="text" style="width: 100%; font-size: 11px;" name="q" id="q"
+                                   value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
                         </td>
                         <td style="width:10px">
                             <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
@@ -145,24 +203,32 @@
                         </td>
                     </tr>
                     <tr>
+                        <variant:a>
+                            <c:set var="schoolOnClick" value="topNavSelectSchoolSearch(this)"/>
+                            <c:set var="topicOnClick" value="topNavSelectTopicSearch(this)"/>
+                        </variant:a>
+                        <variant:b>
+                            <c:set var="schoolOnClick" value="topNavSelectSchoolSearchB(this)"/>
+                            <c:set var="topicOnClick" value="topNavSelectTopicSearchB(this)"/>
+                        </variant:b>
                         <td style="height:21px" class="searchRadios">
                             <c:choose>
                                 <c:when test="${requestScope.context.topicPage}">
                                     <input name="c" type="radio" value="school"
-                                           onclick="topNavSelectSchoolSearch(this)"/>
+                                           onclick="${schoolOnClick}"/>
                                     <span>Schools</span>
                                     &#160;
                                     <input name="c" type="radio" value="topic" checked="checked"
-                                           onclick="topNavSelectTopicSearch(this);"/>
+                                           onclick="${topicOnClick}"/>
                                     <span>Articles</span>
                                 </c:when>
                                 <c:otherwise>
                                     <input name="c" type="radio" value="school" checked="checked"
-                                           onclick="topNavSelectSchoolSearch(this)"/>
+                                           onclick="${schoolOnClick}"/>
                                     <span>Schools</span>
                                     &#160;
                                     <input name="c" type="radio" value="topic"
-                                           onclick="topNavSelectTopicSearch(this);"/>
+                                           onclick="${topicOnClick}"/>
                                     <span>Articles</span>
                                 </c:otherwise>
                             </c:choose>

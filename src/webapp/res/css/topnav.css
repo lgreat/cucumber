@@ -100,6 +100,10 @@
     padding: 0px 0px 1px 0px;
 }
 
+#topnav #searchBox input {
+    color: #666666;
+}
+
 #topnav .stateSelect {
     font-size: 11px;
 }
