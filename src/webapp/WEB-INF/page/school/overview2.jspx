@@ -66,7 +66,7 @@
         
         <!-- promo link -->
         <hr />
-        <gsml:a href="/promo/webbyAwardWinner.page"><gsml:img src="/res/img/promo/webby/webby.gif" alt="2007 Webby Awards - Best Family Parenting Site"/></gsml:a>
+        <gsml:a href="/promo/webbyAwardWinner.page"><gsml:img src="/res/img/promo/webby/webby.gif" alt="2007 Webby Awards People's Voice Winner - Best Family Parenting Site"/></gsml:a>
 
 		<!-- Editor -->
         <hr />
