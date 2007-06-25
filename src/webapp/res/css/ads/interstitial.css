@@ -22,10 +22,10 @@
     /*border: 1px solid blue;*/
 }
 
-#frame {
+table#frame {
     background-color: #8BCBCB;
     text-align: center;
-    padding: 0 15px 15px 15px;
+    padding: 5px 15px 15px 15px;
     /*border: 1px solid blue;*/
 }
 
