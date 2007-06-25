@@ -37,3 +37,8 @@ table#frame {
 #message {
     color: white;
 }
+
+/* force pageGS to make room for bottom margin on #background */
+#pageGS {
+    padding-bottom: 1px;
+}
