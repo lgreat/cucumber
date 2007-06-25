@@ -210,8 +210,7 @@
                     </div>
 
                     <div id="terms" style="${termsStyle}">
-                        <p><label class="terms"><span class="required">*</span>
-                            I am over 13 years of age and I agree to the
+                        <p><label class="terms"><span class="required">*</span>I am over 13 years of age and I agree to the
                             <gsml:popupWindow width="800" height="600" left="50" top="50"
                                     title="GreatSchools Terms of Use"
                                     href="/cgi-bin/static/terms.html/$STATE"
