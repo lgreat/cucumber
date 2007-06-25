@@ -49,7 +49,7 @@ City and district rollups
 .rollup  h3 {
     background-image: url( /res/img/bullet/pinkarrow.gif );
     background-repeat: no-repeat;
-    background-position: .1em .4em;
+    background-position: 3px 8px;
     padding: 5px 0 0 18px;
     display: inline;
 }
@@ -82,6 +82,10 @@ Search results
     #searchResults div.phone {
     font-size: small;
     padding-left: 18px;
+}
+
+div.phone {
+    margin-left: -1px;
 }
 
 #searchResults h3 {
