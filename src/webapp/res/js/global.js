@@ -76,9 +76,11 @@ function topNavSubmitSearch(theForm) {
         if (val == "--" || val == "") {
             alert("Please select a state.");
             return false;
-        } else {
-            return true;
         }
+    }
+    var textField = document.getElementById('q');
+    if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district or city') {
+        textField.value = '';
     }
     return true;
 }
