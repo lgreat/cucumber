@@ -68,7 +68,7 @@
 #tools .email { /* has IE 7 equivalent */
     font: bold 13px "Trebuchet MS", Arial, sans-serif;
     background: url(../../img/school/tools_th_email.gif) no-repeat 0 center;
-	padding: 3px 0 0 17px;
+	padding: 1px 0 0 17px;
 	margin: 8px 0 0 0;
     _margin: 7px 0 0 0; /* IE 6 hack */
     color: #777;
