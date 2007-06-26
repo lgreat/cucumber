@@ -141,10 +141,10 @@
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
     <div id="tools">
-        <link:mySchoolList school="${school}" styleClass="add" title="Add to My School List">Add to My School List</link:mySchoolList>
+        <link:mySchoolList school="${school}" styleClass="add">Add to My School List</link:mySchoolList>
 
         <p>&amp;nbsp;|&amp;nbsp;</p><!-- pipe divider as opposed to link border, as per client request -->
-        <link:schoolProfileAddParentReview school="${school}" styleClass="rate" title="Rate it!">
+        <link:schoolProfileAddParentReview school="${school}" styleClass="rate">
             Rate it!
         </link:schoolProfileAddParentReview>
 

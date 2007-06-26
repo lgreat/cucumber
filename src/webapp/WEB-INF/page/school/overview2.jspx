@@ -39,7 +39,14 @@
 <head>
 
     <title>${school.name} - ${addr} - school overview</title>
-    <meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
+    <c:choose>
+        <c:when test="${school.type.schoolTypeName == 'private'}">
+            <meta name="description" content="An overview of ${school.name} located in ${addr}. Find ${school.name} student-teacher ratio, read parent reviews and teacher stats."/>
+        </c:when>
+        <c:otherwise>
+            <meta name="description" content="An overview of ${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, read parent reviews and teacher stats."/>
+        </c:otherwise>
+    </c:choose>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 </head>
 
@@ -74,7 +81,8 @@
 
 		<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
 
-		<p class="name">Lisa Rosenthal</p>
+
+        <p class="name">Lisa Rosenthal</p>
 		<p class="title">Senior Editor, GreatSchools</p>
 
             <h3>Editor's Picks</h3>
