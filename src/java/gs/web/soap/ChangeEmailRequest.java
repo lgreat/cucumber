@@ -6,23 +6,25 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.axis.client.Service;
 import org.apache.axis.client.Call;
-import org.apache.axis.encoding.ser.BeanDeserializerFactory;
 import org.apache.axis.encoding.ser.BeanSerializerFactory;
+import org.apache.axis.encoding.ser.BeanDeserializerFactory;
 
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ParameterMode;
 import javax.xml.rpc.ServiceException;
 import java.net.MalformedURLException;
 
+import gs.data.community.User;
+
 /**
  * Provides Performs a SOAP CreateOrUpdateUserRequest.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class CreateOrUpdateUserRequest {
+public class ChangeEmailRequest {
     protected final Log _log = LogFactory.getLog(getClass());
 
-    public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.net/community/createOrUpdateUser/";
+    public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.net/community/changeEmail/";
     public static final String DEFAULT_TARGET = "http://aroy.dev.greatschools.net/cgi-bin/soap/soapServer.cgi";
     public static final int DEFAULT_TIMEOUT = 10000; // 10s in milliseconds
     public static final boolean DISABLE_REQUEST = true;
@@ -31,22 +33,22 @@ public class CreateOrUpdateUserRequest {
     private String _target = DEFAULT_TARGET;
     private int _timeout = DEFAULT_TIMEOUT;
 
-    public CreateOrUpdateUserRequest() {}
+    public ChangeEmailRequest() {}
 
-    public CreateOrUpdateUserRequest(String target) {
+    public ChangeEmailRequest(String target) {
         _target = target;
     }
 
-    public void createOrUpdateUserRequest(CreateOrUpdateUserRequestBean bean) throws SoapRequestException {
+    public void changeEmailRequest(User user) throws SoapRequestException {
         // quick hack to disable this class but still allow test cases to work
         if (DISABLE_REQUEST && !_target.contains("response")) { return; }
         try {
             Call call = setupCall();
-            Object[] params = setupParameters(call, bean);
+            Object[] params = setupParameters(call, user);
             Object ret = call.invoke(params);
 
             if (ret != null) {
-                _log.warn("Exception generated on createOrUpdateUserRequest");
+                _log.warn("Exception generated on changeEmailRequest");
                 SoapRequestException e = (SoapRequestException) ret;
                 e.fillInStackTrace();
                 throw e;
@@ -65,7 +67,9 @@ public class CreateOrUpdateUserRequest {
     }
 
     /**
-     * Refactor out this method because it is VERY important that the parameters are added to the Call
+     * Setup the parameters for the soap call.
+     *
+     * Refactored out this method because it is VERY important that the parameters are added to the Call
      * object in the same order they are passed to the invoke method. By putting both operations here
      * it is easier to visually verify that this is the case;
      *
@@ -74,21 +78,19 @@ public class CreateOrUpdateUserRequest {
      * params[++index] = ...
      *
      * @param call to set the parameter types on
-     * @param bean to get values for the parameters
+     * @param user to get values for the parameters
      * @return parameters for the invoke method
      */
-    private Object[] setupParameters(Call call, CreateOrUpdateUserRequestBean bean) {
-        Object[] params = new Object[3];
+    private Object[] setupParameters(Call call, User user) {
+        Object[] params = new Object[2];
         int index = -1;
         // set up outbound parameters
         // (note the ParameterMode is IN because these are the parameters passed IN to the SOAP call, but
         //  I prefer to think of them as outbound parameters)
         call.addParameter("id", XSD_STRING, ParameterMode.IN);
-        params[++index] = bean.getId();
-        call.addParameter("screenName", XSD_STRING, ParameterMode.IN);
-        params[++index] = bean.getScreenName();
+        params[++index] = String.valueOf(user.getId());
         call.addParameter("email", XSD_STRING, ParameterMode.IN);
-        params[++index] = bean.getEmail();
+        params[++index] = user.getEmail();
 
         return params;
     }
@@ -104,7 +106,7 @@ public class CreateOrUpdateUserRequest {
         call.setTargetEndpointAddress(new java.net.URL(_target));
         // name of operation
         call.setOperationName(new QName(_namespaceUri,
-                "createOrUpdateUserRequest"));
+                "changeEmailRequest"));
 
         // set up return parameters
         QName errorQname = new QName(_namespaceUri, "error");

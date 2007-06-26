@@ -5,7 +5,7 @@ package gs.web.soap;
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class CreateOrUpdateUserRequestException extends Exception {
+public class SoapRequestException extends Exception {
     private String _errorCode;
     private String _errorMessage;
 

@@ -11,9 +11,8 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.soap.CreateOrUpdateUserRequestBean;
-import gs.web.soap.CreateOrUpdateUserRequest;
-import gs.web.soap.CreateOrUpdateUserRequestException;
+import gs.web.soap.SoapRequestException;
+import gs.web.soap.ChangeEmailRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,14 +34,10 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             "The email address you entered has already been registered with GreatSchools.";
 
     private IUserDao _userDao;
-    private CreateOrUpdateUserRequest _soapRequest;
+    private ChangeEmailRequest _soapRequest;
 
     protected Object formBackingObject(HttpServletRequest request) {
         return new ChangeEmailCommand();
-    }
-
-    protected boolean suppressValidation(HttpServletRequest request) {
-        return isCancel(request);
     }
 
     protected boolean suppressValidation(HttpServletRequest request, Object obj) {
@@ -59,7 +54,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object objCommand,
                                      BindException errors) throws NoSuchAlgorithmException {
-        if (suppressValidation(request) || errors.hasErrors()) {
+        if (suppressValidation(request, objCommand) || errors.hasErrors()) {
             return;
         }
         ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
@@ -96,6 +91,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             user.setEmail(command.getNewEmail());
             if (notifyCommunity(user)) {
                 // success
+                // save user
                 user.setUpdated(new Date());
                 _userDao.updateUser(user);
                 PageHelper.setMemberAuthorized(request, response, user);
@@ -120,13 +116,10 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
      * @return TRUE if successful, FALSE Otherwise
      */
     protected boolean notifyCommunity(User user) {
-        CreateOrUpdateUserRequestBean soapBean = new CreateOrUpdateUserRequestBean
-                (user.getId(), user.getUserProfile().getScreenName(), user.getEmail());
-
-        CreateOrUpdateUserRequest soapRequest = getSoapRequest();
+        ChangeEmailRequest soapRequest = getSoapRequest();
         try {
-            soapRequest.createOrUpdateUserRequest(soapBean);
-        } catch (CreateOrUpdateUserRequestException couure) {
+            soapRequest.changeEmailRequest(user);
+        } catch (SoapRequestException couure) {
             _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
             // send to error page
             return false;
@@ -146,14 +139,14 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
     /**
      * Encapsulate into method so the testing class can mock it
      */
-    public CreateOrUpdateUserRequest getSoapRequest() {
+    public ChangeEmailRequest getSoapRequest() {
         if (_soapRequest == null) {
-            _soapRequest = new CreateOrUpdateUserRequest();
+            _soapRequest = new ChangeEmailRequest();
         }
         return _soapRequest;
     }
 
-    public void setSoapRequest(CreateOrUpdateUserRequest soapRequest) {
+    public void setSoapRequest(ChangeEmailRequest soapRequest) {
         _soapRequest = soapRequest;
     }
 

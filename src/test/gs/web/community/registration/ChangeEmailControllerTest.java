@@ -4,9 +4,8 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.soap.CreateOrUpdateUserRequest;
-import gs.web.soap.CreateOrUpdateUserRequestBean;
-import gs.web.soap.CreateOrUpdateUserRequestException;
+import gs.web.soap.SoapRequestException;
+import gs.web.soap.ChangeEmailRequest;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.User;
@@ -29,15 +28,15 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
     private ChangeEmailController _controller;
     private IUserDao _userDao;
     private User _user;
-    private CreateOrUpdateUserRequest _soapRequest;
+    private ChangeEmailRequest _soapRequest;
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = new ChangeEmailController();
 
         _userDao = createMock(IUserDao.class);
-        _soapRequest = new CreateOrUpdateUserRequest() {
-            public void createOrUpdateUserRequest(CreateOrUpdateUserRequestBean bean) {}
+        _soapRequest = new ChangeEmailRequest() {
+            public void changeEmailRequest(User user) {}
         };
 
         _controller.setUserDao(_userDao);
@@ -179,9 +178,9 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
     public void testNotifyCommunity() {
         assertTrue(_controller.notifyCommunity(_user));
 
-        _soapRequest = new CreateOrUpdateUserRequest() {
-            public void createOrUpdateUserRequest(CreateOrUpdateUserRequestBean bean) throws CreateOrUpdateUserRequestException {
-                throw new CreateOrUpdateUserRequestException();
+        _soapRequest = new ChangeEmailRequest() {
+            public void changeEmailRequest(User user) throws SoapRequestException {
+                throw new SoapRequestException();
             }
         };
 

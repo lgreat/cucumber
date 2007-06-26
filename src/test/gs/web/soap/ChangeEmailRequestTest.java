@@ -1,31 +1,34 @@
 package gs.web.soap;
 
 import gs.web.BaseTestCase;
+import gs.data.community.User;
 
 /**
- * Provides testing for the CreateOrUpdateUserRequest.
+ * Provides testing for the ChangeEmailRequest class.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class CreateOrUpdateUserRequestTest extends BaseTestCase {
-    private CreateOrUpdateUserRequest _request;
-    private CreateOrUpdateUserRequestBean _bean;
+public class ChangeEmailRequestTest extends BaseTestCase {
+    private ChangeEmailRequest _request;
+    private User _user;
 
     public void setUp() throws Exception {
         super.setUp();
-        _request = new CreateOrUpdateUserRequest();
-        _bean = new CreateOrUpdateUserRequestBean("1", "Anthony", "aroy@greatschools.net");
+        _request = new ChangeEmailRequest();
+        _user = new User();
+        _user.setId(123);
+        _user.setEmail("aroy@greatschools.net");
     }
 
     /**
      * Test that normal success conditions result in success
      */
     public void testSuccess() {
-        _request.setTarget(CreateOrUpdateUserRequest.DEFAULT_TARGET + "?response=success");
+        _request.setTarget(ChangeEmailRequest.DEFAULT_TARGET + "?response=success");
         try {
-            _request.createOrUpdateUserRequest(_bean);
+            _request.changeEmailRequest(_user);
         } catch (SoapRequestException e) {
-            fail("Received unexpected exception " + e.getErrorCode() + ": " + e.getErrorMessage());
+            fail(e.getErrorMessage());
         }
     }
 
@@ -34,9 +37,9 @@ public class CreateOrUpdateUserRequestTest extends BaseTestCase {
      */
     public void testError() {
         // make the perl script generate an error
-        _request.setTarget(CreateOrUpdateUserRequest.DEFAULT_TARGET + "?response=error");
+        _request.setTarget(ChangeEmailRequest.DEFAULT_TARGET + "?response=error");
         try {
-            _request.createOrUpdateUserRequest(_bean);
+            _request.changeEmailRequest(_user);
             fail("Did not receive expected error");
         } catch (SoapRequestException e) {
             assertEquals("UNKNOWN", e.getErrorCode());
@@ -50,11 +53,11 @@ public class CreateOrUpdateUserRequestTest extends BaseTestCase {
      */
     public void testTimeout() {
         // make the perl script sleep for 10 seconds
-        _request.setTarget(CreateOrUpdateUserRequest.DEFAULT_TARGET + "?response=timeout");
+        _request.setTarget(ChangeEmailRequest.DEFAULT_TARGET + "?response=timeout");
         // set timeout to 1 second (in ms)
         _request.setTimeout(1000);
         try {
-            _request.createOrUpdateUserRequest(_bean);
+            _request.changeEmailRequest(_user);
             fail("Did not receive expected error");
         } catch (SoapRequestException e) {
             assertNotNull(e.getErrorCode());

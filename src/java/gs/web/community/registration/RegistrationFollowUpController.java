@@ -23,7 +23,7 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.soap.CreateOrUpdateUserRequestBean;
 import gs.web.soap.CreateOrUpdateUserRequest;
-import gs.web.soap.CreateOrUpdateUserRequestException;
+import gs.web.soap.SoapRequestException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -254,7 +254,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
         try {
             soapRequest.createOrUpdateUserRequest(bean);
-        } catch (CreateOrUpdateUserRequestException couure) {
+        } catch (SoapRequestException couure) {
             _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
             // undo registration
             // the user is already provisional at this point since they haven't agreed to the terms

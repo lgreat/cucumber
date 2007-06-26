@@ -12,7 +12,7 @@ import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.soap.CreateOrUpdateUserRequestBean;
 import gs.web.soap.CreateOrUpdateUserRequest;
-import gs.web.soap.CreateOrUpdateUserRequestException;
+import gs.web.soap.SoapRequestException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -224,7 +224,7 @@ public class RegistrationController extends SimpleFormController implements Read
             CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
             try {
                 soapRequest.createOrUpdateUserRequest(bean);
-            } catch (CreateOrUpdateUserRequestException couure) {
+            } catch (SoapRequestException couure) {
                 _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
                 // undo registration
                 user.setEmailProvisional();
