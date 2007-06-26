@@ -86,6 +86,52 @@
         <div style="padding:18px 0 0 85px;"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks></div>
     </c:when>
     <c:otherwise>
+        <variant:b>
+            <c:set var="searchBoxValue"
+                   value="${requestScope.context.topicPage ?
+                   'Search by keyword' :
+                   'Search for school, district or city'}"/>
+            <c:set var="searchBoxOnClick"
+                value="clearValueInBox(this);"/>
+            <script type="text/javascript">
+                function clearValueInBox(x) {
+                    if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city') {
+                        x.value = '';
+                    }
+                }
+                function topNavSelectSchoolSearchB(x) {
+                    var e = document.getElementById('stateDropDown');
+                    e.style.display = 'block';
+                    setColSpan('searchBox', 1);
+                    e = document.getElementById('stateSelector');
+                    e.name = 'state';
+
+                    e = document.getElementById('q');
+                    if (e.value == 'Search by keyword') {
+                        e.value='Search for school, district or city';
+                    }
+                    e.focus();
+                    e.select();
+                    return true;
+                }
+
+                function topNavSelectTopicSearchB(x) {
+                    var e = document.getElementById('stateDropDown');
+                    e.style.display = 'none';
+                    e = document.getElementById('stateSelector');
+                    e.name = 'hiddenState';
+                    setColSpan('searchBox', 5);
+
+                    e = document.getElementById('q');
+                    if (e.value == 'Search for school, district or city') {
+                        e.value='Search by keyword';
+                    }
+                    e.focus();
+                    e.select();
+                    return true;
+                }
+            </script>
+        </variant:b>
           <div class="search" >
             <gsweb:form method="get"
                         action="/search/search.page"
@@ -134,52 +180,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <variant:b>
-                            <c:set var="searchBoxValue"
-                                   value="${requestScope.context.topicPage ?
-                                   'Search by keyword' :
-                                   'Search for school, district or city'}"/>
-                            <c:set var="searchBoxOnClick"
-                                value="clearValueInBox(this);"/>
-                            <script type="text/javascript">
-                                function clearValueInBox(x) {
-                                    if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city') {
-                                        x.value = '';
-                                    }
-                                }
-                                function topNavSelectSchoolSearchB(x) {
-                                    var e = document.getElementById('stateDropDown');
-                                    e.style.display = 'block';
-                                    setColSpan('searchBox', 1);
-                                    e = document.getElementById('stateSelector');
-                                    e.name = 'state';
-
-                                    e = document.getElementById('q');
-                                    if (e.value == 'Search by keyword') {
-                                        e.value='Search for school, district or city';
-                                    }
-                                    e.focus();
-                                    e.select();
-                                    return true;
-                                }
-
-                                function topNavSelectTopicSearchB(x) {
-                                    var e = document.getElementById('stateDropDown');
-                                    e.style.display = 'none';
-                                    e = document.getElementById('stateSelector');
-                                    e.name = 'hiddenState';
-                                    setColSpan('searchBox', 5);
-
-                                    e = document.getElementById('q');
-                                    if (e.value == 'Search for school, district or city') {
-                                        e.value='Search by keyword';
-                                    }
-                                    e.focus();
-                                    e.select();
-                                    return true;
-                                }
-                            </script>
-                        </variant:b>
                         <td id="searchBox" colspan="${requestScope.context.topicPage ? 5 : 1}">
                             <input type="text" style="width: 100%; font-size: 11px;" name="q" id="q"
                                    value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
