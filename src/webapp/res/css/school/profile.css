@@ -68,7 +68,7 @@
 #tools .email { /* has IE 7 equivalent */
     font: bold 13px "Trebuchet MS", Arial, sans-serif;
     background: url(../../img/school/tools_th_email.gif) no-repeat 0 center;
-	padding: 0 0 0 17px;
+	padding: 3px 0 0 17px;
 	margin: 8px 0 0 0;
     _margin: 7px 0 0 0; /* IE 6 hack */
     color: #777;
@@ -77,15 +77,17 @@
 
 #tools p#compare {
     font: bold 13px "Trebuchet MS", Arial, sans-serif;
-    background: url(../../img/school/tools_compare.gif) no-repeat 0 center;
+    background: url(../../img/school/tools_compare.gif) no-repeat 0 3px;
     float: left;
-    padding: 0 0 0 17px;
+    padding: 3px 0 4px 17px;
     margin: 7px 0 0 0;
     width: 200px;
 }
 
-#tools p#compare a {
+
+#tools p#compare a, #tools p.email a {
     text-decoration: underline;
+    color:#39A;
 }
 
 #tools a {

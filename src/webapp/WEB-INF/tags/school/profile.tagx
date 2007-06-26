@@ -154,18 +154,14 @@
                     <c:when test="${schoolType != 'private'}">
                         <p class="email">
                             <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false">
-                                <span style="text-decoration:underline;color:#39A;">
-                                    Email me updates about this school
-                                </span>
+                                Email me updates about this school
                             </promo:mssHover>
                         </p>
                     </c:when>
                     <c:otherwise>
                         <p class="email">
                             <promo:nthGraderHover referredBy="schoolProfile" isForm="false">
-                                <span style="text-decoration:underline;color:#39A;">
-                                    Email me grade-by-grade updates
-                                </span>
+                                Email me grade-by-grade updates
                             </promo:nthGraderHover>
                         </p>
                     </c:otherwise>
