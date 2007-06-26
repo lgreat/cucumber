@@ -1,4 +1,4 @@
-body {
+body, input, select {
     font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
@@ -14,4 +14,10 @@ body {
 
 #contentGS a:hover, a:hover {
 	text-decoration: underline;
+}
+
+.label {
+    color: #666;
+    line-height: 20px;
+    font-size: 13px;
 }
