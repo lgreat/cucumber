@@ -10,7 +10,7 @@
 
     <div class="browseState">
         <div id="browseRefine">
-            <h2 class="browseheader">Browse</h2>
+            <h2 class="browseheader label">Browse</h2>
             <ul class="refinementlist">
                 <c:if test="${(param.c ne 'topic' and param.type ne 'topic') or (param.c eq 'school' or param.type eq 'school')}">
                     <li><gsml:a href="/modperl/cities/${state.abbreviation}">
@@ -28,7 +28,7 @@
         </div>
         <c:if test="${(param.c ne 'topic' and param.type ne 'topic') or param.c eq 'school' or param.type eq 'school'}">
             <div id="searchRefine">
-                <h2 class="browseheader">Advanced Search</h2>
+                <h2 class="browseheader label">Advanced Search</h2>
                 <ul class="refinementlist">
                     <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#address">
                         Search near address</gsml:a></li>

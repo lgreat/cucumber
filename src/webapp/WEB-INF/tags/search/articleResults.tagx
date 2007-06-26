@@ -17,12 +17,12 @@
                 <h3>
                     <c:if test="${articleResult.type eq 'article'}">
                         <link:article articleId="${articleResult.id}" >
-                            <c:out value="${articleTitle}" escapeXml="false"/>
+                            <span class="highlight"><c:out value="${articleTitle}" escapeXml="false"/></span>
                         </link:article>
                     </c:if>
                     <c:if test="${articleResult.type eq 'term'}">
                         <link:glossaryTerm termId="${articleResult.id}" >
-                            <c:out value="${articleTitle}" escapeXml="false"/>
+                            <span class="highlight"><c:out value="${articleTitle}" escapeXml="false"/></span>
                         </link:glossaryTerm>
                     </c:if>
                 </h3>

@@ -32,7 +32,7 @@
                 <c:if test="${showStates == 'true'}">
                     <div>
                         <span class="label">Search again in:</span>
-                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}" styleId="refine_stateSelector"/>
+                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}" styleId="refine_stateSelector" styleClass="label"/>
                     </div>
                 </c:if>
                 <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
@@ -42,11 +42,12 @@
                        id="refine_q"
                        name="q"
                        size="${(not empty fieldLength) ? (fieldLength) : '50'}"
+                       class="label"
                        style="font-size:small"
                        maxlength="255"
                        value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
                 <c:if test="${(empty showConstraint) or showConstraint}">
-                    <select name="c" id="c">
+                    <select name="c" id="c" class="label">
                         <option value="school">Schools</option>
                         <option value="topic">Articles</option>
                     </select>
