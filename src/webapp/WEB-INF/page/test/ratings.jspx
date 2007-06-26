@@ -88,7 +88,7 @@
                                 on a comparison of test results for all<br/>
                                 schools in the state.
                             </p>
-                            <p><link:article articleId="1023" target="_blank">What our ratings tell you &gt;</link:article></p>
+                            <p><link:article articleId="1023">What our ratings tell you &gt;</link:article></p>
                             <c:if test="${hasRating == 'true'}">
                                 <p><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
                             </c:if>
