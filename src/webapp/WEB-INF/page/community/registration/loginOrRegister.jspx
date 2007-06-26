@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -28,6 +28,16 @@
     </head>
 
     <gsml:body adPageName="login">
+
+    <![CDATA[
+    <!--[if IE 7]>
+        <style type="text/css">
+            #returninguser .checkboxLabel {
+                margin: 1px 0 0 0;
+            }
+        </style>
+    <![endif]-->
+    ]]>
 
     <div id="reg_intro">
         <h1><span>Join &amp; Sign In</span></h1>
@@ -74,10 +84,8 @@
                                 </spring:bind>
                         </p>
 
-                        <!--
                         <gsml:checkbox name="loginCmd.rememberMe" checked="${loginCmd.rememberMe}" styleClass="checkbox" styleId="rememberMe"/>
-                        <p><label class="checkboxLabel" for="rememberMe">Keep me signed in</label></p>
-                        -->
+                        <p><label class="checkboxLabel" for="rememberMe">Remember me</label></p>
 
                         <spring:bind path="loginCmd.redirect">
                             <input type="hidden" name="${status.expression}" value="${status.value}"/>

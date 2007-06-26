@@ -31,7 +31,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
     public void testOnSubmitNoPassword() throws NoSuchAlgorithmException {
         User user = new User();
         user.setEmail("testLoginController@greatschools.net");
-        user.setId(new Integer(99));
+        user.setId(99);
         _mockUserDao.findUserFromEmailIfExists(user.getEmail());
         _userControl.setReturnValue(user);
         _mockUserDao.findUserFromEmail(user.getEmail());
@@ -60,7 +60,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
     public void testOnSubmit() throws NoSuchAlgorithmException {
         User user = new User();
         user.setEmail("testLoginController@greatschools.net");
-        user.setId(new Integer(99));
+        user.setId(99);
         user.setPlaintextPassword("foobar");
         _mockUserDao.findUserFromEmailIfExists(user.getEmail());
         _userControl.setReturnValue(user);
@@ -102,7 +102,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
     public void testProvisionalUser() throws NoSuchAlgorithmException {
         User user = new User();
         user.setEmail("testLoginController@greatschools.net");
-        user.setId(new Integer(99));
+        user.setId(99);
         user.setPlaintextPassword("foobar");
         user.setEmailProvisional();
 
@@ -123,7 +123,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
     public void testBadPassword() throws NoSuchAlgorithmException {
         User user = new User();
         user.setEmail("testLoginController@greatschools.net");
-        user.setId(new Integer(99));
+        user.setId(99);
         user.setPlaintextPassword("foobar");
 
         _mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net");

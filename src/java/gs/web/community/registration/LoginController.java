@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.23 2007/05/29 18:26:08 aroy Exp $
+ * $Id: LoginController.java,v 1.24 2007/06/26 18:06:41 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -76,6 +76,7 @@ public class LoginController extends SimpleFormController {
         }
 
         LoginCommand loginCommand = (LoginCommand) command;
+        loginCommand.setRememberMe(request.getParameter("loginCmd.rememberMe") != null);
         User user = getUserDao().findUserFromEmailIfExists(loginCommand.getEmail());
 
         if (user == null || user.isEmailProvisional()) {
@@ -133,7 +134,7 @@ public class LoginController extends SimpleFormController {
             redirectUrl = builder.asFullUrl(request);
         } else {
             // The password has validated, so set the cookies and send them onward
-            PageHelper.setMemberAuthorized(request, response, user);
+            PageHelper.setMemberAuthorized(request, response, user, loginCommand.isRememberMe());
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
         }
 

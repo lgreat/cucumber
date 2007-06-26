@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.45 2007/06/19 21:46:45 thuss Exp $
+ * $Id: PageHelper.java,v 1.46 2007/06/26 18:06:41 aroy Exp $
  */
 
 package gs.web.util;
@@ -479,7 +479,7 @@ public class PageHelper {
 
     /**
      * Sets a user's member cookie and authentication information. Call when a user needs to be
-     * logged in to Community, or their email address has changed.
+     * logged in to Community, or their email address has changed. Defaults to session duration cookie.
      *
      * @param request Http request
      * @param response Http response
@@ -487,12 +487,26 @@ public class PageHelper {
      * @throws java.security.NoSuchAlgorithmException On error with md5 algorithm
      */
     public static void setMemberAuthorized(HttpServletRequest request, HttpServletResponse response, User user) throws NoSuchAlgorithmException {
+        setMemberAuthorized(request, response, user, false);
+    }
+
+    /**
+     * Sets a user's member cookie and authentication information. Call when a user needs to be
+     * logged in to Community, or their email address has changed.
+     *
+     * @param request Http request
+     * @param response Http response
+     * @param user used to initialize the cookie, should not be null
+     * @param rememberMe true to use long-lived cookie, false to use session cookie
+     * @throws java.security.NoSuchAlgorithmException On error with md5 algorithm
+     */
+    public static void setMemberAuthorized(HttpServletRequest request, HttpServletResponse response, User user, boolean rememberMe) throws NoSuchAlgorithmException {
         String hash = AuthenticationManager.generateCookieValue(user);
 
         setMemberCookie(request, response, user);
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
-        util.changeAuthorization(request, response, user, hash);
+        util.changeAuthorization(request, response, user, hash, rememberMe);
     }
 
     /**
