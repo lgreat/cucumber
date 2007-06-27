@@ -6,7 +6,8 @@ body, input, select {
 	letter-spacing: 0px;
 }
 
-#contentGS a:link, #contentGS a:visited, #contentGS a:active, a:link, a:visited, a:active {
+#contentGS a, #contentGS a:link, #contentGS a:visited, #contentGS a:active,
+    a, a:link, a:visited, a:active {
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	color: #39a;
 	text-decoration: none;
