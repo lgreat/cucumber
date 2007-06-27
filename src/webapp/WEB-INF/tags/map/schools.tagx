@@ -80,7 +80,8 @@ var centerPoint = new GLatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
 function initSchoolInfo() {
     var mySchool;
-<c:forEach var="school" items="${schools}">
+<c:forEach var="schoolSearchResult" items="${schools}">
+  <c:set var="school" value="${schoolSearchResult.school}"/>                                          
   <c:if test="${not empty school.lon}">
     <c:choose>
       <c:when test="${'private' == school.type.schoolTypeName}">

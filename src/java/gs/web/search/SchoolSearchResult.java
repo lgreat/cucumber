@@ -3,8 +3,10 @@ package gs.web.search;
 import org.apache.lucene.document.Document;
 import gs.data.school.School;
 import gs.data.search.Indexer;
+import gs.data.geo.ILocation;
+import gs.data.geo.LatLon;
 
-public class SchoolSearchResult extends SearchResult {
+public class SchoolSearchResult extends SearchResult implements ILocation {
     private School _school;
 
     public SchoolSearchResult(Document doc) {
@@ -21,5 +23,9 @@ public class SchoolSearchResult extends SearchResult {
 
     public void setSchool(School school) {
         _school = school;
+    }
+
+    public LatLon getLatLon() {
+        return getSchool().getLatLon();
     }
 }
