@@ -11,16 +11,7 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
 
-    <c:choose>
-        <c:when test="${fn:contains(pageContext.request.requestURI,'healthyKids')}">
-            <gsml:img src="/res/img/content/healthyKids/quakerad.gif" alt="Healthy Kids brought to you by Quaker Snack Bars"/>
-        </c:when>
-        <c:otherwise>
-            <promo:childOnTrack referredBy="${referredBy}"/>
-        </c:otherwise>
-    </c:choose>
-
-
+    <ad:Top_300x137/>
     <ad:x70/>
     <ad:AboveFold_300x600/>
     
