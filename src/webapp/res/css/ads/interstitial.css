@@ -17,28 +17,20 @@
     clear: left;
     background-color: #DEE;
     margin: 0 18px 18px 18px;
-    padding: 15px;
+    padding: 11px 0 16px 0;
     text-align: center;
-    /*border: 1px solid blue;*/
 }
 
 table#frame {
     background-color: #8BCBCB;
     text-align: center;
-    padding: 5px 15px 15px 15px;
-    /*border: 1px solid blue;*/
+    padding: 5px 15px 16px 15px;
 }
 
 #ad {
     text-align: left;
-    /*border: 1px solid blue;*/
 }
 
 #message {
     color: white;
-}
-
-/* force pageGS to make room for bottom margin on #background */
-#pageGS {
-    padding-bottom: 1px;
 }
