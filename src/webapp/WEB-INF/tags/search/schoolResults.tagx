@@ -28,9 +28,9 @@
             <c:set var="school" value="${schoolResult.school}"/>
             <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
             <div class="school result">
-                <h3><link:schoolProfileOverview school="${school}" title="${school.name}">
+                <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <!--<c:out value="${gsweb:highlight(school.name, q, 'name')}" escapeXml="false"/>-->
-                    <span class="highlight"><c:out value="${school.name}" escapeXml="false"/></span>
+                    <c:out value="${school.name}" escapeXml="false"/>
                     </link:schoolProfileOverview></h3>
                 <div class="about">
                     <span class="st">${school.type.schoolTypeName}</span>
