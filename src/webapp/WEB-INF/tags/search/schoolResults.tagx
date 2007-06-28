@@ -13,15 +13,13 @@
             <br />
             School
         </div>
-        <variant:b>
             <div id="ratingsHeader">
-                GreatSchools<br />
-                Rating
+                <!--GreatSchools<br />-->
+                <!--Rating-->
             </div>
             <div id="reviewsHeader">
                 <!--Parent Rating-->
             </div>
-        </variant:b>
     </div>
     <div id="searchResultsList">
         <c:forEach var="schoolResult" items="${results}" >
@@ -46,24 +44,22 @@
                     <c:out value="${school.phone}"/>
                 </div>
             </div>
-            <variant:b>
-                <div class="rating">
-                    <c:choose>
-                        <c:when test="${empty rating}">
-                            <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
-                        </c:when>
-                        <c:otherwise>
-                            <link:schoolProfileRating school="${school}">
-                                <gsml:img src="/res/img/school/ratings/${rating}.gif"
-                                          alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                            </link:schoolProfileRating>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-                <div class="review">
+                <!--<div class="rating">-->
+                    <!--<c:choose>-->
+                        <!--<c:when test="${empty rating}">-->
+                            <!--<gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>-->
+                        <!--</c:when>-->
+                        <!--<c:otherwise>-->
+                            <!--<link:schoolProfileRating school="${school}">-->
+                                <!--<gsml:img src="/res/img/school/ratings/${rating}.gif"-->
+                                          <!--alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>-->
+                            <!--</link:schoolProfileRating>-->
+                        <!--</c:otherwise>-->
+                    <!--</c:choose>-->
+                <!--</div>-->
+                <!--<div class="review">-->
                     <!--4-->
-                </div>
-            </variant:b>
+                <!--</div>-->
         </c:forEach>
     </div>
 </jsp:root>
