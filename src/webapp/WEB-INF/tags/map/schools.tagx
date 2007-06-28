@@ -9,6 +9,10 @@
         >
 <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
+<jsp:directive.tag import="java.util.Iterator"/>
+<jsp:directive.tag import="gs.web.search.SchoolSearchResult"/>
+<jsp:directive.tag import="java.util.List"/>
+<jsp:directive.tag import="java.util.ArrayList"/>
 <jsp:directive.tag body-content="empty"
                    description="Draw a map of schools." />
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
@@ -29,6 +33,23 @@ TODO I'd like to color the markers or use different icons depending on the level
 I'd like to use a consistent display of school information in the info window.
 -->
 <jsp:scriptlet><![CDATA[
+
+    if (schools.size() > 0) {
+        Iterator iter = schools.iterator();
+        if (iter.hasNext()) {
+            Object o = iter.next();
+            if (o instanceof SchoolSearchResult) {
+                List newList = new ArrayList();
+                newList.add(((SchoolSearchResult)o).getSchool());
+                while (iter.hasNext()) {
+                    newList.add(((SchoolSearchResult)iter.next()).getSchool());
+                }
+                schools = newList;
+                request.setAttribute("schools2", newList);
+            }
+        }
+    }
+
     if (centerSchool != null && centerSchool.getLat() != null && centerSchool.getLon() != null) {
         // if requested to center on a school, do so
         // note if school has no latlong then map is centered around nearby schools instead
@@ -80,8 +101,12 @@ var centerPoint = new GLatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
 function initSchoolInfo() {
     var mySchool;
-<c:forEach var="schoolSearchResult" items="${schools}">
-  <c:set var="school" value="${schoolSearchResult.school}"/>                                          
+
+<c:if test="${not empty schools2}">
+   <c:set var="schools" value="${schools2}"/>        
+</c:if>
+                              
+<c:forEach var="school" items="${schools}">
   <c:if test="${not empty school.lon}">
     <c:choose>
       <c:when test="${'private' == school.type.schoolTypeName}">
