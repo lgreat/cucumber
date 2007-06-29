@@ -243,13 +243,12 @@
 </td>
 
 <td class="right" style="width: 302px" valign="bottom">
-    <promo:childOnTrackCollege referredBy="${pageName}"/>
-
     <table cellspacing="0" cellpadding="0">
         <tr>
             <td>
-                <ad:x40/>
                 <ad:setSlotPrefix slotPrefix="Library_Microsite_Countdown_To_College"/>
+                <ad:Top_300x137/>
+                <ad:x40/>
                 <ad:AboveFold_300x250/>
             </td>
         </tr>
