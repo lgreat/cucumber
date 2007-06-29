@@ -8,6 +8,17 @@ function readCookie(cookieName) {
     return unescape(cookie.substring(i + cookieName.length + 1, j));
 }
 
+// create a cookie with name=value and optional "days" expiration
+function createCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days*24*60*60*1000));
+		expires = "; expires=" + date.toGMTString();
+	}
+	document.cookie = name + "=" + value + expires + "; path=/";
+}
+
 /* Finds the HTML element specified by the ID and switches it between
    block and 'none' display. */
 function toggleById(elementId) {

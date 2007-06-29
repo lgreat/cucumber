@@ -19,6 +19,7 @@
         gs.web.util.PageHelper.hideFooter(request);
     </jsp:scriptlet>
     <html lang="en">
+    <pageHelper:addOnLoadHandler handler="createCookie('gs_interstitial', 'viewed', 1);"/>
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>

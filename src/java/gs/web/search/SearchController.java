@@ -105,9 +105,6 @@ public class SearchController extends AbstractFormController {
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
-
-        //_queryParser = new GSQueryParser("text", new GSAnalyzer());
-        //_queryParser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
         _queryParser = new GSQueryParser();
     }
 
@@ -180,9 +177,7 @@ public class SearchController extends AbstractFormController {
             PageHelper.setPathway(request, response, "1");
         }
 
-        String viewName;
-        viewName = "search/mixedResults";
-        return new ModelAndView(viewName, model);
+        return new ModelAndView("search/mixedResults", model);
     }
 
     protected Map createModel(HttpServletRequest request, SearchCommand searchCommand, SessionContext sessionContext, boolean debug) throws IOException {
