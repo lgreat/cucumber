@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.24 2007/06/07 23:49:17 chriskimm Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.25 2007/06/29 18:07:48 cpickslay Exp $
  */
 
 package gs.web.search;
@@ -9,12 +9,12 @@ import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.web.jsp.Util;
+import gs.web.school.SchoolsController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
-import gs.web.school.SchoolsController;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
@@ -217,7 +217,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
     void possiblyAddLinebreak(String s, JspWriter out) throws IOException {
         if (StringUtils.isNotBlank(s)) {
             if (s.length() > 12) {
-                out.println("<br/><span class=\"compareSpacer\">");
+                out.println("<br/><span class=\"compareSpacer\"></span>");
             }
         }
     }
