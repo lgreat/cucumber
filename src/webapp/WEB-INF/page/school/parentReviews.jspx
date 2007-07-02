@@ -136,7 +136,7 @@
                                             </c:when>
                                             <c:otherwise><p><c:out value="${review.comments}" escapeXml="true"/></p></c:otherwise>
                                         </c:choose>
-                                        <p class="respond"><link:schoolProfileAddParentReview school="${school}">Respond by writing a review</link:schoolProfileAddParentReview></p>
+                                        <p class="respond"><link:schoolProfileAddParentReview school="${school}">Write your own review</link:schoolProfileAddParentReview></p>
                                     </div><!-- end: review -->
                                 </pg:item>
                             </c:forEach>
