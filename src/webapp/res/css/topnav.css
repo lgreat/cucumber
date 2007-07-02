@@ -103,6 +103,7 @@
 #topnav #searchBox input {
     color: #666666;
     _padding-left: 3px;
+    font-family: Verdana, Geneva, Helvetica, sans-serif;
 }
 
 #topnav .stateSelect {
