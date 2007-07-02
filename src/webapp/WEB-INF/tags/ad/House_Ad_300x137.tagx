@@ -16,7 +16,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <gsweb:adTagGenerator position="Top_300x137"/>
+            <gsweb:adTagGenerator position="House_Ad_300x137"/>
         </c:otherwise>
     </c:choose>
 </jsp:root>
