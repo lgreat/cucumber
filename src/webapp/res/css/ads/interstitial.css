@@ -6,7 +6,7 @@
 #skip {
     float: right;
     color: #39A;
-    margin: 75px 25px 0 0;
+    margin: 75px 8px 0 0;
 }
 
 #arrows {
@@ -16,7 +16,7 @@
 #background {
     clear: left;
     background-color: #DEE;
-    margin: 0 18px 18px 18px;
+    margin-bottom: 18px;
     padding: 11px 0 16px 0;
     text-align: center;
 }
@@ -24,7 +24,20 @@
 table#frame {
     background-color: #8BCBCB;
     text-align: center;
-    padding: 5px 15px 16px 15px;
+}
+
+table#frame td {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+table#frame td#shortly {
+    text-align: left;
+    padding-top: 5px;
+}
+
+table#frame td#interstitial {
+    padding-bottom: 15px;
 }
 
 #ad {
