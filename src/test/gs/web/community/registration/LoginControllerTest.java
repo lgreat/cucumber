@@ -6,7 +6,7 @@ import gs.data.community.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.easymock.MockControl;
+import static org.easymock.EasyMock.*;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -15,71 +15,59 @@ import java.security.NoSuchAlgorithmException;
  */
 public class LoginControllerTest extends BaseControllerTestCase {
     private LoginController _controller;
-
-    private MockControl _userControl;
     private IUserDao _mockUserDao;
+    private User _user;
+    private LoginCommand _command;
 
     protected void setUp() throws Exception {
         super.setUp();
         ApplicationContext appContext = getApplicationContext();
         _controller = (LoginController) appContext.getBean(LoginController.BEAN_ID);
-        _userControl = MockControl.createControl(IUserDao.class);
-        _mockUserDao = (IUserDao)_userControl.getMock();
+
+        _mockUserDao = createMock(IUserDao.class);
         _controller.setUserDao(_mockUserDao);
+
+        _user = new User();
+        _user.setEmail("testLoginController@greatschools.net");
+        _user.setId(99);
+
+        _command = new LoginCommand();
+        _command.setEmail(_user.getEmail());
     }
 
     public void testOnSubmitNoPassword() throws NoSuchAlgorithmException {
-        User user = new User();
-        user.setEmail("testLoginController@greatschools.net");
-        user.setId(99);
-        _mockUserDao.findUserFromEmailIfExists(user.getEmail());
-        _userControl.setReturnValue(user);
-        _mockUserDao.findUserFromEmail(user.getEmail());
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
+        replay(_mockUserDao);
 
-        LoginCommand command = new LoginCommand();
-        command.setEmail(user.getEmail());
-        BindException errors = new BindException(command, "");
+        BindException errors = new BindException(_command, "");
 
-        _controller.onBindOnNewForm(getRequest(), command, errors);
-        _controller.onBindAndValidate(getRequest(), command, errors);
+        _controller.onBindOnNewForm(getRequest(), _command, errors);
+        _controller.onBindAndValidate(getRequest(), _command, errors);
         assertFalse(errors.hasErrors());
 
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, errors);
+        verify(_mockUserDao);
         assertFalse(errors.hasErrors());
-//        UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null,
-//                user.getEmail(), null);
-//        String redirectUrl = "redirect:" + builder.asFullUrl(getRequest());
-
-//        assertEquals(redirectUrl, mAndV.getViewName());
         assertTrue(mAndV.getViewName().indexOf("redirect") > -1);
     }
 
     public void testOnSubmit() throws NoSuchAlgorithmException {
-        User user = new User();
-        user.setEmail("testLoginController@greatschools.net");
-        user.setId(99);
-        user.setPlaintextPassword("foobar");
-        _mockUserDao.findUserFromEmailIfExists(user.getEmail());
-        _userControl.setReturnValue(user);
-        _mockUserDao.findUserFromEmail(user.getEmail());
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        _user.setPlaintextPassword("foobar");
+        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
+        replay(_mockUserDao);
 
-        LoginCommand command = new LoginCommand();
-        command.setEmail(user.getEmail());
-        command.setPassword("foobar");
-        command.setRedirect("/?14@@.598dae0f");
-        BindException errors = new BindException(command, "");
+        _command.setPassword("foobar");
+        _command.setRedirect("/?14@@.598dae0f");
+        BindException errors = new BindException(_command, "");
 
-        _controller.onBindOnNewForm(getRequest(), command, errors);
-        _controller.onBindAndValidate(getRequest(), command, errors);
+        _controller.onBindOnNewForm(getRequest(), _command, errors);
+        _controller.onBindAndValidate(getRequest(), _command, errors);
         assertFalse("Controller has errors on validate", errors.hasErrors());
 
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, errors);
+        verify(_mockUserDao);
         assertFalse("Controller has errors on submit", errors.hasErrors());
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
@@ -89,26 +77,21 @@ public class LoginControllerTest extends BaseControllerTestCase {
         LoginCommand command = new LoginCommand();
         BindException errors = new BindException(command, "");
 
-        _mockUserDao.findUserFromEmailIfExists("");
-        _userControl.setReturnValue(null);
-        _userControl.replay();
+        expect(_mockUserDao.findUserFromEmailIfExists("")).andReturn(null);
+        replay(_mockUserDao);
         _controller.setUserDao(_mockUserDao);
         _controller.onBindOnNewForm(getRequest(), command, errors);
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_mockUserDao);
         assertTrue("Controller does not have expected errors on validate", errors.hasErrors());
     }
 
     public void testProvisionalUser() throws NoSuchAlgorithmException {
-        User user = new User();
-        user.setEmail("testLoginController@greatschools.net");
-        user.setId(99);
-        user.setPlaintextPassword("foobar");
-        user.setEmailProvisional();
+        _user.setPlaintextPassword("foobar");
+        _user.setEmailProvisional();
 
-        _mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net");
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        replay(_mockUserDao);
 
         LoginCommand command = new LoginCommand();
         command.setEmail("testLoginController@greatschools.net");
@@ -116,19 +99,15 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
         _controller.onBindOnNewForm(getRequest(), command, errors);
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_mockUserDao);
         assertTrue("Controller does not have expected errors on validate", errors.hasErrors());
     }
 
     public void testBadPassword() throws NoSuchAlgorithmException {
-        User user = new User();
-        user.setEmail("testLoginController@greatschools.net");
-        user.setId(99);
-        user.setPlaintextPassword("foobar");
+        _user.setPlaintextPassword("foobar");
 
-        _mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net");
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        replay(_mockUserDao);
 
         LoginCommand command = new LoginCommand();
         command.setEmail("testLoginController@greatschools.net");
@@ -137,7 +116,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
         _controller.onBindOnNewForm(getRequest(), command, errors);
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_mockUserDao);
         assertTrue("Controller does not have expected errors on validate", errors.hasErrors());
     }
 }
