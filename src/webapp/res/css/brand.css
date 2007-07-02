@@ -22,3 +22,11 @@ body, input, select {
     line-height: 20px;
     font-size: 13px;
 }
+
+.bigger {
+    font-size: 13px;
+}
+
+.bold {
+    font-weight: bold;
+}
