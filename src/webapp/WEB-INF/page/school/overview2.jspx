@@ -39,7 +39,7 @@
 <head>
 
     <title>${school.name} - ${addr} - school overview</title>
-    <meta name="description" content="An overview of ${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, read parent reviews and teacher stats."/>
+    <meta name="description" content="An overview of ${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, parent reviews and teacher stats."/>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 </head>
 
@@ -114,7 +114,7 @@
             <c:if test="${not empty latestReviewsModel}">
                 <div id="parentReviews">
                     <h2>Latest ${school.name} Parent Reviews</h2>
-                    <gsml:img src="/res/img/school/review/${latestReviewsModel.latestRating}star.gif" alt="" styleClass="rating" />
+                    <gsml:img src="/res/img/map/ratings_parent_city_${latestReviewsModel.latestRating}.gif" alt="" styleClass="rating" />
                     <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
                         ${latestReviewsModel.randomRating}</em>
                         <link:schoolProfileParentReview school="${school}" title="Parent Reviews">Learn more &#62;</link:schoolProfileParentReview>
