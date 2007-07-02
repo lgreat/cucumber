@@ -102,12 +102,13 @@
 
 #topnav #searchBox input {
     color: #666666;
-    _padding-left: 3px;
-    font-family: Verdana, Geneva, Helvetica, sans-serif;
+    padding-left: 3px;
+    font-family: Trebuchet MS, Arial, sans-serif;
 }
 
 #topnav .stateSelect {
     font-size: 11px;
+    font-family: Trebuchet MS, Arial, sans-serif;
     color: #666666;
 }
 
