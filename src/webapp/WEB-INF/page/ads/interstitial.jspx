@@ -26,7 +26,7 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>Interstitial Ad</title>
-        <meta http-equiv="refresh" content="20;url=${passThroughURI}"/>
+        <meta http-equiv="refresh" content="5;url=${passThroughURI}"/>
         <pageHelper:externalCss file="/res/css/brand.css"/>
         <pageHelper:externalCss file="/res/css/ads/interstitial.css"/>
     </head>
