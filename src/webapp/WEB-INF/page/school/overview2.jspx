@@ -39,14 +39,7 @@
 <head>
 
     <title>${school.name} - ${addr} - school overview</title>
-    <c:choose>
-        <c:when test="${school.type.schoolTypeName == 'private'}">
-            <meta name="description" content="An overview of ${school.name} located in ${addr}. Find ${school.name} student-teacher ratio, read parent reviews and teacher stats."/>
-        </c:when>
-        <c:otherwise>
-            <meta name="description" content="An overview of ${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, read parent reviews and teacher stats."/>
-        </c:otherwise>
-    </c:choose>
+    <meta name="description" content="An overview of ${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, read parent reviews and teacher stats."/>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 </head>
 
