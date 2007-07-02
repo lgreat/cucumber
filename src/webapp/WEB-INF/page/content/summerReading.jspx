@@ -46,7 +46,7 @@
 
             <content:micrositeArticleList title="Book Picks and Activities for All Ages"
                                           headerId="bookPicks"
-                                          articleIds="900,902,901,626,230,903"/>
+                                          articleIds="900,902,901,1017,230,903"/>
 
             <content:micrositeArticleList title="A Parent's Guide to Reading"
                                           headerId="parentsShouldKnow"
