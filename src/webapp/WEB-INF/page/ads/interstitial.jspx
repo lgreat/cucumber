@@ -35,7 +35,7 @@
             <gsml:img src="/res/img/logo/logo_GS_330x110.gif"
                       alt="GreatSchools: The Parents&#039; Guide to K-12 Success" id="logo"/>
         </gsml:a>
-        <div id="skip">
+        <div id="skip" class="bigger bold">
             <gsml:a href="${passThroughURI}">To skip this ad, click here</gsml:a>
             <gsml:a href="${passThroughURI}">
                 <gsml:img src="/res/img/ad/two_pink_arrows_right.gif" alt="To skip this ad, click here"
