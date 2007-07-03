@@ -1089,4 +1089,9 @@
         </property>
     </bean>
 
+    <bean name="/ads/serveAds.page" autowire="byName" lazy-init="true"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName" value="ads/serveAds"/>
+    </bean>
+
 </beans>
