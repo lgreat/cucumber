@@ -181,7 +181,7 @@
                     </tr>
                     <tr>
                         <td id="searchBox" colspan="${requestScope.context.topicPage ? 5 : 1}">
-                            <input type="text" style="width: 100%; font-size: 11px;" name="q" id="q"
+                            <input type="text" style="width: 100%;" name="q" id="q"
                                    value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
                         </td>
                         <td style="width:10px">

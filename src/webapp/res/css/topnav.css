@@ -104,10 +104,14 @@
     color: #666666;
     padding-left: 3px;
     font-family: Trebuchet MS, Arial, sans-serif;
+    font-size: 12px;
+    height: 16px;
+    _height: 18px;
 }
 
 #topnav .stateSelect {
-    font-size: 11px;
+    font-size: 12px;
+    height: 22px;
     font-family: Trebuchet MS, Arial, sans-serif;
     color: #666666;
 }
