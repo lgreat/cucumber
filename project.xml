@@ -242,7 +242,7 @@
             <version>1.0.5</version>
             <properties>
                 <war.bundle>true</war.bundle>
-            </properties>            
+            </properties>
         </dependency>
         <dependency>
             <groupId>jfreechart</groupId>
@@ -299,7 +299,16 @@
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
-        </dependency>        
+        </dependency>
+
+        <!-- Maven plugins -->
+        <dependency>
+            <groupId>codeczar-tomcat</groupId>
+            <artifactId>maven-tomcat-plugin</artifactId>
+            <version>1.2</version>
+            <url>http://www.codeczar.com/products/maven-tomcat-plugin/</url>
+            <type>plugin</type>
+        </dependency>
     </dependencies>
 
 </project>

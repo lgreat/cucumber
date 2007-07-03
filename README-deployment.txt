@@ -20,12 +20,9 @@ the latest changes)
 
 
 
-1. Prerequisites: You will need the tomcat maven plugin:
+1. Prerequisites:
 
-cd ../GSData (you must go into the GSData project since it knows about the remote maven repos)
-maven -DartifactId=maven-tomcat-plugin -DgroupId=codeczar-tomcat -Dversion=1.1 plugin:download
-
-Also, make sure your tomcat has the admin user with password gsadmin by adding the following
+Make sure your tomcat has the admin user with password gsadmin by adding the following
 lines to conf/tomcat-users.xml:
 
   <role rolename="manager"/>
