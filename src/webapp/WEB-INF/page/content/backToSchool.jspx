@@ -28,7 +28,7 @@
     <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
 </head>
 <c:set var="pageName" value="Back to School"/>
-
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
 <gsml:body adPageName="content/backToSchool" pageLayout="backToSchool" startAdHierarchyAtPage="true">
 <div>
     <div class="wrapBorder">
