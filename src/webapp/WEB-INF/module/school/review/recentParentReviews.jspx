@@ -31,19 +31,19 @@
             </td>
             <td class="stars">
             <c:if test="${review.stars eq 1}">
-                <gsml:img src="/res/img/map/ratings_parent_city_1.gif " alt="star"/>
+                <gsml:img src="/res/img/map/ratings_parent_city_1.gif" alt="1 out of 5 stars"/>
             </c:if>
             <c:if test="${review.stars eq 2}">
-                <gsml:img src="/res/img/map/ratings_parent_city_2.gif" alt="star"/>
+                <gsml:img src="/res/img/map/ratings_parent_city_2.gif" alt="2 out of 5 stars"/>
             </c:if>
             <c:if test="${review.stars eq 3}">
-                <gsml:img src="/res/img/map/ratings_parent_city_3.gif" alt="star"/>
+                <gsml:img src="/res/img/map/ratings_parent_city_3.gif" alt="3 out of 5 stars"/>
             </c:if>
             <c:if test="${review.stars eq 4}">
-                <gsml:img src="/res/img/map/ratings_parent_city_4.gif" alt="star"/>
+                <gsml:img src="/res/img/map/ratings_parent_city_4.gif" alt="4 out of 5 stars"/>
             </c:if>
             <c:if test="${review.stars eq 5}">
-                <gsml:img src="/res/img/map/ratings_parent_city_5.gif" alt="star"/>
+                <gsml:img src="/res/img/map/ratings_parent_city_5.gif" alt="5 out of 5 stars"/>
             </c:if>
         </td>
             </tr>
