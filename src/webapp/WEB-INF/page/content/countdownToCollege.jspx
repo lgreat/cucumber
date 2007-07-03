@@ -20,6 +20,7 @@
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="COUNTDOWN_COLLEGE"/>
 
+
 <head>
     <title>College Prep From College Board and GreatSchools</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
@@ -253,8 +254,6 @@
             </td>
         </tr>
     </table>
-
-    <div class="grayLine"><gsml:img src="/res/img/header/clear_pix.gif" alt=""/></div>
 
     <h2 id="financialAidPlanner">
         <a href="http://apps.collegeboard.com/fincalc/ep/step1-1.jsp" target="_blank">
