@@ -9,58 +9,48 @@
         >
 <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
-<jsp:directive.tag import="java.util.Iterator"/>
 <jsp:directive.tag import="gs.web.search.SchoolSearchResult"/>
 <jsp:directive.tag import="java.util.List"/>
 <jsp:directive.tag import="java.util.ArrayList"/>
+<jsp:directive.tag import="gs.data.school.School"/>
 <jsp:directive.tag body-content="empty"
                    description="Draw a map of schools." />
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
 <jsp:directive.attribute name="lon" required="false" type="java.lang.Float" description="Longitude (center of map)"/>
 <jsp:directive.attribute name="lat" required="false" type="java.lang.Float" description="Latitude (center of map)"/>
-<jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.Collection"/>
+<jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.List"/>
 <jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?" />
 <jsp:directive.attribute name="bubbles" required="false" description="Use Google's standard thought bubbles" />
 <jsp:directive.attribute name="centerSchool" required="false" type="gs.data.school.School" description="If provided, centers map on school and places star marker"/>
 <jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom, defaults to 9"/>
 <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom, defaults to 12"/>
 <!--
-NOTES (dating from apeterson?)
 Schools without lat/lon are skipped.
-
-TODO I'd like to color the markers or use different icons depending on the level code. (The
-   beginnings of this are here.)
-I'd like to use a consistent display of school information in the info window.
 -->
 <jsp:scriptlet><![CDATA[
 
-    if (schools.size() > 0) {
-        Iterator iter = schools.iterator();
-        if (iter.hasNext()) {
-            Object o = iter.next();
-            if (o instanceof SchoolSearchResult) {
-                List newList = new ArrayList();
-                newList.add(((SchoolSearchResult)o).getSchool());
-                while (iter.hasNext()) {
-                    newList.add(((SchoolSearchResult)iter.next()).getSchool());
-                }
-                schools = newList;
-                request.setAttribute("schools2", newList);
-            }
+    // Transform SchoolSearchResults to Schools if necessary
+    if (schools.size() > 0 && schools.get(0) instanceof SchoolSearchResult) {
+        List<School> schoolList = new ArrayList<School>();
+        for (Object school : schools) {
+            schoolList.add(((SchoolSearchResult) school).getSchool());
         }
+        request.setAttribute("mapSchools", schoolList);
+    } else {
+        request.setAttribute("mapSchools", schools);
     }
 
     if (centerSchool != null && centerSchool.getLat() != null && centerSchool.getLon() != null) {
         // if requested to center on a school, do so
-        // note if school has no latlong then map is centered around nearby schools instead
-        request.setAttribute("center", new LatLon(centerSchool.getLat().floatValue(), centerSchool.getLon().floatValue()));
+        // note if school has no latlon then map is centered around nearby schools instead
+        request.setAttribute("center", new LatLon(centerSchool.getLat(), centerSchool.getLon()));
     } else {
         // otherwise calculate the optimal center point
         LatLonRect r = new LatLonRect(schools);
         if (r.isCentered()) {
             request.setAttribute("center", r.getCenter());
         } else {
-            request.setAttribute("center", new LatLon(lat.floatValue(), lon.floatValue()));
+            request.setAttribute("center", new LatLon(lat, lon));
         }
     }
 
@@ -102,11 +92,7 @@ var schoolArray = new Array();
 function initSchoolInfo() {
     var mySchool;
 
-<c:if test="${not empty schools2}">
-   <c:set var="schools" value="${schools2}"/>        
-</c:if>
-                              
-<c:forEach var="school" items="${schools}">
+<c:forEach var="school" items="${mapSchools}">
   <c:if test="${not empty school.lon}">
     <c:choose>
       <c:when test="${'private' == school.type.schoolTypeName}">
