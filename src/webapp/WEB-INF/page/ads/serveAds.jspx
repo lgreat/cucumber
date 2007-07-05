@@ -14,9 +14,9 @@
                 </jsp:scriptlet>
                 <c:choose>
                     <c:when test="${curAd eq 'Top_300x137'}">
-                        <top300x137>
+                        <Top_300x137>
                             <ad:Top_300x137/>
-                        </top300x137>
+                        </Top_300x137>
                     </c:when>
                 </c:choose>
                 <jsp:scriptlet>
