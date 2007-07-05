@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.25 2007/06/29 18:07:48 cpickslay Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.26 2007/07/05 16:53:45 thuss Exp $
  */
 
 package gs.web.search;
@@ -316,8 +316,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
                 filterBuffer.append("\">remove</a>)");
             }
         }
-        System.out.println ("qString: " + qString);
-        System.out.println ("buffer: " + filterBuffer.toString());
         return filterBuffer;
     }
 

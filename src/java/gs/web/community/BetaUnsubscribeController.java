@@ -27,7 +27,6 @@ public class BetaUnsubscribeController extends SimpleFormController implements R
      * @param email
      */
     private void removeFromBetaGroup(String email) {
-        System.out.println ("removing: " + email);
         User user = _userDao.findUserFromEmailIfExists(email);
         // Despite what I said in the comment, check for nulls just
         // to be safe.
