@@ -13,12 +13,6 @@ function doInterstitial() {
 function isAdLink(link) {
     var adLinkRegExp = new RegExp("googlesyndication|doubleclick|advertising|"+
                        "oascentral|eyewonder|serving-sys|PointRoll|view.atdmt");
-    var isAdd = adLinkRegExp.test(link);
-    if (!isAdd) {
-        if (link.target == "_blank") {
-            isAdd = true;
-        }
-    }
-    return isAdd; 
+    return adLinkRegExp.test(link) || (link.target == "_blank");
 }
 
