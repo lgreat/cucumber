@@ -5,11 +5,6 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
     <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
-    <div id="searchResultsHeader">
-        <div id="articleResultsHeader">
-            Article
-        </div>
-    </div>
     <div id="searchResultsList">
         <c:forEach var="articleResult" items="${results}" >
             <c:set var="articleTitle" value="${gsweb:highlight(articleResult.headline, q, 'name')}"/>
