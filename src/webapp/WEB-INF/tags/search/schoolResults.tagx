@@ -11,23 +11,26 @@
     <div id="searchResultsHeader">
         <div id="schoolResultsHeader">
             <br />
-            School
+            School name
         </div>
-            <div id="ratingsHeader">
-                <!--GreatSchools<br />-->
-                <!--Rating-->
-            </div>
+        <div id="ratingsHeader">
+            <!--GreatSchools<br />-->
+            <!--Rating-->
+        </div>
+        <variant:b>
             <div id="reviewsHeader">
-                <!--Parent Rating-->
+                <br />
+                Parent Ratings
             </div>
+        </variant:b>
     </div>
     <div id="searchResultsList">
         <c:forEach var="schoolResult" items="${results}" >
             <c:set var="school" value="${schoolResult.school}"/>
             <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
+            <c:set var="parentRating" value="${schoolResult.parentRating}"/>
             <div class="school result">
                 <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
-                    <!--<c:out value="${gsweb:highlight(school.name, q, 'name')}" escapeXml="false"/>-->
                     <c:out value="${school.name}" escapeXml="false"/>
                     </link:schoolProfileOverview></h3>
                 <div class="about">
@@ -57,9 +60,25 @@
                         <!--</c:otherwise>-->
                     <!--</c:choose>-->
                 <!--</div>-->
-                <!--<div class="review">-->
-                    <!--4-->
-                <!--</div>-->
+            <variant:b>
+                <div class="review">
+                    <c:choose>
+                        <c:when test="${empty parentRating}">
+                            <link:schoolProfileAddParentReview school="${school}">
+                                <gsml:img src="/res/img/school/ratings/ratings_parent_head_no.gif"
+                                          rollover="/res/img/school/ratings/ratings_parent_head_no_roll.gif"
+                                          alt="Be the first to rate!"/>
+                            </link:schoolProfileAddParentReview>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolProfileParentReview school="${school}">
+                                <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
+                                          alt="${parentRating} out of 5 stars"/>
+                            </link:schoolProfileParentReview>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </variant:b>
         </c:forEach>
     </div>
 </jsp:root>
