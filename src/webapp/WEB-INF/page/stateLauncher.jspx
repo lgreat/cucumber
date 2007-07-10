@@ -32,11 +32,11 @@
             }
 
             .state1 {
-                padding:0px 45px 10px 100px;
+                padding:0px 65px 10px 150px;
             }
 
             .state2 {
-                padding: 0px 55px 0px 0px;
+                padding: 0px 65px 0px 0px;
             }
 
             #main {
