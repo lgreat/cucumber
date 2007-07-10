@@ -141,46 +141,26 @@
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
     <div id="tools">
-        <link:mySchoolList school="${school}" styleClass="add">Add to My School List</link:mySchoolList>
+        <link:mySchoolList school="${school}" styleClass="addImg toolsImg"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
+        <link:mySchoolList school="${school}" styleClass="add toolsTxt">Add to My School List</link:mySchoolList>
 
         <p>&amp;nbsp;|&amp;nbsp;</p><!-- pipe divider as opposed to link border, as per client request -->
-        <link:schoolProfileAddParentReview school="${school}" styleClass="rate">
-            Rate it!
-        </link:schoolProfileAddParentReview>
 
-        <!--<c:choose>-->
-            <!--<c:when test="${requestScope.context.ABVersion eq 'b'}">-->
-                <c:choose>
-                    <c:when test="${schoolType != 'private'}">
-                        <p class="email">
-                            <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false">
-                                Email me updates about this school
-                            </promo:mssHover>
-                        </p>
-                    </c:when>
-                    <c:otherwise>
-                        <p class="email">
-                            <promo:nthGraderHover referredBy="schoolProfile" isForm="false">
-                                Email me grade-by-grade updates
-                            </promo:nthGraderHover>
-                        </p>
-                    </c:otherwise>
-                </c:choose>
-                <p id="compare"><link:schoolCompareSchool school="${school}" from="header">Compare this school</link:schoolCompareSchool></p>
-            <!--</c:when>-->
-            <!--<c:otherwise>-->
-                <!--<c:choose>-->
-                    <!--<c:when test="${schoolType != 'private'}">-->
-                        <!--<p class="email">Email me updates about this school</p>-->
-                        <!--<promo:mssHover referredBy="schoolProfile" school="${school}" isForm="true"></promo:mssHover>-->
-                    <!--</c:when>-->
-                    <!--<c:otherwise>-->
-                        <!--<p class="email">Email me grade-by-grade updates</p>-->
-                        <!--<promo:nthGraderHover referredBy="schoolProfile" isForm="true"></promo:nthGraderHover>-->
-                    <!--</c:otherwise>-->
-                <!--</c:choose>-->
-            <!--</c:otherwise>-->
-        <!--</c:choose>-->
+        <link:schoolProfileAddParentReview school="${school}" styleClass="rateImg toolsImg"><gsml:img src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
+        <link:schoolProfileAddParentReview school="${school}" styleClass="rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
+
+        <c:choose>
+            <c:when test="${schoolType != 'private'}">
+                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
+                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
+            </c:when>
+            <c:otherwise>
+                <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+            </c:otherwise>
+        </c:choose>
+        <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
+        <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
     </div>
     </c:if>
     <!-- end tools -->

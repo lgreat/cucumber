@@ -51,43 +51,44 @@
 	float: left;
 }
 
-#tools .add {
-	background: url(../../img/school/tools_th_add.gif) no-repeat 0 center;
-	padding: 0 0 0 17px;
-	text-decoration: underline;
-	margin: 0;
-	float: left;
-}
-
-#tools .rate {
-	background: url(../../img/school/tools_th_rate.gif) no-repeat 0 center;
-	padding: 0 0 0 17px;
-	text-decoration: underline;
-}
-
-#tools .email { /* has IE 7 equivalent */
-    font: bold 13px "Trebuchet MS", Arial, sans-serif;
-    background: url(../../img/school/tools_th_email.gif) no-repeat 0 center;
-	padding: 1px 0 0 17px;
-	margin: 8px 0 0 0;
-    _margin: 7px 0 0 0; /* IE 6 hack */
-    color: #777;
-	float: none;
-}
-
-#tools p#compare {
-    font: bold 13px "Trebuchet MS", Arial, sans-serif;
-    background: url(../../img/school/tools_compare.gif) no-repeat 0 3px;
+#tools .toolsImg {
+    margin: 0;
+    text-decoration: none;
     float: left;
-    padding: 3px 0 4px 17px;
-    margin: 7px 0 0 0;
-    width: 200px;
 }
 
+#tools .toolsImg img {
+    border: 0;
+}
 
-#tools p#compare a, #tools p.email a {
+#tools .toolsTxt {
+    margin: 0;
     text-decoration: underline;
-    color:#39A;
+    float: left;
+}
+
+#tools .addImg {
+    padding: 3px 7px 0 0;
+}
+
+#tools .rateImg {
+	padding: 1px 4px 0 0;
+}
+
+#tools .email {
+	padding: 8px 0 0 0;
+}
+
+#tools .emailImg {
+	padding: 11px 6px 0 0;
+}
+
+#tools .compare {
+    padding: 10px 0 4px 0;
+}
+
+#tools .compareImg {
+    padding: 10px 5px 4px 0;
 }
 
 #tools a {

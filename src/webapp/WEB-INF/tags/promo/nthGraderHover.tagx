@@ -10,6 +10,7 @@
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
     <jsp:directive.attribute name="autocheck" required="false" description="Optional pre-checked newsletter"/>
     <jsp:directive.attribute name="isForm" required="false" description="Use Input form instead of link.  Only set this attribute if you want a form."/>
+    <jsp:directive.attribute name="styleClass" required="false" description="Class name for anchor link, only provide if you do not want a form."/>
     <!--Make sure version numbers match those in Template.pm-->
     <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
@@ -21,7 +22,7 @@
             <pageHelper:addOnLoadHandler handler="initPopUp('${hoverName}')"/>
             <gsml:a href="${url}?referrer=${referredBy}${(not empty autocheck) ? '&amp;autocheck=' : ''}${autocheck}"
                     onClick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=500,left=50,top=50'); return false;"
-                    styleClass="submodal-480-500">
+                    styleClass="submodal-480-500 ${styleClass}">
              <jsp:doBody/>
             </gsml:a>
         </c:when>
