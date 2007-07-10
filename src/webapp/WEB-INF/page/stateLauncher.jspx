@@ -77,19 +77,18 @@
 
                     <a href="${url}CT${extraParams}" >Connecticut schools</a><br/>
                     <a href="${url}DE${extraParams}" >Delaware schools</a><br/>
-                    <a href="${url}DC${extraParams}" >District of Columbia schools</a><br/>
                     <a href="${url}FL${extraParams}" >Florida schools</a><br/>
                     <a href="${url}GA${extraParams}" >Georgia schools</a><br/>
                     <a href="${url}HI${extraParams}" >Hawaii schools</a><br/>
-
                     <a href="${url}ID${extraParams}" >Idaho schools</a><br/>
+                    
                     <a href="${url}IL${extraParams}" >Illinois schools</a><br/>
                     <a href="${url}IN${extraParams}" >Indiana schools</a><br/>
                     <a href="${url}IA${extraParams}" >Iowa schools</a><br/>
                     <a href="${url}KS${extraParams}" >Kansas schools</a><br/>
+                    <a href="${url}KY${extraParams}" >Kentucky schools</a><br/>
                 </td>
                 <td valign="top" class="state2">
-                    <a href="${url}KY${extraParams}" >Kentucky schools</a><br/>
                     <a href="${url}LA${extraParams}" >Louisiana schools</a><br/>
                     <a href="${url}ME${extraParams}" >Maine schools</a><br/>
                     <a href="${url}MD${extraParams}" >Maryland schools</a><br/>
@@ -108,9 +107,9 @@
                     <a href="${url}NM${extraParams}" >New Mexico schools</a><br/>
                     <a href="${url}NY${extraParams}" >New York schools</a><br/>
                     <a href="${url}NC${extraParams}" >North Carolina schools</a><br/>
+                    <a href="${url}ND${extraParams}" >North Dakota schools</a><br/>
                 </td>
                 <td valign="top" class="state3">
-                    <a href="${url}ND${extraParams}" >North Dakota schools</a><br/>
                     <a href="${url}OH${extraParams}" >Ohio schools</a><br/>
                     <a href="${url}OK${extraParams}" >Oklahoma schools</a><br/>
                     <a href="${url}OR${extraParams}" >Oregon schools</a><br/>
@@ -125,6 +124,7 @@
                     <a href="${url}VT${extraParams}" >Vermont schools</a><br/>
 
                     <a href="${url}VA${extraParams}" >Virginia schools</a><br/>
+                    <a href="${url}DC${extraParams}" >Washington DC</a><br/>
                     <a href="${url}WA${extraParams}" >Washington schools</a><br/>
                     <a href="${url}WV${extraParams}" >West Virginia schools</a><br/>
                     <a href="${url}WI${extraParams}" >Wisconsin schools</a><br/>
