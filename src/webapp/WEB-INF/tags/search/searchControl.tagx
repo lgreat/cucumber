@@ -56,9 +56,8 @@
                     <input type="hidden" name="type" value="${(not empty constraint) ? (constraint) : 'all'}" />
                 </c:if>
                 <gsml:url var="goButton"
-                          value="/res/img/button/btn_go_tp.gif"/>
-                <input type="image" src="${goButton}" class="btn" style="height: 18px; width: 21px;"
-                       value="go"/>
+                          value="/res/img/button/go_blue_transparent.gif"/>
+                <input type="image" src="${goButton}" id="goButton" value="go"/>
                 <br />
                 <c:if test="${showLinks == 'true'}">
                     <ul>
