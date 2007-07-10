@@ -117,10 +117,6 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("latestReviewsModel", createLatestReviewsModel(school));
             model.put("hasPrincipalView", Boolean.valueOf(getSchoolDao().hasPrincipalView(school)));
             model.put("hasAPExams", Boolean.valueOf(hasAPExams(school)));
-//            model.put("hasTestData", Boolean.valueOf(hasTestData(school)));
-//            model.put("hasTeacherData", Boolean.valueOf(_groupDataTypeDao.hasTeacherData(school)));
-//            model.put("hasStudentData", Boolean.valueOf(_groupDataTypeDao.hasStudentData(school)));
-//            model.put("hasFinanceData", Boolean.valueOf(_groupDataTypeDao.hasFinanceData(school)));
             model.put("hasTestData", Boolean.TRUE);
             model.put("hasTeacherData", Boolean.TRUE);
             model.put("hasStudentData", Boolean.TRUE);
