@@ -219,8 +219,8 @@ div.phone {
     padding-bottom: 8px;
 }
 
-#searchFooter .btn {
-    padding-bottom: 5px;
+#searchFooter #goButton {
+    padding: 0 0 3px 5px;
 }
 
 #searchFooter #refine_stateSelector {
@@ -304,7 +304,8 @@ pre.explanation {
     background-image: url( /res/img/bullet/pinkarrow.gif );
     background-repeat: no-repeat;
     background-position: .1em .4em;
-    padding: 5px 0 0 18px;
+    padding: 3px 0 0 17px;
+    margin: 0 0 20px 6px;
     display: block;
 }
 
