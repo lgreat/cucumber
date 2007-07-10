@@ -68,27 +68,32 @@
 }
 
 #tools .addImg {
-    padding: 3px 7px 0 0;
+    padding: 2px 7px 0 0;
+    _padding: 1px 7px 0 0;
 }
 
 #tools .rateImg {
-	padding: 1px 4px 0 0;
+	padding: 2px 4px 0 0;
+    _padding: 1px 4px 0 0;
 }
 
 #tools .email {
-	padding: 8px 0 0 0;
+	padding: 10px 0 0 0;
 }
 
 #tools .emailImg {
-	padding: 11px 6px 0 0;
+	padding: 13px 6px 0 0;
+    _padding: 12px 6px 0 0;
 }
 
 #tools .compare {
-    padding: 10px 0 4px 0;
+    padding: 10px 0 2px 0;
+    _padding-bottom: 0;
 }
 
 #tools .compareImg {
-    padding: 10px 5px 4px 0;
+    padding: 11px 5px 2px 0;
+    _padding: 10px 5px 0 0;
 }
 
 #tools a {

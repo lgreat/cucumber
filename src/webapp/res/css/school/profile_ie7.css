@@ -28,6 +28,22 @@ Internet Explorer 7 specific styles
 	margin: 3px 20px 0 0;
 }
 
+#tools .addImg {
+    padding-top: 1px;
+}
+
+#tools .rateImg {
+	padding: 1px 3px 0 0;
+}
+
+#tools .emailImg {
+	padding-top: 12px;
+}
+
+#tools .compareImg {
+    padding-top: 10px;
+}
+
 #tools .enterEmail {
 	height: 14px;
     margin-top: 4px;
