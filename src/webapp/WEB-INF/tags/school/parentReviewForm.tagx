@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
 
@@ -138,6 +139,9 @@
                 </c:choose>
             </gsweb:form>
             <p class="privacyPolicy">GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">Privacy Policy</gsml:a></p>
+        </div>
+        <div class="espLink">
+            <link:schoolProfileEspLogin styleClass="esp" school="${school}">Principals, submit your review here &gt;</link:schoolProfileEspLogin>
         </div>
     </div>
 </jsp:root>
