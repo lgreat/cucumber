@@ -139,9 +139,11 @@
                 </c:choose>
             </gsweb:form>
             <p class="privacyPolicy">GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">Privacy Policy</gsml:a></p>
-        </div>
-        <div class="espLink">
-            <link:schoolProfileEspLogin styleClass="esp" school="${school}">Principals, submit your review here &gt;</link:schoolProfileEspLogin>
+            <c:if test="${pageName eq 'parentReviews'}">
+                <div id="espLink">
+                    <link:schoolProfileEspLogin styleClass="esp" school="${school}">Principals, submit your review here &gt;</link:schoolProfileEspLogin>
+                </div>
+            </c:if>
         </div>
     </div>
 </jsp:root>

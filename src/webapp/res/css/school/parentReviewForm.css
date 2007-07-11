@@ -140,12 +140,3 @@
 .starbar div.s5  { width:  120px; }
 
 .starLink { display:none;}
-
-div#rateReview {
-    min-height:200px;
-}
-
-div.espLink {
-    clear:both;
-    padding:7px 0 10px 17px;
-}
