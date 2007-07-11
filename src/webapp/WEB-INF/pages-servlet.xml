@@ -574,6 +574,14 @@
         </property>
     </bean>
 
+    <bean name="/content/stateStandards.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>/content/stateStandards</value>
+        </property>
+    </bean>
+
     <bean name="/content/countdownToCollege.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="SEASONAL"/>
+<pageHelper:addOnLoadHandler handler="fetchStandards()"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="Description" content="GreatSchools.net: State Standards"/>
+    <c:set var="stateOrNull" value="${requestScope.context.state}"/>
+    <c:choose>
+        <c:when test="${not empty stateOrNull}" >
+            <title>GreatSchools.net: ${stateOrNull.longName} Standards</title>
+        </c:when>
+        <c:otherwise>
+            <title>GreatSchools.net: State Standards</title>
+        </c:otherwise>
+    </c:choose>
+    <pageHelper:externalCss file="/res/css/brand.css"/>
+    <pageHelper:externalCss file="/res/css/content/microsite.css"/>
+    <pageHelper:externalCss file="/res/css/content/stateStandards.css"/>
+    <gsml:url var="gspreadsheetJs" value="/res/js/gspreadsheet/gspreadsheet.js"/>
+    <![CDATA[<script type="text/javascript" src="${gspreadsheetJs}"></script>]]>
+    <script type="text/javascript">
+        <![CDATA[
+        function stateChange(stateSelect) {
+            document.forms.stateSelector.submit();
+        }
+        function fetchStandards() {
+            GSpreadsheet.load("pHIaC-TrslBjzKW3mUNpiMw", { index: 'key', worksheet: 'od6' }, function(gs) {
+                var stateOrNull = '${stateOrNull.abbreviation}';
+
+                if (stateOrNull != '') {
+                    var state_row = gs.select(stateOrNull);
+                    var subjects = ['mathematics', 'languagearts', 'science', 'finearts', 'socialstudies', 'technology', 'pehealth'];
+
+                    for (var i = 0; i < subjects.length; i++) {
+                        var subject = subjects[i];
+                        var tag_id = "state_" + subject + "_standards";
+                        var url = state_row[subject];
+
+                        if (url.indexOf("http://") != -1) {
+                            var element = document.getElementById(tag_id);
+                            element.firstChild.href = url;
+                            element.style.display = 'block';
+                        }
+                    }
+                }
+
+                var national_row = gs.select("US");
+                var subjects = ['mathematics', 'languagearts', 'science', 'finearts', 'socialstudies', 'technology', 'pehealth'];
+
+                for (var i = 0; i < subjects.length; i++) {
+                    var subject = subjects[i];
+                    var tag_id = "national_" + subject + "_standards";
+                    var url = national_row[subject];
+
+                    if (url.indexOf("http://") != -1) {
+                        var element = document.getElementById(tag_id);
+                        element.firstChild.href = url;
+                        element.style.display = 'block';
+                    }
+                }
+            });
+        }
+                
+        function fetchStandards2() {
+            GSpreadsheet.load("pouqRkV5D_eZo2j7CmCj0OQ", { index: 'key', worksheet: 'od6' }, function(gs) {
+                    var row = gs.select("feature01");
+                    document.getElementById("stateMathStandards").innerHTML = row.title;
+            });
+        }
+        ]]>
+    </script>
+</head>
+<c:set var="pageName" value="State Standards"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_State_Standards"/>
+<gsml:body adPageName="content/stateStandards" pageLayout="stateStandards" startAdHierarchyAtPage="true">
+<div>
+    <div class="wrapBorder">
+        <jsp:include page="/content/leftNav.module" />
+
+        <div class="middle">
+            <div id="contentHeaderImage">
+                <h1 id="stateStandardsText" class="pageHeading">${pageName}</h1>
+                <gsml:img src="/res/img/content/stateStandards/smilingTeacherInClass.jpg"
+                          alt="Photo of a teacher smiling in front of class"/>
+            </div>
+
+            <div id="stateStandardsDiv">
+                <h2 class="sectionHeading" id="stateStandardsHead">State Standards</h2>
+                <p class="introText dashesBelow">Learning standards describe what students should learn at each grade
+                    in a particular subject. State standards are created by the state's department of education.</p>
+
+                <c:choose>
+                    <c:when test="${not empty stateOrNull}" >
+                        <h4 class="stateChoiceHeader">${stateOrNull.longName} Standards</h4>
+                        <p style="width: 130px; float:left;">Show me standards for a different state</p>
+                    </c:when>
+                    <c:otherwise>
+                        <h4 class="stateChoiceHeader">Select Your State</h4>
+                        <p style="width: 130px; float:left;">Show me state standards for</p>
+                    </c:otherwise>
+                </c:choose>
+                <gsweb:form method="get"
+                            action="/content/stateStandards.page"
+                            id="stateSelector">
+                    <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.state}"
+                                         useNoState="${not requestScope.context.hasSearched}"
+                                         styleId="standardsStateSelector"
+                                         noStateLabel="Select your state"
+                                         onChange="stateChange(this);"/>
+                </gsweb:form>
+                <br/>
+                <c:if test="${not empty stateOrNull}" >
+                    <div id="stateStandardsLinks" style="border-bottom: none; padding-bottom: 10px;">
+                        <ul>
+                            <li id="state_languagearts_standards" class="state_link"><a href="">Lanugage Arts</a></li>
+                            <li id="state_mathematics_standards" class="state_link"><a href="">Math</a></li>
+                            <li id="state_socialstudies_standards" class="state_link"><a href="">Social Studies</a></li>
+                            <li id="state_science_standards" class="state_link"><a href="">Science</a></li>
+                            <li id="state_technology_standards" class="state_link"><a href="">Technology</a></li>
+                            <li id="state_pehealth_standards" class="state_link"><a href="">Physical Education and Health</a></li>
+                            <li id="state_finearts_standards" class="state_link"><a href="">Fine Arts</a></li>
+
+                        </ul>
+                    </div>
+                </c:if>
+                <p>Learn more: <gsweb:articlelink articleId="1035"/></p>
+           </div>
+
+            <div id="nationalStandardsDiv">
+                <h2 class="sectionHeading" id="nationalStandardsHead">National Standards</h2>
+                <p class="introText">National standards are created by national education organizations. They are
+                    voluntary and students are not held accountable to them. Some states use them as guidelines for
+                    creating their own state standards or simply adopt them.</p>
+
+                <div id="nationalStandardsLinks" style="border-bottom: none; padding-bottom: 10px;">
+                    <ul>
+                        <li id="national_languagearts_standards" class="state_link"><a href="">Lanugage Arts</a></li>
+                        <li id="national_mathematics_standards" class="state_link"><a href="">Math</a></li>
+                        <li id="national_socialstudies_standards" class="state_link"><a href="">Social Studies</a></li>
+                        <li id="national_science_standards" class="state_link"><a href="">Science</a></li>
+                        <li id="national_technology_standards" class="state_link"><a href="">Technology</a></li>
+                        <li id="national_pehealth_standards" class="state_link"><a href="">Physical Education and Health</a></li>
+                        <li id="national_finearts_standards" class="state_link"><a href="">Fine Arts</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <content:micrositeArticleList title="More from GreatSchools"
+                                          headerId="moreFromGreatSchools"
+                                          articleIds="825,823,205" lower="true"/>
+        </div>
+    </div>
+
+    <div id="promos">
+        <content:promos referredBy="${pageName}"/>
+    </div>
+    <br style="clear:both;"/>
+</div>
+
+<mod:tracking pageType="article"
+              pageName="${pageName}"
+              hier1="Article,State Standards"/>
+
+</gsml:body>
+
+</html>
+</jsp:root>
+

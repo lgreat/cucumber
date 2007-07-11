@@ -1,0 +1,55 @@
+h1#stateStandardsText {
+    background: url( "../../img/content/stateStandards/learningStandards.gif" ) no-repeat;
+}
+
+h2#moreFromGreatSchools {
+    background: url( "../../img/content/stateStandards/more_from_greatschools.gif" ) no-repeat;
+}
+
+h2#stateStandardsHead {
+    background: url( "../../img/content/stateStandards/stateStandards.gif" ) no-repeat;
+}
+
+h2#nationalStandardsHead {
+    background: url( "../../img/content/stateStandards/nationalStandards.gif" ) no-repeat;
+}
+
+p.introText {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-bottom: 5px;
+}
+
+p.dashesBelow {
+    border-bottom: 1px dashed #CCCCCC;
+}
+
+h4.stateChoiceHeader {
+    padding: 7px 0 7px 16px;
+    font-size: 16pt;
+    color: #66CCCC;
+}
+
+select#standardsStateSelector {
+    margin-left: 20px;
+    margin-top: 8px;
+}
+
+div#stateStandardsLinks {
+    padding-left: 16px;
+    margin-bottom: 0;
+}
+
+div#nationalStandardsLinks {
+    padding-left: 16px;
+    margin-bottom: 0;
+}
+
+li.state_link {
+    width: 300px;
+    display: none;
+}
+
+.no_underline {
+    text-decoration: none;    
+}
