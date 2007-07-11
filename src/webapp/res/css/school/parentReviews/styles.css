@@ -242,6 +242,10 @@ div#espLink {
 	float: right;
 }
 
+#parentReview #rateReview_module p.private {
+	margin: -33px 100px 0 0;
+	_margin: -33px 50px 0 0; /* IE 6 hack */
+}
 
 /* Parent Reviews
 ----------------------------------*/
