@@ -124,7 +124,7 @@
                     <a href="${url}VT${extraParams}" >Vermont schools</a><br/>
 
                     <a href="${url}VA${extraParams}" >Virginia schools</a><br/>
-                    <a href="${url}DC${extraParams}" >Washington DC</a><br/>
+                    <a href="${url}DC${extraParams}" >Washington DC schools</a><br/>
                     <a href="${url}WA${extraParams}" >Washington schools</a><br/>
                     <a href="${url}WV${extraParams}" >West Virginia schools</a><br/>
                     <a href="${url}WI${extraParams}" >Wisconsin schools</a><br/>
