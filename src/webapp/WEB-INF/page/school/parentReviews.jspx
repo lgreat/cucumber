@@ -41,7 +41,7 @@
             <gsml:equalizeColumns ids="'col_left','col_right'"/>
             <div id="parentReview">
                 <div id="col_left">
-                    <c:if test="${cmd.ratings.count >= cmd.ratings.minRatingsBeforeUsage}">
+                    <c:if test="${cmd.ratings.count >= cmd.ratings.minRatingsBeforeUsage and cmd.ratings.avgQuality lt 6}">
                         <div id="showParentRatings">
                             <div id="rating_parent">
                                 <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif" alt="Overall Parent Rating - ${school.name} parent reviews and overall parent rating" styleClass="parentTitle" />
