@@ -40,16 +40,18 @@
     <![CDATA[<script type="text/javascript" src="${gspreadsheetJs}"></script>]]>
     <script type="text/javascript">
         <![CDATA[
+        <!--
         function stateChange(stateSelect) {
-            document.forms.stateSelector.submit();
+            document.forms.stateStandardsSelector.submit();
         }
+                
         function fetchStandards() {
             GSpreadsheet.load("pHIaC-TrslBjzKW3mUNpiMw", { index: 'key', worksheet: 'od6' }, function(gs) {
                 var stateOrNull = '${stateOrNull.abbreviation}';
 
+                var subjects = ['mathematics', 'languagearts', 'science', 'finearts', 'socialstudies', 'technology', 'pehealth'];
                 if (stateOrNull != '') {
                     var state_row = gs.select(stateOrNull);
-                    var subjects = ['mathematics', 'languagearts', 'science', 'finearts', 'socialstudies', 'technology', 'pehealth'];
 
                     for (var i = 0; i < subjects.length; i++) {
                         var subject = subjects[i];
@@ -65,7 +67,6 @@
                 }
 
                 var national_row = gs.select("US");
-                var subjects = ['mathematics', 'languagearts', 'science', 'finearts', 'socialstudies', 'technology', 'pehealth'];
 
                 for (var i = 0; i < subjects.length; i++) {
                     var subject = subjects[i];
@@ -80,13 +81,7 @@
                 }
             });
         }
-                
-        function fetchStandards2() {
-            GSpreadsheet.load("pouqRkV5D_eZo2j7CmCj0OQ", { index: 'key', worksheet: 'od6' }, function(gs) {
-                    var row = gs.select("feature01");
-                    document.getElementById("stateMathStandards").innerHTML = row.title;
-            });
-        }
+        -->
         ]]>
     </script>
 </head>
@@ -112,37 +107,37 @@
                 <c:choose>
                     <c:when test="${not empty stateOrNull}" >
                         <h4 class="stateChoiceHeader">${stateOrNull.longName} Standards</h4>
-                        <p style="width: 130px; float:left;">Show me standards for a different state</p>
+                        <p id="state_select_text">Show me standards for a different state</p>
                     </c:when>
                     <c:otherwise>
                         <h4 class="stateChoiceHeader">Select Your State</h4>
-                        <p style="width: 130px; float:left;">Show me state standards for</p>
+                        <p id="state_select_text">Show me state standards for</p>
                     </c:otherwise>
                 </c:choose>
                 <gsweb:form method="get"
                             action="/content/stateStandards.page"
-                            id="stateSelector">
+                            id="stateStandardsSelector">
                     <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.state}"
-                                         useNoState="${not requestScope.context.hasSearched}"
+                                         useNoState="${empty stateOrNull}"
                                          styleId="standardsStateSelector"
                                          noStateLabel="Select your state"
                                          onChange="stateChange(this);"/>
                 </gsweb:form>
                 <br/>
                 <c:if test="${not empty stateOrNull}" >
-                    <div id="stateStandardsLinks" style="border-bottom: none; padding-bottom: 10px;">
+                    <div id="stateStandardsLinks">
                         <ul>
-                            <li id="state_languagearts_standards" class="state_link"><a href="">Lanugage Arts</a></li>
-                            <li id="state_mathematics_standards" class="state_link"><a href="">Math</a></li>
-                            <li id="state_socialstudies_standards" class="state_link"><a href="">Social Studies</a></li>
-                            <li id="state_science_standards" class="state_link"><a href="">Science</a></li>
-                            <li id="state_technology_standards" class="state_link"><a href="">Technology</a></li>
-                            <li id="state_pehealth_standards" class="state_link"><a href="">Physical Education and Health</a></li>
-                            <li id="state_finearts_standards" class="state_link"><a href="">Fine Arts</a></li>
-
+                            <li id="state_languagearts_standards" class="state_link"><a href="" target="_blank">Lanugage Arts</a></li>
+                            <li id="state_mathematics_standards" class="state_link"><a href="" target="_blank">Math</a></li>
+                            <li id="state_socialstudies_standards" class="state_link"><a href="" target="_blank">Social Studies</a></li>
+                            <li id="state_science_standards" class="state_link"><a href="" target="_blank">Science</a></li>
+                            <li id="state_technology_standards" class="state_link"><a href="" target="_blank">Technology</a></li>
+                            <li id="state_pehealth_standards" class="state_link"><a href="" target="_blank">Physical Education and Health</a></li>
+                            <li id="state_finearts_standards" class="state_link"><a href="" target="_blank">Fine Arts</a></li>
                         </ul>
                     </div>
                 </c:if>
+                <br/>
                 <p>Learn more: <gsweb:articlelink articleId="1035"/></p>
            </div>
 
@@ -152,15 +147,15 @@
                     voluntary and students are not held accountable to them. Some states use them as guidelines for
                     creating their own state standards or simply adopt them.</p>
 
-                <div id="nationalStandardsLinks" style="border-bottom: none; padding-bottom: 10px;">
+                <div id="nationalStandardsLinks">
                     <ul>
-                        <li id="national_languagearts_standards" class="state_link"><a href="">Lanugage Arts</a></li>
-                        <li id="national_mathematics_standards" class="state_link"><a href="">Math</a></li>
-                        <li id="national_socialstudies_standards" class="state_link"><a href="">Social Studies</a></li>
-                        <li id="national_science_standards" class="state_link"><a href="">Science</a></li>
-                        <li id="national_technology_standards" class="state_link"><a href="">Technology</a></li>
-                        <li id="national_pehealth_standards" class="state_link"><a href="">Physical Education and Health</a></li>
-                        <li id="national_finearts_standards" class="state_link"><a href="">Fine Arts</a></li>
+                        <li id="national_languagearts_standards" class="state_link"><a href="" target="_blank">Lanugage Arts</a></li>
+                        <li id="national_mathematics_standards" class="state_link"><a href="" target="_blank">Math</a></li>
+                        <li id="national_socialstudies_standards" class="state_link"><a href="" target="_blank">Social Studies</a></li>
+                        <li id="national_science_standards" class="state_link"><a href="" target="_blank">Science</a></li>
+                        <li id="national_technology_standards" class="state_link"><a href="" target="_blank">Technology</a></li>
+                        <li id="national_pehealth_standards" class="state_link"><a href="" target="_blank">Physical Education and Health</a></li>
+                        <li id="national_finearts_standards" class="state_link"><a href="" target="_blank">Fine Arts</a></li>
                     </ul>
                 </div>
             </div>

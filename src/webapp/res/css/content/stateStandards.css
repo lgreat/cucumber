@@ -35,14 +35,18 @@ select#standardsStateSelector {
     margin-top: 8px;
 }
 
-div#stateStandardsLinks {
+#contentGS .middle div#stateStandardsLinks {
     padding-left: 16px;
     margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 10px;
 }
 
-div#nationalStandardsLinks {
+#contentGS .middle div#nationalStandardsLinks {
     padding-left: 16px;
     margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 10px;
 }
 
 li.state_link {
@@ -50,6 +54,7 @@ li.state_link {
     display: none;
 }
 
-.no_underline {
-    text-decoration: none;    
+p#state_select_text {
+    width: 130px;
+    float:left;
 }
