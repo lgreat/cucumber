@@ -7,6 +7,8 @@ import gs.web.util.ReadWriteController;
 import static org.easymock.EasyMock.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+
 public class CommunitySubscriptionControllerTest extends BaseControllerTestCase {
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
@@ -30,6 +32,7 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
+        assertEquals("Expected email address in model", _email, modelAndView.getModel().get(CommunitySubscriptionController.EMAIL_PARAM));
 
         verify(_userDao);
         verify(_subscriptionDao);
@@ -47,6 +50,7 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
+        assertEquals("Expected email address in model", _email, modelAndView.getModel().get(CommunitySubscriptionController.EMAIL_PARAM));
 
         verify(_userDao);
         verify(_subscriptionDao);
@@ -65,6 +69,7 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
         assertNotNull("Expected error in model", modelAndView.getModel().get(CommunitySubscriptionController.ERROR));
+        assertEquals("Expected 200 success code, so default error page doesn't display", HttpServletResponse.SC_OK, _response.getStatus());
 
         verify(_userDao);
         verify(_subscriptionDao);

@@ -2,6 +2,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <jsp:directive.page contentType="text/html"/>
 
@@ -13,6 +14,7 @@
     <title>Thank You!</title>
       <pageHelper:externalCss file="/res/css/brand.css"/>
       <pageHelper:externalCss file="/res/css/community/newsletters/popup/community.css"/>
+      <pageHelper:externalJavascript file="/res/js/submodal.js"/>
   </head>
   <body>
   <c:choose>
@@ -26,8 +28,12 @@
           <div id="message">
               You have successfully subscribed to the Best of GreatSchools Community newsletter.
           </div>
-          <gsml:img src="/res/img/button/manageSubscriptions.gif" alt="Manage Subscriptions" id="manage"/>
-          <gsml:img src="/res/img/button/closeWindow.gif" alt="Close Window" id="close"/>
+          <link:newsletterManagement email="${email}" target="_blank" anchor="mss">
+            <gsml:img src="/res/img/button/manageSubscriptions.gif" alt="Manage Subscriptions" id="manage"/>
+          </link:newsletterManagement>
+          <a onclick="hidePopWin(false);">
+            <gsml:img src="/res/img/button/closeWindow.gif" alt="Close Window" id="close"/>
+          </a>
       </c:otherwise>
   </c:choose>
   </body>

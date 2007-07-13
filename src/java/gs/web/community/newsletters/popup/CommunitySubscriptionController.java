@@ -42,8 +42,10 @@ public class CommunitySubscriptionController extends AbstractController implemen
         } catch (Exception e) {
             _log.error("Error trying to save user or subscription", e);
             modelAndView.getModel().put(ERROR, e);
+            response.setStatus(HttpServletResponse.SC_OK);
         }
 
+        modelAndView.getModel().put(EMAIL_PARAM, email);
         return modelAndView;
     }
 
