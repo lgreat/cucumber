@@ -58,3 +58,16 @@ p#state_select_text {
     width: 130px;
     float:left;
 }
+
+#pageGS #contentGS a.no_underline_article_link,
+#pageGS #contentGS a.no_underline_article_link:link,
+#pageGS #contentGS a.no_underline_article_link:visited,
+#pageGS #contentGS a.no_underline_article_link:active
+{
+    text-decoration: none;
+}
+
+#pageGS #contentGS a.no_underline_article_link:hover
+{
+    text-decoration: underline;
+}
