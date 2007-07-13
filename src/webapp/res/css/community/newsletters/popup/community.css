@@ -1,0 +1,18 @@
+body {
+    margin: 25px;
+}
+
+#thankYou {
+    font-size: 18px;
+    color: #39a;
+    margin-bottom: 10px;
+}
+
+#message {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+#manage {
+    margin-right: 15px;
+}
