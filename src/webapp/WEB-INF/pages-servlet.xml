@@ -803,6 +803,11 @@
             </list>
         </property>
     </bean>
+    <bean name="/community/newsletters/popup/community.page"
+          class="gs.web.community.newsletters.popup.CommunitySubscriptionController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/newsletters/popup/community"/>
+    </bean>
     <!--End Myschool stats newsletter popups -->
 
     <!--Begin Registration pages -->
