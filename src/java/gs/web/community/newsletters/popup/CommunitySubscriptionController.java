@@ -1,6 +1,7 @@
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
+import gs.web.util.ReadWriteController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
@@ -11,7 +12,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CommunitySubscriptionController extends AbstractController {
+public class CommunitySubscriptionController extends AbstractController implements ReadWriteController {
     private Log _log = LogFactory.getLog(CommunitySubscriptionController.class);
 
     public static final String EMAIL_PARAM = "email";

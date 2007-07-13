@@ -3,6 +3,7 @@ package gs.web.community.newsletters.popup;
 import gs.data.community.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.util.ReadWriteController;
 import static org.easymock.EasyMock.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,6 +13,10 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
     private CommunitySubscriptionController _controller;
     private String _viewName = "/some/path";
     private String _email = "test@test.com";
+
+    public void testControllerIsReadWrite() {
+        assertTrue("Controller must be read/write to save data", _controller instanceof ReadWriteController);
+    }
 
     public void testShouldSaveSubscriptionForExistingUser() throws Exception {
         _request.setParameter(CommunitySubscriptionController.EMAIL_PARAM, _email);
@@ -25,6 +30,9 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
+
+        verify(_userDao);
+        verify(_subscriptionDao);
     }
 
     public void testShouldSaveSubscriptionForNewUser() throws Exception {
@@ -39,6 +47,9 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
+
+        verify(_userDao);
+        verify(_subscriptionDao);
     }
 
     public void testShouldAddErrorsToModel() throws Exception {
@@ -54,6 +65,9 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
         assertNotNull("Expected error in model", modelAndView.getModel().get(CommunitySubscriptionController.ERROR));
+
+        verify(_userDao);
+        verify(_subscriptionDao);
     }
 
     private void expectShouldThrowExceptionOnSaveSubscription(User user, State state) {
@@ -92,12 +106,5 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.setViewName(_viewName);
         _request.setMethod("GET");
-    }
-
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        verify(_userDao);
-        verify(_subscriptionDao);
     }
 }
