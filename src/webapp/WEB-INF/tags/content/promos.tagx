@@ -12,7 +12,7 @@
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
     <pageHelper:externalCss file="/res/css/ads.css"/>
 
-    <ad:House_Ad_300x137/>
+    <ad:House_Ad_300x137 referredBy="${referredBy}"/>
     <ad:x70/>
     <ad:AboveFold_300x600/>
     
