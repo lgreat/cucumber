@@ -14,9 +14,8 @@ h2#nationalStandardsHead {
     background: url( "../../img/content/stateStandards/nationalStandards.gif" ) no-repeat;
 }
 
-p.introText {
-    padding-top: 7px;
-    padding-bottom: 7px;
+#contentGS .middle p.introText {
+    padding: 7px 20px 7px 20px;
     margin-bottom: 5px;
 }
 

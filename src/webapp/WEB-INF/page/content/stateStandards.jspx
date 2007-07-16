@@ -32,7 +32,6 @@
             <title>GreatSchools.net: State Standards</title>
         </c:otherwise>
     </c:choose>
-    <pageHelper:externalCss file="/res/css/brand.css"/>
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>
     <pageHelper:externalCss file="/res/css/content/stateStandards.css"/>
     <gsml:url var="gspreadsheetJs" value="/res/js/gspreadsheet/gspreadsheet.js"/>
@@ -143,7 +142,7 @@
             <div id="nationalStandardsDiv">
                 <h2 class="sectionHeading" id="nationalStandardsHead">National Standards</h2>
                 <p class="introText">National standards are created by national education organizations. They are
-                    voluntary and students are not held accountable to them. Some states use them as guidelines for
+                    voluntary, and students are not held accountable to them. Some states use them as guidelines for
                     creating their own state standards or simply adopt them.</p>
 
                 <div id="nationalStandardsLinks">
