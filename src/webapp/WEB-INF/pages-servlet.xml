@@ -73,6 +73,12 @@
 
     <!-- WEB PAGE DEFINITIONS BEGIN -->
 
+    <bean name="/robots.txt" class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>robots</value>
+        </property>
+    </bean>
+
     <bean name="/search/feedback.page"
           class="gs.web.search.FeedbackController" lazy-init="true">
         <property name="formView">

@@ -63,6 +63,11 @@
         <url-pattern>/city/*</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>/robots.txt</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>modules</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

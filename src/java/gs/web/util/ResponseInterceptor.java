@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 
+import java.util.Date;
+
 /**
  * Interceptor to set http response headers
  *
@@ -26,14 +28,65 @@ public class ResponseInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
 
-        // TRNO Cookie
-        long trnoSecondsSinceEpoch = 0;
-        Cookie trno = findCookie(request, SessionContextUtil.TRNO_COOKIE);
-        if (trno == null) {
-            trno = buildTrnoCookie(request);
-            response.addCookie(trno);
+        // We don't set cookies for cacheable pages
+        if (!(o instanceof CacheablePageController)) {
+            Cookie trno = buildTrnoCookie(request, response);
+            buildCobrandCookie(request, sessionContext, response);
+            determineAbVersion(trno, request, sessionContext);
         }
 
+        return true;
+    }
+
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
+        if (!response.containsHeader("Cache-Control")) {
+            if (o instanceof CacheablePageController) {
+                setCacheHeaders(response);
+            } else {
+                setNoCacheHeaders(response);
+            }
+        }
+    }
+
+    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+        //do nothing
+    }
+
+
+    protected void buildCobrandCookie(HttpServletRequest request, SessionContext sessionContext, HttpServletResponse response) {
+        Cookie cobrandCookie = findCookie(request, SessionContextUtil.COBRAND_COOKIE);
+        String hostName = sessionContext.getHostName();
+        if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
+            cobrandCookie = new Cookie(SessionContextUtil.COBRAND_COOKIE, hostName);
+            cobrandCookie.setPath("/");
+            cobrandCookie.setDomain(".greatschools.net");
+            response.addCookie(cobrandCookie);
+        }
+    }
+
+    protected Cookie buildTrnoCookie(HttpServletRequest request, HttpServletResponse response) {
+        Cookie trno = findCookie(request, SessionContextUtil.TRNO_COOKIE);
+
+        if (trno == null) {
+            String ipAddress = request.getHeader("x_forwarded_for");
+
+            if (ipAddress == null) {
+                ipAddress = request.getRemoteAddr();
+            }
+
+            String cookieValue = String.valueOf(System.currentTimeMillis() / 1000) + "." + ipAddress;
+
+            //cookie expires approx. two years from now
+            trno = new Cookie(SessionContextUtil.TRNO_COOKIE, cookieValue);
+            trno.setPath("/");
+            trno.setMaxAge(63113852);
+            response.addCookie(trno);
+        }
+        return trno;
+    }
+
+    protected void determineAbVersion(Cookie trno, HttpServletRequest request, SessionContext sessionContext) {
+        long trnoSecondsSinceEpoch = 0;
         String trnoValue = trno.getValue();
         try {
             // Extract the time from the TRNO (180654739.127.0.0.1 => 180654739)
@@ -54,38 +107,9 @@ public class ResponseInterceptor implements HandlerInterceptor {
                 sessionContext.setAbVersion("a");
             }
         }
-
-        // COBRAND cookie
-        Cookie cobrandCookie = findCookie(request, SessionContextUtil.COBRAND_COOKIE);
-        String hostName = sessionContext.getHostName();
-        if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
-            cobrandCookie = new Cookie(SessionContextUtil.COBRAND_COOKIE, hostName);
-            cobrandCookie.setPath("/");
-            cobrandCookie.setDomain(".greatschools.net");
-            response.addCookie(cobrandCookie);
-        }
-
-        return true;
     }
 
-    private Cookie buildTrnoCookie(HttpServletRequest request) {
-        String ipAddress = request.getHeader("x_forwarded_for");
-
-        if (ipAddress == null) {
-            ipAddress = request.getRemoteAddr();
-        }
-
-        String cookieValue = String.valueOf(System.currentTimeMillis() / 1000) + "." + ipAddress;
-
-        //cookie expires approx. two years from now
-        Cookie c = new Cookie(SessionContextUtil.TRNO_COOKIE, cookieValue);
-        c.setPath("/");
-        c.setMaxAge(63113852);
-        return c;
-    }
-
-
-    private Cookie findCookie(HttpServletRequest request, String cookieName) {
+    protected Cookie findCookie(HttpServletRequest request, String cookieName) {
         Cookie cookies[] = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -97,26 +121,17 @@ public class ResponseInterceptor implements HandlerInterceptor {
         return null;
     }
 
-    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
-        if (!response.containsHeader("Cache-Control")) {
-            setNoCacheHeaders(response);
-        }
-    }
-
-    private void setNoCacheHeaders(HttpServletResponse response) {
-        /*
-        * Set pages to not be cached since almost all pages include the member bar now or some
-        * other dynamic content. This should be in the decorator as gsml:nocache but since that
-        * tag doesn't work due to a sitemesh bug (see gsml:nocache tag for more info) it's here
-        * for the time being.
-        */
+    protected void setNoCacheHeaders(HttpServletResponse response) {
         response.setHeader(HEADER_CACHE_CONTROL, "no-cache");
         response.setHeader(HEADER_PRAGMA, "no-cache");
         response.setDateHeader(HEADER_EXPIRES, 0);
     }
 
 
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-        //do nothing
+    protected void setCacheHeaders(HttpServletResponse response) {
+        response.setHeader(HEADER_CACHE_CONTROL, "public; max-age: 600");
+        response.setHeader(HEADER_PRAGMA, "");
+        Date date = new Date();
+        response.setDateHeader(HEADER_EXPIRES, date.getTime() + 600000);
     }
 }
