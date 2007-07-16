@@ -162,17 +162,18 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/1016" styleClass="noHover">Why Learn a Language?</gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/700" styleClass="noHover">Study Skills for Success</gsml:a>
     </div>
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/1016" styleClass="noHover">
-            Students used to learn enough French, German or Spanish to pass grammar tests but not
-            enough to communicate. That's changing. Learning a language is a key job skill, and studies
-            show it builds brain power.  
+        <gsml:a href="/cgi-bin/showarticle/$STATE/700" styleClass="noHover">
+            Get organized, take good notes and study effectively - these are the keys to
+            school success. You can help your child by monitoring homework, knowing what
+            questions to ask and helping her evaluate strategies that work best
+            for her. Here's how.
         </gsml:a>
     </div>
     <div align="right">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/1016" styleClass="seeFullArticle">See full article &gt;</gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/700" styleClass="seeFullArticle">See full article &gt;</gsml:a>
     </div>
 
     <div class="midDotLine" >
@@ -192,20 +193,20 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/1011" styleClass="noHover">
-            How <i>Not</i> To Be a Helicopter Parent
+        <gsml:a href="/cgi-bin/showarticle/$STATE/684" styleClass="noHover">
+            10 Ways to Jump-Start College Planning
         </gsml:a>
     </div>
 
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/1011" styleClass="noHover">
-            "Helicopter parents" hover over their college-age kids, intervening in their roommate
-            disputes and making their academic decisions. The results are bad for everyone involved.
-            Learn how you can learn to help without hovering. 
+        <gsml:a href="/cgi-bin/showarticle/$STATE/684" styleClass="noHover">
+            Choices your child makes as early as eighth grade can have a big impact on
+            his college career. Here is what your child needs to do to get ready for
+            his college planning and some ways for you to help.
         </gsml:a>
     </div>
 
-    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/1011" styleClass="seeFullArticle">See full article
+    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/684" styleClass="seeFullArticle">See full article
         &gt;</gsml:a></div>
 
     <div class="midDashLine">
@@ -221,14 +222,17 @@
                 </td>
                 <td valign="top">
                     <ul class="quickFindLinks" style="padding-top:15px;">
-                        <li style="padding-top:0;margin-top:0"><a href="http://www.collegeboard.com/parents/apply/sending-kids-college/50006.html"
-                               target="_blank">Help Your Child Become Self-Reliant</a></li>
+                        <li style="padding-top:0;margin-top:0">
+                            <gsml:a href="/cgi-bin/showarticle/$STATE/688" styleClass="noHover">Help Your Child Manage Procrastination</gsml:a>
+                        </li>
+                        <li><a href="http://www.collegeboard.com/parents/plan/hs-steps/skills/150185.html"
+                               target="_blank">Motivating the Unmotivated Student</a></li>
                         <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21382.html"
-                               target="_blank">Preparing for the Move to College</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/apply/sending-kids-college/49141.html"
-                               target="_blank">Homesickness: How to Help Your Child</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21381.html"
-                               target="_blank">Off-to-College Checklist</a></li>
+                               target="_blank">Preparing for Your Child's Move to College</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/plan/hs-steps/21275.html"
+                               target="_blank">Homework Helper</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/plan/hs-steps/21263.html"
+                               target="_blank">Recommended Classes</a></li>
                     </ul>
                 </td>
             </tr>
@@ -291,8 +295,7 @@
                    <tr>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21285.html" target="_blank">Volunteering this summer</a>
-                               can broaden your child's perspective and help him get ready for college and a career. 
+                               Encourage your child to read, read, read. It will build the skills needed for college and for standardized tests.
                            </span><br/>
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a>
                        </td>
@@ -300,9 +303,8 @@
                        <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Still making summer plans? There may still be
-                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21283.html" target="_blank">jobs, internships, volunteer opportunities</a>
-                               or athletic programs available in your community.
+                               Use the <a href="http://apps.collegeboard.com/fincalc/college_savings.jsp" target="_blank">College Savings Calculator</a> to see how
+                               much your family needs to save for college and whether you're on track.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
                    </tr>
@@ -312,17 +314,18 @@
                    <tr>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Discuss different <a href="http://www.collegeboard.com/parents/plan/getting-ready/21289.html" target="_blank">college majors</a>
-                               with your child. By the end of summer, your child should narrow his 
-                               <a href="http://www.collegeboard.com/parents/apply/college-applications/21346.html" target="_blank">college list</a>
-                               to include "safe," "reach" and "realistic" schools.
+                               Look at the <a href="http://www.collegeboard.com/student/testing/sat/calenfees.html" target="_blank">SAT calendar</a>
+                               and help your child
+                               <a href="http://www.collegeboard.com/student/testing/sat/reg.html" target="_blank">register online</a>
+                               for fall SAT tests.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
                        <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Have your child send thank-you notes to scholarship programs that have given her aid.
-                               Then, give her a chance to relax this summer. She's earned it!
+                               Together with your child, use the <a href="http://www.collegeboard.com/parents/apply/college-applications/21357.html" target="_blank">College Planning</a>
+                               and <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21404.html" target="_blank">College Financial Aid</a> calendars
+                               to start marking dates and deadlines.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
                    </tr>
