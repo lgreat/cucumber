@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.49 2007/05/18 22:28:35 cpickslay Exp $
+ * $Id: UrlUtil.java,v 1.50 2007/07/16 21:25:05 thuss Exp $
  */
 
 package gs.web.util;
@@ -14,8 +14,6 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 /**
  * Wrapping and URL munging tools.
@@ -99,7 +97,7 @@ public final class UrlUtil {
      * Examines the dest URL and returns a URL that will work from the given
      * src location. It attempts to deliver the smallest possible URL
      * that will work.
-     * This is a low-level function, and you may want to use {@link #buildUrl(String, javax.servlet.http.HttpServletRequest)}
+     * This is a low-level function, and you may want to use {@link #buildUrl(String,javax.servlet.http.HttpServletRequest)}
      * instead.
      *
      * @param destHost     null or cobrand.gs.net when on secure.gs.net
@@ -170,7 +168,7 @@ public final class UrlUtil {
      * supported are:
      * <ul>
      * <li>$STATE - replaced with uppercase state abbreviation</li>
-      <li>$LCSTATE - replaced with lowercase state abbreviation</li>
+     * <li>$LCSTATE - replaced with lowercase state abbreviation</li>
      * </ul>
      * This variable is taken from the request attribute named of the same name,
      * and if not found there, it uses the SessionContext available from the
@@ -282,7 +280,8 @@ public final class UrlUtil {
     }
 
     public boolean isStagingServer(String hostName) {
-        return hostName.indexOf("staging") != -1;
+        return hostName.indexOf("staging") != -1 ||
+                hostName.indexOf("clone") != -1;
     }
 
     /**

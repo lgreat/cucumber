@@ -1,12 +1,11 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.40 2007/05/02 22:08:55 cpickslay Exp $
+ * $Id: UrlUtilSaTest.java,v 1.41 2007/07/16 21:25:05 thuss Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
-import gs.data.util.HtmlUtil;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -226,6 +225,7 @@ public class UrlUtilSaTest extends TestCase {
 
     public void testIsStagingServer() {
         assertTrue(_urlUtil.isStagingServer("staging.greatschools.net"));
+        assertTrue(_urlUtil.isStagingServer("clone.greatschools.net"));
         assertFalse(_urlUtil.isStagingServer("dev.greatschools.net"));
     }
 

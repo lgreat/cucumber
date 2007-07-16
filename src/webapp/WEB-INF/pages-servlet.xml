@@ -73,7 +73,7 @@
 
     <!-- WEB PAGE DEFINITIONS BEGIN -->
 
-    <bean name="/robots.page" class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
+    <bean name="/robots.txt" class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>robots</value>
         </property>
