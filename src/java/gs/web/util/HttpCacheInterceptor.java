@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author thuss
  */
-public class HttpCacheHeaderInterceptor implements HandlerInterceptor {
+public class HttpCacheInterceptor implements HandlerInterceptor {
     public static final String HEADER_CACHE_CONTROL = "Cache-Control";
     public static final String HEADER_PRAGMA = "Pragma";
     public static final String HEADER_EXPIRES = "Expires";
@@ -25,18 +25,29 @@ public class HttpCacheHeaderInterceptor implements HandlerInterceptor {
     }
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object controller, ModelAndView modelAndView) throws Exception {
-        // If the controller has already set some Cache-Control headers
+        // If the controller has already set Cache-Control headers do nothing
         if (!response.containsHeader("Cache-Control")) {
             if (controller instanceof CacheablePageController) {
-                response.setHeader(HEADER_CACHE_CONTROL, "public; max-age: 600");
-                response.setHeader(HEADER_PRAGMA, "");
-                response.setDateHeader(HEADER_EXPIRES, new Date().getTime() + 600000);
+                setCacheHeaders(response);
             } else {
-                response.setHeader(HEADER_CACHE_CONTROL, "no-cache");
-                response.setHeader(HEADER_PRAGMA, "no-cache");
-                response.setDateHeader(HEADER_EXPIRES, 0);
+                setNoCacheHeaders(response);
             }
         }
+    }
+
+    public void setNoCacheHeaders(HttpServletResponse response) {
+        response.setHeader(HEADER_CACHE_CONTROL, "no-cache");
+        response.setHeader(HEADER_PRAGMA, "no-cache");
+        response.setDateHeader(HEADER_EXPIRES, 0);
+    }
+
+    /**
+     * This method is public so it can be used by HttpCacheFilter (a servlet filter)
+     */
+    public void setCacheHeaders(HttpServletResponse response) {
+        response.setHeader(HEADER_CACHE_CONTROL, "public; max-age: 600");
+        response.setHeader(HEADER_PRAGMA, "");
+        response.setDateHeader(HEADER_EXPIRES, new Date().getTime() + 600000);
     }
 
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {

@@ -12,15 +12,15 @@ import org.springframework.mock.web.MockHttpServletRequest;
 /**
  * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
  */
-public class ResponseInterceptorTest extends BaseControllerTestCase {
+public class CookieInterceptorTest extends BaseControllerTestCase {
 
-    private ResponseInterceptor _interceptor;
+    private CookieInterceptor _interceptor;
     private String _requestedServer = "someserver.greatschools.net";
 
     public void setUp() throws Exception {
         super.setUp();
 
-        _interceptor = new ResponseInterceptor();
+        _interceptor = new CookieInterceptor();
         _sessionContext = new SessionContext();
         _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
     }
@@ -91,7 +91,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         Cookie cobrandCookie = findCobrandCookie();
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
         assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
-        assertEquals("Unexpected cobrand cookie age", ResponseInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie age", CookieInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
         assertEquals("Unexpected cobrand cookie domain", ".greatschools.net", cobrandCookie.getDomain());
     }
 
@@ -116,7 +116,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         assertNotNull("Cobrand cookie should be set even for non-cobrand domains", cobrandCookie);
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
         assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
-        assertEquals("Unexpected cobrand cookie age", ResponseInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie age", CookieInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
         assertEquals("Unexpected cobrand cookie domain", ".greatschools.net", cobrandCookie.getDomain());
     }
 
@@ -130,7 +130,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         assertNotNull("Cobrand cookie should be set even for framed domains", cobrandCookie);
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
         assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
-        assertEquals("Unexpected cobrand cookie age", ResponseInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie age", CookieInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
         assertEquals("Unexpected cobrand cookie domain", ".greatschools.net", cobrandCookie.getDomain());
     }
 
@@ -167,7 +167,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         Cookie cobrandCookie = findCobrandCookie();
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
         assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
-        assertEquals("Unexpected cobrand cookie age", ResponseInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie age", CookieInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
     }
 
     private Cookie findCobrandCookie() {

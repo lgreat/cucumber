@@ -16,7 +16,7 @@ import gs.web.util.context.SessionContextUtil;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class ResponseInterceptor implements HandlerInterceptor {
+public class CookieInterceptor implements HandlerInterceptor {
     public static final int EXPIRE_AT_END_OF_SESSION = -1;
     public static final int EXPIRE_NOW = 0;
 
