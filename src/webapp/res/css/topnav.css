@@ -90,16 +90,6 @@
     float: right;
 }
 
-#topnav .searchLabel {
-    font-size: 9px;
-    color: #666;
-    text-transform: uppercase;
-    white-space: nowrap;
-    vertical-align: bottom;
-    font-family: Arial, Helvetica, san-serif;
-    padding: 0px 0px 1px 0px;
-}
-
 #topnav #searchBox input {
     color: #666666;
     padding-left: 3px;
