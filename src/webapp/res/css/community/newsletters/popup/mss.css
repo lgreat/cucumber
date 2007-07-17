@@ -70,10 +70,19 @@ a:active {
     margin:0 0 5px 0;
 }
 
-#raveText, .promo h3 {
+#raveText, .promo h3, h3#updates {
     margin-top:0;
     font-size: 15px;
     font-weight: bold;
+}
+
+h3#updates {
+    padding-bottom:0;
+    margin-bottom:0;
+}
+
+#nonPrivateMsg {
+    margin-bottom:10px;
 }
 
 .promo h3.gradebygrade {
