@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.46 2007/06/26 18:06:41 aroy Exp $
+ * $Id: PageHelper.java,v 1.47 2007/07/17 19:45:34 dlee Exp $
  */
 
 package gs.web.util;
@@ -195,7 +195,7 @@ public class PageHelper {
 
         for (Iterator it = _adKeywords.keySet().iterator(); it.hasNext();) {
             String key = (String) it.next();
-            buffer.append(key).append("=").append(_adKeywords.get(key));
+            buffer.append(key).append("=").append(_adKeywords.get(key).replaceAll(" ","+"));
             if (it.hasNext()) {
                 buffer.append("&");
             }

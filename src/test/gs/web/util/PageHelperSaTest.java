@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.34 2007/06/11 17:40:20 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.35 2007/07/17 19:45:34 dlee Exp $
  */
 
 package gs.web.util;
@@ -536,6 +536,9 @@ public class PageHelperSaTest extends TestCase {
 
         pageHelper.addAdKeyword("hello","there");
         assertEquals("state keyword set", "hello=there&state=ga", pageHelper.getOASKeywords());
+
+        pageHelper.addAdKeyword("county","Palm Beach");
+        assertEquals("state keyword set", "county=Palm+Beach&hello=there&state=ga", pageHelper.getOASKeywords());
     }
 
     public void testAdKeywords() {
