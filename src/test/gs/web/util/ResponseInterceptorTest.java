@@ -82,17 +82,6 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         assertEquals("Version parameter should override A/B version from TRNO cookie", "a", _sessionContext.getABVersion());
     }
 
-    public void testPostHandle() throws Exception {
-        MockHttpServletRequest request = getRequest();
-        MockHttpServletResponse response = getResponse();
-        _interceptor.postHandle(request, response, null, null);
-
-        // Verify that cache headers were set
-        assertTrue(response.containsHeader(ResponseInterceptor.HEADER_CACHE_CONTROL));
-        assertTrue(response.containsHeader(ResponseInterceptor.HEADER_PRAGMA));
-        assertTrue(response.containsHeader(ResponseInterceptor.HEADER_EXPIRES));
-    }
-
     public void testPreHandleSetsCobrandCookie() throws Exception {
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, false);

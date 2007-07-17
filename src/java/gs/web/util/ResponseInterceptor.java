@@ -11,17 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 
-import java.util.Date;
-
 /**
  * Interceptor to set http response headers
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class ResponseInterceptor implements HandlerInterceptor {
-    public static final String HEADER_CACHE_CONTROL = "Cache-Control";
-    public static final String HEADER_PRAGMA = "Pragma";
-    public static final String HEADER_EXPIRES = "Expires";
     public static final int EXPIRE_AT_END_OF_SESSION = -1;
     public static final int EXPIRE_NOW = 0;
 
@@ -39,13 +34,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
     }
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
-        if (!response.containsHeader("Cache-Control")) {
-            if (o instanceof CacheablePageController) {
-                setCacheHeaders(response);
-            } else {
-                setNoCacheHeaders(response);
-            }
-        }
+        //do nothing
     }
 
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
@@ -119,19 +108,5 @@ public class ResponseInterceptor implements HandlerInterceptor {
             }
         }
         return null;
-    }
-
-    protected void setNoCacheHeaders(HttpServletResponse response) {
-        response.setHeader(HEADER_CACHE_CONTROL, "no-cache");
-        response.setHeader(HEADER_PRAGMA, "no-cache");
-        response.setDateHeader(HEADER_EXPIRES, 0);
-    }
-
-
-    protected void setCacheHeaders(HttpServletResponse response) {
-        response.setHeader(HEADER_CACHE_CONTROL, "public; max-age: 600");
-        response.setHeader(HEADER_PRAGMA, "");
-        Date date = new Date();
-        response.setDateHeader(HEADER_EXPIRES, date.getTime() + 600000);
     }
 }

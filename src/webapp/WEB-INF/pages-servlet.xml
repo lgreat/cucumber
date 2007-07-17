@@ -11,13 +11,11 @@
         <property name="interceptors">
             <list>
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
+                <bean class="gs.web.util.HttpCacheHeaderInterceptor" autowire="byName"/>
                 <!-- ResponseInterceptor and SeoCobrand... are dependent on SessionContextInterceptor, and must come after it in config -->
-                <bean class="gs.web.util.context.SessionContextInterceptor"
-                      autowire="byName"/>
-                <bean class="gs.web.util.SeoCobrandRedirectInterceptor"
-                      autowire="byName"/>
-                <bean class="gs.web.util.ResponseInterceptor"
-                      autowire="byName"/>
+                <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
+                <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
+                <bean class="gs.web.util.ResponseInterceptor" autowire="byName"/>
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
@@ -35,9 +33,11 @@
 
     <bean name="noInterceptorsHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
           lazy-init="true">
-        <!-- controllers that shouldn't have any interceptors running around them -->
+        <!-- controllers that shouldn't have any interceptors other than cache headers running around them -->
         <property name="interceptors">
-            <list/>
+            <list>
+                <bean class="gs.web.util.HttpCacheHeaderInterceptor" autowire="byName"/>
+            </list>
         </property>
         <property name="urlMap">
             <map>
