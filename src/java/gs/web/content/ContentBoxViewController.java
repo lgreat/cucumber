@@ -1,23 +1,23 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ContentBoxViewController.java,v 1.6 2007/06/14 17:29:27 thuss Exp $
+ * $Id: ContentBoxViewController.java,v 1.7 2007/07/17 23:01:35 thuss Exp $
  */
 
 package gs.web.content;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 import gs.web.util.UrlUtil;
+import gs.web.util.CacheablePageParameterizableViewController;
 
 /**
  * Controller for the content box. Figures out what page to show and
- * and sets cache control to cache the page.
+ * and inherits CacheablePage controller to set cache control headers.
  * <p/>
  * http://localhost:8080/gs-web/content/box/v1/WY/feature01.page
  * http://localhost:8080/gs-web/content/box/v1/WY/tipOfTheWeek.page
@@ -29,7 +29,7 @@ import gs.web.util.UrlUtil;
  * @author apeterson
  * @author thuss
  */
-public class ContentBoxViewController extends ParameterizableViewController {
+public class ContentBoxViewController extends CacheablePageParameterizableViewController {
 
     public static final String MODEL_STATE = "state";
 
@@ -60,12 +60,6 @@ public class ContentBoxViewController extends ParameterizableViewController {
         } else {
             request.setAttribute(MODEL_WORKSHEET, "od7");
         }
-
-        // Allow caching
-        response.setHeader("Cache-Control", "public; max-age: 600");
-        response.setHeader("Pragma", "");
-        Date date = new Date();
-        response.setDateHeader("Expires", date.getTime() + 600000);
 
         return super.handleRequestInternal(request, response);
     }

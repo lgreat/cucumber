@@ -149,15 +149,13 @@
         </property>
     </bean>
 
-    <bean name="/gsHeader.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+    <bean name="/gsHeader.page" class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>gsHeader</value>
         </property>
     </bean>
 
-    <bean name="/gsFooter.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+    <bean name="/gsFooter.page" class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>gsFooter</value>
         </property>

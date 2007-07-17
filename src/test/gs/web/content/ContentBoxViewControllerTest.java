@@ -2,7 +2,6 @@ package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Tests for the content boxes
