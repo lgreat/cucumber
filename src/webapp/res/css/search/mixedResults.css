@@ -128,8 +128,8 @@ div.phone {
 
 #ratingsHeader {
     float: left;
-    width: 90px;
-    padding-right: 20px;
+    /*width: 90px;*/
+    /*padding-right: 20px;*/
 }
 
 #reviewsHeader {
