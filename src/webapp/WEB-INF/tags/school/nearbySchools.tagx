@@ -42,7 +42,7 @@
     <c:if test="${hasNearby}">
         <pageHelper:externalCss file="/res/css/school/nearby.css"/>
         <!-- nearbyWrapper div is for top border styling -->
-        <div id="nearbyWrapper">
+        <div id="nearbyWrapper" class="noprint">
             <div id="nearbySchools">
                 <h2>${levelLongName} Schools Near ${school.name}</h2>
 
