@@ -36,7 +36,7 @@ public class HttpCacheInterceptorTest extends BaseControllerTestCase {
         _interceptor.postHandle(request, response, controller, null);
 
         // Verify that cache headers were set
-        assertEquals("public; max-age: 600", response.getHeader(HttpCacheInterceptor.HEADER_CACHE_CONTROL));
+        assertEquals("public; max-age: 3600", response.getHeader(HttpCacheInterceptor.HEADER_CACHE_CONTROL));
         assertEquals("", response.getHeader(HttpCacheInterceptor.HEADER_PRAGMA));
         assertTrue(((Long) response.getHeader(HttpCacheInterceptor.HEADER_EXPIRES)) > 0);
     }

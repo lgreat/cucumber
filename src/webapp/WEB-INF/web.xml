@@ -101,10 +101,6 @@
     <filter>
         <filter-name>httpcacheheader</filter-name>
         <filter-class>gs.web.util.HttpCacheFilter</filter-class>
-        <init-param>
-            <param-name>Cache-Control</param-name>
-            <param-value>max-age=3600</param-value>
-        </init-param>
     </filter>
 
     <filter>
