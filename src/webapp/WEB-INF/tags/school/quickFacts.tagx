@@ -69,6 +69,14 @@
             <address>
                 ${school.physicalAddress.street}<br />
                 ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}&#32;${school.physicalAddress.zip}<br/>
+                <c:if test="${not empty(school.county)}">
+                    <c:choose>
+                        <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
+                        <c:when test="${school.physicalAddress.state.abbreviation eq 'LA'}">${school.county} Parish</c:when>
+                        <c:otherwise>${school.county} County</c:otherwise>
+                    </c:choose>
+                    <br/>
+                </c:if>
             </address>
 
             <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
