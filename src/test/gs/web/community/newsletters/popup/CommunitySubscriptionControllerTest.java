@@ -8,6 +8,7 @@ import static org.easymock.EasyMock.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 public class CommunitySubscriptionControllerTest extends BaseControllerTestCase {
     private IUserDao _userDao;
@@ -76,7 +77,8 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
     }
 
     private void expectShouldThrowExceptionOnSaveSubscription(User user, State state) {
-        _subscriptionDao.saveSubscription(new Subscription(user, SubscriptionProduct.COMMUNITY, state));
+        Subscription subscription = new Subscription(user, SubscriptionProduct.COMMUNITY, state);
+        _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription[]{subscription}));
         expectLastCall().andThrow(new RuntimeException()).once();
         replay(_subscriptionDao);
     }
@@ -90,7 +92,7 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
 
     private void expectShouldSaveSubscription(User user, State state) {
         Subscription subscription = new Subscription(user, SubscriptionProduct.COMMUNITY, state);
-        _subscriptionDao.saveSubscription(subscription);
+        _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription[]{subscription}));
         expectLastCall().once();
         replay(_subscriptionDao);
     }

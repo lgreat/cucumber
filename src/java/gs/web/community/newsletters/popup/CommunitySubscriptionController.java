@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 
 public class CommunitySubscriptionController extends AbstractController implements ReadWriteController {
     private Log _log = LogFactory.getLog(CommunitySubscriptionController.class);
@@ -38,7 +39,7 @@ public class CommunitySubscriptionController extends AbstractController implemen
             }
 
             Subscription subscription = new Subscription(user, SubscriptionProduct.COMMUNITY, sessionContext.getStateOrDefault());
-            _subscriptionDao.saveSubscription(subscription);
+            _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription[]{subscription}));
         } catch (Exception e) {
             _log.error("Error trying to save user or subscription", e);
             modelAndView.getModel().put(ERROR, e);
