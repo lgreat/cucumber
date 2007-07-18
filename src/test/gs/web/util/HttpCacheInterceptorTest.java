@@ -20,7 +20,9 @@ public class HttpCacheInterceptorTest extends BaseControllerTestCase {
     public void testNoCacheHeaders() throws Exception {
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
+        _interceptor.preHandle(request, response, null);
         _interceptor.postHandle(request, response, null, null);
+        _interceptor.afterCompletion(request, response, null, null);
 
         // Verify that no-cache headers were set
         assertEquals("no-cache", response.getHeader(HttpCacheInterceptor.HEADER_CACHE_CONTROL));
