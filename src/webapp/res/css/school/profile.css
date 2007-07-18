@@ -386,7 +386,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     #schoolProfile #navigation, #schoolProfile #subnav, #schoolProfileHeader #tools {
         display: none;
     }
-    #editorialFooter {
+    #editorialFooter, #schoolProfile .breadcrumb {
         display: none;
     }
 }

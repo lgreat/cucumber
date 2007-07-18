@@ -571,9 +571,10 @@ div#printandemail {
         text-decoration:none;
     }
 
-div#column{
 
 }
+div.showall{}
+
 @media print {
     .search, #adLeaderboard, #footer, .noprint  { display:none; }
     .wrap0  { width:75%; background:white; }
@@ -581,5 +582,6 @@ div#column{
         background-color:#fff;
         border: 0px solid   #fff;
     }
-    #column  {float:none;}   
+   /* #column  {float:none;background:red;}  */
+    .showall {page-break-before: always;}
 }
