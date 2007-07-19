@@ -89,9 +89,9 @@
             <hr />
 
             <ul>
-                <gsweb:articlelink articleId="1017" wrappingElement="li" styleClass="articleLink"/>
-                <gsweb:articlelink articleId="360" wrappingElement="li" styleClass="articleLink"/>
-                <li><strong><gsml:a href="/content/summerReading.page">Summer Reading Guide &#62;</gsml:a></strong></li>
+                <gsweb:articlelink articleId="657" wrappingElement="li" styleClass="articleLink"/>
+                <gsweb:articlelink articleId="327" wrappingElement="li" styleClass="articleLink"/>
+                <li><strong><gsml:a href="/content/backToSchool.page">Back To School &#62;</gsml:a></strong></li>
             </ul>
 
 		</div><!-- end: editor -->
