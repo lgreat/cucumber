@@ -582,6 +582,5 @@ div.showall{}
         background-color:#fff;
         border: 0px solid   #fff;
     }
-   /* #column  {float:none;background:red;}  */
-    .showall {page-break-before: always;}
+    .showall{width: 100%; margin: 0; float: none;}
 }

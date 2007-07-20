@@ -408,3 +408,10 @@ div#espLink {
 .clear {
     clear: both;
 }
+
+@media print{
+    #parentReview #col_left{width: 800px;}
+    #showParentReviews .review p,#showParentRatings {width: 550px; _width: 550px;}
+    #showParentRatings .categoriesMore,#rating_parent a,#ratings,#breadcrumbs,
+        #showParentReviews .pageControls,#showParentReviews .sortReviews {display:none;}  
+}

@@ -125,6 +125,11 @@
     </c:otherwise>
 </c:choose>
 <div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
+    <div class="printSchoolProfileHeader">
+        <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"/></div>
+        <div class="printName">Alameda High School</div>
+        <p><img src="/res/img/pixel.gif" alt="spacer"/></p> 
+    </div>
     <div id="schoolProfileHeader">
 
     <div id="breadcrumbs">
