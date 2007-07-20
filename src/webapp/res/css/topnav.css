@@ -9,6 +9,95 @@
     border-width: 0;
 }
 
+/* New community styles (GS-3686) */
+
+#topnav table tr td.communityHeader {
+    padding-top: 5px; /* override */
+}
+
+#topnav table tr td.communityHeader div.communityHeader {
+    margin-top: 6px; /* override */
+}
+
+#topnav #communityHeader {
+    font: 11px Trebuchet MS, Arial, sans-serif;
+    color: #666666;
+    text-align: right;
+    white-space: nowrap;
+}
+
+#topnav #communityHeader a {
+    color: #3399AA;
+    text-decoration: none;
+}
+
+#topnav #communityHeader a:hover {
+    color: #3399AA;
+    text-decoration: underline;
+}
+
+#topnav #communityHeader span.headerUsername {
+    font-weight: bold;
+    padding: 0 6px 0 0;
+}
+
+#topnav #communityHeader span.headerUsername img {
+    padding-left: 5px;
+    position: relative;
+    top: 4px;
+}
+
+#topnav #communityHeader span.headerDashboard {
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: #CCCCCC;
+    padding: 0 10px 0 6px;
+    background: url(/res/img/header/arrowGreenRight.gif) right no-repeat;
+}
+
+#topnav #communityHeader span.headerAccount {
+    padding: 0 6px 0 6px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: #CCCCCC;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #CCCCCC;
+}
+
+#topnav #communityHeader span.headerAccount2 {
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: #CCCCCC;
+    padding: 0 0 0 6px;
+    margin-left: 6px;
+}
+
+#topnav #communityHeader span.headerMsl {
+    padding: 0 0 0 6px;
+}
+
+#topnav #communityHeader span.headerMsl2 {
+    padding: 0;
+}
+
+#topnav #communityHeader span.headerAvatar img {
+    padding: 0 0 0 7px;
+    position: relative;
+    top: 4px;
+}
+
+#topnav #communityHeader table {
+    float: right;
+    position: relative;
+    top: -4px;
+}
+
+#topnav #communityHeader table tr td{
+    vertical-align: top;
+}
+
+/* End community styles */
 
 #topnav .member {
     font-family: Verdana, Geneva, Helvetica, sans-serif;
