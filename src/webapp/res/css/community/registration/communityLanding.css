@@ -67,3 +67,61 @@
 .emptymessage {
     height: 31px;
 }
+
+.bigDottedDivider hr {
+    display:none;
+}
+
+.bigDottedDivider {
+    margin-top: 10px;
+    text-align:center;
+    background-image: url(../../../img/splash/greyDot.gif );
+    background-repeat:repeat-x;
+    background-position:bottom;
+    padding:3px 0 5px 9px;
+    margin-bottom: 10px;
+    width: 851px;
+}
+
+table#bottomContent {
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size:12px;
+    font-weight:normal;
+    color:#666666;
+}
+
+table#bottomContent a {
+    color:#3399AA;
+    text-decoration:underline;
+}
+
+table#bottomContent td.contentCell {
+    vertical-align: top;
+    height: 100%;
+    background-color:#DDEEEE;
+    width: 428px;
+}
+
+table#bottomContent div.leftImage {
+    float:left;
+    padding:20px 0 15px 20px;
+}
+
+table#bottomContent div#youtube {
+    float:right;
+    width:280px;
+    margin:30px 25px 25px 0;    
+}
+
+table#bottomContent div#youtube a {
+    float:right;
+}
+
+table#bottomContent div#commBlog {
+    float:right;
+    width:250px;
+    margin:23px 18px 0 0;
+}
+
+
+
