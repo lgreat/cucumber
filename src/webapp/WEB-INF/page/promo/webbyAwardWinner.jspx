@@ -8,6 +8,7 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>GreatSchools THANKS YOU for your support!</title>
+        <pageHelper:externalCss file="/res/css/promo/promo.css"/>
         <pageHelper:externalCss file="/res/css/promo/webbyAwardWinner.css"/>
         <pageHelper:hideFooterAd/>
     </head>

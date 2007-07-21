@@ -1,33 +1,10 @@
 /* container */
 
 #content {
-	margin: 0;
-	padding: 10px;
-	border: 2px solid #ddeeee;
     height: 342px;
 }
 
-#outline { /* creates the darker blue outer outline around #content, contains no other styling */
-	border: 3px solid #66cccc;
-}
-
 /* Page content */
-
-#leftSide {
-    float: left;
-    padding-right: 45px;
-}
-
-#rightSide {
-    float: left;
-    width: 415px;
-}
-
-#bottomPadding {
-    height: 118px;
-    background-color: #DEEFEF;
-    margin: 7px 0 0 0;
-}
 
 #rightSide img.comingSoon {
     margin-top: 31px;

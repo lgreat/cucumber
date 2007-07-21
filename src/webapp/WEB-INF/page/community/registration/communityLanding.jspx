@@ -19,6 +19,7 @@
 <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
 <head>
   <title>GreatSchools Community</title>
+  <pageHelper:externalCss file="/res/css/promo/promo.css"/>
   <pageHelper:externalCss file="/res/css/community/registration/communityLanding.css"/>
 </head>
 <gsml:body adPageName="communityLanding">
