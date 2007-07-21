@@ -1,0 +1,71 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        >
+    <jsp:directive.page contentType="text/html"/>
+
+    <html>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <head>
+        <title>The CNN YouTube Debates</title>
+        <pageHelper:externalCss file="/res/css/brand.css"/>
+        <pageHelper:externalCss file="/res/css/promo/promo.css"/>
+        <pageHelper:externalCss file="/res/css/promo/youTubeVideo.css"/>
+        <pageHelper:hideFooterAd/>
+    </head>
+    <gsml:body adPageName="promo/youTubeVideo">
+
+
+        <div id="outline"><!-- creates darker blue outer outline -->
+            <div id="content">
+                <div id="leftSide">
+                    CNN YouTube Debates
+                </div>
+                <div id="rightSide">
+                    <p>Only <em>one</em> of the 440 questions asked during the first four Democratic and Republican
+                        presidential debates touched on education. We can do better than that!</p>
+
+                    <p>The video site YouTube and CNN are making history by broadcasting questions submitted by citizens
+                        like you in this fall's presidential debates.</p>
+
+                    <p>Join other GreatSchools parents and create a video question about K-12 education for the
+                        Republican candidates. You could see it answered on live TV!</p>
+
+                    <p>Here's how:</p>
+
+                    <p class="indented">1. Submit your video question about K-12 education to YouTube at
+                        http://www.youtube.com/debates.</p>
+
+                    <p class="indented">2. Email us at video@greatschools.net with the Web address (URL) of your video,
+                        and we'll add it to the GreatSchools YouTube page: http://www.youtube.com/greatschools.</p>
+
+                    <p>Please post your video question for the Republicans by September 16th, in time for the September
+                        17th debate.</p>
+
+                    <p>Check out the questions parents have already submitted!</p>
+                </div>
+            </div>
+        </div>
+        <div id="bottomPadding">
+            &amp;nbsp;
+        </div>
+
+        <c:set var="hier" value="Community,Landing Page"/>
+        <c:if test="${escapedMessage ne null and escapedMessage gt ''}">
+            <c:set var="hier" value="Community,Landing Page,Registration Confirmation"/>
+        </c:if>
+
+
+        <mod:tracking pageName="Community Landing Page"
+                      pageType="community"
+                      hier1="${hier}"/>
+
+
+    </gsml:body>
+    </html>
+</jsp:root>

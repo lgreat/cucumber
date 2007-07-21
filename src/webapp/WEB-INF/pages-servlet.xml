@@ -648,6 +648,12 @@
         <property name="viewName" value="/promo/webbyAwardWinner"/>
     </bean>
 
+    <bean name="/promo/youTubeVideo.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/promo/youTubeVideo"/>
+    </bean>
+
     <bean name="/stateLauncher.page"
           class="gs.web.state.StatePathwayController"
           autowire="byName" lazy-init="true">
