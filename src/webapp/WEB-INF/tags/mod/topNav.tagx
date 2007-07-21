@@ -16,8 +16,12 @@
     request.setAttribute("tabs", PageHelper.pageIds);
 </jsp:scriptlet>
 
+<!-- GS-3686 init vars -->
+<c:set var="communityClass" value=""/>
+<c:set var="communityClassSearch" value=""/>
+<c:set var="webbyStyle" value=""/>
 <c:if test="${requestScope.pageHelper.devEnvironment and !requestScope.pageHelper.stagingServer}">
-    <!-- Override a padding value -->
+    <!-- GS-3686: Override a padding value, used in main member td -->
     <c:set var="communityClass" value="communityHeader"/>
 </c:if>
 
@@ -32,6 +36,8 @@
 <c:if test="${!requestScope.context.crawler}">
 <td class="member ${communityClass}" >
 <c:choose>
+<!-- GS-3686: add this conditional. The when case is the original, the otherwise is the new community code.
+     Note I kept the original indentation inside the when for cvs diffing purposes. -->
     <c:when test="${!requestScope.pageHelper.devEnvironment or requestScope.pageHelper.stagingServer}">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member noprint">
     <tr>
@@ -87,10 +93,12 @@
         </c:choose>
     </tr>
 </table>
-    </c:when>
+    </c:when> <!-- end original code -->
+<!-- GS-3686: Below code should only be shown on dev servers (not staging) -->
     <c:otherwise>
         <div id="communityHeader" class="noprint">
             <c:choose>
+                <!-- Not logged in case -->
                 <c:when test="${empty requestScope.context.memberId}">
                         <span class="headerUsername">
                             Welcome!
@@ -110,8 +118,11 @@
                                 Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
                     </jsp:scriptlet>
                     <c:choose>
+                        <!-- full community login case -->
                         <c:when test="${requestScope.context.cobranded eq false and communityAuth eq true}">
+                            <!-- communityClassSearch is used to modify the margin above the search box below -->
                             <c:set var="communityClassSearch" value="communityHeader"/>
+                            <!-- webbyStyle is used to hide the webby logo below -->
                             <c:set var="webbyStyle" value="display: none;"/>
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tr>
@@ -151,6 +162,7 @@
                                 </tr>
                             </table>
                         </c:when>
+                        <!-- msl only login case -->
                         <c:otherwise>
                             <span class="headerUsername">Welcome, ${requestScope.context.nickname}</span>
                             <span class="headerAccount">
@@ -176,7 +188,8 @@
             </c:choose>
         </div>
     </c:otherwise>
-</c:choose>
+</c:choose> <!-- End GS-3686 code, though look below for ${webbyStyle} and ${communityClassSearch} which
+                 are also part of this change -->
 <c:choose>
     <c:when test="${fn:contains(pageContext.request.requestURI,'index')}">
         <div style="padding:18px 0 0 85px; ${webbyStyle}"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks></div>
