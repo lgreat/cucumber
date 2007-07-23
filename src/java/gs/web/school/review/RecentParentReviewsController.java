@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.14 2007/06/14 22:45:47 dlee Exp $
+ * $Id: RecentParentReviewsController.java,v 1.15 2007/07/23 19:29:32 dlee Exp $
  */
 
 package gs.web.school.review;
@@ -87,9 +87,7 @@ public class RecentParentReviewsController extends AbstractController {
         for (Iterator iter = reviewIds.iterator(); iter.hasNext();) {
             Integer reviewId = (Integer) iter.next();
             Review review = _reviewDao.getReview(reviewId);
-            Integer schoolId = review.getSchoolId();
-            School school = _schoolDao.getSchoolById(review.getState(), schoolId);
-
+            School school = review.getSchool();
             reviews.add(new ReviewFacade(school, review));
         }
 
