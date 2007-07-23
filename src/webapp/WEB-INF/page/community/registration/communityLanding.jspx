@@ -27,7 +27,7 @@
     <div id="outline"><!-- creates darker blue outer outline -->
         <div id="content">
             <div id="leftSide">
-                <gsml:img src="/res/img/community/registration/GS_communityteaser_image.gif" alt="Community teaser"/>
+                <gsml:img src="/res/img/community/registration/commimage.jpg" alt="Community teaser"/>
             </div>
             <div id="rightSide">
                 <gsml:img styleClass="comingSoon" src="/res/img/community/registration/GS_communityteaser_header.gif" alt="Coming soon: GreatSchools Community!"/>
@@ -62,15 +62,57 @@
             </div>
         </div>
     </div>
-    <div id="bottomPadding">
-        &amp;nbsp;
-    </div>
+
+    <div class="bigDottedDivider"><hr/></div>
+    <table id="bottomContent" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td class="contentCell">
+                <div class="leftImage">
+                    <gsml:img src="/res/img/community/registration/stars.gif" alt="Stars"/>
+                </div>
+                <div id="youtube">
+                    <gsml:img styleClass="whatdoyouwant" src="/res/img/community/registration/whatdoyouwant.gif"
+                              alt="What do you want to ask the next president about K-12 education?"/>
+                    <div>
+                        Join other GreatSchools parents and create a video question about education
+                        for the presidential candidates. You could see it answered on live TV!
+                    </div>
+                    <gsml:a href="/promo/youTubeVideo.page">Learn More &gt;</gsml:a>
+                </div>
+            </td>
+            <td width="8"></td>
+            <td width="1" style="background-color: #ddd"></td>
+            <td width="8"></td>
+            <td class="contentCell">
+                <div class="leftImage">
+                    <gsml:img styleClass="stars" src="/res/img/community/registration/the_team.jpg" alt="Community Team"/>
+                </div>
+                <div id="commBlog">
+                    <gsml:img styleClass="stars" src="/res/img/community/registration/communityblog.gif" alt="Community Team Blog"/>
+                    <div>
+                        <cache:cache scope="application" name="blog" key="bill3">
+                            <content:blogFeed atomUrl="http://communityblog.greatschools.net/atom.xml"
+                                              defaultTitle="GreatSchools Community Blog"
+                                              defaultUrl="http://communityblog.greatschools.net"/>
+                        </cache:cache>
+                        <br/>
+                        <gsml:url var="read" value="/res/img/splash/read.gif"/>
+                        <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
+                        <gsml:popupWindow href="http://community.greatschools.net" width="800" height="600" left="50" top="50"><img
+                                src="${read}"
+                                alt="Read the Community Blog"
+                                style="margin: 5px 0 4px -2px"
+                                onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 
     <c:set var="hier" value="Community,Landing Page"/>
     <c:if test="${escapedMessage ne null and escapedMessage gt ''}">
         <c:set var="hier" value="Community,Landing Page,Registration Confirmation"/>
     </c:if>
-
 
     <mod:tracking pageName="Community Landing Page"
                   pageType="community"
