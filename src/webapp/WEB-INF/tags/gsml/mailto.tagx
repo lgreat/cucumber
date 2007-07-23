@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <jsp:directive.tag body-content="scriptless"/>
+  <jsp:directive.attribute name="address" required="true" description="email address to link to"/>
+  <jsp:scriptlet>
+      StringBuffer encoded = new StringBuffer();
+      String link = "mailto:" + address;
+      for (char character : link.toCharArray()) {
+          encoded.append("&amp;#").append((int) character).append(";");
+      }
+      request.setAttribute("encodedAddress", encoded.toString());
+  </jsp:scriptlet>
+    <a href="${encodedAddress}">
+      <jsp:doBody/>
+    </a>
+</jsp:root>
