@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core">
   <jsp:directive.tag body-content="scriptless"/>
   <jsp:directive.attribute name="address" required="true" description="email address to link to"/>
+  <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
   <jsp:scriptlet>
       StringBuffer encoded = new StringBuffer();
       String link = "mailto:" + address;
@@ -12,7 +13,7 @@
       }
       request.setAttribute("encodedAddress", encoded.toString());
   </jsp:scriptlet>
-    <a href="${encodedAddress}">
+    <a href="${encodedAddress}" class="${styleClass}">
       <jsp:doBody/>
     </a>
 </jsp:root>
