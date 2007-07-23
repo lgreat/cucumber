@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+<jsp:directive.tag body-content="empty" description="Common GS footer tag"/>
+    <jsp:directive.attribute name="showAd" required="false" type="java.lang.Boolean" description="Show the ad in the footer or not."/>
+    <jsp:directive.attribute name="showSeoFooter" required="false" type="java.lang.Boolean" description="Show the SEO links in the footer or not."/>
+
+    <c:if test="${requestScope.pageHelper.showingFooter}">
+        <div id="footer">
+            <c:if test="${showAd ne false}">
+                <div id="footerAd">
+                    <ad:footerAd/>
+                </div>
+            </c:if> 
+
+            <div id="footerGS">
+                <div id="footerImg">
+                    <link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/footer.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks>
+                </div>
+                <div id="footerContent">
+                    <div class="lowernavbar">
+
+                        <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
+                        <a href="/about/aboutUs.page" style="padding-left:0;">About Us</a> &#124;
+
+                        <link:webbyAwardThanks>Our Awards</link:webbyAwardThanks> &#124;
+
+                        <gsml:a href="/about/supportUs.page">Support Us</gsml:a> &#124;
+
+                        <link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;
+
+                        <gsml:a href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
+
+                        <link:contactUs>Contact Us</link:contactUs>
+
+                        <div id="footerText">
+                            GreatSchools.net: Elementary, middle and high school information for public, private and
+                            charter
+                            schools
+                            nationwide.
+                        </div>
+                    </div>
+
+                    <c:if test="${showSeoFooter ne false}">
+                        <mod:seoFooter/>
+                    </c:if>
+                </div>
+            </div>
+            <br style="clear:both;"/>
+        </div>
+    </c:if>
+</jsp:root>

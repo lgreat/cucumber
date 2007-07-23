@@ -80,48 +80,7 @@
 
         <cobrand:numberoneexpertFooter/>
 
-        <c:if test="${requestScope.pageHelper.showingFooter}">
-            <div id="footer">
-                <div id="footerAd">
-                    <ad:footerAd/>
-                </div>
-
-
-                <div id="footerGS">
-                    <div id="footerImg">
-                        <link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/footer.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks>
-                    </div>
-                    <div id="footerContent">
-                        <div class="lowernavbar">
-
-                            <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-
-                            <a href="/about/aboutUs.page" style="padding-left:0;">About Us</a> &#124;
-
-                            <link:webbyAwardThanks>Our Awards</link:webbyAwardThanks> &#124;
-
-                            <gsml:a href="/about/supportUs.page">Support Us</gsml:a> &#124;
-
-                            <link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;
-
-                            <gsml:a href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
-
-                            <link:contactUs>Contact Us</link:contactUs>
-
-
-                            <div id="footerText">
-                                GreatSchools.net: Elementary, middle and high school information for public, private and
-                                charter
-                                schools
-                                nationwide.
-                            </div>
-                        </div>
-                        <mod:seoFooter/>
-                    </div>
-                </div>
-                <br style="clear:both;"/>
-            </div>
-        </c:if>
+        <mod:footer showAd="true" showSeoFooter="true"/>
     </div>
     <div id="deferredContent" style="display:none;">
         <ad:xAdSetup />
