@@ -23,7 +23,13 @@
     font: 11px Trebuchet MS, Arial, sans-serif;
     color: #666666;
     text-align: right;
-    white-space: nowrap;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+#topnav #communityHeader.withImages {
+    padding-top: 1px;
 }
 
 #topnav #communityHeader a {
@@ -32,19 +38,27 @@
 }
 
 #topnav #communityHeader a:hover {
-    color: #3399AA;
     text-decoration: underline;
 }
 
 #topnav #communityHeader span.headerUsername {
     font-weight: bold;
     padding: 0 6px 0 0;
+    position: relative;
+    margin: 0;
+}
+
+#topnav #communityHeader span.withBadge {
+    padding: 0 26px 0 0;
 }
 
 #topnav #communityHeader span.headerUsername img {
-    padding-left: 5px;
-    position: relative;
-    top: 4px;
+    position: absolute;
+    width: 15px;
+    height: 17px;
+    top: 0;
+    right: 6px;
+    _right: 201px;
 }
 
 #topnav #communityHeader span.headerDashboard {
@@ -65,36 +79,23 @@
     border-right-color: #CCCCCC;
 }
 
-#topnav #communityHeader span.headerAccount2 {
-    border-left-width: 1px;
-    border-left-style: solid;
-    border-left-color: #CCCCCC;
-    padding: 0 0 0 6px;
-    margin-left: 6px;
-}
-
 #topnav #communityHeader span.headerMsl {
     padding: 0 0 0 6px;
 }
 
-#topnav #communityHeader span.headerMsl2 {
-    padding: 0;
+#topnav #communityHeader span.withAvatar {
+    padding-right: 37px;
+    border-right: 0;
+    margin-left: 6px;
 }
 
-#topnav #communityHeader span.headerAvatar img {
-    padding: 0 0 0 7px;
-    position: relative;
-    top: 4px;
-}
-
-#topnav #communityHeader table {
-    float: right;
-    position: relative;
-    top: -4px;
-}
-
-#topnav #communityHeader table tr td{
-    vertical-align: top;
+#topnav #communityHeader span.headerAvatar {
+    position: absolute;
+    width: 30px;
+    height: 29px;
+    top: 0;
+    right: 0;
+    _right: 16px;
 }
 
 /* End community styles */

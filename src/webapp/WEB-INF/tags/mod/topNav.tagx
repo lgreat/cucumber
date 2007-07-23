@@ -96,74 +96,66 @@
     </c:when> <!-- end original code -->
 <!-- GS-3686: Below code should only be shown on dev servers (not staging) -->
     <c:otherwise>
-        <div id="communityHeader" class="noprint">
-            <c:choose>
-                <!-- Not logged in case -->
-                <c:when test="${empty requestScope.context.memberId}">
-                        <span class="headerUsername">
-                            Welcome!
-                        </span>
-                        <span class="headerAccount">
-                            <link:signIn forwardTo="referer">Sign In</link:signIn>
-                        </span>
-                        <span class="headerMsl">
-                            <gsml:a href="/cgi-bin/msl_confirm/$STATE">
-                                My School List (0)
-                            </gsml:a>
-                        </span>
-                </c:when>
-                <c:otherwise>
-                    <jsp:scriptlet>
-                        request.setAttribute("communityAuth",
-                                Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-                    </jsp:scriptlet>
-                    <c:choose>
-                        <!-- full community login case -->
-                        <c:when test="${requestScope.context.cobranded eq false and communityAuth eq true}">
-                            <!-- communityClassSearch is used to modify the margin above the search box below -->
-                            <c:set var="communityClassSearch" value="communityHeader"/>
-                            <!-- webbyStyle is used to hide the webby logo below -->
-                            <c:set var="webbyStyle" value="display: none;"/>
-                            <table cellpadding="0" cellspacing="0" border="0">
-                                <tr>
-                                    <td>
-                                        <span class="headerUsername">
-                                            Welcome,
-                                            <gsml:a href="#">${requestScope.context.screenName}</gsml:a>
-                                            <gsml:img src="/res/img/community/badge_placeholder.jpg" alt="Badge"/>
-                                        </span>
-                                        <span class="headerDashboard">
-                                            <gsml:a href="#">My Dashboard</gsml:a>
-                                        </span>
-                                        <span class="headerAccount2">
-                                            <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">Sign Out</gsml:a>
-                                        </span>
-                                        <br/>
-                                        <span class="headerMsl2">
-                                            <c:choose>
-                                                <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">
-                                                        My School List (${requestScope.context.mslCount})
-                                                    </gsml:a>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE">
-                                                        My School List (0)
-                                                    </gsml:a>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="headerAvatar">
-                                            <gsml:img src="/res/img/community/avatar_placeholder.jpg" alt="Avatar"/>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </c:when>
-                        <!-- msl only login case -->
-                        <c:otherwise>
+        <c:choose>
+            <!-- Not logged in case -->
+            <c:when test="${empty requestScope.context.memberId}">
+                <div id="communityHeader" class="noprint">
+                    <span class="headerUsername">
+                        Welcome!
+                    </span>
+                    <span class="headerAccount">
+                        <link:signIn forwardTo="referer">Sign In</link:signIn>
+                    </span>
+                    <span class="headerMsl">
+                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">
+                            My School List (0)
+                        </gsml:a>
+                    </span>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <jsp:scriptlet>
+                    request.setAttribute("communityAuth",
+                            Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                </jsp:scriptlet>
+                <c:choose>
+                    <!-- full community login case -->
+                    <c:when test="${requestScope.context.cobranded eq false and communityAuth eq true}">
+                        <!-- communityClassSearch is used to modify the margin above the search box below -->
+                        <c:set var="communityClassSearch" value="communityHeader"/>
+                        <!-- webbyStyle is used to hide the webby logo below -->
+                        <c:set var="webbyStyle" value="display: none;"/>
+                        <div id="communityHeader" class="noprint withImages">
+                            <span class="headerUsername withBadge">
+                                Welcome,
+                                <gsml:a href="#">${requestScope.context.screenName}</gsml:a>
+                                <gsml:img src="/res/img/community/badge_placeholder.jpg" alt="Badge"/>
+                            </span>
+                            <span class="headerDashboard">
+                                <gsml:a href="#">My Dashboard</gsml:a>
+                            </span>
+                            <span class="headerAccount withAvatar">
+                                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">Sign Out</gsml:a>
+                            </span>
+                            <br/>
+                            <span class="headerMsl withAvatar">
+                                <c:choose>
+                                    <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
+                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">My School List (${requestScope.context.mslCount})</gsml:a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
+                            <span class="headerAvatar">
+                                <gsml:img src="/res/img/community/avatar_placeholder.jpg" alt="Avatar" />
+                            </span>
+                        </div>
+                    </c:when>
+                    <!-- msl only login case -->
+                    <c:otherwise>
+                        <div id="communityHeader" class="noprint">
                             <span class="headerUsername">Welcome, ${requestScope.context.nickname}</span>
                             <span class="headerAccount">
                                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">Sign Out</gsml:a>
@@ -182,11 +174,11 @@
                                     </c:otherwise>
                                 </c:choose>
                             </span>
-                        </c:otherwise>
-                    </c:choose>
-                </c:otherwise>
-            </c:choose>
-        </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </c:otherwise>
+        </c:choose>
     </c:otherwise>
 </c:choose> <!-- End GS-3686 code, though look below for ${webbyStyle} and ${communityClassSearch} which
                  are also part of this change -->
