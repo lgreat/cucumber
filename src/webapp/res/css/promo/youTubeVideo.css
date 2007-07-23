@@ -1,0 +1,16 @@
+/* container */
+
+#content {
+    height: 720px;
+}
+
+#leftSide {
+    background-color: #DCEEEE;
+    margin-right: 45px;
+    padding-right: 0;
+}
+
+#rightSide {
+    width: 372px;
+}
+

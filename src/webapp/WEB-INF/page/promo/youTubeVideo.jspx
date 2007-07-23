@@ -24,9 +24,27 @@
         <div id="outline"><!-- creates darker blue outer outline -->
             <div id="content">
                 <div id="leftSide">
-                    CNN YouTube Debates
+                    <div>
+                        <gsml:img src="/res/img/promo/youTube/cnnYouTubeDebates.gif" alt="The CNN YouTube Debates"/>
+                    </div>
+                    <div>
+                        <object width="333" height="268">
+                            <param name="movie" value="http://www.youtube.com/v/M-mNXr2u1Ek"></param>
+                            <param name="wmode" value="transparent"></param>
+                            <embed src="http://www.youtube.com/v/M-mNXr2u1Ek" type="application/x-shockwave-flash"
+                                   wmode="transparent" width="333" height="268"></embed>
+                        </object>
+                    </div>
+                    <div>
+                        <gsml:img src="/res/img/promo/youTube/bottomStars.gif" alt=""/>
+                    </div>
                 </div>
                 <div id="rightSide">
+                    <gsml:img src="/res/img/promo/youTube/whatDoYouWantToAsk.gif"
+                              alt="What do you want to ask the next president about K-12 education?"/>
+                    <gsml:a href="http://www.youtube.com/greatschools" target="_blank">
+                    <gsml:img src="/res/img/promo/youTube/viewGSYouTubeChannel.gif"
+                              alt="View the GreatSchools YouTube Channel"/></gsml:a>
                     <p>Only <em>one</em> of the 440 questions asked during the first four Democratic and Republican
                         presidential debates touched on education. We can do better than that!</p>
 
@@ -36,18 +54,19 @@
                     <p>Join other GreatSchools parents and create a video question about K-12 education for the
                         Republican candidates. You could see it answered on live TV!</p>
 
-                    <p>Here's how:</p>
+                    <p><b>Here's how:</b></p>
 
-                    <p class="indented">1. Submit your video question about K-12 education to YouTube at
-                        http://www.youtube.com/debates.</p>
+                    <p class="indented">1. Submit your video question about K-12 education to <gsml:a href="http://www.youtube.com/debates" target="_blank">YouTube</gsml:a> at
+                        <gsml:a href="http://www.youtube.com/debates" target="_blank">http://www.youtube.com/debates</gsml:a>.</p>
 
-                    <p class="indented">2. Email us at video@greatschools.net with the Web address (URL) of your video,
-                        and we'll add it to the GreatSchools YouTube page: http://www.youtube.com/greatschools.</p>
+                    <p class="indented">2. Email us at <gsml:mailto address="video@greatschools.net">video@greatschools.net</gsml:mailto> with the Web address (URL) of your video,
+                        and we'll add it to the <gsml:a href="http://www.youtube.com/greatschools" target="_blank">GreatSchools YouTube page</gsml:a>: <gsml:a href="http://www.youtube.com/greatschools" target="_blank">http://www.youtube.com/greatschools</gsml:a>.</p>
 
                     <p>Please post your video question for the Republicans by September 16th, in time for the September
                         17th debate.</p>
 
-                    <p>Check out the questions parents have already submitted!</p>
+                    <p><gsml:a href="http://www.youtube.com/greatschools" target="_blank">Check out the questions parents have already submitted!</gsml:a></p>
+                    <gsml:a href="http://www.youtube.com/debates" target="_blank"><gsml:img src="/res/img/promo/youTube/submitYourQuestion.gif" alt="Submit your question"/></gsml:a>
                 </div>
             </div>
         </div>
