@@ -12,7 +12,8 @@
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <head>
-        <title>The CNN YouTube Debates</title>
+        <title>CNN YouTube Debates - GreatSchools</title>
+        <meta content="CNN YouTube Debates.  GreatSchools users submit questions for the 2008 presidential candidates." name="description"/>
         <pageHelper:externalCss file="/res/css/brand.css"/>
         <pageHelper:externalCss file="/res/css/promo/promo.css"/>
         <pageHelper:externalCss file="/res/css/promo/youTubeVideo.css"/>
@@ -29,9 +30,9 @@
                     </div>
                     <div id="video" class="leftPad">
                         <object width="330" height="268">
-                            <param name="movie" value="http://www.youtube.com/v/M-mNXr2u1Ek"></param>
+                            <param name="movie" value="http://www.youtube.com/v/M-mNXr2u1Ek?rel=0&amp;autoplay=1"></param>
                             <param name="wmode" value="transparent"></param>
-                            <embed src="http://www.youtube.com/v/M-mNXr2u1Ek" type="application/x-shockwave-flash"
+                            <embed src="http://www.youtube.com/v/M-mNXr2u1Ek?rel=0&amp;autoplay=1" type="application/x-shockwave-flash"
                                    wmode="transparent" width="330" height="268"></embed>
                         </object>
                     </div>
@@ -58,21 +59,14 @@
                     <p><b>Here's how:</b></p>
 
                     <p class="indented">1. Submit your video question about K-12 education to
-                        <gsml:a href="http://www.youtube.com/debates" target="_blank">YouTube</gsml:a>
-                        at
-                        <gsml:a href="http://www.youtube.com/debates" target="_blank">http://www.youtube.com/debates
-                        </gsml:a>.
+                        <gsml:a href="http://www.youtube.com/debates" target="_blank">YouTube.com/debates</gsml:a>.
                     </p>
 
                     <p class="indented">2. Email us at
                         <gsml:mailto address="video@greatschools.net">video@greatschools.net</gsml:mailto>
                         with the Web address (URL) of your video,
                         and we'll add it to the
-                        <gsml:a href="http://www.youtube.com/greatschools" target="_blank">GreatSchools YouTube page
-                        </gsml:a>:
-                        <gsml:a href="http://www.youtube.com/greatschools" target="_blank">
-                            http://www.youtube.com/greatschools
-                        </gsml:a>.
+                        <gsml:a href="http://www.youtube.com/greatschools" target="_blank">GreatSchools YouTube page</gsml:a>.
                     </p>
 
                     <p>Please post your video question for the Republicans by September 16th, in time for the September
@@ -94,15 +88,9 @@
             &amp;nbsp;
         </div>
 
-        <c:set var="hier" value="Community,Landing Page"/>
-        <c:if test="${escapedMessage ne null and escapedMessage gt ''}">
-            <c:set var="hier" value="Community,Landing Page,Registration Confirmation"/>
-        </c:if>
-
-
-        <mod:tracking pageName="Community Landing Page"
-                      pageType="community"
-                      hier1="${hier}"/>
+        <mod:tracking pageName="YouTube CNN Debates"
+                      pageType="promo"
+                      hier1="Promotion,YouTube CNN Debates"/>
 
 
     </gsml:body>
