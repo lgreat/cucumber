@@ -21,7 +21,8 @@
     </head>
     <gsml:body adPageName="promo/youTubeVideo">
 
-
+        <!--note: no question mark before the URL params-->
+        <c:set var="videoUrl" value="http://www.youtube.com/v/M-mNXr2u1Ek&amp;rel=0&amp;autoplay=1"/>
         <div id="outline"><!-- creates darker blue outer outline -->
             <div id="content">
                 <div id="leftSide">
@@ -30,9 +31,9 @@
                     </div>
                     <div id="video" class="leftPad">
                         <object width="330" height="268">
-                            <param name="movie" value="http://www.youtube.com/v/M-mNXr2u1Ek?rel=0&amp;autoplay=1"></param>
+                            <param name="movie" value="${videoUrl}"></param>
                             <param name="wmode" value="transparent"></param>
-                            <embed src="http://www.youtube.com/v/M-mNXr2u1Ek?rel=0&amp;autoplay=1" type="application/x-shockwave-flash"
+                            <embed src="${videoUrl}" type="application/x-shockwave-flash"
                                    wmode="transparent" width="330" height="268"></embed>
                         </object>
                     </div>
