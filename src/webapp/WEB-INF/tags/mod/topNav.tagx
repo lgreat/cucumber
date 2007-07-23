@@ -100,16 +100,12 @@
             <!-- Not logged in case -->
             <c:when test="${empty requestScope.context.memberId}">
                 <div id="communityHeader" class="noprint">
-                    <span class="headerUsername">
-                        Welcome!
-                    </span>
+                    <span class="headerUsername">Welcome!</span>
                     <span class="headerAccount">
                         <link:signIn forwardTo="referer">Sign In</link:signIn>
                     </span>
                     <span class="headerMsl">
-                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">
-                            My School List (0)
-                        </gsml:a>
+                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
                     </span>
                 </div>
             </c:when>
@@ -149,7 +145,7 @@
                                 </c:choose>
                             </span>
                             <span class="headerAvatar">
-                                <gsml:img src="/res/img/community/avatar_placeholder.jpg" alt="Avatar" />
+                                <gsml:a href="#"><gsml:img src="/res/img/community/avatar_placeholder.jpg" alt="Avatar" /></gsml:a>
                             </span>
                         </div>
                     </c:when>
@@ -163,14 +159,10 @@
                             <span class="headerMsl">
                                 <c:choose>
                                     <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">
-                                            My School List (${requestScope.context.mslCount})
-                                        </gsml:a>
+                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">My School List (${requestScope.context.mslCount})</gsml:a>
                                     </c:when>
                                     <c:otherwise>
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">
-                                            My School List (0)
-                                        </gsml:a>
+                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
                                     </c:otherwise>
                                 </c:choose>
                             </span>
