@@ -17,6 +17,7 @@ h2#nationalStandardsHead {
 #contentGS .middle p.introText {
     padding: 7px 20px 7px 20px;
     margin-bottom: 5px;
+    font-weight: 400;
 }
 
 p.dashesBelow {
@@ -32,30 +33,35 @@ h4.stateChoiceHeader {
 select#standardsStateSelector {
     margin-left: 20px;
     margin-top: 8px;
+    color: #444444;
 }
 
 #contentGS .middle div#stateStandardsLinks {
+    padding-top: 0px;
+    padding-bottom: 0px;
     padding-left: 16px;
     margin-bottom: 0;
     border-bottom: none;
-    padding-bottom: 10px;
 }
 
 #contentGS .middle div#nationalStandardsLinks {
+    padding-bottom: 0px;
     padding-left: 16px;
     margin-bottom: 0;
     border-bottom: none;
-    padding-bottom: 10px;
 }
 
-li.state_link {
+#contentGS .middle li.state_link {
     width: 300px;
     display: none;
+    padding-top: 10px;
+    padding-bottom: 0px;
 }
 
-p#state_select_text {
+#contentGS .middle p#state_select_text {
     width: 130px;
     float:left;
+    font-weight: 400;
 }
 
 #pageGS #contentGS a.no_underline_article_link,
