@@ -32,6 +32,7 @@
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
+<pageHelper:externalCss file="/res/css/brand.css"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 <spring:bind path="newsCmd.schoolId">
     <c:set var="schoolIdExpr" value="${status.expression}"/>
@@ -151,6 +152,7 @@
         </div>
     </div>
 </div>
+<div id="popupCloseBtn"><div class="left">All newsletters brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>
 <mod:tracking pageName="Newsletter Promo Hover"
               pageType=""
               hier1="Newsletter, NL hover promo - MSS, School profile"

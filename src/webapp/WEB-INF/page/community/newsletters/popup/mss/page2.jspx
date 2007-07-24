@@ -33,6 +33,7 @@
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
+<pageHelper:externalCss file="/res/css/brand.css"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/nthgraderfields.css"/>
 <spring:bind path="newsCmd.email">
@@ -75,7 +76,7 @@
         <div class="pLR">
             <div class="centered">
                 <div class="signMeUp">
-                    <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/>
+                    <gsml:inputImage src="/res/img/button/btn_signmeup.gif" alt="Sign me up!"/>
                 </div>
             </div>
             <div class="privacy">
@@ -86,6 +87,7 @@
     </div>
 </gsweb:form>
 </div>
+    <div id="popupCloseBtn"><div class="left">All newsletters brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>
 <c:if test="${not empty param.newuser}">
     <c:set var="events" value="event5"/>
 </c:if>

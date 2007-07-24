@@ -34,6 +34,7 @@
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
+<pageHelper:externalCss file="/res/css/brand.css"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <div id="blockMessage">
         <h1>Thank You!</h1>
@@ -108,6 +109,7 @@
             </div>
         </div>
     </c:if>
+    <div id="popupCloseBtn"><div class="left">All newsletters brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>
     <c:if test="${not empty param.newuser}">
         <c:set var="events" value="event5"/>
     </c:if>
