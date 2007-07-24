@@ -85,7 +85,7 @@
             <td width="8"></td>
             <td class="contentCell right">
                 <div class="leftImage">
-                    <gsml:img src="/res/img/community/registration/the_team.jpg" alt="Community Team"/>
+                    <gsml:img src="/res/img/community/registration/the_team.jpg" alt="Photo of Community Team"/>
                 </div>
                 <div id="commBlog">
                     <gsml:img src="/res/img/community/registration/communityblog.gif" alt="Community Team Blog"/>
@@ -96,13 +96,11 @@
                                               defaultUrl="http://communityblog.greatschools.net"/>
                         </cache:cache>
                         <br/>
-                        <gsml:url var="read" value="/res/img/splash/read.gif"/>
-                        <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
-                        <gsml:popupWindow href="http://community.greatschools.net" width="800" height="600" left="50" top="50"><img
+                        <gsml:url var="read" value="/res/img/community/registration/read.gif"/>
+                        <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50"><img
                                 src="${read}"
                                 alt="Read the Community Blog"
-                                style="margin: 5px 0 4px -2px"
-                                onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>
+                                style="margin: 5px 0 4px -2px"/></gsml:popupWindow>
                     </div>
                 </div>
             </td>
