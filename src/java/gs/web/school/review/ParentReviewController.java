@@ -9,6 +9,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ import java.util.*;
  *
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
-public class ParentReviewController extends AbstractSchoolController {
+public class ParentReviewController implements Controller {
 
     public static final String BEAN_ID = "/school/parentReviews.page";
 
@@ -60,7 +61,7 @@ public class ParentReviewController extends AbstractSchoolController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map model = new HashMap();
-        School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
+        School school = (School) request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
 
         if (null != school) {
             List reviews = _reviewDao.getPublishedReviewsBySchool(school);
@@ -112,6 +113,10 @@ public class ParentReviewController extends AbstractSchoolController {
             model.put("param_sortby", PARAM_SORT_BY);
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        return handleRequestInternal(httpServletRequest, httpServletResponse);
     }
 
 

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:footer="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:form="http://www.springframework.org/tags/form"
+          version="2.0" >
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<html lang="en">
+<c:set var="stateOrNull" value="${requestScope.context.state}" />
+<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <title>Add parent reviews</title>
+    <meta name="description" content="meta description"/>
+</head>
+
+<gsml:body adPageName="addParentReviews">
+    
+    <form:form commandName="parentReviewCommand" method="POST">
+        <table>
+            <form:errors path="*"/>
+            <tr>
+                <td>comments</td>
+                <td><form:textarea path="comments" rows="3" cols="20"/></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>Principal Leadership</td>
+                            <td>
+                                <form:radiobutton path="principalAsString" value="1"/>
+                                <form:radiobutton path="principalAsString" value="2"/>
+                                <form:radiobutton path="principalAsString" value="3"/>
+                                <form:radiobutton path="principalAsString" value="4"/>
+                                <form:radiobutton path="principalAsString" value="5"/>
+                                <form:radiobutton path="principalAsString" value="decline"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Teacher quality</td>
+                            <td>
+                                <form:radiobutton path="teacherAsString" value="1"/>
+                                <form:radiobutton path="teacherAsString" value="2"/>
+                                <form:radiobutton path="teacherAsString" value="3"/>
+                                <form:radiobutton path="teacherAsString" value="4"/>
+                                <form:radiobutton path="teacherAsString" value="5"/>
+                                <form:radiobutton path="teacherAsString" value="decline"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Extracurricular Activities</td>
+                            <td>
+                                <form:radiobutton path="activitiesAsString" value="1"/>
+                                <form:radiobutton path="activitiesAsString" value="2"/>
+                                <form:radiobutton path="activitiesAsString" value="3"/>
+                                <form:radiobutton path="activitiesAsString" value="4"/>
+                                <form:radiobutton path="activitiesAsString" value="5"/>
+                                <form:radiobutton path="activitiesAsString" value="decline"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Parent Involvement</td>
+                            <td>
+                                <form:radiobutton path="parentAsString" value="1"/>
+                                <form:radiobutton path="parentAsString" value="2"/>
+                                <form:radiobutton path="parentAsString" value="3"/>
+                                <form:radiobutton path="parentAsString" value="4"/>
+                                <form:radiobutton path="parentAsString" value="5"/>
+                                <form:radiobutton path="parentAsString" value="decline"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Safety and discipline</td>
+                            <td>
+                                <form:radiobutton path="safetyAsString" value="1"/>
+                                <form:radiobutton path="safetyAsString" value="2"/>
+                                <form:radiobutton path="safetyAsString" value="3"/>
+                                <form:radiobutton path="safetyAsString" value="4"/>
+                                <form:radiobutton path="safetyAsString" value="5"/>
+                                <form:radiobutton path="safetyAsString" value="decline"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Overall quality</td>
+                            <td>
+                                <form:radiobutton path="overallAsString" value="1"/>
+                                <form:radiobutton path="overallAsString" value="2"/>
+                                <form:radiobutton path="overallAsString" value="3"/>
+                                <form:radiobutton path="overallAsString" value="4"/>
+                                <form:radiobutton path="overallAsString" value="5"/>
+                                <form:radiobutton path="overallAsString" value="decline"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td><form:input path="email"/></td>
+            </tr>
+            <tr>
+                <td>confirm email</td>
+                <td><form:input path="confirmEmail"/></td>
+            </tr>
+            <tr>
+                <td>who are you</td>
+                <td><form:select path="who">
+                        <form:option value=""/>
+                        <form:option value=""/>
+                        <form:option value=""/>
+                    </form:select>
+                </td>
+            </tr>
+            <tr>
+                <td>do you give permission?</td>
+                <td><form:checkbox path="givePermission"/></td>
+            </tr>
+            <tr>
+                <td>do you want mss updates?</td>
+                <td><form:checkbox path="wantMssNL"/></td>
+            </tr>
+            <tr>
+                <td>do you want community newsletter?</td>
+                <td><form:checkbox path="wantparentCommunityNL"/></td>
+            </tr>
+            <tr>
+                <td>first name</td>
+                <td><form:input path="firstName"/></td>
+            </tr>
+            <tr>
+                <td>last name</td>
+                <td><form:input path="lastName"/></td>
+            </tr>
+            <tr>
+                <td>submit</td>
+                <td><input type="submit" value="submit"/> </td>
+            </tr>
+        </table>
+        <form:hidden path="state"/>
+        <form:hidden path="schoolId"/>
+    </form:form>
+    <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome"/>
+</gsml:body>
+</html>
+
+</jsp:root>

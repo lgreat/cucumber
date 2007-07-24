@@ -48,7 +48,6 @@
         </property>
     </bean>
 
-
     <bean name="loginRequiredHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
         <property name="interceptors">
@@ -65,6 +64,22 @@
         </property>
     </bean>
 
+    <bean name="schoolHandlerMapping" parent="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
+          lazy-init="true">
+        <property name="interceptors">
+            <!--Use merge="true" to add an interceptor to the parents list  -->
+            <list merge="true">
+                <bean class="gs.web.school.SchoolPageInterceptor" autowire="byName"/>
+            </list>
+        </property>
+        <property name="urlMap">
+            <map>
+                <entry key="/school/parentReviews.page" value="parentReviews"/>
+                <entry key="/school/addComments.page" value="addParentReviews"/>
+            </map>
+        </property>
+    </bean>
 
     <bean id="requiresStateInterceptor"
           class="gs.web.state.RequiresStateInterceptor"
@@ -1028,11 +1043,26 @@
         </property>
     </bean>
 
-    <bean name="/school/parentReviews.page"
+    <bean name="parentReviews"
           class="gs.web.school.review.ParentReviewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>school/parentReviews</value>
+        </property>
+    </bean>
+
+    <bean name="addParentReviews"
+          class="gs.web.school.review.ParentReviewFormController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="parentReviewCommand"/>
+        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
+        <property name="formView" value="/school/parentReviews/addComments"/>
+        <property name="successView" value="redirect:http://www.greatschools.net"/>
+        <property name="validators">
+            <list>
+                <ref bean="emailValidator"/>
+            </list>
         </property>
     </bean>
 
