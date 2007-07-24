@@ -75,7 +75,7 @@ function showPopWin(url, width, height, returnFunc, hoverName) {
 	popContainer.style.height = (height+titleBarHeight) + "px";
 
     var popFrame = getElement(POP_FRAME_ID);
-    popFrame.style.width = parseInt(document.getElementById("popupTitleBar").offsetWidth, 10) + "px";
+    popFrame.style.width = (parseInt(document.getElementById("popupTitleBar").offsetWidth, 10) - 8) + "px";
 	popFrame.style.height = (height) + "px";
 	popFrame.src = url;
 
