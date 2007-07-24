@@ -10,6 +10,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:popup="urn:jsptagdir:/WEB-INF/tags/community/conversion/popup"
         >
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -109,7 +110,7 @@
             </div>
         </div>
     </c:if>
-    <div id="popupCloseBtn"><div class="left">All newsletters brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>
+    <popup:newsletterBottom/>
     <c:if test="${not empty param.newuser}">
         <c:set var="events" value="event5"/>
     </c:if>

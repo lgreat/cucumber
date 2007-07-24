@@ -1,0 +1,9 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <div id="popupCloseBtn">
+        <div class="left">All newsletters brought to you by:</div>
+        <div class="leftlogo"><gsml:img src="/res/img/logo/logo_GS_148x27notag.gif" alt="greatschools"/></div>
+        <div class="right"><a onclick="hidePopWin(false);"><gsml:img src="/res/img/button/btn_close_window_blue.gif" alt="Close Window"/></a></div>
+    </div>
+</jsp:root>

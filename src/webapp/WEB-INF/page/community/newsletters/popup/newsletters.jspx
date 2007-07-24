@@ -33,6 +33,7 @@
         }
     </style>
     <pageHelper:externalCss file="/res/css/brand.css"/>
+    <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
@@ -121,7 +122,7 @@
     </gsweb:form>
 </div>
 </div>
-<div id="popupCloseBtn"><div class="left">All newsletters brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>
+<popup:newsletterBottom/>
 <mod:tracking pageName="Newsletter Promo Hover Nthgrader"
               pageType=""
               hier1="Newsletter, NL hover promo - Nth Grader"

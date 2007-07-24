@@ -69,7 +69,6 @@
 
 #popupCloseBtn .leftlogo{
     float:left;
-    background: url('../../img/logo/logo_GS_148x27notag.gif') no-repeat;
     height:30px;
     width:160px;
 }
@@ -83,7 +82,6 @@
     height: 20px;
     width: 116px;
     text-indent: -9000px;
-    background: url('../../img/button/btn_close_window_blue.gif') no-repeat;
 }
 
 #stateWidget #popupInner {
