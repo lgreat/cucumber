@@ -1,17 +1,14 @@
 #marginGS {
     margin:0;
     padding:0;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size:12px;
     width: 480px;
-    text-align:left;
-    color:#666666;
 }
 
 .header {
     height:135px;
-    background-color: #669ACC;
+    background-color: #5BC;
 }
+
 .header .left {
     float:left;
     color: #ffffff;
@@ -147,7 +144,7 @@ td {
 }
 
 #blockMessage {
-    background-color: #669ACC;
+    background-color: #5BC;
     height: 85px;
     margin-top:-14px;
     padding:10px;
