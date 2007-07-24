@@ -15,7 +15,7 @@ div.printSchoolProfileHeader {
 }
 
 div.printSchoolProfileHeader div{display:inline;margin:0;position:absolute;top:0px;}
-div.printSchoolProfileHeader div.printName{left:201px;top:5px;height:100px;}
+div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 
 .overview #schoolProfileHeader { /* Has IE 7 equivalent */
     padding-bottom: 20px;
@@ -399,10 +399,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     #editorialFooter, #schoolProfile .breadcrumb,#topnav a img,#showParentReviews .review .respond {
         display: none;
     }
-/*    #schoolProfile #schoolName {margin:0;}   */
-#schoolProfile #schoolName h1{display:none;font-size:12px;}
+    #schoolProfile #schoolName h1{display:none;font-size:12px;}
 
-div.printSchoolProfileHeader{display:block;}
-
-
+    div.printSchoolProfileHeader{display:block;}
 }
