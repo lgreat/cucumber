@@ -8,7 +8,7 @@ import org.springframework.validation.BindException;
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
-public class AddParentReviewAjaxPageValidator extends TestCase {
+public class AddParentReviewAjaxPageValidatorTest extends TestCase {
     ParentReviewFormController.AjaxPageValidator _validator;
     BindException _errors;
     ReviewCommand _command;
