@@ -20,25 +20,23 @@
 	padding: 0px;
 }
 #popupInner {
-	border: 1px solid #000000;
 	background-color: #FFFFFF;
 }
 #popupFrame {
 	margin: 0px;
-	width: 100%;
-	height: 100%;
+	width: 80%;
+	height: 80%;
 	position: relative;
+    border-right: 4px solid #DEE;
+    border-bottom: 4px solid #DEE;
+    border-left: 4px solid #DEE;
 	z-index: 202;
 }
 #popupTitleBar {
-	background-color: #666666;
+	background-color: #8BCBCB;
 	color: #FFFFFF;
 	font-weight: bold;
-	height: 14px;
-	border-bottom: 2px solid #000000;
-	border-top: 1px solid #78A3F2;
-	border-left: 1px solid #78A3F2;
-	border-right: 1px solid #204095;
+	height: 26px;
 	position: relative;
 	z-index: 203;
 }
@@ -85,7 +83,7 @@
     height: 20px;
     width: 116px;
     text-indent: -9000px;
-    background: url('../../img/button/btn_close_999999.gif') no-repeat;
+    background: url('../../img/button/btn_close_window_blue.gif') no-repeat;
 }
 
 #stateWidget #popupInner {
