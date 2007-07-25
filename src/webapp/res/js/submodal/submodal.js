@@ -5,7 +5,6 @@ var POP_CONTAINER_ID    = 'popupContainer';
 var POP_MASK_ID         = 'popupMask';
 var POP_FRAME_ID        = 'popupFrame';
 var STATE_WIDGET        = 'stateWidget'
-var gReturnFunc;
 var gPopupIsShown = false;
 var gHideSelects = false;
 var gLoading = "loading.html";
@@ -79,8 +78,7 @@ function showPopWin(url, width, height, returnFunc, hoverName) {
 	popFrame.style.height = (height) + "px";
 	popFrame.src = url;
 
-    gReturnFunc = returnFunc;
-	window.setTimeout("setPopTitleAndRewriteTargets();", 800);
+    window.setTimeout("setPopTitleAndRewriteTargets();", 800);
     hideContainers();
 }
 
@@ -140,9 +138,6 @@ function hidePopWin(callReturnFunc) {
 
     var popContainer = getElement(POP_CONTAINER_ID);
     popContainer.style.display = "none";
-	if (callReturnFunc == true && gReturnFunc != null) {
-		gReturnFunc(window.frames["popupFrame"].returnVal);
-	}
 
     var popFrame = getElement(POP_FRAME_ID);
     popFrame.src = "javascript:parent.frameLoading()";
