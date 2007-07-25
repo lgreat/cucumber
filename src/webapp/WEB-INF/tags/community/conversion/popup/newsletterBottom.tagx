@@ -4,6 +4,6 @@
     <div id="popupCloseBtn">
         <div class="left">All newsletters brought to you by:</div>
         <div class="leftlogo"><gsml:img src="/res/img/logo/logo_GS_148x27notag.gif" alt="greatschools"/></div>
-        <div class="right"><a onclick="hidePopWin(false);"><gsml:img src="/res/img/button/btn_close_window_blue.gif" alt="Close Window"/></a></div>
+        <div class="right"><a onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_close_window_blue.gif" alt="Close Window"/></a></div>
     </div>
 </jsp:root>
