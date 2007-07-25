@@ -191,12 +191,9 @@
                     x.value = '';
                 }
             }
-
         </script>
           <div class="search ${communityClassSearch}" >
-            <gsweb:form method="get"
-                        action="/search/search.page"
-                        onsubmit="return topNavSubmitSearch(this)">
+            <gsweb:form method="get" id="topnav_search" action="/search/search.page" onsubmit="return topNavSubmitSearch(this)">
                 <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
@@ -270,6 +267,7 @@
                     </tr>
                 </table>
             </gsweb:form>
+            <script type="text/javascript">document.forms['topnav_search'].reset();</script><!-- GS-3713 -->
           </div>
     </c:otherwise>
 </c:choose>
