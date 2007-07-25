@@ -29,7 +29,7 @@
           <div id="message">
               You have successfully subscribed to the Best of GreatSchools Community newsletter.
           </div>
-          <link:newsletterManagement email="${email}" target="_blank" anchor="mss">
+          <link:newsletterManagement email="${email}" target="_top" anchor="mss">
             <gsml:img src="/res/img/button/manageSubscriptions.gif" alt="Manage Subscriptions" id="manage"/>
           </link:newsletterManagement>
           <a onclick="window.top.hidePopWin(false);">
