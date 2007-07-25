@@ -59,7 +59,7 @@
                     <p><b>Here's how:</b></p>
 
                     <p class="indented">1. Submit your video question about K-12 education to
-                        <gsml:a href="http://www.youtube.com/debates" target="_blank">YouTube debate pool</gsml:a>.
+                        <gsml:a href="http://www.youtube.com/republicandebate" target="_blank">YouTube debate pool</gsml:a>.
                     </p>
 
                     <p class="indented">2. Email us at
@@ -77,7 +77,7 @@
                             parents have already submitted&#160;&#62;
                         </gsml:a>
                     </p>
-                    <gsml:a href="http://www.youtube.com/debates" target="_blank">
+                    <gsml:a href="http://www.youtube.com/republicandebate" target="_blank">
                         <gsml:img src="/res/img/promo/youTube/submitYourQuestion.gif" alt="Submit your question"
                                   styleClass="topPad"/>
                     </gsml:a>
