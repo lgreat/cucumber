@@ -114,7 +114,7 @@
                 <gsml:inputImage src="/res/img/button/btn_free_sign_up.gif" alt="Sign me up!"/>
             </div>
             <div class="privacy">
-                We won't share or sell your address. <link:privacyPolicy target="_blank" styleClass="smallLink">Privacy
+                We won't share or sell your address. <link:privacyPolicy target="_blank" styleClass="smallLink">GreatSchools Privacy
                 Policy</link:privacyPolicy>
             </div>
         </div>
