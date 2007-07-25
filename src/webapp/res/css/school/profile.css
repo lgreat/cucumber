@@ -12,7 +12,7 @@ div.printSchoolProfileHeader {
     font: bold 24px "Trebuchet MS", Arial, sans-serif;
     color: #5bc;
     position:relative;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 div.printSchoolProfileHeader div{display:inline;margin:0;position:absolute;top:0px;}
