@@ -1,10 +1,7 @@
 package gs.web.school.review;
 
 import gs.data.school.School;
-import gs.data.school.review.CategoryRating;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
+import gs.data.school.review.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
@@ -69,7 +66,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         r6.setId(6);
         r6.setQuality(CategoryRating.RATING_3);
         r6.setPosted(df.parse("2000-1-1"));
-        r6.setWho("principal");
+        r6.setPoster(Poster.PRINCIPAL);
 
         reviews.add(r6);
         reviews.add(r5);

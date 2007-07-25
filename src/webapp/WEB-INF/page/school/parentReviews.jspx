@@ -131,7 +131,7 @@
                                         </c:choose>
 
                                         <c:choose>
-                                            <c:when test="${review.namePermit eq '1' and not empty(review.user) and not empty(review.user.firstName)}">
+                                            <c:when test="${review.allowName and not empty(review.user) and not empty(review.user.firstName)}">
                                                 <p><c:out value="${review.comments}" escapeXml="true"/><br/> - ${review.user.firstName} <c:if test="${not empty(review.user.lastName)}">${review.user.lastName}</c:if></p>
                                             </c:when>
                                             <c:otherwise><p><c:out value="${review.comments}" escapeXml="true"/></p></c:otherwise>
