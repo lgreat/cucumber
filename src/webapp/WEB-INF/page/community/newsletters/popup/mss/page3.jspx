@@ -21,22 +21,14 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <![CDATA[
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <style type="text/css">
-            ul {
-                margin-top: 12px;
-                margin-bottom: 12px;
-            }
-        </style>
-            ]]>
     <title>Newsletters - My School Stats</title>
     <base target="_self"/>
+    <pageHelper:externalCss file="/res/css/brand.css"/>
+    <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+    <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
-<pageHelper:externalCss file="/res/css/brand.css"/>
-<pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <div id="blockMessage">
         <h1>Thank You!</h1>
     </div>
@@ -59,7 +51,7 @@
         </div>
     </div>
 
-    <div class="blueTop">
+    <div class="grayTop">
         <div class="pLR">
             <ul>
                 <c:if test="${!empty schoolName}">
@@ -93,14 +85,14 @@
                     <li>${newsletterName}</li>
                 </c:forEach>
             </ul>
-            <div style="padding-left:26px;">
-                <link:newsletterManagement email="${email}" target="_blank" styleClass="bigLink">Manage my subscriptions</link:newsletterManagement>
+            <div id="manage">
+                <link:newsletterManagement email="${email}" target="_top" styleClass="bigLink">Manage my subscriptions</link:newsletterManagement>
             </div>
         </div>
     </div>
 
     <c:if test="${hasFindSchoolLink}">
-        <div class="blueTop">
+        <div class="grayTop">
             <div class="pLR">
                 <center>
                 <h3 id="updates">I'd also like free monthly updates about my child's school:</h3>

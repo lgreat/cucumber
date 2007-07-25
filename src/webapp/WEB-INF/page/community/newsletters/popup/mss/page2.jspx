@@ -23,20 +23,15 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <![CDATA[
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <style type="text/css">
-
-        </style>
-            ]]>
     <title>Newsletters - My School Stats</title>
     <base target="_self"/>
+    <pageHelper:externalCss file="/res/css/brand.css"/>
+    <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+    <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
 <pageHelper:externalCss file="/res/css/brand.css"/>
-<pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
-<pageHelper:externalCss file="/res/css/community/newsletters/popup/nthgraderfields.css"/>
 <spring:bind path="newsCmd.email">
     <c:set var="emailExpr" value="${status.expression}"/>
     <c:set var="email" value="${status.value}"/>
@@ -66,7 +61,7 @@
         <input type="hidden" name="${emailExpr}" value="${email}"/>
     </div>
 
-    <div class="blueTop">
+    <div class="grayTop">
         <div class="pLR">
             <div class="signupText">Sign me up!  In ${academicYear} my children are in:</div>
             <pop:nthgraderfields/>

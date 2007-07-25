@@ -22,19 +22,14 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <![CDATA[
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <style type="text/css">
-
-        </style>
-            ]]>
     <title>Newsletters - My School Stats</title>
     <base target="_self"/>
+    <pageHelper:externalCss file="/res/css/brand.css"/>
+    <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+    <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
-<pageHelper:externalCss file="/res/css/brand.css"/>
-<pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 <spring:bind path="newsCmd.schoolId">
     <c:set var="schoolIdExpr" value="${status.expression}"/>
     <c:set var="schoolId" value="${status.value}"/>
@@ -143,7 +138,7 @@
     </div>
 </div>
 
-<div class="blueTop">
+<div class="grayTop">
     <div class="pLR">
         <div class="quote">
             <q>Thanks for explaining the test scores at my son's school.<br/>

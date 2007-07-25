@@ -27,18 +27,12 @@
             ]]>
     <title>Newsletters - Grade By Grade and Parent Advisor</title>
     <base target="_self"/>
-    <style type="text/css">
-        div.text {
-            color:#3399AA;
-        }
-    </style>
     <pageHelper:externalCss file="/res/css/brand.css"/>
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+    <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
-<pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
-<pageHelper:externalCss file="/res/css/community/newsletters/popup/nthgraderfields.css"/>
 
 <spring:bind path="newsCmd">
     <c:set var="cbxError" value="${status.errorMessage}"/>
