@@ -347,7 +347,7 @@ function modalWindowHtml(title,showCloseWindow) {
         '<div id="popupTitleBar">' +
             '<div id="popupTitle">'+title+'</div>' +
             '<div id="popupControls">' +
-                '<a onclick="hidePopWin(false);"><span>Close</span></a>' +
+                '<a onclick="hidePopWin(false);"><img src="/res/img/submodal/close.gif"/></a>' +
             '</div>' +
         '</div>' +
         '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
