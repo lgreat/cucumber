@@ -135,7 +135,7 @@
     <div id="breadcrumbs">
         <ul>
             <li><link:research state="${state}" title="${state.longName} schools">${state.longName} schools</link:research> &gt; </li>
-            <li><link:city city="${city}" state="${state}" title="${city} schools">${city} schools</link:city>&amp;nbsp;</li>
+            <li><link:city city="${city}" state="${state}" title="${city} schools">${city} schools</link:city>&amp;#160;</li>
             <c:if test="${school.districtId != 0}">
                 <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}" title="District information">${school.district.name}</link:districtProfile></li>
             </c:if>
@@ -149,7 +149,7 @@
         <link:mySchoolList school="${school}" styleClass="addImg toolsImg"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
         <link:mySchoolList school="${school}" styleClass="add toolsTxt">Add to My School List</link:mySchoolList>
 
-        <p>&amp;nbsp;|&amp;nbsp;</p><!-- pipe divider as opposed to link border, as per client request -->
+        <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 
         <link:schoolProfileAddParentReview school="${school}" styleClass="rateImg toolsImg"><gsml:img src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
         <link:schoolProfileAddParentReview school="${school}" styleClass="rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
@@ -204,13 +204,13 @@
             <c:when test="${parent_rating eq 0}">
                 <c:set var="parent_rating_title" value="Be the first to rate!"/>
                 <link:schoolProfileAddParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
-                    &amp;nbsp;
+                    &amp;#160;
                 </link:schoolProfileAddParentReview>
             </c:when>
             <c:otherwise>
                 <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
                 <link:schoolProfileParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
-                    &amp;nbsp;
+                    &amp;#160;
                 </link:schoolProfileParentReview>
             </c:otherwise>
         </c:choose>
@@ -296,11 +296,11 @@
 
     <div id="subnav">
         <ul>
-            <li><a href="javascript:window.print();" title="">Print</a>&amp;nbsp;|&amp;nbsp;</li>
+            <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
             <!-- pipe characters used as opposed to li borders, as per client request -->
             <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
             <li><gsml:a href="${mailToFriendUrl}"
-                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;nbsp;|&amp;nbsp;</li>
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;#160;|&amp;#160;</li>
             <li><a href="javascript:openDelicious()"
                    onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a></li>
         </ul>
@@ -317,7 +317,7 @@
 
     <c:if test="${tab ne 'overview' and tab ne 'ratings'}">
         <div class="breadcrumb">
-            <span class="hr">&amp;nbsp;</span>
+            <span class="hr">&amp;#160;</span>
             <h2>
                 <link:research state="${state}">${state.longName} schools</link:research>
                 ${delimiter}

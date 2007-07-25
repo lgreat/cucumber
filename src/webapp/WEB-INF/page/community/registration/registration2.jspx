@@ -254,10 +254,10 @@
       </div>
   </div>
 
-  <div class="divider">&amp;nbsp;</div>
+  <div class="divider">&amp;#160;</div>
   <div class="join"><a href="communityLanding.page" title="Join the GreatSchools community"
-                       onclick="return doSingleClick(this);">&amp;nbsp;</a></div>
-  <div class="clear">&amp;nbsp;</div>
+                       onclick="return doSingleClick(this);">&amp;#160;</a></div>
+  <div class="clear">&amp;#160;</div>
 
   <spring:bind path="followUpCmd.user.id">
       <input type="hidden" name="id" value="${followUpCmd.user.id}"/>

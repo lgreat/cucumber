@@ -79,7 +79,7 @@
         </div>
     </div>
     <div id="bottomPadding">
-        &amp;nbsp;
+        &amp;#160;
     </div>
 <gsml:sifr>
     <gsml:url var="centuryGothic" value="/res/sifr/centuryGothic.swf"/>

@@ -94,9 +94,9 @@
                                 <td>${cbxPermit}</td>
                                 <td>
                                     <!-- added spaces to label, added class to select -->
-                                    <label>I'm a&amp;nbsp;</label>${sltWho}<label>&amp;nbsp;and I accept</label></td></tr>
+                                    <label>I'm a&amp;#160;</label>${sltWho}<label>&amp;#160;and I accept</label></td></tr>
                             <tr>
-                                <td>&amp;nbsp;</td>
+                                <td>&amp;#160;</td>
                                 <td valign="top">
                                     <span class="label2">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
                                 </td>

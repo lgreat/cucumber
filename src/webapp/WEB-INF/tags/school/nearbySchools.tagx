@@ -69,7 +69,7 @@
                         <li class="${rating}">
                             <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
                             <c:if test="${not empty nearbySchool.distance}">
-                                <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
+                                <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
                             </c:if>
                         </li>
                     </c:forEach>

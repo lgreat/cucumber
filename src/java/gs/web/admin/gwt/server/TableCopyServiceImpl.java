@@ -231,7 +231,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             if (matcher.find()) {
                 StringBuffer errorBuffer = new StringBuffer(TABLE_COPY_FAILURE_HEADER);
                 do {
-                    errorBuffer.append("\t&nbsp;&nbsp;&nbsp;").append(matcher.group(1)).append(".").append(matcher.group(2)).append(LINE_BREAK);
+                    errorBuffer.append("\t&#160;&#160;&#160;").append(matcher.group(1)).append(".").append(matcher.group(2)).append(LINE_BREAK);
                 } while (matcher.find());
                 error = errorBuffer.toString();
             }

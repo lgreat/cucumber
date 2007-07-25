@@ -73,7 +73,7 @@ function ts_makeSortable(table) {
   	    }
 	    var span = document.createElement("span");
 	    span.className = "sortarrow";
-	    span.innerHTML = '&nbsp;&nbsp;';
+	    span.innerHTML = '&#160;&#160;';
   	    link.appendChild(span);
 	    cell.appendChild(link);
 	}
@@ -214,11 +214,11 @@ function ts_resortTable(event) {
     newRows.sort(sortfn);
 
     if (span.getAttribute("sortdir") == 'down') {
-	ARROW = '&nbsp;&uarr;';
+	ARROW = '&#160;&uarr;';
 	newRows.reverse();
 	span.setAttribute('sortdir', 'up');
     } else {
-	ARROW = '&nbsp;&darr;';
+	ARROW = '&#160;&darr;';
 	span.setAttribute('sortdir', 'down');
     }
 
@@ -247,7 +247,7 @@ function ts_resortTable(event) {
     for (var ci = 0; ci < allspans.length; ci++) {
 	if (allspans[ci].className == 'sortarrow') {
 	    if (getParent(allspans[ci], "table") == getParent(lnk, "table")) {	// in the same table as us?
-		allspans[ci].innerHTML = '&nbsp;&nbsp;';
+		allspans[ci].innerHTML = '&#160;&#160;';
 	    }
 	}
     }

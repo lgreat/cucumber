@@ -72,7 +72,7 @@
                                     <fmt:formatNumber value="${nearbySchool.distance}"
                                                       maxFractionDigits="1"
                                                       minFractionDigits="1"/>
-                                    Miles&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;
+                                    Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;
                                 </c:if>
                                 <link:mySchoolList styleClass="saveLink"
                                                    school="${nearbySchool.neighbor}"
@@ -107,7 +107,7 @@
                         <li>
                             <link:allSchoolsInDistrict districtId="${school.districtId}"
                                                        title="${school.district.name}">
-                                Schools in ${school.district.name}&amp;nbsp;&gt;
+                                Schools in ${school.district.name}&amp;#160;&gt;
                             </link:allSchoolsInDistrict>
                         </li>
                     </c:if>

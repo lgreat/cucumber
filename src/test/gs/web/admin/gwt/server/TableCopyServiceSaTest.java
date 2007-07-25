@@ -133,8 +133,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
                 "Skipping table database.table2... not found in ditto.\n";
 
         String expectedErrorText = TableCopyServiceImpl.TABLE_COPY_FAILURE_HEADER +
-                "\t&nbsp;&nbsp;&nbsp;database.table1... not found in ditto." + TableCopyServiceImpl.LINE_BREAK +
-                "\t&nbsp;&nbsp;&nbsp;database.table2... not found in ditto." + TableCopyServiceImpl.LINE_BREAK;
+                "\t&#160;&#160;&#160;database.table1... not found in ditto." + TableCopyServiceImpl.LINE_BREAK +
+                "\t&#160;&#160;&#160;database.table2... not found in ditto." + TableCopyServiceImpl.LINE_BREAK;
 
         assertEquals("Unexpected error text", expectedErrorText, _tableCopyService.parseCommandOutput(errors));
     }
@@ -349,7 +349,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
             if (liveToDev != null) {
                 tableBuffer.append(liveToDev[count]);
             }
-            tableBuffer.append("</td><td>  done  </td><td>  &nbsp;  </td><td> DSTP  </td></tr>\n\n");
+            tableBuffer.append("</td><td>  done  </td><td>  &#160;  </td><td> DSTP  </td></tr>\n\n");
         }
 
         return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +

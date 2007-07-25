@@ -149,7 +149,7 @@
                     </p>
                     <gsml:errorMessage command="userCmd" field="state" useImage="true" styleClass="warning"/>
 
-                    <p class="whereliveCity"><label>&amp;nbsp;</label><label class="selectlabel"><span class="required">*</span>City</label>
+                    <p class="whereliveCity"><label>&amp;#160;</label><label class="selectlabel"><span class="required">*</span>City</label>
                         <span id="city">
                             <select name="city" class="selectCity" tabindex="10">
                                 <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
@@ -238,7 +238,7 @@
                     <!-- end: alert_box -->
 
                     <div id="joinButton" class="join" style="${termsStyle}">
-                        <a href="#" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;" tabindex="16">&amp;nbsp;</a>
+                        <a href="#" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;" tabindex="16">&amp;#160;</a>
                         <input id="invJoinButton" type="submit" name="join" value="join" style="display: none"
                                onclick="return doSingleClick(this);"/>
                     </div>

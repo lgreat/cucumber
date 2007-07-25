@@ -46,71 +46,71 @@
 
         <gsweb:form action="${url}" target="_parent" method="get">
             <select size="12" name="state" id="state">
-                <option value="AL" selected="true">&amp;nbsp;&amp;nbsp;Alabama</option>
-                <option value="AK">&amp;nbsp;&amp;nbsp;Alaska</option>
-                <option value="AZ">&amp;nbsp;&amp;nbsp;Arizona</option>
-                <option value="AR">&amp;nbsp;&amp;nbsp;Arkansas</option>
-                <option value="CA">&amp;nbsp;&amp;nbsp;California</option>
+                <option value="AL" selected="true">&amp;#160;&amp;#160;Alabama</option>
+                <option value="AK">&amp;#160;&amp;#160;Alaska</option>
+                <option value="AZ">&amp;#160;&amp;#160;Arizona</option>
+                <option value="AR">&amp;#160;&amp;#160;Arkansas</option>
+                <option value="CA">&amp;#160;&amp;#160;California</option>
 
-                <option value="CO">&amp;nbsp;&amp;nbsp;Colorado</option>
-                <option value="CT">&amp;nbsp;&amp;nbsp;Connecticut</option>
-                <option value="DE">&amp;nbsp;&amp;nbsp;Delaware</option>
-                <option value="DC">&amp;nbsp;&amp;nbsp;District of Columbia</option>
-                <option value="FL">&amp;nbsp;&amp;nbsp;Florida</option>
+                <option value="CO">&amp;#160;&amp;#160;Colorado</option>
+                <option value="CT">&amp;#160;&amp;#160;Connecticut</option>
+                <option value="DE">&amp;#160;&amp;#160;Delaware</option>
+                <option value="DC">&amp;#160;&amp;#160;District of Columbia</option>
+                <option value="FL">&amp;#160;&amp;#160;Florida</option>
 
-                <option value="GA">&amp;nbsp;&amp;nbsp;Georgia</option>
-                <option value="HI">&amp;nbsp;&amp;nbsp;Hawaii</option>
-                <option value="ID">&amp;nbsp;&amp;nbsp;Idaho</option>
-                <option value="IL">&amp;nbsp;&amp;nbsp;Illinois</option>
-                <option value="IN">&amp;nbsp;&amp;nbsp;Indiana</option>
+                <option value="GA">&amp;#160;&amp;#160;Georgia</option>
+                <option value="HI">&amp;#160;&amp;#160;Hawaii</option>
+                <option value="ID">&amp;#160;&amp;#160;Idaho</option>
+                <option value="IL">&amp;#160;&amp;#160;Illinois</option>
+                <option value="IN">&amp;#160;&amp;#160;Indiana</option>
 
-                <option value="IA">&amp;nbsp;&amp;nbsp;Iowa</option>
-                <option value="KS">&amp;nbsp;&amp;nbsp;Kansas</option>
-                <option value="KY">&amp;nbsp;&amp;nbsp;Kentucky</option>
-                <option value="LA">&amp;nbsp;&amp;nbsp;Louisiana</option>
-                <option value="ME">&amp;nbsp;&amp;nbsp;Maine</option>
-                <option value="MD">&amp;nbsp;&amp;nbsp;Maryland</option>
-                <option value="MA">&amp;nbsp;&amp;nbsp;Massachusetts</option>
+                <option value="IA">&amp;#160;&amp;#160;Iowa</option>
+                <option value="KS">&amp;#160;&amp;#160;Kansas</option>
+                <option value="KY">&amp;#160;&amp;#160;Kentucky</option>
+                <option value="LA">&amp;#160;&amp;#160;Louisiana</option>
+                <option value="ME">&amp;#160;&amp;#160;Maine</option>
+                <option value="MD">&amp;#160;&amp;#160;Maryland</option>
+                <option value="MA">&amp;#160;&amp;#160;Massachusetts</option>
 
-                <option value="MI">&amp;nbsp;&amp;nbsp;Michigan</option>
-                <option value="MN">&amp;nbsp;&amp;nbsp;Minnesota</option>
-                <option value="MS">&amp;nbsp;&amp;nbsp;Mississippi</option>
-                <option value="MO">&amp;nbsp;&amp;nbsp;Missouri</option>
-                <option value="MT">&amp;nbsp;&amp;nbsp;Montana</option>
+                <option value="MI">&amp;#160;&amp;#160;Michigan</option>
+                <option value="MN">&amp;#160;&amp;#160;Minnesota</option>
+                <option value="MS">&amp;#160;&amp;#160;Mississippi</option>
+                <option value="MO">&amp;#160;&amp;#160;Missouri</option>
+                <option value="MT">&amp;#160;&amp;#160;Montana</option>
 
-                <option value="NE">&amp;nbsp;&amp;nbsp;Nebraska</option>
-                <option value="NV">&amp;nbsp;&amp;nbsp;Nevada</option>
-                <option value="NH">&amp;nbsp;&amp;nbsp;New Hampshire</option>
-                <option value="NJ">&amp;nbsp;&amp;nbsp;New Jersey</option>
-                <option value="NM">&amp;nbsp;&amp;nbsp;New Mexico</option>
-                <option value="NY">&amp;nbsp;&amp;nbsp;New York</option>
-                <option value="NC">&amp;nbsp;&amp;nbsp;North Carolina</option>
-                <option value="ND">&amp;nbsp;&amp;nbsp;North Dakota</option>
-                <option value="OH">&amp;nbsp;&amp;nbsp;Ohio</option>
-                <option value="OK">&amp;nbsp;&amp;nbsp;Oklahoma</option>
-                <option value="OR">&amp;nbsp;&amp;nbsp;Oregon</option>
-                <option value="PA">&amp;nbsp;&amp;nbsp;Pennsylvania</option>
+                <option value="NE">&amp;#160;&amp;#160;Nebraska</option>
+                <option value="NV">&amp;#160;&amp;#160;Nevada</option>
+                <option value="NH">&amp;#160;&amp;#160;New Hampshire</option>
+                <option value="NJ">&amp;#160;&amp;#160;New Jersey</option>
+                <option value="NM">&amp;#160;&amp;#160;New Mexico</option>
+                <option value="NY">&amp;#160;&amp;#160;New York</option>
+                <option value="NC">&amp;#160;&amp;#160;North Carolina</option>
+                <option value="ND">&amp;#160;&amp;#160;North Dakota</option>
+                <option value="OH">&amp;#160;&amp;#160;Ohio</option>
+                <option value="OK">&amp;#160;&amp;#160;Oklahoma</option>
+                <option value="OR">&amp;#160;&amp;#160;Oregon</option>
+                <option value="PA">&amp;#160;&amp;#160;Pennsylvania</option>
 
-                <option value="RI">&amp;nbsp;&amp;nbsp;Rhode Island</option>
-                <option value="SC">&amp;nbsp;&amp;nbsp;South Carolina</option>
-                <option value="SD">&amp;nbsp;&amp;nbsp;South Dakota</option>
-                <option value="TN">&amp;nbsp;&amp;nbsp;Tennessee</option>
-                <option value="TX">&amp;nbsp;&amp;nbsp;Texas</option>
+                <option value="RI">&amp;#160;&amp;#160;Rhode Island</option>
+                <option value="SC">&amp;#160;&amp;#160;South Carolina</option>
+                <option value="SD">&amp;#160;&amp;#160;South Dakota</option>
+                <option value="TN">&amp;#160;&amp;#160;Tennessee</option>
+                <option value="TX">&amp;#160;&amp;#160;Texas</option>
 
-                <option value="UT">&amp;nbsp;&amp;nbsp;Utah</option>
-                <option value="VT">&amp;nbsp;&amp;nbsp;Vermont</option>
-                <option value="VA">&amp;nbsp;&amp;nbsp;Virginia</option>
-                <option value="WA">&amp;nbsp;&amp;nbsp;Washington</option>
-                <option value="DC">&amp;nbsp;&amp;nbsp;Washington DC</option>
-                <option value="WV">&amp;nbsp;&amp;nbsp;West Virginia</option>
+                <option value="UT">&amp;#160;&amp;#160;Utah</option>
+                <option value="VT">&amp;#160;&amp;#160;Vermont</option>
+                <option value="VA">&amp;#160;&amp;#160;Virginia</option>
+                <option value="WA">&amp;#160;&amp;#160;Washington</option>
+                <option value="DC">&amp;#160;&amp;#160;Washington DC</option>
+                <option value="WV">&amp;#160;&amp;#160;West Virginia</option>
 
-                <option value="WI">&amp;nbsp;&amp;nbsp;Wisconsin</option>
-                <option value="WY">&amp;nbsp;&amp;nbsp;Wyoming</option>
+                <option value="WI">&amp;#160;&amp;#160;Wisconsin</option>
+                <option value="WY">&amp;#160;&amp;#160;Wyoming</option>
             </select>
 
 
             <div style="padding-left:69px;padding-top:0;margin-top:0;">
-                <a onclick="window.top.hidePopWin(false);"><gsml:img src="res/img/button/btn_cancel_aaccdd.gif" alt="Cancel"/></a>&amp;nbsp;&amp;nbsp;
+                <a onclick="window.top.hidePopWin(false);"><gsml:img src="res/img/button/btn_cancel_aaccdd.gif" alt="Cancel"/></a>&amp;#160;&amp;#160;
                 <gsml:inputImage src="res/img/button/btn_go_aaccdd.gif" alt="Go"/>
             </div>
         </gsweb:form>
