@@ -13,6 +13,7 @@ body, input, select {
 	text-decoration: none;
 }
 
+/* callToAction indicates the links we put a greater-than symbol (&#160;&#62;) after and underline */
 #contentGS a.callToAction, #contentGS a.callToAction:link, #contentGS a.callToAction:visited, #contentGS a.callToAction:active,
     a.callToAction, a.callToAction:link, a.callToAction:visited, a.callToAction:active {
 	text-decoration: underline;
