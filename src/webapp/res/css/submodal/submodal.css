@@ -20,8 +20,25 @@
 	padding: 0px;
 }
 #popupInner {
-	background-color: #FFFFFF;
+    background-color: #FFF;
 }
+
+/* drop shadows from http://www.alistapart.com/articles/cssdropshadows */
+#popupContainer {
+  float:left;
+  background: url(../../img/submodal/shadowAlpha.png) no-repeat bottom right !important;
+  background: url(../../img/submodal/shadow.gif) no-repeat bottom right;
+  margin: 10px 0 0 10px !important;
+  margin: 10px 0 0 5px;
+}
+
+#popupInner {
+  display: block;
+  position: relative;
+  background-color: #fff;
+  margin: -10px 6px 6px -6px;
+}
+
 #popupFrame {
 	margin: 0px;
 	width: 80%;
@@ -53,9 +70,9 @@
 }
 
 #popupCloseBtn {
-    padding-bottom: 35px;
-    padding-right:1em;
-    padding-left:1em;
+    position: absolute;
+    bottom:0;
+    padding: 0 15px 5px 15px;
 }
 
 #popupCloseBtn .left{
