@@ -1,7 +1,7 @@
 /* container */
 
 #content {
-    height: 660px;
+    height: 670px;
 }
 
 #leftSide {
@@ -10,12 +10,8 @@
     padding-right: 0;
 }
 
-#leftSide .leftPad {
-    margin-left: 20px;
-}
-
 #leftSide #topStars {
-    margin-bottom: 20px;    
+    margin: 10px 0 20px 20px;
 }
 
 #leftSide #video {
@@ -23,6 +19,7 @@
     padding: 4px;
     width: 330px;
     margin-bottom: 10px;
+    margin-left: 17px;
 }
 
 #rightSide {
@@ -30,7 +27,7 @@
 }
 
 #rightSide p, #rightSide .topPad {
-    margin-top: 20px;;
+    margin-top: 24px;
 }
 
 #rightSide p.indented {

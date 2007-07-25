@@ -27,10 +27,10 @@
         <div id="outline"><!-- creates darker blue outer outline -->
             <div id="content">
                 <div id="leftSide">
-                    <div id="topStars" class="leftPad">
+                    <div id="topStars">
                         <gsml:img src="/res/img/promo/youTube/cnnYouTubeDebates.gif" alt="The CNN YouTube Debates"/>
                     </div>
-                    <div id="video" class="leftPad">
+                    <div id="video">
                         <object width="330" height="268" type="application/x-shockwave-flash" data="${fn:escapeXml(videoUrl)}">
                             <param name="movie" value="${fn:escapeXml(videoUrl)}"></param>
                             <param name="wmode" value="transparent"></param>
