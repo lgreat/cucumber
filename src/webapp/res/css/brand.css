@@ -13,6 +13,11 @@ body, input, select {
 	text-decoration: none;
 }
 
+#contentGS a.callToAction, #contentGS a.callToAction:link, #contentGS a.callToAction:visited, #contentGS a.callToAction:active,
+    a.callToAction, a.callToAction:link, a.callToAction:visited, a.callToAction:active {
+	text-decoration: underline;
+}
+
 #contentGS a:hover, a:hover {
 	text-decoration: underline;
 }
