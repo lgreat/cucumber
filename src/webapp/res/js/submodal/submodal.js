@@ -131,8 +131,10 @@ function hidePopWin(callReturnFunc) {
 
     var popMask = getElement(POP_MASK_ID);
     if (popMask == null) {
-		return;
-	}
+        // we're in a a popup window, so close
+        window.close();
+        return;
+    }
 	popMask.style.display = "none";
 
 
@@ -343,14 +345,14 @@ function innerDefaultWidget(parent) {
 
 function modalWindowHtml(title,showCloseWindow) {
     var html =
-    '<div id="popupInner">' +
-        '<div id="popupTitleBar">' +
-            '<div id="popupTitle">'+title+'</div>' +
-            '<div id="popupControls">' +
-                '<a onclick="hidePopWin(false);"><img src="/res/img/submodal/close.gif"/></a>' +
+        '<div id="popupInner">' +
+            '<div id="popupTitleBar">' +
+                '<div id="popupTitle">'+title+'</div>' +
+                '<div id="popupControls">' +
+                    '<a onclick="hidePopWin(false);"><img src="/res/img/submodal/close.gif"/></a>' +
+                '</div>' +
             '</div>' +
-        '</div>' +
-        '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
+            '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
         '</div>';
     return html;
 }
