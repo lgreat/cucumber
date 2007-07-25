@@ -33,19 +33,19 @@ h4.stateChoiceHeader {
 select#standardsStateSelector {
     margin-left: 20px;
     margin-top: 8px;
-    color: #444444;
+    color: #666666;
 }
 
 #contentGS .middle div#stateStandardsLinks {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
     padding-left: 16px;
     margin-bottom: 0;
     border-bottom: none;
 }
 
 #contentGS .middle div#nationalStandardsLinks {
-    padding-bottom: 0px;
+    padding-bottom: 0;
     padding-left: 16px;
     margin-bottom: 0;
     border-bottom: none;
@@ -55,7 +55,7 @@ select#standardsStateSelector {
     width: 300px;
     display: none;
     padding-top: 10px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 #contentGS .middle p#state_select_text {
