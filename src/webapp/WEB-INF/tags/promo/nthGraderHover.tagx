@@ -21,8 +21,8 @@
         <c:when test="${isForm ne 'true'}">
             <pageHelper:addOnLoadHandler handler="initPopUp('${hoverName}')"/>
             <gsml:a href="${url}?referrer=${referredBy}${(not empty autocheck) ? '&amp;autocheck=' : ''}${autocheck}"
-                    onClick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=500,left=50,top=50'); return false;"
-                    styleClass="submodal-480-500 ${styleClass}">
+                    onClick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50'); return false;"
+                    styleClass="submodal-480-550 ${styleClass}">
              <jsp:doBody/>
             </gsml:a>
         </c:when>
@@ -39,7 +39,7 @@
                         if (frm.autocheck.value != '') {
                             url += '&autocheck=' + frm.autocheck.value;
                         }
-                        showPopWin(url,480,500,null,'${hoverName}');
+                        showPopWin(url,480,550,null,'${hoverName}');
                    }
                 }
             -->
