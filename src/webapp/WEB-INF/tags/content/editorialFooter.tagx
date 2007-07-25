@@ -99,7 +99,7 @@
                         <ul class="arrowUL">
                             <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/44" styleClass="arrowLink">How to read with your child</gsml:a></li>
                             <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/320" styleClass="arrowLink">Tips for reluctant readers</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/903" styleClass="arrowLink">Just for tweens &amp; teens</gsml:a></li>
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/903" styleClass="arrowLink">Just for tweens &amp;amp; teens</gsml:a></li>
                         </ul>
                     </div>
 

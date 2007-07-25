@@ -14,7 +14,7 @@
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
 <c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout}</c:set>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
