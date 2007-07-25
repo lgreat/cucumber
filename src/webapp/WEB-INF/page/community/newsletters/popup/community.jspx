@@ -3,6 +3,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:popup="urn:jsptagdir:/WEB-INF/tags/community/conversion/popup"
         >
 <jsp:directive.page contentType="text/html"/>
 
@@ -36,6 +37,10 @@
           </a>
       </c:otherwise>
   </c:choose>
+  <div id="popupCloseBtn">
+      <div class="left">All newsletters brought to you by:</div>
+      <div class="leftlogo"><gsml:img src="/res/img/logo/logo_GS_148x27notag.gif" alt="greatschools"/></div>
+  </div>
   </body>
 </html>
 </jsp:root>
