@@ -21,6 +21,7 @@ table#nthgraderfields div#rdiv {
     padding:0 0 10px 20px;
 }
 
-div.text {
-    font-weight:normal;
+.aquaText {
+    font-weight: normal;
+    color: #39a;
 }
