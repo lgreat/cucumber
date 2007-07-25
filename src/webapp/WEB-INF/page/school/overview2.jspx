@@ -56,7 +56,10 @@
 <div id="schoolOverview">
     <gsml:equalizeColumns ids="'col_center','col_right'"/>
     <!-- being left column -->
-    <div id="col_left">
+    <div id="col_print_left">
+        <school:quickFacts school="${school}"/>
+    </div>
+    <div id="col_left" class="noprint">
 
         <school:quickFacts school="${school}"/>
 
@@ -106,7 +109,7 @@
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
             <!--<c:if test="${requestScope.context.ABVersion eq 'b'}">-->
-            <div id="topCompare" style="float:left; padding-bottom:25px;">
+            <div id="topCompare" style="float:left; padding-bottom:25px;" class="noprint">
                 <school:compareSchool school="${school}"/>
             </div>
             <!--</c:if>-->
@@ -130,9 +133,9 @@
                 </div>
             </c:if>
 
-            <school:parentReviewForm school="${school}" pageName="overview"/>
+            <div  class="noprint"><school:parentReviewForm school="${school}" pageName="overview"/></div>
 
-            <div id="learnSchool">
+            <div id="learnSchool"  class="noprint">
 
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
@@ -238,7 +241,7 @@
         </div><!-- end: col_center -->
 
 		<!-- begin right column -->
-        <div id="col_right">
+        <div id="col_right" class="noprint">
             <div class="ad_top">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
                 <ad:Top_300x137/>
