@@ -82,6 +82,11 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         mockControl.replay();
 
         _controller.setReviewDao(reviewDao);
+        School school = new School();
+        school.setDatabaseState(State.CA);
+        school.setId(1);
+        school.setName("Alameda High School");
+        _request.setAttribute("school", school);
     }
 
     public void testHandleRequestSortPrincipalDateDescDefaultCase() throws Exception {

@@ -9,7 +9,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +20,9 @@ import java.util.*;
  *
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
-public class ParentReviewController implements Controller {
+public class ParentReviewController extends AbstractController {
 
-    public static final String BEAN_ID = "/school/parentReviews.page";
+    public static final String BEAN_ID = "parentReviews";
 
     private IReviewDao _reviewDao;
     private String _viewName;
@@ -114,11 +114,6 @@ public class ParentReviewController implements Controller {
         }
         return new ModelAndView(getViewName(), model);
     }
-
-    public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        return handleRequestInternal(httpServletRequest, httpServletResponse);
-    }
-
 
     public static class ParentReviewCommand {
         private School _school;
