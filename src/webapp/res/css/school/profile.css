@@ -400,7 +400,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     #editorialFooter, #schoolProfile .breadcrumb,#topnav a img,#showParentReviews .review .respond {
         display: none;
     }
-    #schoolProfile #schoolName h1{display:none;font-size:12px;}
+    #schoolProfile #schoolName h1,#breadcrumbs{display:none;}
 
     div.printSchoolProfileHeader{display:block;}
 }
