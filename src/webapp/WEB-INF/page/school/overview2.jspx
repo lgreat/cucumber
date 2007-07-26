@@ -56,17 +56,15 @@
 <div id="schoolOverview">
     <gsml:equalizeColumns ids="'col_center','col_right'"/>
     <!-- being left column -->
-    <div id="col_print_left">
-        <school:quickFacts school="${school}"/>
-    </div>
-    <div id="col_left" class="noprint">
+    <div id="col_left">
 
-        <school:quickFacts school="${school}"/>
+      <school:quickFacts school="${school}"/>
 
+      <div class="noprint">
         <!-- Big Picture -->
         <hr />
         <school:bigPicture school="${school}"/>
-        
+
         <!-- promo link -->
         <hr />
         <gsml:a href="/promo/webbyAwardWinner.page"><gsml:img src="/res/img/promo/webby/webby.gif" alt="2007 Webby Awards People's Voice Winner - Best Family Parenting Site"/></gsml:a>
@@ -74,33 +72,24 @@
 		<!-- Editor -->
         <hr />
 		<div id="editor">
-
 		<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
-
-
         <p class="name">Lisa Rosenthal</p>
 		<p class="title">Senior Editor, GreatSchools</p>
-
             <h3>Editor's Picks</h3>
-
             <ul>
                 <gsweb:articlelink articleId="197" wrappingElement="li" styleClass="articleLink"/>
                 <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
                 <li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>
             </ul>
-
             <hr />
-
             <ul>
                 <gsweb:articlelink articleId="657" wrappingElement="li" styleClass="articleLink"/>
                 <gsweb:articlelink articleId="327" wrappingElement="li" styleClass="articleLink"/>
                 <li><strong><gsml:a href="/content/backToSchool.page">Back To School &#62;</gsml:a></strong></li>
             </ul>
-
 		</div><!-- end: editor -->
-
-
-		</div><!-- end: col_left" -->
+      </div><!-- end: noprint -->    
+    </div><!-- end: col_left" -->
 
 		<!-- begin center column -->
 

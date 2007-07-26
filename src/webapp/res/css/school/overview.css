@@ -26,16 +26,6 @@ hr { /* has IE 7 equivalent */
 	_border: 1px solid #dee; /* IE 6 hack */
 }
 
-
-/* columns */
-#col_print_left {
-	width: 173px;
-	margin: 0 14px 0 0;
-	_margin: 0 10px 0 0; /* IE 6 hack */
-	float: left;
-    display: none;
-}
-
 #col_left {
 	width: 173px;
 	margin: 0 14px 0 0;
@@ -556,7 +546,6 @@ div#topCompare div#compareSchool {
 }
 
 @media print {
-    #col_print_left{display:block;}
     #parentReviews p a,#quickFacts div.mapit{display:none;}
     #col_center{border-right:none;}
 }
