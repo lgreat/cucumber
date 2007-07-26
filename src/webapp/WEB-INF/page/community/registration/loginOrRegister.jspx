@@ -23,7 +23,7 @@
         <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             ]]>
-        <title>Join &amp; Sign In - GreatSchools</title>
+        <title>Join &amp;amp; Sign In - GreatSchools</title>
         <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
     </head>
 
@@ -40,7 +40,7 @@
     ]]>
 
     <div id="reg_intro">
-        <h1><span>Join &amp; Sign In</span></h1>
+        <h1><span>Join &amp;amp; Sign In</span></h1>
 
         <div id="outline"><!-- creates darker blue outer outline -->
             <div id="content">
