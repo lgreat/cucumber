@@ -125,7 +125,7 @@
                 <c:if test="${not empty stateOrNull}" >
                     <div id="stateStandardsLinks">
                         <ul>
-                            <li id="state_languagearts_standards" class="state_link"><a href="" target="_blank">Lanugage Arts</a></li>
+                            <li id="state_languagearts_standards" class="state_link"><a href="" target="_blank">Language Arts</a></li>
                             <li id="state_mathematics_standards" class="state_link"><a href="" target="_blank">Math</a></li>
                             <li id="state_socialstudies_standards" class="state_link"><a href="" target="_blank">Social Studies</a></li>
                             <li id="state_science_standards" class="state_link"><a href="" target="_blank">Science</a></li>
