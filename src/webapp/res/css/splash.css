@@ -36,7 +36,7 @@
     font-size: large;
     color: #999;
     font-weight: 100;
-    text-indent: -50em;
+    text-indent: -9999px;
     height: 31px;
     overflow: hidden; /* Phark */
     background-repeat: no-repeat; /* Phark */
@@ -103,7 +103,7 @@
 
 #week h3 {
     height: 35px;
-    text-indent: -50em;
+    text-indent: -9999px;
     overflow: hidden;
     background-image: url( ../img/splash/thisWeekAtGreatSchools.gif );
     background-repeat: no-repeat;

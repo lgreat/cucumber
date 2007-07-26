@@ -56,7 +56,7 @@ hr { /* has IE 7 equivalent */
 	background: url(/res/img/school/overview/header_QuickFacts.gif) no-repeat 10px 6px #dee;
 	width: 173px;
 	height: 27px;
-	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+	text-indent: -9999px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 	margin-bottom: 12px;
 }
 
@@ -169,7 +169,7 @@ hr { /* has IE 7 equivalent */
 	background: url(/res/img/school/overview/header_BigPicture.gif) no-repeat 10px 6px #dee;
 	width: 173px;
 	height: 27px;
-	text-indent: -1000px;
+	text-indent: -9999px;
     margin-bottom: 10px;
 }
 
@@ -218,7 +218,7 @@ hr { /* has IE 7 equivalent */
 	background: url(/res/img/school/overview/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
 	height: 27px;
 	_width: 353px; /* IE 6 hack */
-	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+	text-indent: -9999px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
 
 #ratingsBoth a {
@@ -263,7 +263,7 @@ hr { /* has IE 7 equivalent */
 	width: 150px;
 	float: left;
 	background: url(/res/img/school/overview/header_ratingsBox_parentOnly.gif) no-repeat 23px 32px #6cc;
-	text-indent: -1000px;
+	text-indent: -9999px;
 }
 
 #ratingsParentOnly #rating_parent { /* has IE 7 equivalent */
@@ -292,7 +292,7 @@ hr { /* has IE 7 equivalent */
 	background: url(/res/img/school/overview/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
 	height: 27px;
 	_width: 352 px; /* IE 6 hack */
-	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+	text-indent: -9999px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
 
 #ratingsGSOnly a {
@@ -337,7 +337,7 @@ hr { /* has IE 7 equivalent */
 	width: 150px;
 	float: left;
 	background: url(/res/img/school/overview/header_ratingsBox_parentOnly.gif) no-repeat 23px 32px #6cc;
-	text-indent: -1000px;
+	text-indent: -9999px;
 }
 
 #ratingsNone #rating_parent { /* has IE 7 equivalent */
@@ -362,7 +362,7 @@ hr { /* has IE 7 equivalent */
 #parentReviews h2 {
 	background: url(/res/img/school/overview/header_LatestParentsReviews.gif) no-repeat 19px 6px #c5c5c5;
 	height: 25px;
-	text-indent: -1000px;
+	text-indent: -9999px;
 }
 
 #parentReviews .rating {
@@ -418,7 +418,7 @@ hr { /* has IE 7 equivalent */
 #learnSchool h2 {
 	background: url(/res/img/school/overview/header_LearnAboutThisSchool.gif) no-repeat 19px 6px #c5c5c5;
 	height: 25px;
-	text-indent: -1000px;
+	text-indent: -9999px;
 }
 
 #learnSchool img {
@@ -485,7 +485,7 @@ hr { /* has IE 7 equivalent */
 #compareSchool h2 {
 	background: url(/res/img/school/overview/header_CompareThisSchoolTo.gif) no-repeat 19px 6px #c5c5c5;
 	height: 25px;
-	text-indent: -1000px;
+	text-indent: -9999px;
 }
 
 #compareSchool img {

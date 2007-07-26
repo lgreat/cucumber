@@ -113,7 +113,7 @@ body.hover {
     display: block;
     height: 20px;
     width: 116px;
-    text-indent: -9000px;
+    text-indent: -9999px;
 }
 
 #stateWidget #popupInner {
@@ -140,6 +140,6 @@ body.hover {
 	display: block;
 	height: 16px;
 	width: 16px;
-	text-indent: -9000px;
+	text-indent: -9999px;
 	background: url('../../img/submodal/closeblue.gif') no-repeat;
 }

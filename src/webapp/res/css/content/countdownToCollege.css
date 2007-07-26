@@ -141,7 +141,7 @@
 }
 
 #contentGS .middle h2#whatYourChildNeeds {
-    text-indent: -100em;
+    text-indent: -9999px;
     overflow: hidden;
     background: url("../../img/content/countdownToCollege/t_whatYourChildNeeds.gif");
     background-repeat: no-repeat;
@@ -153,7 +153,7 @@
 }
 
 #contentGS .middle h2#resources {
-    text-indent: -100em;
+    text-indent: -9999px;
     overflow: hidden;
     background: url("../../img/content/countdownToCollege/t_resources.gif");
     background-repeat: no-repeat;

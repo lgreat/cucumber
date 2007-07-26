@@ -73,7 +73,7 @@
 	background: url(/res/img/school/overview/header_BigPicture.gif) no-repeat 18px 6px #dee;
 	width: 173px;
 	height: 27px;
-	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+	text-indent: -9999px; /* allows the text to appear in the html, but will not be visible with styles enabled */
     margin-bottom: 10px;
 }
 
@@ -130,7 +130,7 @@
 #compareSchool h2 {
 	background: url(/res/img/school/overview/compareblue.gif) no-repeat 20px 6px #DDEEEE;
 	height: 27px;
-	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+	text-indent: -9999px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
 
 #compareSchool img {
