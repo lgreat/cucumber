@@ -6,12 +6,12 @@
 
 .header {
     height:135px;
-    background-color: #5BC;
+    background-color: #DEE;
 }
 
 .header .left {
     float:left;
-    color: #ffffff;
+    color: #39A;
     font-size: 18px;
     line-height: 22px;
     font-weight:100;
@@ -22,7 +22,6 @@
 .header .right {
     float:right;
     background-color: #FFF;
-    padding-left:10px;
 }
 
 .subhead {
@@ -127,14 +126,14 @@ h3#updates {
 }
 
 #blockMessage {
-    background-color: #5BC;
+    background-color: #DEE;
     height: 85px;
     margin-top:-14px;
     padding:10px;
 }
 
 #blockMessage h1{
-    color: #ffffff;
+    color: #39A;
     font-size: 18px;
     line-height: 22px;    
     font-style:normal;
