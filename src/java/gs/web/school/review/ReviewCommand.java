@@ -1,6 +1,7 @@
 package gs.web.school.review;
 
 import gs.data.school.review.CategoryRating;
+import gs.data.school.review.Poster;
 import gs.data.state.State;
 import gs.web.util.validator.EmailValidator;
 
@@ -25,11 +26,11 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private CategoryRating _safety = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _overall = CategoryRating.DECLINE_TO_STATE;
 
-    private String _who;
+    private Poster _poster;
 
     private boolean _givePermission;
     private boolean _wantMssNL;
-    private boolean _wantparentCommunityNL;
+    private boolean _allowContact;
 
     public State getState() {
         return _state;
@@ -135,12 +136,24 @@ public class ReviewCommand implements EmailValidator.IEmail {
         _overall = overall;
     }
 
-    public String getWho() {
-        return _who;
+    public String getPosterAsString() {
+        if (null == _poster) {
+            return "";
+        } else {
+            return _poster.getName();
+        }
     }
 
-    public void setWho(String who) {
-        _who = who;
+    public void setPosterAsString(String posterAsString) {
+        _poster = Poster.createPoster(posterAsString);
+    }
+
+    public Poster getPoster() {
+        return _poster;
+    }
+
+    public void setPoster(Poster poster) {
+        _poster = poster;
     }
 
     public boolean isGivePermission() {
@@ -159,12 +172,12 @@ public class ReviewCommand implements EmailValidator.IEmail {
         _wantMssNL = wantMssNL;
     }
 
-    public boolean isWantparentCommunityNL() {
-        return _wantparentCommunityNL;
+    public boolean isAllowContact() {
+        return _allowContact;
     }
 
-    public void setWantparentCommunityNL(boolean wantparentCommunityNL) {
-        _wantparentCommunityNL = wantparentCommunityNL;
+    public void setAllowContact(boolean allowContact) {
+        _allowContact = allowContact;
     }
 
 

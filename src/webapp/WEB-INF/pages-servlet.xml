@@ -77,6 +77,8 @@
             <map>
                 <entry key="/school/parentReviews.page" value="parentReviews"/>
                 <entry key="/school/addComments.page" value="addParentReviews"/>
+                <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
+                <entry key="/school/updateRatings.page" value="updateRatings"/>
             </map>
         </property>
     </bean>
@@ -1052,19 +1054,47 @@
     </bean>
 
     <bean name="addParentReviews"
-          class="gs.web.school.review.ParentReviewFormController"
+          class="gs.web.school.review.AddParentReviewsController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="parentReviewCommand"/>
         <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
         <property name="formView" value="/school/parentReviews/addComments"/>
-        <property name="successView" value="redirect:http://www.greatschools.net"/>
+        <property name="successView" value="redirect:/school/parentReviews/updatedParentRatingsThanks.page"/>
         <property name="validators">
             <list>
                 <ref bean="emailValidator"/>
             </list>
         </property>
     </bean>
+
+    <bean name="ajaxAddParentReviews"
+          class="gs.web.school.review.AddParentReviewsController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="parentReviewCommand"/>
+        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
+        <property name="formView" value="/school/parentReviews/addComments"/>
+        <property name="successView" value="redirect:/school/parentReviews/updatedParentRatingsThanks.page"/>
+        <property name="ajaxPage" value="true"/>
+        <property name="validators">
+            <list>
+                <ref bean="emailValidator"/>
+                <bean class="gs.web.school.review.AddParentReviewsValidator" autowire="byName" lazy-init="true"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="updateRatings"
+          class="gs.web.school.review.UpdateRatingsController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="parentReviewCommand"/>
+        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
+        <property name="formView" value="/school/parentReviews/updateRatings"/>
+        <property name="successView" value="redirect:/school/parentReviews/updatedParentRatingsThanks.page"/>
+    </bean>
+
 
     <bean name="/school/overview2.page"
           class="gs.web.school.SchoolOverviewController"

@@ -1,7 +1,6 @@
 package gs.web.school.review;
 
-import gs.data.community.IUserDao;
-import gs.data.community.User;
+import gs.data.community.*;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -13,10 +12,11 @@ import org.springframework.validation.BindException;
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
-public class ParentReviewFormControllerTest extends BaseControllerTestCase {
-    ParentReviewFormController _controller;
+public class AddParentReviewsControllerTest extends BaseControllerTestCase {
+    AddParentReviewsController _controller;
     IReviewDao _reviewDao;
     IUserDao _userDao;
+    ISubscriptionDao _subscriptionDao;
     User _user;
     School _school;
     ReviewCommand _command;
@@ -24,10 +24,11 @@ public class ParentReviewFormControllerTest extends BaseControllerTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        _controller = new ParentReviewFormController();
+        _controller = new AddParentReviewsController();
 
         _reviewDao = createMock(IReviewDao.class);
         _userDao = createMock(IUserDao.class);
+        _subscriptionDao = createMock(ISubscriptionDao.class);
 
         _school = new School();
         _school.setDatabaseState(State.CA);
@@ -53,11 +54,18 @@ public class ParentReviewFormControllerTest extends BaseControllerTestCase {
         _reviewDao.saveReview((Review) anyObject());
         replay(_reviewDao);
 
+        //new user so we add an entry into list member that indicates where we got their email from
+        Subscription sub = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        _subscriptionDao.saveSubscription(sub);
+        replay(_subscriptionDao);
+
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
         _controller.onSubmit(_request, _response, _command, _errors);
         verify(_userDao);
         verify(_reviewDao);
+        verify(_subscriptionDao);
     }
 
     public void testSubmitExistingUser() throws Exception {
@@ -68,10 +76,30 @@ public class ParentReviewFormControllerTest extends BaseControllerTestCase {
         _reviewDao.saveReview((Review) anyObject());
         replay(_reviewDao);
 
+        replay(_subscriptionDao);
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
         _controller.onSubmit(_request, _response, _command, _errors);
         verify(_userDao);
         verify(_reviewDao);
+        verify(_subscriptionDao);
+    }
+
+    public void testErrorJson() throws Exception {
+        _errors.reject("bad","this is a bad");
+        _errors.reject("bad", "this is really bad");
+        _controller.errorJSON(getResponse(), _errors);
+
+        assertEquals("text/x-json", getResponse().getContentType());
+        //{"status":true,"errors":["this is a bad","this is really bad"]}
+        assertEquals("{\"status\":false,\"errors\":[\"this is a bad\",\"this is really bad\"]}", getResponse().getContentAsString());
+    }
+
+    public void testSuccessJson() throws Exception {
+        _controller.successJSON(getResponse());
+        assertEquals("text/x-json", getResponse().getContentType());
+        //{"status":true,"errors":["this is a bad","this is really bad"]}
+        assertEquals("{\"status\":true}", getResponse().getContentAsString());
     }
 }
