@@ -19,6 +19,11 @@ body, input, select {
 	text-decoration: underline;
 }
 
+a.privacyPolicy, a.privacyPolicy:hover {
+    color: #666;
+    text-decoration: underline;
+}
+
 #contentGS a:hover, a:hover {
 	text-decoration: underline;
 }

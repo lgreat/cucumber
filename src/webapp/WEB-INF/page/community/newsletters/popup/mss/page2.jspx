@@ -76,8 +76,8 @@
                 </div>
             </div>
             <div class="privacy">
-                We won't share or sell your address. <link:privacyPolicy target="_blank" styleClass="smallLink">GreatSchools Privacy
-                Policy</link:privacyPolicy>
+                We will NOT share your email. <link:privacyPolicy target="_blank" styleClass="smallLink privacyPolicy">
+                GreatSchools Privacy Policy</link:privacyPolicy>
             </div>
         </div>
     </div>
