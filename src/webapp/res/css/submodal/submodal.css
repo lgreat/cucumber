@@ -22,7 +22,7 @@ body.hover {
 	left: 0px;
 	display:none;
 	padding: 0px;
-    border: 1px #999 solid; /* only for IE6 */
+    border: 1px #CCC solid; /* only for IE6 */
 }
 
 /* hide IE6-specific border */
