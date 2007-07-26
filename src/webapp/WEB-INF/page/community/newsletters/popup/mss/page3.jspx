@@ -67,24 +67,32 @@
         </div>
     </div>
 
-
-    <div class="grayTop">
-        <div class="pLR">
-            <ul>
-            <c:forEach items="${setNth}" var="newsletterName">
-                <li>${newsletterName}</li>
-            </c:forEach>
-            </ul>
-        </div>
-    </div>
-
-    <div class="grayTop">
-        <div class="pLR">
-            <ul>
-                <c:forEach items="${setMsHs}" var="newsletterName">
+    <c:if test="${not empty setNth}">
+        <div class="grayTop">
+            <div class="pLR">
+                <ul>
+                <c:forEach items="${setNth}" var="newsletterName">
                     <li>${newsletterName}</li>
                 </c:forEach>
-            </ul>
+                </ul>
+            </div>
+        </div>
+    </c:if>
+
+    <c:if test="${not empty setMsHs}">
+        <div class="grayTop">
+            <div class="pLR">
+                <ul>
+                    <c:forEach items="${setMsHs}" var="newsletterName">
+                        <li>${newsletterName}</li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+    </c:if>
+
+    <div class="grayTop">
+        <div class="pLR">
             <div id="manage">
                 <link:newsletterManagement email="${email}" target="_top" styleClass="bigLink">Manage my subscriptions</link:newsletterManagement>
             </div>
