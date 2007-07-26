@@ -63,7 +63,7 @@
 
     <div class="grayTop">
         <div class="pLR">
-            <div class="signupText">Sign me up!  In ${academicYear} my children are in:</div>
+            <h3>Sign me up!  In ${academicYear} my children are in:</h3>
             <pop:nthgraderfields/>
         </div>
     </div>

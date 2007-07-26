@@ -20,14 +20,13 @@
 
 .header .right {
     float:right;
-    background-color: #ffffff;
+    background-color: #FFF;
     padding-left:10px;
 }
 
 .subhead {
    font-size:13px;
    font-weight:bold;
-   color:#666666;
    padding:0 0 15px 15px;
 }
 
@@ -43,15 +42,16 @@
 
 .promo h1 {
     font-size: 23px;
-    color: #0066cc;
+    color: #39A;
     font-weight:normal;
     margin-bottom:0;
 }
 
 .promo h2 {
     font-size: 18px;
+    line-height: 22px;
     font-weight: normal;
-    color: #0066cc;
+    color: #39A;
 }
 
 #raveText {
@@ -80,7 +80,7 @@ h3#updates {
     margin:0 0 5px 0;
     padding:0 0 0 15px;
     font-size: 22px;
-    color:#3399AA;
+    color:#39A;
     font-weight: bold;
 }
 
@@ -104,7 +104,6 @@ h3#updates {
     padding-top: 1em;
     padding-bottom:1em;
     font-size: 13px;
-    color: #666666;
 }
 
 .quote .quotee {
@@ -117,11 +116,7 @@ h3#updates {
 }
 
 #manage {
-    margin: 0 0 10px 26px;
-}
-
-td {
-    color:#666666;
+    margin: 10px 0 10px 26px;
 }
 
 .pLR p {
@@ -140,6 +135,7 @@ td {
 #blockMessage h1{
     color: #ffffff;
     font-size: 18px;
+    line-height: 22px;    
     font-style:normal;
     padding:0.5em;
     font-weight:500;
@@ -178,9 +174,4 @@ div.signupText {
     padding:0 0 0 15px;
     font-size:15px;
     font-weight:bold;
-    color:#666666;
-}
-
-.greyText, input {
-    color:#666666;
 }
