@@ -1,3 +1,7 @@
+body.hover {
+    background-color: #FFF;
+}
+
 #popupMask {
 	display:none;
 	position:absolute;
@@ -18,37 +22,51 @@
 	left: 0px;
 	display:none;
 	padding: 0px;
+    border: 1px #999 solid; /* only for IE6 */
 }
-#popupInner {
-    background-color: #FFF;
+
+/* hide IE6-specific border */
+[id=popupContainer] {
+    border:0 !important;
 }
 
 /* drop shadows from http://www.alistapart.com/articles/cssdropshadows */
-#popupContainer {
+/* hide drop shadow from IE6 */
+[id=popupContainer] {
   float:left;
-  background: url(../../img/submodal/shadowAlpha.png) no-repeat bottom right !important;
-  background: url(../../img/submodal/shadow.gif) no-repeat bottom right;
+  background: url(../../img/submodal/shadowAlpha.png) no-repeat bottom right;
   margin: 10px 0 0 10px !important;
   margin: 10px 0 0 5px;
 }
 
 #popupInner {
+    background-color: #FFF;    
+}
+
+[id=popupInner] {
   display: block;
   position: relative;
   background-color: #fff;
   margin: -10px 6px 6px -6px;
 }
 
+/* end drop shadows */
+
 #popupFrame {
 	margin: 0px;
 	width: 80%;
 	height: 80%;
 	position: relative;
-    border-right: 4px solid #DEE;
-    border-bottom: 4px solid #DEE;
-    border-left: 4px solid #DEE;
 	z-index: 202;
 }
+
+/* hide iframe border from IE6 */
+[name=popupFrame] {
+    border-right: 4px solid #DEE !important;
+    border-bottom: 4px solid #DEE !important;
+    border-left: 4px solid #DEE !important;
+}
+
 #popupTitleBar {
 	background-color: #8BCBCB;
 	color: #FFFFFF;
