@@ -66,12 +66,14 @@
     <div class="bigDottedDivider"><hr/></div>
     <table id="bottomContent" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td class="contentCell">
+            <td class="contentCell left">
                 <div class="leftImage">
                     <gsml:img src="/res/img/community/registration/stars.gif" alt="Stars"/>
                 </div>
-                <div id="youtube">
-                    <gsml:img styleClass="whatdoyouwant" src="/res/img/community/registration/whatdoyouwant.gif"
+            </td>
+            <td class="contentCell">
+                <div class="rBox" id="youtube">
+                    <gsml:img styleClass="headline" src="/res/img/community/registration/whatdoyouwant.gif"
                               alt="What do you want to ask the next president about K-12 education?"/>
                     <div>
                         Join other GreatSchools parents and create a video question about education
@@ -87,9 +89,11 @@
                 <div class="leftImage">
                     <gsml:img src="/res/img/community/registration/the_team.jpg" alt="Photo of Community Team"/>
                 </div>
-                <div id="commBlog">
+            </td>
+            <td class="contentCell">
+                <div class="rBox" id="commBlog">
                     <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50">
-                        <gsml:img src="/res/img/community/registration/communityblog.gif" alt="Community Team Blog"/>
+                        <gsml:img styleClass="headline" src="/res/img/community/registration/communityblog.gif" alt="Community Team Blog"/>
                     </gsml:popupWindow>
                     <div>
                         <cache:cache scope="application" name="blog" key="community">
@@ -100,7 +104,7 @@
                         <br/>
                         <gsml:url var="read" value="/res/img/community/registration/read.gif"/>
                         <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50">
-                            <img src="${read}" alt="Read the Community Blog" style="margin: 5px 0 4px -2px"/>
+                            <gsml:img styleClass="read" src="${read}" alt="Read the Community Blog"/>
                         </gsml:popupWindow>
                     </div>
                 </div>

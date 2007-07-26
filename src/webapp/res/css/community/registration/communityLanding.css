@@ -76,30 +76,28 @@ table#bottomContent td.contentCell {
     vertical-align: top;
     height: 100%;
     background-color:#DDEEEE;
-    width: 428px;
 }
 
 table#bottomContent div.leftImage {
-    float:left;
     padding:20px 0 15px 20px;
 }
 
-table#bottomContent div#youtube {
-    float:right;
-    width:280px;
-    margin:30px 25px 25px 0;    
+table#bottomContent td.contentCell div#youtube {
+    padding:30px 30px 15px 15px;
+}
+
+table#bottomContent td.contentCell div#commBlog {
+    padding:20px 10px 18px 22px;
 }
 
 table#bottomContent div#youtube a {
     float:right;
 }
 
-table#bottomContent div#commBlog {
-    float:right;
-    width:250px;
-    margin:23px 18px 0 0;
+table#bottomContent img.headline {
+   padding:0 0 6px 0;
 }
 
-table#bottomContent td.right div#commBlog img {
-    padding:0 0 5px 0;
+table#bottomContent img.read {
+   padding:7px 0 0 0;
 }
