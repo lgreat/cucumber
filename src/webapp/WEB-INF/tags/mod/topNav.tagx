@@ -102,7 +102,7 @@
                 <div id="communityHeader" class="noprint">
                     <span class="headerUsername">Welcome!</span>
                     <span class="headerAccount">
-                        <link:signIn forwardTo="referer">Sign In</link:signIn>
+                        <link:loginOrRegister>Sign In</link:loginOrRegister>
                     </span>
                     <span class="headerMsl">
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
@@ -128,7 +128,7 @@
                                 <gsml:img src="/res/img/community/badge_placeholder.jpg" alt="Badge"/>
                             </span>
                             <span class="headerDashboard">
-                                <gsml:a href="#">My Dashboard</gsml:a>
+                                <gsml:a href="http://community.staging.greatschools.net/dashboard">My Dashboard</gsml:a>
                             </span>
                             <span class="headerAccount withAvatar">
                                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">Sign Out</gsml:a>
