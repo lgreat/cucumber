@@ -84,6 +84,7 @@ table#bottomContent div.leftImage {
 
 table#bottomContent td.contentCell div#youtube {
     padding:30px 30px 15px 15px;
+    width:272px;
 }
 
 table#bottomContent td.contentCell div#commBlog {
