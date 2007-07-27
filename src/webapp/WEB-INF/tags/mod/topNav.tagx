@@ -124,7 +124,7 @@
                         <div id="communityHeader" class="noprint withImages">
                             <span class="headerUsername withBadge">
                                 Welcome,
-                                <gsml:a href="#">${requestScope.context.screenName}</gsml:a>
+                                <gsml:a href="http://community.staging.greatschools.net/member/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
                                 <gsml:img src="/res/img/community/badge_placeholder.jpg" alt="Badge"/>
                             </span>
                             <span class="headerDashboard">
