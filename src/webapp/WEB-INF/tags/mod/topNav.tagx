@@ -197,32 +197,11 @@
                 <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
-                <table style="width:301px" border="0" cellpadding="0" cellspacing="0">
+                <table cellpadding="0" cellspacing="0">
                     <tr>
-                        <td style="width:202px;">
-                            <gsml:img src="/res/img/pixel.gif" alt="" style="width:146px;height:17px"/>
-                        </td>
-                        <td style="width:10px">
-                            <gsml:img src="/res/img/pixel.gif" alt="" style="width:12px;height:6px"/>
-                        </td>
-
-                        <td style="width:50px;">
-                            <gsml:img src="/res/img/pixel.gif" alt="" style="width:54px;height:11px"/>
-                        </td>
-
-                        <td style="width:43px;vertical-align: middle">
-                            <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="searchBox" colspan="${requestScope.context.topicPage ? 5 : 1}">
-                            <input type="text" style="width: 100%;" name="q" id="q"
+                        <td id="searchBox">
+                            <input type="text" name="q" id="q" style="width:${requestScope.context.topicPage ? '250px' : '190px'};"
                                    value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
-                        </td>
-                        <td style="width:10px">
-                            <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
-                        </td>
-                        <td>
                             <div id="stateDropDown" style="display:${requestScope.context.topicPage ? 'none': 'block'}">
                                 <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                                      noStateLabel="--"
@@ -230,15 +209,14 @@
                                                      state="${requestScope.context.state}" styleClass="stateSelect"/>
                             </div>
                         </td>
-
-                        <td rowspan="2" style="width:43px;vertical-align: top">
+                        <td>
                             <gsml:url var="go" value="/res/img/header/btn_go.gif"/>
                             <input type="image" src="${go}" alt="GO" style="width:37px;height:20px"
                                    class="button"/>
                         </td>
                     </tr>
                     <tr>
-                        <td style="height:21px" class="searchRadios">
+                        <td style="height:21px" class="searchRadios" colspan="2">
                             <c:choose>
                                 <c:when test="${requestScope.context.topicPage}">
                                     <input name="c" type="radio" value="school"
@@ -259,10 +237,6 @@
                                     <span>Articles</span>
                                 </c:otherwise>
                             </c:choose>
-                        </td>
-
-                        <td style="height:21px">
-                            &#160;
                         </td>
                     </tr>
                 </table>

@@ -99,7 +99,6 @@ function topNavSubmitSearch(theForm) {
 function topNavSelectSchoolSearch(x) {
     var e = document.getElementById('stateDropDown');
     e.style.display = 'block';
-    setColSpan('searchBox', 1);
     e = document.getElementById('stateSelector');
     e.name = 'state';
 
@@ -107,6 +106,7 @@ function topNavSelectSchoolSearch(x) {
     if (e.value == 'Search by keyword') {
         e.value = 'Search for school, district or city';
     }
+    e.style.width = "190px";
     e.focus();
     e.select();
     return true;
@@ -117,12 +117,12 @@ function topNavSelectTopicSearch(x) {
     e.style.display = 'none';
     e = document.getElementById('stateSelector');
     e.name = 'hiddenState';
-    setColSpan('searchBox', 5);
 
     e = document.getElementById('q');
     if (e.value == 'Search for school, district or city') {
         e.value = 'Search by keyword';
     }
+    e.style.width = "247px";
     e.focus();
     e.select();
     return true;
