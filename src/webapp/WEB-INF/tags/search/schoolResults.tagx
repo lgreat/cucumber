@@ -13,14 +13,14 @@
             <br />
             School name
         </div>
-        <div id="ratingsHeader">
-            <!--GreatSchools<br />-->
-            <!--Rating-->
-        </div>
         <variant:b>
+            <div id="ratingsHeader">
+                GreatSchools<br />
+                Rating
+            </div>
             <div id="reviewsHeader">
-                <br />
-                Parent Ratings
+                Parent<br />
+                Rating
             </div>
         </variant:b>
     </div>
@@ -47,20 +47,20 @@
                     <c:out value="${school.phone}"/>
                 </div>
             </div>
-                <!--<div class="rating">-->
-                    <!--<c:choose>-->
-                        <!--<c:when test="${empty rating}">-->
-                            <!--<gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>-->
-                        <!--</c:when>-->
-                        <!--<c:otherwise>-->
-                            <!--<link:schoolProfileRating school="${school}">-->
-                                <!--<gsml:img src="/res/img/school/ratings/${rating}.gif"-->
-                                          <!--alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>-->
-                            <!--</link:schoolProfileRating>-->
-                        <!--</c:otherwise>-->
-                    <!--</c:choose>-->
-                <!--</div>-->
             <variant:b>
+                <div class="rating">
+                    <c:choose>
+                        <c:when test="${empty rating}">
+                            <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolProfileRating school="${school}">
+                                <gsml:img src="/res/img/school/ratings/${rating}.gif"
+                                          alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                            </link:schoolProfileRating>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
                 <div class="review">
                     <c:choose>
                         <c:when test="${empty parentRating}">
