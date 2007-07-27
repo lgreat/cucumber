@@ -57,4 +57,7 @@
             <br style="clear:both;"/>
         </div>
     </c:if>
+
+    <SCRIPT LANGUAGE="JavaScript">var tcdacmd="dt";</SCRIPT>
+    <SCRIPT SRC="http://an.tacoda.net/an/12567/slf.js" LANGUAGE="JavaScript"></SCRIPT> 
 </jsp:root>
