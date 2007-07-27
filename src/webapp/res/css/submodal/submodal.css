@@ -136,6 +136,10 @@ body.hover {
     padding-bottom:5px;
 }
 
+#stateWidget #popupInner #popupFrame {
+	border: 0 !important;
+}
+
 #stateWidget #popupControls a span {
 	display: block;
 	height: 16px;
