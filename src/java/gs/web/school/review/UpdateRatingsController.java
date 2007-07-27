@@ -49,19 +49,18 @@ public class UpdateRatingsController extends SimpleFormController implements Rea
 
         if (user == null) {
             _log.error("User with email not in db yet: " + rc.getEmail());
-            return showThankYouPage();
+            return showThankYouPage(school);
         } else {
             //existing user, only updating ratings part of review
             Review review = getReviewDao().findReview(user, school);
 
             if (review == null) {
                 _log.error("could not find a review for school:" + school + " and user: " + user);
-                return showThankYouPage();
+                return showThankYouPage(school);
             }
 
             getReviewDao().saveReview(updateCategoryRatingsFromCommand(review, rc));
-
-            return showThankYouPage();
+            return showThankYouPage(school);
         }
     }
 
@@ -75,8 +74,9 @@ public class UpdateRatingsController extends SimpleFormController implements Rea
         return review;
     }
 
-    protected ModelAndView showThankYouPage() {
+    protected ModelAndView showThankYouPage(final School school) {
         ModelAndView mAndV = new ModelAndView();
+        mAndV.getModel().put("school", school);
         mAndV.setViewName(getSuccessView());
         return mAndV;
     }

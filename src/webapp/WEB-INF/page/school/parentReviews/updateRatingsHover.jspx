@@ -29,7 +29,7 @@
 
 <gsml:body adPageName="updateRatings">
 
-    <form:form commandName="parentReviewCommand" method="POST">
+    <form:form commandName="parentReviewCommand" method="post">
         <form:errors path="*"/>
         <table>
             <tr>
@@ -99,9 +99,7 @@
                 </td>
             </tr>
         </table>
-        <form:hidden path="email"/>
-        <form:hidden path="state"/>
-        <form:hidden path="schoolId"/>
+        <input type="submit" value="submit"/>
     </form:form>
     <mod:tracking pageType="change me" pageName="change me" hier1="change me"/>
 </gsml:body>

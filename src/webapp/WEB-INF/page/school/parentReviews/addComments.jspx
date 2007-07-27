@@ -29,7 +29,7 @@
 
 <gsml:body adPageName="addParentReviews">
     
-    <form:form commandName="parentReviewCommand" method="POST">
+    <form:form commandName="parentReviewCommand" method="post">
         <table>
             <form:errors path="*"/>
             <tr>
@@ -155,8 +155,6 @@
                 <td><input type="submit" value="submit"/> </td>
             </tr>
         </table>
-        <form:hidden path="state"/>
-        <form:hidden path="schoolId"/>
     </form:form>
     <mod:tracking pageType="change me" pageName="change me" hier1="change me"/>
 </gsml:body>

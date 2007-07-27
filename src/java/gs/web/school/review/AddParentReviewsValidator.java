@@ -17,19 +17,19 @@ public class AddParentReviewsValidator implements Validator {
             ReviewCommand command = (ReviewCommand) object;
 
             if (!StringUtils.equals(command.getEmail(), command.getConfirmEmail())) {
-                errors.rejectValue("confirmEmail","The confirmation email is not the same as your email.");
+                errors.rejectValue("confirmEmail", "addPR_error_confirmation_email", "The confirmation email is not the same as your email.");
             }
 
             if (null == command.getPoster()) {
-                errors.rejectValue("posterAsString", "Please indicate your relationship to this school (parent, student, teacher, etc.).");
+                errors.rejectValue("posterAsString", "addPR_error_poster", "Please indicate your relationship to this school (parent, student, teacher, etc.).");
             }
 
             if (!command.isGivePermission()) {
-                errors.rejectValue("givePermission", "Please check the box to agree to our terms of use.");
+                errors.rejectValue("givePermission", "addPR_error_permission", "Please check the box to agree to our terms of use.");
             }
 
             if (StringUtils.isBlank(command.getComments()) && CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
-                errors.rejectValue("comments", "You did not enter any reviews or ratings.");
+                errors.rejectValue("comments", "addPR_error_comments", "You did not enter any reviews or ratings.");
             }
         }
     }

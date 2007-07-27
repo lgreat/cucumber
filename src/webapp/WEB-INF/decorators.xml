@@ -7,6 +7,7 @@
         <pattern>/community/newsletters/popup/*</pattern>
         <pattern>/miniSelectAState.page*</pattern>
         <pattern>/community/mailToFriend.page*</pattern>
+        <pattern>/school/updateRatings.page*</pattern>
     </decorator>
 
     <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">

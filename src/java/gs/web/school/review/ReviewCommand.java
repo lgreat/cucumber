@@ -2,16 +2,12 @@ package gs.web.school.review;
 
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.Poster;
-import gs.data.state.State;
 import gs.web.util.validator.EmailValidator;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
 public class ReviewCommand implements EmailValidator.IEmail {
-    private State _state;
-    private Integer _schoolId;
-
     private String _email;
     private String _confirmEmail;
     private String _firstName;
@@ -31,22 +27,6 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private boolean _givePermission;
     private boolean _wantMssNL;
     private boolean _allowContact;
-
-    public State getState() {
-        return _state;
-    }
-
-    public void setState(State state) {
-        _state = state;
-    }
-
-    public Integer getSchoolId() {
-        return _schoolId;
-    }
-
-    public void setSchoolId(Integer schoolId) {
-        _schoolId = schoolId;
-    }
 
     public String getEmail() {
         return _email;

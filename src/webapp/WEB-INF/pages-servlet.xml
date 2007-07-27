@@ -1064,6 +1064,7 @@
         <property name="validators">
             <list>
                 <ref bean="emailValidator"/>
+                <ref bean="addParentReviewsValidator"/>
             </list>
         </property>
     </bean>
@@ -1080,10 +1081,15 @@
         <property name="validators">
             <list>
                 <ref bean="emailValidator"/>
-                <bean class="gs.web.school.review.AddParentReviewsValidator" autowire="byName" lazy-init="true"/>
+                <ref bean="addParentReviewsValidator"/>
             </list>
         </property>
     </bean>
+
+    <bean name="addParentReviewsValidator"
+        class="gs.web.school.review.AddParentReviewsValidator"
+        autowire="byName"
+        lazy-init="true"/>
 
     <bean name="updateRatings"
           class="gs.web.school.review.UpdateRatingsController"
@@ -1091,8 +1097,8 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="parentReviewCommand"/>
         <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
-        <property name="formView" value="/school/parentReviews/updateRatings"/>
-        <property name="successView" value="redirect:/school/parentReviews/updatedParentRatingsThanks.page"/>
+        <property name="formView" value="/school/parentReviews/updateRatingsHover"/>
+        <property name="successView" value="/school/parentReviews/thankYouHover"/>
     </bean>
 
 
