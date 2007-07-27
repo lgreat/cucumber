@@ -15,6 +15,7 @@
     <title>Thank You!</title>
       <pageHelper:externalCss file="/res/css/brand.css"/>
       <pageHelper:externalCss file="/res/css/community/newsletters/popup/community.css"/>
+      <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
       <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
   </head>
   <body>
