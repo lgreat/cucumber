@@ -9,7 +9,7 @@ and would really help us understand how we can build community features to best 
 
 <p><a href="http://www.surveymonkey.com/s.asp?u=709332289793&c=$EMAIL">Fill out the survey</a></p>
 
-<p>Here's more detail on how the Beta Group works:</p>
+<p>Here's more detail on how the beta group works:</p>
 <ul>
 <li>We'll notify you occasionally about new features before they're released.</li>
 <br/>

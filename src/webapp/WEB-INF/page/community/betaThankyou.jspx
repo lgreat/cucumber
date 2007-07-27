@@ -24,7 +24,7 @@
                 </gsml:a>
                 <br/><br/>
                 <gsml:a href="/community/betaUnsubscribe.page?email=${email}&amp;state=${requestScope.context.stateOrDefault}">
-                    Remove me from the GreatSchools beta group</gsml:a>
+                    Remove me from the GreatSchools Beta Group</gsml:a>
                 <br/><br/>
                 <gsml:a href="/cgi-bin/newsletterSubscribe?email=${email}&amp;state=${requestScope.context.stateOrDefault}">
                     Sign up for our newsletters.</gsml:a>
