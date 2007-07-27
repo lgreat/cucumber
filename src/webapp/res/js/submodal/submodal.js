@@ -331,7 +331,7 @@ function innerStateWidget(parent) {
     if (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
-    parent.innerHTML = parent.innerHTML = '<div id="' + STATE_WIDGET+ '">' + modalWindowHtml('GreatSchools', false) + '</div>';;
+    parent.innerHTML = '<div id="' + STATE_WIDGET+ '">' + modalWindowHtml('GreatSchools') + '</div>';;
     return parent;
 }
 
@@ -339,17 +339,17 @@ function innerDefaultWidget(parent) {
     if (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
-    parent.innerHTML = modalWindowHtml('', true);
+    parent.innerHTML = modalWindowHtml('');
     return parent;
 }
 
-function modalWindowHtml(title,showCloseWindow) {
+function modalWindowHtml(title) {
     var html =
         '<div id="popupInner">' +
             '<div id="popupTitleBar">' +
                 '<div id="popupTitle">'+title+'</div>' +
                 '<div id="popupControls">' +
-                    '<a onclick="hidePopWin(false);"><img src="/res/img/submodal/close.gif"/></a>' +
+                    '<a onclick="hidePopWin(false);"><img src="http://' + window.document.domain + '/res/img/submodal/close.gif"/></a>' +
                 '</div>' +
             '</div>' +
             '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
