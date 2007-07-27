@@ -145,7 +145,7 @@
                                 </c:choose>
                             </span>
                             <span class="headerAvatar">
-                                <gsml:a href="#"><gsml:img src="/res/img/community/avatar_placeholder.jpg" alt="Avatar" /></gsml:a>
+                                <gsml:a href="http://community.staging.greatschools.net/member/${requestScope.context.screenName}"><gsml:img src="/res/img/community/avatar_placeholder.jpg" alt="Avatar" /></gsml:a>
                             </span>
                         </div>
                     </c:when>
