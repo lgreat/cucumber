@@ -25,11 +25,11 @@ public class AddParentReviewsValidator implements Validator {
             }
 
             if (!command.isGivePermission()) {
-                errors.rejectValue("givePermission", "addPR_error_permission", "Please check the box to agree to our terms of use.");
+                errors.rejectValue("givePermission", "addPR_error_permission", "Please accept our terms of use.");
             }
 
             if (StringUtils.isBlank(command.getComments()) && CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
-                errors.rejectValue("comments", "addPR_error_comments", "You did not enter any reviews or ratings.");
+                errors.rejectValue("comments", "addPR_error_comments", "Please enter a review or rating.");
             }
         }
     }

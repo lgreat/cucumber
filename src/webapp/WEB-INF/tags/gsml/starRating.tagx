@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="scriptless"/>
+
+    <jsp:directive.attribute name="id" required="true" description="unique id this star rating module.  This is also the id of the hidden form field."/>
+    <jsp:directive.attribute name="additionalClass" required="false" description="additional class name"/>        
+
+    <pageHelper:addOnLoadHandler handler="startRatingInit('${id}')"/>
+    <ul class="star-rating ${additionalClass}" id="starRating_${id}">
+        <li class="current-rating" style="width:0;">Currently unrated.</li>
+        <li><a href="#" title="1 star out of 5" class="one-star">1</a></li>
+        <li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
+        <li><a href="#" title="3 stars out of 5" class="three-stars">3</a></li>
+        <li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
+        <li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
+    </ul>
+    <input type="hidden" id="${id}" value="0" name="${id}"/>
+</jsp:root>

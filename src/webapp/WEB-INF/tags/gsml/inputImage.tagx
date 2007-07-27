@@ -14,6 +14,7 @@
     <jsp:directive.attribute name="onmouseover" required="false" description="onmouseover handling"/>
     <jsp:directive.attribute name="onmouseout" required="false" description="onmouseout handling"/>
     <jsp:directive.attribute name="tabIndex" required="false" description="tab index, defaults to 0"/>
+    <jsp:directive.attribute name="id" required="false" description="id field"/>
 
     <jsp:scriptlet><![CDATA[
         if (state != null) {
@@ -25,6 +26,10 @@
         StringBuffer buffer = new StringBuffer();
         buffer.append("<input type=\"image\"");
         buffer.append(" src=\"").append(Util.escapeXml(src)).append('"');
+
+        if (StringUtils.isNotBlank(id)) {
+            buffer.append(" id=\"").append(id).append('"');
+        }
 
         if (StringUtils.isNotBlank(alt)) {
             buffer.append(" alt=\"").append(alt).append('"');
