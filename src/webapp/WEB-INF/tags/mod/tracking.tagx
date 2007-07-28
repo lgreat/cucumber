@@ -124,8 +124,9 @@
         <c:set var="rand" value="${gsweb:randomNumber(1000)}"/>
         <gsml:url var="tracker" value="/modperl/promos/image//${rand}/${requestScope.context.stateOrDefault.abbreviation}//3"/>
         <img alt="tracker" src="${tracker}" />
-
+    <![CDATA[
         <script type="text/javascript">var tcdacmd="dt";</script>
         <script type="text/javascript" src="http://an.tacoda.net/an/12567/slf.js"></script>
+    ]]>
     </c:if>
 </jsp:root>
