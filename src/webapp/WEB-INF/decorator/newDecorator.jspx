@@ -62,7 +62,7 @@
             background-color: #fff;
         }
 
-        div#pageGS {
+        #pageGS {
             width: 900px;
             margin-left: auto;
             margin-right: auto;
@@ -72,15 +72,15 @@
             position: relative;
         }
 
-        body.cobranded div#pageGS {
+        body.cobranded #pageGS {
             border: 4px solid #aaccdd;
         }
 
-        body.framed div#pageGS {
+        body.framed #pageGS {
             border: 0;
         }
 
-        body.cobranded div#pageGS {
+        body.cobranded #pageGS {
             margin-top: 0;
         }
 
