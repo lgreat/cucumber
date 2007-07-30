@@ -15,7 +15,7 @@
     </decorator>
 
     <decorator name="newDecorator" page="newDecorator.jspx">
-        <pattern>/test/transcendent.page*</pattern>
+        <pattern>/test/testNewDecorator.page*</pattern>
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
