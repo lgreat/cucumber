@@ -85,7 +85,7 @@ public class AllSchoolsControllerTest extends BaseControllerTestCase {
     }
     public void testBuildPageLinksAndModel() throws Exception {
         Map model = new HashMap();
-        _controller.buildPageLinksAndModel("school", model, State.AK, 1);
+        _controller.buildPageLinksAndModel("school", model, State.AK, 1, 100);
         List list = (List)model.get(AllSchoolsController.MODEL_LIST);
         String pageLinks = (String)model.get(AllSchoolsController.MODEL_LINKS);
 
@@ -93,7 +93,7 @@ public class AllSchoolsControllerTest extends BaseControllerTestCase {
 //        System.out.println ("list:\n" + list);
         
         model = new HashMap();
-        _controller.buildPageLinksAndModel("city", model, State.AK, 1);
+        _controller.buildPageLinksAndModel("city", model, State.AK, 1, 100);
         list = (List)model.get(AllSchoolsController.MODEL_LIST);
         pageLinks = (String)model.get(AllSchoolsController.MODEL_LINKS);
     }

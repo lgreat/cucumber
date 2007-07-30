@@ -7,6 +7,7 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,11 +57,15 @@ public class AllSchoolsController extends AbstractController {
     /** Used to get Data */
     private Searcher _searcher;
 
-    /** The max number of schools to display on a page */
-    private static final int SCHOOLS_PAGE_SIZE = 50;
-
+    /** The max number of items to display on a page */
+    private static int SCHOOLS_PAGE_SIZE = 400; //default
+    private static int CITIES_PAGE_SIZE = 700; //default
+    private static int DISTRICTS_PAGE_SIZE = 400; //default
+    
     /** Lucene query parser */
     private QueryParser _queryParser;
+
+    private static Logger _log = Logger.getLogger(AllSchoolsController.class);
 
     public AllSchoolsController() {
         super();
@@ -105,13 +110,16 @@ public class AllSchoolsController extends AbstractController {
             mAndV.setViewName("school/allSchools");
             if (path.contains("/cities/")) {
                 mAndV.getModel().put(MODEL_TYPE, CITIES_TYPE);
-                buildPageLinksAndModel(CITIES_TYPE, mAndV.getModel(), state, page);
+                buildPageLinksAndModel(CITIES_TYPE, mAndV.getModel(),
+                        state, page,CITIES_PAGE_SIZE);
             } else if (path.contains("/districts/")) {
                 mAndV.getModel().put(MODEL_TYPE, DISTRICTS_TYPE);
-                buildPageLinksAndModel(DISTRICTS_TYPE, mAndV.getModel(), state, page);
+                buildPageLinksAndModel(DISTRICTS_TYPE, mAndV.getModel(),
+                        state, page, DISTRICTS_PAGE_SIZE);
             } else {
                 mAndV.getModel().put(MODEL_TYPE, SCHOOLS_TYPE);
-                buildPageLinksAndModel(SCHOOLS_TYPE, mAndV.getModel(), state, page);
+                buildPageLinksAndModel(SCHOOLS_TYPE, mAndV.getModel(),
+                        state, page, SCHOOLS_PAGE_SIZE);
             }
         } else {
             mAndV.setViewName("status/error");
@@ -223,7 +231,7 @@ public class AllSchoolsController extends AbstractController {
     }
 
     protected void buildPageLinksAndModel(String type, Map model, State state,
-                                          int index) throws Exception {
+                                          int index, int pageSize) throws Exception {
 
         int selectedSpanWidth = 1; //default
 
@@ -235,19 +243,19 @@ public class AllSchoolsController extends AbstractController {
         List workingGroup = new ArrayList();
         for (int i = 0; i < alphaGroups.size(); i++) {
             List group = (List)alphaGroups.get(i);
-            if (group.size() > SCHOOLS_PAGE_SIZE) {
+            if (group.size() > pageSize) {
                 if (workingGroup.size() > 0) {
                     pageGroups.add(workingGroup);
                     linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(workingGroup, 1)));
                     workingGroup = new ArrayList();
                 }
-                int fullChunks = group.size() / SCHOOLS_PAGE_SIZE;
-                int remainder = group.size() % SCHOOLS_PAGE_SIZE;
+                int fullChunks = group.size() / pageSize;
+                int remainder = group.size() % pageSize;
                 List subGroup;
                 int j = 0;
                 for (; j < fullChunks; j++) {
                     subGroup = new ArrayList();
-                    for (int jj = 0; jj < SCHOOLS_PAGE_SIZE; jj++) {
+                    for (int jj = 0; jj < pageSize; jj++) {
                         subGroup.add(group.get(((j+1) * (jj+1)) - 1));
                     }
                     pageGroups.add(subGroup);
@@ -262,7 +270,7 @@ public class AllSchoolsController extends AbstractController {
                 if (pageGroups.size() == index) { selectedSpanWidth = 2; }
                 linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup,2)));
             } else {
-                if ((group.size() + workingGroup.size()) < SCHOOLS_PAGE_SIZE) {
+                if ((group.size() + workingGroup.size()) < pageSize) {
                     workingGroup.addAll(group);
                 } else {
                     pageGroups.add(workingGroup);
