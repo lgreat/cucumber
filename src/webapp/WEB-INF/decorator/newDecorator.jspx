@@ -63,13 +63,14 @@
         }
 
         #pageGS {
-            width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+            width: 864px;
+            margin-left: -450px;
             margin-top: 117px;
             margin-bottom: -16px;
             background-color: #fff;
             position: relative;
+            left: 50%;
+            padding: 0 18px 0 18px;
         }
 
         body.cobranded #pageGS {
@@ -95,14 +96,35 @@
         }
         /* end site-wide styles */
 
+        /* Overrides */
+        #topnav {
+            width: 100%;
+            padding-bottom: 9px;
+        }
+        #topnav table#nav {
+            margin-left: 0;
+        }
+        #topnav td.member {
+            padding-right: 0;
+        }
+        #topnav table tr td a img {
+            position: relative;
+            left: -18px;
+        }
+        #footerGS {
+            margin: 25px 0 0 0;
+        }
+        /* end overrides */
+
         /* ad styles */
         div#adLeaderboard {
-            position: absolute;
             width: 900px;
             height: 107px;
             background-color: #fff;
             padding: 0;
+            position: absolute;
             top: -117px;
+            left: 0;
         }
 
         div#adLeaderboard table {
@@ -135,9 +157,7 @@
            <mod:topNav />
         </c:if>
 
-        <div id="delegatedContent" class="contentGS">
-            <decorator:body/>
-        </div>
+        <decorator:body/>
 
         <cobrand:numberoneexpertFooter/>
 
