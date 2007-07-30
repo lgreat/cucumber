@@ -165,11 +165,11 @@ div.phone {
 #searchResultsList .review {
     float: left;
     width: 100px;
-    margin-top: -1px;
+    margin-top: -5px;
 }
 
-#searchResultsList .review .rateIt {
-    margin-top: -5px;
+#searchResultsList .review .starsOnly {
+    margin-top: 4px;
 }
 
 /* pagination controls */

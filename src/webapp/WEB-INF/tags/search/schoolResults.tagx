@@ -67,14 +67,13 @@
                             <link:schoolProfileAddParentReview school="${school}">
                                 <gsml:img src="/res/img/search/rateit.jpg"
                                           rollover="/res/img/search/rateit_on.jpg"
-                                          alt="Be the first to rate!"
-                                        styleClass="rateIt"/>
+                                          alt="Be the first to rate!"/>
                             </link:schoolProfileAddParentReview>
                         </c:when>
                         <c:otherwise>
                             <link:schoolProfileParentReview school="${school}">
                                 <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
-                                          alt="${parentRating} out of 5 stars"/>
+                                          alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
                             </link:schoolProfileParentReview>
                         </c:otherwise>
                     </c:choose>
