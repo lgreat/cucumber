@@ -7,7 +7,6 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.queryParser.QueryParser;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,8 +63,6 @@ public class AllSchoolsController extends AbstractController {
     
     /** Lucene query parser */
     private QueryParser _queryParser;
-
-    private static Logger _log = Logger.getLogger(AllSchoolsController.class);
 
     public AllSchoolsController() {
         super();
@@ -206,7 +203,7 @@ public class AllSchoolsController extends AbstractController {
         if (index != selectedIndex) {
             buffer.append("</a>");
         }
-        buffer.append("</span>");
+        buffer.append("</span>\n");
         return buffer.toString();
     }
 
