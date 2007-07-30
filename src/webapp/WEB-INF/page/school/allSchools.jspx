@@ -69,7 +69,7 @@
                 <tr>
                     <c:if test="${type eq 'school'}">
                         <td>
-                            <gsml:a href="/modperl/browse_school/${state.abbreviation}/${school.id}">
+                            <gsml:a href="/modperl/browse_school/${state.abbreviation}/${data.id}">
                                 <c:out value="${data.name}" escapeXml="true"/>
                             </gsml:a>
                         </td>
