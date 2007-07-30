@@ -16,7 +16,7 @@
 }
 
 #topnav table tr td.communityHeader div.communityHeader {
-    margin-top: 6px; /* override */
+    margin-top: 24px; /* override */
 }
 
 #topnav #communityHeader {
