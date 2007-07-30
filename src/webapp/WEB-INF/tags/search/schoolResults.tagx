@@ -67,7 +67,8 @@
                             <link:schoolProfileAddParentReview school="${school}">
                                 <gsml:img src="/res/img/search/rateit.jpg"
                                           rollover="/res/img/search/rateit_on.jpg"
-                                          alt="Be the first to rate!"/>
+                                          alt="Be the first to rate!"
+                                        styleClass="rateIt"/>
                             </link:schoolProfileAddParentReview>
                         </c:when>
                         <c:otherwise>
