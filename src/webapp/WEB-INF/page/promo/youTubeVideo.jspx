@@ -79,7 +79,7 @@
                     </p>
                     <gsml:a href="http://www.youtube.com/republicandebate" target="_blank">
                         <gsml:img src="/res/img/promo/youTube/submitYourQuestion.gif" alt="Submit your question"
-                                  styleClass="topPad"/>
+                                  id="submitButton"/>
                     </gsml:a>
                 </div>
             </div>

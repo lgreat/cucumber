@@ -30,6 +30,10 @@
     margin-top: 24px;
 }
 
+#rightSide #submitButton {
+    margin-top: 29px;
+}
+
 #rightSide p.indented {
     margin-left: 15px;
 }
