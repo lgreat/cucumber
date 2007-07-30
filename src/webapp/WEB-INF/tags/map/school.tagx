@@ -103,7 +103,7 @@ function initSchoolInfo() {
     </c:if>
     mySchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
     <c:set var="parent_rating" value="0"/>
-    <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.displayOverallRating eq true}">
+    <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.displayOverallRating eq true)}">
         <c:set var="parent_rating" value="${nearbySchool.parentRatings.avgQuality}"/>
     </c:if>
     <c:choose>
