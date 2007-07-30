@@ -70,12 +70,12 @@ Disallow: /community/forgotPassword.page
 Disallow: /community/loginOrRegister.page
 Disallow: /community/registration
 Disallow: /community/resetPassword.page
-Disallow: */print
+Disallow: /*/print
 Disallow: /modperl/parents/*/pc/*
-Disallow: *;jsessionid*
+Disallow: /*;jsessionid*
 Disallow: /schools.page?map=*
 Disallow: /school/mapSchool
-Disallow: *&amp;*
+Disallow: /*&amp;*
 Disallow: /ads/
 </c:set>
 
