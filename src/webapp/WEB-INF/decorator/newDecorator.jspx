@@ -112,7 +112,8 @@
             left: -18px;
         }
         #footerGS {
-            margin: 25px 0 0 0;
+            margin-left: 0;
+            margin-right: 0;
         }
         /* end overrides */
 
