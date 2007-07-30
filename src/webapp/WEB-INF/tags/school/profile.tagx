@@ -194,8 +194,7 @@
 
         <!-- Parent Rating -->
         <c:set var="parent_rating" value="0"/>
-        <c:if test="${(parent_ratings ne null) and (parent_ratings.count ge parent_ratings.minRatingsBeforeUsage) and
-                      (parent_ratings.avgQuality lt 6) and (parent_ratings.avgQuality gt 0)}">
+        <c:if test="${parent_ratings ne null and parent_ratings.displayOverallRating eq true}">
             <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
         </c:if>
 

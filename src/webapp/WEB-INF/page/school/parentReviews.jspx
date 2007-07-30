@@ -41,7 +41,7 @@
             <gsml:equalizeColumns ids="'col_left','col_right'"/>
             <div id="parentReview">
                 <div id="col_left">
-                    <c:if test="${cmd.ratings.count >= cmd.ratings.minRatingsBeforeUsage and cmd.ratings.avgQuality lt 6}">
+                    <c:if test="${cmd.ratings.displayOverallRating eq true}">
                         <div id="showParentRatings">
                             <div id="rating_parent">
                                 <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif" alt="Overall Parent Rating - ${school.name} parent reviews and overall parent rating" styleClass="parentTitle" />
@@ -50,26 +50,30 @@
                                 <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
                             </div><!-- end: rating_parent -->
 
-                            <ul>
-                                <c:if test="${not empty cmd.ratings.avgPrincipal}">
-                                    <li>Principal Leadership<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif" alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
-                                </c:if>
-                                <c:if test="${not empty cmd.ratings.avgTeachers}">
-                                    <li>Teacher Quality<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif" alt="Teacher Quality: ${cmd.ratings.avgTeachers} out of 5 stars" styleClass="sm_stars" /></li>
-                                </c:if>
-                                <c:if test="${not empty cmd.ratings.avgActivities}">
-                                    <li>Extracurricular Activities<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgActivities}.gif" alt="Extracurricular Activities: ${cmd.ratings.avgActivities} out of 5 stars" styleClass="sm_stars" /></li>
-                                </c:if>
-                                <c:if test="${not empty cmd.ratings.avgParents}">
-                                    <li>Parent Involvement<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif" alt="Parent Involvement: ${cmd.ratings.avgParents} out of 5 stars" styleClass="sm_stars" /></li>
-                                </c:if>
-                                <c:if test="${not empty cmd.ratings.avgSafety}">
-                                    <li>Safety and Discipline<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgSafety}.gif" alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
-                                </c:if>
-                            </ul>
+                            <c:if test="${not empty cmd.ratings.avgPrincipal or not empty cmd.ratings.avgTeachers
+                                            or not empty cmd.ratings.avgActivities or not empty cmd.ratings.avgParents
+                                            or not empty cmd.ratings.avgSafety}">
+                                <ul>
+                                    <c:if test="${not empty cmd.ratings.avgPrincipal}">
+                                        <li>Principal Leadership<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif" alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
+                                    </c:if>
+                                    <c:if test="${not empty cmd.ratings.avgTeachers}">
+                                        <li>Teacher Quality<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif" alt="Teacher Quality: ${cmd.ratings.avgTeachers} out of 5 stars" styleClass="sm_stars" /></li>
+                                    </c:if>
+                                    <c:if test="${not empty cmd.ratings.avgActivities}">
+                                        <li>Extracurricular Activities<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgActivities}.gif" alt="Extracurricular Activities: ${cmd.ratings.avgActivities} out of 5 stars" styleClass="sm_stars" /></li>
+                                    </c:if>
+                                    <c:if test="${not empty cmd.ratings.avgParents}">
+                                        <li>Parent Involvement<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif" alt="Parent Involvement: ${cmd.ratings.avgParents} out of 5 stars" styleClass="sm_stars" /></li>
+                                    </c:if>
+                                    <c:if test="${not empty cmd.ratings.avgSafety}">
+                                        <li>Safety and Discipline<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgSafety}.gif" alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
+                                    </c:if>
+                                </ul>
 
-                            <p class="categoriesMore"><link:parentRatingsExplained>More about these categories &#62;</link:parentRatingsExplained></p>
-                        </div><!-- end: showRatings -->
+                                <p class="categoriesMore"><link:parentRatingsExplained>More about these categories &#62;</link:parentRatingsExplained></p>
+                            </c:if>
+                        </div><!-- end: showParentRatings -->
                     </c:if>
 
                     <c:if test="${cmd.showParentReviewForm}">

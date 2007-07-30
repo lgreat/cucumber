@@ -61,10 +61,10 @@ centerSchool.ratingHtml = '';
 </c:if>
 centerSchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
 <c:set var="parent_rating" value="0"/>
-<c:if test="${(parent_ratings ne null) and (parent_ratings.count ge parent_ratings.minRatingsBeforeUsage) and
-              (parent_ratings.avgQuality lt 6) and (parent_ratings.avgQuality gt 0)}">
+<c:if test="${parent_ratings.displayOverallRating eq true}">
     <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
 </c:if>
+
 <c:choose>
     <c:when test="${parent_rating eq 0}">
         <c:set var="parent_rating_title" value="Be the first to rate!"/>
