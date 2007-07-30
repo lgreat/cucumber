@@ -1328,6 +1328,36 @@
         </attribute>
     </tag>
     <tag>
+        <name>allSchoolsInState</name>
+        <tag-class>gs.web.jsp.link.AllSchoolsInStateTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>All schools in state page</display-name>
+        <description>
+            <![CDATA[All schools in state page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>The Database state of the schools</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>value of link title attribute, for tooltip</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>charterSchoolAuthorizer</name>
         <tag-class>gs.web.jsp.link.school.CharterAuthorizerTagHandler</tag-class>
         <body-content>JSP</body-content>

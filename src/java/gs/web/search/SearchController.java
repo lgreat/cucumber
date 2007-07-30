@@ -6,7 +6,6 @@ import gs.data.school.SchoolType;
 import gs.data.search.GSQueryParser;
 import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
-import gs.data.search.SpellCheckSearcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.util.PageHelper;
@@ -53,10 +52,7 @@ public class SearchController extends AbstractFormController {
 
     public static final String BEAN_ID = "/search/search.page";
 
-    private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
-
-    private boolean suggest = false;
 
     public static final String PARAM_DEBUG = "debug";
     public static final String PARAM_QUERY = "q";
@@ -85,7 +81,6 @@ public class SearchController extends AbstractFormController {
     public static final String MODEL_CITIES = "cities";
     public static final String MODEL_DISTRICTS = "districts";
     public static final String MODEL_FILTERED_CITIES = "filteredCities"; // AnchorListModel
-    public static final String MODEL_SHOW_SUGGESTIONS = "showSuggestions"; // Boolean
     public static final String MODEL_SHOW_QUERY_AGAIN = "showQueryAgain"; // Boolean
     private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser"; // Boolean
     private static final String MODEL_NO_RESULTS_EXPLAINED = "noResultsExplanation";
@@ -205,10 +200,6 @@ public class SearchController extends AbstractFormController {
             if (debug) {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
             }
-            if (suggest) {
-                model.put("suggestion", getSuggestion(queryString,
-                        sessionContext.getState()));
-            }
             model.put(MODEL_PAGE_SIZE, new Integer(pageSize));
             model.put(MODEL_RESULTS, _resultsPager.getResults(page, pageSize));
             model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
@@ -327,7 +318,6 @@ public class SearchController extends AbstractFormController {
 
 
         model.put(MODEL_SHOW_QUERY_AGAIN, Boolean.TRUE);
-        model.put(MODEL_SHOW_SUGGESTIONS, Boolean.valueOf(!resultsToShow));
         model.put(MODEL_SHOW_STATE_CHOOSER, Boolean.valueOf(!resultsToShow));
         return model;
     }
@@ -353,33 +343,6 @@ public class SearchController extends AbstractFormController {
         }
         return baseQuery;
     }
-
-    /**
-     * Supports "did-you-mean" functionality: returns a suggested query that
-     * might return better results than the original query.
-     *
-     * @param state A state to filter search results.
-     */
-    private String getSuggestion(String query, State state) {
-        String suggestion = _spellCheckSearcher.getSuggestion("name", query);
-        if (suggestion == null) {
-            suggestion = _spellCheckSearcher.getSuggestion("title", query);
-        }
-        if (suggestion == null) {
-            suggestion = _spellCheckSearcher.getSuggestion("city", query);
-        }
-        if (suggestion != null) {
-            // Check to see if the suggestion returns any results for the
-            // current state.
-            Hits suggestHits =
-                    _searcher.search(suggestion + " state:" + state.getAbbreviation());
-            if (suggestHits != null && suggestHits.length() > 0) {
-                suggestion = suggestion.replaceAll("\\+", "");
-            }
-        }
-        return suggestion;
-    }
-
 
     private AnchorListModel createFilteredCitiesListModel(StringBuffer filtersBuffer, Hits cityHits, String st, String gl, int filteredListSize, UrlBuilder urlBuilder, State state, HttpServletRequest request) throws IOException {
         AnchorListModel anchorListModel = new AnchorListModel(filtersBuffer.toString());
@@ -473,10 +436,6 @@ public class SearchController extends AbstractFormController {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
-    }
-
-    public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {
-        _spellCheckSearcher = spellCheckSearcher;
     }
 
     public void setSearcher(Searcher searcher) {

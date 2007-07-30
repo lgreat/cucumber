@@ -27,6 +27,7 @@
         <property name="urlMap">
             <map>
                 <entry key="/city/**" value="/city.page"/>
+                <entry key="/schools/**" value="/schools/allSchools.page"/>
             </map>
         </property>
     </bean>
@@ -230,9 +231,6 @@
         </property>
         <property name="commandClass">
             <value>gs.data.search.SearchCommand</value>
-        </property>
-        <property name="spellCheckSearcher">
-            <ref bean="spellCheckSearcher"/>
         </property>
         <property name="searcher">
             <ref bean="searcher"/>
@@ -496,6 +494,10 @@
             <value>/geo/selectACity</value>
         </property>
     </bean>
+
+    <bean name="/schools/allSchools.page"
+          class="gs.web.school.AllSchoolsController"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName" lazy-init="true"/>
 
@@ -1137,6 +1139,38 @@
     <bean name="isValidEmailController"
           class="gs.web.util.IsValidEmailController"
           autowire="byName" lazy-init="true"/>
+
+    <!--
+    <bean name="/survey/admin.page"
+          class="gs.web.survey.SurveyAdminController" autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>survey/admin</value>
+        </property>
+    </bean>
+
+    <bean name="/survey/edit.page"
+          class="gs.web.survey.SurveyEditController" autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="survey"/>
+        <property name="commandClass" value="gs.data.survey.Survey"/>
+        <property name="formView" value="survey/edit" />
+        <property name="successView" value="survey/admin" />
+    </bean>
+
+    <bean name="/survey/previewForm.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>survey/previewForm</value>
+        </property>
+    </bean>
+
+    <bean name="/survey/previewResults.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>survey/previewResults</value>
+        </property>
+    </bean>
+    -->
 
     <!-- WEB PAGE DEFINITIONS END -->
 

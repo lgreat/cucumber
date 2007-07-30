@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.66 2007/06/21 19:18:59 cpickslay Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.67 2007/07/30 18:13:08 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -381,6 +381,8 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.PARENT_REVIEW_LEARN_MORE, State.CA, null);
         assertEquals("/cgi-bin/static/parentcomments.html/ca/", builder.asSiteRelative(request));
 
+        builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_STATE, State.CA);
+        assertEquals("/schools/California/CA", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {

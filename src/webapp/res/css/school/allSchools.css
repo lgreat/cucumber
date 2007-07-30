@@ -1,0 +1,53 @@
+div#outer {
+    padding:30px 0 0 50px;
+}
+
+div#outer div#top,
+div#outer div#top h1 {
+    font-size:15px;
+}
+
+div#outer div#top h1 {
+    font-weight:bold;
+	color: #39a;
+}
+
+div#outer div#top div#pageHeading {
+    padding:15px 0 15px 0;
+}
+
+div#outer div#navLinks a {
+    margin:10px 20px 10px 0;
+    text-decoration:underline;
+}
+
+div#outer div#navLinks a.active {
+   color:#666;
+   text-decoration:none;
+}
+
+
+div#outer div.pageLinks {
+    font-size:15px;
+    padding:20px 0 30px 0;
+}
+
+div#outer div.pageLinks span.pageLink a {
+    text-decoration:underline;
+}
+
+div#outer div.pageLinks span.pageLink {
+     padding:0 10px 0 0;
+}
+
+div#outer table#items {
+    width:600px;
+}
+
+table#items th {
+    border-bottom:1px solid;
+}
+
+div#outer table#items tr {
+    height:20px;
+}

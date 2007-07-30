@@ -1,0 +1,32 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <html>
+    <head>
+        <pageHelper:externalCss file="/res/css/school/allSchools.css"/>
+        <title>All Cities</title>
+    </head>
+    <body>
+    <table>
+        <tr>
+            <th>City name</th>
+        </tr>
+        <c:forEach var="city" items="${list}">
+            <tr>
+                <td>${city.name}</td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <div id="pageLinks">
+        ${links}
+    </div>
+    </body>
+    </html>
+</jsp:root>
