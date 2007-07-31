@@ -45,12 +45,55 @@
 
     <style type="text/css">
         /* reset styles */
-        #pageGS p, #pageGS img, body, #pageGS form, #pageGS table, #pageGS tbody, #pageGS tr, #pageGS td {
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, font, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend, caption, thead, th, table, tfoot
+        {
             margin: 0;
             padding: 0;
-        }
-        #pageGS img {
             border: 0;
+            outline: 0;
+            font-weight: inherit;
+            font-style: inherit;
+            font-size: 100%;
+            font-family: inherit;
+            vertical-align: baseline;
+        }
+        tbody, tr, td
+        {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            font-weight: inherit;
+            font-style: inherit;
+            font-size: 100%;
+            font-family: inherit;
+        }
+        body {
+            line-height: 1.1em;
+            color: #ccc;
+            background: #acd;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        /* tables still need 'cellspacing="0"' in the markup */
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        caption, th, td {
+            text-align: left;
+            font-weight: normal;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: "";
         }
         /* end reset styles */
 
@@ -64,7 +107,7 @@
 
         #pageGS {
             width: 864px;
-            margin: 117px auto -16px auto;
+            margin: 117px auto -14px auto;
             background-color: #fff;
             position: relative;
             padding: 149px 18px 0 18px;
@@ -90,39 +133,22 @@
         }
 
         @media print {
-            .search, #adLeaderboard, #footer, .noprint  { display:none; }
-            .wrap0  { width:75%; background:white; }
+            #adLeaderboard, #footer, .noprint  { display:none; }
             body, body.unframed #pageGS {
                 background-color:#fff;
                 border: 0 solid   #fff;
             }
-            .showall{width: 100%; margin: 0; float: none;}
         }
-        
         /* end site-wide styles */
 
-        /* Overrides */
-        #topnav {
-            width: 100%;
-            padding-bottom: 9px;
-        }
-        #topnav table#nav {
-            margin-left: 0;
-        }
-        #topnav td.member {
-            padding-right: 0;
-        }
-        #topnav table tr td a img {
-            position: relative;
-            left: -18px;
-        }
+        /* Overrides -- padding lives in #pageGS now */
         #footerGS {
             margin-left: 0;
             margin-right: 0;
         }
         /* end overrides */
 
-        /* ad styles */
+        /* ad styles -- these were from frame.css but should probably live in ads.css! */
         div#adLeaderboard {
             width: 900px;
             height: 107px;
