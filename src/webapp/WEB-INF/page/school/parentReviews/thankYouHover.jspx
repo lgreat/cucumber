@@ -17,15 +17,15 @@
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <title>Thank you!</title>
         <meta name="description" content="Thank you page."/>
+        <pageHelper:externalCss file="/res/css/brand.css"/>
         <style type="text/css">
-            p {font-size: 15px;}
-            #thankYou {color: #55bbcc; font-size: 20px;}
-            #marginGS {margin:10px 0 0 26px; width: 300px;}
-            #marginGS a, #marginGS a:link, #marginGS a:hover, #marginGS a:visited {text-decoration:underline; font-size:14px;}
-            #close {margin:30px 0 0 140px;}
+            p {font-size: 15px;line-height:120%;}
+            #thankYou {color: #55bbcc; font-size: 20px; font-weight:bold;}
+            #marginGS {background-color:#fff;height:500px;padding:10px 0 0 26px;width:290px;}            
+            #marginGS a, #marginGS a:link, #marginGS a:hover, #marginGS a:visited {text-decoration:underline; font-size:14px;line-height:120%;}
+            #close {margin:30px 0 0 140px;}            
         </style>
         <base target="_self"/>
-        <pageHelper:externalCss file="/res/css/brand.css"/>
     </head>
 
     <gsml:body adPageName="thankYouHover">
@@ -40,6 +40,7 @@
         <div id="close"><a onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
         <mod:tracking pageType="change me" pageName="change me" hier1="change me"/>
     </gsml:body>
+
     </html>
 
 </jsp:root>

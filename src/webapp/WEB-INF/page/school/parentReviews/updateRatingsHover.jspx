@@ -25,12 +25,12 @@
     <title>Add parent reviews</title>
     <meta name="description" content="meta description"/>
     <style type="text/css">
-        #thankYou {color:#55bbcc;line-height:130%;font-size:15px;font-weight:bolder;}
-        p,td{font-size:13px;}
+        #thankYou {color:#55bbcc;line-height:130%;font-size:16px;font-weight:bolder;}
+        p,td{font-size:14px;}
         table {padding:0; margin:0;}
-        td {padding:0 0 15px 0;}
-        #marginGS {margin:10px 0 0 26px;width:300px;}
-        #subButtons {margin:32px 0 0 30px;}
+        td {padding:0 0 10px 0;}
+        #marginGS {background-color:#fff;height:500px;padding:10px 0 0 28px;}
+        #subButtons {margin:30px 0 0 30px;}
         #submit {margin-left:20px;}
         #marginGS a:link, #marginGS a:hover, #marginGS a:visited {text-decoration:underline;}
     </style>
@@ -40,11 +40,11 @@
 <gsml:body adPageName="updateRatings">
     <pageHelper:externalCss file="/res/css/brand.css"/>
     <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+
+        <p id="thankYou">Thank You!<br/>Your review has been saved.</p>
+
+        <p style="margin-top:-13px;">Parents would love to know how you rate the school in these additional areas:</p>
         <form:form commandName="parentReviewCommand" method="post">
-        <p id="thankYou">Thank You!<br/>Your review has been saved</p>
-
-        <p>Parents would love to know how you rate the school in these additional areas</p>
-
         <table>
             <tr>
                 <td>Principal Leadership</td>
@@ -55,7 +55,7 @@
                 <td><gsml:starRating id="teacherAsString" additionalClass="med-star"/></td>
             </tr>
             <tr>
-                <td>Extracurricular Activities</td>
+                <td style="width:170px;">Extracurricular Activities</td>
                 <td><gsml:starRating id="activitiesAsString" additionalClass="med-star"/></td>
             </tr>
             <tr>
