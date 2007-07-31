@@ -5,6 +5,7 @@
           xmlns:content="urn:www.greatschools.net/taglib/content"
           xmlns:footer="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -24,12 +25,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Add parent reviews</title>
     <meta name="description" content="meta description"/>
-    <pageHelper:externalJavascript file="/res/js/json.js"/>
-    <![CDATA[
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.2.2/build/yahoo/yahoo-min.js"></script>
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.2.2/build/event/event-min.js"></script>
-    <script type="text/javascript" src="http://yui.yahooapis.com/2.2.2/build/connection/connection-min.js"></script>
-    ]]>
+    <yui:connectionManager/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <gsml:url var="ratingPage" value="/school/updateRatings.page?id=1&amp;state=CA&amp;email=dlee@greatschools.net"/>

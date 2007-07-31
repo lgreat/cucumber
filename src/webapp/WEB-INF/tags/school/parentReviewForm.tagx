@@ -5,6 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
           xmlns:gsweb="gstaglib">
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
@@ -12,79 +13,23 @@
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
     <pageHelper:externalCss file="/res/css/school/parentReviewForm.css"/>
-    <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
-    <pageHelper:externalJavascript file="/res/js/json.js"/>
-    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/yahoo/yahoo-min.js"/>
-    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/event/event-min.js"/>
-    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/connection/connection-min.js"/>
-
+    <pageHelper:externalJavascript file="/res/js/parentReviewForm.js?v=2"/>
+    <yui:connectionManager/>
     <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
     <c:set var="schoolId" value="${school.id}"/>
     <gsml:url var="formActionUrl" value="/school/ajaxAddComments.page"/>
     <gsml:url var="ratingPage" value="/school/updateRatings.page?id=${schoolId}&amp;state=${state}"/>
 
     <script type="text/javascript">
-    <![CDATA[<!--
-        var AjaxObject = {
-            handleSuccess:function(o){
-                this.processResult(o);
-            },
-
-            handleFailure:function(o){
-                var ul = this.getErrorNode();
-                var li = document.createElement('li');
-                var liText = document.createTextNode('Sorry your request could not be handled at this time. Please try again later.');
-                li.appendChild(liText);
-                ul.appendChild(li);
-            },
-
-            processResult:function(o){
-                var ul = this.getErrorNode();
-                var jsonResponse = o.responseText.parseJSON();
-                if (jsonResponse.status) {
-                    document.getElementById('submitReview').disabled = true;
-                    var email = document.getElementById('reviewEmail').value;
-                    showPopWin('${ratingPage}&email='+email, 344, 362, null, 'ratingPage');
-                } else {
-                    for (var i=0;i<jsonResponse.errors.length;i++) {
-                        var li = document.createElement('li');
-                        var liText = document.createTextNode(jsonResponse.errors[i]);
-                        li.appendChild(liText);
-                        ul.appendChild(li);
-                    }
-                }
-            },
-
-            startRequest:function(url) {
-                setSubmitFields();
-                var formObject = document.getElementById('frmPRModule');
-                YAHOO.util.Connect.setForm(formObject);
-                YAHOO.util.Connect.asyncRequest('POST', url, callback, "");
-            },
-
-            getErrorNode:function() {
-                var ul = document.getElementById('frmErrors');
-                if (ul==null) {
-                    ul = document.createElement('ul');
-                    ul.id = "frmErrors";
-                    var form = document.getElementById('frmPRModule');
-                    ul = form.parentNode.insertBefore(ul,form);
-                } else {
-                    while ( ul.hasChildNodes() ) { ul.removeChild(ul.firstChild)};
-                }
-                return ul;
-            }
-        };
-
+        <![CDATA[<!--
         var callback = {
             success:AjaxObject.handleSuccess,
             failure:AjaxObject.handleFailure,
-            scope: AjaxObject
+            scope: AjaxObject,
+            argument: ['${ratingPage}']
         };
-    -->]]>
+        -->]]>
     </script>
-
-
 
     <c:set var="commentInputBox">
         <c:set var="comment" value="Enter your review here" />
@@ -158,7 +103,7 @@
                        class="s1"><span class="starLink">1</span></div>
                 </div>
             </div>
-            <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action);return false;">
+            <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
                 <input type="hidden" name="id" value="${schoolId}"/>
                 <input type="hidden" name="state" value="${state}"/>
                 <input type="hidden" name="source" value="${pageName}" />
