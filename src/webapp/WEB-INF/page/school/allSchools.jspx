@@ -40,8 +40,8 @@
         <div id="top">
             <div id="navLinks">
                 <link:allSchoolsInState state="${state}" styleClass="${type eq 'school' ? 'active' : ''}">All schools in ${state.longName}</link:allSchoolsInState>
-                <a href="/schools/cities/${state.longName}/${state.abbreviation}" class="${type eq 'city' ? 'active' : ''}">All cities in ${state.longName}</a>
-                <a href="/schools/districts/${state.longName}/${state.abbreviation}" class="${type eq 'district' ? 'active' : ''}">All districts in ${state.longName}</a>
+                <a href="/schools/cities/${fn:replace(state.longName, ' ', '_')}/${state.abbreviation}" class="${type eq 'city' ? 'active' : ''}">All cities in ${state.longName}</a>
+                <a href="/schools/districts/${fn:replace(state.longName, ' ', '_')}/${state.abbreviation}" class="${type eq 'district' ? 'active' : ''}">All districts in ${state.longName}</a>
             </div>
 
             <div id="pageHeading"><h1>${heading}</h1></div>
