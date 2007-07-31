@@ -45,11 +45,11 @@
 
     <style type="text/css">
         /* reset styles */
-        p, img, body, form, table, tbody, tr, td {
+        #pageGS p, #pageGS img, body, #pageGS form, #pageGS table, #pageGS tbody, #pageGS tr, #pageGS td {
             margin: 0;
             padding: 0;
         }
-        img {
+        #pageGS img {
             border: 0;
         }
         /* end reset styles */
@@ -71,20 +71,12 @@
         }
 
         body.cobranded #pageGS {
+            margin-top: 0;
             border: 4px solid #aaccdd;
         }
 
         body.framed #pageGS {
             border: 0;
-        }
-
-        body.cobranded #pageGS {
-            margin-top: 0;
-        }
-
-        div#delegatedContent {
-            margin: 0 18px 0 18px;
-            padding-top: 1px;
         }
 
         div#footer {
