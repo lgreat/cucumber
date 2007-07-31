@@ -6,6 +6,7 @@ import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,17 +28,6 @@ public class UpdateRatingsController extends SimpleFormController implements Rea
     private IReviewDao _reviewDao;
     protected final Log _log = LogFactory.getLog(getClass());
 
-    protected void onBindOnNewForm(HttpServletRequest request,
-                                   Object command,
-                                   BindException errors) {
-        ReviewCommand rc = (ReviewCommand) command;
-        School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
-
-        if (school != null) {
-            //fatal error - exit immediately
-        }
-    }
-
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
@@ -58,8 +48,8 @@ public class UpdateRatingsController extends SimpleFormController implements Rea
                 _log.error("could not find a review for school:" + school + " and user: " + user);
                 return showThankYouPage(school);
             }
-
             getReviewDao().saveReview(updateCategoryRatingsFromCommand(review, rc));
+            PageHelper.setMemberCookie(request, response, user);
             return showThankYouPage(school);
         }
     }

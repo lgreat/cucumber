@@ -25,49 +25,6 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Add parent reviews</title>
     <meta name="description" content="meta description"/>
-
-    <![CDATA[
-    <script type="text/javascript">
-    <!--
-        function startRatingInit(listName) {
-            var hidden_field = listName;
-            var ul = document.getElementById("starRating_"+listName);                       
-            var children = ul.getElementsByTagName("LI");
-            for (var i=1; i < children.length; i++) {
-                var li = children[i];
-                var anchor = li.firstChild;
-                if (anchor) {
-                    anchor.index = i;
-                    li.firstChild.onclick = function() {
-                        document.getElementById(hidden_field).value = this.index;
-                        if (document.getElementById('submit')){document.getElementById('submit').focus();}                                                                                                
-                    }
-                    li.firstChild.onmouseover = function() {
-                        this.parentNode.parentNode.getElementsByTagName("LI")[0].style.width = 20*this.index + '%';
-                    }
-                    li.firstChild.onmouseout = function() {
-                        this.parentNode.parentNode.getElementsByTagName("LI")[0].style.width = 20*document.getElementById(hidden_field).value + '%';
-                    }
-                }
-            }
-        }
-
-        function showHidden() {
-            var temp = '';
-            temp += debug('principal');
-            temp += debug('teachers');
-            temp += debug('activities');
-            temp += debug('parents');
-            temp += debug('safety');
-            alert(temp);
-        }
-
-        function debug(id) {
-            return id + " : " + document.getElementById(id).value + '\n';
-        }
-    -->
-    </script>
-    ]]>
     <style type="text/css">
         #thankYou {color:#55bbcc;line-height:130%;font-size:15px;font-weight:bolder;}
         p,td{font-size:13px;}
@@ -93,29 +50,29 @@
         <table>
             <tr>
                 <td>Principal Leadership</td>
-                <td><gsml:starRating id="principalAsString" additionalClass="small-star"/></td>
+                <td><gsml:starRating id="principalAsString" additionalClass="med-star"/></td>
             </tr>
             <tr>
                 <td>Teacher Quality</td>
-                <td><gsml:starRating id="teacherAsString" additionalClass="small-star"/></td>
+                <td><gsml:starRating id="teacherAsString" additionalClass="med-star"/></td>
             </tr>
             <tr>
                 <td>Extracurricular Activities</td>
-                <td><gsml:starRating id="activitiesAsString" additionalClass="small-star"/></td>
+                <td><gsml:starRating id="activitiesAsString" additionalClass="med-star"/></td>
             </tr>
             <tr>
                 <td>Parent Involvement</td>
-                <td><gsml:starRating id="parentAsString" additionalClass="small-star"/></td>
+                <td><gsml:starRating id="parentAsString" additionalClass="med-star"/></td>
             </tr>
             <tr>
                 <td>Safety and Discipline</td>
-                <td><gsml:starRating id="safetyAsString" additionalClass="small-star"/></td>
+                <td><gsml:starRating id="safetyAsString" additionalClass="med-star"/></td>
             </tr>
         </table>
         <link:parentReviewsLearnMore>Learn more about these categories &gt;</link:parentReviewsLearnMore>
 
             <div id="subButtons">
-                <gsml:inputImage src="/res/img/button/btn_noThanksImDone.gif" alt="No thanks, I'm done" onclick="showHidden();return false;"/>
+                <gsml:inputImage src="/res/img/button/btn_noThanksImDone.gif" alt="No thanks, I'm done"/>
                 <gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit" id="submit"/>
             </div>
         </form:form>

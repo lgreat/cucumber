@@ -9,8 +9,11 @@ import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.util.context.SessionContextUtil;
 import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
+
+import javax.servlet.http.Cookie;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
@@ -36,6 +39,7 @@ public class UpdateRatingsControllerTest extends BaseControllerTestCase {
         _command.setEmail("dlee@greatschools.net");
         _errors = new BindException(_command, "");
         _user = new User();
+        _user.setId(1);
 
         _school = new School();
         _school.setId(1);
@@ -104,5 +108,10 @@ public class UpdateRatingsControllerTest extends BaseControllerTestCase {
         
         verify(_userDao);
         verify(_reviewDao);
+
+        //member cookie written on success
+        Cookie c = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+        assertNotNull(c);
+        assertEquals(_user.getId().toString(), c.getValue());
     }
 }

@@ -6,41 +6,108 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 
-    <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
     <pageHelper:externalCss file="/res/css/school/parentReviewForm.css"/>
     <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
+    <pageHelper:externalJavascript file="/res/js/json.js"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/yahoo/yahoo-min.js"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/event/event-min.js"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/connection/connection-min.js"/>
 
     <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
     <c:set var="schoolId" value="${school.id}"/>
+    <gsml:url var="formActionUrl" value="/school/ajaxAddComments.page?id=${schoolId}&amp;state=${state}"/>
+    <gsml:url var="ratingPage" value="/school/updateRatings.page?id=${schoolId}&amp;state=${state}"/>
+
+    <script type="text/javascript">
+    <![CDATA[<!--
+        var AjaxObject = {
+            handleSuccess:function(o){
+                this.processResult(o);
+            },
+
+            handleFailure:function(o){
+                var ul = document.getElementById('frmErrors');
+                var li = document.createElement('li');
+                var liText = document.createTextNode('Sorry your request could not be handled at this time. Please try again later.');
+                li.appendChild(liText);
+                ul.appendChild(li);
+            },
+
+            processResult:function(o){
+                var ul = document.getElementById('frmErrors');
+                while ( ul.hasChildNodes() ) { ul.removeChild(ul.firstChild)};
+                var jsonResponse = o.responseText.parseJSON();
+                if (jsonResponse.status) {
+                    document.getElementById('submitReview').disabled = true;
+                    var email = document.getElementById('reviewEmail').value;
+                    showPopWin('${ratingPage}&amp;email='+email, 344, 362, null, 'ratingPage');
+                } else {
+                    for (var i=0;i<jsonResponse.errors.length;i++) {
+                        var li = document.createElement('li');
+                        var liText = document.createTextNode(jsonResponse.errors[i]);
+                        li.appendChild(liText);
+                        ul.appendChild(li);
+                    }
+                }
+            },
+
+            startRequest:function(url) {
+                setSubmitFields();
+                var formObject = document.getElementById('frmPRModule');
+                YAHOO.util.Connect.setForm(formObject);
+                YAHOO.util.Connect.asyncRequest('POST', url, callback, "");
+            }
+        };
+
+        var callback = {
+            success:AjaxObject.handleSuccess,
+            failure:AjaxObject.handleFailure,
+            scope: AjaxObject
+        };
+        -->]]>
+    </script>
+
+
+
     <c:set var="commentInputBox">
-        <c:set var="comment" value="${(not empty param.comments) ? param.comments : 'Enter your review here'}" />
+        <c:set var="comment" value="Enter your review here" />
         <textarea id="reviewText"
                   onkeyup="countWords(this)"
                   onkeydown="countWords(this)"
                   onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
                   rows="" cols="">${comment}</textarea>
     </c:set>
-    <c:set var="cbxPermit"><input name="permit" type="checkbox" checked="checked"/></c:set>
 
-    <!-- select box start-->
-    <c:set var="who" value="${(not empty param.who) ? param.who : ''}" />
-    <c:set var="selected">" selected="selected</c:set>
-    <c:set var="sltWho"><select name="who" class="select">
-    <option value="parent${who eq 'parent' ? selected : ''}">parent</option>
-    <option value="student${who eq 'student' ? selected : ''}">student</option>
-    <option value="teacher${who eq 'teacher' ? selected : ''}">teacher</option>
-    <option value="other${who eq 'other' ? selected : ''}">other</option>
-</select></c:set>
-    <!--end select box-->
-    <c:set var="cbxMss"><input type="checkbox" name="mssSignup" value="yes" checked="checked"/></c:set>
+    <c:set var="cbxPermit"><input name="givePermission" type="checkbox" checked="checked"/></c:set>
+
+    <c:set var="sltWho">
+        <select name="posterAsString" class="select">
+            <option value="parent">parent</option>
+            <option value="student">student</option>
+            <option value="teacher">teacher</option>
+            <option value="other">other</option>
+        </select>
+    </c:set>
+
+    <c:set var="cbxMss"><input type="checkbox" name="wantMssNL" value="yes" checked="checked"/></c:set>
+
     <c:set var="txtEmail">
-        <c:set var="email" value="${(not empty param.email) ? param.email : 'Enter your email address'}" />
+        <jsp:scriptlet>
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            String email = sessionContext.getEmail();
+            request.setAttribute("email",email);
+        </jsp:scriptlet>
+        <c:set var="email" value="${(not empty email) ? email : 'Enter your email address'}" />
         <input type="text" name="email" id="reviewEmail"
                onfocus="if(this.value=='Enter your email address'){this.value='';}"
                value="${email}" class="emailAddress"/>
     </c:set>
+
     <c:if test="${pageName eq 'parentReviews'}">
         <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/></h2>
     </c:if>
@@ -79,13 +146,13 @@
                        class="s1"><span class="starLink">1</span></div>
                 </div>
             </div>
-            <gsweb:form action="/cgi-bin/send_rating/${state}/${schoolId}/" method="post" onsubmit="setSubmitFields();">
-                <input type="hidden" name="schoolname" value="${school.name}" />
-                <input type="hidden" name="schooltype" value="${school.type.schoolTypeName}" />
+            <![CDATA[
+            <ul id="frmErrors"></ul>
+            ]]>
+            <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action);return false;">
                 <input type="hidden" name="source" value="${pageName}" />
-                <input type="hidden" name="recontact" value="N" />
-                <input id="quality" type="hidden" name="quality" value="decline" />
-                <input id="confirm" type="hidden" name="confirm" value="" />
+                <input id="quality" type="hidden" name="overallAsString" value="decline" />
+                <input id="confirm" type="hidden" name="confirmEmail" value="" />
                 <c:choose>
                     <c:when test="${pageName eq 'parentReviews'}">
                         ${commentInputBox}

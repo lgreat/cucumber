@@ -140,3 +140,12 @@
 .starbar div.s5  { width:  120px; }
 
 .starLink { display:none;}
+
+ul#frmErrors li {
+    clear:left;
+    color: #cc5566;
+    background-image: url('/res/img/bullet/exclamation.gif');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    padding: .2em 0 .5em 2em;
+}

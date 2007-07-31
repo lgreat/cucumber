@@ -4,8 +4,10 @@ import gs.data.community.*;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
+import gs.data.state.State;
+import gs.data.util.email.EmailHelper;
+import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
-import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -15,12 +17,15 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -37,7 +42,11 @@ public class AddParentReviewsController extends SimpleFormController implements 
     private IReviewDao _reviewDao;
     private ISubscriptionDao _subscriptionDao;
 
+    private EmailHelperFactory _emailHelperFactory;
+
     private Boolean _ajaxPage = Boolean.FALSE;
+
+    private static Pattern BAD_WORDS = Pattern.compile(".*(fuck|poop[\\s\\.,]|poopie|[\\s\\.,]ass[\\s\\.,]|faggot|[\\s\\.,]gay[\\s\\.,]|nigger|shit|prick[\\s\\.,]|ass-kicker|suck|asshole|dick[\\s\\.,]|Satan|dickhead|piss[\\s\\.,]).*");
 
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
@@ -109,14 +118,18 @@ public class AddParentReviewsController extends SimpleFormController implements 
             getUserDao().saveUser(user);
         }
 
+        Review r = createReview(user, school, rc);
         //save the review
-        getReviewDao().saveReview(createReview(user, school, rc));
+        getReviewDao().saveReview(r);
+
+        if ("a".equals(r.getStatus())) {
+            sendMessage(user, r.getComments(), school.getDatabaseState());
+        }
 
         if (isAjaxPage()) {
             successJSON(response);
             return null;
         } else {
-            PageHelper.setMemberCookie(request, response, user);
             ModelAndView mAndV = new ModelAndView();
             mAndV.setViewName(getSuccessView());
             return mAndV;
@@ -145,8 +158,41 @@ public class AddParentReviewsController extends SimpleFormController implements 
             review.setAllowName(true);
         }
 
+        review.setStatus("u");
+
+        if (StringUtils.isNotBlank(review.getComments())) {
+            if (review.getComments().length() < 25) {
+                review.setStatus("a");
+            }
+
+            if (hasBadWord(review.getComments())) {
+                review.setStatus("r");
+            }
+        }
         return review;
     }
+
+    protected boolean hasBadWord(final String comments) {
+        Matcher m = BAD_WORDS.matcher(comments);
+        return m.matches();
+    }
+
+    protected void sendMessage(final User user, final String comments, final State state) throws MessagingException, IOException {
+        EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+        emailHelper.setSubject("Thanks for your feedback");
+        emailHelper.setFromEmail("editorial@greatschools.net");
+        emailHelper.setFromName("GreatSchools");
+
+        emailHelper.setToEmail(user.getEmail());
+        emailHelper.readHtmlFromResource("gs/web/school/review/rejectEmail.txt");
+
+        emailHelper.addInlineReplacement("EMAIL", user.getEmail());
+        emailHelper.addInlineReplacement("STATE", state.getAbbreviation());
+        emailHelper.addInlineReplacement("USER_COMMENTS", comments);
+
+        emailHelper.send();
+    }
+
 
     protected void errorJSON(HttpServletResponse response, BindException errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
@@ -204,5 +250,13 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
     public void setAjaxPage(Boolean ajaxPage) {
         _ajaxPage = ajaxPage;
+    }
+
+    public EmailHelperFactory getEmailHelperFactory() {
+        return _emailHelperFactory;
+    }
+
+    public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
+        _emailHelperFactory = emailHelperFactory;
     }
 }

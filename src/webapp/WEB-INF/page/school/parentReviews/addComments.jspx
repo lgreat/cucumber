@@ -24,12 +24,103 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Add parent reviews</title>
     <meta name="description" content="meta description"/>
+    <pageHelper:externalJavascript file="/res/js/json.js"/>
+    <![CDATA[
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.2.2/build/yahoo/yahoo-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.2.2/build/event/event-min.js"></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.2.2/build/connection/connection-min.js"></script>
+    ]]>
+    <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+    <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+    <gsml:url var="ratingPage" value="/school/updateRatings.page?id=1&amp;state=CA&amp;email=dlee@greatschools.net"/>
+    <gsml:url var="formActionUrl" value="/school/ajaxAddComments.page?id=1&amp;state=CA"/>
+    <pageHelper:externalCss file="/res/css/brand.css"/>
+    <script type="text/javascript">
+
+        /*
+         * AjaxObject is a hypothetical object that encapsulates the transaction
+         *     request and callback logic.
+         *
+         * handleSuccess( ) provides success case logic
+         * handleFailure( ) provides failure case logic
+         * processResult( ) displays the results of the response from both the
+         * success and failure handlers
+         * call( ) calling this member starts the transaction request.
+         */
+
+        var AjaxObject = {
+
+            handleSuccess:function(o){
+                // This member handles the success response
+                // and passes the response object o to AjaxObject's
+                // processResult member.
+                this.processResult(o);
+            },
+
+            handleFailure:function(o){
+                var ul = document.getElementById('frmErrors');
+                var li = document.createElement('li');
+                var liText = document.createTextNode('Sorry your request could not be handled at this time. Please try again later.');
+                li.appendChild(liText);
+                ul.appendChild(li);
+            },
+
+            processResult:function(o){
+                var ul = document.getElementById('frmErrors');
+                while ( ul.hasChildNodes() ) { ul.removeChild(ul.firstChild)};
+                var jsonResponse = o.responseText.parseJSON();
+                if (jsonResponse.status) {
+                    document.getElementById('submit').disabled = true;
+                    showPopWin('${ratingPage}', 344, 362, null, 'ratingPage');
+                } else {
+                    for (var i=0;i &lt; jsonResponse.errors.length;i++) {
+                        var li = document.createElement('li');
+                        var liText = document.createTextNode(jsonResponse.errors[i]);
+                        li.appendChild(liText);
+                        ul.appendChild(li);
+                    }
+                }
+            },
+
+            startRequest:function(url) {
+                var formObject = document.getElementById('aForm');
+                YAHOO.util.Connect.setForm(formObject);
+                YAHOO.util.Connect.asyncRequest('POST', url, callback, "");
+            }
+
+        };
+
+        /*
+         * Define the callback object for success and failure
+         * handlers as well as object scope.
+         */
+        var callback =
+        {
+            success:AjaxObject.handleSuccess,
+            failure:AjaxObject.handleFailure,
+            scope: AjaxObject
+        };
+
+        // Start the transaction.
+        //AjaxObject.startRequest();
+
+    </script>
+    <style type="text/css">
+        .contentGS ul#frmErrors li {
+            background-image: url('../../../../res/img/bullet/exclamation.gif');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            padding: .2em 0 .5em 2em;
+        }
+    </style>
 </head>
 
 <gsml:body adPageName="addParentReviews">
-    
-    <form:form commandName="parentReviewCommand" method="post">
-        <table>
+    <![CDATA[
+    <ul id="frmErrors"></ul>
+    ]]>
+    <form:form id="aForm" commandName="parentReviewCommand" method="post" onsubmit="AjaxObject.startRequest('${formActionUrl}');return false;">
+    <table>
             <form:errors path="*"/>
             <tr>
                 <td>comments</td>
@@ -151,7 +242,7 @@
             </tr>
             <tr>
                 <td>submit</td>
-                <td><input type="submit" value="submit"/> </td>
+                <td><input type="submit" value="submit" id="submit"/> </td>
             </tr>
         </table>
     </form:form>

@@ -1,3 +1,8 @@
+/*
+star ratings - css from
+http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
+*/
+
 .star-rating,
 .star-rating a:hover,
 .star-rating .current-rating{
@@ -75,6 +80,19 @@
 	background-image: url(../../img/starRating/star_small.gif);
 	line-height: 10px;
 	height: 10px;
+}
+
+.med-star {
+    width:95px;
+    height:18px;
+}
+
+.med-star,
+.med-star a:hover,
+.med-star .current-rating{
+	background-image: url(../../img/starRating/star_med_transparent.gif);
+	line-height: 18px;
+	height: 18px;
 }
 
 
