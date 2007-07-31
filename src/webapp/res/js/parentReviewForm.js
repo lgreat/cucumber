@@ -88,7 +88,6 @@ var AjaxObject = {
             document.getElementById('submitReview').disabled = true;
             var email = document.getElementById('reviewEmail').value;
             var successUrl = o.argument[0] + '&email='+email;
-            alert(successUrl);
             showPopWin(successUrl, 344, 362, null, 'ratingPage');
         } else {
             for (var i=0;i<jsonResponse.errors.length;i++) {
