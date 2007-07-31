@@ -2,6 +2,7 @@
 star ratings - css from
 http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
 */
+.star-rating a:active {outline:0; }
 
 .star-rating,
 .star-rating a:hover,
@@ -95,5 +96,5 @@ http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
 	height: 18px;
 }
 
-
+:focus { -moz-outline-style: none; }
 

@@ -545,6 +545,10 @@ div#topCompare div#compareSchool {
     margin-top:0;
 }
 
+#schoolOverview ul#frmErrors {
+    margin-top: 1em;
+}
+
 @media print {
     #parentReviews p a,#quickFacts div.mapit{display:none;}
     #col_center{border-right:none;}

@@ -30,7 +30,7 @@
         table {padding:0; margin:0;}
         td {padding:0 0 15px 0;}
         #marginGS {margin:10px 0 0 26px;width:300px;}
-        #subButtons {margin:30px 0 0 30px;}
+        #subButtons {margin:32px 0 0 30px;}
         #submit {margin-left:20px;}
         #marginGS a:link, #marginGS a:hover, #marginGS a:visited {text-decoration:underline;}
     </style>
@@ -41,7 +41,6 @@
     <pageHelper:externalCss file="/res/css/brand.css"/>
     <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
         <form:form commandName="parentReviewCommand" method="post">
-        <form:errors path="*"/>
         <p id="thankYou">Thank You!<br/>Your review has been saved</p>
 
         <p>Parents would love to know how you rate the school in these additional areas</p>

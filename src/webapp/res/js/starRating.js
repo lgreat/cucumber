@@ -9,7 +9,7 @@ function startRatingInit(listName) {
             anchor.index = i;
             li.firstChild.onclick = function() {
                 document.getElementById(hidden_field).value = this.index;
-                if (document.getElementById('submit')){document.getElementById('submit').focus();}
+                this.hideFocus=true;//so ie won't outline stars
             }
             li.firstChild.onmouseover = function() {
                 this.parentNode.parentNode.getElementsByTagName("LI")[0].style.width = 20*this.index + '%';
