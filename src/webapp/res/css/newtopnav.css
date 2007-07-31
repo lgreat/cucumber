@@ -1,0 +1,240 @@
+/* Main logo */
+#branding {
+    position: absolute;
+    width: 330px;
+    height: 110px;
+    top: 0;
+    left: 40px;
+}
+
+/* User info block */
+#communityHeader {
+    font: 11px Trebuchet MS, Arial, sans-serif;
+    color: #666666;
+    text-align: right;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    right: 18px;
+    top: 5px;
+}
+
+#communityHeader.withImages {
+    padding-top: 1px;
+}
+
+#communityHeader a {
+    color: #3399AA;
+    text-decoration: none;
+}
+
+#communityHeader a:hover {
+    text-decoration: underline;
+}
+
+#communityHeader span.headerUsername {
+    font-weight: bold;
+    padding: 0 6px 0 0;
+    position: relative;
+    margin: 0;
+}
+
+#communityHeader span.withBadge {
+    padding: 0 26px 0 0;
+}
+
+#communityHeader span.headerUsername img {
+    position: absolute;
+    width: 15px;
+    height: 17px;
+    top: 0;
+    right: 6px;
+    _right: 183px;
+}
+
+#communityHeader span.headerDashboard {
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: #CCCCCC;
+    padding: 0 10px 0 6px;
+    background: url(/res/img/header/arrowGreenRight.gif) right 5px no-repeat;
+}
+
+#communityHeader span.headerAccount {
+    padding: 0 6px 0 6px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: #CCCCCC;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #CCCCCC;
+}
+
+#communityHeader span.headerMsl {
+    padding: 0 0 0 6px;
+}
+
+#communityHeader span.withAvatar {
+    padding-right: 37px;
+    border-right: 0;
+    margin-left: 6px;
+}
+
+#communityHeader span.headerAvatar {
+    position: absolute;
+    width: 30px;
+    height: 31px;
+    top: 0;
+    right: 0;
+}
+
+/* Search area */
+#mainSearch {
+    position: absolute;
+    top: 62px;
+    right: 18px;
+    padding-right: 47px;
+    height: 45px;
+}
+
+#mainSearch form, #mainSearch input, #mainSearch span, #mainSearch label {
+    padding: 0;
+    margin: 0;
+}
+
+#mainSearch #q, #mainSearch #stateSelector {
+    color: #666666;
+    padding-left: 3px;
+    font-family: Trebuchet MS, Arial, sans-serif;
+    font-size: 12px;
+}
+
+input#q {
+    float:left;
+    height: 19px;
+    padding-top: 1px;
+}
+
+#stateSelector {
+    margin: 0 0 0 8px;
+}
+
+#mainSearch input.button {
+    position: absolute;
+    top: 2px;
+    right: 0;
+}
+
+#mainSearchRadioButtons {
+    text-align: left;
+    position: absolute;
+    bottom: 3px;
+    right: 145px;
+    width: 150px;
+}
+
+#mainSearchRadioButtons input {
+    vertical-align: bottom;
+    height: 14px;
+    width: 14px;
+}
+
+#mainSearchRadioButtons label {
+    font-family: Helvetica, sans-serif;
+    font-size: x-small;
+    font-weight: 900;
+    color: #888;
+    margin: 0 13px 0 2px;
+    padding: 0;
+    vertical-align: bottom;
+    position: relative;
+    top: -2px;
+    _font-size: xx-small;
+}
+
+/* Main nav bar */
+#mainNav, #mainNav ul, #mainNav li {
+    margin: 0;
+    padding: 0;
+}
+
+#mainNav {
+    background-color: #99cc67;
+    height: 30px;
+    width: 864px;
+    position: absolute;
+    top: 110px;
+    display: block;
+}
+
+#mainNav ul {
+    position: relative;
+    list-style: none;
+}
+
+#mainNav li {
+    height: 30px;
+    display: inline;
+}
+
+#mainNav a {
+    position: absolute;
+    top: 0;
+    height: 22px;
+    margin: 0;
+    padding: 8px 0 0 0;
+    text-align: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-family: Lucinda Grande, Lucida Grande, lucida, verdana,sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    border-right: 1px dashed #99CC67;
+    border-left: 1px dashed #99CC67;
+}
+
+#mainNav a.active {
+    background-color: #639c31;
+    border-left-color: #639c31;
+    border-right-color: #639c31;
+}
+
+#mainNav a.lactive {
+    border-left-color: #FFFFFF;
+}
+
+#mainNav a.ractive {
+    border-right-color: #FFFFFF;
+}
+
+#mainNav a.inactive:hover,
+#mainNav a.inactive:active {
+    background-color: #639c31;
+    border-right-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+}
+
+#mainNav #homeNav a {
+    left: 28px;
+    width: 76px;
+}
+#mainNav #researchNav a {
+    left: 106px; /* 106 = 28 + 76 + 2: add two pixels for border */
+    width: 186px;
+}
+#mainNav #communityNav a {
+    left: 294px;
+    width: 116px;
+}
+#mainNav #seasonalNav a {
+    right: 309px;
+    width: 141px;
+}
+#mainNav #countdownNav a {
+    right: 114px;
+    width: 193px;
+}
+#mainNav #libraryNav a {
+    right: 28px;
+    width: 84px;
+}

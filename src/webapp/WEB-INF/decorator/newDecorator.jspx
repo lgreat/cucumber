@@ -22,7 +22,7 @@
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
 
-    <gsml:url var="topnavcss" value="/res/css/topnav.css"/>
+    <gsml:url var="topnavcss" value="/res/css/newtopnav.css"/>
     <![CDATA[<link rel="stylesheet" type="text/css" href="${topnavcss}"></link>]]>
 
     <gsml:url var="footercss" value="/res/css/footer.css"/>
@@ -67,7 +67,7 @@
             margin: 117px auto -16px auto;
             background-color: #fff;
             position: relative;
-            padding: 0 18px 0 18px;
+            padding: 149px 18px 0 18px;
         }
 
         body.cobranded #pageGS {
@@ -77,12 +77,28 @@
 
         body.framed #pageGS {
             border: 0;
+            padding-top: 0;
+        }
+
+        #mainContent {
+            position: relative;
         }
 
         div#footer {
             margin-bottom: 0;
             padding-bottom: 40px;
         }
+
+        @media print {
+            .search, #adLeaderboard, #footer, .noprint  { display:none; }
+            .wrap0  { width:75%; background:white; }
+            body, body.unframed #pageGS {
+                background-color:#fff;
+                border: 0 solid   #fff;
+            }
+            .showall{width: 100%; margin: 0; float: none;}
+        }
+        
         /* end site-wide styles */
 
         /* Overrides */
@@ -144,10 +160,12 @@
     <cobrand:header/>
     <div id="pageGS">
         <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-           <mod:topNav />
+           <mod:newTopNav />
         </c:if>
 
-        <decorator:body/>
+        <div id="mainContent">
+            <decorator:body/>
+        </div>
 
         <cobrand:numberoneexpertFooter/>
 
