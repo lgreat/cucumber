@@ -294,6 +294,14 @@
         </property>
     </bean>
 
+    <bean name="/status/cache.page"
+          class="gs.web.status.CacheController" autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>status/cache</value>
+        </property>
+    </bean>
+
+
     <!-- Status end -->
 
     <bean name="/content/article.page"

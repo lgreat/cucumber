@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:display="urn:jsptld:http://displaytag.sf.net"
+        >
+
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title>GreatSchools EhCache Status Page</title>
+        <gsml:url var="displayTagCss" value="/res/css/displaytag/displaytag.css"/>
+        <link rel="stylesheet" type="text/css" href="${displayTagCss}"></link>
+    </head>
+
+    <body>
+    <h1>EhCache Status Page</h1>
+
+    <display:table name="stats" class="stats" id="stat" requestURI="cache.page"
+                   defaultsort="1" defaultorder="ascending" export="true" sort="list" pagesize="20">
+        <display:column property="associatedCacheName" title="Name" sortable="true"></display:column>
+        <display:column property="objectCount" title="Cached Objects" sortable="true"></display:column>
+        <display:column title="Max Allowed" sortable="true">${caches[stat.associatedCacheName].maxElementsInMemory}</display:column>
+        <display:column title="Requests" sortable="true">${stat.cacheMisses + stat.cacheHits}</display:column>
+        <display:column property="cacheHits" title="Hits" sortable="true"></display:column>
+        <display:column property="cacheMisses" title="Misses" sortable="true"></display:column>
+        <display:column title="Ratio" sortable="true"><fmt:formatNumber type="percent" maxFractionDigits="2" value="${stat.cacheHits / (stat.cacheMisses + stat.cacheHits + .00001)}"/></display:column>
+    </display:table>
+
+    </body>
+    </html>
+</jsp:root>
+
