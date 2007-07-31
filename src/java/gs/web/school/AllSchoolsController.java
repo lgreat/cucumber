@@ -227,6 +227,16 @@ public class AllSchoolsController extends AbstractController {
         return buffer.toString().toUpperCase();
     }
 
+    /**
+     * This method collects all of the search results into alphabetized groups and
+     * then loads the model according the the supplied parameters.
+     * @param type ("school"|"district"|"city")
+     * @param model a Map
+     * @param state a State object
+     * @param index the page index
+     * @param pageSize the max number of items to load in the model.
+     * @throws Exception - if something goes haywire.
+     */
     protected void buildPageLinksAndModel(String type, Map model, State state,
                                           int index, int pageSize) throws Exception {
 
@@ -239,40 +249,39 @@ public class AllSchoolsController extends AbstractController {
         List<List> pageGroups = new ArrayList<List>();
         List workingGroup = new ArrayList();
         for (int i = 0; i < alphaGroups.size(); i++) {
-            List group = (List)alphaGroups.get(i);
-            if (group.size() > pageSize) {
+            List alphaGroup = (List)alphaGroups.get(i);
+            if (alphaGroup.size() > pageSize) {
                 if (workingGroup.size() > 0) {
                     pageGroups.add(workingGroup);
                     linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(workingGroup, 1)));
                     workingGroup = new ArrayList();
                 }
-                int fullChunks = group.size() / pageSize;
-                int remainder = group.size() % pageSize;
+                int fullChunks = alphaGroup.size() / pageSize;
+                int remainder = alphaGroup.size() % pageSize;
                 List subGroup;
-                int j = 0;
-                for (; j < fullChunks; j++) {
+                for (int j = 0; j < fullChunks; j++) {
                     subGroup = new ArrayList();
                     for (int jj = 0; jj < pageSize; jj++) {
-                        subGroup.add(group.get(((j+1) * (jj+1)) - 1));
+                        subGroup.add(alphaGroup.get((j * pageSize) + jj));
                     }
                     pageGroups.add(subGroup);
                     if (pageGroups.size() == index) { selectedSpanWidth = 2; }
                     linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup,2)));
                 }
                 subGroup = new ArrayList();
-                for (int k = group.size() - remainder; k < group.size(); k++) {
-                    subGroup.add(group.get(k));
+                for (int k = alphaGroup.size() - remainder; k < alphaGroup.size(); k++) {
+                    subGroup.add(alphaGroup.get(k));
                 }
                 pageGroups.add(subGroup);
                 if (pageGroups.size() == index) { selectedSpanWidth = 2; }
                 linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup,2)));
             } else {
-                if ((group.size() + workingGroup.size()) < pageSize) {
-                    workingGroup.addAll(group);
+                if ((alphaGroup.size() + workingGroup.size()) < pageSize) {
+                    workingGroup.addAll(alphaGroup);
                 } else {
                     pageGroups.add(workingGroup);
                     linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(workingGroup,1)));
-                    workingGroup = group;
+                    workingGroup = alphaGroup;
                 }
             }
         }
@@ -290,7 +299,6 @@ public class AllSchoolsController extends AbstractController {
             String span = getSpan(list, selectedSpanWidth);
             model.put(MODEL_TITLE, buildTitle(type, state, span));
         }
-
 
         model.put(MODEL_STATE, state);
     }
@@ -317,8 +325,16 @@ public class AllSchoolsController extends AbstractController {
         return buffer.toString();
     }
 
-    protected List getAlphaGroups(String type, Hits hits) throws IOException {
-        List alphaGroups = new ArrayList();
+    /**
+     * Builds a List of Lists grouped by alpha order.  Each list should contain only
+     * items that begin with the same letter.
+     * @param type ("school"|"city"|"district")
+     * @param hits the Lucene results
+     * @return a List<List>
+     * @throws IOException - if something gets nasty.
+     */
+    protected List<List> getAlphaGroups(String type, Hits hits) throws IOException {
+        List<List> alphaGroups = new ArrayList<List>();
         if (hits != null && hits.length() > 0) {
             List workingList = new ArrayList();
             char currentLetter = 'a';
