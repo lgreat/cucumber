@@ -37,11 +37,12 @@
 
 .bigLink {
     font-weight:bold;
-    font-size:12px;
+    font-size:13px;
 }
 
 .promo h1 {
     font-size: 23px;
+    line-height: 26px;
     color: #39A;
     font-weight:normal;
     margin-bottom:0;
@@ -62,6 +63,7 @@
 #raveText, .promo h3, h3#updates {
     margin-top: 10px;
     font-size: 15px;
+    line-height: 18px;
     font-weight: bold;
 }
 
@@ -80,6 +82,7 @@ h3#updates {
     margin:0 0 5px 0;
     padding:0 0 0 15px;
     font-size: 22px;
+    line-height: 26px;
     color:#39A;
     font-weight: bold;
 }
