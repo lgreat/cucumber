@@ -13,12 +13,11 @@
           xmlns:form="http://www.springframework.org/tags/form"
           version="2.0">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
-<jsp:directive.page contentType="text/html; charset=UTF-8"/>
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-
-<html lang="en">
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
 <c:set var="stateOrNull" value="${requestScope.context.state}"/>
 <c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}"/>
 <head>
@@ -69,7 +68,7 @@
                 <td><gsml:starRating id="safetyAsString" additionalClass="med-star"/></td>
             </tr>
         </table>
-        <link:parentReviewsLearnMore>Learn more about these categories &gt;</link:parentReviewsLearnMore>
+        <link:parentReviewsLearnMore target="_blank">Learn more about these categories &gt;</link:parentReviewsLearnMore>
 
             <div id="subButtons">
                 <gsml:inputImage src="/res/img/button/btn_noThanksImDone.gif" alt="No thanks, I'm done"/>

@@ -20,7 +20,7 @@
 
     <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
     <c:set var="schoolId" value="${school.id}"/>
-    <gsml:url var="formActionUrl" value="/school/ajaxAddComments.page?id=${schoolId}&amp;state=${state}"/>
+    <gsml:url var="formActionUrl" value="/school/ajaxAddComments.page"/>
     <gsml:url var="ratingPage" value="/school/updateRatings.page?id=${schoolId}&amp;state=${state}"/>
 
     <script type="text/javascript">
@@ -31,7 +31,7 @@
             },
 
             handleFailure:function(o){
-                var ul = document.getElementById('frmErrors');
+                var ul = this.getErrorNode();
                 var li = document.createElement('li');
                 var liText = document.createTextNode('Sorry your request could not be handled at this time. Please try again later.');
                 li.appendChild(liText);
@@ -39,13 +39,12 @@
             },
 
             processResult:function(o){
-                var ul = document.getElementById('frmErrors');
-                while ( ul.hasChildNodes() ) { ul.removeChild(ul.firstChild)};
+                var ul = this.getErrorNode();
                 var jsonResponse = o.responseText.parseJSON();
                 if (jsonResponse.status) {
                     document.getElementById('submitReview').disabled = true;
                     var email = document.getElementById('reviewEmail').value;
-                    showPopWin('${ratingPage}&amp;email='+email, 344, 362, null, 'ratingPage');
+                    showPopWin('${ratingPage}&email='+email, 344, 362, null, 'ratingPage');
                 } else {
                     for (var i=0;i<jsonResponse.errors.length;i++) {
                         var li = document.createElement('li');
@@ -61,6 +60,19 @@
                 var formObject = document.getElementById('frmPRModule');
                 YAHOO.util.Connect.setForm(formObject);
                 YAHOO.util.Connect.asyncRequest('POST', url, callback, "");
+            },
+
+            getErrorNode:function() {
+                var ul = document.getElementById('frmErrors');
+                if (ul==null) {
+                    ul = document.createElement('ul');
+                    ul.id = "frmErrors";
+                    var form = document.getElementById('frmPRModule');
+                    ul = form.parentNode.insertBefore(ul,form);
+                } else {
+                    while ( ul.hasChildNodes() ) { ul.removeChild(ul.firstChild)};
+                }
+                return ul;
             }
         };
 
@@ -69,7 +81,7 @@
             failure:AjaxObject.handleFailure,
             scope: AjaxObject
         };
-        -->]]>
+    -->]]>
     </script>
 
 
@@ -146,10 +158,9 @@
                        class="s1"><span class="starLink">1</span></div>
                 </div>
             </div>
-            <![CDATA[
-            <ul id="frmErrors"></ul>
-            ]]>
             <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action);return false;">
+                <input type="hidden" name="id" value="${schoolId}"/>
+                <input type="hidden" name="state" value="${state}"/>
                 <input type="hidden" name="source" value="${pageName}" />
                 <input id="quality" type="hidden" name="overallAsString" value="decline" />
                 <input id="confirm" type="hidden" name="confirmEmail" value="" />
