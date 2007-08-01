@@ -49,6 +49,10 @@ public class OpenSessionInViewFilter implements Filter {
             ThreadLocalTransactionManager.setRollbackOnly();
             logException(e, request);
             throw e;
+        } catch (Exception e) {
+            ThreadLocalTransactionManager.setRollbackOnly();
+            logException(e, request);
+            throw new ServletException(e);
         } finally {
             // Cleanup open database connections
             ThreadLocalTransactionManager.commitOrRollback();
