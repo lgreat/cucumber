@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.19 2007/06/19 00:27:19 cpickslay Exp $
+ * $Id: SchoolsControllerTest.java,v 1.20 2007/08/01 19:34:46 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -66,7 +66,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         mav = _controller.handleRequestInternal(request, getResponse());
         modelResults = (Map) mav.getModel().get("results");
-        assertEquals(102, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
+        assertEquals(100, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
     }

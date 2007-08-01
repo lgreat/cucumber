@@ -1,0 +1,23 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.page contentType="text/html"/>
+    <html>
+    <head>
+        <title>Join - GreatSchools</title>
+        <script src="/res/js/prototype.js" language="JavaScript" type="text/javascript"></script>
+        <script src="/res/js/siteCheck.js" language="JavaScript" type="text/javascript"></script>
+    </head>
+    <body>
+    Base url: <input id="root_url" type="text" size="50" name="base_url" />
+    Crawl only local links<input id="crawl_local" type="checkbox" checked="checked" name="crawl_local"/>
+    <a href="#" onclick="test();">Test</a>
+    <div id="output">
+    </div>
+    </body>
+    </html>
+</jsp:root>

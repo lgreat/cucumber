@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.33 2007/08/01 18:45:47 chriskimm Exp $
+ * $Id: SchoolsController.java,v 1.34 2007/08/01 19:34:45 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -157,11 +157,10 @@ public class SchoolsController extends AbstractController {
         String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
         if (context.isCrawler()) {
             pageSize = 100;
-        } else if (StringUtils.equals(paramShowAll, "1")) {
+        } else if (StringUtils.equals(paramShowAll, "1") ||
+                StringUtils.equals(paramShowAll, "true")) {
             pageSize = -1;
         }
-
-//        int schoolsPageSize = StringUtils.equals(paramShowAll, "1") ? -1 : pageSize;
 
         SearchCommand searchCommand = new SearchCommand();
         searchCommand.setC("school");

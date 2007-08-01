@@ -1,0 +1,23 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsweb="gstaglib"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>    
+    <html>
+    <head><title>GreatSchools Surveys - Edit Page</title></head>
+    <body>
+    <gsweb:form action="/survey/edit.page" method="post">
+
+        <spring:bind path="survey.title">
+            title: <input type="text" name="title" size="50" value="${survey.title}"></input>
+        </spring:bind>
+        <input type="submit" value="Save" name="submit"/>        
+    </gsweb:form>
+    </body>
+    </html>
+</jsp:root>

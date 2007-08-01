@@ -35,6 +35,8 @@
         <pattern>*/search/raw.page*</pattern>
         <pattern>*/gsHeader.page*</pattern>
         <pattern>*/gsFooter.page*</pattern>
+        <pattern>*/survey/admin.page*</pattern>
+        <pattern>*/survey/edit.page*</pattern>
     </excludes>
 
 </decorators>
