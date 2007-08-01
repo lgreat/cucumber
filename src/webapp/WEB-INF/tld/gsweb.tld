@@ -312,6 +312,11 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>pageSize</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>        
     </tag>
 
     <tag>
@@ -367,6 +372,11 @@
         </attribute>
         <attribute>
             <name>schoolType</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pageSize</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

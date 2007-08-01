@@ -194,6 +194,7 @@
                                      cityName="${cityName}"
                                      cityDisplayName="${cityDisplayName}"
                                      districtId="${district}"
+                                     pageSize="${results.pageSize}"
                                      schoolType="${st}"
                                      levelCode="${lc}"
                     >
@@ -242,6 +243,7 @@
                                total="${results.total}"
                                srcQuery="${pageContext.request.queryString}"
                                showAll="${results.showAll}"
+                               pageSize="${results.pageSize}"
                                schoolType="${st}"
                                levelCode="${lc}"
                     >

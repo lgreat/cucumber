@@ -1,7 +1,6 @@
 package gs.web.search;
 
 import gs.data.school.LevelCode;
-import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.logging.Log;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -62,8 +60,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             filtered = true;
         }
 
-
-
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
         if (_schools != null && _schools.size() > 0) {
             // writes the list of schools
@@ -74,7 +70,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
 
             // grey bar separator
-            if (!showall && (_total > PAGE_SIZE)) {
+            if (!showall && (_total > _pageSize)) {
                 out.print("<tr><td colspan=\"2\" id=\"barseparator\">");
                 out.print("<img src=\"/res/img/pixel.gif\" alt=\"pixel\"/>");
                 out.println("</td></tr>");
@@ -90,7 +86,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("</td></tr>");
 
             // show all
-            if (!showall && (_total > PAGE_SIZE)) {
+            if (!showall && (_total > _pageSize)) {
                 out.print("<tr><td align=\"right\" colspan=\"2\" id=\"lowershowall\">");
                 out.print("<a href=\"");
                 String showAllHref;

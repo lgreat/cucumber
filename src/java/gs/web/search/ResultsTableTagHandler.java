@@ -18,7 +18,8 @@ import java.util.List;
 public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
     protected int _total = 0;
-    protected int PAGE_SIZE = 10;
+    protected int DEFAULT_PAGE_SIZE = 10;
+    protected int _pageSize = DEFAULT_PAGE_SIZE;
     protected boolean _debug = false;
     private String _sortColumn = null;
     private boolean _reverse = false;
@@ -38,6 +39,14 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
     public String getSortColumn() {
         return _sortColumn;
+    }
+
+    public int getPageSize() {
+        return _pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        _pageSize = pageSize;
     }
 
     public void setTotal(int total) {
@@ -102,14 +111,14 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
      * @param totalItems
      * @throws IOException
      */
-    protected void writePageNumbers(final int currentPage, HttpServletRequest request, UrlBuilder builder, final int totalItems) throws IOException {
+    protected void writePageNumbers(final int currentPage, HttpServletRequest request,
+                                    UrlBuilder builder, final int totalItems) throws IOException {
 
         JspWriter out = getJspContext().getOut();
-
-        if (totalItems > PAGE_SIZE) {
+        if (totalItems > _pageSize) {
 
             int start = (currentPage < 10) ? 1 : (currentPage - 5);
-            int end = (totalItems / PAGE_SIZE) + ((totalItems % PAGE_SIZE) > 0 ? 1 : 0);
+            int end = (totalItems / _pageSize) + ((totalItems % _pageSize) > 0 ? 1 : 0);
 
             if (currentPage > 1) {
                 builder.setParameter("p", String.valueOf(currentPage - 1));

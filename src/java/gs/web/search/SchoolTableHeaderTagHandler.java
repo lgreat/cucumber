@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.26 2007/07/05 16:53:45 thuss Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.27 2007/08/01 18:45:47 chriskimm Exp $
  */
 
 package gs.web.search;
@@ -227,9 +227,9 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         if (_total > 0) {
             if (!showall) {
                 int page = ((getPage() > 0) ? (getPage() - 1) : 0);
-                buffer.append(String.valueOf((page * PAGE_SIZE) + 1));
+                buffer.append(String.valueOf((page * _pageSize) + 1));
                 buffer.append(" - ");
-                int x = (page * PAGE_SIZE) + PAGE_SIZE;
+                int x = (page * _pageSize) + _pageSize;
                 if (_total > x) {
                     buffer.append(String.valueOf(x));
                 } else {
@@ -244,7 +244,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         }
 
         String showAllHref = "";
-        if (!showall && (_total > PAGE_SIZE)) {
+        if (!showall && (_total > _pageSize)) {
             StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
             hrefBuffer.append(getSrcQuery());
             hrefBuffer.append("&amp;showall=true");

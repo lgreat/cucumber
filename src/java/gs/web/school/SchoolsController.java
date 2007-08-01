@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.32 2007/06/22 17:56:10 cpickslay Exp $
+ * $Id: SchoolsController.java,v 1.33 2007/08/01 18:45:47 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -109,7 +109,6 @@ public class SchoolsController extends AbstractController {
      */
     public static final String MODEL_PAGE_SIZE = "pageSize";
 
-
     /**
      * Though this method throws <code>Exception</code>, it should swallow most
      * (all?) searching errors while just logging appropriately and returning
@@ -154,10 +153,15 @@ public class SchoolsController extends AbstractController {
         model.put(MODEL_PAGE, Integer.toString(page));
 
         int pageSize = 10;
-        String paramShowAll = context.isCrawler() ? "true" : request.getParameter(PARAM_SHOW_ALL);
-        int schoolsPageSize = StringUtils.equals(paramShowAll, "true") ||
-                StringUtils.equals(paramShowAll, "1") ? -1 : 10;
 
+        String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
+        if (context.isCrawler()) {
+            pageSize = 100;
+        } else if (StringUtils.equals(paramShowAll, "1")) {
+            pageSize = -1;
+        }
+
+//        int schoolsPageSize = StringUtils.equals(paramShowAll, "1") ? -1 : pageSize;
 
         SearchCommand searchCommand = new SearchCommand();
         searchCommand.setC("school");
@@ -217,7 +221,7 @@ public class SchoolsController extends AbstractController {
             ResultsPager _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
             Map resultsModel = new HashMap();
             resultsModel.put(MODEL_SCHOOLS_TOTAL, new Integer(hts.length()));
-            resultsModel.put(MODEL_SCHOOLS, _resultsPager.getResults(page, schoolsPageSize));
+            resultsModel.put(MODEL_SCHOOLS, _resultsPager.getResults(page, pageSize));
             resultsModel.put(MODEL_PAGE_SIZE, new Integer(pageSize));
             resultsModel.put(MODEL_TOTAL, new Integer(hts.length()));
             resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
