@@ -1040,6 +1040,13 @@
             <![CDATA[School Profile Parent Review Page]]>
         </description>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+        <attribute>
             <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
