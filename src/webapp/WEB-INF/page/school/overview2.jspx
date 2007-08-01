@@ -60,7 +60,6 @@
 
       <school:quickFacts school="${school}"/>
 
-      <div class="noprint">
         <!-- Big Picture -->
         <hr />
         <school:bigPicture school="${school}"/>
@@ -88,7 +87,6 @@
                 <li><strong><gsml:a href="/content/backToSchool.page">Back To School &#62;</gsml:a></strong></li>
             </ul>
 		</div><!-- end: editor -->
-      </div><!-- end: noprint -->    
     </div><!-- end: col_left" -->
 
 		<!-- begin center column -->
@@ -98,7 +96,7 @@
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
             <!--<c:if test="${requestScope.context.ABVersion eq 'b'}">-->
-            <div id="topCompare" style="float:left; padding-bottom:25px;" class="noprint">
+            <div id="topCompare" style="float:left; padding-bottom:25px;" >
                 <school:compareSchool school="${school}"/>
             </div>
             <!--</c:if>-->
@@ -122,9 +120,9 @@
                 </div>
             </c:if>
 
-            <div  class="noprint"><school:parentReviewForm school="${school}" pageName="overview"/></div>
+            <school:parentReviewForm school="${school}" pageName="overview"/>
 
-            <div id="learnSchool"  class="noprint">
+            <div id="learnSchool">
 
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
