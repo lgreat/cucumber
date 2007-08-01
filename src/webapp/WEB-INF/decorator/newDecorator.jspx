@@ -22,27 +22,6 @@
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
 
-    <gsml:url var="topnavcss" value="/res/css/newtopnav.css"/>
-    <![CDATA[<link rel="stylesheet" type="text/css" href="${topnavcss}"></link>]]>
-
-    <gsml:url var="footercss" value="/res/css/footer.css"/>
-    <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
-
-    <c:if test="${!requestScope.pageHelper.adFree}">
-        <gsml:url var="adscss" value="/res/css/ads.css"/>
-        <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
-    </c:if>
-
-    <gsml:url var="globaljs" value="/res/js/global.js?v=3"/>
-    <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
-
-    <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js"/>
-    <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
-    <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
-
-    <!-- This tag includes ad_popunder.js -->
-    <ad:xPopunder/>
-
     <style type="text/css">
         /* reset styles */
         html, body, div, span, applet, object, iframe,
@@ -145,13 +124,6 @@
         }
         /* end site-wide styles */
 
-        /* Overrides -- padding lives in #pageGS now */
-        #footerGS {
-            margin-left: 0;
-            margin-right: 0;
-        }
-        /* end overrides */
-
         /* ad styles -- these were from frame.css but should probably live in ads.css! */
         div#adLeaderboard {
             width: 900px;
@@ -178,6 +150,36 @@
         #adLeaderboard table img {
             padding: 0 1px 0 2px;
         }
+    </style>
+
+    <gsml:url var="topnavcss" value="/res/css/newtopnav.css"/>
+    <![CDATA[<link rel="stylesheet" type="text/css" href="${topnavcss}"></link>]]>
+
+    <gsml:url var="footercss" value="/res/css/footer.css"/>
+    <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
+
+    <c:if test="${!requestScope.pageHelper.adFree}">
+        <gsml:url var="adscss" value="/res/css/ads.css"/>
+        <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
+    </c:if>
+
+    <gsml:url var="globaljs" value="/res/js/global.js?v=3"/>
+    <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
+
+    <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js"/>
+    <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
+    <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
+
+    <!-- This tag includes ad_popunder.js -->
+    <ad:xPopunder/>
+
+    <style type="text/css">
+        /* Overrides -- padding lives in #pageGS now */
+        #footerGS {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        /* end overrides */
     </style>
 
     <decorator:head/>
