@@ -135,10 +135,10 @@ public class AllSchoolsController extends AbstractController {
         State state = null;
         if (StringUtils.isNotBlank(path)) {
             String[] elements = path.trim().split("/");
-            for (int i = 0; i < elements.length; i++) {
-                if (elements[i].matches("[A-Z][A-Z]")) {
+            for (String element : elements) {
+                if (element.matches("[A-Z][A-Z]")) {
                     StateManager sm = new StateManager();
-                    state = sm.getState(elements[i]);
+                    state = sm.getState(element);
                     break;
                 }
             }
@@ -185,9 +185,9 @@ public class AllSchoolsController extends AbstractController {
         buffer.append("<span class=\"pageLink\">");
         if (index != selectedIndex) {
             buffer.append("<a href=\"/schools/");
-            if (type == CITIES_TYPE) {
+            if (CITIES_TYPE.equals(type)) {
                 buffer.append("cities/");
-            } else if (type == DISTRICTS_TYPE) {
+            } else if (DISTRICTS_TYPE.equals(type)) {
                 buffer.append("districts/");                
             }
             buffer.append(state.getLongName());
@@ -248,8 +248,7 @@ public class AllSchoolsController extends AbstractController {
         StringBuffer linksBuffer = new StringBuffer();
         List<List> pageGroups = new ArrayList<List>();
         List workingGroup = new ArrayList();
-        for (int i = 0; i < alphaGroups.size(); i++) {
-            List alphaGroup = (List)alphaGroups.get(i);
+        for (List alphaGroup : alphaGroups) {
             if (alphaGroup.size() > pageSize) {
                 if (workingGroup.size() > 0) {
                     pageGroups.add(workingGroup);
@@ -265,22 +264,26 @@ public class AllSchoolsController extends AbstractController {
                         subGroup.add(alphaGroup.get((j * pageSize) + jj));
                     }
                     pageGroups.add(subGroup);
-                    if (pageGroups.size() == index) { selectedSpanWidth = 2; }
-                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup,2)));
+                    if (pageGroups.size() == index) {
+                        selectedSpanWidth = 2;
+                    }
+                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup, 2)));
                 }
                 subGroup = new ArrayList();
                 for (int k = alphaGroup.size() - remainder; k < alphaGroup.size(); k++) {
                     subGroup.add(alphaGroup.get(k));
                 }
                 pageGroups.add(subGroup);
-                if (pageGroups.size() == index) { selectedSpanWidth = 2; }
-                linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup,2)));
+                if (pageGroups.size() == index) {
+                    selectedSpanWidth = 2;
+                }
+                linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup, 2)));
             } else {
                 if ((alphaGroup.size() + workingGroup.size()) < pageSize) {
                     workingGroup.addAll(alphaGroup);
                 } else {
                     pageGroups.add(workingGroup);
-                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(workingGroup,1)));
+                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(workingGroup, 1)));
                     workingGroup = alphaGroup;
                 }
             }
@@ -305,13 +308,13 @@ public class AllSchoolsController extends AbstractController {
 
     protected String buildTitle(String type, State state, String span) {
         StringBuffer buffer = new StringBuffer();
-        if (type == DISTRICTS_TYPE) {
+        if (DISTRICTS_TYPE.equals(type)) {
             buffer.append ("All school districts in ");
             buffer.append(state.getLongName());
             buffer.append(", ");
             buffer.append(state.getAbbreviation());
             buffer.append(": ");
-        } else if (type == CITIES_TYPE) {
+        } else if (CITIES_TYPE.equals(type)) {
             buffer.append(state.getLongName());
             buffer.append(" School information by City: ");
         } else {
@@ -341,7 +344,7 @@ public class AllSchoolsController extends AbstractController {
             for (int i = 0; i < hits.length(); i++) {
                 String name = hits.doc(i).get("name");
                 String city = hits.doc(i).get(Indexer.CITY);
-                if (type == "city") {
+                if (CITIES_TYPE.equals(type)) {
                     name = city;
                 }
                 if ((currentLetter != name.trim().toLowerCase().charAt(0)) || i == hits.length()-1) {
