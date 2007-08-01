@@ -25,6 +25,18 @@
             #marginGS a, #marginGS a:link, #marginGS a:hover, #marginGS a:visited {text-decoration:underline; font-size:14px;line-height:120%;}
             #close {margin:30px 0 0 140px;}            
         </style>
+        <script type="text/javascript">
+            function onClose() {
+            var link = document.getElementById('sppPR');
+            if (link) {
+                link.onclick = function() {
+                    window.top.hidePopWin(false);
+                    window.top.location=this.href;
+                    return false;
+                }
+            }}
+        </script>
+        <pageHelper:addOnLoadHandler handler="onClose();"/>
     </head>
 
     <gsml:body adPageName="thankYouHover">
@@ -35,7 +47,7 @@
             guidelines. This process may take a
             a few days.
         </p>
-        <link:schoolProfileParentReview school="${school}">Read other parent reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
+        <link:schoolProfileParentReview school="${school}" id="sppPR">Read other parent reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
         <div id="close"><a href="#" onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
         <mod:tracking pageType="change me" pageName="change me" hier1="change me"/>
     </gsml:body>
