@@ -29,6 +29,9 @@ public class ReadWriteInterceptor implements HandlerInterceptor {
         // Unless it's a read-write controller, default to the read-only databases
         if (!(controller instanceof ReadWriteController)) {
             ThreadLocalTransactionManager.setReadOnly();
+        } else {
+            // Make sure we're not inheriting any read only connections
+            ThreadLocalTransactionManager.commitOrRollback();
         }
         return true;
     }
