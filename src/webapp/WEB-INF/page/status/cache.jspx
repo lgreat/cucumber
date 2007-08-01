@@ -26,8 +26,8 @@
                    defaultsort="1" defaultorder="ascending" export="true" sort="list" pagesize="20">
         <display:column property="associatedCacheName" title="Name" sortable="true"></display:column>
         <display:column property="objectCount" title="Cached Objects" sortable="true"></display:column>
-        <display:column title="Max Allowed" sortable="true">${caches[stat.associatedCacheName].maxElementsInMemory}</display:column>
-        <display:column title="Requests" sortable="true">${stat.cacheMisses + stat.cacheHits}</display:column>
+        <display:column title="Max Allowed" sortable="true" value="${caches[stat.associatedCacheName].maxElementsInMemory}"></display:column>
+        <display:column title="Requests" sortable="true" value="${stat.cacheMisses + stat.cacheHits}"></display:column>
         <display:column property="cacheHits" title="Hits" sortable="true"></display:column>
         <display:column property="cacheMisses" title="Misses" sortable="true"></display:column>
         <display:column title="Ratio" sortable="true"><fmt:formatNumber type="percent" maxFractionDigits="2" value="${stat.cacheHits / (stat.cacheMisses + stat.cacheHits + .00001)}"/></display:column>
