@@ -87,7 +87,7 @@
             border-collapse: separate;
             border-spacing: 0;
         }
-        caption, th, td {
+        caption, th, #pageGS td {
             text-align: left;
             font-weight: normal;
         }
