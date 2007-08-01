@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.21 2007/06/26 18:06:41 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.22 2007/08/01 23:07:39 cpickslay Exp $
  */
 
 package gs.web.util.context;
@@ -10,8 +10,8 @@ import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ClientSideSessionCache;
-import gs.web.util.UrlUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -92,6 +92,9 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _hasSearchedCookieGenerator;
     private CookieGenerator _sessionCacheCookieGenerator;
     private CookieGenerator _communityCookieGenerator;
+    public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.net";
+    public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.net";
+    public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.net";
 
 
     public SessionContextUtil() {
@@ -494,5 +497,15 @@ public class SessionContextUtil implements ApplicationContextAware {
             return "dev";
         }
         return "www";
+    }
+
+    public String getCommunityHost(HttpServletRequest request) {
+        String serverName = request.getServerName();
+        if (_urlUtil.isStagingServer(serverName)) {
+            return COMMUNITY_STAGING_HOSTNAME;
+        } else if (_urlUtil.isDevEnvironment(serverName)) {
+            return COMMUNITY_DEV_HOSTNAME;
+        }
+        return COMMUNITY_LIVE_HOSTNAME;
     }
 }

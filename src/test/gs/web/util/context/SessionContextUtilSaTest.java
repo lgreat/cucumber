@@ -1,10 +1,10 @@
 package gs.web.util.context;
 
-import gs.web.GsMockHttpServletRequest;
-import gs.web.BaseTestCase;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.web.BaseTestCase;
+import gs.web.GsMockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
 
@@ -129,5 +129,36 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         _request.setCookies(new Cookie[] {oldStateCookie, newStateCookie});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value should always default to new STATE2 cookie", State.CA, _sessionContext.getState());
+    }
+
+    public void testGetCommunityHostForProduction() {
+        _request.setServerName("www.greatschools.net");
+        assertEquals("Unexpected community host", SessionContextUtil.COMMUNITY_LIVE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("sfgate.greatschools.net");
+        assertEquals("Unexpected community host for sfgate cobrand domain", SessionContextUtil.COMMUNITY_LIVE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("somenewcobrand.greatschools.net");
+        assertEquals("Unexpected community host for some other cobrand domain", SessionContextUtil.COMMUNITY_LIVE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+    }
+
+    public void testGetCommunityHostForStaging() {
+        _request.setServerName("staging.greatschools.net");
+        assertEquals("Unexpected staging community host", SessionContextUtil.COMMUNITY_STAGING_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("sfgate.staging.greatschools.net");
+        assertEquals("Unexpected community host for sfgate cobrand domain on staging", SessionContextUtil.COMMUNITY_STAGING_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("somenewcobrand.staging.greatschools.net");
+        assertEquals("Unexpected community host for some other cobrand domain on staging", SessionContextUtil.COMMUNITY_STAGING_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+    }
+
+    public void testGetCommunityHostForDev() {
+        _request.setServerName("dev.greatschools.net");
+        assertEquals("Unexpected dev community host", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("main.dev.greatschools.net");
+        assertEquals("Unexpected dev community host", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("sfgate.dev.greatschools.net");
+        assertEquals("Unexpected community host for sfgate cobrand domain on dev", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("somenewcobrand.dev.greatschools.net");
+        assertEquals("Unexpected community host for some other cobrand domain on dev", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("cpickslay.office.greatschools.net");
+        assertEquals("Unexpected community host for an office workstation", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
     }
 }
