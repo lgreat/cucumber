@@ -19,6 +19,14 @@
 
 <html lang="en">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE" />
+<c:if test="${requestScope.context.ABVersion eq 'a'}">
+    <c:if test="${not requestScope.context.cobranded}">
+        <c:if test="${not requestScope.context.crawler}">
+            <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+            <pageHelper:addOnLoadHandler handler="doInterstitial()"/>
+        </c:if>
+    </c:if>
+</c:if>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
