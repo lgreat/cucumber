@@ -93,13 +93,8 @@
     position: absolute;
     top: 62px;
     right: 18px;
-    padding-right: 47px;
     height: 45px;
-}
-
-#mainSearch form, #mainSearch input, #mainSearch span, #mainSearch label {
-    padding: 0;
-    margin: 0;
+    width: 299px;
 }
 
 #mainSearch #q, #mainSearch #stateSelector {
@@ -110,13 +105,18 @@
 }
 
 input#q {
-    float:left;
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 19px;
     padding-top: 1px;
 }
 
 #stateSelector {
     margin: 0 0 0 8px;
+    position: absolute;
+    top: 0;
+    right: 47px;
 }
 
 #mainSearch input.button {
@@ -129,8 +129,8 @@ input#q {
     text-align: left;
     position: absolute;
     bottom: 3px;
-    right: 145px;
-    width: 150px;
+    left: 4px;
+    width: 295px;
 }
 
 #mainSearchRadioButtons input {
