@@ -25,7 +25,6 @@
             #marginGS a, #marginGS a:link, #marginGS a:hover, #marginGS a:visited {text-decoration:underline; font-size:14px;line-height:120%;}
             #close {margin:30px 0 0 140px;}            
         </style>
-        <base target="_self"/>
     </head>
 
     <gsml:body adPageName="thankYouHover">
@@ -37,7 +36,7 @@
             a few days.
         </p>
         <link:schoolProfileParentReview school="${school}">Read other parent reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
-        <div id="close"><a onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
+        <div id="close"><a href="#" onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
         <mod:tracking pageType="change me" pageName="change me" hier1="change me"/>
     </gsml:body>
 
