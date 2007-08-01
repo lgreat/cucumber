@@ -28,10 +28,10 @@ import gs.data.search.Indexer;
  * 
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class AllSchoolsController extends AbstractController {
+public class AllInStateController extends AbstractController {
 
     /** Spring bean id */
-    public static final String BEAN_ID = "/schools/allSchools.page";
+    public static final String BEAN_ID = "/schools/allInState.page";
 
     /** key for the list in the model Map */
     public static final String MODEL_LIST = "list";
@@ -64,7 +64,7 @@ public class AllSchoolsController extends AbstractController {
     /** Lucene query parser */
     private QueryParser _queryParser;
 
-    public AllSchoolsController() {
+    public AllInStateController() {
         super();
         _queryParser = new QueryParser("text", new GSAnalyzer());
         _queryParser.setDefaultOperator(QueryParser.Operator.AND);
@@ -104,7 +104,7 @@ public class AllSchoolsController extends AbstractController {
         ModelAndView mAndV = new ModelAndView();
 
         if (StringUtils.isNotBlank(path) && state != null) {
-            mAndV.setViewName("school/allSchools");
+            mAndV.setViewName("school/allInState");
             if (path.contains("/cities/")) {
                 mAndV.getModel().put(MODEL_TYPE, CITIES_TYPE);
                 buildPageLinksAndModel(CITIES_TYPE, mAndV.getModel(),

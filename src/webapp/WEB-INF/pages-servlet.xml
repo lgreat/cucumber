@@ -27,7 +27,7 @@
         <property name="urlMap">
             <map>
                 <entry key="/city/**" value="/city.page"/>
-                <entry key="/schools/**" value="/schools/allSchools.page"/>
+                <entry key="/schools/**" value="/schools/allInState.page"/>
             </map>
         </property>
     </bean>
@@ -503,8 +503,8 @@
         </property>
     </bean>
 
-    <bean name="/schools/allSchools.page"
-          class="gs.web.school.AllSchoolsController"
+    <bean name="/schools/allInState.page"
+          class="gs.web.school.AllInStateController"
           autowire="byName" lazy-init="true"/>
 
     <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName" lazy-init="true"/>

@@ -19,14 +19,14 @@ import java.util.HashMap;
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class AllSchoolsControllerTest extends BaseControllerTestCase {
+public class AllInStateControllerTest extends BaseControllerTestCase {
 
-    private AllSchoolsController _controller;
+    private AllInStateController _controller;
 
     public void setUp() throws Exception {
         super.setUp();
-        _controller = (AllSchoolsController)getApplicationContext().
-                getBean(AllSchoolsController.BEAN_ID);
+        _controller = (AllInStateController)getApplicationContext().
+                getBean(AllInStateController.BEAN_ID);
     }
 
     public void testHandleRequest() throws Exception {
@@ -43,25 +43,25 @@ public class AllSchoolsControllerTest extends BaseControllerTestCase {
 
         request.setPathInfo("/California/CA");
         mAndView = _controller.handleRequest(request, getResponse());
-        assertEquals("school/allSchools", mAndView.getViewName());
+        assertEquals("school/allInState", mAndView.getViewName());
         assertEquals("Type should be 'school'", "school", 
-                (String)mAndView.getModel().get(AllSchoolsController.MODEL_TYPE));
+                (String)mAndView.getModel().get(AllInStateController.MODEL_TYPE));
 
         request.setPathInfo("/cities/Florida/FL");
         mAndView = _controller.handleRequest(request, getResponse());
-        assertEquals("school/allSchools", mAndView.getViewName());
+        assertEquals("school/allInState", mAndView.getViewName());
         assertEquals("Type should be 'city'", "city",
-                (String)mAndView.getModel().get(AllSchoolsController.MODEL_TYPE));
+                (String)mAndView.getModel().get(AllInStateController.MODEL_TYPE));
         assertEquals("State should be Florida", State.FL,
-                (State)mAndView.getModel().get(AllSchoolsController.MODEL_STATE));
+                (State)mAndView.getModel().get(AllInStateController.MODEL_STATE));
 
         request.setPathInfo("/districts/Alabama/AL");
         mAndView = _controller.handleRequest(request, getResponse());
-        assertEquals("school/allSchools", mAndView.getViewName());
+        assertEquals("school/allInState", mAndView.getViewName());
         assertEquals("Type should be 'district'", "district",
-                (String)mAndView.getModel().get(AllSchoolsController.MODEL_TYPE));
+                (String)mAndView.getModel().get(AllInStateController.MODEL_TYPE));
         assertEquals("State should be AL", State.AL,
-                (State)mAndView.getModel().get(AllSchoolsController.MODEL_STATE));
+                (State)mAndView.getModel().get(AllInStateController.MODEL_STATE));
     }
 
     public void testPagingLinks() throws Exception {
@@ -86,16 +86,16 @@ public class AllSchoolsControllerTest extends BaseControllerTestCase {
     public void testBuildPageLinksAndModel() throws Exception {
         Map model = new HashMap();
         _controller.buildPageLinksAndModel("school", model, State.AK, 1, 100);
-        List list = (List)model.get(AllSchoolsController.MODEL_LIST);
-        String pageLinks = (String)model.get(AllSchoolsController.MODEL_LINKS);
+        List list = (List)model.get(AllInStateController.MODEL_LIST);
+        String pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
 
 //        System.out.println ("links:\n" + pageLinks);
 //        System.out.println ("list:\n" + list);
         
         model = new HashMap();
         _controller.buildPageLinksAndModel("city", model, State.AK, 1, 100);
-        list = (List)model.get(AllSchoolsController.MODEL_LIST);
-        pageLinks = (String)model.get(AllSchoolsController.MODEL_LINKS);
+        list = (List)model.get(AllInStateController.MODEL_LIST);
+        pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
     }
 
     public void testGetStateFromPath() throws Exception {
