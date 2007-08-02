@@ -8,6 +8,7 @@
         <pattern>/miniSelectAState.page*</pattern>
         <pattern>/community/mailToFriend.page*</pattern>
         <pattern>/school/updateRatings.page*</pattern>
+        <pattern>/school/thankYouHover.page*</pattern>
     </decorator>
 
     <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">

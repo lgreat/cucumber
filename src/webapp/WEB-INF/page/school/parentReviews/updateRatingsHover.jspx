@@ -18,12 +18,14 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <jsp:directive.page contentType="text/html"/>
-<c:set var="stateOrNull" value="${requestScope.context.state}"/>
-<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}"/>
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <title>Add parent reviews</title>
-    <meta name="description" content="meta description"/>
+    <c:set var="school" value="${requestScope.school}"/>
+    <c:set var="stateAbbrev" value="${school.databaseState.abbreviation}"/>
+    <title>Rate ${school.name} - ${school.physicalAddress.city}, ${stateAbbrev}</title>
+    <meta name="description" content="GreatSchools Parents, review your school in the following areas: 
+        principal leadership, teacher quality, extracurricular activities, parent involvement,
+        and safety &amp; discipline."/>
     <style type="text/css">
         #thankYou {color:#55bbcc;line-height:130%;font-size:16px;font-weight:bolder;}
         p,td{font-size:14px;}
@@ -70,11 +72,14 @@
         <link:parentReviewsLearnMore target="_blank">Learn more about these categories &gt;</link:parentReviewsLearnMore>
 
             <div id="subButtons">
-                <gsml:inputImage src="/res/img/button/btn_noThanksImDone.gif" alt="No thanks, I'm done"/>
+                <gsml:url var="thankYouPage" value="/school/thankYouHover.page?id=${school.id}&amp;state=${stateAbbrev}"/>
+                <a href="${thankYouPage}"><gsml:img src="/res/img/button/btn_noThanksImDone.gif" alt="No thanks, I'm done"/></a>                
                 <gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit" id="submit"/>
             </div>
         </form:form>
-    <mod:tracking pageType="change me" pageName="change me" hier1="change me"/>
+    <mod:tracking pageType="Parent Review"
+                  pageName="PR Category Ratings Hover Omniture"
+                  hier1="School,Parent Reviews,PR Category Ratings Hover"/>    
 </gsml:body>
 </html>
 

@@ -1116,6 +1116,12 @@
         <property name="successView" value="/school/parentReviews/thankYouHover"/>
     </bean>
 
+    <bean name="/school/thankYouHover.page"
+        class="gs.web.school.review.ThankYouController"
+        autowire="byName"
+        lazy-init="true">
+        <property name="viewName" value="/school/parentReviews/thankYouHover"/>
+    </bean>
 
     <bean name="/school/overview2.page"
           class="gs.web.school.SchoolOverviewController"

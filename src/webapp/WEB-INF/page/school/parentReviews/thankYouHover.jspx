@@ -11,12 +11,13 @@
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-
+    
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <html lang="en">
     <head>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-        <title>Thank you!</title>
-        <meta name="description" content="Thank you page."/>
+        <title>Thank you for rating ${school.name} - ${school.physicalAddress.city}, ${stateAbbrev}</title>
+        <meta name="description" content="Thank you for submitting a parent review about ${school.name}. Read other reviews about ${school.name} here."/>
         <pageHelper:externalCss file="/res/css/brand.css"/>
         <style type="text/css">
             p {font-size: 15px;line-height:120%;}
@@ -49,9 +50,9 @@
         </p>
         <link:schoolProfileParentReview school="${school}" id="sppPR">Read other parent reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
         <div id="close"><a href="#" onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
-        <mod:tracking pageType="change me" pageName="change me" hier1="change me"/>
+        <mod:tracking pageType="Parent Review"
+                      pageName="PR Thank You Hover Omniture "
+                      hier1="School,Parent Reviews,PR Thank You Hover Omniture"/>
     </gsml:body>
-
     </html>
-
 </jsp:root>
