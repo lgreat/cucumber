@@ -1006,6 +1006,11 @@
             </list>
         </property>
     </bean>
+
+    <bean name="/community/redirect.page"
+        class="gs.web.community.CommunityRedirectController"
+        autowire="byName" lazy-init="true"/>
+        
     <bean name="/redirect.page"
           class="gs.web.util.RedirectController"
           autowire="byName" lazy-init="true"/>
