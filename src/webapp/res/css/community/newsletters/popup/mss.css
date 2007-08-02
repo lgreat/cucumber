@@ -143,14 +143,15 @@ h3#updates {
     padding:0.5em;
     font-weight:500;
 }
+
 li {
     list-style-type:disc;
     list-style-position:inherit;
 }
 
 .error {
-    color:red;
-    margin-left: 8em;
+    color: #C56;
+    margin-left: 12px;
 }
 
 .btnSignUp {
