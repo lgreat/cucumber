@@ -22,6 +22,10 @@ function frameLoading() {
 }
 
 function initPopUp(hoverName) {
+    //if hover already initialized, early exit
+    if (getElement(POP_MASK_ID)) {
+        return;
+    }
     var body = document.getElementsByTagName('body')[0];
     var popmask = createContainer(body, POP_MASK_ID, true);
     var popcont = createContainer(body, POP_CONTAINER_ID, true);
