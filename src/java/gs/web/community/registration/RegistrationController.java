@@ -26,6 +26,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author <a href="mailto:aroy@urbanasoft.com">Anthony Roy</a>
@@ -93,7 +94,7 @@ public class RegistrationController extends SimpleFormController implements Read
         if (state == null) {
             state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         }
-        List cities = _geoDao.findCitiesByState(state);
+        List<City> cities = _geoDao.findCitiesByState(state);
         City city = new City();
         city.setName("My city is not listed");
         cities.add(0, city);
@@ -216,7 +217,10 @@ public class RegistrationController extends SimpleFormController implements Read
                 communityNewsletterSubscription.setUser(user);
                 communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
                 communityNewsletterSubscription.setState(userCommand.getState());
-                _subscriptionDao.saveSubscription(communityNewsletterSubscription);
+                List<Subscription> subs = new ArrayList<Subscription>();
+                subs.add(communityNewsletterSubscription);
+                _subscriptionDao.addNewsletterSubscriptions(user, subs);
+//                _subscriptionDao.saveSubscription(communityNewsletterSubscription);
             }
             // only notify community on final step
             CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean

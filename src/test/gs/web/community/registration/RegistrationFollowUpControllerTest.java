@@ -13,10 +13,12 @@ import gs.data.admin.IPropertyDao;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
 import org.easymock.MockControl;
+import static org.easymock.EasyMock.*;
 import org.easymock.AbstractMatcher;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -185,9 +187,8 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _userControl.replay();
 
         // controller checks for previous subscriptions
-        _subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
         // detects none
-        _subscriptionControl.setReturnValue(null);
+        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT)).andReturn(null);
         // a recontact subscription for the student's school will be saved
         Subscription sub = new Subscription();
         sub.setUser(_user);
@@ -195,16 +196,14 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         sub.setState(State.CA);
         sub.setSchoolId(student.getSchoolId());
         // but only one, because 2nd student shares school, and 3rd student has no school listed
-        _subscriptionDao.saveSubscription(sub);
-        _subscriptionControl.setMatcher(new SubscriptionMatcher());
+        _subscriptionDao.saveSubscription(isA(Subscription.class));
 
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY), null);
+        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY)).andReturn(null);
 
-        _subscriptionControl.replay();
-
+        replay(_subscriptionDao);
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         _userControl.verify();
-        _subscriptionControl.verify();
+        verify(_subscriptionDao);
         assertFalse(_errors.hasErrors());
     }
 
@@ -318,18 +317,22 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
         newsletterSubscription.setState(State.GA);
 
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY), null);
-        _subscriptionDao.saveSubscription(newsletterSubscription);
-        _subscriptionControl.replay();
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.PARENT_CONTACT))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.COMMUNITY))
+                .andReturn(null);
+        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), (List)notNull());
+
+        replay(_subscriptionDao);
 
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
         followUpCommand.setNewsletter(true);
         _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
-
-        _subscriptionControl.verify();
+        verify(_subscriptionDao);
     }
 
     public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {

@@ -8,10 +8,12 @@ import gs.data.geo.IGeoDao;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
+import static org.easymock.EasyMock.*;
 import org.easymock.classextension.MockClassControl;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides ...
@@ -117,8 +119,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         getRequest().addParameter("join", "join"); // submit button
 
-        _subscriptionDao.saveSubscription(newsletterSubscription);
-        _subscriptionDaoMock.replay();
+        _subscriptionDao.addNewsletterSubscriptions((User)notNull(), (List)notNull());
+        replay(_subscriptionDao);
 
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
@@ -126,7 +128,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setNewsletter(true);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
 
-        _subscriptionDaoMock.verify();
+        verify(_subscriptionDao);
     }
 
     public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {

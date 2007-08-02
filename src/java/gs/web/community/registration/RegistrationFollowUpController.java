@@ -317,12 +317,20 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     }
 
     private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user) {
+        List<Subscription> newsSubs = new ArrayList<Subscription>();
         for (Subscription sub: fupCommand.getSubscriptions()) {
             sub.setUser(user);
-            _subscriptionDao.saveSubscription(sub);
+            if (sub.getProduct().isNewsletter()) {
+                newsSubs.add(sub);
+            } else {
+                _subscriptionDao.saveSubscription(sub);
+            }
             if (Boolean.valueOf(fupCommand.getRecontact())) {
                 addContactSubscriptionFromSubscription(sub);
             }
+        }
+        if (!newsSubs.isEmpty()) {
+            _subscriptionDao.addNewsletterSubscriptions(user, newsSubs);
         }
     }
 
