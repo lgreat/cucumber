@@ -3,6 +3,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
@@ -22,16 +23,19 @@
                 <c:set var="thing" value="cities" />
                 <c:set var="path" value="/schools/cities/" />
                 <c:set var="heading" value="${state.longName} School Information by City" />
+                <c:set var="pageName" value="All Cities in State" />
             </c:when>
             <c:when test="${type eq 'district'}">
                 <c:set var="thing" value="districts" />
                 <c:set var="path" value="/schools/districts/" />
                 <c:set var="heading" value="${state.longName} School Information by District" />
+                <c:set var="pageName" value="All Districts in State" />
             </c:when>
             <c:otherwise>
                 <c:set var="thing" value="schools" />
                 <c:set var="path" value="/schools/" />
                 <c:set var="heading" value="All schools in ${state.longName}" />
+                <c:set var="pageName" value="All Schools in State" />
             </c:otherwise>
         </c:choose>
     </head>
@@ -91,6 +95,7 @@
             ${links}
         </div>
     </div>
+    <mod:tracking pageType="search" pageName="${pageName}" hier1="Search,Browse"/>
     </body>
     </html>
 </jsp:root>

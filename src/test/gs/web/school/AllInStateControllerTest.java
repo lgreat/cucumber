@@ -65,17 +65,6 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
                 (State)mAndView.getModel().get(AllInStateController.MODEL_STATE));
     }
 
-    /*
-    public void testPagingLinks() throws Exception {
-        GsMockHttpServletRequest request = getRequest();
-        request.setMethod("GET");
-        request.setPathInfo("/California/CA");
-        ModelAndView mAndView = _controller.handleRequest(request, getResponse());
-        String links = (String)mAndView.getModel().get("pageLinks");
-        System.out.println ("links:\n" + links);
-    }
-    */
-
     public void testGetAlphaGroups() throws Exception {
         QueryParser parser = new QueryParser("text", new GSAnalyzer());
         parser.setDefaultOperator(QueryParser.Operator.AND);
@@ -125,17 +114,21 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
         assertEquals("All school districts in California, CA: Aa-Ar", title);
     }
 
-    public void testLoadModel() throws Exception {
-        Map model = new HashMap();
-        _controller.loadModel("school", model, State.AK, 1, 50);
+    public void testBuildModel() throws Exception {
+        _controller.SCHOOLS_PAGE_SIZE = 50;
+        Map model = _controller.buildModel("schools/Alaska/AK");
         List list = (List)model.get(AllInStateController.MODEL_LIST);
         assertEquals(50, list.size());
         String pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
-
-        model = new HashMap();
-        _controller.loadModel("city", model, State.AK, 1, 10);
+        assertTrue(pageLinks.contains("AU-AY"));
+        
+        _controller.CITIES_PAGE_SIZE = 10;
+        model = _controller.buildModel("schools/cities/Alaska/AK/5");
         list = (List)model.get(AllInStateController.MODEL_LIST);
+        assertEquals(10, list.size());
         pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
+        assertTrue(pageLinks.contains("<span class=\"pageLink\">CA-CH</span>"));
+
     }
 
     public void testGetStateFromPath() throws Exception {

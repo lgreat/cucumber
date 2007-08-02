@@ -23,7 +23,7 @@ import gs.data.search.GSAnalyzer;
 import gs.data.search.Indexer;
 
 /**
- * This controller build the model for the "all schools",
+ * This controller builds the model for the "all schools",
  * "all cities", and "all districts" pages.
  * 
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -53,17 +53,18 @@ public class AllInStateController extends AbstractController {
     public static final String CITIES_TYPE = "city";
     public static final String DISTRICTS_TYPE = "district";
 
-    /** Used to get Data */
+    /** Used to get data */
     private Searcher _searcher;
 
     /** The max number of items to display on a page */
-    private static int SCHOOLS_PAGE_SIZE = 400; //default
-    private static int CITIES_PAGE_SIZE = 700; //default
-    private static int DISTRICTS_PAGE_SIZE = 400; //default
+    protected int SCHOOLS_PAGE_SIZE = 400; //default
+    protected int CITIES_PAGE_SIZE = 700; //default
+    protected int DISTRICTS_PAGE_SIZE = 400; //default
     
     /** Lucene query parser */
     private QueryParser _queryParser;
 
+    
     public AllInStateController() {
         super();
         _queryParser = new QueryParser("text", new GSAnalyzer());
@@ -96,30 +97,14 @@ public class AllInStateController extends AbstractController {
      */
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-
         String path = request.getPathInfo();
         State state = getStateFromPath(path);
-        int page = getPageFromPath(path);
 
-        ModelAndView mAndV = new ModelAndView();
-
+        ModelAndView mAndV;
         if (StringUtils.isNotBlank(path) && state != null) {
-            mAndV.setViewName("school/allInState");
-            if (path.contains("/cities/")) {
-                mAndV.getModel().put(MODEL_TYPE, CITIES_TYPE);
-                loadModel(CITIES_TYPE, mAndV.getModel(),
-                        state, page, CITIES_PAGE_SIZE);
-            } else if (path.contains("/districts/")) {
-                mAndV.getModel().put(MODEL_TYPE, DISTRICTS_TYPE);
-                loadModel(DISTRICTS_TYPE, mAndV.getModel(),
-                        state, page, DISTRICTS_PAGE_SIZE);
-            } else {
-                mAndV.getModel().put(MODEL_TYPE, SCHOOLS_TYPE);
-                loadModel(SCHOOLS_TYPE, mAndV.getModel(),
-                        state, page, SCHOOLS_PAGE_SIZE);
-            }
+            mAndV = new ModelAndView("school/allInState", buildModel(path));
         } else {
-            mAndV.setViewName("status/error");
+            mAndV = new ModelAndView("status/error");
         }
         return mAndV;
     }
@@ -128,19 +113,36 @@ public class AllInStateController extends AbstractController {
     /**
      * This method collects all of the search results into alphabetized groups and
      * then loads the model according the the supplied parameters.
-     * @param type ("school"|"district"|"city")
-     * @param model a Map
-     * @param state a State object
-     * @param index the page index
-     * @param pageSize the max number of items to load in the model.
+     * @param path the url path info
      * @throws Exception - if something goes haywire.
+     * @return a Map populated with the model elements.
      */
-    protected void loadModel(String type, Map model, State state,
-                                          int index, int pageSize) throws Exception {
+    protected Map buildModel(String path) throws Exception {
 
+        Map model = new HashMap();
+
+        // Determine the page type from path.
+        String type = SCHOOLS_TYPE;
+        int pageSize = SCHOOLS_PAGE_SIZE;
+        if (path.contains("/cities/")) {
+            type = CITIES_TYPE;
+            pageSize = CITIES_PAGE_SIZE;
+        } else if (path.contains("/districts/")) {
+            type = DISTRICTS_TYPE;
+            pageSize = DISTRICTS_PAGE_SIZE;
+        }
+        model.put(MODEL_TYPE, type);
+
+        // We need to remember this value to build the page title. 
         int selectedSpanWidth = 1; //default
 
+        State state = getStateFromPath(path);
+        int page = getPageFromPath(path);
+
+        // Get *all* the results for a state
         Hits hits = getHits(type, state);
+
+        // Group these results by alpha order - a separate list for each letter.
         List<List> alphaGroups = getAlphaGroups(type, hits);
 
         StringBuffer linksBuffer = new StringBuffer();
@@ -150,7 +152,7 @@ public class AllInStateController extends AbstractController {
             if (alphaGroup.size() > pageSize) {
                 if (workingGroup.size() > 0) {
                     pageGroups.add(workingGroup);
-                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(workingGroup, 1)));
+                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(workingGroup, 1)));
                     workingGroup = new ArrayList();
                 }
                 int fullChunks = alphaGroup.size() / pageSize;
@@ -162,26 +164,26 @@ public class AllInStateController extends AbstractController {
                         subGroup.add(alphaGroup.get((j * pageSize) + jj));
                     }
                     pageGroups.add(subGroup);
-                    if (pageGroups.size() == index) {
+                    if (pageGroups.size() == page) {
                         selectedSpanWidth = 2;
                     }
-                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup, 2)));
+                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(subGroup, 2)));
                 }
                 subGroup = new ArrayList();
                 for (int k = alphaGroup.size() - remainder; k < alphaGroup.size(); k++) {
                     subGroup.add(alphaGroup.get(k));
                 }
                 pageGroups.add(subGroup);
-                if (pageGroups.size() == index) {
+                if (pageGroups.size() == page) {
                     selectedSpanWidth = 2;
                 }
-                linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(subGroup, 2)));
+                linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(subGroup, 2)));
             } else {
                 if ((alphaGroup.size() + workingGroup.size()) < pageSize) {
                     workingGroup.addAll(alphaGroup);
                 } else {
                     pageGroups.add(workingGroup);
-                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(workingGroup, 1)));
+                    linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(workingGroup, 1)));
                     workingGroup = alphaGroup;
                 }
             }
@@ -189,18 +191,20 @@ public class AllInStateController extends AbstractController {
 
         if (workingGroup.size() > 0) {
             pageGroups.add(workingGroup);
-            linksBuffer.append(buildPageLink(type, state, pageGroups.size(), index, getSpan(workingGroup,1)));
+            linksBuffer.append(buildPageLink(type, state, pageGroups.size(), page, getSpan(workingGroup,1)));
         }
 
         model.put(MODEL_LINKS, linksBuffer.toString());
 
-        if (index > 0 && index <= pageGroups.size()) {
-            List list = pageGroups.get(index-1);
+        if (page > 0 && page <= pageGroups.size()) {
+            List list = pageGroups.get(page-1);
             model.put(MODEL_LIST, list);
             String span = getSpan(list, selectedSpanWidth);
             model.put(MODEL_TITLE, buildTitle(type, state, span));
-        }
+        } 
         model.put(MODEL_STATE, state);
+
+        return model;
     }
 
 
