@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.82 2007/08/02 23:50:58 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.83 2007/08/02 23:52:27 chriskimm Exp $
  */
 
 package gs.web.util;

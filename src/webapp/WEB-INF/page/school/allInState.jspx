@@ -38,6 +38,20 @@
                 <c:set var="pageName" value="All Schools in State" />
             </c:otherwise>
         </c:choose>
+        <script type="text/javascript">
+            var stateMap = {"AK":"Alaska","AL":"Alabama","AR":"Arkansas","AZ":"Arizona",
+                "CA":"California","CO":"Colorado","CT":"Connecticut","DC":"Washington_DC",
+                "DE":"Delaware","FL":"Florida","GA":"Georgia","HI":"Hawaii","IA":"Iowa",
+                "ID":"Idaho","IL":"Illinois","IN":"Indiana","KS":"Kansas","KY":"Kentucky",
+                "LA":"Louisiana","MA":"Massachusetts","MD":"Maryland","ME":"Maine","MI":"Michigan",
+                "MN":"Minnesota","MO":"Missouri","MS":"Mississippi","MT":"Montana",
+                "NC":"North_Carolina","ND":"North_Dakota","NE":"Nebraska","NH":"New_Hampshire",
+                "NJ":"New_Jersey","NM":"New_Mexico","NV":"Nevada","NY":"New_York",
+                "OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania",
+                "RI":"Rhode_Island","SC":"South_Carolina","SD":"South_Dakota",
+                "TN":"Tennessee","TX":"Texas","UT":"Utah","VA":"Virginia","VT":"Vermont",
+                "WA":"Washington","WI":"Wisconsin","WV":"West_Virginia","WY":"Wyoming"};
+        </script>
     </head>
     <body>
     <div id="outer">
@@ -54,7 +68,7 @@
                 Show me ${thing} in a different state:
                 <gsweb:stateSelector useNoState="false"
                                      noStateLabel="--"
-                                     onChange="document.location='${path}' + this.options[this.selectedIndex].value"
+                                     onChange="document.location='${path}'+ stateMap[this.options[this.selectedIndex].value] + '/' + this.options[this.selectedIndex].value"
                                      usingLongNames="false"
                                      styleId="changeStateSelector"
                                      state="${state}" styleClass="stateSelect"/>
