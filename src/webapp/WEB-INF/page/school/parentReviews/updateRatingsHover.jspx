@@ -69,7 +69,7 @@
                 <td><gsml:starRating id="safetyAsString" additionalClass="med-star"/></td>
             </tr>
         </table>
-        <link:parentReviewsLearnMore target="_blank">Learn more about these categories &gt;</link:parentReviewsLearnMore>
+            <link:parentRatingsExplained target="_blank">Learn more about these categories &gt;</link:parentRatingsExplained>
 
             <div id="subButtons">
                 <gsml:url var="thankYouPage" value="/school/thankYouHover.page?id=${school.id}&amp;state=${stateAbbrev}"/>
