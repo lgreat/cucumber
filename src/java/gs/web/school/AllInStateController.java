@@ -251,7 +251,7 @@ public class AllInStateController extends AbstractController {
                     }
                     currentLetter = name.trim().toLowerCase().charAt(0);
                 }
-                if (name.matches("^\\p{Alpha}.*")) {
+                if (name.matches("^\\p{Alnum}.*")) {
                     Map fields = new HashMap();
                     fields.put("name", name);
                     fields.put("id", hits.doc(i).get(Indexer.ID));
