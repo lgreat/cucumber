@@ -107,125 +107,23 @@ public class AllInStateController extends AbstractController {
             mAndV.setViewName("school/allInState");
             if (path.contains("/cities/")) {
                 mAndV.getModel().put(MODEL_TYPE, CITIES_TYPE);
-                buildPageLinksAndModel(CITIES_TYPE, mAndV.getModel(),
-                        state, page,CITIES_PAGE_SIZE);
+                loadModel(CITIES_TYPE, mAndV.getModel(),
+                        state, page, CITIES_PAGE_SIZE);
             } else if (path.contains("/districts/")) {
                 mAndV.getModel().put(MODEL_TYPE, DISTRICTS_TYPE);
-                buildPageLinksAndModel(DISTRICTS_TYPE, mAndV.getModel(),
+                loadModel(DISTRICTS_TYPE, mAndV.getModel(),
                         state, page, DISTRICTS_PAGE_SIZE);
             } else {
                 mAndV.getModel().put(MODEL_TYPE, SCHOOLS_TYPE);
-                buildPageLinksAndModel(SCHOOLS_TYPE, mAndV.getModel(),
+                loadModel(SCHOOLS_TYPE, mAndV.getModel(),
                         state, page, SCHOOLS_PAGE_SIZE);
             }
         } else {
             mAndV.setViewName("status/error");
         }
-
         return mAndV;
     }
 
-    /**
-     * Parses  a path string and tries to extract a state from the path.
-     * Returns null if a state cannot be determined from the path.
-     * @param path a url path String
-     * @return a <code>State</code> object or null
-     */
-    protected State getStateFromPath(String path) {
-        State state = null;
-        if (StringUtils.isNotBlank(path)) {
-            String[] elements = path.trim().split("/");
-            for (String element : elements) {
-                if (element.matches("[A-Z][A-Z]")) {
-                    StateManager sm = new StateManager();
-                    state = sm.getState(element);
-                    break;
-                }
-            }
-        }
-        return state;
-    }
-
-    /**
-     * Parses a path and returns a page index based on the last path component which
-     * should be an integer index.  The last path component is the value after the last
-     * "/" charater. This method always returns a positive int - if a
-     * valid index cannot be determined from the path, then 1 is returned.
-     *
-     * @param path a String
-     * @return an int > 0
-     */
-    protected int getPageFromPath(String path) {
-        int page = 1;
-        if (StringUtils.isNotBlank(path)) {
-            String[] elements = path.trim().split("/");
-            String last = elements[elements.length-1];
-            try {
-                page = Integer.parseInt(last);
-            } catch (NumberFormatException nfe) {
-                // ignore
-            }
-        }
-        return page > 0 ? page : 1;
-    }
-
-    /**
-     * Helper method that builds the markup for a single page link.
-     * @param type - (school|city|district)
-     * @param state - a State
-     * @param index - The index of *this* link
-     * @param selectedIndex - the index of the currently selected page
-     * @param span - the Text that is wrapped by this link
-     * @return a String
-     */
-    protected String buildPageLink(String type, State state, int index,
-                               int selectedIndex, String span) {
-
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("<span class=\"pageLink\">");
-        if (index != selectedIndex) {
-            buffer.append("<a href=\"/schools/");
-            if (CITIES_TYPE.equals(type)) {
-                buffer.append("cities/");
-            } else if (DISTRICTS_TYPE.equals(type)) {
-                buffer.append("districts/");                
-            }
-            buffer.append(state.getLongName());
-            buffer.append("/");
-            buffer.append(state.getAbbreviation());
-            if (index > 1) {
-                buffer.append("/");
-                buffer.append(index);
-            }
-            buffer.append("\">");
-        }
-        buffer.append(span);
-        if (index != selectedIndex) {
-            buffer.append("</a>");
-        }
-        buffer.append("</span>\n");
-        return buffer.toString();
-    }
-
-    protected String getSpan(List list, int width) {
-        StringBuffer buffer = new StringBuffer();
-        if (list != null && list.size() > 0) {
-            String first = ((String)((Map)list.get(0)).get("name")).trim();
-            String last = ((String)((Map)list.get(list.size()-1)).get("name")).trim();
-            if (first.length() < width || last.length() < width) {
-                width = 1;
-            }
-
-            String start = first.substring(0, width).toLowerCase();
-            String end = last.substring(0, width).toLowerCase();
-            buffer.append(start);
-            if (!start.equals(end)) {
-                buffer.append("-");
-                buffer.append(end);
-            }
-        }
-        return buffer.toString().toUpperCase();
-    }
 
     /**
      * This method collects all of the search results into alphabetized groups and
@@ -237,7 +135,7 @@ public class AllInStateController extends AbstractController {
      * @param pageSize the max number of items to load in the model.
      * @throws Exception - if something goes haywire.
      */
-    protected void buildPageLinksAndModel(String type, Map model, State state,
+    protected void loadModel(String type, Map model, State state,
                                           int index, int pageSize) throws Exception {
 
         int selectedSpanWidth = 1; //default
@@ -302,31 +200,26 @@ public class AllInStateController extends AbstractController {
             String span = getSpan(list, selectedSpanWidth);
             model.put(MODEL_TITLE, buildTitle(type, state, span));
         }
-
         model.put(MODEL_STATE, state);
     }
 
-    protected String buildTitle(String type, State state, String span) {
-        StringBuffer buffer = new StringBuffer();
-        if (DISTRICTS_TYPE.equals(type)) {
-            buffer.append ("All school districts in ");
-            buffer.append(state.getLongName());
-            buffer.append(", ");
-            buffer.append(state.getAbbreviation());
-            buffer.append(": ");
-        } else if (CITIES_TYPE.equals(type)) {
-            buffer.append(state.getLongName());
-            buffer.append(" School information by City: ");
-        } else {
-            buffer.append ("All schools in ");
-            buffer.append(state.getLongName());
-            buffer.append(", ");
-            buffer.append(state.getAbbreviation());
-            buffer.append(": ");
-        }
-        buffer.append(span);
-        return buffer.toString();
+
+    /**
+     * Returns a Hits object containing all of the matches for a particular type -
+     * school, city, or district - within a state.
+     * @param type ("school" | "city" | "district")
+     * @param state - a <code>State</code>
+     * @return a Hits containing matches or null if no matches could be found.
+     * @throws Exception if there is a parsing or searching error.
+     */
+    protected Hits getHits(String type, State state) throws Exception {
+        Hits hits = null;
+        Query query = _queryParser.parse("type:" + type + " AND state:" + state.getAbbreviationLowerCase());
+        hits = _searcher.search(query,
+                new Sort(Indexer.SORTABLE_NAME), null, null);
+        return hits;
     }
+
 
     /**
      * Builds a List of Lists grouped by alpha order.  Each list should contain only
@@ -367,24 +260,144 @@ public class AllInStateController extends AbstractController {
         return alphaGroups;
     }
 
+
     /**
-     * Returns a Hits object containing all of the matches for a particular type -
-     * school, city, or district - within a state.
-     * @param type ("school" | "city" | "district")
-     * @param state - a <code>State</code>
-     * @return a Hits containing matches or null if no matches could be found.
+     * Parses  a path string and tries to extract a state from the path.
+     * Returns null if a state cannot be determined from the path.
+     * @param path a url path String
+     * @return a <code>State</code> object or null
      */
-    protected Hits getHits(String type, State state) {
-        Hits hits = null;
-        try {
-            Query query = _queryParser.parse("type:" + type + " AND state:" + state.getAbbreviationLowerCase());
-            hits = _searcher.search(query,
-                    new Sort(Indexer.SORTABLE_NAME), null, null);
-        } catch (Exception ioe) {
-            ioe.printStackTrace();
+    protected State getStateFromPath(String path) {
+        State state = null;
+        if (StringUtils.isNotBlank(path)) {
+            String[] elements = path.trim().split("/");
+            for (String element : elements) {
+                if (element.matches("[A-Z][A-Z]")) {
+                    StateManager sm = new StateManager();
+                    state = sm.getState(element);
+                    break;
+                }
+            }
         }
-        return hits;
+        return state;
     }
+
+
+    /**
+     * Parses a path and returns a page index based on the last path component which
+     * should be an integer index.  The last path component is the value after the last
+     * "/" charater. This method always returns a positive int - if a
+     * valid index cannot be determined from the path, then 1 is returned.
+     *
+     * @param path a String
+     * @return an int > 0
+     */
+    protected int getPageFromPath(String path) {
+        int page = 1;
+        if (StringUtils.isNotBlank(path)) {
+            String[] elements = path.trim().split("/");
+            String last = elements[elements.length-1];
+            try {
+                page = Integer.parseInt(last);
+            } catch (NumberFormatException nfe) {
+                // ignore
+            }
+        }
+        return page > 0 ? page : 1;
+    }
+
+
+    /**
+     * Helper method that builds the markup for a single page link.
+     * @param type - (school|city|district)
+     * @param state - a State
+     * @param index - The index of *this* link
+     * @param selectedIndex - the index of the currently selected page
+     * @param span - the Text that is wrapped by this link
+     * @return a String
+     */
+    protected String buildPageLink(String type, State state, int index,
+                               int selectedIndex, String span) {
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<span class=\"pageLink\">");
+        if (index != selectedIndex) {
+            buffer.append("<a href=\"/schools/");
+            if (CITIES_TYPE.equals(type)) {
+                buffer.append("cities/");
+            } else if (DISTRICTS_TYPE.equals(type)) {
+                buffer.append("districts/");                
+            }
+            buffer.append(state.getLongName());
+            buffer.append("/");
+            buffer.append(state.getAbbreviation());
+            if (index > 1) {
+                buffer.append("/");
+                buffer.append(index);
+            }
+            buffer.append("\">");
+        }
+        buffer.append(span);
+        if (index != selectedIndex) {
+            buffer.append("</a>");
+        }
+        buffer.append("</span>\n");
+        return buffer.toString();
+    }
+
+
+    /**
+     * Given a list of <code>Map</code>s, this method will construct a string using the
+     * name of the first and last element in the list.  The returned span string is
+     * based on the first (width) characters of the "name" value of the map elements.
+     *
+     * @param list A List of Maps
+     * @param width The number of characters in each name used  build the span.
+     * @return a String.
+     */
+    protected String getSpan(List list, int width) {
+        StringBuffer buffer = new StringBuffer();
+        if (list != null && list.size() > 0) {
+            String first = ((String)((Map)list.get(0)).get("name")).trim();
+            String last = ((String)((Map)list.get(list.size()-1)).get("name")).trim();
+            if (first.length() < width || last.length() < width) {
+                width = 1;
+            }
+
+            String start = first.substring(0, width).toLowerCase();
+            String end = last.substring(0, width).toLowerCase();
+            buffer.append(start);
+            if (!start.equals(end)) {
+                buffer.append("-");
+                buffer.append(end);
+            }
+        }
+        return buffer.toString().toUpperCase();
+    }
+
+
+    protected String buildTitle(String type, State state, String span) {
+        StringBuffer buffer = new StringBuffer();
+        if (DISTRICTS_TYPE.equals(type)) {
+            buffer.append ("All school districts in ");
+            buffer.append(state.getLongName());
+            buffer.append(", ");
+            buffer.append(state.getAbbreviation());
+            buffer.append(": ");
+        } else if (CITIES_TYPE.equals(type)) {
+            buffer.append(state.getLongName());
+            buffer.append(" School information by City: ");
+        } else {
+            buffer.append ("All schools in ");
+            buffer.append(state.getLongName());
+            buffer.append(", ");
+            buffer.append(state.getAbbreviation());
+            buffer.append(": ");
+        }
+        buffer.append(span);
+        return buffer.toString();
+    }
+
 
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;

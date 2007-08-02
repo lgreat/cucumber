@@ -15,6 +15,7 @@ import org.apache.lucene.search.Hits;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -64,13 +65,16 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
                 (State)mAndView.getModel().get(AllInStateController.MODEL_STATE));
     }
 
+    /*
     public void testPagingLinks() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setMethod("GET");
         request.setPathInfo("/California/CA");
         ModelAndView mAndView = _controller.handleRequest(request, getResponse());
         String links = (String)mAndView.getModel().get("pageLinks");
+        System.out.println ("links:\n" + links);
     }
+    */
 
     public void testGetAlphaGroups() throws Exception {
         QueryParser parser = new QueryParser("text", new GSAnalyzer());
@@ -80,20 +84,56 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
         Searcher _searcher = (Searcher)getApplicationContext().getBean(Searcher.BEAN_ID);
         Hits hits = _searcher.search(query,
                 new Sort(Indexer.SORTABLE_NAME), null, null);
-        List alphaGroups = _controller.getAlphaGroups("school", hits);
-
+        List<List> alphaGroups = _controller.getAlphaGroups("school", hits);
+        assertEquals("There should be 25 alpha groups in AK", 25, alphaGroups.size());
     }
-    public void testBuildPageLinksAndModel() throws Exception {
+
+    public void testBuildPageLink() throws Exception {
+        String link = _controller.buildPageLink(AllInStateController.DISTRICTS_TYPE,
+                State.CA, 1, 1, "A-B");
+        assertEquals("<span class=\"pageLink\">A-B</span>\n", link);
+
+        link = _controller.buildPageLink(AllInStateController.DISTRICTS_TYPE,
+                State.CA, 1, 2, "A-B");
+        assertEquals("<span class=\"pageLink\"><a href=\"/schools/districts/California/CA\">A-B</a></span>\n", link);
+
+        link = _controller.buildPageLink(AllInStateController.SCHOOLS_TYPE,
+                State.AK, 3, 7, "Fr-Fz");
+        assertEquals("<span class=\"pageLink\"><a href=\"/schools/Alaska/AK/3\">Fr-Fz</a></span>\n", link);
+    }
+
+    public void testGetSpan() throws Exception {
+        assertEquals("A null list should make a blank span", "", _controller.getSpan(null, 0));
+
+        List<Map> list = new ArrayList<Map>();
+        assertEquals("An empty list should make a blank span", "", _controller.getSpan(list, 0));
+
+        list.add(new HashMap() {{ put("name", "albert"); }});
+        list.add(new HashMap() {{ put("name", "Anderson"); }});
+        assertEquals("A", _controller.getSpan(list, 1));
+
+        list.add(new HashMap() {{ put("name", "Belle"); }});
+        assertEquals("A-B", _controller.getSpan(list, 1));
+
+        assertEquals("A-B", _controller.getSpan(list, 7));
+        assertEquals("AL-BE", _controller.getSpan(list, 2));
+    }
+
+    public void testBuildTitle() throws Exception {
+        String title = _controller.buildTitle(AllInStateController.DISTRICTS_TYPE,
+                State.CA, "Aa-Ar");
+        assertEquals("All school districts in California, CA: Aa-Ar", title);
+    }
+
+    public void testLoadModel() throws Exception {
         Map model = new HashMap();
-        _controller.buildPageLinksAndModel("school", model, State.AK, 1, 100);
+        _controller.loadModel("school", model, State.AK, 1, 50);
         List list = (List)model.get(AllInStateController.MODEL_LIST);
+        assertEquals(50, list.size());
         String pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
 
-//        System.out.println ("links:\n" + pageLinks);
-//        System.out.println ("list:\n" + list);
-        
         model = new HashMap();
-        _controller.buildPageLinksAndModel("city", model, State.AK, 1, 100);
+        _controller.loadModel("city", model, State.AK, 1, 10);
         list = (List)model.get(AllInStateController.MODEL_LIST);
         pageLinks = (String)model.get(AllInStateController.MODEL_LINKS);
     }
