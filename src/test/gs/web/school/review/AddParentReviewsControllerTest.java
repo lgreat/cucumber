@@ -15,6 +15,7 @@ import org.springframework.validation.BindException;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Arrays;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
@@ -75,7 +76,8 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
-        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.setSubscriptionDao(_subscriptionDao);       
+        
         _controller.onSubmit(_request, _response, _command, _errors);
         verify(_userDao);
         verify(_reviewDao);
@@ -100,7 +102,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         verify(_subscriptionDao);
     }
 
-    public void emailSentForShortReview() throws Exception {
+    public void testEmailSentForShortReview() throws Exception {
         _command.setComments("this is a short comment.");
 
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
@@ -258,5 +260,34 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         _controller.getEmailHelperFactory().setMailSender((JavaMailSender)getApplicationContext().getBean("mailSender"));
         _controller.sendMessage(_user, comments, State.CA);
+    }
+
+    public void testMssSignUp() throws Exception {
+        _command.setWantMssNL(true);
+
+        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.net")).andReturn(_user);
+
+        Subscription sub = new Subscription(_user, SubscriptionProduct.MYSTAT, _school.getDatabaseState());
+        sub.setSchoolId(_school.getId());
+        _subscriptionDao.addNewsletterSubscriptions(_user, Arrays.asList(sub));
+
+        replay(_userDao);
+        replay(_subscriptionDao);
+
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.onSubmit(_request, _response, _command, _errors);
+
+        verify(_userDao);
+        verify(_subscriptionDao);
+    }
+
+    public void testErrorOnJsonPageShortCircuits() throws Exception {
+        _errors.reject("some error");
+        _controller.setAjaxPage(true);
+
+        assertNull(_controller.processFormSubmission(_request, _response, _command, _errors));
+        assertEquals("text/x-json", _response.getContentType());
     }
 }

@@ -48,17 +48,6 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
     private static Pattern BAD_WORDS = Pattern.compile(".*(fuck|poop[\\s\\.,]|poopie|[\\s\\.,]ass[\\s\\.,]|faggot|[\\s\\.,]gay[\\s\\.,]|nigger|shit|prick[\\s\\.,]|ass-kicker|suck|asshole|dick[\\s\\.,]|Satan|dickhead|piss[\\s\\.,]).*");
 
-    protected void onBindOnNewForm(HttpServletRequest request,
-                                   Object command,
-                                   BindException errors) {
-        ReviewCommand rc = (ReviewCommand) command;
-        School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
-
-        if (school != null) {
-            //fatal error - exit immediately
-        }
-    }
-
     protected ModelAndView processFormSubmission(HttpServletRequest request,
                                                  HttpServletResponse response,
                                                  Object command,
