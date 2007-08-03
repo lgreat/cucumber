@@ -95,6 +95,11 @@
                         <li><spring:message arguments="${error.arguments}" code="${error.code}"/></li>
                     </c:forEach>
                 </div>
+                <style>
+                    #quote {
+                        display:none;
+                    }
+                </style>
             </spring:hasBindErrors>
 
             <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
@@ -141,7 +146,7 @@
 
 <div class="grayTop">
     <div class="pLR">
-        <div class="quote">
+        <div id="quote" class="quote">
             <q>Thanks for explaining the test scores at my son's school.<br/>
                 Please continue the super job of keeping us parents updated!</q>
 
