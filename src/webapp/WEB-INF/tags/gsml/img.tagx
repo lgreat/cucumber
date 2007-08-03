@@ -13,6 +13,8 @@
     <jsp:directive.attribute name="id" required="false" description="CSS id"/>
     <jsp:directive.attribute name="usemap" required="false" description="Id of image map to use"/>
     <jsp:directive.attribute name="rollover" required="false" description="rollover image context-relative URL"/>
+    <jsp:directive.attribute name="onmouseover" required="false" description="onmouseover javascript"/>
+    <jsp:directive.attribute name="onmouseout" required="false" description="onmouseout javascript"/>
     <jsp:scriptlet><![CDATA[
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         src = urlUtil.buildUrl(src, request);
@@ -49,6 +51,13 @@
             rollover = urlUtil.buildUrl(rollover, request);
             buffer.append(" onmouseover=\"this.src='").append(rollover).append("'\"");
             buffer.append(" onmouseout=\"this.src='").append(src).append("'\"");
+        } else {
+            if (StringUtils.isNotBlank(onmouseover)) {
+                buffer.append(" onmouseover=\"").append(onmouseover).append('"');
+            }
+            if (StringUtils.isNotBlank(onmouseout)) {
+                buffer.append(" onmouseout=\"").append(onmouseout).append('"');
+            }
         }
 
         buffer.append("/>");

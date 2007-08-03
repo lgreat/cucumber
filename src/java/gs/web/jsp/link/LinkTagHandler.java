@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.10 2007/01/02 20:09:16 cpickslay Exp $
+ * $Id: LinkTagHandler.java,v 1.11 2007/08/03 21:21:46 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -38,6 +38,7 @@ public abstract class LinkTagHandler extends TagSupport {
     private String _target;
     private String _anchor;
     private String _title;
+    private String _styleId;
 
     /**
      * Create a UrlBuilder object pointing to the correct page.
@@ -112,6 +113,12 @@ public abstract class LinkTagHandler extends TagSupport {
 
     protected void printATagStart(UrlBuilder builder) throws IOException {
         pageContext.getOut().print("<a");
+
+        if (StringUtils.isNotEmpty(_styleId)) {
+            pageContext.getOut().print(" id=\"");
+            pageContext.getOut().print(_styleId);
+            pageContext.getOut().print("\"");
+        }
 
         if (StringUtils.isNotEmpty(_styleClass)) {
             pageContext.getOut().print(" class=\"");
@@ -200,5 +207,13 @@ public abstract class LinkTagHandler extends TagSupport {
 
     public void setTitle(String title) {
         _title = title;
+    }
+
+    public String getStyleId() {
+        return _styleId;
+    }
+
+    public void setStyleId(String styleId) {
+        _styleId = styleId;
     }
 }
