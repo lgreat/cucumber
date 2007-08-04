@@ -148,6 +148,9 @@ public class UtilTest extends TestCase {
         return Util.periodBetweenDates(df.parse(start), df.parse(end));
     }
 
-    
+    public void testEscapeHtml() {
+        assertEquals("hi", Util.escapeHtml("hi"));
+        assertEquals("&lt;/body>", Util.escapeHtml("</body>"));
+    }
 
 }

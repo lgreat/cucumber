@@ -253,4 +253,11 @@ public class Util {
 
         return buffer.toString();
     }
+
+    public static String escapeHtml(String input) {
+        if (input != null) {
+            return input.replace("<", "&lt;");
+        }
+        return null;
+    }
 }

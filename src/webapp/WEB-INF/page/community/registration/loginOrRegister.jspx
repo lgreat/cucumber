@@ -52,7 +52,7 @@
         <div id="newuser">
             <h2>New User?</h2>
             <h3><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">Join our community!</link:registration></h3>
-            
+
             <link:registration styleId="joinText" email="${loginCmd.email}" redirect="${loginCmd.redirect}">
                 Join the GreatSchools community and connect with<br/>
                 parents who are passionate about education! <strong>It's free!</strong>
@@ -71,6 +71,13 @@
         <!-- end: newuser -->
         <div id="returninguser">
             <h2>Returning User?</h2>
+
+            <c:set var="messageClass" value=""/>
+            <c:if test="${param.message ne null and param.message gt ''}">
+                <c:set var="messageClass" value="hasMessage"/>
+                <p id="infoMessage">${gsweb:escapeHtml(param.message)}</p>
+            </c:if>
+
             <h3>Yes! I'm already a member</h3>
 
             <gsweb:form action="/community/loginOrRegister.page" method="post">
@@ -80,7 +87,7 @@
 
                 <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
 
-                <ul id="returninguserForm">
+                <ul id="returninguserForm" class="${messageClass}">
                     <li id="emailAddress">
                         <label>Email address</label>
                         <spring:bind path="loginCmd.email">

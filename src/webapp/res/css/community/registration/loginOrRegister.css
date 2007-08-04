@@ -91,6 +91,10 @@
     width: 386px;
 }
 
+#returninguserForm.hasMessage {
+    top: 142px;
+}
+
 #returninguserForm input, #returninguser label {
     position: absolute;
     color: #666666;
@@ -171,10 +175,13 @@
     font-style: italic;
     text-decoration: none;
     font-size: 11px;
+    width: 90px;
 }
 
-#forgotPassword a:hover {
-    text-decoration: none;
+#infoMessage {
+    color: #cc5566;
+    padding: 10px 0 0 45px;
+    font-size: 12px;
 }
 
 ul.warning {
