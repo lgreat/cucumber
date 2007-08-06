@@ -9,51 +9,68 @@
     <jsp:directive.page contentType="text/html"/><html>
   <pageHelper:setPathway pathway="99"/>
   <head>
-      <pageHelper:externalCss file="/res/css/community/registration/myaccount.css"/>
+      <pageHelper:externalCss file="/res/css/community/registration/changeEmail.css"/>
       <title>Change Email - GreatSchools</title>
   </head>
   <gsml:body adPageName="changeEmail">
-      <div id="myaccount_resetemail">
-          <h1><span>My Account</span></h1>
-          <div id="outline"><!-- creates darker blue outer outline -->
-              <div id="content">
-                  <h2><span>Change Your Email Address</span></h2>
 
-                  <gsweb:form action="/community/changeEmail.page" method="post">
+      <div id="outline"><!-- creates darker blue outer outline -->
+          <h2>Update My Email Address</h2>
 
-                      <p class="field">
-                          <label for="newEmail">New email address</label>
-                          <spring:bind path="emailCmd.newEmail">
-                              <input id="newEmail" type="text" name="${status.expression}"
-                                     value="${status.value}" tabindex="1"/>
-                          </spring:bind>
-                      </p>
+          <a href="http://community.staging.greatschools.net/dashboard"
+             id="dashboardLink" tabindex="1">Return to my dashboard &gt;</a>
+
+          <gsweb:form action="/community/changeEmail.page" method="post">
+              <ul>
+                  <li>
+                      <label>Current email address:</label>
+                      <address>${requestScope.context.email}</address>
+                  </li>
+                  <li>
+                      <label for="newEmailField">New email address</label>
+                      <spring:bind path="emailCmd.newEmail">
+                          <input id="newEmailField" type="text" name="${status.expression}"
+                                 value="${status.value}" tabindex="2"/>
+                      </spring:bind>
                       <!-- hack because the built in email validator rejects the field named "email" -->
-                      <gsml:errorMessage command="emailCmd" field="email" useImage="true" styleClass="warning"/>
-                      <gsml:errorMessage command="emailCmd" field="newEmail" useImage="true" styleClass="warning"/>
-                      <br style="clear: left;"/>
-
-                      <label for="confirmNewEmail">Re-type email address</label>
+                      <spring:hasBindErrors name="emailCmd">
+                          <spring:bind path="emailCmd.email">
+                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                  <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif"
+                                            alt="Error" styleClass="errorImage"/>
+                                  <p class="errorText"><spring:message code="${status.errorCode}" text="${status.errorMessage}"/></p>
+                              </c:if>
+                          </spring:bind>
+                          <spring:bind path="emailCmd.newEmail">
+                              <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                  <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif"
+                                            alt="Error" styleClass="errorImage"/>
+                                  <p class="errorText"><spring:message code="${status.errorCode}" text="${status.errorMessage}"/></p>
+                              </c:if>
+                          </spring:bind>
+                      </spring:hasBindErrors>
+                  </li>
+                  <li>
+                      <label for="confirmNewEmailField">Re-type email address</label>
                       <spring:bind path="emailCmd.confirmNewEmail">
                           <!-- disable browser auto-complete for this field -->
-                          <input id="confirmNewEmail" type="text" name="${status.expression}"
-                                 value="${status.value}" tabindex="2" autocomplete="off"/>
+                          <input id="confirmNewEmailField" type="text" name="${status.expression}"
+                                 value="${status.value}" tabindex="3" autocomplete="off"/>
                       </spring:bind>
+                  </li>
+                  <li>
+                      <gsml:inputImage src="/res/img/community/registration/updateemail.gif"
+                                       alt="Change email address" name="submit" tabIndex="5"
+                                       id="submitButton"/>
 
-                      <gsml:inputImage src="/res/img/community/registration/submit_resetemail.gif"
-                                       alt="Change email address" styleClass="resetemail" name="submit"
-                                       tabIndex="3"/>
-
-                      <gsml:inputImage src="/res/img/community/registration/submit_cancel.gif"
-                                       alt="Cancel" styleClass="cancel" name="cancel"
-                                       tabIndex="4"/>
-                  </gsweb:form>
-              </div>
-              <!-- end: content -->
-          </div>
-          <!-- end: outline -->
+                      <gsml:inputImage src="/res/img/community/registration/cancel.gif"
+                                       alt="Cancel" name="cancel" tabIndex="4"
+                                       id="cancelButton"/>
+                  </li>
+              </ul>
+          </gsweb:form>
       </div>
-      <!-- end: main -->
+      <!-- end: outline -->
       <mod:tracking pageName="Change Email"
                     pageType="account"
                     hier1="Account,Change Email"/>

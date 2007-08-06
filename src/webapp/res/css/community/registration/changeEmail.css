@@ -1,0 +1,31 @@
+@import "accountCommon.css";
+
+#outline address {
+    display: inline;
+    position: absolute;
+    left: 140px;
+    color: #3399AA;
+    padding: 0;
+    margin: 0;
+    height: 18px;
+}
+
+#outline ul li input {
+    left: 140px;
+}
+
+#newEmailField, #confirmNewEmailField {
+    width: 300px;
+}
+
+#outline input#submitButton {
+    left: 240px;
+}
+
+#outline ul li .errorImage {
+    left: 452px;
+}
+
+#outline ul li .errorText {
+    left: 467px;
+}
