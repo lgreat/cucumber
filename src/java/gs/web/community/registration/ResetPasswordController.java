@@ -43,7 +43,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                 "sent to you. To request a new email, please " + href + ".");
     }
 
-    protected boolean suppressValidation(HttpServletRequest request) {
+    protected boolean suppressValidation(HttpServletRequest request, Object objCommand) {
         // don't do validation on a cancel
         return request.getParameter("cancel.x") != null;
     }
@@ -131,7 +131,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object objCommand,
                                      BindException errors) throws NoSuchAlgorithmException {
-        if (suppressValidation(request)) {
+        if (suppressValidation(request, objCommand)) {
             return;
         }
         ResetPasswordCommand command = (ResetPasswordCommand) objCommand;
@@ -169,7 +169,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                                  Object objCommand,
                                  BindException errors) throws NoSuchAlgorithmException {
         ModelAndView mAndV = new ModelAndView();
-        if (!suppressValidation(request)) {
+        if (!suppressValidation(request, objCommand)) {
             // at this point everything has been validated. Proceed with the password change request
             ResetPasswordCommand command = (ResetPasswordCommand) objCommand;
             User user = command.getUser();
@@ -181,7 +181,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             PageHelper.setMemberAuthorized(request, response, user);            
             //mAndV.getModel().put("message", "Your password has been changed");
 
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
             builder.addParameter("message", "Your password has been changed");
             mAndV.setViewName("redirect:" + builder.asFullUrl(request));
         } else {
