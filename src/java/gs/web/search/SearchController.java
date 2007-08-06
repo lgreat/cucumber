@@ -81,6 +81,7 @@ public class SearchController extends AbstractFormController {
     public static final String MODEL_CITIES = "cities";
     public static final String MODEL_DISTRICTS = "districts";
     public static final String MODEL_FILTERED_CITIES = "filteredCities"; // AnchorListModel
+    public static final String MODEL_SHOW_SUGGESTIONS = "showSuggestions"; // Boolean
     public static final String MODEL_SHOW_QUERY_AGAIN = "showQueryAgain"; // Boolean
     private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser"; // Boolean
     private static final String MODEL_NO_RESULTS_EXPLAINED = "noResultsExplanation";
@@ -318,6 +319,7 @@ public class SearchController extends AbstractFormController {
 
 
         model.put(MODEL_SHOW_QUERY_AGAIN, Boolean.TRUE);
+        model.put(MODEL_SHOW_SUGGESTIONS, Boolean.valueOf(!resultsToShow));
         model.put(MODEL_SHOW_STATE_CHOOSER, Boolean.valueOf(!resultsToShow));
         return model;
     }
