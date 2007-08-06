@@ -244,7 +244,8 @@ public class AllInStateController extends AbstractController {
                 if (CITIES_TYPE.equals(type)) {
                     name = city;
                 }
-                if ((currentLetter != name.trim().toLowerCase().charAt(0)) || i == hits.length()-1) {
+                // Add the current working list to the alphaGroups on each letter change.
+                if ((currentLetter != name.trim().toLowerCase().charAt(0))) {
                     if (workingList.size() > 0) {
                         alphaGroups.add(workingList);
                         workingList = new ArrayList();
@@ -259,6 +260,10 @@ public class AllInStateController extends AbstractController {
                     fields.put("county", hits.doc(i).get(Indexer.COUNTY));
                     workingList.add(fields);
                 }
+            }
+            // Add the last working list.
+            if (workingList.size() > 0) {
+                alphaGroups.add(workingList);
             }
         }
         return alphaGroups;
