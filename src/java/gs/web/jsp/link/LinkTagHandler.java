@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.11 2007/08/03 21:21:46 aroy Exp $
+ * $Id: LinkTagHandler.java,v 1.12 2007/08/06 19:12:59 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -39,6 +39,8 @@ public abstract class LinkTagHandler extends TagSupport {
     private String _anchor;
     private String _title;
     private String _styleId;
+    private String _onMouseOver;
+    private String _onMouseOut;
 
     /**
      * Create a UrlBuilder object pointing to the correct page.
@@ -138,6 +140,18 @@ public abstract class LinkTagHandler extends TagSupport {
             pageContext.getOut().print("\"");
         }
 
+        if (StringUtils.isNotEmpty(_onMouseOver)) {
+            pageContext.getOut().print(" onmouseover=\"");
+            pageContext.getOut().print(_onMouseOver);
+            pageContext.getOut().print("\"");
+        }
+
+        if (StringUtils.isNotEmpty(_onMouseOut)) {
+            pageContext.getOut().print(" onmouseout=\"");
+            pageContext.getOut().print(_onMouseOut);
+            pageContext.getOut().print("\"");
+        }
+
         String href = builder.asSiteRelativeXml((HttpServletRequest) pageContext.getRequest());
 
         if (StringUtils.isNotEmpty(_anchor)) {
@@ -215,5 +229,21 @@ public abstract class LinkTagHandler extends TagSupport {
 
     public void setStyleId(String styleId) {
         _styleId = styleId;
+    }
+
+    public String getOnMouseOver() {
+        return _onMouseOver;
+    }
+
+    public void setOnMouseOver(String onMouseOver) {
+        _onMouseOver = onMouseOver;
+    }
+
+    public String getOnMouseOut() {
+        return _onMouseOut;
+    }
+
+    public void setOnMouseOut(String onMouseOut) {
+        _onMouseOut = onMouseOut;
     }
 }

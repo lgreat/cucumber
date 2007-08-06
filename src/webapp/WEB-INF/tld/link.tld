@@ -753,6 +753,20 @@
             <type>java.lang.String</type>
             <description>Title attribute</description>
         </attribute>
+        <attribute>
+            <name>onMouseOver</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>onMouseOver javascript event handler</description>
+        </attribute>
+        <attribute>
+            <name>onMouseOut</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>onMouseOut javascript event handler</description>
+        </attribute>
     </tag>
     <tag>
         <name>loginOrRegister</name>

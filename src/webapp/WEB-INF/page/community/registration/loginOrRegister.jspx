@@ -51,21 +51,23 @@
     <div id="outline"><!-- creates darker blue outer outline -->
         <div id="newuser">
             <h2>New User?</h2>
-            <h3><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">Join our community!</link:registration></h3>
+            <h3><link:registration email="${loginCmd.email}" 
+                                   redirect="${loginCmd.redirect}"
+                                   onMouseOver="rollover();"
+                                   onMouseOut="rollout();">Join our community!</link:registration></h3>
 
-            <link:registration styleId="joinText" email="${loginCmd.email}" redirect="${loginCmd.redirect}">
+            <link:registration styleId="joinText" email="${loginCmd.email}" redirect="${loginCmd.redirect}"
+                               onMouseOver="rollover();" onMouseOut="rollout();">
                 Join the GreatSchools community and connect with<br/>
                 parents who are passionate about education! <strong>It's free!</strong>
             </link:registration>
 
             <link:registration email="${loginCmd.email}"
-                               redirect="${loginCmd.redirect}">
+                               redirect="${loginCmd.redirect}" onMouseOver="rollover();" onMouseOut="rollout();">
                 <gsml:img src="/res/img/community/registration/motherdaughter_sh.jpg"
-                          id="newuserImage" alt="Photo of mom and daughter"
-                          onmouseover="rollover();" onmouseout="rollout();"/>
+                          id="newuserImage" alt="Photo of mom and daughter"/>
                 <gsml:img src="/res/img/community/registration/join_pink.gif"
-                          id="joinImage" alt="Join"
-                          rollover="/res/img/community/registration/join_yellow.gif"/>
+                          id="joinImage" alt="Join"/>
             </link:registration>
         </div>
         <!-- end: newuser -->

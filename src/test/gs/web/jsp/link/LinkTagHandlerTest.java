@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.31 2007/04/09 20:35:17 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.32 2007/08/06 19:12:59 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -61,6 +61,55 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doEndTag();
         out = (MockJspWriter) pc.getOut();
         assertEquals("<a class=\"theStyle\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+                out.getOutputBuffer().toString());
+    }
+
+    public void testJavascriptAttributes() throws JspException {
+        LinkTagHandler handler = new LinkTagHandler() {
+            protected UrlBuilder createUrlBuilder() {
+                return new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, State.WY);
+            }
+            protected String getDefaultLinkText() {
+                return "MSL";
+            }
+        };
+        // test mouseover
+        MockPageContext pc = new MockPageContext();
+        handler.setPageContext(pc);
+        handler.setOnMouseOver("mouseover();");
+
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        MockJspWriter out = (MockJspWriter) pc.getOut();
+        assertEquals("<a onmouseover=\"mouseover();\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+                out.getOutputBuffer().toString());
+        handler.setOnMouseOver(null); // clear
+
+        // test mouseout
+        pc = new MockPageContext();
+        handler.setPageContext(pc);
+        handler.setOnMouseOut("mouseout();");
+
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        out = (MockJspWriter) pc.getOut();
+        assertEquals("<a onmouseout=\"mouseout();\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+                out.getOutputBuffer().toString());
+        handler.setOnMouseOut(null); // clear
+
+        // test all
+        pc = new MockPageContext();
+        handler.setPageContext(pc);
+        handler.setOnMouseOut("mouseout();");
+        handler.setOnMouseOver("mouseover();");
+
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        out = (MockJspWriter) pc.getOut();
+        assertEquals("<a onmouseover=\"mouseover();\" onmouseout=\"mouseout();\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
                 out.getOutputBuffer().toString());
     }
 
