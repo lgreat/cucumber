@@ -84,8 +84,8 @@ public class AddParentReviewsController extends SimpleFormController implements 
             getReviewDao().removeReviews(user, school);
         }
 
-        //does user want mss?
-        if (rc.isWantMssNL()) {
+        //does user want mss? if user maxed out MSS subs, just don't add.  do not throw error message.
+        if (rc.isWantMssNL() && !user.hasReachedMaximumMssSubscriptions()) {
             Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school.getDatabaseState());
             sub.setSchoolId(school.getId());
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));

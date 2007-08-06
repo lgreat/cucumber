@@ -16,6 +16,8 @@ import org.springframework.validation.BindException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
@@ -282,6 +284,33 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         verify(_userDao);
         verify(_subscriptionDao);
     }
+
+    public void testMssSignUpWhenMssAlreadyMaxedOut() throws Exception {
+        _command.setWantMssNL(true);
+
+        expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.net")).andReturn(_user);
+
+        //max out a user's subscriptions
+        Set subscriptions = new HashSet();
+        for (int i=0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++) {
+            subscriptions.add(new Subscription(_user, SubscriptionProduct.MYSTAT, State.CA));
+        }
+        _user.setSubscriptions(subscriptions);
+
+        replay(_userDao);
+        replay(_subscriptionDao);
+
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.onSubmit(_request, _response, _command, _errors);
+
+        verify(_userDao);
+        
+        //no calls to subscription dao to add a newsletter
+        verify(_subscriptionDao);
+    }
+
 
     public void testErrorOnJsonPageShortCircuits() throws Exception {
         _errors.reject("some error");
