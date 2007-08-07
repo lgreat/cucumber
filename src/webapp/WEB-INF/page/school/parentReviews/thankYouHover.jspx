@@ -16,7 +16,7 @@
     <html lang="en">
     <head>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-        <title>Thank you for rating ${school.name} - ${school.physicalAddress.city}, ${stateAbbrev}</title>
+        <title>Parent Review: Thank you for rating ${school.name} - ${school.physicalAddress.city}, ${stateAbbrev}</title>
         <meta name="description" content="Thank you for submitting a parent review about ${school.name}. Read other reviews about ${school.name} here."/>
         <pageHelper:externalCss file="/res/css/brand.css"/>
         <style type="text/css">
