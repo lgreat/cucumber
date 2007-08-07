@@ -181,7 +181,7 @@
 #infoMessage {
     color: #cc5566;
     padding: 10px 0 0 45px;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 ul.warning {
@@ -190,16 +190,17 @@ ul.warning {
     left: 0;
     width: 384px;
     color: #cc5566;
-    font-size: 11px;
     line-height: 13px;
 }
 
-ul.warning li {
+#outline ul.warning li {
+    font-size: 11px;
     text-indent: 7px;
 }
 
 .warning img {
     position: relative;
     left: -7px;
+    top: 2px;
 }
 

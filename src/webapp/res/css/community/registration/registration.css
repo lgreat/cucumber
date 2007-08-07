@@ -220,13 +220,12 @@ p.warning {
     font-size: 11px;
     position: absolute;
     top: 8px;
-    left: 396px;
+    left: 399px;
     width: 350px;
 }
 
 #emailLine p.warning {
     text-indent: -35px;
-    left: 396px;
     padding-left: 35px;
 }
 
@@ -248,7 +247,7 @@ p.warning {
 }
 
 #terms p.warning {
-    left: 433px;
+    left: 436px;
 }
 
 #terms img.errorIcon {
