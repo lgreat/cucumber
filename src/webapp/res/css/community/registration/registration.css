@@ -1,882 +1,257 @@
-/*
-   Greatschools.net Registration Styles
-   font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
-*/
-
-/* Last updated by Paul Whitener Jr. on 11/13/06 */
-/* paul@empoweredmedia.org */
-
-	
-p {
-	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-	color: #777777;
-	margin: 0 0 0 3px;
-	padding: 0;
-}
-
-a {
-	color: #3399aa;
-	text-decoration: underline;
-}
-
-/* container classes */
-
-#reg_intro, #reg_1, #reg_3 {
-	width: 864px;
-	background: url(../../../img/community/registration/registration_bg.gif) repeat-y left;
-	margin: 0 0 30px 0;
-	float: left;
-}
-
-/* headers registration intro */
-
-#reg_intro h1 {
-	background: url(../../../img/community/registration/h1_join-signin_114x67.gif) no-repeat;
-	width: 114px;
-	height: 67px;
-	margin: 40px 0 0 22px;
-	_margin: 33px 0 0 11px;
-	float: left;
-}
-
-/* reg_intro h2 are in the reg_intro specific styles below */
-
-/* headers registration page 1 */
-
-#reg_1 h1 {
-	background: url(../../../img/community/registration/h1_join_65x33.gif) no-repeat;
-	width: 65px;
-	height: 33px;
-	margin: 40px 0 0 22px;
-	float: left;
-}
-
-#reg_1 h2 {
-    font-size: large;
-    font-weight: bold;
-    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-    color: #99CC66;
+#outline {
+    border: 4px solid #F2F3DB;
+    width: 752px;
     position: relative;
-    top: -7px;
-	width: 400px;
-	height: 24px;
+    font-family: Trebuchet MS, Arial, sans-serif;
+    color: #666666;
+    padding: 31px 20px 28px 84px;
 }
 
-/* headers registration page 3 */
-
-#reg_3 h1 {
-	background: url(../../../img/community/registration/h1_join_65x33.gif) no-repeat;
-	width: 65px;
-	height: 33px;
-	margin: 40px 0 0 22px;
-	float: left;
-}
-
-#reg_3 h2 {
-    font-size: large;
+#outline h2 {
+    color: #55BBCC;
     font-weight: bold;
-    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-    color: #99CC66;
+    font-size: 20px;
+    border-bottom: 1px solid #CACC9E;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+    width: 503px;
+}
+
+#outline h3 {
+    width: 503px;
+    font-size: 15px;
+    padding-bottom: 22px;
+}
+
+#regWebbyAward {
+    position: absolute;
+    top: 37px;
+    right: 122px;
+}
+
+#outline ul li {
     position: relative;
-    top: -7px;
-	width: 400px;
-	height: 24px;
+    padding: 7px 0 7px 0;
+    height: 30px;
+    vertical-align: middle;
 }
 
-#reg_intro span.headerImage {
-    float: left;
+#outline ul li input, #outline ul li select {
+    position: absolute;
+    color: #666666;
+    left: 158px;
+    width: 213px;
 }
 
-#reg_intro span.headerImage img {
+#outline ul li label {
+    padding: 0;
     margin: 0;
+    height: 18px;
+    font-weight: bold;
 }
 
-#reg_intro #returninguser span.headerImage {
-    padding-bottom: 35px;
+#outline label img {
+    margin-left: 6px;
+    position: relative;
+    top: -1px;
 }
 
-h1 span {
-	display: none;
+#outline .required {
+    padding-right: 4px;
 }
 
-#reg_1 .intro {
-	margin: 0 100px 0 3px;
+#outline #genderLine input {
+    position: static;
+    left: inherit;
+    width: auto;
+    margin-left: 23px;
 }
 
-#reg_3 .intro {
-	margin: 0 100px 15px 3px;
+#outline #genderLine .radio {
+	margin-right: 6px;
 }
 
-#reg_3 .lead {
-	margin: 0 100px 0 3px;
-	_margin: 0 0 0 3px;
-	padding-top: 15px;
-	padding-bottom: 24px;
-	border-bottom: 1px solid #ddd;
-	width: 500px;
+#outline ul li input#mom {
+    margin-left: 122px;
 }
 
-/* container */
-
-#content {
-	float: right;
-	width: 542px; /* 579 true - 37 padding */
-	margin: 0;
-	padding: 40px 0 0 37px;
-	border: 2px solid #ddeeee;
-}
-
-#reg_intro #content {
-	float: right;
-	width: 579px; /* 579 true - 37 padding */
-	margin: 0;
-	padding: 0;
-	border: 2px solid #ddeeee;
-}
-
-#outline { /* creates the darker blue outer outline around #content, contains no other styling */
-	border: 3px solid #66cccc;
-	float: right;
-	width: 583px; /* Firefox is insisting on a width. Should be 4px larger than the true width (before removing padding) of #content */
-}
-
-/* reg_intro page */
-
-#reg_intro #returninguser input {
-    color: #444444;
-}
-
-#newuser {
-    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-    float: left;
-	width: 245px;
-	margin: 30px 0 0 25px;
-	_margin: 30px 0 0 10px;
-	_padding: 0;
-}
-
-#newuser h2 {
-	width: 126px;
-	height: 72px;
-	float: left;
-}
-
-#newuser h2 a {
-    text-decoration: none;
-}
-
-#newuser img {
-	margin: 12px 0 12px 0;
-}
-
-#newuser .join a {
-	background: url(../../../img/community/registration/submit_join.gif) no-repeat top transparent;
-	width: 69px;
-	height: 69px;
-	float: right;
-	margin: 0 20px 0 0;
-}
-
-#newuser .join a:hover {
-	background: url(../../../img/community/registration/submit_join.gif) no-repeat 0 -69px transparent;
-	width: 69px;
-	height: 69px;
-	float: right;
-}
-
-#reg_intro .intro {
-	font-size: 14px;
-	color: #888888;
-	margin: 2px 100px 0 0;
-	_margin: 0;
-	width: 245px;
-	float: left;
-}
-
-#reg_intro a.intro {
-	font-size: 14px;
-	color: #888888;
-	margin: 2px 100px 0 0;
-	_margin: 0;
-	width: 245px;
-	float: left;
-    text-decoration: none;
-}
-
-
-#returninguser {
-	height: 347px;
-	width: 260px;
-	margin: 1px 0 0 0;
-	padding: 30px 0 0 25px;
-	_padding: 30px 6px 0 25px;
-	float: right;
-	border-left: 1px dashed #66cccc;
-}
-
-#returninguser h2 {
-	width: 171px;
-	height: 100px;
-}
-
-#returninguser form {
-	float: left;
-	margin: 0;
-	padding: 0;
-}
-
-#returninguser label {
-	width: 93px;
-	font-size: 13px;
-	font-weight: normal;
-	color: #888888;
-	float: left;
-	margin: 0 0 15px 0;
-	padding: 2px 0 0 0;
-}
-
-#returninguser input {
-	width: 150px;
-	_width: 144px;
-	margin: 0 0 15px 0;
-}
-
-#returninguser .checkbox {
-	width: 13px;
-	margin: 0 7px 0 0;
-	_margin: 0 7px 0 1px;
-	float: left;
-}
-
-#returninguser .checkboxLabel {
-	width: 200px;
-	margin: -2px 0 0 0;
-	_margin: 2px 0 0 0;
-	padding: 0;
-}
-
-#returninguser .signin {
-	width: 89px;
-	height: 20px;
-	margin: 10px 16px 0 0;
-	float: right;
-}
-
-#returninguser a {
-	color: #3399aa;
-	font-size: 12px;
-	text-decoration: underline;
-	margin: 12px 16px 0 0;
-	float: right;
-}
-
-/* registration form */
-
-#reg_1 #content input, #reg_1 #content select {
-    color: #444444;
-}
-
-.registration {
-	margin: 20px 0 0 0;
-}
-
-#reg_3 .registration {
-	margin: 0;
-}
-
-.registration p {
-	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-	color: #777777;
-	margin: 0 0 14px 3px;
-	padding: 0;
-	float: left;
-	height: 30px;
-}
-
-.registration label {
-	width: 133px;
-	float: left;
-	margin: 2px 0 0 0;
-	font-weight: bold;
-}
-
-/* form elements custom classes */
-
-.registration .radiolabel {
-	width: 40px;
-	float: left;
-	margin: 0 14px 0 -2px;
-	_margin: 2px 14px 0 -2px;
-	padding: 0;
-}
-
-.registration .selectlabel {
-	width: 50px;
-	float: left;
-	margin: 2px 0 0 0;
-	padding: 0;
-}
-
-.registration .radio {
-	margin: 0 6px 0 0px;
-	width: 13px;
-}
-
-.registration input {
-	width: 215px;
-	_width: 210px; /* for IE 6 */
-	float: left;
-}
-
-.registration .private {
-	margin: 0 0 0 6px;
-	padding: 0;
-}
-
-#content .warning {
-	width: 174px;
-	margin: -3px 0 0 8px;
-	color: #cc5566;
-	font-size: 11px;
-	line-height: 13px;
-}
-
-#content .warning img {
-	float: left;
-	margin: 6px 7px 0 0;
-}
-
-.registration .details {
-	font-size: 11px;
-	_line-height: 10px;
-	font-style: italic;
-	color: #8f8f8f;
-	font-weight: normal;
-}
-
-.registration .disclaimer {
+#userDisclaimer {
 	font-size: 10px;
 	font-style: italic;
 	color: #8f8f8f;
-	margin: -4px 0 12px 136px;
-    width: 344px; /* for IE 7 */
-    _width: 244px; /* for IE 6 */
-    height: 12px;
-	_margin: -3px 120px 12px 70px; /* for IE 6 */
+    position: absolute;
+    top: 26px;
+    left: 157px;
+    width: 220px; 
 }
 
-.registration .disclaimer a,
-    .registration .disclaimer a:visited,
-    .registration .disclaimer a:link,
-    .registration .disclaimer a:active,
-    .registration .disclaimer a:hover {
-	color: #8f8f8f;
-	text-decoration: underline;
+#userDetails {
+    font-size: 10px;
+    font-style: italic;
+    color: #8f8f8f;
+    position: absolute;
+    top: 21px;
+    left: 0;
 }
 
-.registration .userDisclaimer {
+#emailDisclaimer {
 	font-size: 10px;
 	font-style: italic;
 	color: #8f8f8f;
-	margin: -24px 0 12px 136px;
-    width: 344px; /* for IE 7 */
-    _width: 244px; /* for IE 6 */
-    height: 12px;
-	_margin: -26px 120px 12px 70px; /* for IE 6 */
+    position: absolute;
+    top: 26px;
+    left: 157px;
+    width: 275px;
 }
 
-/* Email address */
-
-.registration .email {
-	height: 23px;
-	_height: 20px; /* for IE 6 */
-	_padding-bottom: -4px; /* for IE 6 */
-	margin-bottom: 0;
-	padding-bottom: 0;
+#emailDisclaimer a,
+    #emailDisclaimer a:visited,
+    #emailDisclaimer a:link,
+    #emailDisclaimer a:active,
+    #emailDisclaimer a:hover {
+	text-decoration: underline;
+    color: #3399AA;
 }
 
-/* How many children... in K-12 schools? */
-
-.registration .K12 {
-	width: 282px;
-	margin-left: 3px;
+#passwordDetails {
+    font-size: 10px;
+    font-style: italic;
+    color: #8f8f8f;
+    position: absolute;
+    top: 21px;
+    left: 0;
 }
 
-.registration .selectK12 {
-	width: 40px;
-	float: left;
-	margin-left: -10px;
+#outline #whereLiveLine {
+    height: 60px;
 }
 
-#content .warning_K12 {
-	width: 190px;
-	margin: -3px 0 0 19px;
-	color: #cc5566;
-	font-size: 11px;
-	line-height: 13px;
+#stateLabel {
+    position: absolute;
+    left: 158px;
 }
 
-#content .warning_K12 img {
-	float: left;
-	margin: 6px 6px 0 0;
+#outline ul li select#userState {
+    width: auto;
+    left: 212px;
 }
 
-/* Where do you live? City */
-
-.registration .selectCity {
-	width: 140px;
-	margin-left: -10px;
+#cityLabel {
+    position: absolute;
+    top: 38px;
+    left: 158px;
 }
 
-.registration .whereliveCity {
-	margin: 0 0 20px 3px;
-	width: 325px;
+#outline ul li #city select {
+    width: 140px;
+    top: 38px;
+    left: 212px;
 }
 
-#content .warning_city {
-	width: 190px;
-	margin: -3px 0 0 10px;
-	color: #cc5566;
-	font-size: 11px;
-	line-height: 13px;
+#outline ul li select#numSchoolChildren {
+    width: 40px;
+    left: 332px;
 }
 
-#content .warning_city img {
-	float: left;
-	margin: 6px 6px 0 0;
-}
-
-/* Where do you live? State */
-
-.registration .selectState {
-	float: left;
-	margin-left: -10px;
-}
-
-.registration .whereliveState {
-	margin: 0 0 10px 3px;
-	width: 240px;
-}
-
-/* Agree to terms? */
-
-.registration .terms {
-	width: 240px;
-	margin-left: 3px;
-    margin-right: 26px;
+#outline ul li#newsletter label {
     font-weight: normal;
 }
 
-#content .warning_terms {
-	width: 160px;
-	margin: 6px 0 0 -10px;
-	color: #cc5566;
-	font-size: 11px;
-	line-height: 13px;
+#outline ul li#newsletter input {
+    width: auto;
+    top: 11px;
+    left: 395px
 }
 
-#reg_1 .warning_terms img {
-	float: left;
-	margin: 7px 6px 0 0;
+#outline ul li#terms {
+    padding-bottom: 18px;
 }
 
-#reg_3 .warning_terms img {
-	float: left;
-    position: relative;
-    top: 13px;
+#outline ul li#terms label {
+    font-weight: normal;
 }
 
-
-#reg_1 .registration .terms a {
-	color: #3399aa;
-	text-decoration: underline;
+#outline ul li#terms input {
+    width: auto;
+    top: 11px;
+    left: 395px
 }
 
-.registration .radiolabelTerms {
-	width: 30px;
-	float: left;
-    margin-right: 9px;
-    margin-left: -2px;
-    _margin-top: 2px;
-	padding: 0;
-	color: #777777;
+#terms a {
+    color: #3399aa;
+    text-decoration: none;
 }
 
-#reg_1 #terms {
-    clear: left;
+#outline li#controlLine {
+    border-top: 1px solid #CACC9E;
+    width: 503px;
+    height: 40px;
+    margin-top: 4px;
+    padding-top: 14px;
 }
 
-.registration #terms .radio, .registration #terms .radiolabelTerms {
-    position: relative;
-    top: 15px;
+#outline li#controlLine p.privacyBox {
+    position: absolute;
+    font-size: 11px;
+    border: 2px solid #DDEEEE;
+    width: 166px;
+    padding: 5px 5px 5px 8px;
+    line-height: 14px;
 }
 
-.registration #newsletter .radio, .registration #newsletter .radiolabelTerms {
-    position: relative;
+#controlLine img {
+    padding: 0 5px 0 5px;
+}
+
+#controlLine input#submitButton {
+    width: auto;
+    left: auto;
+    right: 0;
+}
+
+img.errorIcon {
+    position: absolute;
     top: 10px;
+    left: 380px;
 }
 
-/* reg_3 child modules */
-
-#reg_3 #content .child input, #reg_3 #content .child select {
-    color: #444444;
-}
-
-.child {
-	width: 500px;
-    height: 100px;
-    float: left;
-	margin: 0 0 3px 0;
-	border-bottom: 1px solid #dddddd;
-	padding: 14px 0 0 0;
-	_padding: 4px 0 0 0;
-}
-
-.child label {
-	width: 70px;
-	_height: 22px;
-}
-
-#reg_3 .selectChildCity {
-    width: 150px;
-    margin: 0 10px 10px 0;
-}
-
-#reg_3 .selectChildState {
-    margin: 0 10px 10px 0;
-}
-
-#reg_3 .saveChildCity {
-    position: relative;
-    top: -10px;
-}
-
-#reg_3 .child a {
-	color: #3399aa;
-	text-decoration: underline;
-}
-
-.registration .childCityLabel {
-	width: 400px;
-	margin: 2px 0 10px 0;
-}
-
-.registration .childCityLabel a {
-	margin: 0 0 0 10px;
-	font-weight: normal;
-	color: #3399aa;
-	text-decoration: underline;
-}
-
-.registration .childGradeLabel {
-	margin: 3px 0 10px 72px;
-	width: 50px;
-}
-
-.registration .selectChildGrade {
-	width: 50px;
-	float: left;
-	margin: 3px 20px 0 0;
-}
-
-.registration .childSchoolLabel {
-	width: 55px;
-	margin: 3px 0 0 0;
-}
-
-.registration .selectChildSchool {
-	width: 180px;
-	float: left;
-	margin: 3px 0 0 0;
-}
-
-/* warning: both fields (grade, school) */
-
-#content .warning_child_both {
-	width: 300px;
-	margin: 14px 0 -8px 75px;
-	_margin: -4px 0 -4px 40px;
-	padding: 0;
-	color: #cc5566;
-	font-size: 11px;
-	line-height: 13px;
-	_height: 25px;
-}
-
-#content .warning_child_both img {
-	float: left;
-	margin: 0 6px 0 0;
-}
-
-/* warning: school only */
-
-#content .warning_child_school {
-	width: 300px;
-	margin: 8px 0 0 185px;
-	_margin: -10px 0 0 95px;
-	padding: 0;
-	color: #cc5566;
-	font-size: 11px;
-	line-height: 13px;
-}
-
-#content .warning_child_school img {
-	float: left;
-	margin: 5px 6px 0 0;
-}
-
-
-#reg_3 div.yesno {
-    width: 540px;
-    float: left;
-    margin: 15px 0 20px 0;
-    _margin: 7px 0 20px 0;
-    font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-    color: #777777;
-}
-
-#reg_3 div.yesno label {
-    width: 240px;
-    margin: 2px 40px 0 3px;
-    font-weight: normal;
-}
-
-#reg_3 div.yesno div.inputs {
-    float: left;
-    display: block;
-    width: 245px;
-}
-
-#reg_3 div.yesno div.recontact {
-    margin-top: 30px;
-}
-
-#reg_3 div.yesno div.newsletter {
-    margin-top: 8px;
-}
-
-#reg_3 div.yesno div.termsOfUse {
-    margin-top: 13px;
-}
-
-#reg_3 div.yesno div.termsOfUse p {
-    width: 130px;
-    margin: 0 0 0 0;
-    float: right;
+p.warning {
     color: #cc5566;
     font-size: 11px;
-    line-height: 13px;
-    position: relative;
-    top: -10px;
-}
-#reg_3 div.yesno div.termsOfUse img {
-	float: left;
-	margin: 12px 6px 18px 0;
+    position: absolute;
+    top: 8px;
+    left: 396px;
+    width: 350px;
 }
 
-#reg_3 div.yesno div.inputs input {
-    float: left;
-    width: 13px;
-    margin: 0 6px 0 0;
-    font-weight: normal;
+#emailLine p.warning {
+    text-indent: -35px;
+    left: 396px;
+    padding-left: 35px;
 }
 
-#reg_3 div.yesno div.inputs label {
-    float: left;
-    width: 30px;
-    margin: 2px 9px 0 -2px;
-    font-weight: bold;
-}
-
-#reg_3 div.yesno a {
-    color: #3399aa;
-    text-decoration: underline;
-}
-
-/* Yes ... willing to answer questions */
-
-.willing {
-	float: left;
-	margin: 15px 0 20px 0;
-	_margin: 7px 0 20px 0;
-	_height: 71px;
-}
-
-.registration .willingLabel {
-	width: 290px;
-	margin: 2px 0 0 3px;
-	font-weight: normal;
-}
-
-.registration .willingRadio {
-	margin: 54px 0 0 12px;
-	float: left;
-}
-
-.registration .willing a {
-	color: #3399aa;
-	text-decoration: underline;
-}
-
-/* reg_3 Agree to terms? */
-
-#reg_3 .registration .termsLabel {
-	width: 290px;
-	margin: 0 10px 0 3px;
-	font-weight: normal;
-}
-
-#reg_3 .warning_terms {
-	width: 130px;
-	margin: -13px 25px 0 0;
-	float: right;
-	color: #cc5566;
-	font-size: 11px;
-	line-height: 13px;
-}
-
-#reg_3 .warning_terms img {
-	float: left;
-	margin: 0 6px 30px 0;
-}
-
-#reg_3 .registration .termsLabel a {
-	color: #3399aa;
-	text-decoration: underline;
-}
-
-#reg_3 .radiolabel {
-	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-	color: #777777;
-}
-
-.registration .divider {
-	background: #ddeeee;
-	height: 3px;
-	width: 500px;
-	float: left;
-	margin: 10px 0 0 7px;
-	_margin: -10px 0 0 7px;
-	_background: transparent;
-	_border-bottom: 3px solid #ddeeee; /* IE 6 will not display the 3px height correctly, this is an alternate method */
-}
-
-/* form submit custom buttons */
-
-.registration .next {
-	width: 104px;
-	height: 28px;
-	margin: -30px 170px 90px 0;
-	float: right;
-}
-
-#reg_1 .registration .join a {
-	background: url(../../../img/community/registration/submit_join.gif) no-repeat top transparent;
-    width: 69px;
-    height: 69px;
-	margin: -30px 175px 80px 0;
-	_margin: -20px 175px 80px 0;
-	float: right;
-}
-
-#reg_1 .registration .join a:hover {
-	background: url(../../../img/community/registration/submit_join.gif) no-repeat 0 -69px transparent;
-    text-decoration: none;
-}
-
-/*#reg_3 .registration .join {
-	width: 69px;
-	height: 69px;
-	margin: 27px 100px 30px 0;
-	_margin: 20px 100px 27px 0;
-	float: right;
-}*/
-
-#reg_3 .registration .join a {
-	background: url(../../../img/community/registration/submit_join.gif) no-repeat top transparent;
-	width: 69px;
-	height: 69px;
-	margin: 27px 100px 30px 0;
-	_margin: 20px 100px 27px 0;
-	float: right;
-}
-
-#reg_3 .registration .join a:hover {
-	background: url(../../../img/community/registration/submit_join.gif) no-repeat 0 -69px transparent;
-	width: 69px;
-	height: 69px;
-	margin: 27px 100px 30px 0;
-	_margin: 20px 100px 27px 0;
-	float: right;
-    text-decoration: none;
-}
-
-/* alert box */
-
-#alert_box {
-    clear: left;
+#genderLine p.warning {
     width: 175px;
-	_width: 174px; /* for IE 6 */
-    height: 30px;
-    padding: 8px 11px 8px 11px;
-	_padding: 5px 9px 6px 9px; /* for IE 6 */
-    position: relative;
-    top: 20px;
-    border: 2px solid #ddeeee;
-	/*position: absolute;*/
-	/*margin: 600px 0 0 0;*/
-	/*_margin: 610px 0 0 0; *//* for IE 6 */
 }
 
-#alert_box p {
-	font: 11px/13px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-	color: #777777;
+#outline p.warning a {
+    text-decoration: none;
+    color: #3399AA;
 }
 
-#alert_box img {
-	margin: 0 6px 0 6px;
+#whereLiveLine p.warning {
+    top: 40px;
 }
 
-.clear {
-	clear: both;
+#whereLiveLine img.errorIcon {
+    top: 42px;
 }
 
-/* error messages */
-
-#reg_intro #content .warning {
-    margin: 0 0 10px 0;
-    width: 234px;
+#terms p.warning {
+    left: 433px;
 }
 
-#content .warning a {
-    /* undo some page settings for anchors */
-    float: none;
-    margin: 0;
-    color: #3399aa;
-	text-decoration: underline;
+#terms img.errorIcon {
+    left: 417px;
 }
 
-.required {
-    padding-right: 2px;
-    font-weight: normal;
-}
-
-/* info message */
-
-#reg_intro .infomessage {
-	width: 509px; /* 589 true width minus left padding */
-	height: 42px; /* 55 true width minus top padding */
-	float: right;
-	margin: 0 0 4px 0;
-    _margin: 0 0 4px 0;
-    padding: 13px 0 0 80px;
-	color: #fff;
-	font-size: 17px;
-	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 15px no-repeat #66cccc;
-}
-
-#reg_1 p.preLaunch {
-    color: #cc5566;
-    margin-top: 10px;
-    font-weight: bold;
-}

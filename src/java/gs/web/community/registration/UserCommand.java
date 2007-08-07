@@ -23,7 +23,7 @@ public class UserCommand implements EmailValidator.IEmail {
     private String _redirectUrl;
     private List _cityList;
     private boolean _recontact;
-    private boolean _terms = true;
+    private boolean _terms = false;
     private boolean _newsletter = true;
 
     public UserCommand() {

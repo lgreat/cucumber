@@ -10,7 +10,7 @@
     <jsp:directive.attribute name="field" required="false" description="Name of field in command object to inspect for errors. If not provided, all errors are shown in a list."/>
     <jsp:directive.attribute name="styleClass" required="false" description="Class to apply to div (for field) or ul (for all errors). Defaults to 'error'"/>
     <jsp:directive.attribute name="useImage" required="false" description="True to show image next to error message (field errors only). Defaults to false"/>
-    <jsp:directive.attribute name="imageClass" required="false" description="Class to apply to image div. Defaults to 'errorIcon'"/>
+    <jsp:directive.attribute name="imageClass" required="false" description="Class to apply to image. Defaults to 'errorIcon'"/>
 
     <c:if test="${styleClass eq null or styleClass eq ''}">
         <c:set var="styleClass" value="error"/>
@@ -28,10 +28,11 @@
             <c:when test="${field ne null and field gt ''}">
                 <spring:bind path="${command}.${field}">
                     <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                        <c:if test="${useImage eq 'true'}">
+                            <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif" 
+                                      alt="Error" styleClass="${imageClass}"/>
+                        </c:if>
                         <p class="${styleClass}">
-                            <c:if test="${useImage eq 'true'}">
-                                <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif" alt="Error"/>
-                            </c:if>
                             <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
                         </p>
                     </c:if>

@@ -1,162 +1,210 @@
-/***********/
-/* Stage 2 */
-/***********/
-
-div.register2Div {
-    float: left;
-    border-style: solid;
-    border-color: #64CCCB;
-    border-width: medium;
-    margin-left: 5px;
-    padding: 40px;
-}
-
-hr {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-h1.intro {
-    font-size: large;
-    color: #98CC67;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-p.intro {
-    font-size: medium;
-    color: #898989;
-    margin-top: 10px;
-}
-
-p.strong {
-    font-weight: bold;
-}
-
-p.introBottom {
-    margin-bottom: 35px;
-}
-
-div.error {
-    color: red;
-    display: block;
-    padding: 8px;
-}
-
-div.childLeft {
-    float: left;
-    color: #898989;
-    padding-right: 25px;
-    font-weight: bold;
-}
-
-div.childRight {
-    float: left;
-    margin-bottom: 10px;
-}
-
-div.city {
-    display: block;
-    float: left;
-    color: #898989;
-    margin-bottom: 15px;
-}
-
-span.change {
-    margin-left: 10px;
-}
-
-#register2Div span.change a, #register2Div span.change a:link, #register2Div span.change a:visited, #register2Div span.change a:active {
-    text-decoration: underline;
-    color: #64CCCB;
-}
-
-label.form {
-    display: block;
-    float: left;
-    color: #898989;
-    font-weight: bold;
-}
-
-select.form {
-    display: block;
-    float: left;
-}
-
-select.city {
-    width: 175px;
-}
-
-select.state {
-    margin-left: 10px;
-}
-
-select.school {
-    width: 175px;
-}
-
-label.grade, label.school {
-    margin-right: 10px
-}
-
-label.school {
-    margin-left: 35px;
-}
-
-input.submit {
-    background-color: #CC5666;
-    color: #FFFFFF;
-    font-size: medium;
-    font-weight: bold;
-    padding: 5px;
-    float: right;
-    margin-top: 25px;
-    margin-right: 150px;
-    margin-bottom: 15px;
-}
-
-td.join {
-    background-color: #DEEEEE;
-    vertical-align: top;
-    width: 250px;
-}
-
-h2.join {
-    margin: 25px 0 0 20px;
-    font-size: xx-large;
-    color: #59BDCD;
-}
-
-label.radioMain a, label.radioMain a:link, label.radioMain a:visited, label.radioMain a:active {
-    text-decoration: underline;
-    color: #64CCCB;
-}
-
-#recontact, #terms {
-    display: block;
-    float: left;
+#outline {
+    border: 4px solid #F2F3DB;
+    width: 752px;
     position: relative;
-    left: 5px;
+    font-family: Trebuchet MS, Arial, sans-serif;
+    color: #666666;
+    padding: 31px 20px 48px 84px;
 }
 
-#recontact {
-    top: 1em;
+#regWebbyAward {
+    position: absolute;
+    top: 37px;
+    right: 122px;
 }
 
-label.radio {
-    color: #898989;
-    text-align: left;
-    padding-right: 15px;
+#outline h2 {
+    color: #55BBCC;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid #CACC9E;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+    width: 503px;
+}
+
+#outline p {
+    width: 503px;
+    padding: 7px 0 7px 0;
+    line-height: 15px;
+}
+
+#outline h3 {
+    width: 503px;
+    padding: 10px 0 17px 0;
+    font-weight: bold;
+}
+
+div.child {
+    border-top: 1px solid #DDDDDD;
+    width: 503px;
+    height: 75px;
+    padding: 5px 0 5px 0;
+    position: relative;
+}
+
+div.child label {
+    font-weight: bold;
+}
+
+#outline div.child a {
+    color: #3399AA;
+    font-weight: normal;
+    margin-left: 15px;
+    font-size: 13px;
+}
+
+#outline div.child a:hover {
+    text-decoration: none;
+}
+label.childNumber {
+    position: absolute;
+    top: 8px;
+    left: 0;
+}
+
+span.chooseNewCity {
+    position: absolute;
+    top: 7px;
+    left: 75px;
+}
+
+select.selectChildState {
+    margin-left: 10px;
+}
+
+label.childCityLabel {
+    position: absolute;
+    top: 8px;
+    left: 75px;
+}
+
+label.childGradeLabel {
+    position: absolute;
+    top: 38px;
+    left: 75px;
+}
+
+.required {
+    margin-right: 5px;
+}
+
+select.selectChildGrade {
+    position: absolute;
+    top: 38px;
+    left: 125px;
+}
+
+label.childSchoolLabel {
+    position: absolute;
+    top: 38px;
+    left: 200px;
+}
+
+select.selectChildSchool {
+    position: absolute;
+    top: 38px;
+    left: 260px;
+}
+
+#parentAmbassador {
+    position: relative;
+    height: 75px;
+    width: 503px;
+    border-top: 1px solid #DDDDDD;
+    padding-top: 10px;
+}
+
+#parentAmbassador label.description {
+    position: absolute;
+    left: 0;
+    width: 350px;
+    line-height: 15px;
+    padding: 0;
+}
+
+#yesRecontact {
+    margin-left: 390px;
+}
+
+#parentAmbassador label {
     padding-left: 5px;
-    font-weight: bold;
 }
 
-label.radioMain {
-    display: block;
-    float: left;
-    color: #898989;
-    text-align: left;
-    width: 300px;
-    margin-bottom: 20px;
-    font-weight: bold;
+#noRecontact {
+    margin-left: 25px;
 }
+
+#yesRecontact, #noRecontact {
+    position: relative;
+    top: 2px;
+}
+
+ul#newsletters {
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    width: 503px;
+    padding: 4px 0 0 0;
+}
+
+#newsletters li {
+    position: relative;
+    height: 40px;
+    padding: 7px 0 7px 0;
+}
+
+#newsletters label {
+    position: absolute;
+    left: 0;
+    width: 360px;
+    line-height: 15px;
+}
+
+#newsletters label a {
+    color: #3399AA;
+}
+
+#newsletters label a:hover {
+    text-decoration: none;
+}
+
+#newsletters input {
+    position: absolute;
+    top: 9px;
+    left: 390px;
+}
+
+#submitButton {
+    position: absolute;
+    bottom: 35px;
+    left: 524px;
+}
+
+img.errorIcon {
+    position: absolute;
+    top: 9px;
+    left: 420px;
+}
+
+#outline p.error {
+    color: #cc5566;
+    font-size: 11px;
+    position: absolute;
+    top: 8px;
+    left: 436px;
+    width: 300px;
+    padding: 0;
+    line-height: 13px;
+}
+
+#outline div.child img.errorIcon {
+    top: 12px;
+    left: 420px;
+}
+
+#outline div.child p.error {
+    top: 11px;
+    left: 436px;
+}
+
+

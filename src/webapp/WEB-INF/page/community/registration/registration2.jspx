@@ -13,7 +13,7 @@
   <head>
       <title>Join - GreatSchools</title>
       <pageHelper:externalJavascript file="/res/js/prototype.js"/>
-      <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
+      <pageHelper:externalCss file="/res/css/community/registration/registration2.css"/>
       <script type="text/javascript">
           <![CDATA[
           <!--
@@ -96,21 +96,41 @@
       </script>
   </head>
   <gsml:body adPageName="registration2">
-  <div id="reg_3">
-  <h1><span>Join</span></h1>
+  <![CDATA[
+  <!--[if IE]>
+    <style type="text/css">
+      #newsletters input {
+        top: 4px;
+      }
+
+      #yesRecontact, #noRecontact {
+        top: -1px;
+      }
+
+      #yesRecontactLabel, #noRecontactLabel {
+        position: relative;
+        top: -2px;
+      }
+    </style>
+  <![endif]-->
+  ]]>
 
   <div id="outline"><!-- creates darker blue outer outline -->
-  <div id="content">
 
-  <h2><span>You're Almost Done!</span></h2>
+  <link:webbyAwardThanks><gsml:img alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"
+                                   src="/res/img/promo/webby/reg_signuppage.gif"
+                                   id="regWebbyAward"/></link:webbyAwardThanks>
+  
+  <h2><span>You're Almost Done Registering!</span></h2>
 
-  <p class="intro">Over the next year, you’ll be able to link up with other parents in your school and school district
-      - to discuss issues and join groups focused on helping your children thrive in school.</p>
+  <p>In the community, you'll be able to connect with other parents in your school and
+      school district - to share success stories and join groups focused on helping your
+      children thrive in school.</p>
 
-  <p class="intro"><strong>We’ll always keep your name and your email address private to preserve your anonymity on
-      our site.</strong></p>
+  <p>We'll always keep your name and your email address private to preserve your anonymity on
+      our site.</p>
 
-  <p class="lead"><strong>In the ${current_academic_year} school year, my children attend:</strong></p>
+  <h3>In the ${current_academic_year} school year, my children attend:</h3>
 
   <!-- begin registration form -->
   <gsweb:form id="registration2" action="/community/registration2.page" styleClass="registration" method="post">
@@ -129,62 +149,58 @@
       </c:if>
 
       <div class="child">
-          <p><label>Child #${child}:</label>
-              <span id="chooseLocation${child}" style="display:none;">
-                  <span id="citySelectDiv${child}" style="display: inline;">
-                      <select id="citySelect${child}" name="citySelect${child}" class="selectChildCity"
-                              onchange="cityChange(this, ${child});">
-                          <c:forEach var="cityOption" items="${followUpCmd.cityList[child-1]}">
-                              <![CDATA[<option ]]>
-                              <c:if test="${followUpCmd.cityNames[child-1] eq cityOption.name}">
-                                  selected="selected"
-                              </c:if>
-                              <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                          </c:forEach>
-                      </select>
-                  </span>
-                  <gsweb:stateSelector state="${followUpCmd.students[child-1].state}"
-                                       styleId="userState${child}" styleClass="selectChildState"
-                                       onChange="stateChange(this, ${child});"/>
-                  <span class="saveChildCity">
-                      <a href="#" title="Choose current city/state"
-                         onclick="changeLocationDone(${child}); return false;">Done</a>
-                  </span>
-              </span>
-
-              <label id="location${child}" class="childCityLabel">
-                  <span id="cityText${child}">${followUpCmd.cityNames[child-1]}</span>,
-                  <span id="stateText${child}">${followUpCmd.students[child-1].state}</span>
-                  <input id="state${child}" type="hidden" name="state${child}"
-                         value="${followUpCmd.students[child-1].state}"/>
-                  <input id="city${child}" type="hidden" name="city${child}" value="${followUpCmd.cityNames[child-1]}"/>
-                  <a href="#" title="Change city" onclick="changeLocation(${child}); return false;">Change city</a>
-              </label>
-
-              <label for="grade${child}" class="childGradeLabel"><span class="required">*</span>Grade</label>
-              <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
-                                   styleClass="selectChildGrade" grade="${gradeVal}"
-                                   useNoGrade="true" useAlternateNames="true"
-                                   onChange="gradeChange(this, ${child});"/>
-
-              <label for="school${child}" class="childSchoolLabel"><span class="required">*</span>School</label>
-              <span id="schoolDiv${child}">
-                  <select name="school${child}" id="school${child}" class="selectChildSchool">
-                      <c:if test="${schoolVal eq null or schoolVal eq ''}">
-                          <option selected="selected" value="">--</option>
-                      </c:if>
-                      <c:forEach var="schoolOption" items="${followUpCmd.schools[child-1]}">
+          <label class="childNumber">Child #${child}:</label>
+          <span id="chooseLocation${child}" class="chooseNewCity" style="display:none;">
+              <span id="citySelectDiv${child}" style="display: inline;">
+                  <select id="citySelect${child}" name="citySelect${child}" class="selectChildCity"
+                          onchange="cityChange(this, ${child});">
+                      <c:forEach var="cityOption" items="${followUpCmd.cityList[child-1]}">
                           <![CDATA[<option ]]>
-                          <c:if test="${schoolVal eq schoolOption.name}">
+                          <c:if test="${followUpCmd.cityNames[child-1] eq cityOption.name}">
                               selected="selected"
                           </c:if>
-                          <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                          <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
                       </c:forEach>
                   </select>
               </span>
-          </p>
-          <gsml:errorMessage command="followUpCmd" field="students[${child-1}]" styleClass="warning_child_both"
-                  useImage="true"/>
+              <gsweb:stateSelector state="${followUpCmd.students[child-1].state}"
+                                   styleId="userState${child}" styleClass="selectChildState"
+                                   onChange="stateChange(this, ${child});"/>
+              <a href="#" title="Choose current city/state"
+                 onclick="changeLocationDone(${child}); return false;">Done</a>
+          </span>
+
+          <label id="location${child}" class="childCityLabel">
+              <span id="cityText${child}">${followUpCmd.cityNames[child-1]}</span>,
+              <span id="stateText${child}">${followUpCmd.students[child-1].state}</span>
+              <input id="state${child}" type="hidden" name="state${child}"
+                     value="${followUpCmd.students[child-1].state}"/>
+              <input id="city${child}" type="hidden" name="city${child}" value="${followUpCmd.cityNames[child-1]}"/>
+              <a href="#" title="Change city" onclick="changeLocation(${child}); return false;">Change city</a>
+          </label>
+
+          <label for="grade${child}" class="childGradeLabel"><span class="required">*</span>Grade</label>
+          <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
+                               styleClass="selectChildGrade" grade="${gradeVal}"
+                               useNoGrade="true" useAlternateNames="true"
+                               onChange="gradeChange(this, ${child});"/>
+
+          <label for="school${child}" class="childSchoolLabel"><span class="required">*</span>School</label>
+          <span id="schoolDiv${child}">
+              <select name="school${child}" id="school${child}" class="selectChildSchool">
+                  <c:if test="${schoolVal eq null or schoolVal eq ''}">
+                      <option selected="selected" value="">--</option>
+                  </c:if>
+                  <c:forEach var="schoolOption" items="${followUpCmd.schools[child-1]}">
+                      <![CDATA[<option ]]>
+                      <c:if test="${schoolVal eq schoolOption.name}">
+                          selected="selected"
+                      </c:if>
+                      <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                  </c:forEach>
+              </select>
+          </span>
+          <gsml:errorMessage command="followUpCmd" field="students[${child-1}]" useImage="true"/>
           <!-- remember error for omniture tagging: see end of body. -->
           <spring:hasBindErrors name="followUpCmd">
               <c:if test="${errors.errorCount gt 0}">
@@ -200,64 +216,45 @@
   <!-- end: child module -->
 
   <!-- Yes ... willing to answer questions... -->
-  <div class="yesno">
-      <label><span class="required">*</span><strong>Yes!</strong>
+  <div id="parentAmbassador">
+      <label class="description">Yes!
           I want to be a Parent Ambassador for the schools my children attend.
           I want to represent my children's schools on the GreatSchools Web site
-          for other interested parents.
-      </label>
+          for other interested parents.</label>
 
-      <div class="inputs recontact">
-          <gsml:radio name="recontactStr" value="y" styleId="yesRecontact"
-                      checked="${followUpCmd.recontact eq null or followUpCmd.recontact eq 'y'}"/>
-          <label for="yesRecontact">Yes</label>
-          <gsml:radio name="recontactStr" value="n" styleId="noRecontact"
-                      checked="${followUpCmd.recontact eq 'n'}"/>
-          <label for="noRecontact">No</label>
-      </div>
+      <gsml:radio name="recontactStr" value="y" styleId="yesRecontact"
+                  checked="${followUpCmd.recontact eq null or followUpCmd.recontact eq 'y'}"/>
+      <label for="yesRecontact" id="yesRecontactLabel">Yes</label>
+      <gsml:radio name="recontactStr" value="n" styleId="noRecontact" styleClass="radioLabel"
+                  checked="${followUpCmd.recontact eq 'n'}"/>
+      <label for="noRecontact" id="noRecontactLabel">No</label>
   </div>
 
-  <div class="yesno">
-      <label><span class="required">*</span><strong>Yes!</strong>
-          Subscribe me to the "Best of GreatSchools Community" newsletter!
-      </label>
-
-      <div class="inputs newsletter">
-          <gsml:radio name="newsletterStr" value="y" styleId="yesNewsletter"
-                      checked="${followUpCmd.newsletter eq true}"/>
-          <label for="yesNewsletter">Yes</label>
-          <gsml:radio name="newsletterStr" value="n" styleId="noNewsletter"
-                      checked="${followUpCmd.newsletter eq false}"/>
-          <label for="noNewsletter">No</label>
-      </div>
-  </div>
-
-  <div class="yesno">
-      <label><span class="required">*</span>
-          I am over 13 years of age and I agree to the
-          <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">Terms of Use</link:termsOfUse>,
-          including the
-          <gsml:popupWindow width="800" height="600" left="50" top="50"
-            title="GreatSchools Community Standards"
-            href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-            tabIndex="17">Community Standards</gsml:popupWindow>
-      </label>
-
-      <div class="inputs termsOfUse">
-          <gsml:radio name="termsStr" value="y" styleId="yesTerms"
-                      checked="${followUpCmd.terms eq true}"/>
-          <label for="yesTerms">Yes</label>
-          <gsml:radio name="termsStr" value="n" styleId="noTerms"
-                      checked="${followUpCmd.terms eq false}"/>
-          <label for="noTerms">No</label>
+  <ul id="newsletters">
+      <li>
+          <label>Yes! Subscribe me to the "Best of GreatSchools Community" newsletter!</label>
+          <gsml:checkbox name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
+      </li>
+      <li>
+          <label>I am over 13 years of age and I agree to the
+              <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">Terms of Use</link:termsOfUse>,
+              including the
+              <gsml:popupWindow width="800" height="600" left="50" top="50"
+                title="GreatSchools Community Standards"
+                href="/cgi-bin/static/terms.html/$STATE#communityStandards"
+                tabIndex="17">Community Guidelines</gsml:popupWindow>.
+          </label>
+          <gsml:checkbox name="termsStr" checked="${followUpCmd.terms eq true}"/>
           <gsml:errorMessage command="followUpCmd" field="terms" useImage="true"/>
-      </div>
-  </div>
+      </li>
+  </ul>
 
-  <div class="divider">&amp;#160;</div>
+  <gsml:inputImage src="/res/img/community/registration/joinbutton.gif" alt="Join"
+                   name="submit" onclick="return doSingleClick(this);" id="submitButton"/>
+
+
   <div class="join"><a href="communityLanding.page" title="Join the GreatSchools community"
                        onclick="return doSingleClick(this);">&amp;#160;</a></div>
-  <div class="clear">&amp;#160;</div>
 
   <spring:bind path="followUpCmd.user.id">
       <input type="hidden" name="id" value="${followUpCmd.user.id}"/>
@@ -278,11 +275,7 @@
 
   </gsweb:form>
   </div>
-  <!-- end: content -->
-  </div>
   <!-- end: outline -->
-  </div>
-  <!-- end: main -->
 
   <c:set var="pageName" value="Registration page 2"/>
   <c:set var="hier" value="Entry"/>

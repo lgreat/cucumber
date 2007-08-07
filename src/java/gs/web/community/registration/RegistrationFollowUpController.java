@@ -81,6 +81,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         super.onBind(request, command);
         FollowUpCommand fupCommand = (FollowUpCommand) command;
 
+        fupCommand.setTerms("on".equals(request.getParameter(RegistrationController.TERMS_PARAMETER)));
+        fupCommand.setNewsletter("on".equals(request.getParameter(RegistrationController.NEWSLETTER_PARAMETER)));
         bindRequestData(request, fupCommand, errors);
         for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren(); x++) {
             loadCityList(request, fupCommand, errors, x+1);
@@ -91,12 +93,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         String userId = request.getParameter("id");
         String marker = request.getParameter("marker");
         fupCommand.setRecontact(request.getParameter("recontactStr"));
-        if (request.getParameter(RegistrationController.TERMS_PARAMETER) != null) {
-            fupCommand.setTerms("y".equals(request.getParameter(RegistrationController.TERMS_PARAMETER)));
-        }
-        if (request.getParameter(RegistrationController.NEWSLETTER_PARAMETER) != null) {
-            fupCommand.setNewsletter("y".equals(request.getParameter(RegistrationController.NEWSLETTER_PARAMETER)));
-        }
         if (userId != null) {
 
             User user = _userDao.findUserFromId(Integer.parseInt(userId));

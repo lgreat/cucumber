@@ -81,11 +81,9 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         userCommand.setCity(request.getParameter("city"));
         String terms = request.getParameter(TERMS_PARAMETER);
-        if (terms != null) {
-            userCommand.setTerms(terms.equals("y"));
-        }
+        userCommand.setTerms("on".equals(terms));
         String newsletter = request.getParameter(NEWSLETTER_PARAMETER);
-        userCommand.setNewsletter("y".equals(newsletter));
+        userCommand.setNewsletter("on".equals(newsletter));
         loadCityList(request, userCommand);
     }
 
@@ -198,7 +196,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
         ModelAndView mAndV = new ModelAndView();
 
-        if (request.getParameter("join") == null) {
+        if (userProfile.getNumSchoolChildren() > 0) {
             mAndV.setViewName(getSuccessView());
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             mAndV.getModel().put("marker", hash);

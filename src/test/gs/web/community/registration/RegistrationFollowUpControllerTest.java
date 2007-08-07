@@ -116,7 +116,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         assertNull(_command.getUser().getId());
         assertFalse("n".equals(_command.getRecontact()));
-        assertTrue(_command.getTerms());
+        assertFalse(_command.getTerms());
         assertEquals(0, _command.getStudents().size());
         assertEquals(0, _command.getCityNames().size());
         assertEquals(0, _command.getSchools().size());
@@ -132,26 +132,29 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertFalse(_errors.hasErrors());
         assertNotNull(_command.getUser().getId());
         assertTrue("n".equals(_command.getRecontact()));
-        assertTrue(_command.getTerms());
+        assertFalse(_command.getTerms());
         assertEquals(1, _command.getStudents().size());
         assertEquals(1, _command.getCityNames().size());
         assertEquals(1, _command.getSchools().size());
     }
 
-    public void testBindRequestDataIgnoresNewsletterNull() throws NoSuchAlgorithmException {
-        _controller.bindRequestData(getRequest(), _command, _errors);
-        assertTrue("Newsletter should be true if no parameter passed", _command.getNewsletter());
+    public void testBindRequestDataIgnoresNewsletterNull() throws Exception {
+        _user.getUserProfile().setNumSchoolChildren(0);
+        _controller.onBind(getRequest(), _command, _errors);
+        assertFalse("Newsletter should be false if no parameter passed", _command.getNewsletter());
     }
 
-    public void testBindRequestDataCapturesNewsletterTrue() throws NoSuchAlgorithmException {
-        _request.setParameter(RegistrationController.NEWSLETTER_PARAMETER, "y");
-        _controller.bindRequestData(getRequest(), _command, _errors);
-        assertTrue("Expected newsletter to be true when 'y' is passed", _command.getNewsletter());
+    public void testBindRequestDataCapturesNewsletterTrue() throws Exception {
+        _request.setParameter(RegistrationController.NEWSLETTER_PARAMETER, "on");
+        _user.getUserProfile().setNumSchoolChildren(0);
+        _controller.onBind(getRequest(), _command, _errors);
+        assertTrue("Expected newsletter to be true when 'on' is passed", _command.getNewsletter());
     }
 
-    public void testBindRequestDataCapturesNewsletterFalse() throws NoSuchAlgorithmException {
+    public void testBindRequestDataCapturesNewsletterFalse() throws Exception {
         _request.setParameter(RegistrationController.NEWSLETTER_PARAMETER, "n");
-        _controller.bindRequestData(getRequest(), _command, _errors);
+        _user.getUserProfile().setNumSchoolChildren(0);
+        _controller.onBind(getRequest(), _command, _errors);
         assertFalse("Expected newsletter to be false when 'n' is passed", _command.getNewsletter());
     }
 
@@ -270,8 +273,8 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("city", "San Francisco");
 
         FollowUpCommand followUpCommand = new FollowUpCommand();
-        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "y");
-        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "y");
+        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "on");
+        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "on");
         _controller.onBind(getRequest(), followUpCommand, null);
         assertTrue("Expected terms to be set to true", followUpCommand.getTerms());
         assertTrue("Expected newsletter to be set to true", followUpCommand.getNewsletter());

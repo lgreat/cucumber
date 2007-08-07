@@ -81,9 +81,10 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setConfirmPassword(password);
         userCommand.setState(State.CA);
         userCommand.setScreenName("screeny");
-        userCommand.setNumSchoolChildren(new Integer(0));
+        userCommand.setNumSchoolChildren(0);
+        userCommand.setNewsletter(false);
 
-        userCommand.getUser().setId(new Integer(345)); // to fake the database save
+        userCommand.getUser().setId(345); // to fake the database save
 
         _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), null);
         _userDao.saveUser(userCommand.getUser());
@@ -99,9 +100,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
         _userControl.verify();
         _subscriptionDaoMock.verify();
-
-        assertEquals("Not getting expected success view",
-                SUCCESS_VIEW, mAndV.getViewName());
     }
 
     public void testRegistrationSubscribesToCommunityNewsletter() throws Exception {
@@ -275,15 +273,15 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         assertFalse("Expected newsletter to be set to false", userCommand.getNewsletter());
     }
 
-    public void testOnBindWitTermsAndNewsletter() throws Exception {
+    public void testOnBindWithTermsAndNewsletter() throws Exception {
         UserCommand userCommand = new UserCommand();
         _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList());
         _geoControl.replay();
 
-        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "y");
-        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "y");
+        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "on");
+        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "on");
         _controller.onBind(getRequest(), userCommand);
-        assertTrue(userCommand.getTerms());
+        assertTrue("Expected terms to be set to true", userCommand.getTerms());
         assertTrue("Expected newsletter to be set to true", userCommand.getNewsletter());
     }
 
