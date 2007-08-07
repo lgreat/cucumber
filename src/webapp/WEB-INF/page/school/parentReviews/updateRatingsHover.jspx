@@ -22,10 +22,8 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <c:set var="school" value="${requestScope.school}"/>
     <c:set var="stateAbbrev" value="${school.databaseState.abbreviation}"/>
-    <title>Rate ${school.name} - ${school.physicalAddress.city}, ${stateAbbrev}</title>
-    <meta name="description" content="GreatSchools Parents, review your school in the following areas: 
-        principal leadership, teacher quality, extracurricular activities, parent involvement,
-        and safety &amp; discipline."/>
+    <title>Parent Review: Rate ${school.name} - ${school.physicalAddress.city}, ${stateAbbrev}</title>
+    <meta name="description" content="GreatSchools Parents, review your school in the following areas: principal leadership, teacher quality, extracurricular activities, parent involvement, and safety &amp; discipline."/>
     <style type="text/css">
         #thankYou {color:#55bbcc;line-height:130%;font-size:16px;font-weight:bolder;}
         p,td{font-size:14px;}
