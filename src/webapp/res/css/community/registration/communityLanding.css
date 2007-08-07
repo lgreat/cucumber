@@ -91,6 +91,11 @@ table#bottomContent td.contentCell div#commBlog {
     padding:20px 10px 18px 22px;
 }
 
+
+table#bottomContent td.contentCell div#commBlog div {
+    margin-right:15px;
+}
+
 table#bottomContent div#youtube a {
     float:right;
 }
