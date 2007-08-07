@@ -109,7 +109,7 @@
     #emailDisclaimer a:link,
     #emailDisclaimer a:active,
     #emailDisclaimer a:hover {
-	text-decoration: underline;
+	text-decoration: none;
     color: #3399AA;
 }
 
