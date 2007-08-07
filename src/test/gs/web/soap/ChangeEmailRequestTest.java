@@ -1,7 +1,13 @@
 package gs.web.soap;
 
-import gs.web.BaseTestCase;
 import gs.data.community.User;
+import gs.web.BaseTestCase;
+import org.apache.axis.client.Call;
+import static org.easymock.classextension.EasyMock.*;
+
+import javax.xml.namespace.QName;
+import javax.xml.rpc.ParameterMode;
+import java.rmi.RemoteException;
 
 /**
  * Provides testing for the ChangeEmailRequest class.
@@ -11,6 +17,7 @@ import gs.data.community.User;
 public class ChangeEmailRequestTest extends BaseTestCase {
     private ChangeEmailRequest _request;
     private User _user;
+    private Call _call;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -18,51 +25,45 @@ public class ChangeEmailRequestTest extends BaseTestCase {
         _user = new User();
         _user.setId(123);
         _user.setEmail("aroy@greatschools.net");
+        _call = createMock(Call.class);
+        _call.addParameter((String) anyObject(), (QName) anyObject(), (ParameterMode) anyObject());
+        expectLastCall().anyTimes();
     }
 
     /**
      * Test that normal success conditions result in success
      */
-    public void testSuccess() {
-        _request.setTarget(ChangeEmailRequest.DEFAULT_TARGET + "?response=success");
+    public void testSuccess() throws RemoteException {
+        expect(_call.invoke((Object[])anyObject())).andReturn(null);
+        replay(_call);
+
+        _request.setMockCall(_call);
         try {
             _request.changeEmailRequest(_user);
         } catch (SoapRequestException e) {
             fail(e.getErrorMessage());
         }
+
+        verify(_call);
     }
 
     /**
      * Test that when the server returns an error, this class behaves appropriately
      */
-    public void testError() {
-        // make the perl script generate an error
-        _request.setTarget(ChangeEmailRequest.DEFAULT_TARGET + "?response=error");
-        try {
-            _request.changeEmailRequest(_user);
-            fail("Did not receive expected error");
-        } catch (SoapRequestException e) {
-            assertEquals("UNKNOWN", e.getErrorCode());
-            assertEquals("Could not connect to database", e.getErrorMessage());
-            // success
-        }
-    }
+    public void testError() throws RemoteException {
+        SoapRequestException error = new SoapRequestException();
+        expect(_call.invoke((Object[]) anyObject())).andReturn(error);
+        replay(_call);
 
-    /**
-     * Test timeout condition
-     */
-    public void testTimeout() {
-        // make the perl script sleep for 10 seconds
-        _request.setTarget(ChangeEmailRequest.DEFAULT_TARGET + "?response=timeout");
-        // set timeout to 1 second (in ms)
-        _request.setTimeout(1000);
+        _request.setMockCall(_call);
         try {
             _request.changeEmailRequest(_user);
             fail("Did not receive expected error");
         } catch (SoapRequestException e) {
-            assertNotNull(e.getErrorCode());
-            assertNotNull(e.getErrorMessage());
+            assertEquals("Unexpected exception", error, e);
             // success
         }
+
+        verify(_call);
     }
 }

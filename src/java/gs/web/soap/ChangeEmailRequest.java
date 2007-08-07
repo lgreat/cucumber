@@ -1,11 +1,10 @@
 package gs.web.soap;
 
+import gs.data.community.User;
 import static org.apache.axis.Constants.XSD_STRING;
 import org.apache.axis.client.Call;
 
 import javax.xml.rpc.ParameterMode;
-
-import gs.data.community.User;
 
 /**
  * Provides Performs a SOAP changeEmailRequest.
@@ -30,7 +29,7 @@ public class ChangeEmailRequest extends SoapRequest {
 
     public void changeEmailRequest(User user) throws SoapRequestException {
         // quick hack to disable this class but still allow test cases to work
-        if (DISABLE_REQUEST && !getTarget().contains("response")) { return; }
+        if (DISABLE_REQUEST && _mockCall == null) { return; }
         try {
             Call call = setupCall("changeEmailRequest");
             Object[] params = setupParameters(call, user);

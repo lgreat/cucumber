@@ -1,16 +1,16 @@
 package gs.web.soap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.apache.axis.Constants.SOAP_ELEMENT;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
-import org.apache.axis.encoding.ser.BeanSerializerFactory;
 import org.apache.axis.encoding.ser.BeanDeserializerFactory;
-import static org.apache.axis.Constants.SOAP_ELEMENT;
+import org.apache.axis.encoding.ser.BeanSerializerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.xml.rpc.ServiceException;
-import javax.xml.rpc.ParameterMode;
 import javax.xml.namespace.QName;
+import javax.xml.rpc.ParameterMode;
+import javax.xml.rpc.ServiceException;
 import java.net.MalformedURLException;
 
 /**
@@ -24,9 +24,13 @@ public class SoapRequest {
     private String _namespaceUri;
     private String _target;
     private int _timeout;
+    protected Call _mockCall;
 
     protected Call setupCall(String operationName) throws ServiceException, MalformedURLException {
-        return setupCall(operationName, SoapRequestException.class);
+        if (_mockCall == null) {
+            return setupCall(operationName, SoapRequestException.class);
+        }
+        return _mockCall;
     }
 
     protected Call setupCall(String operationName, Class exceptionClass) throws ServiceException, MalformedURLException {
@@ -77,5 +81,9 @@ public class SoapRequest {
 
     public void setTimeout(int timeout) {
         _timeout = timeout;
+    }
+
+    public void setMockCall(Call mockCall) {
+        _mockCall = mockCall;
     }
 }
