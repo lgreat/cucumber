@@ -73,7 +73,7 @@ Disallow: /community/resetPassword.page
 Disallow: /*/print
 Disallow: /modperl/parents/*/pc/*
 Disallow: /*;jsessionid*
-Disallow: /schools.page?map=*
+Disallow: /schools.page?*map=*
 Disallow: /school/mapSchool
 Disallow: /*&amp;*
 Disallow: /ads/
