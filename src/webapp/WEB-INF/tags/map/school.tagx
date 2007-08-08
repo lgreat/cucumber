@@ -138,7 +138,7 @@ function getSchoolInfoWindowHtml(school) {
     rval += '</address>';
     rval += '<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
             encodeURIComponent(school.address) +
-            '" target="_blank">Get directions &gt;</a>';
+            '" target="_blank" onclick="s.tl(this, \'o\', \'School Map - Get Directions\');">Get directions &gt;</a>';
     if (school.phone == '') {
         rval += '<br/><br/>';
     } else {
