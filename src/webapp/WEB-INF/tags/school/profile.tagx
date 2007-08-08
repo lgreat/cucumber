@@ -107,7 +107,7 @@
     function openDelicious() { location.href=deliciousUrl; }
 ]]></script>
 
-<c:set var="state" value="${school.physicalAddress.state}"/>
+<c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="schoolId" value="${school.id}"/>
 
