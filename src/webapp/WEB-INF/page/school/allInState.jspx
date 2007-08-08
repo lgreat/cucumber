@@ -93,10 +93,18 @@
                         </td>
                     </c:if>
                     <c:if test="${type eq 'district'}">
-                        <td><gsml:a href="/schools.page?district=${data.id}&amp;state=${state.abbreviation}">${data.name}</gsml:a></td>
+                        <td>
+                            <gsml:a href="/schools.page?district=${data.id}&amp;state=${state.abbreviation}">
+                                <c:out value="${data.name}" escapeXml="true"/>
+                            </gsml:a>
+                        </td>
                     </c:if>
                     <c:if test="${type eq 'city'}">
-                        <td><gsml:a href="/city/${fn:replace(data.city, ' ', '_')}/${state.abbreviation}">${data.name} schools</gsml:a></td>
+                        <td>
+                            <gsml:a href="/city/${fn:replace(data.city, ' ', '_')}/${state.abbreviation}">
+                                <c:out value="${data.name}" escapeXml="true"/> schools
+                            </gsml:a>
+                        </td>
                     </c:if>
                     <c:if test="${type ne 'city'}">
                         <td>${data.city}</td>
