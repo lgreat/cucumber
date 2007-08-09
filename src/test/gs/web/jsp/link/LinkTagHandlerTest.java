@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.32 2007/08/06 19:12:59 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.33 2007/08/09 03:40:35 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -294,7 +294,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setState(State.AK);
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/modperl/districts/AK", builder.asSiteRelative(null));
+        assertEquals("/schools/districts/Alaska/AK", builder.asSiteRelative(null));
     }
 
     public void testSchools() {

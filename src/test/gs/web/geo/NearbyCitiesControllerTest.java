@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbyCitiesControllerTest.java,v 1.7 2007/01/25 20:26:04 chriskimm Exp $
+ * $Id: NearbyCitiesControllerTest.java,v 1.8 2007/08/09 03:40:35 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -191,7 +191,7 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
 
         Anchor anchor = (Anchor) results.get(results.size() - 1);
         assertEquals("Browse all Alaska cities", anchor.getContents());
-        assertEquals("/modperl/cities/AK/", anchor.getHref());
+        assertEquals("/schools/cities/Alaska/AK", anchor.getHref());
 
     }
     public void testMoreAndAll() throws Exception {
@@ -221,7 +221,7 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
 
          anchor = (Anchor) results.get(results.size() - 1);
         assertEquals("Browse all Alaska cities", anchor.getContents());
-        assertEquals("/modperl/cities/AK/", anchor.getHref());
+        assertEquals("/schools/cities/Alaska/AK", anchor.getHref());
 
     }
 }
