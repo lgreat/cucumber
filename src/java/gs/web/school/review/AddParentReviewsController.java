@@ -111,7 +111,8 @@ public class AddParentReviewsController extends SimpleFormController implements 
         //save the review
         getReviewDao().saveReview(r);
 
-        if ("a".equals(r.getStatus())) {
+        //only send them an email if they submitted a message that is not blank
+        if ("a".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
             sendMessage(user, r.getComments(), school.getDatabaseState());
         }
 
@@ -157,6 +158,8 @@ public class AddParentReviewsController extends SimpleFormController implements 
             if (hasBadWord(review.getComments())) {
                 review.setStatus("r");
             }
+        } else {
+            review.setStatus("a");
         }
         return review;
     }

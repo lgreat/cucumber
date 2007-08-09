@@ -130,6 +130,36 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         assertTrue(message.getContent().toString().contains("your review"));
     }
 
+    public void testNoEmailSentForEmptyReview() throws Exception{
+        _command.setComments("");
+
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        replay(_userDao);
+
+        _reviewDao.removeReviews(_user, _school);
+        _reviewDao.saveReview((Review) anyObject());
+        replay(_reviewDao);
+
+        replay(_subscriptionDao);
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.onSubmit(_request, _response, _command, _errors);
+        verify(_userDao);
+        verify(_reviewDao);
+        verify(_subscriptionDao);
+
+        assertNull(_sender.getSentMessages());
+    }
+
+    public void testEmptyReviewWithRatingMarkedActive() {
+        _command.setComments("");
+        _command.setOverallAsString("1");
+        Review r = _controller.createReview(_user, _school, _command);
+
+        assertEquals("a", r.getStatus());
+    }
+
     public void testBadWords() throws Exception {
         String commentStart = "the word that best describes this school is ";
         String commentEnd = ". that pretty much sums it up.";
