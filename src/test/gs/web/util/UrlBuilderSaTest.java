@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.68 2007/08/02 23:50:58 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.69 2007/08/09 02:00:24 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -283,9 +283,6 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.NEWSLETTER_CENTER, State.WY);
         assertEquals("/cgi-bin/newsletters/WY/", builder.asSiteRelative(request));
 
-        builder = new UrlBuilder(UrlBuilder.CITIES, State.WY);
-        assertEquals("/modperl/cities/WY/", builder.asSiteRelative(request));
-
         builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY, "Xyz");
         assertEquals("/city/Xyz/WY", builder.asSiteRelativeXml(request));
 
@@ -368,8 +365,6 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/community/accountInfo.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.HEALTHY_KIDS, null, null);
         assertEquals("/content/healthyKids.page", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.DISTRICTS_PAGE, State.CA, null);
-        assertEquals("/modperl/districts/CA", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.DISTRICT_PROFILE, State.CA, "135");
         assertEquals("/cgi-bin/ca/district_profile/135", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, null, null);
@@ -385,6 +380,18 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/schools/California/CA", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_STATE, State.NC);
         assertEquals("/schools/North_Carolina/NC", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.DISTRICTS_PAGE, State.CA);
+        assertEquals("/schools/districts/California/CA", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.DISTRICTS_PAGE, State.NC);
+        assertEquals("/schools/districts/North_Carolina/NC", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.CITIES, State.WY);
+        assertEquals("/schools/cities/Wyoming/WY", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.CITIES, State.CA);
+        assertEquals("/schools/cities/California/CA", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.CITIES, State.NC);
+        assertEquals("/schools/cities/North_Carolina/NC", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {

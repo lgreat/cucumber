@@ -38,9 +38,9 @@
 </div>
 <c:if test="${not empty requestScope.context.state}">
     <div id="footerSearchStateSpecific">
-        <a href="/cgi-bin/schoollist/${state}">All schools in ${longName}</a>, <a
-            href="/modperl/districts/${state}">${longName}
-        districts</a>, <a href="/modperl/cities/${state}">${longName} cities</a>
+        <link:allSchoolsInState state="${state}">All schools in ${longName}</link:allSchoolsInState>,
+        <link:districts state="${state}">${longName} districts</link:districts>,
+        <link:cities state="${state}">${longName} cities</link:cities>
     </div>
 </c:if>
 

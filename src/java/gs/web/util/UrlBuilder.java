@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.83 2007/08/02 23:52:27 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.84 2007/08/09 02:00:24 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -469,10 +469,8 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/promo/webbyAwardWinner.page";
         } else if (CITIES.equals(page)) {
-            _perlPage = true;
-            _path = "/modperl/cities/" +
-                    state.getAbbreviation() +
-                    "/";
+            _perlPage = false;
+            _path = "/schools/cities/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
         } else if (MY_SCHOOL_LIST.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/msl_confirm/" +
@@ -620,8 +618,8 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/community/accountInfo.page";
         } else if (DISTRICTS_PAGE.equals(page)) {
-            _perlPage = true;
-            _path = "/modperl/districts/" + state.getAbbreviation();
+            _perlPage = false;
+            _path = "/schools/districts/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
         } else if (HEALTHY_KIDS.equals(page)) {
             _perlPage = false;
             _path = "/content/healthyKids.page";
