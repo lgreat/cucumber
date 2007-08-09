@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
@@ -65,8 +66,11 @@ public class UpdateRatingsController extends SimpleFormController implements Rea
     }
 
     protected ModelAndView showThankYouPage(final School school) {
+        List reviews = getReviewDao().getPublishedReviewsBySchool(school);
+
         ModelAndView mAndV = new ModelAndView();
-        mAndV.getModel().put("school", school);
+        mAndV.getModel().put(ThankYouController.MODEL_SCHOOL, school);
+        mAndV.getModel().put(ThankYouController.MODEL_HAS_REVIEW, reviews.size() != 0);
         mAndV.setViewName(getSuccessView());
         return mAndV;
     }

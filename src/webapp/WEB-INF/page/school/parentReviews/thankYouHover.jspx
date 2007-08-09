@@ -48,7 +48,9 @@
             guidelines. This process may take a
             a few days.
         </p>
-        <link:schoolProfileParentReview school="${school}" id="sppPR">Read other parent reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
+        <c:if test="${hasReview}">
+            <link:schoolProfileParentReview school="${school}" id="sppPR">Read other parent reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
+        </c:if>
         <div id="close"><a href="#" onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
         <mod:tracking pageType="Parent Review"
                       pageName="PR Thank You Hover Omniture "
