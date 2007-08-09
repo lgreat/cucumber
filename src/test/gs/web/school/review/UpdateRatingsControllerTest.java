@@ -14,6 +14,7 @@ import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 
 import javax.servlet.http.Cookie;
+import java.util.ArrayList;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
@@ -77,6 +78,8 @@ public class UpdateRatingsControllerTest extends BaseControllerTestCase {
     }
 
     public void testInvalidUser() throws Exception {
+        expect(_reviewDao.getPublishedReviewsBySchool(_school)).andReturn(new ArrayList());
+        replay(_reviewDao);
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
         replay(_userDao);
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -88,6 +91,8 @@ public class UpdateRatingsControllerTest extends BaseControllerTestCase {
         replay(_userDao);
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
+        expect(_reviewDao.getPublishedReviewsBySchool(_school)).andReturn(new ArrayList());
+
         replay(_reviewDao);
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
 
@@ -103,6 +108,7 @@ public class UpdateRatingsControllerTest extends BaseControllerTestCase {
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(review);
         _reviewDao.saveReview(review);
+        expect(_reviewDao.getPublishedReviewsBySchool(_school)).andReturn(new ArrayList());        
         replay(_reviewDao);
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         
