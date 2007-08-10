@@ -16,6 +16,9 @@
       <script type="text/javascript">
           <![CDATA[
           <!--
+          function scrollToError() {
+              window.location.href = document.location.pathname + '#error';
+          }
 
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
@@ -83,6 +86,7 @@
         }
       </style>
     <![endif]-->
+    <a name="error"></a>
     ]]>
 
     <div id="outline"><!-- creates darker blue outer outline -->
@@ -91,7 +95,10 @@
         <h3>You're joining a national network of parents who are passionate about education. We're
             excited to have you!</h3>
 
-        <!-- begin registration form -->
+        <spring:hasBindErrors name="userCmd">
+            <pageHelper:addOnLoadHandler handler="scrollToError();"/>
+        </spring:hasBindErrors>
+    <!-- begin registration form -->
         <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
         <!-- init vars -->
             <c:set var="termsStyle" value="display:none"/>

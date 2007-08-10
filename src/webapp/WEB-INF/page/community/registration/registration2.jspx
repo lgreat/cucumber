@@ -17,6 +17,10 @@
       <script type="text/javascript">
           <![CDATA[
           <!--
+                  function scrollToError() {
+                      window.location.href = document.location.pathname + '#error';
+                  }
+
                   function gradeChange(gradeSelect, childNum) {
                       if (gradeSelect.value == '') {
                           $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">-' + '-</option></select>';
@@ -112,6 +116,7 @@
         top: -2px;
       }
     </style>
+    <a name="error"></a>
   <![endif]-->
   ]]>
 
@@ -132,6 +137,9 @@
 
   <h3>In the ${current_academic_year} school year, my children attend:</h3>
 
+  <spring:hasBindErrors name="followUpCmd">
+      <pageHelper:addOnLoadHandler handler="scrollToError();"/>
+  </spring:hasBindErrors>
   <!-- begin registration form -->
   <gsweb:form id="registration2" action="/community/registration2.page" styleClass="registration" method="post">
 
