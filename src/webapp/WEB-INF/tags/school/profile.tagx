@@ -248,7 +248,7 @@
                 </link:schoolProfileParentReview>
             </td>
 
-            <c:if test="${schoolType != 'private'}" >
+            <c:if test="${schoolType != 'private' || state.privateTestScoresState}" >
                 <td>
                     <link:schoolProfileTestscore school="${school}" title="${school.name} Test Scores">
                         Test<br/>
