@@ -103,10 +103,6 @@
   <![CDATA[
   <!--[if IE]>
     <style type="text/css">
-      #newsletters input {
-        top: 4px;
-      }
-
       #yesRecontact, #noRecontact {
         top: -1px;
       }

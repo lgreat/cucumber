@@ -158,8 +158,9 @@
 }
 
 #outline ul li#newsletter input {
-    width: auto;
-    top: 11px;
+    width: 15px;
+    height: 15px;
+    top: 10px;
     left: 395px
 }
 
@@ -172,8 +173,9 @@
 }
 
 #outline ul li#terms input {
-    width: auto;
-    top: 11px;
+    width: 15px;
+    height: 15px;
+    top: 10px;
     left: 395px
 }
 
@@ -249,6 +251,11 @@ p.warning {
 
 #terms p.warning {
     left: 436px;
+    top: 9px;
+}
+
+#terms img.errorIcon {
+    top: 11px;
 }
 
 #terms img.errorIcon {

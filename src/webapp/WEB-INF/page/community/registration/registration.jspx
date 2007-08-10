@@ -70,13 +70,6 @@
     <![CDATA[
     <!--[if IE]>
       <style type="text/css">
-        #outline ul li#newsletter input {
-            top: 6px;
-        }
-
-        #outline ul li#terms input {
-            top: 6px;
-        }
         p.warning {
             top: 8px;
             _height: 28px;
