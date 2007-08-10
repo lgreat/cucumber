@@ -124,7 +124,7 @@
   <h2><span>You're Almost Done Registering!</span></h2>
 
   <p>In the community, you'll be able to connect with other parents in your school and
-      school district - to share success stories and join groups focused on helping your
+      school district&amp;#151;to share success stories and join groups focused on helping your
       children thrive in school.</p>
 
   <p>We'll always keep your name and your email address private to preserve your anonymity on
@@ -165,6 +165,7 @@
               </span>
               <gsweb:stateSelector state="${followUpCmd.students[child-1].state}"
                                    styleId="userState${child}" styleClass="selectChildState"
+                                   name="state${child}"
                                    onChange="stateChange(this, ${child});"/>
               <a href="#" title="Choose current city/state"
                  onclick="changeLocationDone(${child}); return false;">Done</a>
@@ -236,7 +237,7 @@
           <gsml:checkbox name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
       </li>
       <li>
-          <label>I am over 13 years of age and I agree to the
+          <label><span class="required">*</span>I am over 13 years of age and I agree to the
               <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">Terms of Use</link:termsOfUse>,
               including the
               <gsml:popupWindow width="800" height="600" left="50" top="50"

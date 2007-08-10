@@ -80,7 +80,7 @@
                 <p id="infoMessage">${gsweb:escapeHtml(param.message)}</p>
             </c:if>
 
-            <h3>Yes! I'm already a member</h3>
+            <h3 class="${messageClass}">Yes! I'm already a member</h3>
 
             <gsweb:form action="/community/loginOrRegister.page" method="post">
                 <spring:bind path="loginCmd.redirect">
@@ -99,7 +99,7 @@
                     <li id="password">
                         <label>Password</label>
                         <spring:bind path="loginCmd.password">
-                            <input type="password" name="${status.expression}" value="${status.value}"/>
+                            <input type="password" name="${status.expression}" value=""/>
                         </spring:bind>
                     </li>
                     <li id="rememberMe">

@@ -74,6 +74,13 @@
         #outline ul li#terms input {
             top: 6px;
         }
+        p.warning {
+            top: 8px;
+            _height: 28px;
+        }
+        #whereLiveLine p.warning {
+            top: 40px;
+        }
       </style>
     <![endif]-->
     ]]>
@@ -130,7 +137,7 @@
                     </spring:bind>
                     <gsml:errorMessage command="userCmd" field="screenName" useImage="true" styleClass="warning"/>
                     <span id="userDetails">6-14 characters</span>
-                    <span id="userDisclaimer">Choose carefully - username can't be changed</span>
+                    <span id="userDisclaimer">Choose carefully&amp;#151;username can't be changed</span>
                 </li>
 
                 <li id="emailLine">
@@ -153,7 +160,7 @@
                             src="/res/img/community/registration/icon_private_9x11.gif" alt="Private"
                             styleClass="private"/></label>
                     <spring:bind path="userCmd.password">
-                        <input id="password" type="password" name="${status.expression}" value="${status.value}" tabindex="7"/>
+                        <input id="password" type="password" name="${status.expression}" value="" tabindex="7"/>
                     </spring:bind>
                     <gsml:errorMessage command="userCmd" field="password" useImage="true" styleClass="warning"/>
                     <span id="passwordDetails">6-14 characters</span>
@@ -162,7 +169,7 @@
                 <li>
                     <label for="confirmPassword"><span class="required">*</span>Re-type password</label>
                     <spring:bind path="userCmd.confirmPassword">
-                        <input id="confirmPassword" type="password" name="${status.expression}" value="${status.value}" tabindex="8"/>
+                        <input id="confirmPassword" type="password" name="${status.expression}" value="" tabindex="8"/>
                     </spring:bind>
                     <gsml:errorMessage command="userCmd" field="confirmPassword" useImage="true" styleClass="warning"/>
                 </li>

@@ -4,7 +4,7 @@
     position: relative;
     font-family: Trebuchet MS, Arial, sans-serif;
     color: #666666;
-    padding: 31px 20px 48px 84px;
+    padding: 31px 20px 47px 84px;
 }
 
 #regWebbyAward {
@@ -92,7 +92,7 @@ label.childGradeLabel {
 select.selectChildGrade {
     position: absolute;
     top: 38px;
-    left: 125px;
+    left: 131px;
 }
 
 label.childSchoolLabel {
@@ -176,7 +176,7 @@ ul#newsletters {
 
 #submitButton {
     position: absolute;
-    bottom: 35px;
+    bottom: 32px;
     left: 524px;
 }
 
@@ -190,11 +190,11 @@ img.errorIcon {
     color: #cc5566;
     font-size: 11px;
     position: absolute;
-    top: 8px;
+    top: 9px;
     left: 439px;
-    width: 300px;
+    width: 320px;
     padding: 0;
-    line-height: 13px;
+    line-height: 12px;
 }
 
 #outline div.child img.errorIcon {
@@ -203,7 +203,7 @@ img.errorIcon {
 }
 
 #outline div.child p.error {
-    top: 11px;
+    top: 12px;
     left: 439px;
 }
 

@@ -83,6 +83,10 @@
     color: #666666;
 }
 
+#returninguser h3.hasMessage {
+    padding-top: 10px;
+}
+
 #returninguserForm {
     position: absolute;
     top: 102px;
@@ -92,7 +96,7 @@
 }
 
 #returninguserForm.hasMessage {
-    top: 142px;
+    top: 136px;
 }
 
 #returninguserForm input, #returninguser label {
@@ -190,7 +194,7 @@ ul.warning {
     left: 0;
     width: 384px;
     color: #cc5566;
-    line-height: 13px;
+    line-height: 12px;
 }
 
 #outline ul.warning li {

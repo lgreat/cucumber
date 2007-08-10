@@ -219,9 +219,10 @@ p.warning {
     color: #cc5566;
     font-size: 11px;
     position: absolute;
-    top: 8px;
+    top: 9px;
     left: 399px;
     width: 350px;
+    line-height: 12px;
 }
 
 #emailLine p.warning {
@@ -239,7 +240,7 @@ p.warning {
 }
 
 #whereLiveLine p.warning {
-    top: 40px;
+    top: 41px;
 }
 
 #whereLiveLine img.errorIcon {

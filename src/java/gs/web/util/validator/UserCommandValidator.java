@@ -61,7 +61,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
     private static final String ERROR_NUM_CHILDREN_MISSING =
             "Please tell us the number of children you have in K-12 schools.";
     private static final String ERROR_TERMS_MISSING =
-            "Please accept our Terms of Use to join the community.";
+            "Please read and accept our Terms of Use to join the community.";
     private static final char[] FIRST_NAME_DISALLOWED_CHARACTERS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
     };

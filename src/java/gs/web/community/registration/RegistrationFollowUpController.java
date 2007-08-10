@@ -42,7 +42,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public static final String ERROR_GRADE_MISSING = "Please select your child's grade and school.";
     public static final String ERROR_SCHOOL_MISSING = "Please select your child's school. " +
             "If you cannot find the school, please select \"My child's school is not listed.\"";
-    public static final String ERROR_TERMS = "Please accept our Terms of Use to join the community.";
+    public static final String ERROR_TERMS = "Please read and accept our Terms of Use to join the community.";
 
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
