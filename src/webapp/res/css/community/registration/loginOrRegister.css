@@ -184,8 +184,9 @@
 
 #infoMessage {
     color: #cc5566;
-    padding: 10px 0 0 45px;
+    padding: 10px 0 0 27px;
     font-size: 11px;
+    background: url("/res/img/community/registration/check.gif") left no-repeat 15px;
 }
 
 ul.warning {
