@@ -263,6 +263,11 @@ div.phone {
     padding-left: 18px;
 }
 
+/* GS-3754 remove images (and enclosing paragraph) from article abstracts */
+.abstract p {
+    display:none;
+}
+
 .highlight {
     font-weight: 800;
 }
