@@ -12,7 +12,7 @@ import javax.xml.rpc.ParameterMode;
  */
 public class CreateOrUpdateUserRequest extends SoapRequest {
     public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.net/community/createOrUpdateUser/";
-    public static final String DEFAULT_TARGET = "http://aroy.dev.greatschools.net/cgi-bin/soap/soapServer.cgi";
+    public static final String DEFAULT_TARGET = "http://localhost:12000/soap/user/";
     public static final int DEFAULT_TIMEOUT = 10000; // 10s in milliseconds
     public static final boolean DISABLE_REQUEST = true;
 
@@ -28,7 +28,7 @@ public class CreateOrUpdateUserRequest extends SoapRequest {
 
     public void createOrUpdateUserRequest(CreateOrUpdateUserRequestBean bean) throws SoapRequestException {
         // quick hack to disable this class but still allow test cases to work
-        if (DISABLE_REQUEST && !getTarget().contains("response")) { return; }
+        if (DISABLE_REQUEST && _mockCall == null) { return; }
         try {
             Call call = setupCall("createOrUpdateUserRequest");
             Object[] params = setupParameters(call, bean);
