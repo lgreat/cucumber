@@ -118,7 +118,7 @@
                                 <link:forgotPassword email="${loginCmd.email}" title="Forgot password">Forgot password?</link:forgotPassword>
                             </c:when>
                             <c:otherwise>
-                                <link:forgotPassword title="Forgot password">Forgot Password?</link:forgotPassword>
+                                <link:forgotPassword title="Forgot password">Forgot password?</link:forgotPassword>
                             </c:otherwise>
                         </c:choose>
                     </li>

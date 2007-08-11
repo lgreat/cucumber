@@ -33,7 +33,6 @@
     position: relative;
     padding: 7px 0 7px 0;
     height: 30px;
-    vertical-align: middle;
 }
 
 #outline ul li input, #outline ul li select {
@@ -221,7 +220,7 @@ p.warning {
     color: #cc5566;
     font-size: 11px;
     position: absolute;
-    top: 9px;
+    top: 10px;
     left: 399px;
     width: 350px;
     line-height: 12px;
@@ -246,12 +245,12 @@ p.warning {
 }
 
 #whereLiveLine img.errorIcon {
-    top: 42px;
+    top: 41px;
 }
 
 #terms p.warning {
     left: 436px;
-    top: 9px;
+    top: 11px;
 }
 
 #terms img.errorIcon {
