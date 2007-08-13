@@ -44,12 +44,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
         _controller.onBindOnNewForm(getRequest(), _command, _errors);
         _controller.onBindAndValidate(getRequest(), _command, _errors);
-        assertFalse(_errors.hasErrors());
-
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
-        verify(_mockUserDao);
-        assertFalse(_errors.hasErrors());
-        assertTrue(mAndV.getViewName().indexOf("redirect") > -1);
+        assertTrue("MSL only users expect to get an error when trying to sign in", _errors.hasErrors());
     }
 
     public void testOnSubmit() throws NoSuchAlgorithmException {

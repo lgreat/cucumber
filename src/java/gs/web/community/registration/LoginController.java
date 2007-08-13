@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.25 2007/07/09 17:42:38 aroy Exp $
+ * $Id: LoginController.java,v 1.26 2007/08/13 18:17:22 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -94,7 +94,7 @@ public class LoginController extends SimpleFormController {
 //                    href2 + "." +
 //                    " If you believe this message to be in error, please " + href + ".");
         } else if (user.isPasswordEmpty()) {
-            //errors.reject(USER_NO_PASSWORD_CODE, "This user has no password.");
+            errors.reject(null, "There is no community account associated with that email address.");
         } else {
             String password = loginCommand.getPassword();
             // validate password
