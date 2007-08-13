@@ -213,7 +213,7 @@
                 </li>
 
                 <li id="newsletter" style="${newsletterStyle}">
-                    <label for="newsletterField"><span class="required">*</span>Yes!
+                    <label for="newsletterField">Yes!
                         Subscribe me to the "Best of GreatSchools Community"<br/>newsletter!
                     </label>
                     <gsml:checkbox styleId="newsletterField" name="newsletterStr" 

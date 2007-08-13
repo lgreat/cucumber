@@ -28,4 +28,6 @@
 
 #outline ul li .errorText {
     left: 471px;
+    line-height: 12px;
+    top: 10px;
 }

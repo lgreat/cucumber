@@ -7,12 +7,21 @@
           xmlns:gsweb="gstaglib"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/><html>
-  <pageHelper:setPathway pathway="99"/>
+  <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/changeEmail.css"/>
       <title>Change Email - GreatSchools</title>
   </head>
   <gsml:body adPageName="changeEmail">
+      <![CDATA[
+      <!--[if IE]>
+        <style type="text/css">
+          #outline ul li .errorText {
+            top: 8px;
+          }
+        </style>
+      <![endif]-->
+      ]]>
 
       <div id="outline"><!-- creates darker blue outer outline -->
           <h2>Update My Email Address</h2>
