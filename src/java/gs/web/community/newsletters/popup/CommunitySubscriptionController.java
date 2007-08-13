@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.io.PrintWriter;
 
 public class CommunitySubscriptionController extends AbstractController implements ReadWriteController {
     private Log _log = LogFactory.getLog(CommunitySubscriptionController.class);
@@ -30,6 +31,9 @@ public class CommunitySubscriptionController extends AbstractController implemen
         String email = request.getParameter(EMAIL_PARAM);
         User user = _userDao.findUserFromEmailIfExists(email);
 
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
+
         try {
             if (user == null) {
                 // create user
@@ -40,14 +44,14 @@ public class CommunitySubscriptionController extends AbstractController implemen
 
             Subscription subscription = new Subscription(user, SubscriptionProduct.COMMUNITY, sessionContext.getStateOrDefault());
             _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription[]{subscription}));
+            out.print("success");
         } catch (Exception e) {
             _log.error("Error trying to save user or subscription", e);
-            modelAndView.getModel().put(ERROR, e);
-            response.setStatus(HttpServletResponse.SC_OK);
+            out.print("failure");
         }
 
-        modelAndView.getModel().put(EMAIL_PARAM, email);
-        return modelAndView;
+        out.flush();
+        return null;
     }
 
     public void setUserDao(IUserDao userDao) {

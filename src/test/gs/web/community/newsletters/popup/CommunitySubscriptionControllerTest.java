@@ -32,8 +32,8 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
         expectShouldSaveSubscription(user, State.FL);
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
-        assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
-        assertEquals("Expected email address in model", _email, modelAndView.getModel().get(CommunitySubscriptionController.EMAIL_PARAM));
+        assertNull("No model should be returned from controller", modelAndView);
+        assertEquals("Expect success", "success", _response.getContentAsString());
 
         verify(_userDao);
         verify(_subscriptionDao);
@@ -50,8 +50,8 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
         expectShouldSaveSubscription(user, State.AZ);
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
-        assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
-        assertEquals("Expected email address in model", _email, modelAndView.getModel().get(CommunitySubscriptionController.EMAIL_PARAM));
+        assertNull("No model should be returned from controller", modelAndView);
+        assertEquals("Expect success", "success", _response.getContentAsString());
 
         verify(_userDao);
         verify(_subscriptionDao);
@@ -68,8 +68,8 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
         expectShouldThrowExceptionOnSaveSubscription(user, State.CO);
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
-        assertEquals("Unexpected view", _viewName, modelAndView.getViewName());
-        assertNotNull("Expected error in model", modelAndView.getModel().get(CommunitySubscriptionController.ERROR));
+        assertNull("No model should be returned from controller", modelAndView);
+        assertEquals("Expect failure", "failure", _response.getContentAsString());
         assertEquals("Expected 200 success code, so default error page doesn't display", HttpServletResponse.SC_OK, _response.getStatus());
 
         verify(_userDao);
