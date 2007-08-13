@@ -139,7 +139,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
         try {
             user.setPlaintextPassword(userCommand.getPassword());
-            if (_requireEmailValidation || request.getParameter("join") == null) {
+            if (_requireEmailValidation || userCommand.getNumSchoolChildren() > 0) {
                 // mark account as provisional until they complete stage 2
                 user.setEmailProvisional();
             }
