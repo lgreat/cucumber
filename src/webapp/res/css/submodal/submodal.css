@@ -15,6 +15,7 @@ body.hover {
 	opacity:.10;
 	filter: alpha(opacity=10);
 }
+
 #popupContainer {
 	position: absolute;
 	z-index: 201;
@@ -81,10 +82,12 @@ body.hover {
     height:0px;
 }
 
+/* display: inline is for the IE float double-margin bug */
 #popupControls {
 	float: right;
 	cursor: pointer;
     margin: 5px 8px 0 0;
+    display: inline;
 }
 
 #popupCloseBtn {
