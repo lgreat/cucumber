@@ -4,7 +4,7 @@ function doInterstitial() {
         for (var i = 0; i < document.links.length; i++) {
             var link = document.links[i];
             if (!isAdLink(link)) {
-                link.href = "/ads/interstitial.page?passThroughURI=" + encodeURIComponent(link.href);
+                link.href = 'http://' + location.host + "/ads/interstitial.page?passThroughURI=" + encodeURIComponent(link.href);
             }
         }
     }
