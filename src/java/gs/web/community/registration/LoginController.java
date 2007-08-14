@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.26 2007/08/13 18:17:22 aroy Exp $
+ * $Id: LoginController.java,v 1.27 2007/08/14 19:33:56 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -65,6 +65,13 @@ public class LoginController extends SimpleFormController {
         }
     }
 
+    protected void onBind(HttpServletRequest request, Object command) throws Exception {
+        super.onBind(request, command);
+        // make sure remember me check box is bound prior to validation
+        LoginCommand loginCommand = (LoginCommand) command;
+        loginCommand.setRememberMe(request.getParameter("loginCmd.rememberMe") != null);
+    }
+
     /**
      * this method is called after validation but before submit.
      */
@@ -76,7 +83,6 @@ public class LoginController extends SimpleFormController {
         }
 
         LoginCommand loginCommand = (LoginCommand) command;
-        loginCommand.setRememberMe(request.getParameter("loginCmd.rememberMe") != null);
         User user = getUserDao().findUserFromEmailIfExists(loginCommand.getEmail());
 
         if (user == null || user.isEmailProvisional()) {
