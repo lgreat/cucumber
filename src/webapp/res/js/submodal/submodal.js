@@ -5,6 +5,7 @@ var POP_CONTAINER_ID    = 'popupContainer';
 var POP_MASK_ID         = 'popupMask';
 var POP_FRAME_ID        = 'popupFrame';
 var STATE_WIDGET        = 'stateWidget'
+var gPopupReturnFunction = null;
 var gPopupIsShown = false;
 var gHideSelects = false;
 var gLoading = "loading.html";
@@ -58,6 +59,7 @@ function showPopWin(url, width, height, returnFunc, hoverName) {
     if (!getElement(POP_MASK_ID)) {
         initPopUp(hoverName);
     }
+    gPopupReturnFunction = returnFunc;
 
     getElement(POP_MASK_ID).style.display = "block";
     var popContainer = getElement(POP_CONTAINER_ID);
@@ -160,6 +162,10 @@ function hidePopWin(callReturnFunc) {
         location = gRedirectAnchor.href;
     } else {
         showContainers();
+        // GS-3744 implement callback function
+        if (callReturnFunc && gPopupReturnFunction != null && typeof gPopupReturnFunction == 'function') {
+            gPopupReturnFunction();
+        }
     }
 }
 
