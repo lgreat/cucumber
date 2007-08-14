@@ -77,8 +77,12 @@ function showPopWin(url, width, height, returnFunc, hoverName) {
     popContainer.style.width = width + "px";
 	popContainer.style.height = (height+titleBarHeight) + "px";
 
+    var userAgent = navigator.userAgent.toLowerCase()
+    var isIE6 = (userAgent.indexOf("msie 6") != -1);
+    var accountForBorder = isIE6 ? 0 : 8;
+
     var popFrame = getElement(POP_FRAME_ID);
-    popFrame.style.width = (parseInt(document.getElementById("popupTitleBar").offsetWidth, 10) - 8) + "px";
+    popFrame.style.width = (parseInt(document.getElementById("popupTitleBar").offsetWidth, 10) - accountForBorder) + "px";
 	popFrame.style.height = (height) + "px";
 	popFrame.src = url;
 
@@ -120,6 +124,9 @@ function centerPopWin(width, height) {
         var titleBarHeight = parseInt(document.getElementById("popupTitleBar").offsetHeight, 10);
         if (fullHeight > height) {
             popContainer.style.top = (scTop + ((fullHeight - (height+titleBarHeight)) / 2)) + "px";
+        } else {
+            // GS-3745 handle small windows
+            popContainer.style.top = scTop + "px";            
         }
         if (fullWidth > width) {
             popContainer.style.left =  (scLeft + ((fullWidth - width) / 2)) + "px";
