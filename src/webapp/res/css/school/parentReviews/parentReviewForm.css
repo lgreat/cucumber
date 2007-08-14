@@ -1,0 +1,104 @@
+#rateReview, #rateReview ul, #rateReview ul li,
+#rateReview input, #rateReview form,
+#rateReview textarea, #rateReview select{
+    font-size:12px;
+    font-family: Trebuchet MS, sans-serif;
+    color:#666;
+}
+
+#rateReviewH2 {
+    background: url(/res/img/school/review/header_rateReview.gif) no-repeat 19px 6px #c5c5c5;
+	height: 25px;
+	text-indent: -9999px;
+    clear:both;
+}
+
+.star-rating{
+    position:absolute;
+}
+
+#rateReview {
+    font-family:Trebuchet MS,sans-serif;
+    border:1px solid #DDDDDD;
+    padding: 0 0 10px 20px;
+    position:relative;
+    margin:10px 0 18px 0;    
+    clear:both;
+}
+
+#rateReview #ratingTitle {
+    font-size:19px;
+    color: #55bbcc;
+    font-weight:bold;
+    line-height:34px;
+}
+
+#rateReview textarea{
+    overflow: hidden;
+    height:60px;
+    line-height:15px;
+    padding:4px 0pt 5px 7px;
+    width:266px;
+    margin-top:10px;
+}
+
+#rateReview #permission, #rateReview #wantMssNL{
+    width:15px;
+    height:15px;
+}
+
+#rateReview select{
+    vertical-align:middle;
+    width:70px;
+    margin:0 3px 0 5px;
+}
+
+#rateReview #submitReview {
+    position: relative;
+    vertical-align:middle;
+    padding-left:8px;
+    top: -3px;
+}
+
+#rateReview #reviewEmail {
+    width:142px;
+    font-size:12px;
+    height:15px;
+    line-height:15px;
+    padding: 1px 1px 1px 4px;
+}
+
+#rateReview #privacyPolicy {
+    font-size:10px;
+}
+
+#rateReview #emailAndSubmit {
+    padding-top:3px;
+}
+
+/*ul#frmErrors {*/
+    /*margin-top:10px;*/
+/*}*/
+
+#nonCommentInput {
+    margin-top:10px;
+}
+
+ul#frmErrors li {
+    position:relative;
+    clear:left;
+    color: #cc5566;
+    background-image: url('/res/img/bullet/exclamation.gif');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    padding: .1em 0 .5em 2em;
+}
+
+#rateReview #privacyPolicy a, #rateReview #privacyPolicy a:hover {
+    color:#666666;
+    text-decoration:underline;
+}
+
+#rateReview ul#nonCommentInput li {
+    padding-bottom:5px;
+}

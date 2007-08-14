@@ -38,8 +38,7 @@
 </head>
 
 <gsml:body adPageName="updateRatings">
-    <pageHelper:externalCss file="/res/css/brand.css"/>
-    <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+    <pageHelper:externalCss file="/res/css/brand.css"/>    
 
         <p id="thankYou">Thank You!<br/>Your review has been saved.</p>
 

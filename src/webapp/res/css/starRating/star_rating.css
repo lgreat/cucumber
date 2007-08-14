@@ -87,13 +87,24 @@ http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
     width:95px;
     height:18px;
 }
-
 .med-star,
 .med-star a:hover,
 .med-star .current-rating{
 	background-image: url(../../img/starRating/star_med_transparent.gif);
 	line-height: 18px;
 	height: 18px;
+}
+
+.large-star {
+    width:125px;
+    height:23px;
+}
+.large-star,
+.large-star a:hover,
+.large-star .current-rating{
+	background-image: url(../../img/starRating/star_large.gif);
+	line-height: 23px;
+	height: 23px;
 }
 
 :focus { -moz-outline-style: none; }

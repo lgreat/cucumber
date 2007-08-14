@@ -12,14 +12,19 @@
 
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
-    <pageHelper:externalCss file="/res/css/school/parentReviewForm.css"/>
-    <pageHelper:externalJavascript file="/res/js/parentReviewForm.js?v=2"/>
+    <pageHelper:externalCss file="/res/css/school/parentReviews/parentReviewForm.css"/>
+    <pageHelper:externalJavascript file="/res/js/parentReviewForm.js?v=3"/>
     <yui:connectionManager/>
     <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
     <c:set var="schoolId" value="${school.id}"/>
     <gsml:url var="formActionUrl" value="/school/ajaxAddComments.page"/>
     <gsml:url var="ratingPage" value="/school/updateRatings.page?id=${schoolId}&amp;state=${state}"/>
-
+    <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        String email = sessionContext.getEmail();
+        request.setAttribute("email",email);
+    </jsp:scriptlet>
+    
     <script type="text/javascript">
         <![CDATA[<!--
         var callback = {
@@ -30,143 +35,107 @@
         };
         -->]]>
     </script>
-
-    <c:set var="commentInputBox">
-        <c:set var="comment" value="Enter your review here" />
-        <textarea id="reviewText"
-                  onkeyup="countWords(this)"
-                  onkeydown="countWords(this)"
-                  onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
-                  rows="" cols="">${comment}</textarea>
-    </c:set>
-
-    <c:set var="cbxPermit"><input name="givePermission" type="checkbox" checked="checked"/></c:set>
-
-    <c:set var="sltWho">
-        <select name="posterAsString" class="select">
-            <option value="parent">parent</option>
-            <option value="student">student</option>
-            <option value="teacher">teacher</option>
-            <option value="other">other</option>
-        </select>
-    </c:set>
-
-    <c:set var="cbxMss"><input type="checkbox" name="wantMssNL" value="yes" checked="checked"/></c:set>
-
-    <c:set var="txtEmail">
-        <jsp:scriptlet>
-            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            String email = sessionContext.getEmail();
-            request.setAttribute("email",email);
-        </jsp:scriptlet>
-        <c:set var="email" value="${(not empty email) ? email : 'Enter your email address'}" />
-        <input type="text" name="email" id="reviewEmail"
-               onfocus="if(this.value=='Enter your email address'){this.value='';}"
-               value="${email}" class="emailAddress"/>
-    </c:set>
-
-    <c:if test="${pageName eq 'parentReviews'}">
-        <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/></h2>
-    </c:if>
+    <c:choose>
+        <c:when test="${pageName eq 'parentReviews'}">
+            <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/></h2>
+        </c:when>
+        <c:otherwise>
+            <h2 id="rateReviewH2" class="noprint"><a name="rReview"><c:out escapeXml="true" value="Rate ${school.name}"/></a></h2>
+        </c:otherwise>
+    </c:choose>
     <div id="rateReview" class="noprint">
-        <c:if test="${pageName ne 'parentReviews'}">
-            <h2><a name="rReview"><c:out escapeXml="true" value="Rate ${school.name}"/></a></h2>
-        </c:if>
-        <div id="rateReview_module">
-            <div id="ratingTitle">Rate this school</div>
-            <div class="starbar active">
-                <div class="outer">
-                    <div id="q_5" title="5 stars out of 5"
-                       onclick=" saveQuality('Excellent', '5'); return false;"
-                       onmouseover="setRatingTitle('Excellent', '5');"
-                       onmouseout="resetRatingTitle();"
-                       class="s5"><span class="starLink">5</span></div>
-                    <div id="q_4" title="4 stars out of 5"
-                       onclick=" saveQuality('Above average', '4'); return false;"
-                       onmouseover="setRatingTitle('Above average', '4');"
-                       onmouseout="resetRatingTitle();"
-                       class="s4"><span class="starLink">4</span></div>
-                    <div id="q_3" title="3 stars out of 5"
-                       onclick=" saveQuality('Average', '3'); return false;"
-                       onmouseover="setRatingTitle('Average', '3');"
-                       onmouseout="resetRatingTitle();"
-                       class="s3"><span class="starLink">3</span></div>
-                    <div id="q_2" title="2 stars out of 5"
-                       onclick=" saveQuality('Below average', '2'); return false;"
-                       onmouseover="setRatingTitle('Below average', '2');"
-                       onmouseout="resetRatingTitle();"
-                       class="s2"><span class="starLink">2</span></div>
-                    <div id="q_1" title="1 star out of 5"
-                       onclick=" saveQuality('Unsatisfactory', '1'); return false;"
-                       onmouseover="setRatingTitle('Unsatisfactory', '1');"
-                       onmouseout="resetRatingTitle();"
-                       class="s1"><span class="starLink">1</span></div>
-                </div>
-            </div>
+        <div id="ratingTitle">Rate this school</div>
             <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
+
+                <!--Begin star ratings.
+                    Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
+                    But because this page may load slowly, that's not an option.
+                -->
+                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+                <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
+                <ul class="star-rating large-star">
+                    <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                    <li><a href="#"
+                           title="1 star out of 5"
+                           class="one-star"
+                           onclick="this.hideFocus=true;setStars(1);return false;"
+                           onmouseover="showStars(1);"
+                           onmouseout="resetStars();"
+                            >1</a></li>
+                    <li><a href="#" title="2 stars out of 5" class="two-stars"
+                           onclick="this.hideFocus=true;setStars(2);return false;"
+                           onmouseover="showStars(2);"
+                           onmouseout="resetStars();"
+                            >2</a></li>
+                    <li><a href="#" title="3 stars out of 5" class="three-stars"
+                           onclick="this.hideFocus=true;setStars(3);return false;"
+                           onmouseover="showStars(3);"
+                           onmouseout="resetStars();"
+                            >3</a></li>
+                    <li><a href="#" title="4 stars out of 5" class="four-stars"
+                           onclick="this.hideFocus=true;setStars(4);return false;"
+                           onmouseover="showStars(4);"
+                           onmouseout="resetStars();"
+                            >4</a></li>
+                    <li><a href="#" title="5 stars out of 5" class="five-stars"
+                           onclick="this.hideFocus=true;setStars(5);return false;"
+                           onmouseover="showStars(5);"
+                           onmouseout="resetStars();"
+                            >5</a></li>
+                </ul>
+               <!-- end star ratings -->
+
+
                 <input type="hidden" name="id" value="${schoolId}"/>
                 <input type="hidden" name="state" value="${state}"/>
                 <input type="hidden" name="source" value="${pageName}" />
-                <input id="quality" type="hidden" name="overallAsString" value="decline" />
                 <input id="confirm" type="hidden" name="confirmEmail" value="" />
-                <c:choose>
-                    <c:when test="${pageName eq 'parentReviews'}">
-                        ${commentInputBox}
-                        <table border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td>${cbxPermit}</td>
-                                <td>
-                                    <!-- added spaces to label, added class to select -->
-                                    <label>I'm a&amp;#160;</label>${sltWho}<label>&amp;#160;and I accept</label></td></tr>
-                            <tr>
-                                <td>&amp;#160;</td>
-                                <td valign="top">
-                                    <span class="label2">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
-                                </td>
-                            </tr>
-                            <c:if test="${school.type.schoolTypeName ne 'private'}">
-                                <tr>
-                                    <td id="acceptUpdates">
-                                        ${cbxMss}
-                                    </td>
-                                    <td>
-                                        <label>Send me updates about this school</label>
-                                    </td>
-                                </tr>
-                            </c:if>
-                        </table>                        
-                        ${txtEmail}
-                        <div id="submitWrapper">
-                        <input id="submitReview"
-                               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        ${commentInputBox}
-                        <div id="acceptTerms">
-                            ${cbxPermit}<label>I'm a</label>
-                            ${sltWho}
-                            <label>and I accept the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
-                        </div>
+                <div  style="position:relative;" id="userInput">
+                <textarea id="reviewText"
+                          name="comments"
+                          onkeyup="countWords(this)"
+                          onkeydown="countWords(this)"
+                          onfocus="if(this.value=='Enter your review here'){this.value='';}">Enter your review here</textarea>
 
-                        <c:if test="${school.type.schoolTypeName ne 'private'}">
-                            <div id="acceptUpdates">
-                                ${cbxMss}<label>Email me monthly updates about this school</label>
-                            </div>
-                        </c:if>
-                        ${txtEmail}
-                        <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
-                               onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
-                               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/review/submitReview.gif" type="image" />
-                    </c:otherwise>
-                </c:choose>
+                <ul id="nonCommentInput">
+                    <li>
+                        <input id="permission" name="givePermission" type="checkbox" checked="checked"/>
+                            I'm a  <select name="posterAsString" class="select">
+                                        <option value="parent">parent</option>
+                                        <option value="student">student</option>
+                                        <option value="teacher">teacher</option>
+                                        <option value="other">other</option>
+                                    </select>  and I accept <span id="tos">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
+                    </li>
+                    <c:if test="${school.type.schoolTypeName ne 'private'}">
+                        <li><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked"/> Send me updates about this school</li>
+                    </c:if>
+
+                    <li id="emailAndSubmit">
+                        <c:set var="email" value="${(not empty email) ? email : 'Enter your email address'}" />
+                        <input type="text" name="email" id="reviewEmail"
+                            onfocus="if(this.value=='Enter your email address'){this.value='';}"
+                            value="${email}" class="emailAddress"/>
+                        <c:choose>
+                            <c:when test="${pageName eq 'parentReviews'}">
+                                <input id="submitReview" alt="Submit ${school.name} parent review and rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
+                            </c:when>
+                            <c:otherwise>
+                                <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
+                                    onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
+                                    class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/review/submitReview.gif" type="image" />
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li id="privacyPolicy">GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">Privacy Policy</gsml:a></li>
+                </ul>
+                </div>
             </gsweb:form>
-            <p class="privacyPolicy ${(school.type.schoolTypeName eq 'private') ? 'private' : ''}">GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">Privacy Policy</gsml:a></p>
+
             <c:if test="${pageName eq 'parentReviews'}">
                 <div id="espLink">
                     <link:schoolProfileEspLogin styleClass="esp" school="${school}">Principals, submit your review here &gt;</link:schoolProfileEspLogin>
                 </div>
             </c:if>
-        </div>
     </div>
 </jsp:root>

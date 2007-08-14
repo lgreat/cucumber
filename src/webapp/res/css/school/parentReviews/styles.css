@@ -106,145 +106,124 @@ Parent Review Page
 /* Rate & Review
 ----------------------------------*/
 
+#parentReview #rateReview,
+    #parentReview #rateReview ul,
+    #parentReview #rateReview ul li,
+    input, form, textarea, select{
+    font-size:12px;
+    font-family: Trebuchet MS, sans-serif;
+    color:#666;
+}
+#parentReview ul#frmErrors li {
+    color: #cc5566;
+}
 #parentReview #rateReview {
-    float: left;
-    width: 530px;
-    margin-top: 0;
-    border-right: 2px solid #dee;
-    border-left: 2px solid #dee;
-    border-bottom: 2px solid #dee;
-    border-top: none;
-    margin-bottom:18px;
-}
-
-div#espLink {
-    clear:left;
-    padding:7px 0 9px 0;
-}
-
-#parentReview #rateReview_module {
-    margin: 0;
-    padding: 0;
-    width: 510px;
-    margin: 10px 0 0 16px;
-    _margin: 10px 0 0 8px; /* IE 6 hack */
-    border: 0;
+    position: relative;
+    clear:both;
+    width: 514px;
+    padding: 12px 0 128px 16px;
+    border-color: #ddeeee;
+    border-width: medium 2px 2px;
+    border-style:none solid solid solid;
+    margin: 0 0 18px 0;
 }
 
 #parentReview #rateReviewH2 {
-    width: 518px;
-    height: 17px;
-    color: #fff;
-    padding: 3px 0 0 16px;
-    background: #6cc;
-    text-indent: 0;
-    font-weight: bold;
-    line-height: 14px;
-    float: left;
-    _float: none; /* IE 6 hack */
+    background:#66CCCC none repeat scroll 0%;
+    color:#FFFFFF;
+    font-weight:bold;
+    height:17px;
+    line-height:14px;
+    text-indent:0;
+    font-size:14px;
+    width:517px;
+    padding: 3px 2px 2px 15px;
+    margin:0;
+    clear:both;
 }
 
-#parentReview #rateReview h2 {
-    width: 514px;
-    height: 19px;
-    color: #fff;
-    padding: 3px 0 0 16px;
-    background: #6cc;
-    text-indent: 0;
-    line-height: 14px;
+#parentReview #rateReview #ratingTitle {
+    font-size:19px;
+    color: #55bbcc;
+    position:absolute;
+    line-height:normal;
+    font-weight:normal;
 }
 
-#parentReview #rateReview_module #ratingTitle {
-    width: 155px;
-    float: left;
+.star-rating{
+    position:absolute;
+    left: 148px;
 }
 
-#parentReview #rateReview_module .starbar {
-    margin: 5px 0 0 154px;
-    width: 125px;
+#parentReview #userInput {
+    margin-top:10px;
 }
 
-#parentReview #rateReview_module #reviewText {
-	font: 12px/15px Trebuchet MS;
-	padding: 4px 0 5px 7px;
-	height: 96px;
-	width: 256px;
-	margin: 0 16px 0 0;
-	_margin: 0; /* IE 6 hack */
-	float: left;
+#parentReview #rateReview textarea{
+    position:absolute;
+    width:260px;
+    height:105px;
+    overflow: hidden;
+    padding:4px 0 5px 7px;
+    margin:0;
 }
 
-#parentReview #rateReview_module form {
-	margin: 10px 0 0 0;
-    width:505px;
-    float:left;
+#parentReview #rateReview ul#nonCommentInput {
+    position: absolute;
+    left: 285px;
+    list-style-type:none;
+    width:270px;
+    margin:0;
 }
 
-#parentReview #rateReview_module table {
-    margin: -3px 0 0 0;
-    _margin: -2px 0 0 18px; /* IE 6 hack */
-    float:left;
+#parentReview #rateReview ul#nonCommentInput li {
+    position:relative;
+    padding-bottom:5px;
 }
 
-#parentReview #rateReview_module .select {
-    _margin-top: 2px; /* IE 6 hack */
+#parentReview #rateReview #permission, #wantMssNL{
+    width:15px;
+    height:15px;
+}
+
+#parentReview #rateReview select{
+    vertical-align:middle;
     width:63px;
     font-size:11px;
 }
 
-#parentReview #rateReview_module #acceptUpdates {
-    height: 26px;
-    _height: 24px; /* IE 6 hack */
+#parentReview #rateReview #submitReview {
+    position: relative;
+    vertical-align:middle;
+    padding-left:8px;
+    top: -3px;
 }
 
-#parentReview #rateReview_module label {
-	font-size: 12px;
-	line-height: 14px;
-	margin: -2px 0 0 6px;
-	_margin: 4px 0 0 0; /* IE 6 hack */
+#parentReview #rateReview #tos {
+    position: relative;
+    display: block;
+    left:23px;
 }
 
-.label2 {
-    margin: -4px 0 0 6px;
-    _margin: -7px 0 0 1px; /* IE 6 hack */
+#parentReview #rateReview #reviewEmail {
+    width:142px;
+    font-size:12px;
+    height:15px;
+    line-height:15px;
+    padding: 1px 1px 1px 4px;
 }
 
-
-#parentReview #rateReview_module .emailAddress {
-    margin: 8px 0 0 3px;
-    _margin: 8px 0 0 22px; /* IE 6 hack */
-    font: 12px/15px Trebuchet MS;
-    padding: 1px;
-    padding-left: 4px;
-    width: 142px;
-    _width: 138px; /* IE 6 hack */
-    height: 15px;
-    float: left;
+#parentReview #rateReview #espLink {
+    position:relative;
+    top:120px;
 }
 
-#parentReview #rateReview_module #submitReview {
-    width: 62px;
-    height: 19px;
-    float: right;
-    margin: 9px 0 0 6px;
-    _margin: 1px 1px 0 0; /* IE 6 hack */
-    text-decoration: none;
+#parentReview #rateReview #privacyPolicy {
+    font-size:10px;
 }
 
-#submitWrapper {
-    _padding-top: 7px;
-}
-
-#parentReview #rateReview_module .privacyPolicy {
-	font-size: 10px;
-	margin: -14px 100px 0 0;
-	_margin: -14px 50px 0 0; /* IE 6 hack */
-	float: right;
-}
-
-#parentReview #rateReview_module p.private {
-	margin: -33px 100px 0 0;
-	_margin: -33px 50px 0 0; /* IE 6 hack */
+#parentReview #rateReview #emailAndSubmit {
+    padding-top:3px;
 }
 
 /* Parent Reviews
