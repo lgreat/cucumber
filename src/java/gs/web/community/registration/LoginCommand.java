@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginCommand.java,v 1.2 2006/11/18 00:08:13 aroy Exp $
+ * $Id: LoginCommand.java,v 1.3 2007/08/14 19:19:26 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -15,7 +15,7 @@ public class LoginCommand implements EmailValidator.IEmail {
     private String _email;
     private String _redirect;
     private String _password;
-    private boolean _rememberMe;
+    private boolean _rememberMe = true;
 
     public String getEmail() {
         return _email;
