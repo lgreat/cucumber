@@ -25,7 +25,7 @@
                 <tr>
                     <td>
                         <form method="post"
-                              action="http://apps.collegeboard.com/search/servlet/qsearchservlet?action=start"
+                              action="http://collegesearch.collegeboard.com/search/servlet/qsearchservlet?action=start"
                               name="advSearch"
                               target="_blank">
                             <input value="1" name="formState" type="hidden" />
