@@ -126,21 +126,29 @@ public class UtilTest extends TestCase {
     public void testPeriodBetweenDates() throws Exception {
         assertEquals("", d("2002-1-2", "2002-1-1"));
         assertEquals("today", d("2002-1-1", "2002-1-1"));
-        assertEquals("one year ago", d("2002-1-1", "2003-1-1"));
-        assertEquals("two years ago", d("2002-1-1", "2004-1-1"));
-        assertEquals("two years and one month ago", d("2002-1-1", "2004-2-1"));
-        assertEquals("two years and one month ago", d("2002-1-1", "2004-2-2"));
+        assertEquals("January 1, 2002", d("2002-1-1", "2003-1-1"));
+        assertEquals("January 1, 2002", d("2002-1-1", "2004-1-1"));
+        assertEquals("January 1, 2002", d("2002-1-1", "2004-2-1"));
+        assertEquals("January 1, 2002", d("2002-1-1", "2004-2-2"));
 
-        assertEquals("one month ago", d("2002-1-1", "2002-2-2"));
-        assertEquals("30 days ago", d("2002-1-2", "2002-2-1"));
-        assertEquals("one month ago", d("2002-1-2", "2002-2-2"));
-        assertEquals("two months ago", d("2002-1-1", "2002-3-28"));
+        assertEquals("January 1", d("2002-1-1", "2002-2-2"));
+        assertEquals("January 2", d("2002-1-2", "2002-2-1"));
+        assertEquals("January 2", d("2002-1-2", "2002-2-2"));
+        assertEquals("January 1", d("2002-1-1", "2002-3-28"));
 
-        assertEquals("one month ago", d("2003-1-1", "2003-2-28"));
-        assertEquals("22 days ago", d("2002-1-29", "2002-2-20"));
+        assertEquals("January 1", d("2003-1-1", "2003-2-28"));
+        assertEquals("January 29", d("2002-1-29", "2002-2-20"));
 
-        assertEquals("one day ago", d("2002-1-1", "2002-1-2"));
-        assertEquals("two days ago", d("2002-1-1", "2002-1-3"));
+        assertEquals("yesterday", d("2002-1-1", "2002-1-2"));
+        assertEquals("Tuesday, January 1", d("2002-1-1", "2002-1-3"));
+        assertEquals("Tuesday, January 1", d("2002-1-1", "2002-1-4"));
+        assertEquals("Tuesday, January 1", d("2002-1-1", "2002-1-5"));
+        assertEquals("Tuesday, January 1", d("2002-1-1", "2002-1-6"));
+        assertEquals("Tuesday, January 1", d("2002-1-1", "2002-1-7"));
+        assertEquals("January 1", d("2002-1-1", "2002-1-8"));
+
+        assertEquals("yesterday", d("2002-1-31", "2002-2-1"));
+        assertEquals("Thursday, January 31", d("2002-1-31", "2002-2-3"));
     }
 
     static String d(String start, String end) throws ParseException {
@@ -151,6 +159,15 @@ public class UtilTest extends TestCase {
     public void testEscapeHtml() {
         assertEquals("hi", Util.escapeHtml("hi"));
         assertEquals("&lt;/body>", Util.escapeHtml("</body>"));
+    }
+
+    public void testDisplayName() {
+        assertEquals("", Util.createParentReviewDisplayName(null, null, null));
+        assertEquals("Barry", Util.createParentReviewDisplayName("Barry", null, null));
+        assertEquals("", Util.createParentReviewDisplayName(null, "Bonds", null));
+        assertEquals("Barry Bonds", Util.createParentReviewDisplayName("Barry", "Bonds", null));
+        assertEquals("Barry Bonds, student", Util.createParentReviewDisplayName("Barry", "Bonds", "student"));
+        assertEquals("student", Util.createParentReviewDisplayName(null, null, "student"));
     }
 
 }

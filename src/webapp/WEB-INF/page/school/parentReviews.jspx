@@ -44,7 +44,7 @@
                     <c:if test="${cmd.ratings.displayOverallRating eq true}">
                         <div id="showParentRatings">
                             <div id="rating_parent">
-                                <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif" alt="Overall Parent Rating - ${school.name} parent reviews and overall parent rating" styleClass="parentTitle" />
+                                <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif" alt="Overall Parent Rating - ${school.name} Parent Reviews and Overall Parent Rating" styleClass="parentTitle" />
                                 <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.avgQuality}.gif" alt="Overall rating: ${cmd.ratings.avgQuality} out of 5 stars" styleClass="stars" />
                                 <link:schoolProfileAddParentReview school="${school}"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif" alt="Rate it" styleClass="rateIt" /></link:schoolProfileAddParentReview>
                                 <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
@@ -107,8 +107,8 @@
                             <c:set var="pageControls">
                                 <div class="pageControls">
                                     <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
-                                    <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page of ${school.name} parent reviews" /></gsml:a></div></pg:next>
-                                    <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page of ${school.name} parent reviews" /></gsml:a></div></pg:prev>
+                                    <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page of ${school.name} Parent Reviews" /></gsml:a></div></pg:next>
+                                    <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page of ${school.name} Parent Reviews" /></gsml:a></div></pg:prev>
                                 </div>
                             </c:set>
 
@@ -127,19 +127,26 @@
 
                                         <c:choose>
                                             <c:when test="${who eq 'principal'}">
-                                                <p class="author"><span class="principal">Posted by the principal ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</span></p>
+                                                <p class="author"><span class="principal">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</span></p>
                                             </c:when>
                                             <c:otherwise>
-                                                <p class="author">Posted <c:if test="${who ne ''}">by a ${who}</c:if> ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
+                                                <p class="author">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
                                             </c:otherwise>
                                         </c:choose>
 
+                                        <c:set var="postedByDisplay" value=""/>
                                         <c:choose>
-                                            <c:when test="${review.allowName and not empty(review.user) and not empty(review.user.firstName)}">
-                                                <p><c:out value="${review.comments}" escapeXml="true"/><br/> - ${review.user.firstName} <c:if test="${not empty(review.user.lastName)}">${review.user.lastName}</c:if></p>
+                                            <c:when test="${review.allowName and not empty(review.user)}">
+                                                <c:set var="postedByDisplay" value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
                                             </c:when>
-                                            <c:otherwise><p><c:out value="${review.comments}" escapeXml="true"/></p></c:otherwise>
+                                            <c:when test="${review.who ne ''}">
+                                                <c:set var="postedByDisplay" value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+                                            </c:when>
                                         </c:choose>
+                                        <p>
+                                            <c:out value="${review.comments}" escapeXml="true"/>
+                                            <c:if test="${not empty postedByDisplay}"><br/>- ${postedByDisplay}</c:if>
+                                        </p>
                                         <p class="respond"><link:schoolProfileAddParentReview school="${school}">Write your own review</link:schoolProfileAddParentReview></p>
                                     </div><!-- end: review -->
                                 </pg:item>
@@ -152,7 +159,7 @@
 
                     <!-- begin Callouts -->
                     <div id="callouts" class="noprint">
-                        <div class="learnMore"><p><link:parentReviewsLearnMore>Learn more</link:parentReviewsLearnMore> about parent reviews and read about the <link:parentReviewGuidelines>types of reviews</link:parentReviewGuidelines> we post.</p></div>
+                        <div class="learnMore"><p><link:parentReviewsLearnMore>Learn more</link:parentReviewsLearnMore> about Parent Reviews and read about the <link:parentReviewGuidelines>types of reviews</link:parentReviewGuidelines> we post.</p></div>
                         <div class="feedback">
                             <c:choose>
                                 <c:when test="${cmd.totalReviews gt 0}">

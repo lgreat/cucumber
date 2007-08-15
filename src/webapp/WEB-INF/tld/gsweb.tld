@@ -75,6 +75,12 @@
         <function-signature>java.lang.String escapeHtml(java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>createParentReviewDisplayName</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String createParentReviewDisplayName(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

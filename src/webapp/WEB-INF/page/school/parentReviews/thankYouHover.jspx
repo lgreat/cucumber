@@ -49,7 +49,7 @@
             a few days.
         </p>
         <c:if test="${hasReview}">
-            <link:schoolProfileParentReview school="${school}" id="sppPR">Read other parent reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
+            <link:schoolProfileParentReview school="${school}" id="sppPR">Read other Parent Reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
         </c:if>
         <div id="close"><a href="#" onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
         <mod:tracking pageType="Parent Review"

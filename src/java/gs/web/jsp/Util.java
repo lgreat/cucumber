@@ -7,6 +7,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -16,6 +18,22 @@ import java.util.Random;
 public class Util {
 
     private static final Log _log = LogFactory.getLog(Util.class);
+
+    /**
+     * Ex: June 25, 2003
+     */
+    public static DateFormat LONG_DATE_FORMAT = new SimpleDateFormat("MMMMM d, yyyy");
+
+    /**
+     * Ex:  June 25
+     */
+    public static DateFormat NO_YEAR_DATE_FORMAT = new SimpleDateFormat("MMMMM d");
+
+    /**
+     *  Ex:  Monday, June 25
+     */
+    public static DateFormat DAY_OF_WEEK_DAY_NO_YEAR_FORMAT = new SimpleDateFormat("EEEE, MMMM d");
+
     /**
      * Generate a random integer between 0 (inclusive) and upperLimit (exclusive)
      * @param upperLimit Th
@@ -181,20 +199,14 @@ public class Util {
     }
 
     /**
-     * Wordify the period between two dates.
+     * Wordify the period between two dates according to these rules-
+
+     For postings in the last 24 hours, display: Today
+     For postings the day before, display "yesterday": Yesterday
+     For postings within the last week, display the day: Monday, June 25
+     For postings before that, a date: June 19
+     For postings in the previous year, add the year: June 19, 2006
      *
-     * Our GS style is one to nine, we write out the word, for  10 and above we use numerals.
-     *
-     * If period is over a year, the year and month is part of the return string.
-     *      Ex: one year and two months ago, one year and two months ago
-     *
-     * If period is over a month, the month is part of the return string.
-     *      Ex: one month ago, two months ago
-     *
-     * If period is under a month, the number of days is part of the return string.
-     *      Ex: one day ago, 20 days ago
-     *
-     * If start and end date is the same day, then 'today' is returned
      *
      * @param start Start date
      * @param end End date
@@ -202,20 +214,6 @@ public class Util {
      *          period otherwise.
      */
     public static String periodBetweenDates(Date start, Date end) {
-
-        //style guide...0-9 we write out the word, 10 and above we use numerals
-        //0 is never used, just so we don't have to offset
-        final String [] numAsWord = {
-                "zero",
-                "one", "two", "three", "four", "five",
-                "six", "seven", "eight", "nine", "10",
-                "11", "12", "13", "14", "15",
-                "16", "17", "18", "19", "20",
-                "21", "22", "23", "24", "25",
-                "26", "27", "28", "29", "30",
-                "31"
-        };
-
         if (null == start || null == end) {
             return "";
         }
@@ -228,30 +226,55 @@ public class Util {
             return "";
         }
 
-        if (dtStart.isEqual(dtEnd)) {
-            return "today";
-        }
-
-        Period period = new Period(dtStart, dtEnd, PeriodType.yearMonthDay());
+        Period period = new Period(dtStart, dtEnd, PeriodType.yearWeekDay());
         int years = period.getYears();
-        int months = period.getMonths();
+        int weeks = period.getWeeks();
         int days = period.getDays();
 
-        StringBuffer buffer = new StringBuffer(30);
+        String dateAsWord = "";
 
         if (years > 0) {
-            buffer.append(numAsWord[years]).append(pluralize(years, " year"));
-            if (months > 0) {
-                buffer.append(" and ").append(numAsWord[months]).append(pluralize(months, " month"));
-            }
-        } else if (months > 0) {
-            buffer.append(numAsWord[months]).append(pluralize(months, " month"));
+            dateAsWord = LONG_DATE_FORMAT.format(start);
+        } else if (weeks > 0) {
+            dateAsWord = NO_YEAR_DATE_FORMAT.format(start);
         } else {
-            buffer.append(numAsWord[days]).append(pluralize(days, " day"));
+            if (days == 0) {
+                dateAsWord = "today";
+            } else if (days == 1) {
+                dateAsWord = "yesterday";
+            } else {
+                dateAsWord = DAY_OF_WEEK_DAY_NO_YEAR_FORMAT.format(start);
+            }
         }
-        buffer.append(" ago");
 
-        return buffer.toString();
+        return dateAsWord;
+    }
+
+    /**
+     *
+     * @param firstName null or firstName
+     * @param lastName null or lastName
+     * @param poster null or poster
+     * @return
+     *  See unit test for examples
+     */
+    public static String createParentReviewDisplayName(String firstName, String lastName, String poster) {
+        String displayName = "";
+
+        if (StringUtils.isNotBlank(firstName)) {
+            displayName = firstName;
+            if (StringUtils.isNotBlank(lastName)) {
+                displayName += " " + lastName;
+            }
+
+            if (StringUtils.isNotBlank(poster)) {
+                displayName += ", " + poster;
+            }
+        } else if (StringUtils.isNotBlank(poster)) {
+            displayName = poster;
+        }
+
+        return displayName;
     }
 
     public static String escapeHtml(String input) {
