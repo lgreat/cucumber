@@ -31,7 +31,7 @@ public class FollowUpCommand {
     private List<Subscription> _subscriptions;
     private String _recontact;
     private List<List<School>> _schools;
-    private boolean _terms = false;
+    private boolean _terms = true;
     private String _redirect;
     private boolean _newsletter = true;
     private State _state;

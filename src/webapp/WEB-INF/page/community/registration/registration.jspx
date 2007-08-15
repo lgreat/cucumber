@@ -221,11 +221,11 @@
                 </li>
 
                 <li id="terms" style="${termsStyle}">
-                    <label class="terms"><span class="required">*</span>I am over 13 years of age and I agree to the
+                    <label for="termsField" class="terms"><span class="required">*</span>I am over 13 years of age and I agree to the
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Terms of Use"
                             href="/cgi-bin/static/terms.html/$STATE"
-                            tabIndex="19">Terms of Use</gsml:popupWindow>,<br/>
+                            tabIndex="19">GreatSchools <br/>Terms of Use</gsml:popupWindow>,
                     including the
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Community Standards"
