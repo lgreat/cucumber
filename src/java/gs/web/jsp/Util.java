@@ -32,7 +32,7 @@ public class Util {
     /**
      *  Ex:  Monday, June 25
      */
-    public static DateFormat DAY_OF_WEEK_DAY_NO_YEAR_FORMAT = new SimpleDateFormat("EEEE, MMMM d");
+    public static DateFormat DAY_OF_WEEK_MONTH_DAY_YEAR_FORMAT = new SimpleDateFormat("EEEE, MMMM d, yyyy");
 
     /**
      * Generate a random integer between 0 (inclusive) and upperLimit (exclusive)
@@ -236,14 +236,14 @@ public class Util {
         if (years > 0) {
             dateAsWord = LONG_DATE_FORMAT.format(start);
         } else if (weeks > 0) {
-            dateAsWord = NO_YEAR_DATE_FORMAT.format(start);
+            dateAsWord = LONG_DATE_FORMAT.format(start);
         } else {
             if (days == 0) {
                 dateAsWord = "today";
             } else if (days == 1) {
                 dateAsWord = "yesterday";
             } else {
-                dateAsWord = DAY_OF_WEEK_DAY_NO_YEAR_FORMAT.format(start);
+                dateAsWord = DAY_OF_WEEK_MONTH_DAY_YEAR_FORMAT.format(start);
             }
         }
 
@@ -268,10 +268,10 @@ public class Util {
             }
 
             if (StringUtils.isNotBlank(poster)) {
-                displayName += ", " + poster;
+                displayName += ", a " + poster;
             }
         } else if (StringUtils.isNotBlank(poster)) {
-            displayName = poster;
+            displayName = "a " + poster;
         }
 
         return displayName;

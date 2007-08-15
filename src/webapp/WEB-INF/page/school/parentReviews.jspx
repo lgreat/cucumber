@@ -124,15 +124,7 @@
                                         <c:if test="${(review.quality.name ne 'decline') and (who ne 'principal')}">
                                             <gsml:img src="/res/img/school/parentReviews/stars_med_${review.quality.name}.gif" styleClass="stars" alt="${review.quality.name} out of 5 stars" />
                                         </c:if>
-
-                                        <c:choose>
-                                            <c:when test="${who eq 'principal'}">
-                                                <p class="author"><span class="principal">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</span></p>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <p class="author">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <p class="author">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
 
                                         <c:set var="postedByDisplay" value=""/>
                                         <c:choose>
@@ -145,7 +137,14 @@
                                         </c:choose>
                                         <p>
                                             <c:out value="${review.comments}" escapeXml="true"/>
-                                            <c:if test="${not empty postedByDisplay}"><br/>- ${postedByDisplay}</c:if>
+                                                <c:choose>
+                                                    <c:when test="${who eq 'principal'}">
+                                                        <c:if test="${not empty postedByDisplay}"><br/><span class="principal">- Submitted by ${postedByDisplay}</span></c:if>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:if test="${not empty postedByDisplay}"><br/>- Submitted by ${postedByDisplay}</c:if>
+                                                    </c:otherwise>
+                                                </c:choose>
                                         </p>
                                         <p class="respond"><link:schoolProfileAddParentReview school="${school}">Write your own review</link:schoolProfileAddParentReview></p>
                                     </div><!-- end: review -->
