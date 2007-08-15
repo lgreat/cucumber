@@ -249,8 +249,8 @@ function hideContainers() {
 var hidden = getElementsByCondition(
     function(el) {
         try {
-            if(el.id.indexOf("ad")==0 || el.tagName == "OBJECT"){el.style.display='none';return el}
-            else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="hidden";return el}
+            if (el.id.indexOf("ad")==0){el.style.display='none';return el}
+            else if (el.tagName == "OBJECT" || (gHideSelects && el.tagName == "SELECT")) {el.style.visibility="hidden";return el}
         } catch(err) {}
     }
     )
@@ -260,8 +260,8 @@ function showContainers() {
     var hidden = getElementsByCondition(
         function(el){
             try {
-                if(el.id.indexOf("ad")==0 || el.tagName == "OBJECT"){el.style.display='block';return el}
-                else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="visible";return el}
+                if (el.id.indexOf("ad")==0){el.style.display='block';return el}
+                else if (el.tagName == "OBJECT" || (gHideSelects && el.tagName == "SELECT")) {el.style.visibility="visible";return el}
             } catch(err) {}
         }
         )
