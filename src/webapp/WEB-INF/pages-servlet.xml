@@ -1159,34 +1159,13 @@
           class="gs.web.util.IsValidEmailController"
           autowire="byName" lazy-init="true"/>
 
-    <bean name="/survey/admin.page"
-          class="gs.web.survey.SurveyAdminController" autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>survey/admin</value>
-        </property>
-    </bean>
-
-    <bean name="/survey/edit.page"
-          class="gs.web.survey.SurveyEditController" autowire="byName" lazy-init="true">
+    <bean name="/survey/form.page"
+          class="gs.web.survey.SurveyController" autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="survey"/>
+        <property name="commandName" value="surveyCommand"/>
         <property name="commandClass" value="gs.data.survey.Survey"/>
-        <property name="formView" value="survey/edit" />
-        <property name="successView" value="survey/admin" />
-    </bean>
-
-    <bean name="/survey/previewForm.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>survey/previewForm</value>
-        </property>
-    </bean>
-
-    <bean name="/survey/previewResults.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>survey/previewResults</value>
-        </property>
+        <property name="formView" value="survey/form"/>
+        <property name="successView" value="survey/confirmation"/>
     </bean>
 
     <!-- WEB PAGE DEFINITIONS END -->

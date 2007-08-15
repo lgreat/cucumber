@@ -9,15 +9,9 @@
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <jsp:directive.page contentType="text/html"/>    
     <html>
-    <head><title>GreatSchools Surveys - Edit Page</title></head>
+    <head><title>GreatSchools Surveys - Thank you</title></head>
     <body>
-    <gsweb:form action="/survey/edit.page" method="post">
-
-        <spring:bind path="survey.title">
-            title: <input type="text" name="title" size="50" value="${survey.title}"></input>
-        </spring:bind>
-        <input type="submit" value="Save" name="submit"/>        
-    </gsweb:form>
+       <h1>Thank you</h1>
     </body>
     </html>
 </jsp:root>
