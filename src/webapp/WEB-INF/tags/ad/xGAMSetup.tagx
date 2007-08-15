@@ -51,6 +51,7 @@
             <!--]]>
             <c:forEach var="keywordEntry" items="${GAMadKeywords}">
                 GA_googleAddAttr('${keywordEntry.key}','${keywordEntry.value}');</c:forEach>
+                GA_googleAddAttr('comp_filter','${gsweb:randomNumber(4)+1}');
             <c:forEach var="slotName" items="${GAMadNames}">
                 GA_googleAddSlot("ca-pub-9662012843341888", '${slotName}');</c:forEach>
             <![CDATA[

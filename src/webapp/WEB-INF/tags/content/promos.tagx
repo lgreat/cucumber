@@ -13,7 +13,6 @@
     <pageHelper:externalCss file="/res/css/ads.css"/>
 
     <ad:House_Ad_300x137 referredBy="${referredBy}"/>
-    <ad:x70/>
     <ad:AboveFold_300x600/>
     
     <c:if test="${fn:contains(pageContext.request.requestURI,'specialNeeds')}">
