@@ -20,9 +20,12 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
     public void testHandleNewPageRequest() throws Exception {
         GsMockHttpServletRequest request = getRequest();
+        request.setMethod("GET");
         //request.setAttribute("");
+//        assertNull(request.getAttribute("surveyCommand"));
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
-        
+//        assertNotNull(request.getAttribute("surveyCommand"));
+
 //        assertEquals("survey/admin", mAndView.getViewName());
 //        assertEquals(2, ((List)mAndView.getModel().get("surveys")).size());
     }
