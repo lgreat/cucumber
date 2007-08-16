@@ -21,9 +21,8 @@ a {
 
 /* container classes */
 
-#myaccount_info, #myaccount_forgotpassword, #myaccount_resetpassword, #myaccount_resetemail {
+#myaccount_info {
 	width: 864px;
-	background: url(../../../img/community/registration/myaccount_bg.gif) repeat-y left;
 	margin: 0 0 30px 0;
 	float: left;
 }
@@ -40,7 +39,6 @@ a {
 /* myaccount_info header */
 
 #myaccount_info h1 {
-	background: url(../../../img/community/registration/h1_myaccount_136x60.gif) no-repeat;
 	width: 136px;
 	height: 60px;
 	margin: 40px 0 0 22px;
@@ -51,54 +49,6 @@ a {
 #myaccount_info h2 {
 	width: 154px;
 	height: 24px;
-}
-
-/* myaccount_forgotpassword header */
-
-#myaccount_forgotpassword h1 {
-	background: url(../../../img/community/registration/h1_myaccount_136x60.gif) no-repeat;
-	width: 136px;
-	height: 60px;
-	margin: 40px 0 0 22px;
-	_margin: 38px 0 0 11px;
-	float: left;
-}
-
-#myaccount_forgotpassword h2 {
-	width: 220px;
-	height: 40px;
-}
-
-/* myaccount_resetpassword header */
-
-#myaccount_resetpassword h1 {
-	background: url(../../../img/community/registration/h1_myaccount_136x60.gif) no-repeat;
-	width: 136px;
-	height: 60px;
-	margin: 40px 0 0 22px;
-	_margin: 38px 0 0 11px;
-	float: left;
-}
-
-#myaccount_resetpassword h2 {
-	width: 200px;
-	height: 40px;
-}
-
-/* myaccount_resetemail header */
-
-#myaccount_resetemail h1 {
-	background: url(../../../img/community/registration/h1_myaccount_136x60.gif) no-repeat;
-	width: 136px;
-	height: 60px;
-	margin: 40px 0 0 22px;
-	_margin: 38px 0 0 11px;
-	float: left;
-}
-
-#myaccount_resetemail h2 {
-	width: 242px;
-	height: 40px;
 }
 
 h1 span {
@@ -117,18 +67,6 @@ h1 span {
 	margin: 0;
 	padding: 40px 0 170px 37px;
 	border: 2px solid #ddeeee;
-}
-
-#myaccount_resetemail #content {
-    padding-bottom: 260px;
-}
-
-#myaccount_resetpassword #content {
-    padding-bottom: 260px;
-}
-
-#myaccount_forgotpassword #content {
-    padding-bottom: 260px;
 }
 
 #outline { /* creates the darker blue outer outline around #content, contains no other styling */
@@ -159,17 +97,6 @@ h1 span {
 	color: #fff;
 	font-size: 17px;
 	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
-}
-
-#myaccount_forgotpassword .infomessage {
-	width: 479px; /* 589 true width minus right/left padding */
-	height: 42px; /* 55 true height minus top padding */
-	float: right;
-	margin: 0 0 4px 0;
-    padding: 13px 30px 0 80px;
-	color: #fff;
-	font-size: 17px;
-	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 13px no-repeat #66cccc;
 }
 
 /* myaccount_info modules */
@@ -204,7 +131,6 @@ h1 span {
 	font-size: 13px;
 	line-height: 16px;
 	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-	background: url(../../../img/community/registration/icon_editlink_5x9.gif) left 3px no-repeat;
 	width: 200px;
 	float: left;
 	padding: 0 0 0 9px;
@@ -373,117 +299,8 @@ h1 span {
 	line-height: 14px;
 }
 
-/* Forgot Your Password? */
-
-#myaccount_forgotpassword #content input {
-    color: #444444;
-}
-
-#myaccount_forgotpassword p {
-	width: 300px;
-	margin: 0 0 15px 0;
-}
-
-#myaccount_forgotpassword a {
-    color: #3399aa;
-    text-decoration: underline;
-    font-size: 13px;
-    line-height: 16px;
-    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-}
-
-#myaccount_forgotpassword input {
-	width: 230px;
-	margin: 0 0 30px 0;
-	padding: 0;
-}
-
-#myaccount_forgotpassword .resetpassword {
-	float: left;
-	width: 95px;
-	height: 24px;
-	margin: 0 20px 0 0;
-}
-
-#myaccount_forgotpassword .cancel {
-	float: left;
-	width: 95px;
-	height: 24px;
-}
-
-/* Reset Your Password */
-
-#myaccount_resetpassword #content input {
-    color: #444444;
-}
-
-#myaccount_resetpassword p {
-	width: 260px;
-	margin: 0 0 15px 0;
-}
-
-#myaccount_resetpassword input {
-	width: 230px;
-	margin: 0 0 8px 0;
-	padding: 0;
-}
-
-#myaccount_resetpassword label {
-	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-	color: #777777;
-	margin: 0 0 2px 0;
-	display: block;
-}
-
-#myaccount_resetpassword .resetpassword {
-	float: left;
-	width: 161px;
-	height: 24px;
-	margin: 15px 20px 0 0;
-}
-
-#myaccount_resetpassword .cancel {
-	float: left;
-	width: 95px;
-	height: 24px;
-	margin: 15px 0 0 0;
-}
-
-/* Reset Your Email Address */
-
-#myaccount_resetemail #content input {
-    color: #444444;
-}
-
 p.field {
     float: left;
-}
-
-#myaccount_resetemail input {
-	width: 230px;
-	margin: 0 0 8px 0;
-	padding: 0;
-}
-
-#myaccount_resetemail label {
-	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
-	color: #777777;
-	margin: 0 0 2px 0;
-	display: block;
-}
-
-#myaccount_resetemail .resetemail {
-	float: left;
-	width: 195px;
-	height: 24px;
-	margin: 15px 20px 0 0;
-}
-
-#myaccount_resetemail .cancel {
-	float: left;
-	width: 95px;
-	height: 24px;
-	margin: 15px 0 0 0;
 }
 
 .clear {
@@ -509,15 +326,6 @@ p.field {
     float: left;
 }
 
-#myaccount_forgotpassword .warning {
-    width: 280px;
-    top: 0;
-}
-
-#myaccount_forgotpassword p.field {
-    width: 240px;
-}
-
 #content .warning img {
 	float: left;
 	margin: 6px 7px 0 0;
@@ -527,17 +335,4 @@ p.field {
     margin: 0;
     color: #3399aa;
 	text-decoration: underline;
-}
-
-#myaccount_resetpassword #content .warning {
-    float: none;
-    display: inline;
-    position: relative;
-    top: -10px;
-}
-
-#myaccount_resetpassword #content .warning img {
-    float: none;
-    position: relative;
-    top: 2px;
 }
