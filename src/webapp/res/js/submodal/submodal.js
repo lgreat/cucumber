@@ -12,6 +12,7 @@ var gLoading = "loading.html";
 var gRedirectAnchor = null;
 var gTabIndexes = new Array();
 var gTabbableTags = new Array("A","BUTTON","TEXTAREA","INPUT","IFRAME");
+var gIsIE = window.navigator.userAgent.indexOf("MSIE") > -1 ? 1 : 0;
 if (!document.all) {
 	document.onkeypress = keyDownHandler;
 }
@@ -249,8 +250,8 @@ function hideContainers() {
 var hidden = getElementsByCondition(
     function(el) {
         try {
-            if (el.id.indexOf("ad")==0){el.style.display='none';return el}
-            else if (el.tagName == "OBJECT" || (gHideSelects && el.tagName == "SELECT")) {el.style.visibility="hidden";return el}
+            if ((el.tagName == "OBJECT" && gIsIE) || el.id.indexOf("ad")==0){el.style.display='none';return el}
+            else if ((gHideSelects && el.tagName == "SELECT")) {el.style.visibility="hidden";return el}
         } catch(err) {}
     }
     )
@@ -260,8 +261,8 @@ function showContainers() {
     var hidden = getElementsByCondition(
         function(el){
             try {
-                if (el.id.indexOf("ad")==0){el.style.display='block';return el}
-                else if (el.tagName == "OBJECT" || (gHideSelects && el.tagName == "SELECT")) {el.style.visibility="visible";return el}
+                if ((el.tagName == "OBJECT" && gIsIE) || el.id.indexOf("ad")==0){el.style.display='block';return el}
+                else if ((gHideSelects && el.tagName == "SELECT")) {el.style.visibility="visible";return el}
             } catch(err) {}
         }
         )
