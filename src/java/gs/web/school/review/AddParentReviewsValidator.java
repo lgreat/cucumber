@@ -28,7 +28,9 @@ public class AddParentReviewsValidator implements Validator {
                 errors.rejectValue("givePermission", "addPR_error_permission", "Please accept our terms of use.");
             }
 
-            if (StringUtils.isBlank(command.getComments()) && CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
+            //no text review and no star rating given
+            if (StringUtils.isBlank(command.getComments()) &&
+                    (CategoryRating.DECLINE_TO_STATE.equals(command.getOverall()) || null == command.getOverall())) {
                 errors.rejectValue("comments", "addPR_error_comments", "Please enter a review or rating.");
             }
         }

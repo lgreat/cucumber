@@ -47,7 +47,7 @@
     height:15px;
 }
 
-#rateReview select{
+#rateReview ul li select{
     vertical-align:middle;
     width:70px;
     margin:0 3px 0 5px;
@@ -82,6 +82,10 @@
 
 #nonCommentInput {
     margin-top:10px;
+}
+
+ul#frmErrors {
+    margin-top:10px;    
 }
 
 ul#frmErrors li {

@@ -139,10 +139,10 @@
                                             <c:out value="${review.comments}" escapeXml="true"/>
                                                 <c:choose>
                                                     <c:when test="${who eq 'principal'}">
-                                                        <c:if test="${not empty postedByDisplay}"><br/><span class="principal">- Submitted by ${postedByDisplay}</span></c:if>
+                                                        <c:if test="${not empty postedByDisplay}"><br/><span class="principal author">Submitted by ${postedByDisplay}</span></c:if>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <c:if test="${not empty postedByDisplay}"><br/>- Submitted by ${postedByDisplay}</c:if>
+                                                        <c:if test="${not empty postedByDisplay}"><br/><span class="author">Submitted by ${postedByDisplay}</span></c:if>
                                                     </c:otherwise>
                                                 </c:choose>
                                         </p>

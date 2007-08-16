@@ -29,9 +29,6 @@ function setDisplay(numStars) {
 
 function setSubmitFields() {
     document.getElementById('confirm').value = document.getElementById('reviewEmail').value;
-    if (document.getElementById('overallStarRating').value == '0') {
-        document.getElementById('overallStarRating').value = 'decline';
-    }
     if (document.getElementById('reviewText').value == 'Enter your review here') {
         document.getElementById('reviewText').value = "";
     }
@@ -101,8 +98,8 @@ var AjaxObject = {
         if (ul==null) {
             ul = document.createElement('ul');
             ul.id = "frmErrors";
-            var txtArea = document.getElementById('reviewText');
-            ul = txtArea.parentNode.insertBefore(ul,txtArea);
+            var div = document.getElementById('userInput');
+            ul = div.parentNode.insertBefore(ul,div);
         } else {
             while ( ul.hasChildNodes() ) { ul.removeChild(ul.firstChild)};
         }

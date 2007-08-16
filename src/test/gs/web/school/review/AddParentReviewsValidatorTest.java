@@ -36,6 +36,12 @@ public class AddParentReviewsValidatorTest extends TestCase {
         assertTrue(_errors.hasFieldErrors("comments"));
     }
 
+    public void testNoCommentAndNullRating() throws Exception {
+        _command.setOverallAsString("0");
+        _validator.validate(_command, _errors);
+        assertTrue(_errors.hasFieldErrors("comments"));
+    }
+
     public void testPosterNotSpecified() throws Exception {
         _validator.validate(_command, _errors);
         assertTrue(_errors.hasFieldErrors("posterAsString"));

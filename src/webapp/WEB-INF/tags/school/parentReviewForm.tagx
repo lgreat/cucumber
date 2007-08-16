@@ -100,7 +100,7 @@
                 <ul id="nonCommentInput">
                     <li>
                         <input id="permission" name="givePermission" type="checkbox" checked="checked"/>
-                            I'm a  <select name="posterAsString" class="select">
+                            I'm a  <select name="posterAsString">
                                         <option value="parent">parent</option>
                                         <option value="student">student</option>
                                         <option value="teacher">teacher</option>
