@@ -107,8 +107,10 @@ public class ResearchController extends AbstractController {
                 if ("DC".equals(stateParam)) {
                     buf.append("/city/Washington/DC");
                 } else {
-                    buf.append("/modperl/cities/");
-                    buf.append(stateParam).append("/");
+                    buf.append("/schools/cities/");
+                    buf.append(state.getLongName());
+                    buf.append("/");
+                    buf.append(state.getAbbreviation());
                 }
                 mAndV.setView(new RedirectView(buf.toString()));
             }

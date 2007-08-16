@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesControllerTest.java,v 1.9 2006/07/13 07:54:00 apeterson Exp $
+ * $Id: TopCitiesControllerTest.java,v 1.10 2007/08/16 20:00:52 chriskimm Exp $
  */
 
 package gs.web.state;
@@ -47,7 +47,7 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertNotNull(modelAndView.getModel().get(AnchorListModel.RESULTS));
 
         Anchor veryLast = (Anchor) results.get(results.size() - 1);
-        assertEquals("/modperl/cities/CA/", veryLast.getHref());
+        assertEquals("/schools/cities/California/CA", veryLast.getHref());
         assertEquals("View all California cities", veryLast.getContents());
 
         // Special case DC

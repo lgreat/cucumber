@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.4 2007/05/31 19:12:44 droy Exp $
+ * $Id: AnchorListModelFactory.java,v 1.5 2007/08/16 20:00:52 chriskimm Exp $
  */
 
 package gs.web.util.list;
@@ -78,7 +78,7 @@ public class AnchorListModelFactory {
             }
 
             if (needViewAll) {
-                String url = "/modperl/districts/" + state.getAbbreviation() + "/";
+                String url = "/schools/districts/" + state.getLongName() + "/" + state.getAbbreviation() + "/";
                 url = _urlUtil.buildUrl(url, request);
                 districts.add(new Anchor(url, "View all " + state.getLongName() + " Districts", "viewall"));
             }

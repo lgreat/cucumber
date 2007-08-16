@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BrowseCitiesController.java,v 1.5 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: BrowseCitiesController.java,v 1.6 2007/08/16 20:00:52 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -9,6 +9,7 @@ import gs.data.state.State;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlUtil;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,9 +36,9 @@ public class BrowseCitiesController extends AbstractController {
 
         State state = sessionContext.getState();
 
-        UrlUtil urlUtil = new UrlUtil();
-        String url = urlUtil.buildUrl("/modperl/cities/$LCSTATE/", request);
-
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITIES, state);
+        String url = urlBuilder.asSiteRelative(request);
+        
         View redirectView = new RedirectView(url);
         return new ModelAndView(redirectView);
     }

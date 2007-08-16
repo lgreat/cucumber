@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: TopCitiesController.java,v 1.24 2007/01/02 20:09:16 cpickslay Exp $
+* $Id: TopCitiesController.java,v 1.25 2007/08/16 20:00:52 chriskimm Exp $
 */
 
 package gs.web.state;
@@ -85,7 +85,7 @@ public class TopCitiesController extends AbstractController {
                 Anchor anchor = builder.asAnchor(request, label);
                 items.add(anchor);
             }
-            items.add(new Anchor("/modperl/cities/" + state.getAbbreviation() + "/",
+            items.add(new Anchor("/schools/cities/" + state.getLongName() + "/"+ state.getAbbreviation(),
                     "View all " + state.getLongName() + " cities",
                     "viewall"));
             model.put(AnchorListModel.RESULTS, items);

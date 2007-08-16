@@ -5,7 +5,7 @@ import gs.web.util.UrlBuilder;
 
 /**
  * Privides a link tag handler for the "all districts in state" pages for
- * example: http://www.greatschools.net/modperl/districts/CA
+ * example: http://www.greatschools.net/schools/districts/California/CA
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */

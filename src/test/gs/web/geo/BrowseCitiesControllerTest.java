@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BrowseCitiesControllerTest.java,v 1.2 2006/05/26 19:13:43 apeterson Exp $
+ * $Id: BrowseCitiesControllerTest.java,v 1.3 2007/08/16 20:00:52 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -33,7 +33,7 @@ public class BrowseCitiesControllerTest extends BaseControllerTestCase {
 
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/modperl/cities/ak/", view.getUrl());
+        assertEquals("/schools/cities/Alaska/AK", view.getUrl());
     }
 
     public void testAlaskaMapsFromDevWorkstation() throws Exception {
@@ -47,7 +47,7 @@ public class BrowseCitiesControllerTest extends BaseControllerTestCase {
 
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("http://dev.greatschools.net/modperl/cities/ak/", view.getUrl());
+        assertEquals("/gs-web/schools/cities/Alaska/AK", view.getUrl());
     }
 
     public void testCaliforniaMaps() throws Exception {
@@ -59,7 +59,7 @@ public class BrowseCitiesControllerTest extends BaseControllerTestCase {
 
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/modperl/cities/ca/", view.getUrl());
+        assertEquals("/schools/cities/California/CA", view.getUrl());
     }
 
 }

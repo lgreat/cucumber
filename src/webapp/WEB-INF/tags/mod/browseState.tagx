@@ -13,12 +13,12 @@
             <h2 class="browseheader label">Browse</h2>
             <ul class="refinementlist">
                 <c:if test="${(param.c ne 'topic' and param.type ne 'topic') or (param.c eq 'school' or param.type eq 'school')}">
-                    <li><gsml:a href="/modperl/cities/${state.abbreviation}">
-                        <c:out value="${state.longName}"/> cities</gsml:a>
+                    <li>
+                        <link:cities state="${state}">${state.longName} cities</link:cities>
                     </li>
-                    <li><gsml:a href="/modperl/districts/${state.abbreviation}">
-                        <c:out value="${state.longName}"/> districts
-                    </gsml:a></li>
+                    <li>
+                        <link:districts state="${state}">${state.longName} districts</link:districts>
+                    </li>
                 </c:if>
                 <c:if test="${(param.c eq 'topic' or param.type eq 'topic') or (param.c ne 'school' and param.type ne 'school')}">
                     <li><link:articleLibrary>Articles</link:articleLibrary></li>
