@@ -83,6 +83,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
         fupCommand.setTerms("on".equals(request.getParameter(RegistrationController.TERMS_PARAMETER)));
         fupCommand.setNewsletter("on".equals(request.getParameter(RegistrationController.NEWSLETTER_PARAMETER)));
+        fupCommand.setBeta("on".equals(request.getParameter(RegistrationController.BETA_PARAMETER)));
         bindRequestData(request, fupCommand, errors);
         for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren(); x++) {
             loadCityList(request, fupCommand, errors, x+1);
@@ -283,6 +284,16 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             subscription.setState(fupCommand.getUserProfile().getState());
             fupCommand.addSubscription(subscription);
         }
+        if (fupCommand.isBeta()) {
+            if (_subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.BETA_GROUP) == null) {
+                Subscription betaSubscription = new Subscription();
+                betaSubscription.setUser(user);
+                betaSubscription.setProduct(SubscriptionProduct.BETA_GROUP);
+                betaSubscription.setState(fupCommand.getUserProfile().getState());
+                _subscriptionDao.saveSubscription(betaSubscription);
+            }
+        }
+
         saveSubscriptionsForUser(fupCommand, user);
         // save
         if (user.isEmailProvisional()) {

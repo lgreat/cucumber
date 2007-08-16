@@ -241,6 +241,11 @@
           <gsml:checkbox name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
       </li>
       <li>
+          <label>Yes! I'd like to get a sneak peek of brand new community<br/>features
+              by being a part of the GreatSchools beta group!</label>
+          <gsml:checkbox name="betaStr" checked="${followUpCmd.beta eq true}"/>
+      </li>
+      <li>
           <label><span class="required">*</span>I am over 13 years of age and I agree to the
               <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>,
               including the

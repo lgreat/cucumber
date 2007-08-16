@@ -152,11 +152,11 @@
     left: 332px;
 }
 
-#outline ul li#newsletter label {
+#outline ul li#newsletter label, #outline ul li#betaGroup label {
     font-weight: normal;
 }
 
-#outline ul li#newsletter input {
+#outline ul li#newsletter input, #outline ul li#betaGroup input {
     width: 15px;
     height: 15px;
     top: 10px;

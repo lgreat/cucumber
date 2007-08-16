@@ -45,6 +45,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private AuthenticationManager _authenticationManager;
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
     public static final String TERMS_PARAMETER = "termsStr";
+    public static final String BETA_PARAMETER = "betaStr";
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -84,6 +85,9 @@ public class RegistrationController extends SimpleFormController implements Read
         userCommand.setTerms("on".equals(terms));
         String newsletter = request.getParameter(NEWSLETTER_PARAMETER);
         userCommand.setNewsletter("on".equals(newsletter));
+        String beta = request.getParameter(BETA_PARAMETER);
+        userCommand.setBeta("on".equals(beta));
+
         loadCityList(request, userCommand);
     }
 
@@ -218,7 +222,15 @@ public class RegistrationController extends SimpleFormController implements Read
                 List<Subscription> subs = new ArrayList<Subscription>();
                 subs.add(communityNewsletterSubscription);
                 _subscriptionDao.addNewsletterSubscriptions(user, subs);
-//                _subscriptionDao.saveSubscription(communityNewsletterSubscription);
+            }
+            if (userCommand.isBeta()) {
+                if (_subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.BETA_GROUP) == null) {
+                    Subscription betaSubscription = new Subscription();
+                    betaSubscription.setUser(user);
+                    betaSubscription.setProduct(SubscriptionProduct.BETA_GROUP);
+                    betaSubscription.setState(userCommand.getState());
+                    _subscriptionDao.saveSubscription(betaSubscription);
+                }
             }
             // only notify community on final step
             CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean

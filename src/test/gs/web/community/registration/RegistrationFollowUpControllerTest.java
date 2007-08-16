@@ -158,6 +158,26 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertFalse("Expected newsletter to be false when 'n' is passed", _command.getNewsletter());
     }
 
+    public void testBindRequestDataIgnoresBetaNull() throws Exception {
+        _user.getUserProfile().setNumSchoolChildren(0);
+        _controller.onBind(getRequest(), _command, _errors);
+        assertFalse("Beta should be false if no parameter passed", _command.isBeta());
+    }
+
+    public void testBindRequestDataCapturesBetaFalse() throws Exception {
+        _request.setParameter(RegistrationController.BETA_PARAMETER, "off");
+        _user.getUserProfile().setNumSchoolChildren(0);
+        _controller.onBind(getRequest(), _command, _errors);
+        assertFalse("Beta should be false if parameter is not \"on\"", _command.isBeta());
+    }
+
+    public void testBindRequestDataCapturesBetaTrue() throws Exception {
+        _request.setParameter(RegistrationController.BETA_PARAMETER, "on");
+        _user.getUserProfile().setNumSchoolChildren(0);
+        _controller.onBind(getRequest(), _command, _errors);
+        assertTrue("Beta should be true if parameter is \"on\"", _command.isBeta());
+    }
+
     public void testLoadSchoolList() {
         Student student = new Student();
         student.setState(State.CA);
@@ -358,6 +378,89 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         setUpNiceUserDao();
 
         followUpCommand.setNewsletter(false);
+        _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+
+        _subscriptionControl.verify();
+    }
+
+    public void testRegistrationDoesSubscribeToBeta() throws Exception {
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        followUpCommand.getUser().setId(345); // to fake the database save
+        followUpCommand.getUser().setEmail("a");
+        followUpCommand.getUserProfile().setState(State.GA);
+        UserProfile userProfile = new UserProfile();
+        userProfile.setNumSchoolChildren(0);
+        followUpCommand.getUser().setUserProfile(userProfile);
+
+        // no call to saveSubscription expected
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.BETA_GROUP))
+                .andReturn(null);
+        Subscription betaSubscription = new Subscription();
+        betaSubscription.setUser(followUpCommand.getUser());
+        betaSubscription.setProduct(SubscriptionProduct.BETA_GROUP);
+        betaSubscription.setState(State.GA);
+        _subscriptionDao.saveSubscription(betaSubscription);
+        replay(_subscriptionDao);
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        followUpCommand.setNewsletter(false);
+        followUpCommand.setBeta(true);
+        _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+        verify(_subscriptionDao);
+    }
+
+    public void testRegistrationDoesNotSubscribeToBetaIfAlreadySubscribed() throws Exception {
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        followUpCommand.getUser().setId(345); // to fake the database save
+        followUpCommand.getUser().setEmail("a");
+        followUpCommand.getUserProfile().setState(State.GA);
+        UserProfile userProfile = new UserProfile();
+        userProfile.setNumSchoolChildren(0);
+        followUpCommand.getUser().setUserProfile(userProfile);
+
+        // no call to saveSubscription expected
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.BETA_GROUP))
+                .andReturn(new ArrayList<Subscription>());
+        // no save expected
+        replay(_subscriptionDao);
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        followUpCommand.setNewsletter(false);
+        followUpCommand.setBeta(true);
+        _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+        verify(_subscriptionDao);
+    }
+
+    public void testRegistrationDoesNotSubscribeToBeta() throws Exception {
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        followUpCommand.getUser().setId(345); // to fake the database save
+        followUpCommand.getUser().setEmail("a");
+        UserProfile userProfile = new UserProfile();
+        userProfile.setNumSchoolChildren(0);
+        followUpCommand.getUser().setUserProfile(userProfile);
+
+        // no call to saveSubscription expected
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY), null);
+        _subscriptionControl.replay();
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        followUpCommand.setNewsletter(false);
+        followUpCommand.setBeta(false);
         _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
 
         _subscriptionControl.verify();

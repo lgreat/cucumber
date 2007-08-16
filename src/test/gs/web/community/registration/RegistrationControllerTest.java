@@ -129,6 +129,57 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         verify(_subscriptionDao);
     }
 
+    public void testRegistrationSubscribesToBeta() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        userCommand.setEmail("a");
+        userCommand.getUser().setId(345); // to fake the database save
+        userCommand.setPassword("test");
+        userCommand.setNumSchoolChildren(0);
+        userCommand.setState(State.GA);
+
+        Subscription betaSubscription = new Subscription();
+        betaSubscription.setUser(userCommand.getUser());
+        betaSubscription.setProduct(SubscriptionProduct.BETA_GROUP);
+        betaSubscription.setState(State.GA);
+
+        expect(_subscriptionDao.getUserSubscriptions(userCommand.getUser(), SubscriptionProduct.BETA_GROUP))
+                .andReturn(null);
+        _subscriptionDao.saveSubscription(betaSubscription);
+        replay(_subscriptionDao);
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        userCommand.setBeta(true);
+        userCommand.setNewsletter(false);
+        _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
+
+        verify(_subscriptionDao);
+    }
+
+    public void testRegistrationDoesntSubscribeToBetaIfAlreadySubscribed() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        userCommand.setEmail("a");
+        userCommand.getUser().setId(345); // to fake the database save
+        userCommand.setPassword("test");
+        userCommand.setNumSchoolChildren(0);
+        userCommand.setState(State.GA);
+
+        expect(_subscriptionDao.getUserSubscriptions(userCommand.getUser(), SubscriptionProduct.BETA_GROUP))
+                .andReturn(new ArrayList<Subscription>());
+        // no subscription saved
+        replay(_subscriptionDao);
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        userCommand.setBeta(true);
+        userCommand.setNewsletter(false);
+        _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
+
+        verify(_subscriptionDao);
+    }
+
     public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {
         UserCommand userCommand = new UserCommand();
         userCommand.setEmail("a");
@@ -292,6 +343,17 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         _controller.onBind(getRequest(), userCommand);
         assertFalse("Newsletter should be set to false if newsletterStr is not passed", userCommand.getNewsletter());
+    }
+
+    public void testOnBindWithBetaParameter() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList());
+        _geoControl.replay();
+
+        assertFalse("Expected beta to default to false", userCommand.isBeta());
+        getRequest().setParameter(RegistrationController.BETA_PARAMETER, "on");
+        _controller.onBind(getRequest(), userCommand);
+        assertTrue("Expected beta to be set to true", userCommand.isBeta());
     }
 
     public void testOnBindAndValidate() throws Exception {

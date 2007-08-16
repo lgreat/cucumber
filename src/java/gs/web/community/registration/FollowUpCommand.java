@@ -34,6 +34,7 @@ public class FollowUpCommand {
     private boolean _terms = true;
     private String _redirect;
     private boolean _newsletter = true;
+    private boolean _beta = false;
     private State _state;
 
     public FollowUpCommand() {
@@ -229,13 +230,20 @@ public class FollowUpCommand {
         _terms = terms;
     }
 
-
     public boolean getNewsletter() {
         return _newsletter;
     }
 
     public void setNewsletter(boolean newsletter) {
         _newsletter = newsletter;
+    }
+
+    public boolean isBeta() {
+        return _beta;
+    }
+
+    public void setBeta(boolean beta) {
+        _beta = beta;
     }
 
     public void setState(State state) {
