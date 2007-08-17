@@ -13,16 +13,6 @@
             <br />
             School name
         </div>
-        <variant:b>
-            <div id="ratingsHeader">
-                GreatSchools<br />
-                Rating
-            </div>
-            <div id="reviewsHeader">
-                Parent<br />
-                Rating
-            </div>
-        </variant:b>
     </div>
     <div id="searchResultsList">
         <c:forEach var="schoolResult" items="${results}" >
@@ -47,38 +37,6 @@
                     <c:out value="${school.phone}"/>
                 </div>
             </div>
-            <variant:b>
-                <div class="rating">
-                    <c:choose>
-                        <c:when test="${empty rating}">
-                            <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
-                        </c:when>
-                        <c:otherwise>
-                            <link:schoolProfileRating school="${school}">
-                                <gsml:img src="/res/img/school/ratings/${rating}.gif"
-                                          alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                            </link:schoolProfileRating>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-                <div class="review">
-                    <c:choose>
-                        <c:when test="${empty parentRating}">
-                            <link:schoolProfileAddParentReview school="${school}">
-                                <gsml:img src="/res/img/search/rateit.jpg"
-                                          rollover="/res/img/search/rateit_on.jpg"
-                                          alt="Be the first to rate!"/>
-                            </link:schoolProfileAddParentReview>
-                        </c:when>
-                        <c:otherwise>
-                            <link:schoolProfileParentReview school="${school}">
-                                <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
-                                          alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
-                            </link:schoolProfileParentReview>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </variant:b>
         </c:forEach>
     </div>
 </jsp:root>
