@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.10 2006/12/04 19:02:24 aroy Exp $
+ * $Id: ClientSideSessionCache.java,v 1.11 2007/08/20 18:41:58 aroy Exp $
  */
 
 package gs.web.community;
@@ -9,6 +9,7 @@ import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.state.State;
+import gs.web.community.registration.AuthenticationManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,6 +21,7 @@ import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Provides summary information about the user. Can be initialized either from
@@ -90,6 +92,12 @@ public class ClientSideSessionCache {
         _email = user.getEmail();
         final String[] p = _email.split("@");
         _nickname = p[0];
+        _screenName = (user.getUserProfile() != null)?user.getUserProfile().getScreenName():null;
+        try {
+            _userHash = AuthenticationManager.generateCookieValue(user);
+        } catch (NoSuchAlgorithmException e) {
+            // ignore
+        }
 
         // Count their subscriptions
         final Set subscriptions = user.getSubscriptions();

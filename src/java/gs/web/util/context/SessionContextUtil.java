@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.22 2007/08/01 23:07:39 cpickslay Exp $
+ * $Id: SessionContextUtil.java,v 1.23 2007/08/20 18:41:58 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -10,6 +10,7 @@ import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ClientSideSessionCache;
+import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
@@ -114,6 +115,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
         Cookie[] cookies = httpServletRequest.getCookies();
         ClientSideSessionCache cache = null;
+        boolean isCommunity = false;
         if (cookies != null) {
 
             State cookiedState = null;
@@ -157,6 +159,18 @@ public class SessionContextUtil implements ApplicationContextAware {
                     if (s != null) {
                         oldCookiedState = s;
                     }
+                } else if (StringUtils.equals(_communityCookieGenerator.getCookieName(), thisCookie.getName())) {
+                    // GS-3819
+                    isCommunity = true;
+                    // pull member id out of community cookie if necessary
+                    if (insiderId == -1) {
+                        try {
+                            insiderId = AuthenticationManager.getUserIdFromCookieValue(thisCookie.getValue());
+                        } catch (Exception e) {
+                            _log.warn("Unable to parse member id out of community cookie with value: " + 
+                                    thisCookie.getValue());
+                        }
+                    }
                 }
                 // If new state cookie is not set, check for old state cookie and use that value if present
                 if (cookiedState == null && oldCookiedState != null) {
@@ -175,9 +189,16 @@ public class SessionContextUtil implements ApplicationContextAware {
                 context.setMemberId(mslId);
             }
 
-            // Bring in the client cache only if it matches the member cookie set above--
-            // The perl side may have logged the user in as someone else
-            if (context.getMemberId() != null &&
+            if (isCommunity &&
+                    ((cache == null) || StringUtils.isEmpty(cache.getScreenName()))) {
+                // User has community cookie but either no cache or incomplete cache
+                // This can only happen if the user signed in from the community site. The cache is
+                // now out of sync and needs to be recreated (GS-3819)
+                cache = new ClientSideSessionCache(context.getUser());
+                updateContextFromCache(context, cache);
+            } else if (context.getMemberId() != null &&
+                    // Bring in the client cache only if it matches the member cookie set above--
+                    // The perl side may have logged the user in as someone else
                     cache != null &&
                     cache.getMemberId() != null &&
                     cache.getMemberId().equals(context.getMemberId())) {
