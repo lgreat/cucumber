@@ -20,7 +20,7 @@
         <c:out value=' checked="checked"' escapeXml="false"/>
     </c:if>
     <c:if test="${not empty tabIndex}">
-        <c:out value=' tabIndex="${tabIndex}"' escapeXml="false"/>
+        <c:out value=' tabindex="${tabIndex}"' escapeXml="false"/>
     </c:if>
     <c:out value=" />" escapeXml="false"/>
 </jsp:root>
