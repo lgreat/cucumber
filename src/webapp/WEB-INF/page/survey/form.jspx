@@ -14,24 +14,44 @@
     <html>
     <head><title>GreatSchools Surveys</title></head>
     <body>
-    Survey
-    <!--<c:forEach var="survey" items="${surveys}">-->
-        <div>
-            <form:form commandName="surveyCommand">
-                1:${command}
-                2: ${surveyCommand}
-                <c:forEach var="question" items="${surveyCommand.questions}" varStatus="questionNumber">
+    <div>
+        <form:form>
+            Survey:${survey}
+            <c:forEach var="questionGroup" items="${survey.questionGroups}" varStatus="groupCount">
+                <c:forEach var="question" items="${questionGroup.questions}" varStatus="questionCount">
+                    ${question.text}
                     <br/>
-                    <c:forEach var="option" items="${question.options}" varStatus="count">
-                        <!--<form:checkbox path="questions[0].responses" value="${option.key}" />-->
-                        <form:checkbox path="option" value="${option.key}" />
+                    <c:forEach var="answer" items="${question.answers}" varStatus="answerCount">
+                        ${answer.title}
+                        <br/>
+                        <c:choose>
+                            <c:when test="${answer.type eq 'MULTI'}">
+                                <c:forEach var="option" items="${answer.availableAnswers}" >
+                                    <input type="checkbox" name="${option}" value="${option}"/>${option}<br/>
+                                    <!--spring: <form:checkbox path="questions[${questionNumber.index}].responses[${count.index}].value" value="foo"/>-->
+                                    <!--questions[].answerValue-->
+                                    <!--spring: <form:checkbox path="questions[${questionNumber.index}].responses[${count.index}].value" value="foo"/>-->
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <h1>error</h1>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <br/>
                     </c:forEach>
-                    <!--<survey:input question="${question}" questionNumber="${questionNumber}"/>-->
+                <!--
+                    <c:forEach var="option" items="${question.options}" varStatus="count">
+                        <form:checkbox path="question.responses[${count.index}]" value="${option.key}" />
+                        option${option.key}
+                    </c:forEach>
+                    -->
+                <!--<survey:input question="${question}" questionNumber="${questionNumber}"/>-->
                 </c:forEach>
-                <input type="submit" name="submit" value="Submit"/>
-            </form:form>
-        </div>
-    <!--</c:forEach>-->
+            </c:forEach>
+            <input type="submit" name="submit" value="Submit"/>
+        </form:form>
+    </div>
     </body>
     </html>
 </jsp:root>

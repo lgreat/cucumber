@@ -1163,7 +1163,7 @@
           class="gs.web.survey.SurveyController" autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="surveyCommand"/>
-        <property name="commandClass" value="gs.data.survey.Survey"/>
+        <property name="commandClass" value="gs.web.survey.SurveyCommand"/>
         <property name="formView" value="survey/form"/>
         <property name="successView" value="survey/confirmation"/>
     </bean>
