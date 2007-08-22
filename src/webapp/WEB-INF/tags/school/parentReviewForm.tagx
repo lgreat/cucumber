@@ -95,7 +95,8 @@
                           name="comments"
                           onkeyup="countWords(this)"
                           onkeydown="countWords(this)"
-                          onfocus="if(this.value=='Enter your review here'){this.value='';}">Enter your review here</textarea>
+                          onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                          rows="" cols="">Enter your review here</textarea>
 
                 <ul id="nonCommentInput">
                     <li>
