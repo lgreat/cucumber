@@ -145,7 +145,7 @@ public class RegistrationController extends SimpleFormController implements Read
             user.setPlaintextPassword(userCommand.getPassword());
             if (_requireEmailValidation || userCommand.getNumSchoolChildren() > 0) {
                 // mark account as provisional until they complete stage 2
-                user.setEmailProvisional();
+                user.setEmailProvisional(userCommand.getPassword());
             }
             _userDao.updateUser(userCommand.getUser());
         } catch (Exception e) {
@@ -212,6 +212,7 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             // mAndV.getModel().put("followUpCmd", fupCommand);
             mAndV.getModel().put("id", user.getId());
+            request.setAttribute("password", userCommand.getPassword());
         } else {
             // only subscribe to newsletter on final step
             if (userCommand.getNewsletter()) {
@@ -234,14 +235,14 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             // only notify community on final step
             CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                    (user.getId(), userProfile.getScreenName(), user.getEmail());
+                    (user.getId(), userProfile.getScreenName(), user.getEmail(), userCommand.getPassword());
             CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
             try {
                 soapRequest.createOrUpdateUserRequest(bean);
             } catch (SoapRequestException couure) {
                 _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
                 // undo registration
-                user.setEmailProvisional();
+                user.setEmailProvisional(userCommand.getPassword());
                 _userDao.updateUser(user);
                 // send to error page
                 mAndV.setViewName(getErrorView());

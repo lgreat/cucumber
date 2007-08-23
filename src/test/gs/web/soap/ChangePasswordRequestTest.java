@@ -1,29 +1,29 @@
 package gs.web.soap;
 
+import gs.data.community.User;
 import gs.web.BaseTestCase;
 import org.apache.axis.client.Call;
-import static org.easymock.EasyMock.*;
-import static org.easymock.classextension.EasyMock.createMock;
-import static org.easymock.classextension.EasyMock.replay;
+import static org.easymock.classextension.EasyMock.*;
 
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ParameterMode;
 import java.rmi.RemoteException;
 
 /**
- * Provides testing for the CreateOrUpdateUserRequest.
+ * Provides testing for the ChangePasswordRequest class.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class CreateOrUpdateUserRequestTest extends BaseTestCase {
-    private CreateOrUpdateUserRequest _request;
-    private CreateOrUpdateUserRequestBean _bean;
+public class ChangePasswordRequestTest extends BaseTestCase {
+    private ChangePasswordRequest _request;
+    private User _user;
     private Call _call;
 
     public void setUp() throws Exception {
         super.setUp();
-        _request = new CreateOrUpdateUserRequest();
-        _bean = new CreateOrUpdateUserRequestBean("1", "Anthony", "aroy@greatschools.net", "123456");
+        _request = new ChangePasswordRequest();
+        _user = new User();
+        _user.setId(123);
         _call = createMock(Call.class);
         _call.addParameter((String) anyObject(), (QName) anyObject(), (ParameterMode) anyObject());
         expectLastCall().anyTimes();
@@ -33,15 +33,17 @@ public class CreateOrUpdateUserRequestTest extends BaseTestCase {
      * Test that normal success conditions result in success
      */
     public void testSuccess() throws RemoteException {
-        expect(_call.invoke((Object[]) anyObject())).andReturn(null);
+        expect(_call.invoke((Object[])anyObject())).andReturn(null);
         replay(_call);
 
         _request.setMockCall(_call);
         try {
-            _request.createOrUpdateUserRequest(_bean);
+            _request.changePasswordRequest(_user, "123456");
         } catch (SoapRequestException e) {
-            fail("Received unexpected exception " + e.getErrorCode() + ": " + e.getErrorMessage());
+            fail(e.getErrorMessage());
         }
+
+        verify(_call);
     }
 
     /**
@@ -54,11 +56,13 @@ public class CreateOrUpdateUserRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.createOrUpdateUserRequest(_bean);
+            _request.changePasswordRequest(_user, "123456");
             fail("Did not receive expected error");
         } catch (SoapRequestException e) {
             assertEquals("Unexpected exception", error, e);
             // success
         }
+
+        verify(_call);
     }
 }

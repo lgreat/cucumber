@@ -36,9 +36,9 @@ public class RequestEmailValidationControllerTest extends BaseControllerTestCase
         String email = "testRequestEmailValidation@greatschools.net";
         User user = new User();
         user.setEmail(email);
-        user.setId(new Integer(246));
+        user.setId(246);
         user.setPlaintextPassword("foobar");
-        user.setEmailProvisional();
+        user.setEmailProvisional("foobar");
 
         getRequest().addParameter("email", email);
 

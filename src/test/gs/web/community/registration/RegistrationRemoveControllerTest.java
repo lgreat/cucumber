@@ -36,14 +36,14 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
         // 1) create user record with non-validated password
         User user = new User();
         user.setEmail("testRegistrationRemove@greatschools.net");
-        user.setId(new Integer(135));
+        user.setId(135);
 
         UserProfile userProfile = new UserProfile();
         userProfile.setScreenName("screeny");
         userProfile.setUser(user);
         user.setUserProfile(userProfile);
         user.setPlaintextPassword("foobar");
-        user.setEmailProvisional();
+        user.setEmailProvisional("foobar");
         assertFalse(user.isPasswordEmpty());
         assertNotNull(user.getUserProfile());
 
@@ -70,9 +70,9 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
         // 1) create user record with non-validated password
         User user = new User();
         user.setEmail("testRegistrationRemove@greatschools.net");
-        user.setId(new Integer(135));
+        user.setId(135);
         user.setPlaintextPassword("foobar");
-        user.setEmailProvisional();
+        user.setEmailProvisional("foobar");
 
         // 2) generate hash for user from email/id, add to request
         Integer badId = new Integer(user.getId().intValue()+1);

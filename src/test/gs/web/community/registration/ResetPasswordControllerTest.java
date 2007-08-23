@@ -1,14 +1,15 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.soap.ChangePasswordRequest;
+import gs.web.soap.SoapRequestException;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.easymock.MockControl;
-import org.easymock.AbstractMatcher;
+import static org.easymock.EasyMock.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
@@ -22,60 +23,79 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     private ResetPasswordController _controller;
 
     private IUserDao _userDao;
-    private MockControl _userControl;
+    private ChangePasswordRequest _soapRequest;
+    private User _user;
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = new ResetPasswordController();
-        _userControl = MockControl.createControl(IUserDao.class);
-        _userDao = (IUserDao) _userControl.getMock();
+
+        _userDao = createMock(IUserDao.class);
+        _soapRequest = new ChangePasswordRequest() {
+            public void changePasswordRequest(User user, String password) {}
+        };
+
         _controller.setUserDao(_userDao);
         _controller.setAuthenticationManager(new AuthenticationManager());
+        _controller.setSoapRequest(_soapRequest);
+
+        _user = setupUser();
+    }
+
+    public void testNotifyCommunity() {
+        assertTrue(_controller.notifyCommunity(_user, "123456"));
+
+        _soapRequest = new ChangePasswordRequest() {
+            public void changePasswordRequest(User user, String password) throws SoapRequestException {
+                throw new SoapRequestException();
+            }
+        };
+
+        _controller.setSoapRequest(_soapRequest);
+
+        assertFalse(_controller.notifyCommunity(_user, "123456"));
     }
 
     public void testResetPassword() throws NoSuchAlgorithmException {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
-        User user = setupUser();
 
         // set password on user
-        user.setPlaintextPassword("foobar");
-        assertTrue(user.matchesPassword("foobar"));
-        assertFalse(user.matchesPassword("newPass"));
+        _user.setPlaintextPassword("foobar");
+        assertTrue(_user.matchesPassword("foobar"));
+        assertFalse(_user.matchesPassword("newPass"));
         // generate hash for user
-        String userHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-        String hashString = userHash + user.getId();
+        String userHash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
+        String hashString = userHash + _user.getId();
         getRequest().addParameter("id", hashString);
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse("Unexpected errors on onBindOnNewForm", errors.hasErrors());
 
         // set new password on command
         command.setNewPassword("newPass");
         command.setNewPasswordConfirm("newPass");
-        _userControl.reset();
-        setUserDaoToReturn(user);
+        reset(_userDao);
+        setUserDaoToReturn(_user);
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse("Unexpected errors on onBindAndValidate", errors.hasErrors());
 
-        _userControl.reset();
+        reset(_userDao);
         User modifiedUser = new User();
-        modifiedUser.setId(new Integer(99));
+        modifiedUser.setId(99);
         modifiedUser.setPlaintextPassword("newPass");
-        _userDao.updateUser(modifiedUser);
-        // checks that the user's password has actually changed
-        _userControl.setMatcher(new UserPasswordMatcher());
-        _userControl.replay();
+        _userDao.updateUser(isA(User.class));
+        replay(_userDao);
         _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse("Unexpected errors on onSubmit", errors.hasErrors());
     }
 
     public void testSetUpdated() throws NoSuchAlgorithmException {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
-        User user = setupUser();
+        User user = _user;
 
         // set password on user
         user.setPlaintextPassword("foobar");
@@ -95,16 +115,14 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         user.setUpdated(cal.getTime());
         assertTrue(cal.getTime().equals(user.getUpdated()));
 
-        _userControl.reset();
+        reset(_userDao);
         User modifiedUser = new User();
-        modifiedUser.setId(new Integer(99));
+        modifiedUser.setId(99);
         modifiedUser.setPlaintextPassword("newPass");
-        _userDao.updateUser(modifiedUser);
-        // checks that the user's password has actually changed
-        _userControl.setMatcher(new UserPasswordMatcher());
-        _userControl.replay();
+        _userDao.updateUser(isA(User.class));
+        replay(_userDao);
         _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse("Unexpected errors on onSubmit", errors.hasErrors());
         assertFalse(cal.getTime().equals(user.getUpdated()));
     }
@@ -116,7 +134,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("cancel.x", "cancel");
 
         User user = new User();
-        user.setId(new Integer(1234));
+        user.setId(1234);
         user.setPlaintextPassword("foobar");
         command.setUser(user);
         command.setNewPassword("barbaz");
@@ -131,7 +149,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     public void testUserFromCookie() throws NoSuchAlgorithmException {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
-        User user = setupUser();
+        User user = _user;
         user.setPlaintextPassword("foobar");
 
         getSessionContext().setUser(user);
@@ -144,17 +162,15 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
             _controller.onBindAndValidate(getRequest(), command, errors);
             assertFalse("Unexpected errors on onBindAndValidate", errors.hasErrors());
 
-            _userControl.reset();
+            reset(_userDao);
             User modifiedUser = new User();
-            modifiedUser.setId(new Integer(99));
+            modifiedUser.setId(99);
             modifiedUser.setPlaintextPassword("newPass");
-            _userDao.updateUser(modifiedUser);
-            // checks that the user's password has actually changed
-            _userControl.setMatcher(new UserPasswordMatcher());
-            _userControl.replay();
+            _userDao.updateUser(isA(User.class));
+            replay(_userDao);
 
             _controller.onSubmit(getRequest(), getResponse(), command, errors);
-            _userControl.verify();
+            verify(_userDao);
             assertFalse("Unexpected errors on onSubmit", errors.hasErrors());
 
         } finally {
@@ -162,28 +178,18 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         }
     }
 
-    private class UserPasswordMatcher extends AbstractMatcher {
-        protected boolean argumentMatches(Object oExpected, Object oActual) {
-            User actual = (User) oActual;
-            User expected = (User) oExpected;
-            return actual.getPasswordMd5().equals(expected.getPasswordMd5()) &&
-                    actual.getId().equals(expected.getId());
-        }
-    }
-
     private User setupUser() {
         User user = new User();
         user.setEmail("testResetPassword@greatschools.net");
-        user.setId(new Integer(99));
+        user.setId(99);
 
         setUserDaoToReturn(user);
         return user;
     }
 
     private void setUserDaoToReturn(User user) {
-        _userDao.findUserFromId(user.getId().intValue());
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        expect(_userDao.findUserFromId(user.getId())).andReturn(user);
+        replay(_userDao);
     }
 
     /////////////////////////
@@ -193,49 +199,49 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     public void testPasswordEmpty() throws NoSuchAlgorithmException {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
-        User user = setupUser();
+        User user = _user;
 
         // generate hash for user
         String userHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
         String hashString = userHash + user.getId();
         getRequest().addParameter("id", hashString);
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue("Failed to get expected errors on onBindOnNewForm", errors.hasErrors());
     }
 
     public void testUserProvisional() throws NoSuchAlgorithmException {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
-        User user = setupUser();
+        User user = _user;
 
         // set password on user
         user.setPlaintextPassword("foobar");
-        user.setEmailProvisional();
+        user.setEmailProvisional("foobar");
 
         // generate hash for user
         String userHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
         String hashString = userHash + user.getId();
         getRequest().addParameter("id", hashString);
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue("Failed to get expected errors on onBindOnNewForm", errors.hasErrors());
     }
 
     public void testInvalidHash() throws NoSuchAlgorithmException {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
-        User user = setupUser();
+        User user = _user;
 
         // set password on user
         user.setPlaintextPassword("foobar");
 
         // generate hash for user
-        String userHash = DigestUtil.hashStringInt(user.getEmail(), new Integer(user.getId().intValue() + 1));
+        String userHash = DigestUtil.hashStringInt(user.getEmail(), user.getId() + 1);
         String hashString = userHash + user.getId();
         getRequest().addParameter("id", hashString);
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue("Failed to get expected errors on onBindOnNewForm", errors.hasErrors());
     }
 
@@ -244,15 +250,16 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(command, "");
         User user = new User();
         user.setEmail("testResetPassword@greatschools.net");
-        user.setId(new Integer(99));
+        user.setId(99);
 
         // set password on user
         user.setPlaintextPassword("foobar");
 
         User wrongUser = new User();
         wrongUser.setEmail("wrongUser@greatschools.net");
-        wrongUser.setId(new Integer(1));
+        wrongUser.setId(1);
         wrongUser.setPlaintextPassword("wrongwrong");
+        reset(_userDao);
         setUserDaoToReturn(wrongUser);
 
         // generate hash for user
@@ -260,7 +267,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         String hashString = userHash + "1";
         getRequest().addParameter("id", hashString);
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue("Failed to get expected errors on onBindOnNewForm", errors.hasErrors());
     }
 
@@ -269,21 +276,21 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(command, "");
         User user = new User();
         user.setEmail("testResetPassword@greatschools.net");
-        user.setId(new Integer(99));
+        user.setId(99);
 
         // set password on user
         user.setPlaintextPassword("foobar");
-        _userDao.findUserFromId(100);
-        _userControl.setThrowable(new ObjectRetrievalFailureException
+        reset(_userDao);
+        expect(_userDao.findUserFromId(100)).andThrow(new ObjectRetrievalFailureException
                 ("Can't find user with id 100", null));
-        _userControl.replay();
+        replay(_userDao);
 
         // generate hash for user
         String userHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-        String hashString = userHash + (user.getId().intValue() + 1); // id should not exist
+        String hashString = userHash + (user.getId() + 1); // id should not exist
         getRequest().addParameter("id", hashString);
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue("Failed to get expected errors on onBindOnNewForm", errors.hasErrors());
     }
 
@@ -315,7 +322,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     public void testBadPassword() throws NoSuchAlgorithmException {
         ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
-        User user = setupUser();
+        User user = _user;
 
         // set password on user
         user.setPlaintextPassword("foobar");
@@ -327,17 +334,17 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         String hashString = userHash + user.getId();
         getRequest().addParameter("id", hashString);
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse("Unexpected errors on onBindOnNewForm", errors.hasErrors());
 
-        _userControl.reset();
+        reset(_userDao);
         setUserDaoToReturn(user);
 
         // set new password on command
         command.setNewPassword("newPass");
         command.setNewPasswordConfirm("newpass"); // typo
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue("Failed to get expected errors on onBindAndValidate", errors.hasErrors());
     }
 }

@@ -101,9 +101,9 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     public void testEmailProvisionalUser() throws Exception {
         User user = new User();
         user.setEmail("forgotPasswordTest@greatschools.net");
-        user.setId(new Integer(125));
+        user.setId(125);
         user.setPlaintextPassword("foobar");
-        user.setEmailProvisional();
+        user.setEmailProvisional("foobar");
 
         _userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net");
         _userControl.setReturnValue(user);

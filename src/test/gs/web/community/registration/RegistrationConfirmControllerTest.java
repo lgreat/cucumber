@@ -46,7 +46,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         user.setEmail("testRegistrationConfirm@greatschools.net");
         user.setId(new Integer(234));
         user.setPlaintextPassword("foobar");
-        user.setEmailProvisional();
+        user.setEmailProvisional("foobar");
         assertTrue(user.isEmailProvisional());
         assertFalse(user.isEmailValidated());
 

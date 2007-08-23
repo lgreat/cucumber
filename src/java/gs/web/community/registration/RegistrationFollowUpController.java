@@ -245,19 +245,25 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         // so this is getting the actual DB user profile
         UserProfile existingProfile = user.getUserProfile();
 
-        // only notify community on final step
-        CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                (user.getId(), existingProfile.getScreenName(), user.getEmail());
-        CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
-        try {
-            soapRequest.createOrUpdateUserRequest(bean);
-        } catch (SoapRequestException couure) {
-            _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
-            // undo registration
-            // the user is already provisional at this point since they haven't agreed to the terms
-            // send to error page
-            mAndV.setViewName(getErrorView());
-            return mAndV; // early exit!
+        // for repeat submits of this page (useful for debugging) don't do soap request
+        if (user.isEmailProvisional()) {
+            // only notify community on final step
+            String password = user.getPasswordMd5().substring
+                    (0, user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX));
+            CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
+                    (user.getId(), existingProfile.getScreenName(), user.getEmail(), password);
+            CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
+            _log.info(password);
+            try {
+                soapRequest.createOrUpdateUserRequest(bean);
+            } catch (SoapRequestException couure) {
+                _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
+                // undo registration
+                // the user is already provisional at this point since they haven't agreed to the terms
+                // send to error page
+                mAndV.setViewName(getErrorView());
+                return mAndV; // early exit!
+            }
         }
 
         if (user.getStudents() != null) {

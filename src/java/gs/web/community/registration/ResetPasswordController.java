@@ -15,6 +15,8 @@ import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.validator.UserCommandValidator;
+import gs.web.soap.SoapRequestException;
+import gs.web.soap.ChangePasswordRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +36,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
 
     private IUserDao _userDao;
     private AuthenticationManager _authenticationManager;
+    private ChangePasswordRequest _soapRequest;
 
     protected void createGenericValidationError(HttpServletRequest request, BindException errors) {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
@@ -174,20 +177,61 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             ResetPasswordCommand command = (ResetPasswordCommand) objCommand;
             User user = command.getUser();
 
-            user.setPlaintextPassword(command.getNewPassword());
-            user.setUpdated(new Date());
-            getUserDao().updateUser(user);
-            // log in user automatically
-            PageHelper.setMemberAuthorized(request, response, user);            
-            //mAndV.getModel().put("message", "Your password has been changed");
-
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-            builder.addParameter("message", "Your password has been changed");
+            if (notifyCommunity(user, command.getNewPassword())) {
+                // success
+                // save user
+                user.setPlaintextPassword(command.getNewPassword());
+                user.setUpdated(new Date());
+                getUserDao().updateUser(user);
+                // log in user automatically
+                PageHelper.setMemberAuthorized(request, response, user);
+                builder.addParameter("message", "Your password has been changed");
+            } else {
+                // failure
+                builder.addParameter("message", "We're sorry! There was an error updating your password. " +
+                        "Please try again in a few minutes.");
+            }
+
             mAndV.setViewName("redirect:" + builder.asFullUrl(request));
         } else {
             mAndV.setViewName(getSuccessView());
         }
         return mAndV;
+    }
+
+    /**
+     * Fires off a SOAP request to community updating the password. If there is an error,
+     * this method returns FALSE, otherwise TRUE.
+     * @param user User
+     * @param password new password
+     * @return TRUE if successful, FALSE Otherwise
+     */
+    protected boolean notifyCommunity(User user, String password) {
+        ChangePasswordRequest soapRequest = getSoapRequest();
+        try {
+            soapRequest.changePasswordRequest(user, password);
+        } catch (SoapRequestException couure) {
+            _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
+            // send to error page
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Encapsulate into method so the testing class can mock it
+     */
+    public ChangePasswordRequest getSoapRequest() {
+        if (_soapRequest == null) {
+            _soapRequest = new ChangePasswordRequest();
+        }
+        return _soapRequest;
+    }
+
+    public void setSoapRequest(ChangePasswordRequest soapRequest) {
+        _soapRequest = soapRequest;
     }
 
     protected Object formBackingObject(HttpServletRequest request) {

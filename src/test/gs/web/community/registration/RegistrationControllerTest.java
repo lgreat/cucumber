@@ -398,7 +398,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         // Test provisional password reset
         user.setPlaintextPassword("test");
-        user.setEmailProvisional();
+        user.setEmailProvisional("test");
         assertNotNull(user.getPasswordMd5());
         getRequest().addParameter("reset", "true");
         _controller.onBindOnNewForm(getRequest(), userCommand, errors);

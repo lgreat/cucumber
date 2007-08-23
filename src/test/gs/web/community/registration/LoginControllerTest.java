@@ -81,7 +81,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
     public void testProvisionalUser() throws NoSuchAlgorithmException {
         _user.setPlaintextPassword("foobar");
-        _user.setEmailProvisional();
+        _user.setEmailProvisional("foobar");
 
         expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
         replay(_mockUserDao);

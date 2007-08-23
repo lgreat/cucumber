@@ -9,19 +9,19 @@ public class CreateOrUpdateUserRequestBean {
     private String _id;
     private String _screenName;
     private String _email;
+    private String _password;
 
     public CreateOrUpdateUserRequestBean() {}
 
-    public CreateOrUpdateUserRequestBean(String id, String screenName, String email) {
+    public CreateOrUpdateUserRequestBean(String id, String screenName, String email, String password) {
         _id = id;
         _screenName = screenName;
         _email = email;
+        _password = password;
     }
 
-    public CreateOrUpdateUserRequestBean(int id, String screenName, String email) {
-        _id = String.valueOf(id);
-        _screenName = screenName;
-        _email = email;
+    public CreateOrUpdateUserRequestBean(int id, String screenName, String email, String password) {
+        this(String.valueOf(id), screenName, email, password);
     }
 
     public String getId() {
@@ -46,5 +46,13 @@ public class CreateOrUpdateUserRequestBean {
 
     public void setEmail(String email) {
         _email = email;
+    }
+
+    public String getPassword() {
+        return _password;
+    }
+
+    public void setPassword(String password) {
+        _password = password;
     }
 }
