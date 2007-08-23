@@ -15,7 +15,7 @@
     <head><title>GreatSchools Surveys</title></head>
     <body>
     <div>
-        <form:form>
+        <form:form commandName="userResponseCommand">
             Survey:${survey}
             <c:forEach var="questionGroup" items="${survey.questionGroups}" varStatus="groupCount">
                 <c:forEach var="question" items="${questionGroup.questions}" varStatus="questionCount">
@@ -26,11 +26,21 @@
                         <br/>
                         <c:choose>
                             <c:when test="${answer.type eq 'MULTI'}">
-                                <c:forEach var="option" items="${answer.availableAnswers}" >
-                                    <input type="checkbox" name="${option}" value="${option}"/>${option}<br/>
-                                    <!--spring: <form:checkbox path="questions[${questionNumber.index}].responses[${count.index}].value" value="foo"/>-->
-                                    <!--questions[].answerValue-->
-                                    <!--spring: <form:checkbox path="questions[${questionNumber.index}].responses[${count.index}].value" value="foo"/>-->
+                                <c:forEach var="answerText" items="${answer.availableAnswers}">
+
+                                    <c:set var="mapKey" value="q_${question.id}_a_${answer.id}"/>
+
+                                    <c:choose>
+                                        <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                            <form:checkbox path="responseMap[${mapKey}].values" id="${mapKey}" value="${answerText}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <form:checkbox path="responseMap['default'].values" id="${mapKey}" value="${answerText}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    ${answerText}
+                                    <br/>
                                 </c:forEach>
                             </c:when>
                             <c:otherwise>

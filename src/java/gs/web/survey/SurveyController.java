@@ -2,15 +2,16 @@ package gs.web.survey;
 
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import gs.data.survey.*;
-import gs.data.community.User;
 import gs.web.util.ReadWriteController;
-import gs.web.util.context.SessionContextUtil;
 
 import java.util.*;
 
@@ -30,15 +31,12 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
       * @param request ServletRequest
      * @return a <code>Survey</code> type.
      * @throws Exception
-
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
         User user = SessionContextUtil.getSessionContext(request).getUser();
         Survey survey = getSurveyDao().getSurvey("test");
         return survey;
     }
-     */
 
-    /**
     protected void onBindOnNewForm(HttpServletRequest request, Object command, BindException errors)
             throws Exception {
         request.setAttribute(getCommandName(), command);
@@ -47,21 +45,33 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
      */
 
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
+
+        UserResponseCommand urc = (UserResponseCommand)command;
+
+        UserResponse ur = new UserResponse();
+        ur.setResponseValue("Band");
+        urc.addToResponseMap("q_1_a_1", ur);
+
+        UserResponse ur2 = new UserResponse();
+        ur2.setResponseValue("French,Italian");       
+        urc.addToResponseMap("q_1_a_2", ur2);
+        // end mock
+
         Map model = new HashMap();
         Survey survey = getSurveyDao().getSurvey("test");
         model.put("survey", survey);
         return model;
 	}
 
-    protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
-            throws Exception {
-        System.out.println("request: " + request);
-        System.out.println("command: " + command);
-    }
+//    protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
+//            throws Exception {
+//        System.out.println("request: " + request);
+//        System.out.println("command: " + command);
+//    }
 
     protected ModelAndView onSubmit(Object command) {
-//        writeSurvey((SurveyCommand)command); // debugging
-        List<UserResponse> responses = ((SurveyCommand)command).getResponses();
+//        writeSurvey((UserResponseCommand)command); // debugging
+        List<UserResponse> responses = ((UserResponseCommand)command).getResponses();
         if (responses != null) {
             _surveyDao.saveSurveyResponses(responses);
         }
@@ -122,8 +132,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         System.out.println (buffer.toString());
     }
 
-    SurveyCommand buildSurveyCommand(Survey survey) {
-        SurveyCommand command = new SurveyCommand();
+    UserResponseCommand buildSurveyCommand(Survey survey) {
+        UserResponseCommand command = new UserResponseCommand();
 
         
 
