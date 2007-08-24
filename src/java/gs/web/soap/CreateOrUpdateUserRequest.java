@@ -4,6 +4,8 @@ import static org.apache.axis.Constants.XSD_STRING;
 import org.apache.axis.client.Call;
 
 import javax.xml.rpc.ParameterMode;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Provides Performs a SOAP CreateOrUpdateUserRequest.
@@ -35,11 +37,27 @@ public class CreateOrUpdateUserRequest extends SoapRequest {
 
             Object ret = call.invoke(params);
 
-            if (ret != null) {
-                _log.warn("Exception generated on createOrUpdateUserRequest");
-                SoapRequestException e = (SoapRequestException) ret;
+            if (ret != null && ret instanceof Map) {
+                _log.warn("Exception generated on createOrUpdateUserRequest of class Map");
+                Map returnMap = (Map) ret;
+                SoapRequestException e = new SoapRequestException();
+                e.setErrorCode(String.valueOf(returnMap.get("errorCode")));
+                e.setErrorMessage(String.valueOf(returnMap.get("errorMessage")));
                 e.fillInStackTrace();
                 throw e;
+            } else if (ret != null && ret instanceof SoapRequestException) {
+                _log.warn("Exception generated on changePasswordRequest");
+                throw (SoapRequestException) ret;
+            } else if (ret != null && ret.toString() != null) {
+                if (ret.toString().equals(bean.getId())) {
+                    _log.info("createOrUpdateUserRequest successful on id " + ret);
+                } else {
+                    _log.warn("Exception generated on createOrUpdateUserRequest of class String");
+                    SoapRequestException e = new SoapRequestException();
+                    e.setErrorMessage(ret.toString());
+                    e.fillInStackTrace();
+                    throw e;
+                }
             }
             _log.info("SOAP request to " + getTarget() + " successful");
         } catch (SoapRequestException e) {

@@ -1,6 +1,6 @@
 package gs.web.soap;
 
-import static org.apache.axis.Constants.SOAP_ELEMENT;
+import static org.apache.axis.Constants.XSD_ANY;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 import org.apache.axis.encoding.ser.BeanDeserializerFactory;
@@ -55,7 +55,7 @@ public class SoapRequest {
                 new BeanDeserializerFactory(exceptionClass, errorQname));
         // default return type must be specified
         // this is for any unexpected parameters not listed above
-        call.setReturnType(SOAP_ELEMENT);
+        call.setReturnType(XSD_ANY);
         return call;
     }
 
