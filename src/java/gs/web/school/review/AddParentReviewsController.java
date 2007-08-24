@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
  */
 public class AddParentReviewsController extends SimpleFormController implements ReadWriteController {
 
-    protected final Log _log = LogFactory.getLog(getClass());
+    protected final static Log _log = LogFactory.getLog(AddParentReviewsController.class);
 
     public final static String BEAN_ID = "addParentReviews";
     public final static String AJAX_BEAN_ID = "ajaxAddParentReviews";
