@@ -8,15 +8,49 @@
 
     <jsp:scriptlet>
         String[] ads = request.getParameterValues("ad");
+        String prefix = request.getParameter("slotPrefix");
         if (ads != null) {
             for (int x=0; ads.length > x; x++) {
                 request.setAttribute("curAd", ads[x]);
+                request.setAttribute("slotPrefix", prefix);
                 </jsp:scriptlet>
+                <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
+
                 <c:choose>
+                    <c:when test="${curAd eq 'Header_728x90'}">
+                        <Header_728x90>
+                            <ad:Header_728x90/>
+                        </Header_728x90>
+                    </c:when>
                     <c:when test="${curAd eq 'Top_300x137'}">
                         <Top_300x137>
                             <ad:Top_300x137/>
                         </Top_300x137>
+                    </c:when>
+                    <c:when test="${curAd eq 'House_Ad_300x137'}">
+                        <House_Ad_300x137>
+                            <ad:House_Ad_300x137 referredBy=""/>
+                        </House_Ad_300x137>
+                    </c:when>
+                    <c:when test="${curAd eq 'AboveFold_300x125'}">
+                        <AboveFold_300x125>
+                            <ad:AboveFold_300x125/>
+                        </AboveFold_300x125>
+                    </c:when>
+                    <c:when test="${curAd eq 'AboveFold_300x250'}">
+                        <AboveFold_300x250>
+                            <ad:AboveFold_300x250/>
+                        </AboveFold_300x250>
+                    </c:when>
+                    <c:when test="${curAd eq 'BelowFold_300x250'}">
+                        <BelowFold_300x250>
+                            <ad:BelowFold_300x250/>
+                        </BelowFold_300x250>
+                    </c:when>
+                    <c:when test="${curAd eq 'Footer_728x90'}">
+                        <Footer_728x90>
+                            <ad:Footer_728x90/>
+                        </Footer_728x90>
                     </c:when>
                 </c:choose>
                 <jsp:scriptlet>
