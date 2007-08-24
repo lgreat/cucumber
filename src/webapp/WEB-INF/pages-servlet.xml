@@ -80,6 +80,7 @@
                 <entry key="/school/addComments.page" value="addParentReviews"/>
                 <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
                 <entry key="/school/updateRatings.page" value="updateRatings"/>
+                <entry key="/survey/form.page" value="surveyController"/>
             </map>
         </property>
     </bean>
@@ -1159,7 +1160,7 @@
           class="gs.web.util.IsValidEmailController"
           autowire="byName" lazy-init="true"/>
 
-    <bean name="/survey/form.page"
+    <bean name="surveyController"
           class="gs.web.survey.SurveyController" autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userResponseCommand"/>

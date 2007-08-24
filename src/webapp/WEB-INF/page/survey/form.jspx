@@ -5,19 +5,24 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:survey="urn:jsptagdir:/WEB-INF/tags/survey"
           xmlns:gsweb="gstaglib"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <jsp:directive.page contentType="text/html"/>
 
+
+    <c:set var="school" value="${userResponseCommand.school}"/>
+
     <html>
     <head><title>GreatSchools Surveys</title></head>
     <body>
     <div>
+        <school:profile school="${school}" tab="surveys">
         <form:form commandName="userResponseCommand">
-            Survey:${survey}
-            <c:forEach var="questionGroup" items="${survey.questionGroups}" varStatus="groupCount">
+            Survey:${userResponseCommand.survey}
+            <c:forEach var="questionGroup" items="${userResponseCommand.survey.questionGroups}" varStatus="groupCount">
                 <c:forEach var="question" items="${questionGroup.questions}" varStatus="questionCount">
                     ${question.text}
                     <br/>
@@ -28,14 +33,14 @@
                             <c:when test="${answer.type eq 'MULTI'}">
                                 <c:forEach var="answerText" items="${answer.availableAnswers}">
 
-                                    <c:set var="mapKey" value="q_${question.id}_a_${answer.id}"/>
+                                    <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
 
                                     <c:choose>
                                         <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
                                             <form:checkbox path="responseMap[${mapKey}].values" id="${mapKey}" value="${answerText}"/>
                                         </c:when>
                                         <c:otherwise>
-                                            <form:checkbox path="responseMap['default'].values" id="${mapKey}" value="${answerText}"/>
+                                            <input name="responseMap[${mapKey}].values" value="${answerText}" type="checkbox"/>
                                         </c:otherwise>
                                     </c:choose>
 
@@ -59,8 +64,10 @@
                 <!--<survey:input question="${question}" questionNumber="${questionNumber}"/>-->
                 </c:forEach>
             </c:forEach>
+            <form:input path="email"/>
             <input type="submit" name="submit" value="Submit"/>
         </form:form>
+        </school:profile>
     </div>
     </body>
     </html>

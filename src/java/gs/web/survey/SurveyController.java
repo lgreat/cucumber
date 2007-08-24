@@ -1,80 +1,113 @@
 package gs.web.survey;
 
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.HttpSessionRequiredException;
+import gs.data.community.IUserDao;
+import gs.data.community.User;
+import gs.data.school.School;
+import gs.data.survey.*;
+import gs.web.school.SchoolPageInterceptor;
+import gs.web.util.ReadWriteController;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import gs.data.survey.*;
-import gs.web.util.ReadWriteController;
-
-import java.util.*;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class SurveyController extends SimpleFormController implements ReadWriteController {
 
-    public static final String BEAN_ID = "/survey/form.page";
+    protected final static Log _log = LogFactory.getLog(SurveyController.class);
+
+    public static final String BEAN_ID = "surveyController";
     private ISurveyDao _surveyDao;
     private String _viewName;
+    private IUserDao _userDao;
 
-    /**
-     * This method creates a Survey object pre-loaded with a user's previous response if
-     * she has alread taken this survey.
-     *
-      * @param request ServletRequest
-     * @return a <code>Survey</code> type.
-     * @throws Exception
-    protected Object formBackingObject(HttpServletRequest request) throws Exception {
-        User user = SessionContextUtil.getSessionContext(request).getUser();
-        Survey survey = getSurveyDao().getSurvey("test");
-        return survey;
+    protected final static Pattern QUESTION_ANSWER_IDS = Pattern.compile("^responseMap\\[q(\\d+)a(\\d+)\\]\\.values*$");
+
+    protected void initBinder(HttpServletRequest request,
+                          ServletRequestDataBinder binder) {
+        binder.setDisallowedFields(new String [] {"responseMap*"});
     }
 
-    protected void onBindOnNewForm(HttpServletRequest request, Object command, BindException errors)
+    protected Object formBackingObject(HttpServletRequest request) {
+        School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
+        Survey survey = getSurveyDao().getSurvey("test");
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();
+
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setSurvey(survey);
+        urc.setSchool(school);
+        urc.setUser(user);
+
+        return urc;
+    }
+
+    protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
             throws Exception {
-        request.setAttribute(getCommandName(), command);
-        request.setAttribute("command", command);
+        UserResponseCommand urc = (UserResponseCommand) command;
+        Enumeration<String> params = request.getParameterNames();
+
+        if (null == urc.getUser()) {
+            User user = getUserDao().findUserFromEmailIfExists(urc.getEmail());
+            if (null == user) {
+                user = new User();
+                user.setEmail(urc.getEmail());
+                getUserDao().saveUser(user);
+            }
+            urc.setUser(user);
+        }
+
+        populateUserResponses(request, urc);
     }
-     */
 
-    protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
+    protected void populateUserResponses(HttpServletRequest request, UserResponseCommand urc) {
+        Enumeration<String> params = request.getParameterNames();
+        Matcher m;
+        String paramName;
+        while (params.hasMoreElements()) {
+            paramName = params.nextElement();
+            m = QUESTION_ANSWER_IDS.matcher(paramName);
 
-        UserResponseCommand urc = (UserResponseCommand)command;
+            if (m.matches()) {
+                Integer qId = Integer.valueOf(m.replaceAll("$1"));
+                Integer aId = Integer.valueOf(m.replaceAll("$2"));
+                String [] paramValues = request.getParameterValues(paramName);
 
-        UserResponse ur = new UserResponse();
-        ur.setResponseValue("Band");
-        urc.addToResponseMap("q_1_a_1", ur);
-
-        UserResponse ur2 = new UserResponse();
-        ur2.setResponseValue("French,Italian");       
-        urc.addToResponseMap("q_1_a_2", ur2);
-        // end mock
-
-        Map model = new HashMap();
-        Survey survey = getSurveyDao().getSurvey("test");
-        model.put("survey", survey);
-        return model;
-	}
-
-//    protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
-//            throws Exception {
-//        System.out.println("request: " + request);
-//        System.out.println("command: " + command);
-//    }
+                if (null != paramValues) {
+                    UserResponse response = new UserResponse();
+                    response.setResponseValue(StringUtils.join(paramValues, ","));
+                    response.setAnswerId(aId);
+                    response.setQuestionId(qId);
+                    response.setSchoolId(urc.getSchool().getId());
+                    response.setState(urc.getSchool().getDatabaseState());
+                    response.setSurveyId(urc.getSurvey().getId());
+                    response.setUserId(urc.getUser().getId());
+                    urc.addToResponseMap(response);
+                }
+            }
+        }
+    }
 
     protected ModelAndView onSubmit(Object command) {
 //        writeSurvey((UserResponseCommand)command); // debugging
-        List<UserResponse> responses = ((UserResponseCommand)command).getResponses();
-        if (responses != null) {
-            _surveyDao.saveSurveyResponses(responses);
-        }
+        UserResponseCommand urc = (UserResponseCommand) command;
+        List<UserResponse> responses = urc.getResponses();
+
+        _surveyDao.removeAllUserResponses(urc.getSurvey(), urc.getSchool(), urc.getUser());
+        _surveyDao.saveSurveyResponses(responses);
         return new ModelAndView(getSuccessView());
     }
 
@@ -132,11 +165,11 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         System.out.println (buffer.toString());
     }
 
-    UserResponseCommand buildSurveyCommand(Survey survey) {
-        UserResponseCommand command = new UserResponseCommand();
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
 
-        
-
-        return command;
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 }
