@@ -31,7 +31,7 @@
 <pageHelper:addOnLoadHandler handler="doMapSchools()"/>
 
 <jsp:scriptlet>
-    URL feedUrl = new URL("http://www.trulia.com/rss2/" + school.getStateAbbreviation() + "/" + school.getCity() + "/" + school.getZipcode() + "/");
+    URL feedUrl = new URL("http://www.trulia.com/rss2/" + school.getStateAbbreviation().getAbbreviation().replace(" ", "_") + "/" + school.getCity().replace(" ", "_") + "/" + school.getZipcode() + "/");
     try {
         System.setProperty("sun.net.client.defaultConnectTimeout", "5000");
         System.setProperty("sun.net.client.defaultReadTimeout", "5000");
@@ -45,7 +45,7 @@
             String[] fields = title.split(", ");
             if (fields.length > 2) {
                 String address = fields[0] + ", " + fields[1] + ", " + fields[2];
-                currentHome.setName(title);
+                currentHome.setName(title.replace(", ", "&lt;br/&gt;") + "&lt;br/&gt;&lt;a href=" + home.getLink() + " target=_blank&gt;Check me out on Trulia&lt;/a&gt;");
                 currentHome.setStreet(address);
                 homes.add(currentHome);
             }
@@ -179,7 +179,8 @@ function initHomeInfo() {
     myHome.price = "${home.name}";
     geocoder.getLatLng('${home.street}', function(point) {
       if (point) {
-          marker = new GMarker(point, {icon:homeIcon, title: 'Home'});
+          marker = new GMarker(point, {icon:homeIcon, title:'${home.name}'});
+          addHomeBubbleListener(marker, '${home.name}');          
           map.addOverlay(marker);
       }
     });
@@ -269,6 +270,14 @@ function addBubbleListener(marker, school) {
       marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
   });
 }
+
+function addHomeBubbleListener(marker, text) {
+  GEvent.addListener(marker, "click", function() {
+      marker.openInfoWindowHtml(text);
+  });
+}
+
+
 
 function doMapSchools() {
   if (GBrowserIsCompatible()) {
