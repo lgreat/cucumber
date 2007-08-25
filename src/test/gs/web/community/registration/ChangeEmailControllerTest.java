@@ -4,7 +4,7 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.soap.SoapRequestException;
+import gs.data.soap.SoapRequestException;
 import gs.web.soap.ChangeEmailRequest;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;

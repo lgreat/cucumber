@@ -11,7 +11,7 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.soap.SoapRequestException;
+import gs.data.soap.SoapRequestException;
 import gs.web.soap.ChangeEmailRequest;
 
 import javax.servlet.http.HttpServletRequest;

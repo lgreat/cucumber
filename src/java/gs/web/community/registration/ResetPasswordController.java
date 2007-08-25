@@ -9,13 +9,13 @@ import org.apache.commons.logging.LogFactory;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
+import gs.data.soap.SoapRequestException;
 import gs.web.util.UrlBuilder;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.validator.UserCommandValidator;
-import gs.web.soap.SoapRequestException;
 import gs.web.soap.ChangePasswordRequest;
 
 import javax.servlet.http.HttpServletRequest;

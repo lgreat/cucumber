@@ -2,7 +2,7 @@ package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.soap.ChangePasswordRequest;
-import gs.web.soap.SoapRequestException;
+import gs.data.soap.SoapRequestException;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;

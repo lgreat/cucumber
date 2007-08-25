@@ -17,13 +17,13 @@ import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.data.admin.IPropertyDao;
+import gs.data.soap.CreateOrUpdateUserRequestBean;
+import gs.data.soap.CreateOrUpdateUserRequest;
+import gs.data.soap.SoapRequestException;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.soap.CreateOrUpdateUserRequestBean;
-import gs.web.soap.CreateOrUpdateUserRequest;
-import gs.web.soap.SoapRequestException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

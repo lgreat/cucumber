@@ -1,6 +1,8 @@
 package gs.web.soap;
 
 import gs.data.community.User;
+import gs.data.soap.SoapRequest;
+import gs.data.soap.SoapRequestException;
 import static org.apache.axis.Constants.XSD_STRING;
 import org.apache.axis.client.Call;
 

@@ -1,6 +1,7 @@
 package gs.web.soap;
 
 import gs.data.community.User;
+import gs.data.soap.SoapRequestException;
 import gs.web.BaseTestCase;
 import org.apache.axis.client.Call;
 import static org.easymock.classextension.EasyMock.*;
