@@ -42,10 +42,13 @@
             School currentHome = new School();
             SyndEntry home = (SyndEntry) entry;
             String title = home.getTitle();
-            String address = title.substring(0, title.lastIndexOf(","));
-            currentHome.setName(title);
-            currentHome.setStreet(address);
-            homes.add(currentHome);
+            String[] fields = title.split(", ");
+            if (fields.length > 2) {
+                String address = fields[0] + ", " + fields[1] + ", " + fields[2];
+                currentHome.setName(title);
+                currentHome.setStreet(address);
+                homes.add(currentHome);
+            }
         }
         request.setAttribute("homes", homes);
     } catch (Exception e) {
