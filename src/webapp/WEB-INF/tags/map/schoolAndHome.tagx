@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+<jsp:directive.tag import="com.sun.syndication.feed.synd.SyndEntry"/>
+<jsp:directive.tag import="com.sun.syndication.feed.synd.SyndFeed"/>
+<jsp:directive.tag import="com.sun.syndication.io.SyndFeedInput"/>
+<jsp:directive.tag import="com.sun.syndication.io.XmlReader"/>
+<jsp:directive.tag import="gs.data.school.School"/>
+<jsp:directive.tag import="java.io.PrintWriter"/>
+<jsp:directive.tag import="java.net.URL"/>
+<jsp:directive.tag import="java.util.ArrayList"/>
+<jsp:directive.tag import="java.util.List"/>
+<jsp:directive.tag body-content="empty"
+                   description="Draw a map of a school with nearby schools marked and extra info in a bubble." />
+<jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
+<jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school this map is centered on"/>
+<jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.Collection"/>
+<!--<jsp:directive.attribute name="homes" required="true" description="Homes to map" type="java.util.Collection"/>-->
+<jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?" />
+<jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom to start with, defaults to 9"/>
+<jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom to start with, defaults to 12"/>
+
+<map:setup/>
+<pageHelper:addOnLoadHandler handler="doMapSchools()"/>
+
+<jsp:scriptlet>
+    URL feedUrl = new URL("http://www.trulia.com/rss2/" + school.getStateAbbreviation() + "/" + school.getCity() + "/" + school.getZipcode() + "/");
+    try {
+        System.setProperty("sun.net.client.defaultConnectTimeout", "5000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "5000");
+        SyndFeedInput input = new SyndFeedInput();
+        SyndFeed feed = input.build(new XmlReader(feedUrl));
+        List homes = new ArrayList();
+        for (Object entry : feed.getEntries()) {
+            School currentHome = new School();
+            SyndEntry home = (SyndEntry) entry;
+            String title = home.getTitle();
+            String address = title.substring(0, title.lastIndexOf(","));
+            currentHome.setName(title);
+            currentHome.setStreet(address);
+            homes.add(currentHome);
+        }
+        request.setAttribute("homes", homes);
+    } catch (Exception e) {
+        e.printStackTrace(new PrintWriter(out));
+    }
+
+</jsp:scriptlet>
+
+<script type="text/javascript">
+<![CDATA[
+<!--
+]]>
+
+function extendBoundsToCenterOnPoint(point, bounds) {
+  bounds.extend(reflectPoint(point, bounds.getNorthEast()));
+  bounds.extend(reflectPoint(point, bounds.getSouthWest()));
+}
+
+// Given points x (outlier) and y (center), returns point z such that the rectangle defined by
+// x and z has its center at y. Returns a GLatLng object
+function reflectPoint(centerPoint, outlierPoint) {
+  return new GLatLng(centerPoint.lat() + (centerPoint.lat() - outlierPoint.lat()),
+                     centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
+}
+
+var map = new GMap2(document.getElementById("${id}"));
+var homeIcon = new GIcon();
+homeIcon.image = "/res/img/bullet/exclamation.gif";
+homeIcon.iconSize = new GSize(20,20);
+homeIcon.iconAnchor = new GPoint(20,20);
+homeIcon.infoWindowAnchor = new GPoint(13,2);
+homeIcon.infoShadowAnchor = new GPoint(13,2);
+
+var minZoom = ${not empty minZoom?minZoom:6};
+var maxZoom = ${not empty maxZoom?maxZoom:13};
+var displayTooltips = ${not empty tooltips};
+var schoolArray = new Array();
+var homeArray = new Array();
+var centerSchool = new Object();
+centerSchool.name = "${school.name}";
+centerSchool.street = "${school.physicalAddress.street}";
+centerSchool.city = "${school.physicalAddress.city}";
+centerSchool.state = "${school.physicalAddress.state.abbreviation}";
+centerSchool.zip = "${school.physicalAddress.zip}";
+centerSchool.phone = '<c:if test="${not empty school.phone}">${school.phone}</c:if>';
+centerSchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
+centerSchool.location = new GLatLng(${school.lat}, ${school.lon});
+
+centerSchool.ratingHtml = '';
+<c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
+    var schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${gs_rating}.gif" alt="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+
+    centerSchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
+                       schoolRatingImg +
+                       '</link:schoolProfileRating></div>';
+</c:if>
+centerSchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
+<c:set var="parent_rating" value="0"/>
+<c:if test="${parent_ratings.displayOverallRating eq true}">
+    <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
+</c:if>
+
+<c:choose>
+    <c:when test="${parent_rating eq 0}">
+        <c:set var="parent_rating_title" value="Be the first to rate!"/>
+        centerSchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${school}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
+    </c:when>
+    <c:otherwise>
+        <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
+        centerSchool.parentRatingHtml += '<link:schoolProfileParentReview school="${school}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="${parent_rating_title}"/></link:schoolProfileParentReview>';
+    </c:otherwise>
+</c:choose>
+centerSchool.parentRatingHtml += '</div>';
+
+function initSchoolInfo() {
+    var mySchool;
+    var schoolRatingImg;
+<c:forEach var="nearbySchool" items="${schools}">
+  <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
+  <c:if test="${not empty curSchool.lon}">
+    mySchool = new Object();
+
+    mySchool.name = "${curSchool.name}";
+    mySchool.street = "${curSchool.physicalAddress.street}";
+    mySchool.city = "${curSchool.physicalAddress.city}";
+    mySchool.state = "${curSchool.physicalAddress.state.abbreviation}";
+    mySchool.zip = "${curSchool.physicalAddress.zip}";
+    mySchool.phone = '<c:if test="${not empty curSchool.phone}">${curSchool.phone}</c:if>';
+    mySchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
+
+    mySchool.ratingHtml = '';
+    <c:if test="${nearbySchool.rating ne null and nearbySchool.rating gt 0 and nearbySchool.rating lt 11}">
+        schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${nearbySchool.rating}.gif" alt="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+
+        mySchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${curSchool}" title="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
+                           schoolRatingImg +
+                           '</link:schoolProfileRating></div>';
+    </c:if>
+    mySchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
+    <c:set var="parent_rating" value="0"/>
+    <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.displayOverallRating eq true)}">
+        <c:set var="parent_rating" value="${nearbySchool.parentRatings.avgQuality}"/>
+    </c:if>
+    <c:choose>
+        <c:when test="${parent_rating eq 0}">
+            <c:set var="parent_rating_title" value="Be the first to rate!"/>
+            mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${curSchool}" title="${parent_rating_title}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
+        </c:when>
+        <c:otherwise>
+            <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
+            mySchool.parentRatingHtml += '<link:schoolProfileParentReview school="${curSchool}" title="${parent_rating_title}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Parent rating ${parent_rating}"/></link:schoolProfileParentReview>';
+        </c:otherwise>
+    </c:choose>
+    mySchool.parentRatingHtml += '</div>';
+
+    mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
+    schoolArray.push(mySchool);
+  </c:if>
+</c:forEach>
+}
+
+function initHomeInfo() {
+    var myHome;
+    var geocoder = new GClientGeocoder();    
+<c:forEach var="home" items="${homes}">
+  <c:if test="${not empty home.street}">
+    myHome = new Object();
+    myHome.price = "${home.name}";
+    geocoder.getLatLng('${home.street}', function(point) {
+      if (point) {
+          marker = new GMarker(point, {icon:homeIcon, title: 'Home'});
+          map.addOverlay(marker);
+      }
+    });
+    homeArray.push(myHome);
+  </c:if>
+</c:forEach>
+}
+
+<![CDATA[
+function getSchoolInfoWindowHtml(school) {
+    var rval = '<div class="schoolInfoWindow" style="font: 12px/15px Trebuchet MS, sans-serif;">';
+    rval += '<div class="schoolName" style="width: 210px;">' + school.name + '</div>';
+    rval += '<div style="height: 28px; width: 150px;">';
+    rval += school.ratingHtml;
+    rval += school.parentRatingHtml;
+    rval += '</div>';
+    rval += '<address style="width: 210px; clear: left; margin-top: 10px; _margin-top: 5px;">';
+    rval += school.street + '<br />';
+    rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
+    rval += '</address>';
+    rval += '<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
+            encodeURIComponent(school.address) +
+            '" target="_blank" onclick="s.tl(this, \'o\', \'School Map - Get Directions\');">Get directions &gt;</a>';
+    if (school.phone == '') {
+        rval += '<br/><br/>';
+    } else {
+        rval += '<p class="schoolPhone">' + school.phone + '</p>';
+    }
+    rval += '</div>'; // schoolInfoWindow
+    return rval;
+}
+]]>
+
+function initMap() {
+    var i = 0;
+    var tooltip = null;
+    var marker;
+
+    map.addControl(new GLargeMapControl());
+    map.addControl(new GScaleControl());
+    map.setCenter(centerSchool.location, 17);
+    var bounds = new GLatLngBounds();
+    bounds.extend(centerSchool.location);
+    <![CDATA[
+    for (var counter=0; counter < schoolArray.length; counter++) {
+      var curSchool = schoolArray[counter];
+      if (displayTooltips) {
+        tooltip = curSchool.name;
+      } else {
+        tooltip = null;
+      }
+      marker = new GMarker(curSchool.location, {title: tooltip});
+      addBubbleListener(marker, curSchool);
+      map.addOverlay(marker);
+      bounds.extend(curSchool.location);
+    }
+    ]]>
+
+    var arrowIcon = new GIcon();
+    arrowIcon.image = "/res/img/map/green_arrow.png";
+    arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
+    arrowIcon.transparent = "/res/img/map/green_arrow_transparent.png";
+    arrowIcon.iconSize = new GSize(39,34);
+    arrowIcon.iconAnchor = new GPoint(11,34);
+    arrowIcon.infoWindowAnchor = new GPoint(13,2);
+    arrowIcon.infoShadowAnchor = new GPoint(13,2);
+    arrowIcon.shadowSize = new GSize(39,34);
+
+    if (displayTooltips) {
+      tooltip = centerSchool.name;
+    } else {
+      tooltip = null;
+    }
+    marker = new GMarker(centerSchool.location, {icon:arrowIcon, title: tooltip});
+    addBubbleListener(marker, centerSchool);
+    map.addOverlay(marker);
+    extendBoundsToCenterOnPoint(centerSchool.location, bounds);
+
+    var zoom = map.getBoundsZoomLevel(bounds);
+    if (zoom > maxZoom) zoom = maxZoom;
+    if (minZoom > zoom) zoom = minZoom;
+    map.setZoom(zoom);
+}
+
+function addBubbleListener(marker, school) {
+  GEvent.addListener(marker, "click", function() {
+      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
+  });
+}
+
+function doMapSchools() {
+  if (GBrowserIsCompatible()) {
+      initSchoolInfo();
+      initHomeInfo();
+      initMap();
+  }
+}
+-->
+</script>
+
+</jsp:root>

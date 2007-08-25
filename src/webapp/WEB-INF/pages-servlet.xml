@@ -1140,6 +1140,14 @@
         </property>
     </bean>
 
+    <bean name="/school/mapSchoolAndHomes.page"
+          class="gs.web.school.MapSchoolController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/mapSchoolAndHomes</value>
+        </property>
+    </bean>
+
     <bean name="/community/mailToFriend.page"
           autowire="byName"
           class="gs.web.community.MailToFriendController" lazy-init="true">
