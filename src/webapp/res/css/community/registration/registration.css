@@ -152,6 +152,10 @@
     left: 332px;
 }
 
+#outline li#newsletter, #outline li#betaGroup, #outline li#terms {
+    height: 40px;
+}
+
 #outline ul li#newsletter label, #outline ul li#betaGroup label {
     font-weight: normal;
 }

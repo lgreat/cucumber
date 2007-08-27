@@ -111,6 +111,9 @@
         position: relative;
         top: -2px;
       }
+      #newsletters li {
+        height: 36px;
+      }
     </style>
     <a name="error"></a>
   <![endif]-->
@@ -237,16 +240,16 @@
 
   <ul id="newsletters">
       <li>
-          <label>Yes! Subscribe me to the "Best of GreatSchools Community" newsletter!</label>
-          <gsml:checkbox name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
+          <label for="newsletterCheckbox">Yes! Subscribe me to the "Best of GreatSchools Community" newsletter!</label>
+          <gsml:checkbox styleId="newsletterCheckbox" name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
       </li>
       <li>
-          <label>Yes! I'd like to get a sneak peek of brand new community<br/>features
+          <label for="betaCheckbox">Yes! I'd like to get a sneak peek of brand new community<br/>features
               by being a part of the GreatSchools beta group!</label>
-          <gsml:checkbox name="betaStr" checked="${followUpCmd.beta eq true}"/>
+          <gsml:checkbox styleId="betaCheckbox" name="betaStr" checked="${followUpCmd.beta eq true}"/>
       </li>
       <li>
-          <label><span class="required">*</span>I am over 13 years of age and I agree to the
+          <label for="termsCheckbox"><span class="required">*</span>I am over 13 years of age and I agree to the
               <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>,
               including the
               <gsml:popupWindow width="800" height="600" left="50" top="50"
@@ -254,7 +257,7 @@
                 href="/cgi-bin/static/terms.html/$STATE#communityStandards"
                 tabIndex="17">Community Guidelines</gsml:popupWindow>.
           </label>
-          <gsml:checkbox name="termsStr" checked="${followUpCmd.terms eq true}"/>
+          <gsml:checkbox styleId="termsCheckbox" name="termsStr" checked="${followUpCmd.terms eq true}"/>
           <gsml:errorMessage command="followUpCmd" field="terms" useImage="true"/>
       </li>
   </ul>
