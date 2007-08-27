@@ -30,7 +30,7 @@
 <map:setup/>
 <pageHelper:addOnLoadHandler handler="doMapSchools()"/>
 
-<jsp:scriptlet>
+<jsp:scriptlet><![CDATA[
     URL feedUrl = new URL("http://www.trulia.com/rss2/" + school.getStateAbbreviation().getAbbreviation().replace(" ", "_") + "/" + school.getCity().replace(" ", "_") + "/" + school.getZipcode() + "/");
     try {
         System.setProperty("sun.net.client.defaultConnectTimeout", "5000");
@@ -43,10 +43,24 @@
             SyndEntry home = (SyndEntry) entry;
             String title = home.getTitle();
             String[] fields = title.split(", ");
+            String afterDollar = title.substring(title.indexOf("$") + 1);
+            String price = afterDollar.substring(0, afterDollar.indexOf(","));
+            try {
+                int thousands = Integer.parseInt(price);
+                if (thousands < 10) {
+                    currentHome.setCounty("homeIcon");
+                } else {
+                    int decile = thousands / 100;
+                    currentHome.setCounty("icon" + decile);
+                }
+            } catch (NumberFormatException e) {
+                currentHome.setCounty("homeIcon");
+            }
             if (fields.length > 2) {
                 String address = fields[0] + ", " + fields[1] + ", " + fields[2];
                 currentHome.setName(title.replace(", ", "&lt;br/&gt;") + "&lt;br/&gt;&lt;a href=" + home.getLink() + " target=_blank&gt;Check me out on Trulia&lt;/a&gt;");
                 currentHome.setStreet(address);
+                currentHome.setAssociation(title);
                 homes.add(currentHome);
             }
         }
@@ -55,7 +69,7 @@
         e.printStackTrace(new PrintWriter(out));
     }
 
-</jsp:scriptlet>
+    ]]></jsp:scriptlet>
 
 <script type="text/javascript">
 <![CDATA[
@@ -81,6 +95,76 @@ homeIcon.iconSize = new GSize(20,20);
 homeIcon.iconAnchor = new GPoint(20,20);
 homeIcon.infoWindowAnchor = new GPoint(13,2);
 homeIcon.infoShadowAnchor = new GPoint(13,2);
+
+var icon0 = new GIcon();
+icon0.image = "/res/img/school/ratings/na.gif";
+icon0.iconSize = new GSize(22,22);
+icon0.iconAnchor = new GPoint(22,22);
+icon0.infoWindowAnchor = new GPoint(13,2);
+icon0.infoShadowAnchor = new GPoint(13,2);
+
+var icon1 = new GIcon();
+icon1.image = "/res/img/school/ratings/1.gif";
+icon1.iconSize = new GSize(20,20);
+icon1.iconAnchor = new GPoint(20,20);
+icon1.infoWindowAnchor = new GPoint(13,2);
+icon1.infoShadowAnchor = new GPoint(13,2);
+
+var icon2 = new GIcon();
+icon2.image = "/res/img/school/ratings/2.gif";
+icon2.iconSize = new GSize(20,20);
+icon2.iconAnchor = new GPoint(20,20);
+icon2.infoWindowAnchor = new GPoint(13,2);
+icon2.infoShadowAnchor = new GPoint(13,2);
+
+var icon3 = new GIcon();
+icon3.image = "/res/img/school/ratings/3.gif";
+icon3.iconSize = new GSize(20,20);
+icon3.iconAnchor = new GPoint(20,20);
+icon3.infoWindowAnchor = new GPoint(13,2);
+icon3.infoShadowAnchor = new GPoint(13,2);
+
+var icon4 = new GIcon();
+icon4.image = "/res/img/school/ratings/4.gif";
+icon4.iconSize = new GSize(20,20);
+icon4.iconAnchor = new GPoint(20,20);
+icon4.infoWindowAnchor = new GPoint(13,2);
+icon4.infoShadowAnchor = new GPoint(13,2);
+
+var icon5 = new GIcon();
+icon5.image = "/res/img/school/ratings/5.gif";
+icon5.iconSize = new GSize(20,20);
+icon5.iconAnchor = new GPoint(20,20);
+icon5.infoWindowAnchor = new GPoint(13,2);
+icon5.infoShadowAnchor = new GPoint(13,2);
+
+var icon6 = new GIcon();
+icon6.image = "/res/img/school/ratings/6.gif";
+icon6.iconSize = new GSize(20,20);
+icon6.iconAnchor = new GPoint(20,20);
+icon6.infoWindowAnchor = new GPoint(13,2);
+icon6.infoShadowAnchor = new GPoint(13,2);
+
+var icon7 = new GIcon();
+icon7.image = "/res/img/school/ratings/7.gif";
+icon7.iconSize = new GSize(20,20);
+icon7.iconAnchor = new GPoint(20,20);
+icon7.infoWindowAnchor = new GPoint(13,2);
+icon7.infoShadowAnchor = new GPoint(13,2);
+
+var icon8 = new GIcon();
+icon8.image = "/res/img/school/ratings/8.gif";
+icon8.iconSize = new GSize(20,20);
+icon8.iconAnchor = new GPoint(20,20);
+icon8.infoWindowAnchor = new GPoint(13,2);
+icon8.infoShadowAnchor = new GPoint(13,2);
+
+var icon9 = new GIcon();
+icon9.image = "/res/img/school/ratings/9.gif";
+icon9.iconSize = new GSize(20,20);
+icon9.iconAnchor = new GPoint(20,20);
+icon9.infoWindowAnchor = new GPoint(13,2);
+icon9.infoShadowAnchor = new GPoint(13,2);
 
 var minZoom = ${not empty minZoom?minZoom:6};
 var maxZoom = ${not empty maxZoom?maxZoom:13};
@@ -179,7 +263,7 @@ function initHomeInfo() {
     myHome.price = "${home.name}";
     geocoder.getLatLng('${home.street}', function(point) {
       if (point) {
-          marker = new GMarker(point, {icon:homeIcon, title:'${home.name}'});
+          marker = new GMarker(point, {icon:${home.county}, title:'${home.association}'});
           addHomeBubbleListener(marker, '${home.name}');          
           map.addOverlay(marker);
       }
