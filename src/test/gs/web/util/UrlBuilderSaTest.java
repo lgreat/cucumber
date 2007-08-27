@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.69 2007/08/09 02:00:24 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.70 2007/08/27 22:19:52 dlee Exp $
  */
 
 package gs.web.util;
@@ -190,6 +190,9 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
         assertEquals("/cgi-bin/pq_start.cgi/ny/8", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_TAKE_SURVEY);
+        assertEquals("/survey/form.page?id=8&amp;state=NY", builder.asSiteRelativeXml(null));
     }
 
     public void testCityPageBuilder() {

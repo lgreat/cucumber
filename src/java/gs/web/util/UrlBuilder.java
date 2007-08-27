@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.84 2007/08/09 02:00:24 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.85 2007/08/27 22:19:52 dlee Exp $
  */
 
 package gs.web.util;
@@ -138,6 +138,8 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE_ADD_PARENT_REVIEW = new VPage("vpage:schoolAddParentReview");
     public static final VPage SCHOOL_PROFILE_ESP_LOGIN = new VPage("vpage:schoolEspLogin");
     public static final VPage SCHOOL_AUTHORIZER = new VPage("vpage:schoolAuthorizer");
+
+    public static final VPage SCHOOL_TAKE_SURVEY = new VPage("vpage:schoolTakeSurvey");
 
     public static final VPage SCHOOL_MAP = new VPage("vpage:schoolMap");
 
@@ -319,11 +321,17 @@ public class UrlBuilder {
             _path = "/cgi-bin/pq_start.cgi/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/" + school.getId();
-        } else {
+        } else if (SCHOOL_TAKE_SURVEY.equals(page)) {
+            _perlPage = false;
+            _path = "/survey/form.page";
+            setParameter("id", String.valueOf(school.getId().intValue()));
+            setParameter("state", school.getDatabaseState().getAbbreviation());
+        }
+        else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
-
+    
     public UrlBuilder(District district, VPage page) {
         if (DISTRICT_PROFILE.equals(page)) {
             _perlPage = true;
