@@ -34,7 +34,7 @@
 <c:set var="parent_ratings" value="${parent_ratings}"/>
 
 <head>
-    <title>${school.name} - ${addr} - school map</title>
+    <title>Homes for sale near ${school.name} - ${addr}</title>
     <meta name="description"
           content="A map of ${school.name} located in ${city}, ${stateName} - ${stateAbbrev}, including a map of the nearby schools"/>
     <pageHelper:externalCss file="/res/css/ads.css"/>
