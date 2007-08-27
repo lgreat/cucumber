@@ -58,7 +58,7 @@
             }
             if (fields.length > 2) {
                 String address = fields[0] + ", " + fields[1] + ", " + fields[2];
-                currentHome.setName(title.replace(", ", "&lt;br/&gt;") + "&lt;br/&gt;&lt;a href=" + home.getLink() + " target=_blank&gt;Check me out on Trulia&lt;/a&gt;");
+                currentHome.setName(title.replace(", ", "<br/>") + "<br/><a href=" + home.getLink() + " target=_blank>Check me out on Trulia</a>");
                 currentHome.setStreet(address);
                 currentHome.setAssociation(title);
                 homes.add(currentHome);
