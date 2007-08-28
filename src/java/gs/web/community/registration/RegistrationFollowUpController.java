@@ -23,6 +23,7 @@ import gs.data.soap.SoapRequestException;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private AuthenticationManager _authenticationManager;
     private String _errorView;
+    private CreateOrUpdateUserRequest _soapRequest;
 
     private Set<String> _contactSubs;
 
@@ -250,12 +252,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             // only notify community on final step
             String password = user.getPasswordMd5().substring
                     (0, user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX));
-            CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                    (user.getId(), existingProfile.getScreenName(), user.getEmail(), password);
-            CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
-            _log.info(password);
             try {
-                soapRequest.createOrUpdateUserRequest(bean);
+                notifyCommunity(user.getId(), existingProfile.getScreenName(), user.getEmail(), password, request);
             } catch (SoapRequestException couure) {
                 _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
                 // undo registration
@@ -327,6 +325,20 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         mAndV.setViewName("redirect:" + fupCommand.getRedirect());
 
         return mAndV;
+    }
+
+    protected void notifyCommunity(Integer userId, String screenName, String email, String password,
+                                   HttpServletRequest request) throws SoapRequestException {
+        CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
+                (userId, screenName, email, password);
+        CreateOrUpdateUserRequest soapRequest = getSoapRequest();
+        UrlUtil urlUtil = new UrlUtil();
+        if (urlUtil.isStagingServer(request.getServerName())) {
+            soapRequest.setTarget("http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/soap/user");
+        }
+        soapRequest.createOrUpdateUserRequest(bean);
     }
 
     private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user) {
@@ -452,5 +464,16 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void setErrorView(String errorView) {
         _errorView = errorView;
+    }
+
+    public CreateOrUpdateUserRequest getSoapRequest() {
+        if (_soapRequest == null) {
+            _soapRequest = new CreateOrUpdateUserRequest();
+        }
+        return _soapRequest;
+    }
+
+    public void setSoapRequest(CreateOrUpdateUserRequest soapRequest) {
+        _soapRequest = soapRequest;
     }
 }

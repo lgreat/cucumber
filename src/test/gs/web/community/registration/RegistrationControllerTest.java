@@ -5,10 +5,13 @@ import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.geo.IGeoDao;
+import gs.data.soap.CreateOrUpdateUserRequest;
+import gs.data.soap.CreateOrUpdateUserRequestBean;
+import gs.data.soap.SoapRequestException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 import org.easymock.classextension.MockClassControl;
 
 import java.security.NoSuchAlgorithmException;
@@ -34,6 +37,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     private ISubscriptionDao _subscriptionDao;
     private MockControl _authenticationManagerMock;
     private AuthenticationManager _authenticationManager;
+    private CreateOrUpdateUserRequest _soapRequest;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -53,6 +57,9 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _authenticationManagerMock = MockClassControl.createNiceControl(AuthenticationManager.class);
         _authenticationManager = (AuthenticationManager) _authenticationManagerMock.getMock();
         _authenticationManagerMock.replay();
+
+        _soapRequest = createMock(CreateOrUpdateUserRequest.class);
+        _controller.setSoapRequest(_soapRequest);
 
         _controller.setGeoDao(_geoDao);
         _controller.setUserDao(_userDao);
@@ -97,9 +104,13 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // no calls expected if "next" is clicked
         _subscriptionDaoMock.replay();
 
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        replay(_soapRequest);
+        
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
         _userControl.verify();
         _subscriptionDaoMock.verify();
+        verify(_soapRequest);
     }
 
     public void testRegistrationSubscribesToCommunityNewsletter() throws Exception {
@@ -123,10 +134,14 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        replay(_soapRequest);
+
         userCommand.setNewsletter(true);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
 
         verify(_subscriptionDao);
+        verify(_soapRequest);
     }
 
     public void testRegistrationSubscribesToBeta() throws Exception {
@@ -150,11 +165,15 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        replay(_soapRequest);
+
         userCommand.setBeta(true);
         userCommand.setNewsletter(false);
         _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
 
         verify(_subscriptionDao);
+        verify(_soapRequest);
     }
 
     public void testRegistrationDoesntSubscribeToBetaIfAlreadySubscribed() throws Exception {
@@ -173,11 +192,15 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        replay(_soapRequest);
+
         userCommand.setBeta(true);
         userCommand.setNewsletter(false);
         _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
 
         verify(_subscriptionDao);
+        verify(_soapRequest);
     }
 
     public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {
@@ -195,10 +218,14 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        replay(_soapRequest);
+
         userCommand.setNewsletter(false);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
 
         _subscriptionDaoMock.verify();
+        verify(_soapRequest);
     }
 
 
@@ -207,7 +234,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      *
      * @throws NoSuchAlgorithmException
      */
-    public void testExistingUser() throws NoSuchAlgorithmException {
+    public void testExistingUser() throws Exception {
         String email = "testExistingUser@greatschools.net";
         Integer userId = new Integer(346);
 
@@ -231,9 +258,13 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(userCommand.getUser());
         _userControl.replay();
 
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        replay(_soapRequest);
+
         try {
             _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
             _userControl.verify();
+            verify(_soapRequest);
             assertTrue(userCommand.getUser().isEmailProvisional());
             assertFalse(userCommand.getUser().isPasswordEmpty());
         } catch (Exception e) {
@@ -245,7 +276,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      * Test that on serious error during the registration process, no partially completed records
      * are left in the database.
      */
-    public void testRegistrationFailureOnNewUser() {
+    public void testRegistrationFailureOnNewUser() throws SoapRequestException {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         String email = "testRegistrationFailureOnNewUser@RegistrationControllerTest.com";
@@ -265,11 +296,14 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // set the mock mail sender to throw an exception
         _mailSender.setThrowOnSendMessage(true);
 
+        replay(_soapRequest);
+
         try {
             _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
             fail("Expected mail exception not thrown");
         } catch (Exception ex) {
             _userControl.verify();
+            verify(_soapRequest);
         } finally {
             _mailSender.setThrowOnSendMessage(false);
         }
@@ -409,6 +443,54 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         _userControl.verify();
         _geoControl.verify();
+    }
+
+    public void testNotifyCommunity() {
+        try {
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    public void testNotifyCommunityDev() {
+        _request.setServerName("dev.greatschools.net");
+        try {
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    public void testNotifyCommunityStaging() {
+        _request.setServerName("staging.greatschools.net");
+        try {
+            _soapRequest.setTarget((String)notNull());
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    public void testNotifyCommunityLive() {
+        _request.setServerName("www.greatschools.net");
+        try {
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
     }
 
     private void setUpNiceUserDao() {

@@ -10,11 +10,13 @@ import gs.data.util.DigestUtil;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.geo.IGeoDao;
 import gs.data.admin.IPropertyDao;
+import gs.data.soap.CreateOrUpdateUserRequest;
+import gs.data.soap.CreateOrUpdateUserRequestBean;
+import gs.data.soap.SoapRequestException;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
 import org.easymock.MockControl;
-import static org.easymock.EasyMock.*;
-import org.easymock.AbstractMatcher;
+import static org.easymock.classextension.EasyMock.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     private IGeoDao _geoDao;
     private MockControl _geoControl;
     private MockJavaMailSender _mailSender;
-
+    private CreateOrUpdateUserRequest _soapRequest;
 
     private FollowUpCommand _command;
     private BindException _errors;
@@ -74,6 +76,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _controller.setRegistrationConfirmationEmail(email);
 
         _controller.setAuthenticationManager(new AuthenticationManager());
+
+        _soapRequest = createMock(CreateOrUpdateUserRequest.class);
+        _controller.setSoapRequest(_soapRequest);
 
         setupBindings();
     }
@@ -191,7 +196,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertEquals(1, _command.getSchools().size());
     }
 
-    public void testRecontact() throws NoSuchAlgorithmException {
+    public void testRecontact() throws NoSuchAlgorithmException, SoapRequestException {
         _command.setRecontact("y");
         _command.setUser(_user);
         _command.setNewsletter(false);
@@ -224,9 +229,11 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY)).andReturn(null);
 
         replay(_subscriptionDao);
+        replay(_soapRequest);
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         _userControl.verify();
         verify(_subscriptionDao);
+        verify(_soapRequest);
         assertFalse(_errors.hasErrors());
     }
 
@@ -265,10 +272,12 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT), null);
         _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY), null);
         _subscriptionControl.replay();
+        replay(_soapRequest);
 
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         _userControl.verify();
         _subscriptionControl.verify();
+        verify(_soapRequest);
         assertFalse(_errors.hasErrors());
         assertNotNull(_user.getStudents());
         assertEquals(_user.getStudents().iterator().next(), student);
@@ -353,9 +362,12 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        replay(_soapRequest);
+
         followUpCommand.setNewsletter(true);
         _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
         verify(_subscriptionDao);
+        verify(_soapRequest);
     }
 
     public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {
@@ -377,10 +389,13 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        replay(_soapRequest);
+
         followUpCommand.setNewsletter(false);
         _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
 
         _subscriptionControl.verify();
+        verify(_soapRequest);
     }
 
     public void testRegistrationDoesSubscribeToBeta() throws Exception {
@@ -408,11 +423,13 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
+        replay(_soapRequest);
 
         followUpCommand.setNewsletter(false);
         followUpCommand.setBeta(true);
         _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
         verify(_subscriptionDao);
+        verify(_soapRequest);
     }
 
     public void testRegistrationDoesNotSubscribeToBetaIfAlreadySubscribed() throws Exception {
@@ -436,11 +453,13 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
+        replay(_soapRequest);
 
         followUpCommand.setNewsletter(false);
         followUpCommand.setBeta(true);
         _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
         verify(_subscriptionDao);
+        verify(_soapRequest);
     }
 
     public void testRegistrationDoesNotSubscribeToBeta() throws Exception {
@@ -458,47 +477,68 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
+        replay(_soapRequest);
 
         followUpCommand.setNewsletter(false);
         followUpCommand.setBeta(false);
         _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
 
         _subscriptionControl.verify();
+        verify(_soapRequest);
     }
+
+    public void testNotifyCommunity() {
+        try {
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    public void testNotifyCommunityDev() {
+        _request.setServerName("dev.greatschools.net");
+        try {
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    public void testNotifyCommunityStaging() {
+        _request.setServerName("staging.greatschools.net");
+        try {
+            _soapRequest.setTarget((String)notNull());
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    public void testNotifyCommunityLive() {
+        _request.setServerName("www.greatschools.net");
+        try {
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }    
 
     private void setUpNiceUserDao() {
         _userControl = MockControl.createNiceControl(IUserDao.class);
         _userDao = (IUserDao) _userControl.getMock();
         _controller.setUserDao(_userDao);
         _userControl.replay();
-    }
-
-    private class SubscriptionMatcher extends AbstractMatcher {
-        public SubscriptionMatcher() {
-            // default
-        }
-        protected boolean argumentMatches(Object first, Object second) {
-            Subscription one = (Subscription)first;
-            Subscription two = (Subscription)second;
-            // protect against NPE's
-            if (one.getUser() == null || one.getUser().getId() == null ||
-                    two.getUser() == null || two.getUser().getId() == null ||
-                    one.getProduct() == null || two.getProduct() == null ||
-                    one.getState() == null || two.getState() == null) {
-                return false;
-            }
-            return one.getUser().getId().equals(two.getUser().getId()) &&
-                    one.getProduct().equals(two.getProduct()) &&
-                    one.getSchoolId() == two.getSchoolId() &&
-                    one.getState().equals(two.getState());
-        }
-        protected String argumentToString(Object argument) {
-            if (argument == null || !(argument instanceof Subscription)) {
-                return super.argumentToString(argument);
-            }
-            Subscription sub = (Subscription)argument;
-            return "user:" + sub.getUser().getId() + ";product:" + sub.getProduct().getName() +
-                    ";schoolId:" + sub.getSchoolId() + ";state:" + sub.getState();
-        }
     }
 }

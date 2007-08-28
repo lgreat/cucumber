@@ -11,6 +11,7 @@ import gs.data.soap.CreateOrUpdateUserRequest;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -43,6 +44,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private boolean _requireEmailValidation = true;
     private String _errorView;
     private AuthenticationManager _authenticationManager;
+    private CreateOrUpdateUserRequest _soapRequest;
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
     public static final String TERMS_PARAMETER = "termsStr";
     public static final String BETA_PARAMETER = "betaStr";
@@ -234,11 +236,9 @@ public class RegistrationController extends SimpleFormController implements Read
                 }
             }
             // only notify community on final step
-            CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                    (user.getId(), userProfile.getScreenName(), user.getEmail(), userCommand.getPassword());
-            CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
             try {
-                soapRequest.createOrUpdateUserRequest(bean);
+                notifyCommunity(user.getId(), userProfile.getScreenName(), user.getEmail(),
+                        userCommand.getPassword(), request);
             } catch (SoapRequestException couure) {
                 _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
                 // undo registration
@@ -270,6 +270,20 @@ public class RegistrationController extends SimpleFormController implements Read
         }
 
         return mAndV;
+    }
+
+    protected void notifyCommunity(Integer userId, String screenName, String email, String passwordPlaintext,
+                                   HttpServletRequest request) throws SoapRequestException {
+        CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
+                (userId, screenName, email, passwordPlaintext);
+        CreateOrUpdateUserRequest soapRequest = getSoapRequest();
+        UrlUtil urlUtil = new UrlUtil();
+        if (urlUtil.isStagingServer(request.getServerName())) {
+            soapRequest.setTarget("http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/soap/user");
+        }
+        soapRequest.createOrUpdateUserRequest(bean);
     }
 
     public void setUserDao(IUserDao userDao) {
@@ -312,4 +326,15 @@ public class RegistrationController extends SimpleFormController implements Read
         _subscriptionDao = subscriptionDao;
     }
 
+    // this eases unit testing by allowing this to be mocked out
+    public CreateOrUpdateUserRequest getSoapRequest() {
+        if (_soapRequest == null) {
+            _soapRequest = new CreateOrUpdateUserRequest();
+        }
+        return _soapRequest;
+    }
+
+    public void setSoapRequest(CreateOrUpdateUserRequest soapRequest) {
+        _soapRequest = soapRequest;
+    }
 }
