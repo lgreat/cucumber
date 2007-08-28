@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.35 2007/07/17 19:45:34 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.36 2007/08/28 16:12:44 eddie Exp $
  */
 
 package gs.web.util;
@@ -20,6 +20,7 @@ import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 
 /**
  * Provides...
@@ -208,52 +209,55 @@ public class PageHelperSaTest extends TestCase {
     public void testJavascriptAndCssInclude() {
         SessionContext sessionContext = new MockSessionContext();
         PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        Properties versionProperties = new Properties();
+        versionProperties.setProperty("gsweb.version","8.3");
+        pageHelper.setVersionProperties(versionProperties);
 
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         assertEquals("", pageHelper.getHeadElements());
 
         PageHelper.addJavascriptSource(_request, "/res/js/something.js");
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\"></script>", pageHelper.getHeadElements());
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\"></script>", pageHelper.getHeadElements());
 
         //add a duplicate, should not get multiple
         PageHelper.addJavascriptSource(_request, "/res/js/something.js");
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\"></script>", pageHelper.getHeadElements());
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\"></script>", pageHelper.getHeadElements());
 
 
         PageHelper.addJavascriptSource(_request, "/res/js/somethingElse.js");
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>",
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
                 pageHelper.getHeadElements());
 
         PageHelper.addExternalCss(_request, "/res/css/special.css");
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>",
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>",
                 pageHelper.getHeadElements());
 
         //add a duplicate, should not get multiple
         PageHelper.addExternalCss(_request, "/res/css/special.css");
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>",
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>",
                 pageHelper.getHeadElements());
 
         //add a print css
         PageHelper.addExternalCss(_request, "/res/pRint-sifr.css");
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css\"></link>",
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css?v=8.3\"></link>",
                 pageHelper.getHeadElements());
 
         //add a screen css
         PageHelper.addExternalCss(_request, "/res/screen-sifr.css");
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css\"></link>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/res/screen-sifr.css\"></link>",
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css?v=8.3\"></link>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/res/screen-sifr.css?v=8.3\"></link>",
                 pageHelper.getHeadElements());
 
 

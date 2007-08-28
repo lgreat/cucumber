@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.50 2007/07/16 21:25:05 thuss Exp $
+ * $Id: UrlUtil.java,v 1.51 2007/08/28 16:12:44 eddie Exp $
  */
 
 package gs.web.util;
@@ -210,6 +210,14 @@ public final class UrlUtil {
                 String sa = s.getAbbreviation();
                 href = href.replaceAll("\\$STATE", sa);
                 href = href.replaceAll("\\$LCSTATE", sa.toLowerCase());
+            }
+        }
+
+        if (href.indexOf("RELEASE_NUMBER") != -1) {
+            // Allow a request attribute to override the session facade.
+            if (request.getAttribute("RELEASE_NUMBER") != null) {
+                String release_number =  (String) request.getAttribute("RELEASE_NUMBER");
+                href = href.replaceAll("\\$RELEASE_NUMBER", release_number);
             }
         }
 

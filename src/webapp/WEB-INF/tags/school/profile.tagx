@@ -115,8 +115,8 @@
     <c:when test="${school.type.schoolTypeName != 'private'}">
         <c:set var="schoolType" value="public"/>
         <!-- to trigger MSS modal on exit -->
-        <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
-        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
+        <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
         <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
         <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
     </c:when>
@@ -250,7 +250,8 @@
 
             <c:if test="${schoolType != 'private' || state.privateTestScoresState}" >
                 <td>
-                    <link:schoolProfileTestscore school="${school}" title="${school.name} Test Scores">
+                    <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on' : ''}"
+                                                 title="${school.name} Test Scores">
                         Test<br/>
                         Scores
                     </link:schoolProfileTestscore>

@@ -15,7 +15,7 @@
         <title>gsFooter</title>
         <gsml:url var="footercss" value="/res/css/footer.css"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
-        <gsml:url var="globaljs" value="/res/js/global.js?v=3"/>
+        <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
         <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
         <style>
             #toggleLinks { display:none; }

@@ -62,8 +62,8 @@
 <gsml:body adPageName="splash">
 <pageHelper:externalCss file="/res/css/splash.css"/>
 <!--must match subversion numbers in Template.pm-->
-<pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
-<pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
+<pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+<pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
 <pageHelper:addOnLoadHandler handler="hoverHome()"/>
 

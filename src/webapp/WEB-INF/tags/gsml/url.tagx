@@ -5,14 +5,25 @@
 <jsp:root version="2.0"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
+    <jsp:directive.tag import="java.util.Properties"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="var" required="true" description="JSP variable name to set"/>
     <jsp:directive.attribute name="value" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
+    <jsp:directive.attribute name="release_number" required="false" description="Optional release number"/>
     <jsp:scriptlet>
         if (state != null) {
             request.setAttribute("STATE", state);
         }
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        ApplicationContext ac = sessionContext.getApplicationContext();
+        Properties versionProperties = (Properties) ac.getBean("versionProperties");
+        String releaseNumber = versionProperties.getProperty("gsweb.version");
+
+        request.setAttribute("RELEASE_NUMBER", releaseNumber);
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         value = urlUtil.buildUrl(value, request);
         jspContext.setAttribute(var, value, PageContext.REQUEST_SCOPE);

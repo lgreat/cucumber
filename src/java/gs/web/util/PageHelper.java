@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.47 2007/07/17 19:45:34 dlee Exp $
+ * $Id: PageHelper.java,v 1.48 2007/08/28 16:12:44 eddie Exp $
  */
 
 package gs.web.util;
@@ -13,6 +13,7 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationContext;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -153,6 +154,8 @@ public class PageHelper {
     private boolean _showingFooterAd = true;
     private boolean _betaPage = false;
 
+    private Properties _versionProperties ;
+
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";
     private String _onunload = "";
@@ -199,7 +202,7 @@ public class PageHelper {
             if (it.hasNext()) {
                 buffer.append("&");
             }
-        }        
+        }
         return buffer.toString();
     }
 
@@ -237,7 +240,7 @@ public class PageHelper {
             }
         }
         if (null != _sessionContext.getState()) {
-            _adKeywords.put("state", _sessionContext.getState().getAbbreviationLowerCase());    
+            _adKeywords.put("state", _sessionContext.getState().getAbbreviationLowerCase());
         }
     }
 
@@ -396,6 +399,10 @@ public class PageHelper {
             _javascriptFiles = new LinkedHashSet<String>();
         }
         if (!_javascriptFiles.contains(src)) {
+            if((src.indexOf('?') > -1)){
+                src = src.substring(0,src.indexOf('?'));
+            }
+            src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
             _javascriptFiles.add(src);
         }
     }
@@ -405,6 +412,11 @@ public class PageHelper {
             _cssFiles = new LinkedHashSet<String>();
         }
         if (!_cssFiles.contains(src)) {
+            if((src.indexOf('?') > -1)){
+                src = src.substring(0,src.indexOf('?'));
+            }
+            src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
+
             _cssFiles.add(src);
         }
     }
@@ -572,4 +584,18 @@ public class PageHelper {
 
         return storedHash != null && realHash.equals(storedHash);
     }
+
+    public Properties getVersionProperties() {
+        if(_versionProperties == null){
+            ApplicationContext ac = _sessionContext.getApplicationContext();
+            _versionProperties = (Properties) ac.getBean("versionProperties");
+        }
+        return _versionProperties;
+    }
+
+    public void setVersionProperties(Properties versionProperties) {
+        _versionProperties = versionProperties;
+    }
+
+
 }

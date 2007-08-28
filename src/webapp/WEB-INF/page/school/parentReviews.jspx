@@ -36,7 +36,7 @@
         <![CDATA[--></script>]]>
     </head>
     <gsml:body adPageName="parentReviews" pageLayout="parentReviews">
-    <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css?v=2"/>
+    <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
         <school:profile school="${school}" tab="parentReviews">
             <gsml:equalizeColumns ids="'col_left','col_right'"/>
             <div id="parentReview">
