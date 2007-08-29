@@ -17,6 +17,7 @@ public class UserResponseCommand {
     private Survey _survey;
     private School _school;
     private String _email;
+    private int _year;
 
     public UserResponseCommand () {
         _responseMap = new HashMap<String, UserResponse>();
@@ -65,6 +66,14 @@ public class UserResponseCommand {
 
     public void setEmail(String email) {
         _email = email;
+    }
+
+    public int getYear() {
+        return _year;
+    }
+
+    public void setYear(int year) {
+        _year = year;
     }
 }
 

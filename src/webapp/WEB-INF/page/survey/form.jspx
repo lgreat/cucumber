@@ -39,6 +39,25 @@
     </div>
 
 <form:form commandName="userResponseCommand">
+
+<div class="question-group">
+    <h2 class="question-group-heading">Before you get started, please tell us what school year your responses are based on:</h2>
+    <div class="question">
+        <ul class="answer-list">
+            <c:forEach var="year" items="${schoolYears}">                
+                <li class="answer-list-item">
+                    <form:radiobutton path="year" value="${year}" id="r${year}" cssStyle="radio"/>
+                    <label for="r${year}">${year-1}-${year}</label>
+                </li>
+            </c:forEach>
+        </ul>
+        <form:errors path="year" cssStyle="error">
+            <img src="/res/img/survey/icon_warning_12x12.gif" alt="warning" />Please tell us what school year your responses are based on.
+        </form:errors>
+    </div>
+</div>
+
+
 <c:forEach var="questionGroup" items="${userResponseCommand.survey.questionGroups}">
     <div class="question-group">
     <h2 class="question-group-heading"><c:out value="${questionGroup.title}" escapeXml="true"/></h2>

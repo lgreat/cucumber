@@ -1,5 +1,6 @@
 package gs.web.survey;
 
+import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.school.School;
@@ -25,26 +26,33 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     private SurveyController _controller;
     private ISurveyDao _surveyDao;
     private IUserDao _userDao;
+    private IPropertyDao _propertyDao;
 
     public void setUp() throws Exception {
         super.setUp();
         _surveyDao = createMock(ISurveyDao.class);
         _userDao = createMock(IUserDao.class);
+        _propertyDao = createMock(IPropertyDao.class);
 
         _controller = new SurveyController();
         _controller.setSurveyDao(_surveyDao);
         _controller.setUserDao(_userDao);
+        _controller.setPropertyDao(_propertyDao);
 
     }
 
     public void testGetRequest() throws Exception {
         getRequest().setMethod("GET");
+        expect(_propertyDao.getProperty(IPropertyDao.CURRENT_ACADEMIC_YEAR)).andReturn("2003-2004");
+        replay(_propertyDao);
+
         expect(_surveyDao.getSurvey("test")).andReturn(createSurvey());
         replay(_surveyDao);
 
         _controller.handleRequest(getRequest(), getResponse());
 
         verify(_surveyDao);
+        verify(_propertyDao);
     }
 
     public void testUserAndSchoolIsInCommand() throws Exception {
@@ -143,6 +151,16 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         responses.add(response);
 
         return responses;
+    }
+
+    public void testComputeAvailableYears() {
+        List<Integer> years = _controller.computeSchoolYears("2003-2004");
+        assertEquals(5, years.size());
+        assertEquals(new Integer(2004), years.get(0));
+        assertEquals(new Integer(2003), years.get(1));
+        assertEquals(new Integer(2002), years.get(2));
+        assertEquals(new Integer(2001), years.get(3));
+        assertEquals(new Integer(2000), years.get(4));
     }
 
     public School createSchool() {
