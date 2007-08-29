@@ -1,0 +1,320 @@
+#left-col{
+    position:relative;
+	float:left;
+	width:530px;
+	padding-right:20px;
+	border-right: 1px solid #dddddd;
+	font-family:"Trebuchet MS", Helvetica, sans-serif;
+	margin-top:7px;
+}
+
+#right-col{
+	float:right;
+	width:300px;
+	height:600px;
+	background-color:#eeeeee;
+	margin-top:7px;
+}
+
+/******************** intro ***************************/
+#intro{
+	width:530px;
+	margin:0 0 13px 0;
+	padding:0 0 17px 0;
+	border-bottom: 1px solid #cccccc;
+	float:left;
+	height:143px;
+	}
+
+#intro-pic{
+	float:left;
+	margin-right:40px;
+}
+#intro-blurb{
+	margin-top:16px;
+	line-height:17px;
+	text-align:left;
+	float:left;
+	width:274px;
+	font-size:13px;
+}
+.intro-heading1{
+	color:#666666;
+	font-size:13px;
+	text-transform:uppercase;
+	padding-bottom:5px;
+}
+
+.intro-heading2{
+	color:#CC5566;
+	font-weight:bold;
+}
+
+/******************** question-group ***************************/
+
+div.question-group{
+	color:#666666;
+	margin:0;
+	padding:0 0 56px 0;
+	clear:both
+	}
+
+h2.question-group-heading {
+	color:#55BBCC; /* aqua */
+	font-size:16px;
+	line-height:18px;
+	font-weight:bold;
+	padding-top:0px;
+	padding-bottom:8px;
+	margin-top:0px;
+	margin-bottom:14px;
+	width:530px;
+	border-bottom:3px #E2E3CB dotted; /*pale green*/
+	overflow:hidden;
+	}
+
+/******************** email request ***************************/
+
+div.email-module{
+	padding-top:33px;
+	float:left;
+	clear:both;
+	width:530px;
+	}
+
+div.email-subtext{
+	font-style:italic;
+	font-size:10px;
+	margin-left:90px;
+	}
+
+#left-col .email-subtext a, a:link, a:visited{
+	color:#55BBCC; /* aqua */
+	text-decoration:none;
+	}
+
+/******************** error messages ***************************/
+.error{
+	color:#CC5566;
+	font-size:11px;
+	margin-left:8px;
+	}
+
+.error img{
+	margin-right:4px;
+	margin-bottom:-2px;
+	}
+
+/******************** questions ***************************/
+
+div.question{
+	float:left;
+	clear:both;
+	padding:0;
+	margin:0 0 60px 0;
+	overflow:hidden;
+	width:530px;
+	}
+
+div.question-text {
+	margin-bottom:10px;
+	color:#666666;
+	font-weight:bold;
+	font-size:13px;
+	}
+
+.question-text {
+	color:#666666;
+	font-weight:bold;
+	font-size:13px;
+	display:block;
+	}
+
+span.number{
+	color:#CC5566;
+	}
+
+/******************** answers ***************************/
+
+#left-col ul.answer-list{
+	margin:0px;
+	padding:0px;
+	}
+
+#left-col li.answer-list-item{
+	margin:0px;
+	list-style:none;
+	}
+
+#left-col li.answer-list-item label {
+	padding-left:1px;
+	}/*without this, the label was crashing into the radio button in firefox windows only*/
+
+h3.answer-sibling-heading{
+	margin-bottom:8px;
+	color:#99CC66; /* green */
+	font-size:11px;
+	font-weight:bold;
+	text-transform:uppercase;
+	}
+
+div.answer-sibling{
+	float:left;
+	clear:both;
+	border-bottom:1px #DDDDDD solid;
+	padding:0 0 15px 0;
+	margin:0 0 15px 0;
+	overflow: hidden;
+	width:530px;
+} /* use when there are several answers within a question*/
+
+div.answer-sibling-last{
+	float:left;
+	clear:both;
+	padding:0;
+	margin:0;
+	overflow:hidden;
+	width:530px;
+	} /*use for the last of several answers within a question*/
+
+div.checkbox-col{
+	float:left;
+	width:176px;
+	border:0px black solid;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+	} /*wraps the 3-column checkbox area*/
+
+div.checkbox-label-pair{
+	float:left;
+	} /* wraps each checkbox-label pair in the 3-column checkbox area*/
+
+div.checkbox-multi-col{
+	float:left;
+	width:19px;
+	height:auto;
+	clear:left;
+	overflow:hidden;
+	border:0px black solid;
+	display:block;
+	padding-top:2px;
+	} /* wraps each checkbox in the 3-column checkbox area*/
+
+div.label-multi-col{
+	float:right;
+	width:157px;
+	clear:right;
+	overflow:hidden;
+	border:0px black solid;
+	display:block;
+}	/* wraps each label in the 3-column checkbox area*/
+
+
+/******************** submit area ***************************/
+
+#form-submit{
+	width:530px;
+	border-top: 1px solid #cccccc;
+	text-align:right;
+	height:38px;
+	clear:both;
+	padding:18px 0 0 0;
+	}
+
+/******************** horizontal radio buttons ***************************/
+
+.answer-bar{
+	width:450px;
+	}
+
+.answer-bar .label-right{
+	width:120px;
+	float:right;
+	text-align:right;
+	font-size:11px;
+	}
+
+.answer-bar .label-left{
+	width:120px;
+	float:left;
+	font-size:11px;
+	}
+
+.answer-bar .bar-pic{
+	margin-top:2px;
+	border:none;
+	clear:both;
+	}
+
+.answer-bar .radio-row{
+	position:relative;
+	width:450px;
+	height:18px;
+	}
+
+.answer-bar .radio1{
+	position:absolute;
+	top:5px;
+	left:0px;
+	}
+
+.answer-bar .radio2{
+	position:absolute;
+	top:5px;
+	left:105px;
+	}
+
+.answer-bar .radio3{
+	position:absolute;
+	top:5px;
+	left:215px;
+	}
+
+.answer-bar .radio4{
+	position:absolute;
+	top:5px;
+	left:325px;
+	}
+
+.answer-bar .radio5{
+	position:absolute;
+	top:5px;
+	left:432px;
+	}
+
+/******************form styles***************************/
+
+#left-col input, select, textarea{
+	font-family:"Trebuchet MS", Helvetica, sans-serif;
+	font-size:12px;
+	color:#666666;
+	}
+
+#left-col textarea{
+	overflow:auto;
+	width:390px;
+	height:130px;
+	}
+
+
+input.checkbox{
+	margin-bottom:1px;
+	height:15px;
+	width:15px;
+	font-family:"Trebuchet MS", Helvetica, sans-serif;
+	font-size:12px;
+	}
+
+input.textinput{
+	margin: 0 0 0 6px;
+	}
+
+
+.select-box{
+	width:200px;
+	}
+
+.submit{
+	margin-right:80px;
+	}

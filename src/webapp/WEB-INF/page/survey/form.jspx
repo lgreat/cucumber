@@ -1,74 +1,165 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:survey="urn:jsptagdir:/WEB-INF/tags/survey"
           xmlns:gsweb="gstaglib"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-    <jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
 
 
-    <c:set var="school" value="${userResponseCommand.school}"/>
+<c:set var="school" value="${userResponseCommand.school}"/>
 
-    <html>
-    <head><title>GreatSchools Surveys</title></head>
-    <body>
-    <div>
-        <school:profile school="${school}" tab="surveys">
-        <form:form commandName="userResponseCommand">
-            Survey:${userResponseCommand.survey}
-            <c:forEach var="questionGroup" items="${userResponseCommand.survey.questionGroups}" varStatus="groupCount">
-                <c:forEach var="question" items="${questionGroup.questions}" varStatus="questionCount">
-                    ${question.text}
-                    <br/>
-                    <c:forEach var="answer" items="${question.answers}" varStatus="answerCount">
-                        ${answer.title}
-                        <br/>
+<html>
+<head>
+    <title>Complete a Parent Survey for ${school.name} in ${school.city}, ${school.databaseState}</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
+</head>
+<body>
+<pageHelper:externalCss file="/res/css/survey/survey.css"/>
+<school:profile school="${school}" tab="surveys">
+<div id="left-col">
+	<div id="intro">
+		<gsml:img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
+
+		<div id="intro-blurb">
+			<div class="intro-heading1">${school.name} parent survey</div>
+			<div class="intro-heading2">Other parents want to know more about this school! Share YOUR experiences through this short survey.</div>
+        </div>
+    </div>
+
+<form:form commandName="userResponseCommand">
+<c:forEach var="questionGroup" items="${userResponseCommand.survey.questionGroups}">
+    <div class="question-group">
+    <h2 class="question-group-heading"><c:out value="${questionGroup.title}" escapeXml="true"/></h2>
+    <c:forEach var="question" items="${questionGroup.questions}" varStatus="questionCount">
+        <div class="question">
+            <div class="question-text"><span class="number">${questionCount.index + 1}.</span>${question.text}</div>
+            <c:forEach var="answer" items="${question.answers}">
+                <div class="answer-sibling">
+                <h3 class="answer-sibling-heading">${answer.title}</h3>
+                <c:choose>
+                    <c:when test="${answer.type eq 'MULTI'}">
+                        <div class="checkbox-col">
+                            <c:forEach var="answerText" items="${answer.availableAnswers}" varStatus="boxCounter">
+                                <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
+                                <c:choose>
+                                    <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                        <form:checkbox path="responseMap[${mapKey}].values"
+                                                       id="${mapKey}" value="${answerText}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input name="responseMap[${mapKey}].values"
+                                               value="${answerText}" type="checkbox"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                ${answerText}
+                                <br/>
+                                <c:if test="${boxCounter.index gt (fn:length(answer.availableAnswers) / 3)}">
+                                    <![CDATA[
+                                                </div>
+                                                <div class="checkbox-col">
+                                            ]]>
+                                </c:if>
+
+                            </c:forEach>
+                        </div>
+                    </c:when>
+                    <c:when test="${answer.type eq 'SINGLE'}">
+                        <c:forEach var="answerText" items="${answer.availableAnswers}">
+                            <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
+                            <c:choose>
+                                <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                    <form:radiobutton path="responseMap[${mapKey}].values"
+                                                      id="${mapKey}" value="${answerText}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input name="responseMap[${mapKey}].values"
+                                           value="${answerText}" type="radio"/>
+                                </c:otherwise>
+                            </c:choose>
+                            ${answerText}
+                            <br/>
+                        </c:forEach>
+                    </c:when>
+                    <c:when test="${answer.type eq 'SCALE'}">
+                        <c:forEach var="answerText" items="${answer.availableAnswers}">
+                            <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
+                            <c:choose>
+                                <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                    <form:radiobutton path="responseMap[${mapKey}].values"
+                                                      id="${mapKey}" value="${answerText}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input name="responseMap[${mapKey}].values"
+                                           value="${answerText}" type="radio"/>
+                                </c:otherwise>
+                            </c:choose>
+                            ${answerText}
+                            <br/>
+                        </c:forEach>
+                    </c:when>
+                    <c:when test="${answer.type eq 'OPTION'}">
+                        <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                         <c:choose>
-                            <c:when test="${answer.type eq 'MULTI'}">
-                                <c:forEach var="answerText" items="${answer.availableAnswers}">
-
-                                    <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
-
-                                    <c:choose>
-                                        <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
-                                            <form:checkbox path="responseMap[${mapKey}].values" id="${mapKey}" value="${answerText}"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <input name="responseMap[${mapKey}].values" value="${answerText}" type="checkbox"/>
-                                        </c:otherwise>
-                                    </c:choose>
-
-                                    ${answerText}
-                                    <br/>
-                                </c:forEach>
+                            <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                <form:select path="responseMap[${mapKey}].values"
+                                             id="${mapKey}" items="${answer.availableAnswers}"/>
                             </c:when>
                             <c:otherwise>
-                                <h1>error</h1>
+                                <select name="responseMap[${mapKey}].values">
+                                    <c:forEach var="opt" items="${answer.availableAnswers}">
+                                        <option value="${opt}">${opt}</option>
+                                    </c:forEach>
+                                </select>
                             </c:otherwise>
                         </c:choose>
-
+                        ${answerText}
                         <br/>
-                    </c:forEach>
-                <!--
-                    <c:forEach var="option" items="${question.options}" varStatus="count">
-                        <form:checkbox path="question.responses[${count.index}]" value="${option.key}" />
-                        option${option.key}
-                    </c:forEach>
-                    -->
-                <!--<survey:input question="${question}" questionNumber="${questionNumber}"/>-->
-                </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <h1>error</h1>
+                    </c:otherwise>
+                </c:choose>
+                <br/>
+                </div>
             </c:forEach>
-            <form:input path="email"/>
-            <input type="submit" name="submit" value="Submit"/>
-        </form:form>
-        </school:profile>
+
+        </div>
+    </c:forEach>                                                          
     </div>
-    </body>
-    </html>
+</c:forEach>
+
+<div class="question-group">
+    <h2 class="question-group-heading">A little about you (required)</h2>    
+    <div class="question">
+    <div class="email-module">
+        Email address
+        <form:input id="email" path="email"/>
+        <span class="error"><img src="/res/img/survey/icon_warning_12x12.gif" alt="warning" />Please enter a valid e-mail address.</span>
+        <div class="email-subtext">We will not share your email. <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy></div>
+    </div>
+    </div>
+
+</div>
+<input type="submit" name="submit" value="Submit"/>
+</form:form>
+</div>
+<div id="right-col"></div>
+</school:profile>
+<mod:tracking pageType="School Profile"
+              pageName="Parent Survey Questions:1"
+              hier1="Schools,Parent Survey,Question,Page 1"/>
+</body>
+</html>
 </jsp:root>
