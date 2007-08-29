@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.48 2007/08/28 16:12:44 eddie Exp $
+ * $Id: PageHelper.java,v 1.49 2007/08/29 19:09:22 eddie Exp $
  */
 
 package gs.web.util;
@@ -399,10 +399,12 @@ public class PageHelper {
             _javascriptFiles = new LinkedHashSet<String>();
         }
         if (!_javascriptFiles.contains(src)) {
-            if((src.indexOf('?') > -1)){
-                src = src.substring(0,src.indexOf('?'));
+            if(!(src.indexOf("http") >-1)){
+                if((src.indexOf('?') > -1)){
+                    src = src.substring(0,src.indexOf('?'));
+                }
+                src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
             }
-            src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
             _javascriptFiles.add(src);
         }
     }
@@ -412,11 +414,12 @@ public class PageHelper {
             _cssFiles = new LinkedHashSet<String>();
         }
         if (!_cssFiles.contains(src)) {
-            if((src.indexOf('?') > -1)){
-                src = src.substring(0,src.indexOf('?'));
+            if(!(src.indexOf("http") >-1)){
+                if((src.indexOf('?') > -1)){
+                    src = src.substring(0,src.indexOf('?'));
+                }
+                src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
             }
-            src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
-
             _cssFiles.add(src);
         }
     }
