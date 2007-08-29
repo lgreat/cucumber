@@ -37,7 +37,7 @@
     <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
 
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <gsml:url var="adscss" value="/res/css/ads.cs?v=$RELEASE_NUMBER"/>
+        <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>        
     </c:if>
 
