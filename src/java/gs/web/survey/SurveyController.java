@@ -100,6 +100,10 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         }
 
         populateUserResponses(request, urc);
+
+        if (!urc.getTerms()) {
+            errors.rejectValue("terms", null, "Please accept our terms of use.");
+        }
     }
 
     protected void populateUserResponses(HttpServletRequest request, UserResponseCommand urc) {

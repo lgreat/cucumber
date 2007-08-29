@@ -4,19 +4,21 @@ import gs.data.community.User;
 import gs.data.school.School;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
+import gs.web.util.validator.EmailValidator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserResponseCommand {
+public class UserResponseCommand implements EmailValidator.IEmail {
 
     private Map<String, UserResponse> _responseMap;
     private User _user;
     private Survey _survey;
     private School _school;
     private String _email;
+    private boolean _terms = true; // default
     private int _year;
 
     public UserResponseCommand () {
@@ -68,12 +70,20 @@ public class UserResponseCommand {
         _email = email;
     }
 
+    public boolean getTerms() {
+        return _terms;
+    }
+
+    public void setTerms(boolean _terms) {
+        this._terms = _terms;
+    }
+
     public int getYear() {
         return _year;
     }
 
-    public void setYear(int year) {
-        _year = year;
+    public void setYear(int _year) {
+        this._year = _year;
     }
 }
 

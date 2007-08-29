@@ -6,6 +6,7 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:survey="urn:jsptagdir:/WEB-INF/tags/survey"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.net/taglib/link"
@@ -65,10 +66,11 @@
         <div class="question">
             <div class="question-text"><span class="number">${questionCount.index + 1}.</span>${question.text}</div>
             <c:forEach var="answer" items="${question.answers}">
-                <div class="answer-sibling">
+                <!--<div class="answer-sibling">-->
                 <h3 class="answer-sibling-heading">${answer.title}</h3>
                 <c:choose>
                     <c:when test="${answer.type eq 'MULTI'}">
+                        <div class="answer-sibling">
                         <div class="checkbox-col">
                             <c:forEach var="answerText" items="${answer.availableAnswers}" varStatus="boxCounter">
                                 <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
@@ -92,6 +94,7 @@
                                 </c:if>
 
                             </c:forEach>
+                        </div>
                         </div>
                     </c:when>
                     <c:when test="${answer.type eq 'SINGLE'}">
@@ -151,7 +154,7 @@
                     </c:otherwise>
                 </c:choose>
                 <br/>
-                </div>
+                <!--</div>-->
             </c:forEach>
 
         </div>
@@ -162,19 +165,26 @@
 <div class="question-group">
     <h2 class="question-group-heading">A little about you (required)</h2>    
     <div class="question">
-    <div class="email-module">
-        Email address
-        <form:input id="email" path="email"/>
-        <span class="error"><img src="/res/img/survey/icon_warning_12x12.gif" alt="warning" />Please enter a valid e-mail address.</span>
-        <div class="email-subtext">We will not share your email. <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy></div>
+        <div class="email-module">
+            Email address
+            <form:input id="email" path="email" size="30"/>
+            <form:errors path="email" >
+                <span class="error"><img src="/res/img/survey/icon_warning_12x12.gif" alt="warning" />Please enter a valid e-mail address.</span>
+            </form:errors>
+            <div class="email-subtext">We will not share your email. <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy></div>
+        </div>
     </div>
-    </div>
-
+    <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
+    <form:errors path="terms" />
 </div>
-<input type="submit" name="submit" value="Submit"/>
+<gsml:inputImage src="/res/img/survey/submit.gif" alt="Submit Survey"
+                 name="submit" id="submitButton"/>
 </form:form>
 </div>
-<div id="right-col"></div>
+<div id="right-col">
+    <ad:House_Ad_300x137 referredBy="Parent Survey Questions:1" />
+    <ad:x40/>
+</div>
 </school:profile>
 <mod:tracking pageType="School Profile"
               pageName="Parent Survey Questions:1"
