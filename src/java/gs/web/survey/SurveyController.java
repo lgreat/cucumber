@@ -58,7 +58,6 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
             throws Exception {
         UserResponseCommand urc = (UserResponseCommand) command;
-        Enumeration<String> params = request.getParameterNames();
 
         if (null == urc.getUser()) {
             User user = getUserDao().findUserFromEmailIfExists(urc.getEmail());
