@@ -123,7 +123,7 @@
 </div>
 
 <div id="col_right">
-    <promo:summerReading/>
+    <promo:backToSchool/>
     <ad:setSlotPrefix slotPrefix="Search_Site"/>
     <ad:x47/>
     <ad:AboveFold_300x600/>

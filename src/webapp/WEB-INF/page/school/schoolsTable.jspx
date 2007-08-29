@@ -254,7 +254,7 @@
         </gsweb:form>
     </td>
     <td class="rightcolumn" align="center">
-        <promo:summerReading />
+        <promo:backToSchool/>
         <c:set var="slotPrefix" value="Search_Site"/>
         <c:if test="${not empty param.city}">
             <c:set var="slotPrefix" value="Search_All_Cities"/>

@@ -9,6 +9,6 @@
     <jsp:directive.tag body-content="empty"/>
 
 <gsml:a href="/content/backToSchool.page">
-    <gsml:img src="/res/img/content/backtoschool/BTS_HouseAd_small.jpg" alt="Go Back to School With GreatSchools!  School supply tips, healthy lunch ideas, advice for school success"/>
+    <gsml:img src="/res/img/content/backtoschool/GS_houseads_BTS.jpg" alt="Get Ready for BACK TO SCHOOL"/>
 </gsml:a>
 </jsp:root>
