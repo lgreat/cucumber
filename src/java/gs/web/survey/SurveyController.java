@@ -95,6 +95,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                     response.setState(urc.getSchool().getDatabaseState());
                     response.setSurveyId(urc.getSurvey().getId());
                     response.setUserId(urc.getUser().getId());
+                    //TODO: dlee get year from form
+                    response.setYear(2005);
                     urc.addToResponseMap(response);
                 }
             }
