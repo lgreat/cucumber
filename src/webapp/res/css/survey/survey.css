@@ -99,13 +99,9 @@ div.email-subtext{
     background-image: url('/res/img/survey/icon_warning_12x12.gif');
     background-repeat: no-repeat;
     background-position: 0 2px;
-    padding: 0 0 0 20px;
+    padding: 0 0 0 18px;
+    margin-left:10px;
     }
-
-#email.error img, .error img{
-	margin-right:4px;
-	margin-bottom:-2px;
-	}
 
 /******************** questions ***************************/
 
