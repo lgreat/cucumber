@@ -7,6 +7,7 @@ import gs.data.school.School;
 import gs.data.survey.*;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -127,7 +129,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         }
     }
 
-    protected ModelAndView onSubmit(Object command) {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
+                                BindException errors) throws Exception {
 //        writeSurvey((UserResponseCommand)command); // debugging
         UserResponseCommand urc = (UserResponseCommand) command;
 
@@ -147,7 +150,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         _surveyDao.removeAllUserResponses(urc.getSurvey(), urc.getSchool(), urc.getUser());
         _surveyDao.saveSurveyResponses(responses);
 
-        return new ModelAndView(getSuccessView());
+        UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
+        return new ModelAndView("redirect:" + builder.asFullUrl(request));
     }
 
     public ISurveyDao getSurveyDao() {

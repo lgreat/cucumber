@@ -1174,7 +1174,6 @@
         <property name="commandName" value="userResponseCommand"/>
         <property name="commandClass" value="gs.web.survey.UserResponseCommand"/>
         <property name="formView" value="survey/form"/>
-        <property name="successView" value="survey/confirmation"/>
         <property name="validators">
             <list>
                 <ref bean="emailValidator"/>

@@ -11,8 +11,10 @@ import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.util.UrlBuilder;
 import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,6 +91,31 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         expect(_userDao.findUserFromEmailIfExists(user.getEmail())).andReturn(null);
         _userDao.saveUser(user);
+        replay(_userDao);
+
+        _controller.handleRequest(getRequest(), getResponse());
+
+        verify(_surveyDao);
+        verify(_userDao);
+    }
+
+    public void testPostRequestExistingUser() throws Exception {
+        getRequest().setMethod("POST");
+        getRequest().setParameter("email", "dlee@greatschools.net");
+        getRequest().setParameter("year", "2001");
+
+        School school = createSchool();
+        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
+
+        Survey survey = createSurvey();
+        User user = createUser(false);
+
+        expect(_surveyDao.getSurvey("test")).andReturn(survey);
+        _surveyDao.removeAllUserResponses(survey, school, user);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        replay(_surveyDao);
+
+        expect(_userDao.findUserFromEmailIfExists(user.getEmail())).andReturn(user);
         replay(_userDao);
 
         _controller.handleRequest(getRequest(), getResponse());
@@ -198,6 +225,19 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         responses.add(response);
 
         return responses;
+    }
+
+    public void testOnSubmit() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setUser(createUser(false));
+        urc.setSchool(createSchool());
+        urc.setSurvey(createSurvey());
+
+        BindException errors = new BindException(urc, "");
+        ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_PROFILE);
+
+        assertEquals("redirect:"+builder.asFullUrl(getRequest()), mAndV.getViewName());
     }
 
     public void testComputeAvailableYears() {

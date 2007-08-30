@@ -16,6 +16,9 @@
         >
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
+<jsp:scriptlet>
+    request.setAttribute("referrer", request.getHeader("referer"));
+</jsp:scriptlet>
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -54,6 +57,17 @@
 <school:profile school="${school}" tab="overview">
 
 <div id="schoolOverview">
+    <link:schoolTakeSurvey school="${school}">school survey</link:schoolTakeSurvey>
+    <c:if test="${fn:contains(referrer, 'survey.page')}">
+        <div id="surveyThanks" style="border:4px solid #ddeeee;padding:5px;position:relative;margin-bottom:14px;">
+            <div style="height:50px;background-color:#ddeeee;padding:10px;position:relative;">
+                <gsml:img src="/res/img/bullet/confirmation.gif" alt="Thank you confirmation" style="position:absolute;top:23px;left:15px;"/>
+                <p style="position:absolute;left:50px;top:20px;color:#CC5569;font-weight:bold;font-size:14px;">Thank you for filling out a survey about ${school.name}!<br/>
+                <span style="font-size:12px;">We'll be displaying the results of the surveys soon.</span></p>
+            </div>
+        </div>
+    </c:if>
+
     <gsml:equalizeColumns ids="'col_center','col_right'"/>
     <!-- being left column -->
     <div id="col_left">
