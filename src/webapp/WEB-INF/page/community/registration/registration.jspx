@@ -224,8 +224,8 @@
 
                 <li id="betaGroup" style="${newsletterStyle}">
                     <label for="betaField">Yes!
-                        I'd like to get a sneak peek of brand new community<br/>features
-                        by being a part of the GreatSchools beta group!
+                        I'd like to sign up for the GreatSchools beta group<br/>
+                        and get a sneak peek at brand new community features!
                     </label>
                     <gsml:checkbox styleId="betaField" name="betaStr"
                                    checked="${userCmd.beta eq true}" tabIndex="13"/>

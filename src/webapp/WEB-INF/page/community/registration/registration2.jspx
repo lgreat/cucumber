@@ -244,8 +244,8 @@
           <gsml:checkbox styleId="newsletterCheckbox" name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
       </li>
       <li>
-          <label for="betaCheckbox">Yes! I'd like to get a sneak peek of brand new community<br/>features
-              by being a part of the GreatSchools beta group!</label>
+          <label for="betaCheckbox">Yes! I'd like to sign up for the GreatSchools beta group<br/>
+            and get a sneak peek at brand new community features!</label>
           <gsml:checkbox styleId="betaCheckbox" name="betaStr" checked="${followUpCmd.beta eq true}"/>
       </li>
       <li>

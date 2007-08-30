@@ -156,6 +156,11 @@
     height: 40px;
 }
 
+#outline li#newsletter label, #outline li#betaGroup label, #outline li#terms label {
+    line-height: 15px;
+    position: absolute;
+}
+
 #outline ul li#newsletter label, #outline ul li#betaGroup label {
     font-weight: normal;
 }
