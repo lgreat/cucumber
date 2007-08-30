@@ -58,7 +58,7 @@
         <div id="top">
             <div id="navLinks">
                 <link:allSchoolsInState state="${state}" styleClass="${type eq 'school' ? 'active' : ''}">All schools in ${state.longName}</link:allSchoolsInState>
-                <a href="/schools/cities/${fn:replace(state.longName, ' ', '_')}/${state.abbreviationLowerCase}" class="${type eq 'city' ? 'active' : ''}">All cities in ${state.longName}</a>
+                <a href="/schools/cities/${fn:replace(state.longName, ' ', '_')}/${state.abbreviation}" class="${type eq 'city' ? 'active' : ''}">All cities in ${state.longName}</a>
                 <a href="/schools/districts/${fn:replace(state.longName, ' ', '_')}/${state.abbreviation}" class="${type eq 'district' ? 'active' : ''}">All school districts in ${state.longName}</a>
             </div>
 
@@ -87,7 +87,7 @@
                 <tr>
                     <c:if test="${type eq 'school'}">
                         <td>
-                            <gsml:a href="/modperl/browse_school/${state.abbreviation}/${data.id}">
+                            <gsml:a href="/modperl/browse_school/${state.abbreviationLowerCase}/${data.id}">
                                 <c:out value="${data.name}" escapeXml="true"/>
                             </gsml:a>
                         </td>
