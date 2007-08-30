@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.16 2007/06/19 22:22:27 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.17 2007/08/30 20:42:02 aroy Exp $
  */
 package gs.web.util.context;
 
@@ -183,6 +183,13 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     public boolean isAdvertisingOnline() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true"));
+    }
+
+    public boolean isInterstitialEnabled() {
+        boolean rval = !isCobranded() &&
+                !isCrawler() &&
+                "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false"));
+        return rval;
     }
 
     /**

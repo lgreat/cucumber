@@ -8,14 +8,13 @@ import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
-import org.easymock.MockControl;
+import static org.easymock.EasyMock.*;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 
 /**
  * Tests for the SessionContext object
@@ -31,6 +30,7 @@ public class SessionContextTest extends BaseTestCase {
     private GsMockHttpServletRequest _request;
     private SessionContext _sessionContext;
     private static final String STATE_COOKIE = "state";
+    private IPropertyDao _propertyDao;
 
     /**
      * @noinspection ProhibitedExceptionDeclared
@@ -51,6 +51,9 @@ public class SessionContextTest extends BaseTestCase {
         _sessionContextUtil.setStateCookieGenerator(stateCookieGenerator);
 
         _sessionContext = new SessionContext();
+
+        _propertyDao = createMock(IPropertyDao.class);
+        _sessionContext.setPropertyDao(_propertyDao);
     }
 
     public void testIsUserValid() throws NoSuchAlgorithmException {
@@ -113,30 +116,11 @@ public class SessionContextTest extends BaseTestCase {
      * Make sure we can get a value back for advertising being online
      */
     public void testAdvertising() {
-        _sessionContext.setPropertyDao(new IPropertyDao() {
-            public String getProperty(String key) {
-                return "true";
-            }
-
-            public Date getPropertyAsDate(String key) {
-                return null;
-            }
-
-            public String getProperty(String key, String defaultValue) {
-                return "true";
-            }
-
-            public void setProperty(String key, String value) throws IllegalArgumentException {
-            }
-
-            public void setPropertyAsDate(String key, Date date) {
-            }
-
-            public void removeProperty(String key) {
-            }
-        });
         assertNotNull(_sessionContext);
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_propertyDao);
         assertTrue(_sessionContext.isAdvertisingOnline());
+        verify(_propertyDao);
     }
 
     public void testHostCobrandUrlOnLiveSite() {
@@ -341,13 +325,42 @@ public class SessionContextTest extends BaseTestCase {
 
         final Integer id = -999;
 
-        MockControl mockControl = MockControl.createControl(IUserDao.class);
-        IUserDao userDao = (IUserDao) mockControl.getMock();
-        mockControl.expectAndThrow(userDao.findUserFromId(id), new ObjectRetrievalFailureException("Can't find it", id));
-        mockControl.replay();
+        IUserDao userDao = createMock(IUserDao.class);
+        expect(userDao.findUserFromId(id)).andThrow(new ObjectRetrievalFailureException("Can't find it", id));
+        replay(userDao);
 
         _sessionContext.setUserDao(userDao);
         _sessionContext.setMemberId(id);
         assertNull(_sessionContext.getUser());
+        verify(userDao);
+    }
+
+    public void testIsInterstitialEnabled() {
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("false");
+        replay(_propertyDao);
+        assertFalse("Property is false, expect call to return false", _sessionContext.isInterstitialEnabled());
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+        // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
+        // This is because the if statement gets short-circuited before the DB call in 3 of the cases
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true").times(3);
+        replay(_propertyDao);
+
+        assertTrue("Property is true, expect call to return true (1)", _sessionContext.isInterstitialEnabled());
+        _sessionContext.setCobrand("cobrand");
+        assertFalse("Cobrand exists, should override rval to false", _sessionContext.isInterstitialEnabled());
+        _sessionContext.setCobrand(null);
+        assertTrue("Property is true, expect call to return true (2)", _sessionContext.isInterstitialEnabled());
+        _sessionContext.setCrawler(true);
+        assertFalse("Crawler exists, should override rval to false", _sessionContext.isInterstitialEnabled());
+        _sessionContext.setCobrand("cobrand");
+        assertFalse("Both crawler and cobrand exist, should override rval to false",
+                _sessionContext.isInterstitialEnabled());
+        _sessionContext.setCobrand(null);
+        _sessionContext.setCrawler(false);
+        assertTrue("Property is true, expect call to return true (3)", _sessionContext.isInterstitialEnabled());
+        _sessionContext.setCobrand("cobrand");
+        verify(_propertyDao);
     }
 }
