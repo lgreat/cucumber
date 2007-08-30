@@ -114,10 +114,14 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
                 if (null != paramValues) {
                     UserResponse response = new UserResponse();
-                    response.setResponseValue(StringUtils.join(paramValues, ","));
-                    response.setAnswerId(aId);
-                    response.setQuestionId(qId);
-                    urc.addToResponseMap(response);
+                    String responseValue = StringUtils.join(paramValues, ",");                    
+
+                    if (!StringUtils.containsOnly(responseValue, ",")) {
+                        response.setResponseValue(StringUtils.join(paramValues, ","));
+                        response.setAnswerId(aId);
+                        response.setQuestionId(qId);
+                        urc.addToResponseMap(response);
+                    }
                 }
             }
         }

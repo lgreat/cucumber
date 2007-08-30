@@ -132,7 +132,35 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(survey.getId(), response.getSurveyId());
         assertEquals(user.getId(), response.getUserId());
         assertEquals(new Integer(2), response.getQuestionId());
-        assertEquals(new Integer(134), response.getAnswerId());        
+        assertEquals(new Integer(134), response.getAnswerId());
+    }
+
+    public void testEmptyUserResponses() {
+        getRequest().addParameter("responseMap[q1a1].values", "");
+        getRequest().addParameter("responseMap[q1a1].values", "");
+        getRequest().addParameter("responseMap[q1a1].values", "");
+
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setUser(createUser(false));
+        urc.setSurvey(createSurvey());
+        urc.setSchool(createSchool());
+
+        _controller.populateUserResponses(getRequest(), urc);
+
+        List<UserResponse> responses = urc.getResponses();
+        assertEquals(0, responses.size());
+    }
+
+    public void testNoUserResponses() {
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setUser(createUser(false));
+        urc.setSurvey(createSurvey());
+        urc.setSchool(createSchool());
+
+        _controller.populateUserResponses(getRequest(), urc);
+
+        List<UserResponse> responses = urc.getResponses();
+        assertEquals(0, responses.size());
     }
 
     public void testNoYearSelected() throws Exception {
