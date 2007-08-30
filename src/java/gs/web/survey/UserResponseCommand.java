@@ -26,7 +26,15 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     }
 
     public List<UserResponse> getResponses() {
-        return new ArrayList<UserResponse>(_responseMap.values());
+        List<UserResponse> responses = new ArrayList<UserResponse>(_responseMap.values());
+        for (UserResponse response : responses) {
+            response.setSchoolId(getSchool().getId());
+            response.setState(getSchool().getDatabaseState());
+            response.setSurveyId(getSurvey().getId());
+            response.setUserId(getUser().getId());
+            response.setYear(getYear());
+        }
+        return responses; 
     }
 
     public Map<String, UserResponse> getResponseMap() {

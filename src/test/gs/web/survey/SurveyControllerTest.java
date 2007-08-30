@@ -12,6 +12,7 @@ import gs.data.survey.UserResponse;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
 import static org.easymock.EasyMock.*;
+import org.springframework.validation.BindException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,6 +74,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     public void testPostRequestNewUser() throws Exception {
         getRequest().setMethod("POST");
         getRequest().setParameter("email", "dlee@greatschools.net");
+        getRequest().setParameter("year", "2004");
 
         School school = createSchool();
         getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
@@ -105,8 +107,6 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         urc.setUser(user);
         urc.setSchool(school);
 
-
-
         getRequest().addParameter("responseMap[q1a1].values", "Band");
         getRequest().addParameter("responseMap[q1a1].values", "Orchestra");
         getRequest().addParameter("responseMap[q1a1].values", "Choir");
@@ -133,6 +133,25 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(user.getId(), response.getUserId());
         assertEquals(new Integer(2), response.getQuestionId());
         assertEquals(new Integer(134), response.getAnswerId());        
+    }
+
+    public void testNoYearSelected() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        BindException errors = new BindException(urc, "");
+        _controller.onBindAndValidate(getRequest(), urc, errors);
+
+        assertTrue(errors.hasErrors());
+        assertTrue(errors.hasFieldErrors("year"));
+    }
+
+    public void testDontAgreeToTermsOfUse() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setTerms(false);
+        BindException errors = new BindException(urc, "");
+        _controller.onBindAndValidate(getRequest(), urc, errors);
+
+        assertTrue(errors.hasErrors());
+        assertTrue(errors.hasFieldErrors("terms"));
     }
 
     public List<UserResponse> createResponses(School school, User user, Survey survey,

@@ -88,21 +88,14 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
             throws Exception {
         UserResponseCommand urc = (UserResponseCommand) command;
-
-        if (null == urc.getUser()) {
-            User user = getUserDao().findUserFromEmailIfExists(urc.getEmail());
-            if (null == user) {
-                user = new User();
-                user.setEmail(urc.getEmail());
-                getUserDao().saveUser(user);
-            }
-            urc.setUser(user);
-        }
-
         populateUserResponses(request, urc);
 
         if (!urc.getTerms()) {
             errors.rejectValue("terms", null, "Please accept our terms of use.");
+        }
+
+        if (urc.getYear() == 0) {
+            errors.rejectValue("year", "survey_no_school_year_selected", "Please tell us what school year your responses are based on.");
         }
     }
 
@@ -124,11 +117,6 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                     response.setResponseValue(StringUtils.join(paramValues, ","));
                     response.setAnswerId(aId);
                     response.setQuestionId(qId);
-                    response.setSchoolId(urc.getSchool().getId());
-                    response.setState(urc.getSchool().getDatabaseState());
-                    response.setSurveyId(urc.getSurvey().getId());
-                    response.setUserId(urc.getUser().getId());
-                    response.setYear(urc.getYear());                    
                     urc.addToResponseMap(response);
                 }
             }
@@ -138,10 +126,23 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     protected ModelAndView onSubmit(Object command) {
 //        writeSurvey((UserResponseCommand)command); // debugging
         UserResponseCommand urc = (UserResponseCommand) command;
-        List<UserResponse> responses = urc.getResponses();
 
+        if (null == urc.getUser()) {
+            User user = getUserDao().findUserFromEmailIfExists(urc.getEmail());
+
+            if (null == user) {
+                user = new User();
+                user.setEmail(urc.getEmail());
+                getUserDao().saveUser(user);
+            }
+            urc.setUser(user);
+        }
+
+        //user needs to have been populated before call to getResponses
+        List<UserResponse> responses = urc.getResponses();
         _surveyDao.removeAllUserResponses(urc.getSurvey(), urc.getSchool(), urc.getUser());
         _surveyDao.saveSurveyResponses(responses);
+
         return new ModelAndView(getSuccessView());
     }
 
