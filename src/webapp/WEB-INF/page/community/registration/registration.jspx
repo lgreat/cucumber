@@ -70,6 +70,15 @@
   </head>
   <gsml:body adPageName="registration">
     <![CDATA[
+  <!--[if IE]>
+    <style type="text/css">
+      #outline li#newsletter, #outline li#betaGroup, #outline li#terms {
+        height: 36px;
+      }
+    </style>
+  <![endif]-->
+  ]]>
+    <![CDATA[
     <a name="error"></a>
     ]]>
 
