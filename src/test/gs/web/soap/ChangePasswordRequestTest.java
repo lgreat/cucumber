@@ -41,7 +41,7 @@ public class ChangePasswordRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.changePasswordRequest(_user, "123456");
+            _request.changePasswordRequest(_user);
         } catch (SoapRequestException e) {
             fail(e.getErrorMessage());
         }
@@ -58,7 +58,7 @@ public class ChangePasswordRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.changePasswordRequest(_user, "123456");
+            _request.changePasswordRequest(_user);
         } catch (SoapRequestException e) {
             fail(e.getErrorMessage());
         }
@@ -75,7 +75,7 @@ public class ChangePasswordRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.changePasswordRequest(_user, "123456");
+            _request.changePasswordRequest(_user);
         } catch (SoapRequestException e) {
             fail(e.getErrorMessage());
         }
@@ -93,7 +93,7 @@ public class ChangePasswordRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.changePasswordRequest(_user, "123456");
+            _request.changePasswordRequest(_user);
             fail("Did not receive expected error");
         } catch (SoapRequestException e) {
             assertEquals("Unexpected exception", error, e);
@@ -115,7 +115,7 @@ public class ChangePasswordRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.changePasswordRequest(_user, "123456");
+            _request.changePasswordRequest(_user);
             fail("Did not receive expected error");
         } catch (SoapRequestException e) {
             assertEquals("Unexpected exception", "code", e.getErrorCode());
@@ -136,7 +136,7 @@ public class ChangePasswordRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.changePasswordRequest(_user, "123456");
+            _request.changePasswordRequest(_user);
             fail("Did not receive expected error");
         } catch (SoapRequestException e) {
             assertEquals("Unexpected exception", "error!", e.getErrorMessage());
@@ -156,7 +156,7 @@ public class ChangePasswordRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.changePasswordRequest(_user, "123456");
+            _request.changePasswordRequest(_user);
             fail("Did not receive expected error");
         } catch (SoapRequestException e) {
             assertEquals("Unexpected exception", "15", e.getErrorMessage());

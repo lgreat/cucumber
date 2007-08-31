@@ -251,7 +251,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         if (user.isEmailProvisional()) {
             // only notify community on final step
             String password = user.getPasswordMd5().substring
-                    (0, user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX));
+                    (user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX) +
+                            User.EMAIL_PROVISIONAL_PREFIX.length());
             try {
                 notifyCommunity(user.getId(), existingProfile.getScreenName(), user.getEmail(), password, request);
             } catch (SoapRequestException couure) {

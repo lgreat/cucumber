@@ -238,7 +238,7 @@ public class RegistrationController extends SimpleFormController implements Read
             // only notify community on final step
             try {
                 notifyCommunity(user.getId(), userProfile.getScreenName(), user.getEmail(),
-                        userCommand.getPassword(), request);
+                        user.getPasswordMd5(), request);
             } catch (SoapRequestException couure) {
                 _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
                 // undo registration
@@ -272,10 +272,10 @@ public class RegistrationController extends SimpleFormController implements Read
         return mAndV;
     }
 
-    protected void notifyCommunity(Integer userId, String screenName, String email, String passwordPlaintext,
+    protected void notifyCommunity(Integer userId, String screenName, String email, String password,
                                    HttpServletRequest request) throws SoapRequestException {
         CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                (userId, screenName, email, passwordPlaintext);
+                (userId, screenName, email, password);
         CreateOrUpdateUserRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
         if (urlUtil.isStagingServer(request.getServerName())) {

@@ -178,7 +178,8 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             User user = command.getUser();
 
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-            if (notifyCommunity(user, command.getNewPassword())) {
+            user.setPlaintextPassword(command.getNewPassword());
+            if (notifyCommunity(user)) {
                 // success
                 // save user
                 user.setPlaintextPassword(command.getNewPassword());
@@ -189,6 +190,9 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                 builder.addParameter("message", "Your password has been changed");
             } else {
                 // failure
+                // make sure user object is in original state
+                user.setPlaintextPassword(command.getOldPassword());
+                user.setEmailProvisional(command.getOldPassword());
                 builder.addParameter("message", "We're sorry! There was an error updating your password. " +
                         "Please try again in a few minutes.");
             }
@@ -204,13 +208,13 @@ public class ResetPasswordController extends SimpleFormController implements Rea
      * Fires off a SOAP request to community updating the password. If there is an error,
      * this method returns FALSE, otherwise TRUE.
      * @param user User
-     * @param password new password
      * @return TRUE if successful, FALSE Otherwise
      */
-    protected boolean notifyCommunity(User user, String password) {
+    protected boolean notifyCommunity(User user) {
+        _log.info(user.getPasswordMd5());
         ChangePasswordRequest soapRequest = getSoapRequest();
         try {
-            soapRequest.changePasswordRequest(user, password);
+            soapRequest.changePasswordRequest(user);
         } catch (SoapRequestException couure) {
             _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
             // send to error page

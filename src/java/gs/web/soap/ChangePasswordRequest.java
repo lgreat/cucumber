@@ -30,12 +30,12 @@ public class ChangePasswordRequest extends SoapRequest {
         setTimeout(DEFAULT_TIMEOUT);
     }
 
-    public void changePasswordRequest(User user, String password) throws SoapRequestException {
+    public void changePasswordRequest(User user) throws SoapRequestException {
         // quick hack to disable this class but still allow test cases to work
         if (DISABLE_REQUEST && _mockCall == null) { return; }
         try {
             Call call = setupCall("changePasswordRequest");
-            Object[] params = setupParameters(call, user, password);
+            Object[] params = setupParameters(call, user);
             Object ret = call.invoke(params);
 
             if (ret != null && ret instanceof Map) {
@@ -91,7 +91,7 @@ public class ChangePasswordRequest extends SoapRequest {
      * @param user to get values for the parameters
      * @return parameters for the invoke method
      */
-    private Object[] setupParameters(Call call, User user, String password) {
+    private Object[] setupParameters(Call call, User user) {
         Object[] params = new Object[2];
         int index = -1;
         // set up outbound parameters
@@ -100,7 +100,7 @@ public class ChangePasswordRequest extends SoapRequest {
         call.addParameter("id", XSD_STRING, ParameterMode.IN);
         params[++index] = String.valueOf(user.getId());
         call.addParameter("password", XSD_STRING, ParameterMode.IN);
-        params[++index] = password;
+        params[++index] = user.getPasswordMd5();
 
         return params;
     }

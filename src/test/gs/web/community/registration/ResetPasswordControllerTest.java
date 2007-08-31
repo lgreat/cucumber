@@ -9,7 +9,7 @@ import gs.data.util.DigestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
@@ -31,9 +31,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         _controller = new ResetPasswordController();
 
         _userDao = createMock(IUserDao.class);
-        _soapRequest = new ChangePasswordRequest() {
-            public void changePasswordRequest(User user, String password) {}
-        };
+        _soapRequest = createMock(ChangePasswordRequest.class);
 
         _controller.setUserDao(_userDao);
         _controller.setAuthenticationManager(new AuthenticationManager());
@@ -42,18 +40,56 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         _user = setupUser();
     }
 
-    public void testNotifyCommunity() {
-        assertTrue(_controller.notifyCommunity(_user, "123456"));
+    public void testNotifyCommunity() throws SoapRequestException {
+        _soapRequest.changePasswordRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user));
+        verify(_soapRequest);
 
-        _soapRequest = new ChangePasswordRequest() {
-            public void changePasswordRequest(User user, String password) throws SoapRequestException {
-                throw new SoapRequestException();
-            }
-        };
+        reset(_soapRequest);
+        _soapRequest.changePasswordRequest(_user);
+        expectLastCall().andThrow(new SoapRequestException());
+        replay(_soapRequest);
 
-        _controller.setSoapRequest(_soapRequest);
+        assertFalse(_controller.notifyCommunity(_user));
+        verify(_soapRequest);
+    }
 
-        assertFalse(_controller.notifyCommunity(_user, "123456"));
+    public void testOnSubmitNoSoapError() throws NoSuchAlgorithmException, SoapRequestException {
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
+        BindException errors = new BindException(command, "");
+
+        command.setUser(_user);
+        command.setNewPassword("123456");
+        _soapRequest.changePasswordRequest(_user);
+        replay(_soapRequest);
+
+        reset(_userDao);
+        _userDao.updateUser(_user);
+        replay(_userDao);
+
+        _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_soapRequest);
+        verify(_userDao);
+    }
+
+    public void testOnSubmitYesSoapError() throws NoSuchAlgorithmException, SoapRequestException {
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
+        BindException errors = new BindException(command, "");
+
+        command.setUser(_user);
+        command.setNewPassword("123456");
+        command.setOldPassword("654321");
+        _soapRequest.changePasswordRequest(_user);
+        expectLastCall().andThrow(new SoapRequestException());
+        replay(_soapRequest);
+
+        reset(_userDao);
+        replay(_userDao);
+
+        _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_soapRequest);
+        verify(_userDao);
     }
 
     public void testResetPassword() throws NoSuchAlgorithmException {
