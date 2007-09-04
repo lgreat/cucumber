@@ -87,9 +87,9 @@
                 <tr>
                     <c:if test="${type eq 'school'}">
                         <td>
-                            <gsml:a href="/modperl/browse_school/${state.abbreviationLowerCase}/${data.id}">
+                            <link:schoolProfileOverview school="${data.school}" >
                                 <c:out value="${data.name}" escapeXml="true"/>
-                            </gsml:a>
+                            </link:schoolProfileOverview>
                         </td>
                     </c:if>
                     <c:if test="${type eq 'district'}">

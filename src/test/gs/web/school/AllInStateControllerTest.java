@@ -6,6 +6,7 @@ import gs.data.search.GSAnalyzer;
 import gs.data.search.Indexer;
 import gs.data.search.Searcher;
 import gs.data.state.State;
+import gs.data.school.School;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Query;
@@ -73,7 +74,7 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
         Searcher _searcher = (Searcher)getApplicationContext().getBean(Searcher.BEAN_ID);
         Hits hits = _searcher.search(query,
                 new Sort(Indexer.SORTABLE_NAME), null, null);
-        List<List> alphaGroups = _controller.getAlphaGroups("school", hits);
+        List<List> alphaGroups = _controller.getAlphaGroups("school", hits, State.AK);
         assertEquals("There should be 25 alpha groups in AK", 25, alphaGroups.size());
 
         List lastList = alphaGroups.get(alphaGroups.size()-1);
@@ -111,6 +112,22 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
 
         assertEquals("A-B", _controller.getSpan(list, 7));
         assertEquals("AL-BE", _controller.getSpan(list, 2));
+    }
+
+    public void testSearchReturnsProperSchoolObjects() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setMethod("GET");
+        request.setPathInfo("/California/CA");
+        ModelAndView mAndView = _controller.handleRequest(request, getResponse());
+        List list = (List)mAndView.getModel().get(AllInStateController.MODEL_LIST);
+        for (Object aList : list) {
+            Map m = (Map) aList;
+            School s = (School) m.get("school");
+            assertNotNull("School name must not be null", s.getName());
+            assertNotNull("School state must not be null", s.getId());
+            assertNotNull("School id must not be null", s.getDatabaseState());
+            assertNotNull("School type must not be null", s.getType());
+        }
     }
 
     public void testBuildTitle() throws Exception {

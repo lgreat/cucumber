@@ -7,6 +7,8 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.document.Document;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,9 @@ import gs.data.state.StateManager;
 import gs.data.search.Searcher;
 import gs.data.search.GSAnalyzer;
 import gs.data.search.Indexer;
+import gs.data.search.IndexField;
+import gs.data.school.School;
+import gs.data.school.SchoolType;
 
 /**
  * This controller builds the model for the "all schools",
@@ -64,6 +69,7 @@ public class AllInStateController extends AbstractController {
     /** Lucene query parser */
     private QueryParser _queryParser;
 
+    private Logger _log = Logger.getLogger(AllInStateController.class); 
     
     public AllInStateController() {
         super();
@@ -143,7 +149,7 @@ public class AllInStateController extends AbstractController {
         Hits hits = getHits(type, state);
 
         // Group these results by alpha order - a separate list for each letter.
-        List<List> alphaGroups = getAlphaGroups(type, hits);
+        List<List> alphaGroups = getAlphaGroups(type, hits, state);
 
         StringBuffer linksBuffer = new StringBuffer();
         List<List> pageGroups = new ArrayList<List>();
@@ -233,14 +239,15 @@ public class AllInStateController extends AbstractController {
      * @return a List<List>
      * @throws IOException - if something gets nasty.
      */
-    protected List<List> getAlphaGroups(String type, Hits hits) throws IOException {
+    protected List<List> getAlphaGroups(String type, Hits hits, State state) throws IOException {
         List<List> alphaGroups = new ArrayList<List>();
         if (hits != null && hits.length() > 0) {
             List workingList = new ArrayList();
             char currentLetter = 'a';
             for (int i = 0; i < hits.length(); i++) {
-                String name = hits.doc(i).get("name");
-                String city = hits.doc(i).get(Indexer.CITY);
+                Document doc = hits.doc(i);
+                String name = doc.get("name");
+                String city = doc.get(Indexer.CITY);
                 if (CITIES_TYPE.equals(type)) {
                     name = city;
                 }
@@ -255,9 +262,22 @@ public class AllInStateController extends AbstractController {
                 if (name.matches("^\\p{Alnum}.*")) {
                     Map fields = new HashMap();
                     fields.put("name", name);
-                    fields.put("id", hits.doc(i).get(Indexer.ID));
+                    String id = doc.get(Indexer.ID);
+                    fields.put("id", id);
                     fields.put("city", city);
-                    fields.put("county", hits.doc(i).get(Indexer.COUNTY));
+                    fields.put("county", doc.get(Indexer.COUNTY));
+                    if (SCHOOLS_TYPE.equals(type)) {
+                        School s = new School();
+                        s.setName(name);
+                        s.setDatabaseState(state);
+                        s.setType(SchoolType.getSchoolType(doc.get(IndexField.SCHOOL_TYPE)));
+                        try {
+                            s.setId(new Integer(id));
+                        } catch (NumberFormatException nfe) {
+                            _log.warn("Could not parse school id: " + id, nfe);
+                        }
+                        fields.put("school", s);
+                    }
                     workingList.add(fields);
                 }
             }
