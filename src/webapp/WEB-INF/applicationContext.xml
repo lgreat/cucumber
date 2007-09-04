@@ -96,6 +96,11 @@
                 <property name="cookieName" value="SESSION_CACHE"/>
             </bean>
         </property>
+        <property name="tempMsgCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="TMP_MSG"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"

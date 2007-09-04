@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.17 2007/08/30 20:42:02 aroy Exp $
+ * $Id: SessionContext.java,v 1.18 2007/09/04 17:07:46 dlee Exp $
  */
 package gs.web.util.context;
 
@@ -81,6 +81,8 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private boolean _readFromClient = false;
     private boolean _hasSearched = false;
     private boolean _crawler = false;
+
+    private String _tempMsg;
 
     /**
      * This is true for pages that have primarily editorial (topic) content and shoul
@@ -393,5 +395,14 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setIsTopicPage(boolean topicPage) {
         _isTopicPage = topicPage;
+    }
+
+    //A temporary message
+    public String getTempMsg() {
+        return _tempMsg;
+    }
+
+    public void setTempMsg(String tempMsg) {
+        _tempMsg = tempMsg;
     }
 }

@@ -16,10 +16,6 @@
         >
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
-<jsp:scriptlet>
-    request.setAttribute("referrer", request.getHeader("referer"));
-</jsp:scriptlet>
-
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -57,7 +53,7 @@
 <school:profile school="${school}" tab="overview">
 
 <div id="schoolOverview">
-    <c:if test="${fn:contains(referrer, 'survey/form.page')}">
+    <c:if test="${(fromSurveyPage)}">
         <div id="surveyThanks" style="border:4px solid #ddeeee;padding:5px;position:relative;margin-bottom:14px;">
             <div style="height:50px;background-color:#ddeeee;padding:10px;position:relative;">
                 <gsml:img src="/res/img/bullet/confirmation.gif" alt="Thank you confirmation" style="position:absolute;top:23px;left:15px;"/>

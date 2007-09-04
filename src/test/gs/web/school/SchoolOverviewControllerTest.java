@@ -1,10 +1,11 @@
 package gs.web.school;
 
-import gs.data.school.School;
 import gs.data.school.ISchoolDao;
+import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.survey.SurveyController;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
@@ -44,6 +45,19 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
         _school = _schoolDao.getSchoolById(State.CA, new Integer(11));
         assertFalse("School should have no test data.", _controller.hasTestData(_school));
+    }
+
+    public void testCameFromSurveyPage() throws Exception {
+        getRequest().setMethod("GET");
+        getRequest().setAttribute("state", State.CA);
+        getRequest().setParameter("id", "1");
+        getRequest().setMethod("GET");
+
+        getSessionContext().setTempMsg(SurveyController.TMP_MSG_COOKIE_VALUE);
+
+        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        assertTrue((Boolean) mAndV.getModel().get("fromSurveyPage"));
+        assertEquals("", getResponse().getCookie("TMP_MSG").getValue());
     }
 
     public void testHasTeacherData() throws Exception {

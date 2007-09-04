@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.23 2007/08/20 18:41:58 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.24 2007/09/04 17:07:46 dlee Exp $
  */
 
 package gs.web.util.context;
@@ -93,6 +93,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _hasSearchedCookieGenerator;
     private CookieGenerator _sessionCacheCookieGenerator;
     private CookieGenerator _communityCookieGenerator;
+    private CookieGenerator _tempMsgCookieGenerator;
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.net";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.net";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.net";
@@ -171,6 +172,9 @@ public class SessionContextUtil implements ApplicationContextAware {
                                     thisCookie.getValue());
                         }
                     }
+                } else if (StringUtils.equals(_tempMsgCookieGenerator.getCookieName(), thisCookie.getName())) {
+                    String message = thisCookie.getValue();
+                    context.setTempMsg(message);
                 }
                 // If new state cookie is not set, check for old state cookie and use that value if present
                 if (cookiedState == null && oldCookiedState != null) {
@@ -356,6 +360,14 @@ public class SessionContextUtil implements ApplicationContextAware {
         _communityCookieGenerator = communityCookieGenerator;
     }
 
+    public CookieGenerator getTempMsgCookieGenerator() {
+        return _tempMsgCookieGenerator;
+    }
+
+    public void setTempMsgCookieGenerator(CookieGenerator tempMsgCookieGenerator) {
+        _tempMsgCookieGenerator = tempMsgCookieGenerator;
+    }
+
     /**
      * Attempt to interpret a state= parameter and save it in the given context and to a cookie.
      * If it can't recognize the state, it just uses what was there before, if anything.
@@ -508,6 +520,15 @@ public class SessionContextUtil implements ApplicationContextAware {
         } else {
             _log.warn("Attempt to change authorization information on null user ignored.");
         }
+    }
+
+    public void clearTempMsg(HttpServletResponse response) {
+        _tempMsgCookieGenerator.removeCookie(response);
+    }
+
+    public void setTempMsg(HttpServletResponse response, String cookieValue) {
+        _tempMsgCookieGenerator.setCookieMaxAge(-1);
+        _tempMsgCookieGenerator.addCookie(response, cookieValue);
     }
 
     public static String getServerName(HttpServletRequest request) {

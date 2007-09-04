@@ -39,6 +39,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
      */
     public static final String MODEL_SCHOOL_YEARS = "schoolYears";
 
+    public static final String TMP_MSG_COOKIE_VALUE = "fromSurvey";
+
     private ISurveyDao _surveyDao;
     private String _viewName;
     private IUserDao _userDao;
@@ -150,7 +152,12 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         _surveyDao.removeAllUserResponses(urc.getSurvey(), urc.getSchool(), urc.getUser());
         _surveyDao.saveSurveyResponses(responses);
 
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.setTempMsg(response, TMP_MSG_COOKIE_VALUE);
+
         UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
+        //return new ModelAndView("redirect:" + "/school/overview.page?id=1&state=CA");
         return new ModelAndView("redirect:" + builder.asFullUrl(request));
     }
 

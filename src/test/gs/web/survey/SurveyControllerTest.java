@@ -237,6 +237,8 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
         UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_PROFILE);
 
+        assertEquals("put temp survey message cookie into response", SurveyController.TMP_MSG_COOKIE_VALUE,
+                getResponse().getCookie("TMP_MSG").getValue());
         assertEquals("redirect:"+builder.asFullUrl(getRequest()), mAndV.getViewName());
     }
 

@@ -1,29 +1,30 @@
 package gs.web.school;
 
-import org.springframework.web.servlet.ModelAndView;
+import gs.data.school.School;
+import gs.data.school.census.CensusDataType;
+import gs.data.school.census.ICensusInfo;
+import gs.data.school.census.IGroupDataTypeDao;
+import gs.data.school.census.SchoolCensusValue;
+import gs.data.school.review.CategoryRating;
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Ratings;
+import gs.data.school.review.Review;
+import gs.data.test.ITestDataSetDao;
+import gs.data.test.SchoolTestValue;
+import gs.web.jsp.Util;
+import gs.web.survey.SurveyController;
+import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import gs.data.school.School;
-import gs.data.school.census.ICensusInfo;
-import gs.data.school.census.CensusDataType;
-import gs.data.school.census.SchoolCensusValue;
-import gs.data.school.census.IGroupDataTypeDao;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Review;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.CategoryRating;
-import gs.data.test.ITestDataSetDao;
-import gs.data.test.TestDataSet;
-import gs.data.test.SchoolTestValue;
-import gs.web.util.UrlBuilder;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.SessionContext;
-import gs.web.jsp.Util;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This controller handles requests for the School Profile Overview page:
@@ -121,6 +122,12 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("hasTeacherData", Boolean.TRUE);
             model.put("hasStudentData", Boolean.TRUE);
             model.put("hasFinanceData", Boolean.TRUE);
+
+            if (SurveyController.TMP_MSG_COOKIE_VALUE.equals(sessionContext.getTempMsg())) {
+                SessionContextUtil util = sessionContext.getSessionContextUtil();
+                util.clearTempMsg(response);
+                model.put("fromSurveyPage", Boolean.TRUE);
+            }
         }
         return new ModelAndView(_viewName, model);
     }
