@@ -15,16 +15,13 @@
           xmlns:gsweb="gstaglib">
 
 <html lang="en">
-<!--
-<c:if test="${requestScope.context.ABVersion eq 'a'}">
-    <c:if test="${not requestScope.context.cobranded}">
-        <c:if test="${not requestScope.context.crawler}">
-            <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
-            <pageHelper:addOnLoadHandler handler="doInterstitial()"/>
-        </c:if>
-    </c:if>
+<!-- Allow interstitials for this page.
+     Note the property in the db must still be enabled for an interstitial to appear
+     GS-3852 -->
+<c:if test="${requestScope.context.interstitialEnabled}">
+    <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+    <pageHelper:addOnLoadHandler handler="doInterstitial()"/>
 </c:if>
--->
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
