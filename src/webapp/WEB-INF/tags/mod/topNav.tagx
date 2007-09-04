@@ -149,7 +149,7 @@
                                 </c:choose>
                             </span>
                             <span class="headerAvatar">
-                                <gsml:a href="http://community.staging.greatschools.net/member/${requestScope.context.screenName}"><gsml:img src="http://community.staging.greatschools.net/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=31" alt="Avatar" /></gsml:a>
+                                <gsml:a href="http://community.staging.greatschools.net/member/${requestScope.context.screenName}"><gsml:img src="http://community.staging.greatschools.net/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=30" alt="Avatar" /></gsml:a>
                             </span>
                         </div>
                     </c:when>
