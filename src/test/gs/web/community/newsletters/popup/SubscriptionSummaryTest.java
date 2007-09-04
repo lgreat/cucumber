@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.19 2007/08/28 00:34:51 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.20 2007/09/04 21:10:43 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,19 +8,13 @@ import gs.data.community.IUserDao;
 import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
-import gs.data.geo.ICity;
 import gs.data.school.*;
-import gs.data.school.district.District;
 import gs.data.state.State;
-import gs.data.util.Address;
 import gs.web.BaseControllerTestCase;
-import gs.web.util.validator.EmailValidator;
-import gs.web.util.validator.SchoolIdValidator;
-import gs.web.util.validator.StateValidator;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
+
+import static org.easymock.EasyMock.*;
 
 import java.util.*;
 
@@ -31,53 +25,58 @@ import java.util.*;
  */
 public class SubscriptionSummaryTest extends BaseControllerTestCase {
     private SubscriptionSummaryController _controller;
+    private ISchoolDao _schoolDao;
+    private IUserDao _userDao;
+    private Validator _emailValidator;
+    private Validator _stateValidator;
+    private Validator _schoolIdValidator;
     private static final String EMAIL = "someemail@greatschools.net";
 
     protected void setUp() throws Exception {
         super.setUp();
 
+        _schoolDao = createMock(ISchoolDao.class);
+        _userDao = createMock(IUserDao.class);
+        _emailValidator = createMock(Validator.class);
+        _stateValidator = createMock(Validator.class);
+        _schoolIdValidator = createMock(Validator.class);
+
         _controller = new SubscriptionSummaryController();
-        _controller.setApplicationContext(getApplicationContext());
         _controller.setCommandClass(NewsletterCommand.class);
         _controller.setCommandName("newsCmd");
         _controller.setFormView("/community/newsletters/popup/mss/page3");
         _controller.setSuccessView("/community/newsletters/popup/mss/page3");
-        _controller.setSchoolDao(new MockSchoolDao());
-        _controller.setUserDao(new MockUserDao());
+        _controller.setSchoolDao(_schoolDao);
+        _controller.setUserDao(_userDao);
 
         List<Validator> onLoadValidators = new ArrayList<Validator>();
-        onLoadValidators.add(new EmailValidator());
-        onLoadValidators.add(new StateValidator());
-        onLoadValidators.add(new SchoolIdValidator());
+        onLoadValidators.add(_emailValidator);
+        onLoadValidators.add(_stateValidator);
+        onLoadValidators.add(_schoolIdValidator);
         _controller.setOnLoadValidators(onLoadValidators);
     }
 
-    protected void tearDown() throws Exception {
-        super.tearDown();
-
-
-    }
-
-    public void testNoInputOnBindOnNewForm() {
+    public void testValidation() {
         NewsletterCommand command = new NewsletterCommand();
         BindException errors = new BindException(command, "");
+        replay(_userDao);
+        replay(_schoolDao);
+        expect(_emailValidator.supports(NewsletterCommand.class)).andReturn(true);
+        _emailValidator.validate(command, errors);
+        expect(_stateValidator.supports(NewsletterCommand.class)).andReturn(true);
+        _stateValidator.validate(command, errors);
+        expect(_schoolIdValidator.supports(NewsletterCommand.class)).andReturn(true);
+        _schoolIdValidator.validate(command, errors);
+        replay(_emailValidator);
+        replay(_stateValidator);
+        replay(_schoolIdValidator);
         _controller.onBindOnNewForm(getRequest(), command, errors);
 
-        //not passing in request parameters..should get errors
-        assertTrue(errors.hasErrors());
-
-    }
-
-    public void testGoodInputOnBindOnNewForm() {
-        NewsletterCommand command = new NewsletterCommand();
-        BindException errors = new BindException(command, "");
-
-        command.setSchoolId(1);
-        command.setState(State.CA);
-        command.setEmail(EMAIL);
-
-        _controller.onBindOnNewForm(getRequest(), command, errors);
-        assertFalse(errors.hasErrors());
+        verify(_userDao);
+        verify(_schoolDao);
+        verify(_emailValidator);
+        verify(_stateValidator);
+        verify(_schoolIdValidator);
     }
 
     public void testReferenceData() {
@@ -87,7 +86,31 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         command.setSchoolId(1);
 
         BindException errors = new BindException(command, "");
+        User user = new User();
+        user.setId(1);
+        user.setEmail(EMAIL);
+        Set<Subscription> subscriptions = new HashSet<Subscription>();
+        for (SubscriptionProduct product : SubscriptionProduct.getNewsletterProducts()) {
+            Subscription sub = new Subscription();
+
+            sub.setProduct(product);
+            if (product == SubscriptionProduct.MYSTAT) {
+                sub.setSchoolId(1);
+            }
+            sub.setState(State.CA);
+            subscriptions.add(sub);
+        }
+        user.setSubscriptions(subscriptions);
+        expect(_userDao.findUserFromEmailIfExists(EMAIL)).andReturn(user);
+        replay(_userDao);
+        School school = new School();
+        school.setId(1);
+        school.setName("My school");
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school); // for mystats
+        replay(_schoolDao);
         Map model = _controller.referenceData(getRequest(), command, errors);
+        verify(_userDao);
+        verify(_schoolDao);
         assertFalse(errors.hasErrors());
 
         Set myMsHs = (Set) model.get(SubscriptionSummaryController.MODEL_SET_MS_HS);
@@ -101,182 +124,11 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         assertNotNull(model.get(SubscriptionSummaryController.MODEL_PARENT_ADVISOR));
         assertNotNull(model.get(SubscriptionSummaryController.MODEL_SCHOOL_NAME));
-        assertEquals(MockSchoolDao.SCHOOL_NAME, model.get(SubscriptionSummaryController.MODEL_SCHOOL_NAME).toString());
+        assertEquals("My school", model.get(SubscriptionSummaryController.MODEL_SCHOOL_NAME).toString());
         assertEquals(command.getEmail(), model.get(SubscriptionSummaryController.MODEL_EMAIL).toString());
-    }
-
-    private static class MockUserDao implements IUserDao {
-
-        public void evict(User user) {
-            
-        }
-
-        public User findUserFromEmail(String email) throws ObjectRetrievalFailureException {
-            Set subscriptions = new HashSet();
-
-            for (Iterator iter = SubscriptionProduct.getNewsletterProducts().iterator(); iter.hasNext();) {
-                Subscription sub = new Subscription();
-
-                SubscriptionProduct product = (SubscriptionProduct) iter.next();
-                sub.setProduct(product);
-                if (product == SubscriptionProduct.MYSTAT) {
-                    sub.setSchoolId(MockSchoolDao.SCHOOL_ID.intValue());
-                }
-                sub.setState(State.CA);
-                subscriptions.add(sub);
-            }
-
-            User user = new User();
-            user.setSubscriptions(subscriptions);
-            user.setEmail(email);
-            return user;
-        }
-
-        public User findUserFromEmailIfExists(String email) {
-            return findUserFromEmail(email);
-        }
-
-        public User findUserFromId(int i) throws ObjectRetrievalFailureException {
-            return null;
-        }
-
-        public void saveUser(User user) throws DataIntegrityViolationException {
-
-        }
-
-        public void updateUser(User user) throws DataIntegrityViolationException {
-
-        }
-
-        public void removeUser(Integer integer) {
-
-        }
-
-        public List findUsersModifiedSince(Date date) {
-            return null;
-        }
-
-        public List findUsersModifiedBetween(Date begin, Date end) {
-            return null;
-        }
-
-        public User findUserFromScreenNameIfExists(String screenName) {
-            return null;
-        }
-
-        public List<User> findAllCommunityUsers() {
-            return null;
-        }
-    }
-
-    private static class MockSchoolDao implements ISchoolDao {
-        public static final String SCHOOL_NAME = "School's Name";
-        public static final Integer SCHOOL_ID = Integer.valueOf("1");
-
-        public List findSchoolsLike(State state, final String queryString, Integer limit) {
-            return null;
-        }
-
-        public List getPublishedSchools(State state) {
-            return null;
-        }
-
-        public List getActiveSchools(State state) {
-            return null;
-        }
-
-        public List getSchoolsInDistrict(State state, Integer integer, boolean b) {
-            return null;
-        }
-
-        public School getSchoolById(State state, Integer schoolId) {
-            School s = new School();
-            s.setName(SCHOOL_NAME);
-            return s;
-        }
-
-        public School getSchoolByStateId(State state, String string) {
-            return null;
-        }
-
-        public School findSchool(State state, String string, String string1, District district, boolean b, String string2, Address address) throws ObjectRetrievalFailureException {
-            return null;
-        }
-
-        public void saveSchool(State state, School school, String string) {
-
-        }
-
-        public void removeSchoolById(State state, Integer integer) {
-
-        }
-
-        public Map getStateIdMap(State state) {
-            return null;
-        }
-
-        public Map getNcesIdMap(State state) {
-            return null;
-        }
-
-        public Set getSchoolUniqueIds(State state, boolean b) {
-            return null;
-        }
-
-        public Set getSchoolIds(State state, boolean b) {
-            return null;
-        }
-
-        public List findSchoolsInCity(State state, String string, boolean b) {
-            return null;
-        }
-
-        public List findSchoolsInCity(State state, String string, int i) {
-            return null;
-        }
-
-        public List<School> findSchoolsInCityByGrade(State state, String city, Grade gradeLevel) {
-            return null;
-        }
-
-        public List findSchoolsInCounty(State state, String string, boolean b) {
-            return null;
-        }
-
-        public School getSampleSchool(State state) {
-            return null;
-        }
-
-        public int countSchools(State state, SchoolType schoolType, LevelCode levelCode, String string) {
-            return 0;
-        }
-
-        public int countSchoolsInDistrict(State state, SchoolType schoolType, LevelCode levelCode, String string) {
-            return 0;
-        }
-
-        public List findTopRatedSchoolsInCity(ICity iCity, int i, LevelCode.Level level, int i1) {
-            return null;
-        }
-
-        public List findRecentNameChanges(State state, Date since, Date before) {
-            return null;
-        }
-
-        public void setModifiedInfo(School school, Date modified, String modifiedBy) {
-            // do nothing
-        }
-
-        public List findSchoolsInDataLimbo(State state, boolean activeOnly) {
-            return null;
-        }
-
-        public List<NearbySchool> findNearbySchools(School school, int limit) {
-            return null;
-        }
-
-        public boolean hasPrincipalView(School s) {
-            return false;
-        }
+        assertNotNull(model.get(SubscriptionSummaryController.MODEL_SPONSOR));
+        assertEquals("Expect subscription product long name to be in model",
+                SubscriptionProduct.SPONSOR_OPT_IN.getLongName(),
+                model.get(SubscriptionSummaryController.MODEL_SPONSOR));
     }
 }

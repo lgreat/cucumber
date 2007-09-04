@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.10 2007/05/29 22:42:11 droy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.11 2007/09/04 21:10:43 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * The purpose is ...
+ * Backs newsletter subscription hover confirmation page.
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
@@ -34,11 +34,12 @@ public class SubscriptionSummaryController extends SimpleFormController {
 
     private IUserDao _userDao;
     private ISchoolDao _schoolDao;
-    private List _onLoadValidators;
+    private List<Validator> _onLoadValidators;
 
     public static final String MODEL_SCHOOL_NAME = "schoolName";
     public static final String MODEL_PARENT_ADVISOR = "parentAdvisor";
     public static final String MODEL_COMMUNITY = "community";
+    public static final String MODEL_SPONSOR = "sponsor";
     public static final String MODEL_SET_NTH_GRADER = "setNth";
     public static final String MODEL_SET_MS_HS = "setMsHs";
     public static final String MODEL_EMAIL = "email";
@@ -51,10 +52,9 @@ public class SubscriptionSummaryController extends SimpleFormController {
                                    Object command,
                                    BindException errors) {
         NewsletterCommand nc = (NewsletterCommand) command;
-        List validators = getOnLoadValidators();
+        List<Validator> validators = getOnLoadValidators();
 
-        for (Iterator iter = validators.iterator(); iter.hasNext();) {
-            Validator val = (Validator) iter.next();
+        for (Validator val : validators) {
             if (val.supports(nc.getClass())) {
                 val.validate(nc, errors);
             }
@@ -62,7 +62,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
     }
 
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors) {
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
 
         if (!errors.hasErrors()) {
             NewsletterCommand nc = (NewsletterCommand) command;
@@ -72,7 +72,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
             if (user == null) {
                 errors.reject("nokey", "User with email " + email + " does not exist");
             } else {
-                Set subcriptions = user.getSubscriptions();
+                Set<Subscription> subscriptions = user.getSubscriptions();
                 State state = nc.getState();
                 if (null == state) {
                     // set a default state for the query below
@@ -93,11 +93,11 @@ public class SubscriptionSummaryController extends SimpleFormController {
                 Set<String> setNth = new TreeSet<String> (
                         new Comparator<String>() {
                             public int compare(String spOne, String spTwo) {
-                                Integer orderOne = (Integer)orderMap.get(spOne);
+                                Integer orderOne = orderMap.get(spOne);
                                 if (orderOne == null) {
                                     orderOne = -1;
                                 }
-                                Integer orderTwo = (Integer)orderMap.get(spTwo);
+                                Integer orderTwo = orderMap.get(spTwo);
                                 if (orderTwo == null) {
                                     orderTwo = -1;
                                 }
@@ -111,18 +111,17 @@ public class SubscriptionSummaryController extends SimpleFormController {
                                 }
                             }
                         });
-                Set setMsHs = new HashSet();
+                Set<String> setMsHs = new HashSet<String>();
 
-                for (Iterator iter = subcriptions.iterator(); iter.hasNext();) {
-                    Subscription sub = (Subscription) iter.next();
+                for (Subscription sub : subscriptions) {
                     SubscriptionProduct sp = sub.getProduct();
 
                     if (sp.isNewsletter()) {
-                        if (sp == SubscriptionProduct.MYSTAT ) {
+                        if (sp == SubscriptionProduct.MYSTAT) {
                             if (sub.getSchoolId() == nc.getSchoolId()
-                                && sub.getState() == state) {
+                                    && sub.getState() == state) {
                                 int schoolId = nc.getSchoolId();
-                                School s = getSchoolDao().getSchoolById(state, new Integer(schoolId));
+                                School s = getSchoolDao().getSchoolById(state, schoolId);
                                 model.put(MODEL_SCHOOL_NAME, s.getName());
                             }
 
@@ -130,6 +129,8 @@ public class SubscriptionSummaryController extends SimpleFormController {
                             model.put(MODEL_PARENT_ADVISOR, sp.getLongName());
                         } else if (sp == SubscriptionProduct.COMMUNITY) {
                             model.put(MODEL_COMMUNITY, sp.getLongName());
+                        } else if (sp == SubscriptionProduct.SPONSOR_OPT_IN) {
+                            model.put(MODEL_SPONSOR, sp.getLongName());
                         } else if (sp == SubscriptionProduct.MY_MS
                                 || sp == SubscriptionProduct.MY_HS) {
                             setMsHs.add(sp.getLongName());
@@ -144,9 +145,9 @@ public class SubscriptionSummaryController extends SimpleFormController {
                 model.put(MODEL_EMAIL, email);
 
                 if (!StringUtils.isEmpty(request.getParameter(PARAM_SHOW_FIND_SCHOOL_LINK))) {
-                    model.put(MODEL_HAS_FIND_SCHOOL_LINK, Boolean.valueOf(true));
+                    model.put(MODEL_HAS_FIND_SCHOOL_LINK, true);
                 } else {
-                    model.put(MODEL_HAS_FIND_SCHOOL_LINK, Boolean.valueOf(false));
+                    model.put(MODEL_HAS_FIND_SCHOOL_LINK, false);
                 }
             }
         }
@@ -178,11 +179,11 @@ public class SubscriptionSummaryController extends SimpleFormController {
         _viewName = viewName;
     }
 
-    public List getOnLoadValidators() {
+    public List<Validator> getOnLoadValidators() {
         return _onLoadValidators;
     }
 
-    public void setOnLoadValidators(List onLoadValidators) {
+    public void setOnLoadValidators(List<Validator> onLoadValidators) {
         _onLoadValidators = onLoadValidators;
     }
 }

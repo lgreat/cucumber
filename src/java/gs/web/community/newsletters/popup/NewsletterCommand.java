@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCommand.java,v 1.10 2007/09/04 16:50:51 aroy Exp $
+ * $Id: NewsletterCommand.java,v 1.11 2007/09/04 21:10:43 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -201,5 +201,8 @@ public class NewsletterCommand implements IEmail, ISchoolId, IState {
 
     public void setSponsor(boolean sponsor) {
         _sponsor = sponsor;
+        if (sponsor) {
+            _checked = true;
+        }
     }
 }

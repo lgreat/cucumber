@@ -64,6 +64,9 @@
                 <c:if test="${!empty community}">
                     <li>${community}</li>
                 </c:if>
+                <c:if test="${!empty sponsor}">
+                    <li>${sponsor}</li>
+                </c:if>
             </ul>
         </div>
     </div>
