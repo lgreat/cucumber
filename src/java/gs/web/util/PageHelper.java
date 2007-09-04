@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.49 2007/08/29 19:09:22 eddie Exp $
+ * $Id: PageHelper.java,v 1.50 2007/09/04 21:07:42 dlee Exp $
  */
 
 package gs.web.util;
@@ -198,7 +198,13 @@ public class PageHelper {
 
         for (Iterator it = _adKeywords.keySet().iterator(); it.hasNext();) {
             String key = (String) it.next();
-            buffer.append(key).append("=").append(_adKeywords.get(key).replaceAll(" ","+"));
+            String value = _adKeywords.get(key);
+
+            if ("state".equals(key)) {
+                value = value.toLowerCase();
+            }
+
+            buffer.append(key).append("=").append(value.replaceAll(" ","+"));
             if (it.hasNext()) {
                 buffer.append("&");
             }
@@ -240,7 +246,7 @@ public class PageHelper {
             }
         }
         if (null != _sessionContext.getState()) {
-            _adKeywords.put("state", _sessionContext.getState().getAbbreviationLowerCase());
+            addAdKeyword("state", _sessionContext.getState().getAbbreviation());
         }
     }
 
