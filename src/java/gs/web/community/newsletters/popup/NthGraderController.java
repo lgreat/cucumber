@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.21 2007/05/02 03:13:18 chriskimm Exp $
+ * $Id: NthGraderController.java,v 1.22 2007/09/04 16:50:51 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ public class NthGraderController extends SimpleFormController implements ReadWri
     private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
     private IPropertyDao _propertyDao;
-    private List _onLoadValidators;
+    private List<Validator> _onLoadValidators;
 
 
     protected ModelAndView showForm(
@@ -68,11 +67,10 @@ public class NthGraderController extends SimpleFormController implements ReadWri
             //nc.setState(sessionContext.getStateOrDefault());
         }
 
-        List validators = getOnLoadValidators();
+        List<Validator> validators = getOnLoadValidators();
         // removed the onload state validator, so add a null check here for safety
         if (validators != null) {
-            for (Iterator iter = validators.iterator(); iter.hasNext();) {
-                Validator val = (Validator) iter.next();
+            for (Validator val : validators) {
                 if (val.supports(nc.getClass())) {
                     val.validate(nc, errors);
                 }
@@ -125,7 +123,7 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         }
         PageHelper.setMemberCookie(request, response, user);
 
-        List subscriptions = new ArrayList();
+        List<Subscription> subscriptions = new ArrayList<Subscription>();
 
         if (nc.isMyk()) {
             Subscription sub = new Subscription();
@@ -199,6 +197,14 @@ public class NthGraderController extends SimpleFormController implements ReadWri
             subscriptions.add(sub);
         }
 
+        if (nc.isSponsor()) {
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
+            sub.setState(state);
+            subscriptions.add(sub);
+        }
+
         getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
 
         mAndV.setViewName(getSuccessView());
@@ -240,11 +246,11 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         _schoolDao = schoolDao;
     }
 
-    public List getOnLoadValidators() {
+    public List<Validator> getOnLoadValidators() {
         return _onLoadValidators;
     }
 
-    public void setOnLoadValidators(List onLoadValidators) {
+    public void setOnLoadValidators(List<Validator> onLoadValidators) {
         _onLoadValidators = onLoadValidators;
     }
 

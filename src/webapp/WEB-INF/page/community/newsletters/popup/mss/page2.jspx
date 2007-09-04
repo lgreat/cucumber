@@ -71,6 +71,12 @@
 
     <div class="grayTop">
         <div class="pLR">
+            <div id="sponsor">
+                <spring:bind path="newsCmd.sponsor">
+                    <gsml:checkbox name="${status.expression}" checked="${status.value}" styleId="sponsorCheckbox"/>
+                </spring:bind>
+                <label for="sponsorCheckbox">Please also email me valuable special offers from your partners</label>
+            </div>
             <div class="centered">
                 <div class="signMeUp">
                     <gsml:inputImage src="/res/img/button/btn_signmeup.gif" alt="Sign me up!"/>

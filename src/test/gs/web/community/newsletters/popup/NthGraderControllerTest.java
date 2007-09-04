@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.13 2007/01/18 19:33:39 aroy Exp $
+ * $Id: NthGraderControllerTest.java,v 1.14 2007/09/04 16:50:51 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -60,7 +60,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
                 new EmailValidator(),
                 new NewsletterCheckBoxValidator(),});
 
-        List onLoadValidators = new ArrayList();
+        List<Validator> onLoadValidators = new ArrayList<Validator>();
         onLoadValidators.add(new EmailValidator());
         onLoadValidators.add(new SchoolIdValidator());
         _controller.setOnLoadValidators(onLoadValidators);
@@ -159,7 +159,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         command.setState(State.CA);
         command.setSchoolId(1);
 
-        Set products = new HashSet();
+        Set<SubscriptionProduct> products = new HashSet<SubscriptionProduct>();
         products.add(SubscriptionProduct.MY_KINDERGARTNER);
         products.add(SubscriptionProduct.MY_FIRST_GRADER);
         products.add(SubscriptionProduct.MY_SECOND_GRADER);

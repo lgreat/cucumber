@@ -126,6 +126,17 @@ h3#updates {
     margin: 10px 0 10px 26px;
 }
 
+.pLR div#sponsor {
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    font-weight: bold;
+}
+
+#sponsor input {
+    margin-right: 7px;
+}
+
 .pLR p {
     padding:0 0 0 0;
     margin:0 0 0 0;
@@ -167,7 +178,8 @@ li {
 }
 
 .pLR {
-    padding: 0 1em 0 1em;
+    position: relative;
+    padding: 3em 1em 0 1em;
 }
 
 .pTB {
