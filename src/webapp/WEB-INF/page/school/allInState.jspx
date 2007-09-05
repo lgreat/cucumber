@@ -26,9 +26,9 @@
                 <c:set var="pageName" value="All Cities in State" />
             </c:when>
             <c:when test="${type eq 'district'}">
-                <c:set var="thing" value="districts" />
+                <c:set var="thing" value="school districts" />
                 <c:set var="path" value="/schools/districts/" />
-                <c:set var="heading" value="${state.longName} School Information by District" />
+                <c:set var="heading" value="${state.longName} School Districts" />
                 <c:set var="pageName" value="All Districts in State" />
             </c:when>
             <c:otherwise>
@@ -59,7 +59,7 @@
             <div id="navLinks">
                 <link:allSchoolsInState state="${state}" styleClass="${type eq 'school' ? 'active' : ''}">All schools in ${state.longName}</link:allSchoolsInState>
                 <a href="/schools/cities/${fn:replace(state.longName, ' ', '_')}/${state.abbreviation}" class="${type eq 'city' ? 'active' : ''}">All cities in ${state.longName}</a>
-                <a href="/schools/districts/${fn:replace(state.longName, ' ', '_')}/${state.abbreviation}" class="${type eq 'district' ? 'active' : ''}">All school districts in ${state.longName}</a>
+                <a href="/schools/districts/${fn:replace(state.longName, ' ', '_')}/${state.abbreviation}" class="${type eq 'district' ? 'active' : ''}">${state.longName} School Districts</a>
             </div>
 
             <div id="pageHeading"><h1>${heading}</h1></div>
