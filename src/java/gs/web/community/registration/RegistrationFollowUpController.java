@@ -316,8 +316,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
 
-        PageHelper.setMemberAuthorized(request, response, user);
-        //PageHelper.setMemberCookie(request, response, user);
+        // Per GS-3863, do not log member into community after registration
+        //PageHelper.setMemberAuthorized(request, response, user); // log in to community
+        PageHelper.setMemberCookie(request, response, user); // log in to MSL
         if (StringUtils.isEmpty(fupCommand.getRedirect())) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
             builder.addParameter("message", "Thank you for joining the GreatSchools Community! You'll be the first to know when we launch!");
