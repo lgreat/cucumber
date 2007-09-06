@@ -179,7 +179,7 @@ li {
 
 .pLR {
     position: relative;
-    padding: 3em 1em 0 1em;
+    padding: 0 1em 0 1em;
 }
 
 .pTB {
@@ -187,7 +187,7 @@ li {
 }
 
 .signMeUp {
-    padding-top:2em;
+    padding-top:5em;
 }
 
 div.signupText {
