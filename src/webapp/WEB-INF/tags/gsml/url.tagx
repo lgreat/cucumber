@@ -19,11 +19,12 @@
             request.setAttribute("STATE", state);
         }
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        ApplicationContext ac = sessionContext.getApplicationContext();
-        Properties versionProperties = (Properties) ac.getBean("versionProperties");
-        String releaseNumber = versionProperties.getProperty("gsweb.version");
-
-        request.setAttribute("RELEASE_NUMBER", releaseNumber);
+        if (sessionContext != null) {
+            ApplicationContext ac = sessionContext.getApplicationContext();
+            Properties versionProperties = (Properties) ac.getBean("versionProperties");
+            String releaseNumber = versionProperties.getProperty("gsweb.version");
+            request.setAttribute("RELEASE_NUMBER", releaseNumber);
+        }
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         value = urlUtil.buildUrl(value, request);
         jspContext.setAttribute(var, value, PageContext.REQUEST_SCOPE);
