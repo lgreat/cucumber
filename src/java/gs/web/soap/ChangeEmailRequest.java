@@ -7,7 +7,6 @@ import static org.apache.axis.Constants.XSD_STRING;
 import org.apache.axis.client.Call;
 
 import javax.xml.rpc.ParameterMode;
-import java.util.Map;
 
 /**
  * Provides Performs a SOAP changeEmailRequest.
@@ -36,30 +35,9 @@ public class ChangeEmailRequest extends SoapRequest {
             Object[] params = setupParameters(call, user);
             Object ret = call.invoke(params);
 
-            if (ret != null && ret instanceof Map) {
-                _log.warn("Exception generated on changeEmailRequest of class Map");
-                Map returnMap = (Map) ret;
-                SoapRequestException e = new SoapRequestException();
-                e.setErrorCode(String.valueOf(returnMap.get("errorCode")));
-                e.setErrorMessage(String.valueOf(returnMap.get("errorMessage")));
-                e.fillInStackTrace();
-                throw e;
-            } else if (ret != null && ret instanceof SoapRequestException) {
-                _log.warn("Exception generated on changeEmailRequest");
-                throw (SoapRequestException) ret;
-            } else if (ret != null && ret.toString() != null) {
-                if (ret.toString().equals(user.getId().toString())) {
-                    _log.info("changeEmailRequest successful on id " + ret);
-                } else {
-                    _log.warn("Exception generated on changeEmailRequest of class String");
-                    SoapRequestException e = new SoapRequestException();
-                    e.setErrorMessage(ret.toString());
-                    e.fillInStackTrace();
-                    throw e;
-                }
-            } else if (ret != null) {
-            }
-            _log.info("SOAP request to " + getTarget() + " successful");
+            validateResponse(ret, user.getId().toString());
+
+            _log.info("SOAP request to " + getTarget() + " successful for user with id=" + user.getId());
         } catch (SoapRequestException e) {
             throw e; // pass this on
         } catch (Exception e) {

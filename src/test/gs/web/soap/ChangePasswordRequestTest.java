@@ -9,8 +9,6 @@ import static org.easymock.classextension.EasyMock.*;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ParameterMode;
 import java.rmi.RemoteException;
-import java.util.Map;
-import java.util.HashMap;
 
 /**
  * Provides testing for the ChangePasswordRequest class.
@@ -29,7 +27,8 @@ public class ChangePasswordRequestTest extends BaseTestCase {
         _user.setId(123);
         _call = createMock(Call.class);
         _call.addParameter((String) anyObject(), (QName) anyObject(), (ParameterMode) anyObject());
-        expectLastCall().anyTimes();
+        expectLastCall().times(2);
+        _request.setMockCall(_call);
     }
 
     /**
@@ -83,20 +82,29 @@ public class ChangePasswordRequestTest extends BaseTestCase {
         verify(_call);
     }
 
-    /**
-     * Test that when the server returns an error, this class behaves appropriately
-     */
-    public void testErrorSoapRequestException() throws RemoteException {
-        SoapRequestException error = new SoapRequestException();
-        expect(_call.invoke((Object[]) anyObject())).andReturn(error);
-        replay(_call);
+    public void testIsDisabled() {
+        _request.setTarget(null);
+        _request.setMockCall(null);
 
-        _request.setMockCall(_call);
         try {
             _request.changePasswordRequest(_user);
-            fail("Did not receive expected error");
+            // success -- null target, but no exceptions, means no call was made
         } catch (SoapRequestException e) {
-            assertEquals("Unexpected exception", error, e);
+            fail("Unexpected exception: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Test that a failed response results in an exception
+     */
+    public void testInvalidResponse() throws RemoteException {
+        expect(_call.invoke((Object[])anyObject())).andReturn(new SoapRequestException());
+        replay(_call);
+
+        try {
+            _request.changePasswordRequest(_user);
+            fail("Didn't receive expected exception");
+        } catch (SoapRequestException e) {
             // success
         }
 
@@ -104,22 +112,16 @@ public class ChangePasswordRequestTest extends BaseTestCase {
     }
 
     /**
-     * Test that when the server returns an error map, this class behaves appropriately
+     * Test that a failed response results in an exception
      */
-    public void testErrorMap() throws RemoteException {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("errorCode", "code");
-        map.put("errorMessage", "message");
-        expect(_call.invoke((Object[]) anyObject())).andReturn(map);
+    public void testInvalidResponseWrongId() throws RemoteException {
+        expect(_call.invoke((Object[])anyObject())).andReturn("321");
         replay(_call);
 
-        _request.setMockCall(_call);
         try {
             _request.changePasswordRequest(_user);
-            fail("Did not receive expected error");
+            fail("Didn't receive expected exception");
         } catch (SoapRequestException e) {
-            assertEquals("Unexpected exception", "code", e.getErrorCode());
-            assertEquals("Unexpected exception", "message", e.getErrorMessage());
             // success
         }
 
@@ -127,39 +129,16 @@ public class ChangePasswordRequestTest extends BaseTestCase {
     }
 
     /**
-     * Test that when the server returns an error string, this class behaves appropriately
+     * Test that a failed response results in an exception
      */
-    public void testErrorString() throws RemoteException {
-        String error = "error!";
-        expect(_call.invoke((Object[]) anyObject())).andReturn(error);
+    public void testUnexpectedException() throws RemoteException {
+        expect(_call.invoke((Object[])anyObject())).andThrow(new RemoteException());
         replay(_call);
 
-        _request.setMockCall(_call);
         try {
             _request.changePasswordRequest(_user);
-            fail("Did not receive expected error");
+            fail("Didn't receive expected exception");
         } catch (SoapRequestException e) {
-            assertEquals("Unexpected exception", "error!", e.getErrorMessage());
-            // success
-        }
-
-        verify(_call);
-    }
-
-    /**
-     * Test that when the server returns an error id, this class behaves appropriately
-     */
-    public void testErrorInteger() throws RemoteException {
-        Integer error = 15;
-        expect(_call.invoke((Object[]) anyObject())).andReturn(error);
-        replay(_call);
-
-        _request.setMockCall(_call);
-        try {
-            _request.changePasswordRequest(_user);
-            fail("Did not receive expected error");
-        } catch (SoapRequestException e) {
-            assertEquals("Unexpected exception", "15", e.getErrorMessage());
             // success
         }
 

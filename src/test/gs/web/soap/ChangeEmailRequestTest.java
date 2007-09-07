@@ -28,7 +28,8 @@ public class ChangeEmailRequestTest extends BaseTestCase {
         _user.setEmail("aroy@greatschools.net");
         _call = createMock(Call.class);
         _call.addParameter((String) anyObject(), (QName) anyObject(), (ParameterMode) anyObject());
-        expectLastCall().anyTimes();
+        expectLastCall().times(2);
+        _request.setMockCall(_call);
     }
 
     /**
@@ -38,7 +39,6 @@ public class ChangeEmailRequestTest extends BaseTestCase {
         expect(_call.invoke((Object[])anyObject())).andReturn(null);
         replay(_call);
 
-        _request.setMockCall(_call);
         try {
             _request.changeEmailRequest(_user);
         } catch (SoapRequestException e) {
@@ -49,19 +49,74 @@ public class ChangeEmailRequestTest extends BaseTestCase {
     }
 
     /**
-     * Test that when the server returns an error, this class behaves appropriately
+     * Test that normal success conditions result in success
      */
-    public void testError() throws RemoteException {
-        SoapRequestException error = new SoapRequestException();
-        expect(_call.invoke((Object[]) anyObject())).andReturn(error);
+    public void testSuccessWithString() throws RemoteException {
+        expect(_call.invoke((Object[])anyObject())).andReturn("123");
         replay(_call);
 
-        _request.setMockCall(_call);
         try {
             _request.changeEmailRequest(_user);
-            fail("Did not receive expected error");
         } catch (SoapRequestException e) {
-            assertEquals("Unexpected exception", error, e);
+            fail(e.getErrorMessage());
+        }
+
+        verify(_call);
+    }
+
+    public void testIsDisabled() throws RemoteException, SoapRequestException {
+        _request.setTarget(null);
+        _request.setMockCall(null);
+
+        _request.changeEmailRequest(_user);
+        // success -- null target, but no exceptions, means no call was made
+    }
+
+    /**
+     * Test that a failed response results in an exception
+     */
+    public void testInvalidResponse() throws RemoteException {
+        expect(_call.invoke((Object[])anyObject())).andReturn(new SoapRequestException());
+        replay(_call);
+
+        try {
+            _request.changeEmailRequest(_user);
+            fail("Didn't receive expected exception");
+        } catch (SoapRequestException e) {
+            // success
+        }
+
+        verify(_call);
+    }
+
+    /**
+     * Test that a failed response results in an exception
+     */
+    public void testInvalidResponseWrongId() throws RemoteException {
+        expect(_call.invoke((Object[])anyObject())).andReturn("321");
+        replay(_call);
+
+        try {
+            _request.changeEmailRequest(_user);
+            fail("Didn't receive expected exception");
+        } catch (SoapRequestException e) {
+            // success
+        }
+
+        verify(_call);
+    }
+
+    /**
+     * Test that a failed response results in an exception
+     */
+    public void testUnexpectedException() throws RemoteException {
+        expect(_call.invoke((Object[])anyObject())).andThrow(new RemoteException());
+        replay(_call);
+
+        try {
+            _request.changeEmailRequest(_user);
+            fail("Didn't receive expected exception");
+        } catch (SoapRequestException e) {
             // success
         }
 

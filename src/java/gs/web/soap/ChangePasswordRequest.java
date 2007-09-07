@@ -16,12 +16,10 @@ import java.util.Map;
  */
 public class ChangePasswordRequest extends SoapRequest {
     public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.net/community/changePassword/";
-    public static final String DEFAULT_TARGET = "http://localhost:12000/soap/user/";
     public static final int DEFAULT_TIMEOUT = 10000; // 10s in milliseconds
-    public static final boolean DISABLE_REQUEST = true;
 
     public ChangePasswordRequest() {
-        this(DEFAULT_TARGET);
+        this(null);
     }
 
     public ChangePasswordRequest(String target) {
@@ -32,36 +30,15 @@ public class ChangePasswordRequest extends SoapRequest {
 
     public void changePasswordRequest(User user) throws SoapRequestException {
         // quick hack to disable this class but still allow test cases to work
-        if (DISABLE_REQUEST && _mockCall == null) { return; }
+        if (isDisabled()) { return; }
         try {
             Call call = setupCall("changePasswordRequest");
             Object[] params = setupParameters(call, user);
             Object ret = call.invoke(params);
 
-            if (ret != null && ret instanceof Map) {
-                _log.warn("Exception generated on changePasswordRequest of class Map");
-                Map returnMap = (Map) ret;
-                SoapRequestException e = new SoapRequestException();
-                e.setErrorCode(String.valueOf(returnMap.get("errorCode")));
-                e.setErrorMessage(String.valueOf(returnMap.get("errorMessage")));
-                e.fillInStackTrace();
-                throw e;
-            } else if (ret != null && ret instanceof SoapRequestException) {
-                _log.warn("Exception generated on changePasswordRequest");
-                throw (SoapRequestException) ret;
-            } else if (ret != null && ret.toString() != null) {
-                if (ret.toString().equals(user.getId().toString())) {
-                    _log.info("changePasswordRequest successful on id " + ret);
-                } else {
-                    _log.warn("Exception generated on changePasswordRequest of class String");
-                    SoapRequestException e = new SoapRequestException();
-                    e.setErrorMessage(ret.toString());
-                    e.fillInStackTrace();
-                    throw e;
-                }
-            } else if (ret != null) {
-            }
-            _log.info("SOAP request to " + getTarget() + " successful");
+            validateResponse(ret, user.getId().toString());
+
+            _log.info("SOAP request to " + getTarget() + " successful on user with id=" + user.getId());
         } catch (SoapRequestException e) {
             e.printStackTrace();
             throw e; // pass this on
