@@ -70,21 +70,21 @@
                     <c:when test="${answer.type eq 'MULTI'}">
                         <div class="answer-sibling">
                         <div class="checkbox-col">
-                            <c:forEach var="answerText" items="${answer.availableAnswers}" varStatus="boxCounter">
+                            <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="boxCounter">
                                 <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                                 <c:choose>
                                     <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
                                         <form:checkbox path="responseMap[${mapKey}].values"
-                                                       id="${mapKey}" value="${answerText}"/>
+                                                       id="${mapKey}" value="${answerValue.symbol}"/>
                                     </c:when>
                                     <c:otherwise>
                                         <input name="responseMap[${mapKey}].values"
-                                               value="${answerText}" type="checkbox"/>
+                                               value="${answerValue.symbol}" type="checkbox"/>
                                     </c:otherwise>
                                 </c:choose>
-                                ${answerText}
+                                ${answerValue.display}
                                 <br/>
-                                <c:if test="${boxCounter.index gt (fn:length(answer.availableAnswers) / 3)}">
+                                <c:if test="${boxCounter.index gt (fn:length(answer.answerValues) / 3)}">
                                     <![CDATA[
                                                 </div>
                                                 <div class="checkbox-col">
@@ -96,36 +96,36 @@
                         </div>
                     </c:when>
                     <c:when test="${answer.type eq 'SINGLE'}">
-                        <c:forEach var="answerText" items="${answer.availableAnswers}">
+                        <c:forEach var="answerValue" items="${answer.answerValues}">
                             <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                             <c:choose>
                                 <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
                                     <form:radiobutton path="responseMap[${mapKey}].values"
-                                                      id="${mapKey}" value="${answerText}"/>
+                                                      id="${mapKey}" value="${answerValue.symbol}"/>
                                 </c:when>
                                 <c:otherwise>
                                     <input name="responseMap[${mapKey}].values"
-                                           value="${answerText}" type="radio"/>
+                                           value="${answerValue.symbol}" type="radio"/>
                                 </c:otherwise>
                             </c:choose>
-                            ${answerText}
+                            ${answerValue.display}
                             <br/>
                         </c:forEach>
                     </c:when>
                     <c:when test="${answer.type eq 'SCALE'}">
-                        <c:forEach var="answerText" items="${answer.availableAnswers}">
+                        <c:forEach var="answerValue" items="${answer.answerValues}">
                             <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                             <c:choose>
                                 <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
                                     <form:radiobutton path="responseMap[${mapKey}].values"
-                                                      id="${mapKey}" value="${answerText}"/>
+                                                      id="${mapKey}" value="${answerValue.symbol}"/>
                                 </c:when>
                                 <c:otherwise>
                                     <input name="responseMap[${mapKey}].values"
-                                           value="${answerText}" type="radio"/>
+                                           value="${answerValue.symbol}" type="radio"/>
                                 </c:otherwise>
                             </c:choose>
-                            ${answerText}
+                            ${answerValue.display}
                             <br/>
                         </c:forEach>
                     </c:when>
@@ -134,17 +134,16 @@
                         <c:choose>
                             <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
                                 <form:select path="responseMap[${mapKey}].values"
-                                             id="${mapKey}" items="${answer.availableAnswers}"/>
+                                             id="${mapKey}" items="${answer.answerValues}" itemValue="symbol" itemLabel="display"/>
                             </c:when>
                             <c:otherwise>
                                 <select name="responseMap[${mapKey}].values">
-                                    <c:forEach var="opt" items="${answer.availableAnswers}">
-                                        <option value="${opt}">${opt}</option>
+                                    <c:forEach var="answerValue" items="${answer.answerValues}">
+                                        <option value="${answerValue.symbol}">${answerValue.display}</option>
                                     </c:forEach>
                                 </select>
                             </c:otherwise>
                         </c:choose>
-                        ${answerText}
                         <br/>
                     </c:when>
                     <c:otherwise>

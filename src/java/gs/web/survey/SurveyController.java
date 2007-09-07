@@ -4,7 +4,9 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.school.School;
-import gs.data.survey.*;
+import gs.data.survey.ISurveyDao;
+import gs.data.survey.Survey;
+import gs.data.survey.UserResponse;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
@@ -176,45 +178,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     public void setViewName(String viewName) {
         _viewName = viewName;
     }
-
-    void writeSurvey(Survey survey) {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("Survey Title: ");
-        String title = survey.getTitle();
-        buffer.append(title != null ? title : "null");
-        buffer.append("\n");
-        List<QuestionGroup> questionGroups = survey.getQuestionGroups();
-        for (QuestionGroup group: questionGroups) {
-            String groupTitle = group.getTitle();
-            buffer.append("  Group: ");
-            buffer.append(groupTitle != null ? groupTitle : "null");
-            buffer.append("\n");
-            List<Question> questions = group.getQuestions();
-            for (Question question : questions) {
-                String questionText = question.getText();
-                buffer.append("    question: ");
-                buffer.append(questionText != null ? questionText : "null");
-                buffer.append("\n");
-                List<Answer> answers = question.getAnswers();
-                for (Answer answer : answers) {
-                    buffer.append("    available answers: ");
-                    for (String ans : answer.getAvailableAnswers()) {
-                        buffer.append(ans);
-                        buffer.append(":");
-                    }
-                    buffer.append("\n");
-                    for (String ans : answer.getMyAnswers()) {
-                        buffer.append("    user answers: ");
-                        buffer.append(ans);
-                        buffer.append(":");
-                    }
-                    buffer.append("\n");
-                }
-            }
-        }
-        System.out.println (buffer.toString());
-    }
-
+    
     public IUserDao getUserDao() {
         return _userDao;
     }
