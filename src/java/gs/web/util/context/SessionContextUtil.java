@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.24 2007/09/04 17:07:46 dlee Exp $
+ * $Id: SessionContextUtil.java,v 1.25 2007/09/07 21:58:34 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -194,7 +194,8 @@ public class SessionContextUtil implements ApplicationContextAware {
             }
 
             if (isCommunity &&
-                    ((cache == null) || StringUtils.isEmpty(cache.getScreenName()))) {
+                    ((cache == null) || StringUtils.isEmpty(cache.getScreenName())) &&
+                    context.getUser() != null) {
                 // User has community cookie but either no cache or incomplete cache
                 // This can only happen if the user signed in from the community site. The cache is
                 // now out of sync and needs to be recreated (GS-3819)
