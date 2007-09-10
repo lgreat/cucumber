@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCacheTest.java,v 1.6 2006/10/13 17:45:04 aroy Exp $
+ * $Id: ClientSideSessionCacheTest.java,v 1.7 2007/09/10 17:43:02 dlee Exp $
  */
 
 package gs.web.community;
@@ -12,7 +12,7 @@ import gs.data.community.User;
 import gs.data.state.State;
 import junit.framework.TestCase;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -275,29 +275,39 @@ public class ClientSideSessionCacheTest extends TestCase {
     }
 
     private void addPaAndMyFirstSubscriptions(Set subscriptions) {
+        User user = new User();
+        user.setEmail("wbeck@gs.net");
+
         Subscription sub3 = new Subscription();
         sub3.setProduct(SubscriptionProduct.PARENT_ADVISOR);
         sub3.setState(State.CA);
+        sub3.setUser(user);
         subscriptions.add(sub3);
 
         Subscription sub4 = new Subscription();
         sub4.setProduct(SubscriptionProduct.MY_FIRST_GRADER);
         sub4.setState(State.CA);
+        sub4.setUser(user);
         subscriptions.add(sub4);
     }
 
 
     private void addMssSubscriptions(Set subscriptions) {
+        User user = new User();
+        user.setEmail("wbeck@gs.net");
+
         Subscription sub = new Subscription();
         sub.setProduct(SubscriptionProduct.MYSTAT);
         sub.setState(State.GA);
         sub.setSchoolId(1234);
+        sub.setUser(user);
         subscriptions.add(sub);
 
         Subscription sub2 = new Subscription();
         sub2.setProduct(SubscriptionProduct.MYSTAT);
         sub2.setState(State.CA);
         sub2.setSchoolId(1234);
+        sub2.setUser(user);
         subscriptions.add(sub2);
     }
 

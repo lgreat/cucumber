@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequestAwareValidatorTest.java,v 1.1 2006/07/11 21:14:04 dlee Exp $
+ * $Id: RequestAwareValidatorTest.java,v 1.2 2007/09/10 17:43:02 dlee Exp $
  */
 package gs.web.util.validator;
 
@@ -44,6 +44,7 @@ public class RequestAwareValidatorTest extends BaseControllerTestCase {
             sub.setProduct(SubscriptionProduct.MYSTAT);
             sub.setSchoolId(i);
             sub.setState(State.CA);
+            sub.setUser(user);
             subscriptions.add(sub);
         }
         user.setSubscriptions(subscriptions);

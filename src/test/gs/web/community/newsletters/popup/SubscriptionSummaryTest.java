@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.20 2007/09/04 21:10:43 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.21 2007/09/10 17:43:02 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,13 +8,13 @@ import gs.data.community.IUserDao;
 import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
-import gs.data.school.*;
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
-
-import static org.easymock.EasyMock.*;
 
 import java.util.*;
 
@@ -98,6 +98,7 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
                 sub.setSchoolId(1);
             }
             sub.setState(State.CA);
+            sub.setUser(user);
             subscriptions.add(sub);
         }
         user.setSubscriptions(subscriptions);

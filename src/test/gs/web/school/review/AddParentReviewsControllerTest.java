@@ -73,6 +73,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         //new user so we add an entry into list member that indicates where we got their email from
         Subscription sub = new Subscription(_user, SubscriptionProduct.RATING, _school.getDatabaseState());
+        sub.setSchoolId(_school.getId());
         _subscriptionDao.saveSubscription(sub);
         replay(_subscriptionDao);
 
@@ -321,9 +322,11 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists("dlee@greatschools.net")).andReturn(_user);
 
         //max out a user's subscriptions
-        Set subscriptions = new HashSet();
+        Set<Subscription> subscriptions = new HashSet<Subscription>();
         for (int i=0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++) {
-            subscriptions.add(new Subscription(_user, SubscriptionProduct.MYSTAT, State.CA));
+            Subscription sub = new Subscription(_user, SubscriptionProduct.MYSTAT, State.CA);
+            sub.setSchoolId(i+1);
+            subscriptions.add(sub);
         }
         _user.setSubscriptions(subscriptions);
 

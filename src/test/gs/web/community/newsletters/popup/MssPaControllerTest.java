@@ -1,24 +1,24 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.19 2007/09/06 23:19:45 aroy Exp $
+ * $Id: MssPaControllerTest.java,v 1.20 2007/09/10 17:43:02 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
+import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.data.admin.IPropertyDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.validator.MaximumMssValidator;
 import org.apache.commons.lang.StringUtils;
 import static org.easymock.EasyMock.*;
 import org.easymock.IAnswer;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 import javax.servlet.http.Cookie;
 import java.util.*;
@@ -133,6 +133,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
             sub.setProduct(SubscriptionProduct.MYSTAT);
             sub.setSchoolId(i);
             sub.setState(State.CA);
+            sub.setUser(user);
             subscriptions.add(sub);
         }
         user.setSubscriptions(subscriptions);

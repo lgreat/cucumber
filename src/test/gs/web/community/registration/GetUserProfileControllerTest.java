@@ -1,20 +1,20 @@
 package gs.web.community.registration;
 
-import gs.web.BaseControllerTestCase;
 import gs.data.community.*;
-import gs.data.state.State;
 import gs.data.school.Grade;
 import gs.data.school.School;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.orm.ObjectRetrievalFailureException;
+import gs.data.state.State;
+import gs.web.BaseControllerTestCase;
 import org.easymock.MockControl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -150,6 +150,7 @@ public class GetUserProfileControllerTest  extends BaseControllerTestCase {
     public void testMultipleParameters() throws IOException {
         User user = new User();
         user.setId(new Integer(1234));
+        user.setEmail("some email");
         UserProfile userProfile = new UserProfile();
         userProfile.setId(new Integer(1234));
         user.setUserProfile(userProfile);
@@ -166,6 +167,7 @@ public class GetUserProfileControllerTest  extends BaseControllerTestCase {
 
         user = new User();
         user.setId(new Integer(1235));
+        user.setEmail("some email2");
         userProfile = new UserProfile();
         userProfile.setId(new Integer(1235));
         user.setUserProfile(userProfile);
