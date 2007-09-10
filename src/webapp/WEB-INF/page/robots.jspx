@@ -81,7 +81,7 @@ Disallow: /ads/
 
 <c:choose>
 <!-- We don't allow staging to be crawled -->
-<c:when test="${requestScore.pageHelper.stagingServer}">
+<c:when test="${requestScope.pageHelper.stagingServer or requestScope.pageHelper.adminServer}">
 User-agent: *
 Disallow: /    
 </c:when>
