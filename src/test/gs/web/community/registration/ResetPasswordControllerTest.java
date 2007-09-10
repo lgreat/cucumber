@@ -43,7 +43,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     public void testNotifyCommunity() throws SoapRequestException {
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
-        assertTrue(_controller.notifyCommunity(_user));
+        assertTrue(_controller.notifyCommunity(_user, _request));
         verify(_soapRequest);
 
         reset(_soapRequest);
@@ -51,7 +51,28 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         expectLastCall().andThrow(new SoapRequestException());
         replay(_soapRequest);
 
-        assertFalse(_controller.notifyCommunity(_user));
+        assertFalse(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
+    // verify that the soap request is given a target on staging
+    public void testNotifyCommunityOnStaging() throws SoapRequestException {
+        _request.setServerName("staging.greatschools.net");
+
+        _soapRequest.setTarget("http://community.staging.greatschools.net/soap/user");
+        _soapRequest.changePasswordRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
+    // verify that the soap request is NOT given a target on live
+    public void testNotifyCommunityOnWww() throws SoapRequestException {
+        _request.setServerName("www.greatschools.net");
+
+        _soapRequest.changePasswordRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
         verify(_soapRequest);
     }
 

@@ -13,6 +13,7 @@ import gs.data.soap.SoapRequestException;
 import gs.web.util.UrlBuilder;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.validator.UserCommandValidator;
@@ -179,7 +180,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
 
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
             user.setPlaintextPassword(command.getNewPassword());
-            if (notifyCommunity(user)) {
+            if (notifyCommunity(user, request)) {
                 // success
                 // save user
                 user.setPlaintextPassword(command.getNewPassword());
@@ -210,9 +211,15 @@ public class ResetPasswordController extends SimpleFormController implements Rea
      * @param user User
      * @return TRUE if successful, FALSE Otherwise
      */
-    protected boolean notifyCommunity(User user) {
+    protected boolean notifyCommunity(User user, HttpServletRequest request) {
         _log.info(user.getPasswordMd5());
         ChangePasswordRequest soapRequest = getSoapRequest();
+        UrlUtil urlUtil = new UrlUtil();
+        if (urlUtil.isStagingServer(request.getServerName())) {
+            soapRequest.setTarget("http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/soap/user");
+        }
         try {
             soapRequest.changePasswordRequest(user);
         } catch (SoapRequestException couure) {
