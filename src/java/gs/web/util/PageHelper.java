@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.50 2007/09/04 21:07:42 dlee Exp $
+ * $Id: PageHelper.java,v 1.51 2007/09/10 17:36:59 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -438,6 +438,10 @@ public class PageHelper {
         return _urlUtil.isStagingServer(_sessionContext.getHostName());
     }
 
+    public boolean isAdminServer() {
+        return _urlUtil.isAdminServer(_sessionContext.getHostName());
+    }
+
     /**
      * Examines all the javascript and css includes and dumps out the appropriate header code. If no code is necessary,
      * and empty string is returned.
@@ -605,6 +609,5 @@ public class PageHelper {
     public void setVersionProperties(Properties versionProperties) {
         _versionProperties = versionProperties;
     }
-
 
 }

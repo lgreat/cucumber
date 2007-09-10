@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.36 2007/08/28 16:12:44 eddie Exp $
+ * $Id: PageHelperSaTest.java,v 1.37 2007/09/10 17:36:52 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -561,6 +561,22 @@ public class PageHelperSaTest extends TestCase {
 
         assertEquals("there", pageHelper.getAdKeywords().get("hello"));
         assertEquals("private", pageHelper.getAdKeywords().get("type"));
+    }
+
+    public void testIsAdminServer() {
+        MockSessionContext sessionFacade = new MockSessionContext();
+
+        sessionFacade.setHostName("admin.greatschools.net");
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected true for admin.greatschools.net", pageHelper.isAdminServer());
+
+        sessionFacade.setHostName("maddy.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected true for maddy.greatschools.net", pageHelper.isAdminServer());
+
+        sessionFacade.setHostName("www.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertFalse("Expected false for www.greatschools.net", pageHelper.isAdminServer());
     }
 
     protected void setUp() throws Exception {
