@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.41 2007/07/16 21:25:05 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.42 2007/09/10 17:29:24 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -239,4 +239,9 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/something.page", _urlUtil.buildHref(null, "/something.page", false, null));
     }
 
+    public void testIsAdminServer() {
+        assertTrue("Expected true for admin URL", _urlUtil.isAdminServer("admin.greatschools.net"));
+        assertTrue("Expected true for maddy URL", _urlUtil.isAdminServer("admin.greatschools.net"));
+        assertFalse("Expected false for production URL", _urlUtil.isAdminServer("www.greatschools.net"));
+    }
 }

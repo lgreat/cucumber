@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.52 2007/09/10 17:17:56 cpickslay Exp $
+ * $Id: UrlUtil.java,v 1.53 2007/09/10 17:29:24 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -308,4 +308,8 @@ public final class UrlUtil {
         }
     }
 
+    public boolean isAdminServer(String hostName) {
+        return hostName.indexOf("admin") != -1 ||
+                hostName.indexOf("maddy") != -1;
+    }
 }
