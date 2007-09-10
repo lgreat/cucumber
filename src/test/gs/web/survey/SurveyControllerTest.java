@@ -1,9 +1,9 @@
 package gs.web.survey;
 
 import gs.data.admin.IPropertyDao;
-import gs.data.community.IUserDao;
-import gs.data.community.User;
+import gs.data.community.*;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.QuestionGroup;
@@ -12,11 +12,15 @@ import gs.data.survey.UserResponse;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContextUtil;
 import static org.easymock.EasyMock.*;
+import org.easymock.IAnswer;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -30,18 +34,20 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     private ISurveyDao _surveyDao;
     private IUserDao _userDao;
     private IPropertyDao _propertyDao;
+    private ISubscriptionDao _subscriptionDao;
 
     public void setUp() throws Exception {
         super.setUp();
         _surveyDao = createMock(ISurveyDao.class);
         _userDao = createMock(IUserDao.class);
         _propertyDao = createMock(IPropertyDao.class);
+        _subscriptionDao = createMock(ISubscriptionDao.class);
 
         _controller = new SurveyController();
         _controller.setSurveyDao(_surveyDao);
         _controller.setUserDao(_userDao);
         _controller.setPropertyDao(_propertyDao);
-
+        _controller.setSubscriptionDao(_subscriptionDao);
     }
 
     public void testGetRequest() throws Exception {
@@ -91,9 +97,19 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         expect(_userDao.findUserFromEmailIfExists(user.getEmail())).andReturn(null);
         _userDao.saveUser(user);
+        expectLastCall().andAnswer(new IAnswer<Object>(){
+            public Object answer() throws Throwable {
+                User user = (User)getCurrentArguments()[0];
+                user.setId(101);
+                return user;
+            }
+        });
+
         replay(_userDao);
 
         _controller.handleRequest(getRequest(), getResponse());
+        Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+        assertEquals("set a member cookie if this is a new user", String.valueOf(101), cookie.getValue());
 
         verify(_surveyDao);
         verify(_userDao);
@@ -250,6 +266,35 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(2002), years.get(2));
         assertEquals(new Integer(2001), years.get(3));
         assertEquals(new Integer(2000), years.get(4));
+    }
+
+    public void testEmailSignUps() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        School school = createSchool();
+        school.setType(SchoolType.PUBLIC);
+        urc.setSchool(school);
+
+        User user = createUser(false);
+        urc.setUser(user);
+
+        urc.setNLSignUpChecked(true);
+
+        BindException errors = new BindException(urc, null);
+
+        //public or charter sign up for MSS
+        _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription(user, SubscriptionProduct.MYSTAT, school)));
+        replay(_subscriptionDao);
+
+        _controller.onSubmit(getRequest(), getResponse(), urc, errors);                
+        verify(_subscriptionDao);
+
+        //if private school, should sign up for parent advisor
+        reset(_subscriptionDao);
+        school.setType(SchoolType.PRIVATE);
+        _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, school.getDatabaseState())));
+        replay(_subscriptionDao);
+        _controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        verify(_subscriptionDao);
     }
 
     public School createSchool() {

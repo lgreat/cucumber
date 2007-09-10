@@ -1,13 +1,14 @@
 package gs.web.survey;
 
 import gs.data.admin.IPropertyDao;
-import gs.data.community.IUserDao;
-import gs.data.community.User;
+import gs.data.community.*;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -47,6 +48,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     private String _viewName;
     private IUserDao _userDao;
     private IPropertyDao _propertyDao;
+    private ISubscriptionDao _subscriptionDao;
 
     protected final static Pattern QUESTION_ANSWER_IDS = Pattern.compile("^responseMap\\[q(\\d+)a(\\d+)\\]\\.values*$");
 
@@ -135,24 +137,38 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
                                 BindException errors) throws Exception {
-//        writeSurvey((UserResponseCommand)command); // debugging
         UserResponseCommand urc = (UserResponseCommand) command;
 
-        if (null == urc.getUser()) {
-            User user = getUserDao().findUserFromEmailIfExists(urc.getEmail());
+        User user = urc.getUser();
+        if (null == user) {
+            user = getUserDao().findUserFromEmailIfExists(urc.getEmail());
 
             if (null == user) {
                 user = new User();
                 user.setEmail(urc.getEmail());
                 getUserDao().saveUser(user);
+                PageHelper.setMemberCookie(request, response, user);
             }
             urc.setUser(user);
         }
 
+        School school = urc.getSchool();
+
         //user needs to have been populated before call to getResponses
         List<UserResponse> responses = urc.getResponses();
-        _surveyDao.removeAllUserResponses(urc.getSurvey(), urc.getSchool(), urc.getUser());
+        _surveyDao.removeAllUserResponses(urc.getSurvey(), school, user);
         _surveyDao.saveSurveyResponses(responses);
+
+        //does this user want an email newsletter?
+        if (urc.isNLSignUpChecked()) {
+            Subscription sub;
+            if (SchoolType.PRIVATE.equals(school.getType())) {
+                sub = new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, school.getDatabaseState());
+            } else {
+                sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);
+            }
+            getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
+        }
 
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
@@ -193,5 +209,13 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     public void setPropertyDao(IPropertyDao propertyDao) {
         _propertyDao = propertyDao;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }

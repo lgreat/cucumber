@@ -1,7 +1,10 @@
 package gs.web.survey;
 
+import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
 import gs.web.util.validator.EmailValidator;
@@ -20,6 +23,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     private String _email;
     private boolean _terms = true; // default
     private int _year;
+    private boolean _NLSignUpChecked = false;
 
     public UserResponseCommand () {
         _responseMap = new HashMap<String, UserResponse>();
@@ -92,6 +96,31 @@ public class UserResponseCommand implements EmailValidator.IEmail {
 
     public void setYear(int _year) {
         this._year = _year;
+    }
+
+    /**
+     *
+     * @return true if user should get a newsletter promo
+     */
+    public boolean isNLPromoShown() {
+        if (null == _user) {
+            return true;
+        } else {
+            if (SchoolType.PRIVATE.equals(_school.getType())) {
+                Subscription sub = _user.findSubscription(SubscriptionProduct.PARENT_ADVISOR);
+                return sub == null;
+            } else {
+                return !_user.hasMssSubscription(_school);
+            }
+        }
+    }
+
+    public boolean isNLSignUpChecked() {
+        return _NLSignUpChecked;
+    }
+
+    public void setNLSignUpChecked(boolean NLSignUpChecked) {
+        _NLSignUpChecked = NLSignUpChecked;
     }
 }
 

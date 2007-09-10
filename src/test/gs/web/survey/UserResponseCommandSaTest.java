@@ -1,13 +1,18 @@
 package gs.web.survey;
 
+import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
 import junit.framework.TestCase;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
@@ -61,5 +66,38 @@ public class UserResponseCommandSaTest extends TestCase {
         assertEquals(school.getId(), responseFromCmd.getSchoolId());
         assertEquals(survey.getId(), responseFromCmd.getSurveyId());
         assertEquals("ok", responseFromCmd.getResponseValue());
+    }
+
+    public void testShowNLPromo() {
+        School school = new School();
+        school.setType(SchoolType.PRIVATE);
+        school.setDatabaseState(State.CA);
+        school.setId(23);
+
+        User user = new User();
+        user.setEmail("dlee@greatschools.net");
+
+        _command.setSchool(school);
+        _command.setUser(null);
+
+        assertTrue("user unknown", _command.isNLPromoShown());
+
+        _command.setUser(user);
+        assertTrue("user does not have any newsletters", _command.isNLPromoShown());
+
+        Subscription sub = new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, State.CA);
+
+        Set<Subscription> subs = new HashSet<Subscription>();
+        subs.add(sub);
+        user.setSubscriptions(subs);
+
+        assertFalse("user already has a Parent Advisor and this is a private school", _command.isNLPromoShown());
+
+        school.setType(SchoolType.PUBLIC);
+        assertTrue("user does not have any mss yet and this is a public school", _command.isNLPromoShown());
+
+        Subscription sub2 = new Subscription(user, SubscriptionProduct.MYSTAT, school);
+        subs.add(sub2);
+        assertFalse("user already has a MSS for this school", _command.isNLPromoShown());
     }
 }
