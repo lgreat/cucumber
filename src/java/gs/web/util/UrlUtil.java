@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.51 2007/08/28 16:12:44 eddie Exp $
+ * $Id: UrlUtil.java,v 1.52 2007/09/10 17:17:56 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -265,7 +265,6 @@ public final class UrlUtil {
         return hostName.indexOf("localhost") > -1 ||
                 hostName.indexOf("127.0.0.1") > -1 ||
                 hostName.indexOf("apeterson.office.greatschools.net") > -1 ||
-                hostName.indexOf("cpickslay.") != -1 ||
                 hostName.indexOf("aroy.office.greatschools.net") > -1;
     }
 
