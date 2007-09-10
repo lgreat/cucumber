@@ -9,6 +9,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlUtil;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.soap.SoapRequestException;
@@ -89,7 +90,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             User user = SessionContextUtil.getSessionContext(request).getUser();
             String oldEmail = user.getEmail();
             user.setEmail(command.getNewEmail());
-            if (notifyCommunity(user)) {
+            if (notifyCommunity(user, request)) {
                 // success
                 // save user
                 user.setUpdated(new Date());
@@ -115,8 +116,14 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
      * @param user User with updated email address
      * @return TRUE if successful, FALSE Otherwise
      */
-    protected boolean notifyCommunity(User user) {
+    protected boolean notifyCommunity(User user, HttpServletRequest request) {
         ChangeEmailRequest soapRequest = getSoapRequest();
+        UrlUtil urlUtil = new UrlUtil();
+        if (urlUtil.isStagingServer(request.getServerName())) {
+            soapRequest.setTarget("http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/soap/user");
+        }
         try {
             soapRequest.changeEmailRequest(user);
         } catch (SoapRequestException couure) {

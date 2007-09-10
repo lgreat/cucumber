@@ -17,7 +17,7 @@ import org.springframework.validation.BindException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * Provides testing for the controller that changes a user's email address.
@@ -35,9 +35,7 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         _controller = new ChangeEmailController();
 
         _userDao = createMock(IUserDao.class);
-        _soapRequest = new ChangeEmailRequest() {
-            public void changeEmailRequest(User user) {}
-        };
+        _soapRequest = createMock(ChangeEmailRequest.class);
 
         _controller.setUserDao(_userDao);
         _controller.setSoapRequest(_soapRequest);
@@ -175,17 +173,41 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         assertTrue(errors.hasErrors());
     }
 
-    public void testNotifyCommunity() {
-        assertTrue(_controller.notifyCommunity(_user));
+    public void testNotifyCommunity() throws SoapRequestException {
+        _soapRequest.changeEmailRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
 
-        _soapRequest = new ChangeEmailRequest() {
-            public void changeEmailRequest(User user) throws SoapRequestException {
-                throw new SoapRequestException();
-            }
-        };
+        reset(_soapRequest);
 
-        _controller.setSoapRequest(_soapRequest);
+        _soapRequest.changeEmailRequest(_user);
+        expectLastCall().andThrow(new SoapRequestException());
+        replay(_soapRequest);
 
-        assertFalse(_controller.notifyCommunity(_user));
+        assertFalse(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+
+    }
+
+    // verify that the soap request is given a target on staging
+    public void testNotifyCommunityOnStaging() throws SoapRequestException {
+        _request.setServerName("staging.greatschools.net");
+
+        _soapRequest.setTarget("http://community.staging.greatschools.net/soap/user");
+        _soapRequest.changeEmailRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
+    // verify that the soap request is NOT given a target on live
+    public void testNotifyCommunityOnWww() throws SoapRequestException {
+        _request.setServerName("www.greatschools.net");
+
+        _soapRequest.changeEmailRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
     }
 }
