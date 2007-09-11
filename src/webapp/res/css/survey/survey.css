@@ -313,6 +313,7 @@ input.textinput{
 	width:200px;
 }
 
-.submit{
-	margin-right:80px;
+input.submit{
+    float: right;
+    margin-right:80px;
 }
