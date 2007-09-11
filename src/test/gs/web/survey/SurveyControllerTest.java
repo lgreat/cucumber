@@ -10,12 +10,15 @@ import gs.data.survey.ISurveyDao;
 import gs.data.survey.QuestionGroup;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
+import gs.data.util.email.EmailHelperFactory;
+import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import static org.easymock.EasyMock.*;
 import org.easymock.IAnswer;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,6 +39,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     private IUserDao _userDao;
     private IPropertyDao _propertyDao;
     private ISubscriptionDao _subscriptionDao;
+    private MockJavaMailSender _mailSender;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -49,6 +53,13 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _controller.setUserDao(_userDao);
         _controller.setPropertyDao(_propertyDao);
         _controller.setSubscriptionDao(_subscriptionDao);
+
+        _mailSender = new MockJavaMailSender();
+        _mailSender.setHost("greatschools.net");
+
+        EmailHelperFactory emailHelperFactory = new EmailHelperFactory();
+        emailHelperFactory.setMailSender(_mailSender);
+        _controller.setEmailHelperFactory(emailHelperFactory);
     }
 
     public void testGetRequest() throws Exception {
@@ -92,7 +103,6 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         User user = createUser(true);
 
         expect(_surveyDao.getSurvey("test")).andReturn(survey);
-        _surveyDao.removeAllUserResponses(survey, school, user);
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
         replay(_surveyDao);
 
@@ -109,6 +119,8 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         replay(_userDao);
 
         _controller.handleRequest(getRequest(), getResponse());
+        assertEquals("get thank you for taking survey email", 1, _mailSender.getSentMessages().size());
+
         Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
         assertEquals("set a member cookie if this is a new user", String.valueOf(101), cookie.getValue());
 
@@ -125,7 +137,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(Poster.STUDENT.getName(), editor.getAsText());
     }
 
-    public void testPostRequestExistingUser() throws Exception {
+    public void testPostRequestExistingUserFirstSurveyTaken() throws Exception {
         getRequest().setMethod("POST");
         getRequest().setParameter("email", "dlee@greatschools.net");
         getRequest().setParameter("year", "2001");
@@ -150,6 +162,46 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         response.setState(school.getDatabaseState());
 
         expect(_surveyDao.getSurvey("test")).andReturn(survey);
+        expect(_surveyDao.hasTakenASurvey(user, school)).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        replay(_surveyDao);
+
+        expect(_userDao.findUserFromEmailIfExists(user.getEmail())).andReturn(user);
+        replay(_userDao);
+
+        _controller.handleRequest(getRequest(), getResponse());
+        assertEquals("get thank you for taking survey email", 1, _mailSender.getSentMessages().size());
+
+        verify(_surveyDao);
+        verify(_userDao);
+    }
+
+    public void testPostRequestExistingUserHasTakenSurveyBefore() throws Exception {
+        getRequest().setMethod("POST");
+        getRequest().setParameter("email", "dlee@greatschools.net");
+        getRequest().setParameter("year", "2001");
+        getRequest().setParameter("who", "student");
+        getRequest().setParameter("responseMap[q1a1].values", "Band");
+
+        School school = createSchool();
+        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
+
+        Survey survey = createSurvey();
+        User user = createUser(false);
+
+        UserResponse response = new UserResponse();
+        response.setUserId(user.getId());
+        response.setWho(Poster.STUDENT);
+        response.setYear(2001);
+        response.setSurveyId(survey.getId());
+        response.setAnswerId(1);
+        response.setQuestionId(1);
+        response.setSchoolId(school.getId());
+        response.setResponseValue("Band");
+        response.setState(school.getDatabaseState());
+
+        expect(_surveyDao.getSurvey("test")).andReturn(survey);
+        expect(_surveyDao.hasTakenASurvey(user, school)).andReturn(true);
         _surveyDao.removeAllUserResponses(survey, school, user);
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
         replay(_surveyDao);
@@ -158,6 +210,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         replay(_userDao);
 
         _controller.handleRequest(getRequest(), getResponse());
+        assertNull("should not get email", _mailSender.getSentMessages());
 
         verify(_surveyDao);
         verify(_userDao);
@@ -273,6 +326,10 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         urc.setSurvey(createSurvey());
 
         BindException errors = new BindException(urc, "");
+        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        replay(_surveyDao);
+        
         ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
         UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_PROFILE);
 
@@ -304,6 +361,10 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         BindException errors = new BindException(urc, null);
 
+        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        replay(_surveyDao);
+
         //public or charter sign up for MSS
         _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription(user, SubscriptionProduct.MYSTAT, school)));
         replay(_subscriptionDao);
@@ -313,7 +374,11 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         //if private school, should sign up for parent advisor
         reset(_subscriptionDao);
+        reset(_surveyDao);
         school.setType(SchoolType.PRIVATE);
+        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        replay(_surveyDao);        
         _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, school.getDatabaseState())));
         replay(_subscriptionDao);
         _controller.onSubmit(getRequest(), getResponse(), urc, errors);
@@ -324,6 +389,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         School school = new School();
         school.setDatabaseState(State.WY);
         school.setId(123);
+        school.setName("Alameda High School");
 
         return school;
     }
@@ -365,5 +431,20 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
     public Matcher getMatcher(final String input) {
         return SurveyController.QUESTION_ANSWER_IDS.matcher(input);
+    }
+
+    public void xtestSendRealEmail() throws Exception {
+        EmailHelperFactory emailHelperFactory = new EmailHelperFactory();
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("mail.greatschools.net");
+        emailHelperFactory.setMailSender(mailSender);
+
+        _controller.setEmailHelperFactory(emailHelperFactory);
+
+        User user = createUser(false);
+        user.setEmail("dlee@greatschools.net");
+        School school = createSchool();
+
+        _controller.sendEmail(user, school, getRequest());
     }
 }

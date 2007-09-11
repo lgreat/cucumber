@@ -8,6 +8,8 @@ import gs.data.school.review.Poster;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
+import gs.data.util.email.EmailHelper;
+import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
@@ -23,9 +25,11 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,6 +55,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     private IUserDao _userDao;
     private IPropertyDao _propertyDao;
     private ISubscriptionDao _subscriptionDao;
+    private EmailHelperFactory _emailHelperFactory;
 
     protected final static Pattern QUESTION_ANSWER_IDS = Pattern.compile("^responseMap\\[q(\\d+)a(\\d+)\\]\\.values*$");
 
@@ -159,6 +164,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         UserResponseCommand urc = (UserResponseCommand) command;
 
         User user = urc.getUser();
+        boolean isExistingUser = true;
         if (null == user) {
             user = getUserDao().findUserFromEmailIfExists(urc.getEmail());
 
@@ -167,6 +173,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                 user.setEmail(urc.getEmail());
                 getUserDao().saveUser(user);
                 PageHelper.setMemberCookie(request, response, user);
+                isExistingUser = false;
             }
             urc.setUser(user);
         }
@@ -175,8 +182,18 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
         //user needs to have been populated before call to getResponses
         List<UserResponse> responses = urc.getResponses();
-        _surveyDao.removeAllUserResponses(urc.getSurvey(), school, user);
-        _surveyDao.saveSurveyResponses(responses);
+
+        if (isExistingUser) {
+            if (!_surveyDao.hasTakenASurvey(user, school)) {
+                sendEmail(user, school, request);
+            } else {
+                _surveyDao.removeAllUserResponses(urc.getSurvey(), school, user);
+            }
+            _surveyDao.saveSurveyResponses(responses);            
+        } else {
+            sendEmail(user, school, request);
+            _surveyDao.saveSurveyResponses(responses);
+        }
 
         //does this user want an email newsletter?
         if (urc.isNLSignUpChecked()) {
@@ -196,6 +213,31 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
         //return new ModelAndView("redirect:" + "/school/overview.page?id=1&state=CA");
         return new ModelAndView("redirect:" + builder.asFullUrl(request));
+    }
+
+    protected void sendEmail(User user, School school, HttpServletRequest request) throws MessagingException, IOException {
+        EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+        emailHelper.setToEmail(user.getEmail());
+        emailHelper.setFromEmail("survey@greatschools.net");
+        emailHelper.setFromName("GreatSchools");
+        emailHelper.setSubject("Thanks for completing the survey about " + school.getName());
+        emailHelper.setExtraStyles(".bold {font-weight:bold;} .italic {font-style:italic;} li {padding-bottom:1em;}");
+        emailHelper.setSentToCustomMessage("<p>This message was sent to $EMAIL</p>");
+        emailHelper.readHtmlFromResource("/gs/web/survey/thankYouEmail.txt");
+
+        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        String parentReviewHref = builder.asFullUrl(request);
+
+        builder = new UrlBuilder(UrlBuilder.REGISTRATION, school.getDatabaseState(), user.getEmail(), null);
+        String registrationHref = builder.asFullUrl(request);
+
+        Map replacements = new HashMap();
+        replacements.put("SCHOOL_NAME", school.getName());
+        replacements.put("PARENT_REVIEW_URL", parentReviewHref);
+        replacements.put("COMMUNITY_REGISTER_URL", registrationHref);
+
+        emailHelper.setInlineReplacements(replacements);
+        emailHelper.send();
     }
 
     public ISurveyDao getSurveyDao() {
@@ -236,5 +278,13 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+    public EmailHelperFactory getEmailHelperFactory() {
+        return _emailHelperFactory;
+    }
+
+    public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
+        _emailHelperFactory = emailHelperFactory;
     }
 }
