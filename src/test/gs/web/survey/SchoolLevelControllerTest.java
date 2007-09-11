@@ -45,10 +45,20 @@ public class SchoolLevelControllerTest extends BaseControllerTestCase {
         assertEquals("Expected state in model", "AZ", modelAndView.getModel().get("state"));
     }
 
+    public void testShouldReturnFormViewIfNoLevelSubmitted() throws Exception {
+        School school = createSchool(345, State.AZ, LevelCode.ELEMENTARY_MIDDLE);
+
+        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
+        getRequest().setMethod("POST");
+
+        ModelAndView modelAndView = _controller.handleRequest(getRequest(), getResponse());
+        assertEquals("Expected form view when no level is submitted", _controller.getFormView(), modelAndView.getView());
+    }
+
     public void testMustSelectALevel() throws Exception {
         SchoolLevelCommand command = new SchoolLevelCommand();
         BindException errors = new BindException(command, "");
-        _controller.onBindAndValidate(getRequest(), command, errors);
+        _controller.onBind(getRequest(), command, errors);
         assertTrue("Expected level error message", errors.hasFieldErrors("level"));
     }
 

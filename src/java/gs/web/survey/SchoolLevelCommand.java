@@ -19,7 +19,7 @@ public class SchoolLevelCommand {
         return _level;
     }
 
-    public void setLevel(LevelCode.Level level) {
-        _level = level;
+    public void setLevel(String level) {
+        _level = LevelCode.Level.getLevelCode(level);
     }
 }
