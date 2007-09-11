@@ -30,21 +30,25 @@
                 </div>
             </div>
 
-            <h2 class="question-group-heading">Please select the highest level your child attended at this school so we can provide you with the appropriate survey questions:</h2>
+            <div class="question-group">
+                <h2 class="question-group-heading">Please select the highest level your child attended at this school so we can provide you with the appropriate survey questions:</h2>
 
-            <form:form commandName="schoolLevelCommand">
-                <ul class="answer-list">
-                    <c:forEach var="level" items="${school.levelCode.individualLevelCodes}" varStatus="count">
-                        <li class="answer-list-item">
-                            <form:radiobutton path="level" value="${level.name}" id="r${level.name}" cssStyle="radio"/>
-                            <label for="r${level.name}">${level.longName} School</label>
-                            <c:if test="${count.index == 0}"><form:errors path="level" cssClass="error"/></c:if>
-                        </li>
-                    </c:forEach>
-                </ul>
-                <gsml:inputImage src="/res/img/survey/submit.gif" alt="Submit Survey"
-                                 name="submit" id="submitButton"/>
-            </form:form>
+                <form:form commandName="schoolLevelCommand">
+                    <div class="question">
+                        <ul class="answer-list">
+                            <c:forEach var="level" items="${school.levelCode.individualLevelCodes}" varStatus="count">
+                                <li class="answer-list-item">
+                                    <form:radiobutton path="level" value="${level.name}" id="r${level.name}" cssStyle="radio"/>
+                                    <label for="r${level.name}">${level.longName} School</label>
+                                    <c:if test="${count.index == 0}"><form:errors path="level" cssClass="error"/></c:if>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <gsml:inputImage src="/res/img/button/go_wide.gif" alt="Go" styleClass="submit"
+                                     name="submit" id="submitButton"/>
+                </form:form>
+            </div>
         </div>
 
         <div id="right-col">
