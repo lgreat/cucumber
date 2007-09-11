@@ -81,6 +81,7 @@
                 <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
                 <entry key="/school/updateRatings.page" value="updateRatings"/>
                 <entry key="/survey/form.page" value="surveyController"/>
+                <entry key="/survey/start.page" value="surveySchoolLevelController"/>
             </map>
         </property>
     </bean>
@@ -1179,6 +1180,15 @@
                 <ref bean="emailValidator"/>
             </list>
         </property>
+    </bean>
+
+    <bean name="surveySchoolLevelController"
+          class="gs.web.survey.SchoolLevelController" autowire="byName" lazy-init="true">
+        <!--<property name="bindOnNewForm" value="true"/>-->
+        <property name="commandName" value="schoolLevelCommand"/>
+        <property name="commandClass" value="gs.web.survey.SchoolLevelCommand"/>
+        <property name="formView" value="survey/start"/>
+        <property name="successView" value="forward:/survey/form.page"/>
     </bean>
 
     <!-- WEB PAGE DEFINITIONS END -->
