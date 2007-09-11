@@ -28,6 +28,8 @@ public class SchoolLevelController extends SimpleFormController {
         SchoolLevelCommand levelCommand = (SchoolLevelCommand) command;
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.getModel().put("level", levelCommand.getLevel().getName());
+        modelAndView.getModel().put("id", levelCommand.getSchool().getId());
+        modelAndView.getModel().put("state", levelCommand.getSchool().getStateAbbreviation().getAbbreviation());
         return modelAndView;
     }
 
