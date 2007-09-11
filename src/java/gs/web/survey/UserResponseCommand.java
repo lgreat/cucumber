@@ -5,6 +5,7 @@ import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.review.Poster;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
 import gs.web.util.validator.EmailValidator;
@@ -24,6 +25,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     private boolean _terms = true; // default
     private int _year;
     private boolean _NLSignUpChecked = false;
+    private Poster _who;
 
     public UserResponseCommand () {
         _responseMap = new HashMap<String, UserResponse>();
@@ -37,6 +39,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
             response.setSurveyId(getSurvey().getId());
             response.setUserId(getUser().getId());
             response.setYear(getYear());
+            response.setWho(getWho());            
         }
         return responses; 
     }
@@ -96,6 +99,14 @@ public class UserResponseCommand implements EmailValidator.IEmail {
 
     public void setYear(int _year) {
         this._year = _year;
+    }
+
+    public Poster getWho() {
+        return _who;
+    }
+
+    public void setWho(Poster who) {
+        _who = who;
     }
 
     /**

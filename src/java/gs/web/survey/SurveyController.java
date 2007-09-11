@@ -4,6 +4,7 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.review.Poster;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.beans.PropertyEditorSupport;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,6 +79,23 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     protected void initBinder(HttpServletRequest request,
                           ServletRequestDataBinder binder) {
         binder.setDisallowedFields(new String [] {"responseMap*"});
+        binder.registerCustomEditor(Poster.class, new PosterCustomProperyEditor());
+    }
+
+    //TODO dlee - move editor into its own class and refactor ParentReviewController to share this editor
+    static class PosterCustomProperyEditor extends PropertyEditorSupport {
+        public String getAsText() {
+            Poster value = (Poster) getValue();
+            if (value == null) {
+                return null;
+            } else {
+                return value.getName();
+            }
+        }
+
+        public void setAsText(final String text) {
+            setValue(Poster.createPoster(text));
+        }
     }
 
     protected Object formBackingObject(HttpServletRequest request) {

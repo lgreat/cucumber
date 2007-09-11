@@ -4,6 +4,7 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.review.Poster;
 import gs.data.state.State;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.QuestionGroup;
@@ -115,16 +116,38 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         verify(_userDao);
     }
 
+    public void testInitBinder() throws Exception {
+        SurveyController.PosterCustomProperyEditor editor = new SurveyController.PosterCustomProperyEditor();
+
+        editor.setAsText("parent");
+        assertEquals(Poster.PARENT, editor.getValue());
+        editor.setValue(Poster.STUDENT);
+        assertEquals(Poster.STUDENT.getName(), editor.getAsText());
+    }
+
     public void testPostRequestExistingUser() throws Exception {
         getRequest().setMethod("POST");
         getRequest().setParameter("email", "dlee@greatschools.net");
         getRequest().setParameter("year", "2001");
+        getRequest().setParameter("who", "student");
+        getRequest().setParameter("responseMap[q1a1].values", "Band");
 
         School school = createSchool();
         getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
 
         Survey survey = createSurvey();
         User user = createUser(false);
+
+        UserResponse response = new UserResponse();
+        response.setUserId(user.getId());
+        response.setWho(Poster.STUDENT);
+        response.setYear(2001);
+        response.setSurveyId(survey.getId());
+        response.setAnswerId(1);
+        response.setQuestionId(1);
+        response.setSchoolId(school.getId());
+        response.setResponseValue("Band");
+        response.setState(school.getDatabaseState());
 
         expect(_surveyDao.getSurvey("test")).andReturn(survey);
         _surveyDao.removeAllUserResponses(survey, school, user);
