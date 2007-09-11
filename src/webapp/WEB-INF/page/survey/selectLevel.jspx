@@ -48,13 +48,13 @@
         </div>
 
         <div id="right-col">
-            <ad:House_Ad_300x137 referredBy="Parent Survey Questions:1" />
+            <ad:House_Ad_300x137 referredBy="Parent Survey: School Level Select Page" />
             <ad:x40/>
         </div>
         </school:profile>
-        <mod:tracking pageType="School Profile"
-                      pageName="Parent Survey Questions:1"
-                      hier1="Schools,Parent Survey,Question,Page 1"/>
+        <mod:tracking pageType=""
+                      pageName="Parent Survey: School Level Select Page"
+                      hier1="Schools,Parent Survey,School Level Select Page"/>
     </body>
     </html>
 </jsp:root>
