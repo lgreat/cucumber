@@ -1187,7 +1187,7 @@
         <!--<property name="bindOnNewForm" value="true"/>-->
         <property name="commandName" value="schoolLevelCommand"/>
         <property name="commandClass" value="gs.web.survey.SchoolLevelCommand"/>
-        <property name="formView" value="survey/start"/>
+        <property name="formView" value="survey/selectLevel"/>
         <property name="successView" value="forward:/survey/form.page"/>
     </bean>
 
