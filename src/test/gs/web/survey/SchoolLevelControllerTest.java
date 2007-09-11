@@ -40,8 +40,7 @@ public class SchoolLevelControllerTest extends BaseControllerTestCase {
 
         ModelAndView modelAndView = _controller.handleRequest(getRequest(), getResponse());
         assertEquals("Expected success view on submit", _controller.getSuccessView(), modelAndView.getView());
-        SchoolLevelCommand command = (SchoolLevelCommand) modelAndView.getModel().get("command");
-        assertEquals("Expected level to be set in command", LevelCode.Level.MIDDLE_LEVEL, command.getLevel());
+        assertEquals("Expected level to be set in model", "m", modelAndView.getModel().get("level"));
     }
 
     public void testMustSelectALevel() throws Exception {

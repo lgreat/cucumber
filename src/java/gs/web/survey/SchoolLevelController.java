@@ -24,6 +24,13 @@ public class SchoolLevelController extends SimpleFormController {
         }
     }
 
+    protected ModelAndView processFormSubmission(HttpServletRequest request, HttpServletResponse response, Object command, BindException bindException) throws Exception {
+        SchoolLevelCommand levelCommand = (SchoolLevelCommand) command;
+        ModelAndView modelAndView = new ModelAndView(getSuccessView());
+        modelAndView.getModel().put("level", levelCommand.getLevel().getName());
+        return modelAndView;
+    }
+
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
         SchoolLevelCommand command = new SchoolLevelCommand();
@@ -39,5 +46,10 @@ public class SchoolLevelController extends SimpleFormController {
             SchoolLevelCommand levelCommand = (SchoolLevelCommand) command;
             levelCommand.setLevel(LevelCode.Level.getLevelCode(level));
         }
+    }
+
+
+    protected boolean isFormSubmission(HttpServletRequest httpServletRequest) {
+        return super.isFormSubmission(httpServletRequest);
     }
 }
