@@ -45,14 +45,14 @@
                       <spring:hasBindErrors name="emailCmd">
                           <spring:bind path="emailCmd.email">
                               <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                                  <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif"
+                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
                                             alt="Error" styleClass="errorImage"/>
                                   <p class="errorText"><spring:message code="${status.errorCode}" text="${status.errorMessage}"/></p>
                               </c:if>
                           </spring:bind>
                           <spring:bind path="emailCmd.newEmail">
                               <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                                  <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif"
+                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
                                             alt="Error" styleClass="errorImage"/>
                                   <p class="errorText"><spring:message code="${status.errorCode}" text="${status.errorMessage}"/></p>
                               </c:if>

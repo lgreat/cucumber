@@ -29,7 +29,7 @@
                 <spring:bind path="${command}.${field}">
                     <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
                         <c:if test="${useImage eq 'true'}">
-                            <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif" 
+                            <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
                                       alt="Error" styleClass="${imageClass}"/>
                         </c:if>
                         <p class="${styleClass}">
@@ -43,7 +43,7 @@
                     <c:forEach var="error" items="${errors.allErrors}">
                         <li>
                             <c:if test="${useImage eq 'true'}">
-                                <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif" alt="Error"/>
+                                <gsml:img src="/res/img/bullet/icon_warning_12x12.gif" alt="Error"/>
                             </c:if>
                             <spring:message arguments="${error.arguments}" code="${error.code}" text="${error.defaultMessage}"/>
                         </li>
