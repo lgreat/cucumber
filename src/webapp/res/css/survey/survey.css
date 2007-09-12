@@ -161,7 +161,7 @@ div.email-subtext{
 #email.error, .error{
 	color:#CC5566;
 	font-size:11px;    
-    background-image: url('/res/img/survey/icon_warning_12x12.gif');
+    background-image: url('/res/img/bullet/icon_warning_12x12.gif');
     background-repeat: no-repeat;
     background-position: 0 2px;
     padding: 0 0 0 18px;
