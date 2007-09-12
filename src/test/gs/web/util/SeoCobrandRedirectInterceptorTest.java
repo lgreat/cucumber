@@ -59,6 +59,20 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
     }
 
     /**
+     * There should never be a redirect on a POST request
+     *
+     * @throws Exception
+     */
+    public void testNoRedirectOnRobotsTxt() throws Exception {
+        _sessionContext.setCrawler(true);
+        _sessionContext.setCobrand("sfgate");
+        getRequest().setMethod("GET");
+        getRequest().setRequestURI("/robots.txt");
+        assertTrue(_interceptor.preHandle(getRequest(), getResponse(), null));
+        assertNull(getResponse().getHeader("Location"));
+    }
+
+    /**
      * As part of our negotiations with Yahoo we agreed to let them crawl their own cobrand
      *
      * @throws Exception

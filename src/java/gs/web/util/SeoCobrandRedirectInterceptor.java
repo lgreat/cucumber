@@ -26,11 +26,11 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
 
-        if (sessionContext.isCobranded() && sessionContext.isCrawler() && "GET".equals(request.getMethod())) {
+        String uri = request.getRequestURI();
+        if (sessionContext.isCobranded() && sessionContext.isCrawler() && "GET".equals(request.getMethod()) && !"/robots.txt".equals(uri)) {
             // We have to special case Yahoo because as part of our contract Yahoo can crawl their cobrand
             if (!("yahooed".equals(sessionContext.getCobrand()) && request.getHeader("User-Agent").indexOf("Slurp") > -1)) {
                 StringBuffer newUrl = new StringBuffer("http://www.greatschools.net");
-                String uri = request.getRequestURI();
 
                 // Handle URL's rewritten behind the scenes by Apache
                 if ("/index.page".equals(uri)) {
