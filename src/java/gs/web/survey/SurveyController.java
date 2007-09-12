@@ -8,6 +8,7 @@ import gs.data.school.review.Poster;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
+import gs.data.survey.SurveyPage;
 import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
@@ -103,7 +104,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     protected Object formBackingObject(HttpServletRequest request) {
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
-        Survey survey = getSurveyDao().getSurvey("test");
+        String levelParam = request.getParameter("level");
+        Survey survey = getSurveyDao().getSurvey(levelParam);
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
 
@@ -113,6 +115,9 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         urc.setUser(user);
 
         String yearParam = (String)request.getAttribute("year");
+        if (StringUtils.isBlank(yearParam)) {
+            yearParam = request.getParameter("year");
+        }
         if (StringUtils.isNotBlank(yearParam)) {
             try {
                 urc.setYear(Integer.parseInt(yearParam));
@@ -125,6 +130,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         if (index < 1 || index > survey.getPages().size()) {
             index = 1;
         }
+
         urc.setPage(survey.getPages().get(index-1));
         request.setAttribute(CURRENT_PAGE, index);
         return urc;
@@ -137,7 +143,12 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
      */
     int getPageIndexFromRequest(HttpServletRequest request) {
         int index = 1;
-        String pageParam = request.getParameter("p");
+
+        String pageParam = (String)request.getAttribute("p");
+        if (StringUtils.isBlank(pageParam)) {
+            pageParam = request.getParameter("p");
+        }
+
         if (StringUtils.isNotBlank(pageParam)) {
             try {
                 index = Integer.parseInt(pageParam);
@@ -242,7 +253,9 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         util.setTempMsg(response, TMP_MSG_COOKIE_VALUE);
 
         Survey survey = urc.getSurvey();
-        int curPageIndex = urc.getPage().getIndex();
+        SurveyPage sp = urc.getPage();
+
+        int curPageIndex = sp.getIndex();
 
         String redirectURL;
         if (curPageIndex >= survey.getPages().size()) {
@@ -251,13 +264,23 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         } else {
             UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
             StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
+            buffer.append("&level=");
+            buffer.append(request.getParameter("level"));
             buffer.append("&p=");
             int nextPage = curPageIndex + 1;
             buffer.append(nextPage);
+
+            String yearParam = (String)request.getAttribute("year");
+            if (StringUtils.isBlank(yearParam)) {
+                yearParam = request.getParameter("year");
+            }
+            buffer.append("&year=");
+            buffer.append(yearParam);
             redirectURL = buffer.toString();
         }
         return new ModelAndView("redirect:" + redirectURL);
     }
+
 
     protected void sendEmail(User user, School school, HttpServletRequest request) throws MessagingException, IOException {
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();

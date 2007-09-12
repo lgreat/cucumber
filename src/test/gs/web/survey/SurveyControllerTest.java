@@ -64,10 +64,11 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
     public void testGetRequest() throws Exception {
         getRequest().setMethod("GET");
+        getRequest().setParameter("level", "e");
         expect(_propertyDao.getProperty(IPropertyDao.CURRENT_ACADEMIC_YEAR)).andReturn("2003-2004");
         replay(_propertyDao);
 
-        expect(_surveyDao.getSurvey("test")).andReturn(createSurvey());
+        expect(_surveyDao.getSurvey("e")).andReturn(createSurvey());
         replay(_surveyDao);
 
         _controller.handleRequest(getRequest(), getResponse());
@@ -82,8 +83,9 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         School school = createSchool();
         getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
         getRequest().setAttribute("year", "2007");
+        getRequest().setParameter("level", "m");
 
-        expect(_surveyDao.getSurvey("test")).andReturn(createSurvey());
+        expect(_surveyDao.getSurvey("m")).andReturn(createSurvey());
         replay(_surveyDao);
         UserResponseCommand command = (UserResponseCommand) _controller.formBackingObject(getRequest());
 
@@ -97,6 +99,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         getRequest().setMethod("POST");
         getRequest().setParameter("email", "dlee@greatschools.net");
         getRequest().setParameter("year", "2004");
+        getRequest().setParameter("level", "test");
 
         School school = createSchool();
         getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
@@ -144,6 +147,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("email", "dlee@greatschools.net");
         getRequest().setParameter("year", "2001");
         getRequest().setParameter("who", "student");
+        getRequest().setParameter("level", "test");
         getRequest().setParameter("responseMap[q1a1].values", "Band");
 
         School school = createSchool();
@@ -183,6 +187,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("email", "dlee@greatschools.net");
         getRequest().setParameter("year", "2001");
         getRequest().setParameter("who", "student");
+        getRequest().setParameter("level", "test");
         getRequest().setParameter("responseMap[q1a1].values", "Band");
 
         School school = createSchool();
@@ -359,6 +364,9 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
         replay(_surveyDao);
 
+        getRequest().setParameter("level", "m");
+        getRequest().setParameter("year", "2006");
+        
         ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
         reset(_surveyDao);
         expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
@@ -366,7 +374,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         replay(_surveyDao);
 
         UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
-        assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&p=2", mAndV.getViewName());
+        assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&level=m&p=2&year=2006", mAndV.getViewName());
 
         urc.setPage(survey.getPages().get(1));
         mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
@@ -375,7 +383,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
         replay(_surveyDao);
 
-        assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&p=3", mAndV.getViewName());
+        assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&level=m&p=3&year=2006", mAndV.getViewName());
 
         urc.setPage(survey.getPages().get(2));
         mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);

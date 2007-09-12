@@ -162,7 +162,6 @@
         <c:when test="${not empty requestScope.context.user}">
             <input type="hidden" name="terms" value="true"  />
             <input type="hidden" name="email" value="${requestScope.context.user.email}"  />
-            <input type="hidden" name="year" value="1234" />
         </c:when>
         <c:otherwise>
             <h2 class="question-group-heading">A little about you (required)</h2>
