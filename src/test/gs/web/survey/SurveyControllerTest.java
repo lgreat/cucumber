@@ -240,6 +240,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         urc.setSurvey(survey);
         urc.setUser(user);
         urc.setSchool(school);
+        urc.setPage(survey.getPages().get(0));
 
         getRequest().addParameter("responseMap[q1a1].values", "Band");
         getRequest().addParameter("responseMap[q1a1].values", "Orchestra");

@@ -8,6 +8,7 @@ import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
+import gs.data.survey.SurveyPage;
 import junit.framework.TestCase;
 
 import java.util.HashSet;
@@ -52,9 +53,13 @@ public class UserResponseCommandSaTest extends TestCase {
         Survey survey = new Survey();
         survey.setId(982934);
 
+        SurveyPage page = new SurveyPage();
+        page.setId(1);
+
         _command.setSchool(school);
         _command.setUser(user);
         _command.setSurvey(survey);
+        _command.setPage(page);
 
         List<UserResponse> responses = _command.getResponses();
         assertEquals(1, responses.size());
