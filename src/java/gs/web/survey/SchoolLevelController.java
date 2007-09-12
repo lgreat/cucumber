@@ -13,12 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 public class SchoolLevelController extends SimpleFormController {
+
     protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
         Set<LevelCode.Level> levelCodes = school.getLevelCode().getIndividualLevelCodes();
 
         if (levelCodes.size() < 2) {
-            return new ModelAndView(getSuccessView());
+            ModelAndView modelAndView = new ModelAndView(getSuccessView());
+            LevelCode.Level lev = (LevelCode.Level )levelCodes.toArray()[0];
+            modelAndView.getModel().put("level", lev.getName()); 
+            modelAndView.getModel().put("id", school.getId());
+            modelAndView.getModel().put("state", school.getStateAbbreviation().getAbbreviation());
+            return modelAndView;
         } else {
             return super.showForm(request, response, bindException);
         }
