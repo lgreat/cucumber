@@ -39,6 +39,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
             response.setSchoolId(getSchool().getId());
             response.setState(getSchool().getDatabaseState());
             response.setSurveyId(getSurvey().getId());
+            response.setSurveyPageId(getPage().getId());
             response.setUserId(getUser().getId());
             response.setYear(getYear());
             response.setWho(getWho());

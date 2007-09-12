@@ -159,7 +159,7 @@
 
 <div class="question-group">
     <c:choose>
-        <c:when test="${not empty requestScope.context.user}">
+        <c:when test="${(not empty requestScope.context.user) and (not empty userResponseCommand.year) and (userResponseCommand.year ne '0')}">
             <input type="hidden" name="terms" value="true"  />
             <input type="hidden" name="email" value="${requestScope.context.user.email}"  />
         </c:when>
@@ -177,21 +177,21 @@
                     </c:forEach>
                 </ul>
             </div>
-                    <div class="question">
-                        <div class="email-module">
-                            Email address
-                            <form:input id="email" path="email" size="30"/>
-                            <form:errors path="email" >
-                                <span class="error">Please enter a valid e-mail address.</span>
-                            </form:errors>
-                            <div class="email-subtext">We will not share your email. <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy></div>
-                        </div>
-                    </div>
-                    <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
-                    <form:errors path="terms" />
-                </c:otherwise>
-            </c:choose>
-        </div>
+            <div class="question">
+                <div class="email-module">
+                    Email address
+                    <form:input id="email" path="email" size="30"/>
+                    <form:errors path="email" >
+                        <span class="error">Please enter a valid e-mail address.</span>
+                    </form:errors>
+                    <div class="email-subtext">We will not share your email. <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy></div>
+                </div>
+            </div>
+            <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
+            <form:errors path="terms" />
+        </c:otherwise>
+    </c:choose>
+</div>
 
 <div id="all-errors">
     <h1>user: ${requestScope.context.user}</h1>

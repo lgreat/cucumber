@@ -229,7 +229,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             if (!_surveyDao.hasTakenASurvey(user, school)) {
                 sendEmail(user, school, request);
             } else {
-                _surveyDao.removeAllUserResponses(urc.getSurvey(), school, user);
+                _surveyDao.removeAllUserResponses(urc.getSurvey(), urc.getPage(), school, user);
             }
             _surveyDao.saveSurveyResponses(responses);
         } else {

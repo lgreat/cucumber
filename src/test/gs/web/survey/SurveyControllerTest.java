@@ -194,6 +194,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
 
         Survey survey = createSurvey();
+        SurveyPage page = survey.getPages().get(0);
         User user = createUser(false);
 
         UserResponse response = new UserResponse();
@@ -201,6 +202,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         response.setWho(Poster.STUDENT);
         response.setYear(2001);
         response.setSurveyId(survey.getId());
+        response.setSurveyPageId(page.getId());
         response.setAnswerId(1);
         response.setQuestionId(1);
         response.setSchoolId(school.getId());
@@ -209,7 +211,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         expect(_surveyDao.getSurvey("test")).andReturn(survey);
         expect(_surveyDao.hasTakenASurvey(user, school)).andReturn(true);
-        _surveyDao.removeAllUserResponses(survey, school, user);
+        _surveyDao.removeAllUserResponses(survey, page, school, user);
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
         replay(_surveyDao);
 
@@ -472,6 +474,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         for (int i = 0; i < pageCount; i++) {
             SurveyPage page = new SurveyPage();
             int index = i+1;
+            page.setId(index);
             page.setIndex(index);
             page.setTitle("page " + index);
             page.setQuestionGroups(Collections.<QuestionGroup>emptyList());
