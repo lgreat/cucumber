@@ -1,3 +1,68 @@
+/* Styles for table of contents - taken from spp2.css - should be refactored*/
+#toc {
+    margin:10px 10px 20px 0;    
+    float:left;
+}
+#toc img { /* Has IE 7 equivalent (below this style block) */
+   padding: 0 0 8px 0;
+   _padding:0 0 4px 0;
+}
+#toc ul {
+   margin-top: 0;
+   margin-bottom: 0;
+}
+#toc ul li {
+    font: bold 13px Trebuchet MS, Arial, sans-serif;
+    padding: 0px 12px 4px 16px;
+    margin-bottom: 1px;
+    list-style: none;
+    background-image: url( "/res/img/bullet/pinkarrow.gif" );
+    background-repeat: no-repeat;
+    background-position: .5ex .9ex;
+}
+
+#toc ul li.inactive {
+    background-image: url( "/res/img/bullet/pinkarrow.gif" );
+    background-position: .5ex .9ex;
+}
+
+#toc ul li.active {
+    background-image: url( "/res/img/bullet/pinkarrow.gif" );
+    background-position: .5ex .7ex;
+    outline: none;
+}
+
+
+#toc ul li {
+    color:#39A;
+}
+
+#toc ul li.active {
+    color: #cc5566;
+    text-decoration: none;
+}
+
+
+:focus {
+    -moz-outline-style: none;
+}
+
+#toc h2 {
+   font: bold 13px Trebuchet MS, Arial, sans-serif;
+   color:#999999;
+   padding: 0 0 0 42px;
+   margin-top: 12px;
+   margin-bottom: 6px;
+}
+#toc a, #toc a:link, #toc a:visited, #toc a:hover {
+   color: #3399AA;
+   text-decoration: underline;
+   font-size: 13px;
+}
+
+
+
+
 #left-col{
     position:relative;
 	float:left;
@@ -316,4 +381,36 @@ input.textinput{
 input.submit{
     float: right;
     margin-right:80px;
+}
+
+div.nextprev div.previousnextouterwrap{
+    width:537px;
+    padding-top:6px;
+    padding-bottom:6px;
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+}
+div.nextprev div.previousnextouterwrap div.previousnextwrap{
+    height: 45px;
+    background-color: #ddeeee;
+    padding-left:10px;
+    padding-right:10px;
+}
+div.nextprev div.previousnextouterwrap div.previousnextwrap div.previous{
+    background-color: #ddeeee;
+    display:block;
+    float:left;
+    margin-top: 15px;
+    padding-bottom: 0px;
+}
+div.nextprev div.previousnextouterwrap div.previousnextwrap div.next{
+    background-color: #ddeeee;
+    display:block;
+    float:right;
+    margin-top: 15px;
+    padding-bottom: 0px;
+}
+
+div#all-errors {
+    display:none;
 }

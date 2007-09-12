@@ -8,6 +8,7 @@ import gs.data.school.SchoolType;
 import gs.data.school.review.Poster;
 import gs.data.survey.Survey;
 import gs.data.survey.UserResponse;
+import gs.data.survey.SurveyPage;
 import gs.web.util.validator.EmailValidator;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     private String _email;
     private boolean _terms = true; // default
     private int _year;
+    private SurveyPage _page;
     private boolean _NLSignUpChecked = false;
     private Poster _who;
 
@@ -39,9 +41,9 @@ public class UserResponseCommand implements EmailValidator.IEmail {
             response.setSurveyId(getSurvey().getId());
             response.setUserId(getUser().getId());
             response.setYear(getYear());
-            response.setWho(getWho());            
+            response.setWho(getWho());
         }
-        return responses; 
+        return responses;
     }
 
     public Map<String, UserResponse> getResponseMap() {
@@ -101,7 +103,15 @@ public class UserResponseCommand implements EmailValidator.IEmail {
         this._year = _year;
     }
 
-    public Poster getWho() {
+    public SurveyPage getPage() {
+        return _page;
+    }
+
+    public void setPage(SurveyPage page) {
+        _page = page;
+    }
+
+        public Poster getWho() {
         return _who;
     }
 

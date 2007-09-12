@@ -35,36 +35,35 @@
 
 		<div id="intro-blurb">
 			<div class="intro-heading1">${school.name} parent survey</div>
-			<div class="intro-heading2">Other parents want to know more about this school! Share YOUR experiences through this short survey.</div>
+        </div>
+
+        <div id="toc">
+            <ul id="page-links">
+                <c:forEach var="page" items="${userResponseCommand.survey.pages}">
+                    <c:set var="cls" value="${page.index eq requestScope.currentPage ? 'active' : 'inactive'}" />
+                    <li class="${cls}">
+                        <span>
+                            ${page.title}
+                        </span>
+                    </li>
+                </c:forEach>
+            </ul>
         </div>
     </div>
 
 <form:form commandName="userResponseCommand">
 
-<div class="question-group">
-    <h2 class="question-group-heading">Before you get started, please tell us what school year your responses are based on:</h2>
-    <div class="question">
-        <ul class="answer-list">
-            <c:forEach var="year" items="${schoolYears}" varStatus="count">
-                <li class="answer-list-item">
-                    <form:radiobutton path="year" value="${year}" id="r${year}" cssStyle="radio"/>
-                    <label for="r${year}">${year-1}-${year}</label>
-                    <c:if test="${count.index == 0}"><form:errors path="year" cssClass="error"/></c:if>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
+<div id="page-title">
+    ${userResponseCommand.page.title}
 </div>
 
-
-<c:forEach var="questionGroup" items="${userResponseCommand.survey.questionGroups}">
+<c:forEach var="questionGroup" items="${userResponseCommand.page.questionGroups}">
     <div class="question-group">
     <h2 class="question-group-heading"><c:out value="${questionGroup.title}" escapeXml="true"/></h2>
     <c:forEach var="question" items="${questionGroup.questions}" varStatus="questionCount">
         <div class="question">
             <div class="question-text"><span class="number">${questionCount.index + 1}.</span>${question.text}</div>
             <c:forEach var="answer" items="${question.answers}">
-                <!--<div class="answer-sibling">-->
                 <h3 class="answer-sibling-heading">${answer.title}</h3>
                 <c:choose>
                     <c:when test="${answer.type eq 'MULTI'}">
@@ -151,7 +150,6 @@
                     </c:otherwise>
                 </c:choose>
                 <br/>
-                <!--</div>-->
             </c:forEach>
 
         </div>
@@ -160,22 +158,61 @@
 </c:forEach>
 
 <div class="question-group">
-    <h2 class="question-group-heading">A little about you (required)</h2>    
-    <div class="question">
-        <div class="email-module">
-            Email address
-            <form:input id="email" path="email" size="30"/>
-            <form:errors path="email" >
-                <span class="error">Please enter a valid e-mail address.</span>
-            </form:errors>
-            <div class="email-subtext">We will not share your email. <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy></div>
+    <c:choose>
+        <c:when test="${not empty requestScope.context.user}">
+            <input type="hidden" name="terms" value="true"  />
+            <input type="hidden" name="email" value="${requestScope.context.user.email}"  />
+            <input type="hidden" name="year" value="1234" />
+        </c:when>
+        <c:otherwise>
+            <h2 class="question-group-heading">A little about you (required)</h2>
+            <div class="question">
+                <div class="question-text">My child last attended this school in:</div>
+                <ul class="answer-list">
+                    <c:forEach var="year" items="${schoolYears}" varStatus="count">
+                        <li class="answer-list-item">
+                            <form:radiobutton path="year" value="${year}" id="r${year}" cssStyle="radio"/>
+                            <label for="r${year}">${year-1}-${year}</label>
+                            <c:if test="${count.index == 0}"><form:errors path="year" cssClass="error"/></c:if>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+                    <div class="question">
+                        <div class="email-module">
+                            Email address
+                            <form:input id="email" path="email" size="30"/>
+                            <form:errors path="email" >
+                                <span class="error">Please enter a valid e-mail address.</span>
+                            </form:errors>
+                            <div class="email-subtext">We will not share your email. <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy></div>
+                        </div>
+                    </div>
+                    <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
+                    <form:errors path="terms" />
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+<div id="all-errors">
+    <h1>user: ${requestScope.context.user}</h1>
+    <form:errors path="*" />
+</div>
+
+<div class="nextprev">
+    <div class="previousnextouterwrap" id="outerteachers">
+        <div class="previousnextwrap">
+            <div class="next" id="testnext_teachers">
+                <!--<input type="submit" name="submit" value="Save and Continue"></input>-->
+                <gsml:inputImage src="/res/img/survey/savecontinue.gif" alt="Save and Continue"
+                                 name="submit" id="submitButton"/>
+                <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
+            </div>
         </div>
     </div>
-    <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
-    <form:errors path="terms" />
 </div>
-<gsml:inputImage src="/res/img/survey/submit.gif" alt="Submit Survey"
-                 name="submit" id="submitButton"/>
+
+
 </form:form>
 </div>
 <div id="right-col">

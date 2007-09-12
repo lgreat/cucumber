@@ -43,12 +43,10 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     public static final String BEAN_ID = "surveyController";
 
-    /**
-     * list of school years to show
-     */
+    /** list of school years to show */
     public static final String MODEL_SCHOOL_YEARS = "schoolYears";
-
     public static final String TMP_MSG_COOKIE_VALUE = "fromSurvey";
+    protected final static String CURRENT_PAGE = "currentPage";
 
     private ISurveyDao _surveyDao;
     private String _viewName;
@@ -114,14 +112,46 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         urc.setSchool(school);
         urc.setUser(user);
 
+        String yearParam = (String)request.getAttribute("year");
+        if (StringUtils.isNotBlank(yearParam)) {
+            try {
+                urc.setYear(Integer.parseInt(yearParam));
+            } catch (NumberFormatException e) {
+                _log.warn("incorrect format for year parameter", e);
+            }
+        }
+
+        int index = getPageIndexFromRequest(request);
+        if (index < 1 || index > survey.getPages().size()) {
+            index = 1;
+        }
+        urc.setPage(survey.getPages().get(index-1));
+        request.setAttribute(CURRENT_PAGE, index);
         return urc;
+    }
+
+    /**
+     * This is a help method to extract the page index from request parameters.
+     * @param request an HttpServletRequest type
+     * @return an int index
+     */
+    int getPageIndexFromRequest(HttpServletRequest request) {
+        int index = 1;
+        String pageParam = request.getParameter("p");
+        if (StringUtils.isNotBlank(pageParam)) {
+            try {
+                index = Integer.parseInt(pageParam);
+            } catch (Exception e) {
+                _log.warn("Error parsing page index", e);
+            }
+        }
+        return index;
     }
 
     protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors)
             throws Exception {
         UserResponseCommand urc = (UserResponseCommand) command;
         populateUserResponses(request, urc);
-
         if (!urc.getTerms()) {
             errors.rejectValue("terms", null, "Please accept our terms of use.");
         }
@@ -146,7 +176,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
                 if (null != paramValues) {
                     UserResponse response = new UserResponse();
-                    String responseValue = StringUtils.join(paramValues, ",");                    
+                    String responseValue = StringUtils.join(paramValues, ",");
 
                     if (!StringUtils.containsOnly(responseValue, ",")) {
                         response.setResponseValue(StringUtils.join(paramValues, ","));
@@ -159,6 +189,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         }
     }
 
+
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
                                 BindException errors) throws Exception {
         UserResponseCommand urc = (UserResponseCommand) command;
@@ -167,7 +198,6 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         boolean isExistingUser = true;
         if (null == user) {
             user = getUserDao().findUserFromEmailIfExists(urc.getEmail());
-
             if (null == user) {
                 user = new User();
                 user.setEmail(urc.getEmail());
@@ -175,6 +205,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                 PageHelper.setMemberCookie(request, response, user);
                 isExistingUser = false;
             }
+            PageHelper.setMemberCookie(request, response, user);
             urc.setUser(user);
         }
 
@@ -189,7 +220,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             } else {
                 _surveyDao.removeAllUserResponses(urc.getSurvey(), school, user);
             }
-            _surveyDao.saveSurveyResponses(responses);            
+            _surveyDao.saveSurveyResponses(responses);
         } else {
             sendEmail(user, school, request);
             _surveyDao.saveSurveyResponses(responses);
@@ -210,9 +241,22 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         SessionContextUtil util = context.getSessionContextUtil();
         util.setTempMsg(response, TMP_MSG_COOKIE_VALUE);
 
-        UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
-        //return new ModelAndView("redirect:" + "/school/overview.page?id=1&state=CA");
-        return new ModelAndView("redirect:" + builder.asFullUrl(request));
+        Survey survey = urc.getSurvey();
+        int curPageIndex = urc.getPage().getIndex();
+
+        String redirectURL;
+        if (curPageIndex >= survey.getPages().size()) {
+            UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
+            redirectURL = builder.asFullUrl(request);
+        } else {
+            UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
+            StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
+            buffer.append("&p=");
+            int nextPage = curPageIndex + 1;
+            buffer.append(nextPage);
+            redirectURL = buffer.toString();
+        }
+        return new ModelAndView("redirect:" + redirectURL);
     }
 
     protected void sendEmail(User user, School school, HttpServletRequest request) throws MessagingException, IOException {
@@ -255,7 +299,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     public void setViewName(String viewName) {
         _viewName = viewName;
     }
-    
+
     public IUserDao getUserDao() {
         return _userDao;
     }

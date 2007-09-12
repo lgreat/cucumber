@@ -8,7 +8,7 @@ import gs.data.school.review.Poster;
 import gs.data.state.State;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.QuestionGroup;
-import gs.data.survey.Survey;
+import gs.data.survey.*;
 import gs.data.survey.UserResponse;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
@@ -76,11 +76,12 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         verify(_propertyDao);
     }
 
-    public void testUserAndSchoolIsInCommand() throws Exception {
+    public void testFormBackingObject() throws Exception {
         User user = createUser(true);
         _sessionContext.setUser(user);
         School school = createSchool();
         getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
+        getRequest().setAttribute("year", "2007");
 
         expect(_surveyDao.getSurvey("test")).andReturn(createSurvey());
         replay(_surveyDao);
@@ -88,6 +89,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         assertEquals(user, command.getUser());
         assertEquals(school, command.getSchool());
+        assertEquals(2007, command.getYear());
         verify(_surveyDao);
     }
 
@@ -209,8 +211,14 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(user.getEmail())).andReturn(user);
         replay(_userDao);
 
+        Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+        assertNull("Member cookie should not yet exist", cookie);
+
         _controller.handleRequest(getRequest(), getResponse());
         assertNull("should not get email", _mailSender.getSentMessages());
+
+        cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+        assertEquals("set a member cookie if this is a new user", String.valueOf(user.getId()), cookie.getValue());
 
         verify(_surveyDao);
         verify(_userDao);
@@ -323,13 +331,14 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         UserResponseCommand urc = new UserResponseCommand();
         urc.setUser(createUser(false));
         urc.setSchool(createSchool());
-        urc.setSurvey(createSurvey());
-
+        Survey survey = createSurvey();
+        urc.setSurvey(survey);
+        urc.setPage(survey.getPages().get(0));
         BindException errors = new BindException(urc, "");
         expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
         replay(_surveyDao);
-        
+
         ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
         UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_PROFILE);
 
@@ -337,6 +346,43 @@ public class SurveyControllerTest extends BaseControllerTestCase {
                 getResponse().getCookie("TMP_MSG").getValue());
         assertEquals("redirect:"+builder.asFullUrl(getRequest()), mAndV.getViewName());
     }
+
+    public void testOnSubmitMultiPage() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setUser(createUser(false));
+        urc.setSchool(createSchool());
+        Survey survey = createSurvey(3);
+        urc.setSurvey(survey);
+        urc.setPage(survey.getPages().get(0));
+        BindException errors = new BindException(urc, "");
+        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        replay(_surveyDao);
+
+        ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        reset(_surveyDao);
+        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        replay(_surveyDao);
+
+        UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
+        assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&p=2", mAndV.getViewName());
+
+        urc.setPage(survey.getPages().get(1));
+        mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        reset(_surveyDao);
+        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        replay(_surveyDao);
+
+        assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&p=3", mAndV.getViewName());
+
+        urc.setPage(survey.getPages().get(2));
+        mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("redirect:" + builder.asFullUrl(getRequest()), mAndV.getViewName());
+    }
+
 
     public void testComputeAvailableYears() {
         List<Integer> years = _controller.computeSchoolYears("2003-2004");
@@ -356,7 +402,9 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         User user = createUser(false);
         urc.setUser(user);
-
+        Survey survey = createSurvey();
+        urc.setSurvey(survey);
+        urc.setPage(survey.getPages().get(0));
         urc.setNLSignUpChecked(true);
 
         BindException errors = new BindException(urc, null);
@@ -369,7 +417,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription(user, SubscriptionProduct.MYSTAT, school)));
         replay(_subscriptionDao);
 
-        _controller.onSubmit(getRequest(), getResponse(), urc, errors);                
+        _controller.onSubmit(getRequest(), getResponse(), urc, errors);
         verify(_subscriptionDao);
 
         //if private school, should sign up for parent advisor
@@ -378,7 +426,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         school.setType(SchoolType.PRIVATE);
         expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
-        replay(_surveyDao);        
+        replay(_surveyDao);
         _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, school.getDatabaseState())));
         replay(_subscriptionDao);
         _controller.onSubmit(getRequest(), getResponse(), urc, errors);
@@ -405,12 +453,24 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     }
 
     public Survey createSurvey() {
-        Survey survey = new Survey();
-        survey.setDescription("description");
-        survey.setId(1);
-        survey.setQuestionGroups(Collections.<QuestionGroup>emptyList());
-        survey.getTitle();
+        return createSurvey(1);
+    }
 
+    public Survey createSurvey(int pageCount) {
+        Survey survey = new Survey();
+        survey.setDescription("description with " + pageCount + " pages");
+        survey.setId(1);
+        List<SurveyPage> pages = new ArrayList<SurveyPage>();
+        for (int i = 0; i < pageCount; i++) {
+            SurveyPage page = new SurveyPage();
+            int index = i+1;
+            page.setIndex(index);
+            page.setTitle("page " + index);
+            page.setQuestionGroups(Collections.<QuestionGroup>emptyList());
+            pages.add(page);
+        }
+        survey.setPages(pages);
+        survey.setTitle("Survey with " + pageCount + " pages.");
         return survey;
     }
 
