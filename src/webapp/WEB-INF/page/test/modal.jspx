@@ -77,8 +77,7 @@
         var state = sltState.options[sltState.selectedIndex].value;
         var city = sltCity.options[sltCity.selectedIndex].value;
 
-        var sltSchool = document.getElementById('sltSchool');
-        sltSchool.innerHTML="<option>Please hold.</option>";
+        tempSelectMsg(document.getElementById('sltSchool'),'Retrieving schools');
 
         var url = "/school/ajaxFindSchoolAndCity.page?filter=school&level="+level+"&state="+state+"&city="+city;
         YAHOO.util.Connect.asyncRequest('GET', url, callback, "");
@@ -101,6 +100,9 @@
                 alert(o);
             }            
         };
+
+        tempSelectMsg(document.getElementById('sltCity'),'Retrieving cities');
+
         var url = "/school/ajaxFindSchoolAndCity.page?filter=city&state=" + state;
         YAHOO.util.Connect.asyncRequest('GET', url, callback, "");
         return 0;
@@ -112,6 +114,12 @@
         var sltSchool = document.getElementById('sltSchool');
         sltSchool.selectedIndex = 0;
         sltSchool.innerHTML = "";
+        return 0;
+    }
+
+    function tempSelectMsg(select,msg) {
+        select.options.length=0;
+        select.innerHTML="<option value=\"\">"+msg+"</option>";
         return 0;
     }
 </script>
