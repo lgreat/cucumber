@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
         >
     <html lang="en">
 
@@ -48,6 +49,94 @@
             Note, the title doesn't show when running on localhost:8080 because of Javascript security. For titles to
             work in submodal the modal page must be on the same host as the parent page.
         </center>
+
+        <yui:connectionManager/>
+        <form>
+<![CDATA[
+<script type="text/javascript">
+    function updateSchool(level) {
+        var callback = {
+            success: function(o) {
+                var sltSchool = document.getElementById('sltSchool');
+                var jsonResponse = o.responseText.parseJSON();
+                var schools = jsonResponse.schools;
+                sltSchool.options.length=0;
+                for (var i=0; i<schools.length;i++) {
+                    var option = document.createElement("OPTION");
+                    sltSchool[i] = new Option(schools[i].name, schools[i].id);
+                    sltSchool.add(option,i);
+                }
+            },
+            failure: function(o) {
+                alert(o);
+            }
+        };
+        var sltState=document.getElementById('sltState');
+        var sltCity=document.getElementById('sltCity');
+
+        var state = sltState.options[sltState.selectedIndex].value;
+        var city = sltCity.options[sltCity.selectedIndex].value;
+
+        var sltSchool = document.getElementById('sltSchool');
+        sltSchool.innerHTML="<option>Please hold.</option>";
+
+        var url = "/school/ajaxFindSchoolAndCity.page?filter=school&level="+level+"&state="+state+"&city="+city;
+        YAHOO.util.Connect.asyncRequest('GET', url, callback, "");
+        return 0;
+    }
+
+    function updateCity(state) {
+        var callback = {
+            success: function(o) {
+                var sltCity = document.getElementById('sltCity');
+                var jsonResponse = o.responseText.parseJSON();
+                var cities = jsonResponse.cities;
+                sltCity.options.length=0;
+                for (var i=0; i<cities.length;i++) {
+                    var option = document.createElement("OPTION");
+                    sltCity[i] = new Option(cities[i].name,cities[i].name);
+                }
+            },
+            failure: function(o) {
+                alert(o);
+            }            
+        };
+        var url = "/school/ajaxFindSchoolAndCity.page?filter=city&state=" + state;
+        YAHOO.util.Connect.asyncRequest('GET', url, callback, "");
+        return 0;
+    }
+
+    function resetLevelAndSchool() {
+        var sltLevelCode = document.getElementById('sltLevelCode');
+        sltLevelCode.selectedIndex = 0;
+        var sltSchool = document.getElementById('sltSchool');
+        sltSchool.selectedIndex = 0;
+        sltSchool.innerHTML = "";
+        return 0;
+    }
+</script>
+]]>
+
+<select id="sltCity" onchange="resetLevelAndSchool();">
+    <option value="1">city 1</option>
+    <option value="2">city 2</option>
+</select>
+<select id="sltState" onchange="resetLevelAndSchool();updateCity(this.value);">
+    <option value="CA">CA</option>
+    <option value="NY">NY</option>
+    <option value="TX">TX</option>
+</select>
+<select id="sltLevelCode" onchange="updateSchool(this.value);">
+    <option value="--" selected="selected">--</option>
+    <option value="e">Elementary</option>
+    <option value="m">Middle</option>
+    <option value="h">High</option>
+</select>
+<select id="sltSchool">
+    <option value="--">--</option>
+</select>
+        </form>
+
         <br/><br/><br/>
     </gsml:body>
     </html>

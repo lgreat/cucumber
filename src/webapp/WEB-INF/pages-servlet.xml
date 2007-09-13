@@ -1191,6 +1191,10 @@
         <property name="successView" value="redirect:/survey/form.page"/>
     </bean>
 
+
+    <bean name="/school/ajaxFindSchoolAndCity.page"
+        class="gs.web.school.FindSchoolController" autowire="byName" lazy-init="true"/>
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">
