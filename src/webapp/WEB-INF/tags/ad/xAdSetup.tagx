@@ -32,7 +32,7 @@
                 if (ads.endsWith(",")) {
                      ads += "x22";
                 } else {
-                     ads += "x22";
+                     ads += ",x22";
                 }
             }
             request.setAttribute("OAS_ads", ads);
