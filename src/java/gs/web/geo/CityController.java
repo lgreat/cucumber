@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.44 2007/05/03 00:42:36 dlee Exp $
+ * $Id: CityController.java,v 1.45 2007/09/14 00:24:45 dlee Exp $
  */
 
 package gs.web.geo;
@@ -154,7 +154,7 @@ public class CityController extends AbstractController {
 
         if (model.get(MODEL_TOP_RATED_SCHOOLS) == null) {
             List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
-            if (schools != null) {
+            if (schools.size() > 0) {
                 if (schools.size() > MAX_SCHOOLS) {
                     schools = schools.subList(0, MAX_SCHOOLS);
                 }
