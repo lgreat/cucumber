@@ -25,7 +25,11 @@
                     OASPositions.append(ad.getName()).append(",");
                 }
             }
-            request.setAttribute("OAS_ads", OASPositions.toString());
+            String ads = OASPositions.toString();
+            if (pageHelper.isShowingLeaderboard()) {
+                ads += ",x22";
+            }
+            request.setAttribute("OAS_ads", ads);
             request.setAttribute("adKeywords", pageHelper.getOASKeywords());
 
             SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
