@@ -32,10 +32,10 @@
                             <ad:House_Ad_300x137 referredBy=""/>
                         </House_Ad_300x137>
                     </c:when>
-                    <c:when test="${curAd eq 'AboveFold_300x125'}">
-                        <AboveFold_300x125>
-                            <ad:AboveFold_300x125/>
-                        </AboveFold_300x125>
+                    <c:when test="${curAd eq 'BelowFold_Top_300x125'}">
+                        <BelowFold_Top_300x125>
+                            <ad:BelowFold_Top_300x125/>
+                        </BelowFold_Top_300x125>
                     </c:when>
                     <c:when test="${curAd eq 'AboveFold_300x250'}">
                         <AboveFold_300x250>
