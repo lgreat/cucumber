@@ -64,6 +64,7 @@
 
             <div id="pageHeading"><h1>${heading}</h1></div>
 
+            <c:if test="${!requestScope.context.crawler}">
             <div id="changeState">
                 Show me ${thing} in a different state:
                 <gsweb:stateSelector useNoState="false"
@@ -73,6 +74,7 @@
                                      styleId="changeStateSelector"
                                      state="${state}" styleClass="stateSelect"/>
             </div>
+            </c:if>
 
             <div class="pageLinks">${links}</div>
         </div>

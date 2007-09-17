@@ -32,7 +32,6 @@
 
     // if parent ratings have not been supplied, retrieve them here
     if (parent_ratings == null) {
-        out.println("<!-- Calculating parent rating -->");
         try {
             sessionContext = SessionContextUtil.getSessionContext(request);
             ac = sessionContext.getApplicationContext(); // lazy load
@@ -47,7 +46,6 @@
 
     // if gs rating has not been supplied, retrieve it here
     if (gs_rating == null) {
-        out.println("<!-- Calculating GS rating -->");
         try {
             if (ac == null) { // lazy load
                 sessionContext = SessionContextUtil.getSessionContext(request);
@@ -101,11 +99,13 @@
 <![endif]-->
 ]]>
 
+<c:if test="${!requestScope.context.crawler}">
 <script type="text/javascript" language="javascript">
 <![CDATA[
     var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
     function openDelicious() { location.href=deliciousUrl; }
 ]]></script>
+</c:if>
 
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
@@ -295,6 +295,7 @@
     <!-- end: navigation -->
 
     <div id="subnav">
+        <c:if test="${!requestScope.context.crawler}">
         <ul>
             <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
             <!-- pipe characters used as opposed to li borders, as per client request -->
@@ -304,6 +305,7 @@
             <li><a href="javascript:openDelicious()"
                    onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a></li>
         </ul>
+        </c:if>
     </div>
     <!-- end: subnav -->
     <div id="bodyContents">

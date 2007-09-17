@@ -30,12 +30,6 @@
 </c:if>
 </div>
 
-<div id="footerCopyright">
-    &amp;#169;1998-2007 GreatSchools Inc. All Rights Reserved.
-    <link:termsOfUse>Terms of Use</link:termsOfUse> &#124;
-    <gsml:a href="/about/privacyStatement.page">Privacy Policy</gsml:a>
-    <br/>GreatSchools is a 501(c)(3) not-for-profit organization
-</div>
 <c:if test="${not empty requestScope.context.state}">
     <div id="footerSearchStateSpecific">
         <link:allSchoolsInState state="${state}">All schools in ${longName}</link:allSchoolsInState>,
@@ -205,24 +199,22 @@
    <![CDATA[<a name="bottom"></a>]]>
 </div>
 
-<!-- Crawlers such as Google and Yahoo always have http in their user agent string -->
-<script type="text/javascript">
-    <![CDATA[
-    <!--
-    if (navigator.userAgent.toLowerCase().indexOf("http") < 0) {
-        document.getElementById('footerSearchStates').style.display = 'none';
-        document.getElementById('footerSearchCities').style.display = 'none';
-        document.getElementById('footerSearchDistricts').style.display = 'none';
-    }
+<div id="footerCopyright">
+    &amp;#169;1998-2007 GreatSchools Inc. All Rights Reserved.
+    <link:termsOfUse>Terms of Use</link:termsOfUse> &#124;
+    <gsml:a href="/about/privacyStatement.page">Privacy Policy</gsml:a>
+    <br/>GreatSchools is a 501(c)(3) not-for-profit organization
+</div>
 
-    ]]>
+<!-- Crawlers should see the expanded footer -->
+<c:if test="${!requestScope.context.crawler}">
+<script type="text/javascript">
+    document.getElementById('footerSearchStates').style.display = 'none';
+    document.getElementById('footerSearchCities').style.display = 'none';
+    document.getElementById('footerSearchDistricts').style.display = 'none';
     <c:if test="${not empty requestScope.context.state}">
-    <![CDATA[
-    if (navigator.userAgent.toLowerCase().indexOf("http") < 0) {
         document.getElementById('footerSearchStateSpecific').style.display = 'none';
-    }
-    ]]>
     </c:if>
-    <![CDATA[-->]]>
 </script>
+</c:if>
 </jsp:root>

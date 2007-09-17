@@ -104,11 +104,11 @@
 
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
-            <!--<c:if test="${requestScope.context.ABVersion eq 'b'}">-->
+            <c:if test="${!requestScope.context.crawler}">
             <div id="topCompare" style="float:left; padding-bottom:25px;" >
                 <school:compareSchool school="${school}"/>
             </div>
-            <!--</c:if>-->
+            </c:if>
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${not empty latestReviewsModel}">
                 <div id="parentReviews">
@@ -129,7 +129,9 @@
                 </div>
             </c:if>
 
+            <c:if test="${!requestScope.context.crawler}">
             <school:parentReviewForm school="${school}" pageName="overview"/>
+            </c:if>
 
             <div id="learnSchool">
 
