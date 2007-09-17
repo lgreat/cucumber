@@ -85,15 +85,15 @@
 		<p class="title">Senior Editor, GreatSchools</p>
             <h3>Editor's Picks</h3>
             <ul>
+                <gsweb:articlelink articleId="361" wrappingElement="li" styleClass="articleLink"/>
+                <gsweb:articlelink articleId="457" wrappingElement="li" styleClass="articleLink"/>
+                <li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>
+            </ul>
+            <hr/>
+            <ul>
                 <gsweb:articlelink articleId="197" wrappingElement="li" styleClass="articleLink"/>
                 <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
                 <li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>
-            </ul>
-            <hr />
-            <ul>
-                <gsweb:articlelink articleId="657" wrappingElement="li" styleClass="articleLink"/>
-                <gsweb:articlelink articleId="327" wrappingElement="li" styleClass="articleLink"/>
-                <li><strong><gsml:a href="/content/backToSchool.page">Back To School &#62;</gsml:a></strong></li>
             </ul>
 		</div><!-- end: editor -->
     </div><!-- end: col_left" -->

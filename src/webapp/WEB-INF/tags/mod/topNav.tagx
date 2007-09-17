@@ -279,9 +279,9 @@
                     <!--#10--><td><gsml:a href="/community/communityLanding.page"
                         styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')}"
                         >Community</gsml:a></td>
-                    <!--#7--><td><gsml:a href="/content/backToSchool.page"
+                    <!--#7--><td><gsml:a href="/content/schoolChoiceCenter.page"
                                          styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} "
-                        >Back to School</gsml:a></td>
+                        >School Choice Tips</gsml:a></td>
                     <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
                                          styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} "
                         >Countdown to College</gsml:a></td>
