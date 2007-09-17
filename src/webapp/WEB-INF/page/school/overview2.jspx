@@ -38,7 +38,7 @@
 <head>
 
     <title>${school.name} - ${addr} - school overview</title>
-    <meta name="description" content="An overview of ${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, parent reviews and teacher stats."/>
+    <meta name="description" content="${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, parent reviews and teacher stats."/>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 </head>
 
