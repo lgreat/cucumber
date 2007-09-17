@@ -29,10 +29,10 @@
             SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
 
             if (pageHelper.isShowingLeaderboard() && !pageHelper.isAdFree() && !context.isCobranded()) {
-                if (ads.endsWith(",")) {
-                     ads += "x22";
+                if (StringUtils.isEmpty(ads) || ads.endsWith(",")) {
+                    ads += "x22";
                 } else {
-                     ads += ",x22";
+                    ads += ",x22";
                 }
             }
             request.setAttribute("OAS_ads", ads);
