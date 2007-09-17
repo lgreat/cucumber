@@ -172,13 +172,16 @@
                                       alt="" border="0"/><br/>
 
                     <div class="healthyKids">
-                        <div class="healthyKidsImg">Photo of apple and jar of pencils</div>
-                        <div class="blueTitleText">Back to School</div>
-                        Tips for
-                        <gsweb:articlelink articleId="657" styleClass="border10Links">shopping</gsweb:articlelink> and
-                        <gsweb:articlelink articleId="332" styleClass="border10Links">getting a head start</gsweb:articlelink>
-                        on a great year!
-                        <div class="middleBottom"><gsml:a href="/content/backToSchool.page" styleClass="border10Links">See more &gt;</gsml:a></div>
+                        <div class="healthyKidsImg">Photo of blueberries</div>
+                        <div class="blueTitleText">Healthy Kids</div>
+                        <ul class="arrowUL">
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/350" styleClass="arrowLink">Creative lunches</gsml:a></li>
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/571" styleClass="arrowLink">Brain food</gsml:a></li>
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/256" styleClass="arrowLink">Backpack safety</gsml:a></li>
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/472" styleClass="arrowLink">Family fitness</gsml:a></li>
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/621" styleClass="arrowLink">Healthy schools</gsml:a></li>
+                        </ul>
+                        <div class="middleBottom"><gsml:a href="/content/healthyKids.page" styleClass="border10Links">See all &gt;</gsml:a></div>
                         <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
                             <center>
                             <span class="granolaBites">
