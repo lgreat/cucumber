@@ -1356,6 +1356,43 @@
         </attribute>
     </tag>
     <tag>
+        <name>schoolStartSurvey</name>
+        <tag-class>gs.web.jsp.link.school.StartSurveyTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Take survey for school page.</display-name>
+        <description>
+            <![CDATA[Take a survey for a school.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Element title (tooltip)</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>allSchoolsInDistrict</name>
         <tag-class>gs.web.jsp.link.DistrictsAllSchoolsTagHandler</tag-class>
         <body-content>JSP</body-content>
