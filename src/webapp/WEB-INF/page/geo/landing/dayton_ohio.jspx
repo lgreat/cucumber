@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:footer="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          version="2.0" >
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<html lang="en">
+<c:set var="stateOrNull" value="${requestScope.context.state}" />
+<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <title>Choosing a School in Dayton, Ohio</title>
+    <pageHelper:externalCss file="/res/css/content/research.css"/>
+</head>
+
+<gsml:body adPageName="research" >
+
+<footer:editorialFooter/>
+
+<mod:tracking pageType="" pageName="Dayton Landing Page" hier1="Home,Outreach,Dayton"/>
+    
+</gsml:body>
+</html>
+
+</jsp:root>

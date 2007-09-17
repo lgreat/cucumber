@@ -665,6 +665,12 @@
         <property name="viewName" value="/content/mediaChoices"/>
     </bean>
 
+    <bean name="/geo/landing/dayton_ohio.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/geo/landing/dayton_ohio" />
+    </bean>
+
     <bean name="/promo/shutterfly/cards.page"
           class="gs.web.promo.ShutterflyCardsController"
           autowire="byName" lazy-init="true">
