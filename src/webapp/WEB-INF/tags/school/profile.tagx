@@ -115,10 +115,12 @@
     <c:when test="${school.type.schoolTypeName != 'private'}">
         <c:set var="schoolType" value="public"/>
         <!-- to trigger MSS modal on exit -->
+        <c:if test="${!requestScope.context.crawler}">
         <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
         <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
         <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
         <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
+        </c:if>
     </c:when>
     <c:otherwise>
         <c:set var="schoolType" value="private"/>
