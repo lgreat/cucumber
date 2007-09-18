@@ -75,7 +75,7 @@ Disallow: /modperl/parents/*/pc/*
 Disallow: /*;jsessionid*
 Disallow: /schools.page?*map=*
 Disallow: /school/mapSchool
-Disallow: /*&amp;*
+Disallow: /*&amp;amp;*
 Disallow: /ads/
 </c:set>
 
