@@ -53,10 +53,6 @@
 
 <form:form commandName="userResponseCommand">
 
-<div id="page-title">
-    ${userResponseCommand.page.title}
-</div>
-
 <c:forEach var="questionGroup" items="${userResponseCommand.page.questionGroups}">
     <div class="question-group">
     <h2 class="question-group-heading"><c:out value="${questionGroup.title}" escapeXml="true"/></h2>
@@ -112,20 +108,25 @@
                         </c:forEach>
                     </c:when>
                     <c:when test="${answer.type eq 'SCALE'}">
+                        <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                         <c:forEach var="answerValue" items="${answer.answerValues}">
-                            <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
-                            <c:choose>
-                                <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
-                                    <form:radiobutton path="responseMap[${mapKey}].values"
-                                                      id="${mapKey}" value="${answerValue.symbol}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <input name="responseMap[${mapKey}].values"
-                                           value="${answerValue.symbol}" type="radio"/>
-                                </c:otherwise>
-                            </c:choose>
-                            ${answerValue.display}
-                            <br/>
+                            <div class="answer-bar">
+                                <div class="label-right">${answerValue.displayMin}</div>
+                                <div class="label-left">${answerValue.displayMax}</div>
+                                <img src="/res/img/survey/bar.jpg" alt="bar" class="bar-pic" height="5" width="450" />
+                                <div class="radio-row">
+                                    <input class="radio1" name="responseMap[${mapKey}].values"
+                                           value="1" type="radio"/>
+                                    <input class="radio2" name="responseMap[${mapKey}].values"
+                                           value="2" type="radio"/>
+                                    <input class="radio3" name="responseMap[${mapKey}].values"
+                                           value="3" type="radio"/>
+                                    <input class="radio4" name="responseMap[${mapKey}].values"
+                                           value="4" type="radio"/>
+                                    <input class="radio5" name="responseMap[${mapKey}].values"
+                                           value="5" type="radio"/>
+                                </div>
+                            </div>
                         </c:forEach>
                     </c:when>
                     <c:when test="${answer.type eq 'OPTION'}">
