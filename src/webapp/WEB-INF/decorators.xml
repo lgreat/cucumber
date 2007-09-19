@@ -38,6 +38,7 @@
         <pattern>*/gsFooter.page*</pattern>
         <pattern>*/survey/admin.page*</pattern>
         <pattern>*/survey/edit.page*</pattern>
+        <pattern>*/ads/tacoda/*</pattern>
     </excludes>
 
 </decorators>
