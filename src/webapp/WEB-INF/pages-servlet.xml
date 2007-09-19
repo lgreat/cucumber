@@ -763,6 +763,26 @@
         </property>
     </bean>
 
+    <bean name="/ads/serveAds.page" autowire="byName" lazy-init="true"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName" value="ads/serveAds"/>
+    </bean>
+
+    <bean name="/ads/tacoda/728x90.page" autowire="byName" lazy-init="true"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName" value="ads/tacoda/728x90"/>
+    </bean>
+
+    <bean name="/ads/tacoda/160x600.page" autowire="byName" lazy-init="true"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName" value="ads/tacoda/160x600"/>
+    </bean>
+
+    <bean name="/ads/tacoda/300x250.page" autowire="byName" lazy-init="true"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName" value="ads/tacoda/300x250"/>
+    </bean>
+
     <bean id="newsCheckBoxValidator" class="gs.web.community.newsletters.popup.NewsletterCheckBoxValidator"
           autowire="byName" lazy-init="true"/>
 
@@ -1239,11 +1259,6 @@
         <property name="viewName">
             <value>status/error404</value>
         </property>
-    </bean>
-
-    <bean name="/ads/serveAds.page" autowire="byName" lazy-init="true"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName" value="ads/serveAds"/>
     </bean>
 
 </beans>
