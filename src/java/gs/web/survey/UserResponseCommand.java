@@ -3,12 +3,14 @@ package gs.web.survey;
 import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.review.Poster;
+import gs.data.state.State;
 import gs.data.survey.Survey;
-import gs.data.survey.UserResponse;
 import gs.data.survey.SurveyPage;
+import gs.data.survey.UserResponse;
 import gs.web.util.validator.EmailValidator;
 
 import java.util.ArrayList;
@@ -28,6 +30,16 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     private SurveyPage _page;
     private boolean _NLSignUpChecked = false;
     private Poster _who;
+
+    private State _prevState;
+    private String _prevCity;
+    private int _prevSchoolId;
+
+    private State _nextState;
+    private String _nextCity;
+    private int _nextSchoolId;
+
+    private LevelCode.Level _level;
 
     public UserResponseCommand () {
         _responseMap = new HashMap<String, UserResponse>();
@@ -143,6 +155,62 @@ public class UserResponseCommand implements EmailValidator.IEmail {
 
     public void setNLSignUpChecked(boolean NLSignUpChecked) {
         _NLSignUpChecked = NLSignUpChecked;
+    }
+
+    public State getPrevState() {
+        return _prevState;
+    }
+
+    public void setPrevState(State prevState) {
+        _prevState = prevState;
+    }
+
+    public String getPrevCity() {
+        return _prevCity;
+    }
+
+    public void setPrevCity(String prevCity) {
+        _prevCity = prevCity;
+    }
+
+    public int getPrevSchoolId() {
+        return _prevSchoolId;
+    }
+
+    public void setPrevSchoolId(int prevSchoolId) {
+        _prevSchoolId = prevSchoolId;
+    }
+
+    public State getNextState() {
+        return _nextState;
+    }
+
+    public void setNextState(State nextState) {
+        _nextState = nextState;
+    }
+
+    public String getNextCity() {
+        return _nextCity;
+    }
+
+    public void setNextCity(String nextCity) {
+        _nextCity = nextCity;
+    }
+
+    public int getNextSchoolId() {
+        return _nextSchoolId;
+    }
+
+    public void setNextSchoolId(int nextSchoolId) {
+        _nextSchoolId = nextSchoolId;
+    }
+
+    public LevelCode.Level getLevel() {
+        return _level;
+    }
+
+    public void setLevel(LevelCode.Level level) {
+        _level = level;
     }
 }
 

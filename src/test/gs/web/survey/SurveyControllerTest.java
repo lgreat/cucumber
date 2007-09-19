@@ -2,31 +2,30 @@ package gs.web.survey;
 
 import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
+import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.review.Poster;
 import gs.data.state.State;
-import gs.data.survey.ISurveyDao;
-import gs.data.survey.QuestionGroup;
+import gs.data.state.StateManager;
 import gs.data.survey.*;
-import gs.data.survey.UserResponse;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
-import static org.easymock.EasyMock.*;
 import org.easymock.IAnswer;
+import static org.easymock.classextension.EasyMock.*;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 
 /**
@@ -40,6 +39,9 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     private IPropertyDao _propertyDao;
     private ISubscriptionDao _subscriptionDao;
     private MockJavaMailSender _mailSender;
+    private ISchoolDao _schoolDao;
+    private IGeoDao _geoDao;
+    private StateManager _stateManager;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -47,12 +49,18 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _userDao = createMock(IUserDao.class);
         _propertyDao = createMock(IPropertyDao.class);
         _subscriptionDao = createMock(ISubscriptionDao.class);
+        _schoolDao = createMock(ISchoolDao.class);
+        _geoDao = createMock(IGeoDao.class);
+        _stateManager = (StateManager) getApplicationContext().getBean(StateManager.BEAN_ID);
 
         _controller = new SurveyController();
         _controller.setSurveyDao(_surveyDao);
         _controller.setUserDao(_userDao);
         _controller.setPropertyDao(_propertyDao);
         _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.setGeoDao(_geoDao);
+        _controller.setSchoolDao(_schoolDao);
+        _controller.setStateManager(_stateManager);
 
         _mailSender = new MockJavaMailSender();
         _mailSender.setHost("greatschools.net");
@@ -518,5 +526,220 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         School school = createSchool();
 
         _controller.sendEmail(user, school, getRequest());
+    }
+
+    public void testPrevNextSchoolDefaultValues() throws Exception {
+
+        SurveyPage surveyPage = createMock(SurveyPage.class);
+        expect(surveyPage.containsNextOrPreviousSchoolQuestion()).andReturn(true);
+        replay(surveyPage);
+
+        Survey survey = createMock(Survey.class);
+        expect(survey.getPages()).andStubReturn(Arrays.asList(surveyPage));
+        replay(survey);
+
+        getRequest().setMethod("GET");
+        expect(_surveyDao.getSurvey((String)anyObject())).andReturn(survey);
+        replay(_surveyDao);
+
+        School s = createSchool();
+        getRequest().setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, s);
+        UserResponseCommand urc = (UserResponseCommand) _controller.formBackingObject(getRequest());
+
+        assertEquals(s.getDatabaseState(), urc.getPrevState());
+        assertEquals(s.getCity(), urc.getPrevCity());
+        assertEquals(s.getDatabaseState(), urc.getNextState());
+        assertEquals(s.getCity(), urc.getNextCity());
+
+        verify(survey);
+        verify(_surveyDao);
+    }
+
+    public void testPrevNextReferenceDataWithLevelE() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setNextCity("New York");
+        urc.setNextState(State.NY);
+        urc.setSchool(createSchool());
+        urc.setLevel(LevelCode.Level.ELEMENTARY_LEVEL);
+        BindException errors = new BindException(urc, null);
+
+        SurveyPage surveyPage = createMock(SurveyPage.class);
+        expect(surveyPage.containsNextOrPreviousSchoolQuestion()).andReturn(true);
+        replay(surveyPage);
+
+        urc.setPage(surveyPage);
+
+        expect(_propertyDao.getProperty((String)anyObject())).andReturn("2002-2003");
+        replay(_propertyDao);
+
+        City city = new City();
+        city.setName("Greatschools");
+        expect(_geoDao.findCitiesByState(urc.getPrevState())).andStubReturn(Collections.EMPTY_LIST);
+        expect(_geoDao.findCitiesByState(urc.getNextState())).andStubReturn(Collections.EMPTY_LIST);
+        replay(_geoDao);
+
+        expect(_schoolDao.findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false)).andStubReturn(Collections.EMPTY_LIST);
+        replay(_schoolDao);
+
+        School schoolNotListed = createSchool();
+        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed);
+        expect(_surveyDao.getBeforeESOptions()).andReturn(Collections.<School>emptyList());
+        replay(_surveyDao);
+
+        Map model = _controller.referenceData(getRequest(), urc, errors);
+
+        assertEquals(null, model.get("prevLevel"));
+        assertEquals(LevelCode.Level.MIDDLE_LEVEL, model.get("nextLevel"));
+
+        assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
+        assertEquals(Collections.EMPTY_LIST, model.get("prevSchools"));
+
+        assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
+        assertEquals(Arrays.asList(schoolNotListed), model.get("nextSchools"));
+
+        assertEquals(schoolNotListed, model.get("schoolNotListed"));
+        assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));
+
+        verify(_surveyDao);
+        verify(_geoDao);
+        verify(_schoolDao);
+    }
+
+    public void testPrevNextReferenceDataWithLevelM() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setPrevCity("San Francisco");
+        urc.setPrevState(State.CA);
+
+        urc.setNextCity("New York");
+        urc.setNextState(State.NY);
+        urc.setSchool(createSchool());
+        urc.setLevel(LevelCode.Level.MIDDLE_LEVEL);
+        BindException errors = new BindException(urc, null);
+
+        SurveyPage surveyPage = createMock(SurveyPage.class);
+        expect(surveyPage.containsNextOrPreviousSchoolQuestion()).andReturn(true);
+        replay(surveyPage);
+
+        urc.setPage(surveyPage);
+
+        expect(_propertyDao.getProperty((String)anyObject())).andReturn("2002-2003");
+        replay(_propertyDao);
+
+        City city = new City();
+        city.setName("Greatschools");
+        expect(_geoDao.findCitiesByState(urc.getPrevState())).andStubReturn(Collections.EMPTY_LIST);
+        expect(_geoDao.findCitiesByState(urc.getNextState())).andStubReturn(Collections.EMPTY_LIST);
+        replay(_geoDao);
+
+        expect(_schoolDao.findSchoolsInCity(urc.getPrevState(), urc.getPrevCity(), false)).andStubReturn(Collections.EMPTY_LIST);
+        expect(_schoolDao.findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false)).andStubReturn(Collections.EMPTY_LIST);
+        replay(_schoolDao);
+
+        School schoolNotListed = createSchool();
+        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed);
+        replay(_surveyDao);
+
+        Map model = _controller.referenceData(getRequest(), urc, errors);
+
+        assertEquals(LevelCode.Level.ELEMENTARY_LEVEL, model.get("prevLevel"));
+        assertEquals(LevelCode.Level.HIGH_LEVEL, model.get("nextLevel"));
+
+        assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
+        assertEquals(Arrays.asList(schoolNotListed), model.get("prevSchools"));
+
+        assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
+        assertEquals(Arrays.asList(schoolNotListed), model.get("nextSchools"));
+
+        assertEquals(schoolNotListed, model.get("schoolNotListed"));
+        assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));
+
+        verify(_surveyDao);
+        verify(_geoDao);
+        verify(_schoolDao);
+    }
+
+    public void testPrevNextReferenceDataWithLevelH() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setPrevCity("San Francisco");
+        urc.setPrevState(State.CA);
+        urc.setSchool(createSchool());
+        urc.setLevel(LevelCode.Level.HIGH_LEVEL);
+        BindException errors = new BindException(urc, null);
+
+        SurveyPage surveyPage = createMock(SurveyPage.class);
+        expect(surveyPage.containsNextOrPreviousSchoolQuestion()).andReturn(true);
+        replay(surveyPage);
+
+        urc.setPage(surveyPage);
+
+        expect(_propertyDao.getProperty((String)anyObject())).andReturn("2002-2003");
+        replay(_propertyDao);
+
+        City city = new City();
+        city.setName("Greatschools");
+        expect(_geoDao.findCitiesByState(urc.getPrevState())).andStubReturn(Collections.EMPTY_LIST);
+        expect(_geoDao.findCitiesByState(urc.getNextState())).andStubReturn(Collections.EMPTY_LIST);
+        replay(_geoDao);
+
+        expect(_schoolDao.findSchoolsInCity(urc.getPrevState(), urc.getPrevCity(), false)).andStubReturn(Collections.EMPTY_LIST);
+        replay(_schoolDao);
+
+        School schoolNotListed = createSchool();
+        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed);
+        expect(_surveyDao.getAfterHSOptions()).andReturn(Collections.<School>emptyList());
+        replay(_surveyDao);
+
+        Map model = _controller.referenceData(getRequest(), urc, errors);
+
+        assertEquals(LevelCode.Level.MIDDLE_LEVEL, model.get("prevLevel"));
+        assertEquals(null, model.get("nextLevel"));
+
+        assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
+        assertEquals(Arrays.asList(schoolNotListed), model.get("prevSchools"));
+
+        assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
+        assertEquals(Collections.EMPTY_LIST, model.get("nextSchools"));
+
+        assertEquals(schoolNotListed, model.get("schoolNotListed"));
+        assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));
+
+        verify(_surveyDao);
+        verify(_geoDao);
+        verify(_schoolDao);
+    }
+
+    public void testNextPrevSchoolNothingSet() throws Exception {
+        UserResponseCommand command = new UserResponseCommand();
+        _controller.populateUserResponses(getRequest(), command);
+        assertEquals(0, command.getResponseMap().size());
+    }
+
+    public void testNextPrevSchoolWithValuesSet() throws Exception {
+        UserResponseCommand command = new UserResponseCommand();
+        command.setPrevSchoolId(234);
+        command.setPrevState(State.CA);
+
+        command.setNextState(State.NY);
+        command.setNextSchoolId(2344);
+
+        command.setSchool(createSchool());
+        command.setSurvey(createSurvey());
+
+        SurveyPage page = new SurveyPage();
+        page.setId(1);
+
+        command.setPage(page);
+        command.setUser(createUser(false));
+        command.setYear(2002);
+        command.setWho(Poster.PARENT);
+
+        _controller.populateUserResponses(getRequest(), command);
+        assertEquals(2, command.getResponseMap().size());
+
+        assertEquals(new Integer(10), command.getResponses().get(0).getQuestionId());
+        assertEquals(new Integer(11), command.getResponses().get(1).getQuestionId());
+
+        assertEquals(new Integer(1), command.getResponses().get(0).getAnswerId());
+        assertEquals(new Integer(1), command.getResponses().get(1).getAnswerId());
     }
 }

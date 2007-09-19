@@ -2,13 +2,15 @@ package gs.web.survey;
 
 import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
-import gs.data.school.School;
-import gs.data.school.SchoolType;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
+import gs.data.school.*;
 import gs.data.school.review.Poster;
+import gs.data.state.StateManager;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.Survey;
-import gs.data.survey.UserResponse;
 import gs.data.survey.SurveyPage;
+import gs.data.survey.UserResponse;
 import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
@@ -17,6 +19,7 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,7 +47,9 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     public static final String BEAN_ID = "surveyController";
 
-    /** list of school years to show */
+    /**
+     * list of school years to show
+     */
     public static final String MODEL_SCHOOL_YEARS = "schoolYears";
     public static final String TMP_MSG_COOKIE_VALUE = "fromSurvey";
     protected final static String CURRENT_PAGE = "currentPage";
@@ -55,35 +60,103 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     private IPropertyDao _propertyDao;
     private ISubscriptionDao _subscriptionDao;
     private EmailHelperFactory _emailHelperFactory;
+    private ISchoolDao _schoolDao;
+    private IGeoDao _geoDao;
+    private StateManager _stateManager;
 
     protected final static Pattern QUESTION_ANSWER_IDS = Pattern.compile("^responseMap\\[q(\\d+)a(\\d+)\\]\\.values*$");
 
-
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
-                     throws Exception {
+            throws Exception {
         Map referenceData = new HashMap();
-
         //is of form 2005-2006
         String curAcadYear = getPropertyDao().getProperty(IPropertyDao.CURRENT_ACADEMIC_YEAR);
         referenceData.put(MODEL_SCHOOL_YEARS, computeSchoolYears(curAcadYear));
+
+        UserResponseCommand urc = (UserResponseCommand) command;
+
+        if (urc.getPage().containsNextOrPreviousSchoolQuestion()) {
+            Collection<School> previousSchools = Collections.emptyList();
+            Collection<School> nextSchools = Collections.emptyList();
+            List<City> nextCities;
+            List<City> previousCities;
+
+            previousCities = getGeoDao().findCitiesByState(urc.getPrevState());
+            nextCities = getGeoDao().findCitiesByState(urc.getNextState());
+
+            LevelCode.Level surveyLevel = urc.getLevel();
+            LevelCode.Level prevLevel = null;
+            LevelCode.Level nextLevel = null;
+
+            School schoolNotListed = getSurveyDao().getSchoolNotListed();
+
+            if (LevelCode.Level.ELEMENTARY_LEVEL.equals(surveyLevel)) {
+                previousSchools = getSurveyDao().getBeforeESOptions();
+
+                nextSchools = getSchoolDao().findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false);
+                nextSchools = CollectionUtils.select(nextSchools, LevelPredicateFactory.createLevelPredicate(LevelCode.Level.MIDDLE_LEVEL));
+                nextSchools.add(schoolNotListed);
+
+                prevLevel = null;
+                nextLevel = LevelCode.Level.MIDDLE_LEVEL;
+            }
+
+            if (LevelCode.Level.MIDDLE_LEVEL.equals(surveyLevel)) {
+                previousSchools = getSchoolDao().findSchoolsInCity(urc.getPrevState(), urc.getPrevCity(), false);
+                previousSchools = CollectionUtils.select(previousSchools, LevelPredicateFactory.createLevelPredicate(LevelCode.Level.ELEMENTARY_LEVEL));
+                previousSchools.add(schoolNotListed);
+
+                nextSchools = getSchoolDao().findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false);
+                nextSchools = CollectionUtils.select(nextSchools, LevelPredicateFactory.createLevelPredicate(LevelCode.Level.HIGH_LEVEL));
+                nextSchools.add(schoolNotListed);
+
+                prevLevel = LevelCode.Level.ELEMENTARY_LEVEL;
+                nextLevel = LevelCode.Level.HIGH_LEVEL;
+            }
+
+            if (LevelCode.Level.HIGH_LEVEL.equals(surveyLevel)) {
+                previousSchools = getSchoolDao().findSchoolsInCity(urc.getPrevState(), urc.getPrevCity(), false);
+                previousSchools = CollectionUtils.select(previousSchools, LevelPredicateFactory.createLevelPredicate(LevelCode.Level.MIDDLE_LEVEL));
+                previousSchools.add(schoolNotListed);
+
+                nextSchools = getSurveyDao().getAfterHSOptions();
+
+                prevLevel = LevelCode.Level.MIDDLE_LEVEL;
+                nextLevel = null;
+            }
+
+            referenceData.put("prevLevel", prevLevel);
+            referenceData.put("nextLevel", nextLevel);
+
+            referenceData.put("prevCities", previousCities);
+            referenceData.put("prevSchools", previousSchools);
+
+            referenceData.put("nextCities", nextCities);
+            referenceData.put("nextSchools", nextSchools);
+
+            referenceData.put("schoolNotListed", schoolNotListed);
+            referenceData.put("states", getStateManager().getSortedAbbreviations());
+        }
+
         return referenceData;
     }
 
     protected List<Integer> computeSchoolYears(String acadYear) {
-        Integer currentYear = Integer.valueOf(acadYear.substring(acadYear.length()-4, acadYear.length()));
+        Integer currentYear = Integer.valueOf(acadYear.substring(acadYear.length() - 4, acadYear.length()));
         List<Integer> availableYears = new ArrayList<Integer>();
         availableYears.add(currentYear);
 
-        for (int i=1;i<5;i++) {
-            availableYears.add(currentYear-i);
+        for (int i = 1; i < 5; i++) {
+            availableYears.add(currentYear - i);
         }
         return availableYears;
     }
 
     protected void initBinder(HttpServletRequest request,
-                          ServletRequestDataBinder binder) {
-        binder.setDisallowedFields(new String [] {"responseMap*"});
+                              ServletRequestDataBinder binder) {
+        binder.setDisallowedFields(new String[]{"responseMap*"});
         binder.registerCustomEditor(Poster.class, new PosterCustomProperyEditor());
+        binder.registerCustomEditor(LevelCode.Level.class, new LevelEditor());
     }
 
     //TODO dlee - move editor into its own class and refactor ParentReviewController to share this editor
@@ -114,7 +187,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         urc.setSchool(school);
         urc.setUser(user);
 
-        String yearParam = (String)request.getAttribute("year");
+        String yearParam = (String) request.getAttribute("year");
         if (StringUtils.isBlank(yearParam)) {
             yearParam = request.getParameter("year");
         }
@@ -131,20 +204,33 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             index = 1;
         }
 
-        urc.setPage(survey.getPages().get(index-1));
+        SurveyPage page = survey.getPages().get(index - 1);
+        urc.setPage(page);
         request.setAttribute(CURRENT_PAGE, index);
+
+        if (page.containsNextOrPreviousSchoolQuestion()) {
+            if ("GET".equals(request.getMethod())) {
+                //set defaults
+                urc.setPrevState(school.getDatabaseState());
+                urc.setPrevCity(school.getCity());
+
+                urc.setNextState(school.getDatabaseState());
+                urc.setNextCity(school.getCity());
+            }
+        }
         return urc;
     }
 
     /**
      * This is a help method to extract the page index from request parameters.
+     *
      * @param request an HttpServletRequest type
      * @return an int index
      */
     int getPageIndexFromRequest(HttpServletRequest request) {
         int index = 1;
 
-        String pageParam = (String)request.getAttribute("p");
+        String pageParam = (String) request.getAttribute("p");
         if (StringUtils.isBlank(pageParam)) {
             pageParam = request.getParameter("p");
         }
@@ -183,7 +269,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             if (m.matches()) {
                 Integer qId = Integer.valueOf(m.replaceAll("$1"));
                 Integer aId = Integer.valueOf(m.replaceAll("$2"));
-                String [] paramValues = request.getParameterValues(paramName);
+                String[] paramValues = request.getParameterValues(paramName);
 
                 if (null != paramValues) {
                     UserResponse response = new UserResponse();
@@ -198,11 +284,32 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                 }
             }
         }
+
+        //save previous school
+        if (urc.getPrevSchoolId() != 0) {
+            UserResponse response = new UserResponse();
+            String responseValue = urc.getPrevState().getAbbreviation() + urc.getPrevSchoolId();
+            response.setResponseValue(responseValue);
+            //TODO dlee fix hardcoding
+            response.setAnswerId(1);
+            response.setQuestionId(10);
+            urc.addToResponseMap(response);
+        }
+
+        //save future school
+        if (urc.getNextSchoolId() != 0) {
+            UserResponse response = new UserResponse();
+            String responseValue = urc.getNextState().getAbbreviation() + urc.getNextSchoolId();
+            response.setResponseValue(responseValue);
+            //TODO dlee fix hardcoding
+            response.setAnswerId(1);
+            response.setQuestionId(11);
+            urc.addToResponseMap(response);
+        }
     }
 
-
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
-                                BindException errors) throws Exception {
+                                    BindException errors) throws Exception {
         UserResponseCommand urc = (UserResponseCommand) command;
 
         User user = urc.getUser();
@@ -270,7 +377,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             int nextPage = curPageIndex + 1;
             buffer.append(nextPage);
 
-            String yearParam = (String)request.getAttribute("year");
+            String yearParam = (String) request.getAttribute("year");
             if (StringUtils.isBlank(yearParam)) {
                 yearParam = request.getParameter("year");
             }
@@ -353,5 +460,29 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
         _emailHelperFactory = emailHelperFactory;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
+    }
+
+    public StateManager getStateManager() {
+        return _stateManager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
     }
 }

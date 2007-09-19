@@ -11,6 +11,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -146,6 +147,51 @@
                         </c:choose>
                         <br/>
                     </c:when>
+                    <c:when test="${answer.type eq 'PREVIOUS_SCHOOL'}">
+                        <yui:connectionManager/>
+                        <pageHelper:externalJavascript file="/res/js/survey/prevNextSchool.js"/>
+                        <c:set var="prevLevel" value="${prevLevel}"/>
+                        <c:choose>
+                            <c:when test="${empty prevLevel}">
+                                <input type="hidden" name="prevState" value="${school.databaseState}"  />
+                                <input type="hidden" name="prevCity" value="${school.city}" />
+                            </c:when>
+                            <c:otherwise>
+                                <span id="prevCity">${userResponseCommand.prevCity} <a onclick="hideAndShow('prevCity', 'prevSltState', 'prevSltCity')">Change</a></span>
+                                <form:select id="prevSltState" path="prevState" items="${states}"
+                                         onchange="clearSchool('prevSltSchool');updateCity(this.value, 'prevSltCity');"
+                                        cssStyle="display:none;"
+                                        />
+                                <form:select id="prevSltCity" path="prevCity" items="${prevCities}" itemLabel="name" itemValue="name"
+                                        onchange="updateSchool('${prevLevel.name}',this.value, 'prevSltSchool', 'prevSltState','${schoolNotListed.id}');"
+                                        cssStyle="display:none;"
+                                        />
+                            </c:otherwise>
+                        </c:choose>
+                        <form:select id="prevSltSchool" path="prevSchoolId" items="${prevSchools}" itemLabel="name" itemValue="id"/>
+                    </c:when>
+                    <c:when test="${answer.type eq 'NEXT_SCHOOL'}">
+                        <yui:connectionManager/>
+                        <pageHelper:externalJavascript file="/res/js/survey/prevNextSchool.js"/>
+                        <c:set var="nextLevel" value="${nextLevel}"/>
+                        <c:choose>
+                            <c:when test="${empty nextLevel}">
+                                <input type="hidden" name="nextState" value="${school.databaseState}"  />
+                                <input type="hidden" name="nextCity" value="${school.city}" />
+                            </c:when>
+                            <c:otherwise>
+                                <span id="nextCity">${userResponseCommand.nextCity} <a onclick="hideAndShow('nextCity','nextSltState', 'nextSltCity')">Change</a></span>
+                                <form:select id="nextSltState" path="nextState" items="${states}"
+                                            cssStyle="display:none;"
+                                            onchange="clearSchool('nextSltSchool');updateCity(this.value, 'nextSltCity');"/>
+
+                                <form:select id="nextSltCity" path="nextCity" items="${nextCities}" itemLabel="name" itemValue="name"
+                                            cssStyle="display:none;"
+                                            onchange="updateSchool('${nextLevel.name}',this.value, 'nextSltSchool', 'nextSltState','${schoolNotListed.id}');"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <form:select id="nextSltSchool" path="nextSchoolId" items="${nextSchools}" itemLabel="name" itemValue="id"/>
+                    </c:when>
                     <c:otherwise>
                         <h1>error</h1>
                     </c:otherwise>
@@ -211,7 +257,6 @@
         </div>
     </div>
 </div>
-
 
 </form:form>
 </div>

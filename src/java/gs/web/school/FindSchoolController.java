@@ -2,13 +2,9 @@ package gs.web.school;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
-import gs.data.school.ISchoolDao;
-import gs.data.school.LevelCode;
-import gs.data.school.LevelEditor;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.state.State;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -61,7 +57,7 @@ public class FindSchoolController extends AbstractCommandController {
 
         if (Filter.school.equals(fsc.getFilter())) {
             List<School> schools = getSchoolDao().findSchoolsInCity(fsc.getState(), fsc.getCity(), false);
-            Collection<School> filteredSchools = CollectionUtils.select(schools, new LevelPredicate(fsc.getLevel()));
+            Collection<School> filteredSchools = CollectionUtils.select(schools, LevelPredicateFactory.createLevelPredicate(fsc.getLevel()));
             getSchoolJson(response, filteredSchools);
         } else {
             List<City> cities = getGeoDao().findCitiesByState(fsc.getState());
@@ -107,19 +103,6 @@ public class FindSchoolController extends AbstractCommandController {
         response.setContentType("text/x-json");
         response.getWriter().print(buff.toString());
         response.getWriter().flush();
-    }
-
-    static class LevelPredicate implements Predicate {
-        LevelCode.Level _level;
-
-        public LevelPredicate(LevelCode.Level level) {
-            _level = level;
-        }
-
-        public boolean evaluate(Object object) {
-            School school = (School) object;
-            return school.getLevelCode().containsLevelCode(_level);
-        }
     }
 
     public static class FindSchoolCommand {
