@@ -115,7 +115,7 @@
         <gsweb:articlelink articleId="777" wrappingElement="li"/>
         <li style="background-image:none;text-align:right; padding-top:4px;">
             <gsml:a href="/content/healthyKids.page">See more &gt;</gsml:a>
-        </li>        
+        </li>
     </ul>
 
     <h3 id="getInvolved">Get Involved</h3>
@@ -167,12 +167,12 @@
     <div class="module">
         <gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">
             After sending two sons off to college, Boots Whitmer shares her year-by-year college prep tips for your child, including:
-            <ul class="noHover">
-            <li>Save English essays because they can be an inspiration for college admissions essays.</li>
-            <li>Don't wait until senior year to ask for teacher recommendations.</li>
-            <li>Get written recommendations for volunteer work.</li>
-            </ul>
         </gsml:a>
+        <ul class="noHover">
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">Save English essays because they can be an inspiration for college admissions essays.</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">Don't wait until senior year to ask for teacher recommendations.</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">Get written recommendations for volunteer work.</gsml:a></li>
+        </ul>
     </div>
     <div align="right">
         <gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="seeFullArticle">Read the college prep timeline &gt;</gsml:a>
@@ -193,7 +193,7 @@
     </div>
 
     <div class="yellowbar"></div>
-    
+
     <div class="moduleTitle">
         <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
             Applications: A Parent's Role
@@ -223,7 +223,7 @@
                     <content:collegeQuickFinder/>
                 </td>
                 <td valign="top">
-                     
+
                     <ul class="quickFindLinks" style="padding-top:15px;">
                         <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21353.html"
                                target="_blank">Application Requirements</a></li>
@@ -292,55 +292,55 @@
                               styleClass="actionTipsTitle"/>
                 </td>
             </tr>
-            
-                   <tr>
-                       <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
+
+            <tr>
+                <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                                Your child should meet with her
                                <a href="http://www.collegeboard.com/parents/plan/hs-steps/21287.html" target="_blank">school counselor</a>
                                 to make sure she knows what courses the school offers, graduation requirements and how the grading system works.
                            </span><br/>
-                           <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a>
-                       </td>
+                    <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a>
+                </td>
 
-                       <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
-                       <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
+                <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+                <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                                Meet with your child's <a href="http://www.collegeboard.com/parents/plan/hs-steps/21286.html" target="_blank">teachers</a>
                                for a brief chat. This will help set the stage early for good relationships throughout the year. Jot down questions
                                ahead of time to make the most of these meetings.
                            </span><br />
-                           <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
-                   </tr>
-                   <tr>
-                       <td colspan="3" valign="top"><img style="height: 19px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
-                   </tr>
-                   <tr>
-                       <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
+                    <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
+            </tr>
+            <tr>
+                <td colspan="3" valign="top"><img style="height: 19px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+            </tr>
+            <tr>
+                <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                                Encourage your child to meet with the
                                <a href="http://www.collegeboard.com/parents/plan/hs-steps/21287.html" target="_blank">school counselor</a>
                                to compare academic requirements for each of her target schools and her own course schedule.
                                She should adjust her schedule, if necessary.
                            </span><br />
-                           <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
-                       <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
-                       <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
+                    <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
+                <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+                <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                                <a href="http://www.collegeboard.com/parents/csearch/know-the-options/21343.html" target="_blank">My College List</a>
                                can help your child manage his list of schools online. Is your child applying
                                <a href="http://www.collegeboard.com/parents/apply/college-applications/21342.html" target="_blank">early decision or early action?</a>
                                Don't miss the application deadlines. Most fall in October or November.
                            </span><br />
-                           <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
-                   </tr>
-                   <tr>
-                       <td align="right" colspan="3">
-                           <a href="http://www.collegeboard.com" target="_blank">
-                               <gsml:img style="height: 40px; width: 179px" alt="Content provided by CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
-                           </a>
-                       </td>
-                   </tr>
+                    <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
+            </tr>
+            <tr>
+                <td align="right" colspan="3">
+                    <a href="http://www.collegeboard.com" target="_blank">
+                        <gsml:img style="height: 40px; width: 179px" alt="Content provided by CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
+                    </a>
+                </td>
+            </tr>
 
         </table>
 

@@ -196,13 +196,15 @@ div.collegeBoardLogo {
      color: #55BBCC;
 }
 
-#contentGS div.module a.noHover, #contentGS div.module a.noHover:visited {
+#contentGS div.module a.noHover, #contentGS div.module a.noHover:visited,
+#contentGS div.module ul.noHover li a.noHover, #contentGS div.module ul.noHover li a.noHover:visited
+{
     color: #999999;
 }
 
 #contentGS div.module ul.noHover li{
     font-size: 12px;
-     color: #999999;
+    color: #999999;
     line-height: 15px;
     font-style: normal;
     font-weight: normal;
