@@ -2,18 +2,18 @@ package gs.web.util;
 
 import org.apache.commons.lang.StringUtils;
 
-import java.net.URL;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.util.List;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.HashSet;
-import java.util.regex.Pattern;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.regex.Matcher;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.regex.Pattern;
 
 /**
  * based on crawler designs found here:
@@ -28,6 +28,7 @@ public class Crawler {
     private boolean _respectMeta = false;  // default;
 
     private List _visitors = new ArrayList();
+    private PageReader _pageReader = new PageReader();
 
     /** Default constructor required by Spring */
     public Crawler() {
@@ -68,7 +69,7 @@ public class Crawler {
             // Add page to the crawled list.
             crawled.add(url);
             // Download the page at the given URL.
-            String contentString = getContentAsString(url);
+            String contentString = _pageReader.getContentAsString(url);
 
             List visitors = getVisitors();
             for (int j = 0; j < visitors.size(); j++) {
@@ -168,39 +169,6 @@ public class Crawler {
         //return new ArrayList();
     }
 
-    String getContentAsString(URL url) {
-        String contentString = null;
-        if ("http".equalsIgnoreCase(url.getProtocol())) {
-            try {
-                HttpURLConnection con =
-                        (HttpURLConnection)url.openConnection();
-                String type = con.getContentType();
-                if (type.startsWith("text")) {
-                    BufferedReader br = null;
-                    try {
-                        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                        String line = br.readLine();
-                        StringBuffer buffer = new StringBuffer();
-                        while (line != null) {
-                            buffer.append(line);
-                            line = br.readLine();
-                        }
-                        contentString = buffer.toString();
-                    } finally {
-                        if (br != null) {
-                            br.close();
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println ("e: "+ e);
-            }
-        } else {
-            System.out.println ("only http urls are supported");
-        }
-
-        return contentString;
-    }
 
     /**
      * todo
@@ -223,5 +191,49 @@ public class Crawler {
 
     List getVisitors() {
         return _visitors;
+    }
+
+    public PageReader getPageReader() {
+        return _pageReader;
+    }
+
+    public void setPageReader(PageReader pageReader) {
+        _pageReader = pageReader;
+    }
+
+    public class PageReader {
+        String getContentAsString(URL url) {
+            String contentString = null;
+            if ("http".equalsIgnoreCase(url.getProtocol())) {
+                try {
+                    HttpURLConnection con =
+                            (HttpURLConnection) url.openConnection();
+                    String type = con.getContentType();
+                    if (type.startsWith("text")) {
+                        BufferedReader br = null;
+                        try {
+                            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                            String line = br.readLine();
+                            StringBuffer buffer = new StringBuffer();
+                            while (line != null) {
+                                buffer.append(line);
+                                line = br.readLine();
+                            }
+                            contentString = buffer.toString();
+                        } finally {
+                            if (br != null) {
+                                br.close();
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    System.out.println("e: " + e);
+                }
+            } else {
+                System.out.println("only http urls are supported");
+            }
+
+            return contentString;
+        }
     }
 }
