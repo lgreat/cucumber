@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -14,6 +14,7 @@
         xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:popup="urn:jsptagdir:/WEB-INF/tags/community/conversion/popup"
         >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <jsp:output doctype-root-element="html"
@@ -29,6 +30,29 @@
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+    <c:set var="submitOnClick" value=""/>
+    <jsp:scriptlet>
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            if (!pageHelper.isAdFree()) {
+    </jsp:scriptlet>
+    <script type="text/javascript">
+        <![CDATA[
+        <!--
+        function sendToCoreg() {
+            var destUrl = 'http://www.eversave.com/service/servlet/consumers.Redirect?rid=5822';
+            window.open(destUrl, 'coreg', 'width=800, height=600, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no');
+            //window.open(destUrl, 'coreg', 'width=800, height=600, toolbar=yes, location=yes, status=yes, menubar=yes, scrollbars=yes, resizable=yes');
+            return true;
+        }
+        -->
+        ]]>
+    </script>
+    <c:set var="submitOnClick" value="return sendToCoreg();"/>
+                <jsp:scriptlet>
+            } // end if isAdFree
+        } // end if pageHelper != null
+    </jsp:scriptlet>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
@@ -79,7 +103,7 @@
             </div>
             <div class="centered">
                 <div class="signMeUp">
-                    <gsml:inputImage src="/res/img/button/btn_signmeup.gif" alt="Sign me up!"/>
+                    <gsml:inputImage src="/res/img/button/btn_signmeup.gif" alt="Sign me up!" onclick="${submitOnClick}"/>
                 </div>
             </div>
             <div class="privacy">

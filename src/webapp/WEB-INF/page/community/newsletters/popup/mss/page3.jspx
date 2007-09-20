@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -12,6 +12,7 @@
         xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:popup="urn:jsptagdir:/WEB-INF/tags/community/conversion/popup"
         >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <jsp:output doctype-root-element="html"
@@ -27,6 +28,18 @@
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+    <jsp:scriptlet>
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            if (!pageHelper.isAdFree()) {
+                // GS-3944 Co-reg: user has been sent to the co-reg site for their confirmation,
+                // so close the hover
+    </jsp:scriptlet>
+    <pageHelper:addOnLoadHandler handler="window.top.hidePopWin(false);"/>
+    <jsp:scriptlet>
+            } // end if isAdFree
+        } // end if pageHelper != null
+    </jsp:scriptlet>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">

@@ -1,0 +1,57 @@
+body {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+h1 {
+    background-color: #DDEEEE;
+    color: #3399AA;
+    padding: 45px 0 45px 0;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+a, a:hover, a:visited, a:active {
+    color: #3399AA;
+    text-decoration: underline;
+}
+
+#newslettersList {
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    position: relative;
+}
+
+ul {
+    text-align: left;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0;
+    color: #666666;
+    padding: 0;
+    margin: 0 0 0 15px;
+}
+
+ul#leftNewsletterList li {
+    text-align: left;
+    width: 220px;
+}
+
+ul#rightNewsletterList {
+    position: absolute;
+    top: 0;
+    left: 350px;
+}
+
+ul#rightNewsletterList li {
+    width: 220px;
+    text-align: left;
+}
+
+img#logo {
+    padding: 0 0 0 75px;
+    position: relative;
+    top: 15px;
+    left: -25px;
+}

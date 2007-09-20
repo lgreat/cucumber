@@ -850,7 +850,6 @@
         <property name="validators">
             <list>
                 <ref bean="emailValidator"/>
-                <ref bean="newsCheckBoxValidator"/>
             </list>
         </property>
     </bean>
@@ -867,6 +866,15 @@
                 <ref bean="emailValidator"/>
             </list>
         </property>
+    </bean>
+    <bean name="/community/newsletters/popup/mss/coreg.page"
+          class="gs.web.community.newsletters.popup.SubscriptionSummaryController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="newsCmd"/>
+        <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
+        <property name="formView" value="/community/newsletters/popup/mss/coreg"/>
+        <property name="successView" value="/community/newsletters/popup/mss/coreg"/>
     </bean>
     <bean name="/community/newsletters/popup/community.page"
           class="gs.web.community.newsletters.popup.CommunitySubscriptionController"

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.11 2007/09/04 21:10:43 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.12 2007/09/20 23:51:51 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -30,6 +30,7 @@ import java.util.*;
  */
 public class SubscriptionSummaryController extends SimpleFormController {
     public static final String BEAN_ID = "/community/newsletters/popup/mss/page3.page";
+    public static final String COREG_VIEW = "/community/newsletters/popup/mss/coreg";
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
@@ -54,15 +55,50 @@ public class SubscriptionSummaryController extends SimpleFormController {
         NewsletterCommand nc = (NewsletterCommand) command;
         List<Validator> validators = getOnLoadValidators();
 
-        for (Validator val : validators) {
-            if (val.supports(nc.getClass())) {
-                val.validate(nc, errors);
+        if (validators != null) {
+            for (Validator val : validators) {
+                if (val.supports(nc.getClass())) {
+                    val.validate(nc, errors);
+                }
             }
         }
     }
 
+    protected Map coregReferenceData(HttpServletRequest request, Object command, Errors errors) {
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        NewsletterCommand nc = (NewsletterCommand) command;
+        User user = SessionContextUtil.getSessionContext(request).getUser();
+
+        if (user != null) {
+            Set<Subscription> subscriptions = user.getSubscriptions();
+
+        // Map of SubscriptionProduct names to their proper ordering
+//        final Map<String, Integer> orderMap = new HashMap<String, Integer>();
+//        int compareOrder = 0;
+//        orderMap.put(SubscriptionProduct.MYSTAT.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.PARENT_ADVISOR.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.COMMUNITY.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.SPONSOR_OPT_IN.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.MY_KINDERGARTNER.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.MY_FIRST_GRADER.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.MY_SECOND_GRADER.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.MY_THIRD_GRADER.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.MY_FOURTH_GRADER.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.MY_FIFTH_GRADER.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.MY_MS.getLongName(), compareOrder++);
+//        orderMap.put(SubscriptionProduct.MY_HS.getLongName(), compareOrder++);
+
+        }
+
+        return model;
+    }
+
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors) {
         Map<String, Object> model = new HashMap<String, Object>();
+        if (COREG_VIEW.equals(getSuccessView())) {
+            return coregReferenceData(request, command, errors);
+        }
 
         if (!errors.hasErrors()) {
             NewsletterCommand nc = (NewsletterCommand) command;
