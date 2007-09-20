@@ -184,10 +184,10 @@
                         <div class="middleBottom"><gsml:a href="/content/healthyKids.page" styleClass="border10Links">See all &gt;</gsml:a></div>
                         <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
                             <center>
-                            <span class="granolaBites">
-                                <!--BROUGHT TO YOU BY QUAKER OATS -->
-                                Brought to you by<br/>Quaker Snack Bars<br/>
-                                <gsml:img src="/res/img/content/research/QSB_Logo_88x31.gif" alt="Logo of Quaker Oats Snack Bars"/>
+                            <span class="sponsorLogo">
+                                <!--BROUGHT TO YOU BY CLOROX -->
+                                Brought to you by:<br/>
+                                <gsml:img src="/res/img/content/research/Clorox_Logo_60x45.jpg" alt="Clorox logo"/>
                             </span>
                             </center>
                         </c:if>

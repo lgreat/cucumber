@@ -148,6 +148,11 @@
 	letter-spacing: 0;
 }
 
+#editorialFooter .healthyKids .arrowUL {
+	line-height: 16px;
+}
+
+
 #editorialFooter .healthyKidsImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
@@ -205,13 +210,9 @@
 	color: #555555;
 }
 
-#editorialFooter .granolaBites {
+#editorialFooter .sponsorLogo {
     letter-spacing: 0;
     font-size: 10px;
-}
-
-#editorialFooter .granolaBites img {
-    padding-top: 5px;
 }
 
 #editorialFooter input.goImageButton {
