@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.13 2007/09/21 18:43:45 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.14 2007/09/21 19:12:31 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -77,6 +77,8 @@ public class SubscriptionSummaryController extends SimpleFormController {
         User user = SessionContextUtil.getSessionContext(request).getUser();
 
         if (user == null) {
+            _log.warn("Cannot determine user. SessionContext.memberId=" + 
+                    SessionContextUtil.getSessionContext(request).getMemberId());
             return model;
         }
 
@@ -86,6 +88,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
         Set<Subscription> subscriptions = user.getSubscriptions();
 
         if (subscriptions == null) {
+            _log.warn("No subscriptions found for user " + user);
             return model;
         }
 
@@ -97,6 +100,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
         }
 
         if (newsletterSubs.size() == 0) {
+            _log.warn("No newsletter subscriptions found for user " + user);
             return model;
         }
 
