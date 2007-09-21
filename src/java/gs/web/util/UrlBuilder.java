@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.86 2007/09/11 00:20:30 cpickslay Exp $
+ * $Id: UrlBuilder.java,v 1.87 2007/09/21 00:48:12 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -181,6 +181,8 @@ public class UrlBuilder {
     public static final VPage PARENT_REVIEW_LEARN_MORE = new VPage("vpage:parentReviewLearnMore");
     public static final VPage PARENT_RATING_EXPLAINED = new VPage("vpage:parentRatingExplained");
 
+    /** School Choice Tips page */
+    public static final VPage SCHOOL_CHOICE_CENTER = new VPage("vpage:schoolChoiceCenter");    
 
     /**
      * Create a builder to the given site page.
@@ -656,7 +658,11 @@ public class UrlBuilder {
             setParameter("id", param0);
         } else if (SCHOOLS_IN_STATE.equals(page)) {
             _perlPage = false;
-            _path = "/schools/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();            
+            _path = "/schools/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
+        } else if (SCHOOL_CHOICE_CENTER.equals(page)) {
+            _perlPage = false;
+            _path = "/content/schoolChoiceCenter.page";
+            setParameter("state", state.getAbbreviation());
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

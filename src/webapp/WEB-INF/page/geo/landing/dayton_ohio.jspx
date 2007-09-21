@@ -22,10 +22,199 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Choosing a School in Dayton, Ohio</title>
-    <pageHelper:externalCss file="/res/css/content/research.css"/>
+    <pageHelper:externalCss file="/res/css/geo/landing.css"/>
 </head>
 
 <gsml:body adPageName="research" >
+
+    <div id="left-content">
+        <div class="mainLeft">
+            <div id="outreachManager">
+                <div id="managerPhoto">Photo of Outreach Manager</div>
+                <div id="managerText">
+                    <span class="photoName">Andria Perkins</span><br/>
+                    <span class="photoCaption">Outreach Manager</span>
+                </div>
+            </div>
+            <p>Dayton parents, here are some great resources to help you choose a school:</p>
+            <ul>
+                <gsweb:articlelink articleId="96" wrappingElement="li"/>
+                <gsweb:articlelink articleId="48" wrappingElement="li"/>
+                <link:schoolChoiceCenter state="${stateOrDefault}">
+                    See all school choice tips >
+                </link:schoolChoiceCenter>
+            </ul>
+        </div>
+        <hr />
+        <div class="mainLeft">
+            <h3 id="partners">Our Partners</h3>
+            <ul>
+                <li><a href="http://www.beehivedayton.org" target="_blank">Dayton Beehive</a></li>
+                <li><a href="http://ohio.baeo.org/" target="_blank">BAEO</a></li>
+                <li><a href="http://www.pacedayton.org/" target="_blank">PACE</a></li>
+                <li><a href="http://www.udayton.edu" target="_blank">University of Dayton</a></li>
+                <li><a href="http://www.edexcellence.net" target="_blank">Thomas B. Fordham Foundation</a></li>
+                <li><a href="http://www.daytonfoundation.org/" target="_blank">Dayton Foundation</a></li>
+                <li><a href="http://www.mvcdc.org/" target="_blank">Miami Valley Child Development Centers</a></li>
+                <li><a href="http://www.thedartcenter.org/LEAD.html" target="_blank">LEAD</a></li>
+                <li><a href="http://www.4c-cinci.org/" target="_blank">4C</a></li>
+                <li><a href="http://www.east-end.org/" target="_blank">East End Community Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="right-content">
+        <h1>Dayton, Ohio: My School Chooser</h1>
+        <div id="grid">
+            <div class="gridbox top left">
+                <h3 class="grid-header" id="findAndCompare">
+                    <img src="/res/img/geo/landing/findandcompare.gif" alt="Find and Compare" />
+                </h3>
+                <div id="findCompare">
+                    <div class="row">
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                        <span>Find top Dayton schools</span>
+                        <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
+                               class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onmouseout="this.src='/res/img/splash/go.gif';" type="image" />
+                    </div>
+                    <div class="row">
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                        Find all Dayton
+                        <select>
+                            <option>elementary schools</option>
+                            <option>middle schools</option>
+                            <option>high schools</option>
+                        </select>
+                        <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
+                               class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onmouseout="this.src='/res/img/splash/go.gif';" type="image" />                        
+                    </div>
+
+                    <div class="row">
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                        Compare Dayton
+                        <select>
+                            <option>elementary schools</option>
+                            <option>middle schools</option>
+                            <option>high schools</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        within
+                        <select name="miles" class="miles formText">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                        </select>
+                        miles of
+                        <input type="text" name="zip" class="zip formText"/>
+                    </div>
+                    
+                    <!--
+                    <div class="row">
+                        <gsweb:form action="/school/research.page" method="get">
+                            <input type="hidden" name="sortby" value="distance" />
+                            <input type="hidden" name="tab" value="over" />
+                            <input type="hidden" name="area" value="m" />
+                            <input type="hidden" name="form" value="address" />
+
+                            Compare Dayton
+                            <select name="level" class="school formText">
+                                <option value="e">elementary schools</option>
+                                <option value="m">middle schools</option>
+                                <option value="h">high schools</option>
+                            </select>
+                            schools
+                            within
+                            <select name="miles" class="miles formText">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                            </select>
+                            miles of
+                        <input type="text" name="zip" class="zip formText"/>
+                            <input
+                            onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
+                            onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                            class="button" style="width:41px;height:26px;" alt="Compare ${requestScope.context.state.longName} Schools"
+                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+
+                        <c:choose>
+                            <c:when test="${not empty ziperror}">
+                                <span style="color:red;">
+                                    <c:out value="${ziperror}" escapeXml="true" />
+                                </span>
+                            </c:when>
+                            <c:otherwise>
+                                <img style="width: 198px;height: 31px;" alt=""
+                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                            </c:otherwise>
+                        </c:choose>
+                        </gsweb:form>
+                    </div>
+                        -->
+                </div>
+
+            </div>
+            <div class="gridbox top right">
+                <h3 class="grid-header">
+                    <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
+                </h3>
+                <ul>
+                    <li><gsml:a href="">Find Dayton School Choice Workshops</gsml:a></li>
+                    <li><gsml:a href="">Register for the Dayton Parent List-serve</gsml:a></li>
+                    <li><gsml:a href="">Learn about Dayton School Events</gsml:a></li>
+                    <li><gsml:a href="">Volunteer with GreatSchools</gsml:a></li>
+                </ul>
+            </div>
+            <div class="gridbox bottom left">
+                <h3 class="grid-header">
+                    <img src="/res/img/geo/landing/GreatSchoolsGuide.gif" alt="GreatSchools Guides" />
+                </h3>
+                Download:
+                <ul>
+                    <li>PDF My School Chooser</li>
+                    <li>PDF Our guide to useing GreatSchools.net</li>
+                </ul>
+                <br/>
+                <ul>
+                    <li>Sign up for GreatSchools newsletters</li>
+                </ul>
+            </div>
+            <div class="gridbox bottom right">
+                <h3 class="grid-header">
+                    <img src="/res/img/geo/landing/Resources.gif" alt="Resources" />
+                </h3>
+                <ul>
+                    <li>Call our hotline: 937-229-2637</li>
+                    <li><gsml:a href="">E-mail us for more information</gsml:a></li>
+                    <li><gsml:a href="">Get low cost computers</gsml:a></li>
+                    <li><gsml:a href="">Get computer training</gsml:a></li>
+                    <li><gsml:a href="">Go to 211.org</gsml:a></li>
+                </ul>                
+            </div>
+        </div>
+        <div id="donate">
+            <h3>
+                <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
+            </h3>
+            <ul>
+                <li>Donate a computer to OTAP</li>
+                <li>Sponsor a parent leader</li>
+                <li>Contribute funds for My School Chooser</li>
+            </ul>
+            <gsml:a href="" >
+                <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
+            </gsml:a>
+        </div>
+    </div>
 
 <footer:editorialFooter/>
 

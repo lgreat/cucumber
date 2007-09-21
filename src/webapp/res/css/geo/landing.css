@@ -1,0 +1,187 @@
+div#contentGS {
+    position:relative;
+}
+
+div#left-content {
+    width:205px;
+}
+
+    div#left-content hr {
+        background-color: #DDEEEE;
+        height: 1px;
+        border:0;
+        width:200px;
+    }
+
+    div#left-content div.mainLeft {
+	    border: 6px solid #DDEEEE;
+        font-family: "Trebuchet MS", Arial, sans-serif;
+	    font-size: 12px;
+	    line-height: 17px;
+	    color: #666666;
+	    letter-spacing: 0px;
+	    width: 172px;
+    }
+
+    div#left-content div.mainLeft li {
+        line-height:21px;
+    }
+
+    div#left-content div.mainLeft h3#partners {
+        height:30px;
+        background:#DDEEEE;
+        color:#FF0000;
+    }
+
+div#outreachManager {
+    border-bottom:1px solid;
+    position:relative;
+    padding:0 0 15px 0;
+    margin:0 0 15px 0;
+}
+
+    div#outreachManager div#managerPhoto {
+	    border: 1px dashed #DDEEEE;
+	    padding: 2px 2px 2px 2px;
+        margin: 0px 7px 3px 0px;
+        text-indent:-1000em;
+        background-image: url("../../img/geo/landing/IMG_0424.JPG");
+	    background-repeat: no-repeat;
+	    background-position: 2px; 2px; 2px; 2px;
+	    width: 53px;
+	    height: 69px;
+    }
+
+    div#outreachManager div#managerText {
+        position:absolute;
+        top:30px;
+        left:65px;
+    }
+
+        div#outreachManager div#managerText span.photoName {
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            font-size: 13px;
+            line-height: 16px;
+            font-weight: bold;
+            color: #55BBCC;
+            letter-spacing: 0;
+        }
+
+        div#outreachManager div#managerText span.photoCaption {
+            font-weight: bold;
+            line-height: 14px;
+        }
+
+div#right-content {
+    position:absolute;
+    top:0;
+    left:215px;
+}
+
+    div#right-content h1 {
+        background-color:#DDEEEE;
+        color:#55BBCC;
+        font-family:"Trebuchet MS",Arial,sans-serif;
+        font-size:19px;
+        line-height:17px;
+        padding:11px 0 9px 17px;
+        height:19px;
+        margin:0 0 10px 0;
+    }
+
+    div#right-content ul {
+        position:relative;
+        left:20px;
+    }
+
+    div#right-content li {
+        background-image: url(../../img/content/research/yellow_arrow.gif );
+        background-repeat: no-repeat;
+        background-position: center left;
+        padding-top: 2px;
+        padding-left: 16px;
+        line-height:25px;
+    }
+
+div#grid {
+   position:relative;
+   width: 648px;
+   height: 410px;
+}
+
+div#grid div.gridbox {
+    position:absolute;
+    border:solid #66CCCC;
+    width:315px;
+    height:195px;
+}
+
+    div#grid div.left {
+        left:0;
+    }
+
+    div#grid div.top {
+        top:0;
+    }
+
+    div#grid div.right {
+        right:0;
+    }
+
+    div#grid div.bottom {
+        bottom:0;
+    }
+
+    div#grid h3 {
+        background:#66CCCC;
+        height:30px;
+        margin:0 0 10px 0;
+    }
+
+    div#grid h3 img {
+        padding:7px 0 0 15px;
+    }
+
+    div#grid div.row {
+        color:#777777;
+        font-family:"Century Gothic",Arial,sans-serif;
+        font-size:13px;
+        letter-spacing:0px;
+    }
+
+div#donate {
+    margin-top:25px;
+    border:2px solid #DDDDDD;
+    position:relative;
+}
+
+    div#donate h3 {
+        background:#66CCCC;
+        width:96px;
+        height:86px;
+        margin:5px;
+    }
+
+    div#donate h3 img {
+       position:relative;
+       top:35px;
+       left:12px;
+    }
+
+    div#donate ul {
+        position:absolute;
+        top:5px;
+        left:120px;
+    }
+
+    div#donate a {
+        position:absolute;
+        top:62px;
+        left:400px;
+    }
+
+
+h2#findAndCompare {
+    background-image: url("/res/img/geo/landing/findandcompare.gif");
+    border:solid;
+}
