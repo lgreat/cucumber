@@ -157,7 +157,7 @@
                                 <input type="hidden" name="prevCity" value="${school.city}" />
                             </c:when>
                             <c:otherwise>
-                                <span id="prevCity">${userResponseCommand.prevCity} <a onclick="hideAndShow('prevCity', 'prevSltState', 'prevSltCity')">Change</a></span>
+                                <span id="prevCity">${userResponseCommand.prevCity}, ${userResponseCommand.prevState} <a href="#" onclick="hideAndShow('prevCity', 'prevSltState', 'prevSltCity');return false;">Change</a></span>
                                 <form:select id="prevSltState" path="prevState" items="${states}"
                                          onchange="clearSchool('prevSltSchool');updateCity(this.value, 'prevSltCity');"
                                         cssStyle="display:none;"
@@ -180,7 +180,7 @@
                                 <input type="hidden" name="nextCity" value="${school.city}" />
                             </c:when>
                             <c:otherwise>
-                                <span id="nextCity">${userResponseCommand.nextCity} <a onclick="hideAndShow('nextCity','nextSltState', 'nextSltCity')">Change</a></span>
+                                <span id="nextCity">${userResponseCommand.nextCity}, ${userResponseCommand.nextState} <a href="#" onclick="hideAndShow('nextCity','nextSltState', 'nextSltCity');return false;">Change</a></span>
                                 <form:select id="nextSltState" path="nextState" items="${states}"
                                             cssStyle="display:none;"
                                             onchange="clearSchool('nextSltSchool');updateCity(this.value, 'nextSltCity');"/>
@@ -261,8 +261,13 @@
 </form:form>
 </div>
 <div id="right-col">
-    <ad:House_Ad_300x137 referredBy="Parent Survey Questions:1" />
-    <ad:x40/>
+    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Survey"/>
+    <ad:Top_300x137/>
+    <ad:x47/>
+    <ad:AboveFold_300x250/>
+    <ad:multiTextAd blurb="Advertiser links"/>
+    <ad:x67/>
+    <ad:AboveFold_Right_120x600/>
 </div>
 </school:profile>
 <mod:tracking pageType="School Profile"
