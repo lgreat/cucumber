@@ -25,26 +25,32 @@
     <pageHelper:externalCss file="/res/css/community/newsletters/popup/coreg.css"/>
 </head>
 <gsml:body adPageName="newsletter" pageLayout="newspop">
-    <h1>Thank you for signing up for these GreatSchools newsletters</h1>
-
-    <div id="newslettersList">
-        <ul id="leftNewsletterList">
-            <li>Monthly Stats about Lowell High School</li>
-            <li>Parent Advisor</li>
-            <li>My First-Grader</li>
-            <li>My Second-Grader</li>
-        </ul>
-        <ul id="rightNewsletterList">
-            <li>My Fifth-Grader</li>
-            <li>Countdown to College</li>
-            <li>Middle School matters</li>
-        </ul>
+    <div id="coregHeader">
+        <h1>Thanks for signing up for<br/>these GreatSchools newsletters</h1>
     </div>
 
-    <link:newsletterManagement email="" target="_blank">Manage my subscriptions &amp;gt;</link:newsletterManagement>
+    <div id="newslettersList">
+        <c:if test="${firstListSize gt 0}">
+            <ul id="leftNewsletterList">
+                <c:forEach var="newsletterName" items="${firstListSubs}">
+                    <li>${newsletterName}</li>
+                </c:forEach>
+            </ul>
+        </c:if>
+        <c:if test="${secondListSize gt 0}">
+            <ul id="rightNewsletterList">
+                <c:forEach var="newsletterName" items="${secondListSubs}">
+                    <li>${newsletterName}</li>
+                </c:forEach>
+            </ul>
+        </c:if>
+    </div>
 
-    <gsml:img src="/res/img/logo/logo_GS_201x38.gif" alt="GreatSchools logo" id="logo"/>
+    <div id="coregFooter">
+        <link:newsletterManagement email="${email}" target="_blank">Manage my subscriptions &amp;gt;</link:newsletterManagement>
 
+        <gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools logo" id="logo"/>
+    </div>
 </gsml:body>
 </html>
 </jsp:root>

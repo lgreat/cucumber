@@ -67,7 +67,7 @@
 </spring:bind>
 
 <div id="blockMessage">
-    <h1>Thanks for signing up<br/> for GreatSchools newsletters.</h1>
+    <h1>Thanks for signing up<br/> for GreatSchools newsletters</h1>
 </div>
 <div class="content">
 <gsweb:form action="/community/newsletters/popup/mss/page2.page" method="post" target="_self" id="frm">

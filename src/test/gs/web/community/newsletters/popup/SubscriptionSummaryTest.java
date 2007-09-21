@@ -1,17 +1,19 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.21 2007/09/10 17:43:02 dlee Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.22 2007/09/21 18:43:45 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.IUserDao;
 import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;
+import static gs.data.community.SubscriptionProduct.*;
 import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import static gs.web.community.newsletters.popup.SubscriptionSummaryController.*;
 import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
@@ -131,5 +133,103 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         assertEquals("Expect subscription product long name to be in model",
                 SubscriptionProduct.SPONSOR_OPT_IN.getLongName(),
                 model.get(SubscriptionSummaryController.MODEL_SPONSOR));
+    }
+
+    public void testSortNewsletterSubs() {
+        List<Subscription> newsletterSubs = new ArrayList<Subscription>();
+        newsletterSubs.add(createSubscription(MY_HS));
+        newsletterSubs.add(createSubscription(MY_FIFTH_GRADER));
+        newsletterSubs.add(createSubscription(PARENT_ADVISOR));
+        newsletterSubs.add(createSubscription(MY_FOURTH_GRADER));
+        newsletterSubs.add(createSubscription(MY_SECOND_GRADER));
+        newsletterSubs.add(createSubscription(SPONSOR_OPT_IN));
+        newsletterSubs.add(createSubscription(MY_KINDERGARTNER));
+        newsletterSubs.add(createSubscription(MYSTAT));
+        newsletterSubs.add(createSubscription(COMMUNITY));
+        newsletterSubs.add(createSubscription(MY_THIRD_GRADER));
+        newsletterSubs.add(createSubscription(MY_FIRST_GRADER));
+        newsletterSubs.add(createSubscription(MY_MS));
+        assertEquals(MY_MS, newsletterSubs.get(11).getProduct());
+        _controller.sortNewsletterSubs(newsletterSubs);
+        assertEquals(MYSTAT, newsletterSubs.get(0).getProduct());
+        assertEquals(PARENT_ADVISOR, newsletterSubs.get(1).getProduct());
+        assertEquals(COMMUNITY, newsletterSubs.get(2).getProduct());
+        assertEquals(SPONSOR_OPT_IN, newsletterSubs.get(3).getProduct());
+        assertEquals(MY_KINDERGARTNER, newsletterSubs.get(4).getProduct());
+        assertEquals(MY_FIRST_GRADER, newsletterSubs.get(5).getProduct());
+        assertEquals(MY_SECOND_GRADER, newsletterSubs.get(6).getProduct());
+        assertEquals(MY_THIRD_GRADER, newsletterSubs.get(7).getProduct());
+        assertEquals(MY_FOURTH_GRADER, newsletterSubs.get(8).getProduct());
+        assertEquals(MY_FIFTH_GRADER, newsletterSubs.get(9).getProduct());
+        assertEquals(MY_MS, newsletterSubs.get(10).getProduct());
+        assertEquals(MY_HS, newsletterSubs.get(11).getProduct());
+    }
+
+    public void testSplitList() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        List<Subscription> newsletterSubs = new ArrayList<Subscription>();
+
+        _controller.splitList(null, model);
+        assertNull(model.get(MODEL_FIRST_LIST));
+        assertNull(model.get(MODEL_SECOND_LIST));
+        _controller.splitList(newsletterSubs, model);
+        assertNull(model.get(MODEL_FIRST_LIST));
+        assertNull(model.get(MODEL_SECOND_LIST));
+
+        newsletterSubs.add(createSubscription(MY_MS));
+        _controller.splitList(newsletterSubs, model);
+        assertNotNull(model.get(MODEL_FIRST_LIST));
+        assertEquals(1, model.get(MODEL_FIRST_LIST_SIZE));
+        assertNotNull(model.get(MODEL_SECOND_LIST));
+        assertEquals(0, model.get(MODEL_SECOND_LIST_SIZE));
+
+        newsletterSubs.add(createSubscription(MY_FIRST_GRADER));
+        _controller.splitList(newsletterSubs, model);
+        assertNotNull(model.get(MODEL_FIRST_LIST));
+        assertEquals(1, model.get(MODEL_FIRST_LIST_SIZE));
+        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
+        assertNotNull(model.get(MODEL_SECOND_LIST));
+        assertEquals(1, model.get(MODEL_SECOND_LIST_SIZE));
+        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
+
+        newsletterSubs.add(createSubscription(PARENT_ADVISOR));
+        _controller.splitList(newsletterSubs, model);
+        assertNotNull(model.get(MODEL_FIRST_LIST));
+        assertEquals(2, model.get(MODEL_FIRST_LIST_SIZE));
+        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
+        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 1));
+        assertNotNull(model.get(MODEL_SECOND_LIST));
+        assertEquals(1, model.get(MODEL_SECOND_LIST_SIZE));
+        assertEquals(PARENT_ADVISOR.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
+
+        newsletterSubs.add(createSubscription(SPONSOR_OPT_IN));
+        _controller.splitList(newsletterSubs, model);
+        assertNotNull(model.get(MODEL_FIRST_LIST));
+        assertEquals(2, model.get(MODEL_FIRST_LIST_SIZE));
+        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
+        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 1));
+        assertNotNull(model.get(MODEL_SECOND_LIST));
+        assertEquals(2, model.get(MODEL_SECOND_LIST_SIZE));
+        assertEquals(PARENT_ADVISOR.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
+        assertEquals(SPONSOR_OPT_IN.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 1));
+    }
+
+    public void testSplitListMSS() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        List<Subscription> newsletterSubs = new ArrayList<Subscription>();
+    }
+
+    private String getNameFromList(Object oList, int index) {
+        List list = (List) oList;
+        return String.valueOf(list.get(index));
+    }
+
+    private Subscription createSubscription(SubscriptionProduct product) {
+        Subscription sub = new Subscription();
+        sub.setProduct(product);
+        sub.setId(10);
+        sub.setState(State.CA);
+        sub.setSchoolId(1);
+        return sub;
     }
 }

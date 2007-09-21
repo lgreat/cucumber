@@ -2,24 +2,26 @@ body {
     text-align: center;
     font-family: "Trebuchet MS", Arial, sans-serif;
 }
-h1 {
+
+#coregHeader {
     background-color: #DDEEEE;
-    color: #3399AA;
-    padding: 45px 0 45px 0;
-    font-size: 18px;
-    font-weight: 500;
-    text-align: center;
+    padding: 5px 0 45px 0;
+    margin-bottom: 15px;
 }
 
-a, a:hover, a:visited, a:active {
+h1 {
     color: #3399AA;
-    text-decoration: underline;
+    font-size: 21px;
+    font-weight: 500;
+    margin: 0 auto 0 auto;
+    text-align: left;
+    width: 600px;
 }
 
 #newslettersList {
     margin-left: auto;
     margin-right: auto;
-    width: 500px;
+    width: 600px;
     position: relative;
 }
 
@@ -30,28 +32,44 @@ ul {
     letter-spacing: 0;
     color: #666666;
     padding: 0;
-    margin: 0 0 0 15px;
+    margin: 0 0 5px 25px;
 }
 
-ul#leftNewsletterList li {
-    text-align: left;
-    width: 220px;
+ul li {
+    vertical-align: middle;
+    width: 290px;
 }
 
 ul#rightNewsletterList {
     position: absolute;
     top: 0;
-    left: 350px;
+    left: 305px;
+    list-style-position: inside;
 }
 
 ul#rightNewsletterList li {
-    width: 220px;
-    text-align: left;
+    width: 270px;
+}
+
+#coregFooter {
+    position: relative;
+    width: 600px;
+    height: 41px;
+    margin: 0 auto 0 auto;
+}
+
+a, a:hover, a:visited, a:active {
+    color: #3399AA;
+    text-decoration: underline;
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute;
+    top: 12px;
+    left: 25px;
 }
 
 img#logo {
-    padding: 0 0 0 75px;
-    position: relative;
-    top: 15px;
-    left: -25px;
+    position: absolute;
+    top: 3px;
+    right: 75px;
 }

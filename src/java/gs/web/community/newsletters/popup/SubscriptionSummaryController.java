@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.12 2007/09/20 23:51:51 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.13 2007/09/21 18:43:45 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -46,6 +46,10 @@ public class SubscriptionSummaryController extends SimpleFormController {
     public static final String MODEL_EMAIL = "email";
     public static final String MODEL_HAS_FIND_SCHOOL_LINK = "hasFindSchoolLink";
     public static final String PARAM_SHOW_FIND_SCHOOL_LINK = "showFindSchool";
+    public static final String MODEL_FIRST_LIST = "firstListSubs";
+    public static final String MODEL_FIRST_LIST_SIZE = "firstListSize";
+    public static final String MODEL_SECOND_LIST = "secondListSubs";
+    public static final String MODEL_SECOND_LIST_SIZE = "secondListSize";
 
     private String _viewName;
 
@@ -67,31 +71,130 @@ public class SubscriptionSummaryController extends SimpleFormController {
     protected Map coregReferenceData(HttpServletRequest request, Object command, Errors errors) {
         Map<String, Object> model = new HashMap<String, Object>();
 
-        NewsletterCommand nc = (NewsletterCommand) command;
+        model.put(MODEL_FIRST_LIST_SIZE, 0);
+        model.put(MODEL_SECOND_LIST_SIZE, 0);
+
         User user = SessionContextUtil.getSessionContext(request).getUser();
 
-        if (user != null) {
-            Set<Subscription> subscriptions = user.getSubscriptions();
-
-        // Map of SubscriptionProduct names to their proper ordering
-//        final Map<String, Integer> orderMap = new HashMap<String, Integer>();
-//        int compareOrder = 0;
-//        orderMap.put(SubscriptionProduct.MYSTAT.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.PARENT_ADVISOR.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.COMMUNITY.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.SPONSOR_OPT_IN.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.MY_KINDERGARTNER.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.MY_FIRST_GRADER.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.MY_SECOND_GRADER.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.MY_THIRD_GRADER.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.MY_FOURTH_GRADER.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.MY_FIFTH_GRADER.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.MY_MS.getLongName(), compareOrder++);
-//        orderMap.put(SubscriptionProduct.MY_HS.getLongName(), compareOrder++);
-
+        if (user == null) {
+            return model;
         }
 
+        model.put(MODEL_EMAIL, user.getEmail());
+
+
+        Set<Subscription> subscriptions = user.getSubscriptions();
+
+        if (subscriptions == null) {
+            return model;
+        }
+
+        List<Subscription> newsletterSubs = new ArrayList<Subscription>();
+        for (Subscription sub: subscriptions) {
+            if (sub.getProduct().isNewsletter() && !sub.getProduct().equals(SubscriptionProduct.BETA_GROUP)) {
+                newsletterSubs.add(sub);
+            }
+        }
+
+        if (newsletterSubs.size() == 0) {
+            return model;
+        }
+
+        // sort the subscriptions
+        sortNewsletterSubs(newsletterSubs);
+        // split the subscriptions into two equal length lists
+        splitList(newsletterSubs, model);
+
         return model;
+    }
+
+    protected void splitList(List<Subscription> newsletterSubs, Map<String, Object> model) {
+        if (newsletterSubs == null || newsletterSubs.size() == 0) {
+            return;
+        }
+
+        List<String> firstListNames = new ArrayList<String>();
+        List<String> secondListNames = new ArrayList<String>();
+
+        int size = newsletterSubs.size();
+
+        int firstListSize = (size / 2) + (size % 2); // odd number goes to first list
+
+        for (int x=0; x < firstListSize; x++) {
+            Subscription sub = newsletterSubs.get(x);
+            if (sub.getProduct().equals(SubscriptionProduct.MYSTAT)) {
+                School school = getSchoolDao().getSchoolById(sub.getState(), sub.getSchoolId());
+                if (school != null) {
+                    firstListNames.add("Monthly Stats about " + school.getName());
+                }
+            } else {
+                firstListNames.add(sub.getProduct().getLongName());
+            }
+        }
+
+        for (int x=firstListSize; x < size; x++) {
+            Subscription sub = newsletterSubs.get(x);
+            if (sub.getProduct().equals(SubscriptionProduct.MYSTAT)) {
+                School school = getSchoolDao().getSchoolById(sub.getState(), sub.getSchoolId());
+                if (school != null) {
+                    secondListNames.add("Monthly Stats about " + school.getName());
+                }
+            } else {
+                secondListNames.add(sub.getProduct().getLongName());
+            }
+        }
+
+        model.put(MODEL_FIRST_LIST, firstListNames);
+        model.put(MODEL_FIRST_LIST_SIZE, firstListNames.size());
+        model.put(MODEL_SECOND_LIST, secondListNames);
+        model.put(MODEL_SECOND_LIST_SIZE, secondListNames.size());
+    }
+
+    protected void sortNewsletterSubs(List<Subscription> newsletterSubs) {
+        // Map of SubscriptionProduct names to their proper ordering
+        final Map<SubscriptionProduct, Integer> orderMap = new HashMap<SubscriptionProduct, Integer>();
+        int compareOrder = 0;
+        orderMap.put(SubscriptionProduct.MYSTAT, compareOrder++);
+        orderMap.put(SubscriptionProduct.PARENT_ADVISOR, compareOrder++);
+        orderMap.put(SubscriptionProduct.COMMUNITY, compareOrder++);
+        orderMap.put(SubscriptionProduct.SPONSOR_OPT_IN, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_KINDERGARTNER, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_FIRST_GRADER, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_SECOND_GRADER, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_THIRD_GRADER, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_FOURTH_GRADER, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_FIFTH_GRADER, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_MS, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_HS, compareOrder++);
+
+        Collections.sort(newsletterSubs, new SubscriptionProductComparator(orderMap));
+    }
+
+    public static class SubscriptionProductComparator implements Comparator<gs.data.community.Subscription> {
+        private Map<SubscriptionProduct, Integer> _orderMap;
+
+        public SubscriptionProductComparator(Map<SubscriptionProduct, Integer> orderMap) {
+            _orderMap = orderMap;
+        }
+        public int compare(Subscription sub1, Subscription sub2) {
+            SubscriptionProduct product1 = sub1.getProduct();
+            SubscriptionProduct product2 = sub2.getProduct();
+            Integer orderOne = _orderMap.get(product1);
+            if (orderOne == null) {
+                orderOne = -1;
+            }
+            Integer orderTwo = _orderMap.get(product2);
+            if (orderTwo == null) {
+                orderTwo = -1;
+            }
+            if (orderOne < orderTwo) {
+                return -1;
+            } else if (orderOne == orderTwo) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
     }
 
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors) {
