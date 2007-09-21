@@ -251,11 +251,12 @@
         </gsweb:form>
     </td>
     <td class="rightcolumn" align="center">
-        <promo:backToSchool/>
         <c:set var="slotPrefix" value="Search_Site"/>
+        <ad:Top_300x137/>        
         <c:if test="${not empty param.city}">
             <c:set var="slotPrefix" value="Search_All_Cities"/>
         </c:if>
+
         <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
         <ad:x47/>
         <ad:multiTextAd blurb="Advertiser Links"/>
