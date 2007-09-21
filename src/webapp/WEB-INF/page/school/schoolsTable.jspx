@@ -252,12 +252,11 @@
     </td>
     <td class="rightcolumn" align="center">
         <c:set var="slotPrefix" value="Search_Site"/>
-        <ad:Top_300x137/>        
         <c:if test="${not empty param.city}">
             <c:set var="slotPrefix" value="Search_All_Cities"/>
         </c:if>
-
         <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
+        <ad:Top_300x137/>
         <ad:x47/>
         <ad:multiTextAd blurb="Advertiser Links"/>
     </td>
