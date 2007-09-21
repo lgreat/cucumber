@@ -58,7 +58,6 @@
 
     ${requestScope.pageHelper.headElements}
     <ad:xGAMSetup/>
-    <ad:xAdSetup />
 </head>
 
 <body onload="${!requestScope.context.crawler?requestScope.pageHelper.onload:''}" onunload="${!requestScope.context.crawler?requestScope.pageHelper.onunload:''}" class="${bodyClass}">
@@ -84,6 +83,7 @@
         <mod:footer showAd="true" showSeoFooter="true"/>
     </div>
     <div id="deferredContent" style="display:none;">
+        <ad:xAdSetup />
         ${deferredContent}
     </div>
 </div>
