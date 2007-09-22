@@ -2,15 +2,25 @@ div#contentGS {
     position:relative;
 }
 
+div#left-content a, div#right-content a {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	color: #3399AA;
+	text-decoration: none;
+	letter-spacing: 0;
+}
+
 div#left-content {
     width:205px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:0;
 }
 
     div#left-content hr {
         background-color: #DDEEEE;
         height: 1px;
         border:0;
-        width:200px;
+        width:205px;
     }
 
     div#left-content div.mainLeft {
@@ -20,45 +30,71 @@ div#left-content {
 	    line-height: 17px;
 	    color: #666666;
 	    letter-spacing: 0px;
-	    width: 172px;
+	    width: 195px;
+        padding:0 0 15px 0;
+    }
+
+    div#left-content div.mainLeft ul {
+        margin:0 10px 0 10px;
     }
 
     div#left-content div.mainLeft li {
-        line-height:21px;
+        line-height:15px;
+        padding:2px 0 10px 0;
+        font-size:12px;
     }
 
-    div#left-content div.mainLeft h3#partners {
-        height:30px;
-        background:#DDEEEE;
-        color:#FF0000;
+    div#left-content div.mainLeft li a.uline {
+        text-decoration:underline;
     }
 
-div#outreachManager {
-    border-bottom:1px solid;
-    position:relative;
-    padding:0 0 15px 0;
-    margin:0 0 15px 0;
-}
+        div#left-content div#partners h3{
+            height:30px;
+            background:#DDEEEE;
+            position:relative;
+        }
 
-    div#outreachManager div#managerPhoto {
-	    border: 1px dashed #DDEEEE;
-	    padding: 2px 2px 2px 2px;
-        margin: 0px 7px 3px 0px;
-        text-indent:-1000em;
-        background-image: url("../../img/geo/landing/IMG_0424.JPG");
-	    background-repeat: no-repeat;
-	    background-position: 2px; 2px; 2px; 2px;
-	    width: 53px;
-	    height: 69px;
+        div#left-content div#partners h3 span {
+            padding:5px 0 0 10px;
+            color:#55BBCC;
+            font-size:15px;
+            position:absolute;
+        }
+
+        div#left-content div#partners ul {
+            margin-top:10px;
+        }
+
+        div#left-content div#partners li {
+            line-height:10px;
+        }
+
+    div#left-content div#outreachManager {
+        border-bottom:1px solid #DDEEEE;
+        position:relative;
+        padding:0 0 15px 0;
+        margin:10px 10px 15px 10px;
     }
 
-    div#outreachManager div#managerText {
-        position:absolute;
-        top:30px;
-        left:65px;
-    }
+        div#left-content div#outreachManager div#managerPhoto {
+	        border: 1px dashed #DDEEEE;
+	        padding: 2px 2px 2px 2px;
+            margin: 0px 7px 3px 0px;
+            text-indent:-1000em;
+            background-image: url("../../img/geo/landing/IMG_0424.JPG");
+	        background-repeat: no-repeat;
+	        background-position: 2px; 2px; 2px; 2px;
+	        width: 53px;
+	        height: 69px;
+        }
 
-        div#outreachManager div#managerText span.photoName {
+        div#left-content div#outreachManager div#managerText {
+            position:absolute;
+            top:45px;
+            left:65px;
+        }
+
+        div#left-content div#outreachManager div#managerText span.photoName {
             font-family: "Trebuchet MS", Arial, sans-serif;
             font-size: 13px;
             line-height: 16px;
@@ -101,19 +137,21 @@ div#right-content {
         padding-top: 2px;
         padding-left: 16px;
         line-height:25px;
+        color:#777777;
     }
 
 div#grid {
    position:relative;
    width: 648px;
-   height: 410px;
+   height: 430px;
 }
 
 div#grid div.gridbox {
     position:absolute;
     border:solid #66CCCC;
     width:315px;
-    height:195px;
+    height:205px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
 }
 
     div#grid div.left {
@@ -144,10 +182,108 @@ div#grid div.gridbox {
 
     div#grid div.row {
         color:#777777;
-        font-family:"Century Gothic",Arial,sans-serif;
+        font-family:"Trebuchet MS",Arial,sans-serif;
         font-size:13px;
         letter-spacing:0px;
     }
+
+    div#grid div.spacer {
+        padding:0 0 0 20px;
+        position:relative;
+    }
+
+    div#grid div#findAndCompare h2 {
+        background-image: url("/res/img/geo/landing/findandcompare.gif");
+        border:solid;
+    }
+
+    div#grid div#findAndCompare select {
+        border:1px solid #BBBBBB;
+    }
+
+    div#grid div#findAndCompare input.zip,
+    div#grid div#findAndCompare select {
+        font-family:"Trebuchet MS",Arial,sans-serif;
+        font-size:12px;
+        color:#666666;
+        border:1px solid #BBBBBB;
+    }
+
+    div#grid div#findAndCompare div#topSchools {
+        position:relative;
+        height:30px;
+    }
+
+        div#grid div#findAndCompare div#topSchools img {
+            position:absolute;
+            top:10px;
+        }
+
+        div#grid div#findAndCompare div#topSchools span {
+            position:absolute;
+            top:8px;
+            left:10px;
+        }
+
+        div#grid div#findAndCompare div#topSchools input {
+            position:absolute;
+            top:2px;
+            left:170px;
+        }
+
+    div#grid div#findAndCompare div#findAll {
+        position:relative;
+        height:30px;
+        margin:0 0 10px 0;
+    }
+
+        div#grid div#findAndCompare div#findAll img {
+            position:absolute;
+            top:10px;
+        }
+
+        div#grid div#findAndCompare div#findAll span {
+            position:absolute;
+            top:8px;
+            left:10px;
+        }
+
+        div#grid div#findAndCompare div#findAll select {
+            position:absolute;
+            left:103px;
+            top:6px;
+            width:130px;
+        }
+
+        div#grid div#findAndCompare div#findAll input {
+            position:absolute;
+            top:2px;
+            left:240px;
+        }
+
+            div#grid div#within {
+                margin:10px 0 0 15px;
+                position:relative;
+            }
+
+            div#grid div#within input.button {
+                position:absolute;
+                top:0;
+                left:200px;
+            }
+
+           div#grid div#greatschoolsGuides span {
+               position:relative;
+               font-size:13px;
+               color:#666666;
+               top:10px;
+           }
+
+           div#grid div#greatschoolsGuides ul {
+               top:15px;
+               left:10px;
+           }
+
 
 div#donate {
     margin-top:25px;
@@ -181,7 +317,3 @@ div#donate {
     }
 
 
-h2#findAndCompare {
-    background-image: url("/res/img/geo/landing/findandcompare.gif");
-    border:solid;
-}
