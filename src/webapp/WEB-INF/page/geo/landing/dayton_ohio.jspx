@@ -23,6 +23,18 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Choosing a School in Dayton, Ohio</title>
     <pageHelper:externalCss file="/res/css/geo/landing.css"/>
+    <script type="text/javascript">
+        function gotoDaytonCityPage() {
+            window.location.href = 'http://www.greatschools.net/city/Dayton/OH';
+        }
+        function gotoDaytonSchoolsPage() {
+            var level = document.getElementById('findAllLevel').value;
+            var url = 'http://www.greatschools.net/schools.page?city=Dayton&amp;lc=';
+            url += level;
+            url += '&amp;state=OH';
+            window.location.href = url;
+        }
+    </script>
 </head>
 
 <gsml:body adPageName="research" >
@@ -77,19 +89,21 @@
                         <span>Find top Dayton schools</span>
                         <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
                                class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                               onmouseout="this.src='/res/img/splash/go.gif';" type="image" />
+                               onmouseout="this.src='/res/img/splash/go.gif';" type="image"
+                               onclick="gotoDaytonCityPage();" />
                     </div>
                     <div class="row" id="findAll">
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
                         <span>Find all Dayton</span>
-                        <select>
-                            <option>elementary schools</option>
-                            <option>middle schools</option>
-                            <option>high schools</option>
+                        <select id="findAllLevel">
+                            <option value="e">elementary schools</option>
+                            <option value="m">middle schools</option>
+                            <option value="h">high schools</option>
                         </select>
                         <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
                                class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                               onmouseout="this.src='/res/img/splash/go.gif';" type="image" />                        
+                               onmouseout="this.src='/res/img/splash/go.gif';" type="image"
+                               onclick="gotoDaytonSchoolsPage()"/>                        
                     </div>
 
 
@@ -120,8 +134,8 @@
                                 <option value="30">30</option>
                             </select>
                             miles of
-                            <input type="text" name="zip" class="zip formText" value="12345" size="7"/>
-                            <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
+                            <input type="text" name="zip" class="zip formText" value="45401" size="7"/>
+                            <input src="/res/img/splash/go.gif" alt="Compare Dayton Schools" style="width: 41px; height: 26px;"
                                    class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                    onmouseout="this.src='/res/img/splash/go.gif';" type="image" />
                         </div>
@@ -152,9 +166,14 @@
                 </h3>
                 <ul>
                     <li><gsml:a href="">Find Dayton School Choice Workshops</gsml:a></li>
-                    <li><gsml:a href="">Register for the Dayton Parent List-serve</gsml:a></li>
+
+                    <li>
+                        <a href="mailto:aperkins@greatschools.net?subject=register%20me%20for%20the%20online%20parent%20network" >Register for the Dayton Parent List-serve</a>    
+                    </li>
                     <li><gsml:a href="">Learn about Dayton School Events</gsml:a></li>
-                    <li><gsml:a href="">Volunteer with GreatSchools</gsml:a></li>
+                    <li>
+                        <a href="mailto:aperkins@greatschools.net?subject=I’m%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>    
+                    </li>
                 </ul>
             </div>
             <div class="gridbox bottom left" id="greatschoolsGuides">
@@ -165,7 +184,7 @@
                     <span>Download:</span>
                     <ul>
                         <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                            <a href="" >PDF My School Chooser</a>
+                            <gsml:a href="/schoolreports/DaytonChooser2007.pdf" >PDF My School Chooser</gsml:a>
                         </li>
                         <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                             <a href="" >PDF Our guide to using GreatSchools.net</a>
