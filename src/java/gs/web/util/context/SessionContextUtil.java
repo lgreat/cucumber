@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.28 2007/09/24 19:18:36 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.29 2007/09/24 20:56:58 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -117,6 +117,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         Cookie[] cookies = httpServletRequest.getCookies();
         ClientSideSessionCache cache = null;
         boolean isCommunity = false;
+        _log.warn("community_" + getServerName(httpServletRequest));
         if (cookies != null) {
 
             State cookiedState = null;
@@ -162,6 +163,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                     }
                 } else if (StringUtils.equals("community_" + getServerName(httpServletRequest), thisCookie.getName())) {
                     // GS-3819
+                    _log.warn("Found cookie: " + thisCookie.getValue());
                     isCommunity = true;
                     // pull member id out of community cookie if necessary
                     if (insiderId == -1) {
@@ -172,6 +174,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                                     thisCookie.getValue());
                         }
                     }
+                    _log.warn("insiderId=" + insiderId);
                 } else if (StringUtils.equals(_tempMsgCookieGenerator.getCookieName(), thisCookie.getName())) {
                     String message = thisCookie.getValue();
                     context.setTempMsg(message);
@@ -210,6 +213,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                 updateContextFromCache(context, cache);
                 context.setReadClientSideSessionCache(true);
             }
+            _log.warn("context.memberId=" + context.getMemberId());
         }
     }
 
