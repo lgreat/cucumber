@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.27 2007/09/24 19:00:23 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.28 2007/09/24 19:18:36 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -160,7 +160,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                     if (s != null) {
                         oldCookiedState = s;
                     }
-                } else if (StringUtils.equals(_communityCookieGenerator.getCookieName(), thisCookie.getName())) {
+                } else if (StringUtils.equals("community_" + getServerName(httpServletRequest), thisCookie.getName())) {
                     // GS-3819
                     isCommunity = true;
                     // pull member id out of community cookie if necessary
@@ -245,14 +245,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         }
     }
 
-    /**
-     * Called at the beginning of the request; called after #readCookies is called.
-     * Allows this class to do common operations for all pages.
-     */
-    public void updateFromParams(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 SessionContext context) {
-
+    private void updateHostnameCobrandFromParams(HttpServletRequest request, SessionContext context) {
         // Get the real hostname or see if it's been overridden
         String paramHost = request.getParameter(HOST_PARAM);
         String hostName = StringUtils.isEmpty(paramHost) ? request.getServerName() : paramHost;
@@ -268,6 +261,21 @@ public class SessionContextUtil implements ApplicationContextAware {
             cobrand = _urlUtil.cobrandFromUrl(hostName);
         }
 
+        // Now see if we need to override the hostName
+        hostName = _urlUtil.buildPerlHostName(hostName, cobrand);
+
+        context.setHostName(hostName);
+        context.setCobrand(cobrand);
+    }
+
+    /**
+     * Called at the beginning of the request; called after #readCookies is called.
+     * Allows this class to do common operations for all pages.
+     */
+    public void updateFromParams(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 SessionContext context) {
+        updateHostnameCobrandFromParams(request, context);
         // Determine if this is a crawler
         String userAgent = request.getHeader("User-Agent");
         if (userAgent != null && userAgent.toLowerCase().matches(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver).*")) {
@@ -275,9 +283,6 @@ public class SessionContextUtil implements ApplicationContextAware {
         } else {
             context.setCrawler(false);
         }
-
-        // Now see if we need to override the hostName
-        hostName = _urlUtil.buildPerlHostName(hostName, cobrand);
 
         updateStateFromParam(context, request, response);
 
@@ -307,8 +312,6 @@ public class SessionContextUtil implements ApplicationContextAware {
                         " named " + request.getRemoteHost());// don't pass exception-- it's distracting
             }
         }
-        context.setHostName(hostName);
-        context.setCobrand(cobrand);
     }
 
     /**
@@ -533,7 +536,11 @@ public class SessionContextUtil implements ApplicationContextAware {
     }
 
     public static String getServerName(HttpServletRequest request) {
-        PageHelper pageHelper = new PageHelper(getSessionContext(request), request);
+        SessionContext sessionContext = getSessionContext(request);
+        if (StringUtils.isEmpty(sessionContext.getHostName())) {
+            sessionContext.getSessionContextUtil().updateHostnameCobrandFromParams(request, sessionContext);
+        }
+        PageHelper pageHelper = new PageHelper(sessionContext, request);
         if (pageHelper.isStagingServer()) {
             return "staging";
         } else if (pageHelper.isDevEnvironment()) {
