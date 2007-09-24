@@ -11,18 +11,23 @@
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0" >
+<jsp:directive.page import="gs.data.state.State"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <html lang="en">
-<c:set var="stateOrNull" value="${requestScope.context.state}" />
-<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Choosing a School in Dayton, Ohio</title>
     <pageHelper:externalCss file="/res/css/geo/landing.css"/>
+    <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        sessionContext.setState(State.OH);
+    </jsp:scriptlet>
     <![CDATA[
     <script type="text/javascript">
         function gotoDaytonCityPage() {
@@ -66,7 +71,7 @@
                 <gsweb:articlelink articleId="96" wrappingElement="li"/>
                 <gsweb:articlelink articleId="48" wrappingElement="li"/>
                 <li>
-                    <link:schoolChoiceCenter state="${stateOrDefault}" styleClass="uline">
+                    <link:schoolChoiceCenter state="${requestScope.context.state}" styleClass="uline">
                         See all school choice tips >
                     </link:schoolChoiceCenter>
                 </li>

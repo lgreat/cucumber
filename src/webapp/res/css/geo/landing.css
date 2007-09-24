@@ -34,7 +34,7 @@ div#left-content {
 	    font-size: 12px;
 	    line-height: 17px;
 	    color: #666666;
-	    letter-spacing: 0px;
+	    letter-spacing: 0;
 	    width: 195px;
         padding:0 0 15px 0;
     }
@@ -196,7 +196,7 @@ div#grid div.gridbox {
         color:#777777;
         font-family:"Trebuchet MS",Arial,sans-serif;
         font-size:13px;
-        letter-spacing:0px;
+        letter-spacing:0;
     }
 
     div#grid div.spacer {
@@ -211,6 +211,7 @@ div#grid div.gridbox {
 
     div#grid div#findAndCompare select {
         border:1px solid #BBBBBB;
+        height:22px;
     }
 
     div#grid div#findAndCompare input.zip,
