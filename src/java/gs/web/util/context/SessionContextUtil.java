@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.25 2007/09/07 21:58:34 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.26 2007/09/24 18:39:30 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -160,7 +160,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                     if (s != null) {
                         oldCookiedState = s;
                     }
-                } else if (StringUtils.equals(_communityCookieGenerator.getCookieName(), thisCookie.getName())) {
+                } else if (StringUtils.equals("community_" + getServerName(httpServletRequest), thisCookie.getName())) {
                     // GS-3819
                     isCommunity = true;
                     // pull member id out of community cookie if necessary
