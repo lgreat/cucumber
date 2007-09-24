@@ -52,6 +52,12 @@
                     <c:if test="${showSeoFooter ne false}">
                         <mod:seoFooter/>
                     </c:if>
+                    <div id="footerCopyright">
+                        &amp;#169;1998-2007 GreatSchools Inc. All Rights Reserved.
+                        <link:termsOfUse>Terms of Use</link:termsOfUse> &#124;
+                        <gsml:a href="/about/privacyStatement.page">Privacy Policy</gsml:a>
+                        <br/>GreatSchools is a 501(c)(3) not-for-profit organization
+                    </div>
                 </div>
             </div>
             <br style="clear:both;"/>

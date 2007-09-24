@@ -199,13 +199,6 @@
    <![CDATA[<a name="bottom"></a>]]>
 </div>
 
-<div id="footerCopyright">
-    &amp;#169;1998-2007 GreatSchools Inc. All Rights Reserved.
-    <link:termsOfUse>Terms of Use</link:termsOfUse> &#124;
-    <gsml:a href="/about/privacyStatement.page">Privacy Policy</gsml:a>
-    <br/>GreatSchools is a 501(c)(3) not-for-profit organization
-</div>
-
 <!-- Crawlers should see the expanded footer -->
 <c:if test="${!requestScope.context.crawler}">
 <script type="text/javascript">
