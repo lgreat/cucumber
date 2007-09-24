@@ -86,23 +86,23 @@ div#left-content {
             padding: 2px 2px 2px 2px;
             margin: 0 7px 3px 0;
             text-indent:-1000em;
-            background-image: url("../../img/geo/landing/IMG_0424.JPG");
+            background-image: url("/res/img/geo/landing/andria.JPG");
 	        background-repeat: no-repeat;
-	        background-position: 2px; 2px; 2px; 2px;
+	        background-position: 2px 2px;
 	        width: 56px;
-	        height: 70px;
+	        height: 69px;
         }
 
         div#left-content div#outreachManager div#managerPhotoBorder {
             border: 1px dashed #DDEEEE;
             width: 60px;
-	        height: 76px;            
+	        height: 75px;            
         }
 
         div#left-content div#outreachManager div#managerText {
             position:absolute;
             top:45px;
-            left:65px;
+            left:70px;
         }
 
         div#left-content div#outreachManager div#managerText span.photoName {
@@ -264,7 +264,7 @@ div#grid div.gridbox {
             position:absolute;
             left:103px;
             top:7px;
-            width:130px;
+            width:135px;
         }
 
         div#grid div#findAndCompare div#findAll input {
@@ -313,6 +313,10 @@ div#grid div.gridbox {
            div#grid div#greatschoolsGuides ul {
                top:15px;
                left:10px;
+           }
+
+           div#grid div#greatschoolsGuides li img {
+               padding: 0 5px 0 0;
            }
 
 
