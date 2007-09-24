@@ -75,12 +75,17 @@ public class AllInStateControllerTest extends BaseControllerTestCase {
         Hits hits = _searcher.search(query,
                 new Sort(Indexer.SORTABLE_NAME), null, null);
         List<List> alphaGroups = _controller.getAlphaGroups("school", hits, State.AK);
-        assertEquals("There should be 25 alpha groups in AK", 25, alphaGroups.size());
+        assertEquals("There should be 26 alpha groups in AK", 26, alphaGroups.size());
 
-        List lastList = alphaGroups.get(alphaGroups.size()-1);
-        Map m = (Map)lastList.get(lastList.size()-1);
+        List lastAlphaList = alphaGroups.get(alphaGroups.size()-2);
+        Map m = (Map)lastAlphaList.get(lastAlphaList.size()-1);
         assertEquals ("The last item in the last alpha list is incorrect",
                 "Zackar Levi Elementary School", m.get("name"));
+
+        List lastList = alphaGroups.get(alphaGroups.size()-1);
+        m = (Map)lastList.get(lastList.size()-1);
+        assertEquals ("The last item is not numeric",
+                "4th Fairbanks Youth Facility", m.get("name"));
     }
 
     public void testBuildPageLink() throws Exception {

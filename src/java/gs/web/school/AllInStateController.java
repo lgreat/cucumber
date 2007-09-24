@@ -243,6 +243,7 @@ public class AllInStateController extends AbstractController {
         List<List> alphaGroups = new ArrayList<List>();
         if (hits != null && hits.length() > 0) {
             List workingList = new ArrayList();
+            List numericList = new ArrayList();
             char currentLetter = 'a';
             for (int i = 0; i < hits.length(); i++) {
                 Document doc = hits.doc(i);
@@ -278,12 +279,22 @@ public class AllInStateController extends AbstractController {
                         }
                         fields.put("school", s);
                     }
-                    workingList.add(fields);
+
+                    if (name.matches("^\\p{Digit}.*")) {
+                        numericList.add(fields);
+                    } else {
+                        workingList.add(fields);
+                    }
                 }
             }
             // Add the last working list.
             if (workingList.size() > 0) {
                 alphaGroups.add(workingList);
+            }
+
+            // add any numeric groups to the end of the list - GS-4189
+            if (numericList.size() > 0) {
+                alphaGroups.add(numericList);
             }
         }
         return alphaGroups;
