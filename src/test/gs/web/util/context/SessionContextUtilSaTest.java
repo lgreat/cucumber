@@ -33,6 +33,7 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         _sessionContextUtil = new SessionContextUtil();
 
         _sessionContext = new SessionContext();
+        _sessionContext.setSessionContextUtil(_sessionContextUtil);
         _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         CookieGenerator sccGen = new CookieGenerator();

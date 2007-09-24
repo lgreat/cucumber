@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.29 2007/09/24 20:56:58 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.30 2007/09/24 21:09:32 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -541,6 +541,10 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public static String getServerName(HttpServletRequest request) {
         SessionContext sessionContext = getSessionContext(request);
+        if (sessionContext == null) {
+            _log.warn("Unable to determine server name because of null SessionContext. Defaulting to www");
+            return "www";
+        }
         if (StringUtils.isEmpty(sessionContext.getHostName())) {
             sessionContext.getSessionContextUtil().updateHostnameCobrandFromParams(request, sessionContext);
         }
