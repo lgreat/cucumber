@@ -23,18 +23,29 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Choosing a School in Dayton, Ohio</title>
     <pageHelper:externalCss file="/res/css/geo/landing.css"/>
+    <![CDATA[
     <script type="text/javascript">
         function gotoDaytonCityPage() {
             window.location.href = 'http://www.greatschools.net/city/Dayton/OH';
         }
         function gotoDaytonSchoolsPage() {
             var level = document.getElementById('findAllLevel').value;
-            var url = 'http://www.greatschools.net/schools.page?city=Dayton&amp;lc=';
+            var url = "http://www.greatschools.net/schools.page?city=Dayton&lc=";
             url += level;
-            url += '&amp;state=OH';
+            url += '&state=OH';
+            window.location.href = url;
+        }
+        function gotoComparePage() {
+            var url = "http://www.greatschools.net/cgi-bin/cs_compare/oh/?sortby=distance&tab=over&area=m&zip=";
+            url += document.getElementById('zip').value;
+            url += "&miles=";
+            url += document.getElementById('miles').value;
+            url += "&level=";
+            url += document.getElementById('compareLevel').value;
             window.location.href = url;
         }
     </script>
+    ]]>
 </head>
 
 <gsml:body adPageName="research" >
@@ -42,7 +53,9 @@
     <div id="left-content">
         <div class="mainLeft">
             <div id="outreachManager">
-                <div id="managerPhoto">Photo of Outreach Manager</div>
+                <div id="managerPhotoBorder">
+                    <div id="managerPhoto">Photo of Outreach Manager</div>
+                </div>
                 <div id="managerText">
                     <span class="photoName">Andria Perkins</span><br/>
                     <span class="photoCaption">Outreach Manager</span>
@@ -106,17 +119,17 @@
                                onclick="gotoDaytonSchoolsPage()"/>                        
                     </div>
 
-
-                    <gsweb:form action="/school/research.page" method="get">
+                    <!--<gsweb:form action="/school/research.page" method="get">-->
                         <input type="hidden" name="sortby" value="distance" />
                         <input type="hidden" name="tab" value="over" />
                         <input type="hidden" name="area" value="m" />
                         <input type="hidden" name="form" value="address" />
+                        <input type="hidden" name="foo" value="bar" />
 
                         <div class="row">
                             <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
                             Compare Dayton
-                            <select>
+                            <select id="compareLevel" name="level">
                                 <option value="e">elementary schools</option>
                                 <option value="m">middle schools</option>
                                 <option value="h">high schools</option>
@@ -124,8 +137,8 @@
                         </div>
 
                         <div class="row" id="within">
-                            within
-                            <select name="miles" class="miles formText">
+                            <span>within</span>
+                            <select id="miles" name="miles" class="miles formText">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
@@ -133,14 +146,15 @@
                                 <option value="25">25</option>
                                 <option value="30">30</option>
                             </select>
-                            miles of
-                            <input type="text" name="zip" class="zip formText" value="45401" size="7"/>
-                            <input src="/res/img/splash/go.gif" alt="Compare Dayton Schools" style="width: 41px; height: 26px;"
-                                   class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                                   onmouseout="this.src='/res/img/splash/go.gif';" type="image" />
-                        </div>
-                    </gsweb:form>
+                            <span>miles of</span>
+                            <input id="zip" type="text" name="zip" class="zip formText" value="45401" size="7"/>
 
+                            <input src="/res/img/splash/go.gif" alt="Compare Ohio Schools" style="width: 41px; height: 26px;"
+                               class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onmouseout="this.src='/res/img/splash/go.gif';" type="image"
+                               onclick="gotoComparePage()"/>                            
+                        </div>
+                    <!--</gsweb:form>-->
                     <!--
                     <div class="row">
                         <gsweb:form action="/school/research.page" method="get">

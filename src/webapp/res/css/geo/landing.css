@@ -9,6 +9,10 @@ div#left-content a, div#right-content a {
 	letter-spacing: 0;
 }
 
+div#left-content a:hover, div#right-content a:hover {
+	text-decoration: underline;
+}
+
 div#left-content {
     width:205px;
     font-family:"Trebuchet MS",Arial,sans-serif;
@@ -18,6 +22,7 @@ div#left-content {
 
     div#left-content hr {
         background-color: #DDEEEE;
+        color: #DDEEEE;
         height: 1px;
         border:0;
         width:205px;
@@ -72,20 +77,26 @@ div#left-content {
     div#left-content div#outreachManager {
         border-bottom:1px solid #DDEEEE;
         position:relative;
-        padding:0 0 15px 0;
-        margin:10px 10px 15px 10px;
+        padding:0 0 10px 0;
+        margin:10px 10px 10px 10px;
     }
 
         div#left-content div#outreachManager div#managerPhoto {
-	        border: 1px dashed #DDEEEE;
-	        padding: 2px 2px 2px 2px;
-            margin: 0px 7px 3px 0px;
+	        border: 1px solid #DDEEEE;
+            padding: 2px 2px 2px 2px;
+            margin: 0 7px 3px 0;
             text-indent:-1000em;
             background-image: url("../../img/geo/landing/IMG_0424.JPG");
 	        background-repeat: no-repeat;
 	        background-position: 2px; 2px; 2px; 2px;
-	        width: 53px;
-	        height: 69px;
+	        width: 56px;
+	        height: 70px;
+        }
+
+        div#left-content div#outreachManager div#managerPhotoBorder {
+            border: 1px dashed #DDEEEE;
+            width: 60px;
+	        height: 76px;            
         }
 
         div#left-content div#outreachManager div#managerText {
@@ -122,6 +133,7 @@ div#right-content {
         line-height:17px;
         padding:11px 0 9px 17px;
         height:19px;
+        width:632px;
         margin:0 0 10px 0;
     }
 
@@ -148,7 +160,7 @@ div#grid {
 
 div#grid div.gridbox {
     position:absolute;
-    border:solid #66CCCC;
+    border:3px solid #66CCCC;
     width:315px;
     height:205px;
     font-family:"Trebuchet MS",Arial,sans-serif;
@@ -211,7 +223,7 @@ div#grid div.gridbox {
 
     div#grid div#findAndCompare div#topSchools {
         position:relative;
-        height:30px;
+        height:35px;
     }
 
         div#grid div#findAndCompare div#topSchools img {
@@ -227,13 +239,13 @@ div#grid div.gridbox {
 
         div#grid div#findAndCompare div#topSchools input {
             position:absolute;
-            top:2px;
-            left:170px;
+            top:4px;
+            left:160px;
         }
 
     div#grid div#findAndCompare div#findAll {
         position:relative;
-        height:30px;
+        height:32px;
         margin:0 0 10px 0;
     }
 
@@ -251,13 +263,13 @@ div#grid div.gridbox {
         div#grid div#findAndCompare div#findAll select {
             position:absolute;
             left:103px;
-            top:6px;
+            top:7px;
             width:130px;
         }
 
         div#grid div#findAndCompare div#findAll input {
             position:absolute;
-            top:2px;
+            top:3px;
             left:240px;
         }
 
@@ -266,11 +278,30 @@ div#grid div.gridbox {
                 position:relative;
             }
 
-            div#grid div#within input.button {
-                position:absolute;
-                top:0;
-                left:200px;
-            }
+                div#grid div#within span {
+                    position:relative;
+                    top:5px;
+                    margin:0 5px 0 0;
+                }
+
+                div#grid div#within input,
+                div#grid div#within select {
+                    position:relative;
+                    top:5px;
+                    margin:0 7px 0 0;
+                }
+
+                div#grid div#within input.button {
+                    position:absolute;
+                    top:0;
+                    margin:2px 0 0 0;
+                    left:200px;
+                }
+
+                div#grid div#within input.zip {
+                    padding:0 0 0 4px;
+                    width:40px;
+                }
 
            div#grid div#greatschoolsGuides span {
                position:relative;
@@ -286,9 +317,11 @@ div#grid div.gridbox {
 
 
 div#donate {
-    margin-top:25px;
+    margin-top:20px;
     border:2px solid #DDDDDD;
     position:relative;
+    height:96px;
+    width:643px;
 }
 
     div#donate h3 {
