@@ -393,6 +393,17 @@ public class UserCommandValidatorTest extends BaseTestCase {
         assertEquals(1, errors.getErrorCount());
     }
 
+    public void testEmptyGender() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+        command.setGender("");
+
+        _validator.validate(_request, command, errors);
+        _userControl.verify();
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
     public void testBadGender() {
         UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
@@ -407,6 +418,16 @@ public class UserCommandValidatorTest extends BaseTestCase {
         setupUserControl(GOOD_EMAIL, GOOD_SCREEN_NAME_SHORT);
 
         command.setGender("some weird String");
+
+        _validator.validate(_request, command, errors);
+        _userControl.verify();
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+
+        errors = new BindException(command, "");
+        setupUserControl(GOOD_EMAIL, GOOD_SCREEN_NAME_SHORT);
+
+        command.setGender("female");
 
         _validator.validate(_request, command, errors);
         _userControl.verify();

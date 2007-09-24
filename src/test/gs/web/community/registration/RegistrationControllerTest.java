@@ -273,6 +273,55 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     /**
+     * Regression testing for GS-4065
+     */
+    public void testExistingUserWithOtherGender() throws Exception {
+        String email = "testExistingUser@greatschools.net";
+        Integer userId = 346;
+
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        String password = "foobar";
+        userCommand.getUser().setEmail(email);
+        userCommand.setGender("u");
+
+        userCommand.setPassword(password);
+        userCommand.setConfirmPassword(password);
+        userCommand.setScreenName("screeny");
+        userCommand.setNumSchoolChildren(0);
+        userCommand.getUser().setId(userId);
+
+        assertTrue(userCommand.getUser().isPasswordEmpty());
+        assertFalse(userCommand.getUser().isEmailProvisional());
+
+        User dbUser = new User();
+        dbUser.setId(userId);
+        dbUser.setEmail(email);
+
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email),
+                dbUser);
+        _userDao.updateUser(dbUser);
+        _userDao.updateUser(dbUser);
+        _userControl.replay();
+
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        replay(_soapRequest);
+
+        try {
+            _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+            _userControl.verify();
+            verify(_soapRequest);
+            assertTrue(userCommand.getUser().isEmailProvisional());
+            assertFalse(userCommand.getUser().isPasswordEmpty());
+            // following line is test for GS-4065
+            assertEquals("Expect gender to be set on existing user", "u", dbUser.getGender());
+        } catch (Exception e) {
+            fail(e.toString());
+        }
+    }
+
+
+    /**
      * Test that on serious error during the registration process, no partially completed records
      * are left in the database.
      */

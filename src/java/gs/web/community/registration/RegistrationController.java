@@ -132,9 +132,7 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             String gender = userCommand.getGender();
             if (StringUtils.isNotEmpty(gender)) {
-                if (gender.equals("m") || gender.equals("f")) {
-                    user.setGender(userCommand.getGender());
-                }
+                user.setGender(userCommand.getGender());
             }
             userCommand.setUser(user);
         } else {

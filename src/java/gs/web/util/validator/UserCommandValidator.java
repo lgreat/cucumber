@@ -141,9 +141,11 @@ public class UserCommandValidator implements IRequestAwareValidator {
         }
 
         String gender = command.getGender();
-        if (StringUtils.isEmpty(gender) ||
-                (gender.length() > 1 || (!"m".equals(gender) &&
-                        !"f".equals(gender) && !"u".equals(gender)))) {
+        if (StringUtils.isEmpty(gender)) {
+            errors.rejectValue("gender", null, GENDER_MISSING);
+        } else if  (gender.length() > 1) {
+            errors.rejectValue("gender", null, GENDER_MISSING);
+        } else if (!("m".equals(gender) || "f".equals(gender) || "u".equals(gender))) {
             errors.rejectValue("gender", null, GENDER_MISSING);
         }
 
