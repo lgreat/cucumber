@@ -18,7 +18,6 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
 
-
 <c:set var="school" value="${userResponseCommand.school}"/>
 
 <html>
@@ -26,9 +25,9 @@
     <title>Complete a Parent Survey for ${school.name} in ${school.city}, ${school.databaseState}</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
+    <pageHelper:externalCss file="/res/css/survey/survey.css"/>
 </head>
 <body>
-<pageHelper:externalCss file="/res/css/survey/survey.css"/>
 <school:profile school="${school}" tab="surveys">
 <div id="left-col">
 	<div id="intro">
@@ -53,6 +52,24 @@
     </div>
 
 <form:form commandName="userResponseCommand">
+
+
+<c:if test="${(empty requestScope.context.user) or (empty userResponseCommand.year) or (userResponseCommand.year eq '0')}">
+<div class="question-group">
+    <h2 class="question-group-heading">Before you get started, please tell us what school year your responses are based on:</h2>
+    <div class="question">
+        <ul class="answer-list">
+            <c:forEach var="year" items="${schoolYears}" varStatus="count">
+                <li class="answer-list-item">
+                    <form:radiobutton path="year" value="${year}" id="r${year}" cssStyle="radio"/>
+                    <label class="years" for="r${year}">${year-1}-${year}</label>
+                    <c:if test="${count.index == 0}"><form:errors path="year" cssClass="error"/></c:if>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
+</div>    
+</c:if>
 
 <c:forEach var="questionGroup" items="${userResponseCommand.page.questionGroups}">
     <div class="question-group">
@@ -149,14 +166,8 @@
                     </c:when>
                     <c:when test="${answer.type eq 'TEXT'}">
                         <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
-                        <c:choose>
-                            <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
-                                <form:textarea path="responseMap[${mapKey}].values" id="${mapKey}" rows="5" cols="45" >.</form:textarea>
-                            </c:when>
-                            <c:otherwise>
-                                <textarea rows="5" cols="40" name="responseMap[${mapKey}].values" >.</textarea>
-                            </c:otherwise>
-                        </c:choose>
+                        <!--<textarea cols="" rows="" onfocus="if(this.value=='Enter your review here'){this.value='';}" onkeydown="countWords(this)" onkeyup="countWords(this)" name="comments" id="reviewText">Enter your review here</textarea>-->
+                        <textarea rows="5" cols="40" name="responseMap[${mapKey}].values" >.</textarea>
                         <br/>
                     </c:when>                    
                     <c:when test="${answer.type eq 'PREVIOUS_SCHOOL'}">
@@ -172,12 +183,10 @@
                                 <span id="prevCity">${userResponseCommand.prevCity}, ${userResponseCommand.prevState} <a href="#" onclick="hideAndShow('prevCity', 'prevSltState', 'prevSltCity');return false;">Change</a></span>
                                 <form:select id="prevSltState" path="prevState" items="${states}"
                                          onchange="clearSchool('prevSltSchool');updateCity(this.value, 'prevSltCity');"
-                                        cssStyle="display:none;"
-                                        />
+                                        cssStyle="display:none;" />
                                 <form:select id="prevSltCity" path="prevCity" items="${prevCities}" itemLabel="name" itemValue="name"
                                         onchange="updateSchool('${prevLevel.name}',this.value, 'prevSltSchool', 'prevSltState','${schoolNotListed.id}');"
-                                        cssStyle="display:none;"
-                                        />
+                                        cssStyle="display:none;" />
                             </c:otherwise>
                         </c:choose>
                         <form:select id="prevSltSchool" path="prevSchoolId" items="${prevSchools}" itemLabel="name" itemValue="id"/>
@@ -196,7 +205,6 @@
                                 <form:select id="nextSltState" path="nextState" items="${states}"
                                             cssStyle="display:none;"
                                             onchange="clearSchool('nextSltSchool');updateCity(this.value, 'nextSltCity');"/>
-
                                 <form:select id="nextSltCity" path="nextCity" items="${nextCities}" itemLabel="name" itemValue="name"
                                             cssStyle="display:none;"
                                             onchange="updateSchool('${nextLevel.name}',this.value, 'nextSltSchool', 'nextSltState','${schoolNotListed.id}');"/>
@@ -224,18 +232,6 @@
         </c:when>
         <c:otherwise>
             <h2 class="question-group-heading">A little about you (required)</h2>
-            <div class="question">
-                <div class="question-text">My child last attended this school in:</div>
-                <ul class="answer-list">
-                    <c:forEach var="year" items="${schoolYears}" varStatus="count">
-                        <li class="answer-list-item">
-                            <form:radiobutton path="year" value="${year}" id="r${year}" cssStyle="radio"/>
-                            <label for="r${year}">${year-1}-${year}</label>
-                            <c:if test="${count.index == 0}"><form:errors path="year" cssClass="error"/></c:if>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
             <div class="question">
                 <div class="email-module">
                     Email address

@@ -60,9 +60,6 @@
    font-size: 13px;
 }
 
-
-
-
 #left-col{
     position:relative;
 	float:left;
@@ -152,10 +149,10 @@ div.email-subtext{
 	margin-left:90px;
 	}
 
-#left-col .email-subtext a, a:link, a:visited{
-	color:#55BBCC; /* aqua */
-	text-decoration:none;
-	}
+#left-col .email-subtext a, .contentGS a:link, a:visited{
+    color:#55BBCC; /* aqua */
+    text-decoration:none;
+}
 
 /******************** error messages ***************************/
 #email.error, .error{
@@ -200,18 +197,19 @@ span.number{
 /******************** answers ***************************/
 
 #left-col ul.answer-list{
-	margin:0px;
-	padding:0px;
-	}
+	margin:0;
+	padding:0;
+}
 
 #left-col li.answer-list-item{
-	margin:0px;
+	margin:0;
 	list-style:none;
-	}
+    line-height:18px;
+}
 
 #left-col li.answer-list-item label {
 	padding-left:1px;
-	}/*without this, the label was crashing into the radio button in firefox windows only*/
+}/*without this, the label was crashing into the radio button in firefox windows only*/
 
 h3.answer-sibling-heading{
 	margin-bottom:8px;
@@ -360,7 +358,6 @@ div.label-multi-col{
 	height:130px;
 }
 
-
 input.checkbox{
 	margin-bottom:1px;
 	height:15px;
@@ -372,7 +369,6 @@ input.checkbox{
 input.textinput{
 	margin: 0 0 0 6px;
 }
-
 
 .select-box{
 	width:200px;
@@ -413,4 +409,12 @@ div.nextprev div.previousnextouterwrap div.previousnextwrap div.next{
 
 div#all-errors {
     display:none;
+}
+
+li label.years {
+    margin:0 0 0 8px;
+}
+
+span#prevCity, span#nextCity {
+    padding:0 5px 0 0;
 }

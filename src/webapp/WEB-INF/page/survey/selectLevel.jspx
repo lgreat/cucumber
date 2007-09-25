@@ -16,9 +16,24 @@
     <head>
         <title>Complete a Parent Survey for ${school.name} in ${school.city}, ${school.databaseState}</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+        <pageHelper:externalCss file="/res/css/survey/survey.css"/>
+        <style type="text/css">
+            div#left-col {
+                height:580px;
+            }
+            div.question-group {
+                height:150px;
+                border-bottom:3px #E2E3CB dotted;
+            }
+            div.question-group h2.question-group-heading {
+                border:none;
+            }
+            li.answer-list-item label {
+                margin:0 0 0 8px;
+            }
+        </style>
     </head>
     <body>
-    <pageHelper:externalCss file="/res/css/survey/survey.css"/>
     <school:profile school="${school}" tab="surveys">
         <div id="left-col">
             <div id="intro">
