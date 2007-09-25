@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.88 2007/09/25 17:27:47 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.89 2007/09/25 18:13:42 dlee Exp $
  */
 
 package gs.web.util;
@@ -167,9 +167,6 @@ public class UrlBuilder {
      */
     public static final VPage ADD_PARENT_REVIEW_SEARCH = new VPage("vpage:addParentReviewSearch");
 
-    /** Healthy Kids Microsite page */
-    public static final VPage HEALTHY_KIDS = new VPage("vpage:healthyKids");
-
     /** number1schools cobrand leadgen page */
     public static final VPage GET_BIREG = new VPage("vpage:getBireg");
 
@@ -181,8 +178,15 @@ public class UrlBuilder {
     public static final VPage PARENT_REVIEW_LEARN_MORE = new VPage("vpage:parentReviewLearnMore");
     public static final VPage PARENT_RATING_EXPLAINED = new VPage("vpage:parentRatingExplained");
 
-    /** School Choice Tips page */
-    public static final VPage SCHOOL_CHOICE_CENTER = new VPage("vpage:schoolChoiceCenter");    
+    /** Editorial Microsites */
+    public static final VPage SCHOOL_CHOICE_CENTER = new VPage("vpage:schoolChoiceCenter");
+    public static final VPage HEALTHY_KIDS = new VPage("vpage:healthyKids");
+    public static final VPage SPECIAL_NEEDS = new VPage("vpage:specialNeeds");
+    public static final VPage MEDIA_CHOICES = new VPage("vpage:mediaChoices");
+    public static final VPage MOVING_WITH_KIDS = new VPage("vpage:movingWithKids");
+    public static final VPage COUNTDOWN_TO_COLLEGE = new VPage("vpage:countdownToCollege");
+    public static final VPage STATE_STANDARDS = new VPage("vpage:stateStandards");
+
 
     /**
      * Create a builder to the given site page.
@@ -403,6 +407,33 @@ public class UrlBuilder {
 
     public UrlBuilder(VPage page, State state) {
         init(page, state, null);
+    }
+
+    /**
+     * for pages that do not require parameters in URL.  Default is perlpage is false.
+     * @param page VPage
+     */
+    public UrlBuilder(VPage page) {
+        _vPage = page;
+        _perlPage = false;
+
+        if (SCHOOL_CHOICE_CENTER.equals(page)) {
+            _path = "/content/schoolChoiceCenter.page";
+        } else if (HEALTHY_KIDS.equals(page)) {
+            _path = "/content/healthyKids.page";
+        } else if (SPECIAL_NEEDS.equals(page)) {
+            _path = "/content/specialNeeds.page";
+        }else if (MEDIA_CHOICES.equals(page)) {
+            _path = "/content/mediaChoices.page";
+        }else if (MOVING_WITH_KIDS.equals(page)) {
+            _path = "/content/movingWithKids.page";
+        }else if (COUNTDOWN_TO_COLLEGE.equals(page)) {
+            _path = "/content/countdownToCollege.page";
+        }else if (STATE_STANDARDS.equals(page)) {
+            _path = "/content/stateStandards.page";
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
     }
 
     public UrlBuilder(VPage page, State state, String param0) {
@@ -635,9 +666,6 @@ public class UrlBuilder {
         } else if (DISTRICTS_PAGE.equals(page)) {
             _perlPage = false;
             _path = "/schools/districts/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
-        } else if (HEALTHY_KIDS.equals(page)) {
-            _perlPage = false;
-            _path = "/content/healthyKids.page";
         } else if (CITIES_MORE_NEARBY.equals(page)) {
             _perlPage = false;
             _path = "/cities.page";
@@ -659,9 +687,6 @@ public class UrlBuilder {
         } else if (SCHOOLS_IN_STATE.equals(page)) {
             _perlPage = false;
             _path = "/schools/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
-        } else if (SCHOOL_CHOICE_CENTER.equals(page)) {
-            _perlPage = false;
-            _path = "/content/schoolChoiceCenter.page";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

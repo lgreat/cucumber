@@ -551,22 +551,6 @@
         </attribute>
     </tag>
     <tag>
-        <name>schoolChoiceCenter</name>
-        <tag-class>gs.web.jsp.link.SchoolChoiceCenterTagHandler</tag-class>
-        <body-content>JSP</body-content>
-        <display-name>School Choice Center Page</display-name>
-        <description>
-            <![CDATA[Link to a School Choice Center page.]]>
-        </description>
-        <attribute>
-            <name>styleClass</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>CSS class name(s)</description>
-        </attribute>
-    </tag>
-    <tag>
         <name>betaSignup</name>
         <tag-class>gs.web.jsp.link.BetaSignupTagHandler</tag-class>
         <body-content>JSP</body-content>
@@ -1508,12 +1492,108 @@
 
     <tag>
         <name>healthyKids</name>
-        <tag-class>gs.web.jsp.link.HealthyKidsTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.microsite.HealthyKidsTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>Healthy Kids Microsite</display-name>
         <description>
             <![CDATA[Link to the Healthy Kids Microsite
              Currently <code>/content/healthyKids.page</code>.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolChoiceCenter</name>
+        <tag-class>gs.web.jsp.link.microsite.SchoolChoiceCenterTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Choice Center Page</display-name>
+        <description>
+            <![CDATA[Link to a School Choice Center page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>specialNeeds</name>
+        <tag-class>gs.web.jsp.link.microsite.SpecialNeedsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Special Needs Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to special needs microsite page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>mediaChoices</name>
+        <tag-class>gs.web.jsp.link.microsite.MediaChoicesTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Media Choices Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to media choices page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>movingWithKids</name>
+        <tag-class>gs.web.jsp.link.microsite.MovingWithKidsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Moving with Kids Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to moving with kids page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>countdownToCollege</name>
+        <tag-class>gs.web.jsp.link.microsite.CountdownToCollegeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Countdown to College Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to Countdown to college microsite page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>stateStandards</name>
+        <tag-class>gs.web.jsp.link.microsite.StateStandardsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>State standards Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to state standards microsite page.]]>
         </description>
         <attribute>
             <name>styleClass</name>

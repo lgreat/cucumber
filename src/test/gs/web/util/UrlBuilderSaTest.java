@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.73 2007/09/25 17:27:47 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.74 2007/09/25 18:13:42 dlee Exp $
  */
 
 package gs.web.util;
@@ -369,8 +369,6 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/community/communityLanding.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
         assertEquals("/community/accountInfo.page", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.HEALTHY_KIDS, null, null);
-        assertEquals("/content/healthyKids.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.DISTRICT_PROFILE, State.CA, "135");
         assertEquals("/cgi-bin/ca/district_profile/135", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, null, null);
@@ -398,11 +396,30 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/schools/cities/California/CA", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.CITIES, State.NC);
         assertEquals("/schools/cities/North_Carolina/NC", builder.asSiteRelative(request));
+    }
 
-        builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, State.CA);
+    public void testMicroSitePages() {
+        GsMockHttpServletRequest request = getMockRequest();
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
         assertEquals("/content/schoolChoiceCenter.page", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, null);
-        assertEquals("/content/schoolChoiceCenter.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.HEALTHY_KIDS);
+        assertEquals("/content/healthyKids.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.SPECIAL_NEEDS);
+        assertEquals("/content/specialNeeds.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.MEDIA_CHOICES);
+        assertEquals("/content/mediaChoices.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.MOVING_WITH_KIDS);
+        assertEquals("/content/movingWithKids.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.COUNTDOWN_TO_COLLEGE);
+        assertEquals("/content/countdownToCollege.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.STATE_STANDARDS);
+        assertEquals("/content/stateStandards.page", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {

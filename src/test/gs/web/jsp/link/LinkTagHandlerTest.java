@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.33 2007/08/09 03:40:35 chriskimm Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.34 2007/09/25 18:13:42 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -14,6 +14,7 @@ import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
+import gs.web.jsp.link.microsite.*;
 import gs.web.util.UrlBuilder;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -425,6 +426,22 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/community/changeEmail.page", builder.asSiteRelative(null));
+    }
+
+    public void testMicrositeTags() {
+        setupAndTestMicrositeTag(new SchoolChoiceCenterTagHandler(), new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER));
+        setupAndTestMicrositeTag(new SpecialNeedsTagHandler(), new UrlBuilder(UrlBuilder.SPECIAL_NEEDS));
+        setupAndTestMicrositeTag(new MediaChoicesTagHandler(), new UrlBuilder(UrlBuilder.MEDIA_CHOICES));
+        setupAndTestMicrositeTag(new MovingWithKidsTagHandler(), new UrlBuilder(UrlBuilder.MOVING_WITH_KIDS));
+        setupAndTestMicrositeTag(new HealthyKidsTagHandler(), new UrlBuilder(UrlBuilder.HEALTHY_KIDS));
+        setupAndTestMicrositeTag(new CountdownToCollegeTagHandler(), new UrlBuilder(UrlBuilder.COUNTDOWN_TO_COLLEGE));
+        setupAndTestMicrositeTag(new StateStandardsTagHandler(), new UrlBuilder(UrlBuilder.STATE_STANDARDS));
+    }
+
+    private void setupAndTestMicrositeTag(LinkTagHandler tagHandler, UrlBuilder urlBuilder) {
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals(urlBuilder.asSiteRelative(null), builder.asSiteRelative(null));
     }
 
     public void testAllSchoolsInDistrict() {
