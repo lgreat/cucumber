@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.14 2007/09/21 19:12:31 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.15 2007/09/25 16:56:34 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -21,6 +21,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
 import java.util.*;
 
 /**
@@ -75,6 +76,15 @@ public class SubscriptionSummaryController extends SimpleFormController {
         model.put(MODEL_SECOND_LIST_SIZE, 0);
 
         User user = SessionContextUtil.getSessionContext(request).getUser();
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cookie: cookies) {
+                _log.warn(cookie.getName() + ";" + cookie.getMaxAge() + ";" + cookie.getPath() + ";" + cookie.getDomain());
+            }
+        } else {
+            _log.warn("No cookies detected");
+        }
 
         if (user == null) {
             _log.warn("Cannot determine user. SessionContext.memberId=" + 
