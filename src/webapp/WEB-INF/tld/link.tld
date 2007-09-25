@@ -565,13 +565,6 @@
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
         </attribute>
-        <attribute>
-            <name>state</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>gs.data.state.State</type>
-            <description>the name of the state</description>
-        </attribute>
     </tag>
     <tag>
         <name>betaSignup</name>

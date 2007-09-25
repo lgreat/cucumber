@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.87 2007/09/21 00:48:12 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.88 2007/09/25 17:27:47 dlee Exp $
  */
 
 package gs.web.util;
@@ -662,7 +662,6 @@ public class UrlBuilder {
         } else if (SCHOOL_CHOICE_CENTER.equals(page)) {
             _perlPage = false;
             _path = "/content/schoolChoiceCenter.page";
-            setParameter("state", state.getAbbreviation());
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

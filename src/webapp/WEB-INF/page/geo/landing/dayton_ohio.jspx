@@ -71,7 +71,7 @@
                 <gsweb:articlelink articleId="96" wrappingElement="li"/>
                 <gsweb:articlelink articleId="48" wrappingElement="li"/>
                 <li>
-                    <link:schoolChoiceCenter state="${requestScope.context.state}" styleClass="uline">
+                    <link:schoolChoiceCenter styleClass="uline">
                         See all school choice tips >
                     </link:schoolChoiceCenter>
                 </li>

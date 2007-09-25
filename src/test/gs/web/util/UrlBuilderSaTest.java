@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.72 2007/09/21 00:48:12 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.73 2007/09/25 17:27:47 dlee Exp $
  */
 
 package gs.web.util;
@@ -400,9 +400,9 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/schools/cities/North_Carolina/NC", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, State.CA);
-        assertEquals("/content/schoolChoiceCenter.page?state=CA", builder.asSiteRelative(request));
-        builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, State.WI);
-        assertEquals("/content/schoolChoiceCenter.page?state=WI", builder.asSiteRelative(request));
+        assertEquals("/content/schoolChoiceCenter.page", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, null);
+        assertEquals("/content/schoolChoiceCenter.page", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {

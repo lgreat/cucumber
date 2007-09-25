@@ -10,9 +10,9 @@
     <c:choose>
         <c:when test="${requestScope.context.cobranded}">
             <div id="Top_300x137">
-                <link:healthyKids>
-                    <gsml:img src="/res/img/content/healthyKids/healthyKids_300x137.jpg" alt="Healthy Kids: Family fitness tips, managing TV time and quick, tasty recipes"/>
-                </link:healthyKids>
+                <link:schoolChoiceCenter>
+                    <gsml:img src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.gif" alt="School Choice Tips: Choose a great school for your family"/>
+                </link:schoolChoiceCenter>
             </div>
         </c:when>
         <c:otherwise>
