@@ -34,7 +34,7 @@
           <h2>Update My Email Address</h2>
 
           <a href="${dashboardUrl}"
-             id="dashboardLink" tabindex="1">Return to my dashboard &gt;</a>
+             id="dashboardLink">Return to my dashboard &gt;</a>
 
           <gsweb:form action="/community/changeEmail.page" method="post">
               <ul>
@@ -46,7 +46,7 @@
                       <label for="newEmailField">New email address</label>
                       <spring:bind path="emailCmd.newEmail">
                           <input id="newEmailField" type="text" name="${status.expression}"
-                                 value="${status.value}" tabindex="2"/>
+                                 value="${status.value}"/>
                       </spring:bind>
                       <!-- hack because the built in email validator rejects the field named "email" -->
                       <spring:hasBindErrors name="emailCmd">
@@ -71,17 +71,16 @@
                       <spring:bind path="emailCmd.confirmNewEmail">
                           <!-- disable browser auto-complete for this field -->
                           <input id="confirmNewEmailField" type="text" name="${status.expression}"
-                                 value="${status.value}" tabindex="3" autocomplete="off"/>
+                                 value="${status.value}" autocomplete="off"/>
                       </spring:bind>
                   </li>
                   <li>
-                      <gsml:inputImage src="/res/img/community/registration/updateemail.gif"
-                                       alt="Change email address" name="submit" tabIndex="5"
-                                       id="submitButton"/>
-
                       <gsml:inputImage src="/res/img/community/registration/cancel.gif"
-                                       alt="Cancel" name="cancel" tabIndex="4"
+                                       alt="Cancel" name="cancel"
                                        id="cancelButton"/>
+                      <gsml:inputImage src="/res/img/community/registration/updateemail.gif"
+                                       alt="Change email address" name="submit"
+                                       id="submitButton"/>
                   </li>
               </ul>
           </gsweb:form>
