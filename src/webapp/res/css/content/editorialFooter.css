@@ -184,12 +184,11 @@
 }
 
 #contentGS #editorialFooter .arrowUL {
-	padding: 7px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0;
+	margin: 0;
 	list-style: none;
 	color: #666666;
 	font-weight: normal;
-    font-style: 
 }
 
 #contentGS #editorialFooter .arrowLI {
