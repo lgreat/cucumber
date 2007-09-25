@@ -215,7 +215,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         _log.info(user.getPasswordMd5());
         ChangePasswordRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
-        if (urlUtil.isStagingServer(request.getServerName())) {
+        if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isDeveloperWorkstation(request.getServerName())) {
             soapRequest.setTarget("http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/soap/user");

@@ -335,7 +335,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 (userId, screenName, email, password);
         CreateOrUpdateUserRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
-        if (urlUtil.isStagingServer(request.getServerName())) {
+        if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isDeveloperWorkstation(request.getServerName())) {
             soapRequest.setTarget("http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/soap/user");

@@ -508,6 +508,19 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     public void testNotifyCommunityDev() {
         _request.setServerName("dev.greatschools.net");
         try {
+            _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    public void testNotifyCommunityDevWorkstation() {
+        _request.setServerName("aroy.office.greatschools.net");
+        try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
@@ -520,7 +533,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     public void testNotifyCommunityStaging() {
         _request.setServerName("staging.greatschools.net");
         try {
-            _soapRequest.setTarget((String)notNull());
+            _soapRequest.setTarget("http://community.staging.greatschools.net/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
@@ -532,6 +545,18 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
     public void testNotifyCommunityLive() {
         _request.setServerName("www.greatschools.net");
+        try {
+            _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+            replay(_soapRequest);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            verify(_soapRequest);
+        } catch (SoapRequestException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    public void testNotifyCommunityLiveCobrand() {
+        _request.setServerName("encarta.greatschools.net");
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);

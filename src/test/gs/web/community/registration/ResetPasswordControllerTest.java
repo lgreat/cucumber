@@ -55,6 +55,27 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         verify(_soapRequest);
     }
 
+    // verify that the soap request is given a target on dev
+    public void testNotifyCommunityOnDev() throws SoapRequestException {
+        _request.setServerName("dev.greatschools.net");
+
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.changePasswordRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
+    // verify that the soap request is NOT given a target on dev workstation
+    public void testNotifyCommunityOnDevWorkstation() throws SoapRequestException {
+        _request.setServerName("aroy.office.greatschools.net");
+
+        _soapRequest.changePasswordRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
     // verify that the soap request is given a target on staging
     public void testNotifyCommunityOnStaging() throws SoapRequestException {
         _request.setServerName("staging.greatschools.net");
@@ -69,6 +90,16 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     // verify that the soap request is NOT given a target on live
     public void testNotifyCommunityOnWww() throws SoapRequestException {
         _request.setServerName("www.greatschools.net");
+
+        _soapRequest.changePasswordRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
+    // verify that the soap request is NOT given a target on live cobrand
+    public void testNotifyCommunityOnWwwCobrand() throws SoapRequestException {
+        _request.setServerName("framed.greatschools.net");
 
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
