@@ -106,7 +106,9 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             mAndV.getModel().put("message", message);
         }
 
-        mAndV.setViewName(getSuccessView());
+        String comHost =
+                SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
+        mAndV.setViewName("redirect:http://" + comHost + "/dashboard");
         return mAndV;
     }
 
@@ -119,7 +121,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
     protected boolean notifyCommunity(User user, HttpServletRequest request) {
         ChangeEmailRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
-        if (urlUtil.isStagingServer(request.getServerName())) {
+        if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isDeveloperWorkstation(request.getServerName())) {
             soapRequest.setTarget("http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/soap/user");

@@ -86,7 +86,6 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         verify(_userDao);
         assertNotNull(mAndV);
         assertEquals("email@address.org", _user.getEmail());
-        assertEquals(_controller.getSuccessView(), mAndV.getViewName());
         assertFalse(_user.getUpdated().equals(cal.getTime()));
     }
 
@@ -120,7 +119,6 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         verify(_userDao);
         assertNotNull(mAndV);
         assertEquals("email@address.org", _user.getEmail());
-        assertEquals(_controller.getSuccessView(), mAndV.getViewName());
     }
 
     public void testCancel() throws NoSuchAlgorithmException {
@@ -135,7 +133,6 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         assertEquals("oldEmail@address.org", _user.getEmail());
-        assertEquals(_controller.getSuccessView(), mAndV.getViewName());
     }
 
     public void testEmailLength() throws NoSuchAlgorithmException {
@@ -201,9 +198,40 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         verify(_soapRequest);
     }
 
+    // verify that the soap request is given a target on dev
+    public void testNotifyCommunityOnDev() throws SoapRequestException {
+        _request.setServerName("dev.greatschools.net");
+
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.changeEmailRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
+    // verify that the soap request is NOT given a target on developer workstation
+    public void testNotifyCommunityOnWorkstation() throws SoapRequestException {
+        _request.setServerName("aroy.office.greatschools.net");
+
+        _soapRequest.changeEmailRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
     // verify that the soap request is NOT given a target on live
     public void testNotifyCommunityOnWww() throws SoapRequestException {
         _request.setServerName("www.greatschools.net");
+
+        _soapRequest.changeEmailRequest(_user);
+        replay(_soapRequest);
+        assertTrue(_controller.notifyCommunity(_user, _request));
+        verify(_soapRequest);
+    }
+
+    // verify that the soap request is NOT given a target on live
+    public void testNotifyCommunityOnWwwCobrand() throws SoapRequestException {
+        _request.setServerName("sfgate.greatschools.net");
 
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);

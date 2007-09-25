@@ -6,11 +6,18 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+    <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.page contentType="text/html"/><html>
   <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/changeEmail.css"/>
       <title>Change Email - GreatSchools</title>
+      <jsp:scriptlet>
+          String comHost =
+                  SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
+          String dashboardUrl = "http://" + comHost + "/dashboard";
+          request.setAttribute("dashboardUrl", dashboardUrl);
+      </jsp:scriptlet>
   </head>
   <gsml:body adPageName="changeEmail">
       <![CDATA[
@@ -26,7 +33,7 @@
       <div id="outline"><!-- creates darker blue outer outline -->
           <h2>Update My Email Address</h2>
 
-          <a href="http://community.staging.greatschools.net/dashboard"
+          <a href="${dashboardUrl}"
              id="dashboardLink" tabindex="1">Return to my dashboard &gt;</a>
 
           <gsweb:form action="/community/changeEmail.page" method="post">
