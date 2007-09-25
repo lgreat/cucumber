@@ -112,8 +112,8 @@
                         <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                         <c:forEach var="answerValue" items="${answer.answerValues}">
                             <div class="answer-bar">
-                                <div class="label-right">${answerValue.displayMin}</div>
-                                <div class="label-left">${answerValue.displayMax}</div>
+                                <div class="label-left">${answerValue.displayMin}</div>
+                                <div class="label-right">${answerValue.displayMax}</div>
                                 <img src="/res/img/survey/bar.jpg" alt="bar" class="bar-pic" height="5" width="450" />
                                 <div class="radio-row">
                                     <input class="radio1" name="responseMap[${mapKey}].values"
@@ -147,6 +147,18 @@
                         </c:choose>
                         <br/>
                     </c:when>
+                    <c:when test="${answer.type eq 'TEXT'}">
+                        <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
+                        <c:choose>
+                            <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                <form:textarea path="responseMap[${mapKey}].values" id="${mapKey}" rows="5" cols="45" >.</form:textarea>
+                            </c:when>
+                            <c:otherwise>
+                                <textarea rows="5" cols="40" name="responseMap[${mapKey}].values" >.</textarea>
+                            </c:otherwise>
+                        </c:choose>
+                        <br/>
+                    </c:when>                    
                     <c:when test="${answer.type eq 'PREVIOUS_SCHOOL'}">
                         <yui:connectionManager/>
                         <pageHelper:externalJavascript file="/res/js/survey/prevNextSchool.js"/>
