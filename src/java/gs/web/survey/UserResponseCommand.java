@@ -29,7 +29,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     private int _year;
     private SurveyPage _page;
     private boolean _NLSignUpChecked = false;
-    private Poster _who;
+    private Poster _who = Poster.PARENT; // default
 
     private State _prevState;
     private String _prevCity;

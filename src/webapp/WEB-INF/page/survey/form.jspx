@@ -58,6 +58,7 @@
 <div class="question-group">
     <h2 class="question-group-heading">Before you get started, please tell us what school year your responses are based on:</h2>
     <div class="question">
+        <div class="question-text">My child last attended this school in(required):</div>
         <ul class="answer-list">
             <c:forEach var="year" items="${schoolYears}" varStatus="count">
                 <li class="answer-list-item">
@@ -81,8 +82,17 @@
                 <h3 class="answer-sibling-heading">${answer.title}</h3>
                 <c:choose>
                     <c:when test="${answer.type eq 'MULTI'}">
+                        <h1>layout: ${answer.layout}</h1>
+                        <c:choose>
+                            <c:when test="${answer.layout eq 'SINGLE_COLUMN'}">
+                                <c:set var="colClass" value="checkbox-col, single-column"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="colClass" value="checkbox-col"/>
+                            </c:otherwise>
+                        </c:choose>
                         <div class="answer-sibling">
-                        <div class="checkbox-col">
+                        <div class="${colClass}">
                             <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="boxCounter">
                                 <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                                 <c:choose>
@@ -97,7 +107,7 @@
                                 </c:choose>
                                 ${answerValue.display}
                                 <br/>
-                                <c:if test="${boxCounter.index gt (fn:length(answer.answerValues) / 3)}">
+                                <c:if test="${(boxCounter.index gt (fn:length(answer.answerValues) / 3)) and (answer.layout ne 'SINGLE_COLUMN')}">
                                     <![CDATA[
                                                 </div>
                                                 <div class="checkbox-col">
@@ -147,6 +157,7 @@
                             </div>
                         </c:forEach>
                     </c:when>
+
                     <c:when test="${answer.type eq 'OPTION'}">
                         <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                         <c:choose>
@@ -164,12 +175,15 @@
                         </c:choose>
                         <br/>
                     </c:when>
+
                     <c:when test="${answer.type eq 'TEXT'}">
                         <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
-                        <!--<textarea cols="" rows="" onfocus="if(this.value=='Enter your review here'){this.value='';}" onkeydown="countWords(this)" onkeyup="countWords(this)" name="comments" id="reviewText">Enter your review here</textarea>-->
-                        <textarea rows="5" cols="40" name="responseMap[${mapKey}].values" >.</textarea>
+                        <![CDATA[
+                        <textarea rows="5" cols="42"]]> name="responseMap[${mapKey}].values" <![CDATA[></textarea>
+                        ]]>
                         <br/>
-                    </c:when>                    
+                    </c:when>
+
                     <c:when test="${answer.type eq 'PREVIOUS_SCHOOL'}">
                         <yui:connectionManager/>
                         <pageHelper:externalJavascript file="/res/js/survey/prevNextSchool.js"/>
@@ -180,7 +194,8 @@
                                 <input type="hidden" name="prevCity" value="${school.city}" />
                             </c:when>
                             <c:otherwise>
-                                <span id="prevCity">${userResponseCommand.prevCity}, ${userResponseCommand.prevState} <a href="#" onclick="hideAndShow('prevCity', 'prevSltState', 'prevSltCity');return false;">Change</a></span>
+                                <span id="prevCity">${userResponseCommand.prevCity}, ${userResponseCommand.prevState} <a href="#" onclick="hideAndShow('prevCity', 'prevSltState', 'prevSltCity');return false;">Change city</a></span>
+                                <br/>
                                 <form:select id="prevSltState" path="prevState" items="${states}"
                                          onchange="clearSchool('prevSltSchool');updateCity(this.value, 'prevSltCity');"
                                         cssStyle="display:none;" />
@@ -201,7 +216,8 @@
                                 <input type="hidden" name="nextCity" value="${school.city}" />
                             </c:when>
                             <c:otherwise>
-                                <span id="nextCity">${userResponseCommand.nextCity}, ${userResponseCommand.nextState} <a href="#" onclick="hideAndShow('nextCity','nextSltState', 'nextSltCity');return false;">Change</a></span>
+                                <span id="nextCity">${userResponseCommand.nextCity}, ${userResponseCommand.nextState} <a href="#" onclick="hideAndShow('nextCity','nextSltState', 'nextSltCity');return false;">Change city</a></span>
+                                <br/>
                                 <form:select id="nextSltState" path="nextState" items="${states}"
                                             cssStyle="display:none;"
                                             onchange="clearSchool('nextSltSchool');updateCity(this.value, 'nextSltCity');"/>
@@ -232,6 +248,20 @@
         </c:when>
         <c:otherwise>
             <h2 class="question-group-heading">A little about you (required)</h2>
+
+            <div class="question" id="who">
+                I am a: <br/>
+                <div id="whoRadioButtons">
+                    <form:radiobutton path="who" value="parent" id="parentRadio"/><label>Parent</label><br/>
+                    <form:radiobutton path="who" value="student" id="studentRadio"/><label>Student</label><br/>
+                    <form:radiobutton path="who" value="teacher" id="teacherRadio"/><label>Teacher</label><br/>
+                    <form:radiobutton path="who" value="other" id="otherRadio"/><label>Other</label>
+                </div>
+                <form:errors path="who" >
+                    <span class="error">Please select one.</span>
+                </form:errors>
+            </div>            
+
             <div class="question">
                 <div class="email-module">
                     Email address
@@ -239,9 +269,11 @@
                     <form:errors path="email" >
                         <span class="error">Please enter a valid e-mail address.</span>
                     </form:errors>
-                    <div class="email-subtext">We will not share your email. <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy></div>
+                    <div class="email-subtext">We will not share your email. <link:privacyPolicy target="_blank">GreatSchools Privacy Policy</link:privacyPolicy></div>
                 </div>
             </div>
+
+            <form:checkbox path="NLSignUpChecked" /> Yes, please send my monthly stats and updates about ${school.name}<br/>
             <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
             <form:errors path="terms" />
         </c:otherwise>
