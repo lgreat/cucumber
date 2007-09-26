@@ -29,6 +29,7 @@
 </head>
 <body>
 <school:profile school="${school}" tab="surveys">
+
 <div id="left-col">
 	<div id="intro">
 		<gsml:img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
@@ -94,25 +95,27 @@
                         <div class="${colClass}">
                             <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="boxCounter">
                                 <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
-                                <c:choose>
-                                    <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
-                                        <form:checkbox path="responseMap[${mapKey}].values"
-                                                       id="${mapKey}" value="${answerValue.symbol}"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input name="responseMap[${mapKey}].values"
-                                               value="${answerValue.symbol}" type="checkbox"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                ${answerValue.display}
-                                <br/>
+                                <div class="multiAnswerValue">
+                                    <c:choose>
+                                        <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                            <form:checkbox cssClass="multiCheck" path="responseMap[${mapKey}].values"
+                                                           id="${mapKey}" value="${answerValue.symbol}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input class="multiCheck" name="responseMap[${mapKey}].values"
+                                                   value="${answerValue.symbol}" type="checkbox"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <div class="answerValue">
+                                        ${answerValue.display}
+                                    </div>
+                                </div>
                                 <c:if test="${(boxCounter.index gt (fn:length(answer.answerValues) / 3)) and (answer.layout ne 'SINGLE_COLUMN')}">
                                     <![CDATA[
-                                                </div>
-                                                <div class="checkbox-col">
-                                            ]]>
+                                        </div>
+                                        <div class="checkbox-col">
+                                    ]]>
                                 </c:if>
-
                             </c:forEach>
                         </div>
                         </div>

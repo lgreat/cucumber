@@ -277,6 +277,21 @@ div.label-multi-col{
 	display:block;
 }	/* wraps each label in the 3-column checkbox area*/
 
+div.multiAnswerValue {
+    position:relative;
+    padding:0 0 5px 0;
+}
+
+div.multiAnswerValue input.multiCheck {
+    position:absolute;
+    top:0;
+    left:0;
+}
+div.multiAnswerValue div.answerValue {
+    position:relative;
+    margin:1px 0 0 19px;
+}
+
 
 /******************** submit area ***************************/
 
