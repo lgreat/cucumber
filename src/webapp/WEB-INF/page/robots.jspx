@@ -75,6 +75,9 @@ Disallow: /modperl/parents/*/pc/*
 Disallow: /*;jsessionid*
 Disallow: /schools.page?*map=*
 Disallow: /school/mapSchool
+Disallow: /school/updateRatings.page
+Disallow: /school/thankYouHover.page
+Disallow: /*/popup
 Disallow: /*&amp;amp;*
 Disallow: /ads/
 </c:set>
