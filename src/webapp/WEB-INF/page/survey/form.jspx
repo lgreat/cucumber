@@ -142,16 +142,36 @@
                                 <div class="label-right">${answerValue.displayMax}</div>
                                 <img src="/res/img/survey/bar.jpg" alt="bar" class="bar-pic" height="5" width="450" />
                                 <div class="radio-row">
-                                    <input class="radio1" name="responseMap[${mapKey}].values"
-                                           value="1" type="radio"/>
-                                    <input class="radio2" name="responseMap[${mapKey}].values"
-                                           value="2" type="radio"/>
-                                    <input class="radio3" name="responseMap[${mapKey}].values"
-                                           value="3" type="radio"/>
-                                    <input class="radio4" name="responseMap[${mapKey}].values"
-                                           value="4" type="radio"/>
-                                    <input class="radio5" name="responseMap[${mapKey}].values"
-                                           value="5" type="radio"/>
+
+                                    <c:choose>
+                                        <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                            <form:radiobutton cssClass="radio1" path="responseMap[${mapKey}].values"
+                                                              id="${mapKey}" value="1"/>
+                                            <form:radiobutton cssClass="radio2" path="responseMap[${mapKey}].values"
+                                                              id="${mapKey}" value="2"/>
+                                            <form:radiobutton cssClass="radio3" path="responseMap[${mapKey}].values"
+                                                              id="${mapKey}" value="3"/>
+                                            <form:radiobutton cssClass="radio4" path="responseMap[${mapKey}].values"
+                                                              id="${mapKey}" value="4"/>
+                                            <form:radiobutton cssClass="radio5" path="responseMap[${mapKey}].values"
+                                                              id="${mapKey}" value="5"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input class="radio1" name="responseMap[${mapKey}].values"
+                                                   value="1" type="radio"/>
+                                            <input class="radio2" name="responseMap[${mapKey}].values"
+                                                   value="2" type="radio"/>
+                                            <input class="radio3" name="responseMap[${mapKey}].values"
+                                                   value="3" type="radio"/>
+                                            <input class="radio4" name="responseMap[${mapKey}].values"
+                                                   value="4" type="radio"/>
+                                            <input class="radio5" name="responseMap[${mapKey}].values"
+                                                   value="5" type="radio"/>
+                                        </c:otherwise>
+                                    </c:choose>
+
+
+
                                 </div>
                             </div>
                         </c:forEach>
@@ -272,7 +292,9 @@
                 </div>
             </div>
 
-            <form:checkbox path="NLSignUpChecked" /> Yes, please send my monthly stats and updates about ${school.name}<br/>
+            <c:if test="${userResponseCommand.NLPromoShown}">
+                <form:checkbox path="NLSignUpChecked" /> Yes, please send my monthly stats and updates about ${school.name}<br/>
+            </c:if>
             <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
             <form:errors path="terms" />
         </c:otherwise>

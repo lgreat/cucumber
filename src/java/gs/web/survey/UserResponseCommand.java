@@ -144,7 +144,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
                 Subscription sub = _user.findSubscription(SubscriptionProduct.PARENT_ADVISOR);
                 return sub == null;
             } else {
-                return !_user.hasMssSubscription(_school);
+                return !_user.hasMssSubscription(_school) && !_user.hasReachedMaximumMssSubscriptions();
             }
         }
     }

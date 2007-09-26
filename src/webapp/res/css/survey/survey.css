@@ -3,14 +3,17 @@
     margin:10px 10px 20px 0;    
     float:left;
 }
+
 #toc img { /* Has IE 7 equivalent (below this style block) */
    padding: 0 0 8px 0;
    _padding:0 0 4px 0;
 }
+
 #toc ul {
    margin-top: 0;
    margin-bottom: 0;
 }
+
 #toc ul li {
     font: bold 13px Trebuchet MS, Arial, sans-serif;
     padding: 0px 12px 4px 16px;
@@ -32,7 +35,6 @@
     outline: none;
 }
 
-
 #toc ul li {
     color:#39A;
 }
@@ -41,7 +43,6 @@
     color: #cc5566;
     text-decoration: none;
 }
-
 
 :focus {
     -moz-outline-style: none;
@@ -191,8 +192,9 @@ div.question-text {
 	}
 
 span.number{
-	color:#CC5566;
-	}
+    color:#CC5566;
+    padding:0 5px 0 0;
+}
 
 /******************** answers ***************************/
 
@@ -247,8 +249,8 @@ div.checkbox-col{
 	overflow:hidden;
 } /*wraps the 3-column checkbox area*/
 
-div.checkbox-col .single-column{
-	width:400px;
+div.single-column{
+	width:520px;
 }
 
 div.checkbox-label-pair{
