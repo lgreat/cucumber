@@ -245,7 +245,11 @@ div.checkbox-col{
 	margin:0;
 	padding:0;
 	overflow:hidden;
-	} /*wraps the 3-column checkbox area*/
+} /*wraps the 3-column checkbox area*/
+
+div.checkbox-col .single-column{
+	width:400px;
+}
 
 div.checkbox-label-pair{
 	float:left;
@@ -416,5 +420,18 @@ li label.years {
 }
 
 span#prevCity, span#nextCity {
-    padding:0 5px 0 0;
+    line-height:25px;
+}
+
+div#whoRadioButtons {
+    padding:5px 0 0 10px;
+}
+
+div#whoRadioButtons label {
+    padding:0 10px 0 5px;
+}
+
+div#who {
+    margin:0;
+    line-height:18px;
 }

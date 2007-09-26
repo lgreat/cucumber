@@ -82,7 +82,6 @@
                 <h3 class="answer-sibling-heading">${answer.title}</h3>
                 <c:choose>
                     <c:when test="${answer.type eq 'MULTI'}">
-                        <h1>layout: ${answer.layout}</h1>
                         <c:choose>
                             <c:when test="${answer.layout eq 'SINGLE_COLUMN'}">
                                 <c:set var="colClass" value="checkbox-col, single-column"/>

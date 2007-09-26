@@ -192,3 +192,28 @@ var BoxHeights = {
         for (var i=0;i<numCols;i++) column[i].style.height = maxH+"px";
 	}
 };
+
+function makeCountWords(max, alertText) {
+    return function (text) {
+        var y = text.value;
+        var r = 0;
+        var a = y.replace('\n',' ');
+        a = y.replace('\t',' ');
+        var z;
+        for (z = 0; z < a.length; z++) {
+            if (a.charAt(z) == ' ' && a.charAt(z-1) != ' ') { r++; }
+ 	        if (r > max) break;
+        }
+
+        if (r > max) {
+            text.value = text.value.substr(0, z);
+            var at = alertText;
+            if (!at) {
+                at = "Please keep your review to " + max + " words or less."
+            }
+            alert(at);
+            return false;
+        }
+        return true;
+    }
+}
