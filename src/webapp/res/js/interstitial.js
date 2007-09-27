@@ -3,7 +3,7 @@ function doInterstitial() {
     if (!interstitial) {
         for (var i = 0; i < document.links.length; i++) {
             var link = document.links[i];
-            if (!isAdLink(link)) {
+            if (!isAdLink(link) && !isExcludedLink(link)) {
                 link.href = 'http://' + location.host + "/ads/interstitial.page?passThroughURI=" + encodeURIComponent(link.href);
             }
         }
@@ -16,3 +16,6 @@ function isAdLink(link) {
     return adLinkRegExp.test(link) || (link.target == "_blank");
 }
 
+function isExcludedLink(link) {
+    return link.className.match(/noInterstitial/);
+}

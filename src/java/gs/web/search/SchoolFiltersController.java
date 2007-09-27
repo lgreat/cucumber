@@ -84,11 +84,11 @@ public class SchoolFiltersController extends AbstractController {
         if (hasSchoolType) {
             buffer.append(schoolTypeLabel + " (<a href=\"" + page + "?");
             buffer.append(qString.replaceAll("\\&amp;st=" + schoolType, ""));
-            buffer.append("\">remove</a>)");
+            buffer.append("\" class=\"noInterstitial\">remove</a>)");
         } else {
             buffer.append("<a href=\"" + page + "?");
             buffer.append(qString);
-            buffer.append("&amp;st="+schoolType +"\">"+schoolTypeLabel +"</a>");
+            buffer.append("&amp;st="+schoolType +"\" class=\"noInterstitial\">"+schoolTypeLabel +"</a>");
         }
         final String s = buffer.toString();
         return s;
@@ -100,11 +100,11 @@ public class SchoolFiltersController extends AbstractController {
         if (hasLevel) {
             buffer.append(label + " (<a href=\"" + page + "?");
             buffer.append(qString.replaceAll("\\&amp;lc=" + level.getName(), ""));
-            buffer.append("\">remove</a>)");
+            buffer.append("\" class=\"noInterstitial\">remove</a>)");
         } else {
             buffer.append("<a href=\"" + page + "?");
             buffer.append(qString);
-            buffer.append("&amp;lc=" + level.getName() + "\">" + label + "</a>");
+            buffer.append("&amp;lc=" + level.getName() + "\" class=\"noInterstitial\">" + label + "</a>");
         }
         final String s = buffer.toString();
         return s;

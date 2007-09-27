@@ -57,17 +57,17 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
     }
 
     public void testCreateFilterBuffer() throws Exception {
-        String expected = "Elementary (<a href=\"/schools.page?city=Alameda&amp;state=CA\">remove</a>)";
+        String expected = "Elementary (<a href=\"/schools.page?city=Alameda&amp;state=CA\" class=\"noInterstitial\">remove</a>)";
         _tag.setLevelCode(LevelCode.ELEMENTARY);
         StringBuffer result = _tag.createFilterBuffer("city=Alameda&amp;state=CA&amp;lc=e", getRequest());
         assertEquals(expected, result.toString());
 
-        expected = "Elementary (<a href=\"/schools.page?city=Alameda&state=CA\">remove</a>)";
+        expected = "Elementary (<a href=\"/schools.page?city=Alameda&state=CA\" class=\"noInterstitial\">remove</a>)";
         result = _tag.createFilterBuffer("city=Alameda&state=CA&lc=e", getRequest());
         assertEquals(expected, result.toString());
 
 
-        expected = "Public (<a href=\"/schools.page?city=Alameda&amp;state=CA\">remove</a>)";
+        expected = "Public (<a href=\"/schools.page?city=Alameda&amp;state=CA\" class=\"noInterstitial\">remove</a>)";
         _tag.setLevelCode(null);
         _tag.setSchoolType(new String[] {SchoolType.PUBLIC.getSchoolTypeName()});
         result = _tag.createFilterBuffer("city=Alameda&amp;state=CA&amp;st=public", getRequest());

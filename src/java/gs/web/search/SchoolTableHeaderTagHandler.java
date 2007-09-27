@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.27 2007/08/01 18:45:47 chriskimm Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.28 2007/09/27 22:14:44 aroy Exp $
  */
 
 package gs.web.search;
@@ -289,7 +289,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
                 filterBuffer.append(" (<a href=\"");
                 String qs = qString.replaceAll("\\&(amp;)?lc=" + level.getName(), "");
                 filterBuffer.append(SchoolTableHeaderTagHandler.urlUtil.buildUrl("/schools.page?" + qs, request));
-                filterBuffer.append("\">remove</a>)");
+                filterBuffer.append("\" class=\"noInterstitial\">remove</a>)");
             }
         }
 
@@ -313,7 +313,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
                 filterBuffer.append(" (<a href=\"");
                 filterBuffer.append(SchoolTableHeaderTagHandler.urlUtil.buildUrl(urlBuffer.toString(), request));
 
-                filterBuffer.append("\">remove</a>)");
+                filterBuffer.append("\" class=\"noInterstitial\">remove</a>)");
             }
         }
         return filterBuffer;
