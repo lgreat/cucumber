@@ -34,25 +34,7 @@ function setSubmitFields() {
     }
 }
 
-function countWords(w){
-    var MAXWORDS = 150;
-    var y = w.value;
-    var r = 0;
-    var a = y.replace('\n',' ');
-    a = y.replace('\t',' ');
-    var z;
-    for (z = 0; z < a.length; z++) {
-        if (a.charAt(z) == ' ' && a.charAt(z-1) != ' ') { r++; }
- 	    if (r > MAXWORDS) break;
-    }
-
-    if (r > MAXWORDS) {
-        w.value = w.value.substr(0, z);
-        alert("Please keep your review to "+MAXWORDS+" words or less.");
-        return false;
-    }
-    return true;
-}
+var countWords = makeCountWords(150);
 
 //Uses yui to handle ajax call.  Callback object initialized in tag file and used in processResult
 var AjaxObject = {

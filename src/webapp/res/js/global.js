@@ -193,23 +193,32 @@ var BoxHeights = {
 	}
 };
 
+/*
+ * Returns a function that counts the words in a string.
+ * Params:
+ *     max - the max number of words allowed in the string.
+ *     alertText - [optional] - the text displayed in an alert() if
+ *                 the max is reached.
+ *
+ * The returned function accepts a single argument containing the
+ * the textField with the words to be counted - usually a <textarea>.
+ */
 function makeCountWords(max, alertText) {
-    return function (text) {
-        var y = text.value;
-        var r = 0;
-        var a = y.replace('\n',' ');
-        a = y.replace('\t',' ');
-        var z;
-        for (z = 0; z < a.length; z++) {
-            if (a.charAt(z) == ' ' && a.charAt(z-1) != ' ') { r++; }
- 	        if (r > max) break;
+    return function (textField) {
+        var text = textField.value;
+        var count = 0;
+        var a = text.replace('\n',' ').replace('\t',' ');
+        var z = 0;
+        for (; z < a.length; z++) {
+            if (a.charAt(z) == ' ' && a.charAt(z-1) != ' ') { count++; }
+ 	        if (count > max) break;
         }
-
-        if (r > max) {
-            text.value = text.value.substr(0, z);
+        
+        if (count > max) {
+            textField.value = textField.value.substr(0, z);
             var at = alertText;
             if (!at) {
-                at = "Please keep your review to " + max + " words or less."
+                at = "Please keep your comments to " + max + " words or less."
             }
             alert(at);
             return false;
