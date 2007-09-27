@@ -26,9 +26,19 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>Interstitial Ad</title>
-        <meta http-equiv="refresh" content="15;url=${passThroughURI}"/>
+        <meta http-equiv="refresh" content="20;url=${passThroughURI}"/>
         <pageHelper:externalCss file="/res/css/brand.css"/>
         <pageHelper:externalCss file="/res/css/ads/interstitial.css"/>
+        <script type="text/javascript">
+            function continueToDestination() {
+                location.replace('${passThroughURI}');
+            }
+
+            function setContinueTimeout() {
+                setTimeout("continueToDestination()", 15000);
+            }
+        </script>
+        <pageHelper:addOnLoadHandler handler="setContinueTimeout()"/>
     </head>
     <body>
         <gsml:a href="/">
@@ -36,11 +46,11 @@
                       alt="GreatSchools: The Parents&#039; Guide to K-12 Success" id="logo"/>
         </gsml:a>
         <div id="skip" class="bigger bold">
-            <gsml:a href="${passThroughURI}">To skip this ad, click here</gsml:a>
-            <gsml:a href="${passThroughURI}">
+            <a href="${passThroughURI}" onclick="continueToDestination(); return false;">To skip this ad, click here</a>
+            <a href="${passThroughURI}" onclick="continueToDestination(); return false;">
                 <gsml:img src="/res/img/ad/two_pink_arrows_right.gif" alt="To skip this ad, click here"
                           id="arrows"/>
-            </gsml:a>
+            </a>
         </div>
         <div id="background">
             <!-- Unfortunately, can't center a div unless it has its width set, and ads will be variable width -->
