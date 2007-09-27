@@ -10,7 +10,7 @@ function updateSchool(level, city, sltSchoolId, sltStateId, schoolNotListedId) {
                 var option = document.createElement("OPTION");
                 sltSchool[i] = new Option(schools[i].name, schools[i].id);
             }
-            sltSchool[sltSchool.length] = new Option("My child's school is not listed.", schoolNotListedId);
+            sltSchool[sltSchool.length] = new Option("My child's school is not listed", schoolNotListedId);
         },
         failure: function(o) {
             tempSelectMsg(document.getElementById(sltSchoolId), 'Error Retrieving schools.');

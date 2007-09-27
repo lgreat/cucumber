@@ -36,7 +36,7 @@
 }
 
 #toc ul li {
-    color:#39A;
+    color:#777777;
 }
 
 #toc ul li.active {
@@ -79,14 +79,21 @@
 }
 
 /******************** intro ***************************/
-#intro{
+.intro{
 	width:530px;
 	margin:0 0 13px 0;
 	padding:0 0 17px 0;
 	border-bottom: 1px solid #cccccc;
 	float:left;
+}
+
+#intro-start {
 	height:143px;
-	}
+}
+
+#intro-form {
+	height:175px;    
+}
 
 #intro-pic{
 	float:left;
@@ -110,6 +117,7 @@
 .intro-heading2{
 	color:#CC5566;
 	font-weight:bold;
+    padding-bottom:3px;
 }
 
 /******************** question-group ***************************/

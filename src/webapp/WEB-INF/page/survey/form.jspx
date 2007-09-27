@@ -26,16 +26,20 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
+
+    <script type="text/javascript">
+    </script>
 </head>
 <body>
 <school:profile school="${school}" tab="surveys">
 
 <div id="left-col">
-	<div id="intro">
+	<div id="intro-form" class="intro">
 		<gsml:img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
 
 		<div id="intro-blurb">
 			<div class="intro-heading1">${school.name} parent survey</div>
+            <div class="intro-heading2">Other parents want to know more about this school! Share YOUR experiences through this short survey.</div>
         </div>
 
         <div id="toc">
@@ -201,7 +205,7 @@
                     <c:when test="${answer.type eq 'TEXT'}">
                         <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
                         <![CDATA[
-                        <textarea rows="5" cols="42"]]> name="responseMap[${mapKey}].values" <![CDATA[></textarea>
+                        <textarea rows="5" cols="42"]]> onkeyup="countWords(this);" onkeydown="countWords(this);" name="responseMap[${mapKey}].values" <![CDATA[></textarea>
                         ]]>
                         <br/>
                     </c:when>

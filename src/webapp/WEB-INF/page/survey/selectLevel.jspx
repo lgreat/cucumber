@@ -36,7 +36,7 @@
     <body>
     <school:profile school="${school}" tab="surveys">
         <div id="left-col">
-            <div id="intro">
+            <div id="intro-start" class="intro">
                 <gsml:img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
 
                 <div id="intro-blurb">
