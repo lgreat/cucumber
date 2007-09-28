@@ -28,6 +28,7 @@
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
 
     <script type="text/javascript">
+        var countWords = makeCountWords(150, "Survey answers are limited to 150 words.")
     </script>
 </head>
 <body>
