@@ -109,6 +109,11 @@
                 <school:compareSchool school="${school}"/>
             </div>
             </c:if>
+
+            <link:schoolStartSurvey school="${school}">
+                <gsml:img styleClass="surveyTeaser" src="/res/img/survey/surveyteaser.gif" alt="Fill out a parent survey about ${school.name}" />
+            </link:schoolStartSurvey>
+            
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${not empty latestReviewsModel}">
                 <div id="parentReviews">
@@ -241,8 +246,11 @@
 		<!-- begin right column -->
         <div id="col_right" class="noprint">
             <div class="ad_top">
-                <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
-                <ad:Top_300x137/>
+                <!--<ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>-->
+                <!--<ad:Top_300x137/>-->
+                <link:schoolStartSurvey school="${school}">
+                    <gsml:img src="/res/img/survey/GS_surveyhousead.jpg" alt="Fill out a parent survey about ${school.name}" />
+                </link:schoolStartSurvey>
             </div>
             <div class="ad_middle">
                 <ad:x48 />

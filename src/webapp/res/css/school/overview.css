@@ -553,3 +553,7 @@ div#topCompare div#compareSchool {
     #parentReviews p a,#quickFacts div.mapit{display:none;}
     #col_center{border-right:none;}
 }
+
+.surveyTeaser {
+    margin:10px 0 20px 0;
+}
