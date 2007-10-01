@@ -70,6 +70,6 @@ a, a:hover, a:visited, a:active {
 
 img#logo {
     position: absolute;
-    top: 3px;
+    top: -4px;
     right: 75px;
 }
