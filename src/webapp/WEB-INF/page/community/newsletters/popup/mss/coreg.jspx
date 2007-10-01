@@ -49,7 +49,9 @@
     <div id="coregFooter">
         <link:newsletterManagement email="${email}" target="_blank">Manage my subscriptions &amp;gt;</link:newsletterManagement>
 
-        <gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools logo" id="logo"/>
+        <c:if test="${firstListSize lt 7}">
+            <gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools logo" id="logo"/>
+        </c:if>
     </div>
 </gsml:body>
 </html>
