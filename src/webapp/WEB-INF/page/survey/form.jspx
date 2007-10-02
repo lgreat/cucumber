@@ -190,7 +190,7 @@
                         <c:choose>
                             <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
                                 <form:select path="responseMap[${mapKey}].values"
-                                             id="${mapKey}" items="${answer.answerValues}" itemValue="symbol" itemLabel="display"/>
+                                             id="${mapKey}" items="${answer.answerValues}" itemValue="symbol" itemLabel="display" multiple="false"/>
                             </c:when>
                             <c:otherwise>
                                 <select name="responseMap[${mapKey}].values">
@@ -324,7 +324,6 @@
     <div class="previousnextouterwrap" id="outerteachers">
         <div class="previousnextwrap">
             <div class="next" id="testnext_teachers">
-                <!--<input type="submit" name="submit" value="Save and Continue"></input>-->
                 <gsml:inputImage src="/res/img/survey/savecontinue.gif" alt="Save and Continue"
                                  name="submit" id="submitButton"/>
                 <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
