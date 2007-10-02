@@ -60,7 +60,7 @@
 <form:form commandName="userResponseCommand">
 
 <c:choose>
-    <c:when test="${(empty requestScope.context.user) or (empty userResponseCommand.year) or (userResponseCommand.year eq '0')}">
+    <c:when test="${(empty userResponseCommand.year) or (userResponseCommand.year eq '0')}">
         <div class="question-group">
             <h2 class="question-group-heading">Before you get started, please tell us what school year your responses are based on:</h2>
             <div class="question">
@@ -78,7 +78,9 @@
         </div>
     </c:when>
     <c:otherwise>
-        <input type="hidden" name="year" value="${userResponseCommand.year}" />
+        <form:errors path="*" cssClass="error">
+            <input type="hidden" name="year" value="${userResponseCommand.year}" />
+        </form:errors>
     </c:otherwise>
 </c:choose>
 
