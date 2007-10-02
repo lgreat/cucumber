@@ -36,9 +36,11 @@
         <c:set var="memberId" value="${requestScope.context.user.id}"/>
     </c:if>
     <jsp:scriptlet>
+        <![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
-            if (!pageHelper.isAdFree()) {
+            if (!pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
+        ]]>
     </jsp:scriptlet>
     <script type="text/javascript">
         var memberId = ${memberId};

@@ -29,11 +29,13 @@
     <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
     <jsp:scriptlet>
+        <![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
-            if (!pageHelper.isAdFree()) {
+            if (!pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
                 // GS-3944 Co-reg: user has been sent to the co-reg site for their confirmation,
                 // so close the hover
+                ]]>
     </jsp:scriptlet>
     <c:if test="${!hasFindSchoolLink}">
         <pageHelper:addOnLoadHandler handler="window.top.hidePopWin(false);"/>
