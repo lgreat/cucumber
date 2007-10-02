@@ -35,7 +35,9 @@
                 // GS-3944 Co-reg: user has been sent to the co-reg site for their confirmation,
                 // so close the hover
     </jsp:scriptlet>
-    <pageHelper:addOnLoadHandler handler="window.top.hidePopWin(false);"/>
+    <c:if test="${!hasFindSchoolLink}">
+        <pageHelper:addOnLoadHandler handler="window.top.hidePopWin(false);"/>
+    </c:if>
     <jsp:scriptlet>
             } // end if isAdFree
         } // end if pageHelper != null
