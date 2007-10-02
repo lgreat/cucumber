@@ -1391,6 +1391,13 @@
             <type>java.lang.String</type>
             <description>Element title (tooltip)</description>
         </attribute>
+        <attribute>
+            <name>cpn</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>cpn tracking parameter</description>
+        </attribute>
     </tag>
     <tag>
         <name>allSchoolsInDistrict</name>

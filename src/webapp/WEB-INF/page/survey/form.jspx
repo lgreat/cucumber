@@ -59,24 +59,28 @@
 
 <form:form commandName="userResponseCommand">
 
-
-<c:if test="${(empty requestScope.context.user) or (empty userResponseCommand.year) or (userResponseCommand.year eq '0')}">
-<div class="question-group">
-    <h2 class="question-group-heading">Before you get started, please tell us what school year your responses are based on:</h2>
-    <div class="question">
-        <div class="question-text">My child last attended this school in (required):</div>
-        <ul class="answer-list">
-            <c:forEach var="year" items="${schoolYears}" varStatus="count">
-                <li class="answer-list-item">
-                    <form:radiobutton path="year" value="${year}" id="r${year}" cssStyle="radio"/>
-                    <label class="years" for="r${year}">${year-1}-${year}</label>
-                    <c:if test="${count.index == 0}"><form:errors path="year" cssClass="error"/></c:if>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
-</div>    
-</c:if>
+<c:choose>
+    <c:when test="${(empty requestScope.context.user) or (empty userResponseCommand.year) or (userResponseCommand.year eq '0')}">
+        <div class="question-group">
+            <h2 class="question-group-heading">Before you get started, please tell us what school year your responses are based on:</h2>
+            <div class="question">
+                <div class="question-text">My child last attended this school in (required):</div>
+                <ul class="answer-list">
+                    <c:forEach var="year" items="${schoolYears}" varStatus="count">
+                        <li class="answer-list-item">
+                            <form:radiobutton path="year" value="${year}" id="r${year}" cssStyle="radio"/>
+                            <label class="years" for="r${year}">${year-1}-${year}</label>
+                            <c:if test="${count.index == 0}"><form:errors path="year" cssClass="error"/></c:if>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <input type="hidden" name="year" value="${userResponseCommand.year}" />
+    </c:otherwise>
+</c:choose>
 
 <c:forEach var="questionGroup" items="${userResponseCommand.page.questionGroups}">
     <div class="question-group">
@@ -272,7 +276,7 @@
         <c:when test="${(not empty userResponseCommand.email)
                       and (not empty userResponseCommand.year)
                       and (userResponseCommand.year ne '0')
-                      and (userReponseCommand.terms eq 'true')}">
+                      and (userResponseCommand.terms eq 'true')}">
             <input type="hidden" name="terms" value="true"  />
             <input type="hidden" name="email" value="${userResponseCommand.email}"  />
         </c:when>
