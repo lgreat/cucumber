@@ -53,10 +53,15 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("id", "1");
         getRequest().setMethod("GET");
 
-        getSessionContext().setTempMsg(SurveyController.TMP_MSG_COOKIE_VALUE);
-
+        getSessionContext().setTempMsg(SurveyController.TMP_MSG_COOKIE_PREFIX + "CA1");
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+
         assertTrue((Boolean) mAndV.getModel().get("fromSurveyPage"));
+        assertEquals("", getResponse().getCookie("TMP_MSG").getValue());
+
+        getSessionContext().setTempMsg(SurveyController.TMP_MSG_COOKIE_PREFIX + "AK1");
+        mAndV = _controller.handleRequest(getRequest(), getResponse());
+        assertNull(mAndV.getModel().get("fromSurveyPage"));
         assertEquals("", getResponse().getCookie("TMP_MSG").getValue());
     }
 

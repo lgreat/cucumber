@@ -123,10 +123,17 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("hasStudentData", Boolean.TRUE);
             model.put("hasFinanceData", Boolean.TRUE);
 
-            if (SurveyController.TMP_MSG_COOKIE_VALUE.equals(sessionContext.getTempMsg())) {
+            String tempMsg = sessionContext.getTempMsg();
+            if (StringUtils.isNotBlank(tempMsg) && tempMsg.matches("^fromSurvey[A-Z][A-Z]\\p{Digit}+")) {
+                String stateParam = tempMsg.substring(10,12);
+                String idParam = tempMsg.substring(12);
+                String schoolState = school.getDatabaseState().getAbbreviation();
+                String schoolId = String.valueOf(school.getId());
+                if (schoolState.equals(stateParam) && schoolId.equals(idParam)) {
+                    model.put("fromSurveyPage", Boolean.TRUE);
+                }
                 SessionContextUtil util = sessionContext.getSessionContextUtil();
                 util.clearTempMsg(response);
-                model.put("fromSurveyPage", Boolean.TRUE);
             }
         }
         return new ModelAndView(_viewName, model);
@@ -149,18 +156,6 @@ public class SchoolOverviewController extends AbstractSchoolController {
     }
 
     boolean hasTestData(School s) {
-//        Calendar cal = Calendar.getInstance();
-//        int currentYear = cal.get(Calendar.YEAR);
-//        System.out.println ("current year: " + currentYear);
-//        Map _rawResults = _testDataSetDao.findAllRawResults(s, new int[] {currentYear, currentYear-1}, false);
-//        return !_rawResults.isEmpty();
-
-//        TestDataSet tds = _testDataSetDao.findLatestDataSet(s.getDatabaseState(), null, null, null, null, null, true);
-//        System.out.println ("tds year: " + tds.getYear());
-//        SchoolTestValue value = _testDataSetDao.findValue(tds, s);
-//        System.out.println ("value: " + value);
-//        return value != null;
-
         List values = _testDataSetDao.findValues(s);
         for (Iterator iter = values.iterator(); iter.hasNext();) {
             SchoolTestValue value = (SchoolTestValue)iter.next();

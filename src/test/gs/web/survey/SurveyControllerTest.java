@@ -346,7 +346,8 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     public void testOnSubmit() throws Exception {
         UserResponseCommand urc = new UserResponseCommand();
         urc.setUser(createUser(false));
-        urc.setSchool(createSchool());
+        School school = createSchool();
+        urc.setSchool(school);
         Survey survey = createSurvey();
         urc.setSurvey(survey);
         urc.setPage(survey.getPages().get(0));
@@ -358,7 +359,11 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
         UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_PROFILE);
 
-        assertEquals("put temp survey message cookie into response", SurveyController.TMP_MSG_COOKIE_VALUE,
+        StringBuffer cookieBuffer = new StringBuffer();
+        cookieBuffer.append(SurveyController.TMP_MSG_COOKIE_PREFIX);
+        cookieBuffer.append(school.getDatabaseState().getAbbreviation());
+        cookieBuffer.append(String.valueOf(school.getId()));
+        assertEquals("put temp survey message cookie into response", cookieBuffer.toString(),
                 getResponse().getCookie("TMP_MSG").getValue());
         assertEquals("redirect:"+builder.asFullUrl(getRequest()), mAndV.getViewName());
     }

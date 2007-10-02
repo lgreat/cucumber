@@ -288,16 +288,22 @@ div.label-multi-col{
 div.multiAnswerValue {
     position:relative;
     padding:0 0 5px 0;
+    margin:0 0 3px 0;    
 }
 
 div.multiAnswerValue input.multiCheck {
     position:absolute;
-    top:0;
+    top:2px;
     left:0;
+    padding:0;
+    margin:0;
+    _margin:-1px 0 0 -20px; /* for IE 6 */
+    height:14px;
 }
+
 div.multiAnswerValue div.answerValue {
     position:relative;
-    margin:1px 0 0 19px;
+    margin:1px 0 0 22px;
 }
 
 
@@ -446,6 +452,10 @@ li label.years {
 
 span#prevCity, span#nextCity {
     line-height:25px;
+}
+
+span#prevCity a, span#nextCity a{
+    color: #3399AA;
 }
 
 div#whoRadioButtons {

@@ -52,6 +52,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
      */
     public static final String MODEL_SCHOOL_YEARS = "schoolYears";
     public static final String TMP_MSG_COOKIE_VALUE = "fromSurvey";
+    public static final String TMP_MSG_COOKIE_PREFIX = "fromSurvey";
     protected final static String CURRENT_PAGE = "currentPage";
 
     private ISurveyDao _surveyDao;
@@ -186,6 +187,9 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         urc.setSurvey(survey);
         urc.setSchool(school);
         urc.setUser(user);
+        if (user != null) {
+            urc.setEmail(user.getEmail());
+        }
 
         String yearParam = (String) request.getAttribute("year");
         if (StringUtils.isBlank(yearParam)) {
@@ -357,7 +361,12 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
-        util.setTempMsg(response, TMP_MSG_COOKIE_VALUE);
+
+        StringBuffer tmpMsgCookieBuffer = new StringBuffer();
+        tmpMsgCookieBuffer.append(TMP_MSG_COOKIE_PREFIX);
+        tmpMsgCookieBuffer.append(school.getDatabaseState().getAbbreviation());
+        tmpMsgCookieBuffer.append(String.valueOf(school.getId()));
+        util.setTempMsg(response, tmpMsgCookieBuffer.toString());
 
         Survey survey = urc.getSurvey();
         SurveyPage sp = urc.getPage();

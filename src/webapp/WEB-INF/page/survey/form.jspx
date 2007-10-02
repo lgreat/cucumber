@@ -64,7 +64,7 @@
 <div class="question-group">
     <h2 class="question-group-heading">Before you get started, please tell us what school year your responses are based on:</h2>
     <div class="question">
-        <div class="question-text">My child last attended this school in(required):</div>
+        <div class="question-text">My child last attended this school in (required):</div>
         <ul class="answer-list">
             <c:forEach var="year" items="${schoolYears}" varStatus="count">
                 <li class="answer-list-item">
@@ -269,9 +269,12 @@
 
 <div class="question-group">
     <c:choose>
-        <c:when test="${(not empty requestScope.context.user) and (not empty userResponseCommand.year) and (userResponseCommand.year ne '0')}">
+        <c:when test="${(not empty userResponseCommand.email)
+                      and (not empty userResponseCommand.year)
+                      and (userResponseCommand.year ne '0')
+                      and (userReponseCommand.terms eq 'true')}">
             <input type="hidden" name="terms" value="true"  />
-            <input type="hidden" name="email" value="${requestScope.context.user.email}"  />
+            <input type="hidden" name="email" value="${userResponseCommand.email}"  />
         </c:when>
         <c:otherwise>
             <h2 class="question-group-heading">A little about you (required)</h2>
@@ -292,7 +295,7 @@
             <div class="question">
                 <div class="email-module">
                     Email address
-                    <form:input id="email" path="email" size="30"/>
+                    <form:input id="email" path="email" size="30" />
                     <form:errors path="email" >
                         <span class="error">Please enter a valid e-mail address.</span>
                     </form:errors>
@@ -300,11 +303,14 @@
                 </div>
             </div>
 
-            <c:if test="${userResponseCommand.NLPromoShown}">
+            <c:if test="${userResponseCommand.NLPromoShown and (school.type.name eq 'public')}">
                 <form:checkbox path="NLSignUpChecked" /> Yes, please send my monthly stats and updates about ${school.name}<br/>
             </c:if>
             <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
-            <form:errors path="terms" />
+            <form:errors path="terms" >
+                <span class="error">Please accept our terms of use.</span>
+            </form:errors>
+
         </c:otherwise>
     </c:choose>
 </div>
