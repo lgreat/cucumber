@@ -351,8 +351,8 @@
 </div>
 </school:profile>
 <mod:tracking pageType="School Profile"
-              pageName="Parent Survey Questions:1"
-              hier1="Schools,Parent Survey,Question,Page 1"/>
+              pageName="Parent Survey Questions:${requestScope.currentPage} "
+              hier1="Schools,Parent Survey,Question,Page ${requestScope.currentPage}"/>
 </body>
 </html>
 </jsp:root>
