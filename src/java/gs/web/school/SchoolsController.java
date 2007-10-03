@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.34 2007/08/01 19:34:45 chriskimm Exp $
+ * $Id: SchoolsController.java,v 1.35 2007/10/03 21:20:43 dlee Exp $
  */
 
 package gs.web.school;
@@ -273,7 +273,9 @@ public class SchoolsController extends AbstractController {
         }
         if (levelCode != null &&
                 levelCode.getCommaSeparatedString().length() == 1) {
-            if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+            if (levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+                sb.append(" Preschool");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
                 sb.append(" Elementary");
             } else if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
                 sb.append(" Middle");
@@ -304,7 +306,9 @@ public class SchoolsController extends AbstractController {
 
          if (levelCode != null &&
                 levelCode.getCommaSeparatedString().length() == 1) {
-            if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+            if (levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+                modifier.append("preschool");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
                 modifier.append("elementary");
             } else if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
                 modifier.append("middle");

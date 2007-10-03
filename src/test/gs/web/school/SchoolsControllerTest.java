@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.20 2007/08/01 19:34:46 chriskimm Exp $
+ * $Id: SchoolsControllerTest.java,v 1.21 2007/10/03 21:20:43 dlee Exp $
  */
 
 package gs.web.school;
@@ -361,6 +361,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Elementary Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY, null));
         assertEquals("San Francisco Middle Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE, null));
         assertEquals("San Francisco High Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.HIGH, null));
+        assertEquals("San Francisco Preschool Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.PRESCHOOL, null));
 
         assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
         assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
@@ -374,6 +375,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
                 _controller.calcMetaDesc(null, "San Francisco", LevelCode.MIDDLE, null));
         assertEquals("View and map all San Francisco public elementary schools. Plus, compare or save public elementary schools.",
                 _controller.calcMetaDesc(null, "San Francisco", LevelCode.ELEMENTARY, new String[]{"public"}));
+
+        assertEquals("View and map all San Francisco public preschool schools. Plus, compare or save public preschool schools.",
+                _controller.calcMetaDesc(null, "San Francisco", LevelCode.PRESCHOOL, new String[]{"public"}));
 
         assertEquals("View and map all schools in the Oakland Unified School District. Plus, compare or save schools in this district.",
                 _controller.calcMetaDesc("Oakland Unified School District", "Oakland", null, null));
