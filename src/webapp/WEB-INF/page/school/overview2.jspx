@@ -104,15 +104,17 @@
 
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
-            <c:if test="${!requestScope.context.crawler}">
-            <div id="topCompare" style="float:left; padding-bottom:25px;" >
-                <school:compareSchool school="${school}"/>
-            </div>
+            <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
+                <div id="topCompare" style="float:left; padding-bottom:25px;" >
+                    <school:compareSchool school="${school}"/>
+                </div>
             </c:if>
 
-            <link:schoolStartSurvey school="${school}" cpn="OnPage_parentsurvey">
-                <gsml:img styleClass="surveyTeaser" src="/res/img/survey/surveyteaser.gif" alt="Fill out a parent survey about ${school.name}" />
-            </link:schoolStartSurvey>
+            <c:if test="${school.levelCode != 'p'}">
+                <link:schoolStartSurvey school="${school}" cpn="OnPage_parentsurvey">
+                    <gsml:img styleClass="surveyTeaser" src="/res/img/survey/surveyteaser.gif" alt="Fill out a parent survey about ${school.name}" />
+                </link:schoolStartSurvey>
+            </c:if>
             
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${not empty latestReviewsModel}">
@@ -228,7 +230,7 @@
                     </div>
                 </c:if>
 
-                <c:if test="${!hasPrincipalView}">
+                <c:if test="${!hasPrincipalView and school.levelCode != 'p'}">
                     <div id="insideScoop">
                         <link:schoolProfileEspLogin school="${school}">
                             <gsml:img src="/res/img/school/overview/esp.gif" alt="What's the inside scoop on this school? Principals and school officials, tell us here" />

@@ -108,7 +108,7 @@
                                         <option value="other">other</option>
                                     </select>  and I accept <span id="tos">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
                     </li>
-                    <c:if test="${school.type.schoolTypeName ne 'private'}">
+                    <c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode != 'p'}">
                         <li><input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked"/> Send me updates about this school</li>
                     </c:if>
 

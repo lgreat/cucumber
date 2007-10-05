@@ -157,7 +157,7 @@
         <link:schoolProfileAddParentReview school="${school}" styleClass="rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
 
         <c:choose>
-            <c:when test="${schoolType != 'private'}">
+            <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
                 <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
                 <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
             </c:when>
@@ -166,8 +166,10 @@
                 <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
             </c:otherwise>
         </c:choose>
-        <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
-        <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
+        <c:if test="${school.levelCode != 'p'}">
+            <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
+            <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
+        </c:if>
     </div>
     </c:if>
     <!-- end tools -->
@@ -232,7 +234,7 @@
                     Overview
                 </link:schoolProfileOverview>
             </td>
-            <c:if test="${schoolType != 'private'}">
+            <c:if test="${schoolType != 'private' and school.levelCode != 'p'}">
                 <td>
                     <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}"
                                               title="${school.name} GreatSchools Ratings">
@@ -250,7 +252,7 @@
                 </link:schoolProfileParentReview>
             </td>
 
-            <c:if test="${schoolType != 'private' || state.privateTestScoresState}" >
+            <c:if test="${(schoolType != 'private' || state.privateTestScoresState) and (school.levelCode != 'p')}" >
                 <td>
                     <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on' : ''}"
                                                  title="${school.name} Test Scores">
@@ -269,7 +271,7 @@
             </td>
 
 
-            <c:if test="${school.districtId != 0}">
+            <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
                 <td>
                     <link:districtProfile districtId="${school.districtId}"
                                           schoolId="${school.id}"
@@ -286,12 +288,14 @@
                 <a href="" title="">Parent<br/>Community</a>
             </td>
 -->
-            <td class="last">
-                <link:schoolCompareSchool school="${school}" styleClass="last" from="tab">
-                    Compare<br/>
-                    Schools
-                </link:schoolCompareSchool>
-            </td>
+            <c:if test="${school.levelCode != 'p'}">
+                <td class="last">
+                    <link:schoolCompareSchool school="${school}" styleClass="last" from="tab">
+                        Compare<br/>
+                        Schools
+                    </link:schoolCompareSchool>
+                </td>
+            </c:if>
         </tr>
     </table>
     <!-- end: navigation -->
