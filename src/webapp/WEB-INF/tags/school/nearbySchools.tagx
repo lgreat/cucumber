@@ -39,12 +39,20 @@
 
         ]]></jsp:scriptlet>
 
+    <c:choose>
+        <c:when test="${school.levelCode == 'p'}">
+            <c:set var="prefix" value="${levelLongName}" />
+        </c:when>
+        <c:otherwise>
+            <c:set var="prefix" value="${levelLongName} School" />
+        </c:otherwise>
+    </c:choose>
     <c:if test="${hasNearby}">
         <pageHelper:externalCss file="/res/css/school/nearby.css"/>
         <!-- nearbyWrapper div is for top border styling -->
         <div id="nearbyWrapper" class="noprint">
             <div id="nearbySchools">
-                <h2>${levelLongName} Schools Near ${school.name}</h2>
+                <h2>${prefix}s Near ${school.name}</h2>
 
                 <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
                     <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
@@ -56,14 +64,17 @@
                                  centerSchool="${school}"/>
                 </c:if>
 
-                <p class="head_top">${levelLongName} School</p>
+                <p class="head_top">${prefix}</p>
 
-                <p class="head_rating">GreatSchools Rating</p>
+                <c:if test="${school.levelCode != 'p'}">
+                    <p class="head_rating">GreatSchools Rating</p>
+                </c:if>
 
                 <ul>
                     <c:forEach items="${nearbySchools}" var="nearbySchool">
                         <c:set var="rating" value="na"/>
-                        <c:if test="${not empty nearbySchool.rating}">
+                        <c:set var="rating" value=""/>
+                        <c:if test="${not empty nearbySchool.rating and school.levelCode != 'p'}">
                             <c:set var="rating" value="r${nearbySchool.rating}"/>
                         </c:if>
                         <li class="${rating}">
@@ -73,9 +84,11 @@
                             </c:if>
                         </li>
                     </c:forEach>
-                    <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools&#160;&#62;</link:schoolCompareSchool></li>
-                    <c:if test="${school.type.schoolTypeName != 'private'}">
-                        <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}" title="${school.district.name}">Schools in ${school.district.name}&#160;&#62;</link:allSchoolsInDistrict></li>
+                    <c:if test="${school.levelCode != 'p'}">
+                        <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools&#160;&#62;</link:schoolCompareSchool></li>
+                        <c:if test="${school.type.schoolTypeName != 'private'}">
+                            <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}" title="${school.district.name}">Schools in ${school.district.name}&#160;&#62;</link:allSchoolsInDistrict></li>
+                        </c:if>
                     </c:if>
                 </ul>
             </div>
