@@ -35,12 +35,19 @@
 <school:profile school="${school}" tab="surveys">
 
 <div id="left-col">
+<form:form commandName="userResponseCommand">
 	<div id="intro-form" class="intro">
 		<gsml:img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
+    
+        <form:errors path="*" cssClass="error">
+            <span class="error" style="margin:0;">Please complete the required questions.</span>
+        </form:errors>
 
-		<div id="intro-blurb">
+        <div id="intro-blurb">
 			<div class="intro-heading1">${school.name} parent survey</div>
-            <div class="intro-heading2">Other parents want to know more about this school! Share YOUR experiences through this short survey.</div>
+            <c:if test="${requestScope.currentPage == '1'}">
+                <div class="intro-heading2">Other parents want to know more about this school! Share YOUR experiences through this short survey.</div>
+            </c:if>
         </div>
 
         <div id="toc">
@@ -56,8 +63,6 @@
             </ul>
         </div>
     </div>
-
-<form:form commandName="userResponseCommand">
 
 <c:choose>
     <c:when test="${(empty userResponseCommand.year) or (userResponseCommand.year eq '0')}">
@@ -300,6 +305,7 @@
 
             <div class="question">
                 <div class="email-module">
+                    <span>All responses are anonymouse. E-mail is collected for verification purposes only.</span>
                     Email address
                     <form:input id="email" path="email" size="30" />
                     <form:errors path="email" >
@@ -312,7 +318,7 @@
             <c:if test="${userResponseCommand.NLPromoShown and (school.type.name eq 'public')}">
                 <form:checkbox path="NLSignUpChecked" /> Yes, please send my monthly stats and updates about ${school.name}<br/>
             </c:if>
-            <form:checkbox path="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
+            <form:checkbox path="terms" cssClass="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
             <form:errors path="terms" >
                 <span class="error">Please accept our terms of use.</span>
             </form:errors>

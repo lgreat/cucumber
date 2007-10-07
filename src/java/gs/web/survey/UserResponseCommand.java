@@ -28,7 +28,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     private boolean _terms = true; // default
     private int _year;
     private SurveyPage _page;
-    private boolean _NLSignUpChecked = false;
+    private boolean _NLSignUpChecked = true;
     private Poster _who = Poster.PARENT; // default
 
     private State _prevState;
@@ -150,7 +150,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     }
 
     public boolean isNLSignUpChecked() {
-        return _NLSignUpChecked;
+        return isNLPromoShown() && _NLSignUpChecked;
     }
 
     public void setNLSignUpChecked(boolean NLSignUpChecked) {
