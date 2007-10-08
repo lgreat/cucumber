@@ -80,10 +80,10 @@
     <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="700" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1032" wrappingElement="li"/>
+        <gsweb:articlelink articleId="1099" wrappingElement="li"/>
         <gsweb:articlelink articleId="688" wrappingElement="li"/>
-        <gsweb:articlelink articleId="716" wrappingElement="li"/>
-        <gsweb:articlelink articleId="684" wrappingElement="li"/>
+        <gsweb:articlelink articleId="752" wrappingElement="li"/>
+        <gsweb:articlelink articleId="1076" wrappingElement="li"/>
     </ul>
 
     <h3 id="testTips">Test Tips</h3>
@@ -95,8 +95,8 @@
 
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="846" wrappingElement="li"/>
-        <gsweb:articlelink articleId="675" wrappingElement="li"/>
+        <gsweb:articlelink articleId="964" wrappingElement="li"/>
+        <gsweb:articlelink articleId="676" wrappingElement="li"/>
         <gsweb:articlelink articleId="1008" wrappingElement="li"/>
     </ul>
 
@@ -122,7 +122,7 @@
     <ul class="plain">
         <gsweb:articlelink articleId="325" wrappingElement="li"/>
         <gsweb:articlelink articleId="703" wrappingElement="li"/>
-        <gsweb:articlelink articleId="34" wrappingElement="li"/>
+        <gsweb:articlelink articleId="1071" wrappingElement="li"/>
     </ul>
 
     <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
@@ -162,20 +162,20 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">Getting Ready for College: One Mom's Timeline</gsml:a>
+        <gsweb:articlelink articleId="1100" styleClass="noHover"/>        
     </div>
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">
-            After sending two sons off to college, Boots Whitmer shares her year-by-year college prep tips for your child, including:
-        </gsml:a>
+        <gsweb:articlelink articleId="1100" styleClass="noHover">
+        You can help your child be a better writer. How? By coaching rather than correcting. That's the advice from a writing program that trains volunteers to be coaches. Among their tips:
+        </gsweb:articlelink>
         <ul class="noHover">
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">Save English essays because they can be an inspiration for college admissions essays.</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">Don't wait until senior year to ask for teacher recommendations.</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="noHover">Get written recommendations for volunteer work.</gsml:a></li>
+            <gsweb:articlelink articleId="1100" styleClass="noHover" wrappingElement="li">Ask your child to read his writing aloud. Don't interrupt!</gsweb:articlelink>
+            <gsweb:articlelink articleId="1100" styleClass="noHover" wrappingElement="li">Look for three strengths in your child's writing.</gsweb:articlelink>
+            <gsweb:articlelink articleId="1100" styleClass="noHover" wrappingElement="li">Don't correct grammar in a rough draft.</gsweb:articlelink>
         </ul>
     </div>
     <div align="right">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/1076" styleClass="seeFullArticle">Read the college prep timeline &gt;</gsml:a>
+        <gsweb:articlelink articleId="1100" styleClass="seeFullArticle">Learn how to put these tips into practice</gsweb:articlelink>
     </div>
 
     <div class="midDotLine" >
@@ -195,21 +195,17 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
-            Applications: A Parent's Role
-        </gsml:a>
+        <gsweb:articlelink articleId="1096" styleClass="noHover"/>
     </div>
 
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
-            Do I give up now in despair or just do it myself?
-            That's the question many parents ask during the college application process.
-            The challenge is to be supportive while doing neither.
-        </gsml:a>
+        <gsweb:articlelink articleId="1096" styleClass="noHover">
+            Loans are the largest form of student aid, making up 54 percent of the total aid awarded each year.
+            What's the difference between a Perkins and a Stafford loan? Here's a primer to help you understand the system.
+        </gsweb:articlelink>
     </div>
 
-    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="seeFullArticle">Find out how you can help your child
-        &gt;</gsml:a></div>
+    <div align="right"><gsweb:articlelink articleId="1096" styleClass="seeFullArticle">Read about loans for college &gt;</gsweb:articlelink></div>
 
     <div class="midDashLine">
         <gsml:img style="height: 1px; width: 1px" alt=""
@@ -224,15 +220,17 @@
                 </td>
                 <td valign="top">
 
-                    <ul class="quickFindLinks" style="padding-top:15px;">
-                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21353.html"
-                               target="_blank">Application Requirements</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21357.html"
-                               target="_blank">College Application Calendar</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21352.html"
-                               target="_blank">Application FAQs</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21359.html"
-                               target="_blank">Inside the Admissions Process</a></li>
+                    <ul class="quickFindLinks">
+                        <li style="padding-top:0;"><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21424.html"
+                               target="_blank">Think Before You Borrow</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21422.html"
+                               target="_blank">Your Family's Loan Options</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21427.html"
+                               target="_blank">How Much Should Your Family Borrow?</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21425.html"
+                               target="_blank">10 Essential Borrowing Tips</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21426.html"
+                               target="_blank">Comparing Loans: Tips and Advice</a></li>
                     </ul>
                 </td>
             </tr>
@@ -296,9 +294,9 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Your child should meet with her
-                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21287.html" target="_blank">school counselor</a>
-                                to make sure she knows what courses the school offers, graduation requirements and how the grading system works.
+                               Help your child make a four-year schedule of
+                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21263.html" target="_blank">recommended classes</a>
+                                that meet the requirements for high school graduation and college admission. Colleges prefer four years of English and math, and at least three in social studies, science and a foreign language.
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a>
                 </td>
@@ -306,9 +304,8 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Meet with your child's <a href="http://www.collegeboard.com/parents/plan/hs-steps/21286.html" target="_blank">teachers</a>
-                               for a brief chat. This will help set the stage early for good relationships throughout the year. Jot down questions
-                               ahead of time to make the most of these meetings.
+                               Help your child keep her four-year <a href="http://www.collegeboard.com/parents/plan/hs-steps/21282.html" target="_blank">extracurricular and athletic activity</a>
+                               schedule up to date. Does she want to try a new sport or club? Encourage her to commit to a few activities that truly interest her, rather than dabbling in many.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
             </tr>
@@ -318,19 +315,15 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Encourage your child to meet with the
-                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21287.html" target="_blank">school counselor</a>
-                               to compare academic requirements for each of her target schools and her own course schedule.
-                               She should adjust her schedule, if necessary.
+                               Encourage your child to brainstorm a list of characteristics that are important to her (e.g.,
+                               <a href="http://www.collegeboard.com/parents/csearch/explore-colleges/21182.html" target="_blank">location</a>, size).
+                               She can plug these details into <a href="http://collegesearch.collegeboard.com/search/index.jsp" target="_blank">College Search</a> to find schools that suit her needs, then contact them to get applications.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               <a href="http://www.collegeboard.com/parents/csearch/know-the-options/21343.html" target="_blank">My College List</a>
-                               can help your child manage his list of schools online. Is your child applying
-                               <a href="http://www.collegeboard.com/parents/apply/college-applications/21342.html" target="_blank">early decision or early action?</a>
-                               Don't miss the application deadlines. Most fall in October or November.
+                               Review your child's completed school and scholarship applications and essays to make sure they're free of errors. You may want to have another person review them, too. Note that many scholarship application deadlines are in December.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
             </tr>
