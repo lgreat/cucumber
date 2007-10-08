@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.12 2007/08/06 19:12:59 aroy Exp $
+ * $Id: LinkTagHandler.java,v 1.13 2007/10/08 19:11:21 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -41,6 +41,7 @@ public abstract class LinkTagHandler extends TagSupport {
     private String _styleId;
     private String _onMouseOver;
     private String _onMouseOut;
+    private boolean _absolute = false;
 
     /**
      * Create a UrlBuilder object pointing to the correct page.
@@ -152,7 +153,12 @@ public abstract class LinkTagHandler extends TagSupport {
             pageContext.getOut().print("\"");
         }
 
-        String href = builder.asSiteRelativeXml((HttpServletRequest) pageContext.getRequest());
+        String href;
+        if (isAbsolute()) {
+            href = builder.asFullUrlXml((HttpServletRequest) pageContext.getRequest());
+        } else {
+            href = builder.asSiteRelativeXml((HttpServletRequest) pageContext.getRequest());
+        }
 
         if (StringUtils.isNotEmpty(_anchor)) {
             //only set anchor if one is not found in url
@@ -245,5 +251,13 @@ public abstract class LinkTagHandler extends TagSupport {
 
     public void setOnMouseOut(String onMouseOut) {
         _onMouseOut = onMouseOut;
+    }
+
+    public boolean isAbsolute() {
+        return _absolute;
+    }
+
+    public void setAbsolute(boolean absolute) {
+        _absolute = absolute;
     }
 }

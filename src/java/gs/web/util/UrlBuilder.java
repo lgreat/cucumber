@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.89 2007/09/25 18:13:42 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.90 2007/10/08 19:11:21 aroy Exp $
  */
 
 package gs.web.util;
@@ -913,6 +913,24 @@ public class UrlBuilder {
         return url;
     }
 
+    /**
+     * Provides a full URL to the page. This is the raw URL, not encoded correctly
+     * for XHTML. This is generally not needed, but is needed for redirect usage.
+     *
+     * @see #asSiteRelativeXml(javax.servlet.http.HttpServletRequest)
+     */
+    public String asFullUrlXml(HttpServletRequest request) {
+
+        String serverName = request.getServerName();
+        int serverPort = request.getServerPort();
+
+        String url = "http://" +
+                serverName +
+                ((serverPort != 80) ? ":" + serverPort : "") +
+                buildSiteRelative(request);
+        url = encodeForXml(url);
+        return url;
+    }
 
     /**
      * Provides a site-relative link wrapped in an a tag.

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.34 2007/09/25 18:13:42 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.35 2007/10/08 19:11:21 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -20,6 +20,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.ServletContext;
 import java.io.IOException;
 
 /**
@@ -169,6 +170,36 @@ public class LinkTagHandlerTest extends BaseTestCase {
         out = (MockJspWriter) pc.getOut();
         assertEquals("<a id=\"myID\" href=\"somepage#withanchor\"></a>", out.getOutputBuffer().toString());
 
+    }
+
+    public void testAbsoluteLink() throws JspException {
+        LinkTagHandler handler = new LinkTagHandler() {
+            protected UrlBuilder createUrlBuilder() {
+                return new UrlBuilder(new MockHttpServletRequest(), "/somepage");
+            }
+        };
+
+        PageContext pc = new MockPageContext();
+
+        handler.setPageContext(pc);
+        handler.setAbsolute(true);
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        MockJspWriter out = (MockJspWriter) pc.getOut();
+        assertTrue("Expect link (" + out.getOutputBuffer().toString() + ") to be absolute",
+                out.getOutputBuffer().toString().startsWith("<a href=\"http://"));
+
+        pc = new MockPageContext();
+
+        handler.setPageContext(pc);
+        handler.setAbsolute(false);
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        out = (MockJspWriter) pc.getOut();
+        assertTrue("Expect link (" + out.getOutputBuffer().toString() + ") to be relative",
+                out.getOutputBuffer().toString().startsWith("<a href=\"/somepage"));
     }
 
     public void testArticleLibrary() {

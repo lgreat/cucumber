@@ -15,7 +15,7 @@
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
     <c:set var="hoverName" value="hoverNewsGn"/>
-    <gsml:url var="url" value="/community/newsletters/popup/newsletter.page"/>
+    <gsml:url var="url" value="/community/newsletters/popup/newsletter.page" absolute="true"/>
 
     <c:choose>
         <c:when test="${isForm ne 'true'}">

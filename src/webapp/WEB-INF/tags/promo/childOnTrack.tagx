@@ -10,8 +10,8 @@
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
     <div id="childOnTrack">
         <promo:nthGraderHover referredBy="${referredBy}" >
-            <gsml:url var="cot" value="/res/img/promo/newsletter_1.gif"/>
-            <gsml:url var="cotOver" value="/res/img/promo/newsletter_2.gif"/>
+            <gsml:url var="cot" value="/res/img/promo/newsletter_1.gif" absolute="true"/>
+            <gsml:url var="cotOver" value="/res/img/promo/newsletter_2.gif" absolute="true"/>
             <img src="${cot}"
                  alt="Is Your Child on Track?"
              onmouseover="this.src='${cotOver}';"

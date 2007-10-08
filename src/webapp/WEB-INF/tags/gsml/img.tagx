@@ -15,9 +15,13 @@
     <jsp:directive.attribute name="rollover" required="false" description="rollover image context-relative URL"/>
     <jsp:directive.attribute name="onmouseover" required="false" description="onmouseover javascript"/>
     <jsp:directive.attribute name="onmouseout" required="false" description="onmouseout javascript"/>
+    <jsp:directive.attribute name="absolute" required="false" description="true for absolute url"/>
     <jsp:scriptlet><![CDATA[
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         src = urlUtil.buildUrl(src, request);
+        if (StringUtils.isNotBlank(absolute) && "true".equalsIgnoreCase(absolute) && src.startsWith("/")) {
+            src = "http://" + request.getServerName() + src;
+        }
         jspContext.setAttribute("src", src);
 
         StringBuffer buffer = new StringBuffer();

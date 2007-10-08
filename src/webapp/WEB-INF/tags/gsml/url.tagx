@@ -9,12 +9,15 @@
     <jsp:directive.tag import="java.util.Properties"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="var" required="true" description="JSP variable name to set"/>
     <jsp:directive.attribute name="value" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
     <jsp:directive.attribute name="release_number" required="false" description="Optional release number"/>
-    <jsp:scriptlet>
+    <jsp:directive.attribute name="absolute" required="false" description="true for absolute url"/>
+    <jsp:scriptlet><![CDATA[
+
         if (state != null) {
             request.setAttribute("STATE", state);
         }
@@ -27,6 +30,10 @@
         }
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         value = urlUtil.buildUrl(value, request);
+        if (StringUtils.isNotBlank(absolute) && "true".equalsIgnoreCase(absolute) && value.startsWith("/")) {
+            value = "http://" + request.getServerName() + value;
+        }
         jspContext.setAttribute(var, value, PageContext.REQUEST_SCOPE);
-    </jsp:scriptlet>
+
+        ]]></jsp:scriptlet>
 </jsp:root>
