@@ -269,11 +269,6 @@ div.topRatedSchools {
     padding-left: 16px;
 }
 
-span.mousedOver, span:hover {
-    background-color: #eee;
-    color: red;
-}
-
 .tooltip {
     font-size: small;
     font-weight: bold;
