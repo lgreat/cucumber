@@ -60,7 +60,7 @@
                                 onclick="Popup=window.open('http://school-choice.greatschools.net','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
                                 class="dearParentsLink"><span class="bold">School Choice: One Mom's Journey</span></a></li>
             <gsweb:articlelink articleId="197" wrappingElement="li"/>
-            <gsweb:articlelink articleId="241" wrappingElement="li"/>
+            <gsweb:articlelink articleId="1063" wrappingElement="li"/>
             <gsweb:articlelink articleId="487" wrappingElement="li"/>
             <gsweb:articlelink articleId="188" wrappingElement="li"/>
             <gsweb:articlelink articleId="205" wrappingElement="li"/>
