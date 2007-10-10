@@ -27,12 +27,12 @@
 
             if (hideDefaultAds == null || !hideDefaultAds.booleanValue()) {
                 adNames.add(slotPrefix + AdPosition.Footer_728x90.getName());
-                //adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
+                adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
             }
             for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
                 AdPosition ad = (AdPosition) iter.next();
 
-                if (ad.isGAMPosition() && ad.isActive()) {
+                if (ad.isGAMPosition()) {
                     adNames.add(slotPrefix + ad.getName());
                 }
             }
