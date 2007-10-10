@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.22 2007/10/10 01:38:28 chriskimm Exp $
+ * $Id: SchoolsControllerTest.java,v 1.23 2007/10/10 22:56:01 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -370,6 +370,12 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         assertEquals("Dayton City School District Schools, Ohio - OH: charter and public schools.",
                 _controller.calcDistrictSchoolsTitle("Dayton City School District", State.OH));
+
+        assertEquals("Dade County School District Schools, Florida - FL: charter and public schools.",
+                _controller.calcDistrictSchoolsTitle("Dade County", State.FL));
+
+        assertEquals("Jackson Elementary District Schools, Alaska - AK: charter and public schools.",
+                _controller.calcDistrictSchoolsTitle("Jackson Elementary District", State.AK));
     }
 
     public void testMetaDescCalc() {
@@ -392,6 +398,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         assertEquals("Dayton City School District, Ohio - OH: Find, compare and map public schools in Dayton City School District. Plus, review test scores and academic performance for this public school district.",
                 _controller.calcDistrictMetaDesc("Dayton City School District", State.OH));
+
+        assertEquals("Dade County School District, Ohio - OH: Find, compare and map public schools in Dade County. Plus, review test scores and academic performance for this public school district.",
+                _controller.calcDistrictMetaDesc("Dade County", State.OH));
     }
 
 }

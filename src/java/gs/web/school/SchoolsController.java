@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.36 2007/10/10 01:38:28 chriskimm Exp $
+ * $Id: SchoolsController.java,v 1.37 2007/10/10 22:56:01 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -262,6 +262,13 @@ public class SchoolsController extends AbstractController {
     public static String calcDistrictSchoolsTitle(String districtDisplayName, State state) {
         StringBuffer sb = new StringBuffer();
         sb.append(districtDisplayName);
+
+        String lowerName = districtDisplayName.toLowerCase();
+        if (!lowerName.contains("school") &&
+                !lowerName.contains("district")) {
+            sb.append(" School District");
+        }
+
         sb.append(" Schools, ");
         sb.append(state.getLongName());
         sb.append(" - ");
@@ -273,6 +280,13 @@ public class SchoolsController extends AbstractController {
     public static String calcDistrictMetaDesc(String districtDisplayName, State state) {
         StringBuffer sb = new StringBuffer();
         sb.append(districtDisplayName);
+
+        String lowerName = districtDisplayName.toLowerCase();
+        if (!lowerName.contains("school") &&
+                !lowerName.contains("district")) {
+            sb.append(" School District");
+        }
+
         sb.append(", ");
         sb.append(state.getLongName());
         sb.append(" - ");
