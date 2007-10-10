@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.14 2007/09/21 22:04:01 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.15 2007/10/10 00:37:03 dlee Exp $
  */
 package gs.web.ads;
 
@@ -49,8 +49,14 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
-        if (pageHelper.isAdFree()) {
+        String slotPrefix = (String) request.getAttribute(REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
+
+        if (pageHelper.isAdFree() || !isActive()) {
             return ""; //early exit
+        }
+
+        if (AdPosition.AboveFold_300x600.equals(_adPosition) && !StringUtils.contains(slotPrefix, "Library_Microsite")) {
+            return "";
         }
 
         StringBuffer buffer = new StringBuffer();
@@ -86,7 +92,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
             if (_adPosition.isGAMPosition()) {
                 jsMethodName = JS_METHOD_NAME_GAM;
-                String slotPrefix = (String) request.getAttribute(REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
                 if (StringUtils.isNotBlank(slotPrefix)) {
                     slotName = slotPrefix + slotName;
                 }
@@ -129,5 +134,9 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
      */
     public boolean isDeferred() {
         return !_adPosition.isGAMPosition();
+    }
+
+    public boolean isActive() {
+        return _adPosition.isActive();
     }
 }
