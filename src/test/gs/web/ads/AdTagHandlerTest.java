@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.10 2007/06/14 23:28:38 dlee Exp $
+ * $Id: AdTagHandlerTest.java,v 1.11 2007/10/10 18:37:00 dlee Exp $
  */
 package gs.web.ads;
 
@@ -137,18 +137,19 @@ public class AdTagHandlerTest extends BaseTestCase {
         jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         _tag.setJspContext(jspContext);
-        _tag.setPosition("x40");
+        _tag.setPosition("AboveFold_300x250");
 
         String output = _tag.getDeferredContent();
-        String expectedOutput = "<div id=\"adx40\" class=\"adx40 ad noprint\">\n" +
+        String expectedOutput = "<div id=\"adAboveFold_300x250\" class=\"adAboveFold_300x250 ad noprint\">\n" +
                 "            <center>\n" +
                 "            <script type=\"text/javascript\" src=\"http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r\"></script>\n" +
                 "            <noscript>\n" +
                 "            <iframe src=\"http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white\" align=\"center\" width=\"300\" height=\"265\" frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\"></iframe>\n" +
                 "            </noscript>\n" +
-                "            </center>\n" +
+                "            </center>" +
                 "        </div>";
-        
+         
+
         XMLAssert.assertXMLEqual(encode(expectedOutput), encode(output));
     }
 
@@ -219,15 +220,15 @@ public class AdTagHandlerTest extends BaseTestCase {
                 return jspContext;
             }
         });
-        _tag.setPosition("x40");
+        _tag.setPosition("AboveFold_300x250");
 
-        String expectedOutput = "<div id=\"adx40\" class=\"adx40 ad noprint\">\n" +
+        String expectedOutput = "<div id=\"adAboveFold_300x250\" class=\"adAboveFold_300x250 ad noprint\">\n" +
                 "            <center>\n" +
                 "            <script type=\"text/javascript\" src=\"http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r\"></script>\n" +
                 "            <noscript>\n" +
                 "            <iframe src=\"http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white\" align=\"center\" width=\"300\" height=\"265\" frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\"></iframe>\n" +
                 "            </noscript>\n" +
-                "            </center>\n" +
+                "            </center>" +
                 "        </div>";
 
         XMLAssert.assertXMLEqual(encode(expectedOutput), encode(_tag.getDeferredContent()));

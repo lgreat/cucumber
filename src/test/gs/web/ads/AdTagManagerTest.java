@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagManagerTest.java,v 1.2 2006/09/20 17:06:39 dlee Exp $
+ * $Id: AdTagManagerTest.java,v 1.3 2007/10/10 18:41:59 dlee Exp $
  */
 package gs.web.ads;
 
@@ -25,7 +25,7 @@ public class AdTagManagerTest extends BaseTestCase {
     }
 
     public void testGetAdTag() throws IOException, ParserConfigurationException, SAXException {
-        String adTag = _adTagManager.getAdTag("yahoo", AdPosition.X_20);
+        String adTag = _adTagManager.getAdTag("yahoo", AdPosition.AboveFold_Right_120x600);
         assertNotNull(adTag);
         assertTrue(adTag.indexOf("<script type=\"text/javascript\" src=\"http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=SKY&c=r\">") != -1);
         _log.debug(adTag);
