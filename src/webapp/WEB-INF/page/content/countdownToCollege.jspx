@@ -251,7 +251,6 @@
             <td>
                 <ad:setSlotPrefix slotPrefix="Library_Microsite_Countdown_To_College"/>
                 <ad:House_Ad_300x137 referredBy="${pageName}"/>
-                <ad:x40/>
                 <ad:AboveFold_300x250/>
             </td>
         </tr>

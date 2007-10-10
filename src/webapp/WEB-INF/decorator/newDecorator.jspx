@@ -207,7 +207,6 @@
             <ad:x22/>
         </c:if>
         <div id="deferredContent" style="display:none;">
-            <ad:xAdSetup />
             ${deferredContent}
         </div>
     </div>

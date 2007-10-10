@@ -254,8 +254,7 @@
                     <gsml:img src="/res/img/survey/GS_surveyhousead.jpg" alt="Fill out a parent survey about ${school.name}" />
                 </link:schoolStartSurvey>
             </div>
-            <div class="ad_middle">
-                <ad:x48 />
+            <div class="ad_middle">                
                 <ad:AboveFold_300x250/>
                 <c:if test="${school.type.schoolTypeName != 'private'}">
                     <ad:multiTextAd blurb="Advertiser links"/>

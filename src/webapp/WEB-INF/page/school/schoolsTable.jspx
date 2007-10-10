@@ -15,9 +15,8 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
 <jsp:directive.page import="gs.data.school.LevelCode"/>
-<jsp:directive.page import="gs.web.school.SchoolsController"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.page import="gs.data.state.State"/>
+<jsp:directive.page import="gs.web.school.SchoolsController"/>
 
 <html lang="en">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE" />
@@ -256,7 +255,7 @@
         </c:if>
         <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
         <ad:Top_300x137/>
-        <ad:x47/>
+        <ad:AboveFold_300x600/>
         <ad:multiTextAd blurb="Advertiser Links"/>
     </td>
 </tr>

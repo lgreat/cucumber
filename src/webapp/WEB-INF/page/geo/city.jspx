@@ -202,8 +202,7 @@
             </td>
         </tr>
         <tr>
-            <td>
-                <ad:x66/>
+            <td>                
                 <ad:setSlotPrefix slotPrefix="City_Page"/>
                 <ad:AboveFold_300x250/>
             </td>

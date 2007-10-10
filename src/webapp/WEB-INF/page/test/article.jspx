@@ -9,12 +9,11 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
         >
-    <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
-    <jsp:directive.page import="org.springframework.web.context.support.WebApplicationContextUtils"/>
-    <jsp:directive.page import="gs.data.util.SpringUtil"/>
-    <jsp:directive.page import="gs.data.content.IArticleDao"/>
     <jsp:directive.page import="gs.data.content.Article"/>
-<html lang="en">
+    <jsp:directive.page import="gs.data.content.IArticleDao"/>
+    <jsp:directive.page import="gs.data.util.SpringUtil"/>
+    <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+    <html lang="en">
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -107,7 +106,7 @@
     </div>
 
     <div style="float: right; clear: right; width: 300px; margin-left: 20px">
-        <ad:x40 />
+        <ad:AboveFold_300x250/>
     </div>
 
     <h1>${article.title}</h1>

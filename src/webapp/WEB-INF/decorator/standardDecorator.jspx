@@ -82,8 +82,7 @@
 
         <mod:footer showAd="true" showSeoFooter="true"/>
     </div>
-    <div id="deferredContent" style="display:none;">
-        <ad:xAdSetup />
+    <div id="deferredContent" style="display:none;">        
         ${deferredContent}
     </div>
 </div>

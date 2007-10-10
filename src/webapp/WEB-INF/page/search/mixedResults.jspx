@@ -122,7 +122,6 @@
 <div id="col_right">
     <ad:setSlotPrefix slotPrefix="Search_Site"/>
     <ad:Top_300x137/>
-    <ad:x47/>
     <ad:AboveFold_300x600/>
     <ad:multiTextAd blurb="Advertiser Links"/>
 </div>

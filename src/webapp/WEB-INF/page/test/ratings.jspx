@@ -109,7 +109,6 @@
                 <div id="promoContent">
                     <ad:setSlotPrefix slotPrefix="School_Profile_Page_Ratings"/>
                     <ad:Top_300x137/>
-                    <ad:x48/>
                     <ad:AboveFold_300x250/>
                     <ad:multiTextAd blurb="Advertiser links"/>
                     <school:nearbySchools school="${school}"/>

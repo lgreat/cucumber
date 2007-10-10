@@ -349,10 +349,8 @@
 <div id="right-col">
     <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Survey"/>
     <ad:Top_300x137/>
-    <ad:x47/>
     <ad:AboveFold_300x250/>
     <ad:multiTextAd blurb="Advertiser links"/>
-    <ad:x67/>
     <ad:AboveFold_300x600/>
 </div>
 </school:profile>

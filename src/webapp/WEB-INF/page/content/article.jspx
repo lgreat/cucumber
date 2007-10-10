@@ -29,7 +29,6 @@
                 <link:articleLibrary>See full library of articles</link:articleLibrary>
             </span>
         </div>
-        <ad:x40/>
     </div>
     <c:choose>
         <c:when test="${not empty requestScope.article}">

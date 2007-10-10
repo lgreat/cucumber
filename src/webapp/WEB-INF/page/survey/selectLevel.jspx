@@ -68,7 +68,7 @@
 
         <div id="right-col">
             <ad:House_Ad_300x137 referredBy="Parent Survey: School Level Select Page" />
-            <ad:x40/>
+            <ad:AboveFold_300x250/>
         </div>
         </school:profile>
         <mod:tracking pageType=""

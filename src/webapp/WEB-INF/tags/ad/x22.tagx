@@ -16,11 +16,10 @@
                         <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
                     </td>
                     <td style="text-align:left;width:728px;height:90px" class="ad">
-                        <gsweb:adTagGenerator position="x22"/>
+                        <ad:Header_728x90/>
                     </td>
                 </tr>
             </table>
-            <ad:Header_728x90/>
         </div>
     </c:if>
 </jsp:root>
