@@ -16,6 +16,8 @@
           xmlns:gsweb="gstaglib">
 <jsp:directive.page import="gs.data.school.LevelCode"/>
 <jsp:directive.page import="gs.web.school.SchoolsController"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.data.state.State"/>
 
 <html lang="en">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE" />
@@ -63,10 +65,9 @@
             </c:when>
             <c:when test="${not empty distname}">
                 <jsp:scriptlet>
-                    String title = SchoolsController.calcCitySchoolsTitle(
-                            (String) request.getAttribute("distname"),
-                            (LevelCode) request.getAttribute("lc"),
-                            request.getParameterValues("st"));
+                    State state = gs.web.util.context.SessionContextUtil.getSessionContext(request).getStateOrDefault();
+                    String title = SchoolsController.calcDistrictSchoolsTitle(
+                            (String)request.getAttribute("distname"), state);
                     out.print(title);
                 </jsp:scriptlet>
             </c:when>
@@ -91,12 +92,10 @@
             </c:when>
             <c:when test="${not empty distname}">
                <jsp:scriptlet>
-                String metadesc = SchoolsController.calcMetaDesc(
-                      (String)request.getAttribute("distname"),
-                      (String)request.getAttribute("cityDisplayName"),
-                      (LevelCode)request.getAttribute("lc"),
-                      request.getParameterValues("st"));
-                out.print(metadesc);
+                   State state = gs.web.util.context.SessionContextUtil.getSessionContext(request).getStateOrDefault();
+                   String metadesc = SchoolsController.calcDistrictMetaDesc(
+                           (String)request.getAttribute("distname"), state);
+                   out.print(metadesc);
             </jsp:scriptlet>
 
             </c:when>

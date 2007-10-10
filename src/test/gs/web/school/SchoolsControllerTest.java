@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.21 2007/10/03 21:20:43 dlee Exp $
+ * $Id: SchoolsControllerTest.java,v 1.22 2007/10/10 01:38:28 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -10,6 +10,7 @@ import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.Searcher;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.search.SchoolSearchResult;
@@ -366,6 +367,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
         assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
         assertEquals("San Francisco Charter Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"charter"}));
+
+        assertEquals("Dayton City School District Schools, Ohio - OH: charter and public schools.",
+                _controller.calcDistrictSchoolsTitle("Dayton City School District", State.OH));
     }
 
     public void testMetaDescCalc() {
@@ -385,6 +389,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
                 _controller.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.MIDDLE, null));
         assertEquals("View and map all public elementary schools in the Oakland Unified School District. Plus, compare or save public elementary schools in this district.",
                 _controller.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.ELEMENTARY, new String[]{"public"}));
+
+        assertEquals("Dayton City School District, Ohio - OH: Find, compare and map public schools in Dayton City School District. Plus, review test scores and academic performance for this public school district.",
+                _controller.calcDistrictMetaDesc("Dayton City School District", State.OH));
     }
 
 }

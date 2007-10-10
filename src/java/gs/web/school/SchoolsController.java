@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.35 2007/10/03 21:20:43 dlee Exp $
+ * $Id: SchoolsController.java,v 1.36 2007/10/10 01:38:28 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -257,6 +257,30 @@ public class SchoolsController extends AbstractController {
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public static String calcDistrictSchoolsTitle(String districtDisplayName, State state) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(districtDisplayName);
+        sb.append(" Schools, ");
+        sb.append(state.getLongName());
+        sb.append(" - ");
+        sb.append(state.getAbbreviation());
+        sb.append(": charter and public schools.");
+        return sb.toString();
+    }
+
+    public static String calcDistrictMetaDesc(String districtDisplayName, State state) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(districtDisplayName);
+        sb.append(", ");
+        sb.append(state.getLongName());
+        sb.append(" - ");
+        sb.append(state.getAbbreviation());
+        sb.append(": Find, compare and map public schools in ");
+        sb.append(districtDisplayName);
+        sb.append(". Plus, review test scores and academic performance for this public school district.");
+        return sb.toString();
     }
 
     public static String calcCitySchoolsTitle(String cityDisplayName, LevelCode levelCode, String[] schoolType) {
