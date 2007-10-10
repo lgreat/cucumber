@@ -46,7 +46,7 @@
         <div id="intro-blurb">
 			<div class="intro-heading1">${school.name} parent survey</div>
             <c:if test="${requestScope.currentPage == '1'}">
-                <div class="intro-heading2">Other parents want to know more about this school! Share YOUR experiences through this short survey.</div>
+                <div class="intro-heading2">Spread the word about your school's special characteristics by filling out this survey.</div>
             </c:if>
         </div>
 
@@ -305,7 +305,7 @@
 
             <div class="question">
                 <div class="email-module">
-                    <span>All responses are anonymouse. E-mail is collected for verification purposes only.</span>
+                    <span>All responses are anonymous. Email is collected for verification purposes only.</span>
                     Email address
                     <form:input id="email" path="email" size="30" />
                     <form:errors path="email" >
