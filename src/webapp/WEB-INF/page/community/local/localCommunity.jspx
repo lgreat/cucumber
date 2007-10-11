@@ -17,7 +17,8 @@
 <html>
 <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
 <head>
-  <title>GreatSchools Community</title>  
+  <title>GreatSchools Local Parent Communities</title>
+  <meta content="description">Find a parent community in your town, city or school.</meta>
   <pageHelper:externalCss file="/res/css/promo/promo.css"/>
   <pageHelper:externalCss file="/res/css/community/local/local.css"/>
 </head>
