@@ -45,7 +45,9 @@
 }
 
 /* top border, padding, and margin for school profile ads */
-#adx40, #adx47, #adx48, #adx49, #adx50, #adx51, #adx67, #adx70, #nearbyWrapper, #nthGraderAd, .cobrandAd, #BelowFold_Top_300x125, #BelowFold_Bottom_300x125, #financialAidPlanner, #adAboveFold_300x600 {
+#nearbyWrapper, #nthGraderAd, .cobrandAd, #BelowFold_Top_300x125,
+#BelowFold_Bottom_300x125, #financialAidPlanner, #adAboveFold_300x600,
+#adAboveFold_300x250 {
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid #ccc;
