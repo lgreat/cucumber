@@ -15,19 +15,23 @@
 }
 
 #newEmailField, #confirmNewEmailField {
-    width: 300px;
+    width: 215px;
+}
+
+#outline input#cancelButton {
+    left: 194px;
 }
 
 #outline input#submitButton {
-    left: 240px;
+    left: 294px;
 }
 
 #outline ul li .errorImage {
-    left: 452px;
+    left: 367px;
 }
 
 #outline ul li .errorText {
-    left: 471px;
+    left: 386px;
     line-height: 12px;
     top: 10px;
 }

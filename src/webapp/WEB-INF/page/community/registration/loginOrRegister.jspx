@@ -64,7 +64,7 @@
 
             <link:registration email="${loginCmd.email}"
                                redirect="${loginCmd.redirect}" onMouseOver="rollover();" onMouseOut="rollout();">
-                <gsml:img src="/res/img/community/registration/motherdaughter_sh.jpg"
+                <gsml:img src="/res/img/community/registration/momgirl.jpg"
                           id="newuserImage" alt="Photo of mom and daughter"/>
                 <gsml:img src="/res/img/community/registration/join_pink.gif"
                           id="joinImage" alt="Join"/>

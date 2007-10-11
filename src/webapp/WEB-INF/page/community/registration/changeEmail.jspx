@@ -78,8 +78,8 @@
                       <gsml:inputImage src="/res/img/community/registration/cancel.gif"
                                        alt="Cancel" name="cancel"
                                        id="cancelButton"/>
-                      <gsml:inputImage src="/res/img/community/registration/updateemail.gif"
-                                       alt="Change email address" name="submit"
+                      <gsml:inputImage src="/res/img/community/registration/savebutton.gif"
+                                       alt="Save" name="submit"
                                        id="submitButton"/>
                   </li>
               </ul>

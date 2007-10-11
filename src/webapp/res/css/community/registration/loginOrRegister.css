@@ -50,19 +50,19 @@
 
 #joinImage {
     position: absolute;
-    top: 51px;
-    right: 4px;
+    top: 47px;
+    right: 66px;
 }
 
 #newuserImage {
     position: absolute;
-    top: 90px;
+    top: 80px;
     left: 0;
 }
 
 #joinText {
     position: absolute;
-    bottom: 19px;
+    bottom: 90px;
     left: 0;
     width: 375px;
     font-size: 15px;
@@ -77,7 +77,7 @@
 }
 
 #returninguser h3 {
-    padding: 16px 0 0 0;
+    padding: 14px 0 0 0;
     font-size: 18px;
     font-weight: bold;
     color: #666666;
@@ -90,9 +90,9 @@
 #returninguserForm {
     position: absolute;
     top: 102px;
-    right: 0;
+    left: 0;
     height: 180px;
-    width: 386px;
+    width: 313px;
 }
 
 #returninguserForm.hasMessage {
@@ -106,7 +106,7 @@
 
 #returninguserForm li {
     position: absolute;
-    width: 386px;
+    width: 313px;
 }
 
 #emailAddress {
@@ -117,7 +117,7 @@
 #emailAddress input {
     top: 0;
     right: 0;
-    width: 288px;
+    width: 215px;
 }
 
 #emailAddress label {
@@ -133,7 +133,7 @@
 #password input {
     top: 0;
     right: 0;
-    width: 288px;
+    width: 215px;
 }
 
 #password label {

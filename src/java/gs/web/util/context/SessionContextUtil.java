@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.31 2007/09/24 21:18:44 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.32 2007/10/11 18:37:07 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -513,7 +513,11 @@ public class SessionContextUtil implements ApplicationContextAware {
             _sessionCacheCookieGenerator.addCookie(response, cache.getCookieRepresentation());
             if (StringUtils.isEmpty(_communityCookieGenerator.getCookieName())) {
                 _communityCookieGenerator.setCookieName("community_" + getServerName(request));
-                _communityCookieGenerator.setCookieDomain(".greatschools.net");
+                if (!_urlUtil.isDeveloperWorkstation(request.getServerName())) {
+                    // don't set domain for developer workstations
+                    // so they can still access the cookie!!
+                    _communityCookieGenerator.setCookieDomain(".greatschools.net");
+                }
             }
             if (rememberMe) {
                 _communityCookieGenerator.setCookieMaxAge(COMMUNITY_COOKIE_MAX_AGE);

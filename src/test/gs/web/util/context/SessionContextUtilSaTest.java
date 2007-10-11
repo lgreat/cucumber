@@ -108,6 +108,51 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         assertEquals(-1, cookie.getMaxAge());
     }
 
+    public void testChangeAuthorizationDomainStaging() {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("email@example.com");
+        String hash = "hash";
+        Cookie cookie;
+
+        setServerName("staging.greatschools.net");
+        _sessionContextUtil.changeAuthorization(_request, _response, user, hash, false);
+
+        cookie = _response.getCookie("community_staging");
+        assertNotNull("Cookie should exist under name community_staging", cookie);
+        assertEquals(".greatschools.net", cookie.getDomain());
+    }
+
+    public void testChangeAuthorizationDomainWww() {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("email@example.com");
+        String hash = "hash";
+        Cookie cookie;
+
+        setServerName("www.greatschools.net");
+        _sessionContextUtil.changeAuthorization(_request, _response, user, hash, false);
+
+        cookie = _response.getCookie("community_www");
+        assertNotNull("Cookie should exist under name community_www", cookie);
+        assertEquals(".greatschools.net", cookie.getDomain());
+    }
+
+    public void testChangeAuthorizationDomainLocalhost() {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("email@example.com");
+        String hash = "hash";
+        Cookie cookie;
+
+        setServerName("localhost");
+        _sessionContextUtil.changeAuthorization(_request, _response, user, hash, false);
+
+        cookie = _response.getCookie("community_dev");
+        assertNotNull("Cookie should exist under name community_dev", cookie);
+        assertNull("Expect no cookie domain set for localhost", cookie.getDomain());
+    }
+
     public void testStateCookie() {
         Cookie newStateCookie = new Cookie("STATE2", "CA");
         Cookie oldStateCookie = new Cookie("STATE", "AK");
