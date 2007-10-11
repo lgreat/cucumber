@@ -1,0 +1,34 @@
+/* container */
+
+#content {
+    height: 316px;
+}
+
+#leftSide {
+    padding-right:20px;
+}
+
+#rightSide {
+    width: 370px;
+}
+
+#rightSide a {
+    color:#3399AA;
+    text-decoration:none;
+}
+/* Page content */
+
+#rightSide img.comingSoon {
+    margin-top: 15px;
+}
+
+#rightSide p {
+    font: 14px/16px Trebuchet MS, Arial, sans-serif;
+    color: #777777;
+    padding: 15px 0 0 0;
+}
+
+#rightSide #joinLinks {
+    padding-top:30px;
+    position: relative;
+}

@@ -1023,6 +1023,12 @@
         <property name="viewName" value="/community/registration/communityLanding"/>
     </bean>
 
+    <bean name="/community/localCommunity.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/local/localCommunity"/>
+    </bean>
+
     <bean name="accountInfoController"
           class="gs.web.community.registration.AccountInfoController"
           autowire="byName" lazy-init="true">

@@ -1,0 +1,67 @@
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:gsweb="gstaglib"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"        
+        xmlns:footer="urn:jsptagdir:/WEB-INF/tags/content"
+        xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+        >
+<jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<html>
+<pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
+<head>
+  <title>GreatSchools Community</title>  
+  <pageHelper:externalCss file="/res/css/promo/promo.css"/>
+  <pageHelper:externalCss file="/res/css/community/local/local.css"/>
+</head>
+<gsml:body adPageName="communityLanding">
+
+    <div id="outline"><!-- creates darker blue outer outline -->
+        <div id="content">
+            <div id="leftSide">
+                <gsml:img src="/res/img/community/local/map.gif" alt="Community teaser"/>
+            </div>
+            <div id="rightSide">
+                <gsml:img styleClass="comingSoon" src="/res/img/community/local/comingSoonHeader.gif" alt="Coming Soon, GreatSchools is going Local"/>
+                <p>
+                    The GreatSchools Parent Community is going local! We're building an exciting set of
+                    tools to help you connect with parents in your neighborhood and school, find local
+                    resources and keep up to date with what's happening in your area.
+                </p>
+                <p>
+                    Have suggestions or ideas for features? We'd love to hear them on our Community Feedback Forum!
+                    <br/>
+                    <a href="http://www.greatschools.net/nolinkyet">Talk to us! &amp;gt;</a>
+                </p>
+                <p>
+                    Haven't joined the GreatSchools Parent Community yet?
+                </p>
+                <div id="joinLinks">
+                    <link:registration>
+                        <gsml:img src="/res/img/community/local/btn_join.gif" alt="Join the community"/>
+                    </link:registration>
+                    <a href="http://www.greatschools.net/nolinkyet">
+                        <gsml:img src="/res/img/community/local/btn_tour.gif" alt="Take a tour" style="position:relative;left:10px;"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bigDottedDivider"><hr/></div>
+
+    <community:bottomPromo/>
+
+    <mod:tracking pageName="Community Local Communities"
+                  pageType="community"
+                  hier1="Community,Local Communities"/>
+</gsml:body>
+</html>
+</jsp:root>

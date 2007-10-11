@@ -1,0 +1,53 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
+        >
+    <table id="bottomContent" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td class="contentCell left">
+                <div class="leftImage">
+                    <gsml:img src="/res/img/community/registration/stars.gif" alt="Stars"/>
+                </div>
+            </td>
+            <td class="contentCell">
+                <div class="rBox" id="youtube">
+                    <gsml:img styleClass="headline" src="/res/img/community/registration/whatdoyouwant.gif"
+                              alt="What do you want to ask the next president about K-12 education?"/>
+                    <div>
+                        Join other GreatSchools parents and create a video question about education
+                        for the presidential candidates. You could see it answered on live TV!
+                    </div>
+                    <gsml:a href="/promo/youTubeVideo.page">Learn more &gt;</gsml:a>
+                </div>
+            </td>
+            <td width="8"></td>
+            <td width="1" style="background-color: #ddd"></td>
+            <td width="8"></td>
+            <td class="contentCell right">
+                <div class="leftImage">
+                    <gsml:img src="/res/img/community/registration/the_team.jpg" alt="Photo of Community Team"/>
+                </div>
+            </td>
+            <td class="contentCell">
+                <div class="rBox" id="commBlog">
+                    <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50">
+                        <gsml:img styleClass="headline" src="/res/img/community/registration/communityblog.gif" alt="Community Team Blog"/>
+                    </gsml:popupWindow>
+                    <div>
+                        <cache:cache scope="application" name="blog" key="community">
+                            <content:blogFeed atomUrl="http://communityblog.greatschools.net/atom.xml"
+                                              defaultTitle="GreatSchools Community Blog"
+                                              defaultUrl="http://communityblog.greatschools.net"/>
+                        </cache:cache>
+                        <br/>
+                        <gsml:url var="read" value="/res/img/community/local/btn_read.gif"/>
+                        <gsml:popupWindow href="http://communityblog.greatschools.net" width="800" height="600" left="50" top="50">
+                            <gsml:img styleClass="read" src="${read}" alt="Read the Community Blog"/>
+                        </gsml:popupWindow>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</jsp:root>
