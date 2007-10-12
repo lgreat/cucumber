@@ -13,6 +13,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
@@ -137,7 +138,12 @@
             </c:if>
 
             <c:if test="${!requestScope.context.crawler}">
-            <school:parentReviewForm school="${school}" pageName="overview"/>
+                <variant:a>
+                    <school:parentReviewForm school="${school}" pageName="overview"/>
+                </variant:a>
+                <variant:b>
+                    <school:nonAjaxParentReviewForm school="${school}" pageName="overview"/>
+                </variant:b>
             </c:if>
 
             <div id="learnSchool">

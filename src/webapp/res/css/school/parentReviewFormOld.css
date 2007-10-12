@@ -1,0 +1,152 @@
+@#rateReview {
+        width: 356px;
+        margin: 0 0 6px 0;
+        float: left;
+    font-family: Trebuchet MS, sans-serif;
+}
+
+#rateReview_module {
+        width: 336px;
+        float: left;
+        margin: 7px 0 17px 0;
+        padding: 2px 0 0 17px;
+        border: 1px solid #ddd;
+}
+
+#rateReview h2 {
+        background: url(/res/img/school/review/header_rateReview.gif) no-repeat 19px 6px #c5c5c5;
+        height: 25px;
+        text-indent: -9999px;
+        clear:both;
+}
+
+#ratingTitle {
+        font: bold 19px/34px Trebuchet MS;
+        color: #5bc;
+        margin: 0;
+}
+
+/* form */
+
+#rateReview form {
+        float: left;
+        margin: 12px 0 0 0;
+}
+
+#rateReview textarea {
+        font: 12px/15px Trebuchet MS;
+        color: #666;
+        padding: 4px 0 5px 7px;
+        height: 60px;
+        _height: 61px; /* IE 6 hack */
+        width: 266px;
+        _width: 268px; /* IE 6 hack */
+}
+
+#acceptTerms {
+    margin: 3px 20px 0 0;
+    _margin: 6px 20px 0 -2px; /* IE 6 hack */
+        _float: left;
+        _height: 22px;
+}
+
+#rateReview select {
+        height: 20px;
+        color: #666;
+        width: 70px;
+    font-size: 12px;
+        margin: 2px -2px 0 5px;
+        _margin: 0 3px 0 4px; /* IE 6 hack */
+        _font-size: 12px; /* IE 6 hack */
+        _float: left; /* IE 6 hack */
+}
+
+#rateReview input {
+    _float: left; /* IE 6 hack */
+}
+
+#acceptUpdates {
+        margin: 6px 20px 0 0;
+        _margin: 4px 20px 0 -2px; /* IE 6 hack */
+        _float: left; /* IE 6 hack */
+        _height: 12px; /* IE 6 hack */
+}
+
+#rateReview label {
+        font-size: 12px;
+        color: #666;
+        margin: 1px 0 10px 6px;
+    font-family: Trebuchet MS, sans-serif;
+    _margin: 3px 0 10px 3px; /* IE 6 hack */
+    _height: 15px; /* IE 6 hack */
+    _float: left; /* IE 6 hack */
+}
+
+#rateReview .emailAddress {
+        margin: 10px 0 0 0;
+        font: 12px/15px Trebuchet MS;
+        color: #666;
+        padding: 1px;
+        padding-left: 4px;
+        width: 151px;
+        height: 15px;
+        float: left;
+}
+
+#rateReview input#submitReview {
+        float: right;
+        margin: 12px 63px 0 8px;
+        _margin: 11px 63px 0 0; /* IE 6 hack */
+}
+
+#rateReview .privacyPolicy { /* has IE 7 equivalent */
+        font-size: 10px;
+        margin: 4px 0 19px 0;
+        float: left;
+        _margin: 2px 0 0 0; /* IE 6 hack */
+        _padding-bottom: 19px; /* IE 6 hack */
+}
+
+#rateReview .privacyPolicy a, #rateReview .privacyPolicy a:hover {
+    color: #666;
+    text-decoration: underline;
+}
+
+/* Stars */
+.starbar {
+    position: relative;
+    height: 23px;
+    cursor:pointer;
+}
+
+.starbar .outer {
+    position: absolute;
+    width: 120px;
+    height: 23px;
+    background: url(/res/img/school/review/stars.gif) no-repeat 0 0;
+}
+
+.starbar div {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    height: 23px;
+}
+
+.starbar div.s1  { width:  24px; }
+.starbar div.s2  { width:  48px; }
+.starbar div.s3  { width:  72px; }
+.starbar div.s4  { width:  96px; }
+.starbar div.s5  { width:  120px; }
+
+.starLink { display:none;}
+
+ul#frmErrors li {
+    clear:left;
+    color: #cc5566;
+    background-image: url('/res/img/bullet/exclamation.gif');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    padding: .1em 0 .5em 2em;
+}

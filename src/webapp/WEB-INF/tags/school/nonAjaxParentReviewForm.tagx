@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib">
+
+    <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+    <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
+    <pageHelper:externalCss file="/res/css/school/parentReviewFormOld.css"/>
+    <pageHelper:externalJavascript file="/res/js/parentReviewFormOld.js"/>
+
+    <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+    <c:set var="schoolId" value="${school.id}"/>
+    <c:set var="commentInputBox">
+        <c:set var="comment" value="${(not empty param.comments) ? param.comments : 'Enter your review here'}" />
+        <textarea id="reviewText"
+                  onkeyup="countWords(this)"
+                  onkeydown="countWords(this)"
+                  onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
+                  rows="" cols="">${comment}</textarea>
+    </c:set>
+    <c:set var="cbxPermit"><input name="permit" type="checkbox" checked="checked"/></c:set>
+
+    <!-- select box start-->
+    <c:set var="who" value="${(not empty param.who) ? param.who : ''}" />
+    <c:set var="selected">" selected="selected</c:set>
+    <c:set var="sltWho"><select name="who" class="select">
+    <option value="parent${who eq 'parent' ? selected : ''}">parent</option>
+    <option value="student${who eq 'student' ? selected : ''}">student</option>
+    <option value="teacher${who eq 'teacher' ? selected : ''}">teacher</option>
+    <option value="other${who eq 'other' ? selected : ''}">other</option>
+</select></c:set>
+    <!--end select box-->
+    <c:set var="cbxMss"><input type="checkbox" name="mssSignup" value="yes" checked="checked"/></c:set>
+    <c:set var="txtEmail">
+        <c:set var="email" value="${(not empty param.email) ? param.email : 'Enter your email address'}" />
+        <input type="text" name="email" id="reviewEmail"
+               onfocus="if(this.value=='Enter your email address'){this.value='';}"
+               value="${email}" class="emailAddress"/>
+    </c:set>
+    <c:if test="${pageName eq 'parentReviews'}">
+        <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/></h2>
+    </c:if>
+    <div id="rateReview" class="noprint">
+        <c:if test="${pageName ne 'parentReviews'}">
+            <h2><a name="rReview"><c:out escapeXml="true" value="Rate ${school.name}"/></a></h2>
+        </c:if>
+        <div id="rateReview_module">
+            <div id="ratingTitle">Rate this school</div>
+            <div class="starbar active">
+                <div class="outer">
+                    <div id="q_5" title="5 stars out of 5"
+                       onclick=" saveQuality('Excellent', '5'); return false;"
+                       onmouseover="setRatingTitle('Excellent', '5');"
+                       onmouseout="resetRatingTitle();"
+                       class="s5"><span class="starLink">5</span></div>
+                    <div id="q_4" title="4 stars out of 5"
+                       onclick=" saveQuality('Above average', '4'); return false;"
+                       onmouseover="setRatingTitle('Above average', '4');"
+                       onmouseout="resetRatingTitle();"
+                       class="s4"><span class="starLink">4</span></div>
+                    <div id="q_3" title="3 stars out of 5"
+                       onclick=" saveQuality('Average', '3'); return false;"
+                       onmouseover="setRatingTitle('Average', '3');"
+                       onmouseout="resetRatingTitle();"
+                       class="s3"><span class="starLink">3</span></div>
+                    <div id="q_2" title="2 stars out of 5"
+                       onclick=" saveQuality('Below average', '2'); return false;"
+                       onmouseover="setRatingTitle('Below average', '2');"
+                       onmouseout="resetRatingTitle();"
+                       class="s2"><span class="starLink">2</span></div>
+                    <div id="q_1" title="1 star out of 5"
+                       onclick=" saveQuality('Unsatisfactory', '1'); return false;"
+                       onmouseover="setRatingTitle('Unsatisfactory', '1');"
+                       onmouseout="resetRatingTitle();"
+                       class="s1"><span class="starLink">1</span></div>
+                </div>
+            </div>
+            <gsweb:form action="/cgi-bin/send_rating/${state}/${schoolId}/" method="post" onsubmit="setSubmitFields();">
+                <input type="hidden" name="schoolname" value="${school.name}" />
+                <input type="hidden" name="schooltype" value="${school.type.schoolTypeName}" />
+                <input type="hidden" name="source" value="${pageName}" />
+                <input type="hidden" name="recontact" value="N" />
+                <input id="quality" type="hidden" name="quality" value="decline" />
+                <input id="confirm" type="hidden" name="confirm" value="" />
+                <c:choose>
+                    <c:when test="${pageName eq 'parentReviews'}">
+                        ${commentInputBox}
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td>${cbxPermit}</td>
+                                <td>
+                                    <!-- added spaces to label, added class to select -->
+                                    <label>I'm a&amp;#160;</label>${sltWho}<label>&amp;#160;and I accept</label></td></tr>
+                            <tr>
+                                <td>&amp;#160;</td>
+                                <td valign="top">
+                                    <span class="label2">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
+                                </td>
+                            </tr>
+                            <c:if test="${school.type.schoolTypeName ne 'private'}">
+                                <tr>
+                                    <td id="acceptUpdates">
+                                        ${cbxMss}
+                                    </td>
+                                    <td>
+                                        <label>Send me updates about this school</label>
+                                    </td>
+                                </tr>
+                            </c:if>
+                        </table>
+                        ${txtEmail}
+                        <div id="submitWrapper">
+                        <input id="submitReview"
+                               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        ${commentInputBox}
+                        <div id="acceptTerms">
+                            ${cbxPermit}<label>I'm a</label>
+                            ${sltWho}
+                            <label>and I accept the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
+                        </div>
+
+                        <c:if test="${school.type.schoolTypeName ne 'private'}">
+                            <div id="acceptUpdates">
+                                ${cbxMss}<label>Email me monthly updates about this school</label>
+                            </div>
+                        </c:if>
+                        ${txtEmail}
+                        <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
+                               onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
+                               class="button" alt="Submit ${school.name} parent review and rating" src="/res/img/school/review/submitReview.gif" type="image" />
+                    </c:otherwise>
+                </c:choose>
+            </gsweb:form>
+            <p class="privacyPolicy ${(school.type.schoolTypeName eq 'private') ? 'private' : ''}">GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">Privacy Policy</gsml:a></p>
+            <c:if test="${pageName eq 'parentReviews'}">
+                <div id="espLink">
+                    <link:schoolProfileEspLogin styleClass="esp" school="${school}">Principals, submit your review here &gt;</link:schoolProfileEspLogin>
+                </div>
+            </c:if>
+        </div>
+    </div>
+</jsp:root>
