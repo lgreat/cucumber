@@ -39,17 +39,17 @@
                 <p>
                     Have suggestions or ideas for features? We'd love to hear them on our Community Feedback Forum!
                     <br/>
-                    <a href="http://www.greatschools.net/nolinkyet">Talk to us! &amp;gt;</a>
+                    <a href="http://www.greatschools.net/nolinkyet">Talk to us &amp;gt;</a>
                 </p>
                 <p>
                     Haven't joined the GreatSchools Parent Community yet?
                 </p>
                 <div id="joinLinks">
                     <link:registration>
-                        <gsml:img src="/res/img/community/local/btn_join.gif" alt="Join the community"/>
+                        <gsml:img src="/res/img/community/local/btn_join.gif" alt="Join the community" style="position:relative;left:30px;"/>
                     </link:registration>
                     <a href="http://www.greatschools.net/nolinkyet">
-                        <gsml:img src="/res/img/community/local/btn_tour.gif" alt="Take a tour" style="position:relative;left:10px;"/>
+                        <gsml:img src="/res/img/community/local/btn_tour.gif" alt="Take a tour" style="position:relative;left:50px;"/>
                     </a>
                 </div>
             </div>
