@@ -2,6 +2,7 @@ package gs.web.school.review;
 
 import gs.data.community.*;
 import gs.data.school.School;
+import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
@@ -68,6 +69,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
         ReviewCommand rc = (ReviewCommand) command;
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
         User user = getUserDao().findUserFromEmailIfExists(rc.getEmail());
+        boolean isNewUser = false;
 
         //new user - create user, add entry to list_active table,
         if (user == null) {
@@ -80,8 +82,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
             Subscription sub = new Subscription(user, SubscriptionProduct.RATING, school.getDatabaseState());
             sub.setSchoolId(school.getId());
             getSubscriptionDao().saveSubscription(sub);
-        } else {
-            getReviewDao().removeReviews(user, school);
+            isNewUser = true;
         }
 
         //does user want mss? if user maxed out MSS subs, just don't add.  do not throw error message.
@@ -107,7 +108,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
             getUserDao().saveUser(user);
         }
 
-        Review r = createReview(user, school, rc);
+        Review r = createOrUpdateReview(user, school, rc, isNewUser);
         //save the review
         getReviewDao().saveReview(r);
 
@@ -126,11 +127,36 @@ public class AddParentReviewsController extends SimpleFormController implements 
         }
     }
 
-    protected Review createReview(final User user, final School school, final ReviewCommand command) {
-        Review review = new Review();
+    protected Review createOrUpdateReview(final User user, final School school,
+                                          final ReviewCommand command, final boolean isNewUser) {
+
+        Review review = null;
+
+        //existing user, check if they have previously left a review for this school
+        if (!isNewUser) {
+            review = getReviewDao().findReview(user, school);
+
+            if (review != null) {
+                //old review is not blank and current review is blank
+                if (StringUtils.isNotBlank(review.getComments()) && StringUtils.isBlank(command.getComments())) {
+                    //only update the overall quality rating
+                    review.setQuality(command.getOverall());
+                    return review;
+                } else {
+                    //if no overall quality rating given, used the old one.
+                    if (CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
+                        command.setOverall(review.getQuality());
+                    }
+                    //delete the old rating
+                    getReviewDao().removeReviews(user, school);
+                }
+            }
+        }
+
+        review = new Review();
         review.setUser(user);
         review.setSchool(school);
-
+        
         review.setComments(command.getComments());
         review.setOriginal(command.getComments());
 
@@ -139,8 +165,8 @@ public class AddParentReviewsController extends SimpleFormController implements 
         review.setActivities(command.getActivities());
         review.setParents(command.getParent());
         review.setSafety(command.getSafety());
-        review.setQuality(command.getOverall());
 
+        review.setQuality(command.getOverall());
         review.setPoster(command.getPoster());
         review.setAllowContact(command.isAllowContact());
 

@@ -13,8 +13,6 @@ import static org.easymock.EasyMock.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -87,11 +85,11 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         verify(_subscriptionDao);
     }
 
-    public void testSubmitExistingUser() throws Exception {
+    public void testSubmitExistingUserNoExistingReview() throws Exception {
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         replay(_userDao);
 
-        _reviewDao.removeReviews(_user, _school);
+        expect(_reviewDao.findReview(_user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
         replay(_reviewDao);
 
@@ -103,61 +101,14 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);
-    }
-
-    public void testEmailSentForShortReview() throws Exception {
-        _command.setComments("this is a short comment.");
-
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
-        replay(_userDao);
-
-        _reviewDao.removeReviews(_user, _school);
-        _reviewDao.saveReview((Review) anyObject());
-        replay(_reviewDao);
-
-        replay(_subscriptionDao);
-        _controller.setUserDao(_userDao);
-        _controller.setReviewDao(_reviewDao);
-        _controller.setSubscriptionDao(_subscriptionDao);
-        _controller.onSubmit(_request, _response, _command, _errors);
-        verify(_userDao);
-        verify(_reviewDao);
-        verify(_subscriptionDao);
-
-        assertEquals(1, _sender.getSentMessages().size());
-        MimeMessage message = (MimeMessage) _sender.getSentMessages().get(0);
-        assertEquals("editorial@greatschools.net", ((InternetAddress)message.getFrom()[0]).getAddress());
-        assertEquals("dlee@greatschools.net", message.getAllRecipients()[0].toString());
-        assertTrue(message.getContent().toString().contains("your review"));
-    }
-
-    public void testNoEmailSentForEmptyReview() throws Exception{
-        _command.setComments("");
-
-        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
-        replay(_userDao);
-
-        _reviewDao.removeReviews(_user, _school);
-        _reviewDao.saveReview((Review) anyObject());
-        replay(_reviewDao);
-
-        replay(_subscriptionDao);
-        _controller.setUserDao(_userDao);
-        _controller.setReviewDao(_reviewDao);
-        _controller.setSubscriptionDao(_subscriptionDao);
-        _controller.onSubmit(_request, _response, _command, _errors);
-        verify(_userDao);
-        verify(_reviewDao);
-        verify(_subscriptionDao);
-
-        assertNull(_sender.getSentMessages());
     }
 
     public void testEmptyReviewWithRatingMarkedActive() {
         _command.setComments("");
         _command.setOverallAsString("1");
-        Review r = _controller.createReview(_user, _school, _command);
-
+        
+        _controller.setReviewDao(_reviewDao);
+        Review r = _controller.createOrUpdateReview(_user, _school, _command, false);
         assertEquals("a", r.getStatus());
     }
 
@@ -235,7 +186,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
     public void testCreateReviewRejected() throws Exception {
         _command.setComments("fuck, this page is the shit");
-        Review r = _controller.createReview(_user, _school, _command);
+        Review r = _controller.createOrUpdateReview(_user, _school, _command, true);
 
         assertEquals("r", r.getStatus());
     }
@@ -254,7 +205,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _command.setAllowContact(false);
         _command.setFirstName("dave");
 
-        Review r = _controller.createReview(_user, _school, _command);
+        Review r = _controller.createOrUpdateReview(_user, _school, _command, true);
         assertEquals(CategoryRating.RATING_1, r.getPrincipal());
         assertEquals(CategoryRating.RATING_2,  r.getTeachers());
         assertEquals(CategoryRating.RATING_3, r.getActivities());
@@ -304,6 +255,9 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         sub.setSchoolId(_school.getId());
         _subscriptionDao.addNewsletterSubscriptions(_user, Arrays.asList(sub));
 
+        expect(_reviewDao.findReview(_user, _school)).andReturn(null);
+        _reviewDao.saveReview((Review)anyObject());
+        replay(_reviewDao);
         replay(_userDao);
         replay(_subscriptionDao);
 
@@ -312,6 +266,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.onSubmit(_request, _response, _command, _errors);
 
+        verify(_reviewDao);
         verify(_userDao);
         verify(_subscriptionDao);
     }
@@ -330,6 +285,17 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         }
         _user.setSubscriptions(subscriptions);
 
+        Review r = new Review();
+        r.setId(1234);
+        r.setComments("these are my comments");
+
+        //existing user did not leave a comment, so use the old comment
+        _command.setComments("");
+
+        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
+        _reviewDao.saveReview(r);
+
+        replay(_reviewDao);
         replay(_userDao);
         replay(_subscriptionDao);
 
@@ -339,11 +305,46 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _controller.onSubmit(_request, _response, _command, _errors);
 
         verify(_userDao);
-        
+        verify(_reviewDao);        
         //no calls to subscription dao to add a newsletter
         verify(_subscriptionDao);
     }
 
+    public void testExistingUserEmptyReviewNonEmptyCategoryRating() throws Exception {
+        Review r = new Review();
+        r.setComments("this review has comments");
+
+        _command.setComments("");
+        _command.setOverall(CategoryRating.RATING_2);
+        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
+        replay(_reviewDao);
+
+        _controller.setReviewDao(_reviewDao);
+        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false);
+        assertEquals(r, review2);
+        assertEquals(CategoryRating.RATING_2, review2.getQuality());
+
+        verify(_reviewDao);
+    }
+
+    public void testExistingUserNonEmptyReviewAndEmptyOverallRating() throws Exception {
+        Review r = new Review();
+        r.setComments("old comment");
+        r.setQuality(CategoryRating.RATING_4);
+
+        _command.setComments("new comments");
+        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
+        _reviewDao.removeReviews(_user, _school);
+        replay(_reviewDao);
+
+        _controller.setReviewDao(_reviewDao);
+        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false);
+        assertEquals(_command.getComments(), review2.getComments());
+        assertEquals(CategoryRating.RATING_4, review2.getQuality());
+
+        verify(_reviewDao);
+    }
+    
 
     public void testErrorOnJsonPageShortCircuits() throws Exception {
         _errors.reject("some error");
