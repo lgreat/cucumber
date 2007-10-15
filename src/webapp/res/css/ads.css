@@ -45,22 +45,20 @@
 }
 
 /* top border, padding, and margin for school profile ads */
-#nearbyWrapper, #nthGraderAd, .cobrandAd, #BelowFold_Top_300x125,
-#BelowFold_Bottom_300x125, #financialAidPlanner, #adAboveFold_300x600,
-#adAboveFold_300x250 {
+#nearbyWrapper, #nthGraderAd, .cobrandAd, #financialAidPlanner,
+#BelowFold_Top_300x125, #BelowFold_Bottom_300x125,
+#schoolProfile #AboveFold_300x600, #districtOverview #AboveFold_300x600,
+#schoolProfile #AboveFold_300x250, #districtOverview #AboveFold_300x250
+#schoolProfile #BelowFold_300x250, #districtOverview #BelowFold_300x250 {
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid #ccc;
 }
 
 /* text ads */
-#adx49, #adx50, #adx51, #BelowFold_Top_300x125, #BelowFold_Bottom_300x125  {
+#BelowFold_Top_300x125, #BelowFold_Bottom_300x125  {
     padding-left: 20px;
     padding-right: 20px;
     width:260px;
     line-height: 18px;
-}
-
-#adx47 {
-    width:300px;
 }
