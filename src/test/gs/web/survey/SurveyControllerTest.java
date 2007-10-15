@@ -561,6 +561,11 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     }
 
     public void testPrevNextReferenceDataWithLevelE() throws Exception {
+
+        School defaultSchool = new School();
+        defaultSchool.setId(-122);
+        defaultSchool.setName("--");
+
         UserResponseCommand urc = new UserResponseCommand();
         urc.setNextCity("New York");
         urc.setNextState(State.NY);
@@ -587,8 +592,9 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         replay(_schoolDao);
 
         School schoolNotListed = createSchool();
-        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed);
+        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed).times(2);
         expect(_surveyDao.getBeforeESOptions()).andReturn(Collections.<School>emptyList());
+        expect(_surveyDao.getDefaultNextPrevSchool()).andStubReturn(new School());
         replay(_surveyDao);
 
         Map model = _controller.referenceData(getRequest(), urc, errors);
@@ -597,10 +603,10 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(LevelCode.Level.MIDDLE_LEVEL, model.get("nextLevel"));
 
         assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
-        assertEquals(Collections.EMPTY_LIST, model.get("prevSchools"));
+        assertEquals(1, ((List)model.get("prevSchools")).size());
 
         assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
-        assertEquals(Arrays.asList(schoolNotListed), model.get("nextSchools"));
+        assertEquals(2, ((List)model.get("nextSchools")).size());
 
         assertEquals(schoolNotListed, model.get("schoolNotListed"));
         assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));
@@ -641,7 +647,8 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         replay(_schoolDao);
 
         School schoolNotListed = createSchool();
-        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed);
+        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed).anyTimes();
+        expect(_surveyDao.getDefaultNextPrevSchool()).andStubReturn(new School());
         replay(_surveyDao);
 
         Map model = _controller.referenceData(getRequest(), urc, errors);
@@ -650,10 +657,10 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(LevelCode.Level.HIGH_LEVEL, model.get("nextLevel"));
 
         assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
-        assertEquals(Arrays.asList(schoolNotListed), model.get("prevSchools"));
+        assertEquals(schoolNotListed, ((List)model.get("prevSchools")).get(1));
 
         assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
-        assertEquals(Arrays.asList(schoolNotListed), model.get("nextSchools"));
+        assertEquals(schoolNotListed, ((List)model.get("nextSchools")).get(1));
 
         assertEquals(schoolNotListed, model.get("schoolNotListed"));
         assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));
@@ -690,8 +697,9 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         replay(_schoolDao);
 
         School schoolNotListed = createSchool();
-        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed);
+        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed).times(2);
         expect(_surveyDao.getAfterHSOptions()).andReturn(Collections.<School>emptyList());
+        expect(_surveyDao.getDefaultNextPrevSchool()).andStubReturn(new School());
         replay(_surveyDao);
 
         Map model = _controller.referenceData(getRequest(), urc, errors);
@@ -700,10 +708,10 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(null, model.get("nextLevel"));
 
         assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
-        assertEquals(Arrays.asList(schoolNotListed), model.get("prevSchools"));
+        assertEquals(schoolNotListed, ((List)model.get("prevSchools")).get(1));
 
         assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
-        assertEquals(Collections.EMPTY_LIST, model.get("nextSchools"));
+        assertEquals(1, ((List)model.get("nextSchools")).size());
 
         assertEquals(schoolNotListed, model.get("schoolNotListed"));
         assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));

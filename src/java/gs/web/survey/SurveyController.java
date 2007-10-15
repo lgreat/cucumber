@@ -67,6 +67,25 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     protected final static Pattern QUESTION_ANSWER_IDS = Pattern.compile("^responseMap\\[q(\\d+)a(\\d+)\\]\\.values*$");
 
+    List<School> buildSchoolList(UserResponseCommand urc, LevelCode.Level level, boolean next) {
+        List tempList = null;
+        if (next) {
+            tempList = getSchoolDao().findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false);
+        } else {
+            tempList = getSchoolDao().findSchoolsInCity(urc.getPrevState(), urc.getPrevCity(), false);
+        }
+        ArrayList<School> schoolList = new ArrayList<School>(CollectionUtils.select(tempList,
+                LevelPredicateFactory.createLevelPredicate(level)));
+
+        // add default school to the beginning of the list
+        schoolList.add(0, getSurveyDao().getDefaultNextPrevSchool());
+
+        // add "my school not listed" to the end of the list
+        schoolList.add(getSurveyDao().getSchoolNotListed());
+
+        return schoolList;
+    }
+
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
             throws Exception {
         Map referenceData = new HashMap();
@@ -77,8 +96,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         UserResponseCommand urc = (UserResponseCommand) command;
 
         if (urc.getPage().containsNextOrPreviousSchoolQuestion()) {
-            Collection<School> previousSchools = Collections.emptyList();
-            Collection<School> nextSchools = Collections.emptyList();
+            List<School> previousSchools = new ArrayList<School>();
+            List<School> nextSchools = new ArrayList<School>();
             List<City> nextCities;
             List<City> previousCities;
 
@@ -92,36 +111,24 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             School schoolNotListed = getSurveyDao().getSchoolNotListed();
 
             if (LevelCode.Level.ELEMENTARY_LEVEL.equals(surveyLevel)) {
-                previousSchools = getSurveyDao().getBeforeESOptions();
-
-                nextSchools = getSchoolDao().findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false);
-                nextSchools = CollectionUtils.select(nextSchools, LevelPredicateFactory.createLevelPredicate(LevelCode.Level.MIDDLE_LEVEL));
-                nextSchools.add(schoolNotListed);
-
+                previousSchools.add(getSurveyDao().getDefaultNextPrevSchool());
+                previousSchools.addAll(getSurveyDao().getBeforeESOptions());
+                nextSchools = buildSchoolList(urc, LevelCode.Level.MIDDLE_LEVEL, true);
                 prevLevel = null;
                 nextLevel = LevelCode.Level.MIDDLE_LEVEL;
             }
 
             if (LevelCode.Level.MIDDLE_LEVEL.equals(surveyLevel)) {
-                previousSchools = getSchoolDao().findSchoolsInCity(urc.getPrevState(), urc.getPrevCity(), false);
-                previousSchools = CollectionUtils.select(previousSchools, LevelPredicateFactory.createLevelPredicate(LevelCode.Level.ELEMENTARY_LEVEL));
-                previousSchools.add(schoolNotListed);
-
-                nextSchools = getSchoolDao().findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false);
-                nextSchools = CollectionUtils.select(nextSchools, LevelPredicateFactory.createLevelPredicate(LevelCode.Level.HIGH_LEVEL));
-                nextSchools.add(schoolNotListed);
-
+                previousSchools = buildSchoolList(urc, LevelCode.Level.ELEMENTARY_LEVEL, false);
+                nextSchools = buildSchoolList(urc, LevelCode.Level.HIGH_LEVEL, true);
                 prevLevel = LevelCode.Level.ELEMENTARY_LEVEL;
                 nextLevel = LevelCode.Level.HIGH_LEVEL;
             }
 
             if (LevelCode.Level.HIGH_LEVEL.equals(surveyLevel)) {
-                previousSchools = getSchoolDao().findSchoolsInCity(urc.getPrevState(), urc.getPrevCity(), false);
-                previousSchools = CollectionUtils.select(previousSchools, LevelPredicateFactory.createLevelPredicate(LevelCode.Level.MIDDLE_LEVEL));
-                previousSchools.add(schoolNotListed);
-
-                nextSchools = getSurveyDao().getAfterHSOptions();
-
+                previousSchools = buildSchoolList(urc, LevelCode.Level.MIDDLE_LEVEL, false);
+                nextSchools.add(getSurveyDao().getDefaultNextPrevSchool());
+                nextSchools.addAll(getSurveyDao().getAfterHSOptions());
                 prevLevel = LevelCode.Level.MIDDLE_LEVEL;
                 nextLevel = null;
             }
