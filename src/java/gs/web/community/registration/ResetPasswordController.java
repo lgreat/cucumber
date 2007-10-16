@@ -42,7 +42,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
     protected void createGenericValidationError(HttpServletRequest request, BindException errors) {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
         String href = builder.asAnchor(request, "click here").asATag();
-        errors.rejectValue("oldPassword", null, "We're sorry, we cannot process your password change " +
+        errors.rejectValue("newPassword", null, "We're sorry, we cannot process your password change " +
                 "request. Please make sure you have entered the entire link in the email " +
                 "sent to you. To request a new email, please " + href + ".");
     }
