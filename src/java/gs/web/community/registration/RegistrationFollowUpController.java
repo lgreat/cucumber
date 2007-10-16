@@ -254,7 +254,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                     (user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX) +
                             User.EMAIL_PROVISIONAL_PREFIX.length());
             try {
-                notifyCommunity(user.getId(), existingProfile.getScreenName(), user.getEmail(), password, request);
+                notifyCommunity(user.getId(), existingProfile.getScreenName(), user.getEmail(),
+                        password, existingProfile.getUpdated(), request);
             } catch (SoapRequestException couure) {
                 _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
                 // undo registration
@@ -331,9 +332,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     }
 
     protected void notifyCommunity(Integer userId, String screenName, String email, String password,
-                                   HttpServletRequest request) throws SoapRequestException {
+                                   Date dateCreated, HttpServletRequest request) throws SoapRequestException {
         CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                (userId, screenName, email, password);
+                (userId, screenName, email, password, dateCreated);
         CreateOrUpdateUserRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
         if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isDeveloperWorkstation(request.getServerName())) {

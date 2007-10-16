@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author <a href="mailto:aroy@urbanasoft.com">Anthony Roy</a>
@@ -236,7 +237,7 @@ public class RegistrationController extends SimpleFormController implements Read
             // only notify community on final step
             try {
                 notifyCommunity(user.getId(), userProfile.getScreenName(), user.getEmail(),
-                        user.getPasswordMd5(), request);
+                        user.getPasswordMd5(), userProfile.getUpdated(), request);
             } catch (SoapRequestException couure) {
                 _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
                 // undo registration
@@ -273,9 +274,10 @@ public class RegistrationController extends SimpleFormController implements Read
     }
 
     protected void notifyCommunity(Integer userId, String screenName, String email, String password,
+                                   Date dateCreated,
                                    HttpServletRequest request) throws SoapRequestException {
         CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                (userId, screenName, email, password);
+                (userId, screenName, email, password, dateCreated);
         CreateOrUpdateUserRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
         if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isDeveloperWorkstation(request.getServerName())) {

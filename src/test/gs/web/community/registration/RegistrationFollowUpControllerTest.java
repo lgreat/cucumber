@@ -21,6 +21,7 @@ import static org.easymock.classextension.EasyMock.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -491,7 +492,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
             verify(_soapRequest);
         } catch (SoapRequestException e) {
             fail(e.getMessage());
@@ -504,7 +505,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
             verify(_soapRequest);
         } catch (SoapRequestException e) {
             fail(e.getMessage());
@@ -516,7 +517,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
             verify(_soapRequest);
         } catch (SoapRequestException e) {
             fail(e.getMessage());
@@ -529,7 +530,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             _soapRequest.setTarget("http://community.staging.greatschools.net/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
             verify(_soapRequest);
         } catch (SoapRequestException e) {
             fail(e.getMessage());
@@ -541,7 +542,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
             verify(_soapRequest);
         } catch (SoapRequestException e) {
             fail(e.getMessage());
@@ -553,7 +554,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
-            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", _request);
+            _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
             verify(_soapRequest);
         } catch (SoapRequestException e) {
             fail(e.getMessage());
