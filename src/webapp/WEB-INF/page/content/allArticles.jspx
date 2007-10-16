@@ -99,7 +99,7 @@
             display: none;
         }
 
-        #adx40 {
+        #AboveFold_300x250 {
             float:right;
         }
     </style>
