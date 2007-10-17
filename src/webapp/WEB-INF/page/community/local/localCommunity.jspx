@@ -46,10 +46,10 @@
                 </p>
                 <div id="joinLinks">
                     <link:registration>
-                        <gsml:img src="/res/img/community/local/btn_join.gif" alt="Join the community" style="position:relative;left:30px;"/>
+                        <gsml:img src="/res/img/community/local/btn_join.gif" alt="Join the community" style="position:relative;left:0px;"/>
                     </link:registration>
                     <a href="http://www.greatschools.net/nolinkyet">
-                        <gsml:img src="/res/img/community/local/btn_tour.gif" alt="Take a tour" style="position:relative;left:50px;"/>
+                        <gsml:img src="/res/img/community/local/btn_tour.gif" alt="Take a tour" style="position:relative;left:20px;"/>
                     </a>
                 </div>
             </div>
