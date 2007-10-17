@@ -59,7 +59,17 @@
                     </link:mySchoolList>
                 </div><!-- end: header -->
 
-                <p class="head_nearby">Nearby ${levelLongName} Schools</p>
+                <p class="head_nearby">
+                    <c:choose>
+                        <c:when test="${school.levelCode == 'p'}">
+                            Nearby Preschools
+                        </c:when>
+                        <c:otherwise>
+                            Nearby ${levelLongName} Schools
+                        </c:otherwise>
+                    </c:choose>
+
+                </p>
                 <ul>
                     <c:if test="${hasNearby}">
                         <c:forEach items="${nearbySchools}" var="nearbySchool">
@@ -135,7 +145,7 @@
     <br style="clear: left;"/>
     <!-- Two extra links for the nearby box. Placed here and then positioned inside the box -->
     <ul id="extraLinks">
-        <c:if test="${hasNearby}">
+        <c:if test="${hasNearby and (school.levelCode != 'p')}">
             <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
         </c:if>
     </ul>
