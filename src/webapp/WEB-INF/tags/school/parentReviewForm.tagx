@@ -133,7 +133,7 @@
                 </div>
             </gsweb:form>
 
-            <c:if test="${pageName eq 'parentReviews'}">
+            <c:if test="${(pageName eq 'parentReviews') and school.levelCode != 'p'}">
                 <div id="espLink">
                     <link:schoolProfileEspLogin styleClass="esp" school="${school}">Principals, submit your review here &gt;</link:schoolProfileEspLogin>
                 </div>

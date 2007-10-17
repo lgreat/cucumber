@@ -169,7 +169,15 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
-                        <div class="tellUsMore noprint"><p>Principals and school officials, we encourage you to <link:schoolProfileEspLogin school="${school}">tell us more about your school</link:schoolProfileEspLogin>.</p></div>
+                        <c:choose>
+                            <c:when test="${school.levelCode == 'p'}">
+                                <div class="tellUsMore noprint"><p>Is your child on track? Find out with our <promo:nthGraderHover referredBy="parentReviews">grade-by-grade newsletters</promo:nthGraderHover>.</p></div>    
+                            </c:when>
+                            <c:otherwise>
+                                <div class="tellUsMore noprint"><p>Principals and school officials, we encourage you to <link:schoolProfileEspLogin school="${school}">tell us more about your school</link:schoolProfileEspLogin>.</p></div>
+                            </c:otherwise>
+                        </c:choose>
+
                     </div><!-- end: callouts -->
 
                     <p class="disclaimer" >Parent ratings and reviews do not represent the views of GreatSchools.net nor does GreatSchools.net check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
