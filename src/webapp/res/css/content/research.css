@@ -1,3 +1,19 @@
+div#main {
+    position:relative;
+    margin:0;
+}
+
+div#leftcol {
+    position:relative;
+    top:0;
+    height:554px;
+}
+
+table#right {
+    position:absolute;
+    left:205px;
+}
+
 a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS .billsBlog a:link,
     .contentGS .billsBlog a:visited, .contentGS .billsBlog a:hover{
 	font-family: "Trebuchet MS", Arial, sans-serif;
