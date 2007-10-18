@@ -4,13 +4,13 @@ div#main {
 }
 
 div#leftcol {
-    position:relative;
-    top:0;
-    height:554px;
+    position:absolute;
+    top:0px;
+    bottom:0px;
 }
 
 table#right {
-    position:absolute;
+    position:relative;
     left:205px;
 }
 
