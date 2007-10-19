@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+<jsp:directive.tag import="gs.data.school.review.IReviewDao"/>
+<jsp:directive.tag import="gs.data.test.SchoolTestValue"/>
+<jsp:directive.tag import="gs.data.test.TestManager"/>
+<jsp:directive.tag import="gs.data.test.rating.IRatingsConfig"/>
+<jsp:directive.tag import="gs.data.test.rating.IRatingsConfigDao"/>
+<jsp:directive.tag import="gs.web.util.PageHelper"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.tag body-content="scriptless"/>
+<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+<jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
+<jsp:directive.attribute name="gs_rating" required="false" description="GreatSchools Overall Rating Integer" type="java.lang.Integer"/>
+<jsp:directive.attribute name="parent_ratings" required="false" description="Parent Ratings Object" type="gs.data.school.review.Ratings"/>
+<pageHelper:externalCss file="/res/css/school/profile.css"/>
+
+<jsp:scriptlet><![CDATA[
+    SessionContext sessionContext;
+    ApplicationContext ac = null;
+
+    // if parent ratings have not been supplied, retrieve them here
+    if (parent_ratings == null) {
+        try {
+            sessionContext = SessionContextUtil.getSessionContext(request);
+            ac = sessionContext.getApplicationContext(); // lazy load
+            IReviewDao reviewDao = (IReviewDao) ac.getBean(IReviewDao.BEAN_ID);
+            parent_ratings = reviewDao.findRatingsBySchool(school);
+            request.setAttribute("parent_ratings", parent_ratings);
+        } catch (Exception ex) {
+            // log the error in some way?
+            out.println("<!-- " + ex.getClass().getName() + " getting parent rating: " + ex.getMessage() + " -->");
+        }
+    }
+
+    // if gs rating has not been supplied, retrieve it here
+    if (gs_rating == null) {
+        try {
+            if (ac == null) { // lazy load
+                sessionContext = SessionContextUtil.getSessionContext(request);
+                ac = sessionContext.getApplicationContext();
+            }
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            boolean isFromCache = true;
+
+            if (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
+                isFromCache = false;
+            }
+
+            IRatingsConfigDao ratingsConfigDao = (IRatingsConfigDao) ac.getBean(IRatingsConfigDao.BEAN_ID);
+            IRatingsConfig ratingsConfig = ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), isFromCache);
+
+            if (null != ratingsConfig) {
+                TestManager testManager = (TestManager) ac.getBean(TestManager.BEAN_ID);
+                SchoolTestValue schoolTestValue =
+                        testManager.getOverallRating(school, ratingsConfig.getYear());
+
+                if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
+                    request.setAttribute("gs_rating", schoolTestValue.getValueInteger());
+                }
+            }
+        } catch (Exception ex) {
+            // log the error in some way?
+            out.println("<!-- " + ex.getClass().getName() + " getting GS rating: " + ex.getMessage() + " -->");
+        }
+    }
+    try {
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        String levelAbbrev = school.getLevelCode().getLowestLevel().getName();
+        String schoolType = school.getType().getSchoolTypeName();
+
+        String adPageName = "school/" + schoolType + '/' + levelAbbrev;
+        request.setAttribute("adPageName", adPageName);
+
+        if (null != pageHelper) {
+            pageHelper.addAdKeyword("type", schoolType);
+            pageHelper.addAdKeyword("level", levelAbbrev);
+            pageHelper.addAdKeyword("county",school.getCounty());
+            pageHelper.addAdKeyword("school_id", school.getId().toString());
+        }
+    } catch (Exception e) {
+    }
+    ]]></jsp:scriptlet>
+
+<![CDATA[
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="/res/css/school/profile_ie7.css" />
+<![endif]-->
+]]>
+
+<c:if test="${!requestScope.context.crawler}">
+<script type="text/javascript" language="javascript">
+<![CDATA[
+    var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
+    function openDelicious() { location.href=deliciousUrl; }
+]]></script>
+</c:if>
+
+<c:set var="state" value="${school.databaseState}"/>
+<c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="schoolId" value="${school.id}"/>
+
+<c:choose>
+    <c:when test="${school.type.schoolTypeName != 'private'}">
+        <c:set var="schoolType" value="public"/>
+        <!-- to trigger MSS modal on exit -->
+        <c:if test="${!requestScope.context.crawler}">
+        <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+        <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
+        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
+        </c:if>
+    </c:when>
+    <c:otherwise>
+        <c:set var="schoolType" value="private"/>
+    </c:otherwise>
+</c:choose>
+<div id="schoolProfile">
+    <div class="printSchoolProfileHeader">
+        <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"/></div>
+        <br></br><div class="printName">${school.name}</div>
+        <p><img src="/res/img/pixel.gif" alt=" "/></p>
+    </div>
+    <div id="schoolProfileHeader">
+
+    <div id="breadcrumbs">
+        <ul>
+            <li><link:research state="${state}" title="${state.longName} schools">${state.longName} schools</link:research> &gt; </li>
+            <li><link:city city="${city}" state="${state}" title="${city} schools">${city} schools</link:city>&amp;#160;</li>
+            <c:if test="${school.districtId != 0}">
+                <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}" title="District information">${school.district.name}</link:districtProfile></li>
+            </c:if>
+        </ul>
+    </div>
+    <!-- end: breadcrumbs -->
+
+    <!-- begin tool links : don't show for crawlers -->
+    <c:if test="${!requestScope.context.crawler}">
+    <div id="tools">
+        <link:mySchoolList school="${school}" styleClass="addImg toolsImg"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
+        <link:mySchoolList school="${school}" styleClass="add toolsTxt">Add to My School List</link:mySchoolList>
+
+        <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+
+        <link:schoolProfileAddParentReview school="${school}" styleClass="rateImg toolsImg"><gsml:img src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
+        <link:schoolProfileAddParentReview school="${school}" styleClass="rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
+
+        <c:choose>
+            <c:when test="${schoolType != 'private'}">
+                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
+                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
+            </c:when>
+            <c:otherwise>
+                <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+            </c:otherwise>
+        </c:choose>
+        <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
+        <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
+    </div>
+    </c:if>
+    <!-- end tools -->
+
+    <!-- School name -->
+    <div id="schoolName">
+        <h1>${school.name}</h1>
+    </div>
+    <!-- End School name -->
+
+    <!-- Ratings -->
+    <div id="ratings">
+        <!-- Great Schools Rating -->
+        <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
+            <c:choose>
+                <c:when test="${tab ne 'ratings'}">
+                    <link:schoolProfileRating school="${school}">
+                        <gsml:img src="/res/img/school/ratings/ratings_gs_head_${gs_rating}.gif" alt="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best." styleClass="rating_gs"/>
+                    </link:schoolProfileRating>
+                </c:when>
+                <c:otherwise>
+                    <gsml:img src="/res/img/school/ratings/ratings_gs_head_${gs_rating}.gif" alt="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best." styleClass="rating_gs"/>
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+
+        <!-- Parent Rating -->
+        <c:set var="parent_rating" value="0"/>
+        <c:if test="${parent_ratings ne null and parent_ratings.displayOverallRating eq true}">
+            <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
+        </c:if>
+
+        <!-- Change the second class to change how many stars the parent rating displays -->
+        <c:choose>
+            <c:when test="${parent_rating eq 0}">
+                <c:set var="parent_rating_title" value="Be the first to rate!"/>
+                <link:schoolProfileAddParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
+                    &amp;#160;
+                </link:schoolProfileAddParentReview>
+            </c:when>
+            <c:otherwise>
+                <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
+                <link:schoolProfileParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
+                    &amp;#160;
+                </link:schoolProfileParentReview>
+            </c:otherwise>
+        </c:choose>
+        <c:if test="${parent_rating eq 0}">
+        </c:if>
+    </div>
+    <!-- end: ratings -->
+
+    </div> <!-- end: schoolProfileHeader div -->
+<c:if test="${tab ne 'overview'}">
+    <!-- main navigation, client has okayed use of a table here -->
+    <table id="navigation" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on' : ''}"
+                                            title="${school.name}">
+                    School<br/>
+                    Overview
+                </link:schoolProfileOverview>
+            </td>
+            <c:if test="${schoolType != 'private'}">
+                <td>
+                    <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}"
+                                              title="${school.name} GreatSchools Ratings">
+                        GreatSchools<br/>
+                        Ratings
+                    </link:schoolProfileRating>
+                </td>
+            </c:if>
+
+            <td>
+                <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on' : ''}"
+                                                title="${school.name} Parent Reviews">
+                    Parent<br/>
+                    Reviews
+                </link:schoolProfileParentReview>
+            </td>
+
+            <c:if test="${schoolType != 'private' || state.privateTestScoresState}" >
+                <td>
+                    <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on' : ''}"
+                                                 title="${school.name} Test Scores">
+                        Test<br/>
+                        Scores
+                    </link:schoolProfileTestscore>
+                </td>
+            </c:if>
+
+            <!-- This link tag automatically detects private schools and links appropriately -->
+            <td>
+                <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}">
+                    School<br/>
+                    Environment
+                </link:schoolProfileCensus>
+            </td>
+
+
+            <c:if test="${school.districtId != 0}">
+                <td>
+                    <link:districtProfile districtId="${school.districtId}"
+                                          schoolId="${school.id}"
+                                          state="${state.abbreviationLowerCase}"
+                                          title="District information">
+                        District<br/>
+                        Overview
+                    </link:districtProfile>
+                </td>
+            </c:if>
+
+<!-- Temporarily commented out until destination implementation is complete
+            <td>
+                <a href="" title="">Parent<br/>Community</a>
+            </td>
+-->
+            <td class="last">
+                <link:schoolCompareSchool school="${school}" styleClass="last" from="tab">
+                    Compare<br/>
+                    Schools
+                </link:schoolCompareSchool>
+            </td>
+        </tr>
+    </table>
+    <!-- end: navigation -->
+
+    <div id="subnav">
+        <c:if test="${!requestScope.context.crawler}">
+        <ul>
+            <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
+            <!-- pipe characters used as opposed to li borders, as per client request -->
+            <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
+            <li><gsml:a href="${mailToFriendUrl}"
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;#160;|&amp;#160;</li>
+            <li><a href="javascript:openDelicious()"
+                   onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a></li>
+        </ul>
+        </c:if>
+    </div>
+    </c:if>
+    <!-- end: subnav -->
+    <div id="bodyContents">
+        <jsp:doBody/>
+    </div>
+
+    <br style="clear:both;"/>
+
+    <!-- breadcrumb start no breadcrumb on overview page-->
+    <c:set var="delimiter" value="&amp;gt;"/>
+
+    <c:if test="${tab ne 'overview' and tab ne 'ratings'}">
+        <div class="breadcrumb">
+            <span class="hr">&amp;#160;</span>
+            <h2>
+                <link:research state="${state}">${state.longName} schools</link:research>
+                ${delimiter}
+                <link:city city="${city}" state="${state}">${city} schools</link:city>
+
+                <c:choose>
+                    <c:when test="${school.districtId != 0}">
+                        ${delimiter}
+                        <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
+                        <c:if test="${tab ne 'overview'}">
+                            ${delimiter}<br/>
+                            <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                        </c:if>
+                    </c:when>
+                    <c:when test="${tab ne 'overview'}">
+                        ${delimiter} <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                    </c:when>
+                </c:choose>
+            </h2>
+        </div>
+    </c:if>
+    <!-- breadcrumb end -->
+
+    <br style="clear:both;"/>
+</div>
+<!-- end schoolProfile -->
+</jsp:root>

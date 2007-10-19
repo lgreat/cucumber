@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:gsweb="gstaglib"
+          xmlns:display="urn:jsptld:http://displaytag.sf.net"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        >
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<pageHelper:hideLeaderboard/>
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+
+<c:set var="school" value="${school}"/>
+<c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+<c:set var="stateName" value="${school.databaseState.longName}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="sid" value="${school.id}"/>
+<c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
+<c:set var="pageName" value="Overview" scope="request"/>
+<c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
+<c:set var="gs_rating" value="${gs_rating}"/>
+<c:set var="parent_ratings" value="${parent_ratings}"/>
+
+<head>
+
+    <title>${school.name} - ${addr} - school overview</title>
+    <meta name="description" content="${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, parent reviews and teacher stats."/>
+    <pageHelper:externalCss file="/res/css/school/overview.css"/>
+</head>
+
+<gsml:body adPageName="overview" pageLayout="research">
+    <![CDATA[
+    <!--[if IE 7]>
+        <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/school/parentReviewForm_ie7.css" />
+    <![endif]-->
+    ]]>
+<c:set var="school" value="${school}"/>
+<school:myProfile school="${school}" tab="overview">
+
+<div id="schoolOverview">
+    <c:if test="${(fromSurveyPage)}">
+        <div id="surveyThanks" style="border:4px solid #ddeeee;padding:5px;position:relative;margin-bottom:14px;">
+            <div style="height:50px;background-color:#ddeeee;padding:10px;position:relative;">
+                <gsml:img src="/res/img/bullet/confirmation.gif" alt="Thank you confirmation" style="position:absolute;top:23px;left:15px;"/>
+                <p style="position:absolute;left:50px;top:20px;color:#CC5569;font-weight:bold;font-size:14px;">Thank you for filling out a survey about ${school.name}!<br/>
+                <span style="font-size:12px;">We'll be displaying the results of the surveys soon.</span></p>
+            </div>
+        </div>
+    </c:if>
+
+    <gsml:equalizeColumns ids="'col_center','col_right'"/>
+    <!-- being left column -->
+    <div id="col_left">
+
+      <school:quickFacts school="${school}"/>
+
+        <hr />
+		<div id="editor">
+		<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
+        <p class="name">Lisa Rosenthal</p>
+		<p class="title">Senior Editor, GreatSchools</p>
+            <h3>Editor's Picks</h3>
+            <ul>
+                <gsweb:articlelink articleId="361" wrappingElement="li" styleClass="articleLink"/>
+                <gsweb:articlelink articleId="457" wrappingElement="li" styleClass="articleLink"/>
+                <li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>
+            </ul>
+            <hr/>
+            <ul>
+                <gsweb:articlelink articleId="197" wrappingElement="li" styleClass="articleLink"/>
+                <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
+                <li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>
+            </ul>
+		</div><!-- end: editor -->
+
+        <!-- Big Picture -->
+        <hr />
+        <school:bigPicture school="${school}"/>
+
+        <!-- promo link -->
+        <hr />
+        <gsml:a href="/promo/webbyAwardWinner.page"><gsml:img src="/res/img/promo/webby/webby.gif" alt="2007 Webby Awards People's Voice Winner - Best Family Parenting Site"/></gsml:a>
+
+		<!-- Editor -->
+    </div><!-- end: col_left" -->
+
+		<!-- begin center column -->
+
+        <div id="col_center">
+            <c:if test="${!requestScope.context.crawler}">
+            <div id="topCompare" style="float:left; padding-bottom:25px;" >
+                <school:compareSchool school="${school}"/>
+            </div>
+            </c:if>
+            <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
+            <c:if test="${not empty latestReviewsModel}">
+                <div id="parentReviews">
+                    <h2>Latest ${school.name} Parent Reviews</h2>
+                    <gsml:img src="/res/img/map/ratings_parent_city_${latestReviewsModel.latestRating}.gif" alt="" styleClass="rating" />
+                    <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
+                        ${latestReviewsModel.randomRating}</em>
+                        <link:schoolProfileParentReview school="${school}" title="Parent Reviews">Learn more &#62;</link:schoolProfileParentReview>
+                    </p>
+                    <p>${latestReviewsModel.comment}
+                        <link:schoolProfileParentReview school="${school}" title="Read all reviews">
+                            <c:choose>
+                                <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
+                                <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
+                            </c:choose>
+                        </link:schoolProfileParentReview>
+                    </p>
+                </div>
+            </c:if>
+
+            <c:if test="${!requestScope.context.crawler}">
+            <school:parentReviewForm school="${school}" pageName="overview"/>
+            </c:if>
+
+            <div id="learnSchool">
+
+                <c:set var="hasStudentData" value="${hasStudentData}" />
+                <c:set var="hasTestData" value="${hasTestData}"/>
+                <c:set var="hasAPExams" value="${hasAPExams}"/>
+                <c:set var="hasTeacherData" value="${hasTeacherData}"/>
+                <c:set var="finance" value="hide" />
+                <c:set var="hasFinanceData" value="${hasFinanceData}" />
+
+                <h2>Learn About ${school.name}</h2>
+                <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
+                    <gsml:a href="/modperl/achievement/${state}/${sid}">
+                        <gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt=""/>
+                    </gsml:a>
+                    <p class="dashed">
+                        <gsml:a href="/modperl/achievement/${state}/${sid}">${school.name} test scores</gsml:a>
+                    </p>
+                </c:if>
+
+                <c:if test="${hasAPExams}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#ap">
+                        <gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="" />
+                    </gsml:a>
+                    <p>
+                        <gsml:a href="/cgi-bin/${state}/other/${sid}#ap">${school.name} AP exams</gsml:a>
+                    </p>
+                </c:if>
+
+                <c:if test="${hasTeacherData}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">
+                        <gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="" />
+                    </gsml:a>
+                    <p class="${(hasStudentData or hasFinanceData) ? 'dashed' : 'last'}">
+                        <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">${school.name} teachers</gsml:a>
+                    </p>
+                </c:if>
+
+                <c:if test="${school.type.schoolTypeName ne 'private'
+                and (state eq 'az' or state eq 'ca' or
+                state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
+                state eq 'oh' or state eq 'tx' )}">
+                    <c:set var="finance" value="show" />
+                </c:if>
+
+                <c:if test="${(hasStudentData)}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#students">
+                        <gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
+                    </gsml:a>
+                    <p class="${(hasPrincipalView or ((finance eq 'show') and hasFinanceData))? 'dashed' : 'last'}">
+                        <gsml:a href="/cgi-bin/${state}/other/${sid}#students">${school.name} students</gsml:a>
+                    </p>
+                </c:if>
+
+                <c:set var="special" value="hide" />
+                <c:if test="${school.type.schoolTypeName eq 'charter' and (state eq 'ca')}">
+                    <c:set var="special" value="show" />
+                </c:if>
+
+                <c:if test="${(finance eq 'show') and (hasFinanceData)}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#finance">
+                        <gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
+                    </gsml:a>
+                    <p class="${(hasPrincipalView or (special eq 'show')) ? 'dashed' : 'last'}">
+                        <gsml:a href="/cgi-bin/${state}/other/${sid}#finance">${school.name} spending per pupil</gsml:a>
+                    </p>
+                </c:if>
+
+                <c:if test="${hasPrincipalView}">
+                    <gsml:a href="/cgi-bin/${state}/pqview/${sid}">
+                        <gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
+                    </gsml:a>
+                    <p class="${special eq 'show' ? 'dash' : 'last'}">
+                        <gsml:a href="/cgi-bin/${state}/pqview/${sid}">The inside scoop on ${school.name}</gsml:a>
+                    </p>
+                </c:if>
+
+                <c:if test="${special eq 'show'}">
+                    <gsml:a  target="_blank" href="/schoolreports/CA/GreatSchools_charter_school_report_${sid}.pdf">
+                        <gsml:img src="/res/img/school/overview/learn_PerformanceOverTime.gif" alt="" />
+                    </gsml:a>
+                    <div class="last">
+                        <gsml:a target="_blank" href="/schoolreports/CA/GreatSchools_charter_school_report_${sid}.pdf">
+                            <gsml:img id="pdficon" src="/res/img/school/overview/pdficon_small.gif" alt=""/>
+                        </gsml:a>
+                        <div id="pdf_text">
+                            <gsml:a target="_blank" href="/schoolreports/CA/GreatSchools_charter_school_report_${sid}.pdf">Download our special report on this school</gsml:a>
+                        </div>
+                    </div>
+                </c:if>
+
+                <c:if test="${!hasPrincipalView}">
+                    <div id="insideScoop">
+                        <link:schoolProfileEspLogin school="${school}">
+                            <gsml:img src="/res/img/school/overview/esp.gif" alt="What's the inside scoop on this school? Principals and school officials, tell us here" />
+                        </link:schoolProfileEspLogin>
+                    </div>
+                </c:if>
+            </div>
+
+            <!--<c:if test="${requestScope.context.ABVersion eq 'a'}">-->
+                <!--<school:compareSchool school="${school}"/>-->
+            <!--</c:if>-->
+
+        </div><!-- end: col_center -->
+
+		<!-- begin right column -->
+        <div id="col_right" class="noprint">
+            <div class="ad_top">
+                <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
+                <ad:Top_300x137/>
+            </div>
+            <div class="ad_middle">
+                <ad:x48/>
+            </div>
+            <div class="ad_middle">
+                <ad:x47/>
+            </div>
+            <c:if test="${empty param.hideMap}">
+                <school:nearbySchools school="${school}"/>
+            </c:if>
+
+        </div><!-- end: col_right" -->
+        </div><!-- end: schoolOverview -->
+
+</school:myProfile>
+<c:if test="${school.type.schoolTypeName == 'private'}">
+    <c:set var="pageName" value="Private School Overview"/>
+</c:if>
+<mod:tracking pageType="school"
+              pageName="${pageName}"
+              hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
+              school="${school}" />
+</gsml:body>
+</html>
+</jsp:root>

@@ -1102,6 +1102,14 @@
         </property>
     </bean>
 
+    <bean name="/test/overview.page"
+          class="gs.web.school.SchoolOverviewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>test/overview</value>
+        </property>
+    </bean>
+
     <bean name="parentReviews"
           class="gs.web.school.review.ParentReviewController"
           autowire="byName" lazy-init="true">
