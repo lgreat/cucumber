@@ -13,6 +13,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:test="urn:jsptagdir:/WEB-INF/tags/test"
         >
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <pageHelper:hideLeaderboard/>
@@ -51,7 +52,7 @@
     <![endif]-->
     ]]>
 <c:set var="school" value="${school}"/>
-<school:myProfile school="${school}" tab="overview">
+<test:profile school="${school}" tab="overview">
 
 <div id="schoolOverview">
     <c:if test="${(fromSurveyPage)}">
@@ -256,7 +257,7 @@
         </div><!-- end: col_right" -->
         </div><!-- end: schoolOverview -->
 
-</school:myProfile>
+</test:profile>
 <c:if test="${school.type.schoolTypeName == 'private'}">
     <c:set var="pageName" value="Private School Overview"/>
 </c:if>
