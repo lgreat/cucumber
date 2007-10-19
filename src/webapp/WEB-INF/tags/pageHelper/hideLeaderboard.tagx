@@ -1,0 +1,7 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.tag body-content="empty"
+                       description="Mutes the display of the header ad." />
+    <jsp:scriptlet>
+        gs.web.util.PageHelper.hideLeaderboard(request);
+    </jsp:scriptlet>
+</jsp:root>
