@@ -115,19 +115,25 @@ Disallow: /
 
 <!-- Otherwise on the main site just show the standard exclude list -->
 <c:otherwise>
-User-agent: Googlebot
-${sitemapExcludes}
-User-agent: *
-${excludes}
 <!-- GS-4261 -->
 <jsp:scriptlet>
     String userAgent = request.getHeader("user-agent");
     // For all user agents EXCEPT Googlebot, list the sitemap
     if (userAgent == null || userAgent.indexOf("Googlebot") == -1) {
+    // this is everyone but Googlebot
 </jsp:scriptlet>
+User-agent: *
+${excludes}
 Sitemap: http://www.greatschools.net/sitemap/sitemap.xml.gz
 <jsp:scriptlet>
-    } // end if
+    } else {
+    // this is Googlebot
+</jsp:scriptlet>
+User-agent: *
+${excludes}
+${sitemapExcludes}
+<jsp:scriptlet>
+    }
 </jsp:scriptlet>
 </c:otherwise>
 </c:choose>
