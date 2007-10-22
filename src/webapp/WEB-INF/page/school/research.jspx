@@ -36,9 +36,10 @@
     <script type="text/javascript">
         function adjustLeftColIE6() {
             if(navigator.userAgent.toLowerCase().indexOf('msie 6') != -1) {
+                var rightcol = document.getElementById('right');
+                var rightHeight = rightcol.scrollHeight;
                 var leftcol = document.getElementById('leftcol');
-                var heightStyle = leftcol.scrollHeight;
-                leftcol.style.height = (heightStyle-5)+'px';
+                leftcol.style.height = (rightHeight-30)+'px';
             }
         }
     </script>
