@@ -96,19 +96,19 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
                 user.setUpdated(new Date());
                 _userDao.updateUser(user);
                 PageHelper.setMemberAuthorized(request, response, user);
-                message = "Your email has been updated to: " + user.getEmail();
+                message = "4F3C-46E1-82EF-126A";
             } else {
                 // failure
                 user.setEmail(oldEmail);
                 message = "We're sorry! There was an error updating your email. " +
                         "Please try again in a few minutes.";
             }
-            mAndV.getModel().put("message", message);
+            mAndV.getModel().put("msg", message);
         }
 
         String comHost =
                 SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
-        mAndV.setViewName("redirect:http://" + comHost + "/dashboard?msg=4F3C-46E1-82EF-126A");
+        mAndV.setViewName("redirect:http://" + comHost + "/dashboard");
         return mAndV;
     }
 
