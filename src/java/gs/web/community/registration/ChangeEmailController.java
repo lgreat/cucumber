@@ -108,7 +108,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
         String comHost =
                 SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
-        mAndV.setViewName("redirect:http://" + comHost + "/dashboard");
+        mAndV.setViewName("redirect:http://" + comHost + "/dashboard?msg=4F3C-46E1-82EF-126A");
         return mAndV;
     }
 
