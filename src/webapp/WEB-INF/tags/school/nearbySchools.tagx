@@ -73,10 +73,14 @@
                 <ul>
                     <c:forEach items="${nearbySchools}" var="nearbySchool">
                         <c:set var="rating" value="na"/>
-                        <c:set var="rating" value=""/>
-                        <c:if test="${not empty nearbySchool.rating and school.levelCode != 'p'}">
-                            <c:set var="rating" value="r${nearbySchool.rating}"/>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${not empty nearbySchool.rating and school.levelCode != 'p'}">
+                                <c:set var="rating" value="r${nearbySchool.rating}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="rating" value=""/>
+                            </c:otherwise>
+                        </c:choose>
                         <li class="${rating}">
                             <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
                             <c:if test="${not empty nearbySchool.distance}">
