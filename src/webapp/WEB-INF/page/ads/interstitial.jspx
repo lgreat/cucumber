@@ -26,7 +26,7 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>Interstitial Ad</title>
-        <!--<meta http-equiv="refresh" content="20;url=${passThroughURI}"/>-->
+        <meta http-equiv="refresh" content="20;url=${passThroughURI}"/>
         <pageHelper:externalCss file="/res/css/brand.css"/>
         <pageHelper:externalCss file="/res/css/ads/interstitial.css"/>
         <script type="text/javascript">
@@ -38,7 +38,7 @@
                 setTimeout("continueToDestination()", 15000);
             }
         </script>
-        <!--<pageHelper:addOnLoadHandler handler="setContinueTimeout()"/>-->
+        <pageHelper:addOnLoadHandler handler="setContinueTimeout()"/>
     </head>
     <body>
         <gsml:a href="/">
