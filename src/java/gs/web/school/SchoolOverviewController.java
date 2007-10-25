@@ -1,5 +1,6 @@
 package gs.web.school;
 
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
@@ -12,7 +13,6 @@ import gs.data.school.review.Review;
 import gs.data.test.ITestDataSetDao;
 import gs.data.test.SchoolTestValue;
 import gs.web.jsp.Util;
-import gs.web.survey.SurveyController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -115,6 +115,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                     model.put("reviewText", StringUtils.abbreviate(review.getComments(), REVIEW_LENGTH));
                 }
             }
+            model.put("preschoolOnly", school.getLevelCode().equals(LevelCode.PRESCHOOL));
             model.put("latestReviewsModel", createLatestReviewsModel(school));
             model.put("hasPrincipalView", Boolean.valueOf(getSchoolDao().hasPrincipalView(school)));
             model.put("hasAPExams", Boolean.valueOf(hasAPExams(school)));
