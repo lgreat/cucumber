@@ -3,10 +3,15 @@
     margin-left: 40px;
 }
 
+#contentGS {
+    position:relative;
+}
+
 #skip {
-    float: right;
+    position:absolute;
+    right:8px;
+    top:75px;
     color: #39A;
-    margin: 75px 8px 0 0;
 }
 
 #arrows {
@@ -46,4 +51,13 @@ table#frame td#interstitial {
 
 #message {
     color: white;
+}
+
+#thanks {
+    position:absolute;
+    width:400px;
+    right:8px;
+    top:22px;
+    color:#55BBCC;
+    text-align:right;
 }
