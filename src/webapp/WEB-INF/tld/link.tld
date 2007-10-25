@@ -1602,6 +1602,22 @@
         </attribute>
     </tag>
     <tag>
+        <name>holidayLearning</name>
+        <tag-class>gs.web.jsp.link.microsite.HolidayLearningTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Holiday Learning Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to Holiday Learning microsite page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>stateStandards</name>
         <tag-class>gs.web.jsp.link.microsite.StateStandardsTagHandler</tag-class>
         <body-content>JSP</body-content>

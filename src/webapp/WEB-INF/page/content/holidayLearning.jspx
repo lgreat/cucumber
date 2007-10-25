@@ -44,7 +44,7 @@
             <gsweb:articlelink articleId="771" wrappingElement="li"/>
             <gsweb:articlelink articleId="304" wrappingElement="li"/>
             <gsweb:articlelink articleId="782" wrappingElement="li"/>
-            <gsweb:articlelink articleId="303" wrappingElement="li"/>
+            <gsweb:articlelink articleId="938" wrappingElement="li"/>
             <gsweb:articlelink articleId="315" wrappingElement="li"/>
             <gsweb:articlelink articleId="431" wrappingElement="li"/>
         </ul>
@@ -54,7 +54,7 @@
         <h2 id="subTitle2">Engaging Holiday Activities</h2>
         <ul class="plain">
             <gsweb:articlelink articleId="422" wrappingElement="li"/>
-            <gsweb:articlelink articleId="458" wrappingElement="li"/>
+            <gsweb:articlelink articleId="787" wrappingElement="li"/>
             <gsweb:articlelink articleId="430" wrappingElement="li"/>
             <gsweb:articlelink articleId="427" wrappingElement="li"/>
             <gsweb:articlelink articleId="432" wrappingElement="li"/>
@@ -62,14 +62,14 @@
             <gsweb:articlelink articleId="433" wrappingElement="li"/>
             <gsweb:articlelink articleId="434" wrappingElement="li"/>
             <gsweb:articlelink articleId="260" wrappingElement="li"/>
-            <gsweb:articlelink articleId="469" wrappingElement="li"/>
+            <gsweb:articlelink articleId="1112" wrappingElement="li"/>
         </ul>
     </div>
 
     <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="askTheExperts">Ask an Expert</h3>
         <p>Q: How Can I Help My Child With Homework?
-            <gsweb:articlelink articleId="403">Read the answer</gsweb:articlelink>
+            <gsweb:articlelink articleId="525">Read the answer</gsweb:articlelink>
             </p>
     </div>
     <div style="border-bottom: 1px dashed #ccc;">
