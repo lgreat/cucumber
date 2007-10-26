@@ -984,6 +984,13 @@
             <type>gs.data.school.School</type>
             <description>School</description>
         </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>anchor name on destination page ('#' is optional)</description>
+        </attribute>        
     </tag>
     <tag>
         <name>schoolProfilePrivateQuickFacts</name>
@@ -1198,6 +1205,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.school.School</type>
             <description>School</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>anchor name on destination page ('#' is optional)</description>
         </attribute>
     </tag>
     <tag>

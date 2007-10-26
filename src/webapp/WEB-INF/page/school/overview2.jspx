@@ -179,29 +179,29 @@
 
                 <h2>Learn About ${school.name}</h2>
                 <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
-                    <gsml:a href="/modperl/achievement/${state}/${sid}">
+                    <link:schoolProfileTestscore school="${school}">
                         <gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt=""/>
-                    </gsml:a>
+                    </link:schoolProfileTestscore>
                     <p class="dashed">
-                        <gsml:a href="/modperl/achievement/${state}/${sid}">${school.name} test scores</gsml:a>
+                        <link:schoolProfileTestscore school="${school}">${school.name} test scores</link:schoolProfileTestscore>
                     </p>
                 </c:if>
 
                 <c:if test="${hasAPExams}">
-                    <gsml:a href="/cgi-bin/${state}/other/${sid}#ap">
+                    <link:schoolProfileCensus school="${school}" anchor="ap">
                         <gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="" />
-                    </gsml:a>
+                    </link:schoolProfileCensus>
                     <p>
-                        <gsml:a href="/cgi-bin/${state}/other/${sid}#ap">${school.name} AP exams</gsml:a>
+                        <link:schoolProfileCensus school="${school}" anchor="ap">${school.name} AP exams</link:schoolProfileCensus>
                     </p>
                 </c:if>
 
                 <c:if test="${hasTeacherData}">
-                    <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">
+                    <link:schoolProfileCensus school="${school}" anchor="teachers">
                         <gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="" />
-                    </gsml:a>
+                    </link:schoolProfileCensus>
                     <p class="${(hasStudentData or hasFinanceData) ? 'dashed' : 'last'}">
-                        <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">${school.name} teachers</gsml:a>
+                        <link:schoolProfileCensus school="${school}" anchor="teachers">${school.name} teachers</link:schoolProfileCensus>
                     </p>
                 </c:if>
 
@@ -213,11 +213,11 @@
                 </c:if>
 
                 <c:if test="${(hasStudentData)}">
-                    <gsml:a href="/cgi-bin/${state}/other/${sid}#students">
+                    <link:schoolProfileCensus school="${school}" anchor="students">
                         <gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
-                    </gsml:a>
+                    </link:schoolProfileCensus>
                     <p class="${(hasPrincipalView or ((finance eq 'show') and hasFinanceData))? 'dashed' : 'last'}">
-                        <gsml:a href="/cgi-bin/${state}/other/${sid}#students">${school.name} students</gsml:a>
+                        <link:schoolProfileCensus school="${school}" anchor="students">${school.name} students</link:schoolProfileCensus>
                     </p>
                 </c:if>
 
@@ -227,20 +227,20 @@
                 </c:if>
 
                 <c:if test="${(finance eq 'show') and (hasFinanceData)}">
-                    <gsml:a href="/cgi-bin/${state}/other/${sid}#finance">
+                    <link:schoolProfileCensus school="${school}" anchor="finance">
                         <gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
-                    </gsml:a>
+                    </link:schoolProfileCensus>
                     <p class="${(hasPrincipalView or (special eq 'show')) ? 'dashed' : 'last'}">
-                        <gsml:a href="/cgi-bin/${state}/other/${sid}#finance">${school.name} spending per pupil</gsml:a>
+                        <link:schoolProfileCensus school="${school}" anchor="finance">${school.name} spending per pupil</link:schoolProfileCensus>
                     </p>
                 </c:if>
 
                 <c:if test="${hasPrincipalView}">
-                    <gsml:a href="/cgi-bin/${state}/pqview/${sid}">
+                    <link:schoolProfilePrincipalView school="${school}">
                         <gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
-                    </gsml:a>
+                    </link:schoolProfilePrincipalView>
                     <p class="${special eq 'show' ? 'dash' : 'last'}">
-                        <gsml:a href="/cgi-bin/${state}/pqview/${sid}">The inside scoop on ${school.name}</gsml:a>
+                        <link:schoolProfilePrincipalView school="${school}">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
                     </p>
                 </c:if>
 
