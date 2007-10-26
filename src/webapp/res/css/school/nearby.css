@@ -3,6 +3,7 @@
 	padding: 9px;
 	_padding-bottom: 7px; /* IE 6 hack */
 	border: 1px solid #f4bc00;
+    position: relative;
 }
 
 #nearbySchools h2 {
@@ -39,6 +40,7 @@
 	margin: 0;
 	padding: 0;
     clear:both;
+    position:relative;
 }
 
 #nearbySchools ul li {
@@ -48,6 +50,16 @@
 	font: 11px/11px Trebuchet MS, sans-serif;
 	color: #666;
 	border-top: 1px solid #ccc;
+    position:relative;
+}
+
+#nearbySchools ul li div.gradeRange {
+    position:absolute;
+    right:25px;
+    _right:33px; /*IE 6 hack*/
+    *padding-top:5px; /*IE 6+7 hack*/
+    display:inline;
+    width:30px;
 }
 
 #nearbySchools a {

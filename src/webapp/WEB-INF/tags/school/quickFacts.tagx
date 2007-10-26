@@ -108,7 +108,6 @@
                 <c:set var="levels" value="${school.gradeLevels}"/>
                 <li>
                     <c:choose>
-                        <c:when test="${(levels eq 'ungraded') or (empty levels) or (levels eq '')}">Grades: n/a</c:when>
                         <c:when test="${!fn:contains(levels, '-') and !fn:contains(levels,',')}">Grade&#32;${levels}</c:when>
                         <c:otherwise>Grades&#32;${levels}</c:otherwise>
                     </c:choose>

@@ -39,8 +39,10 @@
 
         ]]></jsp:scriptlet>
 
+    <c:if test="${school.levelCode == 'p'}" var="isPreschoolLevelOnly"/>
+
     <c:choose>
-        <c:when test="${school.levelCode == 'p'}">
+        <c:when test="${isPreschoolLevelOnly}">
             <c:set var="prefix" value="${levelLongName}" />
         </c:when>
         <c:otherwise>
@@ -66,27 +68,41 @@
 
                 <p class="head_top">${prefix}</p>
 
-                <c:if test="${school.levelCode != 'p'}">
-                    <p class="head_rating">GreatSchools Rating</p>
-                </c:if>
+                <c:choose>
+                    <c:when test="${isPreschoolLevelOnly}">
+                        <p class="head_rating">Grade<br/>Range</p>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="head_rating">GreatSchools Rating</p>
+                    </c:otherwise>
+                </c:choose>
 
                 <ul>
                     <c:forEach items="${nearbySchools}" var="nearbySchool">
-                        <c:set var="rating" value="na"/>
-                        <c:if test="${not empty nearbySchool.rating}">
-                                <c:set var="rating" value="r${nearbySchool.rating}"/>
-                        </c:if>
-                        <c:if test="${school.levelCode == 'p'}">
-                                <c:set var="rating" value=""/>
-                        </c:if>
-                        <li class="${rating}">
-                            <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
-                            <c:if test="${not empty nearbySchool.distance}">
-                                <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
-                            </c:if>
-                        </li>
+                        <c:choose>
+                            <c:when test="${isPreschoolLevelOnly}">
+                                <li>
+                                    <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
+                                    <!--div instead of span because of top padding for IE-->
+                                    <div class="gradeRange">${nearbySchool.neighbor.gradeLevels}</div>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="rating" value="na"/>
+                                <c:if test="${not empty nearbySchool.rating}">
+                                        <c:set var="rating" value="r${nearbySchool.rating}"/>
+                                </c:if>
+                                <li class="${rating}">
+                                    <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
+                                    <c:if test="${not empty nearbySchool.distance}">
+                                        <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
+                                    </c:if>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
-                    <c:if test="${school.levelCode != 'p'}">
+
+                    <c:if test="${!isPreschoolLevelOnly}">
                         <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools&#160;&#62;</link:schoolCompareSchool></li>
                         <c:if test="${school.type.schoolTypeName != 'private'}">
                             <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}" title="${school.district.name}">Schools in ${school.district.name}&#160;&#62;</link:allSchoolsInDistrict></li>
