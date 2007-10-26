@@ -331,6 +331,11 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         Review r = new Review();
         r.setComments("old comment");
         r.setQuality(CategoryRating.RATING_4);
+        r.setTeachers(CategoryRating.RATING_1);
+        r.setParents(CategoryRating.RATING_2);
+        r.setPrincipal(CategoryRating.RATING_3);
+        r.setSafety(CategoryRating.RATING_5);
+        r.setActivities(CategoryRating.RATING_3);
 
         _command.setComments("new comments");
         expect(_reviewDao.findReview(_user, _school)).andReturn(r);
@@ -341,6 +346,11 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false);
         assertEquals(_command.getComments(), review2.getComments());
         assertEquals(CategoryRating.RATING_4, review2.getQuality());
+        assertEquals(CategoryRating.RATING_1, review2.getTeachers());
+        assertEquals(CategoryRating.RATING_2, review2.getParents());
+        assertEquals(CategoryRating.RATING_3, review2.getPrincipal());
+        assertEquals(CategoryRating.RATING_5, review2.getSafety());
+        assertEquals(CategoryRating.RATING_3, review2.getActivities());
 
         verify(_reviewDao);
     }

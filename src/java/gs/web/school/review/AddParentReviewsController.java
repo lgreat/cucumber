@@ -146,6 +146,11 @@ public class AddParentReviewsController extends SimpleFormController implements 
                     //if no overall quality rating given, used the old one.
                     if (CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
                         command.setOverall(review.getQuality());
+                        command.setParent(review.getParents());
+                        command.setActivities(review.getActivities());
+                        command.setPrincipal(review.getPrincipal());
+                        command.setSafety(review.getSafety());
+                        command.setTeacher(review.getTeachers());
                     }
                     //delete the old rating
                     getReviewDao().removeReviews(user, school);
