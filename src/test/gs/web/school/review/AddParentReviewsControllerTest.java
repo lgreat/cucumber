@@ -338,8 +338,8 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         r.setActivities(CategoryRating.RATING_3);
 
         _command.setComments("new comments");
+        _command.setOverall(null);
         expect(_reviewDao.findReview(_user, _school)).andReturn(r);
-        _reviewDao.removeReviews(_user, _school);
         replay(_reviewDao);
 
         _controller.setReviewDao(_reviewDao);

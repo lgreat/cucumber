@@ -139,40 +139,35 @@ public class AddParentReviewsController extends SimpleFormController implements 
             if (review != null) {
                 //old review is not blank and current review is blank
                 if (StringUtils.isNotBlank(review.getComments()) && StringUtils.isBlank(command.getComments())) {
-                    //only update the overall quality rating
+                    //only update the overall quality rating and who they are
                     review.setQuality(command.getOverall());
+                    review.setPoster(command.getPoster());
                     return review;
                 } else {
-                    //if no overall quality rating given, used the old one.
-                    if (CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
-                        command.setOverall(review.getQuality());
-                        command.setParent(review.getParents());
-                        command.setActivities(review.getActivities());
-                        command.setPrincipal(review.getPrincipal());
-                        command.setSafety(review.getSafety());
-                        command.setTeacher(review.getTeachers());
+                    if (command.getOverall() != null && !CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
+                        review.setQuality(command.getOverall());
                     }
-                    //delete the old rating
-                    getReviewDao().removeReviews(user, school);
                 }
             }
         }
 
-        review = new Review();
-        review.setUser(user);
-        review.setSchool(school);
-        
+        if (null == review) {
+            review = new Review();
+
+            review.setUser(user);
+            review.setSchool(school);
+
+            review.setPrincipal(command.getPrincipal());
+            review.setTeachers(command.getTeacher());
+            review.setActivities(command.getActivities());
+            review.setParents(command.getParent());
+            review.setSafety(command.getSafety());
+            review.setQuality(command.getOverall());
+        }
+
+        review.setPoster(command.getPoster());
         review.setComments(command.getComments());
         review.setOriginal(command.getComments());
-
-        review.setPrincipal(command.getPrincipal());
-        review.setTeachers(command.getTeacher());
-        review.setActivities(command.getActivities());
-        review.setParents(command.getParent());
-        review.setSafety(command.getSafety());
-
-        review.setQuality(command.getOverall());
-        review.setPoster(command.getPoster());
         review.setAllowContact(command.isAllowContact());
 
         if (StringUtils.isNotEmpty(command.getFirstName()) || StringUtils.isNotEmpty(command.getLastName())) {
