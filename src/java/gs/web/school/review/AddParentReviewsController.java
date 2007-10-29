@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -146,6 +147,8 @@ public class AddParentReviewsController extends SimpleFormController implements 
                 } else {
                     if (command.getOverall() != null && !CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
                         review.setQuality(command.getOverall());
+                        review.setPosted(new Date());
+                        review.setProcessDate(null);
                     }
                 }
             }

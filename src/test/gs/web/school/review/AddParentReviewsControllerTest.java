@@ -9,11 +9,13 @@ import gs.data.state.State;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
+import org.apache.commons.lang.time.DateUtils;
 import static org.easymock.EasyMock.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -351,6 +353,8 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         assertEquals(CategoryRating.RATING_3, review2.getPrincipal());
         assertEquals(CategoryRating.RATING_5, review2.getSafety());
         assertEquals(CategoryRating.RATING_3, review2.getActivities());
+        assertEquals(null, review2.getProcessDate());
+        assertTrue(DateUtils.isSameDay(new Date(),review2.getPosted()));
 
         verify(_reviewDao);
     }
