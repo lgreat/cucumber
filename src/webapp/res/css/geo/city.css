@@ -113,9 +113,8 @@
     border-right: 1px solid #999;
 }
 
-.adSquare {
-    clear: both;
-    margin-top: 2em;
+#AboveFold_300x250 {
+    border-top: none;
 }
 
 .cleanLineTopBox,
