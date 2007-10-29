@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.32 2007/10/11 18:37:07 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.33 2007/10/29 23:38:19 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -268,6 +268,10 @@ public class SessionContextUtil implements ApplicationContextAware {
         context.setCobrand(cobrand);
     }
 
+    public static boolean isKnownCrawler(String userAgent) {
+        return userAgent != null && userAgent.toLowerCase().matches(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver).*");
+    }
+
     /**
      * Called at the beginning of the request; called after #readCookies is called.
      * Allows this class to do common operations for all pages.
@@ -278,11 +282,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         updateHostnameCobrandFromParams(request, context);
         // Determine if this is a crawler
         String userAgent = request.getHeader("User-Agent");
-        if (userAgent != null && userAgent.toLowerCase().matches(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver).*")) {
-            context.setCrawler(true);
-        } else {
-            context.setCrawler(false);
-        }
+        context.setCrawler(SessionContextUtil.isKnownCrawler(userAgent));
 
         updateStateFromParam(context, request, response);
 

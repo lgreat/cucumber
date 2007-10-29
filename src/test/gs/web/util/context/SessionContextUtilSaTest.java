@@ -54,6 +54,21 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
     }
 
+    private static GsMockHttpServletRequest getRequestWithUserAgent(String userAgent) {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setServerName("www.greatschools.net");
+        request.addHeader("User-Agent", userAgent);
+        return request;
+    }
+
+    public void testUpdateFromParamsDetectsCrawler() {
+        _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
+        assertFalse(_sessionContext.isCrawler());
+
+        _sessionContextUtil.updateFromParams(getRequestWithUserAgent("Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"), _response, _sessionContext);
+        assertTrue(_sessionContext.isCrawler());
+    }
+
     public void testGetServerName() {
         // dev environment
         setServerName("dev.greatschools.net");

@@ -1,12 +1,13 @@
 package gs.web.status;
 
+import gs.data.dao.DatabaseTestEntity;
 import gs.data.dao.IDao;
 import gs.data.dao.IPartitionDao;
-import gs.data.dao.DatabaseTestEntity;
-import gs.data.state.State;
 import gs.data.dao.PartitionedDatabaseTestEntity;
-import gs.data.util.StackTraceUtil;
 import gs.data.search.Searcher;
+import gs.data.state.State;
+import gs.data.util.StackTraceUtil;
+import gs.web.util.CookieInterceptor;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
 import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Controller for showing the build _versionProperties and database connectivity check
@@ -73,7 +74,7 @@ public class MonitorController implements ReadWriteController {
             _log.fatal(logMessage);
         }
 
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
 
         // Set the version
         model.put("buildtime",
@@ -124,6 +125,7 @@ public class MonitorController implements ReadWriteController {
         model.put("stateReadWrite", Boolean.valueOf(stateReadWrite));
         model.put("stateError", stateError);
         model.put("environment", getEnvironmentMap());
+        model.put("abConfiguration", CookieInterceptor.convertABConfigurationToString());
 
         // Test setting some values in the session to try session replication
         HttpSession session = request.getSession(true);

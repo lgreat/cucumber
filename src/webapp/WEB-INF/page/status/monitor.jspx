@@ -89,6 +89,11 @@
         <td class="statusvalue">${indexVersion}</td>
         <td class="statuserror"></td>
     </tr>
+    <tr>
+        <td class="statustitle">AB Configuration</td>
+        <td class="statusvalue">${abConfiguration}</td>
+        <td class="statuserror"></td>
+    </tr>
 </table>
 
 <br/>
