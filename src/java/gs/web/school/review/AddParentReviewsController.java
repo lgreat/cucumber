@@ -145,11 +145,12 @@ public class AddParentReviewsController extends SimpleFormController implements 
                     review.setPoster(command.getPoster());
                     return review;
                 } else {
-                    if (command.getOverall() != null && !CategoryRating.DECLINE_TO_STATE.equals(command.getOverall())) {
+                    //only set the category rating if one was given
+                    if (!CategoryRating.DECLINE_TO_STATE.equals(command.getOverall()) && command.getOverall() != null) {
                         review.setQuality(command.getOverall());
-                        review.setPosted(new Date());
-                        review.setProcessDate(null);
                     }
+                    review.setPosted(new Date());
+                    review.setProcessDate(null);
                 }
             }
         }
