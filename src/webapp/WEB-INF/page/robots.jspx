@@ -118,8 +118,8 @@ Disallow: /
 <!-- GS-4261 -->
 <jsp:scriptlet>
     String userAgent = request.getHeader("user-agent");
-    // For all user agents EXCEPT Googlebot, list the sitemap
-    if (userAgent == null || userAgent.indexOf("Googlebot") == -1) {
+    // For all user agents EXCEPT Googlebot or Mediapartners-Google, list the sitemap
+    if (userAgent == null || userAgent.indexOf("Google") == -1) {
     // this is everyone but Googlebot
 </jsp:scriptlet>
 User-agent: *
