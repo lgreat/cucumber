@@ -94,6 +94,11 @@
         <td class="statusvalue">${abConfiguration}</td>
         <td class="statuserror"></td>
     </tr>
+    <tr>
+        <td class="statustitle">Your AB version</td>
+        <td class="statusvalue">${requestScope.context.ABVersion}</td>
+        <td class="statuserror"></td>
+    </tr>
 </table>
 
 <br/>
