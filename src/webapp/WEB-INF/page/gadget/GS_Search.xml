@@ -19,7 +19,7 @@
 
 <div style="border: 3px solid #6cc;">
     <div style="padding: 12px 5px 0 5px; border: 2px solid #dee; border-bottom: 14px solid #dee;">
-        <div style="background: url(http://staging.greatschools.net/res/img/gadget/border_dot.png) repeat-x left bottom; padding: 0 0 16px 0;">
+        <div style="background: url(http://www.greatschools.net/res/img/gadget/border_dot.png) repeat-x left bottom; padding: 0 0 16px 0;">
             <a id="logoLink" href="http://www.greatschools.net/"></a>
         </div>
 
@@ -93,14 +93,14 @@
                 </select>
                 <input type="hidden" name="c" value="school"/>
 
-                <input type="image" src="http://staging.greatschools.net/res/img/gadget/gobutton.png" alt="GO" value="" name="" style="border:none; margin-top:11px; vertical-align:bottom;">
+                <input type="image" src="http://www.greatschools.net/res/img/gadget/gobutton.png" alt="GO" value="" name="" style="border:none; margin-top:11px; vertical-align:bottom;">
             </form>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    var logoImage = _IG_GetImage("http://staging.greatschools.net/res/img/gadget/logo_100x19.png");
+    var logoImage = _IG_GetImage("http://www.greatschools.net/res/img/gadget/logo_100x19.png");
     logoImage.border=0;
 
     _gel("logoLink").appendChild(logoImage);
