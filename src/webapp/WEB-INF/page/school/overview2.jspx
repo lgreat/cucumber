@@ -86,37 +86,36 @@
         <p class="name">Lisa Rosenthal</p>
 		<p class="title">Senior Editor, GreatSchools</p>
             <h3>Editor's Picks</h3>
-            <ul>
-                <c:choose>
-                    <c:when test="${preschoolOnly eq true}">
-                        <!-- Articles for preschools -->
-                        <gsweb:articlelink articleId="249" wrappingElement="li" styleClass="articleLink"/>
-                        <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- Articles for K-12 schools -->
-                        <gsweb:articlelink articleId="197" wrappingElement="li" styleClass="articleLink"/>
-                        <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
-                    </c:otherwise>
-                </c:choose>
-                <li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>
-            </ul>
-            <hr/>
-            <ul>
-                <c:choose>
-                    <c:when test="${preschoolOnly eq true}">
-                        <!-- Articles for preschools -->
+            <c:choose>
+                <c:when test="${preschoolOnly eq true}">
+                    <!-- Articles for preschools -->
+                    <ul>
                         <gsweb:articlelink articleId="900" wrappingElement="li" styleClass="articleLink"/>
                         <gsweb:articlelink articleId="1014" wrappingElement="li" styleClass="articleLink"/>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- Articles for K-12 schools -->
+                        <li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>
+                    </ul>
+                    <hr/>
+                    <ul>
+                        <gsweb:articlelink articleId="249" wrappingElement="li" styleClass="articleLink"/>
+                        <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
+                        <li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>
+                    </ul>
+                </c:when>
+                <c:otherwise>
+                    <!-- Articles for K-12 schools -->
+                    <ul>
                         <gsweb:articlelink articleId="1098" wrappingElement="li" styleClass="articleLink"/>
                         <gsweb:articlelink articleId="782" wrappingElement="li" styleClass="articleLink"/>
-                    </c:otherwise>
-                </c:choose>
-                <li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>
-            </ul>
+                        <li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>
+                    </ul>
+                    <hr/>
+                    <ul>
+                        <gsweb:articlelink articleId="197" wrappingElement="li" styleClass="articleLink"/>
+                        <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
+                        <li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>
+                    </ul>
+                </c:otherwise>
+            </c:choose>
 
 		</div><!-- end: editor -->
     </div><!-- end: col_left" -->
