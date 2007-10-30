@@ -78,6 +78,28 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         assertTrue(output.indexOf("charter") < 0);
     }
 
+    public void testDoTagDCNullItem() throws IOException {
+        _tag.setState(State.DC);
+        _newsItemDao.findNewsItemForState(ResearchAndCompareNewsBlurbTagHandler.CATEGORY, State.DC);
+        _newsItemControl.setReturnValue(null);
+        _newsItemControl.replay();
+        _schoolDao.countSchools(State.DC, null, null, null);
+        _schoolControl.setReturnValue(350);
+        _schoolControl.replay();
+        _tag.doTag();
+        _newsItemControl.verify();
+        _schoolControl.verify();
+
+        MockJspWriter writer = (MockJspWriter)_context.getOut();
+
+        StringBuffer output = writer.getOutputBuffer();
+        System.out.println ("output:\n" + output);
+        assertNotNull(output);
+        assertTrue(output.length() > 0);
+        assertTrue(output.indexOf("http://data.greatschools.net/district_of_columbia/index.html") > -1);
+        assertTrue(output.indexOf("300") > -1);
+    }
+
     public void testDoTag() throws IOException {
         _tag.setState(State.CA);
         NewsItem newsItem = new NewsItem();

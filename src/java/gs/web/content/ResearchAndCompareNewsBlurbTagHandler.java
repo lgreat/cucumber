@@ -214,8 +214,15 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.println(closeParagraph());
 
                 out.print(openParagraph());
-                out.print("<a href=\"http://data.greatschools.net/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\">" +
-                        "Read more about data updates in "+ _state.getLongName() +"</a>");
+
+                if (State.DC.equals(_state)) {
+                    out.print("<a href=\"http://data.greatschools.net/district_of_columbia/index.html\">" +
+                            "Read more about data updates in Washington DC</a>");                    
+                } else {
+                    out.print("<a href=\"http://data.greatschools.net/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\">" +
+                            "Read more about data updates in "+ _state.getLongName() +"</a>");
+                }
+
                 out.println(closeParagraph());
             } else {
                 out.print(openTitle());
