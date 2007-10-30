@@ -92,6 +92,7 @@
                     <option value="WY">WY</option>
                 </select>
                 <input type="hidden" name="c" value="school"/>
+                <input type="hidden" name="cpn" value="GoogleGadget_Search180"/>
 
                 <input type="image" src="http://www.greatschools.net/res/img/gadget/gobutton.png" alt="GO" value="" name="" style="border:none; margin-top:11px; vertical-align:bottom;">
             </form>
