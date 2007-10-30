@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs
+        title=""
+        title_url="http://www.greatschools.net/"
+        description="Search K-12 public, charter and private schools nationwide"
+        height="200"
+        width="170"
+        directory_title="GreatSchools Search"
+        screenshot="http://www.greatschools.net/res/img/gadget/GS_Search_Screenshot.png"
+        thumbnail="http://www.greatschools.net/res/img/gadget/GS_Search_Thumbnail.png"
+        author="Anthony Roy"
+        author_affiliation="GreatSchools"
+        author_location="San Diego, CA, USA"
+        scrolling="false"
+        scaling="false"
+    />
+    <Content type="html"><![CDATA[
+
+<div style="border: 3px solid #6cc;">
+    <div style="padding: 12px 5px 0 5px; border: 2px solid #dee; border-bottom: 14px solid #dee;">
+        <div style="background: url(http://staging.greatschools.net/res/img/gadget/border_dot.png) repeat-x left bottom; padding: 0 0 16px 0;">
+            <a id="logoLink" href="http://www.greatschools.net/"></a>
+        </div>
+
+        <div style="padding: 16px 0 31px 0;">
+            <form action="http://www.greatschools.net/search/search.page" name=""
+                  style="margin:0; padding:0;" target="gsSearch"
+                  onsubmit="window.open('', 'gsSearch', 'width=910,height=600,status=yes,resizable=yes,scrollbars=yes,toolbar=yes,location=yes,menubar=yes')">
+                <script type="text/javascript" charset="utf-8">
+                    function textSwitch(el, target, replace) {
+                        el = document.getElementById(el);
+                        if (el.value == replace) {
+                            el.value = target;
+                        }
+                    }
+                </script>
+                <label style="font: bold 10px 'Trebuchet MS', sans-serif; color:#666;">Find &amp; Compare K-12 Schools</label><br />
+                <input id="location" name="q" type="text" value="School, district or city" onfocus="textSwitch('location', '', 'School, district or city');" onblur="textSwitch('location', 'School, district or city', '');" style="font: 11px 'Trebuchet MS', sans-serif; color:#777; padding: 2px 7px; margin-top: 6px; width:144px; border: 1px solid #777; display: block" />
+
+                <select name="state" style="font: 11px 'Trebuchet MS', sans-serif; color:#777; margin: 11px 14px 0 0;">
+                    <option value="AK">AK</option>
+                    <option value="AL">AL</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option selected="selected" value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DC">DC</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="IA">IA</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MD">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VA">VA</option>
+                    <option value="VT">VT</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                </select>
+                <input type="hidden" name="c" value="school"/>
+
+                <input type="image" src="http://staging.greatschools.net/res/img/gadget/gobutton.png" alt="GO" value="" name="" style="border:none; margin-top:11px; vertical-align:bottom;">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var logoImage = _IG_GetImage("http://staging.greatschools.net/res/img/gadget/logo_100x19.png");
+    logoImage.border=0;
+
+    _gel("logoLink").appendChild(logoImage);
+
+    if (document.getElementById("remote_" + __MODULE_ID__)) {
+        document.getElementById("remote_" + __MODULE_ID__).style.width=_args()["w"];
+    }
+</script>
+
+]]></Content>
+</Module>
