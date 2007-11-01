@@ -57,7 +57,7 @@
         function sendToCoreg() {
             //var destUrl = 'http://www.eversave.com/service/servlet/consumers.Redirect?rid=5822&member=' + memberId + '&em=' + email;
             var destUrl = 'http://www.eversave.com/service/servlet/consumers.Redirect?rid=6141&member=' + memberId + '&em=' + email;
-            window.open(destUrl, 'coreg', 'width=717, height=600, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no');
+            window.open(destUrl, 'coreg', 'width=750, height=600, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no');
             return true;
         }
         -->
