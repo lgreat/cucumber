@@ -26,9 +26,9 @@
 </head>
 <gsml:body adPageName="newsletter" pageLayout="newspop">
     <div id="coregHeader">
-        <h1>Thanks for signing up for<br/>these GreatSchools newsletters</h1>
+        <h1>Thanks for signing up for<br/>GreatSchools newsletters</h1>
     </div>
-
+<!--
     <div id="newslettersList">
         <c:if test="${firstListSize gt 0}">
             <ul id="leftNewsletterList">
@@ -53,6 +53,7 @@
             <gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools logo" id="logo"/>
         </c:if>
     </div>
+-->
     <mod:tracking pageName="Newsletter Hover: Co-reg I-frame"
                  pageType=""
                  hier1="Newsletter, NL hover confirmation, Co-reg I-frame"
