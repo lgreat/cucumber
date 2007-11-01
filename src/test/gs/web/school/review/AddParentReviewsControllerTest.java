@@ -338,6 +338,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         r.setPrincipal(CategoryRating.RATING_3);
         r.setSafety(CategoryRating.RATING_5);
         r.setActivities(CategoryRating.RATING_3);
+        r.setSubmitter("dlee");
 
         _command.setComments("new comments");
         _command.setOverall(null);
@@ -354,6 +355,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         assertEquals(CategoryRating.RATING_5, review2.getSafety());
         assertEquals(CategoryRating.RATING_3, review2.getActivities());
         assertEquals(null, review2.getProcessDate());
+        assertEquals(null, review2.getSubmitter());
         assertTrue(DateUtils.isSameDay(new Date(),review2.getPosted()));
 
         verify(_reviewDao);
