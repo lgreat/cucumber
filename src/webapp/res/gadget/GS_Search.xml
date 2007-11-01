@@ -40,11 +40,12 @@
                 <input id="location" name="q" type="text" value="School, district or city" onfocus="textSwitch('location', '', 'School, district or city');" onblur="textSwitch('location', 'School, district or city', '');" style="font: 11px 'Trebuchet MS', sans-serif; color:#777; padding: 2px 7px; margin-top: 6px; width:144px; border: 1px solid #777; display: block" />
 
                 <select name="state" style="font: 11px 'Trebuchet MS', sans-serif; color:#777; margin: 11px 14px 0 0;">
+                    <option selected="selected" value="">--</option>
                     <option value="AK">AK</option>
                     <option value="AL">AL</option>
                     <option value="AR">AR</option>
                     <option value="AZ">AZ</option>
-                    <option selected="selected" value="CA">CA</option>
+                    <option value="CA">CA</option>
                     <option value="CO">CO</option>
                     <option value="CT">CT</option>
                     <option value="DC">DC</option>
