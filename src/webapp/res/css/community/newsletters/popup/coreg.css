@@ -6,7 +6,8 @@ body {
 #coregHeader {
     background-color: #DDEEEE;
     padding: 5px 0 27px 0;
-    margin-bottom: 15px;
+    /* GS-4620 */
+    /*margin-bottom: 15px;*/
 }
 
 h1 {
