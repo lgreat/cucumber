@@ -86,6 +86,18 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         CookieInterceptor._abCutoffs = null;
         CookieInterceptor.convertABConfigToArray("70/20/20");
         assertNull(CookieInterceptor._abCutoffs);
+
+        CookieInterceptor._abCutoffs = null;
+        CookieInterceptor.convertABConfigToArray("110/5/5");
+        assertNull("Expect no result from values over 100", CookieInterceptor._abCutoffs);
+
+        CookieInterceptor._abCutoffs = null;
+        CookieInterceptor.convertABConfigToArray("0/5/5");
+        assertNull("Expect no result from values less than 1", CookieInterceptor._abCutoffs);
+
+        CookieInterceptor._abCutoffs = null;
+        CookieInterceptor.convertABConfigToArray(null); // no crash on null
+        assertNull(CookieInterceptor._abCutoffs);
     }
 
     public void testDetermineVariantFromConfiguration() {
@@ -149,6 +161,20 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         assertFalse(_interceptor.isKnownCrawler(getRequestWithUserAgent("Mozilla/4.0 (compatible; MSIE 4.01; Windows 95)")));
         assertTrue(_interceptor.isKnownCrawler(getRequestWithUserAgent("Mozilla/5.0 (compatible; Googlebot/2.1; http://www.google.com/bot.html)")));
         assertTrue(_interceptor.isKnownCrawler(getRequestWithUserAgent("Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)")));
+    }
+
+    public void testKnownCrawlerOverridesABValue() {
+        CookieInterceptor._abCutoffs = new int[] {1,1};
+        CookieInterceptor._cutoffTotal = 2;
+
+        Cookie trnoCookieA = new Cookie("TRNO", "1.192.1.1.1");
+        MockHttpServletRequest request = getRequest();
+        request.setCookies(new Cookie[]{trnoCookieA});
+        _interceptor.determineAbVersion(trnoCookieA, request, _sessionContext);
+        assertEquals("Expect b variant from normal user agent", "b", _sessionContext.getABVersion());
+
+        _interceptor.determineAbVersion(trnoCookieA, getRequestWithUserAgent("Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"), _sessionContext);
+        assertEquals("Expect a variant from crawler user agent", "a", _sessionContext.getABVersion());
     }
 
     public void testConvertABConfigurationToString() {
