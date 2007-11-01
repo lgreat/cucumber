@@ -153,6 +153,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
                     review.setProcessDate(null);
                     //new review submitted, so set the processor to null
                     review.setSubmitter(null);
+                    review.setNote(null);
                     _log.warn("updating a non empty review with a new comment.\nOld Comment: "
                             + review.getComments() +
                             "\nNew Comment: " + command.getComments() + "\nOld processor: " + review.getSubmitter()
