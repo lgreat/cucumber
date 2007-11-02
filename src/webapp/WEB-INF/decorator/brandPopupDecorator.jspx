@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
+        xmlns:gsweb="gstaglib"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        >
+<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="pageClass"><c:if
+        test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}"
+</c:set>
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+<head>
+    <title>
+        <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
+    </title>
+    <gsml:url var="brandCss" value="/res/css/brand.css"/>
+    <![CDATA[<link rel="stylesheet" type="text/css" href="${brandCss}"></link>]]>
+
+    <gsml:url var="globaljs" value="/res/js/global.js"/>
+    <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
+
+    <decorator:head/>
+    ${requestScope.pageHelper.headElements}
+</head>
+
+<body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}" class="hover">
+    <div id="marginGS" class="marginGS">
+        <div id="contentGS" class="contentGS">
+            <decorator:body/>
+        </div>
+    </div>
+</body>
+</html>
+</jsp:root>

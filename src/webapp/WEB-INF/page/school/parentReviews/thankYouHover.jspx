@@ -18,14 +18,7 @@
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <title>Parent Review: Thank you for rating ${school.name} - ${school.physicalAddress.city}, ${stateAbbrev}</title>
         <meta name="description" content="Thank you for submitting a parent review about ${school.name}. Read other reviews about ${school.name} here."/>
-        <pageHelper:externalCss file="/res/css/brand.css"/>
-        <style type="text/css">
-            p {font-size: 15px;line-height:120%;}
-            #thankYou {color: #55bbcc; font-size: 20px; font-weight:bold;}
-            #marginGS {background-color:#fff;height:500px;padding:10px 0 0 26px;width:290px;}            
-            #marginGS a, #marginGS a:link, #marginGS a:hover, #marginGS a:visited {text-decoration:underline; font-size:14px;line-height:120%;}
-            #close {margin:30px 0 0 140px;}            
-        </style>
+        <pageHelper:externalCss file="/res/css/school/parentReviews/hover.css"/>
         <script type="text/javascript">
             function onClose() {
             var link = document.getElementById('sppPR');
@@ -37,21 +30,26 @@
                 }
             }}
         </script>
+        <style type="text/css">
+            .marginGS a, .marginGS a:link, .marginGS a:hover, .marginGS a:visited {font-size:14px;line-height:120%;}
+        </style>        
         <pageHelper:addOnLoadHandler handler="onClose();"/>
     </head>
 
     <gsml:body adPageName="thankYouHover">
-        <p id="thankYou">Thank you!</p>
+        <div id="thankYouContent">
+            <p id="thankYou">Thank you!</p>
 
-        <p>Our Parent Review team will read your
-            review and post it if it meets our
-            guidelines. This process may take a
-            a few days.
-        </p>
-        <c:if test="${hasReview}">
-            <link:schoolProfileParentReview school="${school}" id="sppPR">Read other Parent Reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
-        </c:if>
-        <div id="close"><a href="#" onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
+            <p>Our Parent Review team will read your
+                review and post it if it meets our
+                guidelines. This process may take a
+                a few days.
+            </p>
+            <c:if test="${hasReview}">
+                <link:schoolProfileParentReview school="${school}" id="sppPR">Read other Parent Reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
+            </c:if>
+            <div id="close"><a href="#" onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
+        </div>
         <mod:tracking pageType="Parent Review"
                       pageName="PR Thank You Hover Omniture "
                       hier1="School,Parent Reviews,PR Thank You Hover Omniture"/>

@@ -31,7 +31,7 @@
             success:AjaxObject.handleSuccess,
             failure:AjaxObject.handleFailure,
             scope: AjaxObject,
-            argument: ['${ratingPage}']
+            argument: ['${ratingPage}','${pageName}']
         };
         -->]]>
     </script>
@@ -39,9 +39,9 @@
         <c:when test="${pageName eq 'parentReviews'}">
             <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/></h2>
         </c:when>
-        <c:otherwise>
+        <c:when test="${pageName eq 'overview'}">
             <h2 id="rateReviewH2" class="noprint"><a name="rReview"><c:out escapeXml="true" value="Rate ${school.name}"/></a></h2>
-        </c:otherwise>
+        </c:when>
     </c:choose>
     <div id="rateReview" class="noprint">
         <div id="ratingTitle">Rate this school</div>

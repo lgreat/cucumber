@@ -57,7 +57,12 @@ var AjaxObject = {
             document.getElementById('submitReview').disabled = true;
             var email = document.getElementById('reviewEmail').value;
             var successUrl = o.argument[0] + '&email='+email;
-            showPopWin(successUrl, 344, 362, null, 'ratingPage');
+            var referPage = o.argument[1];
+            if (referPage && referPage != 'hover') {
+                showPopWin(successUrl, 344, 362, null, 'ratingPage');
+            } else {
+                location.href = successUrl;
+            }
         } else {
             for (var i=0;i<jsonResponse.errors.length;i++) {
                 var li = document.createElement('li');

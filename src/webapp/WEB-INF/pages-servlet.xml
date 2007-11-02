@@ -1119,19 +1119,9 @@
     </bean>
 
     <bean name="addParentReviews"
-          class="gs.web.school.review.AddParentReviewsController"
+          class="gs.web.school.SchoolInModelController"
           autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="parentReviewCommand"/>
-        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
-        <property name="formView" value="/school/parentReviews/addComments"/>
-        <property name="successView" value="redirect:/school/parentReviews/updatedParentRatingsThanks.page"/>
-        <property name="validators">
-            <list>
-                <ref bean="emailValidator"/>
-                <ref bean="addParentReviewsValidator"/>
-            </list>
-        </property>
+        <property name="viewName" value="/school/parentReviews/addCommentsHover"/>
     </bean>
 
     <bean name="ajaxAddParentReviews"

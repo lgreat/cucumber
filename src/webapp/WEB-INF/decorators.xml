@@ -7,9 +7,14 @@
         <pattern>/community/newsletters/popup/*</pattern>
         <pattern>/miniSelectAState.page*</pattern>
         <pattern>/community/mailToFriend.page*</pattern>
-        <pattern>/school/updateRatings.page*</pattern>
-        <pattern>/school/thankYouHover.page*</pattern>
     </decorator>
+
+    <decorator name="popupDecorator" page="brandPopupDecorator.jspx">
+        <pattern>/school/addComments.page*</pattern>
+        <pattern>/school/updateRatings.page*</pattern>
+        <pattern>/school/thankYouHover.page*</pattern>        
+    </decorator>
+
 
     <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">
         <pattern>/ads/serveAds.page*</pattern>
