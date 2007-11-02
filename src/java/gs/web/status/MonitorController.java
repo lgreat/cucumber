@@ -7,8 +7,8 @@ import gs.data.dao.PartitionedDatabaseTestEntity;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.util.StackTraceUtil;
-import gs.web.util.CookieInterceptor;
 import gs.web.util.ReadWriteController;
+import gs.web.util.VariantConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -125,7 +125,7 @@ public class MonitorController implements ReadWriteController {
         model.put("stateReadWrite", Boolean.valueOf(stateReadWrite));
         model.put("stateError", stateError);
         model.put("environment", getEnvironmentMap());
-        model.put("abConfiguration", CookieInterceptor.convertABConfigurationToString());
+        model.put("abConfiguration", VariantConfiguration.convertABConfigurationToString());
 
         // Test setting some values in the session to try session replication
         HttpSession session = request.getSession(true);

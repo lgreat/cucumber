@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.33 2007/10/29 23:38:19 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.34 2007/11/02 00:41:35 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -24,6 +24,7 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.regex.Pattern;
 
 /**
  * Provides...
@@ -80,6 +81,8 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     /* User information cached cookies */
 
+    private static final Pattern CRAWLER_USER_AGENTS =
+            Pattern.compile(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver).*");
 
     private static final Log _log = LogFactory.getLog(SessionContextUtil.class);
     private ApplicationContext _applicationContext;
@@ -269,7 +272,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     }
 
     public static boolean isKnownCrawler(String userAgent) {
-        return userAgent != null && userAgent.toLowerCase().matches(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver).*");
+        return userAgent != null && CRAWLER_USER_AGENTS.matcher(userAgent.toLowerCase()).matches();
     }
 
     /**

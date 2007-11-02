@@ -48,108 +48,6 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         assertTrue(hasCookie);
     }
 
-    public void testConvertABConfigToArray() {
-        CookieInterceptor._abCutoffs = null;
-        assertNull(CookieInterceptor._abCutoffs);
-        CookieInterceptor.convertABConfigToArray("70/15/15");
-        assertNotNull(CookieInterceptor._abCutoffs);
-        int[] ar = CookieInterceptor._abCutoffs;
-        assertEquals(3, ar.length);
-        assertEquals(70, ar[0]);
-        assertEquals(15, ar[1]);
-        assertEquals(15, ar[2]);
-        assertEquals(100, CookieInterceptor._cutoffTotal);
-
-        CookieInterceptor._abCutoffs = null;
-        CookieInterceptor.convertABConfigToArray("33/33/33");
-        assertNotNull(CookieInterceptor._abCutoffs);
-        ar = CookieInterceptor._abCutoffs;
-        assertEquals(3, ar.length);
-        assertEquals(33, ar[0]);
-        assertEquals(33, ar[1]);
-        assertEquals(33, ar[2]);
-        assertEquals(99, CookieInterceptor._cutoffTotal);
-
-        CookieInterceptor._abCutoffs = null;
-        CookieInterceptor.convertABConfigToArray("1/1");
-        assertNotNull(CookieInterceptor._abCutoffs);
-        ar = CookieInterceptor._abCutoffs;
-        assertEquals(2, ar.length);
-        assertEquals(1, ar[0]);
-        assertEquals(1, ar[1]);
-        assertEquals(2, CookieInterceptor._cutoffTotal);
-
-        CookieInterceptor._abCutoffs = null;
-        CookieInterceptor.convertABConfigToArray("50");
-        assertNull(CookieInterceptor._abCutoffs);
-
-        CookieInterceptor._abCutoffs = null;
-        CookieInterceptor.convertABConfigToArray("70/20/20");
-        assertNull(CookieInterceptor._abCutoffs);
-
-        CookieInterceptor._abCutoffs = null;
-        CookieInterceptor.convertABConfigToArray("110/5/5");
-        assertNull("Expect no result from values over 100", CookieInterceptor._abCutoffs);
-
-        CookieInterceptor._abCutoffs = null;
-        CookieInterceptor.convertABConfigToArray("0/5/5");
-        assertNull("Expect no result from values less than 1", CookieInterceptor._abCutoffs);
-
-        CookieInterceptor._abCutoffs = null;
-        CookieInterceptor.convertABConfigToArray(null); // no crash on null
-        assertNull(CookieInterceptor._abCutoffs);
-    }
-
-    public void testDetermineVariantFromConfiguration() {
-        CookieInterceptor._abCutoffs = new int[] {50,50};
-        CookieInterceptor._cutoffTotal = 100;
-        _interceptor.determineVariantFromConfiguration(0, _sessionContext);
-        assertEquals("a", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(49, _sessionContext);
-        assertEquals("a", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(50, _sessionContext);
-        assertEquals("b", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(99, _sessionContext);
-        assertEquals("b", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(100, _sessionContext);
-        assertEquals("a", _sessionContext.getABVersion());
-
-        CookieInterceptor._abCutoffs = new int[] {70,15,15};
-        _interceptor.determineVariantFromConfiguration(0, _sessionContext);
-        assertEquals("a", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(70, _sessionContext);
-        assertEquals("b", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(85, _sessionContext);
-        assertEquals("c", _sessionContext.getABVersion());
-
-        CookieInterceptor._abCutoffs = new int[] {1,1};
-        CookieInterceptor._cutoffTotal = 2;
-        _interceptor.determineVariantFromConfiguration(0, _sessionContext);
-        assertEquals("a", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(1, _sessionContext);
-        assertEquals("b", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(2, _sessionContext);
-        assertEquals("a", _sessionContext.getABVersion());
-        _sessionContext.setAbVersion(null);
-        _interceptor.determineVariantFromConfiguration(System.currentTimeMillis() / 1000, _sessionContext);
-        assertNotNull(_sessionContext.getABVersion());
-
-        CookieInterceptor._abCutoffs = new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-        CookieInterceptor._cutoffTotal = 26;
-        _interceptor.determineVariantFromConfiguration(0, _sessionContext);
-        assertEquals("a", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(17, _sessionContext);
-        assertEquals("r", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(14, _sessionContext);
-        assertEquals("o", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(24, _sessionContext);
-        assertEquals("y", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(25, _sessionContext);
-        assertEquals("z", _sessionContext.getABVersion());
-        _interceptor.determineVariantFromConfiguration(26, _sessionContext);
-        assertEquals("a", _sessionContext.getABVersion());
-    }
-
     private static GsMockHttpServletRequest getRequestWithUserAgent(String userAgent) {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setServerName("www.greatschools.net");
@@ -164,8 +62,8 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
     }
 
     public void testKnownCrawlerOverridesABValue() {
-        CookieInterceptor._abCutoffs = new int[] {1,1};
-        CookieInterceptor._cutoffTotal = 2;
+        VariantConfiguration._abCutoffs = new int[] {1,1};
+        VariantConfiguration._cutoffTotal = 2;
 
         Cookie trnoCookieA = new Cookie("TRNO", "1.192.1.1.1");
         MockHttpServletRequest request = getRequest();
@@ -175,20 +73,6 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
 
         _interceptor.determineAbVersion(trnoCookieA, getRequestWithUserAgent("Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"), _sessionContext);
         assertEquals("Expect a variant from crawler user agent", "a", _sessionContext.getABVersion());
-    }
-
-    public void testConvertABConfigurationToString() {
-        CookieInterceptor._abCutoffs = new int[] {1,1};
-        CookieInterceptor._cutoffTotal = 2;
-        assertEquals("A/B: 50/50", CookieInterceptor.convertABConfigurationToString());
-
-        CookieInterceptor._abCutoffs = new int[] {4,1};
-        CookieInterceptor._cutoffTotal = 5;
-        assertEquals("A/B: 80/20", CookieInterceptor.convertABConfigurationToString());
-
-        CookieInterceptor._abCutoffs = new int[] {14,3,3};
-        CookieInterceptor._cutoffTotal = 20;
-        assertEquals("A/B/C: 70/15/15", CookieInterceptor.convertABConfigurationToString());
     }
 
     public void testVersionParameterShouldOverrideABValueFromTrnoCooki() throws Exception {

@@ -11,6 +11,8 @@
 #   A/B 80/20:      4/1
 #   A/B/C 70/15/15: 14/3/3
 #
+#   TO DISABLE (A ONLY): 1
+#
 # Configuration is set as a ratio as follows
 # Each number represents the ratio of that version occurring out of the sum of all versions.
 # EXAMPLE:
@@ -21,5 +23,6 @@
 # RESTRICTIONS:
 #   - Each value must be in the range 1-99
 #   - The sum of all values must be less than or equal to 100
+#   - There can be no more than 26 values
 #
 1/1

@@ -45,6 +45,7 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         assertNotNull(environment);
         // assertNotNull(environment.get("log4j.configuration"));
         assertNotNull(environment.get("log4j.mailappender"));
+        assertTrue(((String) model.get("abConfiguration")).length() > 0);
 
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("logmessage", "test");

@@ -61,6 +61,13 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         return request;
     }
 
+    public void testIsKnownCrawler() {
+        assertFalse(SessionContextUtil.isKnownCrawler(null));
+        assertFalse(SessionContextUtil.isKnownCrawler("Mozilla/4.0 (compatible; MSIE 4.01; Windows 95)"));
+        assertTrue(SessionContextUtil.isKnownCrawler("Mozilla/5.0 (compatible; Googlebot/2.1; http://www.google.com/bot.html)"));
+        assertTrue(SessionContextUtil.isKnownCrawler("Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"));
+    }
+
     public void testUpdateFromParamsDetectsCrawler() {
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
         assertFalse(_sessionContext.isCrawler());
