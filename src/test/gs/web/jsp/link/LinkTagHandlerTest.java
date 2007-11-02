@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.35 2007/10/08 19:11:21 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.36 2007/11/02 23:51:11 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -20,7 +20,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.ServletContext;
 import java.io.IOException;
 
 /**
@@ -44,12 +43,13 @@ public class LinkTagHandlerTest extends BaseTestCase {
         MockPageContext pc = new MockPageContext();
         handler.setPageContext(pc);
         handler.setTarget("theTarget");
+        handler.setOnclick("return false;");
 
         handler.doStartTag();
         handler.doAfterBody();
         handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a target=\"theTarget\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+        assertEquals("<a target=\"theTarget\" onclick=\"return false;\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
                 out.getOutputBuffer().toString());
         handler.setTarget(null);
 
@@ -57,6 +57,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         pc = new MockPageContext();
         handler.setPageContext(pc);
         handler.setStyleClass("theStyle");
+        handler.setOnclick(null);
 
         handler.doStartTag();
         handler.doAfterBody();

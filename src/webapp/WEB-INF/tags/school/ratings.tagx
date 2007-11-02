@@ -6,7 +6,6 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
-    <jsp:directive.tag import="gs.data.school.review.Ratings"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="gsRating" required="true" description="GreatSchools Overall Rating Integer" type="java.lang.Integer"/>
     <jsp:directive.attribute name="parentRating" required="true" description="Parent Ratings Object" type="gs.data.school.review.Ratings"/>
@@ -60,7 +59,11 @@
         <div id="rating_parent">
             <c:choose>
                 <c:when test="${not hasParentRating}">
-                    <link:schoolProfileAddParentReview school="${school}">
+                    <link:schoolProfileAddParentReview
+                            school="${school}"
+                            onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                            styleClass="submodal-344-362"
+                            >
                         <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!"
                                   styleClass="parentTitle" />
                         <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars" />
@@ -73,7 +76,11 @@
                         <gsml:img src="/res/img/school/overview/rating_OverallParentRating.gif" alt="Overall Parent Rating" styleClass="parentTitle" />
                         <gsml:img src="/res/img/school/overview/stars_${parentRating.avgQuality}.gif" alt="${parentRating.avgQuality} out of 5 stars" styleClass="stars" />
                     </link:schoolProfileParentReview>
-                    <link:schoolProfileAddParentReview school="${school}">
+                    <link:schoolProfileAddParentReview
+                            school="${school}"
+                            onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"                
+                            styleClass="submodal-344-362"
+                            >
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" rollover="/res/img/school/overview/submit_RateIt_rollover.gif"
                                   alt="Rate It" styleClass="rateIt" />
                     </link:schoolProfileAddParentReview>

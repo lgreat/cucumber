@@ -1250,6 +1250,13 @@
             <type>java.lang.String</type>
             <description>Element title (tooltip)</description>
         </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>onclick handler</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolCompareSchool</name>

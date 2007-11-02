@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.13 2007/10/08 19:11:21 aroy Exp $
+ * $Id: LinkTagHandler.java,v 1.14 2007/11/02 23:51:10 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -41,6 +41,7 @@ public abstract class LinkTagHandler extends TagSupport {
     private String _styleId;
     private String _onMouseOver;
     private String _onMouseOut;
+    private String _onclick;
     private boolean _absolute = false;
 
     /**
@@ -124,7 +125,7 @@ public abstract class LinkTagHandler extends TagSupport {
         }
 
         if (StringUtils.isNotEmpty(_styleClass)) {
-            pageContext.getOut().print(" class=\"");
+            pageContext.getOut().print(" class=\"");            
             pageContext.getOut().print(_styleClass);
             pageContext.getOut().print("\"");
         }
@@ -151,6 +152,12 @@ public abstract class LinkTagHandler extends TagSupport {
             pageContext.getOut().print(" onmouseout=\"");
             pageContext.getOut().print(_onMouseOut);
             pageContext.getOut().print("\"");
+        }
+
+        if (StringUtils.isNotEmpty(_onclick)) {
+            pageContext.getOut().print(" onclick=\"");
+            pageContext.getOut().print(_onclick);
+            pageContext.getOut().print("\"");            
         }
 
         String href;
@@ -201,6 +208,11 @@ public abstract class LinkTagHandler extends TagSupport {
             state = sc.getStateOrDefault();
         }
         return state;
+    }
+
+
+    public String getStyleClass() {
+        return _styleClass;
     }
 
     public void setStyleClass(String styleClass) {
@@ -259,5 +271,13 @@ public abstract class LinkTagHandler extends TagSupport {
 
     public void setAbsolute(boolean absolute) {
         _absolute = absolute;
+    }
+
+    public String getOnclick() {
+        return _onclick;
+    }
+
+    public void setOnclick(String onclick) {
+        _onclick = onclick;
     }
 }

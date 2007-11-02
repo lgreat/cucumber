@@ -153,8 +153,14 @@
 
         <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 
-        <link:schoolProfileAddParentReview school="${school}" styleClass="rateImg toolsImg"><gsml:img src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
-        <link:schoolProfileAddParentReview school="${school}" styleClass="rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
+        <link:schoolProfileAddParentReview
+                school="${school}"
+                onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                styleClass="submodal-344-362 rateImg toolsImg"><gsml:img src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
+        <link:schoolProfileAddParentReview
+                school="${school}"
+                onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                styleClass="submodal-344-362 rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
 
         <c:choose>
             <c:when test="${schoolType != 'private'}">
@@ -204,7 +210,10 @@
         <c:choose>
             <c:when test="${parent_rating eq 0}">
                 <c:set var="parent_rating_title" value="Be the first to rate!"/>
-                <link:schoolProfileAddParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
+                <link:schoolProfileAddParentReview 
+                        school="${school}"
+                        onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                        styleClass="submodal-344-362 parent_rating parent_${parent_rating}" title="${parent_rating_title}">
                     &amp;#160;
                 </link:schoolProfileAddParentReview>
             </c:when>

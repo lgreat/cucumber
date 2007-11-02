@@ -70,7 +70,7 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         tagHandler = new AddParentReviewTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/addcomments/wy/8", builder.asSiteRelative(null));
+        assertEquals("/school/addComments.page?id=8&state=WY", builder.asSiteRelative(null));
 
         tagHandler = new RatingsTagHandler();
         school.setDatabaseState(State.CA);
