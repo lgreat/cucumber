@@ -381,7 +381,7 @@ hr { /* has IE 7 equivalent */
 
 #parentReviews a {
 	float: right;
-	margin: 4px 0 0 0;
+	margin: 4px 15px 0 0;
 }
 
 #parentReviews .callout {
@@ -556,4 +556,39 @@ div#topCompare div#compareSchool {
 
 .surveyTeaser {
     margin:10px 0 20px 0;
+}
+
+img.psRating {
+    padding:15px 0 6px 10px;
+}
+
+div.psComment {
+	font: 12px/15px Trebuchet MS, sans-serif;
+    color:#666666;
+    padding:0 40px 0 10px;
+}
+
+#parentReviews a.ps {
+	margin: 10px 35px 0 0;
+}
+
+#parentReviews div.psCallout  {
+    font: 16px Trebuchet MS, sans-serif;
+    padding:10px 20px 20px 15px;
+    margin:45px 0 0 0;
+    color:#888888;
+    background:#DDEEEE;
+    position:relative;
+}
+#parentReviews div.psCallout em {
+    font: 16px Trebuchet MS, sans-serif;
+    color:#55BBCC;
+}
+
+#parentReviews div.psCallout a {
+    font-size:12px;
+    float:none;
+    position:absolute;
+    right:20px;
+    bottom:12px;
 }

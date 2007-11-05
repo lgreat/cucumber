@@ -21,10 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This controller handles requests for the School Profile Overview page:
@@ -211,20 +208,31 @@ public class SchoolOverviewController extends AbstractSchoolController {
         String SAFETY_CAT = "safety and discipline are";
 
         Map latestReviewsModel = null;
+        List<Map> preschoolReviews = null;
+
         List reviews = getReviewDao().getPublishedReviewsBySchool(school);
         if (reviews != null && reviews.size() != 0) {
-            Review review = null;
+            Review latestReview = null;
             for (int i = 0; i < reviews.size(); i++) {
                 Review aReview = (Review) reviews.get(i);
                 if (!CategoryRating.DECLINE_TO_STATE.equals(aReview.getQuality()) && aReview.getComments() != null) {
-                    review = aReview;
-                    break;
+                    if (latestReview == null) { latestReview = aReview; }
+                    if (!school.getLevelCode().equals(LevelCode.PRESCHOOL) || i > 2) {
+                        break;
+                    } else {
+                        if (preschoolReviews == null) preschoolReviews = new ArrayList<Map>();
+                        Map<String, String> preschoolData = new HashMap<String, String>();
+                        preschoolData.put("psRating", aReview.getQuality().getName());
+                        preschoolData.put("psComment", Util.abbreviateAtWhitespace(aReview.getComments(), REVIEW_LENGTH));
+                        preschoolReviews.add(preschoolData);
+                    }
                 }
             }
 
-            if (review != null) {
+            if (latestReview != null) {
+
                 Ratings ratings = getReviewDao().findRatingsBySchool(school);
-                if (ratings.getCount().intValue() > 2) {
+                if (ratings.getCount() > 2) {
                     Integer randomRating = null;
                     String randomCategory = null;
 
@@ -281,10 +289,14 @@ public class SchoolOverviewController extends AbstractSchoolController {
                         latestReviewsModel = new HashMap();
                         latestReviewsModel.put("randomCategory", randomCategory);
                         latestReviewsModel.put("randomRating", ratingStrings[randomRating.intValue() - 1]);
-                        latestReviewsModel.put("latestRating", review.getQuality().getName());
+                        latestReviewsModel.put("latestRating", latestReview.getQuality().getName());
                         latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
                         latestReviewsModel.put("comment",
-                                Util.abbreviateAtWhitespace(review.getComments(), REVIEW_LENGTH));
+                                Util.abbreviateAtWhitespace(latestReview.getComments(), REVIEW_LENGTH));
+
+                        if (preschoolReviews != null) {
+                            latestReviewsModel.put("preschoolReviews", preschoolReviews);
+                        }
                     }
                 }
             }

@@ -142,19 +142,40 @@
             <c:if test="${not empty latestReviewsModel}">
                 <div id="parentReviews">
                     <h2>Latest ${school.name} Parent Reviews</h2>
-                    <gsml:img src="/res/img/map/ratings_parent_city_${latestReviewsModel.latestRating}.gif" alt="" styleClass="rating" />
-                    <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
-                        ${latestReviewsModel.randomRating}</em>
-                        <link:schoolProfileParentReview school="${school}" title="Parent Reviews">Learn more &#62;</link:schoolProfileParentReview>
-                    </p>
-                    <p>${latestReviewsModel.comment}
-                        <link:schoolProfileParentReview school="${school}" title="Read all reviews">
-                            <c:choose>
-                                <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
-                                <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
-                            </c:choose>
-                        </link:schoolProfileParentReview>
-                    </p>
+
+                    <c:choose>
+                        <c:when test="${school.levelCode != 'p'}">
+                            <gsml:img src="/res/img/map/ratings_parent_city_${latestReviewsModel.latestRating}.gif" alt="" styleClass="rating" />
+                            <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
+                                ${latestReviewsModel.randomRating}</em>
+                                <link:schoolProfileParentReview school="${school}" title="Parent Reviews">Learn more &#62;</link:schoolProfileParentReview>
+                            </p>
+                            <p>${latestReviewsModel.comment}</p>
+                            <link:schoolProfileParentReview school="${school}" title="Read all reviews">
+                                <c:choose>
+                                    <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
+                                    <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
+                                </c:choose>
+                            </link:schoolProfileParentReview>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="psReview" items="${latestReviewsModel.preschoolReviews}">
+                                <gsml:img src="/res/img/map/ratings_parent_city_${psReview.psRating}.gif" alt="" styleClass="psRating" />
+                                <div class="psComment">${psReview.psComment}</div>
+                            </c:forEach>
+                            <link:schoolProfileParentReview school="${school}" title="Read all reviews" styleClass="ps">
+                                <c:choose>
+                                    <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
+                                    <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
+                                </c:choose>
+                            </link:schoolProfileParentReview>
+                            <div class="psCallout">Parents at this school think <em>${latestReviewsModel.randomCategory}
+                                ${latestReviewsModel.randomRating}</em>
+                                <link:schoolProfileParentReview school="${school}" title="Parent Reviews">Learn more &#62;</link:schoolProfileParentReview>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
             </c:if>
 
