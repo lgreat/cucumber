@@ -13,13 +13,16 @@
 <html lang="en">
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <title>Add parent reviews</title>
+    <title>PR Module Hover</title>
     <meta name="description" content="meta description"/>
     <pageHelper:externalCss file="/res/css/school/parentReviews/hover.css"/>
 </head>
 <gsml:body adPageName="addParentReviews">
     <school:parentReviewForm school="${school}" pageName="hover"/>
-    <mod:tracking pageType="change me" pageName="change me" hier1="change me"/>
+    <mod:tracking
+            pageType="Parent Review"
+            pageName="PR Module Hover"
+            hier1="School,Parent Reviews,PR Module Hover"/>
 </gsml:body>
 </html>
 </jsp:root>
