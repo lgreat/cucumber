@@ -3,18 +3,19 @@
         NOTE: excludes have precendence over decorator patterns, so if a pattern is
         matched in both places, it will not be decorated
     -->
+    <!--!!!!!DEPRACATED!!!!!...try to use brandPopupDecorator-->
     <decorator name="popupDecorator" page="popupDecorator.jspx">
         <pattern>/community/newsletters/popup/*</pattern>
         <pattern>/miniSelectAState.page*</pattern>
         <pattern>/community/mailToFriend.page*</pattern>
     </decorator>
-
-    <decorator name="popupDecorator" page="brandPopupDecorator.jspx">
+    <!--!!!!!DEPRACATED!!!!!...try to use brandPopupDecorator-->
+    
+    <decorator name="brandPopupDecorator" page="brandPopupDecorator.jspx">
         <pattern>/school/addComments.page*</pattern>
         <pattern>/school/updateRatings.page*</pattern>
         <pattern>/school/thankYouHover.page*</pattern>        
     </decorator>
-
 
     <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">
         <pattern>/ads/serveAds.page*</pattern>
