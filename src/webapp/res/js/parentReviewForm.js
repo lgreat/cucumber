@@ -22,7 +22,7 @@ function setDisplay(numStars) {
         case 3: title = 'Average'; break;
         case 4: title = 'Above Average'; break;
         case 5: title = 'Excellent'; break;
-        default: title = 'Rate this school'; break;
+        default: title = document.getElementById('schoolName').value; break;
     }
     document.getElementById('ratingTitle').innerHTML = title;
 }

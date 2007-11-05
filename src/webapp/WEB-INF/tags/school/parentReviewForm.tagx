@@ -9,6 +9,7 @@
           xmlns:gsweb="gstaglib">
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
 
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
@@ -22,7 +23,13 @@
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         String email = sessionContext.getEmail();
-        request.setAttribute("email",email);
+        request.setAttribute("email", email);
+
+        boolean showName = false;
+        if (StringUtils.isNotBlank(request.getParameter("showName"))) {
+            showName = true;
+        }
+        request.setAttribute("showName", showName);
     </jsp:scriptlet>
     
     <script type="text/javascript">
@@ -43,10 +50,15 @@
             <h2 id="rateReviewH2" class="noprint"><a name="rReview"><c:out escapeXml="true" value="Rate ${school.name}"/></a></h2>
         </c:when>
     </c:choose>
-    <div id="rateReview" class="noprint">
-        <div id="ratingTitle">Rate this school</div>
-            <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
+    <c:set var="schoolName" value="Rate this school"/>
+    <c:if test="${showName}">
+        <c:set var="schoolName" value="${school.name}"/>
+    </c:if>
 
+    <div id="rateReview" class="noprint">
+        <div id="ratingTitle">${schoolName}</div>
+        <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
+                <input type="hidden" id="schoolName" name="schoolName" value="${schoolName}"/>
                 <!--Begin star ratings.
                     Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
                     But because this page may load slowly, that's not an option.
