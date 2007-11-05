@@ -24,9 +24,14 @@
             var link = document.getElementById('sppPR');
             if (link) {
                 link.onclick = function() {
-                    window.top.hidePopWin(false);
-                    window.top.location=this.href;
-                    return false;
+                    if (typeof window.top.hidePopWin == 'undefined') {
+                        opener.location.href = this.href;
+                        window.close();                        
+                    } else {
+                        window.top.hidePopWin(false);
+                        window.top.location=this.href;
+                        return false;
+                    }
                 }
             }}
         </script>
@@ -45,10 +50,10 @@
                 guidelines. This process may take a
                 a few days.
             </p>
-            <c:if test="${hasReview}">
-                <link:schoolProfileParentReview school="${school}" id="sppPR">Read other Parent Reviews of<br/> ${school.name} &gt;</link:schoolProfileParentReview>
-            </c:if>
-            <div id="close"><a href="#" onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_closeWindow.gif" alt="Close Window"/></a></div>
+            <p id="knowMore">Parents want to know more!</p>
+            <p>Share more details about your school's special characteristics.</p>
+            <link:schoolStartSurvey school="${school}"                                    
+                                    id="sppPR">Complete a Parent Survey &gt;&gt;</link:schoolStartSurvey>
         </div>
         <mod:tracking pageType="Parent Review"
                       pageName="PR Thank You Hover Omniture "

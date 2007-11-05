@@ -63,7 +63,8 @@
 
             <div id="subButtons">
                 <gsml:url var="thankYouPage" value="/school/thankYouHover.page?id=${school.id}&amp;state=${stateAbbrev}"/>
-                <a href="${thankYouPage}"><gsml:img src="/res/img/button/btn_noThanksImDone.gif" alt="No thanks, I'm done"/></a>                
+
+                <a href="${thankYouPage}">No thanks, I'm done</a>                
                 <gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit" id="submit"/>
             </div>
         </form:form>

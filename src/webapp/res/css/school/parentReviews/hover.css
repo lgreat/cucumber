@@ -1,25 +1,29 @@
 /*global styles*/
 ul {margin:0;list-style-type:none;padding:0}
-#marginGS {margin:0; padding:0; width:330px;height:500px;}
+#marginGS {margin:0; padding:0; width:315px;height:500px;}
 #marginGS a:link, #marginGS a:hover, #marginGS a:visited {text-decoration:underline;}
 #contentGS {margin:0;padding:0;}
 img {border:none;}
 
 /*add comments page*/
-#contentGS #rateReview {border:none;}
+#contentGS #rateReview {border:none;padding:0 0 0 14px;margin:0 0 0 0;}
 input#permission, input#wantMssNL {width:15px; height:15px;margin:0;padding:0;}
 #frmPRModule {margin-top:0;}
 
 
 /*update ratings page*/
+#updateRatings {padding-left:14px;}
 #updateRatings #thankYou {color:#55bbcc;line-height:130%;font-size:16px;font-weight:bolder;}
 #updateRatings p,td{font-size:14px;}
 #updateRatings table {padding:0; margin:0;}
 #updateRatings td {padding:0 0 10px 0;}
-#updateRatings #subButtons {margin:30px 0 0 30px;}
-#updateRatings #submit {margin-left:20px;}
+#updateRatings #subButtons {margin:30px 0 0 55px;}
+#updateRatings #submit {margin:0 0 0 30px;position:absolute;}
 
 /*thank you page*/
+#thankYouContent {padding-left:14px;}
 #thankYouContent p {font-size: 15px;line-height:120%;}
 #thankYouContent #thankYou {color: #55bbcc; font-size: 20px; font-weight:bold;}
+#thankYouContent #knowMore {color:#CC5569;font-size:17px;};
 #thankYouContent #close {margin:30px 0 0 140px;}
+#thankYouContent a {font-size:16px;font-weight:bold;}

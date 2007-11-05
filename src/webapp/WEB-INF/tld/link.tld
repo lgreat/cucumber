@@ -1385,6 +1385,13 @@
             <![CDATA[Take a survey for a school.]]>
         </description>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>        
+        <attribute>
             <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -1419,6 +1426,13 @@
             <type>java.lang.String</type>
             <description>cpn tracking parameter</description>
         </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>onclick handler</description>
+        </attribute>        
     </tag>
     <tag>
         <name>allSchoolsInDistrict</name>
