@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
     <ModulePrefs
-        title=""
+        title="GreatSchools Search"
         title_url="http://www.greatschools.net/"
         description="Search K-12 public, charter and private schools nationwide"
         height="200"
