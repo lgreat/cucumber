@@ -198,7 +198,9 @@ centerSchool.parentRatingHtml = '<div class="parentRating" style="float: left">'
 <c:choose>
     <c:when test="${parent_rating eq 0}">
         <c:set var="parent_rating_title" value="Be the first to rate!"/>
-        centerSchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${school}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
+        centerSchool.parentRatingHtml += '<link:schoolProfileAddParentReview
+            onclick="showPopWin(this.href+\'&amp;showName=1\', 344, 362, null, \'map\');return false;"
+            school="${school}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
     </c:when>
     <c:otherwise>
         <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
@@ -239,7 +241,9 @@ function initSchoolInfo() {
     <c:choose>
         <c:when test="${parent_rating eq 0}">
             <c:set var="parent_rating_title" value="Be the first to rate!"/>
-            mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${curSchool}" title="${parent_rating_title}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
+            mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview
+                onclick="showPopWin(this.href+\'&amp;showName=1\', 344, 362, null, \'map\');return false;"
+                school="${curSchool}" title="${parent_rating_title}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
         </c:when>
         <c:otherwise>
             <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>

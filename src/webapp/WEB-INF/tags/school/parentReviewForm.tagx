@@ -6,6 +6,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib">
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
@@ -52,13 +53,18 @@
     </c:choose>
     <c:set var="schoolName" value="Rate this school"/>
     <c:if test="${showName}">
-        <c:set var="schoolName" value="${school.name}"/>
+        <c:set var="schoolName" value="Rate ${school.name}"/>
     </c:if>
 
     <div id="rateReview" class="noprint">
         <div id="ratingTitle">${schoolName}</div>
+        <c:if test="${fn:length(schoolName) > 20}">
+            <script type="text/javascript">
+                document.getElementById('ratingTitle').style.height='35px';
+            </script>
+        </c:if>
         <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
-                <input type="hidden" id="schoolName" name="schoolName" value="${schoolName}"/>
+                <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="${schoolName}"/>
                 <!--Begin star ratings.
                     Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
                     But because this page may load slowly, that's not an option.
