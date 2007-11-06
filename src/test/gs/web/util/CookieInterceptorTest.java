@@ -1,11 +1,14 @@
 package gs.web.util;
 
+import gs.data.admin.IPropertyDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import static org.easymock.EasyMock.*;
 
 import javax.servlet.http.Cookie;
 
@@ -22,7 +25,12 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
 
         _interceptor = new CookieInterceptor();
         _sessionContext = new SessionContext();
+        IPropertyDao propertyDao = createMock(IPropertyDao.class);
+        _interceptor.setPropertyDao(propertyDao);
         _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        expect(propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        replay(propertyDao);
     }
 
     private void setUpSessionContext(boolean isCobranded, boolean isFramed) {
@@ -62,9 +70,6 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
     }
 
     public void testKnownCrawlerOverridesABValue() {
-        VariantConfiguration._abCutoffs = new int[] {1,1};
-        VariantConfiguration._cutoffTotal = 2;
-
         Cookie trnoCookieA = new Cookie("TRNO", "1.192.1.1.1");
         MockHttpServletRequest request = getRequest();
         request.setCookies(new Cookie[]{trnoCookieA});
@@ -80,13 +85,10 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
         request.setCookies(new Cookie[]{trnoCookieA});
-        request.setParameter(SessionContextUtil.VERSION_PARAM, "b");
+
         _interceptor.preHandle(request, response, null);
+        assertEquals("Expect b from trno value 1", "b", _sessionContext.getABVersion());
 
-        assertEquals("Version parameter should override A/B version from TRNO cookie", "b", _sessionContext.getABVersion());
-
-        Cookie trnoCookieB = new Cookie("TRNO", "2.192.1.1.1");
-        request.setCookies(new Cookie[]{trnoCookieB});
         request.setParameter(SessionContextUtil.VERSION_PARAM, "a");
         _interceptor.preHandle(request, response, null);
 

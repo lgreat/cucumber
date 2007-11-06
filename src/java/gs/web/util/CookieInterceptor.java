@@ -1,5 +1,6 @@
 package gs.web.util;
 
+import gs.data.admin.IPropertyDao;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 public class CookieInterceptor implements HandlerInterceptor {
     public static final int EXPIRE_AT_END_OF_SESSION = -1;
     public static final int EXPIRE_NOW = 0;
+
+    private IPropertyDao _propertyDao;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
@@ -91,7 +94,7 @@ public class CookieInterceptor implements HandlerInterceptor {
                 // do nothing -- defaults to 0
             }
             // Use the time from when TRNO was set to determine what variant the user should get
-            VariantConfiguration.determineVariantFromConfiguration(trnoSecondsSinceEpoch, sessionContext);
+            sessionContext.setAbVersion(VariantConfiguration.getVariant(trnoSecondsSinceEpoch, getPropertyDao()));
         }
     }
 
@@ -109,5 +112,13 @@ public class CookieInterceptor implements HandlerInterceptor {
             }
         }
         return null;
+    }
+
+    public IPropertyDao getPropertyDao() {
+        return _propertyDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
     }
 }

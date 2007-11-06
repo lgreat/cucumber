@@ -1,115 +1,102 @@
 package gs.web.util;
 
+import gs.data.admin.IPropertyDao;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
 import java.util.StringTokenizer;
 
-import gs.web.util.context.SessionContext;
-
 /**
+ *
+ * How to configure the A/B variant
+ *
+ * Common configurations:
+ *   A/B 50/50:      1/1
+ *   A/B 80/20:      4/1
+ *   A/B/C 70/15/15: 14/3/3
+ *
+ *   TO DISABLE (A ONLY): 1
+ *
+ * Configuration is set as a ratio as follows
+ * Each number represents the ratio of that version occurring out of the sum of all versions.
+ * EXAMPLE:
+ *   14/3/3
+ *   This sums to 20. Version A will occur 14/20 (70%) of the time, version B 3/20 (15%), version C 3/20
+ *   Thus 14/3/3 is equivalent to A/B/C 70/15/15
+ *
+ * RESTRICTIONS:
+ *   - Each value must be in the range 1-99
+ *   - The sum of all values must be less than or equal to 100
+ *   - There can be no more than 26 values
+ *   - There can be no fewer than 1 value (1 value DISABLES A/B testing -- users will only see A)
+ *
+ * @see gs.web.util.CookieInterceptor
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class VariantConfiguration {
-    public static final String AB_CONFIGURATION_FILE_CLASSPATH = "/gs/web/util/abConfig.txt";
-    protected static int[] _abCutoffs = null;
-    protected static int _cutoffTotal = 0;
+    protected static String _lastConfiguration = "";
+    protected static int[] _abCutoffs = new int[] {1};
+    protected static int _cutoffTotal = 1;
     private static final Log _log = LogFactory.getLog(VariantConfiguration.class);
-
-    static {
-        readABConfiguration();
-    }
-
-    /**
-     * Reads AB configuration from file and attempts to parse it. In the event of any error or
-     * invalid configuration, this defaults to 50/50 testing.
-     * This method should only be called once in the lifetime of the JVM, to populate the static
-     * array of configuration data _abCutoffs.
-     */
-    protected static void readABConfiguration() {
-        Resource resource = new ClassPathResource(AB_CONFIGURATION_FILE_CLASSPATH);
-        StringBuffer buffer = new StringBuffer();
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-            String line = reader.readLine();
-            while (StringUtils.isNotEmpty(line)) {
-                if (line.startsWith("#")) {
-                    // comment line, ignore
-                } else {
-                    buffer.append(line);
-                }
-                line = reader.readLine();
-            }
-            convertABConfigToArray(buffer.toString());
-        } catch (Exception e) {
-            _log.error("Exception generated parsing AB configuration: " + e.toString());
-            _abCutoffs = null;
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-        }
-        if (_abCutoffs == null) {
-            _log.error("Couldn't determine ab version from file " + AB_CONFIGURATION_FILE_CLASSPATH);
-            _abCutoffs = new int[] {1};
-            _cutoffTotal = 1;
-        }
-    }
 
     /**
      * This converts an AB configuration string as read from file into a static array that can
      * be used elsewhere to determine the AB version. If there are any errors, this sets _abCutoffs
      * to null.
-     * @param abConfiguration read from file
-     * @throws NumberFormatException if the configuration has non-numeric values
+     * @param abConfiguration string in the form a/b/c
      */
-    protected static void convertABConfigToArray(String abConfiguration) throws NumberFormatException {
+    protected static void convertABConfigToArray(String abConfiguration){
         if (StringUtils.isEmpty(abConfiguration)) {
             return;
         }
-        // split on forward slash '/'
-        StringTokenizer tok = new StringTokenizer(abConfiguration, "/");
+        try {
+            // split on forward slash '/'
+            StringTokenizer tok = new StringTokenizer(abConfiguration, "/");
 
-        // Restrict number of tokens to range 1-26
-        if (tok.countTokens() > 0 && tok.countTokens() < 27) {
-            _cutoffTotal = 0;
-            _abCutoffs = new int[tok.countTokens()];
-            int tokenNum = 0;
-            // place the tokens in the array _abCutoffs and set _cutoffTotal to the sum of the tokens
-            while (tok.hasMoreTokens()) {
-                int num = Integer.valueOf(tok.nextToken());
-                // check for invalid values
-                if (num < 1 || num > 99) {
-                    _log.error("Invalid value " + num + " found in AB configuration file");
-                    _abCutoffs = null;
-                    break;
+            // Restrict number of tokens to range 1-26
+            if (tok.countTokens() > 0 && tok.countTokens() < 27) {
+                _cutoffTotal = 0;
+                _abCutoffs = new int[tok.countTokens()];
+                int tokenNum = 0;
+                // place the tokens in the array _abCutoffs and set _cutoffTotal to the sum of the tokens
+                while (tok.hasMoreTokens()) {
+                    int num = Integer.valueOf(tok.nextToken());
+                    // check for invalid values
+                    if (num < 1 || num > 99) {
+                        _log.error("Invalid value " + num + " found in AB configuration: " + abConfiguration);
+                        _abCutoffs = null;
+                        break;
+                    }
+                    _cutoffTotal += num;
+                    // check for invalid values
+                    if (_cutoffTotal > 100) {
+                        _log.error("Invalid period " + _cutoffTotal + " found in AB configuration: " + abConfiguration);
+                        _abCutoffs = null;
+                        break;
+                    }
+                    _abCutoffs[tokenNum++] = num;
                 }
-                _cutoffTotal += num;
-                // check for invalid values
-                if (_cutoffTotal > 100) {
-                    _log.error("Invalid period " + _cutoffTotal + " found in AB configuration file");
-                    _abCutoffs = null;
-                    break;
-                }
-                _abCutoffs[tokenNum++] = num;
+                // cache this configuration
+                _lastConfiguration = abConfiguration;
+            } else {
+                _log.error("Invalid number of tokens " + tok.countTokens() + " found in AB configuration: " +
+                        abConfiguration);
             }
-        } else {
-            _log.error("Invalid number of tokens " + tok.countTokens() + " found in AB configuration file");
+        } catch (NumberFormatException nfe) {
+            _log.error("Invalid number found in AB configuration: " + abConfiguration);
+            _abCutoffs = null;
+        }
+
+        // fail-safe default to A-only
+        if (_abCutoffs == null) {
+            _abCutoffs = new int[] {1};
+            _cutoffTotal = 1;
         }
     }
 
-    protected static void determineVariantFromConfiguration(long trnoSecondsSinceEpoch, SessionContext sessionContext) {
+    protected static String getVariant(long trnoSecondsSinceEpoch, IPropertyDao propertyDao) {
+        checkConfiguration(propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION));
         char abVersion = 'a';
         int runningTotal = 0;
         // Check each cutoff to see if the trno falls into it, if so assign the ab version appropriately.
@@ -125,12 +112,20 @@ public class VariantConfiguration {
         for (int num: _abCutoffs) {
             runningTotal += num;
             if ( (trnoSecondsSinceEpoch % _cutoffTotal) < runningTotal) {
-                sessionContext.setAbVersion(Character.toString(abVersion));
-                break;
+                return Character.toString(abVersion);
             }
             // increment ab version (e.g. from 'a' to 'b')
             abVersion++;
         }
+        // default to a if loop doesn't determine config for some reason
+        return Character.toString('a');
+    }
+
+    protected static void checkConfiguration(String config) {
+        if (StringUtils.equals(_lastConfiguration, config)) {
+            return;
+        }
+        convertABConfigToArray(config);
     }
 
     public static String convertABConfigurationToString() {
