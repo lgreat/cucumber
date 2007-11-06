@@ -104,15 +104,16 @@
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
                                 'movie', '/res/swf/c?path=/res/swf/HouseAd_Holidaylearning_3.swf');
                     } else {
-                        document.write('<a href="/content/backToSchool.page">');
-                        document.write('<img width="584" height="291" alt="Go back to school with GreatSchools!" src="/res/img/splash/backToSchool.jpg" />');
+                        document.write('<a href="/content/schoolChoiceCenter.page">');
+                        document.write('<img width="584" height="291" alt="Choose a great school for your family" src="/res/img/splash/GS_staticad.jpg"');
+                        document.write('onmouseover="this.src=\'/res/img/splash/GS_staticad_rollover.jpg\';" onmouseout="this.src=\'/res/img/splash/GS_staticad.jpg\';" />');
                         document.write('</a>');
                     }
                     -->
                 </script>
                 <noscript>
-                    <a href="/content/schoolChoiceCenter.page" style="border:0px">
-                        <img width="584" height="296" alt="Go back to school with GreatSchools!" src="/res/img/splash/GS_staticad.jpg" />
+                    <a href="/content/schoolChoiceCenter.page" style="border:0; margin:0; padding:0;">
+                        <img width="584" height="291" alt="Choose a great school for your family" src="/res/img/splash/GS_staticad.jpg" />
                     </a>
                 </noscript>
                 ]]>
