@@ -10,7 +10,6 @@ img {border:none;}
 input#permission, input#wantMssNL {width:15px; height:15px;margin:0;padding:0;}
 #frmPRModule {margin-top:0;}
 
-
 /*update ratings page*/
 #updateRatings {padding-left:14px;}
 #updateRatings #thankYou {color:#55bbcc;line-height:130%;font-size:16px;font-weight:bolder;}
@@ -19,11 +18,13 @@ input#permission, input#wantMssNL {width:15px; height:15px;margin:0;padding:0;}
 #updateRatings td {padding:0 0 10px 0;}
 #updateRatings #subButtons {margin:30px 0 0 55px;}
 #updateRatings #submit {margin:0 0 0 30px;position:absolute;}
+#updateRatings a {font-size:13px;}
 
 /*thank you page*/
 #thankYouContent {padding-left:14px;}
 #thankYouContent p {font-size: 15px;line-height:120%;}
 #thankYouContent #thankYou {color: #55bbcc; font-size: 20px; font-weight:bold;}
-#thankYouContent #knowMore {color:#CC5569;font-size:17px;};
+#thankYouContent #knowMore {color:#CC5569;font-size:17px;margin-top:30px;padding-bottom:0;margin-bottom:0;};
 #thankYouContent #close {margin:30px 0 0 140px;}
 #thankYouContent a {font-size:16px;font-weight:bold;}
+#thankYouContent .arrow {position:absolute;padding:3px 0 0 10px;}

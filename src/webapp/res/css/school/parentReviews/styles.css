@@ -148,6 +148,7 @@ Parent Review Page
     position:absolute;
     line-height:normal;
     font-weight:normal;
+    margin:0;
 }
 
 .star-rating{

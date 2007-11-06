@@ -51,9 +51,12 @@
                 a few days.
             </p>
             <p id="knowMore">Parents want to know more!</p>
-            <p>Share more details about your school's special characteristics.</p>
-            <link:schoolStartSurvey school="${school}"                                    
-                                    id="sppPR">Complete a Parent Survey &gt;&gt;</link:schoolStartSurvey>
+            <p style="margin-top:10px;">Share more details about your school's special characteristics.</p>
+            <div style="position:relative;">
+                <link:schoolStartSurvey school="${school}"
+                                    id="sppPR">Complete a Parent Survey</link:schoolStartSurvey>
+                <gsml:img src="/res/img/bullet/blue_arrows.gif" alt="blue arrow" styleClass="arrow"/>
+            </div>
         </div>
         <mod:tracking pageType="Parent Review"
                       pageName="PR Thank You Hover Omniture "

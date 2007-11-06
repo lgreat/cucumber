@@ -58,9 +58,9 @@
 
     <div id="rateReview" class="noprint">
         <div id="ratingTitle">${schoolName}</div>
-        <c:if test="${fn:length(schoolName) > 20}">
+        <c:if test="${fn:length(schoolName) > 31}">
             <script type="text/javascript">
-                document.getElementById('ratingTitle').style.height='35px';
+                document.getElementById('ratingTitle').style.height = '35px';                
             </script>
         </c:if>
         <gsweb:form id="frmPRModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">

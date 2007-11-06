@@ -22,7 +22,7 @@
     border:1px solid #DDDDDD;
     padding: 0 0 10px 20px;
     position:relative;
-    margin:10px 0 18px 0;    
+    margin:10px 0 18px 0;
     clear:both;
 }
 
@@ -30,6 +30,7 @@
     font-size:19px;
     color: #55bbcc;
     font-weight:bold;
+    margin:8px 0 6px 0;
 }
 
 #rateReview textarea{
