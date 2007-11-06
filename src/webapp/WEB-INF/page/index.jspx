@@ -111,8 +111,8 @@
                     -->
                 </script>
                 <noscript>
-                    <a href="/content/backToSchool.page">
-                        <img width="584" height="291" alt="Go back to school with GreatSchools!" src="/res/img/splash/backToSchool.jpg" />
+                    <a href="/content/schoolChoiceCenter.page" style="border:0px">
+                        <img width="584" height="296" alt="Go back to school with GreatSchools!" src="/res/img/splash/GS_staticad.jpg" />
                     </a>
                 </noscript>
                 ]]>
