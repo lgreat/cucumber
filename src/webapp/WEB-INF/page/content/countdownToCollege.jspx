@@ -79,7 +79,7 @@
 <td class="left" style="width: 173px;" valign="top">
     <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="700" wrappingElement="li"/>
+        <gsweb:articlelink articleId="1100" wrappingElement="li"/>
         <gsweb:articlelink articleId="1099" wrappingElement="li"/>
         <gsweb:articlelink articleId="688" wrappingElement="li"/>
         <gsweb:articlelink articleId="752" wrappingElement="li"/>
@@ -96,8 +96,8 @@
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="964" wrappingElement="li"/>
-        <gsweb:articlelink articleId="676" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1008" wrappingElement="li"/>
+        <gsweb:articlelink articleId="1094" wrappingElement="li"/>
+        <gsweb:articlelink articleId="1090" wrappingElement="li"/>
     </ul>
 
     <h3 id="choosingASchool">School Choice Tips</h3>
@@ -162,20 +162,20 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="1100" styleClass="noHover"/>        
+        <gsweb:articlelink articleId="1123" styleClass="noHover"/>
     </div>
     <div class="module">
-        <gsweb:articlelink articleId="1100" styleClass="noHover">
-        You can help your child be a better writer. How? By coaching rather than correcting. That's the advice from a writing program that trains volunteers to be coaches. Among their tips:
+        <gsweb:articlelink articleId="1123" styleClass="noHover">
+            Get Your Teen Some Zzzzs: Why Teens Need Sleep
         </gsweb:articlelink>
-        <ul class="noHover">
-            <gsweb:articlelink articleId="1100" styleClass="noHover" wrappingElement="li">Ask your child to read his writing aloud. Don't interrupt!</gsweb:articlelink>
-            <gsweb:articlelink articleId="1100" styleClass="noHover" wrappingElement="li">Look for three strengths in your child's writing.</gsweb:articlelink>
-            <gsweb:articlelink articleId="1100" styleClass="noHover" wrappingElement="li">Don't correct grammar in a rough draft.</gsweb:articlelink>
-        </ul>
+        Sleep may be the secret weapon in helping your teen’s academic achievement. Lack of sleep — it’s
+        a national epidemic for today’s teens and the consequences are serious. Sleep deprivation can hurt
+        cognitive skills and put kids at risk for health problems, including diabetes, obesity, heart
+        disease and depression. Some schools are starting to switch to later schedules, and parents are
+        learning that they can have a positive influence on their teens' sleep habits.
     </div>
     <div align="right">
-        <gsweb:articlelink articleId="1100" styleClass="seeFullArticle">Learn how to put these tips into practice</gsweb:articlelink>
+        <gsweb:articlelink articleId="1123" styleClass="seeFullArticle">Learn how to help your teen get enough sleep</gsweb:articlelink>
     </div>
 
     <div class="midDotLine" >
@@ -195,17 +195,17 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="1096" styleClass="noHover"/>
+        <gsweb:articlelink articleId="683" styleClass="noHover"/>
     </div>
 
     <div class="module">
-        <gsweb:articlelink articleId="1096" styleClass="noHover">
-            Loans are the largest form of student aid, making up 54 percent of the total aid awarded each year.
-            What's the difference between a Perkins and a Stafford loan? Here's a primer to help you understand the system.
+        <gsweb:articlelink articleId="683" styleClass="noHover">
+            College students and their families will pay an average of $95 to $1,404 more for tuition
+            and fees than they did last year. The stats are scary, but there's good news, too.
         </gsweb:articlelink>
     </div>
 
-    <div align="right"><gsweb:articlelink articleId="1096" styleClass="seeFullArticle">Read about loans for college &gt;</gsweb:articlelink></div>
+    <div align="right"><gsweb:articlelink articleId="683" styleClass="seeFullArticle">Learn the facts about college costs &gt;</gsweb:articlelink></div>
 
     <div class="midDashLine">
         <gsml:img style="height: 1px; width: 1px" alt=""
@@ -221,16 +221,20 @@
                 <td valign="top">
 
                     <ul class="quickFindLinks">
-                        <li style="padding-top:0;"><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21424.html"
-                               target="_blank">Think Before You Borrow</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21422.html"
-                               target="_blank">Your Family's Loan Options</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21427.html"
-                               target="_blank">How Much Should Your Family Borrow?</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21425.html"
-                               target="_blank">10 Essential Borrowing Tips</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21426.html"
-                               target="_blank">Comparing Loans: Tips and Advice</a></li>
+                        <li style="padding-top:0;"><a href="http://www.collegeboard.com/parents/csearch/know-the-options/38529.html"
+                               target="_blank">Hidden Costs of a College Education</a></li>
+                        <li>
+                            <gsweb:articlelink articleId="686">
+                                Are Four Years of College Financing Enough?
+                            </gsweb:articlelink>
+                        </li>
+                        <li>
+                            <gsweb:articlelink articleId="1074">
+                                Break Down the Bill
+                            </gsweb:articlelink>
+                        </li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21397.html"
+                               target="_blank">How Financial Aid Works</a></li>
                     </ul>
                 </td>
             </tr>
@@ -293,9 +297,9 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Help your child make a four-year schedule of
-                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21263.html" target="_blank">recommended classes</a>
-                                that meet the requirements for high school graduation and college admission. Colleges prefer four years of English and math, and at least three in social studies, science and a foreign language.
+                               Sit down with your child and review how he's doing in his classes. Encourage him to
+                               keep up the good work in his strong subjects and help him set goals for
+                               improvement in weaker ones.
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a>
                 </td>
@@ -303,8 +307,8 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Help your child keep her four-year <a href="http://www.collegeboard.com/parents/plan/hs-steps/21282.html" target="_blank">extracurricular and athletic activity</a>
-                               schedule up to date. Does she want to try a new sport or club? Encourage her to commit to a few activities that truly interest her, rather than dabbling in many.
+                               How much money will your family need to pay for college? Use the <a href="http://apps.collegeboard.com/fincalc/college_savings.jsp" target="_blank">College Savings Calculator</a>
+                               to see whether you're on track to save enough and what you need to do to reach your goal.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
             </tr>
@@ -314,15 +318,17 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Encourage your child to brainstorm a list of characteristics that are important to her (e.g.,
-                               <a href="http://www.collegeboard.com/parents/csearch/explore-colleges/21182.html" target="_blank">location</a>, size).
-                               She can plug these details into <a href="http://collegesearch.collegeboard.com/search/index.jsp" target="_blank">College Search</a> to find schools that suit her needs, then contact them to get applications.
+                               Help your child <a href="http://www.collegeboard.com/student/testing/sat/reg.html" target="_blank">register online</a> for the
+                               SAT and SAT Subject Tests. Many colleges require or recommend 1-3 Subject Tests. If your child is planning to
+                               apply early decision, she should complete required tests by the end of junior year.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Review your child's completed school and scholarship applications and essays to make sure they're free of errors. You may want to have another person review them, too. Note that many scholarship application deadlines are in December.
+                               Your child should complete and send in <a href="http://www.collegeboard.com/parents/apply/college-applications/21352.html" target="_blank">college applications</a> and
+                               scholarship applications this month. Get a copy of the Free Application of Federal Student Aid (FAFSA) or, after January 1, complete the FAFSA
+                               online at <a href="http://www.fafsa.ed.gov" target="_blank">www.fafsa.ed.gov</a>.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
             </tr>
