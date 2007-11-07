@@ -17,7 +17,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:setPathway pathway="LIBRARY"/>
+<pageHelper:setPathway pathway="SEASONAL"/>
 <c:set var="pageName" value="Holiday Learning"/>
 <head>
     <title>Greatschools.net: ${pageName}</title>
@@ -68,7 +68,7 @@
 
     <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="askTheExperts">Ask an Expert</h3>
-        <p>Q: How Can I Help My Child With Homework?
+        <p>Q: How Do I Parent Equitably?
             <gsweb:articlelink articleId="525">Read the answer</gsweb:articlelink>
             </p>
     </div>
