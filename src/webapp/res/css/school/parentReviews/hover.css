@@ -8,6 +8,7 @@ img {border:none;}
 /*add comments page*/
 #addCommentsPanel {padding-top:4px;}
 #contentGS #rateReview {border:none;padding:0 0 0 14px;margin:0 0 0 0;}
+#addCommentsPanel #rateReview #ratingTitle {margin:8px 0 10px 0;}
 input#permission, input#wantMssNL {width:15px; height:15px;margin:0;padding:0;}
 #frmPRModule {margin-top:0;}
 
