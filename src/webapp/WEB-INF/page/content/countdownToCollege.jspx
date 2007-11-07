@@ -162,17 +162,16 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="1123" styleClass="noHover"/>
+        <gsweb:articlelink articleId="1123" styleClass="noHover">
+            Get Your Teen Some Zzzs: Sleep Tips
+        </gsweb:articlelink>
     </div>
     <div class="module">
-        <gsweb:articlelink articleId="1123" styleClass="noHover">
-            Get Your Teen Some Zzzzs: Why Teens Need Sleep
-        </gsweb:articlelink>
-        Sleep may be the secret weapon in helping your teen’s academic achievement. Lack of sleep — it’s
-        a national epidemic for today’s teens and the consequences are serious. Sleep deprivation can hurt
-        cognitive skills and put kids at risk for health problems, including diabetes, obesity, heart
-        disease and depression. Some schools are starting to switch to later schedules, and parents are
-        learning that they can have a positive influence on their teens' sleep habits.
+        Sleep may be the secret weapon in helping your teen's academic achievement. Lack of sleep — it's
+        a national epidemic for today's teens and the consequences are serious.
+        <br/><br/>
+        Some schools are starting to switch to later schedules, and parents are learning that they
+        can have a positive influence on their teens' sleep habits.
     </div>
     <div align="right">
         <gsweb:articlelink articleId="1123" styleClass="seeFullArticle">Learn how to help your teen get enough sleep</gsweb:articlelink>
@@ -195,7 +194,9 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="683" styleClass="noHover"/>
+        <gsweb:articlelink articleId="683" styleClass="noHover">
+            2007-08 College Costs: Behind Rising Prices
+        </gsweb:articlelink>
     </div>
 
     <div class="module">
