@@ -6,6 +6,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
+    <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
     <jsp:directive.tag body-content="empty"
                        description="Draw a map of cities." />
     <jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
@@ -65,11 +66,13 @@ Average API Rank: 9.20*/
                         "Average API Rank: " + bpsv.getAverageApiRank());
             } else {
                 request.setAttribute("html", c.getName());
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, c.getState(), c.getName());
+                request.setAttribute("cityLink", urlBuilder.asSiteRelative(request));
             }
       </jsp:scriptlet>
     //<![CDATA[
        var p = new GLatLng(${s.latLon.lat},${s.latLon.lon});
-       var marker = createMarker(p, 'city.page?city=${s.name}&state=${s.state}',"${requestScope.html}");
+       var marker = createMarker(p, '${requestScope.cityLink}',"${requestScope.html}");
        map.addOverlay(marker);
        //]]>
        <c:if test="${empty tooltips or tooltips}">
