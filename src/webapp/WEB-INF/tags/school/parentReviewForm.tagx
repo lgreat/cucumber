@@ -142,8 +142,7 @@
                                 <input id="submitReview" alt="Submit ${school.name} Parent Review and Rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
                             </c:when>
                             <c:otherwise>
-                                <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
-                                    onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
+                                <input id="submitReview"
                                     class="button" alt="Submit ${school.name} Parent Review and Rating" src="/res/img/school/review/submitReview.gif" type="image" />
                             </c:otherwise>
                         </c:choose>
