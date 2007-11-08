@@ -16,6 +16,7 @@
     <title>PR Module Hover</title>
     <meta name="description" content="Add a parent review for ${school.name}"/>
     <pageHelper:externalCss file="/res/css/school/parentReviews/hover.css"/>
+    <base target="_self"/>
 </head>
 <gsml:body adPageName="addParentReviews">
     <div id="addCommentsPanel">
