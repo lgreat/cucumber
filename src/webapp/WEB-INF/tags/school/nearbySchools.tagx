@@ -70,7 +70,7 @@
 
                 <c:choose>
                     <c:when test="${isPreschoolLevelOnly}">
-                        <p class="head_rating">Grade<br/>Range</p>
+                        <p class="head_rating">Grade Range</p>
                     </c:when>
                     <c:otherwise>
                         <p class="head_rating">GreatSchools Rating</p>
@@ -82,9 +82,10 @@
                         <c:choose>
                             <c:when test="${isPreschoolLevelOnly}">
                                 <li>
-                                    <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
-                                    <!--div instead of span because of top padding for IE-->
-                                    <div class="gradeRange">${nearbySchool.neighbor.gradeLevels}</div>
+                                    <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview><div class="gradeRange">${nearbySchool.neighbor.gradeLevels}</div>
+                                    <c:if test="${not empty nearbySchool.distance}">
+                                        <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
+                                    </c:if>
                                 </li>
                             </c:when>
                             <c:otherwise>
