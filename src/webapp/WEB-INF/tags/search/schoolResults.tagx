@@ -30,12 +30,16 @@
                     </c:if>
                 </div>
                 <address>
-                    <c:out value="${school.physicalAddress.street}"/><br />
+                    <variant:a>
+                        <c:out value="${school.physicalAddress.street}"/><br />
+                    </variant:a>
                     <c:out value="${school.physicalAddress.cityStateZip}"/>
                 </address>
-                <div class="phone">
-                    <c:out value="${school.phone}"/>
-                </div>
+                <c:if test="${requestScope.context.ABVersion eq 'a' or requestScope.context.ABVersion eq 'c'}">
+                    <div class="phone">
+                        <c:out value="${school.phone}"/>
+                    </div>
+                </c:if>
             </div>
         </c:forEach>
     </div>

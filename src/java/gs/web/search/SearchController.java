@@ -194,6 +194,12 @@ public class SearchController extends AbstractFormController {
 
         int pageSize = 10;
 
+        // GS-4689 A/B/C test of school search results page
+        if (StringUtils.equals(sessionContext.getABVersion(), "b") ||
+                StringUtils.equals(sessionContext.getABVersion(), "c")) {
+            pageSize = 12;
+        }
+
         boolean resultsToShow = false;
         Hits hits = _searcher.search(searchCommand);
         ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));

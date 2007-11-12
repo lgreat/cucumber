@@ -49,8 +49,9 @@
         <div id="rh_col_right">
             <c:if test="${total gt 0}">
                 <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
-                <c:set var="px" value="${(page * 10)}"/>
-                <c:out value="${px + 1} - ${(total lt px + 10) ? (total) : (px + 10)} of ${total}"/>
+                <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
+                <c:set var="px" value="${(page * pageSize)}"/>
+                <c:out value="${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)} of ${total}"/>
             </c:if>
         </div>
     </div>
