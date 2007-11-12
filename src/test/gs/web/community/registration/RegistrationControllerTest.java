@@ -105,6 +105,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // no calls expected if "next" is clicked
         _subscriptionDaoMock.replay();
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replay(_soapRequest);
         
@@ -135,6 +136,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replay(_soapRequest);
 
@@ -166,6 +168,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replay(_soapRequest);
 
@@ -193,6 +196,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replay(_soapRequest);
 
@@ -219,6 +223,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // user dao behavior is validated elsewhere
         setUpNiceUserDao();
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replay(_soapRequest);
 
@@ -259,6 +264,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(userCommand.getUser());
         _userControl.replay();
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replay(_soapRequest);
 
@@ -305,6 +311,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(dbUser);
         _userControl.replay();
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replay(_soapRequest);
 
@@ -497,6 +504,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
     public void testNotifyCommunity() {
         try {
+            _soapRequest.setTarget("http://community.greatschools.net/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
