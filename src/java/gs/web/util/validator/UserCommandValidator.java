@@ -89,12 +89,9 @@ public class UserCommandValidator implements IRequestAwareValidator {
 
             if (user != null) {
                 if (user.isEmailValidated()) {
-                    UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null,
-                            user.getEmail());
-                    String href = builder.asAnchor(request, "forget your password").asATag();
                     errors.rejectValue("email", null,
                             "The email address you entered has already been registered " +
-                                    "with GreatSchools. Did you " + href + "?");
+                                    "with GreatSchools.");
                     return; // other errors are irrelevant
                 } else if (user.isEmailProvisional()) {
                     // let them register, just overwrite previous values

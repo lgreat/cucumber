@@ -3,6 +3,7 @@ package gs.web.community.registration;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.validation.BindException;
@@ -95,8 +96,10 @@ public class ForgotPasswordController extends SimpleFormController {
                     " with instructions for selecting a new password.";
             mAndV.getModel().put("message", msg);
         } else {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);
-            mAndV.setViewName("redirect:" + builder.asFullUrl(request));
+            String comLandingUrl = "http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/";
+            mAndV.setViewName("redirect:" + comLandingUrl);
         }
 
         return mAndV;

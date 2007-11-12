@@ -1,11 +1,14 @@
 package gs.web.community.registration;
 
-import gs.web.BaseControllerTestCase;
-import gs.data.util.email.MockJavaMailSender;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import org.springframework.validation.BindException;
+import gs.data.util.email.MockJavaMailSender;
+import gs.web.BaseControllerTestCase;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 import org.easymock.MockControl;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Provides testing for the controller managing the forgot password page.
@@ -132,6 +135,91 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
 
         _controller.onSubmit(getRequest(), getResponse(), command, errors);
         _userControl.verify();
+        assertFalse(errors.hasErrors());
+    }
+
+    public void testCancelFromDev() throws Exception {
+        getRequest().setParameter("cancel", "cancel");
+        getRequest().setServerName("dev.greatschools.net");
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+
+        assertTrue(_controller.suppressValidation(getRequest()));
+
+        replay(_userDao);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_userDao);
+
+        assertEquals("redirect:http://community.dev.greatschools.net/", mAndV.getViewName());
+
+        assertFalse(errors.hasErrors());
+    }
+
+    public void testCancelFromDevWorkstation() throws Exception {
+        getRequest().setParameter("cancel", "cancel");
+        getRequest().setServerName("localhost");
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+
+        assertTrue(_controller.suppressValidation(getRequest()));
+
+        replay(_userDao);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_userDao);
+
+        assertEquals("redirect:http://community.dev.greatschools.net/", mAndV.getViewName());
+
+        assertFalse(errors.hasErrors());
+    }
+
+    public void testCancelFromStaging() throws Exception {
+        getRequest().setParameter("cancel", "cancel");
+        getRequest().setServerName("staging.greatschools.net");
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+
+        assertTrue(_controller.suppressValidation(getRequest()));
+
+        replay(_userDao);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_userDao);
+
+        assertEquals("redirect:http://community.staging.greatschools.net/", mAndV.getViewName());
+
+        assertFalse(errors.hasErrors());
+    }
+
+    public void testCancelFromWww() throws Exception {
+        getRequest().setParameter("cancel", "cancel");
+        getRequest().setServerName("www.greatschools.net");
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+
+        assertTrue(_controller.suppressValidation(getRequest()));
+
+        replay(_userDao);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_userDao);
+
+        assertEquals("redirect:http://community.greatschools.net/", mAndV.getViewName());
+
+        assertFalse(errors.hasErrors());
+    }
+
+    public void testCancelFromWwwCobrand() throws Exception {
+        getRequest().setParameter("cancel", "cancel");
+        getRequest().setServerName("sfgate.greatschools.net");
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+
+        assertTrue(_controller.suppressValidation(getRequest()));
+
+        replay(_userDao);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_userDao);
+
+        assertEquals("redirect:http://community.greatschools.net/", mAndV.getViewName());
+
         assertFalse(errors.hasErrors());
     }
 }
