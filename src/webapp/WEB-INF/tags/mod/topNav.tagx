@@ -10,8 +10,8 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:search="http://java.sun.com/jsp/jstl/core">
 <jsp:directive.tag import="gs.web.util.PageHelper"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag body-content="empty"/>
 
 <jsp:scriptlet>
@@ -104,7 +104,7 @@
                 <div id="communityHeader" class="noprint">
                     <span class="headerUsername">Welcome!</span>
                     <span class="headerAccount">
-                        <link:loginOrRegister>Sign In</link:loginOrRegister>
+                        <link:signIn>Sign In</link:signIn>
                     </span>
                     <span class="headerMsl">
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
