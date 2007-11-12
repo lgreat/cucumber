@@ -12,6 +12,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -105,35 +106,44 @@
                             </c:when>
                             <c:otherwise>
                                 <c:set var="colClass" value="checkbox-col"/>
+                                <!--Variables that control the number of entries per column in multicolumn display-->
+                                <c:set var="totalColumns" value="3"/>
+                                <c:set var="totalAnswer" value="${fn:length(answer.answerValues)}"/>
+                                <fmt:parseNumber integerOnly="true" var="numAnswerPerColumn" value="${(totalAnswer / totalColumns) + 0.5}"/>
+                                <!--For cases when we rounded down, increase by one the number of entries per column-->
+                                <c:if test="${(numAnswerPerColumn * totalColumns) lt totalAnswer}">
+                                    <c:set var="numAnswerPerColumn" value="${(numAnswerPerColumn + 1)}"/>
+                                </c:if>
                             </c:otherwise>
                         </c:choose>
                         <div class="answer-sibling">
-                        <div class="${colClass}">
+                            <![CDATA[<div class="${colClass}">]]>
                             <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="boxCounter">
                                 <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
-                                <div class="multiAnswerValue">
-                                    <c:choose>
-                                        <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
-                                            <form:checkbox cssClass="multiCheck" path="responseMap[${mapKey}].values"
-                                                           id="${mapKey}" value="${answerValue.symbol}"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <input class="multiCheck" name="responseMap[${mapKey}].values"
-                                                   value="${answerValue.symbol}" type="checkbox"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <div class="answerValue">
-                                        ${answerValue.display}
-                                    </div>
-                                </div>
-                                <c:if test="${(boxCounter.index gt (fn:length(answer.answerValues) / 3)) and (answer.layout ne 'SINGLE_COLUMN')}">
-                                    <![CDATA[
-                                        </div>
-                                        <div class="checkbox-col">
-                                    ]]>
+                                <c:if test="${(answer.layout ne 'SINGLE_COLUMN')
+                                                and ((boxCounter.index mod numAnswerPerColumn) eq 0)
+                                                and (boxCounter.index ne 0)}">
+                                        <![CDATA[</div>]]>
+                                        <![CDATA[<div class="${colClass}">]]>
                                 </c:if>
+                                    <div class="multiAnswerValue">
+                                        <c:choose>
+                                            <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
+                                                <form:checkbox cssClass="multiCheck"
+                                                               path="responseMap[${mapKey}].values"
+                                                               id="${mapKey}" value="${answerValue.symbol}"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input class="multiCheck" name="responseMap[${mapKey}].values"
+                                                       value="${answerValue.symbol}" type="checkbox"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="answerValue">
+                                            ${answerValue.display}
+                                        </div>
+                                    </div>
                             </c:forEach>
-                        </div>
+                            <![CDATA[</div>]]>
                         </div>
                     </c:when>
                     <c:when test="${answer.type eq 'SINGLE'}">
