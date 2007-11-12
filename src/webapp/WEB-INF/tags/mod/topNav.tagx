@@ -104,7 +104,7 @@
                 <div id="communityHeader" class="noprint">
                     <span class="headerUsername">Welcome!</span>
                     <span class="headerAccount">
-                        <link:signIn>Sign In</link:signIn>
+                        <link:signIn forwardTo="referer">Sign In</link:signIn>
                     </span>
                     <span class="headerMsl">
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
