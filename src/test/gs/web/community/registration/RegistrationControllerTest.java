@@ -547,6 +547,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     public void testNotifyCommunityLive() {
         _request.setServerName("www.greatschools.net");
         try {
+            _soapRequest.setTarget("http://community.greatschools.net/soap/user");
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
             replay(_soapRequest);
             _controller.notifyCommunity(1, "myname", "email@example.com", "foobar", new Date(), _request);
@@ -557,6 +558,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunityLiveCobrand() {
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _request.setServerName("encarta.greatschools.net");
         try {
             _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));

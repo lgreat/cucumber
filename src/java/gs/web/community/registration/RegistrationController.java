@@ -258,9 +258,10 @@ public class RegistrationController extends SimpleFormController implements Read
                     _log.error(ex);
                 }
             }
-            // Per GS-3863, do not log member into community after registration
-            // Per email request, change back to YES log member into community after registration
-            PageHelper.setMemberAuthorized(request, response, user); // log in to community
+            UrlUtil urlUtil = new UrlUtil();
+            if (urlUtil.isDevEnvironment(request.getServerName())) {
+                PageHelper.setMemberAuthorized(request, response, user); // log in to community
+            }
             PageHelper.setMemberCookie(request, response, user); // log in to MSL
             if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
@@ -280,7 +281,7 @@ public class RegistrationController extends SimpleFormController implements Read
                 (userId, screenName, email, password, dateCreated);
         CreateOrUpdateUserRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
-        if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isDeveloperWorkstation(request.getServerName())) {
+        if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
             soapRequest.setTarget("http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/soap/user");
