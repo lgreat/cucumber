@@ -22,65 +22,37 @@
     </head>
     <gsml:body adPageName="promo/youTubeVideo">
 
-        <!--note: no question mark before the URL params-->
-        <c:url var="videoUrl" value="http://www.youtube.com/v/9IrUnAweDeE&amp;rel=0&amp;autoplay=1"/>
         <div id="outline"><!-- creates darker blue outer outline -->
             <div id="content">
                 <div id="leftSide">
-                    <div id="topStars">
-                        <gsml:img src="/res/img/promo/youTube/cnnYouTubeDebates.gif" alt="The CNN YouTube Debates"/>
-                    </div>
-                    <div id="video">
-                        <object width="330" height="268" type="application/x-shockwave-flash" data="${fn:escapeXml(videoUrl)}">
-                            <param name="movie" value="${fn:escapeXml(videoUrl)}"></param>
-                            <param name="wmode" value="transparent"></param>
-                        </object>
-                    </div>
-                    <div>
-                        <gsml:img src="/res/img/promo/youTube/bottomStars.gif" alt=""/>
-                    </div>
+                    <gsml:img src="/res/img/promo/youTube/cnnYouTubeDebates.gif" alt="The CNN YouTube Debates"/>
                 </div>
                 <div id="rightSide">
-                    <gsml:img src="/res/img/promo/youTube/whatDoYouWantToAsk.gif"
-                              alt="What do you want to ask the next president about K-12 education?" styleClass="topPad"/>
+                    <gsml:img src="/res/img/promo/youTube/thankyou.gif"
+                              alt="Thank you for your participation!" styleClass="topPad"/>
                     <gsml:a href="http://www.youtube.com/greatschools" target="_blank">
                         <gsml:img src="/res/img/promo/youTube/viewGSYouTubeChannel.gif"
                                   alt="View the GreatSchools YouTube Channel" styleClass="topPad"/>
                     </gsml:a>
-                    <p>Only <em>one</em> of the 440 questions asked during the first four Democratic and Republican
-                        presidential debates touched on education. We can do better than that!</p>
-
-                    <p>The video site YouTube and CNN are making history by broadcasting questions submitted by citizens
-                        like you in this fall's presidential debates.</p>
-
-                    <p>Join other GreatSchools parents and create a video question about K-12 education for the
-                        Republican candidates. You could see it answered on live TV!</p>
-
-                    <p><b>Here's how:</b></p>
-
-                    <p class="indented">1. Submit your video question about K-12 education to
-                        <gsml:a href="http://www.youtube.com/republicandebate" target="_blank">YouTube debate pool</gsml:a>.
+                    <p>
+                        Thanks to your questions and comments, education had a starring
+                        role in the CNN/YouTube Democratic and Republican debates
+                        this year!
                     </p>
-
-                    <p class="indented">2. Email us at
-                        <gsml:mailto address="video@greatschools.net">video@greatschools.net</gsml:mailto>
-                        with the Web address (URL) of your video,
-                        and we'll add it to the
-                        <gsml:a href="http://www.youtube.com/greatschools" target="_blank">GreatSchools YouTube Channel</gsml:a>.
-                    </p>
-
-                    <p>Please post your video question for the Republicans by November 27th, in time for the November
-                        28th debate.</p>
 
                     <p>
-                        <gsml:a href="http://www.youtube.com/greatschools" target="_blank" styleClass="callToAction">Check out the questions
-                            parents have already submitted&#160;&#62;
-                        </gsml:a>
+                        Want a recap?
+                        <gsml:a href="http://www.youtube.com/republicandebate"
+                                target="_blank"
+                                styleClass="callToAction">Visit YouTube's debate page for clips from both events &gt;</gsml:a>
                     </p>
-                    <gsml:a href="http://www.youtube.com/republicandebate" target="_blank">
-                        <gsml:img src="/res/img/promo/youTube/submitYourQuestion.gif" alt="Submit your question"
-                                  id="submitButton"/>
-                    </gsml:a>
+
+                    <p>
+                        See the questions parents submitted!
+                        <gsml:a href="http://www.youtube.com/greatschools"
+                                target="_blank"
+                                styleClass="callToAction">Check out the GreatSchools YouTube channel &gt;</gsml:a>
+                    </p>
                 </div>
             </div>
         </div>

@@ -12,11 +12,11 @@
             </td>
             <td class="contentCell">
                 <div class="rBox" id="youtube">
-                    <gsml:img styleClass="headline" src="/res/img/community/registration/whatdoyouwant.gif"
-                              alt="What do you want to ask the next president about K-12 education?"/>
+                    <gsml:img styleClass="headline" src="/res/img/community/registration/yourvideo.gif"
+                              alt="Your video questions made a difference!"/>
                     <div>
-                        Join other GreatSchools parents and create a video question about education
-                        for the presidential candidates. You could see it answered on live TV!
+                        Thanks to your questions and comments, education had a starring role in the CNN/YouTube
+                        Democratic and Republican debates this year! 
                     </div>
                     <gsml:a href="/promo/youTubeVideo.page">Learn more &gt;</gsml:a>
                 </div>
