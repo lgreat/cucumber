@@ -249,10 +249,12 @@
                                         cssStyle="display:none;" />
                                 <form:select id="prevSltCity" path="prevCity" items="${prevCities}" itemLabel="name" itemValue="name"
                                         onchange="updateSchool('${prevLevel.name}',this.value, 'prevSltSchool', 'prevSltState','${schoolNotListed.id}');"
-                                        cssStyle="display:none;" />
+                                        cssStyle="display:none;"
+                                        htmlEscape="true"
+                                        />
                             </c:otherwise>
                         </c:choose>
-                        <form:select id="prevSltSchool" path="prevSchoolId" items="${prevSchools}" itemLabel="name" itemValue="id"/>
+                        <form:select id="prevSltSchool" path="prevSchoolId" items="${prevSchools}" itemLabel="name" itemValue="id" htmlEscape="true"/>
                     </c:when>
                     <c:when test="${answer.type eq 'NEXT_SCHOOL'}">
                         <yui:connectionManager/>
@@ -271,10 +273,11 @@
                                             onchange="clearSchool('nextSltSchool');updateCity(this.value, 'nextSltCity');"/>
                                 <form:select id="nextSltCity" path="nextCity" items="${nextCities}" itemLabel="name" itemValue="name"
                                             cssStyle="display:none;"
+                                            htmlEscape="true"
                                             onchange="updateSchool('${nextLevel.name}',this.value, 'nextSltSchool', 'nextSltState','${schoolNotListed.id}');"/>
                             </c:otherwise>
                         </c:choose>
-                        <form:select id="nextSltSchool" path="nextSchoolId" items="${nextSchools}" itemLabel="name" itemValue="id"/>
+                        <form:select id="nextSltSchool" path="nextSchoolId" items="${nextSchools}" itemLabel="name" itemValue="id" htmlEscape="true"/>
                     </c:when>
                     <c:otherwise>
                         <h1>error</h1>
