@@ -98,6 +98,7 @@ Disallow: /
 <c:when test="${requestScope.context.cobranded}">
 User-agent: Slurp
 ${excludes}
+${sitemapExcludes}
 
 User-agent: Googlebot
 ${excludes}
@@ -105,9 +106,11 @@ ${sitemapExcludes}
 
 User-agent: MSNBot
 ${excludes}
+${sitemapExcludes}
 
 User-agent: Teoma
 ${excludes}
+${sitemapExcludes}
 
 User-agent: *
 Disallow: /
@@ -115,26 +118,21 @@ Disallow: /
 
 <!-- Otherwise on the main site just show the standard exclude list -->
 <c:otherwise>
-<!-- GS-4261 -->
-<jsp:scriptlet>
-    String userAgent = request.getHeader("user-agent");
-    // For all user agents EXCEPT Google crawlers, list the sitemap
-    if (userAgent == null || userAgent.indexOf("Google") == -1) {
-    // this is everyone but Google
-</jsp:scriptlet>
+User-agent: Googlebot
+${excludes}
+${sitemapExcludes}
+
+User-agent: Mediapartners-Google
+${excludes}
+${sitemapExcludes}
+
+User-agent: Adsbot-Google
+${excludes}
+${sitemapExcludes}
+
 User-agent: *
 ${excludes}
 Sitemap: http://www.greatschools.net/sitemap/sitemap.xml.gz
-<jsp:scriptlet>
-    } else {
-    // this is Googlebot
-</jsp:scriptlet>
-User-agent: *
-${excludes}
-${sitemapExcludes}
-<jsp:scriptlet>
-    }
-</jsp:scriptlet>
 </c:otherwise>
 </c:choose>
 </jsp:root>
