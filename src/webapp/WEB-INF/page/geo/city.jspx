@@ -26,11 +26,10 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <![CDATA[
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <meta name="description" content="Find the top-rated ]]>${cityObject.name}
-    <![CDATA[ schools, read recent parent reviews, or browse schools by grade level."/>
-            ]]>
+    <c:set var="metaDesc">
+        Find top-rated ${fn:escapeXml(cityObject.name)} schools, read recent parent reviews, and browse private and public schools by grade level in ${fn:escapeXml(cityObject.name)}, ${requestScope.context.stateOrDefault.longName} (${stateAbbrev}).
+    </c:set>
+    <meta name="description" content="${metaDesc}"/>
     <title>${displayName} Schools</title>
 </head>
 
