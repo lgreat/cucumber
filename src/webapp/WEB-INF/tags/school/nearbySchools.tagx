@@ -70,7 +70,7 @@
 
                 <c:choose>
                     <c:when test="${isPreschoolLevelOnly}">
-                        <p class="head_rating">Grade Range</p>
+                        <p class="head_rating head_ps">Grade Range</p>
                     </c:when>
                     <c:otherwise>
                         <p class="head_rating">GreatSchools Rating</p>

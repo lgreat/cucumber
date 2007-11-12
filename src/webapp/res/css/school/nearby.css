@@ -36,6 +36,10 @@
 	text-transform: uppercase;
 }
 
+#nearbySchools .head_ps {
+    margin-top:17px;   
+}
+
 #nearbySchools ul {
 	margin: 0;
 	padding: 0;
