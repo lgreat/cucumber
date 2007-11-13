@@ -133,8 +133,8 @@
             </c:if>
 
             <c:if test="${school.levelCode != 'p'}">
-                <link:schoolStartSurvey school="${school}" cpn="OnPage_parentsurvey">
-                    <gsml:img styleClass="surveyTeaser" src="/res/img/survey/surveyteaser.gif" alt="Fill out a parent survey about ${school.name}" />
+                <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview">
+                    <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="Fill out a parent survey about ${school.name}" />
                 </link:schoolStartSurvey>
             </c:if>
             
@@ -301,7 +301,7 @@
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
                 <!--<ad:Top_300x137/>-->
                 <link:schoolStartSurvey school="${school}" cpn="HouseAd_parentsurvey">
-                    <gsml:img src="/res/img/survey/GS_surveyhousead.jpg" alt="Fill out a parent survey about ${school.name}" />
+                    <gsml:img src="/res/img/survey/promo/survey_housead.gif" alt="Fill out a parent survey about ${school.name}" />
                 </link:schoolStartSurvey>
             </div>
             <div class="ad_middle">                
