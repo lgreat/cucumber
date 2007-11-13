@@ -161,14 +161,23 @@
                         </pg:pager>
                         </div><!-- end: showParentReviews -->
 
-                        <c:if test="${school.levelCode != 'p'}">
-                            <div class="noprint" style="margin:10px 0 20px 0;">
-                            <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_ParentReview">
-                                <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_review.gif" alt="Fill out a parent survey about ${school.name}" />
-                            </link:schoolStartSurvey>
-                            </div>
-                        </c:if>
-                        
+                        <c:choose>
+                            <c:when test="${school.levelCode != 'p'}">
+                                <div class="noprint" style="margin:10px 0 20px 0;">
+                                    <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_ParentReview">
+                                        <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_review.gif" alt="Fill out a parent survey about ${school.name}" />
+                                    </link:schoolStartSurvey>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="noprint"><link:schoolProfileAddParentReview
+                                        school="${school}"
+                                        onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                                        styleClass="submodal-344-362"
+                                        ><gsml:img src="/res/img/school/parentReviews/promo_DoYouAgree.gif" alt="Do you agree with what parents wrote about this school? Review ${school.name} and tell us what you think!" id="reviewPromo" /></link:schoolProfileAddParentReview> 
+                                </div>
+                            </c:otherwise>
+                        </c:choose>                        
                     </c:if>
 
                     <!-- begin Callouts -->
