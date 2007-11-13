@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.29 2007/06/15 19:29:12 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.30 2007/11/13 22:35:33 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -163,6 +163,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
                 else if(state.equals(State.DC)){
                     label = "DC-CAS";
+                }
+                else if(state.equals(State.KY)){
+                    label = "KCCT";
                 }
                 else if(state.equals(State.MD)){
                     label = "HSA";
