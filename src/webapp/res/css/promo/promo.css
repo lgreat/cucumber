@@ -62,11 +62,11 @@ table#bottomContent td.contentCell {
 }
 
 table#bottomContent div.leftImage {
-    padding:20px 0 15px 20px;
+    padding:10px 0 15px 20px;
 }
 
 table#bottomContent td.contentCell div#youtube {
-    padding:30px 30px 15px 15px;
+    padding:30px 30px 40px 15px;
     width:272px;
 }
 
