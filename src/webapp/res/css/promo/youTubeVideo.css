@@ -14,10 +14,18 @@
     width: 400px;
 }
 
-#rightSide .topPad {
+#rightSide img.topPad {
     margin-top: 50px;
 }
 
+#rightSide a img.topPad {
+    margin-top: 26px;
+}
+
+#rightSide a img.topPad {
+    margin-bottom: 5px;
+}
+
 #rightSide p{
-    margin-top: 18px;
+    margin-top: 21px;
 }
