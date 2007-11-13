@@ -19,13 +19,10 @@
 </jsp:scriptlet>
 
 <!-- GS-3686 init vars -->
-<c:set var="communityClass" value=""/>
 <c:set var="communityClassSearch" value=""/>
 <c:set var="webbyStyle" value=""/>
-<c:if test="${requestScope.pageHelper.devEnvironment and !requestScope.pageHelper.stagingServer}">
-    <!-- GS-3686: Override a padding value, used in main member td -->
-    <c:set var="communityClass" value="communityHeader"/>
-</c:if>
+<!-- GS-3686: Override a padding value, used in main member td -->
+<c:set var="communityClass" value="communityHeader"/>
 
 <div id="topnav">
 <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
@@ -36,68 +33,7 @@
             /></gsml:a>
 </td>
 <c:if test="${!requestScope.context.crawler}">
-<td class="member ${communityClass}" >
-<c:choose>
-<!-- GS-3686: add this conditional. The when case is the original, the otherwise is the new community code.
-     Note I kept the original indentation inside the when for cvs diffing purposes. -->
-    <c:when test="${!requestScope.pageHelper.devEnvironment or requestScope.pageHelper.stagingServer}">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="member noprint">
-    <tr>
-        <c:choose>
-            <c:when test="${empty requestScope.context.memberId}">
-                <td class="welcome">Welcome!</td>
-                <td class="signout"><link:signIn forwardTo="referer">Sign In</link:signIn></td>
-                <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">Start Saving Schools</gsml:a>
-                </td>
-            </c:when>
-            <c:otherwise>
-                <jsp:scriptlet>
-                    request.setAttribute("communityAuth",
-                            Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-                </jsp:scriptlet>
-                <c:choose>
-                    <c:when test="${requestScope.context.cobranded eq false and communityAuth eq true}">
-                        <td class="welcome">Welcome ${requestScope.context.screenName}</td>
-                        <td class="signout"><gsml:a
-                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">
-                            Sign Out</gsml:a></td>
-                        <td class="saved">
-                            <c:choose>
-                                <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">${requestScope.context.mslCount}
-                                        Saved School${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
-                                </c:when>
-                                <c:otherwise>
-                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start Saving Schools</gsml:a>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </c:when>
-                    <c:otherwise>
-                        <td class="welcome">Welcome ${requestScope.context.nickname}</td>
-                        <td class="signout"><gsml:a
-                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">
-                            Sign Out</gsml:a></td>
-                        <td class="saved">
-                            <c:choose>
-                                <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">${requestScope.context.mslCount}
-                                        Saved School${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
-                                </c:when>
-                                <c:otherwise>
-                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start Saving Schools</gsml:a>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </c:otherwise>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
-    </tr>
-</table>
-    </c:when> <!-- end original code -->
-<!-- GS-3686: Below code should only be shown on dev servers (not staging) -->
-    <c:otherwise>
+    <td class="member ${communityClass}" >
         <c:choose>
             <!-- Not logged in case -->
             <c:when test="${empty requestScope.context.memberId}">
@@ -128,11 +64,11 @@
                         <div id="communityHeader" class="noprint withImages">
                             <span class="headerUsername withBadge">
                                 Welcome,
-                                <gsml:a href="http://community.staging.greatschools.net/member/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
+                                <gsml:a href="http://${communityHost}/member/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
                                 <gsml:img src="/res/img/community/badge_placeholder.jpg" alt="Badge"/>
                             </span>
                             <span class="headerDashboard">
-                                <gsml:a href="http://community.staging.greatschools.net/dashboard">My Dashboard</gsml:a>
+                                <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
                             </span>
                             <span class="headerAccount withAvatar">
                                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">Sign Out</gsml:a>
@@ -149,7 +85,7 @@
                                 </c:choose>
                             </span>
                             <span class="headerAvatar">
-                                <gsml:a href="http://community.staging.greatschools.net/member/${requestScope.context.screenName}"><gsml:img src="http://community.staging.greatschools.net/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=30" alt="Avatar" /></gsml:a>
+                                <gsml:a href="http://${communityHost}/member/${requestScope.context.screenName}"><gsml:img src="http://${communityHost}/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=30" alt="Avatar" /></gsml:a>
                             </span>
                         </div>
                     </c:when>
@@ -175,9 +111,6 @@
                 </c:choose>
             </c:otherwise>
         </c:choose>
-    </c:otherwise>
-</c:choose> <!-- End GS-3686 code, though look below for ${webbyStyle} and ${communityClassSearch} which
-                 are also part of this change -->
 <c:choose>
     <c:when test="${fn:contains(pageContext.request.requestURI,'index')}">
         <div style="padding:18px 0 0 85px; ${webbyStyle}"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks></div>
