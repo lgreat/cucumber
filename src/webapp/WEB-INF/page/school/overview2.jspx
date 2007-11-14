@@ -182,12 +182,7 @@
             </c:if>
 
             <c:if test="${!requestScope.context.crawler}">
-                <variant:a>
-                    <school:parentReviewForm school="${school}" pageName="overview"/>
-                </variant:a>
-                <variant:b>
-                    <school:nonAjaxParentReviewForm school="${school}" pageName="overview"/>
-                </variant:b>
+                <school:parentReviewForm school="${school}" pageName="overview"/>
             </c:if>
 
             <div id="learnSchool">
