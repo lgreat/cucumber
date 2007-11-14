@@ -62,10 +62,9 @@
                         <!-- webbyStyle is used to hide the webby logo below -->
                         <c:set var="webbyStyle" value="display: none;"/>
                         <div id="communityHeader" class="noprint withImages">
-                            <span class="headerUsername withBadge">
+                            <span class="headerUsername">
                                 Welcome,
                                 <gsml:a href="http://${communityHost}/member/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
-                                <gsml:img src="/res/img/community/badge_placeholder.jpg" alt="Badge"/>
                             </span>
                             <span class="headerDashboard">
                                 <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
