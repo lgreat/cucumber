@@ -41,12 +41,14 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunity() throws SoapRequestException {
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
         verify(_soapRequest);
 
         reset(_soapRequest);
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.changePasswordRequest(_user);
         expectLastCall().andThrow(new SoapRequestException());
         replay(_soapRequest);
@@ -91,6 +93,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     public void testNotifyCommunityOnWww() throws SoapRequestException {
         _request.setServerName("www.greatschools.net");
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -101,6 +104,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     public void testNotifyCommunityOnWwwCobrand() throws SoapRequestException {
         _request.setServerName("framed.greatschools.net");
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -113,6 +117,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
         command.setUser(_user);
         command.setNewPassword("123456");
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.changePasswordRequest(_user);
         replay(_soapRequest);
 
@@ -132,6 +137,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         command.setUser(_user);
         command.setNewPassword("123456");
         command.setOldPassword("654321");
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.changePasswordRequest(_user);
         expectLastCall().andThrow(new SoapRequestException());
         replay(_soapRequest);
@@ -230,7 +236,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         assertTrue(command.getUser().matchesPassword("foobar"));
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         assertFalse(errors.hasErrors());
-        assertEquals(mAndV.getViewName(), _controller.getSuccessView());
+        assertEquals(mAndV.getViewName(), "redirect:http://community.greatschools.net/");
         assertTrue(command.getUser().matchesPassword("foobar"));
     }
 

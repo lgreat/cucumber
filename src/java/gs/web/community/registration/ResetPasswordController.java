@@ -173,35 +173,41 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                                  Object objCommand,
                                  BindException errors) throws NoSuchAlgorithmException {
         ModelAndView mAndV = new ModelAndView();
+        String comLandingUrl = "http://" +
+                SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                "/";
+        String targetUrl = comLandingUrl;
         if (!suppressValidation(request, objCommand)) {
             // at this point everything has been validated. Proceed with the password change request
             ResetPasswordCommand command = (ResetPasswordCommand) objCommand;
             User user = command.getUser();
 
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
             user.setPlaintextPassword(command.getNewPassword());
             if (notifyCommunity(user, request)) {
+                _log.info("true");
                 // success
                 // save user
-                user.setPlaintextPassword(command.getNewPassword());
                 user.setUpdated(new Date());
                 getUserDao().updateUser(user);
                 // log in user automatically
                 PageHelper.setMemberAuthorized(request, response, user);
-                builder.addParameter("message", "Your password has been changed");
+                // triggers msg #25 on community (include/message_list.php)
+                targetUrl += "?msg=B1C4-0FF2-3D70-BD27";
             } else {
+                _log.info("false");
                 // failure
                 // make sure user object is in original state
                 user.setPlaintextPassword(command.getOldPassword());
                 user.setEmailProvisional(command.getOldPassword());
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
                 builder.addParameter("message", "We're sorry! There was an error updating your password. " +
                         "Please try again in a few minutes.");
+                targetUrl = builder.asFullUrl(request);
             }
-
-            mAndV.setViewName("redirect:" + builder.asFullUrl(request));
-        } else {
-            mAndV.setViewName(getSuccessView());
         }
+        mAndV.setViewName("redirect:" + targetUrl);
+        _log.info(mAndV.getViewName());
+
         return mAndV;
     }
 
@@ -215,7 +221,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         _log.info(user.getPasswordMd5());
         ChangePasswordRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
-        if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isDeveloperWorkstation(request.getServerName())) {
+        if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
             soapRequest.setTarget("http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/soap/user");
