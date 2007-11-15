@@ -64,7 +64,7 @@
                         <div id="communityHeader" class="noprint withImages">
                             <span class="headerUsername">
                                 Welcome,
-                                <gsml:a href="http://${communityHost}/member/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
+                                <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
                             </span>
                             <span class="headerDashboard">
                                 <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
@@ -84,7 +84,7 @@
                                 </c:choose>
                             </span>
                             <span class="headerAvatar">
-                                <gsml:a href="http://${communityHost}/member/${requestScope.context.screenName}"><gsml:img src="http://${communityHost}/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=30" alt="Avatar" /></gsml:a>
+                                <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}"><gsml:img src="http://${communityHost}/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=30" alt="Avatar" /></gsml:a>
                             </span>
                         </div>
                     </c:when>
