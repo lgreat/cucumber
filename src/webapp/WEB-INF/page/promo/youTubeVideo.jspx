@@ -41,14 +41,14 @@
                     </p>
 
                     <p>
-                        Want a recap?
+                        Want a recap?<br/>
                         <gsml:a href="http://www.youtube.com/republicandebate"
                                 target="_blank"
                                 styleClass="callToAction">Visit YouTube's debate page for clips from both events &gt;</gsml:a>
                     </p>
 
                     <p>
-                        See the questions parents submitted!
+                        See the questions parents submitted!<br/>
                         <gsml:a href="http://www.youtube.com/greatschools"
                                 target="_blank"
                                 styleClass="callToAction">Check out the GreatSchools YouTube channel &gt;</gsml:a>
