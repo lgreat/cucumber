@@ -32,8 +32,9 @@
             font: 13px Trebuchet MS, Arial, sans-serif;
             color: #666666;
             border: 1px solid #cccccc;
+            position:relative;
         }
-        .singleColumnResultBox div {            
+        .singleColumnResultBox div {
             padding: 2px 0 2px 30px;
         }
         .odd {
@@ -57,11 +58,13 @@
         }
 
         .resultSchool .header {
+            position:relative;
             color: #55BBCC;
-            border-bottom:dotted #cccccc 5px;
+            border-bottom:dotted #E2E3CB 3px;
             font-size:15px;
             margin-bottom:10px;
             padding-bottom:5px;
+            font-weight:bold;
         }
       
         .resultSchool p {
@@ -75,7 +78,11 @@
             font: 13px Trebuchet MS, Arial, sans-serif;
             color:#666666;
         }
-        .contentGS .resultSchool ul li a {
+        #contentGS .resultSchool ul li a,
+        #contentGS .resultSchool ul li a:active,
+        #contentGS .resultSchool ul li a:visited,
+        #contentGS .resultSchool ul li a:hover
+        {
             font: 13px Trebuchet MS, Arial, sans-serif;
             color: #3399AA;
         }
@@ -101,6 +108,7 @@
             font-size:15px;
             padding-left:30px;
             text-transform:uppercase;
+            font-weight:bold;
         }
 
     </style>
