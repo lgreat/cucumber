@@ -1,0 +1,180 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:survey="urn:jsptagdir:/WEB-INF/tags/survey"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsweb="gstaglib"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+
+<c:set var="school" value="${userResponseCommand.school}"/>
+
+<html>
+<head>
+    <title>Complete a Parent Survey for ${school.name} in ${school.city}, ${school.databaseState}</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
+    <pageHelper:externalCss file="/res/css/survey/survey.css"/>
+    <style type="text/css">
+        .resultBox {
+            font: 13px Trebuchet MS, Arial, sans-serif;
+            color: #666666;
+            border: 1px solid #cccccc;
+        }
+        .singleColumnResultBox div {            
+            padding: 2px 0 2px 30px;
+        }
+        .odd {
+            background-color: #F0F7F7;
+        }
+        .even {
+            background-color: #FFFFFF;
+        }
+        .checked {
+            background-image:url("/res/img/bullet/pinkcheck_onwhite.gif");
+            background-position:10px 5px;
+            background-repeat:no-repeat;
+        }
+        .resultScale .answer-bar{
+            padding-left:40px;
+        }
+        .resultScale .answer-bar .label-left, .resultScale .answer-bar .label-right {
+            font: 13px Trebuchet MS, Arial, sans-serif;
+            color: #666666;
+            width:120px;
+        }
+
+        .resultSchool .header {
+            color: #55BBCC;
+            border-bottom:dotted #cccccc 5px;
+            font-size:15px;
+            margin-bottom:10px;
+            padding-bottom:5px;
+        }
+      
+        .resultSchool p {
+            font: 15px Trebuchet MS, Arial, sans-serif;
+            color:#666666;
+        }
+        .resultSchool ul {
+            padding-left:40px;
+        }
+        .resultSchool ul li {
+            font: 13px Trebuchet MS, Arial, sans-serif;
+            color:#666666;
+        }
+        .contentGS .resultSchool ul li a {
+            font: 13px Trebuchet MS, Arial, sans-serif;
+            color: #3399AA;
+        }
+
+        .multiColumn {
+            position:relative;
+            float:left;
+        }
+        .multiColumn div {
+            position:relative;
+            padding-left:30px;
+            width:146px;
+        }
+        .empty {
+            display:none;
+        }
+        .hidden {
+            visibility:hidden;
+        }
+
+        .resultBox .title {
+            color: #99CC66;
+            font-size:15px;
+            padding-left:30px;
+            text-transform:uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="left-col">
+    <div class="resultBox">
+        <div class="title">header</div>
+        <div class="multiColumn">
+            <div class="odd checked">orchestra <span class="empty">available</span></div>
+            <div class="even checked">band <span class="empty">available</span></div>
+            <div class="odd checked">chorus <span class="empty">available</span></div>
+            <div class="even checked">ceramics/sculpture <span class="empty">available</span></div>
+        </div>
+        <div class="multiColumn">
+            <div class="odd checked">computer arts <span class="empty">available</span></div>
+            <div class="even">dance <span class="empty">not available</span></div>
+            <div class="odd checked">drawing/painting <span class="empty">available</span></div>
+            <div class="even checked">photography <span class="empty">available</span></div>
+        </div>
+        <div class="multiColumn">
+            <div class="odd checked">theater/drama</div>
+            <div class="even checked">video/film production</div>
+            <div class="odd"><span class="hidden">blank</span></div>
+            <div class="even"><span class="hidden">blank</span></div>
+        </div>
+        <![CDATA[<div style="clear:both;"></div>]]>
+    </div>
+
+    <br style="clear:both;"/>
+
+    <div class="resultBox singleColumnResultBox">
+        <div class="odd checked">Self-contained: grouped together in one class all day <span class="empty"> - true</span></div>
+        <div class="even checked">Pull-out: grouped together for part of the day <span class="empty"> - true</span></div>
+        <div class="odd">Inclusion: not separated from other students but get enriched instruction <span class="empty"> - false</span></div>
+    </div>
+
+    <br style="clear:both;"/>
+
+    <div class="resultScale">
+        <div class="answer-bar">
+            <div class="label-left">Only a few students are involved</div>
+            <div class="label-right">Almost every student is involved</div>
+            <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
+        </div>
+        <fmt:parseNumber var="offset" value="${(33+450*1)+0.5}" integerOnly="true"/>
+        <c:set var="arrowPct" value="${offset}px;"/>
+        <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
+    </div>
+
+    <br style="clear:both;"/>
+
+    <div class="resultSchool">
+        <div class="header">Other Schools attended</div>
+        <p>Schools attended prior to this school: </p>
+        <ul>
+            <li><a href="http://www.greatschools.net">Lincoln Middle School</a> (6 students)</li>
+            <li><a href="http://www.greatschools.net">Brett Harte Middle School</a> (1 students)</li>
+            <li><a href="http://www.greatschools.net">Escula Bilingue International</a> (1 student)</li>
+        </ul>
+    </div>
+</div>
+
+<div id="right-col">
+    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Survey"/>
+    <ad:Top_300x137/>
+    <ad:AboveFold_300x250/>
+    <ad:multiTextAd blurb="Advertiser links"/>
+    <ad:AboveFold_300x600/>
+</div>
+<mod:tracking pageType="School Profile"
+              pageName="Parent Survey Questions:${requestScope.currentPage} "
+              hier1="Schools,Parent Survey,Question,Page ${requestScope.currentPage}"/>
+</body>
+</html>
+</jsp:root>
