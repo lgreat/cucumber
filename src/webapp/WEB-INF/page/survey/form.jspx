@@ -96,7 +96,7 @@
     <c:forEach var="question" items="${questionGroup.questions}" varStatus="questionCount">
         <div class="question">
             <div class="question-text"><span class="number">${questionCount.index + 1}.</span>${question.text}</div>
-            <c:forEach var="answer" items="${question.answers}">
+            <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
                 <h3 class="answer-sibling-heading">${answer.title}</h3>
                 <c:choose>
                     <c:when test="${answer.type eq 'MULTI'}">
@@ -116,7 +116,11 @@
                                 </c:if>
                             </c:otherwise>
                         </c:choose>
-                        <div class="answer-sibling">
+                        <c:set var="answerSiblingClassName" value="answer-sibling"/>
+                        <c:if test="${answerIndex.index + 1 eq fn:length(question.answers)}">
+                            <c:set var="answerSiblingClassName" value="answer-sibling-last"/>
+                        </c:if> 
+                        <div class="${answerSiblingClassName}">
                             <![CDATA[<div class="${colClass}">]]>
                             <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="boxCounter">
                                 <c:set var="mapKey" value="q${question.id}a${answer.id}"/>
