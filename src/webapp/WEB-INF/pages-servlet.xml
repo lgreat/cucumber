@@ -81,6 +81,7 @@
                 <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
                 <entry key="/school/updateRatings.page" value="updateRatings"/>
                 <entry key="/survey/form.page" value="surveyController"/>
+                <entry key="/survey/results.page" value="surveyResultsController"/>
                 <entry key="/survey/start.page" value="surveySchoolLevelController"/>
             </map>
         </property>
@@ -1219,6 +1220,10 @@
             </list>
         </property>
     </bean>
+
+    <bean name="surveyResultsController"
+          class="gs.web.survey.SurveyResultsController" autowire="byName" lazy-init="true">
+    </bean>    
 
     <bean name="surveySchoolLevelController"
           class="gs.web.survey.SchoolLevelController" autowire="byName" lazy-init="true">

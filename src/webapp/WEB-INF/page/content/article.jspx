@@ -14,35 +14,73 @@
         <pageHelper:externalCss file="/res/css/content/article.css"/>
     </head>
     <body>
-    <div id="rightMatter">
-        <div id="articleTools">
-            <h2>Article Tools</h2>
-            <ul>
-                <li id="print"><gsml:a href="">Print This Article</gsml:a></li>
-                <li id="email"><gsml:a href="">Email This Article</gsml:a></li>
-                <li id="signup"><gsml:a href="">Sign-up For Newsletters</gsml:a></li>
-                <c:if test="${true}">
-                    <li id="discuss"><gsml:a href="">Discuss This Article</gsml:a></li>
-                </c:if>
-            </ul>
-            <span id="library">
-                <link:articleLibrary>See full library of articles</link:articleLibrary>
-            </span>
+
+    <div id="top">
+        <gsml:equalizeColumns ids="'leftCol','rightCol'"/>
+        <div id="leftCol">
+            <c:choose>
+                <c:when test="${not empty requestScope.article}">
+                    <div id="article">
+                        <div id="articleTitle">${requestScope.article.title}</div>
+                        <div id="articleAbstract">${requestScope.article.abstract}</div>
+                        <div id="articleAuthor">${requestScope.article.author}</div>
+                        <div id="articleText">${requestScope.article.articleText}</div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <h2 class="noarticle">Article not found</h2>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <div id="rightCol">
+            <div id="articleTools">
+                <h2>Article Tools</h2>
+                <ul>
+                    <li id="print"><gsml:a href="">Print This Article</gsml:a></li>
+                    <li id="email"><gsml:a href="">Email This Article</gsml:a></li>
+                    <li id="signup"><gsml:a href="">Sign-up For Newsletters</gsml:a></li>
+                    <c:if test="${true}">
+                        <li id="discuss"><gsml:a href="">Discuss This Article</gsml:a></li>
+                    </c:if>
+                </ul>
+                <span id="library">
+                    <link:articleLibrary>See full library of articles</link:articleLibrary>
+                </span>
+            </div>
         </div>
     </div>
-    <c:choose>
-        <c:when test="${not empty requestScope.article}">
-            <div id="article">
-                <div id="articleTitle">${requestScope.article.title}</div>
-                <div id="articleAbstract">${requestScope.article.abstract}</div>
-                <div id="articleAuthor">${requestScope.article.author}</div>
-                <div id="articleText">${requestScope.article.articleText}</div>
+    <div id="moreAbout"> foo</div>
+
+    <div id="enterComment">
+        <div class="commentHeader"><span class="rlbcopy">Email us your feedback</span></div>
+        <textarea name="description" cols="30" rows="10">xcxc</textarea>
+        <div id="nameEmail">
+            Name (optional):<input name="name" class="text" size="25" type="text"></input>
+                <br /><br />
+            Email (optional):<input name="email" class="text" size="25" type="text"></input>
+            <br /><br />
+            <input value="submit" type="submit"></input>
+        </div>
+        <div id="terms">
+            <input name="permit" type="checkbox"></input>
+            <span class="ncopy">
+                Yes, I agree to the <a href="/#permission">GreatSchools Terms of Use</a> and give GreatSchools
+                permission to post my comments for other parents to read.
+
+            <span class="rlbcopy">Note: </span>Your email address is
+            required if you would like a response from GreatSchools.net.</span><br />
+
+        </div>
+    </div>
+
+    <div id="comments">
+        <c:forEach var="comment" items="${requestScope.article.userComments}">
+            <div class="comment">
+                <span class="comment-date">${comment.posted}</span>
+                <div id="comment-text">${comment.text}</div>
             </div>
-        </c:when>
-        <c:otherwise>
-            <h2 class="noarticle">Article not found</h2>
-        </c:otherwise>
-    </c:choose>
+        </c:forEach>
+    </div>
     </body>
     </html>
 </jsp:root>

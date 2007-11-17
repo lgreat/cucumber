@@ -22,13 +22,6 @@ div#articleAuthor {
 div#articleText {
     padding:20px 0px 0px 20px;
 }
-div#rightMatter {
-    float:right;
-    border-left:solid 1px #DDDDDD;
-    padding-left:8px;
-    width:320px;
-    margin:0 0 10px 10px;
-}
 
 div#articleTools {
     border:solid 2px #66CDCB;
@@ -63,4 +56,35 @@ div#articleText li {
     list-style:disc;
     margin-left:30px;
 }
-    div#articleText li .rlbcopy { color:#55BBCA; }
+
+div#articleText li .rlbcopy {
+    color:#55BBCA;
+}
+
+div#top {
+    position:relative;
+}
+
+div#top div#leftCol {
+    border-right:1px solid #CCCCCC;
+    width:550px;
+}
+
+div#top div#rightCol {
+    position:absolute;
+    top:0;
+    right:0;
+    width:300px;
+    padding-left:8px;
+    margin:0 0 10px 10px;
+}
+
+div#moreAbout {
+    border:solid green;
+    height:300px;
+    width:300px;
+}
+
+div#enterComment {
+    border:solid blue;
+}
