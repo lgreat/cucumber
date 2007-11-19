@@ -165,7 +165,7 @@
                     <c:if test="${school.levelCode != 'p'}">
                         <div class="noprint" style="margin:10px 0 20px 0;">
                             <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_ParentReview">
-                                <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_review.gif" alt="Fill out a parent survey about ${school.name}" />
+                                <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_review.gif" alt="What are ${school.name}'s special characteristics?" />
                             </link:schoolStartSurvey>
                         </div>
                     </c:if>                    
