@@ -232,8 +232,7 @@ Parent Review Page
 
 #showParentReviews {
     float: left;
-    width: 532px;
-    border-bottom: 1px solid #ddd;
+    width: 532px;    
 }
 
 #showParentReviews h2 {
