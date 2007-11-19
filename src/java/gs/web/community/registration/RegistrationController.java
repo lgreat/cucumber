@@ -258,10 +258,10 @@ public class RegistrationController extends SimpleFormController implements Read
                     _log.error(ex);
                 }
             }
-            UrlUtil urlUtil = new UrlUtil();
-            if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isStagingServer(request.getServerName())) {
-                PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
-            }
+//            UrlUtil urlUtil = new UrlUtil();
+//            if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isStagingServer(request.getServerName())) {
+//                PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
+//            }
             PageHelper.setMemberCookie(request, response, user); // log in to MSL
             if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
