@@ -66,8 +66,9 @@ table#bottomContent div.leftImage {
 }
 
 table#bottomContent td.contentCell div#youtube {
-    padding:30px 30px 40px 15px;
+    padding:30px 30px 33px 15px;
     width:272px;
+    position: relative;
 }
 
 table#bottomContent td.contentCell div#commBlog {
@@ -80,7 +81,9 @@ table#bottomContent td.contentCell div#commBlog div {
 }
 
 table#bottomContent div#youtube a {
-    float:right;
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
 }
 
 table#bottomContent img.headline {
