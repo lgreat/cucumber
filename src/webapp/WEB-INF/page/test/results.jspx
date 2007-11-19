@@ -112,10 +112,34 @@
         }
 
     </style>
+    <script type="text/javascript">
+        function initPanel() {
+			// Instantiate a Panel from markup
+            YAHOO.util.Dom.setStyle(['graphPanel'], 'display', 'block');
+            YAHOO.graphPanel = new YAHOO.widget.Panel("graphPanel", { width:"320px", visible:false, constraintoviewport:true } );
+			YAHOO.graphPanel.render();
+            YAHOO.util.Event.addListener("graphPanelLink", "click", YAHOO.graphPanel.show, YAHOO.graphPanel, true);            
+        }
+    </script>
 </head>
 <body>
 
 <div id="left-col">
+
+    <!-- start yui panel example http://developer.yahoo.com/yui/container/panel/-->
+    <yui:panel/>
+    <pageHelper:addOnLoadHandler handler="initPanel();"/>
+    <p>Show me <a id="graphPanelLink" href="#" onclick="return false;">info</a> about user responses.</p>
+    <!--display none set initially so we don't get a flicker when hiding.  this style is set to block in the initPanel method.-->
+    <div id="graphPanel" style="display:none;">
+        <p>here's a sample pie chart</p>
+        <img src="http://staging.greatschools.net/chart/pie.page?p=64_15_6_6_6_3_&lt;1_&lt;1" alt="pie chart"/>
+    </div>
+    <!-- end yui panel example -->
+
+        
+    <br style="clear:both;"/>
+
     <div class="resultBox">
         <div class="title">header</div>
         <div class="multiColumn">

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="animation" required="false" description="enable if you want animation"/>
+    <jsp:directive.attribute name="dragNdrop" required="false" description="enable if you want drag and drop"/>
+    <jsp:directive.attribute name="ajaxSupport" required="false" description="enable if you want ajax support"/>
+    <!-- CSS -->
+    <pageHelper:externalCss file="http://yui.yahooapis.com/2.3.1/build/container/assets/container.css"/>
+
+    <!-- Dependencies -->
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.3.1/build/yahoo-dom-event/yahoo-dom-event.js"/>
+
+    <c:if test="${not empty (animation)}">
+        <!-- OPTIONAL: Animation (only required if enabling Animation) -->
+        <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.3.1/build/animation/animation-min.js"/>
+    </c:if>
+
+    <c:if test="${not empty (dragNdrop)}">
+        <!-- OPTIONAL: Drag & Drop (only required if enabling Drag & Drop) -->
+        <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.3.1/build/dragdrop/dragdrop-min.js"/>
+    </c:if>
+
+    <c:if test="${not empty (ajaxSupport)}">
+        <!-- OPTIONAL: Connection (only required if performing asynchronous submission) -->
+        <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.3.1/build/connection/connection-min.js"/>
+
+    </c:if>
+    <!-- Source file -->
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.3.1/build/container/container-min.js"/>
+</jsp:root>
