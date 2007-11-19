@@ -259,8 +259,8 @@ public class RegistrationController extends SimpleFormController implements Read
                 }
             }
             UrlUtil urlUtil = new UrlUtil();
-            if (urlUtil.isDevEnvironment(request.getServerName())) {
-                PageHelper.setMemberAuthorized(request, response, user); // log in to community
+            if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isStagingServer(request.getServerName())) {
+                PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
             }
             PageHelper.setMemberCookie(request, response, user); // log in to MSL
             if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {

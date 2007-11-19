@@ -318,8 +318,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
 
         UrlUtil urlUtil = new UrlUtil();
-        if (urlUtil.isDevEnvironment(request.getServerName())) {
-            PageHelper.setMemberAuthorized(request, response, user); // log in to community
+        if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isStagingServer(request.getServerName())) {
+            PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community on dev only
         }
         PageHelper.setMemberCookie(request, response, user); // log in to MSL
         if (StringUtils.isEmpty(fupCommand.getRedirect())) {
