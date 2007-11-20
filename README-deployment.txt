@@ -13,10 +13,7 @@ maven-tomcat plugin
 The maven-tomcat plugin in GSWeb allows command line
 redeploying to your local tomcat by doing:
 
-   * maven tomcat:install (if the webapp is not already installed)
-   * maven tomcat:reload (if you want to update an already running version with
-the latest changes)
-   * maven tomcat:uninstall (to remove it from tomcat)
+   * maven war:webapp 
 
 
 
