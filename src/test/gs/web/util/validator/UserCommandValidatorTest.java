@@ -2,13 +2,19 @@ package gs.web.util.validator;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContext;
 import gs.web.community.registration.UserCommand;
+import static org.easymock.EasyMock.*;
+import org.easymock.MockControl;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
-import org.easymock.MockControl;
+
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Provides ...
@@ -508,5 +514,32 @@ public class UserCommandValidatorTest extends BaseTestCase {
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertTrue(errors.hasFieldErrors("terms"));
+    }
+
+    public void testDisabledUser() throws NoSuchAlgorithmException {
+        UserCommand command = setupCommand();
+
+        User user = new User();
+        user.setId(1);
+        user.setPlaintextPassword("foobar");
+        user.setUserProfile(new UserProfile());
+        user.getUserProfile().setActive(false);
+
+        reset(_userDao);
+        expect(_userDao.findUserFromEmailIfExists(GOOD_EMAIL)).andReturn(user);
+        expect(_userDao.findUserFromScreenNameIfExists(GOOD_SCREEN_NAME_SHORT)).andReturn(user);
+        replay(_userDao);
+        Errors errors = new BindException(command, "");
+
+        SessionContextUtil sessionContextUtil = new SessionContextUtil();
+
+        SessionContext sessionContext = new SessionContext();
+        sessionContext.setSessionContextUtil(sessionContextUtil);
+        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
+
+        _validator.validate(_request, command, errors);
+        verify(_userDao);
+        assertTrue(errors.hasErrors());
+        assertTrue(errors.hasFieldErrors("email"));
     }
 }

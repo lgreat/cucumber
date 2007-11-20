@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.51 2007/09/10 17:36:59 cpickslay Exp $
+ * $Id: PageHelper.java,v 1.52 2007/11/20 23:28:06 aroy Exp $
  */
 
 package gs.web.util;
@@ -582,7 +582,8 @@ public class PageHelper {
     }
 
     /**
-     * Verifies that the storedHash is valid for the user.
+     * Verifies that the storedHash is valid for the user. This method will always return false
+     * if the user is inactive, even if the hash would be valid.
      * @param user User to verify authorization for
      * @param storedHash Hash string
      * @return True if hash is valid for given user
@@ -591,6 +592,8 @@ public class PageHelper {
     public static boolean isMemberAuthorized(User user, String storedHash) throws NoSuchAlgorithmException {
         // save time by exiting early
         if (user == null || StringUtils.isEmpty(storedHash)) {
+            return false;
+        } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
             return false;
         }
         String realHash = AuthenticationManager.generateCookieValue(user);

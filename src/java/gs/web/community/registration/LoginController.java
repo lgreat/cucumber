@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.27 2007/08/14 19:33:56 aroy Exp $
+ * $Id: LoginController.java,v 1.28 2007/11/20 23:28:05 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -101,6 +101,13 @@ public class LoginController extends SimpleFormController {
 //                    " If you believe this message to be in error, please " + href + ".");
         } else if (user.isPasswordEmpty()) {
             errors.reject(null, "There is no community account associated with that email address.");
+        } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
+
+            String errmsg = "The account associated with that email address has been disabled. " +
+                    "Please <a href=\"http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/report/email-moderator\">contact us</a> for more information.";
+            errors.reject(null, errmsg);
         } else {
             String password = loginCommand.getPassword();
             // validate password

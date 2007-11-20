@@ -3,6 +3,7 @@ package gs.web.community.registration;
 import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -104,6 +105,24 @@ public class LoginControllerTest extends BaseControllerTestCase {
         LoginCommand command = new LoginCommand();
         command.setEmail("testLoginController@greatschools.net");
         command.setPassword("wrongPassword");
+
+        _controller.onBindOnNewForm(getRequest(), command, _errors);
+        _controller.onBindAndValidate(getRequest(), command, _errors);
+        verify(_mockUserDao);
+        assertTrue("Controller does not have expected errors on validate", _errors.hasErrors());
+    }
+
+    public void testDisabledUser() throws NoSuchAlgorithmException {
+        _user.setPlaintextPassword("foobar");
+        _user.setUserProfile(new UserProfile());
+        _user.getUserProfile().setActive(false);
+
+        expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
+        replay(_mockUserDao);
+
+        LoginCommand command = new LoginCommand();
+        command.setEmail("testLoginController@greatschools.net");
+        command.setPassword("foobar");
 
         _controller.onBindOnNewForm(getRequest(), command, _errors);
         _controller.onBindAndValidate(getRequest(), command, _errors);

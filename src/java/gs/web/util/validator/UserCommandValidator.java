@@ -5,6 +5,7 @@ import gs.data.community.UserProfile;
 import gs.data.community.User;
 import gs.web.community.registration.UserCommand;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -88,7 +89,13 @@ public class UserCommandValidator implements IRequestAwareValidator {
 //        }
 
             if (user != null) {
-                if (user.isEmailValidated()) {
+                if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
+                    String errmsg = "The account associated with that email address has been disabled. " +
+                            "Please <a href=\"http://" +
+                            SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                            "/report/email-moderator\">contact us</a> for more information.";
+                    errors.rejectValue("email", null, errmsg);
+                } else if (user.isEmailValidated()) {
                     errors.rejectValue("email", null,
                             "The email address you entered has already been registered " +
                                     "with GreatSchools.");

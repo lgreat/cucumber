@@ -79,6 +79,12 @@ public class ForgotPasswordController extends SimpleFormController {
             String href = builder.asAnchor(request, "join the community").asATag();
             errors.rejectValue("email", null, "There is no community account associated with that email address. " +
                     "Would you like to " + href + "?");
+        } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
+            String errmsg = "The account associated with that email address has been disabled. " +
+                    "Please <a href=\"http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/report/email-moderator\">contact us</a> for more information.";
+            errors.rejectValue("email", null, errmsg);
         }
     }
 

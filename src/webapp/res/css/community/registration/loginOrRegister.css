@@ -192,20 +192,23 @@
 ul.warning {
     position: absolute;
     top: 75px;
-    left: 0;
-    width: 384px;
+    left: 14px;
+    width: 370px;
     color: #cc5566;
     line-height: 12px;
 }
 
 #outline ul.warning li {
     font-size: 11px;
-    text-indent: 7px;
 }
 
 .warning img {
-    position: relative;
-    left: -7px;
+    position: absolute;
+    left: -14px;
     top: 2px;
 }
 
+#outline ul.warning li a {
+    text-decoration: none;
+    color: #3399AA;
+}

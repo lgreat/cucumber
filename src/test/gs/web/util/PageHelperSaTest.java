@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.37 2007/09/10 17:36:52 cpickslay Exp $
+ * $Id: PageHelperSaTest.java,v 1.38 2007/11/20 23:28:05 aroy Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
+import gs.data.community.UserProfile;
 import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.ads.AdPosition;
@@ -446,6 +447,12 @@ public class PageHelperSaTest extends TestCase {
 
         _request.setCookies(new Cookie[] {_response.getCookie("community_dev")});
         assertTrue(PageHelper.isMemberAuthorized(_request));
+
+        // test that disabled users are not authorized
+        user.setUserProfile(new UserProfile());
+        user.getUserProfile().setActive(false);
+
+        assertFalse(PageHelper.isMemberAuthorized(_request));
     }
 
     public void testIsCommunityCookieSet() {

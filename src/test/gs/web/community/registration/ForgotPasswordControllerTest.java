@@ -2,8 +2,10 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
+import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import org.easymock.MockControl;
@@ -118,6 +120,26 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
 
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
+        assertTrue("Controller missing expected errors on validation", errors.hasErrors());
+    }
+
+    public void testDisabledUser() throws Exception {
+        User user = new User();
+        user.setEmail("forgotPasswordTest@greatschools.net");
+        user.setId(125);
+        user.setPlaintextPassword("foobar");
+        user.setUserProfile(new UserProfile());
+        user.getUserProfile().setActive(false);
+
+        expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net")).andReturn(user);
+        replay(_userDao);
+
+        UserCommand command = new UserCommand();
+        command.setEmail(user.getEmail());
+        BindException errors = new BindException(command, "");
+
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        verify(_userDao);
         assertTrue("Controller missing expected errors on validation", errors.hasErrors());
     }
 
