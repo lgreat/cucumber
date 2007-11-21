@@ -219,7 +219,8 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 Review aReview = (Review) reviews.get(i);
                 if (!CategoryRating.DECLINE_TO_STATE.equals(aReview.getQuality()) && aReview.getComments() != null) {
                     if (latestReview == null) { latestReview = aReview; }
-                    if (!school.getLevelCode().equals(LevelCode.PRESCHOOL) || i > 2) {
+                    if (!school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
+                            (preschoolReviews != null && preschoolReviews.size() > 2)) {
                         break;
                     } else {
                         if (preschoolReviews == null) preschoolReviews = new ArrayList<Map>();
