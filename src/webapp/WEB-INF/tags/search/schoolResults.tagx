@@ -4,7 +4,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
     <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
@@ -30,16 +29,12 @@
                     </c:if>
                 </div>
                 <address>
-                    <variant:a>
-                        <c:out value="${school.physicalAddress.street}"/><br />
-                    </variant:a>
+                    <c:out value="${school.physicalAddress.street}"/><br />
                     <c:out value="${school.physicalAddress.cityStateZip}"/>
                 </address>
-                <c:if test="${requestScope.context.ABVersion eq 'a' or requestScope.context.ABVersion eq 'c'}">
-                    <div class="phone">
-                        <c:out value="${school.phone}"/>
-                    </div>
-                </c:if>
+                <div class="phone">
+                    <c:out value="${school.phone}"/>
+                </div>
             </div>
         </c:forEach>
     </div>
