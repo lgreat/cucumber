@@ -240,7 +240,7 @@
 
   <ul id="newsletters">
       <li>
-          <label for="newsletterCheckbox">Yes! Subscribe me to the "Best of GreatSchools Community" newsletter!</label>
+          <label for="newsletterCheckbox">Yes! Send me local updates and subscribe me to the "Best of GreatSchools Community" newsletter!</label>
           <gsml:checkbox styleId="newsletterCheckbox" name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
       </li>
       <li>

@@ -283,10 +283,26 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
         deleteSubscriptionsForProduct(user, SubscriptionProduct.COMMUNITY);
+        deleteSubscriptionsForProduct(user, SubscriptionProduct.CITY_COMMUNITY);
+        deleteSubscriptionsForProduct(user, SubscriptionProduct.SCHOOL_COMMUNITY);
         if (fupCommand.getNewsletter()) {
+            // add three newsletters at once
+            // Best of Community
             Subscription subscription = new Subscription();
             subscription.setUser(user);
             subscription.setProduct(SubscriptionProduct.COMMUNITY);
+            subscription.setState(fupCommand.getUserProfile().getState());
+            fupCommand.addSubscription(subscription);
+            // Best of City Communities
+            subscription = new Subscription();
+            subscription.setUser(user);
+            subscription.setProduct(SubscriptionProduct.CITY_COMMUNITY);
+            subscription.setState(fupCommand.getUserProfile().getState());
+            fupCommand.addSubscription(subscription);
+            // Best of School Communities
+            subscription = new Subscription();
+            subscription.setUser(user);
+            subscription.setProduct(SubscriptionProduct.SCHOOL_COMMUNITY);
             subscription.setState(fupCommand.getUserProfile().getState());
             fupCommand.addSubscription(subscription);
         }
