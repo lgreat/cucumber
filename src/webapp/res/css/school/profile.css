@@ -299,7 +299,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 /* School Overview page header */
 
 .overview #ratings { /* hides the ratings */
-	display: none;
+	/* display: none;   */  
 }
 
 .overview #navigation { /* has IE 7 equivalent */

@@ -9,6 +9,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <jsp:directive.tag import="gs.data.school.review.IReviewDao"/>
 <jsp:directive.tag import="gs.data.test.SchoolTestValue"/>
@@ -185,6 +186,7 @@
     <!-- End School name -->
 
     <!-- Ratings -->
+    <variant:b>
     <div id="ratings">
         <!-- Great Schools Rating -->
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
@@ -228,6 +230,7 @@
         <c:if test="${parent_rating eq 0}">
         </c:if>
     </div>
+    </variant:b>
     <!-- end: ratings -->
 
     </div> <!-- end: schoolProfileHeader div -->
