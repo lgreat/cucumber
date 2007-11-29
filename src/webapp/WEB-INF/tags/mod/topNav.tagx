@@ -13,6 +13,8 @@
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag body-content="empty"/>
+<jsp:directive.attribute name="community" required="false"
+                         description="If set to 'true' mean this tag is being displayed through a community iframe"/>
 
 <jsp:scriptlet>
     request.setAttribute("tabs", PageHelper.pageIds);
@@ -38,6 +40,11 @@
             <!-- Not logged in case -->
             <c:when test="${empty requestScope.context.memberId}">
                 <div id="communityHeader" class="noprint">
+                    <c:choose>
+                        <c:when test="${community eq 'true'}">
+                            &amp;nbsp;
+                        </c:when>
+                        <c:otherwise>
                     <span class="headerUsername">Welcome!</span>
                     <span class="headerAccount">
                         <link:signIn forwardTo="referer">Sign In</link:signIn>
@@ -45,6 +52,8 @@
                     <span class="headerMsl">
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
                     </span>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </c:when>
             <c:otherwise>
@@ -57,11 +66,16 @@
                 <c:choose>
                     <!-- full community login case -->
                     <c:when test="${communityAuth eq true}">
-                        <!-- communityClassSearch is used to modify the margin above the search box below -->
-                        <c:set var="communityClassSearch" value="communityHeader"/>
-                        <!-- webbyStyle is used to hide the webby logo below -->
-                        <c:set var="webbyStyle" value="display: none;"/>
                         <div id="communityHeader" class="noprint withImages">
+                            <c:choose>
+                                <c:when test="${community eq 'true'}">
+                                    &amp;nbsp;
+                                </c:when>
+                                <c:otherwise>
+                            <!-- communityClassSearch is used to modify the margin above the search box below -->
+                            <c:set var="communityClassSearch" value="communityHeader"/>
+                            <!-- webbyStyle is used to hide the webby logo below -->
+                            <c:set var="webbyStyle" value="display: none;"/>
                             <span class="headerUsername">
                                 Welcome,
                                 <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
@@ -86,11 +100,19 @@
                             <span class="headerAvatar">
                                 <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}"><gsml:img src="http://${communityHost}/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=30" alt="Avatar" /></gsml:a>
                             </span>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </c:when>
                     <!-- msl only login case -->
                     <c:otherwise>
                         <div id="communityHeader" class="noprint">
+                            <c:choose>
+                                <c:when test="${community eq 'true'}">
+                                    <!-- When viewed from community hide this section -->
+                                    &amp;nbsp;
+                                </c:when>
+                                <c:otherwise>
                             <span class="headerUsername">Welcome, ${requestScope.context.nickname}</span>
                             <span class="headerAccount">
                                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">Sign Out</gsml:a>
@@ -105,6 +127,8 @@
                                     </c:otherwise>
                                 </c:choose>
                             </span>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </c:otherwise>
                 </c:choose>
