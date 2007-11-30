@@ -217,12 +217,27 @@ public class RegistrationController extends SimpleFormController implements Read
         } else {
             // only subscribe to newsletter on final step
             if (userCommand.getNewsletter()) {
+                // subscribe to three newsletters
+                List<Subscription> subs = new ArrayList<Subscription>();
+                // best of community
                 Subscription communityNewsletterSubscription = new Subscription();
                 communityNewsletterSubscription.setUser(user);
                 communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
                 communityNewsletterSubscription.setState(userCommand.getState());
-                List<Subscription> subs = new ArrayList<Subscription>();
                 subs.add(communityNewsletterSubscription);
+                // best of city
+                communityNewsletterSubscription = new Subscription();
+                communityNewsletterSubscription.setUser(user);
+                communityNewsletterSubscription.setProduct(SubscriptionProduct.CITY_COMMUNITY);
+                communityNewsletterSubscription.setState(userCommand.getState());
+                subs.add(communityNewsletterSubscription);
+                // best of school
+                communityNewsletterSubscription = new Subscription();
+                communityNewsletterSubscription.setUser(user);
+                communityNewsletterSubscription.setProduct(SubscriptionProduct.SCHOOL_COMMUNITY);
+                communityNewsletterSubscription.setState(userCommand.getState());
+                subs.add(communityNewsletterSubscription);
+
                 _subscriptionDao.addNewsletterSubscriptions(user, subs);
             }
             if (userCommand.isBeta()) {

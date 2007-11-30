@@ -225,7 +225,8 @@
 
                 <li id="newsletter" style="${newsletterStyle}">
                     <label for="newsletterField">Yes!
-                        Subscribe me to the "Best of GreatSchools Community"<br/>newsletter!
+                        Send me local updates and subscribe me to the "Best<br/>
+                        of GreatSchools Community" newsletter!
                     </label>
                     <gsml:checkbox styleId="newsletterField" name="newsletterStr" 
                                    checked="${userCmd.newsletter eq true}" tabIndex="12"/>
