@@ -30,16 +30,16 @@ public class DeactivateUserController implements ReadWriteController {
         try {
             // request must have secret number for basic security
             if (!StringUtils.equals(request.getParameter("secret"), SECRET_NUMBER)) {
-                _log.error("Error deactivating user: incorrect secret number provided");
+                _log.warn("Error deactivating user: incorrect secret number provided");
             // request must have user id
             } else if (request.getParameter("id") == null) {
-                _log.error("Error deactivating user: no parameter \"id\" provided");
+                _log.warn("Error deactivating user: no parameter \"id\" provided");
             } else {
                 int id = Integer.valueOf(request.getParameter("id"));
                 User user = _userDao.findUserFromId(id);
                 // user must be a community user
                 if (user.getUserProfile() == null) {
-                    _log.error("Error deactivating user " + id + ": Null user profile");
+                    _log.warn("Error deactivating user " + id + ": Null user profile");
                 } else {
                     user.getUserProfile().setActive(false);
                     _userDao.saveUser(user);
@@ -48,9 +48,9 @@ public class DeactivateUserController implements ReadWriteController {
             }
         } catch (ObjectRetrievalFailureException orfe) {
             // user doesn't exist
-            _log.error("Error deactivating user " + request.getParameter("id") + ": no user found");
+            _log.warn("Error deactivating user " + request.getParameter("id") + ": no user found");
         } catch (Exception e) {
-            _log.error("Error deactivating user " + request.getParameter("id") + ": " +
+            _log.warn("Error deactivating user " + request.getParameter("id") + ": " +
                     e.getClass().getName() + ": " + e.getMessage());
             // nothing
         }
