@@ -312,6 +312,16 @@ div.multiAnswerValue div.answerValue {
 }
 
 
+/******************** feedback  *****************************/
+div.feedback a:link, div.feedback a:visited{
+    color: #3399AA;
+    text-decoration: underline;
+}
+
+div.feedback {
+    padding:0 0 10px 0
+
+}
 /******************** submit area ***************************/
 
 #form-submit{

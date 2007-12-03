@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.92 2007/11/02 23:51:11 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.93 2007/12/03 20:43:42 jnorton Exp $
  */
 
 package gs.web.util;
@@ -84,6 +84,7 @@ public class UrlBuilder {
     public static final VPage CITIES_MORE_NEARBY = new VPage("vpage:moreNearbyCities");
 
     public static final VPage CONTACT_US = new VPage("vpage:contactUs");
+    public static final VPage FEEDBACK = new VPage("vpage:feedback");
     public static final VPage TERMS_OF_USE = new VPage("vpage:termsOfUse");
 
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
@@ -612,6 +613,14 @@ public class UrlBuilder {
         } else if (CONTACT_US.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/feedback/" + state.getAbbreviation();
+        } else if (FEEDBACK.equals(page)) {
+            _perlPage = true;
+            
+            setParameter("fbtype", "gen");
+            if (param0 != null) {
+                addParameter("topicOption", param0);
+            }
+            _path = "/cgi-bin/feedback_faq/" + state.getAbbreviation();
         } else if (TERMS_OF_USE.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/static/terms.html/" + state.getAbbreviation();

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.36 2007/11/02 23:51:11 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.37 2007/12/03 20:43:42 jnorton Exp $
  */
 
 package gs.web.jsp.link;
@@ -282,6 +282,26 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/feedback/CA", builder.asSiteRelative(null));
+    }
+
+
+    public void testFeedback(){
+        FeedbackTagHandler tagHandler = new FeedbackTagHandler();
+        assertNotNull("Expected an instance of FeedbackTagHandler to exist", tagHandler);
+        tagHandler.setPageContext(new MockPageContext());
+
+        String relativeUrl = "/cgi-bin/feedback_faq/CA?fbtype=gen"  ;
+        UrlBuilder builder;
+
+        // Variation 1: No topicOption defined
+        builder = tagHandler.createUrlBuilder();
+        assertEquals(relativeUrl,builder.asSiteRelative(null))    ;
+
+        //Variation 2: topicOption is set
+        tagHandler.setTopicOption("Parent_survey");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals(relativeUrl + "&topicOption=Parent_survey",builder.asSiteRelative(null));
+
     }
 
     public void testResearch() {
