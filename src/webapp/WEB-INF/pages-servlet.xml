@@ -1036,6 +1036,10 @@
         <property name="viewName" value="/community/registration/accountInfo"/>
     </bean>
 
+    <bean name="/community/deactivateUser.page"
+          class="gs.web.community.DeactivateUserController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/community/login.page"
           class="gs.web.community.LoginController"
           autowire="byName" lazy-init="true">
