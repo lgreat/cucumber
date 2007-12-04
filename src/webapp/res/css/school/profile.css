@@ -19,8 +19,8 @@ div.printSchoolProfileHeader div{display:inline;margin:0;position:absolute;top:0
 div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 
 .overview #schoolProfileHeader { /* Has IE 7 equivalent */
-    padding-bottom: 20px;
-    _padding-bottom: 21px;
+  /*   padding-bottom: 20px;
+     _padding-bottom: 21px; */
 }
 
 /* breadcrumbs */
@@ -149,13 +149,13 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 }
 
 #schoolProfile.overview #schoolName {
-    margin: 22px 0 8px 24px;
-    _margin: 10px 0 8px 12px;
+ /*   margin: 22px 0 8px 24px;
+    _margin: 10px 0 8px 12px; */
 }
 
 #schoolProfile.overview #schoolProfileHeader h1 {
-	font: bold 26px "Trebuchet MS", Arial, sans-serif;
-	color: #5bc;
+	/* font: bold 26px "Trebuchet MS", Arial, sans-serif;
+	color: #5bc;   */
 }
 
 /* Ratings */
