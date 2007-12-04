@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.76 2007/11/02 23:51:11 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.77 2007/12/04 21:26:38 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -71,6 +71,23 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/cgi-bin/showarticlefeature/wy/5", builder10.toString());
         UrlBuilder builder9 = new UrlBuilder(article, State.WY, false);
         assertEquals("/cgi-bin/showarticle/wy/5", builder9.toString());
+    }
+
+    // GS-4929
+    public void testArticleLinkBuilder_NewURL() {
+        Article article = new Article();
+        article.setId(699);
+        article.setActive(true);
+        UrlBuilder builder = new UrlBuilder(article, State.CA, false);
+        assertEquals("/cgi-bin/showarticle/ca/699", builder.toString());
+
+        article.setId(700);
+        builder = new UrlBuilder(article, State.CA, false);
+        assertEquals("/cgi-bin/showarticle/700", builder.toString());
+
+        article.setId(1000);
+        builder = new UrlBuilder(article, State.CA, true);
+        assertEquals("/cgi-bin/showarticlefeature/1000", builder.toString());
     }
 
     public void testUrlBuilder() {

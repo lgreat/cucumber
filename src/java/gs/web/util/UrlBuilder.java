@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.93 2007/12/03 20:43:42 jnorton Exp $
+ * $Id: UrlBuilder.java,v 1.94 2007/12/04 21:26:38 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -241,12 +241,21 @@ public class UrlBuilder {
         // Calculate link
         // TH: Commented this out because buildHref is noop with a null request
         Integer id = article != null ? article.getId() : new Integer(1);
-        _path = "/cgi-bin/" +
-                page +
-                "/" +
-                s.getAbbreviationLowerCase() +
-                "/" +
-                id;
+
+        // GS-4929
+        if (id >= 700) {
+            _path = "/cgi-bin/" +
+                    page +
+                    "/" +
+                    id;            
+        } else {
+            _path = "/cgi-bin/" +
+                    page +
+                    "/" +
+                    s.getAbbreviationLowerCase() +
+                    "/" +
+                    id;
+        }
     }
 
     public UrlBuilder(School school, VPage page) {
