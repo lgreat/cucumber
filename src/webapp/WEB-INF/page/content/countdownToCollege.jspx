@@ -186,7 +186,7 @@
         </ul>
     </div>
     <div align="right">
-        <gsweb:articlelink articleId="46" styleClass="seeFullArticle">Find tips on coping with homework</gsweb:articlelink>
+        <gsweb:articlelink articleId="46" styleClass="seeFullArticle">Find tips on coping with homework &gt;</gsweb:articlelink>
     </div>
 
     <div class="midDotLine" >
