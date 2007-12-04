@@ -67,11 +67,6 @@
                     <!-- full community login case -->
                     <c:when test="${communityAuth eq true}">
                         <div id="communityHeader" class="noprint withImages">
-                            <c:choose>
-                                <c:when test="${community eq 'true'}">
-                                    &amp;nbsp;
-                                </c:when>
-                                <c:otherwise>
                             <!-- communityClassSearch is used to modify the margin above the search box below -->
                             <c:set var="communityClassSearch" value="communityHeader"/>
                             <!-- webbyStyle is used to hide the webby logo below -->
@@ -100,8 +95,6 @@
                             <span class="headerAvatar">
                                 <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}"><gsml:img src="http://${communityHost}/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=30" alt="Avatar" /></gsml:a>
                             </span>
-                                </c:otherwise>
-                            </c:choose>
                         </div>
                     </c:when>
                     <!-- msl only login case -->
