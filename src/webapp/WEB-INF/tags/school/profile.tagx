@@ -186,7 +186,7 @@
     <!-- End School name -->
 
     <!-- Ratings -->
-    <variant:b>
+    <c:if test="${requestScope.context.ABVersion eq 'b' or tab ne 'overview'}">
     <div id="ratings">
         <!-- Great Schools Rating -->
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
@@ -230,7 +230,7 @@
         <c:if test="${parent_rating eq 0}">
         </c:if>
     </div>
-    </variant:b>
+    </c:if>
     <!-- end: ratings -->
 
     </div> <!-- end: schoolProfileHeader div -->
