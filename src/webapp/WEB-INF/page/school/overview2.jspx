@@ -123,9 +123,8 @@
 		<!-- begin center column -->
 
         <div id="col_center">
-            <variant:a>
-                <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
-            </variant:a>
+
+            <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
                 <div id="topCompare" style="float:left; padding-bottom:25px;" >
