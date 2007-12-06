@@ -461,10 +461,10 @@
 
 <c:choose>
     <c:when test="${not empty requestScope.context.state}">
-        <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome"/>
+        <mod:tracking pageName="state home" hier1="Home,StateHome"/>
     </c:when>
     <c:otherwise>
-        <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome,National"/>
+        <mod:tracking pageName="state home" hier1="Home,StateHome,National"/>
     </c:otherwise>
 </c:choose>
 <!--</body>-->

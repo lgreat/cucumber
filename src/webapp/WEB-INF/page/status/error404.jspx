@@ -29,7 +29,7 @@
 
     <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
 
-    <mod:tracking pageType="" pageName="Error:404" hier1="Error,404"/>
+    <mod:tracking pageType="errorPage" hier1="Error,404"/>
 
     <h3>Page Not Found</h3>
 

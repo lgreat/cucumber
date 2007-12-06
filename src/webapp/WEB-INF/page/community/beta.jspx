@@ -61,7 +61,7 @@
             </center>
         </div>
     </div>
-    <mod:tracking pageType="beta" pageName="Beta Sign Up" hier1="Community,Beta Group,Beta Sign Up"/>
+    <mod:tracking pageName="Beta Sign Up" hier1="Community,Beta Group,Beta Sign Up"/>
     </body>
     </html>
 </jsp:root>

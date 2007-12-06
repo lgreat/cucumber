@@ -34,7 +34,7 @@
 
     <gsml:body adPageName="donate" pageLayout="twoColumnLayout">
 
-        <mod:tracking pageType="donate" pageName="donate" hier1="Home,Corporate,SupportUs"/>
+        <mod:tracking pageName="donate" hier1="Home,Corporate,SupportUs"/>
 
 
         <table>

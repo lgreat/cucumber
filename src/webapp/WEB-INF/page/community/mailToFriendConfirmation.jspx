@@ -46,8 +46,7 @@
     <h2>Tell a friend about GreatSchools.net</h2>
     <p>Mail successfully sent!</p>
 
-    <mod:tracking pageType="mail"
-                  pageName="School Tell a Friend Confirm"
+    <mod:tracking pageName="School Tell a Friend Confirm"
                   hier1="School,Tell a Friend,${refer}"
             />
     

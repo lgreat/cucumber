@@ -156,7 +156,6 @@
 </div>
 <popup:newsletterBottom/>
 <mod:tracking pageName="Newsletter Promo Hover"
-              pageType=""
               hier1="Newsletter, NL hover promo - MSS, School profile"
               referringPage="${referrer}"
         />

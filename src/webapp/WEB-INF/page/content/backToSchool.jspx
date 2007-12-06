@@ -74,8 +74,7 @@
     <br style="clear:both;"/>
 </div>
 
-<mod:tracking pageType="article"
-              pageName="${pageName}"
+<mod:tracking pageName="${pageName}"
               hier1="Article,Back to School"/>
 
 </gsml:body>

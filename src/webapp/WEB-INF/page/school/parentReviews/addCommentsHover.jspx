@@ -23,7 +23,6 @@
         <school:parentReviewForm school="${school}" pageName="hover"/>
     </div>
     <mod:tracking
-            pageType="Parent Review"
             pageName="PR Module Hover"
             hier1="School,Parent Reviews,PR Module Hover"/>
 </gsml:body>

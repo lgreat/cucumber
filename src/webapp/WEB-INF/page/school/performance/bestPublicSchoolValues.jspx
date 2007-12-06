@@ -74,7 +74,6 @@
                       href="/definitions/natl/bpsv_sfba.html">More about this data</gsml:popupWindow>
 </p>
         <mod:tracking pageName="Best Public School Values:allcities:SFBayArea"
-                      pageType="city"
                       hier1="Cities,Best Public School Values,All Cities,SFBayArea"/>
     </gsml:body>
     </html>

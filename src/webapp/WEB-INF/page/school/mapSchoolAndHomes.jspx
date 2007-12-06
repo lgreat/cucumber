@@ -140,8 +140,7 @@
         </c:if>
     </ul>
     </school:profile>
-    <mod:tracking pageType="school"
-                  pageName="${pageName}"
+    <mod:tracking pageName="${pageName}"
                   hier1="School,Map"
                   school="${school}" />
 </gsml:body>

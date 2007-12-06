@@ -265,7 +265,6 @@
     <c:when test="${not empty param.city}">
         <mod:tracking
                 pageName="schools:city:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}"
-                pageType="search"
                 hier1="Search,Schools,City,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"
                 schoolType="${gsweb:toDelimitedString(paramValues.st)}"
                 schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
@@ -273,14 +272,12 @@
     <c:when test="${not empty param.district}">
         <mod:tracking
                 pageName="schools:district:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}"
-                pageType="search"
                 hier1="Search,Schools,District,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"
                 schoolType="${gsweb:toDelimitedString(paramValues.st)}"
                 schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
     </c:when>
     <c:otherwise>
         <mod:tracking pageName="schools${param.map eq 1 ? ':map':''}"
-                      pageType="search"
                       hier1="Search,Schools,Page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
                       schoolType="${gsweb:toDelimitedString(paramValues.st)}"
                       schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>

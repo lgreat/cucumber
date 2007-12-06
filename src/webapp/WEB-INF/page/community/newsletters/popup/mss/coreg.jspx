@@ -55,7 +55,6 @@
     </div>
 -->
     <mod:tracking pageName="Newsletter Hover: Co-reg I-frame"
-                 pageType=""
                  hier1="Newsletter, NL hover confirmation, Co-reg I-frame"
                  events="${events}"
            />

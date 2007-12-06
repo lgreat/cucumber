@@ -261,8 +261,7 @@
 <c:if test="${school.type.schoolTypeName == 'private'}">
     <c:set var="pageName" value="Private School Overview"/>
 </c:if>
-<mod:tracking pageType="school"
-              pageName="${pageName}"
+<mod:tracking pageName="${pageName}"
               hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
               school="${school}" />
 </gsml:body>

@@ -28,8 +28,12 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>${title}</title>
     </head>
+    <jsp:scriptlet>
+        request.setAttribute("requestURI", request.getRequestURI());
+    </jsp:scriptlet>
+
     <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
-        <mod:tracking pageType="" pageName="Error:${errorCode}" hier1="Error,${errorCode}"/>
+        <mod:tracking pageName="Error:${errorCode} ${requestURI}" hier1="Error,${errorCode}"/>
         <div style="height:300px;text-align:center;padding:10px;">
             <div class="error">
                 <c:forEach var="error" items="${errors.allErrors}">

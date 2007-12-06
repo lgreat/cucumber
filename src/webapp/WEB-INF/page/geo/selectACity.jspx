@@ -59,7 +59,6 @@
             </tr></table>
 
         <mod:tracking pageName="nearbyCities:${city}-${requestScope.context.stateOrDefault.abbreviation}"
-                      pageType=""
                       hier1="Search,NearbyCities,${city}-${requestScope.context.stateOrDefault.abbreviation}"/>
 
     </gsml:body>

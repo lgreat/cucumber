@@ -87,7 +87,6 @@
       </div>
       <!-- end: outline -->
       <mod:tracking pageName="Change Email"
-                    pageType="account"
                     hier1="Account,Change Email"/>
   </gsml:body>
 </html>

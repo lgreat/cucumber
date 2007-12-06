@@ -103,7 +103,6 @@
         </table>
 
         <mod:tracking pageName="login"
-                      pageType=""
                       hier1=""/>
     </gsml:body>
     </html>

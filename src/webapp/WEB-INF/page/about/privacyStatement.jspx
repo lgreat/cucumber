@@ -25,7 +25,7 @@
 
 <gsml:body adPageName="privacyStatement" pageLayout="singleTextOnlyColumnLayout">
 
-<mod:tracking pageType="aboutUs" pageName="privacyStatement" hier1="Home,Corporate,PrivacyPolicy"/>
+<mod:tracking pageName="privacyStatement" hier1="Home,Corporate,PrivacyPolicy"/>
 
 <h3>Privacy Statement</h3>
 

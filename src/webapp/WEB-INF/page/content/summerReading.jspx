@@ -69,8 +69,7 @@
     </div>
     <br style="clear:both;"/>
 </div>
-<mod:tracking pageType="article"
-              pageName="Summer Reading"
+<mod:tracking pageName="Summer Reading"
               hier1 = "Article,Summer Reading"/>
 </gsml:body>
 

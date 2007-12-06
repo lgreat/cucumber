@@ -103,7 +103,6 @@
   </div>
   <!-- end: main -->
   <mod:tracking pageName="My Account Page"
-                pageType="account"
                 hier1="Account,My Account Page"/>
   </gsml:body>
 </html>

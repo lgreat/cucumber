@@ -25,7 +25,7 @@
 
 <gsml:body adPageName="pressRoom" pageLayout="singleTextOnlyColumnLayout">
 
-<mod:tracking pageType="aboutUs" pageName="pressRoom" hier1="Home,Corporate,AboutUs,PressRoom"/>
+<mod:tracking pageName="pressRoom" hier1="Home,Corporate,AboutUs,PressRoom"/>
 
 <h3>GreatSchools Press Room</h3>
 <ul class="singleSpacedList">

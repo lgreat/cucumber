@@ -24,7 +24,7 @@
 
 <gsml:body adPageName="pressKit" pageLayout="singleTextOnlyColumnLayout">
 
-    <mod:tracking pageType="aboutUs" pageName="pressKit"/>
+    <mod:tracking pageName="pressKit"/>
 
 
     <h3>GreatSchools Press Kit</h3>

@@ -25,8 +25,7 @@
     </span>
 </div>
 </body>
-<mod:tracking pageType="error"
-              pageName="School Profile Page Not Found"
+<mod:tracking pageName="School Profile Page Not Found"
               hier1="School,Page Not Found"/>
 </html>
 </jsp:root>

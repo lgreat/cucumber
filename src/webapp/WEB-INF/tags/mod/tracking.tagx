@@ -9,7 +9,7 @@
 <jsp:directive.tag import="gs.data.util.Address"/>
 <jsp:directive.tag import="java.util.Iterator"/>
 <jsp:directive.tag body-content="empty"/>
-    <jsp:directive.attribute name="pageType" required="true"/>
+    <jsp:directive.attribute name="pageType" required="false"/>
     <jsp:directive.attribute name="pageName" required="true"/>
     <jsp:directive.attribute name="school" required="false" type="gs.data.school.School"/>
     <jsp:directive.attribute
@@ -98,11 +98,11 @@
             s.pageName = "${pageName}";
             s.server = "${requestScope.context.hostName}";
             s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
-            s.pageType = "${empty(pageType) ? "" : pageType}";
-            s.prop1 = "${empty(id) ? "" : id}";
-            s.prop2 = "${empty(schoolType) ? "" : schoolType}";
-            s.prop3 = "${empty(schoolLevel) ? "" : schoolLevel}";
-            s.prop4 = "${empty(locale) ? "" : locale}";
+            s.pageType = "${pageType eq 'errorPage' ? pageType : ''}";
+            s.prop1 = "${empty(id) ? '' : id}";
+            s.prop2 = "${empty(schoolType) ? '' : schoolType}";
+            s.prop3 = "${empty(schoolLevel) ? '' : schoolLevel}";
+            s.prop4 = "${empty(locale) ? '' : locale}";
             s.prop5 = "${empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}";
             s.prop6 = "${query}";
             s.prop7 = "${pageName}:${requestScope.context.ABVersion}";

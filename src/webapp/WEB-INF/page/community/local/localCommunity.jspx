@@ -61,7 +61,6 @@
     <community:bottomPromo/>
 
     <mod:tracking pageName="Community Local Communities"
-                  pageType="community"
                   hier1="Community,Local Communities"/>
 </gsml:body>
 </html>

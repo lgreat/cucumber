@@ -228,7 +228,7 @@
         </td>
     </tr>
 </table>
-<mod:tracking pageType="splash" pageName="splash" hier1="Home,Splash"/>
+<mod:tracking pageName="splash" hier1="Home,Splash"/>
 </gsml:body>
 </html>
 </jsp:root>

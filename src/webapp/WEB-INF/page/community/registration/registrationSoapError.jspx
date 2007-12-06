@@ -41,7 +41,6 @@
         </span>
     </div>
     <mod:tracking pageName="Registration Soap Error"
-                  pageType="account"
                   hier1="Account,Registration,Soap Error"/>
 
 </gsml:body>

@@ -209,8 +209,7 @@
                 </div><!-- end: col_right -->
         </div><!-- end: parentReview -->
         </school:profile>
-        <mod:tracking pageType="school"
-                      pageName="Parent Reviews"
+        <mod:tracking pageName="Parent Reviews"
                       hier1="School,Parent Reviews,Read Reviews"
                       school="${school}"
                 />

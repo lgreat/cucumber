@@ -133,7 +133,6 @@
     <!-- end: outline -->
 
     <mod:tracking pageName="Login or Register"
-                  pageType="account"
                   hier1="Account,Registration,Login"/>
     </gsml:body>
     </html>

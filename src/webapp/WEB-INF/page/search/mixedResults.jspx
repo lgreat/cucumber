@@ -175,7 +175,6 @@
 </c:choose>
 
 <mod:tracking pageName="${pagename}:${rVal}"
-              pageType="search"
               constraint="${param.type}"
               query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
               hier1="Search,${pagename},${hVal}"/>

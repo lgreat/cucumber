@@ -134,7 +134,6 @@
     <c:set var="events" value="event5"/>
 </c:if>
  <mod:tracking pageName="Newsletter Hover Upsell"
-              pageType=""
               hier1="Newsletter, NL hover upsell, School profile"
               events="${events}"
         />

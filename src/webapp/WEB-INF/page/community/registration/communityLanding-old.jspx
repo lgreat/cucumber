@@ -238,7 +238,6 @@
   <footer:editorialFooter/>
 
   <mod:tracking pageName="Community Landing Page"
-                pageType="community"
                 hier1="Community,Landing Page"/>
   </gsml:body>
 </html>

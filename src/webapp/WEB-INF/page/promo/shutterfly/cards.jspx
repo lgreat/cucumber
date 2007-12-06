@@ -34,8 +34,7 @@
         per person. Shutterfly reserves the right to modify this offer should it be compromised in any manner including,
         but not limited to, fraudulent activity.
     </div>
-    <mod:tracking pageType="promo"
-                  pageName="Shutterfly Nov2006 ${pageName}"
+    <mod:tracking pageName="Shutterfly Nov2006 ${pageName}"
                   hier1="Promotion,ShutterflyNov2006,${pageName}"/>
     </body>
     </html>

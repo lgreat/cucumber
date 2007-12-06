@@ -245,7 +245,7 @@
 
 <footer:editorialFooter/>
 
-<mod:tracking pageType="" pageName="Dayton Landing Page" hier1="Home,Outreach,Dayton"/>
+<mod:tracking pageName="Dayton Landing Page" hier1="Home,Outreach,Dayton"/>
     
 </gsml:body>
 </html>

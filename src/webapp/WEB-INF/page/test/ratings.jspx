@@ -116,8 +116,7 @@
             </school:profile>
         </c:if>
 
-    <mod:tracking pageType="school"
-                  pageName="Ratings"
+    <mod:tracking pageName="Ratings"
                   hier1="School,Ratings"
             school="${school}"
             />

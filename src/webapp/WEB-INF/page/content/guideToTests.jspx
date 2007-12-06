@@ -59,8 +59,7 @@
 </head>
 
 
-<mod:tracking pageType="article"
-              pageName="guideToTests"
+<mod:tracking pageName="guideToTests"
               hier1 = "Article,GuideToTests"/>
 
 

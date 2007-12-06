@@ -25,7 +25,7 @@
 
     <gsml:body adPageName="partnerOpportunities" pageLayout="singleTextOnlyColumnLayout">
 
-        <mod:tracking pageType="aboutUs" pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
+        <mod:tracking pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
 
 
         <h3>Partner with GreatSchools</h3>

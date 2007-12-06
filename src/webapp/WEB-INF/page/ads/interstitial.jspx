@@ -71,8 +71,7 @@
                 </tr>
             </table>
         </div>
-        <mod:tracking pageType=""
-                      pageName="Interstitial Ad"
+        <mod:tracking pageName="Interstitial Ad"
                       hier1="Advertising,Interstitial Ad"/>
     </body>
     </html>

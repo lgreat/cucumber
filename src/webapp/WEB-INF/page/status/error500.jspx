@@ -12,8 +12,8 @@
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
         >
-    <jsp:directive.page import="java.io.StringWriter"/>
     <jsp:directive.page import="java.io.PrintWriter"/>
+    <jsp:directive.page import="java.io.StringWriter"/>
     <html lang="en">
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -36,6 +36,7 @@
 
                     request.setAttribute("printme", sw.getBuffer().toString());
                 }
+                request.setAttribute("requestURI", request.getRequestURI());
             </jsp:scriptlet>
             <c:if test="${requestScope.context.hostName != 'dev.greatschools.net'}">
                 <style type="text/css">
@@ -48,7 +49,7 @@
 
         <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
 
-            <mod:tracking pageType="" pageName="Error:500" hier1="Error,500"/>
+            <mod:tracking pageName="Error:500 ${requestURI}" hier1="Error,500"/>
 
             <h3>Error</h3>
 

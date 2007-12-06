@@ -119,7 +119,6 @@
     </c:if>
 
     <mod:tracking pageName="Community Landing Page"
-                  pageType="community"
                   hier1="${hier}"/>
 
 </gsml:body>

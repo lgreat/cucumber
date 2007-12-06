@@ -87,8 +87,7 @@
     sIFR.replaceElement(named({sSelector:".grey", sFlashSrc:"${centuryGothic}", sColor:"#aaaaaa"}));
     sIFR.replaceElement(named({sSelector:".green", sFlashSrc:"${centuryGothicBold}", sColor:"#97cf64"}));
 </gsml:sifr>
-<mod:tracking pageType="promo"
-              pageName="Webby Award Winner Thank You"
+<mod:tracking pageName="Webby Award Winner Thank You"
               hier1="Promotion,Webby Award Winner"/>
 </gsml:body>
 </html>

@@ -116,7 +116,7 @@
         </gsweb:form>
     </div>
 
-<mod:tracking pageType="search" pageName="State Selection Hover" hier1="Search,State select page,Hover"/>
+<mod:tracking pageName="State Selection Hover" hier1="Search,State select page,Hover"/>
 </body>
 </html>
 </jsp:root>

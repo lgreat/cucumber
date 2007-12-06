@@ -58,8 +58,7 @@
                 <gsml:img src="/res/img/bullet/blue_arrows.gif" alt="blue arrow" styleClass="arrow"/>
             </div>
         </div>
-        <mod:tracking pageType="Parent Review"
-                      pageName="PR Thank You Hover Omniture "
+        <mod:tracking pageName="PR Thank You Hover Omniture "
                       hier1="School,Parent Reviews,PR Thank You Hover Omniture"/>
     </gsml:body>
     </html>

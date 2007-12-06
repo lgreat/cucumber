@@ -27,7 +27,7 @@
 
     <gsml:body adPageName="testimonials" pageLayout="singleTextOnlyColumnLayout">
 
-        <mod:tracking pageType="aboutUs" pageName="testimonials"/>
+        <mod:tracking pageName="testimonials"/>
 
         <h3>What Readers Say About GreatSchools</h3>
 

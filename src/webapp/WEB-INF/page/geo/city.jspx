@@ -226,7 +226,6 @@
 
 <mod:tracking pageName="city home"
               locale="${cityObject.name}"
-              pageType=""
               hier1="Home,city home,${cityObject.name}-${cityObject.state.abbreviation}"/>
 
 

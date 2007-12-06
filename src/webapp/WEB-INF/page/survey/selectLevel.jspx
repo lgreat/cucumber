@@ -70,8 +70,7 @@
             <ad:AboveFold_300x250/>
         </div>
         </school:profile>
-        <mod:tracking pageType=""
-                      pageName="Parent Survey: School Level Select Page"
+        <mod:tracking pageName="Parent Survey: School Level Select Page"
                       hier1="Schools,Parent Survey,School Level Select Page"/>
     </body>
     </html>

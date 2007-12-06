@@ -68,8 +68,7 @@
 
 </head>
 
-<mod:tracking pageType="article"
-              pageName="SummerSurvivalGuide"
+<mod:tracking pageName="SummerSurvivalGuide"
               hier1 = "Article,SummerSurvivalGuide"/>
 
 <gsml:body adPageName="content/SummerSurvivalGuide" pageLayout="twoColumnLayout" startAdHierarchyAtPage="true">

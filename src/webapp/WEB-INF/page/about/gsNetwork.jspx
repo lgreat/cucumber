@@ -23,7 +23,7 @@
     </title>
 </head>
 <gsml:body adPageName="gsNetwork" pageLayout="singleTextOnlyColumnLayout">
-<mod:tracking pageType="aboutUs" pageName="gsNetwork" hier1="Home,Corporate,AboutUs,GreatSchoolsNetwork"/>
+<mod:tracking pageName="gsNetwork" hier1="Home,Corporate,AboutUs,GreatSchoolsNetwork"/>
 
 <h3>
     GreatSchools Core Beliefs

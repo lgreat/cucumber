@@ -154,8 +154,7 @@
         </fieldset>
         <spring:bind path="mailToFriendCmd.refer">
             <input type="hidden" name="${status.expression}" value="${status.value}"/>
-            <mod:tracking pageType="mail"
-                          pageName="School Tell a Friend Form"
+            <mod:tracking pageName="School Tell a Friend Form"
                           hier1="School,Tell a Friend,Form,${status.value}"
                     />
         </spring:bind>        

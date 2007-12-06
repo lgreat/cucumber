@@ -306,7 +306,6 @@
       </c:if>
   </spring:hasBindErrors>
   <mod:tracking pageName="${pageName}"
-                pageType="account"
                 hier1="Account,Registration,Page 2,${hier}"/>
   </gsml:body>
 </html>

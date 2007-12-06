@@ -119,7 +119,7 @@
             ${links}
         </div>
     </div>
-    <mod:tracking pageType="search" pageName="${pageName}" hier1="Search,Browse"/>
+    <mod:tracking pageName="${pageName}" hier1="Search,Browse"/>
     </body>
     </html>
 </jsp:root>

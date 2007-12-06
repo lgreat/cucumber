@@ -363,8 +363,7 @@
 </td>
 </tr>
 </table>
-<mod:tracking pageType="article"
-              pageName="${pageName}"
+<mod:tracking pageName="${pageName}"
               hier1="Article,Countdown To College"/>
 </gsml:body>
 </html>
