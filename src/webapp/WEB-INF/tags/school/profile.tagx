@@ -133,7 +133,7 @@
         <br></br><div class="printName">${school.name}</div>
         <p><img src="/res/img/pixel.gif" alt=" "/></p>
     </div>
-    <div id="schoolProfileHeader">
+<div id="${requestScope.context.ABVersion eq 'b' and tab eq 'overview' ? 'schoolProfileHeaderWithRating' : 'schoolProfileHeader'}">
 
     <div id="breadcrumbs">
         <ul>
@@ -180,9 +180,18 @@
     <!-- end tools -->
 
     <!-- School name -->
-    <div id="schoolName">
-        <h1>${school.name}</h1>
-    </div>
+    <c:choose>
+        <c:when test="${requestScope.context.ABVersion eq 'b' and tab eq 'overview'}">
+            <div id="schoolNameWithRating">
+                <h1>${school.name}</h1>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div id="schoolName">
+                <h1>${school.name}</h1>
+            </div>
+        </c:otherwise>
+    </c:choose>
     <!-- End School name -->
 
     <!-- Ratings -->
@@ -212,7 +221,7 @@
         <c:choose>
             <c:when test="${parent_rating eq 0}">
                 <c:set var="parent_rating_title" value="Be the first to rate!"/>
-                <link:schoolProfileAddParentReview 
+                <link:schoolProfileAddParentReview
                         school="${school}"
                         onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                         styleClass="submodal-344-362 parent_rating parent_${parent_rating}"
@@ -256,7 +265,7 @@
             </c:if>
 
             <td>
-                <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on' : ''}" 
+                <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on' : ''}"
                                                 title="${school.name} Parent Reviews">
                     Parent<br/>
                     Reviews
