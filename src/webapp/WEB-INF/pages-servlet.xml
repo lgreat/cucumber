@@ -83,6 +83,7 @@
                 <entry key="/survey/form.page" value="surveyController"/>
                 <entry key="/survey/results.page" value="surveyResultsController"/>
                 <entry key="/survey/start.page" value="surveySchoolLevelController"/>
+                <entry key="/survey/startResults.page" value="resultsSchoolLevelController"/>
             </map>
         </property>
     </bean>
@@ -1238,6 +1239,13 @@
         <property name="successView" value="redirect:/survey/form.page"/>
     </bean>
 
+    <bean name="resultsSchoolLevelController"
+          class="gs.web.survey.SchoolLevelController" autowire="byName" lazy-init="true">
+        <property name="commandName" value="schoolLevelCommand"/>
+        <property name="commandClass" value="gs.web.survey.SchoolLevelCommand"/>
+        <property name="formView" value="survey/selectLevel"/>
+        <property name="successView" value="redirect:/survey/results.page"/>
+    </bean>
 
     <bean name="/school/ajaxFindSchoolAndCity.page"
         class="gs.web.school.FindSchoolController" autowire="byName" lazy-init="true"/>

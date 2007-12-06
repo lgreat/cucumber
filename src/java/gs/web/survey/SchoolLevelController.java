@@ -10,6 +10,8 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class SchoolLevelController extends SimpleFormController {
@@ -26,7 +28,14 @@ public class SchoolLevelController extends SimpleFormController {
             modelAndView.getModel().put("state", school.getStateAbbreviation().getAbbreviation());
             return modelAndView;
         } else {
-            return super.showForm(request, response, bindException);
+            Map<String, String> data = null;
+            String successView = getSuccessView();
+            if (successView != null && successView.indexOf("results") != -1) {
+                data = getResultsPageAttributes();
+            } else {
+                data = getFormPageAttributes();
+            }
+            return super.showForm(request, response, bindException, data);
         }
     }
 
@@ -56,4 +65,17 @@ public class SchoolLevelController extends SimpleFormController {
         }
     }
 
+    private Map<String, String> getResultsPageAttributes() {
+        Map<String, String> data = new HashMap<String,String>();
+        data.put("headerText", "Select a level");
+        data.put("introText", "Please select the highest level your child attended at this school so we can provide you with the appropriate survey results:");
+        return data;
+    }
+
+    private Map<String, String> getFormPageAttributes() {
+        Map<String, String> data = new HashMap<String,String>();
+        data.put("headerText", "Spread the word about your school's special characteristics by filling out this survey.");
+        data.put("introText", "Please select the highest level your child attended at this school so we can provide you with the appropriate survey questions:");
+        return data;
+    }
 }

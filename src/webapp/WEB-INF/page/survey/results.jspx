@@ -9,9 +9,10 @@
       <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
   </head>
   <body>
-     Place content here
+
+  
   <c:forEach items="${results.pages}" var="page">
-      page title: ${page.title}
+      Survey results page
   </c:forEach>
   </body>
 </html>

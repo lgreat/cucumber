@@ -19,7 +19,8 @@ public class SurveyResultsController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String level = request.getParameter("level");
-        SurveyResults results = getSurveyDao().getSurveyResults(level);
+        String id = request.getParameter("id");
+        SurveyResults results = getSurveyDao().getSurveyResults(level + "_results");
         ModelAndView mAndV = new ModelAndView("survey/results");
         mAndV.getModel().put("results", results);
         return mAndV;
