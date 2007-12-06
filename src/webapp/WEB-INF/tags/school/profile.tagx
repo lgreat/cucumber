@@ -9,7 +9,6 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <jsp:directive.tag import="gs.data.school.review.IReviewDao"/>
 <jsp:directive.tag import="gs.data.test.SchoolTestValue"/>
@@ -127,13 +126,13 @@
         <c:set var="schoolType" value="private"/>
     </c:otherwise>
 </c:choose>
-<div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
+<div id="schoolProfile" class="${(tab eq 'overview' and requestScope.context.ABVersion eq 'a')? 'overview' : ''}">
     <div class="printSchoolProfileHeader">
         <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"/></div>
         <br></br><div class="printName">${school.name}</div>
         <p><img src="/res/img/pixel.gif" alt=" "/></p>
     </div>
-<div id="${requestScope.context.ABVersion eq 'b' and tab eq 'overview' ? 'schoolProfileHeaderWithRating' : 'schoolProfileHeader'}">
+    <div id="schoolProfileHeader">
 
     <div id="breadcrumbs">
         <ul>
@@ -180,22 +179,12 @@
     <!-- end tools -->
 
     <!-- School name -->
-    <c:choose>
-        <c:when test="${requestScope.context.ABVersion eq 'b' and tab eq 'overview'}">
-            <div id="schoolNameWithRating">
-                <h1>${school.name}</h1>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <div id="schoolName">
-                <h1>${school.name}</h1>
-            </div>
-        </c:otherwise>
-    </c:choose>
+    <div id="schoolName">
+        <h1>${school.name}</h1>
+    </div>
     <!-- End School name -->
 
     <!-- Ratings -->
-    <c:if test="${requestScope.context.ABVersion eq 'b' or tab ne 'overview'}">
     <div id="ratings">
         <!-- Great Schools Rating -->
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
@@ -239,7 +228,6 @@
         <c:if test="${parent_rating eq 0}">
         </c:if>
     </div>
-    </c:if>
     <!-- end: ratings -->
 
     </div> <!-- end: schoolProfileHeader div -->
