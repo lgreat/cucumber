@@ -127,8 +127,9 @@
 <gsml:equalizeColumns ids="'left-col','right-col'"/>
 <div id="left-col">
 
-    total responses: ${results.totalResponses}
+    Results based on <span>${results.totalResponses} responses</span>.
 
+    school name: ${school.name}
     <c:forEach items="${results.pages}" var="page">
         Survey results page
     </c:forEach>
