@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.77 2007/12/04 21:26:38 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.78 2007/12/07 00:12:19 jnorton Exp $
  */
 
 package gs.web.util;
@@ -73,18 +73,54 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/cgi-bin/showarticle/wy/5", builder9.toString());
     }
 
-    // GS-4929
+    /**
+     * Tests the Article Link Builder
+     *
+     * This test that the correct urls are being built.  The Urls are being
+     * transitioned from the old style
+     *
+     *        /cgi-bin/showarticle/ca/700
+     * 
+     * to the new style.
+     *
+     *        /cgi-bin/showarticle/700
+     *
+     * The transition is being done incrementally, so each iteration, the lower
+     * boundry is decreased.
+     *
+     * GS-4929 lb=700, GS-5037 lb=350
+     */
     public void testArticleLinkBuilder_NewURL() {
         Article article = new Article();
-        article.setId(699);
+
+        Integer lowerLimitId = 350;
+        Integer underId = lowerLimitId - 1;
+
+       // Under
+        article.setId(underId);
         article.setActive(true);
         UrlBuilder builder = new UrlBuilder(article, State.CA, false);
-        assertEquals("/cgi-bin/showarticle/ca/699", builder.toString());
+        assertEquals("/cgi-bin/showarticle/ca/" + underId.toString(), builder.toString());
 
+        // Lower Boundry
+        article.setId(lowerLimitId);
+        builder = new UrlBuilder(article, State.CA, false);
+        assertEquals("/cgi-bin/showarticle/" + lowerLimitId.toString(), builder.toString());
+
+        /**
+         * Test Obsolete
+        // GS-4929
+        article.setId(699);
+        UrlBuilder builder = new UrlBuilder(article, State.CA, false);
+        assertEquals("/cgi-bin/showarticle/ca/699", builder.toString());
+        */
+
+        // Above the lower boundry
         article.setId(700);
         builder = new UrlBuilder(article, State.CA, false);
         assertEquals("/cgi-bin/showarticle/700", builder.toString());
 
+        // Feature Article is true
         article.setId(1000);
         builder = new UrlBuilder(article, State.CA, true);
         assertEquals("/cgi-bin/showarticlefeature/1000", builder.toString());

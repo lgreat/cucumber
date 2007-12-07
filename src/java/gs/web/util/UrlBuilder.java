@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.94 2007/12/04 21:26:38 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.95 2007/12/07 00:12:19 jnorton Exp $
  */
 
 package gs.web.util;
@@ -243,7 +243,7 @@ public class UrlBuilder {
         Integer id = article != null ? article.getId() : new Integer(1);
 
         // GS-4929
-        if (id >= 700) {
+        if (id >= 350) {
             _path = "/cgi-bin/" +
                     page +
                     "/" +
