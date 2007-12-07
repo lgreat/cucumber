@@ -7,7 +7,6 @@ import static org.apache.axis.Constants.XSD_STRING;
 import org.apache.axis.client.Call;
 
 import javax.xml.rpc.ParameterMode;
-import java.util.Map;
 
 /**
  * Provides Performs a SOAP changeEmailRequest.
@@ -16,7 +15,7 @@ import java.util.Map;
  */
 public class ChangePasswordRequest extends SoapRequest {
     public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.net/community/changePassword/";
-    public static final int DEFAULT_TIMEOUT = 10000; // 10s in milliseconds
+    public static final int DEFAULT_TIMEOUT = 15000; // 15s in milliseconds
 
     public ChangePasswordRequest() {
         this(null);
@@ -31,9 +30,14 @@ public class ChangePasswordRequest extends SoapRequest {
     public void changePasswordRequest(User user) throws SoapRequestException {
         // quick hack to disable this class but still allow test cases to work
         if (isDisabled()) { return; }
+        String conTime = System.getProperty(CONNECT_TIMEOUT_PROP);
+        String readTime = System.getProperty(READ_TIMEOUT_PROP);
         try {
             Call call = setupCall("changePasswordRequest");
             Object[] params = setupParameters(call, user);
+
+            System.setProperty(CONNECT_TIMEOUT_PROP, CONNECT_TIMEOUT);
+            System.setProperty(READ_TIMEOUT_PROP, READ_TIMEOUT);
             Object ret = call.invoke(params);
 
             validateResponse(ret, user.getId().toString());
@@ -50,6 +54,9 @@ public class ChangePasswordRequest extends SoapRequest {
             ex.setErrorCode(e.getClass().getName());
             ex.setErrorMessage(e.getMessage());
             throw ex;
+        } finally {
+            System.setProperty(CONNECT_TIMEOUT_PROP, (conTime != null)?conTime:"-1");
+            System.setProperty(READ_TIMEOUT_PROP, (readTime != null)?readTime:"-1");
         }
     }
 

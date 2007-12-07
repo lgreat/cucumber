@@ -15,7 +15,7 @@ import javax.xml.rpc.ParameterMode;
  */
 public class ChangeEmailRequest extends SoapRequest {
     public static final String DEFAULT_NAMESPACE_URI = "uri://www.greatschools.net/community/changeEmail/";
-    public static final int DEFAULT_TIMEOUT = 10000; // 10s in milliseconds
+    public static final int DEFAULT_TIMEOUT = 15000; // 15s in milliseconds
 
     public ChangeEmailRequest() {
         this(null);
@@ -30,14 +30,19 @@ public class ChangeEmailRequest extends SoapRequest {
     public void changeEmailRequest(User user) throws SoapRequestException {
         // allows this class to be disabled (during development of community) but lets unit tests override
         if (isDisabled()) { return; }
+        String conTime = System.getProperty(CONNECT_TIMEOUT_PROP);
+        String readTime = System.getProperty(READ_TIMEOUT_PROP);
         try {
             Call call = setupCall("changeEmailRequest");
             Object[] params = setupParameters(call, user);
+
+            System.setProperty(CONNECT_TIMEOUT_PROP, CONNECT_TIMEOUT);
+            System.setProperty(READ_TIMEOUT_PROP, READ_TIMEOUT);
             Object ret = call.invoke(params);
 
             validateResponse(ret, user.getId().toString());
 
-            _log.info("SOAP request to " + getTarget() + " successful for user with id=" + user.getId());
+            _log.info("changeEmail SOAP request to " + getTarget() + " successful for user id=" + user.getId());
         } catch (SoapRequestException e) {
             throw e; // pass this on
         } catch (Exception e) {
@@ -47,6 +52,9 @@ public class ChangeEmailRequest extends SoapRequest {
             ex.setErrorCode(e.getClass().getName());
             ex.setErrorMessage(e.getMessage());
             throw ex;
+        } finally {
+            System.setProperty(CONNECT_TIMEOUT_PROP, (conTime != null)?conTime:"-1");
+            System.setProperty(READ_TIMEOUT_PROP, (readTime != null)?readTime:"-1");
         }
     }
 
