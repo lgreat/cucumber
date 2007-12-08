@@ -28,91 +28,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
-    <style type="text/css">
-        .resultBox {
-            font: 13px Trebuchet MS, Arial, sans-serif;
-            color: #666666;
-            border: 1px solid #cccccc;
-            position:relative;
-        }
-        .singleColumnResultBox div {
-            padding: 2px 0 2px 30px;
-        }
-        .odd {
-            background-color: #DDEEEE;
-        }
-        .even {
-            background-color: #FFFFFF;
-        }
-        .checked {
-            background-image:url("/res/img/bullet/pinkcheck_onwhite.gif");
-            background-position:10px 5px;
-            background-repeat:no-repeat;
-        }
-        .resultScale .answer-bar{
-            padding-left:40px;
-        }
-        .resultScale .answer-bar .label-left, .resultScale .answer-bar .label-right {
-            font: 13px Trebuchet MS, Arial, sans-serif;
-            color: #666666;
-            width:120px;
-        }
-
-        .resultSchool .header {
-            position:relative;
-            color: #55BBCC;
-            border-bottom:dotted #E2E3CB 3px;
-            font-size:15px;
-            margin-bottom:10px;
-            padding-bottom:5px;
-            font-weight:bold;
-        }
-
-        .resultSchool p {
-            font: 15px Trebuchet MS, Arial, sans-serif;
-            color:#666666;
-        }
-        .resultSchool ul {
-            padding-left:40px;
-        }
-        .resultSchool ul li {
-            font: 13px Trebuchet MS, Arial, sans-serif;
-            color:#666666;
-        }
-        #contentGS .resultSchool ul li a,
-        #contentGS .resultSchool ul li a:active,
-        #contentGS .resultSchool ul li a:visited,
-        #contentGS .resultSchool ul li a:hover
-        {
-            font: 13px Trebuchet MS, Arial, sans-serif;
-            color: #3399AA;
-        }
-
-        .multiColumn {
-            position:relative;
-            float:left;
-        }
-        .multiColumn div {
-            position:relative;
-            padding:2px 0 2px 30px;
-            width:146px;
-        }
-        .empty {
-            display:none;
-        }
-        .hidden {
-            visibility:hidden;
-        }
-
-        .resultBox .title {
-            color: #99CC66;
-            font-size:15px;
-            padding:5px 0 5px 30px;
-            text-transform:uppercase;
-            font-weight:bold;
-        }
-
-    </style>
+    <pageHelper:externalCss file="/res/css/survey/surveyResults.css"/>
     <script type="text/javascript">
         function initPanel() {
 			// Instantiate a Panel from markup
@@ -131,9 +47,156 @@
 
     school name: ${school.name}
     <c:forEach items="${results.pages}" var="page">
-        Survey results page
+        Page<br/>
+        <c:forEach items="${page.groups}" var="group">
+            ${group.displayText}
+            <c:forEach items="${group.questions}" var="result_question">
+                ${result_question.displayText}
+                <c:choose>
+                    <c:when test="${result_question.displayType eq 'COMPLEX'}">
+                        This is a complex question
+
+                        <br/><br/><br/>
+                        <hr/>
+
+                        <c:set var="question" value="${result_question.question}" />
+
+                        <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
+                            values : ${fn:length(answer.answerValues)} <br/>
+                            <table class="complexResults" cellspacing="0" cellpadding="1">
+                                <tr>
+                                    <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="cell">
+                                        <c:choose>
+                                            <c:when test="${((cell.index - (cell.index % 3)) % 2) == 0}">
+                                                <c:set var="cellStyle" value="odd"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="cellStyle" value="even"/>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
+                                                <c:set var="checked" value="checked"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="checked" value="fooo"/>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <td class="${cellStyle} ${checked}" />
+                                        <td class="${cellStyle}">
+                                                ${answerValue.display}
+                                        </td>
+                                        <c:if test="${(cell.index + 1) % 3 == 0}">
+                                            <![CDATA[</tr><tr>]]>
+                                        </c:if>
+                                    </c:forEach>
+                                </tr>
+                            </table>
+                        </c:forEach>
+
+                        <hr/>
+                        <br/><br/><br/>
+
+                            <div class="question-text">${question.text}</div>
+                            <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
+                                <h3 class="answer-sibling-heading">${answer.title}</h3>
+                                <c:choose>
+                                    <c:when test="${answer.layout eq 'SINGLE_COLUMN'}">
+                                        <c:set var="colClass" value="checkbox-col, single-column"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="colClass" value="checkbox-col"/>
+                                        <!--Variables that control the number of entries per column in multicolumn display-->
+                                        <c:set var="totalColumns" value="3"/>
+                                        <c:set var="totalAnswer" value="${fn:length(answer.answerValues)}"/>
+                                        <fmt:parseNumber integerOnly="true" var="numAnswerPerColumn" value="${(totalAnswer / totalColumns) + 0.5}"/>
+                                        <!--For cases when we rounded down, increase by one the number of entries per column-->
+                                        <c:if test="${(numAnswerPerColumn * totalColumns) lt totalAnswer}">
+                                            <c:set var="numAnswerPerColumn" value="${(numAnswerPerColumn + 1)}"/>
+                                        </c:if>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:set var="answerSiblingClassName" value="answer-sibling"/>
+                                <c:if test="${answerIndex.index + 1 eq fn:length(question.answers)}">
+                                    <c:set var="answerSiblingClassName" value="answer-sibling-last"/>
+                                </c:if>
+                                <div class="resultBox">
+                                    <![CDATA[<div class="multiColumn">]]>
+                                    <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="boxCounter">
+                                        <c:if test="${(answer.layout ne 'SINGLE_COLUMN')
+                                                and ((boxCounter.index mod numAnswerPerColumn) eq 0)
+                                                and (boxCounter.index ne 0)}">
+                                            <![CDATA[</div>]]>
+                                            <![CDATA[<div class="multiColumn">]]>
+                                        </c:if>
+                                        <c:choose>
+                                            <c:when test="${boxCounter.index mod 2 eq 0}">
+                                                <c:set var="rowStyle" value="even"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="rowStyle" value="odd"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="${rowStyle} checked">${answerValue.display}</div>
+                                    </c:forEach>
+                                    <![CDATA[</div>]]>
+                                    <![CDATA[<div style="clear:both;"></div>]]>
+                                </div>
+                            </c:forEach>
+
+                        <br/><br/><br/><br/>
+
+                        <div class="resultBox">
+                            <div class="title">header</div>
+                            <div class="multiColumn">
+                                <div class="odd checked">orchestra</div>
+                                <div class="even checked">band</div>
+                                <div class="odd checked">chorus</div>
+                                <div class="even checked">ceramics/sculpture</div>
+                            </div>
+                            <div class="multiColumn">
+                                <div class="odd checked">computer arts</div>
+                                <div class="even">dance</div>
+                                <div class="odd checked">drawing/painting</div>
+                                <div class="even checked">photography</div>                                
+                            </div>
+                            <div class="multiColumn">
+                                <div class="odd checked">theater/drama</div>
+                                <div class="even checked">video/film production</div>
+                                <div class="odd"><span class="hidden">blank</span></div>
+                                <div class="even"><span class="hidden">blank</span></div>
+                            </div>
+                            <![CDATA[<div style="clear:both;"></div>]]>
+                        </div>
+
+                    </c:when>
+                    <c:when test="${result_question.displayType eq 'VALUES'}">
+                        values type <br/>
+                    </c:when>
+                    <c:when test="${result_question.displayType eq 'SCALE'}">
+                        <div class="resultScale">
+                            <div class="answer-bar">
+                                <div class="label-left">${result_question.strings.left}</div>
+                                <div class="label-right">${result_question.strings.right}</div>
+                                <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
+                            </div>
+                            <fmt:parseNumber var="offset" value="${((33+450)*result_question.sliderValue)+0.5}" integerOnly="true"/>
+                            <c:set var="arrowPct" value="${offset}px;"/>
+                            <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
+                        </div>
+
+                    </c:when>
+                    <c:otherwise>
+                        Unknown display type
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </c:forEach>
     </c:forEach>
 
+    <!--
     <br style="clear:both;"/>
 
     <div class="resultBox">
@@ -169,19 +232,6 @@
 
     <br style="clear:both;"/>
 
-    <div class="resultScale">
-        <div class="answer-bar">
-            <div class="label-left">Only a few students are involved</div>
-            <div class="label-right">Almost every student is involved</div>
-            <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
-        </div>
-        <fmt:parseNumber var="offset" value="${(33+450*1)+0.5}" integerOnly="true"/>
-        <c:set var="arrowPct" value="${offset}px;"/>
-        <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
-    </div>
-
-    <br style="clear:both;"/>
-
     <div class="resultSchool">
         <div class="header">Other Schools attended</div>
         <p>Schools attended prior to this school: </p>
@@ -191,6 +241,7 @@
             <li><a href="http://www.greatschools.net">Escula Bilingue International</a> (1 student)</li>
         </ul>
     </div>
+    -->
 </div>
 
 <div id="right-col">
