@@ -19,7 +19,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
 
-<c:set var="school" value="${userResponseCommand.school}"/>
+<!--<c:set var="school" value="${userResponseCommand.school}"/>-->
 
 <html>
 <head>
@@ -42,27 +42,36 @@
 <body>
 <gsml:equalizeColumns ids="'left-col','right-col'"/>
 <div id="left-col">
+    <div class="intro" id="intro-form">
+        <img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
+        <div id="intro-blurb">
+            <div class="intro-heading1">${school.name} parent survey</div>
+            <div class="intro-heading2">
+                Read what parents shared about their experiences at this school. 
+                Results are based on ${results.totalResponses} responses.
+            </div>
+        </div>
+        <div id="toc">
+            <ul id="page-links">
+                <c:forEach items="${results.pages}" var="toc" >
+                    <li class="inactive"><span>${toc.name}</span></li>
+                </c:forEach>
+            </ul>
+        </div>
+    </div>
 
-    Results based on <span>${results.totalResponses} responses</span>.
-
-    school name: ${school.name}
     <c:forEach items="${results.pages}" var="page">
-        Page<br/>
         <c:forEach items="${page.groups}" var="group">
-            ${group.displayText}
+            <!--${group.displayText}-->
             <c:forEach items="${group.questions}" var="result_question">
-                ${result_question.displayText}
+                <!--${result_question.displayText}-->
+                <br/><br/>
                 <c:choose>
                     <c:when test="${result_question.displayType eq 'COMPLEX'}">
-                        This is a complex question
-
-                        <br/><br/><br/>
-                        <hr/>
-
                         <c:set var="question" value="${result_question.question}" />
-
                         <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
-                            values : ${fn:length(answer.answerValues)} <br/>
+                            <!--values : ${fn:length(answer.answerValues)} <br/>-->
+                            <h3 class="answer-sibling-heading">${answer.title}</h3>
                             <table class="complexResults" cellspacing="0" cellpadding="1">
                                 <tr>
                                     <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="cell">
@@ -110,86 +119,14 @@
                                 </tr>
                             </table>
                         </c:forEach>
-
-                        <hr/>
-                        <br/><br/><br/>
-
-                            <div class="question-text">${question.text}</div>
-                            <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
-                                <h3 class="answer-sibling-heading">${answer.title}</h3>
-                                <c:choose>
-                                    <c:when test="${answer.layout eq 'SINGLE_COLUMN'}">
-                                        <c:set var="colClass" value="checkbox-col, single-column"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="colClass" value="checkbox-col"/>
-                                        <!--Variables that control the number of entries per column in multicolumn display-->
-                                        <c:set var="totalColumns" value="3"/>
-                                        <c:set var="totalAnswer" value="${fn:length(answer.answerValues)}"/>
-                                        <fmt:parseNumber integerOnly="true" var="numAnswerPerColumn" value="${(totalAnswer / totalColumns) + 0.5}"/>
-                                        <!--For cases when we rounded down, increase by one the number of entries per column-->
-                                        <c:if test="${(numAnswerPerColumn * totalColumns) lt totalAnswer}">
-                                            <c:set var="numAnswerPerColumn" value="${(numAnswerPerColumn + 1)}"/>
-                                        </c:if>
-                                    </c:otherwise>
-                                </c:choose>
-                                <c:set var="answerSiblingClassName" value="answer-sibling"/>
-                                <c:if test="${answerIndex.index + 1 eq fn:length(question.answers)}">
-                                    <c:set var="answerSiblingClassName" value="answer-sibling-last"/>
-                                </c:if>
-                                <div class="resultBox">
-                                    <![CDATA[<div class="multiColumn">]]>
-                                    <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="boxCounter">
-                                        <c:if test="${(answer.layout ne 'SINGLE_COLUMN')
-                                                and ((boxCounter.index mod numAnswerPerColumn) eq 0)
-                                                and (boxCounter.index ne 0)}">
-                                            <![CDATA[</div>]]>
-                                            <![CDATA[<div class="multiColumn">]]>
-                                        </c:if>
-                                        <c:choose>
-                                            <c:when test="${boxCounter.index mod 2 eq 0}">
-                                                <c:set var="rowStyle" value="even"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:set var="rowStyle" value="odd"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <div class="${rowStyle} checked">${answerValue.display}</div>
-                                    </c:forEach>
-                                    <![CDATA[</div>]]>
-                                    <![CDATA[<div style="clear:both;"></div>]]>
-                                </div>
-                            </c:forEach>
-
-                        <br/><br/><br/><br/>
-                        <!--
-                        <div class="resultBox">
-                            <div class="title">header</div>
-                            <div class="multiColumn">
-                                <div class="odd checked">orchestra</div>
-                                <div class="even checked">band</div>
-                                <div class="odd checked">chorus</div>
-                                <div class="even checked">ceramics/sculpture</div>
-                            </div>
-                            <div class="multiColumn">
-                                <div class="odd checked">computer arts</div>
-                                <div class="even">dance</div>
-                                <div class="odd checked">drawing/painting</div>
-                                <div class="even checked">photography</div>                                
-                            </div>
-                            <div class="multiColumn">
-                                <div class="odd checked">theater/drama</div>
-                                <div class="even checked">video/film production</div>
-                                <div class="odd"><span class="hidden">blank</span></div>
-                                <div class="even"><span class="hidden">blank</span></div>
-                            </div>
-                            <![CDATA[<div style="clear:both;"></div>]]>
-                        </div>
-                        -->
                     </c:when>
+
+                    <!--
                     <c:when test="${result_question.displayType eq 'VALUES'}">
                         values type <br/>
                     </c:when>
+                    -->
+
                     <c:when test="${result_question.displayType eq 'SCALE'}">
                         <div class="resultScale">
                             <div class="answer-bar">
@@ -204,59 +141,13 @@
 
                     </c:when>
                     <c:otherwise>
-                        Unknown display type
+                        <!--Unknown display type-->
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
         </c:forEach>
     </c:forEach>
 
-    <!--
-    <br style="clear:both;"/>
-
-    <div class="resultBox">
-        <div class="title">header</div>
-        <div class="multiColumn">
-            <div class="odd checked">orchestra <span class="empty">available</span></div>
-            <div class="even checked">band <span class="empty">available</span></div>
-            <div class="odd checked">chorus <span class="empty">available</span></div>
-            <div class="even checked">ceramics/sculpture <span class="empty">available</span></div>
-        </div>
-        <div class="multiColumn">
-            <div class="odd checked">computer arts <span class="empty">available</span></div>
-            <div class="even">dance <span class="empty">not available</span></div>
-            <div class="odd checked">drawing/painting <span class="empty">available</span></div>
-            <div class="even checked">photography <span class="empty">available</span></div>
-        </div>
-        <div class="multiColumn">
-            <div class="odd checked">theater/drama</div>
-            <div class="even checked">video/film production</div>
-            <div class="odd"><span class="hidden">blank</span></div>
-            <div class="even"><span class="hidden">blank</span></div>
-        </div>
-        <![CDATA[<div style="clear:both;"></div>]]>
-    </div>
-
-    <br style="clear:both;"/>
-
-    <div class="resultBox singleColumnResultBox">
-        <div class="odd checked">Self-contained: grouped together in one class all day <span class="empty"> - true</span></div>
-        <div class="even checked">Pull-out: grouped together for part of the day <span class="empty"> - true</span></div>
-        <div class="odd">Inclusion: not separated from other students but get enriched instruction <span class="empty"> - false</span></div>
-    </div>
-
-    <br style="clear:both;"/>
-
-    <div class="resultSchool">
-        <div class="header">Other Schools attended</div>
-        <p>Schools attended prior to this school: </p>
-        <ul>
-            <li><a href="http://www.greatschools.net">Lincoln Middle School</a> (6 students)</li>
-            <li><a href="http://www.greatschools.net">Brett Harte Middle School</a> (1 students)</li>
-            <li><a href="http://www.greatschools.net">Escula Bilingue International</a> (1 student)</li>
-        </ul>
-    </div>
-    -->
 </div>
 
 <div id="right-col">

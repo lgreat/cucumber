@@ -1,3 +1,7 @@
+.intro {
+    padding:0 0 35px 0;
+}
+
 .resultBox {
     font: 13px Trebuchet MS, Arial, sans-serif;
     color: #666666;
@@ -6,6 +10,13 @@
 }
 .singleColumnResultBox div {
     padding: 2px 0 2px 30px;
+}
+
+table.complexResults {
+    font: 13px Trebuchet MS, Arial, sans-serif;
+    color: #666666;
+    border:1px solid #cccccc;
+    margin:0 0 15px 0;
 }
 
 .odd {
@@ -47,6 +58,7 @@ td.checked {
 .resultSchool ul {
     padding-left:40px;
 }
+
 .resultSchool ul li {
     font: 13px Trebuchet MS, Arial, sans-serif;
     color:#666666;

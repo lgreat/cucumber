@@ -22,16 +22,17 @@ public class SurveyResultsController extends AbstractController {
     private ISurveyDao _surveyDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        // This controller is configured to be school-aware in pages-servlet.xml
+        School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
+
+        // Don't the get level from the school - in case it's a multi-level school
         String level = request.getParameter("level");
-        String id = request.getParameter("id");
-        String state = request.getParameter("state");
-        School s = new School();
-        s.setId(Integer.parseInt(id));
-        StateManager sm = new StateManager();
-        s.setDatabaseState(sm.getState(state));
-        SurveyResults results = getSurveyDao().getSurveyResultsForSchool(level, s);
+
+        SurveyResults results = getSurveyDao().getSurveyResultsForSchool(level, school);
         ModelAndView mAndV = new ModelAndView("survey/results");
         mAndV.getModel().put("results", results);
+        mAndV.getModel().put("schooler", school);  // todo: why isn't the school available in the request?
         return mAndV;
     }
 
