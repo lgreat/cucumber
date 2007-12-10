@@ -7,13 +7,16 @@
 .singleColumnResultBox div {
     padding: 2px 0 2px 30px;
 }
+
 .odd {
     background-color: #DDEEEE;
 }
 .even {
     background-color: #FFFFFF;
 }
-.checked {
+
+td.checked {
+    width:20px;
     background-image:url("/res/img/bullet/pinkcheck_onwhite.gif");
     background-position:10px 5px;
     background-repeat:no-repeat;
