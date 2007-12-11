@@ -16,6 +16,14 @@ div#left-content div#partners ul {
         padding-bottom: 12px;
     }
 
+div#right-content div#grid ul {
+    left: 15px;
+}
+
+div#right-content div#grid div.spacer {
+    padding-left: 15px;
+}
+
 div#grid h3 {
     margin-bottom: 22px;
 }
@@ -29,11 +37,11 @@ div#grid div#findAndCompare div#topSchools input.button {
 }
 
 div#grid div#findAndCompare div#findAll select {
-    left: 118px;
+    left: 121px;
 }
 
 div#grid div#findAndCompare div#findAll input {
-    left: 253px;
+    left: 258px;
 }
 
 div#grid div.gridbox ul {

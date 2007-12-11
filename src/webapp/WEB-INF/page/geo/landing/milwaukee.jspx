@@ -163,7 +163,7 @@
                 <ul>
                     <li><link:article articleId="1141">Find Milwaukee School Information Workshops</link:article></li>
 
-                    <li><link:article articleId="1142">What's new with GreatSchoolsd Milwaukee</link:article></li>
+                    <li><link:article articleId="1142">What's new with GreatSchools Milwaukee</link:article></li>
                     <li>
                         <a href="mailto:milwaukee@greatschools.net?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>
                     </li>
@@ -175,7 +175,7 @@
                 </h3>
                 <ul>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/MilwaukeeChooser2007.pdf" >PDF Milwaukee School Chooser</gsml:a>
+                        <gsml:a href="/schoolreports/MilwaukeeChooser2007.pdf" >Milwaukee School Chooser</gsml:a>
                     </li>
                     <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
                 </ul>
@@ -199,7 +199,7 @@
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
             <ul>
-                <li>Your contribution helps support Milwaukee School Chooser and our outreach efforts in Milwaukee.</li>
+                <li>Your contribution helps support Milwaukee School Chooser and our GreatSchools Milwaukee program.</li>
             </ul>
             <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
                 <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
