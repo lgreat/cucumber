@@ -182,7 +182,7 @@
                 </h3>
                 <ul>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/DaytonChooser2007.pdf" >PDF Dayton School Chooser</gsml:a>
+                        <gsml:a href="/schoolreports/DaytonChooser2007.pdf" >Dayton School Chooser</gsml:a>
                     </li>
                     <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
                 </ul>
@@ -205,7 +205,7 @@
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
             <ul>
-                <li>Your contribution helps support Dayton School Chooser and our outreach efforts in Dayton.</li>
+                <li>Your contribution helps support Dayton School Chooser and the GreatSchools Dayton parent leadership program.</li>
             </ul>
             <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
                 <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
