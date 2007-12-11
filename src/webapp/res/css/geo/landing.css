@@ -357,6 +357,9 @@ div#donate {
         left:120px;
         width: 350px;
     }
+    div#right-content div#donate ul li {
+        background: 0;
+    }
 
     div#donate a {
         position:absolute;
