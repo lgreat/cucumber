@@ -98,6 +98,7 @@ div#left-content {
             position:absolute;
             top:45px;
             left:70px;
+            width: 110px;
         }
 
         div#left-content div#outreachManager div#managerText span.photoName {
@@ -245,7 +246,7 @@ div#grid div.gridbox {
         div#grid div#findAndCompare div#topSchools input {
             position:absolute;
             top:5px;
-            left:160px;
+            left:157px;
         }
 
     div#grid div#findAndCompare div#findAll {
@@ -267,7 +268,7 @@ div#grid div.gridbox {
 
         div#grid div#findAndCompare div#findAll select {
             position:absolute;
-            left:103px;
+            left:102px;
             top:7px;
             width:135px;
         }
@@ -275,7 +276,12 @@ div#grid div.gridbox {
         div#grid div#findAndCompare div#findAll input {
             position:absolute;
             top:5px;
-            left:240px;
+            left:246px;
+        }
+
+        div#grid div#findAndCompare select#compareLevel {
+            position: relative;
+            left: 2px;
         }
 
             div#grid div#within {
@@ -293,6 +299,7 @@ div#grid div.gridbox {
                 div#grid div#within select {
                     position:relative;
                     top:5px;
+                    left: 1px;
                     margin:0 7px 0 0;
                 }
 
@@ -305,6 +312,7 @@ div#grid div.gridbox {
 
                 div#grid div#within input.zip {
                     padding:0 0 0 4px;
+                    left: 2px;
                     width:40px;
                 }
 

@@ -24,6 +24,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Choosing a School in Milwaukee, Wisconsin</title>
     <pageHelper:externalCss file="/res/css/geo/landing.css"/>
+    <pageHelper:externalCss file="/res/css/geo/landing-ie7.css" userAgentSubstring="IE "/>
     <pageHelper:externalCss file="/res/css/geo/milwaukee.css"/>
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -179,7 +180,7 @@
                     <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
                 </ul>
             </div>
-            <div class="gridbox bottom right">
+            <div class="gridbox bottom right" id="resources">
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/Resources.gif" alt="Resources" />
                 </h3>
@@ -198,7 +199,7 @@
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
             <ul>
-                <li>Your contribution helps support Milwaukee School Chooser and our outreach efforts in Milwaukee</li>
+                <li>Your contribution helps support Milwaukee School Chooser and our outreach efforts in Milwaukee.</li>
             </ul>
             <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
                 <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />

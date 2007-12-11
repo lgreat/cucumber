@@ -11,6 +11,10 @@ div#right-content li {
         line-height: 18px;
     }
 
+div#right-content div#grid div#resources ul li {
+    background-position: 0 0.80ex;
+}
+
 div#grid div#findAndCompare select#compareLevel {
     position: relative;
     top: 3px;
@@ -28,4 +32,5 @@ div#grid div#findAndCompare select#miles {
 
 div#grid div#within input.button {
     top:3px;
+    left: 196px;
 }

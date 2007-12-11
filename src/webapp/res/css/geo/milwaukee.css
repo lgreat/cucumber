@@ -2,14 +2,50 @@ div#left-content div#outreachManager div#managerPhoto {
     background-image: url("/res/img/geo/landing/jodi.jpg");
 }
 
+div#left-content div#outreachManager div#managerText {
+    top: 35px;
+}
+
+div#left-content div#partners {
+    padding-bottom: 15px;
+}
+
+    div#left-content div#partners ul {
+        margin-top: 14px;
+        margin-bottom: 8px;
+    }
+
+        div#left-content div#partners ul li {
+            line-height: 16px;
+            padding-bottom: 12px;
+        }
+
 div#grid h3 {
+    margin-bottom: 22px;
+}
+
+div#grid div#resources h3 {
     margin-bottom: 7px;
+}
+
+div#grid div#findAndCompare div#topSchools input.button {
+    left: 178px;
+}
+
+div#grid div#findAndCompare div#findAll select {
+    left: 118px;
+}
+
+div#grid div#findAndCompare div#findAll input {
+    left: 253px;
 }
 
 div#grid div.gridbox ul {
     width: 290px;
 }
 
-div#grid div.gridbox ul li {
-    line-height: 19px;
-}
+    div#grid div#resources ul li {
+        line-height: 19px;
+        background-position: 0 0.60ex;
+    }
+
