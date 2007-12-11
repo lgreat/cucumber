@@ -2,9 +2,14 @@ package gs.web.school;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.review.Ratings;
+import gs.data.school.review.Review;
+import gs.data.school.review.CategoryRating;
 import gs.data.state.State;
+import gs.data.util.NameValuePair;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.jsp.Util;
 import gs.web.survey.SurveyController;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
@@ -13,6 +18,10 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -135,5 +144,180 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         assertNull(response.getRedirectedUrl());
         _controller.handleRequest(request, response);
         assertNotNull(response.getRedirectedUrl());
+    }
+
+    /**
+     * test the functionality of the static function to create the random Rating
+     *
+     * Insure that the contents of the map have expected values
+     */
+    public void testDoRandomRating(){
+        Ratings.Category ratingsCategory = Ratings.Category.Principal;
+        Integer rating = 3;
+
+        NameValuePair<Ratings.Category,Integer> randomRating = new NameValuePair<Ratings.Category, Integer>(ratingsCategory,rating);
+
+        Map reviewMap = new HashMap();
+
+        SchoolOverviewController.doRandomRating(randomRating, reviewMap);
+
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
+        assertNotNull("Expected to find key: 'randomCategory'", reviewMap.get("randomCategory")) ;
+        assertNotNull("Expected to find key: 'randomRating'", reviewMap.get("randomRating")) ;
+
+        assertEquals("Expected the rating to be: 'average'", "average", (String)reviewMap.get("randomRating"));
+        assertEquals("Expected the category to be: 'principal leadership is", "principal leadership is", (String)reviewMap.get("randomCategory")) ;
+    }
+
+    /**
+     *  test the functionality of the static function to create the random Rating
+     *  with no random rating to display
+     */
+    public void testDoRandomRating_NullRandomRating(){
+
+        // an null random rating would signify that not enough ratings were submitted
+        NameValuePair<Ratings.Category,Integer> randomRating = null;
+
+        Map reviewMap = new HashMap();
+
+        SchoolOverviewController.doRandomRating(randomRating, reviewMap);
+        assertEquals("Expect reviewMap.size to be 0", 0, reviewMap.size());
+    }
+
+    /**
+     * Tests the functionality of the static function to create the display reviews for a school
+     * No reviews
+     */
+    public void testDoParentReviews_None(){
+
+        List<Review> reviewList = new ArrayList<Review>();
+
+        Map reviewMap = new HashMap();
+
+        SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+        assertEquals("Expect reviewMap.size to be 0", 0, reviewMap.size());
+
+    }
+
+    /**
+     * Tests the functionality of the static function to create the display reviews for a school
+     * One Review
+     */
+    public void testDoParentReviews_OneReview(){
+
+        List<Review> reviewList = new ArrayList<Review>();
+
+        Review aReview = new Review();
+        aReview.setQuality(CategoryRating.RATING_1);
+        aReview.setComments("Comment 1");
+
+        reviewList.add(aReview);
+
+        Map reviewMap = new HashMap();
+
+        SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
+        assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
+        assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
+
+        assertEquals("Expected totalReviews to be 1", new Integer(1), (Integer)reviewMap.get("totalReviews"));
+        assertNotNull("Expected schoolReviews not to be null", reviewMap.get("schoolReviews"));
+
+        List<Map> schoolReviews = (List<Map>)reviewMap.get("schoolReviews");
+
+        assertEquals("Expected schoolReviews to have one entry", 1, schoolReviews.size());
+        // get the map from the list
+        Map<String, String> schoolData = schoolReviews.get(0);
+
+        assertNotNull("Expected to find key: 'psRating'", schoolData.get("psRating"));
+        assertNotNull("Expected to find key: 'psComment'", schoolData.get("psComment"));
+
+        assertEquals("Expected psRating to be: ",aReview.getQuality().getName(), (String) schoolData.get("psRating")) ;
+        assertEquals("Expected psComment to be: ", Util.abbreviateAtWhitespace(aReview.getComments(), SchoolOverviewController.REVIEW_LENGTH),(String)schoolData.get("psComment"));
+    }
+
+    /**
+     * Tests the functionality of the static function to create the display reviews for a school
+     * Three Reviews
+     */
+    public void testDoParentReviews_MaxReviews(){
+
+        List<Review> reviewList = new ArrayList<Review>();
+
+        for (int i = 0; i<3; i++){
+            Review aReview = new Review();
+            aReview.setQuality(CategoryRating.RATING_1);
+            aReview.setComments("Comment 1");
+
+            reviewList.add(aReview);            
+        }
+
+        Map reviewMap = new HashMap();
+
+        SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
+        assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
+        assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
+
+        assertEquals("Expected totalReviews to be 3", new Integer(3), (Integer)reviewMap.get("totalReviews"));
+        assertNotNull("Expected schoolReviews not to be null", reviewMap.get("schoolReviews"));
+
+        List<Map> schoolReviews = (List<Map>)reviewMap.get("schoolReviews");
+        assertEquals("Expected 3 reviews", 3, schoolReviews.size());
+
+
+    }
+
+    /**
+     * Tests the functionality of the static function to create the display reviews for a school
+     * 5 Reviews
+     */
+    public void testDoParentReviews_MoreThanMaxReview(){
+
+        List<Review> reviewList = new ArrayList<Review>();
+
+        for (int i = 0; i<5; i++){
+            Review aReview = new Review();
+            aReview.setQuality(CategoryRating.RATING_1);
+            aReview.setComments("Comment 1");
+
+            reviewList.add(aReview);
+        }
+
+        Map reviewMap = new HashMap();
+
+        SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
+        assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
+        assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
+
+        assertEquals("Expected totalReviews to be 5", new Integer(5), (Integer)reviewMap.get("totalReviews"));
+        assertNotNull("Expected schoolReviews not to be null", reviewMap.get("schoolReviews"));
+
+        List<Map> schoolReviews = (List<Map>)reviewMap.get("schoolReviews");
+        assertEquals("Expected 3 reviews", 3, schoolReviews.size());
+ 
+    }
+
+    /**
+     * Tests the functionality of the static function to create the display reviews for a school
+     * Decline to state 
+     */
+    public void testDoParentReviews_DeclineToState(){
+
+
+           List<Review> reviewList = new ArrayList<Review>();
+           Review aReview = new Review();
+           aReview.setQuality(CategoryRating.DECLINE_TO_STATE);
+           aReview.setComments("Comment 1");
+
+           reviewList.add(aReview);
+
+           Map reviewMap = new HashMap();
+
+           SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+           assertEquals("Expect reviewMap.size to be 0", 0, reviewMap.size());
+
+
     }
 }

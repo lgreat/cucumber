@@ -12,6 +12,7 @@ import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.test.ITestDataSetDao;
 import gs.data.test.SchoolTestValue;
+import gs.data.util.NameValuePair;
 import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -195,6 +196,80 @@ public class SchoolOverviewController extends AbstractSchoolController {
      */
     Map createLatestReviewsModel(School school) {
 
+        Map latestReviewsModel = null;
+
+        latestReviewsModel = new HashMap();
+
+        List reviews = getReviewDao().getPublishedReviewsBySchool(school);
+        if (reviews != null && reviews.size() != 0) {
+            doParentReviews(reviews, latestReviewsModel);
+        }
+
+        // Do the random Rating
+        Ratings ratings = getReviewDao().findRatingsBySchool(school);
+
+        if (ratings != null){
+            NameValuePair<Ratings.Category, Integer> randomRating = ratings.getRandomCategory();
+
+            doRandomRating(randomRating, latestReviewsModel);
+        }
+
+        // always return a map, even if it is empty.
+        return latestReviewsModel;
+    }
+
+    /**
+     * populates the parent review structure
+     *
+     * Things to test:
+     * Reviews - empty
+     * Maximum number of reviews - 3
+     *
+     * Review.getQuality - CategoryRating.DECLINE_TO_STATE
+     * Review.getComments - null
+     *
+     * Result
+     *   latestReviewsModel -> preschoolReviews
+     *
+     * @param reviews - a list of reviews for the schoold
+     * @param latestReviewsModel - the Map to store the results
+     */
+    static void doParentReviews(List reviews, Map latestReviewsModel) {
+        if (reviews == null){
+            return;
+        }
+
+        Review latestReview = null;
+        List<Map> schoolReviews = null;
+
+        for (int i = 0; i < reviews.size(); i++) {
+            Review aReview = (Review) reviews.get(i);
+
+            if (!CategoryRating.DECLINE_TO_STATE.equals(aReview.getQuality()) && aReview.getComments() != null) {
+                if (schoolReviews != null && schoolReviews.size() > 2) {
+                    break;
+                } else {
+                    if (schoolReviews == null) schoolReviews = new ArrayList<Map>();
+                    Map<String, String> schoolData = new HashMap<String, String>();
+                    schoolData.put("psRating", aReview.getQuality().getName());
+                    schoolData.put("psComment", Util.abbreviateAtWhitespace(aReview.getComments(), REVIEW_LENGTH));
+                    schoolReviews.add(schoolData);
+                }
+            }
+       }
+
+        if (schoolReviews != null) {
+            latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
+            latestReviewsModel.put("schoolReviews", schoolReviews);
+        }
+    }
+
+    /**
+     * Populates the random rating for the school
+     * @param randomRating is a NameValuePair that contains the Random Category and Rating
+     * @param latestReviewsModel Is the map to store the results
+     */
+    static void doRandomRating(NameValuePair<Ratings.Category, Integer> randomRating, Map latestReviewsModel) {
         String[] ratingStrings = {
                 "unsatifactory",
                 "below average",
@@ -209,103 +284,38 @@ public class SchoolOverviewController extends AbstractSchoolController {
         String PARENT_CAT = "parent involvement is";
         String SAFETY_CAT = "safety and discipline are";
 
-        Map latestReviewsModel = null;
-        List<Map> preschoolReviews = null;
 
-        List reviews = getReviewDao().getPublishedReviewsBySchool(school);
-        if (reviews != null && reviews.size() != 0) {
-            Review latestReview = null;
-            for (int i = 0; i < reviews.size(); i++) {
-                Review aReview = (Review) reviews.get(i);
-                if (!CategoryRating.DECLINE_TO_STATE.equals(aReview.getQuality()) && aReview.getComments() != null) {
-                    if (latestReview == null) { latestReview = aReview; }
-                    if (!school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
-                            (preschoolReviews != null && preschoolReviews.size() > 2)) {
-                        break;
-                    } else {
-                        if (preschoolReviews == null) preschoolReviews = new ArrayList<Map>();
-                        Map<String, String> preschoolData = new HashMap<String, String>();
-                        preschoolData.put("psRating", aReview.getQuality().getName());
-                        preschoolData.put("psComment", Util.abbreviateAtWhitespace(aReview.getComments(), REVIEW_LENGTH));
-                        preschoolReviews.add(preschoolData);
-                    }
-                }
+        if (randomRating != null) {
+            String randomCategory = null;
+
+            switch (randomRating.getKey()) {
+                case Activities:
+                    randomCategory = EXTRA_CAT;
+                    break;
+                case Parents:
+                    randomCategory = PARENT_CAT;
+                    break;
+                case Principal:
+                    randomCategory = PRINCIPAL_CAT;
+                    break;
+                case Saftey:
+                    randomCategory = SAFETY_CAT;
+                    break;
+                case Teacher:
+                    randomCategory = TEACHERS_CAT;
+                    break;
+                default:
+                    // todo: log the error condition.  probably the enum has been changed... jn
+                    break;
             }
 
-            if (latestReview != null) {
-
-                Ratings ratings = getReviewDao().findRatingsBySchool(school);
-                if (ratings.getCount() > 2) {
-                    Integer randomRating = null;
-                    String randomCategory = null;
-
-                    // First try to randomly pick a rating category:
-                    int index = (int) (Math.random() * 5);
-                    switch (index) {
-                        case 0:
-                            randomCategory = TEACHERS_CAT;
-                            randomRating = ratings.getAvgTeachers();
-                            break;
-                        case 1:
-                            randomCategory = PRINCIPAL_CAT;
-                            randomRating = ratings.getAvgPrincipal();
-                            break;
-                        case 2:
-                            randomCategory = EXTRA_CAT;
-                            randomRating = ratings.getAvgActivities();
-                            break;
-                        case 3:
-                            randomCategory = PARENT_CAT;
-                            randomRating = ratings.getAvgParents();
-                            break;
-                        case 4:
-                            randomCategory = SAFETY_CAT;
-                            randomRating = ratings.getAvgSafety();
-                            break;
-                    }
-
-                    // If a rating does not exist for the randomly-selected category, look
-                    // in the other categories for a rating.
-                    if (randomRating == null) {
-                        randomCategory = TEACHERS_CAT;
-                        randomRating = ratings.getAvgQuality();
-                        if (randomRating == null) {
-                            randomCategory = PRINCIPAL_CAT;
-                            randomRating = ratings.getAvgPrincipal();
-                            if (randomRating == null) {
-                                randomCategory = EXTRA_CAT;
-                                randomRating = ratings.getAvgActivities();
-                                if (randomRating == null) {
-                                    randomCategory = PARENT_CAT;
-                                    randomRating = ratings.getAvgParents();
-                                    if (randomRating == null) {
-                                        randomCategory = SAFETY_CAT;
-                                        randomRating = ratings.getAvgSafety();
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // If we don't find one, return null.
-                    if (randomRating != null) {
-                        latestReviewsModel = new HashMap();
-                        latestReviewsModel.put("randomCategory", randomCategory);
-                        latestReviewsModel.put("randomRating", ratingStrings[randomRating.intValue() - 1]);
-                        latestReviewsModel.put("latestRating", latestReview.getQuality().getName());
-                        latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
-                        latestReviewsModel.put("comment",
-                                Util.abbreviateAtWhitespace(latestReview.getComments(), REVIEW_LENGTH));
-
-                        if (preschoolReviews != null) {
-                            latestReviewsModel.put("preschoolReviews", preschoolReviews);
-                        }
-                    }
-                }
+            if (randomCategory != null && randomRating.getValue() != null){ // future proofing jn
+                latestReviewsModel.put("randomCategory", randomCategory);
+                latestReviewsModel.put("randomRating", ratingStrings[randomRating.getValue() - 1]);
             }
         }
-        return latestReviewsModel;
     }
+
 
     public void setTestDataSetDao(ITestDataSetDao _testDao) {
         this._testDataSetDao = _testDao;
