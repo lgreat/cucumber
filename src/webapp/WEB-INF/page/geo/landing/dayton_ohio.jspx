@@ -24,33 +24,33 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>Choosing a School in Dayton, Ohio</title>
     <pageHelper:externalCss file="/res/css/geo/landing.css"/>
+    <pageHelper:externalCss file="/res/css/geo/landing-ie7.css" userAgentSubstring="IE "/>
+    <pageHelper:externalCss file="/res/css/geo/dayton_ohio.css"/>
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         sessionContext.setState(State.OH);
     </jsp:scriptlet>
-    <![CDATA[
-    <script type="text/javascript">
+    <script type="text/javascript" language="JavaScript">
         function gotoDaytonCityPage() {
             window.location.href = 'http://www.greatschools.net/city/Dayton/OH';
         }
         function gotoDaytonSchoolsPage() {
             var level = document.getElementById('findAllLevel').value;
-            var url = "http://www.greatschools.net/schools.page?city=Dayton&lc=";
+            var url = "http://www.greatschools.net/schools.page?city=Dayton%26lc=";
             url += level;
-            url += '&state=OH';
-            window.location.href = url;
+            url += "%26state=OH";
+            window.location.href = decodeURIComponent(url);
         }
         function gotoComparePage() {
-            var url = "http://www.greatschools.net/cgi-bin/cs_compare/oh/?sortby=distance&tab=over&area=m&zip=";
+            var url = "http://www.greatschools.net/cgi-bin/cs_compare/oh/?sortby=distance%26tab=over%26area=m%26zip=";
             url += document.getElementById('zip').value;
-            url += "&miles=";
+            url += "%26miles=";
             url += document.getElementById('miles').value;
-            url += "&level=";
+            url += "%26level=";
             url += document.getElementById('compareLevel').value;
-            window.location.href = url;
+            window.location.href = decodeURIComponent(url);
         }
     </script>
-    ]]>
 </head>
 
 <gsml:body adPageName="research" >
@@ -72,7 +72,7 @@
                 <gsweb:articlelink articleId="48" wrappingElement="li"/>
                 <li>
                     <link:schoolChoiceCenter styleClass="uline">
-                        See all school choice tips >
+                        See all school choice tips &gt;
                     </link:schoolChoiceCenter>
                 </li>
             </ul>
@@ -95,7 +95,7 @@
         </div>
     </div>
     <div id="right-content">
-        <h1>Dayton, Ohio: My School Chooser</h1>
+        <h1>Dayton School Chooser</h1>
         <div id="grid">
             <div class="gridbox top left" id="findAndCompare">
                 <h3 class="grid-header">
@@ -184,14 +184,14 @@
                     <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
                 </h3>
                 <ul>
-                    <li><gsml:a href="">Find Dayton School Choice Workshops</gsml:a></li>
+                    <li><link:article articleId="1138">Find Dayton School Choice Workshops</link:article></li>
 
                     <li>
-                        <a href="mailto:aperkins@greatschools.net?subject=register%20me%20for%20the%20online%20parent%20network" >Register for the Dayton Parent List-serve</a>    
+                        <a href="mailto:aperkins@greatschools.net?subject=Register%20me%20for%20the%20online%20parent%20network" >Register for the Dayton Parent List-serve</a>    
                     </li>
-                    <li><gsml:a href="">Learn about Dayton School Events</gsml:a></li>
+                    <li><link:article articleId="1139">Learn about Dayton School Events</link:article></li>
                     <li>
-                        <a href="mailto:aperkins@greatschools.net?subject=I’m%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>    
+                        <a href="mailto:aperkins@greatschools.net?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>    
                     </li>
                 </ul>
             </div>
@@ -199,21 +199,12 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/GreatSchoolsGuide.gif" alt="GreatSchools Guides" />
                 </h3>
-                <div class="spacer">
-                    <span>Download:</span>
-                    <ul>
-                        <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                            <gsml:a href="/schoolreports/DaytonChooser2007.pdf" >PDF My School Chooser</gsml:a>
-                        </li>
-                        <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                            <a href="" >PDF Our guide to using GreatSchools.net</a>
-                        </li>
-                    </ul>
-                    <br/>
-                    <ul>
-                        <li>Sign up for GreatSchools newsletters</li>
-                    </ul>
-                </div>
+                <ul>
+                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
+                        <gsml:a href="/schoolreports/DaytonChooser2007.pdf" >PDF Dayton School Chooser</gsml:a>
+                    </li>
+                    <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
+                </ul>
             </div>
             <div class="gridbox bottom right">
                 <h3 class="grid-header">
@@ -223,7 +214,7 @@
                     <li>Call our hotline: 937-229-2637</li>
                     <li><a href="mailto:aperkins@greatschools.net?subject=I%20want%20more%20information%20on%20Dayton%20Outreach%20Programs" >E-mail us for more information</a></li>
                     <li><gsml:a href="http://www.otap.org" target="_blank">Get low cost computers</gsml:a></li>
-                    <li><gsml:a href="">Get computer training</gsml:a></li>
+                    <li><link:article articleId="1092">Get computer training</link:article></li>
                     <li><gsml:a href="http://daytonunitedway.org/find_help/index.htm" target="_blank">Go to 211.org</gsml:a></li>
                 </ul>                
             </div>
@@ -233,11 +224,9 @@
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
             <ul>
-                <li>Donate a computer to OTAP</li>
-                <li>Sponsor a parent leader</li>
-                <li>Contribute funds for My School Chooser</li>
+                <li>Your contribution helps support Dayton School Chooser and our outreach efforts in Dayton</li>
             </ul>
-            <gsml:a href="http://www.greatschools.net/about/donationBridge.page?state=OH" >
+            <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
                 <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
             </gsml:a>
         </div>

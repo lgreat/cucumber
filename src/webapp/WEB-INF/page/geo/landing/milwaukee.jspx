@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:footer="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          version="2.0" >
+<jsp:directive.page import="gs.data.state.State"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<html lang="en">
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <title>Choosing a School in Milwaukee, Wisconsin</title>
+    <pageHelper:externalCss file="/res/css/geo/landing.css"/>
+    <pageHelper:externalCss file="/res/css/geo/milwaukee.css"/>
+    <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        sessionContext.setState(State.WI);
+    </jsp:scriptlet>
+    <script type="text/javascript">
+        function gotoMilwaukeeCityPage() {
+            window.location.href = 'http://www.greatschools.net/city/Milwaukee/WI';
+        }
+        function gotoMilwaukeeSchoolsPage() {
+            var level = document.getElementById('findAllLevel').value;
+            var url = "http://www.greatschools.net/schools.page?city=Milwaukee%26lc=";
+            url += level;
+            url += '%26state=WI';
+            window.location.href = decodeURIComponent(url);
+        }
+        function gotoComparePage() {
+            var url = "http://www.greatschools.net/cgi-bin/cs_compare/wi/?sortby=distance%26tab=over%26area=m%26zip=";
+            url += document.getElementById('zip').value;
+            url += "%26miles=";
+            url += document.getElementById('miles').value;
+            url += "%26level=";
+            url += document.getElementById('compareLevel').value;
+            window.location.href = decodeURIComponent(url);
+        }
+    </script>
+</head>
+
+<gsml:body adPageName="research">
+
+    <div id="left-content">
+        <div class="mainLeft">
+            <div id="outreachManager">
+                <div id="managerPhotoBorder">
+                    <div id="managerPhoto">Photo of Outreach Manager</div>
+                </div>
+                <div id="managerText">
+                    <span class="photoName">Jodi Goldberg</span><br/>
+                    <span class="photoCaption">Regional Outreach Director</span>
+                </div>
+            </div>
+            <ul>
+                <li>Milwaukee parents, here are some great resources to help you choose a school:</li>
+                <gsweb:articlelink articleId="96" wrappingElement="li"/>
+                <gsweb:articlelink articleId="48" wrappingElement="li"/>
+                <li>
+                    <link:schoolChoiceCenter styleClass="uline">
+                        More tips for choosing a school &gt;
+                    </link:schoolChoiceCenter>
+                </li>
+            </ul>
+        </div>
+        <hr />
+        <div class="mainLeft" id="partners">
+            <h3><span>Our Partners</span></h3>
+            <ul>
+                <li><a href="http://www.archmil.org/education/default.asp" target="_blank">Archdiocese of Milwaukee</a></li>
+                <li><a href="http://www.itlmuonline.com/" target="_blank">Institute for Transformation of Learning</a></li>
+                <li><a href="http://milwaukee.baeo.org/" target="_blank">Milwaukee Chapter - BAEO</a></li>
+                <li><a href="http://www.pave.org/" target="_blank">PAVE</a></li>
+                <li><a href="http://www.schoolchoiceinfo.org/" target="_blank">School Choice Wisconsin</a></li>
+                <li><a href="http://www.wels.net/" target="_blank">Wisconsin Evangelical Lutheran Schools</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="right-content">
+        <h1>Milwaukee School Chooser</h1>
+        <div id="grid">
+            <div class="gridbox top left" id="findAndCompare">
+                <h3 class="grid-header">
+                    <img src="/res/img/geo/landing/findandcompare.gif" alt="Find and Compare" />
+                </h3>
+                <div class="spacer">
+                    <div class="row" id="topSchools">
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                        <span>Find top Milwaukee schools</span>
+                        <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
+                               class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onmouseout="this.src='/res/img/splash/go.gif';" type="image"
+                               onclick="gotoMilwaukeeCityPage();" />
+                    </div>
+                    <div class="row" id="findAll">
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                        <span>Find all Milwaukee</span>
+                        <select id="findAllLevel">
+                            <option value="e">elementary schools</option>
+                            <option value="m">middle schools</option>
+                            <option value="h">high schools</option>
+                        </select>
+                        <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
+                               class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               onmouseout="this.src='/res/img/splash/go.gif';" type="image"
+                               onclick="gotoMilwaukeeSchoolsPage()"/>
+                    </div>
+
+                    <input type="hidden" name="sortby" value="distance" />
+                    <input type="hidden" name="tab" value="over" />
+                    <input type="hidden" name="area" value="m" />
+                    <input type="hidden" name="form" value="address" />
+                    <input type="hidden" name="foo" value="bar" />
+
+                    <div class="row">
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                        Compare Milwaukee
+                        <select id="compareLevel" name="level">
+                            <option value="e">elementary schools</option>
+                            <option value="m">middle schools</option>
+                            <option value="h">high schools</option>
+                        </select>
+                    </div>
+
+                    <div class="row" id="within">
+                        <span>within</span>
+                        <select id="miles" name="miles" class="miles formText">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                        </select>
+                        <span>miles of</span>
+                        <input id="zip" type="text" name="zip" class="zip formText" value="53233" size="7"/>
+
+                        <input src="/res/img/splash/go.gif" alt="Compare Ohio Schools" style="width: 41px; height: 26px;"
+                           class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                           onmouseout="this.src='/res/img/splash/go.gif';" type="image"
+                           onclick="gotoComparePage()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="gridbox top right">
+                <h3 class="grid-header">
+                    <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
+                </h3>
+                <ul>
+                    <li><link:article articleId="1141">Find Milwaukee School Information Workshops</link:article></li>
+
+                    <li><link:article articleId="1142">What's new with GreatSchoolsd Milwaukee</link:article></li>
+                    <li>
+                        <a href="mailto:milwaukee@greatschools.net?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="gridbox bottom left" id="greatschoolsGuides">
+                <h3 class="grid-header">
+                    <img src="/res/img/geo/landing/GreatSchoolsGuide.gif" alt="GreatSchools Guides" />
+                </h3>
+                <ul>
+                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
+                        <gsml:a href="/schoolreports/MilwaukeeChooser2007.pdf" >PDF Milwaukee School Chooser</gsml:a>
+                    </li>
+                    <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
+                </ul>
+            </div>
+            <div class="gridbox bottom right">
+                <h3 class="grid-header">
+                    <img src="/res/img/geo/landing/Resources.gif" alt="Resources" />
+                </h3>
+                <ul>
+                    <li>Call our hotline: 414-477-3540</li>
+                    <li><a href="mailto:milwaukee@greatschools.net?subject=I%20want%20more%20information%20on%20Milwaukee%20Outreach%20Programs" >E-mail us for more information</a></li>
+                    <li><gsml:a href="http://mpsportal.milwaukee.k12.wi.us/" target="_blank">Milwaukee Public Schools (MPS)</gsml:a></li>
+                    <li><gsml:a href="http://dpi.state.wi.us/sms/csindex.html" target="_blank">Department of Public Instruction (DPI) - Charter schools</gsml:a></li>
+                    <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - Milwaukee Parental Choice Program</gsml:a></li>
+                    <li><gsml:a href="http://www.wicharterschools.org/home.cfm" target="_blank">Wisconsin Charter Schools Association</gsml:a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="donate">
+            <h3>
+                <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
+            </h3>
+            <ul>
+                <li>Your contribution helps support Milwaukee School Chooser and our outreach efforts in Milwaukee</li>
+            </ul>
+            <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
+                <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
+            </gsml:a>
+        </div>
+    </div>
+
+<footer:editorialFooter/>
+
+<mod:tracking pageName="Milwaukee Landing Page" hier1="Home,Outreach,Milwaukee"/>
+
+</gsml:body>
+</html>
+
+</jsp:root>

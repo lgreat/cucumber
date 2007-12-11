@@ -1,0 +1,15 @@
+div#left-content div#outreachManager div#managerPhoto {
+    background-image: url("/res/img/geo/landing/jodi.jpg");
+}
+
+div#grid h3 {
+    margin-bottom: 7px;
+}
+
+div#grid div.gridbox ul {
+    width: 290px;
+}
+
+div#grid div.gridbox ul li {
+    line-height: 19px;
+}

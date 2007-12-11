@@ -1,0 +1,27 @@
+div#right-content li {
+    background-position: 0 1.15ex;
+}
+
+    div#right-content div#donate li {
+        background-position: 0 0.55ex;
+        line-height: 18px;
+    }
+
+div#grid div#findAndCompare select#compareLevel {
+    position: relative;
+    top: 3px;
+}
+
+div#grid div#findAndCompare input.zip {
+    position: relative;
+    top: 6px;
+}
+
+div#grid div#findAndCompare select#miles {
+    position: relative;
+    top: 8px;
+}
+
+div#grid div#within input.button {
+    top:3px;
+}

@@ -70,10 +70,6 @@ div#left-content {
             margin-top:10px;
         }
 
-        div#left-content div#partners li {
-            line-height:10px;
-        }
-
     div#left-content div#outreachManager {
         border-bottom:1px solid #DDEEEE;
         position:relative;
@@ -86,7 +82,6 @@ div#left-content {
             padding: 2px 2px 2px 2px;
             margin: 0 7px 3px 0;
             text-indent:-1000em;
-            background-image: url("/res/img/geo/landing/andria.JPG");
 	        background-repeat: no-repeat;
 	        background-position: 2px 2px;
 	        width: 56px;
@@ -145,12 +140,17 @@ div#right-content {
     div#right-content li {
         background-image: url(../../img/content/research/yellow_arrow.gif );
         background-repeat: no-repeat;
-        background-position: center left;
-        padding-top: 2px;
+        background-position: 0 1.0ex;
+        padding-bottom: 2px;
         padding-left: 16px;
         line-height:25px;
         color:#777777;
     }
+
+        div#right-content div#donate li {
+            background-position: 0 0.5ex;
+            line-height: 18px;
+        }
 
 div#grid {
    position:relative;
@@ -229,7 +229,7 @@ div#grid div.gridbox {
 
         div#grid div#findAndCompare div#topSchools img {
             position:absolute;
-            top:10px;
+            top:12px;
         }
 
         div#grid div#findAndCompare div#topSchools span {
@@ -240,7 +240,7 @@ div#grid div.gridbox {
 
         div#grid div#findAndCompare div#topSchools input {
             position:absolute;
-            top:4px;
+            top:5px;
             left:160px;
         }
 
@@ -252,7 +252,7 @@ div#grid div.gridbox {
 
         div#grid div#findAndCompare div#findAll img {
             position:absolute;
-            top:10px;
+            top:12px;
         }
 
         div#grid div#findAndCompare div#findAll span {
@@ -270,7 +270,7 @@ div#grid div.gridbox {
 
         div#grid div#findAndCompare div#findAll input {
             position:absolute;
-            top:3px;
+            top:5px;
             left:240px;
         }
 
@@ -294,7 +294,7 @@ div#grid div.gridbox {
 
                 div#grid div#within input.button {
                     position:absolute;
-                    top:0;
+                    top:1px;
                     margin:2px 0 0 0;
                     left:200px;
                 }
@@ -312,8 +312,8 @@ div#grid div.gridbox {
            }
 
            div#grid div#greatschoolsGuides ul {
-               top:15px;
-               left:10px;
+               /*top:15px;*/
+               /*left:10px;*/
            }
 
            div#grid div#greatschoolsGuides li img {
