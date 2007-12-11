@@ -68,7 +68,7 @@
             </div>
             <ul>
                 <li>Dayton parents, here are some great resources to help you choose a school:</li>
-                <gsweb:articlelink articleId="96" wrappingElement="li">Choosing a School: An Overview</gsweb:articlelink>
+                <gsweb:articlelink articleId="96" wrappingElement="li"/>
                 <gsweb:articlelink articleId="48" wrappingElement="li"/>
                 <li>
                     <link:schoolChoiceCenter styleClass="uline">

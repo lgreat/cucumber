@@ -353,14 +353,15 @@ div#donate {
 
     div#donate ul {
         position:absolute;
-        top:5px;
+        top:29px;
         left:120px;
+        width: 350px;
     }
 
     div#donate a {
         position:absolute;
-        top:62px;
-        left:400px;
+        top:38px;
+        left:480px;
     }
 
 
