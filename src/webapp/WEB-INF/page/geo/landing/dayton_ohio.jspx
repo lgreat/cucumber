@@ -68,7 +68,7 @@
             </div>
             <ul>
                 <li>Dayton parents, here are some great resources to help you choose a school:</li>
-                <gsweb:articlelink articleId="96" wrappingElement="li"/>
+                <gsweb:articlelink articleId="96" wrappingElement="li">Choosing a School: An Overview</gsweb:articlelink>
                 <gsweb:articlelink articleId="48" wrappingElement="li"/>
                 <li>
                     <link:schoolChoiceCenter styleClass="uline">
@@ -124,59 +124,40 @@
                                onclick="gotoDaytonSchoolsPage()"/>                        
                     </div>
 
-                    <!--<gsweb:form action="/school/research.page" method="get">-->
-                        <input type="hidden" name="sortby" value="distance" />
-                        <input type="hidden" name="tab" value="over" />
-                        <input type="hidden" name="area" value="m" />
-                        <input type="hidden" name="form" value="address" />
-                        <input type="hidden" name="foo" value="bar" />
+                    <input type="hidden" name="sortby" value="distance" />
+                    <input type="hidden" name="tab" value="over" />
+                    <input type="hidden" name="area" value="m" />
+                    <input type="hidden" name="form" value="address" />
+                    <input type="hidden" name="foo" value="bar" />
 
-                        <div class="row">
-                            <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                            Compare Dayton
-                            <select id="compareLevel" name="level">
-                                <option value="e">elementary schools</option>
-                                <option value="m">middle schools</option>
-                                <option value="h">high schools</option>
-                            </select>
-                        </div>
-
-                        <div class="row" id="within">
-                            <span>within</span>
-                            <select id="miles" name="miles" class="miles formText">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="25">25</option>
-                                <option value="30">30</option>
-                            </select>
-                            <span>miles of</span>
-                            <input id="zip" type="text" name="zip" class="zip formText" value="45401" size="7"/>
-
-                            <input src="/res/img/splash/go.gif" alt="Compare Ohio Schools" style="width: 41px; height: 26px;"
-                               class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                               onmouseout="this.src='/res/img/splash/go.gif';" type="image"
-                               onclick="gotoComparePage()"/>                            
-                        </div>
-                    <!--</gsweb:form>-->
-                    <!--
                     <div class="row">
-                        <gsweb:form action="/school/research.page" method="get">
-                        <c:choose>
-                            <c:when test="${not empty ziperror}">
-                                <span style="color:red;">
-                                    <c:out value="${ziperror}" escapeXml="true" />
-                                </span>
-                            </c:when>
-                            <c:otherwise>
-                                <img style="width: 198px;height: 31px;" alt=""
-                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                            </c:otherwise>
-                        </c:choose>
-                        </gsweb:form>
+                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                        Compare Dayton
+                        <select id="compareLevel" name="level">
+                            <option value="e">elementary schools</option>
+                            <option value="m">middle schools</option>
+                            <option value="h">high schools</option>
+                        </select>
                     </div>
-                        -->
+
+                    <div class="row" id="within">
+                        <span>within</span>
+                        <select id="miles" name="miles" class="miles formText">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                        </select>
+                        <span>miles of</span>
+                        <input id="zip" type="text" name="zip" class="zip formText" value="45401" size="7"/>
+
+                        <input src="/res/img/splash/go.gif" alt="Compare Ohio Schools" style="width: 41px; height: 26px;"
+                           class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
+                           onmouseout="this.src='/res/img/splash/go.gif';" type="image"
+                           onclick="gotoComparePage()"/>
+                    </div>
                 </div>
             </div>
             <div class="gridbox top right">
@@ -224,7 +205,7 @@
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
             <ul>
-                <li>Your contribution helps support Dayton School Chooser and our outreach efforts in Dayton</li>
+                <li>Your contribution helps support Dayton School Chooser and our outreach efforts in Dayton.</li>
             </ul>
             <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
                 <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />

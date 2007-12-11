@@ -44,7 +44,7 @@ div#left-content {
     }
 
     div#left-content div.mainLeft li {
-        line-height:15px;
+        line-height:14px;
         padding:2px 0 10px 0;
         font-size:12px;
     }
@@ -185,7 +185,11 @@ div#grid div.gridbox {
     div#grid h3 {
         background:#66CCCC;
         height:30px;
-        margin:0 0 10px 0;
+        margin:0 0 22px 0;
+    }
+
+    div#grid div#findAndCompare h3 {
+        margin-bottom: 16px;
     }
 
     div#grid h3 img {
@@ -275,7 +279,7 @@ div#grid div.gridbox {
         }
 
             div#grid div#within {
-                margin:10px 0 0 15px;
+                margin:10px 0 0 11px;
                 position:relative;
             }
 
@@ -311,13 +315,10 @@ div#grid div.gridbox {
                top:10px;
            }
 
-           div#grid div#greatschoolsGuides ul {
-               /*top:15px;*/
-               /*left:10px;*/
-           }
-
            div#grid div#greatschoolsGuides li img {
                padding: 0 5px 0 0;
+               position: relative;
+               top: 3px;
            }
 
 

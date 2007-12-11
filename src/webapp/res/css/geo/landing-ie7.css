@@ -1,3 +1,7 @@
+div#left-content div#partners.mainLeft {
+    padding-bottom: 13px;
+}
+
 div#right-content li {
     background-position: 0 1.15ex;
 }
