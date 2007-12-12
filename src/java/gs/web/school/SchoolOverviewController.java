@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.IGroupDataTypeDao;
@@ -202,7 +203,13 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
         List reviews = getReviewDao().getPublishedReviewsBySchool(school);
         if (reviews != null && reviews.size() != 0) {
-            doParentReviews(reviews, latestReviewsModel);
+            
+            if (school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
+                    school.getType().equals(SchoolType.PRIVATE))  {
+                doMultiParentReviews(reviews, latestReviewsModel);
+            }else{
+                doSingleParentReview(reviews, latestReviewsModel);
+            }
         }
 
         // Do the random Rating
@@ -219,22 +226,22 @@ public class SchoolOverviewController extends AbstractSchoolController {
     }
 
     /**
-     * populates the parent review structure
+     * populates the parent review structure witn multiple reviews
      *
      * Things to test:
      * Reviews - empty
      * Maximum number of reviews - 3
-     *
      * Review.getQuality - CategoryRating.DECLINE_TO_STATE
      * Review.getComments - null
      *
      * Result
-     *   latestReviewsModel -> preschoolReviews
+     *   latestReviewsModel -> schoolReviews = a list of 0 - 3 reviews
+      *  latestReviewsModel -> totalReviews = total number of reviews
      *
-     * @param reviews - a list of reviews for the schoold
+     * @param reviews - a list of reviews for the school
      * @param latestReviewsModel - the Map to store the results
      */
-    static void doParentReviews(List reviews, Map latestReviewsModel) {
+    static void doMultiParentReviews(List reviews, Map latestReviewsModel) {
         if (reviews == null){
             return;
         }
@@ -262,6 +269,46 @@ public class SchoolOverviewController extends AbstractSchoolController {
             latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
             latestReviewsModel.put("schoolReviews", schoolReviews);
         }
+    }
+
+     /**
+     * populates the parent review structure witn single review
+     *
+     * Things to test:
+     * Reviews - empty
+     *
+     * Review.getQuality - CategoryRating.DECLINE_TO_STATE
+     * Review.getComments - null
+     *
+     * Result
+
+     *
+     * @param reviews - a list of reviews for the schoold
+     * @param latestReviewsModel - the Map to store the results
+     */
+    static void doSingleParentReview(List reviews, Map latestReviewsModel){
+         if (reviews == null){
+             return;
+         }
+
+         Review latestReview = null;
+
+         for (int i = 0; i < reviews.size(); i++) {
+             Review aReview = (Review) reviews.get(i);
+
+             if (!CategoryRating.DECLINE_TO_STATE.equals(aReview.getQuality()) && aReview.getComments() != null) {
+                if (latestReview == null) {
+                    latestReview = aReview;
+                    break;
+                }
+            }
+        }
+
+         if (latestReview != null) {
+             latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
+             latestReviewsModel.put("latestRating", latestReview.getQuality().getName());
+             latestReviewsModel.put("comment", Util.abbreviateAtWhitespace(latestReview.getComments(), REVIEW_LENGTH));
+         }
     }
 
     /**

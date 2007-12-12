@@ -188,13 +188,13 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
      * Tests the functionality of the static function to create the display reviews for a school
      * No reviews
      */
-    public void testDoParentReviews_None(){
+    public void testDoMultiParentReviews_None(){
 
         List<Review> reviewList = new ArrayList<Review>();
 
         Map reviewMap = new HashMap();
 
-        SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+        SchoolOverviewController.doMultiParentReviews(reviewList,reviewMap);
         assertEquals("Expect reviewMap.size to be 0", 0, reviewMap.size());
 
     }
@@ -203,7 +203,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
      * Tests the functionality of the static function to create the display reviews for a school
      * One Review
      */
-    public void testDoParentReviews_OneReview(){
+    public void testDoMultiParentReviews_OneReview(){
 
         List<Review> reviewList = new ArrayList<Review>();
 
@@ -215,7 +215,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
         Map reviewMap = new HashMap();
 
-        SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+        SchoolOverviewController.doMultiParentReviews(reviewList,reviewMap);
         assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
         assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
         assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
@@ -240,7 +240,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
      * Tests the functionality of the static function to create the display reviews for a school
      * Three Reviews
      */
-    public void testDoParentReviews_MaxReviews(){
+    public void testDoMultiParentReviews_MaxReviews(){
 
         List<Review> reviewList = new ArrayList<Review>();
 
@@ -254,7 +254,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
         Map reviewMap = new HashMap();
 
-        SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+        SchoolOverviewController.doMultiParentReviews(reviewList,reviewMap);
         assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
         assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
         assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
@@ -272,7 +272,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
      * Tests the functionality of the static function to create the display reviews for a school
      * 5 Reviews
      */
-    public void testDoParentReviews_MoreThanMaxReview(){
+    public void testDoMultiParentReviews_MoreThanMaxReview(){
 
         List<Review> reviewList = new ArrayList<Review>();
 
@@ -286,7 +286,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
         Map reviewMap = new HashMap();
 
-        SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+        SchoolOverviewController.doMultiParentReviews(reviewList,reviewMap);
         assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
         assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
         assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
@@ -303,7 +303,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
      * Tests the functionality of the static function to create the display reviews for a school
      * Decline to state 
      */
-    public void testDoParentReviews_DeclineToState(){
+    public void testDoMultiParentReviews_DeclineToState(){
 
 
            List<Review> reviewList = new ArrayList<Review>();
@@ -315,9 +315,29 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
            Map reviewMap = new HashMap();
 
-           SchoolOverviewController.doParentReviews(reviewList,reviewMap);
+           SchoolOverviewController.doMultiParentReviews(reviewList,reviewMap);
            assertEquals("Expect reviewMap.size to be 0", 0, reviewMap.size());
-
-
     }
+
+
+    /**
+     * Tests the functionality of the static function to create the display reviews for a school
+     * Decline to state
+     */
+    public void testDoSingleParentReview_DeclineToState(){
+
+
+           List<Review> reviewList = new ArrayList<Review>();
+           Review aReview = new Review();
+           aReview.setQuality(CategoryRating.DECLINE_TO_STATE);
+           aReview.setComments("Comment 1");
+
+           reviewList.add(aReview);
+
+           Map reviewMap = new HashMap();
+
+           SchoolOverviewController.doSingleParentReview(reviewList, reviewMap);
+           assertEquals("Expect reviewMap.size to be 0", 0, reviewMap.size());
+    }
+
 }
