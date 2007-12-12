@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.16 2007/09/25 17:24:52 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.17 2007/12/12 00:13:37 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -277,6 +277,9 @@ public class SubscriptionSummaryController extends SimpleFormController {
                         } else if (sp == SubscriptionProduct.MY_MS
                                 || sp == SubscriptionProduct.MY_HS) {
                             setMsHs.add(sp.getLongName());
+                        } else if (sp == SubscriptionProduct.CITY_COMMUNITY
+                                || sp == SubscriptionProduct.SCHOOL_COMMUNITY) {
+                            // ignore
                         } else {
                             setNth.add(sp.getLongName());
                         }

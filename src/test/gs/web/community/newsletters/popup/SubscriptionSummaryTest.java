@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.22 2007/09/21 18:43:45 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.23 2007/12/12 00:13:37 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -122,8 +122,12 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         Set myNthGrader = (Set) model.get(SubscriptionSummaryController.MODEL_SET_NTH_GRADER);
         assertNotNull(myNthGrader);
-        _log.debug(myNthGrader);
-        assertTrue(5 <= myNthGrader.size());
+        // TODO: Fix this assert so it does what it says. Right now LearningDifferences is being
+        // added to the set making the count wrong
+        assertTrue("Expect exactly 6 nth grader newsletters (found " + myNthGrader.size() + "). " +
+                "If this fails, either an unknown newsletter is being added to this category or " +
+                "you should update this assert to expect the new # of nth grader newsletters",
+                6 <= myNthGrader.size());
 
         assertNotNull(model.get(SubscriptionSummaryController.MODEL_PARENT_ADVISOR));
         assertNotNull(model.get(SubscriptionSummaryController.MODEL_SCHOOL_NAME));
