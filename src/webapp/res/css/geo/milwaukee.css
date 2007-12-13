@@ -28,10 +28,6 @@ div#grid h3 {
     margin-bottom: 22px;
 }
 
-div#grid div#resources h3 {
-    margin-bottom: 7px;
-}
-
 div#grid div#findAndCompare div#topSchools input.button {
     left: 178px;
 }
@@ -48,8 +44,8 @@ div#grid div.gridbox ul {
     width: 290px;
 }
 
-    div#grid div#resources ul li {
-        line-height: 19px;
-        background-position: 0 0.60ex;
+    div#grid div#greatschoolsGuides ul li {
+        line-height: 21px;
+        background-position: 0 0.65ex;
     }
 

@@ -171,13 +171,13 @@
             </div>
             <div class="gridbox bottom left" id="greatschoolsGuides">
                 <h3 class="grid-header">
-                    <img src="/res/img/geo/landing/GreatSchoolsGuide.gif" alt="GreatSchools Guides" />
+                    <img src="/res/img/geo/landing/enrollment.gif" alt="Enrollment Resources" />
                 </h3>
                 <ul>
-                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/MilwaukeeChooser2007.pdf" >Milwaukee School Chooser</gsml:a>
-                    </li>
-                    <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
+                    <li><gsml:a href="http://mpsportal.milwaukee.k12.wi.us/" target="_blank">Milwaukee Public Schools (MPS)</gsml:a></li>
+                    <li><gsml:a href="http://dpi.state.wi.us/sms/csindex.html" target="_blank">Department of Public Instruction (DPI) - Charter schools</gsml:a></li>
+                    <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - Milwaukee Parental Choice Program</gsml:a></li>
+                    <li><gsml:a href="http://www.wicharterschools.org/home.cfm" target="_blank">Wisconsin Charter Schools Association</gsml:a></li>
                 </ul>
             </div>
             <div class="gridbox bottom right" id="resources">
@@ -187,10 +187,10 @@
                 <ul>
                     <li>Call our hotline: 414-477-3540</li>
                     <li><a href="mailto:milwaukee@greatschools.net?subject=I%20want%20more%20information%20on%20Milwaukee%20Outreach%20Programs" >E-mail us for more information</a></li>
-                    <li><gsml:a href="http://mpsportal.milwaukee.k12.wi.us/" target="_blank">Milwaukee Public Schools (MPS)</gsml:a></li>
-                    <li><gsml:a href="http://dpi.state.wi.us/sms/csindex.html" target="_blank">Department of Public Instruction (DPI) - Charter schools</gsml:a></li>
-                    <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - Milwaukee Parental Choice Program</gsml:a></li>
-                    <li><gsml:a href="http://www.wicharterschools.org/home.cfm" target="_blank">Wisconsin Charter Schools Association</gsml:a></li>
+                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
+                        <gsml:a href="/schoolreports/MilwaukeeChooser2007.pdf" >Milwaukee School Chooser</gsml:a>
+                    </li>
+                    <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
                 </ul>
             </div>
         </div>
