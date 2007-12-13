@@ -323,12 +323,11 @@ div#grid div.gridbox {
                top:10px;
            }
 
-           div#grid div#greatschoolsGuides li img {
+           div#grid div#greatschoolsGuides li img, div#grid div#resources li img {
                padding: 0 5px 0 0;
                position: relative;
                top: 3px;
            }
-
 
 div#donate {
     margin-top:20px;
