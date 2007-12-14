@@ -63,7 +63,7 @@
                 </div>
                 <div id="managerText">
                     <span class="photoName">Jodi Goldberg</span><br/>
-                    <span class="photoCaption">Regional Outreach Director</span>
+                    <span class="photoCaption">Director</span>
                 </div>
             </div>
             <ul>
@@ -86,12 +86,13 @@
                 <li><a href="http://milwaukee.baeo.org/" target="_blank">Milwaukee Chapter - BAEO</a></li>
                 <li><a href="http://www.pave.org/" target="_blank">PAVE</a></li>
                 <li><a href="http://www.schoolchoiceinfo.org/" target="_blank">School Choice Wisconsin</a></li>
+                <li><gsml:a href="http://www.wicharterschools.org/home.cfm" target="_blank">Wisconsin Charter Schools Association</gsml:a></li>
                 <li><a href="http://www.wels.net/" target="_blank">Wisconsin Evangelical Lutheran Schools</a></li>
             </ul>
         </div>
     </div>
     <div id="right-content">
-        <h1>Milwaukee School Chooser</h1>
+        <h1>GreatSchools Milwaukee</h1>
         <div id="grid">
             <div class="gridbox top left" id="findAndCompare">
                 <h3 class="grid-header">
@@ -174,10 +175,9 @@
                     <img src="/res/img/geo/landing/enrollment.gif" alt="Enrollment Resources" />
                 </h3>
                 <ul>
-                    <li><gsml:a href="http://mpsportal.milwaukee.k12.wi.us/" target="_blank">Milwaukee Public Schools (MPS)</gsml:a></li>
+                    <li><gsml:a href="http://mpsportal.milwaukee.k12.wi.us/portal/server.pt?open=512&amp;objID=315&amp;PageID=38280&amp;mode=2&amp;in_hi_userid=2&amp;cached=true" target="_blank">Milwaukee Public Schools (MPS)</gsml:a></li>
                     <li><gsml:a href="http://dpi.state.wi.us/sms/csindex.html" target="_blank">Department of Public Instruction (DPI) - Charter schools</gsml:a></li>
                     <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - Milwaukee Parental Choice Program</gsml:a></li>
-                    <li><gsml:a href="http://www.wicharterschools.org/home.cfm" target="_blank">Wisconsin Charter Schools Association</gsml:a></li>
                 </ul>
             </div>
             <div class="gridbox bottom right" id="resources">

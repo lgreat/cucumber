@@ -2,18 +2,14 @@ div#left-content div#outreachManager div#managerPhoto {
     background-image: url("/res/img/geo/landing/jodi.jpg");
 }
 
-div#left-content div#outreachManager div#managerText {
-    top: 35px;
-}
-
 div#left-content div#partners ul {
     margin-top: 8px;
-    margin-bottom: 0;
+    margin-bottom: 3px;
 }
 
     div#left-content div#partners ul li {
         line-height: 16px;
-        padding-bottom: 12px;
+        padding-bottom: 5px;
     }
 
 div#right-content div#grid ul {
