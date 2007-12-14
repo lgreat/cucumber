@@ -63,7 +63,7 @@
                 </div>
                 <div id="managerText">
                     <span class="photoName">Andria Perkins</span><br/>
-                    <span class="photoCaption">Outreach Manager</span>
+                    <span class="photoCaption">Program Manager</span>
                 </div>
             </div>
             <ul>
@@ -95,7 +95,7 @@
         </div>
     </div>
     <div id="right-content">
-        <h1>Dayton School Chooser</h1>
+        <h1>GreatSchools Dayton</h1>
         <div id="grid">
             <div class="gridbox top left" id="findAndCompare">
                 <h3 class="grid-header">
