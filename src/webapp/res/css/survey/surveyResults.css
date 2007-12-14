@@ -19,19 +19,23 @@ table.complexResults {
     margin:0 0 15px 0;
 }
 
-.odd {
+table.complexResults td.odd {
     background-color: #DDEEEE;
 }
-.even {
+table.complexResults td.even {
     background-color: #FFFFFF;
 }
 
-td.checked {
-    width:20px;
-    background-image:url("/res/img/bullet/pinkcheck_onwhite.gif");
-    background-position:10px 5px;
-    background-repeat:no-repeat;
+table.complexResults td.check {
+    width:25px;
+    height:23px;
+    padding-left:10px;
 }
+
+table.complexResults td.value {
+    width:140px;
+}
+
 .resultScale .answer-bar{
     padding-left:40px;
 }

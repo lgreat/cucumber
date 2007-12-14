@@ -83,18 +83,22 @@
                                                 <c:set var="cellStyle" value="even"/>
                                             </c:otherwise>
                                         </c:choose>
-
+                                        <!--
                                         <c:choose>
                                             <c:when test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
                                                 <c:set var="checked" value="checked"/>
                                             </c:when>
                                             <c:otherwise>
-                                                <c:set var="checked" value="fooo"/>
+                                                <c:set var="checked" value="not-checked"/>
                                             </c:otherwise>
                                         </c:choose>
-
-                                        <td class="${cellStyle} ${checked}" />
-                                        <td class="${cellStyle}">
+                                        -->
+                                        <td class="check ${cellStyle}">
+                                            <c:if test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
+                                                <img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="foo" />
+                                            </c:if>
+                                        </td>
+                                        <td class="value ${cellStyle}">
                                                 ${answerValue.display}
                                         </td>
 
@@ -109,8 +113,8 @@
                                                 <c:if test="${cellmod != 0}">
                                                     <c:set var="end" value="${3 - cellmod}" />
                                                     <c:forEach begin="1" end="${end}">
-                                                        <td class="${cellStyle}" />
-                                                        <td class="${cellStyle}" />
+                                                        <td class="check ${cellStyle}" />
+                                                        <td class="value ${cellStyle}" />
                                                     </c:forEach>
                                                 </c:if>
                                             </c:otherwise>
