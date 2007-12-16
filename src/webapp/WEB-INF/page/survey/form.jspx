@@ -355,7 +355,6 @@
         <link:feedback  target="_blank" topicOption="Parent_survey" >Give us feedback > </link:feedback>
    </div>
     <div class="previousnextouterwrap" id="outerteachers">
-
         <div class="previousnextwrap">
             <div class="next" id="testnext_teachers">
                 <gsml:inputImage src="/res/img/survey/savecontinue.gif" alt="Save and Continue"
@@ -363,12 +362,7 @@
                 <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
             </div>
         </div>
-
     </div>
-
-
-
-
 </div>
 
 </form:form>
