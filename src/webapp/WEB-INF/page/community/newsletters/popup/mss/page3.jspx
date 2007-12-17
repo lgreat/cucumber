@@ -134,12 +134,12 @@
     </c:if>
     <c:choose>
         <c:when test="${hasFindSchoolLink}">
-            <mod:tracking pageName="MSS NL Confirmation Hover"
+            <mod:tracking pageName="Nth Grader Hover Confirmation"
                           hier1="Newsletter, NL hover confirmation, School profile"
                           events="${events}"/>
         </c:when>
         <c:otherwise>
-            <mod:tracking pageName="Nth Grader NL Confirmation Hover"
+            <mod:tracking pageName="MSS Hover Confirmation"
                           hier1="Newsletter, NL hover confirmation, School profile"
                           events="${events}"/>
         </c:otherwise>
