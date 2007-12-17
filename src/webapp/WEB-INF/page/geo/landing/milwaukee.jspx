@@ -172,7 +172,7 @@
             </div>
             <div class="gridbox bottom left" id="greatschoolsGuides">
                 <h3 class="grid-header">
-                    <img src="/res/img/geo/landing/gsresources.gif" alt="GreatSchools Resources" />
+                    <img src="/res/img/geo/landing/schoolresources.gif" alt="School Resources" />
                 </h3>
                 <ul>
                     <li><gsml:a href="http://mpsportal.milwaukee.k12.wi.us/portal/server.pt?open=512&amp;objID=315&amp;PageID=38280&amp;mode=2&amp;in_hi_userid=2&amp;cached=true" target="_blank">Milwaukee Public Schools (MPS)</gsml:a></li>
@@ -182,7 +182,7 @@
             </div>
             <div class="gridbox bottom right" id="resources">
                 <h3 class="grid-header">
-                    <img src="/res/img/geo/landing/Resources.gif" alt="Resources" />
+                    <img src="/res/img/geo/landing/Resources.gif" alt="GreatSchools Resources" />
                 </h3>
                 <ul>
                     <li>Call our hotline: 414-477-3540</li>
