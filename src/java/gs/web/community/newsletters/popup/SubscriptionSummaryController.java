@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.18 2007/12/17 18:01:22 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.19 2007/12/17 18:32:17 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -41,6 +41,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
     public static final String MODEL_PARENT_ADVISOR = "parentAdvisor";
     public static final String MODEL_COMMUNITY = "community";
     public static final String MODEL_SPONSOR = "sponsor";
+    public static final String MODEL_LEARNING_DIFFERENCES = "learningDifferences";
     public static final String MODEL_SET_NTH_MS_HS = "setNthMsHs";
     public static final String MODEL_EMAIL = "email";
     public static final String MODEL_HAS_FIND_SCHOOL_LINK = "hasFindSchoolLink";
@@ -220,14 +221,22 @@ public class SubscriptionSummaryController extends SimpleFormController {
                             model.put(MODEL_COMMUNITY, sp.getLongName());
                         } else if (sp == SubscriptionProduct.SPONSOR_OPT_IN) {
                             model.put(MODEL_SPONSOR, sp.getLongName());
+                        } else if (sp == SubscriptionProduct.LEARNING_DIFFERENCES) {
+                            model.put(MODEL_LEARNING_DIFFERENCES, sp.getLongName());
                         } else if (sp == SubscriptionProduct.MY_MS
-                                || sp == SubscriptionProduct.MY_HS) {
+                                || sp == SubscriptionProduct.MY_HS
+                                || sp == SubscriptionProduct.MY_KINDERGARTNER
+                                || sp == SubscriptionProduct.MY_FIRST_GRADER
+                                || sp == SubscriptionProduct.MY_SECOND_GRADER
+                                || sp == SubscriptionProduct.MY_THIRD_GRADER
+                                || sp == SubscriptionProduct.MY_FOURTH_GRADER
+                                || sp == SubscriptionProduct.MY_FIFTH_GRADER) {
                             setNthMsHs.add(sp.getLongName());
                         } else if (sp == SubscriptionProduct.CITY_COMMUNITY
                                 || sp == SubscriptionProduct.SCHOOL_COMMUNITY) {
                             // ignore
                         } else {
-                            setNthMsHs.add(sp.getLongName());
+                            _log.warn("Unknown newsletter: " + sp);
                         }
                     }
                 }

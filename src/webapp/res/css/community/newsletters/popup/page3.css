@@ -39,6 +39,7 @@ div.pLR {
 ul#leftNewsletterList {
     padding: 0 0 0 52px;
     margin: 0;
+    width: 175px;
 }
 
 ul#rightNewsletterList {

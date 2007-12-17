@@ -84,6 +84,9 @@
                 <c:if test="${!empty sponsor}">
                     <li>${sponsor}</li>
                 </c:if>
+                <c:if test="${!empty learningDifferences}">
+                    <li>${learningDifferences}</li>
+                </c:if>
             </ul>
         </div>
     </div>
