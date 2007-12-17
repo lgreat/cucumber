@@ -555,13 +555,6 @@ div#topCompareRight {
     background-color: #F3F9F9;
 }
 
-span#compareHeaderImage {
-    float:left;
-    padding: 0 0 0 6px;
-    height: 23px;
-    width: 295px;
-}
-
 span#compareSelector  {
     float:left;
     height: 25px;
@@ -579,7 +572,7 @@ select#compareSelector{
 span#compareGo {
     float:left;
     height: 25px;
-    padding: 8px 6px 0 0;
+    padding: 12px 6px 0 0;
 }
 #schoolOverview ul#frmErrors {
     margin-top: 1em;
