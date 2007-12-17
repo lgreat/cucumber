@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+
+    <div id="compareSchoolTest">
+       <gsml:url var="submit_normal_img" value="/res/img/splash/go.gif"/>
+        <gsml:url var="submit_rollover_img" value="/res/img/splash/goOver.gif"/>
+        <gsml:url var="headerImage" value="/res/img/school/compare/compareSchoolHeader.gif"/>
+
+        <span id="compareHeaderImage">
+            <gsml:img src="${headerImage}" alt="Compare ${school.name} to" />
+        </span>
+
+        <c:set var="level" value="high"/>
+
+        <c:choose>
+            <c:when test="${(school.levelCode eq 'e') or (school.levelCode eq 'e,m') or (school.levelCode eq 'e,m,h')}">
+                <c:set var="level" value="elementary"/>
+            </c:when>
+            <c:when test="${(school.levelCode eq 'm') or (school.levelCode eq 'm,h')}">
+                <c:set var="level" value="middle"/>
+            </c:when>
+        </c:choose>
+
+        <gsweb:form action="/school/compareSchool.page" method="get">
+            <span id="compareSelector">
+            <select id="compareSelector" name="type">
+                <option value="city" > City ${level} schools </option>
+                <c:if test="${school.district ne null}">
+                    <option value="district" > District ${level} schools </option>
+                </c:if>
+                <option value="distance" > Nearby ${level} schools </option>
+            </select>
+            </span>
+            <span id="compareGo">
+                <input type="hidden" name="id" value="${school.id}"/>
+                <input type="hidden" name="state" value="${state}"/>
+                <input type="hidden" name="city" value="${school.physicalAddress.city}"/>
+                <input type="hidden" name="level" value="${school.levelCode}"/>
+                <input type="hidden" name="from" value="form"/>
+                
+                <gsml:inputImage src="${submit_normal_img}" alt="Go" styleClass="submit"
+                             onmouseover="this.src='${submit_rollover_img}'"
+                             onmouseout="this.src='${submit_normal_img}'"/>
+            </span>
+        </gsweb:form>
+    </div>
+</jsp:root>

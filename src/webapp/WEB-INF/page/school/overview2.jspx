@@ -126,11 +126,13 @@
 
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
-            <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
-                <div id="topCompare" style="float:left; padding-bottom:25px;" >
-                    <school:compareSchool school="${school}"/>
-                </div>
-            </c:if>
+            <variant:a>
+                <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
+                    <div id="topCompare" style="float:left; padding-bottom:25px;" >
+                        <school:compareSchool school="${school}"/>
+                    </div>
+                </c:if>
+            </variant:a>
 
             <c:if test="${school.levelCode != 'p'}">
                 <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview">
@@ -297,6 +299,16 @@
 
 		<!-- begin right column -->
         <div id="col_right" class="noprint">
+
+            <variant:b>
+                <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
+                    <div id="topCompareRight"  >
+                        <school:compareSchoolTest school="${school}"/>
+                    </div>
+                </c:if>
+            </variant:b>
+
+
             <div class="ad_top">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
                 <!--<ad:Top_300x137/>-->
@@ -304,6 +316,7 @@
                     <gsml:img src="/res/img/survey/promo/survey_housead.gif" alt="What is the scoop on ${school.name}?" />
                 </link:schoolStartSurvey>
             </div>
+
             <div class="ad_middle">                
                 <ad:AboveFold_300x250/>
                 <c:if test="${school.type.schoolTypeName != 'private'}">

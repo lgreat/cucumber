@@ -544,8 +544,43 @@ hr { /* has IE 7 equivalent */
 
 div#topCompare div#compareSchool {
     margin-top:0;
+
 }
 
+/* Test drop down school compare selector */
+div#topCompareRight {
+    float:left;
+    padding-bottom:12px;
+    margin:0 0 20px 0;
+    background-color: #F3F9F9;
+}
+
+span#compareHeaderImage {
+    float:left;
+    padding: 0 0 0 6px;
+    height: 23px;
+    width: 295px;
+}
+
+span#compareSelector  {
+    float:left;
+    height: 25px;
+    width: 200px;
+    padding: 10px 0 0 22px;
+}
+select#compareSelector{
+    color: #666666;
+    width: 185px;
+    color:#666666;
+    font-family:Trebuchet MS,sans-serif;
+    font-size:12px;
+}
+
+span#compareGo {
+    float:left;
+    height: 25px;
+    padding: 8px 6px 0 0;
+}
 #schoolOverview ul#frmErrors {
     margin-top: 1em;
 }
