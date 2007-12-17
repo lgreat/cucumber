@@ -40,6 +40,17 @@
     </script>
 </head>
 <body>
+
+<c:if test="${not empty param.thanks}">
+    <div id="surveyThanks" style="border:4px solid #ddeeee;padding:5px;position:relative;margin-bottom:14px;">
+        <div style="height:50px;background-color:#ddeeee;padding:10px;position:relative;">
+            <gsml:img src="/res/img/bullet/confirmation.gif" alt="Thank you confirmation" style="position:absolute;top:23px;left:15px;"/>
+            <p style="position:absolute;left:50px;top:26px;color:#CC5569;font-weight:bold;font-size:14px;">
+                Thank you for filling out a survey about ${school.name}!
+            </p>
+        </div>
+    </div>
+</c:if>
 <gsml:equalizeColumns ids="'left-col','right-col'"/>
 <div id="left-col">
     <div class="intro" id="intro-form">
@@ -62,7 +73,9 @@
 
     <c:forEach items="${results.pages}" var="page">
         <c:forEach items="${page.groups}" var="group">
-            <!--${group.displayText}-->
+            <c:if test="${not empty group.displayText}">
+                <div class="header">${group.displayText}</div>
+            </c:if>
             <c:forEach items="${group.questions}" var="result_question">
                 <!--${result_question.displayText}-->
                 <br/><br/>
@@ -83,16 +96,6 @@
                                                 <c:set var="cellStyle" value="even"/>
                                             </c:otherwise>
                                         </c:choose>
-                                        <!--
-                                        <c:choose>
-                                            <c:when test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
-                                                <c:set var="checked" value="checked"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:set var="checked" value="not-checked"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        -->
                                         <td class="check ${cellStyle}">
                                             <c:if test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
                                                 <img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="foo" />
@@ -124,12 +127,31 @@
                             </table>
                         </c:forEach>
                     </c:when>
-
                     <!--
                     <c:when test="${result_question.displayType eq 'VALUES'}">
-                        values type <br/>
+                        ${result_question.displayText}
                     </c:when>
                     -->
+                    <c:when test="${result_question.displayType eq 'LINKED'}">
+                        ${result_question.displayText}
+
+                        <c:if test="${fn:length(result_question.responseValuesAsMap) > 0}">
+                            <div class="resultBox singleColumnResultBox">
+                                <div class="even">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>
+                                <c:forEach items="${result_question.responseValuesAsMap}" var="entry" varStatus="cell">
+                                    <c:choose>
+                                        <c:when test="${(cell.index % 2) != 0}">
+                                            <c:set var="cellStyle" value="even"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="cellStyle" value="odd"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}">${entry.key}</div>
+                                </c:forEach>
+                            </div>
+                        </c:if>
+                    </c:when>
 
                     <c:when test="${result_question.displayType eq 'SCALE'}">
                         <div class="resultScale">
@@ -138,20 +160,59 @@
                                 <div class="label-right">${result_question.strings.right}</div>
                                 <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
                             </div>
-                            <fmt:parseNumber var="offset" value="${((33+450)*result_question.sliderValue)+0.5}" integerOnly="true"/>
-                            <c:set var="arrowPct" value="${offset}px;"/>
-                            <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
+                            <c:if test="${results.totalResponses > 0}">
+                                <fmt:parseNumber var="offset" value="${((33+450)*result_question.sliderValue)+0.5}" integerOnly="true"/>
+                                <c:set var="arrowPct" value="${offset}px;"/>
+                                <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
+                            </c:if>
                         </div>
-
+                    </c:when>
+                    <c:when test="${result_question.displayType eq 'SCHOOLS'}">
+                        <div class="resultSchool">
+                        ${result_question.displayText}
+                        <ul>
+                            <c:forEach items="${result_question.responseValuesAsMap}" var="mKey">
+                                <li>
+                                    <c:choose>
+                                        <c:when test="${mKey.key.class eq 'class gs.data.school.School'}">
+                                            <link:schoolProfileOverview school="${mKey.key}">${mKey.key.name}</link:schoolProfileOverview>
+                                        </c:when>
+                                        <c:otherwise>${mKey.key}</c:otherwise>
+                                    </c:choose>
+                                    (${mKey.value})
+                                </li>
+                            </c:forEach>
+                        </ul>
+                        </div>
                     </c:when>
                     <c:otherwise>
-                        <!--Unknown display type-->
+                        <!--
+                        Display type not yet implemented: ${result_question.displayType}
+                        -->
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
         </c:forEach>
     </c:forEach>
 
+    <br/><br/><br/><br/> <!--temp-->
+    <div class="nextprev">
+        <div class="feedback">
+            Do you have questions or comments about the survey or survey results?
+            <link:feedback  target="_blank" topicOption="Parent_survey" >Give us feedback &gt; </link:feedback>
+        </div>
+        <!--
+        <div class="previousnextouterwrap" id="outerteachers">
+            <div class="previousnextwrap">
+                <div class="next" id="testnext_teachers">
+                    <gsml:inputImage src="/res/img/survey/savecontinue.gif" alt="Save and Continue"
+                                     name="submit" id="submitButton"/>
+                    <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
 </div>
 
 <div id="right-col">
