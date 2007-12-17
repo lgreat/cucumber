@@ -21,17 +21,17 @@
     list-style: none;
     background-image: url( "/res/img/bullet/pinkarrow.gif" );
     background-repeat: no-repeat;
-    background-position: .5ex .9ex;
+    background-position: .5ex .6ex;
 }
 
 #toc ul li.inactive {
     background-image: url( "/res/img/bullet/greyarrow.gif" );
-    background-position: .5ex .9ex;
+    background-position: .5ex .6ex;
 }
 
 #toc ul li.active {
     background-image: url( "/res/img/bullet/pinkarrow.gif" );
-    background-position: .5ex .7ex;
+    background-position: .5ex .6ex;
     outline: none;
 }
 

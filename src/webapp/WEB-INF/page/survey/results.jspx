@@ -19,8 +19,6 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
 
-<!--<c:set var="school" value="${userResponseCommand.school}"/>-->
-
 <html>
 <head>
     <title>Survey Results</title>
@@ -53,37 +51,39 @@
 </c:if>
 <gsml:equalizeColumns ids="'left-col','right-col'"/>
 <div id="left-col">
-    <div class="intro" id="intro-form">
+
+    <div id="results-intro">
         <img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
-        <div id="intro-blurb">
-            <div class="intro-heading1">${school.name} parent survey</div>
-            <div class="intro-heading2">
-                Read what parents shared about their experiences at this school. 
-                Results are based on ${results.totalResponses} responses.
+        <div id="right">
+            <div class="blurb">
+                <h1>${school.name} parent survey</h1>
+                <h2>
+                    Read what parents shared about their experiences at this school.
+                    Results are based on ${results.totalResponses} responses.
+                </h2>
             </div>
-        </div>
-        <div id="toc">
-            <ul id="page-links">
-                <c:forEach items="${results.pages}" var="toc" >
-                    <li class="inactive"><span>${toc.name}</span></li>
-                </c:forEach>
-            </ul>
+            <div id="toc">
+                <ul id="page-links">
+                    <c:forEach items="${results.pages}" var="toc" >
+                        <li class="inactive"><span>${toc.name}</span></li>
+                    </c:forEach>
+                </ul>
+            </div>
         </div>
     </div>
 
+    <!--
     <c:forEach items="${results.pages}" var="page">
         <c:forEach items="${page.groups}" var="group">
             <c:if test="${not empty group.displayText}">
                 <div class="header">${group.displayText}</div>
             </c:if>
             <c:forEach items="${group.questions}" var="result_question">
-                <!--${result_question.displayText}-->
                 <br/><br/>
                 <c:choose>
                     <c:when test="${result_question.displayType eq 'COMPLEX'}">
                         <c:set var="question" value="${result_question.question}" />
                         <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
-                            <!--values : ${fn:length(answer.answerValues)} <br/>-->
                             <h3 class="answer-sibling-heading">${answer.title}</h3>
                             <table class="complexResults" cellspacing="0" cellpadding="1">
                                 <tr>
@@ -127,11 +127,10 @@
                             </table>
                         </c:forEach>
                     </c:when>
-                    <!--
                     <c:when test="${result_question.displayType eq 'VALUES'}">
                         ${result_question.displayText}
+                        value question
                     </c:when>
-                    -->
                     <c:when test="${result_question.displayType eq 'LINKED'}">
                         ${result_question.displayText}
 
@@ -186,32 +185,21 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <!--
+                        <hr/>
                         Display type not yet implemented: ${result_question.displayType}
-                        -->
+                        <hr/>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
         </c:forEach>
     </c:forEach>
-
-    <br/><br/><br/><br/> <!--temp-->
+        -->
+    <br/><br/><br/><br/>
     <div class="nextprev">
         <div class="feedback">
             Do you have questions or comments about the survey or survey results?
             <link:feedback  target="_blank" topicOption="Parent_survey" >Give us feedback &gt; </link:feedback>
         </div>
-        <!--
-        <div class="previousnextouterwrap" id="outerteachers">
-            <div class="previousnextwrap">
-                <div class="next" id="testnext_teachers">
-                    <gsml:inputImage src="/res/img/survey/savecontinue.gif" alt="Save and Continue"
-                                     name="submit" id="submitButton"/>
-                    <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
-                </div>
-            </div>
-        </div>
-        -->
     </div>
 </div>
 

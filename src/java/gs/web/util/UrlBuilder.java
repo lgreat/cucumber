@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.95 2007/12/07 00:12:19 jnorton Exp $
+ * $Id: UrlBuilder.java,v 1.96 2007/12/17 21:30:44 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -142,6 +142,8 @@ public class UrlBuilder {
 
     public static final VPage SCHOOL_START_SURVEY = new VPage("vpage:schoolStartSurvey");
     public static final VPage SCHOOL_TAKE_SURVEY = new VPage("vpage:schoolTakeSurvey");
+    public static final VPage START_SURVEY_RESULTS = new VPage("vpage:startSurveyResults");
+    public static final VPage SURVEY_RESULTS = new VPage("vpage:surveyResults");
 
     public static final VPage SCHOOL_MAP = new VPage("vpage:schoolMap");
 
@@ -348,11 +350,21 @@ public class UrlBuilder {
             _path = "/survey/start.page";
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
+        } else if (START_SURVEY_RESULTS.equals(page)) {
+            _perlPage = false;
+            _path = "/survey/startResults.page";
+            setParameter("id", String.valueOf(school.getId().intValue()));
+            setParameter("state", school.getDatabaseState().getAbbreviation());
+        } else if (SURVEY_RESULTS.equals(page)) {
+            _perlPage = false;
+            _path = "/survey/results.page";
+            setParameter("id", String.valueOf(school.getId().intValue()));
+            setParameter("state", school.getDatabaseState().getAbbreviation());
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
-    
+
     public UrlBuilder(District district, VPage page) {
         if (DISTRICT_PROFILE.equals(page)) {
             _perlPage = true;

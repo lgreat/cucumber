@@ -1,6 +1,57 @@
-.intro {
-    padding:0 0 35px 0;
+/******************** intro ***************************/
+#pageGS #contentGS #results-intro{
+	width:530px;
+	margin:0 0 13px 0;
+	padding:0 0 17px 0;
+	border-bottom: 1px solid #cccccc;
+    position:relative;
+    height:220px;
+    overflow:hidden; 
 }
+
+#intro-pic{
+    margin-right:40px;
+    float:none;
+}
+
+#results-intro div#right {
+    position:relative;
+    top:-140px;
+    left:185px;
+    width:345px;
+}
+
+#results-intro .blurb{
+	margin-top:8px;
+	line-height:17px;
+	text-align:left;
+	width:274px;
+	font-size:13px;
+    position:relative;
+}
+
+#results-intro .blurb h1{
+	color:#666666;
+	font-size:13px;
+	text-transform:uppercase;
+	padding-bottom:5px;
+}
+
+#results-intro .blurb h2{
+	color:#666666;
+	font-weight:normal;
+    padding-bottom:3px;
+}
+
+#toc {
+    float:none;
+    position:relative;
+}
+
+#toc ul li {
+    line-height:17px;
+}
+/*********************************/
 
 .resultBox {
     font: 13px Trebuchet MS, Arial, sans-serif;

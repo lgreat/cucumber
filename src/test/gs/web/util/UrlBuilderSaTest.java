@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.78 2007/12/07 00:12:19 jnorton Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.79 2007/12/17 21:30:44 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -249,6 +249,20 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_START_SURVEY);
         assertEquals("/survey/start.page?id=8&amp;state=NY", builder.asSiteRelativeXml(null));
+    }
+
+    public void testSurveyResultsBuilder() throws Exception {
+
+        School school = new School();
+        school.setDatabaseState(State.CA);
+        school.setId(1);
+        school.setLevelCode(LevelCode.HIGH);
+
+        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.START_SURVEY_RESULTS);
+        assertEquals("/survey/startResults.page?id=1&amp;state=CA", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SURVEY_RESULTS);
+        assertEquals("/survey/results.page?id=1&amp;state=CA", builder.asSiteRelativeXml(null));
     }
 
     public void testCityPageBuilder() {

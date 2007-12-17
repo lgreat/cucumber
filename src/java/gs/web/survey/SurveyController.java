@@ -382,8 +382,12 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
         String redirectURL;
         if (curPageIndex >= survey.getPages().size()) {
-            UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
-            redirectURL = builder.asFullUrl(request);
+            UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SURVEY_RESULTS);
+            StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
+            buffer.append("&level=");
+            buffer.append(request.getParameter("level"));
+            buffer.append("&thanks=true");
+            redirectURL = buffer.toString();
         } else {
             UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
             StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
