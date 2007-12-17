@@ -109,6 +109,7 @@
             s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
             s.prop9 = "${empty(referringPage) ? pageName : referringPage}";
             s.prop10 = "${requestScope.context.screenName}";
+            s.prop11 = "GreatSchools";
             s.events = "${events}";
             s.hier1 = "${hier1}";
         </script>
