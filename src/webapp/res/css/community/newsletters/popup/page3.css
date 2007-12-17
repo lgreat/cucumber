@@ -15,12 +15,14 @@
 #communityPromo {
     padding: 10px 0 10px 5px;
     position: relative;
+    _padding-left: 9px;
 }
 
     #communityPromo #joinImage {
         position: absolute;
         top: 105px;
         left: 120px;
+        _left: 116px;
     }
 
 div.grayTop2 {
