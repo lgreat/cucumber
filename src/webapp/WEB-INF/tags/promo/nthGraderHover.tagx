@@ -20,8 +20,19 @@
     <c:choose>
         <c:when test="${isForm ne 'true'}">
             <pageHelper:addOnLoadHandler handler="initPopUp('${hoverName}')"/>
+            <jsp:scriptlet>
+            <![CDATA[
+                String userAgent = request.getHeader("user-agent");
+                request.setAttribute("useragent", userAgent);
+                if (userAgent != null && userAgent.indexOf("IE 6") > -1) {
+                    request.setAttribute("hoverWidth", "472");
+                } else {
+                    request.setAttribute("hoverWidth", "480");
+                }
+            ]]>
+            </jsp:scriptlet>
             <gsml:a href="${url}?referrer=${referredBy}${(not empty autocheck) ? '&amp;autocheck=' : ''}${autocheck}"
-                    onClick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50'); return false;"
+                    onClick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=${hoverWidth},height=550,left=50,top=50'); return false;"
                     styleClass="submodal-480-550 ${styleClass}">
              <jsp:doBody/>
             </gsml:a>
