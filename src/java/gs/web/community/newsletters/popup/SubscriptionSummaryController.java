@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.17 2007/12/12 00:13:37 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.18 2007/12/17 18:01:22 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -41,15 +41,14 @@ public class SubscriptionSummaryController extends SimpleFormController {
     public static final String MODEL_PARENT_ADVISOR = "parentAdvisor";
     public static final String MODEL_COMMUNITY = "community";
     public static final String MODEL_SPONSOR = "sponsor";
-    public static final String MODEL_SET_NTH_GRADER = "setNth";
-    public static final String MODEL_SET_MS_HS = "setMsHs";
+    public static final String MODEL_SET_NTH_MS_HS = "setNthMsHs";
     public static final String MODEL_EMAIL = "email";
     public static final String MODEL_HAS_FIND_SCHOOL_LINK = "hasFindSchoolLink";
     public static final String PARAM_SHOW_FIND_SCHOOL_LINK = "showFindSchool";
-    public static final String MODEL_FIRST_LIST = "firstListSubs";
-    public static final String MODEL_FIRST_LIST_SIZE = "firstListSize";
-    public static final String MODEL_SECOND_LIST = "secondListSubs";
-    public static final String MODEL_SECOND_LIST_SIZE = "secondListSize";
+    public static final String MODEL_FIRST_LIST = "firstSetSubs";
+    public static final String MODEL_FIRST_LIST_SIZE = "firstSetSize";
+    public static final String MODEL_SECOND_LIST = "secondSetSubs";
+    public static final String MODEL_SECOND_LIST_SIZE = "secondSetSize";
 
     private String _viewName;
 
@@ -68,84 +67,31 @@ public class SubscriptionSummaryController extends SimpleFormController {
         }
     }
 
-    protected Map coregReferenceData(HttpServletRequest request, Object command, Errors errors) {
-        Map<String, Object> model = new HashMap<String, Object>();
-
-        model.put(MODEL_FIRST_LIST_SIZE, 0);
-        model.put(MODEL_SECOND_LIST_SIZE, 0);
-
-        User user = SessionContextUtil.getSessionContext(request).getUser();
-
-        if (user == null) {
-            _log.warn("Cannot determine user. SessionContext.memberId=" + 
-                    SessionContextUtil.getSessionContext(request).getMemberId());
-            return model;
-        }
-
-        model.put(MODEL_EMAIL, user.getEmail());
-
-
-        Set<Subscription> subscriptions = user.getSubscriptions();
-
-        if (subscriptions == null) {
-            _log.warn("No subscriptions found for user " + user);
-            return model;
-        }
-
-        List<Subscription> newsletterSubs = new ArrayList<Subscription>();
-        for (Subscription sub: subscriptions) {
-            if (sub.getProduct().isNewsletter() && !sub.getProduct().equals(SubscriptionProduct.BETA_GROUP)) {
-                newsletterSubs.add(sub);
-            }
-        }
-
-        if (newsletterSubs.size() == 0) {
-            _log.warn("No newsletter subscriptions found for user " + user);
-            return model;
-        }
-
-        // sort the subscriptions
-        sortNewsletterSubs(newsletterSubs);
-        // split the subscriptions into two equal length lists
-        splitList(newsletterSubs, model);
-
-        return model;
-    }
-
-    protected void splitList(List<Subscription> newsletterSubs, Map<String, Object> model) {
-        if (newsletterSubs == null || newsletterSubs.size() == 0) {
+    /**
+     * Splits newsletterNames into two equal sized lists
+     * @param newsletterNames
+     * @param model
+     */
+    protected void splitSet(Set<String> newsletterNames, Map<String, Object> model) {
+        if (newsletterNames == null || newsletterNames.size() == 0) {
             return;
         }
 
         List<String> firstListNames = new ArrayList<String>();
         List<String> secondListNames = new ArrayList<String>();
 
-        int size = newsletterSubs.size();
+        int size = newsletterNames.size();
 
         int firstListSize = (size / 2) + (size % 2); // odd number goes to first list
 
+        Iterator<String> iter = newsletterNames.iterator();
+
         for (int x=0; x < firstListSize; x++) {
-            Subscription sub = newsletterSubs.get(x);
-            if (sub.getProduct().equals(SubscriptionProduct.MYSTAT)) {
-                School school = getSchoolDao().getSchoolById(sub.getState(), sub.getSchoolId());
-                if (school != null) {
-                    firstListNames.add("Monthly Stats about " + school.getName());
-                }
-            } else {
-                firstListNames.add(sub.getProduct().getLongName());
-            }
+            firstListNames.add(iter.next());
         }
 
         for (int x=firstListSize; x < size; x++) {
-            Subscription sub = newsletterSubs.get(x);
-            if (sub.getProduct().equals(SubscriptionProduct.MYSTAT)) {
-                School school = getSchoolDao().getSchoolById(sub.getState(), sub.getSchoolId());
-                if (school != null) {
-                    secondListNames.add("Monthly Stats about " + school.getName());
-                }
-            } else {
-                secondListNames.add(sub.getProduct().getLongName());
-            }
+            secondListNames.add(iter.next());
         }
 
         model.put(MODEL_FIRST_LIST, firstListNames);
@@ -201,11 +147,41 @@ public class SubscriptionSummaryController extends SimpleFormController {
         }
     }
 
+    protected Set<String> getOrderedNewsletterSet() {
+        final Map<String, Integer> orderMap = new HashMap<String, Integer> ();
+        orderMap.put(SubscriptionProduct.MY_KINDERGARTNER.getLongName(), 0);
+        orderMap.put(SubscriptionProduct.MY_FIRST_GRADER.getLongName(), 1);
+        orderMap.put(SubscriptionProduct.MY_SECOND_GRADER.getLongName(), 2);
+        orderMap.put(SubscriptionProduct.MY_THIRD_GRADER.getLongName(), 3);
+        orderMap.put(SubscriptionProduct.MY_FOURTH_GRADER.getLongName(), 4);
+        orderMap.put(SubscriptionProduct.MY_FIFTH_GRADER.getLongName(), 5);
+        orderMap.put(SubscriptionProduct.MY_MS.getLongName(), 6);
+        orderMap.put(SubscriptionProduct.MY_HS.getLongName(), 7);
+        return new TreeSet<String> (
+                new Comparator<String>() {
+                    public int compare(String spOne, String spTwo) {
+                        Integer orderOne = orderMap.get(spOne);
+                        if (orderOne == null) {
+                            orderOne = -1;
+                        }
+                        Integer orderTwo = orderMap.get(spTwo);
+                        if (orderTwo == null) {
+                            orderTwo = -1;
+                        }
+
+                        if (orderOne < orderTwo) {
+                            return -1;
+                        } else if (orderOne.equals(orderTwo)) {
+                            return 0;
+                        } else {
+                            return 1;
+                        }
+                    }
+                });
+    }
+
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors) {
         Map<String, Object> model = new HashMap<String, Object>();
-        if (COREG_VIEW.equals(getSuccessView())) {
-            return coregReferenceData(request, command, errors);
-        }
 
         if (!errors.hasErrors()) {
             NewsletterCommand nc = (NewsletterCommand) command;
@@ -223,38 +199,8 @@ public class SubscriptionSummaryController extends SimpleFormController {
                 }
 
                 // Map of SubscriptionProduct names to their proper ordering
-                final Map<String, Integer> orderMap = new HashMap<String, Integer> ();
-                orderMap.put(SubscriptionProduct.MY_KINDERGARTNER.getLongName(), 0);
-                orderMap.put(SubscriptionProduct.MY_FIRST_GRADER.getLongName(), 1);
-                orderMap.put(SubscriptionProduct.MY_SECOND_GRADER.getLongName(), 2);
-                orderMap.put(SubscriptionProduct.MY_THIRD_GRADER.getLongName(), 3);
-                orderMap.put(SubscriptionProduct.MY_FOURTH_GRADER.getLongName(), 4);
-                orderMap.put(SubscriptionProduct.MY_FIFTH_GRADER.getLongName(), 5);
-                orderMap.put(SubscriptionProduct.MY_MS.getLongName(), 6);
-                orderMap.put(SubscriptionProduct.MY_HS.getLongName(), 7);
 
-                Set<String> setNth = new TreeSet<String> (
-                        new Comparator<String>() {
-                            public int compare(String spOne, String spTwo) {
-                                Integer orderOne = orderMap.get(spOne);
-                                if (orderOne == null) {
-                                    orderOne = -1;
-                                }
-                                Integer orderTwo = orderMap.get(spTwo);
-                                if (orderTwo == null) {
-                                    orderTwo = -1;
-                                }
-
-                                if (orderOne < orderTwo) {
-                                    return -1;
-                                } else if (orderOne == orderTwo) {
-                                    return 0;
-                                } else {
-                                    return 1;
-                                }
-                            }
-                        });
-                Set<String> setMsHs = new HashSet<String>();
+                Set<String> setNthMsHs = getOrderedNewsletterSet();
 
                 for (Subscription sub : subscriptions) {
                     SubscriptionProduct sp = sub.getProduct();
@@ -276,18 +222,19 @@ public class SubscriptionSummaryController extends SimpleFormController {
                             model.put(MODEL_SPONSOR, sp.getLongName());
                         } else if (sp == SubscriptionProduct.MY_MS
                                 || sp == SubscriptionProduct.MY_HS) {
-                            setMsHs.add(sp.getLongName());
+                            setNthMsHs.add(sp.getLongName());
                         } else if (sp == SubscriptionProduct.CITY_COMMUNITY
                                 || sp == SubscriptionProduct.SCHOOL_COMMUNITY) {
                             // ignore
                         } else {
-                            setNth.add(sp.getLongName());
+                            setNthMsHs.add(sp.getLongName());
                         }
                     }
                 }
 
-                model.put(MODEL_SET_MS_HS, setMsHs);
-                model.put(MODEL_SET_NTH_GRADER, setNth);
+                splitSet(setNthMsHs, model);
+
+                model.put(MODEL_SET_NTH_MS_HS, setNthMsHs);
                 model.put(MODEL_EMAIL, email);
 
                 if (!StringUtils.isEmpty(request.getParameter(PARAM_SHOW_FIND_SCHOOL_LINK))) {

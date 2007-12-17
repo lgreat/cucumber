@@ -12,7 +12,6 @@
         xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:popup="urn:jsptagdir:/WEB-INF/tags/community/conversion/popup"
         >
-<jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <jsp:output doctype-root-element="html"
@@ -28,27 +27,28 @@
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-    <jsp:scriptlet>
-        <![CDATA[
-        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        if (pageHelper != null) {
-            if (!pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
-                // GS-3944 Co-reg: user has been sent to the co-reg site for their confirmation,
-                // so close the hover
-                ]]>
-    </jsp:scriptlet>
-    <c:if test="${!hasFindSchoolLink}">
-        <pageHelper:addOnLoadHandler handler="window.top.hidePopWin(false);"/>
-    </c:if>
-    <jsp:scriptlet>
-            } // end if isAdFree
-        } // end if pageHelper != null
-    </jsp:scriptlet>
+    <pageHelper:externalCss file="/res/css/community/newsletters/popup/page3.css"/>
+    <script type="text/javascript">
+        function rollover() {
+            document.getElementById('joinImage').style.display = 'block';
+        }
+        function rollout() {
+            document.getElementById('joinImage').style.display = 'none';
+        }
+    </script>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
     <div id="blockMessage">
         <h1>Thank You!</h1>
+    </div>
+
+    <div id="communityPromo">
+        <link:registration onMouseOver="rollover();" onMouseOut="rollout();">
+            <gsml:img src="/res/img/community/communityad.jpg" alt="Join the GreatSchools Parent Community"/>
+            <gsml:img src="/res/img/community/joinbutton_rollover.gif" alt="Join the GreatSchools Parent Community"
+                      style="display: none;" id="joinImage"/>
+        </link:registration>
     </div>
 
     <div class="pLR">
@@ -88,35 +88,28 @@
         </div>
     </div>
 
-    <c:if test="${not empty setNth}">
-        <div class="grayTop">
-            <div class="pLR">
-                <ul>
-                <c:forEach items="${setNth}" var="newsletterName">
-                    <li>${newsletterName}</li>
-                </c:forEach>
-                </ul>
-            </div>
-        </div>
-    </c:if>
-
-    <c:if test="${not empty setMsHs}">
-        <div class="grayTop">
-            <div class="pLR">
-                <ul>
-                    <c:forEach items="${setMsHs}" var="newsletterName">
+    <c:if test="${not empty firstSetSubs}">
+        <div class="pLR grayTop2">
+            <c:if test="${firstSetSize gt 0}">
+                <ul id="leftNewsletterList">
+                    <c:forEach var="newsletterName" items="${firstSetSubs}">
                         <li>${newsletterName}</li>
                     </c:forEach>
                 </ul>
-            </div>
+            </c:if>
+            <c:if test="${secondSetSize gt 0}">
+                <ul id="rightNewsletterList">
+                    <c:forEach var="newsletterName" items="${secondSetSubs}">
+                        <li>${newsletterName}</li>
+                    </c:forEach>
+                </ul>
+            </c:if>
         </div>
     </c:if>
 
-    <div class="grayTop">
-        <div class="pLR">
-            <div id="manage">
-                <link:newsletterManagement email="${email}" target="_blank" styleClass="bigLink callToAction">Manage my subscriptions&#160;&#62;</link:newsletterManagement>
-            </div>
+    <div class="pLR">
+        <div id="manage">
+            <link:newsletterManagement email="${email}" target="_blank" styleClass="bigLink callToAction">Manage my subscriptions&#160;&#62;</link:newsletterManagement>
         </div>
     </div>
 
@@ -135,10 +128,18 @@
     <c:if test="${not empty param.newuser}">
         <c:set var="events" value="event5"/>
     </c:if>
-    <mod:tracking pageName="Newsletter Hover Confirmation"
-                  hier1="Newsletter, NL hover confirmation, School profile"
-                  events="${events}"
-            />
+    <c:choose>
+        <c:when test="${hasFindSchoolLink}">
+            <mod:tracking pageName="MSS NL Confirmation Hover"
+                          hier1="Newsletter, NL hover confirmation, School profile"
+                          events="${events}"/>
+        </c:when>
+        <c:otherwise>
+            <mod:tracking pageName="Nth Grader NL Confirmation Hover"
+                          hier1="Newsletter, NL hover confirmation, School profile"
+                          events="${events}"/>
+        </c:otherwise>
+    </c:choose>
 </gsml:body>
 </html>
 </jsp:root>

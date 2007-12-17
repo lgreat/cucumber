@@ -14,10 +14,6 @@
         xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:popup="urn:jsptagdir:/WEB-INF/tags/community/conversion/popup"
         >
-<jsp:directive.page import="gs.web.util.PageHelper"/>
-<jsp:directive.page import="gs.web.util.context.SessionContext"/>
-<jsp:directive.page import="org.apache.commons.lang.StringUtils"/>
-<jsp:directive.page import="java.net.URLEncoder"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <jsp:output doctype-root-element="html"
@@ -33,41 +29,6 @@
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-    <c:set var="submitOnClick" value=""/>
-    <jsp:scriptlet><![CDATA[
-
-        SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-        if (context != null && !StringUtils.isEmpty(context.getEmail())) {
-            request.setAttribute("escapedEmail", URLEncoder.encode(context.getEmail(), "UTF-8"));
-        }
-        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        if (pageHelper != null) {
-            if (!pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
-
-                ]]></jsp:scriptlet>
-    <c:set var="memberId" value="0"/>
-    <c:if test="${requestScope.context.user ne null}">
-        <c:set var="memberId" value="${requestScope.context.user.id}"/>
-    </c:if>
-    <script type="text/javascript">
-        var memberId = ${memberId};
-        var email = '${escapedEmail}';
-        <![CDATA[
-        <!--
-        function sendToCoreg() {
-            //var destUrl = 'http://www.eversave.com/service/servlet/consumers.Redirect?rid=5822&member=' + memberId + '&em=' + email;
-            var destUrl = 'http://www.eversave.com/service/servlet/consumers.Redirect?rid=5822&member=' + memberId + '&em=' + email;
-            window.open(destUrl, 'coreg', 'width=750, height=600, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no');
-            return true;
-        }
-        -->
-        ]]>
-    </script>
-    <c:set var="submitOnClick" value="return sendToCoreg();"/>
-                <jsp:scriptlet>
-            } // end if isAdFree
-        } // end if pageHelper != null
-    </jsp:scriptlet>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
@@ -118,7 +79,7 @@
             </div>
             <div class="centered">
                 <div class="signMeUp">
-                    <gsml:inputImage src="/res/img/button/btn_signmeup.gif" alt="Sign me up!" onclick="${submitOnClick}"/>
+                    <gsml:inputImage src="/res/img/button/btn_signmeup.gif" alt="Sign me up!"/>
                 </div>
             </div>
             <div class="privacy">

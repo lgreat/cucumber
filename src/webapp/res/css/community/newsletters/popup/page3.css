@@ -1,0 +1,56 @@
+#blockMessage {
+    position: relative;
+    margin-top: 0;
+    height: 16px;
+}
+
+    #blockMessage h1 {
+        position: absolute;
+        top: 4px;
+        left: 8px;
+        padding: 0;
+        margin: 0;
+    }
+
+#communityPromo {
+    padding: 10px 0 10px 5px;
+    position: relative;
+}
+
+    #communityPromo #joinImage {
+        position: absolute;
+        top: 105px;
+        left: 120px;
+    }
+
+div.grayTop2 {
+    border-top: 1px solid #CCCCCC;
+    padding: 5px 0 5px 0;
+}
+
+div.pLR {
+    position: relative;
+}
+
+    div.pLR div.promo {
+        color: #3399AA;
+    }
+
+ul#leftNewsletterList {
+    padding: 0 0 0 52px;
+    margin: 0;
+}
+
+ul#rightNewsletterList {
+    position: absolute;
+    top: 5px;
+    left: 250px;
+    list-style-position: inside;
+    padding: 0;
+    margin: 0;
+    width: 175px;
+}
+
+div#manage a.callToAction {
+    text-decoration: none;
+}

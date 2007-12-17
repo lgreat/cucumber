@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.23 2007/12/12 00:13:37 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.24 2007/12/17 18:01:22 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -116,18 +116,15 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         verify(_schoolDao);
         assertFalse(errors.hasErrors());
 
-        Set myMsHs = (Set) model.get(SubscriptionSummaryController.MODEL_SET_MS_HS);
-        assertNotNull(myMsHs);
-        assertEquals(2, myMsHs.size());
+        Set myNthMsHs = (Set) model.get(SubscriptionSummaryController.MODEL_SET_NTH_MS_HS);
+        assertNotNull(myNthMsHs);
 
-        Set myNthGrader = (Set) model.get(SubscriptionSummaryController.MODEL_SET_NTH_GRADER);
-        assertNotNull(myNthGrader);
         // TODO: Fix this assert so it does what it says. Right now LearningDifferences is being
         // added to the set making the count wrong
-        assertTrue("Expect exactly 6 nth grader newsletters (found " + myNthGrader.size() + "). " +
+        assertTrue("Expect exactly 6 nth grader newsletters (found " + myNthMsHs.size() + "). " +
                 "If this fails, either an unknown newsletter is being added to this category or " +
                 "you should update this assert to expect the new # of nth grader newsletters",
-                6 <= myNthGrader.size());
+                8 <= myNthMsHs.size());
 
         assertNotNull(model.get(SubscriptionSummaryController.MODEL_PARENT_ADVISOR));
         assertNotNull(model.get(SubscriptionSummaryController.MODEL_SCHOOL_NAME));
@@ -171,56 +168,51 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
     public void testSplitList() {
         Map<String, Object> model = new HashMap<String, Object>();
-        List<Subscription> newsletterSubs = new ArrayList<Subscription>();
+        Set<String> newsletterSubs = _controller.getOrderedNewsletterSet();
 
-        _controller.splitList(null, model);
+        _controller.splitSet(null, model);
         assertNull(model.get(MODEL_FIRST_LIST));
         assertNull(model.get(MODEL_SECOND_LIST));
-        _controller.splitList(newsletterSubs, model);
+        _controller.splitSet(newsletterSubs, model);
         assertNull(model.get(MODEL_FIRST_LIST));
         assertNull(model.get(MODEL_SECOND_LIST));
 
-        newsletterSubs.add(createSubscription(MY_MS));
-        _controller.splitList(newsletterSubs, model);
+        newsletterSubs.add(MY_MS.getLongName());
+        _controller.splitSet(newsletterSubs, model);
         assertNotNull(model.get(MODEL_FIRST_LIST));
         assertEquals(1, model.get(MODEL_FIRST_LIST_SIZE));
         assertNotNull(model.get(MODEL_SECOND_LIST));
         assertEquals(0, model.get(MODEL_SECOND_LIST_SIZE));
 
-        newsletterSubs.add(createSubscription(MY_FIRST_GRADER));
-        _controller.splitList(newsletterSubs, model);
+        newsletterSubs.add(MY_FIRST_GRADER.getLongName());
+        _controller.splitSet(newsletterSubs, model);
         assertNotNull(model.get(MODEL_FIRST_LIST));
         assertEquals(1, model.get(MODEL_FIRST_LIST_SIZE));
-        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
+        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
         assertNotNull(model.get(MODEL_SECOND_LIST));
         assertEquals(1, model.get(MODEL_SECOND_LIST_SIZE));
-        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
+        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
 
-        newsletterSubs.add(createSubscription(PARENT_ADVISOR));
-        _controller.splitList(newsletterSubs, model);
+        newsletterSubs.add(MY_HS.getLongName());
+        _controller.splitSet(newsletterSubs, model);
         assertNotNull(model.get(MODEL_FIRST_LIST));
         assertEquals(2, model.get(MODEL_FIRST_LIST_SIZE));
-        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
-        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 1));
+        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
+        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 1));
         assertNotNull(model.get(MODEL_SECOND_LIST));
         assertEquals(1, model.get(MODEL_SECOND_LIST_SIZE));
-        assertEquals(PARENT_ADVISOR.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
+        assertEquals(MY_HS.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
 
-        newsletterSubs.add(createSubscription(SPONSOR_OPT_IN));
-        _controller.splitList(newsletterSubs, model);
+        newsletterSubs.add(MY_SECOND_GRADER.getLongName());
+        _controller.splitSet(newsletterSubs, model);
         assertNotNull(model.get(MODEL_FIRST_LIST));
         assertEquals(2, model.get(MODEL_FIRST_LIST_SIZE));
-        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
-        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 1));
+        assertEquals(MY_FIRST_GRADER.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 0));
+        assertEquals(MY_SECOND_GRADER.getLongName(), getNameFromList(model.get(MODEL_FIRST_LIST), 1));
         assertNotNull(model.get(MODEL_SECOND_LIST));
         assertEquals(2, model.get(MODEL_SECOND_LIST_SIZE));
-        assertEquals(PARENT_ADVISOR.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
-        assertEquals(SPONSOR_OPT_IN.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 1));
-    }
-
-    public void testSplitListMSS() {
-        Map<String, Object> model = new HashMap<String, Object>();
-        List<Subscription> newsletterSubs = new ArrayList<Subscription>();
+        assertEquals(MY_MS.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 0));
+        assertEquals(MY_HS.getLongName(), getNameFromList(model.get(MODEL_SECOND_LIST), 1));
     }
 
     private String getNameFromList(Object oList, int index) {
