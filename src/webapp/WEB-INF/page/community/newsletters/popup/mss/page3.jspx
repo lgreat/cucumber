@@ -44,7 +44,7 @@
     </div>
 
     <div id="communityPromo">
-        <link:registration onMouseOver="rollover();" onMouseOut="rollout();">
+        <link:registration onMouseOver="rollover();" onMouseOut="rollout();" target="_blank">
             <gsml:img src="/res/img/community/communityad.jpg" alt="Join the GreatSchools Parent Community"/>
             <gsml:img src="/res/img/community/joinbutton_rollover.gif" alt="Join the GreatSchools Parent Community"
                       style="display: none;" id="joinImage"/>
@@ -116,17 +116,18 @@
         </div>
     </div>
 
-    <c:if test="${hasFindSchoolLink}">
-        <div class="grayTop">
-            <div class="pLR">
-                <center>
-                <h3 id="updates">I'd also like free monthly updates about my child's school:</h3>
-                    <p id="nonPrivateMsg">(K-12 public and charter schools only)</p>
-                    <link:newsletterManagement email="${email}" target="_blank" anchor="mss"><gsml:img src="/res/img/button/btn_findmyschool.gif" alt="Search for your child's school."/></link:newsletterManagement>
-                </center>
-            </div>
-        </div>
-    </c:if>
+    <!-- aroy: Commented out per GS-5015-->
+    <!--<c:if test="${hasFindSchoolLink}">-->
+        <!--<div class="grayTop">-->
+            <!--<div class="pLR">-->
+                <!--<center>-->
+                <!--<h3 id="updates">I'd also like free monthly updates about my child's school:</h3>-->
+                    <!--<p id="nonPrivateMsg">(K-12 public and charter schools only)</p>-->
+                    <!--<link:newsletterManagement email="${email}" target="_blank" anchor="mss"><gsml:img src="/res/img/button/btn_findmyschool.gif" alt="Search for your child's school."/></link:newsletterManagement>-->
+                <!--</center>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</c:if>-->
     <popup:newsletterBottom/>
     <c:if test="${not empty param.newuser}">
         <c:set var="events" value="event5"/>
