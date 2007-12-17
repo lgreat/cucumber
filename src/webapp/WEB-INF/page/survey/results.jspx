@@ -59,7 +59,7 @@
                 <h1>${school.name} parent survey</h1>
                 <h2>
                     Read what parents shared about their experiences at this school.
-                    Results are based on ${results.totalResponses} responses.
+                    Results are based on ${results.totalResponses} response${results.totalResponses != 1 ? 's' : ''}.
                 </h2>
             </div>
             <div id="toc">
