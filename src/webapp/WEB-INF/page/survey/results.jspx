@@ -72,14 +72,14 @@
         </div>
     </div>
 
-    <!--
+
     <c:forEach items="${results.pages}" var="page">
         <c:forEach items="${page.groups}" var="group">
             <c:if test="${not empty group.displayText}">
                 <div class="header">${group.displayText}</div>
             </c:if>
             <c:forEach items="${group.questions}" var="result_question">
-                <br/><br/>
+                <br/>
                 <c:choose>
                     <c:when test="${result_question.displayType eq 'COMPLEX'}">
                         <c:set var="question" value="${result_question.question}" />
@@ -98,7 +98,7 @@
                                         </c:choose>
                                         <td class="check ${cellStyle}">
                                             <c:if test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
-                                                <img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="foo" />
+                                                <img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="pink check mark" />
                                             </c:if>
                                         </td>
                                         <td class="value ${cellStyle}">
@@ -127,6 +127,7 @@
                             </table>
                         </c:forEach>
                     </c:when>
+                    <!--
                     <c:when test="${result_question.displayType eq 'VALUES'}">
                         ${result_question.displayText}
                         value question
@@ -189,11 +190,11 @@
                         Display type not yet implemented: ${result_question.displayType}
                         <hr/>
                     </c:otherwise>
+                    -->
                 </c:choose>
             </c:forEach>
         </c:forEach>
     </c:forEach>
-        -->
     <br/><br/><br/><br/>
     <div class="nextprev">
         <div class="feedback">
