@@ -197,9 +197,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      */
     Map createLatestReviewsModel(School school) {
 
-        Map latestReviewsModel = null;
-
-        latestReviewsModel = new HashMap();
+        Map latestReviewsModel = new HashMap();
 
         List reviews = getReviewDao().getPublishedReviewsBySchool(school);
         if (reviews != null && reviews.size() != 0) {

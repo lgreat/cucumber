@@ -141,7 +141,7 @@
             </c:if>
 
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
-            <c:if test="${not empty latestReviewsModel}">
+            <c:if test="${not empty latestReviewsModel and !latestReviewsModel.isEmpty}">
                 <div id="parentReviews">
                     <h2>Latest ${school.name} Parent Reviews</h2>
 
