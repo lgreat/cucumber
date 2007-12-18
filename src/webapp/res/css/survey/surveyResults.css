@@ -30,11 +30,11 @@
     position:relative;
 }
 
-#results-intro .blurb h1{
+#contentGS #schoolProfile #results-intro .blurb h1{
 	color:#666666;
 	font-size:13px;
 	text-transform:uppercase;
-	padding-bottom:5px;
+	padding:0 0 5px 0;
 }
 
 #results-intro .blurb h2{

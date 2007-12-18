@@ -38,7 +38,7 @@
     </script>
 </head>
 <body>
-
+<school:profile school="${school}">
 <c:if test="${not empty param.thanks}">
     <div id="surveyThanks" style="border:4px solid #ddeeee;padding:5px;position:relative;margin-bottom:14px;">
         <div style="height:50px;background-color:#ddeeee;padding:10px;position:relative;">
@@ -214,6 +214,7 @@
 <mod:tracking pageType="School Profile"
               pageName="Parent Survey Questions:${requestScope.currentPage} "
               hier1="Schools,Parent Survey,Question,Page ${requestScope.currentPage}"/>
+</school:profile>
 </body>
 </html>
 </jsp:root>
