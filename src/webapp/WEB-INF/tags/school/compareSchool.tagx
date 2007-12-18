@@ -33,7 +33,7 @@
                     <td align="left">
                         <input type="radio" id="compareFormDistance" name="type" value="distance" checked="checked"/>
                         <label for="compareFormDistance">Nearby ${level} schools</label>
-                        <c:if test="${school.type.schoolTypeName ne 'private'}">
+                        <c:if test="${school.district ne null}">
                             <input type="radio" id="compareFormDistrict" name="type" value="district"/>
                             <label for="compareFormDistrict">District ${level} schools</label>
                         </c:if>
