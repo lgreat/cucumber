@@ -266,6 +266,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
         if (schoolReviews != null) {
             latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
             latestReviewsModel.put("schoolReviews", schoolReviews);
+            latestReviewsModel.put("displayable", Boolean.TRUE);
         }
     }
 
@@ -306,6 +307,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
              latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
              latestReviewsModel.put("latestRating", latestReview.getQuality().getName());
              latestReviewsModel.put("comment", Util.abbreviateAtWhitespace(latestReview.getComments(), REVIEW_LENGTH));
+             latestReviewsModel.put("displayable", Boolean.TRUE);
          }
     }
 
@@ -357,6 +359,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
             if (randomCategory != null && randomRating.getValue() != null){ // future proofing jn
                 latestReviewsModel.put("randomCategory", randomCategory);
                 latestReviewsModel.put("randomRating", ratingStrings[randomRating.getValue() - 1]);
+                latestReviewsModel.put("displayable", Boolean.TRUE);
             }
         }
     }

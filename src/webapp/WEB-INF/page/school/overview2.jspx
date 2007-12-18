@@ -141,7 +141,7 @@
             </c:if>
 
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
-            <c:if test="${not empty latestReviewsModel}">
+            <c:if test="${(not empty latestReviewsModel) and (not empty latestReviewsModel.displayable)}">
                 <div id="parentReviews">
                     <c:choose>
                         <c:when test="${(school.levelCode != 'p') and (school.type.schoolTypeName ne 'private')}">
