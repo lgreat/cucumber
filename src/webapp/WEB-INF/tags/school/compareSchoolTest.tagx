@@ -51,6 +51,9 @@
                 <input type="hidden" name="city" value="${school.physicalAddress.city}"/>
                 <input type="hidden" name="level" value="${school.levelCode}"/>
                 <input type="hidden" name="from" value="form"/>
+
+                <!-- When a user clicks on go in this module, set the Omniture custom link variable is populated with "Compare drop down". -->
+                <input type="hidden" name="cpn" value="Compare drop down"/>
                 
                 <gsml:inputImage src="${submit_normal_img}" alt="Go" styleClass="submit"/>
             </span>
