@@ -74,6 +74,13 @@ public class CompareSchoolsController extends AbstractController {
             }
         }
 
+        //add the omniture cpn parameter to the url
+        String cpnValue = request.getParameter("cpn");
+    
+        if (cpnValue != null && cpnValue.length()>0) {
+            urlBuffer.append("&cpn=" + cpnValue);
+        }
+
         View redirectView = new RedirectView(urlBuffer.toString());
         return new ModelAndView(redirectView);
     }
