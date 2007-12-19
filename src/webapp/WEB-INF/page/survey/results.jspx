@@ -195,6 +195,14 @@
                         </div>
                     </c:when>
                     <!--
+                    <c:when test="${result_question.displayType eq 'CHECKS'}">
+                        <div class="">
+                            <div class="header">${result_question.displayText}</div>
+                            <c:forEach items="${result_question.responseValuesAsMap}" var="value">
+                                value: ${value}
+                            </c:forEach>
+                        </div>
+                    </c:when>
                     <c:otherwise>
                         <hr/>
                         Display type not yet implemented: ${result_question.displayType}
