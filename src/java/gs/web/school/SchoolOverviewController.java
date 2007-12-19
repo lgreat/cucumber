@@ -199,17 +199,6 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
         Map latestReviewsModel = new HashMap();
 
-        List reviews = getReviewDao().getPublishedReviewsBySchool(school);
-        if (reviews != null && reviews.size() != 0) {
-            
-            if (school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
-                    school.getType().equals(SchoolType.PRIVATE))  {
-                doMultiParentReviews(reviews, latestReviewsModel);
-            }else{
-                doSingleParentReview(reviews, latestReviewsModel);
-            }
-        }
-
         // Do the random Rating
         Ratings ratings = getReviewDao().findRatingsBySchool(school);
 
@@ -218,6 +207,25 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
             doRandomRating(randomRating, latestReviewsModel);
         }
+
+        List reviews = getReviewDao().getPublishedReviewsBySchool(school);
+        if (reviews != null && reviews.size() != 0) {
+            
+            if (school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
+                    school.getType().equals(SchoolType.PRIVATE))  {
+                doMultiParentReviews(reviews, latestReviewsModel);
+            }else{
+                doSingleParentReview(reviews, latestReviewsModel);
+                if(latestReviewsModel.get("latestRating") != null)  {
+                    latestReviewsModel.put("displayable", Boolean.TRUE);
+                }else{
+                    if(latestReviewsModel.get("displayable") != null)
+                        latestReviewsModel.remove("displayable");
+                }
+            }
+        }
+
+
 
         // always return a map, even if it is empty.
         return latestReviewsModel;
@@ -307,7 +315,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
              latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
              latestReviewsModel.put("latestRating", latestReview.getQuality().getName());
              latestReviewsModel.put("comment", Util.abbreviateAtWhitespace(latestReview.getComments(), REVIEW_LENGTH));
-             latestReviewsModel.put("displayable", Boolean.TRUE);
+
          }
     }
 
@@ -360,6 +368,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 latestReviewsModel.put("randomCategory", randomCategory);
                 latestReviewsModel.put("randomRating", ratingStrings[randomRating.getValue() - 1]);
                 latestReviewsModel.put("displayable", Boolean.TRUE);
+
             }
         }
     }
