@@ -68,8 +68,8 @@ public class SchoolLevelController extends SimpleFormController {
     private Map<String, String> getResultsPageAttributes() {
         Map<String, String> data = new HashMap<String,String>();
         data.put("titleText", "Survey Results for");
-        data.put("headerText", "Select a level");
-        data.put("introText", "Please select the highest level your child attended at this school so we can provide you with the appropriate survey results:");
+        data.put("headerText", "Read what parents shared about their experiences at this school.");
+        data.put("introText", "Please select the school level that interests you.");
         return data;
     }
 
