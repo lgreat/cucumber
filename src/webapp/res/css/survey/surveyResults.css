@@ -100,6 +100,25 @@ table.complexResults td.value {
     width:120px;
 }
 
+
+div.page-header {
+    position:relative;
+    color: #55BBCC;
+    border-bottom:dotted #E2E3CB 3px;
+    font-size:15px;
+    margin:35px 0 10px 0;
+    padding-bottom:5px;
+    font-weight:bold;
+}
+
+div.group-header {
+    position:relative;
+    color: #7a7a7a;
+    font-size:15px;
+    margin:25px 0 15px 0;
+    font-weight:normal;
+}
+
 div.header {
     position:relative;
     color: #7a7a7a;
@@ -141,6 +160,7 @@ div.header {
 .empty {
     display:none;
 }
+
 .hidden {
     visibility:hidden;
 }

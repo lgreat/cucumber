@@ -363,8 +363,8 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         cookieBuffer.append(SurveyController.TMP_MSG_COOKIE_PREFIX);
         cookieBuffer.append(school.getDatabaseState().getAbbreviation());
         cookieBuffer.append(String.valueOf(school.getId()));
-        assertEquals("put temp survey message cookie into response", cookieBuffer.toString(),
-                getResponse().getCookie("TMP_MSG").getValue());
+        assertNull("temp survey message cookie should not be in response",
+                getResponse().getCookie("TMP_MSG"));
         assertEquals("redirect:http://www.greatschools.net/survey/results.page?id=123&state=WY&level=h&thanks=true",
                 mAndV.getViewName());
     }

@@ -366,15 +366,6 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
 
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        SessionContextUtil util = context.getSessionContextUtil();
-
-        StringBuffer tmpMsgCookieBuffer = new StringBuffer();
-        tmpMsgCookieBuffer.append(TMP_MSG_COOKIE_PREFIX);
-        tmpMsgCookieBuffer.append(school.getDatabaseState().getAbbreviation());
-        tmpMsgCookieBuffer.append(String.valueOf(school.getId()));
-        util.setTempMsg(response, tmpMsgCookieBuffer.toString());
-
         Survey survey = urc.getSurvey();
         SurveyPage sp = urc.getPage();
 
