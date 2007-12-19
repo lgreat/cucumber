@@ -93,16 +93,20 @@
                         document.write('MM_FlashCanPlay = ( IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash." & MM_contentVersion)))\n');
                         document.write('</scr' + 'ipt\> \n');
                     }
+
+
                     if (MM_FlashCanPlay) {
+                        var HouseAdMediaResource = '/res/swf/c?path=/res/swf/HouseAd_01_08.swf';
+
                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
                                 'width', '584',
                                 'height', '291',
-                                'src', '/res/swf/c?path=/res/swf/HouseAd_11_07.swf',
+                                'src', HouseAdMediaResource,
                                 'quality', 'high',
                                 'wmode', 'transparent',
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
-                                'movie', '/res/swf/c?path=/res/swf/HouseAd_11_07.swf');
+                                'movie', HouseAdMediaResource);
                     } else {
                         document.write('<a href="/content/schoolChoiceCenter.page">');
                         document.write('<img width="584" height="291" alt="Choose a great school for your family" src="/res/img/splash/GS_staticad.jpg"');
