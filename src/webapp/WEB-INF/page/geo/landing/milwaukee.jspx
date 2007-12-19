@@ -188,7 +188,7 @@
                     <li>Call our hotline: 414-477-3540</li>
                     <li><a href="mailto:milwaukee@greatschools.net?subject=I%20want%20more%20information%20on%20GreatSchools%20Milwaukee" >E-mail us for more information</a></li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/MilwaukeeSchoolChooser.pdf" >Milwaukee School Chooser</gsml:a>
+                        <gsml:a href="/schoolreports/MilwaukeeSchoolChooser.pdf" target="_blank">Milwaukee School Chooser</gsml:a>
                     </li>
                     <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
                 </ul>
