@@ -206,6 +206,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
             NameValuePair<Ratings.Category, Integer> randomRating = ratings.getRandomCategory();
 
             doRandomRating(randomRating, latestReviewsModel);
+
         }
 
         List reviews = getReviewDao().getPublishedReviewsBySchool(school);
@@ -213,21 +214,22 @@ public class SchoolOverviewController extends AbstractSchoolController {
             
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
                     school.getType().equals(SchoolType.PRIVATE))  {
+
                 doMultiParentReviews(reviews, latestReviewsModel);
+                if ((latestReviewsModel.get("randomRating") == null) &&
+                    (latestReviewsModel.get("schoolReviews") == null)){
+                      latestReviewsModel = null;
+                }
             }else{
                 doSingleParentReview(reviews, latestReviewsModel);
-                if(latestReviewsModel.get("latestRating") != null)  {
-                    latestReviewsModel.put("displayable", Boolean.TRUE);
-                }else{
-                    if(latestReviewsModel.get("displayable") != null)
-                        latestReviewsModel.remove("displayable");
+
+                if ((latestReviewsModel.get("randomRating") == null) ||
+                    (latestReviewsModel.get("latestRating") == null)){
+                      latestReviewsModel = null;
                 }
             }
         }
 
-
-
-        // always return a map, even if it is empty.
         return latestReviewsModel;
     }
 
@@ -274,7 +276,6 @@ public class SchoolOverviewController extends AbstractSchoolController {
         if (schoolReviews != null) {
             latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
             latestReviewsModel.put("schoolReviews", schoolReviews);
-            latestReviewsModel.put("displayable", Boolean.TRUE);
         }
     }
 
@@ -367,8 +368,6 @@ public class SchoolOverviewController extends AbstractSchoolController {
             if (randomCategory != null && randomRating.getValue() != null){ // future proofing jn
                 latestReviewsModel.put("randomCategory", randomCategory);
                 latestReviewsModel.put("randomRating", ratingStrings[randomRating.getValue() - 1]);
-                latestReviewsModel.put("displayable", Boolean.TRUE);
-
             }
         }
     }

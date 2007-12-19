@@ -161,10 +161,9 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
         SchoolOverviewController.doRandomRating(randomRating, reviewMap);
 
-        assertEquals("Expect reviewMap.size to be 3", 3, reviewMap.size());
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
         assertNotNull("Expected to find key: 'randomCategory'", reviewMap.get("randomCategory")) ;
         assertNotNull("Expected to find key: 'randomRating'", reviewMap.get("randomRating")) ;
-        assertNotNull("Expected to find key: 'displayable'", reviewMap.get("displayable")) ;
 
         assertEquals("Expected the rating to be: 'average'", "average", (String)reviewMap.get("randomRating"));
         assertEquals("Expected the category to be: 'principal leadership is", "principal leadership is", (String)reviewMap.get("randomCategory")) ;
@@ -217,10 +216,9 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         Map reviewMap = new HashMap();
 
         SchoolOverviewController.doMultiParentReviews(reviewList,reviewMap);
-        assertEquals("Expect reviewMap.size to be 3", 3, reviewMap.size());
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
         assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
         assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
-        assertNotNull("Expected to find key: 'displayable'", reviewMap.get("displayable")) ;
 
         assertEquals("Expected totalReviews to be 1", new Integer(1), (Integer)reviewMap.get("totalReviews"));
         assertNotNull("Expected schoolReviews not to be null", reviewMap.get("schoolReviews"));
@@ -257,10 +255,9 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         Map reviewMap = new HashMap();
 
         SchoolOverviewController.doMultiParentReviews(reviewList,reviewMap);
-        assertEquals("Expect reviewMap.size to be 3", 3, reviewMap.size());
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
         assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
         assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
-        assertNotNull("Expected to find key: 'displayable'", reviewMap.get("displayable")) ;
 
         assertEquals("Expected totalReviews to be 3", new Integer(3), (Integer)reviewMap.get("totalReviews"));
         assertNotNull("Expected schoolReviews not to be null", reviewMap.get("schoolReviews"));
@@ -290,10 +287,10 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         Map reviewMap = new HashMap();
 
         SchoolOverviewController.doMultiParentReviews(reviewList,reviewMap);
-        assertEquals("Expect reviewMap.size to be 3", 3, reviewMap.size());
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
         assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
         assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
-        assertNotNull("Expected to find key: 'displayable'", reviewMap.get("displayable")) ;
+
 
         assertEquals("Expected totalReviews to be 5", new Integer(5), (Integer)reviewMap.get("totalReviews"));
         assertNotNull("Expected schoolReviews not to be null", reviewMap.get("schoolReviews"));
