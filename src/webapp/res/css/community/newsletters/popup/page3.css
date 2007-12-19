@@ -27,7 +27,7 @@
 
 div.grayTop2 {
     border-top: 1px solid #CCCCCC;
-    padding: 5px 0 5px 0;
+    padding: 10px 0 5px 0;
 }
 
 div.pLR {
@@ -38,6 +38,10 @@ div.pLR {
         color: #3399AA;
     }
 
+    div.grayTop div.pLR ul {
+        margin-bottom: 9px;
+    }
+
 ul#leftNewsletterList {
     padding: 0 0 0 52px;
     margin: 0;
@@ -46,7 +50,7 @@ ul#leftNewsletterList {
 
 ul#rightNewsletterList {
     position: absolute;
-    top: 5px;
+    top: 10px;
     left: 250px;
     list-style-position: inside;
     padding: 0;
