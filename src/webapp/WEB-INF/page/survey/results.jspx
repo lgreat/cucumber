@@ -127,10 +127,18 @@
                             </table>
                         </c:forEach>
                     </c:when>
-                    <!--
                     <c:when test="${result_question.displayType eq 'VALUES'}">
-                        ${result_question.displayText}
-                        value question
+                        <c:if test="${fn:length(result_question.responses) gt 0}">
+                            <div class="header">${result_question.displayText}
+                            <c:forEach items="${result_question.responseValuesAsSetOrderedByOccurrence}"
+                                       var="entry" varStatus="cell" begin="0" end="2">
+                                <c:choose>
+                                    <c:when test="${!(cell.first) and !(cell.last)}">, </c:when>
+                                    <c:when test="${cell.last and !(cell.first)}"> and </c:when>
+                                </c:choose>
+                                <span class="redText">${entry.key}</span>
+                            </c:forEach>.</div>
+                        </c:if>
                     </c:when>
                     <c:when test="${result_question.displayType eq 'LINKED'}">
                         ${result_question.displayText}
@@ -190,7 +198,6 @@
                         Display type not yet implemented: ${result_question.displayType}
                         <hr/>
                     </c:otherwise>
-                    -->
                 </c:choose>
             </c:forEach>
         </c:forEach>

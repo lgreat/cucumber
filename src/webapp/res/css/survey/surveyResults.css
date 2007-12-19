@@ -152,3 +152,7 @@ div.header {
     text-transform:uppercase;
     font-weight:bold;
 }
+
+.redText {
+    color: #CC5566;
+}
