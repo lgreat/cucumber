@@ -140,10 +140,9 @@
                             </c:forEach>.</div>
                         </c:if>
                     </c:when>
-                    <!--
-                    <c:when test="${result_question.displayType eq 'LINKED'}">
-                        ${result_question.displayText}
 
+                    <c:when test="${result_question.displayType eq 'LINKED'}">
+                        <div class="header">${result_question.displayText}</div>
                         <c:if test="${fn:length(result_question.responseValuesAsMap) > 0}">
                             <div class="resultBox singleColumnResultBox">
                                 <div class="even">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>
@@ -161,7 +160,7 @@
                             </div>
                         </c:if>
                     </c:when>
-                    -->
+
                     <c:when test="${result_question.displayType eq 'SCALE'}">
                         <c:if test="${fn:length(result_question.responses) > 0}">
                             <div class="resultScale">
