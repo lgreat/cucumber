@@ -797,6 +797,13 @@
             <type>java.lang.String</type>
             <description>onMouseOut javascript event handler</description>
         </attribute>
+        <attribute>
+            <name>cpn</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional omniture cpn parameter</description>
+        </attribute>
     </tag>
     <tag>
         <name>loginOrRegister</name>

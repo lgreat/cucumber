@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.37 2007/12/03 20:43:42 jnorton Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.38 2007/12/19 00:32:40 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -409,6 +409,10 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setRedirect("/somepage");
         builder = tagHandler.createUrlBuilder();
         assertEquals("/community/registration.page?email=test%40gs.net&redirect=%2Fsomepage", builder.asSiteRelative(null));
+
+        tagHandler.setCpn("Some value");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/registration.page?cpn=Some+value&email=test%40gs.net&redirect=%2Fsomepage", builder.asSiteRelative(null));
     }
 
     public void testLoginOrRegister() {

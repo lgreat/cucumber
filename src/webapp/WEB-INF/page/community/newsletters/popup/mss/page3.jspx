@@ -44,7 +44,7 @@
     </div>
 
     <div id="communityPromo">
-        <link:registration onMouseOver="rollover();" onMouseOut="rollout();" target="_blank">
+        <link:registration onMouseOver="rollover();" onMouseOut="rollout();" target="_blank" cpn="Community Promo - Hover">
             <gsml:img src="/res/img/community/communityad.jpg" alt="Join the GreatSchools Parent Community"/>
             <gsml:img src="/res/img/community/joinbutton_rollover.gif" alt="Join the GreatSchools Parent Community"
                       style="display: none;" id="joinImage"/>
