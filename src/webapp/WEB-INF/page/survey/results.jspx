@@ -76,7 +76,7 @@
     <c:forEach items="${results.pages}" var="page">
         <div class="page-header">${page.name}</div>
         <c:forEach items="${page.groups}" var="group">
-            <c:if test="${not empty group.displayText}">
+            <c:if test="${(not empty group.displayText) and (group.numResponses gt 0)}">
                 <div class="group-header">${group.displayText}</div>
             </c:if>
             <c:forEach items="${group.questions}" var="result_question">
@@ -128,7 +128,7 @@
                         </c:forEach>
                     </c:when>
                     <c:when test="${result_question.displayType eq 'VALUES'}">
-                        <c:if test="${fn:length(result_question.responses) gt 0}">
+                        <c:if test="${fn:length(result_question.responses) gt 0 and fn:length(result_question.responseValuesAsMap) gt 0}">
                             <div class="header">${result_question.displayText}
                             <c:forEach items="${result_question.responseValuesAsSetOrderedByOccurrence}"
                                        var="entry" varStatus="cell" begin="0" end="2">
@@ -163,18 +163,18 @@
                     </c:when>
                     -->
                     <c:when test="${result_question.displayType eq 'SCALE'}">
-                        <div class="resultScale">
-                            <div class="answer-bar">
-                                <div class="label-left">${result_question.strings.left}</div>
-                                <div class="label-right">${result_question.strings.right}</div>
-                                <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
+                        <c:if test="${fn:length(result_question.responses) > 0}">
+                            <div class="resultScale">
+                                    <div class="answer-bar">
+                                        <div class="label-left">${result_question.strings.left}</div>
+                                        <div class="label-right">${result_question.strings.right}</div>
+                                        <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
+                                    </div>
+                                    <fmt:parseNumber var="offset" value="${((33+450)*result_question.sliderValue)+0.5}" integerOnly="true"/>
+                                    <c:set var="arrowPct" value="${offset}px;"/>
+                                    <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
                             </div>
-                            <c:if test="${results.totalResponses > 0}">
-                                <fmt:parseNumber var="offset" value="${((33+450)*result_question.sliderValue)+0.5}" integerOnly="true"/>
-                                <c:set var="arrowPct" value="${offset}px;"/>
-                                <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
-                            </c:if>
-                        </div>
+                        </c:if>
                     </c:when>
                     <c:when test="${result_question.displayType eq 'SCHOOLS'}">
                         <div class="resultSchool">
