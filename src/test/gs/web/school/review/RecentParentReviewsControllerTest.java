@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.5 2007/06/14 22:45:47 dlee Exp $
+ * $Id: RecentParentReviewsControllerTest.java,v 1.6 2007/12/20 21:59:13 aroy Exp $
  */
 
 package gs.web.school.review;
@@ -12,7 +12,6 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -46,25 +45,21 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
-        List parentReviewList =
+        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
                 (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
 
         assertTrue(parentReviewList.size() == 10);
 
-        for (Iterator iter = parentReviewList.iterator(); iter.hasNext();) {
-            RecentParentReviewsController.IParentReviewModel review =
-                    (RecentParentReviewsController.IParentReviewModel) iter.next();
-
+        for (RecentParentReviewsController.IParentReviewModel review : parentReviewList) {
             assertNotNull(review.getQuip());
+            assertTrue("Expect quip to be no more than 90 characters long: \"" + review.getQuip() + 
+                    "\", actual length " + review.getQuip().length(),
+                    review.getQuip().length() < 91);
             assertNotNull(review.getDate());
             assertNotNull(review.getSchoolName());
             assertNotNull(review.getSchool());
             assertTrue(review.getStars() > 0);
             assertTrue(review.getStars() <= 5);
         }
-    }
-
-    public void testDateHandling() {
-
     }
 }
