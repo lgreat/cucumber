@@ -144,7 +144,7 @@
                     <c:when test="${result_question.displayType eq 'LINKED'}">
                         <div class="header">${result_question.displayText}</div>
                         <c:if test="${fn:length(result_question.responseValuesAsMap) > 0}">
-                            <div class="resultBox singleColumnResultBox">
+                            <div class="resultBox">
                                 <div class="even">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>
                                 <c:forEach items="${result_question.responseValuesAsMap}" var="entry" varStatus="cell">
                                     <c:choose>
@@ -163,7 +163,7 @@
                     <c:when test="${result_question.displayType eq 'SIMPLE'}">
                         <c:if test="${fn:length(result_question.responseValuesAsMap) > 0}">
                             ${result_question.displayText}
-                            <div class="resultBox singleColumnResultBox">
+                            <div class="resultBox">
                                 <c:forEach items="${result_question.responseValuesAsMap}" var="entry" varStatus="cell">
                                     <c:choose>
                                         <c:when test="${(cell.index % 2) != 0}">
