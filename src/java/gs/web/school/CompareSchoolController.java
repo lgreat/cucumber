@@ -29,15 +29,17 @@ public class CompareSchoolController extends AbstractController {
         if (levels != null) {
             urlBuffer.append(levels.substring(0, 1));  // use only the first level
         }
-        urlBuffer.append("&from=form");
+
 
         //add the omniture cpn parameter to the url
         String cpnValue = request.getParameter("cpn");
 
         if (cpnValue != null && cpnValue.length()>0) {
             urlBuffer.append("&cpn=" + cpnValue);
+        }else{
+            urlBuffer.append("&from=form");
         }
-        
+
         return new ModelAndView(new RedirectView(urlBuffer.toString()));
     }
 }
