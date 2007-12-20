@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.6 2007/12/20 21:59:13 aroy Exp $
+ * $Id: RecentParentReviewsControllerTest.java,v 1.7 2007/12/20 22:06:09 aroy Exp $
  */
 
 package gs.web.school.review;
 
-import gs.data.school.ISchoolDao;
 import gs.data.school.review.IReviewDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
@@ -29,7 +28,6 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
         _controller = new RecentParentReviewsController();
         _controller.setApplicationContext(getApplicationContext());
         _controller.setReviewDao((IReviewDao) getApplicationContext().getBean(IReviewDao.BEAN_ID));
-        _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
         RecentParentReviewsController.DEFAULT_MAX_AGE = 99999;

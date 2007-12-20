@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.16 2007/12/20 21:59:13 aroy Exp $
+ * $Id: RecentParentReviewsController.java,v 1.17 2007/12/20 22:06:09 aroy Exp $
  */
 
 package gs.web.school.review;
 
-import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -49,7 +47,6 @@ public class RecentParentReviewsController extends AbstractController {
     public static int DEFAULT_MAX_AGE = 90;
 
     private IReviewDao _reviewDao;
-    private ISchoolDao _schoolDao;
 
     /**
      * List of IParentReviewModel objects.
@@ -79,13 +76,12 @@ public class RecentParentReviewsController extends AbstractController {
             maxReviews = Integer.parseInt(request.getParameter(PARAM_MAX));
         }
 
-        List reviewIds =
+        List<Integer> reviewIds =
                 _reviewDao.findRecentReviewsInCity(state, city, maxReviews, DEFAULT_MAX_AGE);
 
 
-        List reviews = new ArrayList();
-        for (Iterator iter = reviewIds.iterator(); iter.hasNext();) {
-            Integer reviewId = (Integer) iter.next();
+        List<ReviewFacade> reviews = new ArrayList<ReviewFacade>();
+        for (Integer reviewId : reviewIds) {
             Review review = _reviewDao.getReview(reviewId);
             School school = review.getSchool();
             reviews.add(new ReviewFacade(school, review));
@@ -98,10 +94,6 @@ public class RecentParentReviewsController extends AbstractController {
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
-    }
-
-    public void setSchoolDao(ISchoolDao schoolDao) {
-        _schoolDao = schoolDao;
     }
 
     private static class ReviewFacade implements IParentReviewModel {
