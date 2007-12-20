@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.79 2007/12/17 21:30:44 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.80 2007/12/20 21:10:34 jnorton Exp $
  */
 
 package gs.web.util;
@@ -64,13 +64,13 @@ public class UrlBuilderSaTest extends TestCase {
         article.setId(new Integer(5));
         article.setActive(true);
         UrlBuilder builder12 = new UrlBuilder(article, State.CA, true);
-        assertEquals("/cgi-bin/showarticlefeature/ca/5", builder12.toString());
+        assertEquals("/cgi-bin/showarticlefeature/5", builder12.toString());
         UrlBuilder builder11 = new UrlBuilder(article, State.CA, false);
-        assertEquals("/cgi-bin/showarticle/ca/5", builder11.toString());
+        assertEquals("/cgi-bin/showarticle/5", builder11.toString());
         UrlBuilder builder10 = new UrlBuilder(article, State.WY, true);
-        assertEquals("/cgi-bin/showarticlefeature/wy/5", builder10.toString());
+        assertEquals("/cgi-bin/showarticlefeature/5", builder10.toString());
         UrlBuilder builder9 = new UrlBuilder(article, State.WY, false);
-        assertEquals("/cgi-bin/showarticle/wy/5", builder9.toString());
+        assertEquals("/cgi-bin/showarticle/5", builder9.toString());
     }
 
     /**
@@ -88,19 +88,23 @@ public class UrlBuilderSaTest extends TestCase {
      * The transition is being done incrementally, so each iteration, the lower
      * boundry is decreased.
      *
-     * GS-4929 lb=700, GS-5037 lb=350
+     * GS-4929 lb=700, GS-5037 lb=1, GS-5142 Transition complete
      */
     public void testArticleLinkBuilder_NewURL() {
         Article article = new Article();
 
-        Integer lowerLimitId = 350;
-        Integer underId = lowerLimitId - 1;
+        Integer lowerLimitId = 1;
+        //Integer underId = lowerLimitId - 1;
+        UrlBuilder builder;
 
-       // Under
+        /**
+         * Test Obsolete
+        // GS-4929
         article.setId(underId);
         article.setActive(true);
         UrlBuilder builder = new UrlBuilder(article, State.CA, false);
         assertEquals("/cgi-bin/showarticle/ca/" + underId.toString(), builder.toString());
+         */
 
         // Lower Boundry
         article.setId(lowerLimitId);

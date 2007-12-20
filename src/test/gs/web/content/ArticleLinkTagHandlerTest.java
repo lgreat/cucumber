@@ -60,7 +60,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
         _tagHandler.doTag();
         _articleControl.verify();
 
-        assertEquals("<a href=\"/cgi-bin/showarticle/ca/1\">title</a>", _out.getOutputBuffer().toString());
+        assertEquals("<a href=\"/cgi-bin/showarticle/1\">title</a>", _out.getOutputBuffer().toString());
     }
 
 
@@ -75,7 +75,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
 
         _tagHandler.doTag();
 
-        assertEquals("<a href=\"/cgi-bin/showarticle/ca/1\">title</a>", _out.getOutputBuffer().toString());
+        assertEquals("<a href=\"/cgi-bin/showarticle/1\">title</a>", _out.getOutputBuffer().toString());
     }
 
     public void testLinkFeatured() throws IOException {
@@ -91,7 +91,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
         _tagHandler.doTag();
 
         assertEquals("Expecting link to featured version of article",
-                "<a href=\"/cgi-bin/showarticlefeature/ca/1\">title</a>", _out.getOutputBuffer().toString());
+                "<a href=\"/cgi-bin/showarticlefeature/1\">title</a>", _out.getOutputBuffer().toString());
     }
 
     public void testLinkTargetStyle() throws IOException {
@@ -107,7 +107,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
 
         _tagHandler.doTag();
 
-        assertEquals("<a href=\"/cgi-bin/showarticle/ca/1\" target=\"_blank\" class=\"class\">title</a>",
+        assertEquals("<a href=\"/cgi-bin/showarticle/1\" target=\"_blank\" class=\"class\">title</a>",
                 _out.getOutputBuffer().toString());
     }
 
@@ -142,7 +142,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
 
 
         assertEquals("Expected ampersand to be escaped",
-                "<li><a href=\"/cgi-bin/showarticle/ca/1\">&amp; is the new !</a></li>",
+                "<li><a href=\"/cgi-bin/showarticle/1\">&amp; is the new !</a></li>",
                 _out.getOutputBuffer().toString());
     }
 
