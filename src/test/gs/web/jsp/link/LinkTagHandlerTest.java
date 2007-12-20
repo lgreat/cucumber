@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.38 2007/12/19 00:32:40 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.39 2007/12/20 21:30:33 jnorton Exp $
  */
 
 package gs.web.jsp.link;
@@ -217,11 +217,11 @@ public class LinkTagHandlerTest extends BaseTestCase {
         a.setId(new Integer(8));
         tagHandler.setArticle(a);
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/showarticle/ca/8", builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/showarticle/8", builder.asSiteRelative(null));
 
         tagHandler.setFeatured(Boolean.TRUE);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/showarticlefeature/ca/8", builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/showarticlefeature/8", builder.asSiteRelative(null));
     }
 
     public void testCity() {
