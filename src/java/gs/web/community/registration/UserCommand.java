@@ -22,6 +22,7 @@ public class UserCommand implements EmailValidator.IEmail {
     private User _user;
     private UserProfile _userProfile;
     private String _redirectUrl;
+    private String _referrer;
     private List _cityList;
     private boolean _recontact;
     private boolean _terms = true;
@@ -219,5 +220,13 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setBeta(boolean beta) {
         _beta = beta;
+    }
+
+    public String getReferrer() {
+        return _referrer;
+    }
+
+    public void setReferrer(String referrer) {
+        _referrer = referrer;
     }
 }

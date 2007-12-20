@@ -5,10 +5,7 @@ import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import org.easymock.MockControl;
+import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +18,6 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     private ForgotPasswordController _controller;
 
     private IUserDao _userDao;
-    private MockControl _userControl;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -35,8 +31,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         email.getEmailHelperFactory().setMailSender(_mailSender);
         _controller.setForgotPasswordEmail(email);
 
-        _userControl = MockControl.createControl(IUserDao.class);
-        _userDao = (IUserDao) _userControl.getMock();
+        _userDao = createMock(IUserDao.class);
         _controller.setUserDao(_userDao);
     }
 
@@ -44,62 +39,58 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         String email = "forgotPasswordTest@greatschools.net";
         User user = new User();
         user.setEmail(email);
-        user.setId(new Integer(123));
+        user.setId(123);
         user.setPlaintextPassword("foobar");
 
-        _userDao.findUserFromEmailIfExists(email);
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(user);
+        replay(_userDao);
 
         UserCommand command = new UserCommand();
         command.setEmail(email);
         BindException errors = new BindException(command, "");
 
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse(errors.hasErrors());
 
-        _userControl.reset();
-        _userDao.findUserFromEmailIfExists(email);
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        reset(_userDao);
+        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(user);
+        replay(_userDao);
 
         _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse(errors.hasErrors());
     }
 
     public void testOnSubmitUserNotExist() throws Exception {
         String email = "forgotPasswordTest@greatschools.net";
 
-        _userDao.findUserFromEmailIfExists(email);
-        _userControl.setReturnValue(null);
-        _userControl.replay();
+        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(null);
+        replay(_userDao);
 
         UserCommand command = new UserCommand();
         command.setEmail(email);
         BindException errors = new BindException(command, "");
 
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue(errors.hasErrors());
     }
 
     public void testNoPasswordUser() throws Exception {
         User user = new User();
         user.setEmail("forgotPasswordTest@greatschools.net");
-        user.setId(new Integer(124));
+        user.setId(124);
 
-        _userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net");
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net")).andReturn(user);
+        replay(_userDao);
 
         UserCommand command = new UserCommand();
         command.setEmail("forgotPasswordTest@greatschools.net");
         BindException errors = new BindException(command, "");
 
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue("Controller missing expected errors on validation", errors.hasErrors());
     }
 
@@ -110,16 +101,15 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         user.setPlaintextPassword("foobar");
         user.setEmailProvisional("foobar");
 
-        _userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net");
-        _userControl.setReturnValue(user);
-        _userControl.replay();
+        expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net")).andReturn(user);
+        replay(_userDao);
 
         UserCommand command = new UserCommand();
         command.setEmail(user.getEmail());
         BindException errors = new BindException(command, "");
 
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertTrue("Controller missing expected errors on validation", errors.hasErrors());
     }
 
@@ -149,14 +139,14 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
 
         UserCommand command = new UserCommand();
         BindException errors = new BindException(command, "");
-        _userControl.replay();
+        replay(_userDao);
 
         _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse(errors.hasErrors());
 
         _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
+        verify(_userDao);
         assertFalse(errors.hasErrors());
     }
 
@@ -243,5 +233,43 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         assertEquals("redirect:http://community.greatschools.net/", mAndV.getViewName());
 
         assertFalse(errors.hasErrors());
+    }
+
+    public void testCancelWithReferrer() throws Exception {
+        getRequest().setParameter("cancel", "cancel");
+        getRequest().setServerName("dev.greatschools.net");
+        UserCommand command = new UserCommand();
+        command.setReferrer("http://hello.kit.ty/");
+        BindException errors = new BindException(command, "");
+
+        assertTrue(_controller.suppressValidation(getRequest()));
+
+        replay(_userDao);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_userDao);
+
+        assertEquals("redirect:http://hello.kit.ty/", mAndV.getViewName());
+
+        assertFalse(errors.hasErrors());
+    }
+
+    public void testBindReferrer() {
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+
+        getRequest().addHeader("REFERER", "http://good.b.ye/");
+
+        assertNull(command.getReferrer());
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        assertEquals("http://good.b.ye/", command.getReferrer());
+    }
+
+    public void testBindNoReferrer() {
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+
+        assertNull(command.getReferrer());
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        assertNull(command.getReferrer());
     }
 }

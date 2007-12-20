@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.validation.BindException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,9 @@ public class ForgotPasswordController extends SimpleFormController {
 
         if (request.getParameter("email") != null) {
             userCommand.setEmail(request.getParameter("email"));
+        }
+        if (!StringUtils.isEmpty(request.getHeader("REFERER"))) {
+            userCommand.setReferrer(request.getHeader("REFERER"));
         }
     }
 
@@ -93,8 +97,8 @@ public class ForgotPasswordController extends SimpleFormController {
                                  Object command,
                                  BindException errors) throws Exception {
         ModelAndView mAndV = new ModelAndView();
+        UserCommand userCommand = (UserCommand) command;
         if (!suppressValidation(request)) {
-            UserCommand userCommand = (UserCommand) command;
             User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
             _forgotPasswordEmail.sendToUser(user, request);
             mAndV.setViewName(getSuccessView());
@@ -102,10 +106,13 @@ public class ForgotPasswordController extends SimpleFormController {
                     " with instructions for selecting a new password.";
             mAndV.getModel().put("message", msg);
         } else {
-            String comLandingUrl = "http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/";
-            mAndV.setViewName("redirect:" + comLandingUrl);
+            String redirectUrl = userCommand.getReferrer();
+            if (StringUtils.isEmpty(redirectUrl)) {
+                redirectUrl = "http://" +
+                        SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                        "/";
+            }
+            mAndV.setViewName("redirect:" + redirectUrl);
         }
 
         return mAndV;
