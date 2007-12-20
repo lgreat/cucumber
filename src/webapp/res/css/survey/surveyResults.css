@@ -59,8 +59,16 @@
     border: 1px solid #cccccc;
     position:relative;
 }
-.singleColumnResultBox div {
+.resultBox div {
     padding: 2px 0 2px 30px;
+}
+
+.resultBox .title {
+    color: #99CC66;
+    font-size:15px;
+    padding:5px 0 5px 30px;
+    text-transform:uppercase;
+    font-weight:bold;
 }
 
 table.complexResults {
@@ -91,6 +99,10 @@ table.complexResults td.value {
     width:140px;
 }
 
+.resultScale {
+    margin: 0 0 25px 0;
+}
+
 .resultScale .answer-bar{
     padding-left:40px;
 }
@@ -106,7 +118,7 @@ div.page-header {
     color: #55BBCC;
     border-bottom:dotted #E2E3CB 3px;
     font-size:15px;
-    margin:35px 0 10px 0;
+    margin:40px 0 10px 0;
     padding-bottom:5px;
     font-weight:bold;
 }
@@ -163,14 +175,6 @@ div.header {
 
 .hidden {
     visibility:hidden;
-}
-
-.resultBox .title {
-    color: #99CC66;
-    font-size:15px;
-    padding:5px 0 5px 30px;
-    text-transform:uppercase;
-    font-weight:bold;
 }
 
 .redText {
