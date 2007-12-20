@@ -186,7 +186,11 @@
                                         <div class="label-right">${result_question.strings.right}</div>
                                         <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
                                     </div>
-                                    <fmt:parseNumber var="offset" value="${((33+450)*result_question.sliderValue)+0.5}" integerOnly="true"/>
+                                    <!--
+                                     (562*(result_question.sliderValue-0.2)) gives values in the range 0-450, plus 33.5 adds the
+                                      left padding
+                                    -->
+                                    <fmt:parseNumber var="offset" value="${33.5 + (562*(result_question.sliderValue-0.2))}" integerOnly="true"/>
                                     <c:set var="arrowPct" value="${offset}px;"/>
                                     <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
                             </div>
