@@ -77,7 +77,7 @@
         <div class="page-header">${school.name} ${page.name}</div>
         <c:forEach items="${page.groups}" var="group">
             <c:if test="${(not empty group.displayText) and (group.numResponses gt 0)}">
-                <div class="group-header">${group.displayText}</div>
+                <div class="group-header">${fn:replace(group.displayText, "$SCHOOLNAME", school.name)}</div>
             </c:if>
             <c:forEach items="${group.questions}" var="result_question">
                 <c:choose>
