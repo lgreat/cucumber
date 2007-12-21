@@ -598,14 +598,15 @@ div.psComment {
 }
 
 #parentReviews a.ps, #parentReviews div.psCallout a {
-	margin: 10px 0 0 0;
+    font-size: 12px;
+    margin: 10px 0 0 0;
     position: relative;
     right: 20px;
 }
 
 #parentReviews div.psCallout  {
     font: 16px Trebuchet MS, sans-serif;
-    padding:8px 20px 20px 15px;
+    padding:8px 0px 30px 15px;
     margin:45px 0 0 0;
     color:#888888;
     background:#DDEEEE;
