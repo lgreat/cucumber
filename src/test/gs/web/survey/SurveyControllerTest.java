@@ -356,17 +356,16 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
         replay(_surveyDao);
 
-        getRequest().setParameter("level", "h");
         ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_PROFILE);
 
         StringBuffer cookieBuffer = new StringBuffer();
         cookieBuffer.append(SurveyController.TMP_MSG_COOKIE_PREFIX);
         cookieBuffer.append(school.getDatabaseState().getAbbreviation());
         cookieBuffer.append(String.valueOf(school.getId()));
-        assertNull("temp survey message cookie should not be in response",
-                getResponse().getCookie("TMP_MSG"));
-        assertEquals("redirect:http://www.greatschools.net/survey/results.page?id=123&state=WY&level=h&thanks=true",
-                mAndV.getViewName());
+        assertEquals("put temp survey message cookie into response", cookieBuffer.toString(),
+                getResponse().getCookie("TMP_MSG").getValue());
+        assertEquals("redirect:"+builder.asFullUrl(getRequest()), mAndV.getViewName());
     }
 
     public void testOnSubmitMultiPage() throws Exception {
@@ -404,8 +403,8 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         urc.setPage(survey.getPages().get(2));
         mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
-        assertEquals("redirect:http://www.greatschools.net/survey/results.page?id=123&state=WY&level=m&thanks=true", 
-                mAndV.getViewName());
+        builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("redirect:" + builder.asFullUrl(getRequest()), mAndV.getViewName());
     }
 
 
