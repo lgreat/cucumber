@@ -273,11 +273,7 @@ public class RegistrationController extends SimpleFormController implements Read
                     _log.error(ex);
                 }
             }
-//            UrlUtil urlUtil = new UrlUtil();
-//            if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isStagingServer(request.getServerName())) {
-//                PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
-//            }
-            PageHelper.setMemberCookie(request, response, user); // log in to MSL
+            PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
             if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
                 builder.addParameter("message", "Thank you for joining the GreatSchools Community! You'll be the first to know when we launch!");

@@ -13,8 +13,6 @@
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag body-content="empty"/>
-<jsp:directive.attribute name="community" required="false"
-                         description="If set to 'true' mean this tag is being displayed through a community iframe"/>
 
 <jsp:scriptlet>
     request.setAttribute("tabs", PageHelper.pageIds);
@@ -39,22 +37,7 @@
         <c:choose>
             <!-- Not logged in case -->
             <c:when test="${empty requestScope.context.memberId}">
-                <div id="communityHeader" class="noprint">
-                    <c:choose>
-                        <c:when test="${community eq 'true'}">
-                            &amp;nbsp;
-                        </c:when>
-                        <c:otherwise>
-                    <span class="headerUsername">Welcome!</span>
-                    <span class="headerAccount">
-                        <link:signIn forwardTo="referer">Sign In</link:signIn>
-                    </span>
-                    <span class="headerMsl">
-                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
-                    </span>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+                <mod:nonCommunityAccountHeader/>
             </c:when>
             <c:otherwise>
                 <jsp:scriptlet>
@@ -66,63 +49,11 @@
                 <c:choose>
                     <!-- full community login case -->
                     <c:when test="${communityAuth eq true}">
-                        <div id="communityHeader" class="noprint withImages">
-                            <!-- communityClassSearch is used to modify the margin above the search box below -->
-                            <c:set var="communityClassSearch" value="communityHeader"/>
-                            <!-- webbyStyle is used to hide the webby logo below -->
-                            <c:set var="webbyStyle" value="display: none;"/>
-                            <span class="headerUsername">
-                                Welcome,
-                                <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>
-                            </span>
-                            <span class="headerDashboard">
-                                <gsml:a href="http://${communityHost}/dashboard">My Dashboard</gsml:a>
-                            </span>
-                            <span class="headerAccount withAvatar">
-                                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">Sign Out</gsml:a>
-                            </span>
-                            <br/>
-                            <span class="headerMsl withAvatar">
-                                <c:choose>
-                                    <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">My School List (${requestScope.context.mslCount})</gsml:a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </span>
-                            <span class="headerAvatar">
-                                <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}"><gsml:img src="http://${communityHost}/avatar?id=${requestScope.context.memberId}&amp;width=30&amp;height=30" alt="Avatar" /></gsml:a>
-                            </span>
-                        </div>
+                        <mod:communityAccountHeader communityHost="${communityHost}"/>
                     </c:when>
                     <!-- msl only login case -->
                     <c:otherwise>
-                        <div id="communityHeader" class="noprint">
-                            <c:choose>
-                                <c:when test="${community eq 'true'}">
-                                    <!-- When viewed from community hide this section -->
-                                    &amp;nbsp;
-                                </c:when>
-                                <c:otherwise>
-                            <span class="headerUsername">Welcome, ${requestScope.context.nickname}</span>
-                            <span class="headerAccount">
-                                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">Sign Out</gsml:a>
-                            </span>
-                            <span class="headerMsl">
-                                <c:choose>
-                                    <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">My School List (${requestScope.context.mslCount})</gsml:a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </span>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                        <mod:nonCommunityAccountHeader/>
                     </c:otherwise>
                 </c:choose>
             </c:otherwise>
