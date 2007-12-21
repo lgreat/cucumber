@@ -597,8 +597,10 @@ div.psComment {
     padding:0 40px 0 10px;
 }
 
-#parentReviews a.ps {
-	margin: 10px 35px 0 0;
+#parentReviews a.ps, #parentReviews div.psCallout a {
+	margin: 10px 0 0 0;
+    position: relative;
+    right: 20px;
 }
 
 #parentReviews div.psCallout  {
@@ -615,7 +617,7 @@ div.psComment {
     font-weight:bold;
     color:#55BBCC;
 }
-
+/*
 #parentReviews div.psCallout a {
     float:none;
     position:absolute;
@@ -625,3 +627,4 @@ div.psComment {
     margin:0;
     padding:0;
 }
+*/
