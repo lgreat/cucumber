@@ -599,7 +599,7 @@ div.psComment {
 
 #parentReviews a.ps, #parentReviews div.psCallout a {
     font-size: 12px;
-    margin: 10px 0 0 0;
+    margin: 0px 0 0 0;
     position: relative;
     right: 20px;
 }
