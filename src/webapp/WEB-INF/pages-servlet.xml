@@ -1098,6 +1098,11 @@
         </property>
     </bean>
 
+    <bean name="/test/landing.page"
+          class="gs.web.test.TestLandingController"
+          autowire="byName" lazy-init="true">
+    </bean>
+
     <bean name="/school/error.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
