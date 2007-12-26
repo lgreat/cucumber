@@ -1101,7 +1101,17 @@
     <bean name="/test/landing.page"
           class="gs.web.test.TestLandingController"
           autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="testLandingCommand"/>
+        <property name="commandClass" value="gs.web.test.TestLandingCommand"/>
+        <property name="formView" value="/test/landing" />
+        <property name="successView" value="redirect:http://www.google.com"/>
+        <property name="worksheetUrl" value="http://spreadsheets.google.com/feeds/worksheets/o02465749437938730339.5684652189673031494/private/full/od7" />
     </bean>
+
+    <bean name="/test/schoolsInCity.page"
+          class="gs.web.test.SchoolsInCityAjaxController"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/school/error.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"

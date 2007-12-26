@@ -18,20 +18,13 @@
 
 <html lang="en">
 <c:set var="stateOrNull" value="${requestScope.context.state}" />
-<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}" />
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <c:choose>
-        <c:when test="${not empty stateOrNull}" >
-            <title>${stateOrNull.longName} Schools</title>
-            <meta name="description" content="${stateOrNull.longName} school information: Test scores, school parent reviews and more. Plus, get expert advice to help find the right school for your child."/>
-        </c:when>
-        <c:otherwise>
-            <title>GreatSchools Test Landing Page</title>
-            <meta name="description" content="School information for K-12 schools nationwide: Test scores, school parent reviews and more. Plus, get expert advice to help find the right school for your child."/>
-        </c:otherwise>
-    </c:choose>
+    <title>GreatSchools Test Landing Page</title>
+    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
+    <![CDATA[
     <script type="text/javascript">
         function adjustLeftColIE6() {
             if(navigator.userAgent.toLowerCase().indexOf('msie 6') != -1) {
@@ -41,7 +34,22 @@
                 leftcol.style.height = (rightHeight-30)+'px';
             }
         }
+
+        function changeCity(citySelect, state) {
+            var url = '/test/schoolsInCity.page';
+            var pars = {state : state,
+                        city : citySelect.value };
+            $('schools').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+            var myAjax = new Ajax.Updater (
+                    'schools',
+                    url,
+            {
+                method: 'get',
+                parameters: pars
+            });
+        }
     </script>
+    ]]>
 </head>
 
 <pageHelper:addOnLoadHandler handler="adjustLeftColIE6()" />
@@ -49,51 +57,57 @@
 
 <div id="main">
 <table id="right" cellspacing="0" cellpadding="0" class="content" border="0">
-<tr>
-<td style="width: 9px;" valign="top"><img style="width: 9px;" alt=""
-                                          src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-
-<td style="width: 651px" valign="top">
-<table width="651" cellpadding="0" cellspacing="0" border="0">
-<tr>
-    <td colspan="3">
-        <h1 id="stateSchools">
-        <c:choose>
-            <c:when test="${not empty stateOrNull}">
-                ${stateOrNull.longName} Schools
-            </c:when>
-            <c:otherwise>
-                <c:out value="Research &amp; Compare Schools Nationwide" escapeXml="true" />
-            </c:otherwise>
-        </c:choose>
-        </h1>
-    </td>
-</tr>
-<tr>
-    <td colspan="3"><gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
-    </td>
-</tr>
-<tr>
-<!-- Compare Box -->
-<td valign="top">
-<div class="middleTitle">
-    <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
-</div>
-    <div class="compareBox">
-    </div>
-    </td>
-<td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-<!-- Find Box -->
-<td valign="top">
-    <div class="middleTitle">
-        <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${requestScope.context.state.longName} Schools" border="0"/>
-    </div>
-    <div class="findBox">
-        ${info} 
-    </div>
-</td>
-</tr>
-</table>
+    <tr>
+        <td style="width: 9px;" valign="top">
+            <img style="width: 9px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+        </td>
+        <td style="width: 651px" valign="top">
+            <table width="651" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td colspan="3">
+                        <h1 id="stateSchools">
+                            ${display_name}
+                        </h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
+                    </td>
+                </tr>
+                <tr>
+                    <!-- Compare Box -->
+                    <td valign="top">
+                        <div class="middleTitle">
+                            <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
+                        </div>
+                        <div class="compareBox">
+                            <label id="cityLabel"><span class="required">*</span>City</label>
+                            <span id="city">
+                                <select name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}');">
+                                    <option selected="selected" value="">Choose city</option>
+                                    <c:forEach var="cityOption" items="${cities}">
+                                        <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
+                            </span>
+                            <div id="schools"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <!-- Find Box -->
+                    <td valign="top">
+                        <div class="middleTitle">
+                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${requestScope.context.state.longName} Schools" border="0"/>
+                        </div>
+                        <div class="findBox">
+                            ${info}
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
 <table width="649" cellpadding="0" cellspacing="0" border="0">
     <tr>
@@ -161,7 +175,11 @@
         </tr>
         <tr>
             <td>
-                ${links}
+                <ul>
+                    <c:forEach var="anchor" items="${links}">
+                        <li><a href="${anchor.href}">${anchor.contents}</a></li>
+                    </c:forEach>
+                </ul>
             </td>
         </tr>
     </table>
@@ -171,5 +189,4 @@
 <mod:tracking pageName="Test Landing" hier1="test,landing"/>
 </gsml:body>
 </html>
-
 </jsp:root>
