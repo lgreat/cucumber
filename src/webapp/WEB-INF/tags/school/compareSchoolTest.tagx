@@ -36,7 +36,7 @@
         </c:choose>
 
         <gsweb:form action="/school/compareSchool.page" method="get">
-            <span id="compareSelector">
+            <span id="compareSelectorSpan">
             <select id="compareSelector" name="type">
                 <option value="city" > City ${level} schools </option>
                 <c:if test="${school.district ne null}">

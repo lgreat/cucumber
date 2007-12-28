@@ -555,7 +555,7 @@ div#topCompareRight {
     background-color: #F3F9F9;
 }
 
-span#compareSelector  {
+span#compareSelectorSpan  {
     float:left;
     height: 25px;
     width: 200px;
@@ -618,14 +618,37 @@ div.psComment {
     font-weight:bold;
     color:#55BBCC;
 }
-/*
-#parentReviews div.psCallout a {
-    float:none;
-    position:absolute;
-    left:233px;
-    top:44px;
-    font-size:12px;
-    margin:0;
-    padding:0;
+
+#learnMoreModule {
+    border:2px solid #DDEEEE;
 }
-*/
+
+#learnMoreModule #lmModules {
+    position:relative;
+}
+#lmModules div.right {
+    position:absolute;
+    left:200px;
+}
+
+#learnMoreModule div.parent {
+    top:0;
+}
+
+#learnMoreModule div.survey {
+    top:40px;
+}
+
+#learnMoreModule div.district {
+    top:77px;
+}
+
+#learnMoreModule #lmHeader {
+    background: url(/res/img/school/overview/learn_more/header.gif) no-repeat;
+    height:28px;
+    text-indent:-1000em;
+}
+
+#learnMoreModule #lmModules div.left {
+    margin:18px 0 18px 10px;
+}

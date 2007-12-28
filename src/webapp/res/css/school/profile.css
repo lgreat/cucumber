@@ -404,3 +404,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
     div.printSchoolProfileHeader{display:block;}
 }
+
+#schoolProfile #headSpacer {
+    display:none;
+}

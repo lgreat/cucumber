@@ -124,7 +124,68 @@
 
         <div id="col_center">
 
-            <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
+            <variant:a>
+                <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
+            </variant:a>
+
+            <variant:b>
+                <div id="learnMoreModule">
+                    <div id="lmHeader">Learn More</div>
+                    <div id="lmModules">
+                        <div class="left">
+                            <link:schoolProfileTestscore school="${school}" title="${school.name} Test Scores">
+                                <img class="test" src="/res/img/school/overview/learn_more/test.gif"
+                                     onmouseover="this.src='/res/img/school/overview/learn_more/test_rollover.gif'"
+                                     onmouseout="this.src='/res/img/school/overview/learn_more/test.gif'"
+                                     alt="Test Scores"/>
+                            </link:schoolProfileTestscore>
+                        </div>
+                        <div class="left">
+                            <link:schoolProfileCensus school="${school}" anchor="teachers">
+                                <img class="test" src="/res/img/school/overview/learn_more/teacher.gif"
+                                     onmouseover="this.src='/res/img/school/overview/learn_more/teacher_rollover.gif'"
+                                     onmouseout="this.src='/res/img/school/overview/learn_more/teacher.gif'"
+                                     alt="Parent/Teacher"/>
+                            </link:schoolProfileCensus>
+                        </div>
+                        <div class="left">
+                            <link:schoolProfileRating school="${school}" title="${school.name} GreatSchools Ratings">
+                                <img class="test" src="/res/img/school/overview/learn_more/gs.gif"
+                                     onmouseover="this.src='/res/img/school/overview/learn_more/gs_rollover.gif'"
+                                     onmouseout="this.src='/res/img/school/overview/learn_more/gs.gif'"
+                                     alt="GreatSchools Ratings"/>
+                            </link:schoolProfileRating>
+                        </div>
+                        <div class="parent right">
+                            <link:schoolProfileParentReview school="${school}" title="${school.name} Parent Reviews">
+                                <img class="test" src="/res/img/school/overview/learn_more/parent.gif"
+                                     onmouseover="this.src='/res/img/school/overview/learn_more/parent_rollover.gif'"
+                                     onmouseout="this.src='/res/img/school/overview/learn_more/parent.gif'"
+                                     alt="Parent Reviews"/>
+                            </link:schoolProfileParentReview>
+                        </div>
+                        <div class="survey right">
+                            <link:schoolStartSurvey school="${school}">
+                                <img class="test" src="/res/img/school/overview/learn_more/survey.gif"
+                                     onmouseover="this.src='/res/img/school/overview/learn_more/survey_rollover.gif'"
+                                     onmouseout="this.src='/res/img/school/overview/learn_more/survey.gif'"
+                                     alt="Survey"/>
+                            </link:schoolStartSurvey>
+                        </div>
+                        <div class="district right">
+                            <link:districtProfile districtId="${school.districtId}"
+                                                  schoolId="${school.id}"
+                                                  state="${state}"
+                                                  title="District information">
+                                <img class="test" src="/res/img/school/overview/learn_more/district.gif"
+                                     onmouseover="this.src='/res/img/school/overview/learn_more/district_rollover.gif'"
+                                     onmouseout="this.src='/res/img/school/overview/learn_more/district.gif'"
+                                     alt="District Overview"/>
+                            </link:districtProfile>
+                        </div>
+                    </div>
+                </div>
+            </variant:b>
 
             <variant:a>
                 <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
@@ -193,8 +254,9 @@
                 <school:parentReviewForm school="${school}" pageName="overview"/>
             </c:if>
 
-            <div id="learnSchool">
 
+            <variant:a>
+            <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
                 <c:set var="hasAPExams" value="${hasAPExams}"/>
@@ -291,10 +353,7 @@
                     </div>
                 </c:if>
             </div>
-
-            <!--<c:if test="${requestScope.context.ABVersion eq 'a'}">-->
-                <!--<school:compareSchool school="${school}"/>-->
-            <!--</c:if>-->
+            </variant:a>
 
         </div><!-- end: col_center -->
 

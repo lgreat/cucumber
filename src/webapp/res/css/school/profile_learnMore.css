@@ -1,0 +1,24 @@
+.overview #schoolProfileHeader {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #dee;;
+}
+.toolsImg {
+    display:none;
+}
+.subnavTools {
+    float:left;
+    color:#3399AA;
+    line-height:35px;
+}
+.contentGS .subnavTools a {
+    text-decoration:underline;
+}
+.overview #ratings {
+    display:block;
+}
+#schoolProfile.overview #schoolName {
+    margin-top:12px;
+}
+#schoolProfile #navigation, #schoolProfile #subnav {
+    display:none;
+}
