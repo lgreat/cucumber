@@ -22,3 +22,7 @@
 #schoolProfile #navigation, #schoolProfile #subnav {
     display:none;
 }
+
+#schoolProfile.overview #schoolName {
+    _margin: 0 0 2px 12px;
+}
