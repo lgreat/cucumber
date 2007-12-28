@@ -111,6 +111,7 @@
 <![endif]-->
 ]]>
 
+<c:if test="${tab eq 'overview'}">
 <variant:b>
     <pageHelper:externalCss file="/res/css/school/profile_learnMore.css"/>
     <![CDATA[
@@ -119,6 +120,7 @@
     <![endif]-->
     ]]>
 </variant:b>
+</c:if>
 
 <c:if test="${!requestScope.context.crawler}">
 <script type="text/javascript" language="javascript">
@@ -191,13 +193,13 @@
                 <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
             </c:otherwise>
         </c:choose>
-        <variant:a>
+        <c:if test="${(tab ne 'overview') or (requestScope.context.ABVersion eq 'a')}">
             <c:if test="${school.levelCode != 'p'}">
                 <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
                 <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
             </c:if>
-        </variant:a>
-        <variant:b>
+        </c:if>
+        <c:if test="${(tab eq 'overview') and (requestScope.context.ABVersion eq 'b')}">
             <c:if test="${!requestScope.context.crawler}">
                 <span class="subnavTools">
                     <a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;
@@ -208,7 +210,7 @@
                        onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a>
                 </span>
             </c:if>
-        </variant:b>
+        </c:if>
     </div>
     </c:if>
     <!-- end tools -->
@@ -267,7 +269,10 @@
 
     </div> <!-- end: schoolProfileHeader div -->
 
-    <div id="headSpacer">this is a head spacer</div>
+    <c:if test="${(tab eq 'overview') and (requestScope.context.ABVersion eq 'b')}">
+        <div id="headSpacer">head spacer</div>
+    </c:if>
+
     <table id="navigation" cellpadding="0" cellspacing="0">
         <tr>
             <td>
