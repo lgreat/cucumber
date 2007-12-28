@@ -1,3 +1,8 @@
+#schoolProfile.overview #schoolName {
+    margin-top:10px;
+    margin-bottom:5px;
+}
+
 #schoolProfile #headSpacer {
     display:block;
     height:10px;
