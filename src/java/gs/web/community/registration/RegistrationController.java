@@ -275,9 +275,10 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
             if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-                builder.addParameter("message", "Thank you for joining the GreatSchools Community! You'll be the first to know when we launch!");
-                userCommand.setRedirectUrl(builder.asFullUrl(request));
+                String redirectUrl = "http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests";
+                userCommand.setRedirectUrl(redirectUrl);
             }
             mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
         }
