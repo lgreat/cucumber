@@ -102,7 +102,7 @@
                     <div class="row" id="topSchools">
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
                         <span>Find top Milwaukee schools</span>
-                        <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
+                        <input src="/res/img/splash/go.gif" alt="Find Milwaukee Schools" style="width: 41px; height: 26px;"
                                class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                onmouseout="this.src='/res/img/splash/go.gif';" type="image"
                                onclick="gotoMilwaukeeCityPage();" />
@@ -115,7 +115,7 @@
                             <option value="m">middle schools</option>
                             <option value="h">high schools</option>
                         </select>
-                        <input src="/res/img/splash/go.gif" alt="Find Ohio Schools" style="width: 41px; height: 26px;"
+                        <input src="/res/img/splash/go.gif" alt="Find Milwaukee Schools" style="width: 41px; height: 26px;"
                                class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                onmouseout="this.src='/res/img/splash/go.gif';" type="image"
                                onclick="gotoMilwaukeeSchoolsPage()"/>
@@ -150,7 +150,7 @@
                         <span>miles of</span>
                         <input id="zip" type="text" name="zip" class="zip formText" value="53233" size="7"/>
 
-                        <input src="/res/img/splash/go.gif" alt="Compare Ohio Schools" style="width: 41px; height: 26px;"
+                        <input src="/res/img/splash/go.gif" alt="Compare Milwaukee Schools" style="width: 41px; height: 26px;"
                            class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
                            onmouseout="this.src='/res/img/splash/go.gif';" type="image"
                            onclick="gotoComparePage()"/>
