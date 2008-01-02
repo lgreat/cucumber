@@ -365,11 +365,6 @@ hr { /* has IE 7 equivalent */
 	text-indent: -9999px;
 }
 
-#parentReviews .rating {
-	margin: 15px 0 0 20px;
-	float: left;
-}
-
 #parentReviews p {
 	margin: 5px 0 0 20px;
 	_margin: 5px 0 0 10px; /* IE 6 hack */
@@ -379,10 +374,21 @@ hr { /* has IE 7 equivalent */
 	line-height: 15px;
 }
 
+#parentReviews em {
+	color: #5bc;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+}
 #parentReviews a {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     float: right;
 	margin: 4px 15px 0 0;
+}
+
+#parentReviews .rating {
+	margin: 15px 0 0 20px;
+	float: left;
 }
 
 #parentReviews .callout {
@@ -402,11 +408,34 @@ hr { /* has IE 7 equivalent */
 	float: right;
 }
 
-#parentReviews em {
-	color: #5bc;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
+#parentReviews a.ps, #parentReviews div.psCallout a {
+    font-size: 12px;
+    position: relative;
+    right: 20px;
+}
+
+#parentReviews a.ps {
+   margin: 0px 0 0 0;
+   padding: 5px 0 0 0;
+}
+#parentReviews div.psCallout a {
+    margin: -5px 0 0 0;
+}
+
+#parentReviews div.psCallout  {
+    font: 16px Trebuchet MS, sans-serif;
+    padding:8px 0px 20px 15px;
+    margin:40px 0 0 0;
+    color:#888888;
+    background:#DDEEEE;
+    position:relative;
+}
+
+#parentReviews div.psCallout em {
+    font-family:Trebuchet MS, sans-serif;
+    font-size:16px;
+    font-weight:bold;
+    color:#55BBCC;
 }
 
 /* Learn About This School's */
@@ -562,7 +591,6 @@ span#compareSelectorSpan  {
     padding: 10px 0 0 22px;
 }
 select#compareSelector{
-    color: #666666;
     width: 185px;
     color:#666666;
     font-family:Trebuchet MS,sans-serif;
@@ -597,27 +625,7 @@ div.psComment {
     padding:0 40px 0 10px;
 }
 
-#parentReviews a.ps, #parentReviews div.psCallout a {
-    font-size: 12px;
-    margin: 0px 0 0 0;
-    position: relative;
-    right: 20px;
-}
 
-#parentReviews div.psCallout  {
-    font: 16px Trebuchet MS, sans-serif;
-    padding:8px 0px 30px 15px;
-    margin:45px 0 0 0;
-    color:#888888;
-    background:#DDEEEE;
-    position:relative;
-}
-#parentReviews div.psCallout em {
-    font-family:Trebuchet MS, sans-serif;
-    font-size:16px;
-    font-weight:bold;
-    color:#55BBCC;
-}
 
 #learnMoreModule {
     border:2px solid #DDEEEE;
