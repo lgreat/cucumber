@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.42 2007/09/10 17:29:24 cpickslay Exp $
+ * $Id: UrlUtilSaTest.java,v 1.43 2008/01/02 23:43:16 aroy Exp $
  */
 
 package gs.web.util;
@@ -243,5 +243,65 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue("Expected true for admin URL", _urlUtil.isAdminServer("admin.greatschools.net"));
         assertTrue("Expected true for maddy URL", _urlUtil.isAdminServer("admin.greatschools.net"));
         assertFalse("Expected false for production URL", _urlUtil.isAdminServer("www.greatschools.net"));
+    }
+
+    public void testIsCommunityContentLink() {
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/advice/write"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/groups/create"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/groups/2771/join"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/recommend-content?id=106495&type=5000"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/report/email-moderator"));
+
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/advice/write"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/groups/create"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/groups/2771/join"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/recommend-content?id=106495&type=5000"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/report/email-moderator"));
+
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/advice/write"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/groups/create"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/groups/2771/join"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/recommend-content?id=106495&type=5000"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/report/email-moderator"));
+
+        assertFalse("Expected false for GS URL",
+                _urlUtil.isCommunityContentLink("http://www.greatschools.net/advice/write"));
+        assertFalse("Expected false for GS cobrand URL",
+                _urlUtil.isCommunityContentLink("http://sfgate.greatschools.net/advice/write"));
+        assertFalse("Expected false for GS cobrand URL",
+                _urlUtil.isCommunityContentLink("http://sfgate.dev.greatschools.net/advice/write"));
+
+        assertFalse("Expected false for non-content-creation URL on community",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/advice"));
+        assertFalse("Expected false for non-content-creation URL on community",
+                _urlUtil.isCommunityContentLink("http://community.greatschools.net/"));
+
     }
 }

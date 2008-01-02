@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.53 2007/09/10 17:29:24 cpickslay Exp $
+ * $Id: UrlUtil.java,v 1.54 2008/01/02 23:43:16 aroy Exp $
  */
 
 package gs.web.util;
@@ -312,4 +312,35 @@ public final class UrlUtil {
         return hostName.indexOf("admin") != -1 ||
                 hostName.indexOf("maddy") != -1;
     }
+
+    /**
+     * Returns true if the url seems like a community content creation link. These links
+     * tend to be treated differently when redirects are concerned (to preserve partial
+     * data)
+     * @param url url to check (null-safe: returns false)
+     */
+    public boolean isCommunityContentLink(String url) {
+        boolean rval = false;
+        // if it is non-empty
+        if (!StringUtils.isEmpty(url)) {
+            // if it points to a community server
+            if (StringUtils.contains(url, "community.greatschools.net") ||
+                    StringUtils.contains(url, "community.dev.greatschools.net") || 
+                    StringUtils.contains(url, "community.staging.greatschools.net")) {
+                // if it smells like a content creation link
+                if (StringUtils.contains(url, "/advice/write")
+                        || StringUtils.contains(url, "/groups/create")
+                        || StringUtils.contains(url, "/report")
+                        || StringUtils.contains(url, "?comment")
+                        || StringUtils.contains(url, "/members/watchlist/watch")
+                        || StringUtils.contains(url, "/recommend-content")
+                        || StringUtils.contains(url, "/join")
+                        ) {
+                    rval = true;
+                }
+            }
+        }
+        return rval;
+    }
+
 }

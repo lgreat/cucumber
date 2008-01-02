@@ -334,7 +334,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
 
         PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
-        if (StringUtils.isEmpty(fupCommand.getRedirect())) {
+        UrlUtil urlUtil = new UrlUtil();
+        if (StringUtils.isEmpty(fupCommand.getRedirect()) ||
+                !urlUtil.isCommunityContentLink(fupCommand.getRedirect())) {
             String redirectUrl = "http://" +
                 SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                 "/members/" + user.getUserProfile().getScreenName() + "/profile/interests";
