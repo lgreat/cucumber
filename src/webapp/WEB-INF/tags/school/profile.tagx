@@ -273,11 +273,14 @@
         <div id="headSpacer">head spacer</div>
     </c:if>
 
+    <!-- GS-5020 -->
+    <c:set var="headerAnchor" value="from..${tab}"/>
     <table id="navigation" cellpadding="0" cellspacing="0">
         <tr>
             <td>
                 <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on' : ''}"
-                                            title="${school.name}">
+                                            title="${school.name}"
+                                            anchor="${(tab eq 'overview') ? '' : headerAnchor}">
                     School<br/>
                     Overview
                 </link:schoolProfileOverview>
@@ -285,7 +288,8 @@
             <c:if test="${schoolType != 'private' and school.levelCode != 'p'}">
                 <td>
                     <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}"
-                                              title="${school.name} GreatSchools Ratings">
+                                              title="${school.name} GreatSchools Ratings"
+                                              anchor="${(tab eq 'ratings') ? '' : headerAnchor}">
                         GreatSchools<br/>
                         Ratings
                     </link:schoolProfileRating>
@@ -294,7 +298,8 @@
 
             <td>
                 <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on' : ''}"
-                                                title="${school.name} Parent Reviews">
+                                                title="${school.name} Parent Reviews"
+                                                anchor="${(tab eq 'parentReviews') ? '' : headerAnchor}">
                     Parent<br/>
                     Reviews
                 </link:schoolProfileParentReview>
@@ -303,7 +308,8 @@
             <c:if test="${(schoolType != 'private' || state.privateTestScoresState) and (school.levelCode != 'p')}" >
                 <td>
                     <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on' : ''}"
-                                                 title="${school.name} Test Scores">
+                                                 title="${school.name} Test Scores"
+                                                 anchor="${(tab eq 'testscores') ? '' : headerAnchor}">
                         Test<br/>
                         Scores
                     </link:schoolProfileTestscore>
@@ -312,7 +318,8 @@
 
             <!-- This link tag automatically detects private schools and links appropriately -->
             <td>
-                <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}">
+                <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
+                                          anchor="${headerAnchor}">
                     School<br/>
                     Environment
                 </link:schoolProfileCensus>
@@ -324,7 +331,8 @@
                     <link:districtProfile districtId="${school.districtId}"
                                           schoolId="${school.id}"
                                           state="${state.abbreviationLowerCase}"
-                                          title="District information">
+                                          title="District information"
+                                          anchor="${headerAnchor}">
                         District<br/>
                         Overview
                     </link:districtProfile>
@@ -338,7 +346,7 @@
 -->
             <c:if test="${school.levelCode != 'p'}">
                 <td class="last">
-                    <link:schoolCompareSchool school="${school}" styleClass="last" from="tab">
+                    <link:schoolCompareSchool school="${school}" styleClass="last" from="tab" anchor="${headerAnchor}">
                         Compare<br/>
                         Schools
                     </link:schoolCompareSchool>

@@ -112,6 +112,15 @@
             s.prop11 = "GreatSchools";
             s.events = "${events}";
             s.hier1 = "${hier1}";
+
+            <!-- GS-5020 -->
+            var locationAnchor = '';
+            <![CDATA[
+            if (location.href && location.href.indexOf('#from..') > -1) {
+                locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
+                s.prop9 = s.pageName + ' Tab: ' + locationAnchor;
+            }
+            ]]>
         </script>
         <![CDATA[
     <script type="text/javascript" language="JavaScript"><!--

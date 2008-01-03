@@ -579,6 +579,13 @@
             <type>java.lang.String</type>
             <description>Title attribute (tooltip)</description>
         </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
+        </attribute>
     </tag>
     <tag>
         <name>betaSignup</name>
@@ -1095,6 +1102,13 @@
             <type>gs.data.school.School</type>
             <description>School</description>
         </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolProfileParentReview</name>
@@ -1138,6 +1152,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.school.School</type>
             <description>School</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
         </attribute>
     </tag>
     <tag>
@@ -1205,6 +1226,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>title attribute (tool tip)</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
         </attribute>
     </tag>
     <tag>
@@ -1337,6 +1365,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>The origin from which the compare page was linked</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
         </attribute>
     </tag>
     <tag>
