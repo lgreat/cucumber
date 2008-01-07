@@ -32,6 +32,10 @@
                                alt="GreatSchools: The Parents' Guide to K-12 Success"
             /></gsml:a>
 </td>
+<jsp:scriptlet>
+    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
 <c:if test="${!requestScope.context.crawler}">
     <td class="member ${communityClass}" >
         <c:choose>
@@ -43,8 +47,6 @@
                 <jsp:scriptlet>
                     request.setAttribute("communityAuth",
                             Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
-                    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-                    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
                 </jsp:scriptlet>
                 <c:choose>
                     <!-- full community login case -->
@@ -156,7 +158,7 @@
                         state="${requestScope.context.state}"
                         id="topnav_research"
                         >Research &amp;amp; Compare</link:research></td>
-                    <!--#10--><td><gsml:a href="/community/communityLanding.page"
+                    <!--#10--><td><gsml:a href="http://${communityHost}"
                         styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')}"
                         >Community</gsml:a></td>
                     <!--#7--><td><gsml:a href="/content/schoolChoiceCenter.page"
