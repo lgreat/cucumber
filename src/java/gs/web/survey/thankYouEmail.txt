@@ -8,8 +8,8 @@
 <li><a href="$PARENT_REVIEW_URL">Add your own Parent Review of $SCHOOL_NAME</a>.<br/>
 (If you have reviewed this school already, your new review will replace your older one.)</li>
 
-<li><a href="$COMMUNITY_REGISTER_URL">Register for the GreatSchools Parent Community</a><br/>
-Share your experiences with $SCHOOL_NAME, find answers to your tough questions about parenting and education and meet like-minded parents. It's free and only takes a minute to sign up!</li>
+<li><a href="$COMMUNITY_REGISTER_URL">Connect with parents on the GreatSchools Parent Community</a><br/>
+Share your experiences with $SCHOOL_NAME, find answers to your tough questions about parenting and education and more!</li>
 </ul>
 
 <p>Thanks for helping parents understand more about $SCHOOL_NAME!</p>

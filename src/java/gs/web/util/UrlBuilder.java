@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.97 2007/12/20 21:10:34 jnorton Exp $
+ * $Id: UrlBuilder.java,v 1.98 2008/01/08 02:57:32 jnorton Exp $
  */
 
 package gs.web.util;
@@ -14,6 +14,8 @@ import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.web.school.SchoolsController;
 import gs.web.util.list.Anchor;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -121,6 +123,7 @@ public class UrlBuilder {
     public static final VPage FORGOT_PASSWORD = new VPage("vpage:forgotPassword");
     public static final VPage RESET_PASSWORD = new VPage("vpage:resetPassword");
     public static final VPage REQUEST_EMAIL_VALIDATION = new VPage("vpage:requestEmailValidation");
+    public static final VPage COMMUNITY = new VPage("vpage:community");
     public static final VPage COMMUNITY_LANDING = new VPage("vpage:communityLanding");
     public static final VPage CHANGE_EMAIL = new VPage("vpage:changeEmail");
     public static final VPage ACCOUNT_INFO = new VPage("vpage:accountInfo");
@@ -607,6 +610,9 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/admin/news/delete.page";
             setParameter("id", param0);
+        } else if (COMMUNITY.equals(page)) {
+            _perlPage = false;
+            _path = "community";
         } else if (BETA_SIGNUP.equals(page)) {
             _perlPage = false;
             _path = "/community/beta.page";
@@ -933,6 +939,11 @@ public class UrlBuilder {
                 ((serverPort != 80) ? ":" + serverPort : "") +
                 buildSiteRelative(request);
         return url;
+    }
+
+    public static String getCommunitySiteBaseUrl(HttpServletRequest request){
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        return  "http://" + sessionContext.getSessionContextUtil().getCommunityHost(request);
     }
 
     /**
