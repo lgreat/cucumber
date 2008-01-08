@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.54 2008/01/02 23:43:16 aroy Exp $
+ * $Id: UrlUtil.java,v 1.55 2008/01/08 19:26:49 aroy Exp $
  */
 
 package gs.web.util;
@@ -330,6 +330,7 @@ public final class UrlUtil {
                 // if it smells like a content creation link
                 if (StringUtils.contains(url, "/advice/write")
                         || StringUtils.contains(url, "/groups/create")
+                        || StringUtils.contains(url, "/q-and-a/?submit=true")
                         || StringUtils.contains(url, "/report")
                         || StringUtils.contains(url, "?comment")
                         || StringUtils.contains(url, "/members/watchlist/watch")
