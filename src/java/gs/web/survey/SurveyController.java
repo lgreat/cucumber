@@ -418,16 +418,12 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
         String parentReviewHref = builder.asFullUrl(request);
 
-//        builder = new UrlBuilder(UrlBuilder.REGISTRATION, school.getDatabaseState(), user.getEmail(), null);
-//        String registrationHref = builder.asFullUrl(request);
-
         String communityHost = UrlBuilder.getCommunitySiteBaseUrl(request);
-
 
         Map replacements = new HashMap();
         replacements.put("SCHOOL_NAME", school.getName());
         replacements.put("PARENT_REVIEW_URL", parentReviewHref);
-        replacements.put("COMMUNITY_REGISTER_URL", communityHost);
+        replacements.put("COMMUNITY_URL", communityHost);
 
         emailHelper.setInlineReplacements(replacements);
         emailHelper.send();
