@@ -625,18 +625,25 @@ div.psComment {
     padding:0 40px 0 10px;
 }
 
-
-
 #learnMoreModule {
-    border:2px solid #DDEEEE;
+    margin-bottom:20px;
+}
+
+#lmmBorder {
+    border-left: 2px solid #DDEEEE;
+    border-right: 2px solid #DDEEEE;
+    border-bottom: 2px solid #DDEEEE;
+    border-top:1px solid #66CCCC;
 }
 
 #learnMoreModule #lmModules {
     position:relative;
 }
+
 #lmModules div.right {
     position:absolute;
     left:200px;
+    _left:191px; 
 }
 
 #learnMoreModule div.parent {
@@ -655,6 +662,7 @@ div.psComment {
     background: url(/res/img/school/overview/learn_more/header.gif) no-repeat;
     height:28px;
     text-indent:-1000em;
+    border-right:1px solid #66CCCC;
 }
 
 #learnMoreModule #lmModules div.left {

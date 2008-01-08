@@ -124,13 +124,14 @@
 
         <div id="col_center">
 
-            <variant:a>
+            <c:if test="${(requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName != 'public')}">
                 <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
-            </variant:a>
+            </c:if>
 
-            <variant:b>
+            <c:if test="${(requestScope.context.ABVersion eq 'b') and (school.type.schoolTypeName == 'public')}">
                 <div id="learnMoreModule">
                     <div id="lmHeader">Learn More</div>
+                    <div id="lmmBorder">
                     <div id="lmModules">
                         <div class="left">
                             <link:schoolProfileTestscore school="${school}"
@@ -187,16 +188,15 @@
                             </link:districtProfile>
                         </div>
                     </div>
-                </div>
-            </variant:b>
-
-            <variant:a>
-                <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
-                    <div id="topCompare" style="float:left; padding-bottom:25px;" >
-                        <school:compareSchool school="${school}"/>
                     </div>
-                </c:if>
-            </variant:a>
+                </div>
+            </c:if>
+
+            <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
+                <div id="topCompare" style="float:left; padding-bottom:25px;" >
+                    <school:compareSchool school="${school}"/>
+                </div>
+            </c:if>
 
             <c:if test="${school.levelCode != 'p'}">
                 <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview">
@@ -258,7 +258,7 @@
             </c:if>
 
 
-            <variant:a>
+            <c:if test="${(requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName != 'public')}">
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
@@ -356,21 +356,12 @@
                     </div>
                 </c:if>
             </div>
-            </variant:a>
+            </c:if>
 
         </div><!-- end: col_center -->
 
 		<!-- begin right column -->
         <div id="col_right" class="noprint">
-
-            <variant:b>
-                <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
-                    <div id="topCompareRight"  >
-                        <school:compareSchoolTest school="${school}"/>
-                    </div>
-                </c:if>
-            </variant:b>
-
 
             <div class="ad_top">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>

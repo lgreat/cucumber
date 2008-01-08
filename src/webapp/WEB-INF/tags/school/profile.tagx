@@ -94,7 +94,7 @@
                 county = county.substring(0, 10);
             }
         }
-        
+
         if (null != pageHelper) {
             pageHelper.addAdKeyword("type", schoolType);
             pageHelper.addAdKeyword("level", levelAbbrev);
@@ -112,14 +112,16 @@
 ]]>
 
 <c:if test="${tab eq 'overview'}">
-<variant:b>
-    <pageHelper:externalCss file="/res/css/school/profile_learnMore.css"/>
-    <![CDATA[
-    <!--[if IE 7]>
-        <link rel="stylesheet" type="text/css" href="/res/css/school/profile_learnMore_ie7.css" />
-    <![endif]-->
-    ]]>
-</variant:b>
+    <c:if test="${school.type.schoolTypeName == 'public'}">
+        <variant:b>
+            <pageHelper:externalCss file="/res/css/school/profile_learnMore.css"/>
+            <![CDATA[
+            <!--[if IE 7]>
+                <link rel="stylesheet" type="text/css" href="/res/css/school/profile_learnMore_ie7.css" />
+            <![endif]-->
+            ]]>
+        </variant:b>
+    </c:if>
 </c:if>
 
 <c:if test="${!requestScope.context.crawler}">
@@ -199,7 +201,7 @@
                 <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
             </c:if>
         </c:if>
-        <c:if test="${(tab eq 'overview') and (requestScope.context.ABVersion eq 'b')}">
+        <c:if test="${(tab eq 'overview') and (requestScope.context.ABVersion eq 'b') and (school.type.schoolTypeName == 'public')}">
             <c:if test="${!requestScope.context.crawler}">
                 <span class="subnavTools">
                     <a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;
@@ -269,9 +271,6 @@
 
     </div> <!-- end: schoolProfileHeader div -->
 
-    <c:if test="${(tab eq 'overview') and (requestScope.context.ABVersion eq 'b')}">
-        <div id="headSpacer">head spacer</div>
-    </c:if>
     <c:set var="headerAnchor" value="from..Tab"/>
     <table id="navigation" cellpadding="0" cellspacing="0">
         <tr>

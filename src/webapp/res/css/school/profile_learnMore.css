@@ -1,6 +1,7 @@
 .overview #schoolProfileHeader {
     padding-bottom: 10px;
     border-bottom: 2px solid #DDEEEE;
+    margin-bottom: 9px;
 }
 .toolsImg {
     display:none;
