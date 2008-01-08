@@ -6,6 +6,8 @@ package gs.web.community.registration;
 import gs.data.util.email.EmailHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.AbstractSendEmailBean;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.data.community.User;
 
 import javax.mail.MessagingException;
@@ -37,18 +39,19 @@ public class RegistrationConfirmationEmail extends AbstractSendEmailBean {
      * @throws MessagingException on error creating message
      * @throws MailException on error sending email
      */
-    public void sendToUser(User user, HttpServletRequest request) throws IOException, MessagingException, MailException {
+    public void sendToUser(User user, String passwordPlaintext, HttpServletRequest request) throws IOException, MessagingException, MailException {
         EmailHelper emailHelper = getEmailHelper();
         emailHelper.setToEmail(user.getEmail());
         emailHelper.readHtmlFromResource(HTML_EMAIL_LOCATION);
         emailHelper.readPlainTextFromResource(TEXT_EMAIL_LOCATION);
 
-        addLinkReplacement(emailHelper, request, UrlBuilder.BETA_SIGNUP, "BETA_SIGNUP",
-                "sign up for our community beta group", "welcomereg");
-        addLinkReplacement(emailHelper, request, UrlBuilder.RESEARCH, "TEST_SCORES_PAGE",
-                "Begin your search here", "welcomereg");
-        addLinkReplacement(emailHelper, request, UrlBuilder.HOME, "EXPECT_IN_CLASSROOM",
-                "Get started here", "welcomereg");
+        SessionContext sc = SessionContextUtil.getSessionContext(request);
+        String communityHost = sc.getSessionContextUtil().getCommunityHost(request);
+        emailHelper.addInlineReplacement("GET_STARTED", "http://" + communityHost);
+        emailHelper.addInlineReplacement("USER_EMAIL", user.getEmail());
+        emailHelper.addInlineReplacement("USER_PASSWORD", passwordPlaintext);
+        emailHelper.addInlineReplacement("TAKE_TOUR", "http://" + communityHost + "/tour/index.html");
+        emailHelper.addInlineReplacement("READ_FAQ", "http://" + communityHost + "/faq");
 
         emailHelper.send();
     }

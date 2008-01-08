@@ -1,44 +1,28 @@
-<h3>Welcome to GreatSchools!</h3>
+<h3>Welcome to the GreatSchools Parent Community!</h3>
 
 <p>
-Navigating your child's education can be a challenging job in endless ways. By pre-registering for the
-GreatSchools community today, you've taken a step toward connecting with the more than 33 million parents
-who turn to GreatSchools each year to help get a great education for their children!
+You're ready to start talking with parents about the issues that matter to you about your child's education!
+Meet parents, share your success stories, find answers to your questions, advocate for schools and more.
 </p>
 
-<p>
-We're building a dynamic set of features to help you meet parents, share your success stories, find
-answers to your questions, advocate for local schools and more-and, as an early registrant, you'll
-be among the first to be invited to join this exciting community of parents who are passionate about
-education. Look for an official community invitation email in the coming weeks.
-</p>
+<p><a href="$GET_STARTED">Get started today!</a></p>
+
+<p>Here's your login information:</p>
+
+<strong>Email address:</strong> $USER_EMAIL<br/>
+<strong>Password:</strong> $USER_PASSWORD<br/>
+<br/>
+
+Want to learn more about what the community has to offer?
+<ul>
+<li><a href="$TAKE_TOUR">Take a tour</a> or</li>
+<li><a href="$READ_FAQ">Read our community FAQ</a></li>
+</ul>
+
+<p>Happy posting!</p>
 
 <p>
-If you haven't done so yet, $BETA_SIGNUP to try some of these features prior to launch.
-Your feedback in this group will play a fundamental role in shaping the community for parents nationwide.
-</p>
-
-<p>Don't forget to check out the rich content GreatSchools currently has to offer:</p>
-
-<h3>Choose the best school for your family</h3>
-<p>
-Let us guide you through the test scores and student stats, the Parent Reviews and GreatSchools Ratings.<br/>
-$TEST_SCORES_PAGE.
-</p>
-
-<h3>Champion your child's education</h3>
-<p>
-Find out what to expect in the classroom, learn about the most important education issues and get advice from
-A-Z.<br/>
-$EXPECT_IN_CLASSROOM.
-</p>
-
-<p>We're sure you'll love it!</p>
-
-<p>Sincerely,</p>
-
-<p>
-Katherine Kornas<br/>
-Community Product Manager<br/>
+Tajalli Love<br/>
+Mom and Community Moderator<br/>
 GreatSchools
 </p>

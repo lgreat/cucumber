@@ -106,10 +106,12 @@ public class RegistrationConfirmController extends AbstractController implements
         }
         // authenticate user
         if (!user.isEmailValidated()) {
+            String passwordPlaintext = user.getPasswordMd5().substring
+                    (0, user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX));
             user.setEmailValidated();
             _userDao.saveUser(user);
             try {
-                _registrationConfirmationEmail.sendToUser(user, request);
+                _registrationConfirmationEmail.sendToUser(user, passwordPlaintext, request);
             } catch (Exception e) {
                 _log.error("Error sending registration confirmation email to user: " + user);
                 _log.error(e);

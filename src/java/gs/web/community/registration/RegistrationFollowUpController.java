@@ -22,7 +22,6 @@ import gs.data.soap.CreateOrUpdateUserRequest;
 import gs.data.soap.SoapRequestException;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
 
@@ -242,6 +241,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
         FollowUpCommand fupCommand = (FollowUpCommand)command;
         User user = fupCommand.getUser();
+        String passwordPlaintext = "********";
         // get existing profile
         // in validation stage above, the command was populated with the actual DB user
         // so this is getting the actual DB user profile
@@ -253,6 +253,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             String password = user.getPasswordMd5().substring
                     (user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX) +
                             User.EMAIL_PROVISIONAL_PREFIX.length());
+            passwordPlaintext = user.getPasswordMd5().substring
+                    (0, user.getPasswordMd5().indexOf(User.EMAIL_PROVISIONAL_PREFIX));
             try {
                 notifyCommunity(user.getId(), existingProfile.getScreenName(), user.getEmail(),
                         password, existingProfile.getUpdated(), request);
@@ -326,7 +328,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         if (!user.isEmailProvisional()) {
             // registration is done, let's send a confirmation email
             try {
-                _registrationConfirmationEmail.sendToUser(user, request);
+                _registrationConfirmationEmail.sendToUser(user, passwordPlaintext, request);
             } catch (Exception ex) {
                 _log.error("Error sending community registration confirmation email to " + user);
                 _log.error(ex);

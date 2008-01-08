@@ -47,7 +47,7 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         User user = new User();
         user.setEmail("aroy+1@greatschools.net");
         // call
-        _email.sendToUser(user, getRequest());
+        _email.sendToUser(user, "initpass", getRequest());
         // verify
         List msgs = _mailSender.getSentMessages();
         assertNotNull(msgs);

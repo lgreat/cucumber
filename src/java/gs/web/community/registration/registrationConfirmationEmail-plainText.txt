@@ -1,25 +1,21 @@
-Welcome to GreatSchools!
+Welcome to the GreatSchools Parent Community!
 
-Navigating your child's education can be a challenging job in endless ways. By pre-registering for the GreatSchools community today, you've taken a step toward connecting with the more than 33 million parents who turn to GreatSchools each year to help get a great education for their children!
+You're ready to start talking with parents about the issues that matter to you about your child's education!
+Meet parents, share your success stories, find answers to your questions, advocate for schools and more.
 
-We're building a dynamic set of features to help you meet parents, share your success stories, find answers to your questions, advocate for local schools and more-and, as an early registrant, you'll be among the first to be invited to join this exciting community of parents who are passionate about education. Look for an official community invitation email in the coming weeks.
+Get started today! $GET_STARTED
 
-If you haven't done so yet, $BETA_SIGNUP to try some of these features prior to launch. Your feedback in this group will play a fundamental role in shaping the community for parents nationwide.
+Here's your login information:
 
-Don't forget to check out the rich content GreatSchools currently has to offer:
+Email address: $USER_EMAIL
+Password: $USER_PASSWORD
 
-Choose the best school for your family
-Let us guide you through the test scores and student stats, the Parent Reviews and GreatSchools Ratings.
-$TEST_SCORES_PAGE.
+Want to learn more about what the community has to offer?
+  * Take a tour ($TAKE_TOUR) or
+  * Read our community FAQ ($READ_FAQ)
 
-Champion your child's education
-Find out what to expect in the classroom, learn about the most important education issues and get advice from A-Z.
-$EXPECT_IN_CLASSROOM.
+Happy posting!
 
-We're sure you'll love it!
-
-Sincerely,
-
-Katherine Kornas
-Community Product Manager
+Tajalli Love
+Mom and Community Moderator
 GreatSchools

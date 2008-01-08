@@ -10,7 +10,6 @@ import gs.data.soap.CreateOrUpdateUserRequestBean;
 import gs.data.soap.CreateOrUpdateUserRequest;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
@@ -266,7 +265,7 @@ public class RegistrationController extends SimpleFormController implements Read
             if (!user.isEmailProvisional()) {
                 try {
                     // registration is done, let's send a confirmation email
-                    _registrationConfirmationEmail.sendToUser(user, request);
+                    _registrationConfirmationEmail.sendToUser(user, userCommand.getPassword(), request);
                 } catch (Exception ex) {
                     _log.error("Error sending community registration confirmation email to " +
                             user);
