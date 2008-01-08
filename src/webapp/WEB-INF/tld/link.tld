@@ -1504,7 +1504,14 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>onclick handler</description>
-        </attribute>        
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
+        </attribute>
     </tag>
     <tag>
         <name>allSchoolsInDistrict</name>
