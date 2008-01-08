@@ -20,10 +20,10 @@ with feedback about your experience after you're done.</li>
 whether or not you'd like to participate.</li>
 </ul>
 
-<p>Also, be sure to register for the GreatSchools community now to be among the first invited
-to join an exciting community of parents who are passionate about education.</p>
+<p>Also, be sure to check out the GreatSchools Parent Community now to join an exciting
+community of parents who are passionate about education..</p>
 
-<p><a href="http://www.greatschools.net/community/registration.page?cpn=betawelcome&email=$EMAIL">Join the community</a></p>
+<p><a href="http://community.greatschools.net">Visit the GreatSchools Parent Community</a></p>
 
 <p>Thanks so much for your help! Together, we can help parents shape their children's education
 in innovative and meaningful ways!</p>
