@@ -9,10 +9,6 @@
 <jsp:directive.attribute name="communityHost" required="true"
                          description="Hostname of community server, such as community.greatschools.net"/>
     <div id="communityHeader" class="noprint withImages">
-        <!-- communityClassSearch is used to modify the margin above the search box below -->
-        <c:set var="communityClassSearch" value="communityHeader"/>
-        <!-- webbyStyle is used to hide the webby logo below -->
-        <c:set var="webbyStyle" value="display: none;"/>
         <span class="headerUsername">
             Welcome,
             <gsml:a href="http://${communityHost}/members/${requestScope.context.screenName}">${requestScope.context.screenName}</gsml:a>

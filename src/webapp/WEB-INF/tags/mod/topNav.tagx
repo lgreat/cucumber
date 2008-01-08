@@ -51,6 +51,10 @@
                 <c:choose>
                     <!-- full community login case -->
                     <c:when test="${communityAuth eq true}">
+                        <!-- communityClassSearch is used to modify the margin above the search box below -->
+                        <c:set var="communityClassSearch" value="communityHeader"/>
+                        <!-- webbyStyle is used to hide the webby logo below -->
+                        <c:set var="webbyStyle" value="display: none;"/>
                         <mod:communityAccountHeader communityHost="${communityHost}"/>
                     </c:when>
                     <!-- msl only login case -->
