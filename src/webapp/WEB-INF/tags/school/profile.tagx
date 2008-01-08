@@ -195,7 +195,7 @@
                 <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
             </c:otherwise>
         </c:choose>
-        <c:if test="${(tab ne 'overview') or (requestScope.context.ABVersion eq 'a')}">
+        <c:if test="${(tab ne 'overview') or (requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName != 'public')}">
             <c:if test="${school.levelCode != 'p'}">
                 <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
                 <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
