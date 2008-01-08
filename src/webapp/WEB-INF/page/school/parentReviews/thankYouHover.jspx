@@ -43,19 +43,16 @@
 
     <gsml:body adPageName="thankYouHover">
         <div id="thankYouContent">
-            <p id="thankYou">Thank you!</p>
-
-            <p>Our Parent Review team will read your
-                review and post it if it meets our
-                guidelines. This process may take a
-                a few days.
-            </p>
-            <p id="knowMore">Parents want to know more!</p>
-            <p style="margin-top:8px;">Share more details about your school's special characteristics.</p>
-            <div style="position:relative;">
+            <div id="thankYou">
+                <gsml:img alt="Thank you! Parents want to know more!"
+                          src="/res/img/school/parentReviews/thankYou.jpg"
+                          styleClass="thankYou"/>
+            </div>
+            <p id="shareMore">Share more details about your school's special characteristics.</p>
+            <div class="parentSurvey">
                 <link:schoolStartSurvey school="${school}"
-                                    id="sppPR">Complete a Parent Survey</link:schoolStartSurvey>
-                <gsml:img src="/res/img/bullet/blue_arrows.gif" alt="blue arrow" styleClass="arrow"/>
+                                        id="sppPR"><gsml:img src="/res/img/school/parentReviews/completeParentSurvey.gif"
+                                                             alt="Complete a Parent Survey"/></link:schoolStartSurvey>
             </div>
         </div>
         <mod:tracking pageName="PR Thank You Hover Omniture "

@@ -14,19 +14,20 @@ input#permission, input#wantMssNL {width:15px; height:15px;margin:0;padding:0;}
 
 /*update ratings page*/
 #updateRatings {padding-left:14px;}
-#updateRatings #thankYou {color:#55bbcc;line-height:130%;font-size:16px;font-weight:bolder;}
+#updateRatings #thankYou {color:#666666;font-size:13px;font-weight:normal;}
+#updateRatings #thankYou .strong {font-weight:bold;}
+#updateRatings #rateHeader {color:#55BBCC;font-size:16px;line-height:18px;font-weight:bolder;}
 #updateRatings p,td{font-size:14px;}
-#updateRatings table {padding:0; margin:0;}
-#updateRatings td {padding:0 0 10px 0;}
+#updateRatings table {padding:0 0 5px 0; margin:0;}
+#updateRatings td {padding:0 0 6px 0;}
 #updateRatings #subButtons {margin:30px 0 0 55px;}
 #updateRatings #submit {margin:0 0 0 30px;position:absolute;}
 #updateRatings a {font-size:13px;}
+#updateRatings a.learnMore {font-size:12px;position:relative;top:4px;}
 
 /*thank you page*/
-#thankYouContent {padding-left:14px;}
-#thankYouContent p {font-size: 15px;line-height:120%;}
-#thankYouContent #thankYou {color: #55bbcc; font-size: 20px; font-weight:bold;}
-#thankYouContent #knowMore {color:#CC5569;font-size:17px;margin-top:30px;padding-bottom:0;margin-bottom:0;};
-#thankYouContent #close {margin:30px 0 0 140px;}
-#thankYouContent a {font-size:16px;font-weight:bold;}
-#thankYouContent .arrow {position:absolute;padding:3px 0 0 10px;}
+#thankYouContent {position:relative;}
+#thankYouContent div#thankYou {position: relative;top:10px;left:-10px;width:340px;background-color:#DCEEEE;}
+#thankYouContent div#thankYou img {position: relative;}
+#thankYouContent p#shareMore {color:#CC5569;font-size:19px;line-height: 24px;padding-top: 20px;padding-bottom:5px;}
+#thankYouContent div.parentSurvey, #thankYouContent p {margin-left: 14px;}

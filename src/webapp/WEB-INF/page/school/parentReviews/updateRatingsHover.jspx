@@ -33,9 +33,10 @@
 
 <gsml:body adPageName="updateRatings">
     <div id="updateRatings">
-        <p id="thankYou">Thank You!<br/>Your review has been saved.</p>
+        <p id="thankYou"><span class="strong">Thank You!</span> Our Parent Review team will read your
+        review and post it if it meets our guidelines. This process may take a few days.</p>
 
-        <p style="margin-top:-13px;">Parents would love to know how you rate the school in these additional areas:</p>
+        <p id="rateHeader">Parents would love to know how you rate the school in these additional areas:</p>
         <form:form commandName="parentReviewCommand" method="post">
         <table>
             <tr>
@@ -59,12 +60,13 @@
                 <td><gsml:starRating id="safetyAsString" additionalClass="med-star"/></td>
             </tr>
         </table>
-            <link:parentRatingsExplained target="_blank">Learn more about these categories &gt;</link:parentRatingsExplained>
+            <link:parentRatingsExplained target="_blank" styleClass="learnMore">Learn more about these categories &gt;</link:parentRatingsExplained>
 
             <div id="subButtons">
-                <gsml:url var="thankYouPage" value="/school/thankYouHover.page?id=${school.id}&amp;state=${stateAbbrev}"/>
+                <gsml:url var="thankYouPage"
+                          value="/school/thankYouHover.page?id=${school.id}&amp;state=${stateAbbrev}"/>
 
-                <a href="${thankYouPage}">No thanks, I'm done</a>                
+                <a href="${thankYouPage}">No thanks, I'm done</a>
                 <gsml:inputImage src="/res/img/button/btn_submit.gif" alt="Submit" id="submit"/>
             </div>
         </form:form>
