@@ -44,14 +44,17 @@
     <gsml:body adPageName="thankYouHover">
         <div id="thankYouContent">
             <div id="thankYou">
-                <gsml:img alt="Thank you! Parents want to know more!"
-                          src="/res/img/school/parentReviews/thankYou.jpg"
-                          styleClass="thankYou"/>
+                <link:schoolStartSurvey school="${school}">
+                    <gsml:img alt="Thank you! Parents want to know more!"
+                              src="/res/img/school/parentReviews/thankYou.jpg"
+                              styleClass="thankYou"/>
+                </link:schoolStartSurvey>
             </div>
-            <p id="shareMore">Share more details about your school's special characteristics.</p>
+            <p id="shareMore">
+                <link:schoolStartSurvey school="${school}">Share more details about your school's special characteristics.</link:schoolStartSurvey>
+            </p>
             <div class="parentSurvey">
-                <link:schoolStartSurvey school="${school}"
-                                        id="sppPR"><gsml:img src="/res/img/school/parentReviews/completeParentSurvey.gif"
+                <link:schoolStartSurvey school="${school}"><gsml:img src="/res/img/school/parentReviews/completeParentSurvey.gif"
                                                              alt="Complete a Parent Survey"/></link:schoolStartSurvey>
             </div>
         </div>

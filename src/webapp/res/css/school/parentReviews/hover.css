@@ -29,5 +29,6 @@ input#permission, input#wantMssNL {width:15px; height:15px;margin:0;padding:0;}
 #thankYouContent {position:relative;}
 #thankYouContent div#thankYou {position: relative;top:10px;left:-10px;width:340px;_width:344px;background-color:#DCEEEE;}
 #thankYouContent div#thankYou img {position: relative;}
-#thankYouContent p#shareMore {color:#CC5569;font-size:19px;line-height: 24px;padding-top: 20px;padding-bottom:5px;}
+#thankYouContent p#shareMore {line-height: 24px;padding-top: 20px;padding-bottom:5px;}
+#thankYouContent p#shareMore a {color:#CC5569;font-size:19px;text-decoration:none}
 #thankYouContent div.parentSurvey, #thankYouContent p {margin-left: 14px;}
