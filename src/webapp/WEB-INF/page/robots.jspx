@@ -14,6 +14,7 @@ Disallow: /sitemap/
 <c:set var="excludes">
 <!-- List of URL's no bot should ever crawl -->    
 Disallow: /*&amp;amp;*
+Disallow: /*/improve
 Disallow: /*/popup
 Disallow: /*/print
 Disallow: /*;jsessionid*
