@@ -21,19 +21,31 @@
         <pageHelper:externalCss file="/res/css/school/parentReviews/hover.css"/>
         <script type="text/javascript">
             function onClose() {
-            var link = document.getElementById('sppPR');
-            if (link) {
+                var link = document.getElementById('sppPR1');
+                if (link) {
+                    addOnclick(link);
+                }
+                link = document.getElementById('sppPR2');
+                if (link) {
+                    addOnclick(link);
+                }
+                link = document.getElementById('sppPR3');
+                if (link) {
+                    addOnclick(link);
+                }
+            }
+            function addOnclick(link) {
                 link.onclick = function() {
                     if (typeof window.top.hidePopWin == 'undefined') {
                         opener.location.href = this.href;
-                        window.close();                        
+                        window.close();
                     } else {
                         window.top.hidePopWin(false);
                         window.top.location=this.href;
                         return false;
                     }
                 }
-            }}
+            }
         </script>
         <style type="text/css">
             .marginGS a, .marginGS a:link, .marginGS a:hover, .marginGS a:visited {font-size:14px;line-height:120%;}
@@ -44,17 +56,17 @@
     <gsml:body adPageName="thankYouHover">
         <div id="thankYouContent">
             <div id="thankYou">
-                <link:schoolStartSurvey school="${school}">
+                <link:schoolStartSurvey school="${school}" id="sppPR1">
                     <gsml:img alt="Thank you! Parents want to know more!"
                               src="/res/img/school/parentReviews/thankYou.jpg"
                               styleClass="thankYou"/>
                 </link:schoolStartSurvey>
             </div>
             <p id="shareMore">
-                <link:schoolStartSurvey school="${school}">Share more details about your school's special characteristics.</link:schoolStartSurvey>
+                <link:schoolStartSurvey school="${school}" id="sppPR2">Share more details about your school's special characteristics.</link:schoolStartSurvey>
             </p>
             <div class="parentSurvey">
-                <link:schoolStartSurvey school="${school}"><gsml:img src="/res/img/school/parentReviews/completeParentSurvey.gif"
+                <link:schoolStartSurvey school="${school}" id="sppPR3"><gsml:img src="/res/img/school/parentReviews/completeParentSurvey.gif"
                                                              alt="Complete a Parent Survey"/></link:schoolStartSurvey>
             </div>
         </div>

@@ -14,9 +14,9 @@ input#permission, input#wantMssNL {width:15px; height:15px;margin:0;padding:0;}
 
 /*update ratings page*/
 #updateRatings {padding-left:14px;}
-#updateRatings #thankYou {color:#666666;font-size:13px;font-weight:normal;}
+#updateRatings #thankYou {color:#666666;font-size:13px;font-weight:normal;_margin-bottom:10px;}
 #updateRatings #thankYou .strong {font-weight:bold;}
-#updateRatings #rateHeader {color:#55BBCC;font-size:16px;line-height:18px;font-weight:bolder;}
+#updateRatings #rateHeader {color:#55BBCC;font-size:17px;line-height:18px;font-weight:normal;_margin-top:16px;}
 #updateRatings p,td{font-size:14px;}
 #updateRatings table {padding:0 0 5px 0; margin:0;}
 #updateRatings td {padding:0 0 6px 0;}
