@@ -253,6 +253,24 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         assertFalse(errors.hasErrors());
     }
 
+    public void testCancelWithReferrerIframe() throws Exception {
+        getRequest().setParameter("cancel", "cancel");
+        getRequest().setServerName("dev.greatschools.net");
+        UserCommand command = new UserCommand();
+        command.setReferrer("http://community.dev.greatschools.net/login_iframe?redirect=blahblah");
+        BindException errors = new BindException(command, "");
+
+        assertTrue(_controller.suppressValidation(getRequest()));
+
+        replay(_userDao);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        verify(_userDao);
+
+        assertEquals("redirect:http://community.dev.greatschools.net/", mAndV.getViewName());
+
+        assertFalse(errors.hasErrors());
+    }
+
     public void testBindReferrer() {
         UserCommand command = new UserCommand();
         BindException errors = new BindException(command, "");
