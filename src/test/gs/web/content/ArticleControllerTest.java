@@ -26,7 +26,7 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV =
                 _controller.handleRequestInternal(request, getResponse());
         Article article =
-                (Article)mAndV.getModel().get(ArticleController.MODEL_ARTICLE);
+                (Article)mAndV.getModel().get("article");
         assertEquals("Article title does not match.",
                 "Who Makes School Discipline Decisions?", article.getTitle());
     }
