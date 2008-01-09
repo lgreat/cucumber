@@ -278,7 +278,7 @@ public class RegistrationController extends SimpleFormController implements Read
                     !urlUtil.isCommunityContentLink(userCommand.getRedirectUrl())) {
                 String redirectUrl = "http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests";
+                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
                 userCommand.setRedirectUrl(redirectUrl);
             }
             mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
