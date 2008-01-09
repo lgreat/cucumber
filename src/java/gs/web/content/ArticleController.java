@@ -12,8 +12,7 @@ import gs.data.content.Article;
 
 /**
  * This is the controller for the article page.  A single article and any
- * associated tools are displayed on article.page given a state and an
- * article id.
+ * associated tools are displayed on article.page given an article id.
  *  
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -31,8 +30,6 @@ public class ArticleController extends AbstractController {
     /** Article id GET request parameter */
     public static final String PARAM_AID = "aid";
 
-    public static final String MODEL_ARTICLE = "article";
-
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
 
@@ -41,7 +38,7 @@ public class ArticleController extends AbstractController {
 
         try {
             Article article = _articleDao.getArticleFromId(Integer.valueOf(schoolId));
-            mAndV.getModel().put(MODEL_ARTICLE, article);
+            mAndV.getModel().put("article", article);
         } catch (NumberFormatException nfe) {
             _log.warn("Bad article id: " + schoolId);
         }

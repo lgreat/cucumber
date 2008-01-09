@@ -1,17 +1,14 @@
 div#article {
-    padding:0;
+    padding-left:20px;
 }
 
-div#articleTitle {
-    color:#56BECC;
-    background:#DBEDEF;
-    width:500px;
-    padding: 10px 10px 10px 20px;
+div.article-title {
+    padding: 10px 0 10px 0;
 }
 
-div#articleAbstract {
+div.abstract {
     width:520px;
-    padding:10px 0 5px 20px;
+    padding:10px 0 5px 0;
 }
 
 div#articleAuthor {
@@ -20,42 +17,49 @@ div#articleAuthor {
 }
 
 div#articleText {
-    padding:20px 0px 0px 20px;
+    padding:20px 0 0 0;
 }
 
 div#articleTools {
     border:solid 2px #66CDCB;
 }
     div#articleTools h2 {
+        font-weight:bold;
+        color:#333333;
         border-bottom:solid 1px #AAAAAA;
         padding:5px 3px 5px 3px;
         margin: 0px 3px 10px 3px;
+    }
+
+    div#articleTools ul {
+        margin:10px;
+        line-height:19px;
+    }
+
+    div#articleTools li a {
+        color: #3399AA;
+        text-decoration:underline;
     }
 
     div#articleTools li {
         margin-left:35px;
     }
 
-    div#articleTools li#print {
-        list-style-image:url("/res/img/content/article/printgrey.gif")
+    div#articleTools li#printLink {
+        list-style-image:url("/res/img/content/article/yellowprinter.gif")
     }
 
-    div#articleTools li#email {
-        list-style-image:url("/res/img/content/article/emailgrey.gif")
+    div#articleTools li#emailLink {
+        list-style-image:url("/res/img/content/article/yellowenvelope.gif")
     }
 
-    div#articleTools li#signup {
-        list-style-image:url("/res/img/content/article/signupgrey.gif")
+    div#articleTools li#signupLink {
+        list-style-image:url("/res/img/content/article/yellowcheck.gif")
     }
 
     div#articleTools li#discuss {
         list-style-image:url("/res/img/content/article/discussgrey.gif")
     }
-
-div#articleText li {
-    list-style:disc;
-    margin-left:30px;
-}
 
 div#articleText li .rlbcopy {
     color:#55BBCA;
@@ -86,5 +90,327 @@ div#moreAbout {
 }
 
 div#enterComment {
-    border:solid blue;
+    margin-top:30px;
 }
+
+div.comment {
+    margin:15px 15px 25px 15px;
+    line-height:22px;
+}
+
+div#article-main {
+    padding-right:10px
+}
+/*  styles from editorial.css - changes have been made below.  diff before merging back to perl styles. */
+
+.contentGS .article-title {
+    font-family:"Times New Roman", Helvetica, sans-serif;
+    font-size:28px;
+    line-height:31px;
+    color:#444444;
+}
+
+.byline {
+    font-family:"Times New Roman", Helvetica, sans-serif;
+    font-size:14px;
+    line-height:20px;
+    color:#55BBCC;
+}
+
+.byline a {
+    text-decoration:none;
+}
+
+.contentGS .abstract {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:15px;
+    line-height:20px;
+    color:#444444;
+    background:#FFFFFF;
+}
+
+.content, #article-main, .subheader {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:15px;
+    line-height:22px;
+    color:#444444;
+}
+
+#article-main span.caption {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:12px;
+    font-weight:normal;
+    line-height:15px;
+    color:#444444;
+}
+
+#article-main .header {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:17px;
+    font-weight:bold;
+    line-height:22px;
+    color:#444444;
+}
+
+.subheader {
+    font-weight:bold;
+}
+
+#article-main a, .byline a, a {
+    color:#3399AA;
+}
+
+div.dotted-divider hr {
+    display:none;
+}
+
+div.dotted-divider {
+    height:5px;
+    border:0px;
+    margin:20px 0 20px 0;
+    background-image: url("/res/img/splash/greyDot.gif");
+    background-repeat: repeat-x;
+}
+
+div#more-about {
+    margin:20px 0 0 0;
+}
+
+span.headline {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:18px;
+    font-weight:bold;
+    color:#99CC66;
+}
+
+div#more-about ul {
+    margin:10px 0 0 0;
+    padding:0;;
+    list-style:none;
+}
+
+div#more-about li {
+    padding: 0px 0px 2px 10px;
+    background-image: url("/res/img/content/article/greenarrow.gif");
+    background-repeat: no-repeat;
+    background-position: 0ex .9ex;
+    color:#3399AA;
+}
+
+div.blueModule {
+    position:relative;
+    border:2px solid #E4F3F5;
+    margin-bottom:15px;
+}
+
+div.blueModule div.blueHeader {
+    background:#E4F3F5;
+    height:25px;
+}
+
+div.blueModule div.blueHeader span {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    line-height:24px;
+    padding-left:15px;
+    color:#3399AA;
+}
+
+div.blueModule div.content,
+div.greenModule div.content {
+    font-size:13px;
+    line-height:20px;
+    padding:10px;
+}
+
+/** Comment Area **/
+div#articleComments div#enterComment,
+div.greenModule {
+    position:relative;
+    border:2px solid #E1EFD1;
+    margin-bottom:15px;
+    color:#444444;
+}
+
+div.greenHeader {
+    background:#E1EFD1;
+    height:25px;
+}
+
+div.greenHeader span {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    line-height:24px;
+    padding-left:15px;
+    color:#6BA230;
+}
+
+div#articleComments div#enterComment textarea {
+    width:360px;
+    border:2px solid #CCCCCC;
+    margin:10px 0 0 10px;
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    color:#666666;
+}
+
+div#articleComments div#enterComment div#nameEmail {
+    position:absolute;
+    top:35px;
+    left:400px;
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+}
+
+div#articleComments div#enterComment input.text {
+    border:1px solid #CCCCCC;
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    color:#666666;
+}
+
+div#articleComments div#enterComment div#terms {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:13px;
+    padding:30px 10px 10px 20px;
+    color:#444444;
+}
+
+div#articleComments div#enterComment div#terms a {
+    color:#3399AA;
+}
+
+div#articleComments div#enterComment div#terms span {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    color:#444444;
+}
+
+div#terms span.permission {
+    font-size:14px;
+}
+
+div#terms span.note {
+    font-size:13px;
+}
+
+div#terms span.note .rlbcopy {
+    font-size:13px;
+    font-weight:normal;
+}
+
+div#articleComments div#enterComment div#terms span.rlbcopy {
+    padding-left:25px;
+    color:#444444;
+}
+
+div#toolsmenu span.simplemenu a {
+    color:#3399AA;
+}
+
+div#articleComments {
+   font-family:"Trebuchet MS", Helvetica, sans-serif;
+   font-size:14px;
+   font-style:normal;
+   color:#666666;
+}
+
+div#articleComments span#commentsHeader {
+
+}
+
+div#articleComments hr {
+    display:none;
+}
+
+div#articleComments span.r2ibcopy {
+   font-family:"Trebuchet MS", Helvetica, sans-serif;
+   font-size:11px;
+   font-weight:bold;
+   font-style:normal;
+   color:#CC5566;
+}
+
+a.spanish {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:13px;
+    font-style:normal;
+    color:#3399AA;
+    text-decoration:none;
+}
+
+span.lead-in {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    color:#CC5566;
+}
+
+span.microsite {
+    color:#444444;
+    font-size:13px;
+    line-height:50px;
+}
+
+div#terms input {
+   float:left;
+   margin:0 13px 40px 0;
+
+}
+
+span.permission, span.note {
+    display:block;
+    line-height:16px;
+    padding:0 0 10px 0;
+}
+
+div#articleComments div#enterComment
+    div#terms span.rlbcopy {
+    padding-left:0px;
+}
+
+/* =====   leftSidebar  ===== */
+
+div.leftSidebar {
+    width: 225px;
+    background: #f9fcfc;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #ddeeee;
+    float: left;
+    margin:10px 10px 0px 0px;
+    padding:10px 10px 10px 10px ;
+}
+
+div.leftSidebar .sidebarHeadline {
+    color:#99CC66;
+    font-size:18px;
+    font-weight: bold;
+    line-height:22pt;
+    margin:0 0 10px 0;
+}
+
+div.leftSidebar li {
+    list-style-position: outside;
+    font-weight: bold;
+    line-height:22pt;
+    margin:0 0 10px 0;
+
+}
+
+div.leftSidebar ul, div.leftSidebar ol{
+    padding-left: 1em;
+}
+
+li {
+     list-style-position: inside;
+}
+
+ul, ol{
+     padding-left: 0.5em
+}
+
+/* ===== ========== ===== */
+
+
+
+

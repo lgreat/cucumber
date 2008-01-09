@@ -12,6 +12,9 @@
     <head>
         <title>${requestScope.article.title}</title>
         <pageHelper:externalCss file="/res/css/content/article.css"/>
+        <c:if test="${param.print}">
+            <pageHelper:externalCss file="/res/css/content/article_print.css"/>
+        </c:if>
     </head>
     <body>
 
@@ -21,9 +24,9 @@
             <c:choose>
                 <c:when test="${not empty requestScope.article}">
                     <div id="article">
-                        <div id="articleTitle">${requestScope.article.title}</div>
-                        <div id="articleAbstract">${requestScope.article.abstract}</div>
-                        <div id="articleAuthor">${requestScope.article.author}</div>
+                        <div class="article-title">${requestScope.article.title}</div>
+                        <div class="abstract">${requestScope.article.abstract}</div>
+                        <div class="byline">${requestScope.article.author}</div>
                         <div id="articleText">${requestScope.article.articleText}</div>
                     </div>
                 </c:when>
@@ -36,50 +39,58 @@
             <div id="articleTools">
                 <h2>Article Tools</h2>
                 <ul>
-                    <li id="print"><gsml:a href="">Print This Article</gsml:a></li>
-                    <li id="email"><gsml:a href="">Email This Article</gsml:a></li>
-                    <li id="signup"><gsml:a href="">Sign-up For Newsletters</gsml:a></li>
+                    <li id="printLink"><gsml:a href="">Print This Article</gsml:a></li>
+                    <li id="emailLink"><gsml:a href="">Email This Article</gsml:a></li>
+                    <li id="signupLink"><gsml:a href="">Sign-up For Newsletters</gsml:a></li>
                     <c:if test="${true}">
                         <li id="discuss"><gsml:a href="">Discuss This Article</gsml:a></li>
                     </c:if>
+                    <li id="libraryLink">
+                        <link:articleLibrary>See full library of articles</link:articleLibrary>
+                    </li>
                 </ul>
-                <span id="library">
-                    <link:articleLibrary>See full library of articles</link:articleLibrary>
-                </span>
             </div>
-        </div>
-    </div>
-    <div id="moreAbout"> foo</div>
-
-    <div id="enterComment">
-        <div class="commentHeader"><span class="rlbcopy">Email us your feedback</span></div>
-        <textarea name="description" cols="30" rows="10">xcxc</textarea>
-        <div id="nameEmail">
-            Name (optional):<input name="name" class="text" size="25" type="text"></input>
-                <br /><br />
-            Email (optional):<input name="email" class="text" size="25" type="text"></input>
-            <br /><br />
-            <input value="submit" type="submit"></input>
-        </div>
-        <div id="terms">
-            <input name="permit" type="checkbox"></input>
-            <span class="ncopy">
-                Yes, I agree to the <a href="/#permission">GreatSchools Terms of Use</a> and give GreatSchools
-                permission to post my comments for other parents to read.
-
-            <span class="rlbcopy">Note: </span>Your email address is
-            required if you would like a response from GreatSchools.net.</span><br />
-
+            <ad:AboveFold_300x250/>
         </div>
     </div>
 
-    <div id="comments">
-        <c:forEach var="comment" items="${requestScope.article.userComments}">
-            <div class="comment">
-                <span class="comment-date">${comment.posted}</span>
-                <div id="comment-text">${comment.text}</div>
-            </div>
-        </c:forEach>
+    <div id="articleComments">
+        <div id="enterComment">
+            <form action="/cgi-bin/feedback-submit" method="post">
+                <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
+                <input type="hidden" name="type" value="article" />
+                <input type="hidden" name="id" value="${requestScope.article.id}" />
+
+                <div class="greenHeader" id="commentHeader"><span class="rlbcopy">Email us your feedback</span></div>
+                <textarea name="description" cols="30" rows="10">.</textarea>
+                <div id="nameEmail">
+                    Name (optional):<input name="name" class="text" size="25" type="text"></input>
+                    <br /><br />
+                    Email (optional):<input name="email" class="text" size="25" type="text"></input>
+                    <br /><br />
+                    <input value="submit" type="submit"></input>
+                </div>
+                <div id="terms">
+                    <input name="permit" type="checkbox"></input>
+                    <span class="ncopy">
+                        Yes, I agree to the <a href="/#permission">GreatSchools Terms of Use</a> and give GreatSchools
+                        permission to post my comments for other parents to read.
+
+                        <span class="rlbcopy">Note: </span>Your email address is
+                        required if you would like a response from GreatSchools.net.</span><br />
+                </div>
+            </form>
+        </div>
+
+        <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
+        <div id="comments">
+            <c:forEach var="comment" items="${requestScope.article.userComments}">
+                <div class="comment">
+                    <span class="r2ibcopy comment-date">${comment.posted}</span>
+                    <div id="comment-text">${comment.text}</div>
+                </div>
+            </c:forEach>
+        </div>
     </div>
     </body>
     </html>
