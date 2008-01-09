@@ -206,15 +206,15 @@
 
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${(not empty latestReviewsModel) }">
-                <div id="parentReviews">
-                    <h2>Latest ${school.name} Parent Reviews</h2>
-                    <c:choose>
-                        <c:when test="${(school.levelCode != 'p') and (school.type.schoolTypeName ne 'private')}">
-                            <c:if test="${(not empty latestReviewsModel.latestRating) and
+
+                <c:choose>
+                    <c:when test="${(school.levelCode != 'p') and (school.type.schoolTypeName ne 'private')}">
+                        <c:if test="${(not empty latestReviewsModel.latestRating) and
                                 (not empty latestReviewsModel.randomCategory) and
                                 (not empty latestReviewsModel.randomRating) and
                                 (not empty latestReviewsModel.comment)}">
-
+                            <div id="parentReviews">
+                                <h2>Latest ${school.name} Parent Reviews</h2>
                                 <gsml:img src="/res/img/map/ratings_parent_city_${latestReviewsModel.latestRating}.gif" alt="" styleClass="rating" />
                                 <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
                                     ${latestReviewsModel.randomRating}</em>
@@ -226,10 +226,13 @@
                                         <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
                                         <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
                                     </c:choose>
-                                </link:schoolProfileParentReview >                                    
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
+                                </link:schoolProfileParentReview >
+                            </div>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                         <div id="parentReviews">
+                            <h2>Latest ${school.name} Parent Reviews</h2>
                             <c:forEach var="psReview" items="${latestReviewsModel.schoolReviews}">
                                 <gsml:img src="/res/img/map/ratings_parent_city_${psReview.psRating}.gif" alt="" styleClass="psRating" />
                                 <div class="psComment">${psReview.psComment}</div>
@@ -248,9 +251,10 @@
                                     </div>
                                 </div>
                             </c:if>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+                         </div>
+                    </c:otherwise>
+                </c:choose>
+
              </c:if>
 
             <c:if test="${!requestScope.context.crawler}">
