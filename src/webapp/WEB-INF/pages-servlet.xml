@@ -987,7 +987,6 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="passwordCmd"/>
         <property name="formView" value="/community/registration/resetPassword"/>
-        <property name="successView" value="redirect:/community/communityLanding.page"/>
     </bean>
 
     <bean name="changeEmailController"

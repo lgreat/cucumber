@@ -266,8 +266,7 @@
                    name="submit" onclick="return doSingleClick(this);" id="submitButton"/>
 
 
-  <div class="join"><a href="communityLanding.page" title="Join the GreatSchools community"
-                       onclick="return doSingleClick(this);">&amp;#160;</a></div>
+  <div class="join">&amp;#160;</div>
 
   <spring:bind path="followUpCmd.user.id">
       <input type="hidden" name="id" value="${followUpCmd.user.id}"/>
