@@ -178,11 +178,11 @@ function setPopTitleAndRewriteTargets() {
 		if (popupDocument.getElementsByTagName('base').length < 1) {
 			var aList  = window.frames["popupFrame"].document.getElementsByTagName('a');
 			for (var i = 0; i < aList.length; i++) {
-				if (aList.target == null) aList[i].target='_parent';
+				if (aList[i].target == null) aList[i].target='_parent';
 			}
 			var fList  = window.frames["popupFrame"].document.getElementsByTagName('form');
 			for (i = 0; i < fList.length; i++) {
-				if (fList.target == null) fList[i].target='_parent';
+				if (fList[i].target == null) fList[i].target='_parent';
 			}
 		}
 	}
