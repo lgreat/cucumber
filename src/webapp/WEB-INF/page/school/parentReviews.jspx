@@ -16,7 +16,9 @@
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
           xmlns:form="http://www.springframework.org/tags/form"
         >
-    <html lang="en">
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<html lang="en">
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -34,6 +36,10 @@
                 if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option;
             }
         <![CDATA[--></script>]]>
+        <jsp:scriptlet>
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+        </jsp:scriptlet>
     </head>
     <gsml:body adPageName="parentReviews" pageLayout="parentReviews">
     <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
@@ -179,7 +185,7 @@
                                     <p>Were these ratings and reviews helpful to you? <a href="mailto:commentfeedback@greatschools.net?subject=${school.name} ${stateAbbrev} ${school.id}" title="Give us feedback">Give us feedback &#62;</a></p>
                                 </c:when>
                                 <c:otherwise>
-                                    <p>Connect with other parents. <link:communityLanding>Sign up for <br />the GreatSchools <br />Community &#62;</link:communityLanding></p>
+                                    <p>Connect with other parents. <gsml:a href="http://${communityHost}">Visit the<br />GreatSchools Parent<br />Community &#62;</gsml:a></p>
                                 </c:otherwise>
                             </c:choose>
                         </div>
