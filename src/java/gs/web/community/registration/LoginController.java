@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.28 2007/11/20 23:28:05 aroy Exp $
+ * $Id: LoginController.java,v 1.29 2008/01/09 16:02:44 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -44,9 +44,9 @@ public class LoginController extends SimpleFormController {
     private AuthenticationManager _authenticationManager;
 
     protected void initializeRedirectUrl(HttpServletRequest request) {
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-        //UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
-        DEFAULT_REDIRECT_URL = builder.asSiteRelative(request);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        String communityHost = sessionContext.getSessionContextUtil().getCommunityHost(request);
+        DEFAULT_REDIRECT_URL = "http://" + communityHost + "/";
     }
 
     //set up defaults if none supplied

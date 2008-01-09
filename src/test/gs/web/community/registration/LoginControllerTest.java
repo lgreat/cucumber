@@ -48,7 +48,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertTrue("MSL only users expect to get an error when trying to sign in", _errors.hasErrors());
     }
 
-    public void testOnSubmit() throws NoSuchAlgorithmException {
+    public void testOnSubmitWithRedirect() throws NoSuchAlgorithmException {
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
@@ -66,6 +66,28 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
+    }
+
+    public void testOnSubmitNoRedirect() throws NoSuchAlgorithmException {
+        _user.setPlaintextPassword("foobar");
+        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
+        replay(_mockUserDao);
+
+        _command.setPassword("foobar");
+
+        getRequest().setServerName("dev.greatschools.net");
+
+        _controller.onBindOnNewForm(getRequest(), _command, _errors);
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        assertFalse("Controller has errors on validate", _errors.hasErrors());
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verify(_mockUserDao);
+        assertFalse("Controller has errors on submit", _errors.hasErrors());
+
+        assertEquals("redirect:http://community.dev.greatschools.net/",
+                mAndV.getViewName());
     }
 
     public void testNonexistantUser() throws NoSuchAlgorithmException {
@@ -128,5 +150,23 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), command, _errors);
         verify(_mockUserDao);
         assertTrue("Controller does not have expected errors on validate", _errors.hasErrors());
+    }
+
+    public void testInitializeRedirectUrl() {
+        getRequest().setServerName("dev.greatschools.net");
+        _controller.initializeRedirectUrl(getRequest());
+        assertEquals("http://community.dev.greatschools.net/", LoginController.DEFAULT_REDIRECT_URL);
+
+        getRequest().setServerName("staging.greatschools.net");
+        _controller.initializeRedirectUrl(getRequest());
+        assertEquals("http://community.staging.greatschools.net/", LoginController.DEFAULT_REDIRECT_URL);
+
+        getRequest().setServerName("www.greatschools.net");
+        _controller.initializeRedirectUrl(getRequest());
+        assertEquals("http://community.greatschools.net/", LoginController.DEFAULT_REDIRECT_URL);
+
+        getRequest().setServerName("yahooed.greatschools.net");
+        _controller.initializeRedirectUrl(getRequest());
+        assertEquals("http://community.greatschools.net/", LoginController.DEFAULT_REDIRECT_URL);
     }
 }
