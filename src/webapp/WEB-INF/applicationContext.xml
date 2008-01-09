@@ -30,7 +30,7 @@
     <bean id="registrationConfirmationEmail"
           class="gs.web.community.registration.RegistrationConfirmationEmail"
           autowire="byName">
-        <property name="subject" value="Welcome to GreatSchools!"/>
+        <property name="subject" value="Welcome to the GreatSchools Parent Community!"/>
         <property name="fromEmail" value="gs-batch@greatschools.net"/>
         <property name="fromName" value="GreatSchools"/>
     </bean>
