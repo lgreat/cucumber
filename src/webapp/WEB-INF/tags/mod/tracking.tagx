@@ -116,10 +116,12 @@
             <!-- GS-5020 -->
             var locationAnchor = '';
             <![CDATA[
+            <!--
             if (location.href && location.href.indexOf('#from..') > -1) {
                 locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
                 s.prop9 = s.pageName + ' ' + locationAnchor;
             }
+            -->
             ]]>
         </script>
         <![CDATA[
