@@ -47,11 +47,11 @@ public class RegistrationConfirmationEmail extends AbstractSendEmailBean {
 
         SessionContext sc = SessionContextUtil.getSessionContext(request);
         String communityHost = sc.getSessionContextUtil().getCommunityHost(request);
-        emailHelper.addInlineReplacement("GET_STARTED", "http://" + communityHost);
+        emailHelper.addInlineReplacement("GET_STARTED", "http://" + communityHost + "?cpn=welcomereg");
         emailHelper.addInlineReplacement("USER_EMAIL", user.getEmail());
         emailHelper.addInlineReplacement("USER_PASSWORD", passwordPlaintext);
-        emailHelper.addInlineReplacement("TAKE_TOUR", "http://" + communityHost + "/tour/index.html");
-        emailHelper.addInlineReplacement("READ_FAQ", "http://" + communityHost + "/faq");
+        emailHelper.addInlineReplacement("TAKE_TOUR", "http://" + communityHost + "/tour/index.html?cpn=welcomereg");
+        emailHelper.addInlineReplacement("READ_FAQ", "http://" + communityHost + "/faq?cpn=welcomereg");
 
         emailHelper.send();
     }
