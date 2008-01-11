@@ -264,8 +264,8 @@ div.phone {
 }
 
 /* GS-3754 remove images (and enclosing paragraph) from article abstracts */
-.abstract p {
-    display:none;
+.abstract p, .abstract div.partner {
+    display: none;
 }
 
 .highlight {
