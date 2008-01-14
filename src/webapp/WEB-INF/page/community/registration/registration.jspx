@@ -121,23 +121,23 @@
                 </li>
 
                 <li>
-                    <label for="firstName"><span class="required">*</span>First name<gsml:img
-                            src="/res/img/community/registration/icon_private_9x11.gif" alt="Private"
-                            styleClass="private"/></label>
-                    <spring:bind path="userCmd.user.firstName">
-                        <input id="firstName" type="text" name="${status.expression}" value="${status.value}" tabindex="4"/>
-                    </spring:bind>
-                    <gsml:errorMessage command="userCmd" field="firstName" useImage="true" styleClass="warning"/>
-                </li>
-
-                <li>
                     <label for="screenName"><span class="required">*</span>Username</label>
                     <spring:bind path="userCmd.screenName">
-                        <input id="screenName" type="text" name="${status.expression}" value="${status.value}" tabindex="5"/>
+                        <input id="screenName" type="text" name="${status.expression}" value="${status.value}" tabindex="4"/>
                     </spring:bind>
                     <gsml:errorMessage command="userCmd" field="screenName" useImage="true" styleClass="warning"/>
                     <span id="userDetails">6-14 characters</span>
                     <span id="userDisclaimer">Choose carefully&amp;#151;username can't be changed</span>
+                </li>
+
+                <li>
+                    <label for="firstName"><span class="required">*</span>First name<gsml:img
+                            src="/res/img/community/registration/icon_private_9x11.gif" alt="Private"
+                            styleClass="private"/></label>
+                    <spring:bind path="userCmd.user.firstName">
+                        <input id="firstName" type="text" name="${status.expression}" value="${status.value}" tabindex="5"/>
+                    </spring:bind>
+                    <gsml:errorMessage command="userCmd" field="firstName" useImage="true" styleClass="warning"/>
                 </li>
 
                 <li id="emailLine">
