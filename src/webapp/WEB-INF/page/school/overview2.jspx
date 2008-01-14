@@ -369,10 +369,7 @@
 
             <div class="ad_top">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
-                <!--<ad:Top_300x137/>-->
-                <link:schoolStartSurvey school="${school}" cpn="HouseAd_parentsurvey">
-                    <gsml:img src="/res/img/survey/promo/survey_housead.gif" alt="What is the scoop on ${school.name}?" />
-                </link:schoolStartSurvey>
+                <ad:Top_300x137/>
             </div>
 
             <div class="ad_middle">                
