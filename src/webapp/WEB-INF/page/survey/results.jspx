@@ -129,7 +129,15 @@
                     </c:when>
                     <c:when test="${result_question.displayType eq 'VALUES'}">
                         <c:if test="${fn:length(result_question.responses) gt 0 and fn:length(result_question.responseValuesAsMap) gt 0}">
-                            <div class="header">${result_question.displayText}
+                            <div class="header">
+                                <c:choose>
+                                    <c:when test="${fn:length(result_question.responses) gt 1 and fn:length(result_question.responseValuesAsMap) gt 1}">
+                                        ${result_question.strings['pluralDisplayText']}
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${result_question.strings['singularDisplayText']}
+                                    </c:otherwise>
+                                </c:choose>
                             <c:forEach items="${result_question.responseValuesAsSetOrderedByOccurrence}"
                                        var="entry" varStatus="cell" begin="0" end="2">
                                 <c:choose>
@@ -161,10 +169,10 @@
                         </c:if>
                     </c:when>
                     <c:when test="${result_question.displayType eq 'SIMPLE'}">
-                        <c:if test="${fn:length(result_question.responseValuesAsMap) > 0}">
+                        <c:if test="${result_question.numResponses > 0}">
                             ${result_question.displayText}
                             <div class="resultBox">
-                                <c:forEach items="${result_question.responseValuesAsMap}" var="entry" varStatus="cell">
+                                <c:forEach items="${result_question.responseValuesAsList}" var="entry" varStatus="cell">
                                     <c:choose>
                                         <c:when test="${(cell.index % 2) != 0}">
                                             <c:set var="cellStyle" value="even"/>
