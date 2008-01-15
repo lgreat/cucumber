@@ -112,7 +112,7 @@
 ]]>
 
 <c:if test="${tab eq 'overview'}">
-    <c:if test="${school.type.schoolTypeName == 'public'}">
+    <c:if test="${school.type.schoolTypeName != 'private'}">
         <variant:b>
             <pageHelper:externalCss file="/res/css/school/profile_learnMore.css"/>
             <![CDATA[
@@ -195,13 +195,13 @@
                 <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
             </c:otherwise>
         </c:choose>
-        <c:if test="${(tab ne 'overview') or (requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName != 'public')}">
+        <c:if test="${(tab ne 'overview') or (requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName == 'private')}">
             <c:if test="${school.levelCode != 'p'}">
                 <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
                 <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
             </c:if>
         </c:if>
-        <c:if test="${(tab eq 'overview') and (requestScope.context.ABVersion eq 'b') and (school.type.schoolTypeName == 'public')}">
+        <c:if test="${(tab eq 'overview') and (requestScope.context.ABVersion eq 'b') and (school.type.schoolTypeName != 'private')}">
             <c:if test="${!requestScope.context.crawler}">
                 <span class="subnavTools">
                     <a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;

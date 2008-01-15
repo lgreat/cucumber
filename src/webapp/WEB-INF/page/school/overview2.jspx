@@ -124,11 +124,11 @@
 
         <div id="col_center">
 
-            <c:if test="${(requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName != 'public')}">
+            <c:if test="${(requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName == 'private')}">
                 <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
             </c:if>
 
-            <c:if test="${(requestScope.context.ABVersion eq 'b') and (school.type.schoolTypeName == 'public')}">
+            <c:if test="${(requestScope.context.ABVersion eq 'b') and (school.type.schoolTypeName != 'private')}">
                 <div id="learnMoreModule">
                     <div id="lmHeader">Learn More</div>
                     <div id="lmmBorder">
@@ -262,7 +262,7 @@
             </c:if>
 
 
-            <c:if test="${(requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName != 'public')}">
+            <c:if test="${(requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName == 'private')}">
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
