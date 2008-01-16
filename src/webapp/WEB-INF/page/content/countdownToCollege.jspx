@@ -95,7 +95,7 @@
 
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="1125" wrappingElement="li"/>
+        <gsweb:articlelink articleId="1147" wrappingElement="li"/>
         <gsweb:articlelink articleId="1124" wrappingElement="li"/>
         <gsweb:articlelink articleId="1090" wrappingElement="li"/>
     </ul>
@@ -162,26 +162,29 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="46" styleClass="noHover">
-            Winning the Homework Battle
-        </gsweb:articlelink>
+        <!--<gsweb:articlelink articleId="46" styleClass="noHover">-->
+        Gear Up for Testing Season
+        <!--</gsweb:articlelink>-->
     </div>
     <div class="module">
-        As the middle of the school year approaches, does your student struggle to stay focused? Is homework
-        becoming a battleground at your house? Even if your child is a good student, he may find his energy flagging. 
+        The arrival of spring means testing time for high school students: SATs, ACTs, APs, high school exit
+        exams (in some states) and state standardized tests.
         <br/>
         <ul class="noHover">
             <li>
-                Our tips on <gsweb:articlelink articleId="46">coping with homework
-                horrors</gsweb:articlelink> can help your student get back on track.
+                Spring of junior year is prime time to take the SAT or ACT. <gsweb:articlelink articleId="244">Learn more about college admissions tests</gsweb:articlelink>
             </li>
             <li>
-                Are you concerned about the amount of homework your student brings home? To get a sense of what's the right
-                amount, read <gsweb:articlelink articleId="586">How Much Homework is Too Much?</gsweb:articlelink>
+                Wondering what state tests your teen will be taking and how she should prepare? <gsweb:articlelink articleId="825">Get started with our guide to state tests</gsweb:articlelink>
             </li>
             <li>
-                Resources for help with homework assignments are just a mouse click away. You'll find good
-                resources in <gsweb:articlelink articleId="477">Go Online for Homework Help.</gsweb:articlelink>
+                Students in 23 states must take a high school exit exam to graduate. <gsweb:articlelink articleId="1091">Learn about high school exit exams</gsweb:articlelink>
+            </li>
+            <li>
+                Find out what students gain by <gsweb:articlelink articleId="951">taking AP courses and tests</gsweb:articlelink>.
+            </li>
+            <li>
+                Learn about <gsweb:articlelink articleId="1160">test-taking strategies for kids with learning difficulties</gsweb:articlelink>.
             </li>
         </ul>
     </div>
@@ -206,19 +209,22 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="687" styleClass="noHover">
-            Can You Spot a Scholarshop Scam?
+        <gsweb:articlelink articleId="882" styleClass="noHover">
+            Choosing Smart Electives
         </gsweb:articlelink>
     </div>
 
     <div class="module">
-        You should be suspicious of any of these claims from a scholarship service:
-        <ul class="noHover">
-            <li>"I just need your credit card or bank account number to hold this scholarship."</li>
-            <li>"The scholarship will cost money."</li>
-            <li>"You're a finalist" in a contest you never entered.</li>            
-        </ul>
+        Did you know that many high schools' minimum requirements aren't tough
+        enough to get your child into the college of her choice? Your child is
+        likely to need your help finding the right balance between challenging
+        academic classes and electives that help him pursue his interests and
+        stay engaged in school. Make sure you're in the loop when your student
+        chooses next year's classes so he can realize his dreams.
     </div>
+    <gsweb:articlelink articleId="882" styleClass="noHover">
+        Help you child choose the right classes &gt;
+    </gsweb:articlelink>
 
     <div align="right"><gsweb:articlelink articleId="687" styleClass="seeFullArticle">Learn the facts about scholarship scams &gt;</gsweb:articlelink></div>
 
@@ -237,20 +243,20 @@
 
                     <ul class="quickFindLinks">
                         <li style="padding-top:0;">
-                            <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21402.html"
-                               target="_blank">How to Apply for a Scholarship</a>
+                            <a href="http://www.collegeboard.com/parents/plan/hs-steps/21263.html"
+                               target="_blank">Recommended Classes</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/student/pay/scholarships-and-aid/36318.html"
-                               target="_blank">What Exactly is a Pell Grant?</a>
+                            <a href="http://www.collegeboard.com/parents/plan/hs-steps/21261.html"
+                               target="_blank">A Balanced Course Load</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/student/pay/scholarships-and-aid/8936.html"
-                               target="_blank">Where the Scholarships Are</a>
+                            <a href="http://www.collegeboard.com/parents/plan/hs-steps/21286.html"
+                               target="_blank">Parent-Teacher Conferences</a>
                         </li>
                         <li>
-                            <a href="http://apps.collegeboard.com/cbsearch_ss/welcome.jsp"
-                               target="_blank">Scholarship Search</a>
+                            <a href="http://www.collegeboard.com/parents/plan/hs-steps/21287.html"
+                               target="_blank">Your Child's High School Counselor</a>
                         </li>
                     </ul>
                 </td>
@@ -314,8 +320,8 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Get informed about <gsweb:articlelink articleId="683">college costs</gsweb:articlelink>.  Explore your family's financing
-                               options and learn more about <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21397.html" target="_blank">how the financial aid system works</a>.
+                               Calculate your <a href="http://apps.collegeboard.com/fincalc/efc_welcome.jsp" target="_blank">Expected Family Contribution</a> to
+                               figure out how much your family can reasonably be expected to pay toward college.
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a>
                 </td>
@@ -323,8 +329,8 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Reading helps develop your child's interests and improves skills needed for college. Try choosing <gsweb:articlelink articleId="847">a
-                               book you can read together</gsweb:articlelink>.
+                               Find out about <gsweb:articlelink articleId="683">college costs</gsweb:articlelink>. Explore your
+                               family's financing options and learn more about <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21397.html" target="_blank">how the financial aid system works</a>.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
             </tr>
@@ -334,15 +340,15 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Use College Board's <a href="http://apps.collegeboard.com/cbsearch_ss/welcome.jsp" target="_blank">Scholarship Search</a> tool to
-                               find scholarships, grants and loans that match your child's skills and interests.
+                               If you can, plan to <a href="http://www.collegeboard.com/parents/csearch/explore-colleges/21183.html" target="_blank">visit college campuses</a> with
+                               your child this spring while classes are in session. Schedule interviews with admissions and financial aid officers.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Help your child <a href="http://www.collegeboard.com/parents/apply/college-applications/21291.html" target="_blank">avoid senioritis</a>. Colleges
-                               can &#8212; and do &#8212; withdraw admissions offers if a student's grades drop significantly.                               
+                               Most priority financial aid deadlines fall in February. Complete the necessary forms, including <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21405.html" target="_blank">FAFSA</a>
+                               and CSS/Financial Aid <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21406.html" target="_blank">PROFILE</a>. Keep copies of everything you send.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
             </tr>
