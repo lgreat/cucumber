@@ -124,10 +124,10 @@
 
         <div id="col_center">
 
-            <c:if test="${(requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName == 'private')}">
-                <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
-            </c:if>
+            <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
+            <!-- Old B version learn more module (GS-5153) -->
+            <!--
             <c:if test="${(requestScope.context.ABVersion eq 'b') and (school.type.schoolTypeName != 'private')}">
                 <div id="learnMoreModule">
                     <div id="lmHeader">Learn More</div>
@@ -191,6 +191,7 @@
                     </div>
                 </div>
             </c:if>
+            -->
 
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
                 <div id="topCompare" style="float:left; padding-bottom:25px;" >
@@ -262,7 +263,6 @@
             </c:if>
 
 
-            <c:if test="${(requestScope.context.ABVersion eq 'a') or (school.type.schoolTypeName == 'private')}">
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
@@ -360,7 +360,6 @@
                     </div>
                 </c:if>
             </div>
-            </c:if>
 
         </div><!-- end: col_center -->
 
