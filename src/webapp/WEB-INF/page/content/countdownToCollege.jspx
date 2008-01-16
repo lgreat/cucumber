@@ -222,11 +222,7 @@
         stay engaged in school. Make sure you're in the loop when your student
         chooses next year's classes so he can realize his dreams.
     </div>
-    <gsweb:articlelink articleId="882" styleClass="noHover">
-        Help you child choose the right classes &gt;
-    </gsweb:articlelink>
-
-    <div align="right"><gsweb:articlelink articleId="687" styleClass="seeFullArticle">Learn the facts about scholarship scams &gt;</gsweb:articlelink></div>
+    <div align="right"><gsweb:articlelink articleId="882" styleClass="seeFullArticle">Help you child choose the right classes &gt;</gsweb:articlelink></div>
 
     <div class="midDashLine">
         <gsml:img style="height: 1px; width: 1px" alt=""
