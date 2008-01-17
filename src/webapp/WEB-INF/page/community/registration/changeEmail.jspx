@@ -34,7 +34,7 @@
           <h2>Update My Email Address</h2>
 
           <a href="${dashboardUrl}"
-             id="dashboardLink" tabindex="1">Return to my dashboard &gt;</a>
+             id="dashboardLink" tabindex="1">Go to my dashboard &gt;</a>
 
           <gsweb:form action="/community/changeEmail.page" method="post">
               <ul>
