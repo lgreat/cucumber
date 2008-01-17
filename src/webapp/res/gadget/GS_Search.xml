@@ -16,6 +16,9 @@
         scrolling="false"
         scaling="false"
     />
+    <UserPref name="city" display_name="Default city" default_value=""/>
+    <UserPref name="state" display_name="Default state (use uppercase abbreviation)" default_value=""/>
+    <UserPref name="cobrand" display_name="Cobrand URL prefix (e.g. XXX.greatschools.net, just the XXX)" default_value="www"/>    
     <Content type="html"><![CDATA[
 
 <div style="border: 3px solid #6cc;">
@@ -25,7 +28,7 @@
         </div>
 
         <div style="padding: 16px 0 31px 0;">
-            <form action="http://www.greatschools.net/search/search.page" name=""
+            <form action="http://www.greatschools.net/search/search.page" name="" id="searchForm"
                   style="margin:0; padding:0;" target="gsSearch"
                   onsubmit="window.open('', 'gsSearch', 'width=910,height=600,status=yes,resizable=yes,scrollbars=yes,toolbar=yes,location=yes,menubar=yes')">
                 <script type="text/javascript" charset="utf-8">
@@ -39,7 +42,7 @@
                 <label style="font: bold 10px 'Trebuchet MS', sans-serif; color:#666;">Find &amp; Compare K-12 Schools</label><br />
                 <input id="location" name="q" type="text" value="School, district or city" onfocus="textSwitch('location', '', 'School, district or city');" onblur="textSwitch('location', 'School, district or city', '');" style="font: 11px 'Trebuchet MS', sans-serif; color:#777; padding: 2px 7px; margin-top: 6px; width:144px; border: 1px solid #777; display: block" />
 
-                <select name="state" style="font: 11px 'Trebuchet MS', sans-serif; color:#777; margin: 11px 14px 0 0;">
+                <select name="state" id="stateSelect" style="font: 11px 'Trebuchet MS', sans-serif; color:#777; margin: 11px 14px 0 0;">
                     <option selected="selected" value="">--</option>
                     <option value="AK">AK</option>
                     <option value="AL">AL</option>
@@ -110,6 +113,22 @@
 
     if (document.getElementById("remote_" + __MODULE_ID__)) {
         document.getElementById("remote_" + __MODULE_ID__).style.width=_args()["w"];
+    }
+    // User Preferences
+    var prefs = new _IG_Prefs();
+    var defaultCity = prefs.getString("city");
+    if (defaultCity != null && defaultCity > '') {
+        _gel("location").value=defaultCity;
+    }
+    var defaultState = prefs.getString("state");
+    if (defaultState != null && defaultState > '') {
+        _gel("stateSelect").value=defaultState;
+    }
+    var cobrand = prefs.getString("cobrand");
+    if (cobrand != null && cobrand > '') {
+        var baseUrl = 'http://' + cobrand + '.greatschools.net';
+        _gel("logoLink").href = baseUrl;
+        _gel("searchForm").action = baseUrl + '/search/search.page';
     }
 </script>
 
