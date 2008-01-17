@@ -45,4 +45,8 @@ public class SurveyResultsControllerTest extends BaseControllerTestCase {
         SurveyResults results = (SurveyResults)model.get("results");
         assertEquals(0, results.getTotalResponses());
     }
+
+    public void testHandleRequest_specificPages() throws Exception {
+        // if no page is specified, page 1 should be returned.
+    }
 }

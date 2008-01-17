@@ -7,6 +7,7 @@ import gs.data.school.ISchoolDao;
 import gs.web.school.SchoolPageInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,13 @@ public class SurveyResultsController extends AbstractController {
 
         String level = request.getParameter("level");
         SurveyResults results = getSurveyDao().getSurveyResultsForSchool(level, school);
+
+        // if no page is specified, page 1 should be returned.
+        String page = request.getParameter("page");
+        if (StringUtils.isBlank(page)) {
+            
+        }
+        
 
         ModelAndView mAndV = new ModelAndView("survey/results");
         mAndV.getModel().put("results", results);

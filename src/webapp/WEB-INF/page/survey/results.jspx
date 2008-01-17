@@ -49,6 +49,9 @@
         </div>
     </div>
 </c:if>
+
+<c:set var="pIndex" value="${(not empty param.page) ? param.page : 0}" />
+
 <gsml:equalizeColumns ids="'left-col','right-col'"/>
 <div id="left-col">
 
@@ -64,21 +67,41 @@
             </div>
             <div id="toc">
                 <ul id="page-links">
-                    <c:forEach items="${results.pages}" var="toc" >
-                        <li class="inactive"><span>${toc.name}</span></li>
+                    <c:forEach items="${results.pages}" var="toc" varStatus="page">
+                        <c:choose>
+                            <c:when test="${(page.index == pIndex)}">
+                                <li class="active"><span>${toc.name}</span></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="inactive">
+                                    <link:surveyResults school="${school}" level="h" page="${page.index}">
+                                        <span>${toc.name}</span>
+                                    </link:surveyResults>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
                 </ul>
             </div>
         </div>
     </div>
 
+    <c:set var="page" value="${results.pages[pIndex]}" />
 
-    <c:forEach items="${results.pages}" var="page">
-        <div class="page-header">${school.name} ${page.name}</div>
+    <div class="page-header">${school.name} ${(not empty page.shortName) ? page.shortName : page.name}</div>
         <c:forEach items="${page.groups}" var="group">
-            <c:if test="${(not empty group.displayText) and (group.numResponses gt 0)}">
+
+        <c:if test="${group.numResponses gt 0}">
+            <c:if test="${not empty group.headerText}">
+                <div class="page-header">${fn:replace(group.headerText, "$SCHOOLNAME", school.name)}</div>
+            </c:if>
+
+            <c:if test="${not empty group.displayText}">
                 <div class="group-header">${fn:replace(group.displayText, "$SCHOOLNAME", school.name)}</div>
             </c:if>
+        </c:if>
+
+
             <c:forEach items="${group.questions}" var="result_question">
                 <c:choose>
                     <c:when test="${result_question.displayType eq 'COMPLEX'}">
@@ -224,32 +247,32 @@
                             </ul>
                         </div>
                     </c:when>
-                    <!--
-                    <c:when test="${result_question.displayType eq 'CHECKS'}">
-                        <div class="">
-                            <div class="header">${result_question.displayText}</div>
-                            <c:forEach items="${result_question.responseValuesAsMap}" var="value">
-                                value: ${value}
-                            </c:forEach>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <hr/>
-                        Display type not yet implemented: ${result_question.displayType}
-                        <hr/>
-                    </c:otherwise>
-                    -->
                 </c:choose>
             </c:forEach>
         </c:forEach>
-    </c:forEach>
-    <br/><br/><br/><br/>
+    <br/><br/><br/>
+
     <div class="nextprev">
         <div class="feedback">
             Do you have questions or comments about the survey or survey results?
             <link:feedback  target="_blank" topicOption="Parent_survey" >Give us feedback &gt; </link:feedback>
         </div>
+        <!--
+        <div class="previousnextouterwrap" id="outerteachers">
+            <div class="previousnextwrap">
+                <div class="next" id="testnext_teachers">
+                    <gsml:inputImage src="/res/img/survey/savecontinue.gif" alt="Save and Continue"
+                                     name="submit" id="submitButton"/>
+                    <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
+                </div>
+            </div>
+        </div>
+        -->
     </div>
+
+    <!--<div class="nextprev">-->
+
+    <!--</div>-->
 </div>
 
 <div id="right-col">
