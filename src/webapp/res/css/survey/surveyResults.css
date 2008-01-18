@@ -204,3 +204,7 @@ div.green-header {
     color: #CC5566;
     font-weight: bold;
 }
+
+.previousnextwrap a img {
+    margin:0 0 5px 0;
+}

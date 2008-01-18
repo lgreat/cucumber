@@ -270,15 +270,15 @@
         <div class="previousnextouterwrap" id="outerteachers">
             <div class="previousnextwrap">
                 <c:if test="${pIndex gt 0}">
-                    <div class="previous" id="foo">
-                        <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
+                    <div class="previous">
+                        <gsml:img src="/res/img/survey/previousarrows.gif" alt="Previous arrows" />
                         <link:surveyResults school="${school}" level="${param.level}" page="${pIndex-1}">
                             <gsml:img src="/res/img/survey/p_${pIndex}.gif" alt="Previous Page" />
                         </link:surveyResults>
                     </div>
                 </c:if>
                 <c:if test="${pIndex lt 3}">
-                    <div class="next" id="testnext_teachers">
+                    <div class="next">
                         <link:surveyResults school="${school}" level="${param.level}" page="${pIndex+1}">
                             <gsml:img src="/res/img/survey/n_${pIndex}.gif" alt="Next Page" />
                         </link:surveyResults>
