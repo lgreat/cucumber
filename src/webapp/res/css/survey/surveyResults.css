@@ -208,3 +208,7 @@ div.green-header {
 .previousnextwrap a img {
     margin:0 0 5px 0;
 }
+
+#toc ul li.inactive {
+    background-image: url( "/res/img/bullet/pinkarrow.gif" );
+}
