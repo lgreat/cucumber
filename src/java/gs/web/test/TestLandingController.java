@@ -5,13 +5,20 @@ import com.google.gdata.data.spreadsheet.*;
 import com.google.gdata.util.ServiceException;
 import gs.web.util.list.Anchor;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.UrlBuilder;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.content.IArticleDao;
+import gs.data.content.Article;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.validation.Errors;
+import org.springframework.validation.BindException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -33,10 +40,21 @@ public class TestLandingController extends SimpleFormController {
     public static final String BEAN_ID = "/test/landing.page";
     Map<String, Map> _cache;
     private URL _worksheetUrl;
+
+    /** Used to populate city lists */
     private IGeoDao _geoDao;
-    
+
+    /** Used to build article links */
+    private IArticleDao _articleDao;
+
+    private static final Logger _log = Logger.getLogger(TestLandingController.class);
+
     protected Map referenceData(HttpServletRequest request, Object cmd, Errors errors) throws Exception {
         Map<String, Object> refData = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(request.getParameter("clear"))) {
+            _cache = null;
+        }
 
         String stateParam = request.getParameter("state");
         String testIdParam = request.getParameter("tid");
@@ -69,6 +87,12 @@ public class TestLandingController extends SimpleFormController {
             loadCache(_cache);
         }
         return _cache.get(key);
+    }
+
+    public ModelAndView onSubmit(Object command, BindException errors) {
+        System.out.println ("command: " + command.getClass());
+        ModelAndView mAndV = new ModelAndView(new RedirectView("www.google.com"));
+        return mAndV;
     }
 
     private void loadCache(Map cache) {
@@ -120,11 +144,24 @@ public class TestLandingController extends SimpleFormController {
     List<Anchor> parseAnchorList(String text) {
         List<Anchor> list = new ArrayList<Anchor>();
         if (StringUtils.isNotBlank(text)) {
-            String[] strings = text.split("\\n");
-            for (String s : strings) {
+            String[] links = text.split("\\n");
+            for (String s : links) {
                 String[] s2 = s.split(",");
-                if (s2.length == 2) {
-                    list.add(new Anchor(s2[1], s2[0]));
+                if (s2.length > 0) {
+                    if (s2[0] != null) {
+                        if (s2[0].startsWith("aid:")) {
+                            try {
+                                int aid = Integer.parseInt(s2[0].substring(4));
+                                Article article = getArticleDao().getArticleFromId(aid);
+                                UrlBuilder builder = new UrlBuilder(article, null, false);
+                                list.add(new Anchor(builder.toString(), article.getTitle()));
+                            } catch (NumberFormatException e) {
+                                _log.warn(e);
+                            }
+                        } else if (s2.length == 2) {
+                            list.add(new Anchor(s2[1], s2[0]));
+                        }
+                    }
                 }
             }
         }
@@ -145,5 +182,13 @@ public class TestLandingController extends SimpleFormController {
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public IArticleDao getArticleDao() {
+        return _articleDao;
+    }
+
+    public void setArticleDao(IArticleDao articleDao) {
+        _articleDao = articleDao;
     }
 }

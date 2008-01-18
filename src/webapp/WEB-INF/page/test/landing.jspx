@@ -5,6 +5,7 @@
           xmlns:footer="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
@@ -24,8 +25,10 @@
     <title>GreatSchools Test Landing Page</title>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
+    <pageHelper:externalCss file="/res/css/test/landing.css"/>
     <![CDATA[
     <script type="text/javascript">
+        <!--
         function adjustLeftColIE6() {
             if(navigator.userAgent.toLowerCase().indexOf('msie 6') != -1) {
                 var rightcol = document.getElementById('right');
@@ -39,6 +42,7 @@
             var url = '/test/schoolsInCity.page';
             var pars = {state : state,
                         city : citySelect.value };
+            $('gobutton').show();
             $('schools').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
             var myAjax = new Ajax.Updater (
                     'schools',
@@ -48,6 +52,7 @@
                 parameters: pars
             });
         }
+        -->
     </script>
     ]]>
 </head>
@@ -66,7 +71,7 @@
                 <tr>
                     <td colspan="3">
                         <h1 id="stateSchools">
-                            ${display_name}
+                            ${displayname}
                         </h1>
                     </td>
                 </tr>
@@ -76,28 +81,34 @@
                     </td>
                 </tr>
                 <tr>
-                    <!-- Compare Box -->
                     <td valign="top">
                         <div class="middleTitle">
                             <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
                         </div>
                         <div class="compareBox">
                             <label id="cityLabel"><span class="required">*</span>City</label>
-                            <span id="city">
-                                <select name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}');">
-                                    <option selected="selected" value="">Choose city</option>
-                                    <c:forEach var="cityOption" items="${cities}">
-                                        <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
-                                    </c:forEach>
-                                </select>
-                            </span>
-                            <div id="schools"></div>
+                            <gsweb:form action="/test/landing.page" method="post">
+                                <input type="hidden" name="state" value="${stateAbbrev}" />
+                                <span id="city">
+                                    <select name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}');">
+                                        <option selected="selected" value="">Choose city</option>
+                                        <c:forEach var="cityOption" items="${cities}">
+                                            <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
+                                        </c:forEach>
+                                    </select>
+                                </span>
+                                <gsml:url var="go" value="/res/img/splash/go.gif"/>
+                                <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
+                                <![CDATA[<div id="schools"></div>]]>
+                                <input id="gobutton" type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px;display:none;"
+                                       class="button" onmouseover="this.src='${goOver}';"
+                                       onmouseout="this.src='${go}';" />
+                            </gsweb:form>
                         </div>
                     </td>
                     <td>
                         <img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                     </td>
-                    <!-- Find Box -->
                     <td valign="top">
                         <div class="middleTitle">
                             <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${requestScope.context.state.longName} Schools" border="0"/>
@@ -137,7 +148,7 @@
         </td>
         <td valign="top">
             <img style="width: 305px; height: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/><br/>
-            <content:researchAndCompareNewsBlurb state="${requestScope.context.state}"/>
+            ${datablurb}
         </td>
         <td valign="top"><img style="width: 30px;" alt=""
                               src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
@@ -174,12 +185,14 @@
             </td>
         </tr>
         <tr>
-            <td>
-                <ul>
-                    <c:forEach var="anchor" items="${links}">
-                        <li><a href="${anchor.href}">${anchor.contents}</a></li>
-                    </c:forEach>
-                </ul>
+            <td colspan="2">
+                <c:if test="${fn:length(links) > 0}">
+                    <ul>
+                        <c:forEach var="anchor" items="${links}">
+                            <li><a href="${anchor.href}">${anchor.contents}</a></li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
             </td>
         </tr>
     </table>

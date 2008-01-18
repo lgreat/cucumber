@@ -1,11 +1,27 @@
 package gs.web.test;
 
+import gs.data.state.State;
+
 /**
- * Created by IntelliJ IDEA.
- * User: chriskimm
- * Date: Dec 23, 2007
- * Time: 4:21:30 PM
- * To change this template use File | Settings | File Templates.
+ * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class TestLandingCommand {
+    public State _state;
+    public Integer _school;
+
+    public State getState() {
+        return _state;
+    }
+
+    public void setState(State state) {
+        _state = state;
+    }
+
+    public Integer getSchool() {
+        return _school;
+    }
+
+    public void setSchool(Integer school) {
+        _school = school;
+    }
 }
