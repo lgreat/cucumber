@@ -20,11 +20,56 @@
 <jsp:directive.page contentType="text/html"/>
 
 <html>
+
+<c:set var="pIndex" value="${(not empty param.page) ? param.page : 0}" />
+
 <head>
-    <title>Survey Results</title>
-    <title>Complete a Parent Survey for ${school.name} in ${school.city}, ${school.databaseState}</title>
+
+    <c:set var="stateLong" value="${school.databaseState.longName}" />
+    <c:set var="stateAbbrev" value="${school.databaseState.abbreviation}" />
+    <c:set var="location" value="${school.city}, ${stateLong} - ${stateAbbrev}" />
+
+    <c:choose>
+        <c:when test="${pIndex eq 0}">
+            <c:set var="surveyPageName" value="Extracurricular Activities" />
+            <meta name="Description" content="Review parent survey results about ${school.name} extracurricular activities including arts, sports, foreign languages, vocational programs, and more - ${location}"/>
+            <meta name="keywords" content="${school.name} extracurricular activities, ${school.name} sports, ${school.name} arts, ${school.name} languages, ${school.name} vocational programs" />
+        </c:when>
+        <c:when test="${pIndex eq 1}">
+            <c:set var="surveyPageName" value="Student Resources" />
+            <!--<c:when test="${not empty param.level and param.level eq 'h'}">-->
+            <c:if test="${param.level eq 'h'}">
+                <meta name="Description" content="Review parent survey results about ${school.name} student resources for students with learning difficulties, english language learners, and more - ${location}"/>
+                <meta name="keywords" content="${school.name} ELL programs, ${school.name} English Language Learners, ${school.name} LD programs, ${school.name} learning difficulties, ${school.name} student resources" />
+            </c:if>
+            <c:if test="${param.level ne 'h'}">
+                <meta name="Description" content="Review parent survey results about ${school.name} student resources for students with learning difficulties, english language learners, before and after-school care and more - ${location}"/>
+                <meta name="keywords" content="${school.name} ELL programs, ${school.name} English Language Learners, ${school.name} LD programs, ${school.name} learning difficulties, ${school.name} student resources, ${school.name} before-school program, ${school.name} After-school program" />
+            </c:if>
+        </c:when>
+        <c:when test="${pIndex eq 2}">
+            <c:set var="surveyPageName" value="Academics" />
+            <c:if test="${param.level eq 'h'}">
+                <meta name="Description" content="Review parent survey results about ${school.name} academics including information about AP courses, homework, teaching and more - ${location}"/>
+                <meta name="keywords" content="${school.name} AP courses, ${school.name} honors courses, ${school.name} homework, ${school.name} teachers, ${school.name} teaching, ${school.name} academics" />
+            </c:if>
+            <c:if test="${param.level ne 'h'}">
+                <meta name="Description" content="Review parent survey results about ${school.name} academics including information about gifted and talented programs, homework, teaching and more - ${location}"/>
+                <meta name="keywords" content="${school.name} gifted and talented program, ${school.name} homework, ${school.name} teachers, ${school.name} teaching, ${school.name} academics" />
+            </c:if>
+        </c:when>
+        <c:when test="${pIndex eq 3}">
+            <c:set var="surveyPageName" value="School Culture" />
+            <meta name="Description" content="Review parent survey results about ${school.name}’s school culture including information about the principal, discipline, parent involvement and more - ${location}"/>
+            <meta name="keywords" content="${school.name} principal, ${school.name} administration, ${school.name} parents, ${school.name} discipline, ${school.name} culture" />
+        </c:when>
+    </c:choose>
+
+
+    <title>Parent survey results for ${school.name} ${surveyPageName} - ${location}</title>
+    
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
+
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
     <pageHelper:externalCss file="/res/css/survey/surveyResults.css"/>
     <script type="text/javascript">
@@ -49,8 +94,6 @@
         </div>
     </div>
 </c:if>
-
-<c:set var="pIndex" value="${(not empty param.page) ? param.page : 0}" />
 
 <gsml:equalizeColumns ids="'left-col','right-col'"/>
 <div id="left-col">
