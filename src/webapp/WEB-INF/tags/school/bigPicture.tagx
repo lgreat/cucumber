@@ -15,14 +15,15 @@
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="stateName" value="${school.databaseState.longName}"/>
+<c:set var="bigPictureAnchor" value="from..BigPicture"/>
 
     <div id="bigPicture">
         <h2>Big Picture</h2>
 
         <c:if test="${school.districtId != 0}">
-            <h3><link:districtProfile districtId="${school.districtId}" state="${state}">This school district's performance&#160;&#62;</link:districtProfile></h3>
+            <h3><link:districtProfile districtId="${school.districtId}" state="${state}" anchor="${bigPictureAnchor}">This school district's performance&#160;&#62;</link:districtProfile></h3>
         </c:if>
-        <h3><link:city city="${city}" state="${state}" title="${city} schools">Top-rated ${city} schools&#160;&#62;</link:city></h3>
-        <h3><link:nearbyCities city="${city}" state="${school.databaseState}" title="Cities near ${city}">Cities near ${city}&#160;&#62;</link:nearbyCities></h3>
+        <h3><link:city city="${city}" state="${state}" title="${city} schools" anchor="${bigPictureAnchor}">Top-rated ${city} schools&#160;&#62;</link:city></h3>
+        <h3><link:nearbyCities city="${city}" state="${school.databaseState}" title="Cities near ${city}" anchor="${bigPictureAnchor}">Cities near ${city}&#160;&#62;</link:nearbyCities></h3>
     </div><!-- end: bigPicture -->
 </jsp:root>

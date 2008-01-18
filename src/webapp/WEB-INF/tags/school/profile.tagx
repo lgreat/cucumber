@@ -122,6 +122,7 @@
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="schoolId" value="${school.id}"/>
+<c:set var="headerLinkAnchor" value="from..HeaderLink"/>
 
 <c:choose>
     <c:when test="${school.type.schoolTypeName != 'private'}">
@@ -160,8 +161,8 @@
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
     <div id="tools">
-        <link:mySchoolList school="${school}" styleClass="addImg toolsImg"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
-        <link:mySchoolList school="${school}" styleClass="add toolsTxt">Add to My School List</link:mySchoolList>
+        <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
+        <link:mySchoolList school="${school}" styleClass="add toolsTxt" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
 
         <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 
@@ -202,7 +203,7 @@
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
             <c:choose>
                 <c:when test="${tab ne 'ratings'}">
-                    <link:schoolProfileRating school="${school}">
+                    <link:schoolProfileRating school="${school}" anchor="headerLinkAnchor">
                         <gsml:img src="/res/img/school/ratings/ratings_gs_head_${gs_rating}.gif" alt="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best." styleClass="rating_gs"/>
                     </link:schoolProfileRating>
                 </c:when>
@@ -232,7 +233,7 @@
             </c:when>
             <c:otherwise>
                 <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
-                <link:schoolProfileParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
+                <link:schoolProfileParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}" anchor="${headerLinkAnchor}">
                     &amp;#160;
                 </link:schoolProfileParentReview>
             </c:otherwise>

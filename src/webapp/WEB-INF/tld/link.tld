@@ -183,6 +183,13 @@
             <type>java.lang.String</type>
             <description>Title attribute</description>
         </attribute>         
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>anchor name on destination page ('#' is optional)</description>
+        </attribute>
     </tag>
 
     <tag>
@@ -452,6 +459,13 @@
             <type>java.lang.String</type>
             <description>value of link title attribute, for tooltip</description>
         </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
+        </attribute>
     </tag>
     <tag>
         <name>cities</name>
@@ -511,6 +525,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>value of link title attribute, for tooltip</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
         </attribute>
     </tag>
     <tag>
