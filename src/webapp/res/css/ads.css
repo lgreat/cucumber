@@ -62,8 +62,9 @@
 }
 
 /*Article box ad*/
-#articletools #AboveFold_300x250{
+#articletools #AboveFold_300x250,#splashAdContent #Homepage_300x250{
     margin-top: 0;
     padding-top: 0;
+    padding-right: 0;
     border-top: none;
 }

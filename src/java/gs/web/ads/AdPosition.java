@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.16 2007/10/10 17:25:58 dlee Exp $
+ * $Id: AdPosition.java,v 1.17 2008/01/18 17:37:46 eddie Exp $
  */
 package gs.web.ads;
 
@@ -108,6 +108,8 @@ public class AdPosition extends Enum {
     public static final AdPosition AboveFold_300x125 = new AdPosition("AboveFold_300x125", true);
 
     public static final AdPosition AboveFold_300x250 = new AdPosition("AboveFold_300x250", true);
+
+    public static final AdPosition Homepage_300x250 = new AdPosition("Homepage_300x250", true);
 
     public static final AdPosition AboveFold_300x600 = new AdPosition("AboveFold_300x600", true);
 

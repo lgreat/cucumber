@@ -11,6 +11,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:gsweb="gstaglib"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">
@@ -68,10 +69,10 @@
 <pageHelper:addOnLoadHandler handler="hoverHome()"/>
 
 <table cellpadding="0" cellspacing="0" width="100%">
-    <tr>
-        <td>
-            <div id="houseAd">
-                <![CDATA[
+<tr>
+<td>
+    <div id="houseAd">
+        <![CDATA[
 
                 <script type="text/javascript">
                     <!--
@@ -121,117 +122,179 @@
                     </a>
                 </noscript>
                 ]]>
-            </div>
-        </td>
-        <td width="8">
-        </td>
-        <td id="findAndCompare" width="275">
+    </div>
+</td>
+<td width="8">
+</td>
+<td id="findAndCompare" width="275">
 
-            <gsml:url var="go" value="/res/img/splash/go.gif"/>
-            <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
+    <gsml:url var="go" value="/res/img/splash/go.gif"/>
+    <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
 
-            <div id="findAndCompareSchoolsNationwide">
-                <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
-                <gsweb:form method="get"
-                            action="/stateLauncher.page"
-                            onsubmit="return checkSearchStateSelected(this, 'splashStateSelector')">
-                    <input name="p" type="hidden" value="search_single" />
-                    <input name="type" type="hidden" value="school"/>
-                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                        <input type="hidden" name="st" value="charter"/>
-                    </c:if>
-                    <input type="text" value="" name="q" size="21" class="textInput"/>
-                    &#160;
-                    <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
-                                         useNoState="${not requestScope.context.hasSearched}"
-                                         styleId="splashStateSelector"
-                                         noStateLabel="--"/>
-                    <br/>
-                    <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
-                           class="button" onmouseover="this.src='${goOver}';"
-                           onmouseout="this.src='${go}';" onclick="s_objectID='splash_schools_go';"/>
-                </gsweb:form>
+    <div id="findAndCompareSchoolsNationwide">
+        <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
+        <gsweb:form method="get"
+                    action="/stateLauncher.page"
+                    onsubmit="return checkSearchStateSelected(this, 'splashStateSelector')">
+            <input name="p" type="hidden" value="search_single" />
+            <input name="type" type="hidden" value="school"/>
+            <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                <input type="hidden" name="st" value="charter"/>
+            </c:if>
+            <input type="text" value="" name="q" size="21" class="textInput"/>
+            &#160;
+            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
+                                 useNoState="${not requestScope.context.hasSearched}"
+                                 styleId="splashStateSelector"
+                                 noStateLabel="--"/>
+            <br/>
+            <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
+                   class="button" onmouseover="this.src='${goOver}';"
+                   onmouseout="this.src='${go}';" onclick="s_objectID='splash_schools_go';"/>
+        </gsweb:form>
 
-            </div>
+    </div>
 
-            <div id="getIdeasAndLearnMoreAbout">
-                <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
-                <gsweb:form action="/redirect.page" method="get">
-                    <table>
-                        <tr>
-                            <td><select name="page">
-                                <option value="/content/countdownToCollege.page"> College prep </option>
-                                <option value="/search/search.page?q=Troubleshooter&amp;amp;type=topic"> Ask the experts </option>
-                                <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
-                                <option value="/cgi-bin/showarticle/CA/22"> Learning disabilities </option>
-                                <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
-                                <option value="/search/search.page?q=reading tips&amp;amp;type=topic"> Reading tips </option>
-                                <option value="/search/search.page?q=math tips&amp;amp;type=topic"> Math tips </option>
-                                <option value="/search/search.page?q=bullying&amp;amp;type=topic"> Bullying </option>
-                                <option value="/search/search.page?q=healthy+food&amp;amp;type=topic"> Healthy food ideas </option>
-                                <option value="/search/search.page?q=homework&amp;amp;type=topic"> Homework battles </option>
-                                <option value="/content/guideToTests.page"> Standardized tests </option>
-                                <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
-                                <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
-                                <option value="/cgi-bin/showarticle/ca/41"> Get involved</option>
-                            </select>
-                            </td>
-                            <td>&#160;</td>
-                            <td><input type="image" src="${go}" alt="GO" style="width:41px;height:26px;"
-                                       class="button" onmouseover="this.src='${goOver}';"
-                                       onmouseout="this.src='${go}';" onclick="s_objectID='splash_ed_go';"/>
-                            </td>
-                        </tr>
-                    </table>
-                </gsweb:form>
-            </div>
-        </td>
-    </tr>
+    <div id="getIdeasAndLearnMoreAbout">
+        <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
+        <gsweb:form action="/redirect.page" method="get">
+            <table>
+                <tr>
+                    <td><select name="page">
+                        <option value="/content/countdownToCollege.page"> College prep </option>
+                        <option value="/search/search.page?q=Troubleshooter&amp;amp;type=topic"> Ask the experts </option>
+                        <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
+                        <option value="/cgi-bin/showarticle/CA/22"> Learning disabilities </option>
+                        <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
+                        <option value="/search/search.page?q=reading tips&amp;amp;type=topic"> Reading tips </option>
+                        <option value="/search/search.page?q=math tips&amp;amp;type=topic"> Math tips </option>
+                        <option value="/search/search.page?q=bullying&amp;amp;type=topic"> Bullying </option>
+                        <option value="/search/search.page?q=healthy+food&amp;amp;type=topic"> Healthy food ideas </option>
+                        <option value="/search/search.page?q=homework&amp;amp;type=topic"> Homework battles </option>
+                        <option value="/content/guideToTests.page"> Standardized tests </option>
+                        <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
+                        <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
+                        <option value="/cgi-bin/showarticle/ca/41"> Get involved</option>
+                    </select>
+                    </td>
+                    <td>&#160;</td>
+                    <td><input type="image" src="${go}" alt="GO" style="width:41px;height:26px;"
+                               class="button" onmouseover="this.src='${goOver}';"
+                               onmouseout="this.src='${go}';" onclick="s_objectID='splash_ed_go';"/>
+                    </td>
+                </tr>
+            </table>
+        </gsweb:form>
+    </div>
+</td>
+</tr>
 </table>
 <div class="bigDottedDivider"><hr/></div>
-<table cellpadding="0" cellspacing="0" width="100%">
-    <tr>
-        <td style="vertical-align: top; height: 100%; background-color:#eee; width: 428px">
-            <div id="week">
-                <h3>This Week at GreatSchools</h3>
-                <ul>
-                    <li class="burst"><content:newsItem category="SPLASH POSITION 1"
-                                                        state="${requestScope.context.state}"/></li>
-                    <li class="dialog"><content:newsItem category="SPLASH POSITION 2"
-                                                         state="${requestScope.context.state}"/></li>
-                    <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"
-                                                            state="${requestScope.context.state}"/></li>
-                </ul>
-            </div>
-        </td>
-        <td width="8">
-        </td>
-        <td width="1" style="background-color: #ddd">
-        </td>
-        <td width="8">
-        </td>
-        <td id="billsBlog">
-            <div><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
-                <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsBlogTrans2.gif" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
-                <div class="rss">
-                    <cache:cache scope="application" name="blog" key="bill3">
-                        <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
-                                          defaultTitle="Bill's thoughts on education"
-                                          defaultUrl="http://billsblog.greatschools.net"/>
-                    </cache:cache>
-                    <br/>
-                    <gsml:url var="read" value="/res/img/splash/read.gif"/>
-                    <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
-                    <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
-                            src="${read}"
-                            alt="Read Bill's Blog"
-                            style="margin: 5px 0 4px -2px"
-                            onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
+<c:choose>
+    <c:when test="${!requestScope.pageHelper.adFree}">
+
+        <table cellpadding="0" cellspacing="0" width="100%" border="0">
+            <tr>
+                <td style="vertical-align: top; height: 100%; background-color:#eee; width: 270px">
+                    <div id="week">
+                        <gsml:img src="/res/img/splash/thisweek_268.jpg" alt="This Week at GreatSchools" />
+                        <!-- <h3>This Week at GreatSchools</h3>  -->
+                        <ul>
+                            <li class="burst"><content:newsItem category="SPLASH POSITION 1"
+                                                                state="${requestScope.context.state}"/></li>
+                            <li class="dialog"><content:newsItem category="SPLASH POSITION 2"
+                                                                 state="${requestScope.context.state}"/></li>
+                            <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"
+                                                                    state="${requestScope.context.state}"/></li>
+                        </ul>
+                    </div>
+                </td>
+                <td width="4">
+                </td>
+                <td width="1" style="background-color: #ddd">
+                </td>
+                <td width="4">
+                </td>
+                <td id="billsBlog">
+                    <div><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
+                        <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsblog_268.jpg" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
+                        <div class="rss">
+                             <cache:cache scope="application" name="blog" key="bill3">
+                                <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
+                                                  defaultTitle="Bill's thoughts on education"
+                                                  defaultUrl="http://billsblog.greatschools.net"/>
+                            </cache:cache>
+                            <br/>
+                            <gsml:url var="read" value="/res/img/splash/read.gif"/>
+                            <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
+                            <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
+                                    src="${read}"
+                                    alt="Read Bill's Blog"
+                                    style="margin: 5px 0 4px -2px"
+                                    onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>  
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="splashAdContent">
+                        <!-- <ad:setSlotPrefix slotPrefix="Homepage"/>     -->
+                        <ad:Homepage_300x250/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </c:when>
+
+    <c:otherwise>
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td style="vertical-align: top; height: 100%; background-color:#eee; width: 428px">
+                    <div id="week">
+                        <h3>This Week at GreatSchools</h3>
+                        <ul>
+                            <li class="burst"><content:newsItem category="SPLASH POSITION 1"
+                                                                state="${requestScope.context.state}"/></li>
+                            <li class="dialog"><content:newsItem category="SPLASH POSITION 2"
+                                                                 state="${requestScope.context.state}"/></li>
+                            <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"
+                                                                    state="${requestScope.context.state}"/></li>
+                        </ul>
+                    </div>
+                </td>
+                <td width="8">
+                </td>
+                <td width="1" style="background-color: #ddd">
+                </td>
+                <td width="8">
+                </td>
+                <td id="billsBlog">
+                    <div><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
+                        <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsBlogTrans2.gif" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
+                        <div class="rss">
+                            <cache:cache scope="application" name="blog" key="bill3">
+                                <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
+                                                  defaultTitle="Bill's thoughts on education"
+                                                  defaultUrl="http://billsblog.greatschools.net"/>
+                            </cache:cache>
+                            <br/>
+                            <gsml:url var="read" value="/res/img/splash/read.gif"/>
+                            <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
+                            <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
+                                    src="${read}"
+                                    alt="Read Bill's Blog"
+                                    style="margin: 5px 0 4px -2px"
+                                    onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </c:otherwise>
+</c:choose>
+
+
 <mod:tracking pageName="splash" hier1="Home,Splash"/>
 </gsml:body>
 </html>

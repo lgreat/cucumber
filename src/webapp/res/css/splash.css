@@ -96,7 +96,8 @@
     background-color: #eee;
     color: #666666;
     font-weight: 100;
-    padding: 10px 20px 16px 20px;
+    /* padding: 10px 20px 16px 20px; */
+    padding: 0;
     min-height: 145px; /* padding-top + min-height = 150px */
     height: 100%;
 }
@@ -105,7 +106,7 @@
     height: 35px;
     text-indent: -9999px;
     overflow: hidden;
-    background-image: url( ../img/splash/thisWeekAtGreatSchools.gif );
+    background-image: url( ../img/splash/thisweek.jpg );
     background-repeat: no-repeat;
     background-position: 24px -2px;
 }
@@ -148,12 +149,14 @@ td#billsBlog {
     background-color: #eee;
     color: #666666;
     font-weight: 100;
-    padding: 20px 20px 16px 147px;
+   /* padding: 20px 20px 16px 20px;   */
+    padding: 0;
     min-height: 130px; /* padding-top + min-height = 150px */
     height: 100%;
-    background-image: url( ../img/splash/billFamily.jpg );
+    width: 270px;
+   /* background-image: url( ../img/splash/billFamily.jpg );
     background-position: 16px 16px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;      */
     vertical-align: top;
 }
 
@@ -164,6 +167,7 @@ td#billsBlog img { margin-bottom: 7px; }
     font-size: 12px;
     font-weight: normal;
     line-height:15px;
+    padding-left: 26px;
 }
 
 #billsBlog a, #billBlog a:hover, #billsBlog a:visited {
