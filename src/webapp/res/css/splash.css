@@ -168,6 +168,7 @@ td#billsBlog img { margin-bottom: 7px; }
     font-weight: normal;
     line-height:15px;
     padding-left: 26px;
+    padding-right: 26px;
 }
 
 #billsBlog a, #billBlog a:hover, #billsBlog a:visited {
