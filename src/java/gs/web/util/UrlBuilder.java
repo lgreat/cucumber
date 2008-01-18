@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.98 2008/01/08 02:57:32 jnorton Exp $
+ * $Id: UrlBuilder.java,v 1.99 2008/01/18 20:13:11 jnorton Exp $
  */
 
 package gs.web.util;
@@ -193,6 +193,7 @@ public class UrlBuilder {
     public static final VPage COUNTDOWN_TO_COLLEGE = new VPage("vpage:countdownToCollege");
     public static final VPage HOLIDAY_LEARNING = new VPage("vpage:holidayLearning");
     public static final VPage STATE_STANDARDS = new VPage("vpage:stateStandards");
+    public static final VPage TUTORING = new VPage("vpage:tutoring");
 
 
     /**
@@ -448,6 +449,8 @@ public class UrlBuilder {
             _path = "/content/holidayLearning.page";
         }else if (STATE_STANDARDS.equals(page)) {
             _path = "/content/stateStandards.page";
+        }else if (TUTORING.equals(page)) {
+            _path = "/content/tutoring_Homwork_Help.page";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

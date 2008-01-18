@@ -1,0 +1,36 @@
+h1#title {
+    text-indent: -5000px;
+    background: url( "../../img/content/tutoring/tutoring_and_homework_help_header_1.gif" ) no-repeat;
+    width: 155px;
+    height: 192px;
+    float: left;
+    margin:0;
+    padding:0;
+}
+
+h2#subTitle1 {
+    text-indent: -5000px;
+    background: url( "../../img/content/tutoring/finding_a_tutor_header.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h2#subTitle2 {
+    text-indent: -5000px;
+    background: url( "../../img/content/tutoring/study_skills_and_homework_help_k5_header.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h2#subTitle3 {
+    text-indent: -5000px;
+    background: url( "../../img/content/tutoring/study_skills_and_homework_help_612_header.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+h2#subTitle4 {
+    text-indent: -5000px;
+    background: url( "../../img/content/tutoring/all_about_testing_header.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}

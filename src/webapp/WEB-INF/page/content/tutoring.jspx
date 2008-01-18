@@ -1,0 +1,119 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="LIBRARY"/>
+ 
+<head>
+    <title>Greatschools.net: Tutoring and Homework Help</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="Description"
+          content="Find tutors and tips on homework help, building study skills and test prep"/>
+    <pageHelper:externalCss file="/res/css/content/microsite.css"/>
+    <pageHelper:externalCss file="/res/css/content/tutoring.css"/>
+</head>
+<c:set var="pageName" value="Tutoring and Homework Help"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Tutoring_and_Homework_Help"/>
+<gsml:body adPageName="content/tutoring" pageLayout="tutoring" startAdHierarchyAtPage="true">
+<div>
+<div class="wrapBorder">
+<jsp:include page="/content/leftNav.module" />
+
+<div class="middle">
+    <div id="contentHeaderImage">
+        <h1 id="title">Tutoring and Homework Help</h1>
+        <gsml:img src="/res/img/content/tutoring/smiling_girl_studying.jpg" alt="Smiling girl studying" style="float:left;"/>
+    </div>
+
+    <div>
+        <h2 id="subTitle1">Finding a Tutor</h2>
+        <ul class="plain">
+
+            <gsweb:articlelink articleId="310" wrappingElement="li"/>
+            <gsweb:articlelink articleId="366" wrappingElement="li"/>
+            <gsweb:articlelink articleId="367" wrappingElement="li"/>
+        </ul>
+        <!--
+        <ul class="pdf">
+            <li><gsml:a href="/pdf/choosing_imagine.pdf">Priorities worksheet</gsml:a></li>
+        </ul>
+        -->
+    </div>
+
+    <div>
+        <h2 id="subTitle2">Study Skills and Homework Help, Grades K-5</h2>
+        <ul class="plain">
+
+            <gsweb:articlelink articleId="204" wrappingElement="li"/>
+            <gsweb:articlelink articleId="769" wrappingElement="li"/>
+            <gsweb:articlelink articleId="46" wrappingElement="li"/>
+            <gsweb:articlelink articleId="477" wrappingElement="li"/>
+            <gsweb:articlelink articleId="586" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div>
+        <h2 id="subTitle3">Study Skills and Homework Help, Grades 6-12</h2>
+        <ul class="plain">
+
+            <gsweb:articlelink articleId="701" wrappingElement="li"/>
+            <gsweb:articlelink articleId="700" wrappingElement="li"/>
+            <gsweb:articlelink articleId="754" wrappingElement="li"/>
+            <gsweb:articlelink articleId="1100" wrappingElement="li"/>
+            <gsweb:articlelink articleId="655" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div>
+        <h2 id="subTitle4">All About Testing</h2>
+        <ul class="plain">
+
+            <gsweb:articlelink articleId="823" wrappingElement="li"/>
+            <gsweb:articlelink articleId="832" wrappingElement="li"/>
+            <gsweb:articlelink articleId="244" wrappingElement="li"/>
+            <gsweb:articlelink articleId="243" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div style="border-bottom: 1px dashed #ccc;">
+        <h3 id="askTheExperts">Ask an Expert</h3>
+        <p>Q: I Can't Afford a Tutor for My Child With Special Needs
+            <gsweb:articlelink articleId="742">Read the answer</gsweb:articlelink>
+            </p>
+    </div>
+
+    <div style="border-bottom: 1px dashed #ccc;">
+        <h3 id="freeNewsletters">Free Newsletters</h3>
+        <p>Is your child on track?
+            Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
+            </p>
+    </div>
+
+</div>
+    </div>
+
+<div id="promos">
+    <content:promos referredBy="${pageName}"/>
+</div>
+<br style="clear:both;"/>
+</div>
+<mod:tracking pageName="${pageName}"
+              hier1="Article,Tutoring and Homework Help"/>
+</gsml:body>
+</html>
+</jsp:root>

@@ -633,6 +633,22 @@
         </property>
     </bean>
 
+    <bean name="/content/tutoring.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>/content/tutoring</value>
+        </property>
+    </bean>
+
+    <bean name="/content/tutoring_Homwork_Help.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>/content/tutoring</value>
+        </property>
+    </bean>
+
     <bean name="/content/summerPlanning.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
