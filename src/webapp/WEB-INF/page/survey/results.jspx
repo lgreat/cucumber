@@ -88,7 +88,7 @@
 
     <c:set var="page" value="${results.pages[pIndex]}" />
 
-    <div class="page-header">${school.name} ${(not empty page.shortName) ? page.shortName : page.name}</div>
+    <div class="page-header">${fn:replace(page.shortName, "$SCHOOLNAME", school.name)}</div>
         <c:forEach items="${page.groups}" var="group">
 
         <c:if test="${group.numResponses gt 0}">
@@ -107,8 +107,10 @@
                     <c:when test="${result_question.displayType eq 'COMPLEX'}">
                         <c:set var="question" value="${result_question.question}" />
                         <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
-                            <h3 class="answer-sibling-heading">${answer.title}</h3>
                             <table class="complexResults" cellspacing="0" cellpadding="1">
+                                <tr>
+                                    <th class="even" colspan="6">${answer.title}</th>
+                                </tr>
                                 <tr>
                                     <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="cell">
                                         <c:choose>
@@ -174,10 +176,13 @@
 
                     <c:when test="${result_question.displayType eq 'LINKED'}">
                         <c:if test="${result_question.showResponses}">
+                            <c:if test="${fn:length(result_question.strings['header']) gt 0}">
+                                <div class="green-header">${result_question.strings['header']}</div>
+                            </c:if>
                             <div class="header">${result_question.displayText}</div>
                             <c:if test="${result_question.showResultsTable}">
                                 <div class="resultBox">
-                                    <div class="even">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>
+                                    <div class="even linkedHeader">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>
                                     <c:forEach items="${result_question.responseValuesAsMap}" var="entry" varStatus="cell">
                                         <c:choose>
                                             <c:when test="${(cell.index % 2) != 0}">
@@ -195,7 +200,12 @@
                     </c:when>
                     <c:when test="${result_question.displayType eq 'SIMPLE'}">
                         <c:if test="${result_question.numResponses > 0}">
-                            ${result_question.displayText}
+                            <c:if test="${fn:length(result_question.strings['header']) gt 0}">
+                                <div class="green-header">${result_question.strings['header']}</div>
+                            </c:if>
+                            <c:if test="${fn:length(result_question.displayText) gt 0}">
+                                ${result_question.displayText}
+                            </c:if>
                             <div class="resultBox">
                                 <c:forEach items="${result_question.responseValuesAsList}" var="entry" varStatus="cell">
                                     <c:choose>

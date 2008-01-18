@@ -58,10 +58,14 @@
     color: #666666;
     border: 1px solid #cccccc;
     position:relative;
-    margin: 0 0 30px 0;
+    margin: 15px 0 30px 0;
 }
 .resultBox div {
     padding: 2px 0 2px 30px;
+}
+
+.resultBox div.linkedHeader {
+    padding-left: 10px;
 }
 
 .resultBox .title {
@@ -90,14 +94,23 @@ table.complexResults {
     background-position:10px 5px;
     background-repeat:no-repeat;
 }
+
+table.complexResults th {
+	color:#99CC66; /* green */
+	font-size:11px;
+	font-weight:bold;
+	text-transform:uppercase;
+    padding-left: 10px;
+}
+
 table.complexResults td.check {
-    width:25px;
+    width:17px;
     height:23px;
     padding-left:10px;
 }
 
 table.complexResults td.value {
-    width:140px;
+    width:148px;
 }
 
 .resultScale {
@@ -116,27 +129,36 @@ table.complexResults td.value {
 
 div.page-header {
     position:relative;
+    background-image: url(../../img/splash/greyDot.gif);
+    background-position: center bottom;
+    background-repeat: repeat-x;
     color: #55BBCC;
-    border-bottom:dotted #E2E3CB 3px;
     font-size:15px;
     margin:40px 0 10px 0;
-    padding-bottom:5px;
+    padding-bottom:10px;
     font-weight:bold;
 }
 
 div.group-header {
     position:relative;
-    color: #7a7a7a;
+    color: #666666;
     font-size:15px;
-    margin:25px 0 15px 0;
+    margin:5px 0 15px 0;
     font-weight:normal;
 }
 
 div.header {
     position:relative;
-    color: #7a7a7a;
+    color: #666666;
     font-size:15px;
-    margin:15px 0 5px 0;
+    margin:5px 0 5px 0;
+    font-weight:normal;
+}
+
+div.green-header {
+    position: relative;
+    color: #99CC66;
+    font-size: 15px;
     font-weight:normal;
 }
 
@@ -180,4 +202,5 @@ div.header {
 
 .redText {
     color: #CC5566;
+    font-weight: bold;
 }
