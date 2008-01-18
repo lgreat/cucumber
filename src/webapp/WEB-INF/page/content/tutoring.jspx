@@ -27,9 +27,14 @@
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>
     <pageHelper:externalCss file="/res/css/content/tutoring.css"/>
 </head>
+<!--
 <c:set var="pageName" value="Tutoring and Homework Help"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Tutoring_and_Homework_Help"/>
 <gsml:body adPageName="content/tutoring" pageLayout="tutoring" startAdHierarchyAtPage="true">
+-->    
+<ad:setSlotPrefix slotPrefix="Library_Microsite_School_Choice_Tips"/>
+<gsml:body adPageName="content/schoolChoiceTips" pageLayout="schoolChoiceTips" startAdHierarchyAtPage="true">
+
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />
