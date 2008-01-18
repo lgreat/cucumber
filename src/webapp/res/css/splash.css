@@ -101,6 +101,14 @@
     min-height: 145px; /* padding-top + min-height = 150px */
     height: 100%;
 }
+#weekAdFree {
+    background-color: #eee;
+    color: #666666;
+    font-weight: 100;
+     padding: 10px 20px 16px 20px;
+    min-height: 145px; /* padding-top + min-height = 150px */
+    height: 100%;
+}
 
 #week h3 {
     height: 35px;
@@ -110,8 +118,16 @@
     background-repeat: no-repeat;
     background-position: 24px -2px;
 }
+#weekAdFree h3 {
+    height: 35px;
+    text-indent: -9999px;
+    overflow: hidden;
+    background-image: url( ../img/splash/thisWeekAtGreatSchools.gif );
+    background-repeat: no-repeat;
+    background-position: 24px -2px;
+}
 
-#week ul li {
+#week ul li,#weekAdFree ul li {
     font-size: .9em;
     margin: 0 0 3px 0;
     padding: 0px 0 0px 32px;
@@ -119,14 +135,14 @@
     background-position: 4px 4px;
 }
 
-#week ul li a {
+#week ul li a,#weekAdFree ul li a {
     color: #555555;
     font-weight: bold;
     text-decoration: underline;
     display: block;
 }
 
-#week ul li a:visited {
+#week ul li a:visited,#weekAdFree ul li {
     color: #555555;
 }
 
@@ -160,6 +176,19 @@ td#billsBlog {
     vertical-align: top;
 }
 
+td#billsBlogAdFree {
+    background-color: #eee;
+    color: #666666;
+    font-weight: 100;
+    padding: 20px 20px 16px 147px;
+    min-height: 130px; /* padding-top + min-height = 150px */
+    height: 100%;
+    background-image: url( ../img/splash/billFamily.jpg );
+    background-position: 16px 16px;
+    background-repeat: no-repeat;
+    vertical-align: top;
+}
+
 td#billsBlog img { margin-bottom: 7px; }
 
 #billsBlog div.rss {
@@ -171,7 +200,16 @@ td#billsBlog img { margin-bottom: 7px; }
     padding-right: 26px;
 }
 
-#billsBlog a, #billBlog a:hover, #billsBlog a:visited {
+#billsBlogAdFree div.rss {
+    margin-top: 0px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height:15px;
+}
+
+#billsBlog a, #billsBlog a:hover, #billsBlog a:visited,
+    #billsBlogAdFree a, #billsBlogAdFree a:hover, #billsBlogAdFree a:visited
+{
     color: #3399aa;
     text-decoration: underline;
 }
