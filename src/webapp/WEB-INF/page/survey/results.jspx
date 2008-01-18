@@ -74,7 +74,7 @@
                             </c:when>
                             <c:otherwise>
                                 <li class="inactive">
-                                    <link:surveyResults school="${school}" level="h" page="${page.index}">
+                                    <link:surveyResults school="${school}" level="${param.level}" page="${page.index}">
                                         <span>${toc.name}</span>
                                     </link:surveyResults>
                                 </li>
@@ -267,22 +267,28 @@
             Do you have questions or comments about the survey or survey results?
             <link:feedback  target="_blank" topicOption="Parent_survey" >Give us feedback &gt; </link:feedback>
         </div>
-        <!--
         <div class="previousnextouterwrap" id="outerteachers">
             <div class="previousnextwrap">
-                <div class="next" id="testnext_teachers">
-                    <gsml:inputImage src="/res/img/survey/savecontinue.gif" alt="Save and Continue"
-                                     name="submit" id="submitButton"/>
-                    <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
-                </div>
+                <c:if test="${pIndex gt 0}">
+                    <div class="previous" id="foo">
+                        <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
+                        <link:surveyResults school="${school}" level="${param.level}" page="${pIndex-1}">
+                            <gsml:img src="/res/img/survey/p_${pIndex}.gif" alt="Previous Page" />
+                        </link:surveyResults>
+                    </div>
+                </c:if>
+                <c:if test="${pIndex lt 3}">
+                    <div class="next" id="testnext_teachers">
+                        <link:surveyResults school="${school}" level="${param.level}" page="${pIndex+1}">
+                            <gsml:img src="/res/img/survey/n_${pIndex}.gif" alt="Next Page" />
+                        </link:surveyResults>
+                        <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
+                    </div>
+                </c:if>
             </div>
         </div>
-        -->
     </div>
 
-    <!--<div class="nextprev">-->
-
-    <!--</div>-->
 </div>
 
 <div id="right-col">
