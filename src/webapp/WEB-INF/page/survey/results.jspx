@@ -299,9 +299,8 @@
     <ad:AboveFold_300x600/>
 </div>
 <br style="clear:both;"/>
-<mod:tracking pageType="School Profile"
-              pageName="Parent Survey Questions:${requestScope.currentPage} "
-              hier1="Schools,Parent Survey,Question,Page ${requestScope.currentPage}"/>
+<mod:tracking pageName="Parent Survey Display: ${pIndex + 1} "
+              hier1="Schools,Parent Survey,Display,Page ${pIndex + 1}"/>
 </school:profile>
 </body>
 </html>
