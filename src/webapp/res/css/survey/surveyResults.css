@@ -2,7 +2,7 @@
 #pageGS #contentGS #results-intro{
 	width:530px;
 	margin:0 0 13px 0;
-	padding:0 0 17px 0;
+	padding:0 0 9px 0;
 	border-bottom: 1px solid #cccccc;
     position:relative;
     height:220px;
@@ -209,6 +209,10 @@ div.green-header {
     margin:0 0 5px 0;
 }
 
+#toc ul li {
+    padding: 0px 12px 7px 16px;
+}
 #toc ul li.inactive {
     background-image: url( "/res/img/bullet/pinkarrow.gif" );
 }
+
