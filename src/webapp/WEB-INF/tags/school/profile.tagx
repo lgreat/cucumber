@@ -112,11 +112,11 @@
 ]]>
 
 <c:if test="${!requestScope.context.crawler}">
-<script type="text/javascript" language="javascript">
-<![CDATA[
-    var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
-    function openDelicious() { location.href=deliciousUrl; }
-]]></script>
+    <script type="text/javascript" language="javascript">
+        <![CDATA[
+        var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
+        function openDelicious() { location.href=deliciousUrl; }
+        ]]></script>
 </c:if>
 
 <c:set var="state" value="${school.databaseState}"/>
@@ -129,10 +129,10 @@
         <c:set var="schoolType" value="public"/>
         <!-- to trigger MSS modal on exit -->
         <c:if test="${!requestScope.context.crawler}">
-        <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-        <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
-        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
+            <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+            <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+            <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
+            <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
         </c:if>
     </c:when>
     <c:otherwise>
@@ -140,12 +140,12 @@
     </c:otherwise>
 </c:choose>
 <div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
-    <div class="printSchoolProfileHeader">
-        <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"/></div>
-        <br></br><div class="printName">${school.name}</div>
-        <p><img src="/res/img/pixel.gif" alt=" "/></p>
-    </div>
-    <div id="schoolProfileHeader">
+<div class="printSchoolProfileHeader">
+    <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"/></div>
+    <br></br><div class="printName">${school.name}</div>
+    <p><img src="/res/img/pixel.gif" alt=" "/></p>
+</div>
+<div id="schoolProfileHeader">
 
     <div id="breadcrumbs">
         <ul>
@@ -160,34 +160,34 @@
 
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
-    <div id="tools">
-        <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
-        <link:mySchoolList school="${school}" styleClass="add toolsTxt" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
+        <div id="tools">
+            <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
+            <link:mySchoolList school="${school}" styleClass="add toolsTxt" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
 
-        <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+            <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 
-        <link:schoolProfileAddParentReview school="${school}"
-                                           onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                                           styleClass="submodal-344-362 rateImg toolsImg"><gsml:img src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
-        <link:schoolProfileAddParentReview school="${school}"
-                                           onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                                           styleClass="submodal-344-362 rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
+            <link:schoolProfileAddParentReview school="${school}"
+                                               onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                                               styleClass="submodal-344-362 rateImg toolsImg"><gsml:img src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
+            <link:schoolProfileAddParentReview school="${school}"
+                                               onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                                               styleClass="submodal-344-362 rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
 
-        <c:choose>
-            <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
-                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
-                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
-            </c:when>
-            <c:otherwise>
-                <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
-                <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
-            </c:otherwise>
-        </c:choose>
-        <c:if test="${school.levelCode != 'p'}">
-            <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
-            <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
-        </c:if>
-    </div>
+            <c:choose>
+                <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
+                    <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me updates about this school"/></promo:mssHover>
+                    <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
+                </c:when>
+                <c:otherwise>
+                    <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                    <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+                </c:otherwise>
+            </c:choose>
+            <c:if test="${school.levelCode != 'p'}">
+                <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
+                <link:schoolCompareSchool school="${school}" from="header" styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
+            </c:if>
+        </div>
     </c:if>
     <!-- end tools -->
 
@@ -243,62 +243,83 @@
     </div>
     <!-- end: ratings -->
 
-    </div> <!-- end: schoolProfileHeader div -->
+</div> <!-- end: schoolProfileHeader div -->
 
-    <c:set var="headerAnchor" value="from..Tab"/>
-    <table id="navigation" cellpadding="0" cellspacing="0">
-        <tr>
-            <td>
-                <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on' : ''}"
-                                            title="${school.name}"
-                                            anchor="${(tab eq 'overview') ? '' : headerAnchor}">
-                    School<br/>
-                    Overview
-                </link:schoolProfileOverview>
-            </td>
-            <c:if test="${schoolType != 'private' and school.levelCode != 'p'}">
-                <td>
-                    <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}"
-                                              title="${school.name} GreatSchools Ratings"
-                                              anchor="${(tab eq 'ratings') ? '' : headerAnchor}">
-                        GreatSchools<br/>
-                        Ratings
-                    </link:schoolProfileRating>
-                </td>
-            </c:if>
+<c:set var="headerAnchor" value="from..Tab"/>
+<table id="navigation" cellpadding="0" cellspacing="0">
+<tr>
+    <td>
+        <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on' : ''}"
+                                    title="${school.name}"
+                                    anchor="${(tab eq 'overview') ? '' : headerAnchor}">
+            School<br/>
+            Overview
+        </link:schoolProfileOverview>
+    </td>
+    <c:if test="${schoolType != 'private' and school.levelCode != 'p'}">
+        <td>
+            <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}"
+                                      title="${school.name} GreatSchools Ratings"
+                                      anchor="${(tab eq 'ratings') ? '' : headerAnchor}">
+                GreatSchools<br/>
+                Ratings
+            </link:schoolProfileRating>
+        </td>
+    </c:if>
 
-            <td>
-                <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on' : ''}"
-                                                title="${school.name} Parent Reviews"
-                                                anchor="${(tab eq 'parentReviews') ? '' : headerAnchor}">
-                    Parent<br/>
-                    Reviews
-                </link:schoolProfileParentReview>
-            </td>
+    <td>
+        <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on' : ''}"
+                                        title="${school.name} Parent Reviews"
+                                        anchor="${(tab eq 'parentReviews') ? '' : headerAnchor}">
+            Parent<br/>
+            Reviews
+        </link:schoolProfileParentReview>
+    </td>
 
-            <c:if test="${(schoolType != 'private' || state.privateTestScoresState) and (school.levelCode != 'p')}" >
-                <td>
-                    <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on' : ''}"
-                                                 title="${school.name} Test Scores"
-                                                 anchor="${(tab eq 'testscores') ? '' : headerAnchor}">
-                        Test<br/>
-                        Scores
-                    </link:schoolProfileTestscore>
-                </td>
-            </c:if>
+    <c:if test="${(schoolType != 'private' || state.privateTestScoresState) and (school.levelCode != 'p')}" >
+        <td>
+            <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on' : ''}"
+                                         title="${school.name} Test Scores"
+                                         anchor="${(tab eq 'testscores') ? '' : headerAnchor}">
+                Test<br/>
+                Scores
+            </link:schoolProfileTestscore>
+        </td>
+    </c:if>
 
-            <!-- This link tag automatically detects private schools and links appropriately -->
-            <td>
+    <!-- This link tag automatically detects private schools and links appropriately -->
+    <td>
+        <c:choose>
+            <c:when test="${requestScope.context.ABVersion eq 'c'}">
+                <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
+                                          anchor="from..TabB">
+                    Teachers and<br/>
+                    Students
+                </link:schoolProfileCensus>
+            </c:when>
+
+            <c:otherwise>
                 <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
                                           anchor="${headerAnchor}">
                     School<br/>
                     Environment
                 </link:schoolProfileCensus>
-            </td>
+            </c:otherwise>
+        </c:choose>
+    </td>
 
 
-            <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
-                <td>
+    <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
+        <td>
+            <c:choose>
+                <c:when test="${requestScope.context.ABVersion eq 'b'}">
+                    <link:schoolStartSurvey school="${school}" anchor="${headerAnchor}" cpn="SPTab_parentsurvey">
+                        Parent<br/>
+                        Survey
+                    </link:schoolStartSurvey>
+                </c:when>
+
+                <c:otherwise>
                     <link:districtProfile districtId="${school.districtId}"
                                           schoolId="${school.id}"
                                           state="${state.abbreviationLowerCase}"
@@ -307,28 +328,31 @@
                         District<br/>
                         Overview
                     </link:districtProfile>
-                </td>
-            </c:if>
 
-<!-- Temporarily commented out until destination implementation is complete
-            <td>
-                <a href="" title="">Parent<br/>Community</a>
-            </td>
--->
-            <c:if test="${school.levelCode != 'p'}">
-                <td class="last">
-                    <link:schoolCompareSchool school="${school}" styleClass="last" from="tab" anchor="${headerAnchor}">
-                        Compare<br/>
-                        Schools
-                    </link:schoolCompareSchool>
-                </td>
-            </c:if>
-        </tr>
-    </table>
-    <!-- end: navigation -->
+                </c:otherwise>
+            </c:choose>
+        </td>
+    </c:if>
 
-    <div id="subnav">
-        <c:if test="${!requestScope.context.crawler}">
+    <!-- Temporarily commented out until destination implementation is complete
+                <td>
+                    <a href="" title="">Parent<br/>Community</a>
+                </td>
+    -->
+    <c:if test="${school.levelCode != 'p'}">
+        <td class="last">
+            <link:schoolCompareSchool school="${school}" styleClass="last" from="tab" anchor="${headerAnchor}">
+                Compare<br/>
+                Schools
+            </link:schoolCompareSchool>
+        </td>
+    </c:if>
+</tr>
+</table>
+<!-- end: navigation -->
+
+<div id="subnav">
+    <c:if test="${!requestScope.context.crawler}">
         <ul>
             <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
             <!-- pipe characters used as opposed to li borders, as per client request -->
@@ -338,45 +362,45 @@
             <li><a href="javascript:openDelicious()"
                    onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a></li>
         </ul>
-        </c:if>
-    </div>
-    <!-- end: subnav -->
-    <div id="bodyContents">
-        <jsp:doBody/>
-    </div>
-
-    <br style="clear:both;"/>
-
-    <!-- breadcrumb start no breadcrumb on overview page-->
-    <c:set var="delimiter" value="&amp;gt;"/>
-
-    <c:if test="${tab ne 'overview' and tab ne 'ratings'}">
-        <div class="breadcrumb">
-            <span class="hr">&amp;#160;</span>
-            <h2>
-                <link:research state="${state}">${state.longName} schools</link:research>
-                ${delimiter}
-                <link:city city="${city}" state="${state}">${city} schools</link:city>
-
-                <c:choose>
-                    <c:when test="${school.districtId != 0}">
-                        ${delimiter}
-                        <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
-                        <c:if test="${tab ne 'overview'}">
-                            ${delimiter}<br/>
-                            <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
-                        </c:if>
-                    </c:when>
-                    <c:when test="${tab ne 'overview'}">
-                        ${delimiter} <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
-                    </c:when>
-                </c:choose>
-            </h2>
-        </div>
     </c:if>
-    <!-- breadcrumb end -->
+</div>
+<!-- end: subnav -->
+<div id="bodyContents">
+    <jsp:doBody/>
+</div>
 
-    <br style="clear:both;"/>
+<br style="clear:both;"/>
+
+<!-- breadcrumb start no breadcrumb on overview page-->
+<c:set var="delimiter" value="&amp;gt;"/>
+
+<c:if test="${tab ne 'overview' and tab ne 'ratings'}">
+    <div class="breadcrumb">
+        <span class="hr">&amp;#160;</span>
+        <h2>
+            <link:research state="${state}">${state.longName} schools</link:research>
+            ${delimiter}
+            <link:city city="${city}" state="${state}">${city} schools</link:city>
+
+            <c:choose>
+                <c:when test="${school.districtId != 0}">
+                    ${delimiter}
+                    <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
+                    <c:if test="${tab ne 'overview'}">
+                        ${delimiter}<br/>
+                        <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                    </c:if>
+                </c:when>
+                <c:when test="${tab ne 'overview'}">
+                    ${delimiter} <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                </c:when>
+            </c:choose>
+        </h2>
+    </div>
+</c:if>
+<!-- breadcrumb end -->
+
+<br style="clear:both;"/>
 </div>
 <!-- end schoolProfile -->
 </jsp:root>
