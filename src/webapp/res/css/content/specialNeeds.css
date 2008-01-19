@@ -1,9 +1,9 @@
 h1#specialNeedsText {
-    background: url( "../../img/content/specialNeeds/text_1.gif" ) no-repeat;
+    background: url( "../../img/content/specialNeeds/headertext.gif" ) no-repeat;
 }
 
 h2#identifyLearningProblem {
-    background: url( "../../img/content/specialNeeds/text_2.gif" ) no-repeat;
+    background: url( "../../img/content/specialNeeds/text_1.gif" ) no-repeat;
 }
 
 h2#supportChild {
@@ -15,7 +15,7 @@ h2#knowLegalRights {
 }
 
 h2#specificDisabilities {
-    background: url( "../../img/content/specialNeeds/text_5.gif" ) no-repeat;
+    background: url( "../../img/content/specialNeeds/text_2.gif" ) no-repeat;
 }
 
 #contentGS div.multipleQuestions {

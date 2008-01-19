@@ -23,7 +23,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="Special needs and learning differences: Tips for how to identify and support your child's special learning needs, navigate special education, and understand your legal rights. Specific information about Asperger's Syndrome, AD/HD, Autism, Dyslexia and math and writing disabilities."/>
-    <title>Greatschools.net: Special Needs</title>
+    <title>Greatschools.net: Your Child With Learning Difficulties</title>
 
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
     <pageHelper:externalCss file="/res/css/content/specialNeeds.css"/>
@@ -43,7 +43,7 @@
             </div>
 
 
-            <content:micrositeArticleList title="Identify a Learning Problem"
+            <content:micrositeArticleList title="Identify a Learning Difficulty"
                                           headerId="identifyLearningProblem"
                                           articleIds="979,980,840,982"/>
 
@@ -55,7 +55,7 @@
                                           headerId="knowLegalRights"
                                           articleIds="978,993,986,987,989"/>
 
-            <content:micrositeArticleList title="Specific Learning Problems"
+            <content:micrositeArticleList title="Specific Challenges"
                                           headerId="specificDisabilities"
                                           articleIds="988,999,998,389,385,990" lower="true"/>
 
