@@ -32,11 +32,13 @@
     <c:choose>
         <c:when test="${pIndex eq 0}">
             <c:set var="surveyPageName" value="Extracurricular Activities" />
+            <c:set var="promoImageName" value="activities"/>
             <meta name="Description" content="Review parent survey results about ${school.name} extracurricular activities including arts, sports, foreign languages, vocational programs, and more - ${location}"/>
             <meta name="keywords" content="${school.name} extracurricular activities, ${school.name} sports, ${school.name} arts, ${school.name} languages, ${school.name} vocational programs" />
         </c:when>
         <c:when test="${pIndex eq 1}">
             <c:set var="surveyPageName" value="Student Resources" />
+            <c:set var="promoImageName" value="resources"/>
             <!--<c:when test="${not empty param.level and param.level eq 'h'}">-->
             <c:if test="${param.level eq 'h'}">
                 <meta name="Description" content="Review parent survey results about ${school.name} student resources for students with learning difficulties, english language learners, and more - ${location}"/>
@@ -49,6 +51,7 @@
         </c:when>
         <c:when test="${pIndex eq 2}">
             <c:set var="surveyPageName" value="Academics" />
+            <c:set var="promoImageName" value="academics"/>
             <c:if test="${param.level eq 'h'}">
                 <meta name="Description" content="Review parent survey results about ${school.name} academics including information about AP courses, homework, teaching and more - ${location}"/>
                 <meta name="keywords" content="${school.name} AP courses, ${school.name} honors courses, ${school.name} homework, ${school.name} teachers, ${school.name} teaching, ${school.name} academics" />
@@ -60,6 +63,7 @@
         </c:when>
         <c:when test="${pIndex eq 3}">
             <c:set var="surveyPageName" value="School Culture" />
+            <c:set var="promoImageName" value="culture"/>
             <meta name="Description" content="Review parent survey results about ${school.name}’s school culture including information about the principal, discipline, parent involvement and more - ${location}"/>
             <meta name="keywords" content="${school.name} principal, ${school.name} administration, ${school.name} parents, ${school.name} discipline, ${school.name} culture" />
         </c:when>
@@ -131,102 +135,145 @@
 
     <c:set var="page" value="${results.pages[pIndex]}" />
 
-    <div class="page-header">${fn:replace(page.shortName, "$SCHOOLNAME", school.name)}</div>
-        <c:forEach items="${page.groups}" var="group">
+    <c:choose>
+        <c:when test="${page.numResponses gt 0}">
+            <!-- There are responses, first show cross promotion then page -->
+            <div class="crossPromo crossPromoWithDataHeader">
+                <link:schoolStartSurvey school="${school}"><gsml:img
+                        src="/res/img/survey/promo/do_you_agree.gif"
+                        alt="Do you agree with what parents say about ${school.name}?"/>
+                </link:schoolStartSurvey>
+            </div>
+            <div class="page-header">${fn:replace(page.headerName, "$SCHOOLNAME", school.name)}</div>
+            <c:forEach items="${page.groups}" var="group">
 
-        <c:if test="${group.numResponses gt 0}">
-            <c:if test="${not empty group.headerText}">
-                <div class="page-header">${fn:replace(group.headerText, "$SCHOOLNAME", school.name)}</div>
-            </c:if>
+                <c:if test="${group.numResponses gt 0}">
+                    <c:if test="${not empty group.headerText}">
+                        <div class="page-header">${fn:replace(group.headerText, "$SCHOOLNAME", school.name)}</div>
+                    </c:if>
 
-            <c:if test="${not empty group.displayText}">
-                <div class="group-header">${fn:replace(group.displayText, "$SCHOOLNAME", school.name)}</div>
-            </c:if>
-        </c:if>
+                    <c:if test="${not empty group.displayText}">
+                        <div class="group-header">${fn:replace(group.displayText, "$SCHOOLNAME", school.name)}</div>
+                    </c:if>
+                </c:if>
 
 
-            <c:forEach items="${group.questions}" var="result_question">
-                <c:choose>
-                    <c:when test="${result_question.displayType eq 'COMPLEX'}">
-                        <c:set var="question" value="${result_question.question}" />
-                        <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
-                            <table class="complexResults" cellspacing="0" cellpadding="1">
-                                <tr>
-                                    <th class="even" colspan="6">${answer.title}</th>
-                                </tr>
-                                <tr>
-                                    <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="cell">
-                                        <c:choose>
-                                            <c:when test="${((cell.index - (cell.index % 3)) % 2) == 0}">
-                                                <c:set var="cellStyle" value="odd"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:set var="cellStyle" value="even"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <td class="check ${cellStyle}">
-                                            <c:if test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
-                                                <img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="pink check mark" />
-                                            </c:if>
-                                        </td>
-                                        <td class="value ${cellStyle}">
-                                                ${answerValue.display}
-                                        </td>
-
-                                        <c:choose>
-                                            <c:when test="${(cell.index + 1 lt fn:length(answer.answerValues))}">
-                                                <c:if test="${(cell.index + 1) % 3 == 0}">
-                                                    <![CDATA[</tr><tr>]]>
+                <c:forEach items="${group.questions}" var="result_question">
+                    <c:choose>
+                        <c:when test="${result_question.displayType eq 'COMPLEX'}">
+                            <c:set var="question" value="${result_question.question}" />
+                            <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
+                                <table class="complexResults" cellspacing="0" cellpadding="1">
+                                    <tr>
+                                        <th class="even" colspan="6">${answer.title}</th>
+                                    </tr>
+                                    <tr>
+                                        <c:forEach var="answerValue" items="${answer.answerValues}" varStatus="cell">
+                                            <c:choose>
+                                                <c:when test="${((cell.index - (cell.index % 3)) % 2) == 0}">
+                                                    <c:set var="cellStyle" value="odd"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="cellStyle" value="even"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <td class="check ${cellStyle}">
+                                                <c:if test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
+                                                    <img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="pink check mark" />
                                                 </c:if>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:set var="cellmod" value="${(cell.index + 1) % 3}" />
-                                                <c:if test="${cellmod != 0}">
-                                                    <c:set var="end" value="${3 - cellmod}" />
-                                                    <c:forEach begin="1" end="${end}">
-                                                        <td class="check ${cellStyle}" />
-                                                        <td class="value ${cellStyle}" />
-                                                    </c:forEach>
-                                                </c:if>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </tr>
-                            </table>
-                        </c:forEach>
-                    </c:when>
-                    <c:when test="${result_question.displayType eq 'VALUES'}">
-                        <c:if test="${fn:length(result_question.responses) gt 0 and fn:length(result_question.responseValuesAsMap) gt 0}">
-                            <div class="header">
-                                <c:choose>
-                                    <c:when test="${fn:length(result_question.responses) gt 1 and fn:length(result_question.responseValuesAsMap) gt 1}">
-                                        ${result_question.strings['pluralDisplayText']}
-                                    </c:when>
-                                    <c:otherwise>
-                                        ${result_question.strings['singularDisplayText']}
-                                    </c:otherwise>
-                                </c:choose>
-                            <c:forEach items="${result_question.responseValuesAsSetOrderedByOccurrence}"
-                                       var="entry" varStatus="cell" begin="0" end="2">
-                                <c:choose>
-                                    <c:when test="${!(cell.first) and !(cell.last)}">, </c:when>
-                                    <c:when test="${cell.last and !(cell.first)}"> and </c:when>
-                                </c:choose>
-                                <span class="redText">${entry.key}</span>
-                            </c:forEach>.</div>
-                        </c:if>
-                    </c:when>
+                                            </td>
+                                            <td class="value ${cellStyle}">
+                                                    ${answerValue.display}
+                                            </td>
 
-                    <c:when test="${result_question.displayType eq 'LINKED'}">
-                        <c:if test="${result_question.showResponses}">
-                            <c:if test="${fn:length(result_question.strings['header']) gt 0}">
-                                <div class="green-header">${result_question.strings['header']}</div>
+                                            <c:choose>
+                                                <c:when test="${(cell.index + 1 lt fn:length(answer.answerValues))}">
+                                                    <c:if test="${(cell.index + 1) % 3 == 0}">
+                                                        <![CDATA[</tr><tr>]]>
+                                                    </c:if>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="cellmod" value="${(cell.index + 1) % 3}" />
+                                                    <c:if test="${cellmod != 0}">
+                                                        <c:set var="end" value="${3 - cellmod}" />
+                                                        <c:forEach begin="1" end="${end}">
+                                                            <td class="check ${cellStyle}" />
+                                                            <td class="value ${cellStyle}" />
+                                                        </c:forEach>
+                                                    </c:if>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </tr>
+                                </table>
+                            </c:forEach>
+                            <!-- For activities page, insert cross promo here -->
+                            <c:if test="${promoImageName eq 'activities'}">
+                                <div class="crossPromo crossPromoWithData">
+                                    <link:schoolStartSurvey
+                                            school="${school}"><gsml:img
+                                            src="/res/img/survey/promo/what_${promoImageName}.gif"
+                                            alt="Do you agree with what parents say about ${page.shortName} at ${school.name}?"/>
+                                    </link:schoolStartSurvey>
+                                </div>
                             </c:if>
-                            <div class="header">${result_question.displayText}</div>
-                            <c:if test="${result_question.showResultsTable}">
+                        </c:when>
+                        <c:when test="${result_question.displayType eq 'VALUES'}">
+                            <c:if test="${fn:length(result_question.responses) gt 0 and fn:length(result_question.responseValuesAsMap) gt 0}">
+                                <div class="header">
+                                    <c:choose>
+                                        <c:when test="${fn:length(result_question.responses) gt 1 and fn:length(result_question.responseValuesAsMap) gt 1}">
+                                            ${result_question.strings['pluralDisplayText']}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${result_question.strings['singularDisplayText']}
+                                        </c:otherwise>
+                                    </c:choose>
+                                <c:forEach items="${result_question.responseValuesAsSetOrderedByOccurrence}"
+                                           var="entry" varStatus="cell" begin="0" end="2">
+                                    <c:choose>
+                                        <c:when test="${!(cell.first) and !(cell.last)}">, </c:when>
+                                        <c:when test="${cell.last and !(cell.first)}"> and </c:when>
+                                    </c:choose>
+                                    <span class="redText">${entry.key}</span>
+                                </c:forEach>.</div>
+                            </c:if>
+                        </c:when>
+
+                        <c:when test="${result_question.displayType eq 'LINKED'}">
+                            <c:if test="${result_question.showResponses}">
+                                <c:if test="${fn:length(result_question.strings['header']) gt 0}">
+                                    <div class="green-header">${result_question.strings['header']}</div>
+                                </c:if>
+                                <div class="header">${result_question.displayText}</div>
+                                <c:if test="${result_question.showResultsTable}">
+                                    <div class="resultBox">
+                                        <div class="even linkedHeader">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>
+                                        <c:forEach items="${result_question.responseValuesAsMap}" var="entry" varStatus="cell">
+                                            <c:choose>
+                                                <c:when test="${(cell.index % 2) != 0}">
+                                                    <c:set var="cellStyle" value="even"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="cellStyle" value="odd"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}">${entry.key}</div>
+                                        </c:forEach>
+                                    </div>
+                                </c:if>
+                            </c:if>
+                        </c:when>
+                        <c:when test="${result_question.displayType eq 'SIMPLE'}">
+                            <c:if test="${result_question.numResponses > 0}">
+                                <c:if test="${fn:length(result_question.strings['header']) gt 0}">
+                                    <div class="green-header">${result_question.strings['header']}</div>
+                                </c:if>
+                                <c:if test="${fn:length(result_question.displayText) gt 0}">
+                                    ${result_question.displayText}
+                                </c:if>
                                 <div class="resultBox">
-                                    <div class="even linkedHeader">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>
-                                    <c:forEach items="${result_question.responseValuesAsMap}" var="entry" varStatus="cell">
+                                    <c:forEach items="${result_question.responseValuesAsList}" var="entry" varStatus="cell">
                                         <c:choose>
                                             <c:when test="${(cell.index % 2) != 0}">
                                                 <c:set var="cellStyle" value="even"/>
@@ -239,70 +286,71 @@
                                     </c:forEach>
                                 </div>
                             </c:if>
-                        </c:if>
-                    </c:when>
-                    <c:when test="${result_question.displayType eq 'SIMPLE'}">
-                        <c:if test="${result_question.numResponses > 0}">
-                            <c:if test="${fn:length(result_question.strings['header']) gt 0}">
-                                <div class="green-header">${result_question.strings['header']}</div>
+                        </c:when>
+                        <c:when test="${result_question.displayType eq 'SCALE'}">
+                            <c:if test="${fn:length(result_question.responses) > 0}">
+                                <div class="resultScale">
+                                        <div class="answer-bar">
+                                            <div class="label-left">${result_question.strings.left}</div>
+                                            <div class="label-right">${result_question.strings.right}</div>
+                                            <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
+                                        </div>
+                                        <!--
+                                         (562*(result_question.sliderValue-0.2)) gives values in the range 0-450, plus 33.5 adds the
+                                          left padding
+                                        -->
+                                        <fmt:parseNumber var="offset" value="${33.5 + (562*(result_question.sliderValue-0.2))}" integerOnly="true"/>
+                                        <c:set var="arrowPct" value="${offset}px;"/>
+                                        <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
+                                </div>
                             </c:if>
-                            <c:if test="${fn:length(result_question.displayText) gt 0}">
-                                ${result_question.displayText}
-                            </c:if>
-                            <div class="resultBox">
-                                <c:forEach items="${result_question.responseValuesAsList}" var="entry" varStatus="cell">
-                                    <c:choose>
-                                        <c:when test="${(cell.index % 2) != 0}">
-                                            <c:set var="cellStyle" value="even"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="cellStyle" value="odd"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}">${entry.key}</div>
-                                </c:forEach>
+                        </c:when>
+                        <c:when test="${result_question.displayType eq 'SCHOOLS'}">
+                            <div class="resultSchool">
+                                <div class="header">${result_question.displayText}</div>
+                                <ul>
+                                    <c:forEach items="${result_question.responseValuesAsMap}" var="mKey">
+                                        <li>
+                                            <c:choose>
+                                                <c:when test="${mKey.key.class eq 'class gs.data.school.School'}">
+                                                    <link:schoolProfileOverview school="${mKey.key}">${mKey.key.name}</link:schoolProfileOverview>
+                                                </c:when>
+                                                <c:otherwise>${mKey.key}</c:otherwise>
+                                            </c:choose>
+                                            (${mKey.value})
+                                        </li>
+                                    </c:forEach>
+                                </ul>
                             </div>
-                        </c:if>
-                    </c:when>
-                    <c:when test="${result_question.displayType eq 'SCALE'}">
-                        <c:if test="${fn:length(result_question.responses) > 0}">
-                            <div class="resultScale">
-                                    <div class="answer-bar">
-                                        <div class="label-left">${result_question.strings.left}</div>
-                                        <div class="label-right">${result_question.strings.right}</div>
-                                        <img class="bar-pic" width="450" height="5" src="/res/img/survey/bar.jpg" alt="bar"/>
-                                    </div>
-                                    <!--
-                                     (562*(result_question.sliderValue-0.2)) gives values in the range 0-450, plus 33.5 adds the
-                                      left padding
-                                    -->
-                                    <fmt:parseNumber var="offset" value="${33.5 + (562*(result_question.sliderValue-0.2))}" integerOnly="true"/>
-                                    <c:set var="arrowPct" value="${offset}px;"/>
-                                    <div style="padding-left:${arrowPct}"><img src="/res/img/bullet/pinkarrowup.gif" alt="arrow up"/></div>
-                            </div>
-                        </c:if>
-                    </c:when>
-                    <c:when test="${result_question.displayType eq 'SCHOOLS'}">
-                        <div class="resultSchool">
-                            <div class="header">${result_question.displayText}</div>
-                            <ul>
-                                <c:forEach items="${result_question.responseValuesAsMap}" var="mKey">
-                                    <li>
-                                        <c:choose>
-                                            <c:when test="${mKey.key.class eq 'class gs.data.school.School'}">
-                                                <link:schoolProfileOverview school="${mKey.key}">${mKey.key.name}</link:schoolProfileOverview>
-                                            </c:when>
-                                            <c:otherwise>${mKey.key}</c:otherwise>
-                                        </c:choose>
-                                        (${mKey.value})
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                    </c:when>
-                </c:choose>
+                        </c:when>
+                    </c:choose>
+                </c:forEach>
             </c:forEach>
-        </c:forEach>
+            <!-- "Do you agree..." cross promotion, hidden on activities page -->
+            <c:if test="${promoImageName ne 'activities' and promoImageName ne ''}">
+                <div class="crossPromo crossPromoWithData">
+                    <link:schoolStartSurvey
+                            school="${school}"><gsml:img
+                            src="/res/img/survey/promo/doyouagree_${promoImageName}.gif"
+                            alt="Do you agree with what parents say about ${page.shortName} at ${school.name}?"/>
+                    </link:schoolStartSurvey>
+                </div>
+            </c:if>
+        </c:when>
+        <c:otherwise>
+            <!-- No responses on page, do "Be the first..." cross promotion -->
+            <c:if test="${promoImageName ne ''}">
+                <div class="crossPromo crossPromoWithoutData">
+                    <link:schoolStartSurvey
+                            school="${school}"><gsml:img
+                            src="/res/img/survey/promo/bethefirst_${promoImageName}.gif"
+                            alt="Be the first to tell us about ${school.name}'s ${page.shortName}!"/>
+                    </link:schoolStartSurvey>
+                </div>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+
     <br/><br/><br/>
 
     <div class="nextprev">

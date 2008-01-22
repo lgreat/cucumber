@@ -216,3 +216,22 @@ div.green-header {
     background-image: url( "/res/img/bullet/pinkarrow.gif" );
 }
 
+div.crossPromo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #CC5566;
+}
+
+div.crossPromoWithDataHeader {
+    padding-left: 25px;
+}
+
+div.crossPromoWithData, div.crossPromoWithoutData {
+    padding-left: 0;
+}
+
+div#contentGS div.crossPromo a {
+    text-decoration: underline;
+    font-weight: normal;
+    color: #3399AA;
+}
