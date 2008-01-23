@@ -138,7 +138,7 @@
     <c:choose>
         <c:when test="${page.numResponses gt 0}">
             <!-- There are responses, first show cross promotion then page -->
-            <div class="crossPromo crossPromoWithDataHeader">
+            <div class="crossPromo crossPromoHeader">
                 <link:schoolStartSurvey school="${school}"><gsml:img
                         src="/res/img/survey/promo/do_you_agree.gif"
                         alt="Do you agree with what parents say about ${school.name}?"/>
@@ -209,7 +209,7 @@
                             </c:forEach>
                             <!-- For activities page, insert cross promo here -->
                             <c:if test="${promoImageName eq 'activities'}">
-                                <div class="crossPromo crossPromoWithData">
+                                <div class="crossPromo crossPromoInside">
                                     <link:schoolStartSurvey
                                             school="${school}"><gsml:img
                                             src="/res/img/survey/promo/what_${promoImageName}.gif"
@@ -220,7 +220,7 @@
                         </c:when>
                         <c:when test="${result_question.displayType eq 'VALUES'}">
                             <c:if test="${fn:length(result_question.responses) gt 0 and fn:length(result_question.responseValuesAsMap) gt 0}">
-                                <div class="header">
+                                <div class="header displayTypeValues">
                                     <c:choose>
                                         <c:when test="${fn:length(result_question.responses) gt 1 and fn:length(result_question.responseValuesAsMap) gt 1}">
                                             ${result_question.strings['pluralDisplayText']}
@@ -328,7 +328,7 @@
             </c:forEach>
             <!-- "Do you agree..." cross promotion, hidden on activities page -->
             <c:if test="${promoImageName ne 'activities' and promoImageName ne ''}">
-                <div class="crossPromo crossPromoWithData">
+                <div class="crossPromo crossPromoBottom">
                     <link:schoolStartSurvey
                             school="${school}"><gsml:img
                             src="/res/img/survey/promo/doyouagree_${promoImageName}.gif"
@@ -340,7 +340,7 @@
         <c:otherwise>
             <!-- No responses on page, do "Be the first..." cross promotion -->
             <c:if test="${promoImageName ne ''}">
-                <div class="crossPromo crossPromoWithoutData">
+                <div class="crossPromo">
                     <link:schoolStartSurvey
                             school="${school}"><gsml:img
                             src="/res/img/survey/promo/bethefirst_${promoImageName}.gif"
@@ -350,8 +350,6 @@
             </c:if>
         </c:otherwise>
     </c:choose>
-
-    <br/><br/><br/>
 
     <div class="nextprev">
         <div class="feedback">

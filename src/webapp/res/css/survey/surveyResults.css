@@ -114,7 +114,8 @@ table.complexResults td.value {
 }
 
 .resultScale {
-    margin: 0 0 25px 0;
+    margin: 0 0 0 0;
+    padding-bottom: 45px;
 }
 
 .resultScale .answer-bar{
@@ -143,7 +144,7 @@ div.group-header {
     position:relative;
     color: #666666;
     font-size:15px;
-    margin:5px 0 15px 0;
+    margin:10px 0 15px 0;
     font-weight:normal;
 }
 
@@ -158,8 +159,9 @@ div.header {
 div.green-header {
     position: relative;
     color: #99CC66;
-    font-size: 15px;
-    font-weight:normal;
+    font-size:11px;
+    font-weight:bold;
+    text-transform:uppercase;
 }
 
 .resultSchool p {
@@ -220,18 +222,32 @@ div.crossPromo {
     font-size: 18px;
     font-weight: bold;
     color: #CC5566;
-}
-
-div.crossPromoWithDataHeader {
-    padding-left: 25px;
-}
-
-div.crossPromoWithData, div.crossPromoWithoutData {
     padding-left: 0;
+}
+
+div.crossPromoHeader {
+    padding: 0 25px 10px 0;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+div.crossPromoInside {
+    margin-bottom: 50px;
+}
+
+div.crossPromoBottom {
+    margin-top: 100px;
 }
 
 div#contentGS div.crossPromo a {
     text-decoration: underline;
     font-weight: normal;
     color: #3399AA;
+}
+
+div.displayTypeValues {
+    margin-bottom: 45px;
+}
+
+div.nextprev {
+    margin-top: 30px;
 }
