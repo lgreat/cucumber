@@ -179,7 +179,8 @@
                                             </c:choose>
                                             <td class="check ${cellStyle}">
                                                 <c:if test="${not empty result_question.responseValuesAsMap[answerValue.symbol]}">
-                                                    <img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="pink check mark" />
+                                                    <img src="/res/img/bullet/pinkcheck_onwhite.gif"
+                                                         alt="${school.name} ${answerValue.display}" />
                                                 </c:if>
                                             </td>
                                             <td class="value ${cellStyle}">
