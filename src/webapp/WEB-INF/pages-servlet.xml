@@ -641,7 +641,7 @@
         </property>
     </bean>
 
-    <bean name="/content/tutoring_Homwork_Help.page"
+    <bean name="/content/tutoring_Homework_Help.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">

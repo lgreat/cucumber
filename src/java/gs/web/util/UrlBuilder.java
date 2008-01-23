@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.99 2008/01/18 20:13:11 jnorton Exp $
+ * $Id: UrlBuilder.java,v 1.100 2008/01/23 00:24:29 jnorton Exp $
  */
 
 package gs.web.util;
@@ -450,7 +450,7 @@ public class UrlBuilder {
         }else if (STATE_STANDARDS.equals(page)) {
             _path = "/content/stateStandards.page";
         }else if (TUTORING.equals(page)) {
-            _path = "/content/tutoring_Homwork_Help.page";
+            _path = "/content/tutoring_Homework_Help.page";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
