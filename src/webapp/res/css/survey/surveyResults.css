@@ -89,10 +89,14 @@ table.complexResults {
 .even {
     background-color: #FFFFFF;
 }
-.checked {
-    background-image:url("/res/img/bullet/pinkcheck_onwhite.gif");
-    background-position:10px 5px;
-    background-repeat:no-repeat;
+.resultBox div.checked {
+    position: relative;
+}
+
+.resultBox div.checked img {
+    position: absolute;
+    top: 4px;
+    left: 10px;
 }
 
 table.complexResults th {

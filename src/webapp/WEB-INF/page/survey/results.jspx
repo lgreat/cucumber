@@ -259,7 +259,9 @@
                                                     <c:set var="cellStyle" value="odd"/>
                                                 </c:otherwise>
                                             </c:choose>
-                                            <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}">${entry.key}</div>
+                                            <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}"><c:if test="${entry.value > 0}">
+                                                <gsml:img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="${school.name} ${entry.key}"/>
+                                            </c:if>${entry.key}</div>
                                         </c:forEach>
                                     </div>
                                 </c:if>
@@ -283,7 +285,9 @@
                                                 <c:set var="cellStyle" value="odd"/>
                                             </c:otherwise>
                                         </c:choose>
-                                        <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}">${entry.key}</div>
+                                        <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}"><c:if test="${entry.value > 0}">
+                                                <gsml:img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="${school.name} ${entry.key}"/>
+                                            </c:if>${entry.key}</div>
                                     </c:forEach>
                                 </div>
                             </c:if>
