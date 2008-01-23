@@ -207,8 +207,13 @@
         </div>
     </div>
 
+
 <footer:editorialFooter/>
 
+    <gsml:a href="/cgi-bin/static/Milwaukee-Contest-Rules.html">
+        Click here for official rules for Milwaukee School Chooser drawings
+    </gsml:a>
+    
 <mod:tracking pageName="Milwaukee Landing Page" hier1="Home,Outreach,Milwaukee"/>
 
 </gsml:body>
