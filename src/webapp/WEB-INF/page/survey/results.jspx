@@ -249,7 +249,7 @@
                                 <c:if test="${result_question.showResultsTable}">
                                     <div class="resultBox">
                                         <div class="even linkedHeader">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>
-                                        <c:forEach items="${result_question.responseValuesAsMap}" var="entry" varStatus="cell">
+                                        <c:forEach items="${result_question.responseValuesAsList}" var="entry" varStatus="cell">
                                             <c:choose>
                                                 <c:when test="${(cell.index % 2) != 0}">
                                                     <c:set var="cellStyle" value="even"/>
@@ -306,22 +306,24 @@
                             </c:if>
                         </c:when>
                         <c:when test="${result_question.displayType eq 'SCHOOLS'}">
-                            <div class="resultSchool">
-                                <div class="header">${result_question.displayText}</div>
-                                <ul>
-                                    <c:forEach items="${result_question.responseValuesAsMap}" var="mKey">
-                                        <li>
-                                            <c:choose>
-                                                <c:when test="${mKey.key.class eq 'class gs.data.school.School'}">
-                                                    <link:schoolProfileOverview school="${mKey.key}">${mKey.key.name}</link:schoolProfileOverview>
-                                                </c:when>
-                                                <c:otherwise>${mKey.key}</c:otherwise>
-                                            </c:choose>
-                                            (${mKey.value})
-                                        </li>
-                                    </c:forEach>
-                                </ul>
-                            </div>
+                            <c:if test="${result_question.numResponses > 0}">
+                                <div class="resultSchool">
+                                    <div class="header">${result_question.displayText}</div>
+                                    <ul>
+                                        <c:forEach items="${result_question.responseValuesAsMap}" var="mKey">
+                                            <li>
+                                                <c:choose>
+                                                    <c:when test="${mKey.key.class eq 'class gs.data.school.School'}">
+                                                        <link:schoolProfileOverview school="${mKey.key}">${mKey.key.name}</link:schoolProfileOverview>
+                                                    </c:when>
+                                                    <c:otherwise>${mKey.key}</c:otherwise>
+                                                </c:choose>
+                                                (${mKey.value})
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </c:if>
                         </c:when>
                     </c:choose>
                 </c:forEach>
