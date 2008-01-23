@@ -245,7 +245,7 @@
                                 <c:if test="${fn:length(result_question.strings['header']) gt 0}">
                                     <div class="green-header">${result_question.strings['header']}</div>
                                 </c:if>
-                                <div class="header">${result_question.displayText}</div>
+                                <div class="header ${result_question.showResultsTable?'':'sixtyBottom'}">${result_question.displayText}</div>
                                 <c:if test="${result_question.showResultsTable}">
                                     <div class="resultBox">
                                         <div class="even linkedHeader">OPTIONS AVAILABLE FOR STUDENTS INCLUDE</div>

@@ -159,9 +159,13 @@ div.header {
 div.green-header {
     position: relative;
     color: #99CC66;
-    font-size:11px;
+    font-size:14px;
     font-weight:bold;
     text-transform:uppercase;
+}
+
+div.resultSchool {
+    margin-bottom: 60px;
 }
 
 .resultSchool p {
@@ -250,4 +254,8 @@ div.displayTypeValues {
 
 div.nextprev {
     margin-top: 30px;
+}
+
+div#contentGS .sixtyBottom {
+    margin-bottom: 60px;
 }
