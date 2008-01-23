@@ -45,11 +45,11 @@
 
             <content:micrositeArticleList title="Identify a Learning Difficulty"
                                           headerId="identifyLearningProblem"
-                                          articleIds="979,980,840,982"/>
+                                          articleIds="979,980,840"/>
 
             <content:micrositeArticleList title="Support Your Child at School"
                                           headerId="supportChild"
-                                          articleIds="22,983,984,985,981"/>
+                                          articleIds="982,22,983,984,985,981"/>
 
             <content:micrositeArticleList title="Know Your Child's Legal Rights"
                                           headerId="knowLegalRights"
