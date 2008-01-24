@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.7 2007/07/24 23:26:49 chriskimm Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.8 2008/01/24 08:44:49 eddie Exp $
  */
 
 package gs.web.content;
@@ -56,13 +56,14 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
 
         JspWriter out = getJspContext().getOut();
         out.print(text);
-        out.print(" ");
+        out.print("<div style='padding-top: 9px;padding-bottom: 9px;'> ");
         out.print("<a onclick=\"Popup=window.open('" +
                 link +
                 "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;\"\n" +
                 " href=\"" +
                 link +
                 "\">Read more about \"" + title + "\" &gt;</a>");
+        out.print("</div> ");
 
     }
 

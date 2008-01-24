@@ -189,17 +189,17 @@
 </td>
 </tr>
 </table>
+ <c:set var="splashAd" value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 <div class="bigDottedDivider"><hr/></div>
-<c:choose>
-    <c:when test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
 
         <table cellpadding="0" cellspacing="0" width="100%" border="0">
             <tr>
-                <td style="vertical-align: top; height: 100%; background-color:#eee; width: 270px">
-                    <div id="week">
-                        <gsml:img src="/res/img/splash/thisweek_268.jpg" alt="This Week at GreatSchools" />
+                <td id="${splashAd ? 'firstbox' : 'firstboxAdFree'}">
+                    <div id="${splashAd  ? 'week' : 'weekAdFree'}">
+                        <gsml:img src="/res/img/splash/thisweek_268.jpg" alt="This Week at GreatSchools"
+                                  style="${splashAd ? '' : 'padding-top: 0px; padding-left:18px;'} "/>
                         <!-- <h3>This Week at GreatSchools</h3>  -->
-                        <ul style="padding-left: 10px;padding-right: 20px;">
+                        <ul>
                             <li class="burst"><content:newsItem category="SPLASH POSITION 1"
                                                                 state="${requestScope.context.state}"/></li>
                             <li class="dialog"><content:newsItem category="SPLASH POSITION 2"
@@ -214,8 +214,8 @@
                 <td width="1" style="background-color: #ddd">
                 </td>
                 <td width="4">
-                </td>
-                <td id="billsBlog">
+                </td>       
+                <td id="${splashAd  ? 'billsBlog' : 'billsBlogAdFree'}">
                     <div><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
                         <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsblog_268.jpg" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
                         <div class="rss">
@@ -234,6 +234,7 @@
                         </div>
                     </div>
                 </td>
+                <c:if test="${splashAd}">
                 <td width="4">
                 </td>
                 <td width="1" style="background-color: #ddd">
@@ -246,58 +247,10 @@
                         <ad:Homepage_300x250/>
                     </div>
                 </td>
+                </c:if>
             </tr>
         </table>
 
-    </c:when>
-
-    <c:otherwise>
-        <table cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-                <td style="vertical-align: top; height: 100%; background-color:#eee; width: 428px">
-                    <div id="weekAdFree">
-                        <h3>This Week at GreatSchools</h3>
-                        <ul>
-                            <li class="burst"><content:newsItem category="SPLASH POSITION 1"
-                                                                state="${requestScope.context.state}"/></li>
-                            <li class="dialog"><content:newsItem category="SPLASH POSITION 2"
-                                                                 state="${requestScope.context.state}"/></li>
-                            <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"
-                                                                    state="${requestScope.context.state}"/></li>
-                        </ul>
-                    </div>
-                </td>
-                <td width="8">
-                </td>
-                <td width="1" style="background-color: #ddd">
-                </td>
-                <td width="8">
-                </td>
-                <td id="billsBlogAdFree">
-                    <div><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
-                        <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsBlogTrans2.gif" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
-                        <div class="rss">
-                            <cache:cache scope="application" name="blog" key="bill3">
-                                <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
-                                                  defaultTitle="Bill's thoughts on education"
-                                                  defaultUrl="http://billsblog.greatschools.net"/>
-                            </cache:cache>
-                            <br/>
-                            <gsml:url var="read" value="/res/img/splash/read.gif"/>
-                            <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
-                            <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
-                                    src="${read}"
-                                    alt="Read Bill's Blog"
-                                    style="margin: 5px 0 4px -2px"
-                                    onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-    </c:otherwise>
-</c:choose>
 
 
 <mod:tracking pageName="splash" hier1="Home,Splash"/>
