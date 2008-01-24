@@ -191,7 +191,7 @@
 </table>
 <div class="bigDottedDivider"><hr/></div>
 <c:choose>
-    <c:when test="${!requestScope.pageHelper.adFree}">
+    <c:when test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
 
         <table cellpadding="0" cellspacing="0" width="100%" border="0">
             <tr>
@@ -199,7 +199,7 @@
                     <div id="week">
                         <gsml:img src="/res/img/splash/thisweek_268.jpg" alt="This Week at GreatSchools" />
                         <!-- <h3>This Week at GreatSchools</h3>  -->
-                        <ul>
+                        <ul style="padding-left: 10px;padding-right: 20px;">
                             <li class="burst"><content:newsItem category="SPLASH POSITION 1"
                                                                 state="${requestScope.context.state}"/></li>
                             <li class="dialog"><content:newsItem category="SPLASH POSITION 2"
@@ -224,7 +224,6 @@
                                                   defaultTitle="Bill's thoughts on education"
                                                   defaultUrl="http://billsblog.greatschools.net"/>
                             </cache:cache>
-                            <br/><br/>
                             <gsml:url var="read" value="/res/img/splash/read.gif"/>
                             <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
                             <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
@@ -235,7 +234,13 @@
                         </div>
                     </div>
                 </td>
-                <td>
+                <td width="4">
+                </td>
+                <td width="1" style="background-color: #ddd">
+                </td>
+                <td width="4">
+                </td>
+                 <td>
                     <div id="splashAdContent">
                         <!-- <ad:setSlotPrefix slotPrefix="Homepage"/>     -->
                         <ad:Homepage_300x250/>
