@@ -75,11 +75,25 @@
     background-repeat: no-repeat;
     background-position: .8ex 1.4ex;
 }
-
-#contentGS .left ul li.noBullet {
+/* -------------------*/
+#contentGS .left ul li.noBullet,
+#contentGS .left ul li.noBullet2Ln {
     background-image: none;
     padding-left: 6px;
+
 }
+
+#contentGS .left ul li.noBullet2Ln img {
+    float: left;
+    padding: 12px 2px 8px 0px;
+}
+
+#contentGS .left ul li.noBullet2Ln a {
+   line-height: 12pt;
+
+
+}
+/* ---------------- */
 
 #contentGS .left ul li a {
     color: #aaa;
