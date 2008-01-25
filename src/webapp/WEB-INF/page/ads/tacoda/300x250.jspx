@@ -17,8 +17,8 @@ google_color_text = "666666";
 google_color_url = "66CCCC";
 //-->
 </script>
-    ]]>
 <script type="text/javascript"
   src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
+    ]]>
 </jsp:root>
