@@ -99,7 +99,7 @@
 }
 
 #firstbox {
-    width: 270px;
+    width: 263px;
 }
 
 #firstboxAdFree {
@@ -110,25 +110,32 @@
     background-color: #eee;
     color: #666666;
     font-weight: 100;
-    /* padding: 10px 20px 16px 20px; */
-    padding: 0;
+    padding: 22px 20px 22px 8px;
     min-height: 205px; /* padding-top + min-height = 150px */
     height: 100%;
 }
 #weekAdFree {
-    padding-left: 15px;
+    padding-left: 24px;
+}
+
+#week img{
+    padding-left: 14px;
+}
+
+#weekAdFree img{
+    padding-left: 30px;
 }
 
 #week ul,#weekAdFree ul {
-    padding-left: 10px;
+    padding-left: 0px;
     padding-right: 20px;
+    padding-top: 20px;
 }
 
 #week h3,#weekAdFree h3 {
     height: 35px;
     text-indent: -9999px;
     overflow: hidden;
-    /* background-image: url( ../img/splash/thisweek.jpg );    */
     background-repeat: no-repeat;
     background-position: 24px -2px;
 }
@@ -167,54 +174,35 @@ ul li.checkmark {
 /*
 
 */
-td#billsBlog {
+td#billsBlog, td#billsBlogAdFree {
     background-color: #eee;
     color: #666666;
     font-weight: 100;
-   /* padding: 20px 20px 16px 20px;   */
-    padding: 0;
+    padding: 22px 16px 16px 22px;
     min-height: 130px; /* padding-top + min-height = 150px */
     height: 100%;
-    width: 270px;
-   /* background-image: url( ../img/splash/billFamily.jpg );
-    background-position: 16px 16px;
-    background-repeat: no-repeat;      */
     vertical-align: top;
 }
 
-td#billsBlogAdFree {
-    background-color: #eee;
-    color: #666666;
-    font-weight: 100;
-    /* padding: 20px 20px 16px 147px; */
-    padding: 0;
-    min-height: 130px; /* padding-top + min-height = 150px */
-    height: 100%;
-    /* background-image: url( ../img/splash/billFamily.jpg );
-    background-position: 16px 16px;
-    background-repeat: no-repeat;   */
-    vertical-align: top;
-}
 
-td#billsBlog img { margin-bottom: 7px; }
+td#billsBlog img,td#billsBlogAdFree img { margin-bottom: 17px; }
 
-#billsBlog div.rss {
+td#billsBlog div.billsdiv { width: 263px; }
+
+#billsBlog div.rss,#billsBlogAdFree div.rss {
     margin-top: 0px;
     font-size: 12px;
     font-weight: normal;
     line-height:15px;
-    padding-left: 26px;
-    padding-right: 26px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
-#billsBlogAdFree div.rss {
-    margin-top: 0px;
-    font-size: 12px;
-    font-weight: normal;
-    line-height:15px;
-    padding-left: 26px;
-    padding-right: 26px;
+#billsBlog div.rss{
+    width: 222px;
 }
+
+
 
 #billsBlog a, #billsBlog a:hover, #billsBlog a:visited,
     #billsBlogAdFree a, #billsBlogAdFree a:hover, #billsBlogAdFree a:visited

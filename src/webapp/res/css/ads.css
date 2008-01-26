@@ -62,6 +62,9 @@
 }
 
 /*Article box ad*/
+#splashAdContent{
+    width: 318px;
+}
 #articletools #AboveFold_300x250,#splashAdContent #Homepage_300x250{
     margin-top: 0;
     padding-top: 0;
@@ -71,4 +74,7 @@
 
 #splashAdContent #Homepage_300x250{
     background-color: #EEEEEE;
+    padding-bottom: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
 }

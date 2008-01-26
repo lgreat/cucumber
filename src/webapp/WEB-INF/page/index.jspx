@@ -196,8 +196,8 @@
             <tr>
                 <td id="${splashAd ? 'firstbox' : 'firstboxAdFree'}">
                     <div id="${splashAd  ? 'week' : 'weekAdFree'}">
-                        <gsml:img src="/res/img/splash/thisweek_268.jpg" alt="This Week at GreatSchools"
-                                  style="${splashAd ? '' : 'padding-top: 0px; padding-left:18px;'} "/>
+                        <gsml:img src="/res/img/splash/thisweek.gif" alt="This Week at GreatSchools"/>
+
                         <!-- <h3>This Week at GreatSchools</h3>  -->
                         <ul>
                             <li class="burst"><content:newsItem category="SPLASH POSITION 1"
@@ -216,8 +216,8 @@
                 <td width="4">
                 </td>       
                 <td id="${splashAd  ? 'billsBlog' : 'billsBlogAdFree'}">
-                    <div><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
-                        <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsblog_268.jpg" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
+                    <div id="billsdiv"><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
+                        <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsblog.jpg" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
                         <div class="rss">
                              <cache:cache scope="application" name="blog" key="bill3">
                                 <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
