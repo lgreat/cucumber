@@ -241,7 +241,7 @@
                 </td>
                 <td width="4">
                 </td>
-                 <td>
+                 <td valign="top" bgcolor="#EEEEEE">
                     <div id="splashAdContent">
                         <!-- <ad:setSlotPrefix slotPrefix="Homepage"/>     -->
                         <ad:Homepage_300x250/>
