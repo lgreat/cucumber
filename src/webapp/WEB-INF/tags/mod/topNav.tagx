@@ -13,6 +13,8 @@
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag body-content="empty"/>
+<jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
+                         description="True if topnav is loaded via community iframe"/>
 
 <jsp:scriptlet>
     request.setAttribute("tabs", PageHelper.pageIds);
@@ -69,30 +71,61 @@
         <div style="padding:18px 0 0 85px; ${webbyStyle}"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks></div>
     </c:when>
     <c:otherwise>
-        <c:set var="searchBoxValue"
-               value="${requestScope.context.topicPage ?
-                   'Search by keyword' :
-                   'Search for school, district or city'}"/>
-        <c:set var="searchBoxOnClick"
-               value="clearValueInBox(this);"/>
+        <!-- variables holding the search form actions for local and community searches -->
+        <c:set var="localSearchAction" value="/search/search.page"/>
+        <c:set var="communitySearchAction" value="http://${communityHost}/search"/>
+        <!-- variable that holds the actual search form action, populated with one of the above vars -->
+        <c:set var="searchFormAction" value="${localSearchAction}"/>
+        <!-- variables holding which search radio should be checked when the page is loaded (overridden below) -->
+        <c:set var="searchRadioCommunityChecked" value="false"/>
+        <c:set var="searchRadioSchoolChecked" value="false"/>
+        <c:set var="searchRadioArticleChecked" value="false"/>
+        <!-- variables controlling search box width and whether the state drop down is shown or hidden -->
+        <c:set var="searchBoxStyle" value="width:247px;"/>
+        <c:set var="searchStateStyle" value="display:none;"/>
+        <!-- search box on click value ... as this never changes, why is this in a variable?? -->
+        <c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>
+        <c:choose>
+            <c:when test="${inCommunity eq true or requestScope.context.pathway == tabs.COMMUNITY_LANDING}">
+                <!-- Following variable is also hard-coded into global.js -->
+                <c:set var="searchBoxValue" value="Search community by keyword"/>
+                <c:set var="searchFormAction" value="${communitySearchAction}"/>
+                <c:set var="searchRadioCommunityChecked" value="true"/>
+            </c:when>
+            <c:when test="${requestScope.context.topicPage}">
+                <!-- Following variable is also hard-coded into global.js -->
+                <c:set var="searchBoxValue" value="Search by keyword"/>
+                <c:set var="searchRadioArticleChecked" value="true"/>
+            </c:when>
+            <c:otherwise>
+                <!-- Following variable is also hard-coded into global.js -->
+                <c:set var="searchBoxValue" value="Search for school, district or city"/>
+                <c:set var="searchRadioSchoolChecked" value="true"/>
+                <!-- shorten text box and show state drop down -->
+                <c:set var="searchBoxStyle" value="width:190px;"/>
+                <c:set var="searchStateStyle" value="display:block;"/>
+            </c:otherwise>
+        </c:choose>
+        <!-- text in following script also hard-coded into global.js -->
         <script type="text/javascript">
             function clearValueInBox(x) {
-                if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city') {
+                if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city' || x.value == 'Search community by keyword') {
                     x.value = '';
                 }
             }
         </script>
           <div class="search ${communityClassSearch}" >
-            <gsweb:form method="get" id="topnav_search" action="/search/search.page" onsubmit="return topNavSubmitSearch(this)">
+            <gsweb:form method="get" id="topnav_search" action="${searchFormAction}" onsubmit="return topNavSubmitSearch(this)">
                 <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
+                <input type="hidden" name="search_type" value="0"/>
                 <table cellpadding="0" cellspacing="0">
                     <tr>
                         <td id="searchBox">
-                            <input type="text" name="q" id="q" style="width:${requestScope.context.topicPage ? '247px' : '190px'};"
+                            <input type="text" name="q" id="q" style="${searchBoxStyle}"
                                    value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
-                            <div id="stateDropDown" style="display:${requestScope.context.topicPage ? 'none': 'block'}">
+                            <div id="stateDropDown" style="${searchStateStyle}">
                                 <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                                      noStateLabel="--"
                                                      usingLongNames="false"
@@ -107,26 +140,17 @@
                     </tr>
                     <tr>
                         <td style="height:21px" class="searchRadios" colspan="2">
-                            <c:choose>
-                                <c:when test="${requestScope.context.topicPage}">
-                                    <input name="c" type="radio" value="school"
-                                           onclick="topNavSelectSchoolSearch(this);"/>
-                                    <span>Schools</span>
-                                    &#160;
-                                    <input name="c" type="radio" value="topic" checked="checked"
-                                           onclick="topNavSelectTopicSearch(this);"/>
-                                    <span>Articles</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <input name="c" type="radio" value="school" checked="checked"
-                                           onclick="topNavSelectSchoolSearch(this);"/>
-                                    <span>Schools</span>
-                                    &#160;
-                                    <input name="c" type="radio" value="topic"
-                                           onclick="topNavSelectTopicSearch(this);"/>
-                                    <span>Articles</span>
-                                </c:otherwise>
-                            </c:choose>
+                            <gsml:radio name="c" styleId="topnavSchoolRadio" value="school" onclick="topNavSelectSchoolSearch(this, '${localSearchAction}');"
+                                        checked="${searchRadioSchoolChecked}"/>
+                            <label for="topnavSchoolRadio">Schools</label>
+                            &#160;
+                            <gsml:radio name="c" styleId="topnavCommunityRadio" value="community" onclick="topNavSelectCommunitySearch(this, '${communitySearchAction}');"
+                                        checked="${searchRadioCommunityChecked}"/>
+                            <label for="topnavCommunityRadio">Community</label>
+                            &#160;
+                            <gsml:radio name="c" styleId="topnavTopicRadio" value="topic" onclick="topNavSelectTopicSearch(this, '${localSearchAction}');"
+                                        checked="${searchRadioArticleChecked}"/>
+                            <label for="topnavTopicRadio">Articles</label>
                         </td>
                     </tr>
                 </table>
