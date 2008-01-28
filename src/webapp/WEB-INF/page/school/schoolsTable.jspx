@@ -66,7 +66,7 @@
                 <jsp:scriptlet>
                     State state = gs.web.util.context.SessionContextUtil.getSessionContext(request).getStateOrDefault();
                     String title = SchoolsController.calcDistrictSchoolsTitle(
-                            (String)request.getAttribute("distname"), state);
+                            (String)request.getAttribute("distname"), (String)request.getAttribute("distCityName"), state);
                     out.print(title);
                 </jsp:scriptlet>
             </c:when>
@@ -98,13 +98,25 @@
             </jsp:scriptlet>
 
             </c:when>
+        </c:choose>
+    </c:set>
 
+    <c:set var="metakey">
+        <c:choose>
+            <c:when test="${not empty distname}">
+               <jsp:scriptlet>
+                   State state = gs.web.util.context.SessionContextUtil.getSessionContext(request).getStateOrDefault();
+                   String metakey = SchoolsController.calcDistrictMetaKeywords(
+                           (String)request.getAttribute("distname"), (String)request.getAttribute("distCityName"), state);
+                   out.print(metakey);
+            </jsp:scriptlet>
 
-    </c:choose>
-
+            </c:when>
+        </c:choose>
     </c:set>
 
     <meta name="description" content="${metadesc}"/>
+    <meta name="keywords" content="${metakey}"/>
     <title>${title}</title>
 
     <![CDATA[

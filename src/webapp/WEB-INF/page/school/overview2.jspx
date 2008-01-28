@@ -41,6 +41,7 @@
 
     <title>${school.name} - ${addr} - school overview</title>
     <meta name="description" content="${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, parent reviews and teacher stats."/>
+    <meta name="keywords" content="${school.name}, ${school.name} ${city}, ${school.name} ${city} ${stateName}, ${school.name} ${city} ${stateAbbrev}, ${school.name} ${stateName}, ${school.name} Overview"/>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 </head>
 

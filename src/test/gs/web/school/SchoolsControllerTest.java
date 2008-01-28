@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.23 2007/10/10 22:56:01 chriskimm Exp $
+ * $Id: SchoolsControllerTest.java,v 1.24 2008/01/28 21:43:13 droy Exp $
  */
 
 package gs.web.school;
@@ -368,14 +368,14 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
         assertEquals("San Francisco Charter Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"charter"}));
 
-        assertEquals("Dayton City School District Schools, Ohio - OH: charter and public schools.",
-                _controller.calcDistrictSchoolsTitle("Dayton City School District", State.OH));
+        assertEquals("Dayton City School District Schools, Dayton City - OH: charter and public schools. Dayton City School District - Dayton City OH School District",
+                _controller.calcDistrictSchoolsTitle("Dayton City School District", "Dayton City", State.OH));
 
-        assertEquals("Dade County School District Schools, Florida - FL: charter and public schools.",
-                _controller.calcDistrictSchoolsTitle("Dade County", State.FL));
+        assertEquals("Dade County Schools, Miami - FL: charter and public schools. Miami School District - Miami FL School District",
+                _controller.calcDistrictSchoolsTitle("Dade County", "Miami", State.FL));
 
-        assertEquals("Jackson Elementary District Schools, Alaska - AK: charter and public schools.",
-                _controller.calcDistrictSchoolsTitle("Jackson Elementary District", State.AK));
+        assertEquals("Jackson Elementary District Schools, Jackson - AK: charter and public schools. Jackson School District - Jackson AK School District",
+                _controller.calcDistrictSchoolsTitle("Jackson Elementary District", "Jackson", State.AK));
     }
 
     public void testMetaDescCalc() {

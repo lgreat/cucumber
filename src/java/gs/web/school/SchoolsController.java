@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.37 2007/10/10 22:56:01 chriskimm Exp $
+ * $Id: SchoolsController.java,v 1.38 2008/01/28 21:43:13 droy Exp $
  */
 
 package gs.web.school;
@@ -12,6 +12,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.search.ResultsPager;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -80,6 +81,7 @@ public class SchoolsController extends AbstractController {
      */
     public static final String MODEL_DISTRICT = "district";
     public static final String MODEL_DISTNAME = "distname";
+    public static final String MODEL_DIST_CITY_NAME = "distCityName";
     /**
      * An optional LevelCode object.
      */
@@ -196,6 +198,19 @@ public class SchoolsController extends AbstractController {
                 try {
                     district = _districtDao.findDistrictById(state, new Integer(districtId));
                     model.put(MODEL_DISTNAME, district.getName());
+
+                    Address districtAddress = district.getPhysicalAddress();
+                    if (districtAddress != null) {
+                        String city = districtAddress.getCity();
+                        if (city != null) {
+                            model.put(MODEL_DIST_CITY_NAME, city);
+                        } else {
+                            model.put(MODEL_DIST_CITY_NAME, "");
+                        }
+                    } else {
+                        model.put(MODEL_DIST_CITY_NAME, "");                        
+                    }
+
                     searchCommand.setDistrict(districtIdStr);
                     // the following is not needed and breaks sometimes. See SearcherTest.
                     // searchCommand.setQ(district.getName());
@@ -259,21 +274,21 @@ public class SchoolsController extends AbstractController {
         _geoDao = geoDao;
     }
 
-    public static String calcDistrictSchoolsTitle(String districtDisplayName, State state) {
+    public static String calcDistrictSchoolsTitle(String districtDisplayName, String cityDisplayName, State state) {
         StringBuffer sb = new StringBuffer();
+
         sb.append(districtDisplayName);
-
-        String lowerName = districtDisplayName.toLowerCase();
-        if (!lowerName.contains("school") &&
-                !lowerName.contains("district")) {
-            sb.append(" School District");
-        }
-
         sb.append(" Schools, ");
-        sb.append(state.getLongName());
+        sb.append(cityDisplayName);
         sb.append(" - ");
         sb.append(state.getAbbreviation());
-        sb.append(": charter and public schools.");
+        sb.append(": charter and public schools. ");
+        sb.append(cityDisplayName);
+        sb.append(" School District - ");
+        sb.append(cityDisplayName);
+        sb.append(" ");
+        sb.append(state.getAbbreviation());
+        sb.append(" School District");
         return sb.toString();
     }
 
@@ -294,6 +309,34 @@ public class SchoolsController extends AbstractController {
         sb.append(": Find, compare and map public schools in ");
         sb.append(districtDisplayName);
         sb.append(". Plus, review test scores and academic performance for this public school district.");
+        return sb.toString();
+    }
+
+    public static String calcDistrictMetaKeywords(String districtDisplayName, String cityDisplayName, State state) {
+        StringBuffer sb = new StringBuffer();
+
+        String altDistrictDisplayName = districtDisplayName;
+        String lowerName = altDistrictDisplayName.toLowerCase();
+        if (!lowerName.contains("school") && !lowerName.contains("district")) {
+            altDistrictDisplayName += " School District";
+        }
+
+        sb.append(districtDisplayName);
+        sb.append(" Schools, ");
+        sb.append(altDistrictDisplayName);
+        sb.append(" Schools, ");
+        sb.append(cityDisplayName);
+        sb.append(" School District, ");
+        sb.append(cityDisplayName);
+        sb.append(" ");
+        sb.append(state.getLongName());
+        sb.append(" School District, School District ");
+        sb.append(cityDisplayName);
+        sb.append(", ");
+        sb.append(districtDisplayName);
+        sb.append(" Public Schools, ");
+        sb.append(districtDisplayName);
+        sb.append(" Charter Schools");
         return sb.toString();
     }
 

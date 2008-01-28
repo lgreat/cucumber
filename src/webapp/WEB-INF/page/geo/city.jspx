@@ -30,7 +30,11 @@
         Find top-rated ${fn:escapeXml(cityObject.name)} schools, read recent parent reviews, and browse private and public schools by grade level in ${fn:escapeXml(cityObject.name)}, ${requestScope.context.stateOrDefault.longName} (${stateAbbrev}).
     </c:set>
     <meta name="description" content="${metaDesc}"/>
-    <title>${displayName} Schools</title>
+    <c:set var="metaKeywords">
+        ${fn:escapeXml(cityObject.name)} Schools, ${fn:escapeXml(cityObject.name)} ${stateAbbrev} Schools, ${fn:escapeXml(cityObject.name)} Public Schools, ${fn:escapeXml(cityObject.name)} School Ratings, Best ${fn:escapeXml(cityObject.name)} Schools, ${fn:escapeXml(cityObject.name)} ${requestScope.context.stateOrDefault.longName} Schools, ${fn:escapeXml(cityObject.name)} Private Schools
+    </c:set>
+    <meta name="keywords" content="${metaKeywords}"/>
+    <title>${displayName} Schools - ${displayName} Public Schools - ${displayName} School Ratings - Best ${displayName} Schools</title>
 </head>
 
 <gsml:body adPageName="city" pageLayout="cityPage">
