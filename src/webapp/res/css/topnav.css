@@ -219,7 +219,7 @@
     text-align: left;
 }
 
-#topnav .searchRadios span {
+#topnav .searchRadios span, #topnav .searchRadios label {
     font-family: Helvetica, sans-serif;
     font-size: x-small;
     font-weight: 900;
@@ -229,7 +229,7 @@
     vertical-align: middle;
 }
 
-* html #topnav .searchRadios span { /* IE ONLY */
+* html #topnav .searchRadios span, * html #topnav .searchRadios label { /* IE ONLY */
     font-size: xx-small;
 }
 
