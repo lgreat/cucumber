@@ -17,7 +17,7 @@ import gs.data.util.email.EmailUtils;
 public class IsValidEmailController implements Controller {
 
     /** Spring BEAN id */
-    public static final String BEAN_ID = "/util/isValidEmail.page";
+    public static final String BEAN_ID = "isValidEmailController";
 
     /**
      * @see gs.data.util.email.EmailUtils

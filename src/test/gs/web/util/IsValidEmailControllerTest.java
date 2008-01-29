@@ -6,7 +6,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class TestIsValidEmailController extends BaseControllerTestCase {
+public class IsValidEmailControllerTest extends BaseControllerTestCase {
 
     private IsValidEmailController _controller;
 
