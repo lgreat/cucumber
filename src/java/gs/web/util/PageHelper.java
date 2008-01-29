@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.52 2007/11/20 23:28:06 aroy Exp $
+ * $Id: PageHelper.java,v 1.53 2008/01/29 21:21:08 droy Exp $
  */
 
 package gs.web.util;
@@ -146,6 +146,33 @@ public class PageHelper {
         }
     }
 
+    /**
+     * Get the city name to use for the footer Yahoo Real Estate link.  Not every page has a city associated with it,
+     * so those that do should set this to specify what it is if they require the YRE link in the footer.
+     *
+     * @return Yahoo Real Estate city name for link in footer
+     */
+    public String getYahooRealEstateCity() {
+        return _yahooRealEstateCity;
+    }
+
+    /**
+     * Set the city name to use for the footer Yahoo Real Estate link.  Not every page has a city associated with it,
+     * so those that do should use this method to specify what it is if they require the YRE link in the footer.
+     *
+     * @param request Request object for static invocation
+     * @param yahooRealEstateCity City name to use to link to Yahoo Real Estate in the footer
+     */
+    public static void setYahooRealEstateCity(HttpServletRequest request, String yahooRealEstateCity) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper._yahooRealEstateCity = yahooRealEstateCity;
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
+
     public static final String REQUEST_ATTRIBUTE_NAME = "pageHelper";
 
     private boolean _showingHeader = true;
@@ -153,6 +180,8 @@ public class PageHelper {
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
     private boolean _betaPage = false;
+
+    private String _yahooRealEstateCity = "";
 
     private Properties _versionProperties ;
 

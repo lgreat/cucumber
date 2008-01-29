@@ -15,6 +15,9 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.data.geo.City"/>
+<jsp:directive.page import="gs.data.school.School"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -36,6 +39,12 @@
 <c:set var="gs_rating" value="${gs_rating}"/>
 <c:set var="parent_ratings" value="${parent_ratings}"/>
 <c:set var="preschoolOnly" value="${preschoolOnly}"/>
+<jsp:scriptlet>
+    School school = (School)request.getAttribute("school");
+    if (school != null) {
+        PageHelper.setYahooRealEstateCity(request, school.getCity());
+    }
+</jsp:scriptlet>
 
 <head>
 
