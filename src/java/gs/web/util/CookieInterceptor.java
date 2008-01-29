@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * Interceptor to set http response headers
  *
  * @author David Lee <mailto:dlee@greatschools.net>
+ * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  */
 public class CookieInterceptor implements HandlerInterceptor {
     public static final int EXPIRE_AT_END_OF_SESSION = -1;
@@ -27,9 +28,9 @@ public class CookieInterceptor implements HandlerInterceptor {
 
         // We don't set cookies for cacheable pages
         if (!(o instanceof CacheablePageController)) {
-            Cookie trno = buildTrnoCookie(request, response);
+            Cookie trackingNumber = buildTrackingNumberCookie(request, response);
             buildCobrandCookie(request, sessionContext, response);
-            determineAbVersion(trno, request, sessionContext);
+            determineAbVersion(trackingNumber, request, sessionContext);
         }
 
         return true;
@@ -54,28 +55,26 @@ public class CookieInterceptor implements HandlerInterceptor {
         }
     }
 
-    protected Cookie buildTrnoCookie(HttpServletRequest request, HttpServletResponse response) {
-        Cookie trno = findCookie(request, SessionContextUtil.TRNO_COOKIE);
+    protected Cookie buildTrackingNumberCookie(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = findCookie(request, SessionContextUtil.TRACKING_NUMBER);
 
-        if (trno == null) {
-            String ipAddress = request.getHeader("x_forwarded_for");
-
-            if (ipAddress == null) {
-                ipAddress = request.getRemoteAddr();
+        if (cookie == null) {
+            String cookieValue = String.valueOf(System.currentTimeMillis() / 1000);
+            cookie = new Cookie(SessionContextUtil.TRACKING_NUMBER, cookieValue);
+            cookie.setPath("/");
+            cookie.setMaxAge(-1);
+            UrlUtil urlUtil = new UrlUtil();
+            if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
+                // don't set domain for developer workstations so they can still access the cookie!!
+                cookie.setDomain(".greatschools.net");
             }
-
-            String cookieValue = String.valueOf(System.currentTimeMillis() / 1000) + "." + ipAddress;
-
-            //cookie expires approx. two years from now
-            trno = new Cookie(SessionContextUtil.TRNO_COOKIE, cookieValue);
-            trno.setPath("/");
-            trno.setMaxAge(63113852);
-            response.addCookie(trno);
+            response.addCookie(cookie);
         }
-        return trno;
+
+        return cookie;
     }
 
-    protected void determineAbVersion(Cookie trno, HttpServletRequest request, SessionContext sessionContext) {
+    protected void determineAbVersion(Cookie trackingNumber, HttpServletRequest request, SessionContext sessionContext) {
         // Set the a/b version - 'a' is the default
         String versionParam = request.getParameter("version");
         if (StringUtils.isNotBlank(versionParam)) {
@@ -85,16 +84,16 @@ public class CookieInterceptor implements HandlerInterceptor {
             // GS-4614 Ensure crawlers always see the A version in multivariant tests
             sessionContext.setAbVersion("a");
         } else {
-            long trnoSecondsSinceEpoch = 0;
-            String trnoValue = trno.getValue();
+            long secondsSinceEpoch = 0;
+            String cookieValue = trackingNumber.getValue();
             try {
-                // Extract the time from the TRNO (180654739.127.0.0.1 => 180654739)
-                trnoSecondsSinceEpoch = Long.valueOf(trnoValue.substring(0, trnoValue.indexOf(".")));
+                // Extract the time from the tracking number cookie (e.g. 180654739)
+                secondsSinceEpoch = Long.valueOf(cookieValue);
             } catch (Exception e) {
                 // do nothing -- defaults to 0
             }
-            // Use the time from when TRNO was set to determine what variant the user should get
-            sessionContext.setAbVersion(VariantConfiguration.getVariant(trnoSecondsSinceEpoch, getPropertyDao()));
+            // Use the time from when tracking number was set to determine what variant the user should get
+            sessionContext.setAbVersion(VariantConfiguration.getVariant(secondsSinceEpoch, getPropertyDao()));
         }
     }
 

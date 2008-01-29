@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.34 2007/11/02 00:41:35 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.35 2008/01/29 21:50:03 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -67,9 +67,9 @@ public class SessionContextUtil implements ApplicationContextAware {
     public static final String MEMBER_ID_COOKIE = "MEMID";
 
     /**
-     * TRNO cookie we set to uniquely identify a visitor
+     * Tracking number cookie we set to determine variant
      */
-    public static final String TRNO_COOKIE = "TRNO";
+    public static final String TRACKING_NUMBER = "TRACKING_NUMBER";
 
     /**
      * Cookie we set to track what cobrand a user is on

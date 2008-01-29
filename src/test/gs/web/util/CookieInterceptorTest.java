@@ -14,6 +14,7 @@ import javax.servlet.http.Cookie;
 
 /**
  * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
+ * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  */
 public class CookieInterceptorTest extends BaseControllerTestCase {
 
@@ -39,17 +40,17 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _sessionContext.setHostName(_requestedServer);
     }
 
-    public void testPreHandleShouldSetTrnoCookie() throws Exception {
+    public void testPreHandleShouldSetTrackingNumberCookie() throws Exception {
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
         assertTrue(_interceptor.preHandle(request, response, null));
 
-        // Verify that a TRNO cookie was set
+        // Verify that a Tracking number cookie was set
         boolean hasCookie = false;
         Cookie cookies[] = response.getCookies();
         assertNotNull(cookies);
         for (Cookie cooky : cookies) {
-            if (SessionContextUtil.TRNO_COOKIE.equals(cooky.getName())) {
+            if (SessionContextUtil.TRACKING_NUMBER.equals(cooky.getName())) {
                 hasCookie = true;
             }
         }
@@ -70,7 +71,7 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
     }
 
     public void testKnownCrawlerOverridesABValue() {
-        Cookie trnoCookieA = new Cookie("TRNO", "1.192.1.1.1");
+        Cookie trnoCookieA = new Cookie("TRACKING_NUMBER", "1");
         MockHttpServletRequest request = getRequest();
         request.setCookies(new Cookie[]{trnoCookieA});
         _interceptor.determineAbVersion(trnoCookieA, request, _sessionContext);
@@ -80,8 +81,8 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         assertEquals("Expect a variant from crawler user agent", "a", _sessionContext.getABVersion());
     }
 
-    public void testVersionParameterShouldOverrideABValueFromTrnoCooki() throws Exception {
-        Cookie trnoCookieA = new Cookie("TRNO", "1.192.1.1.1");
+    public void testVersionParameterShouldOverrideABValueFromTrackingNumberCookie() throws Exception {
+        Cookie trnoCookieA = new Cookie("TRACKING_NUMBER", "1");
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
         request.setCookies(new Cookie[]{trnoCookieA});

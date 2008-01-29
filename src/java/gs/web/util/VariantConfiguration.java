@@ -95,7 +95,7 @@ public class VariantConfiguration {
         }
     }
 
-    protected static String getVariant(long trnoSecondsSinceEpoch, IPropertyDao propertyDao) {
+    protected static String getVariant(long secondsSinceEpoch, IPropertyDao propertyDao) {
         checkConfiguration(propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION));
         char abVersion = 'a';
         int runningTotal = 0;
@@ -104,14 +104,14 @@ public class VariantConfiguration {
         // EXAMPLE:
         // cutoffs = [1, 1]; total = 2;
         // First, set runningTotal to 1 (value of first cutoff).
-        // Check if trnoSecondsSinceEpoch % 2 < 1 (this has 50% chance of being true)
+        // Check if secondsSinceEpoch % 2 < 1 (this has 50% chance of being true)
         // if so set version to 'a' otherwise continue
         // Next iteration, set runningTotal to 2 (previous value plus second cutoff)
-        // Check if trnoSecondsSinceEpoch % 2 < 2 (always true)
+        // Check if secondsSinceEpoch % 2 < 2 (always true)
         // set version to 'b'
         for (int num: _abCutoffs) {
             runningTotal += num;
-            if ( (trnoSecondsSinceEpoch % _cutoffTotal) < runningTotal) {
+            if ( (secondsSinceEpoch % _cutoffTotal) < runningTotal) {
                 return Character.toString(abVersion);
             }
             // increment ab version (e.g. from 'a' to 'b')

@@ -92,8 +92,8 @@ public class VariantConfigurationTest extends BaseControllerTestCase {
         assertEquals(1, VariantConfiguration._cutoffTotal);
     }
 
-    private void assertVariant(String variant, long trno) {
-        assertEquals(variant, VariantConfiguration.getVariant(trno, _propertyDao));
+    private void assertVariant(String variant, long secondsSinceEpoch) {
+        assertEquals(variant, VariantConfiguration.getVariant(secondsSinceEpoch, _propertyDao));
     }
 
     public void testGetVariant() {
