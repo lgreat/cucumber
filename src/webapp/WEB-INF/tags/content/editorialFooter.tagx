@@ -171,17 +171,15 @@
                 <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="145" height="1"
                                       alt="" border="0"/><br/>
 
-                    <div class="healthyKids">
+                    <div class="tutoring">
                         <div class="healthyKidsImg">Photo of blueberries</div>
-                        <div class="blueTitleText">Healthy Kids</div>
-                        <ul class="arrowUL">
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/350" styleClass="arrowLink">Creative lunches</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/571" styleClass="arrowLink">Brain food</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/256" styleClass="arrowLink">Backpack safety</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/472" styleClass="arrowLink">Family fitness</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/621" styleClass="arrowLink">Healthy schools</gsml:a></li>
-                        </ul>
-                        <div class="middleBottom"><gsml:a href="/content/healthyKids.page" styleClass="border10Links">See all &gt;</gsml:a></div>
+                        <div class="blueTitleText">Tutoring</div>
+                        Could tutoring help your child? Read on to find the best fit for your child's needs.
+                        <div class="middleBottom">
+                            <gsml:a href="content/tutoring_Homework_Help.page" styleClass="border10Links">Get tutoring and homework help ></gsml:a>
+                        </div>
+
+                       
                         <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
                             <center>
                             <span class="sponsorLogo">
@@ -207,9 +205,11 @@
                     <div class="editorsPick">
                         <div class="editorsPickImg">Photo of GreatSchools editor, Miriam Myers</div>
                         <div class="blueTitleText">Homework Help</div>
-                        Do you have math anxiety? GreatSchools Editor Miriam Myers
-                        tells how you can still
-                        <gsml:a href="/cgi-bin/showarticle/$STATE/769" styleClass="border10Links">help your child with math homework</gsml:a>.
+                        Help your child with these math tips from Miriam Myers, GreatSchools senior editor
+                        and writer.
+                        <div class="middleBottom">
+                            <gsml:a href="content/tutoring_Homework_Help.page " styleClass="border10Links">Learn more here ></gsml:a>.
+                        </div>
                     </div></td>
             </tr>
         </table>

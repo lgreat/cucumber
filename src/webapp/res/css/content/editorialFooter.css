@@ -83,7 +83,7 @@
 	line-height: 18px;
 }
 
-#editorialFooter div.healthyKids .middleBottom {
+#editorialFooter div.tutoring .middleBottom {
 	padding-top: 6px;
     padding-bottom: 12px;
 }
@@ -138,7 +138,7 @@
 	height: 85px;
 }
 
-#editorialFooter div.healthyKids {
+#editorialFooter div.tutoring {
 	padding: 2px 16px 0px 9px;
 	width: 120px;
 	font-family: "Trebuchet MS", Arial, sans-serif;
@@ -148,7 +148,7 @@
 	letter-spacing: 0;
 }
 
-#editorialFooter .healthyKids .arrowUL {
+#editorialFooter .tutoring .arrowUL {
 	line-height: 16px;
 }
 
