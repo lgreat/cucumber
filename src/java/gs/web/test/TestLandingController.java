@@ -4,7 +4,6 @@ import com.google.gdata.client.spreadsheet.SpreadsheetService;
 import com.google.gdata.data.spreadsheet.*;
 import com.google.gdata.util.ServiceException;
 import gs.web.util.list.Anchor;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -16,11 +15,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.validation.Errors;
 import org.springframework.validation.BindException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -47,8 +48,16 @@ public class TestLandingController extends SimpleFormController {
     /** Used to build article links */
     private IArticleDao _articleDao;
 
+    private StateManager _stateManager;
+
     private static final Logger _log = Logger.getLogger(TestLandingController.class);
 
+//    protected Object formBackingObject(HttpServletRequest request) throws Exception {
+//
+//        TestLandingCommand command = new TestLandingCommand();
+//        return command;
+//    }
+    
     protected Map referenceData(HttpServletRequest request, Object cmd, Errors errors) throws Exception {
         Map<String, Object> refData = new HashMap<String, Object>();
 
@@ -57,19 +66,24 @@ public class TestLandingController extends SimpleFormController {
         }
 
         String stateParam = request.getParameter("state");
-        String testIdParam = request.getParameter("tid");
-        String key = stateParam + testIdParam;
-        Map<String, String> testData = getTestData(key);
-        if (testData == null) {
-            errors.reject("Could not find test info for: " + key);
+        if (StringUtils.isNotBlank(stateParam)) {
+            State state = getStateManager().getState(stateParam);
+            refData.put("cities", getCityList(state));
+            String testIdParam = request.getParameter("tid");
+            if (StringUtils.isNotBlank(testIdParam)) {
+                String key = stateParam + testIdParam;
+                Map<String, String> testData = getTestData(key);
+                if (testData == null) {
+                    errors.reject("Could not find test info for: " + key);
+                } else {
+                    refData.putAll(testData);
+                }
+            } else {
+                errors.reject("test id (tid) parameter is missing");
+            }
         } else {
-            refData.putAll(testData);
+            errors.reject("state parameter is missing");            
         }
-
-        StateManager stateManager = new StateManager();
-        State state = stateManager.getState(stateParam);
-        refData.put("cities", getCityList(state));
-
         return refData;
     }
     
@@ -89,11 +103,33 @@ public class TestLandingController extends SimpleFormController {
         return _cache.get(key);
     }
 
+    protected ModelAndView processFormSubmission(HttpServletRequest request,
+                                                 HttpServletResponse response,
+                                                 Object cmdObject,
+                                                 BindException errors) {
+        System.out.println ("command: " + cmdObject.getClass());
+        String type = request.getParameter("type");
+        System.out.println ("type: " + type);
+        TestLandingCommand command = (TestLandingCommand)cmdObject;
+
+        View view = null;
+        if ("achievement".equals(type)) {
+            UrlBuilder builder = new UrlBuilder(command.getSchool(), UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
+            view = new RedirectView(builder.asSiteRelative(request));
+        } else if ("compare".equals(type)) {
+            UrlBuilder builder = new UrlBuilder(command.getSchool(), UrlBuilder.COMPARE_SCHOOL);
+            view = new RedirectView(builder.asSiteRelative(request));
+        } 
+        ModelAndView mAndV = new ModelAndView(view);
+        return mAndV;
+    }
+    /*
     public ModelAndView onSubmit(Object command, BindException errors) {
         System.out.println ("command: " + command.getClass());
         ModelAndView mAndV = new ModelAndView(new RedirectView("www.google.com"));
         return mAndV;
     }
+    */
 
     private void loadCache(Map cache) {
         cache.clear();
@@ -153,8 +189,12 @@ public class TestLandingController extends SimpleFormController {
                             try {
                                 int aid = Integer.parseInt(s2[0].substring(4));
                                 Article article = getArticleDao().getArticleFromId(aid);
-                                UrlBuilder builder = new UrlBuilder(article, null, false);
-                                list.add(new Anchor(builder.toString(), article.getTitle()));
+                                if (article != null) {
+                                    UrlBuilder builder = new UrlBuilder(article, null, false);
+                                    list.add(new Anchor(builder.toString(), article.getTitle()));
+                                } else {
+                                    _log.warn("Could not find article: " + aid);
+                                }
                             } catch (NumberFormatException e) {
                                 _log.warn(e);
                             }
@@ -190,5 +230,13 @@ public class TestLandingController extends SimpleFormController {
 
     public void setArticleDao(IArticleDao articleDao) {
         _articleDao = articleDao;
+    }
+
+    public StateManager getStateManager() {
+        return _stateManager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
     }
 }

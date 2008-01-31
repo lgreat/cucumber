@@ -10,7 +10,7 @@ import java.net.URL;
 /**
  * @author chriskimm@greatschools.net
  */
-public class TestTestLandingController extends BaseControllerTestCase {
+public class TestLandingControllerTest extends BaseControllerTestCase {
 
     private TestLandingController _controller;
 
@@ -21,6 +21,12 @@ public class TestTestLandingController extends BaseControllerTestCase {
         _controller.setWorksheetUrl(testUrl);
     }
 
+    public void testHandleRequestWithNoParams() throws Exception {
+        getRequest().setMethod("GET");
+        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        assertEquals("State and tid parameters are required", "/test/landing", mAndV.getViewName());
+
+    }
     public void testRequestForm() throws Exception {
         getRequest().setMethod("GET");
         getRequest().setParameter("state", "FL");

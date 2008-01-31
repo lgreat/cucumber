@@ -1,13 +1,15 @@
 package gs.web.test;
 
 import gs.data.state.State;
+import gs.data.school.School;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class TestLandingCommand {
+
     public State _state;
-    public Integer _school;
+    public School _school;
 
     public State getState() {
         return _state;
@@ -17,11 +19,11 @@ public class TestLandingCommand {
         _state = state;
     }
 
-    public Integer getSchool() {
+    public School getSchool() {
         return _school;
     }
 
-    public void setSchool(Integer school) {
+    public void setSchool(School school) {
         _school = school;
     }
 }

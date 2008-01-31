@@ -1,3 +1,19 @@
 #leftcol ul {
     width:150px;
 }
+
+.contentGS ul.linkList li {
+    padding:5px 0 12px 0;    
+}
+
+.contentGS ul.linkList li a {
+    color:#3399AA;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:0;
+    line-height:15px;    
+}
+
+#achievementBox {
+    height:130px;
+}
