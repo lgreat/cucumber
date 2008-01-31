@@ -197,13 +197,13 @@ public class SearchController extends AbstractFormController {
         boolean resultsToShow = false;
         Hits hits = _searcher.search(searchCommand);
         ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
+        model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
         if (hits != null && hits.length() > 0) {
             if (debug) {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
             }
             model.put(MODEL_PAGE_SIZE, new Integer(pageSize));
             model.put(MODEL_RESULTS, _resultsPager.getResults(page, pageSize));
-            model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
             model.put(MODEL_TOTAL_HITS, new Integer(hits.length()));
             resultsToShow = true;
         }

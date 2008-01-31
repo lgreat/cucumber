@@ -35,7 +35,14 @@
 </head>
 
 <gsml:body adPageName="search">
-<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<c:choose>
+    <c:when test="${type eq 'topic'}">
+        <pageHelper:setPathway pathway="LIBRARY"/>
+    </c:when>
+    <c:otherwise>
+        <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+    </c:otherwise>
+</c:choose>
 <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>
 <c:set var="hasCityResults" value="false"/>
