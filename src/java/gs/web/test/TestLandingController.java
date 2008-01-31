@@ -11,6 +11,9 @@ import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
+import gs.data.school.LevelCode;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -48,16 +51,12 @@ public class TestLandingController extends SimpleFormController {
     /** Used to build article links */
     private IArticleDao _articleDao;
 
+    private ISchoolDao _schoolDao;
+
     private StateManager _stateManager;
 
     private static final Logger _log = Logger.getLogger(TestLandingController.class);
 
-//    protected Object formBackingObject(HttpServletRequest request) throws Exception {
-//
-//        TestLandingCommand command = new TestLandingCommand();
-//        return command;
-//    }
-    
     protected Map referenceData(HttpServletRequest request, Object cmd, Errors errors) throws Exception {
         Map<String, Object> refData = new HashMap<String, Object>();
 
@@ -103,33 +102,36 @@ public class TestLandingController extends SimpleFormController {
         return _cache.get(key);
     }
 
+
     protected ModelAndView processFormSubmission(HttpServletRequest request,
                                                  HttpServletResponse response,
                                                  Object cmdObject,
                                                  BindException errors) {
-        System.out.println ("command: " + cmdObject.getClass());
+
         String type = request.getParameter("type");
-        System.out.println ("type: " + type);
-        TestLandingCommand command = (TestLandingCommand)cmdObject;
+
+        String stateParam = request.getParameter("state");
+        State state = _stateManager.getState(stateParam);
 
         View view = null;
         if ("achievement".equals(type)) {
-            UrlBuilder builder = new UrlBuilder(command.getSchool(), UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
+            String sid = request.getParameter("sid");
+            Integer school_id = Integer.parseInt(sid);
+            School school = getSchoolDao().getSchoolById(state, school_id);
+            UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
             view = new RedirectView(builder.asSiteRelative(request));
+            
         } else if ("compare".equals(type)) {
-            UrlBuilder builder = new UrlBuilder(command.getSchool(), UrlBuilder.COMPARE_SCHOOL);
-            view = new RedirectView(builder.asSiteRelative(request));
+            StringBuffer urlBuffer = new StringBuffer();
+            urlBuffer.append("/cgi-bin/cs_compare/");
+            urlBuffer.append(stateParam).append("?area=m&city=");
+            urlBuffer.append(request.getParameter("city")).append("&level=");
+            urlBuffer.append(request.getParameter("level")).append("&sortby=distance&tab=over");
+            view = new RedirectView(urlBuffer.toString());
         } 
-        ModelAndView mAndV = new ModelAndView(view);
-        return mAndV;
+
+        return new ModelAndView(view);
     }
-    /*
-    public ModelAndView onSubmit(Object command, BindException errors) {
-        System.out.println ("command: " + command.getClass());
-        ModelAndView mAndV = new ModelAndView(new RedirectView("www.google.com"));
-        return mAndV;
-    }
-    */
 
     private void loadCache(Map cache) {
         cache.clear();
@@ -160,8 +162,10 @@ public class TestLandingController extends SimpleFormController {
                 for (String tag : entry.getCustomElements().getTags()) {
                     if ("links".equals(tag)) {
                         values.put(tag, parseAnchorList(entry.getCustomElements().getValue(tag)));
+                    } else if ("levels".equals(tag)) {
+                        values.put(tag, parseLevelCodes(entry.getCustomElements().getValue(tag)));
                     } else {
-                        values.put(tag, entry.getCustomElements().getValue(tag));                        
+                        values.put(tag, entry.getCustomElements().getValue(tag));
                     }
                 }
                 String state = entry.getCustomElements().getValue("state");
@@ -175,6 +179,17 @@ public class TestLandingController extends SimpleFormController {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
+    }
+
+    List<LevelCode.Level> parseLevelCodes(String text) {
+        List<LevelCode.Level> list = new ArrayList<LevelCode.Level>();
+        if (StringUtils.isNotBlank(text)) {
+            String[] levels = text.split(",");
+            for (String l : levels) {
+                list.add(LevelCode.Level.getLevelCode(l));
+            }
+        }
+        return list;
     }
 
     List<Anchor> parseAnchorList(String text) {
@@ -238,5 +253,13 @@ public class TestLandingController extends SimpleFormController {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }

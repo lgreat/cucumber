@@ -20,7 +20,7 @@
 
 <html lang="en">
 <c:set var="stateOrNull" value="${requestScope.context.state}" />
-<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}" />
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}" />
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>GreatSchools Test Landing Page</title>
@@ -104,7 +104,7 @@
                                         </c:forEach>
                                     </select>
                                     <![CDATA[<div id="schools"></div>]]>
-                                    <input id="gobutton" type="image" src="${go}" alt="GO"
+                                    <input id="goAchieve" type="image" src="${go}" alt="GO"
                                            style="width:41px;height:26px;margin-top: 10px;display:none;"
                                            class="button" onmouseover="this.src='${goOver}';"
                                            onmouseout="this.src='${go}';" />
@@ -115,6 +115,8 @@
 
                             <div id="compareBox">
                                 <gsweb:form action="/test/landing.page" method="post">
+                                    <input type="hidden" name="type" value="compare" />
+                                    <input type="hidden" name="state" value="${stateAbbrev}" />
                                     <select name="city" tabindex="5">
                                         <option selected="selected" value="">Choose city</option>
                                         <c:forEach var="cityOption" items="${cities}">
@@ -124,10 +126,10 @@
                                     <select name="level" tabindex="6">
                                         <option selected="selected" value="">Choose level</option>
                                         <c:forEach var="levelOption" items="${levels}">
-                                            <![CDATA[<option value="${levelOption.name}">${levelOption.name}</option>]]>
+                                            <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
                                         </c:forEach>
                                     </select>
-                                    <input id="gobuttonx" type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px;"
+                                    <input id="goCompare" type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px;"
                                            class="button" onmouseover="this.src='${goOver}';"
                                            onmouseout="this.src='${go}';" />
                                 </gsweb:form>
