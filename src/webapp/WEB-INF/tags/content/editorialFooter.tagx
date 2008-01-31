@@ -176,7 +176,7 @@
                         <div class="blueTitleText">Tutoring</div>
                         Could tutoring help your child? Read on to find the best fit for your child's needs.
                         <div class="middleBottom">
-                            <gsml:a href="content/tutoring_Homework_Help.page" styleClass="border10Links">Get tutoring and homework help ></gsml:a>
+                            <gsml:a href="/content/tutoring_Homework_Help.page" styleClass="border10Links">Get tutoring and homework help ></gsml:a>
                         </div>
 
                        
@@ -208,7 +208,7 @@
                         Help your child with these math tips from Miriam Myers, GreatSchools senior editor
                         and writer.
                         <div class="middleBottom">
-                            <gsml:a href="content/tutoring_Homework_Help.page " styleClass="border10Links">Learn more here ></gsml:a>.
+                            <gsml:a href="/content/tutoring_Homework_Help.page" styleClass="border10Links">Learn more here ></gsml:a>.
                         </div>
                     </div></td>
             </tr>
