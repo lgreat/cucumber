@@ -94,14 +94,14 @@
 		<div id="editor">
 		<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
         <p class="name">Lisa Rosenthal</p>
-		<p class="title">Senior Editor, GreatSchools</p>
+		<p class="title">Assistant Managing Editor</p>
             <h3>Editor's Picks</h3>
             <c:choose>
                 <c:when test="${preschoolOnly eq true}">
                     <!-- Articles for preschools -->
                     <ul>
-                        <gsweb:articlelink articleId="900" wrappingElement="li" styleClass="articleLink"/>
-                        <gsweb:articlelink articleId="1014" wrappingElement="li" styleClass="articleLink"/>
+                        <gsweb:articlelink articleId="204" wrappingElement="li" styleClass="articleLink"/>
+                        <gsweb:articlelink articleId="700" wrappingElement="li" styleClass="articleLink"/>
                         <li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>
                     </ul>
                     <hr/>
