@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.53 2008/01/29 21:21:08 droy Exp $
+ * $Id: PageHelper.java,v 1.54 2008/02/01 20:01:33 droy Exp $
  */
 
 package gs.web.util;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.net.URLEncoder;
 
 /**
  * Helper class to render and decorate a JSP page correctly. Provides a place to encapsulate logic about our pages to
@@ -154,6 +155,22 @@ public class PageHelper {
      */
     public String getYahooRealEstateCity() {
         return _yahooRealEstateCity;
+    }
+
+    /**
+     * Get the city name to use for the footer Yahoo Real Estate link, but escape it so that it can be used in an href.  
+     *
+     * @return Yahoo Real Estate city name for link in footer
+     */
+    public String getYahooRealEstateCityEscaped() {
+        String escapedCity = _yahooRealEstateCity.replace(' ', '_');
+        try {
+            escapedCity = URLEncoder.encode(escapedCity, "UTF-8");
+        } catch (java.io.UnsupportedEncodingException e) {
+            // Do nothing, just return what we have   
+        }
+
+        return escapedCity;
     }
 
     /**

@@ -9,7 +9,8 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
         >
-<jsp:directive.tag body-content="empty" description="Common GS footer tag"/>
+    <jsp:directive.tag import="java.net.URLEncoder"/>
+    <jsp:directive.tag body-content="empty" description="Common GS footer tag"/>
     <jsp:directive.attribute name="showAd" required="false" type="java.lang.Boolean" description="Show the ad in the footer or not."/>
     <jsp:directive.attribute name="showSeoFooter" required="false" type="java.lang.Boolean" description="Show the SEO links in the footer or not."/>
 
@@ -52,7 +53,7 @@
 
                     <c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity}">
                         <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
-                        <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${fn:replace(yahooRealEstateCity, " ", "_")}' />
+                        <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
                         <div id="YahooRealEstateLink" style="padding-top: 10px;">
                             <gsml:a href="${yahooRealEstateURL}">${yahooRealEstateCity} Real Estate</gsml:a>
                         </div>
