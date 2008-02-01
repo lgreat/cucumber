@@ -10,7 +10,7 @@
         >
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
-    <pageHelper:externalCss file="/res/css/ads.css"/>
+    <!--pageHelper:externalCss file="/res/css/ads.css"/-->
 
     <ad:House_Ad_300x137 referredBy="${referredBy}"/>
     <ad:AboveFold_300x600/>
@@ -31,6 +31,12 @@
         <div style="width:295px;text-align:center;padding-left:5px;border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
             <ad:commonSenseMedia/>
         </div>
+    </c:if>
+
+    <c:if test="${fn:contains(pageContext.request.requestURI,'tutoring') }">
+            <!--ad:BelowFold_Top_300x125 /-->
+            <!-- ad:BelowFold_Bottom_300x125 /-->
+        <ad:multiTextAd blurb="Advertiser links"/>
     </c:if>
 
     <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">

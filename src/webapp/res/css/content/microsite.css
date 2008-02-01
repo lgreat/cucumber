@@ -216,6 +216,9 @@
 
 #contentGS #promos {
     float: right;
+    width: 300px;
+    xborder-style: solid;
+
 }
 
 h3#askTheExperts {
@@ -328,3 +331,22 @@ ul.pdf li {
     background-image: url( "../../img/content/grade/blue5.gif" );
 }
 
+/* text ads */
+#BelowFold_Top_300x125, #BelowFold_Bottom_300x125  {
+    padding-left: 0px;
+    padding-right: 0px;
+    width:300px;
+
+   
+
+}
+
+#BelowFold_Top_300x125 .textAd{
+    margin-top: 4px;
+    xmargin-bottom: 10px;
+}
+
+#BelowFold_Bottom_300x125 .textAd{
+    margin-top: 4px;
+    margin-bottom: 20px;
+}
