@@ -163,6 +163,16 @@
 	height: 86px;
 }
 
+#editorialFooter .tutoringImg {
+    text-indent:-150em;
+    padding: 0px 0px 21px 0px;
+	background-image: url(../../img/content/research/tutor_small.jpg);
+	background-repeat: no-repeat;
+	margin: 0px auto 0px auto;
+	width: 65px;
+	height: 86px;
+}
+
 #editorialFooter .editorsPick {
 	padding: 0px 43px 0px 13px;
 	width: 145px;
