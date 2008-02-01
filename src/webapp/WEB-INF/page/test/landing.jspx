@@ -43,7 +43,7 @@
             var url = '/test/schoolsInCity.page';
             var pars = {state : state,
                         city : citySelect.value };
-            $('gobutton').show();
+            $('goAchieve').show();
             $('schools').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
             var myAjax = new Ajax.Updater (
                     'schools',
@@ -84,14 +84,13 @@
                 <tr>
                     <td valign="top">
                         <div class="middleTitle">
-                            <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
+                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${requestScope.context.state.longName} Schools" border="0"/>
                         </div>
 
                         <gsml:url var="go" value="/res/img/splash/go.gif"/>
                         <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
 
                         <div class="findBox">
-
                             <div id="achievementBox">
                                 <label id="cityLabel"><span class="required">*</span>City</label>
                                 <gsweb:form action="/test/landing.page" method="post">
@@ -141,7 +140,7 @@
                     </td>
                     <td valign="top">
                         <div class="middleTitle">
-                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${requestScope.context.state.longName} Schools" border="0"/>
+                            <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="Learn" border="0"/>
                         </div>
                         <div class="findBox">
                             ${info}
