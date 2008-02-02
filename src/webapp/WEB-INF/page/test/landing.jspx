@@ -81,6 +81,19 @@
                         <gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
                     </td>
                 </tr>
+                <c:if test="${true}">
+                    <tr>
+                        <td colspan="3">
+                            <div id="alert">
+                                <gsml:img src="/res/img/test/exclamation_icon.gif" alt="exclamation icon" />
+                                <div>
+                                     ${alert}
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                </c:if>
                 <tr>
                     <td valign="top">
                         <div class="middleTitle">
@@ -142,7 +155,7 @@
                         <div class="middleTitle">
                             <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="Learn" border="0"/>
                         </div>
-                        <div class="findBox">
+                        <div class="findBox" id="learnBox">
                             ${info}
                         </div>
                     </td>
@@ -218,11 +231,20 @@
         </tr>
         <tr>
             <td colspan="2">
-                <span>Editors Picks</span>
+                <div class="listTitle">Editors Picks</div>
                 <c:if test="${fn:length(links) > 0}">
                     <ul class="linkList">
                         <c:forEach var="anchor" items="${links}">
-                            <li><a href="${anchor.href}">${anchor.contents}</a></li>
+                            <li>
+                                <c:choose>
+                                    <c:when test="${not empty anchor.href}">
+                                        <a class="${anchor.styleClass}" href="${anchor.href}">${anchor.contents}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <hr/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </li>
                         </c:forEach>
                     </ul>
                 </c:if>

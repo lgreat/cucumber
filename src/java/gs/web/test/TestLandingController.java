@@ -60,7 +60,7 @@ public class TestLandingController extends SimpleFormController {
     protected Map referenceData(HttpServletRequest request, Object cmd, Errors errors) throws Exception {
         Map<String, Object> refData = new HashMap<String, Object>();
 
-        if (StringUtils.isNotBlank(request.getParameter("clear"))) {
+        if (StringUtils.isNotBlank(request.getParameter(""))) {
             _cache = null;
         }
 
@@ -206,15 +206,17 @@ public class TestLandingController extends SimpleFormController {
                                 Article article = getArticleDao().getArticleFromId(aid);
                                 if (article != null) {
                                     UrlBuilder builder = new UrlBuilder(article, null, false);
-                                    list.add(new Anchor(builder.toString(), article.getTitle()));
+                                    list.add(new Anchor(builder.toString(), article.getTitle(), "article", null));
                                 } else {
                                     _log.warn("Could not find article: " + aid);
                                 }
                             } catch (NumberFormatException e) {
                                 _log.warn(e);
                             }
-                        } else if (s2.length == 2) {
-                            list.add(new Anchor(s2[1], s2[0]));
+                        } else if (s2[0].startsWith("break")) {
+                            list.add(new Anchor(null,null));
+                        }   else if (s2.length == 2) {
+                            list.add(new Anchor(s2[1], s2[0], "more", null));
                         }
                     }
                 }

@@ -9,9 +9,23 @@
 .contentGS ul.linkList li a {
     color:#3399AA;
     font-family:"Trebuchet MS",Arial,sans-serif;
+    font-weight:bold;
     font-size:12px;
     letter-spacing:0;
     line-height:15px;    
+}
+
+.listTitle {
+    font-weight:bold;
+    padding:5px 0 6px 0;
+}
+
+ul.linkList hr {
+    color:#DDEEEE;
+    border-top:1px solid;
+    border-bottom:0;
+    border-left:0;
+    border-right:0;
 }
 
 .findBox select {
@@ -41,3 +55,46 @@ img#learnTitle {
     padding:1px 0 2px 0;
 }
 
+div#alert {
+    margin: 0 0 5px 0;
+    border-top:3px solid #DDEEEE;
+    border-bottom:3px solid #DDEEEE;
+    position:relative;
+    height:50px;
+
+}
+
+div#alert img {
+    position:absolute;
+    top:10px;
+    left:11px;
+}
+
+div#alert div {
+    position:relative;
+    width:550px;
+    top:10px;
+    left:50px;
+}
+
+div#alert div span.alert1 {
+    display:block;
+    color:#CC5566;
+}
+
+
+div#alert div span.alert2 {
+    font-size:12px;
+    font-weight:normal;
+    color:#555555;
+}
+
+div#learnBox ul {
+    width:200px;
+    margin-left:20px;
+}
+
+div#learnBox li {
+    list-style-image:url(/res/img/bullet/pinkarrow.gif);
+    padding:0 0 10px 0;
+}

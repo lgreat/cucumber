@@ -88,14 +88,20 @@ public class TestLandingControllerTest extends BaseControllerTestCase {
         assertEquals("text3", aList.get(1).getContents());
         assertEquals("href3", aList.get(1).getHref());
 
-        data = "aid:21\ntest,foofoo\naid:101";
+        data = "aid:21\ntest,foofoo\nbreak\naid:101\nbreak\nfoo,bar";
         aList = _controller.parseAnchorList(data);
-        assertEquals(3, aList.size());
+        assertEquals(6, aList.size());
         assertEquals("What Does the School Secretary Do?", aList.get(0).getContents());
         assertEquals("/cgi-bin/showarticle/21", aList.get(0).getHref());
         assertEquals("test", aList.get(1).getContents());
         assertEquals("foofoo", aList.get(1).getHref());
-        assertEquals("Alabama Schools: Key Facts and Resources", aList.get(2).getContents());
-        assertEquals("/cgi-bin/showarticle/101", aList.get(2).getHref());
+        assertNull(aList.get(2).getHref());
+        assertNull(aList.get(2).getContents());
+        assertEquals("Alabama Schools: Key Facts and Resources", aList.get(3).getContents());
+        assertEquals("/cgi-bin/showarticle/101", aList.get(3).getHref());
+        assertNull(aList.get(4).getHref());
+        assertNull(aList.get(4).getContents());
+        assertEquals("foo", aList.get(5).getContents());
+        assertEquals("bar", aList.get(5).getHref());        
     }
 }
