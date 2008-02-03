@@ -105,37 +105,42 @@
 
                         <div class="findBox">
                             <div id="achievementBox">
-                                <label id="cityLabel"><span class="required">*</span>City</label>
-                                <gsweb:form action="/test/landing.page" method="post">
-                                    <input type="hidden" name="type" value="achievement" />
-                                    <input type="hidden" name="state" value="${stateAbbrev}" />
-                                    <select name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}');">
-                                        <option selected="selected" value="">Choose city</option>
-                                        <c:forEach var="cityOption" items="${cities}">
-                                            <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
-                                        </c:forEach>
-                                    </select>
-                                    <![CDATA[<div id="schools"></div>]]>
-                                    <input id="goAchieve" type="image" src="${go}" alt="GO"
-                                           style="width:41px;height:26px;margin-top: 10px;display:none;"
-                                           class="button" onmouseover="this.src='${goOver}';"
-                                           onmouseout="this.src='${go}';" />
-                                </gsweb:form>
+                                <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                                <div id="achievementContent">
+                                    <div class="boxText">Find your ${levelText} school's <span>${name} results</span></div>
+                                    <gsweb:form action="/test/landing.page" method="post">
+                                        <input type="hidden" name="type" value="achievement" />
+                                        <input type="hidden" name="state" value="${stateAbbrev}" />
+                                        <select id="achievementCities" name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}');">
+                                            <option selected="selected" value="">Choose city</option>
+                                            <c:forEach var="cityOption" items="${cities}">
+                                                <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
+                                            </c:forEach>
+                                        </select>
+                                        <![CDATA[<div id="schools"></div>]]>
+                                        <input id="goAchieve" type="image" src="${go}" alt="GO"
+                                               style="width:41px;height:26px;margin-top: 10px;display:none;"
+                                               class="button" onmouseover="this.src='${goOver}';"
+                                               onmouseout="this.src='${go}';" />
+                                    </gsweb:form>
+                                </div>
                             </div>
 
-                            <div class="blueDash" />
-
+                            <![CDATA[<div class="blueDash"></div>]]>
+                            
                             <div id="compareBox">
+                                <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                                <div class="boxText">Compare <span>${name} scores</span> in a city</div>
                                 <gsweb:form action="/test/landing.page" method="post">
                                     <input type="hidden" name="type" value="compare" />
                                     <input type="hidden" name="state" value="${stateAbbrev}" />
-                                    <select name="city" tabindex="5">
+                                    <select id="compareCities" name="city" tabindex="5">
                                         <option selected="selected" value="">Choose city</option>
                                         <c:forEach var="cityOption" items="${cities}">
                                             <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
                                         </c:forEach>
                                     </select>
-                                    <select name="level" tabindex="6">
+                                    <select id="compareLevels" name="level" tabindex="6">
                                         <option selected="selected" value="">Choose level</option>
                                         <c:forEach var="levelOption" items="${levels}">
                                             <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
@@ -193,6 +198,10 @@
                     <td valign="top">
                         <img style="width: 305px; height: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/><br/>
                         ${datablurb}
+                        <div class="updatesText">
+                            <span class="printName">Elizabeth Gardner</span>
+                            <span class="italicTitle">What text should go here?</span>
+                        </div>
                     </td>
                     <td valign="top"><img style="width: 30px;" alt=""
                                           src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
@@ -253,6 +262,10 @@
     </table>
 </div>
 </div>
+
+<footer:editorialFooter/>
+
+<h1 class="sfooter">${seofootertext}</h1>
 
 <mod:tracking pageName="Test Landing" hier1="test,landing"/>
 </gsml:body>

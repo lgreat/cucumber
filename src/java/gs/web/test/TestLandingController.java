@@ -60,7 +60,7 @@ public class TestLandingController extends SimpleFormController {
     protected Map referenceData(HttpServletRequest request, Object cmd, Errors errors) throws Exception {
         Map<String, Object> refData = new HashMap<String, Object>();
 
-        if (StringUtils.isNotBlank(request.getParameter(""))) {
+        if (StringUtils.isNotBlank(request.getParameter("clear"))) {
             _cache = null;
         }
 

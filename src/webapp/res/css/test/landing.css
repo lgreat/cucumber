@@ -3,7 +3,8 @@
 }
 
 .contentGS ul.linkList li {
-    padding:5px 0 12px 0;    
+    padding:5px 0 12px 0;
+    width:170px;
 }
 
 .contentGS ul.linkList li a {
@@ -32,20 +33,75 @@ ul.linkList hr {
     width:190px;
 }
 
-#achievementBox {
+#compareBox, #achievementBox {
     position:relative;
     height:130px;
+    width:275px;
+}
+#compareBox img, #achievementBox img{
+    position:absolute;
+    top:4px;
+    left:0;
 }
 
-div#achievementBox #goAchieve {
+div.boxText {
     position:absolute;
-    top:50px;
+    top:0;
+    left:10px;
+    font-size:15px;
+}
+
+#achievementContent div.boxText {
+    position:relative;
+    left:0;
+}
+
+div.boxText span {
+    color:#99CC67;
+    font-weight:bold;
+}
+
+#achievementBox #achievementContent {
+    position:absolute;
+    top:0;
+    left:15px;
+}
+
+
+#achievementContent select#achievementCities {
+    position:relative;
+    top:10px;
+}
+
+#achievementContent div#schools {
+    position:relative;
+    top:20px;
+}
+
+#achievementBox #goAchieve {
+    position:relative;
+    top:-14px;
     left:200px;
 }
 
-div#compareBox {
-    padding:15px 0 0 0;
+#compareBox select#compareCities {
+    position:absolute;
+    top:30px;
+    left:15px;
 }
+
+#compareBox select#compareLevels {
+    position:absolute;
+    top:65px;
+    left:15px;
+}
+
+#compareBox input#goCompare {
+    position:absolute;
+    left:220px;
+    top:50px;
+}
+
 #schools {
     position:absolute;
     top:50px;
@@ -80,6 +136,7 @@ div#alert div {
 div#alert div span.alert1 {
     display:block;
     color:#CC5566;
+    font-weight:bold;
 }
 
 
@@ -89,12 +146,31 @@ div#alert div span.alert2 {
     color:#555555;
 }
 
+div#learnBox .infohead {
+    color:#99CC67;
+    font-size:15px;
+    font-weight:bold;
+    margin:0 0 15px 0;
+}
+
 div#learnBox ul {
-    width:200px;
-    margin-left:20px;
+    width:250px;
+    margin:0 0 10px 20px;
 }
 
 div#learnBox li {
     list-style-image:url(/res/img/bullet/pinkarrow.gif);
     padding:0 0 10px 0;
+}
+
+div#learnBox a {
+    float:right;
+    text-decoration:underline;
+    color:#3399AA;
+}
+
+h1.sfooter {
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:12px;
+    color:#666666;
 }
