@@ -18,9 +18,9 @@
     <c:if test="${fn:contains(pageContext.request.requestURI,'specialNeeds')}">
         <map name="specialNeedsContentProvidedBy" id="specialNeedsContentProvidedBy">
             <area shape="rect" href="http://www.schwablearning.com" target="_blank"
-                  coords="0,34 299,73" alt="Content provided by: Schwablearning.org and ADDitude magazine"/>
+                  coords="0,0 154,124" alt="Content provided by: Schwablearning.org and ADDitude magazine"/>
             <area shape="rect" href="http://www.additudemag.com" target="_blank"
-                  coords="0,73 299,116" alt="Content provided by: Schwablearning.org and ADDitude magazine"/>
+                  coords="155,0 300,124" alt="Content provided by: Schwablearning.org and ADDitude magazine"/>
         </map>
         <gsml:img src="/res/img/content/specialNeeds/GS_SN_contentprovidedby_2.gif"
                   alt="Content provided by: Schwablearning.org and ADDitude magazine"
