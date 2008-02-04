@@ -31,6 +31,17 @@
 #footerGS a:hover {
     color: #6cc;
 }
+#footerGS a.plaintextlink {
+    text-decoration: none;
+}
+
+#footerGS a.plaintextlink:visited {
+    color: #888;
+}
+
+#footerGS a.plaintextlink:hover {
+    color: #888;
+}
 
 #footerGS .lowernavbar {
     text-align: left;
