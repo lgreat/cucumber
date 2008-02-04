@@ -16,7 +16,6 @@
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
-<jsp:directive.page import="gs.data.geo.City"/>
 <jsp:directive.page import="gs.data.school.School"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
@@ -52,6 +51,15 @@
     <meta name="description" content="${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, parent reviews and teacher stats."/>
     <meta name="keywords" content="${school.name}, ${school.name} ${city}, ${school.name} ${city} ${stateName}, ${school.name} ${city} ${stateAbbrev}, ${school.name} ${stateName}, ${school.name} Overview"/>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
+    <!-- GS-5367 variant B css that could not be inlined -->
+    <style type="text/css">
+        #stateSelector2 {
+            color:#666666;
+            font-family:Trebuchet MS,Arial,sans-serif;
+            font-size:12px;
+            margin: 12px 8px 12px 0pt;
+        }
+    </style>
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">
@@ -376,6 +384,73 @@
 		<!-- begin right column -->
         <div id="col_right" class="noprint">
 
+            <variant:b>
+            <!-- GS-5367 Also remove the style declaration in the head tag -->    
+            <div id="rightColSearchDiv" style="background-color: #F3F9F9; margin-bottom: 17px;">
+                <gsml:img src="/res/img/search/search.gif" alt="Search for schools"/>
+                <!-- variable that holds the actual search form action, populated with one of the above vars -->
+                <c:set var="searchFormAction" value="/search/search.page"/>
+                <!-- search box on click value ... as this never changes, why is this in a variable?? -->
+                <c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>
+                <!-- Following variable is also hard-coded into global.js -->
+                <c:set var="searchBoxValue" value="Search for school, district or city"/>
+                <!-- shorten text box and show state drop down -->
+                <c:set var="searchBoxStyle" value="width:159px; float: left; color:#666666; font-family:Trebuchet MS,Arial,sans-serif; font-size:12px; padding: 1px 0px 1px 3px; margin: 12px 8px 12px 11px;"/>
+                <c:set var="searchStateStyle" value="display:block;"/>
+                <!-- text in following script also hard-coded into global.js -->
+                <script type="text/javascript">
+                    function clearValueInBox(x) {
+                        if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city' || x.value == 'Search community by keyword') {
+                            x.value = '';
+                        }
+                    }
+                    function rightColSubmitSearch(theForm) {
+                        var val = document.getElementById('stateSelector2').value;
+                        var c = getRadioValue(theForm.c);
+                        if (val == "--" || val == "") {
+                            alert("Please select a state.");
+                            return false;
+                        }
+                        var textField = document.getElementById('q2');
+                        if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district or city'
+                                || textField.value == 'Search community by keyword') {
+                            textField.value = '';
+                        }
+                        return true;
+                    }
+                </script>
+                  <div class="search" >
+                    <gsweb:form method="get" id="rightcol_search" action="${searchFormAction}#from..SPSearchBox" onsubmit="return rightColSubmitSearch(this)">
+                        <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                            <input type="hidden" name="st" value="charter"/>
+                        </c:if>
+                        <input type="hidden" name="search_type" value="0"/>
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td id="searchBox2" style="white-space: nowrap;">
+                                    <input type="text" name="q" id="q2" style="${searchBoxStyle}"
+                                           value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
+                                    <div id="stateDropDown2" style="${searchStateStyle}">
+                                        <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                                             noStateLabel="--"
+                                                             usingLongNames="false"
+                                                             state="${requestScope.context.state}" styleClass="stateSelect" styleId="stateSelector2"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <gsml:url var="go" value="/res/img/button/go_blue_transparent.gif"/>
+                                    <input type="image" src="${go}" alt="GO" style="width:39px;height:20px"
+                                           class="button"/>
+                                    <input type="hidden" name="c" value="school"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </gsweb:form>
+                    <script type="text/javascript">document.forms['rightcol_search'].reset();</script><!-- GS-3713 -->
+                  </div>
+            </div>
+            </variant:b>
+            
             <div class="ad_top">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
                 <ad:Top_300x137/>
