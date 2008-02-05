@@ -112,7 +112,7 @@
             s.prop11 = "GreatSchools";
             s.events = "${events}";
             s.hier1 = "${hier1}";
-            s.eVar5 = "${empty(param.eV6) ? param.eV6 : ''}";
+
 
             <!-- GS-5020 -->
             var locationAnchor = '';
