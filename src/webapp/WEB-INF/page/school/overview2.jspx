@@ -393,14 +393,14 @@
                 <!-- search box on click value ... as this never changes, why is this in a variable?? -->
                 <c:set var="searchBoxOnClick" value="clearValueInBox(this);"/>
                 <!-- Following variable is also hard-coded into global.js -->
-                <c:set var="searchBoxValue" value="Search for school, district or city"/>
+                <c:set var="searchBoxValue" value="School, district or city name"/>
                 <!-- shorten text box and show state drop down -->
                 <c:set var="searchBoxStyle" value="width:159px; float: left; color:#666666; font-family:Trebuchet MS,Arial,sans-serif; font-size:12px; padding: 1px 0px 1px 3px; margin: 12px 8px 12px 11px;"/>
                 <c:set var="searchStateStyle" value="display:block;"/>
                 <!-- text in following script also hard-coded into global.js -->
                 <script type="text/javascript">
                     function clearValueInBox(x) {
-                        if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city' || x.value == 'Search community by keyword') {
+                        if (x.value == '${searchBoxValue}') {
                             x.value = '';
                         }
                     }
@@ -412,8 +412,7 @@
                             return false;
                         }
                         var textField = document.getElementById('q2');
-                        if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district or city'
-                                || textField.value == 'Search community by keyword') {
+                        if (textField.value == '${searchBoxValue}') {
                             textField.value = '';
                         }
                         return true;
