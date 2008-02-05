@@ -24,7 +24,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <c:choose>
         <c:when test="${not empty stateOrNull}" >
-            <title>${stateOrNull.longName} Schools - ${stateOrNull.longName} Public Schools - ${stateOrNull.longName} School Ratings - Best ${stateOrNull.longName} Schools</title>
+            <title>${stateOrNull.longName} Schools - ${stateOrNull.longName} Public Schools - ${stateOrNull.longName} School Ratings - ${stateOrNull.abbreviation} Schools - Best ${stateOrNull.longName} Schools</title>
             <meta name="description" content="${stateOrNull.longName} school information: Test scores, school parent reviews and more. Plus, get expert advice to help find the right school for your child."/>
             <meta name="keywords" content="${stateOrNull.longName} Schools, ${stateOrNull.longName} Public Schools, ${stateOrNull.longName} School Ratings, Best ${stateOrNull.longName} schools, ${stateOrNull.abbreviation} Schools, ${stateOrNull.abbreviation} Public Schools, ${stateOrNull.abbreviation} School Ratings, Best ${stateOrNull.abbreviation} Schools, Private Schools in ${stateOrNull.longName}"/>
         </c:when>
