@@ -315,7 +315,7 @@
         </c:if>
     </spring:hasBindErrors>
     <!-- Registeration Success Event -->
-    <c:set var="events" value="registration"/>
+    <c:set var="events" value="event6"/>
 
     <mod:tracking pageName="${pageName}"
                   hier1="Account,Registration,Page 1,${hier}"
