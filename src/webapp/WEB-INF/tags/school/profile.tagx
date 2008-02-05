@@ -289,48 +289,25 @@
 
     <!-- This link tag automatically detects private schools and links appropriately -->
     <td>
-        <c:choose>
-            <c:when test="${requestScope.context.ABVersion eq 'c'}">
-                <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
-                                          anchor="from..TabB">
-                    Teachers and<br/>
-                    Students
-                </link:schoolProfileCensus>
-            </c:when>
-
-            <c:otherwise>
-                <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
-                                          anchor="${headerAnchor}">
-                    School<br/>
-                    Environment
-                </link:schoolProfileCensus>
-            </c:otherwise>
-        </c:choose>
+        <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
+                                  anchor="${headerAnchor}">
+            School<br/>
+            Environment
+        </link:schoolProfileCensus>
     </td>
 
 
     <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
         <td>
-            <c:choose>
-                <c:when test="${requestScope.context.ABVersion eq 'b'}">
-                    <link:schoolStartSurvey school="${school}" anchor="${headerAnchor}" cpn="SPTab_parentsurvey">
-                        Parent<br/>
-                        Survey
-                    </link:schoolStartSurvey>
-                </c:when>
+            <link:districtProfile districtId="${school.districtId}"
+                                  schoolId="${school.id}"
+                                  state="${state.abbreviationLowerCase}"
+                                  title="District information"
+                                  anchor="${headerAnchor}">
+                District<br/>
+                Overview
+            </link:districtProfile>
 
-                <c:otherwise>
-                    <link:districtProfile districtId="${school.districtId}"
-                                          schoolId="${school.id}"
-                                          state="${state.abbreviationLowerCase}"
-                                          title="District information"
-                                          anchor="${headerAnchor}">
-                        District<br/>
-                        Overview
-                    </link:districtProfile>
-
-                </c:otherwise>
-            </c:choose>
         </td>
     </c:if>
 
