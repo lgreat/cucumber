@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.44 2008/01/08 19:26:49 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.45 2008/02/05 19:47:30 aroy Exp $
  */
 
 package gs.web.util;
@@ -196,8 +196,16 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(_urlUtil.isDeveloperWorkstation("apeterson.office.greatschools.net"));
         assertFalse(_urlUtil.isDeveloperWorkstation("aroy.dev.greatschools.net"));
         assertTrue(_urlUtil.isDeveloperWorkstation("aroy.office.greatschools.net"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("somenewdeveloper.office.greatschools.net"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("macbook.greatschools.net"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("macbook"));
+        assertFalse("Potential cobrand shouldn't be considered developer workstation",
+                _urlUtil.isDeveloperWorkstation("office.greatschools.net"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("aroy.office"));
         assertTrue(_urlUtil.isDeveloperWorkstation("localhost"));
         assertTrue(_urlUtil.isDeveloperWorkstation("127.0.0.1"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("172.21.1.142"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("172.21.1.142:8080"));
     }
 
     public void testIsDevEnvironment() {
@@ -217,10 +225,17 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(_urlUtil.isDevEnvironment("apeterson.office.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("aroy.dev.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("aroy.office.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("aroy.office"));
+        assertTrue(_urlUtil.isDevEnvironment("somedev.office.greatschools.net"));
+        assertFalse(_urlUtil.isDevEnvironment("office.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("macbook.greatschools.net:8080"));
+        assertTrue(_urlUtil.isDevEnvironment("macbook:8080"));
         assertTrue(_urlUtil.isDevEnvironment("clone.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("azcentral.clone.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("localhost"));
         assertTrue(_urlUtil.isDevEnvironment("127.0.0.1"));
+        assertTrue(_urlUtil.isDevEnvironment("172.21.1.142"));
+        assertTrue(_urlUtil.isDevEnvironment("172.21.1.142:8080"));
     }
 
     public void testIsStagingServer() {

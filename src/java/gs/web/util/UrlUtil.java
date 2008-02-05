@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.55 2008/01/08 19:26:49 aroy Exp $
+ * $Id: UrlUtil.java,v 1.56 2008/02/05 19:47:30 aroy Exp $
  */
 
 package gs.web.util;
@@ -264,8 +264,10 @@ public final class UrlUtil {
     public boolean isDeveloperWorkstation(String hostName) {
         return hostName.indexOf("localhost") > -1 ||
                 hostName.indexOf("127.0.0.1") > -1 ||
-                hostName.indexOf("apeterson.office.greatschools.net") > -1 ||
-                hostName.indexOf("aroy.office.greatschools.net") > -1;
+                hostName.matches("^172\\.21\\.1.*") ||
+                hostName.matches(".+\\.office.*") ||
+                hostName.indexOf("cpickslay.") != -1 ||
+                hostName.indexOf("macbook") > -1;
     }
 
     /**
@@ -278,12 +280,9 @@ public final class UrlUtil {
                 hostName.endsWith("dev") ||
                 hostName.indexOf("staging") != -1 ||
                 hostName.indexOf("clone") != -1 ||
-                hostName.indexOf("apeterson.office") != -1 ||
-                hostName.indexOf("aroy.office") != -1 ||
-                hostName.indexOf("cpickslay.") != -1 ||
                 hostName.equals("127.0.0.1") ||
                 hostName.matches("^172\\.18\\.1.*") ||
-                hostName.equals("localhost");
+                isDeveloperWorkstation(hostName);
     }
 
     public boolean isStagingServer(String hostName) {
