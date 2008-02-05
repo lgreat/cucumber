@@ -1,0 +1,23 @@
+<p>Thank you for submitting a parent review for $SCHOOLNAME! Our Parent Review team will read 
+<br>your review and post it if it meets <a href="http://www.greatschools.net/cgi-bin/static/guidelines.html/$STATE#guidelines">our guidelines</a>. This process may take a few days.</p>
+
+<p>Parent reviews bring your school to life on the GreatSchools Web site - but
+<br/>that's not the only way you can reach out to other parents!</p>
+
+<ul>
+<li> <a href="http://www.greatschools.net/survey/start.page?cpn=OnPage_Parentsurvey_Overview&id=$SCHOOLID&state=$STATE">Complete a parent survey for  $SCHOOLNAME.</a>
+<br/>Share the unique qualities about your school's academics,
+<br/>extracurricular activities and school culture.</li>
+<br/>
+<li> <a href="http://www.greatschools.net/community/registration.page?redirect=http://community.greatschools.net/&cpn=ParentReviewEmail">Register for the GreatSchools Parent Community</a>
+<br/>Share your success stories, find answers to your questions about
+<br/>parenting and education and meet like-minded parents. It's free
+<br/>and only takes a minute to sign up!</li>
+</ul>
+
+<p>Thanks for helping parents understand more about $SCHOOLNAME!</p>
+
+<p><b><i>The GreatSchools Team</b></i></p>
+
+
+

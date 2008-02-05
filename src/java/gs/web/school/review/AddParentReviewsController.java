@@ -115,8 +115,11 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
         //only send them an email if they submitted a message that is not blank
         if ("a".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
-            sendMessage(user, r.getComments(), school.getDatabaseState());
+            sendMessage(user, r.getComments(), school, "rejectEmail.txt");
+        }else if ("u".equals(r.getStatus())  && StringUtils.isNotBlank(r.getComments())) {
+            sendMessage(user, r.getComments(), school, "communityEmail.txt");
         }
+        
 
         if (isAjaxPage()) {
             successJSON(response);
@@ -132,7 +135,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
                                           final ReviewCommand command, final boolean isNewUser) {
 
         Review review = null;
-
+                _log.warn("eddie\n\n"); 
         //existing user, check if they have previously left a review for this school
         if (!isNewUser) {
             review = getReviewDao().findReview(user, school);
@@ -206,18 +209,21 @@ public class AddParentReviewsController extends SimpleFormController implements 
         return m.matches();
     }
 
-    protected void sendMessage(final User user, final String comments, final State state) throws MessagingException, IOException {
+    protected void sendMessage(final User user, final String comments, final School school,String emailTemplate) throws MessagingException, IOException {
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
         emailHelper.setSubject("Thanks for your feedback");
         emailHelper.setFromEmail("editorial@greatschools.net");
         emailHelper.setFromName("GreatSchools");
 
         emailHelper.setToEmail(user.getEmail());
-        emailHelper.readHtmlFromResource("gs/web/school/review/rejectEmail.txt");
+        emailHelper.readHtmlFromResource("gs/web/school/review/" + emailTemplate);
 
+        emailHelper.setSentToCustomMessage(emailHelper.getHTML_THIS_EMAIL_SENT_TO_EMAIL_MSG());
         emailHelper.addInlineReplacement("EMAIL", user.getEmail());
-        emailHelper.addInlineReplacement("STATE", state.getAbbreviation());
+        emailHelper.addInlineReplacement("STATE", school.getDatabaseState().getAbbreviation());
         emailHelper.addInlineReplacement("USER_COMMENTS", comments);
+        emailHelper.addInlineReplacement("SCHOOLNAME", school.getName());
+        emailHelper.addInlineReplacement("SCHOOLID", school.getId().toString());
 
         emailHelper.send();
     }
