@@ -19,8 +19,9 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <html lang="en">
+<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
 <c:set var="stateOrNull" value="${requestScope.context.state}" />
-<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}" />
+<c:set var="stateAbbrev" value="${stateOrDefault.abbreviationLowerCase}" />
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>GreatSchools Test Landing Page</title>
@@ -198,6 +199,19 @@
                     <td valign="top">
                         <img style="width: 305px; height: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/><br/>
                         ${datablurb}
+
+                        <div class="updatesText">
+                            <c:choose>
+                                <c:when test="${stateAbbrev eq 'DC'}">
+                                    <a href="http://data.greatschools.net/district_of_columbia/index.html">Read more about data updates in Washington DC</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="mungedState" value="${fn:replace(fn:toLowerCase(stateOrDefault.longName), ' ', '_')}" />
+                                    <a href="http://data.greatschools.net/${mungedState}/index.html">Read more about data updates in ${stateOrDefault.longName}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+
                         <div class="updatesText">
                             <span class="printName">Elizabeth Gardner</span>
                             <span class="italicTitle">${requestScope.context.stateOrDefault.longName} Senior Education Data Specialist</span>
