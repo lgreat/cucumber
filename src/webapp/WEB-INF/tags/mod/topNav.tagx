@@ -186,7 +186,7 @@
                         state="${requestScope.context.state}"
                         id="topnav_research"
                         >Research &amp;amp; Compare</link:research></td>
-                    <!--#10--><td><gsml:a href="http://${communityHost}"
+                    <!--#10--><td><gsml:a href="http://${communityHost}?eV6=navBar"
                         styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')}"
                         >Community</gsml:a></td>
                     <!--#7--><td><gsml:a href="/content/tutoring_Homework_Help.page"
