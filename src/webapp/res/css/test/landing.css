@@ -29,8 +29,14 @@ ul.linkList hr {
     border-right:0;
 }
 
+select {
+    border:1px solid #808080;
+    font-size:10px;
+    padding:1px;
+}
+
 .findBox select {
-    width:190px;
+    width:195px;
 }
 
 #compareBox, #achievementBox {
@@ -48,6 +54,7 @@ div.boxText {
     position:absolute;
     top:0;
     left:10px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:15px;
 }
 
@@ -75,13 +82,13 @@ div.boxText span {
 
 #achievementContent div#schools {
     position:relative;
-    top:20px;
+    top:27px;
 }
 
 #achievementBox #goAchieve {
     position:relative;
-    top:-14px;
-    left:200px;
+    top:-5px;
+    left:210px;
 }
 
 #compareBox select#compareCities {
@@ -98,8 +105,8 @@ div.boxText span {
 
 #compareBox input#goCompare {
     position:absolute;
-    left:220px;
-    top:50px;
+    left:225px;
+    top:52px;
 }
 
 #schools {
@@ -149,6 +156,7 @@ div#alert div span.alert2 {
 div#learnBox .infohead {
     color:#99CC67;
     font-size:15px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
     font-weight:bold;
     margin:0 0 15px 0;
 }
