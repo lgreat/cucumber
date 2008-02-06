@@ -45,11 +45,12 @@ public class SchoolsInCityAjaxController implements Controller {
         String city = request.getParameter("city");
         List<School> schools = _schoolDao.findSchoolsInCity(state, city, false);
         out.print("<select id=\"schoolSelect\" name=\"sid\" class=\"selectSchool\">");
+        out.print("<option value=\"\">Choose school</option>\n");
         for (School school : schools) {
             out.print("<option ");
             out.print("value=\"" + school.getId() + "\">");
             out.print(school.getName());
-            out.print("</option>");
+            out.print("</option>\n");
         }
         out.print("</select>");
     }

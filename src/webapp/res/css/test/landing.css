@@ -3,17 +3,21 @@
 }
 
 .contentGS ul.linkList li {
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:12px;
     padding:5px 0 12px 0;
     width:170px;
 }
 
 .contentGS ul.linkList li a {
     color:#3399AA;
-    font-family:"Trebuchet MS",Arial,sans-serif;
     font-weight:bold;
-    font-size:12px;
     letter-spacing:0;
     line-height:15px;    
+}
+
+.contentGS ul.linkList li a.more {
+    text-decoration:underline;
 }
 
 .listTitle {
@@ -30,9 +34,10 @@ ul.linkList hr {
 }
 
 select {
-    border:1px solid #808080;
+    border:1px solid #999999;
     font-size:10px;
     padding:1px;
+    color:#555555;
 }
 
 .findBox select {
@@ -51,15 +56,16 @@ select {
 }
 
 div.boxText {
-    position:absolute;
+    position:relative;
     top:0;
     left:10px;
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:15px;
+    width:195px;
 }
 
 #achievementContent div.boxText {
-    position:relative;
+    /*position:relative;*/
     left:0;
 }
 
@@ -82,31 +88,35 @@ div.boxText span {
 
 #achievementContent div#schools {
     position:relative;
-    top:27px;
+    top:22px;
 }
 
 #achievementBox #goAchieve {
     position:relative;
-    top:-5px;
+    top:-10px;
     left:210px;
 }
 
+#compareBox div.boxText {
+    top:1px;
+    left:14px;
+}
+
 #compareBox select#compareCities {
-    position:absolute;
-    top:30px;
+    position:relative;
+    top:10px;
     left:15px;
 }
 
 #compareBox select#compareLevels {
-    position:absolute;
-    top:65px;
+    position:relative;
     left:15px;
 }
 
 #compareBox input#goCompare {
-    position:absolute;
-    left:225px;
-    top:52px;
+    position:relative;
+    left:30px;
+    top:8px;
 }
 
 #schools {
@@ -119,28 +129,30 @@ img#learnTitle {
 }
 
 div#alert {
+    font-family:"Trebuchet MS",Arial,sans-serif;
     margin: 0 0 5px 0;
     border-top:3px solid #DDEEEE;
     border-bottom:3px solid #DDEEEE;
     position:relative;
-    height:50px;
+    height:55px;
 
 }
 
 div#alert img {
     position:absolute;
-    top:10px;
+    top:13px;
     left:11px;
 }
 
 div#alert div {
     position:relative;
     width:550px;
-    top:10px;
+    top:11px;
     left:50px;
 }
 
 div#alert div span.alert1 {
+    font-size:15px;
     display:block;
     color:#CC5566;
     font-weight:bold;
@@ -150,7 +162,13 @@ div#alert div span.alert1 {
 div#alert div span.alert2 {
     font-size:12px;
     font-weight:normal;
-    color:#555555;
+    color:#666666;
+}
+
+div#learnBox {
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:15px;
+    color:#666666;
 }
 
 div#learnBox .infohead {
@@ -174,11 +192,18 @@ div#learnBox li {
 div#learnBox a {
     float:right;
     text-decoration:underline;
+    font-size:12px;
     color:#3399AA;
+    padding-right:20px;
 }
 
 h1.sfooter {
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:12px;
     color:#666666;
+}
+
+div.updatesText .printName, div.updatesText .italicTitle {
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:12px;    
 }

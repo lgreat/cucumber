@@ -206,7 +206,7 @@ public class TestLandingController extends SimpleFormController {
                                 Article article = getArticleDao().getArticleFromId(aid);
                                 if (article != null) {
                                     UrlBuilder builder = new UrlBuilder(article, null, false);
-                                    list.add(new Anchor(builder.toString(), article.getTitle(), "article", null));
+                                    list.add(new Anchor(builder.toString(), article.getTitle(), "article"));
                                 } else {
                                     _log.warn("Could not find article: " + aid);
                                 }
@@ -216,7 +216,12 @@ public class TestLandingController extends SimpleFormController {
                         } else if (s2[0].startsWith("break")) {
                             list.add(new Anchor(null,null));
                         }   else if (s2.length == 2) {
-                            list.add(new Anchor(s2[1], s2[0], "more", null));
+                            if (s2[0].startsWith("More")) {
+                                list.add(new Anchor(s2[1], s2[0], "more"));
+                            } else {
+                                list.add(new Anchor(s2[1], s2[0]));
+                            }
+
                         }
                     }
                 }

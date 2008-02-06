@@ -108,7 +108,7 @@
                             <div id="achievementBox">
                                 <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
                                 <div id="achievementContent">
-                                    <div class="boxText">Find your ${levelText} school's <span>${name} results</span></div>
+                                    <div class="boxText">Find your ${levelText} school's <span>${name} RESULTS:</span></div>
                                     <gsweb:form action="/test/landing.page" method="post">
                                         <input type="hidden" name="type" value="achievement" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
@@ -131,7 +131,7 @@
                             
                             <div id="compareBox">
                                 <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                                <div class="boxText">Compare <span>${name} scores</span> in a city</div>
+                                <div class="boxText">Compare <span>${name} SCORES</span> in a city:</div>
                                 <gsweb:form action="/test/landing.page" method="post">
                                     <input type="hidden" name="type" value="compare" />
                                     <input type="hidden" name="state" value="${stateAbbrev}" />
