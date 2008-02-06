@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.36 2007/07/25 19:44:18 thuss Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.37 2008/02/06 00:00:56 eddie Exp $
  */
 package gs.web.content;
 
@@ -64,6 +64,11 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
      */
     private String _wrappingElement;
 
+    /**
+     * Specify an anchor to point to
+     */
+    private String _anchorName;
+
 
     public void doTag() throws IOException {
 
@@ -95,6 +100,9 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
         String link = getHref(article);
         b.append(link);
+        if (StringUtils.isNotEmpty(_anchorName)) {
+            b.append('#' + _anchorName);
+        }
 
         b.append("\"");
         if (StringUtils.isNotEmpty(_target)) {
@@ -237,4 +245,13 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
     }
+    public String getAnchorName() {
+        return _anchorName;
+    }
+
+    public void setAnchorName(String _anchorName) {
+        this._anchorName = _anchorName;
+    }
+
+
 }

@@ -14,6 +14,8 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsweb="gstaglib"
+        xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.data.geo.City"/>
@@ -65,6 +67,27 @@
 <table width="100%">
 <tr>
 <td width="66%" style="vertical-align:top">
+
+<variant:b>
+
+<c:if test="${stateAbbrevLowerCase != 'dc'}">
+    
+<div id="cityrating">
+    <div id="ratingimage"><gsml:img src="/res/img/citydist_ratings/GS_CD_c_${strCityRating}.gif"
+                   alt="GreatSchools Rating: ${strCityRating} ${cityratingAlt}. GreatSchools Ratings are based on test results. 10 is best."/>
+    </div>
+    <div id="textwrapper">
+        <div id="ratingtext">
+            ${displayName}'s rating is based on its public schools' test results; 10 is best.
+            <gsweb:articlelink articleId="1023" anchorName="13">Learn more &gt;</gsweb:articlelink>
+        </div>
+    </div>
+</div>
+</c:if>
+</variant:b>
+
+
+
 <h2 class="sectionHead">
     <c:if test="${not empty requestScope.topRatedSchools}">
         Top-Rated

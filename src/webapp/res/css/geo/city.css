@@ -315,3 +315,34 @@ div.statsModule {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-weight:bold;
 }
+
+#cityrating {
+    position:relative;
+    border-top:1px solid #DDDDDD;
+    border-bottom:1px solid #DDDDDD;
+    height:93px;
+    width:100%;
+    margin:0 0 15px 0;
+}
+
+#cityrating #ratingimage{
+          position:absolute;
+    top:11px;
+    left:0px;
+}
+
+#cityrating #textwrapper{
+     position:absolute;
+    top:11px;
+    left:223px;
+    width:280px;
+    padding:17px 0 0 0;
+}
+
+#cityrating #ratingtext{
+    position:relative;
+    vertical-align:middle;
+    font-size:small;
+    font-weight:normal;
+    color:#888888;
+}

@@ -118,6 +118,38 @@ District Overview
 	_margin: 0; /* IE 6 hack */
 }
 
+#districtrating {
+    position:relative;
+    border-top:1px solid #DDDDDD;
+    border-bottom:1px solid #DDDDDD;
+    height:93px;
+    width:346px;
+    margin:0 0 15px 184px;
+}
+
+#districtrating #ratingimage{
+          position:absolute;
+    top:11px;
+    left:0px;
+}
+
+#districtrating #textwrapper{
+     position:absolute;
+    top:19px;
+    left:223px;
+    width:120px;
+    padding:0;
+}
+
+#districtrating #ratingtext{
+    position:relative;
+    vertical-align:middle;
+    font-size:.8em;
+    font-weight:normal;
+    color:#888888;
+}
+
+
 /* center column */
 
 

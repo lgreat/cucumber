@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.45 2007/09/14 00:24:45 dlee Exp $
+ * $Id: CityController.java,v 1.46 2008/02/06 00:00:56 eddie Exp $
  */
 
 package gs.web.geo;
@@ -11,6 +11,8 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.test.rating.ICityRatingDao;
+import gs.data.test.rating.CityRating;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +59,7 @@ public class CityController extends AbstractController {
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
     private IDistrictDao _districtDao;
+    private ICityRatingDao _cityRatingDao;
     private StateManager _stateManager;
     private AnchorListModelFactory _anchorListModelFactory;
 
@@ -162,6 +166,20 @@ public class CityController extends AbstractController {
             }
         }
 
+        Integer cityRatingValue = 0;
+        String strCityRating = "no";
+        try {
+            CityRating cityRating = _cityRatingDao.getCityRatingByCity(state,city.getName());
+            cityRatingValue = cityRating.getRating();
+        } catch (ObjectRetrievalFailureException e) {
+        }
+        strCityRating = cityRatingValue > 0 ? cityRatingValue.toString() : strCityRating;
+        String cityRatingAlt = cityRatingValue > 0 ? "out of 10" : "rating available";
+        model.put("strCityRating",strCityRating);
+        model.put("cityratingAlt",cityRatingAlt);
+
+
+
         return new ModelAndView("geo/city", model);
     }
 
@@ -179,6 +197,14 @@ public class CityController extends AbstractController {
 
     public void setDistrictDao(IDistrictDao districtDao) {
         _districtDao = districtDao;
+    }
+
+    public ICityRatingDao getCityRatingDao() {
+        return _cityRatingDao;
+    }
+
+    public void setCityRatingDao(ICityRatingDao cityRatingDao) {
+        _cityRatingDao = cityRatingDao;
     }
 
     public IGeoDao getGeoDao() {
