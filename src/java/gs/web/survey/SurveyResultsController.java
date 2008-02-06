@@ -13,6 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This controller delivers the survey results page.  Required query params:
+ * <ul>
+ * <li>id (School id></li>
+ * <li>state (2-letter abbrev)</li>
+ * <li>level (Survey level code)</li>
+ * </ul>
+ *
  * @author chriskimm@greatschools.net
  */
 public class SurveyResultsController extends AbstractController {
@@ -29,14 +36,6 @@ public class SurveyResultsController extends AbstractController {
 
         String level = request.getParameter("level");
         SurveyResults results = getSurveyDao().getSurveyResultsForSchool(level, school);
-
-        // if no page is specified, page 1 should be returned.
-        String page = request.getParameter("page");
-        if (StringUtils.isBlank(page)) {
-            
-        }
-        
-
         ModelAndView mAndV = new ModelAndView("survey/results");
         mAndV.getModel().put("results", results);
         return mAndV;
