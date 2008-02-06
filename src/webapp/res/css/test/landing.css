@@ -11,13 +11,14 @@
 
 .contentGS ul.linkList li a {
     color:#3399AA;
-    font-weight:bold;
+    font-weight:normal;
     letter-spacing:0;
     line-height:15px;    
 }
 
 .contentGS ul.linkList li a.more {
     text-decoration:underline;
+    font-weight:bold;
 }
 
 .listTitle {
@@ -65,7 +66,6 @@ div.boxText {
 }
 
 #achievementContent div.boxText {
-    /*position:relative;*/
     left:0;
 }
 
@@ -88,12 +88,12 @@ div.boxText span {
 
 #achievementContent div#schools {
     position:relative;
-    top:22px;
+    top:23px;
 }
 
 #achievementBox #goAchieve {
     position:relative;
-    top:-10px;
+    top:-9px;
     left:210px;
 }
 
@@ -134,8 +134,7 @@ div#alert {
     border-top:3px solid #DDEEEE;
     border-bottom:3px solid #DDEEEE;
     position:relative;
-    height:55px;
-
+    height:57px;
 }
 
 div#alert img {
@@ -176,7 +175,7 @@ div#learnBox .infohead {
     font-size:15px;
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-weight:bold;
-    margin:0 0 15px 0;
+    margin:0 0 15px 6px;
 }
 
 div#learnBox ul {

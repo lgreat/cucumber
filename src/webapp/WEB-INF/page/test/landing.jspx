@@ -108,7 +108,7 @@
                             <div id="achievementBox">
                                 <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
                                 <div id="achievementContent">
-                                    <div class="boxText">Find your ${levelText} school's <span>${name} RESULTS:</span></div>
+                                    <div class="boxText">Find your ${levelText} school's <span>${name} RESULTS</span>:</div>
                                     <gsweb:form action="/test/landing.page" method="post">
                                         <input type="hidden" name="type" value="achievement" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
@@ -214,7 +214,7 @@
 
                         <div class="updatesText">
                             <span class="printName">Elizabeth Gardner</span>
-                            <span class="italicTitle">${requestScope.context.stateOrDefault.longName} Senior Education Data Specialist</span>
+                            <span class="italicTitle">Senior Education Data Specialist</span>
                         </div>
                     </td>
                     <td valign="top"><img style="width: 30px;" alt=""
