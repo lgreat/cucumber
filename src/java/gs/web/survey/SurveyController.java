@@ -17,6 +17,7 @@ import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.collections.CollectionUtils;
@@ -28,6 +29,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.joda.time.DateTime;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -380,6 +382,9 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
         int curPageIndex = sp.getIndex();
 
+        String level = request.getParameter("level");
+        checkSubmitCount(school, level, sp.getId(), request);
+
         String redirectURL;
         if (curPageIndex >= survey.getPages().size()) {
             UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
@@ -388,7 +393,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
             StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
             buffer.append("&level=");
-            buffer.append(request.getParameter("level"));
+            buffer.append(level);
             buffer.append("&p=");
             int nextPage = curPageIndex + 1;
             buffer.append(nextPage);
@@ -404,6 +409,38 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         return new ModelAndView("redirect:" + redirectURL);
     }
 
+    protected void checkSubmitCount(School school, String level, int page, HttpServletRequest request) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, -4);
+        LevelCode.Level l = LevelCode.Level.getLevelCode(level);
+        if (l != null) {
+            int taken = _surveyDao.getNumSurveysTaken(school, page, l, cal.getTime());
+            if (taken > 3) {
+                try {
+                    EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+                    emailHelper.setToEmail("chriskimm@greatschools.net");
+                    emailHelper.setFromEmail("survey@greatschools.net");
+                    emailHelper.setFromName("GreatSchools Survey System");
+                    emailHelper.setSubject("Survey submit alert for " + school.getName());
+                    StringBuffer message = new StringBuffer();
+                    message.append(taken);
+                    message.append(" surveys have been submitted in the past 4 hours.\n");
+                    message.append(school.toString());
+                    message.append("\nThis message was generated on: ");
+                    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+                    if (new UrlUtil().isDevEnvironment(sessionContext.getHostName())) {
+                        message.append(" DEVELOPMENT");
+                    } else {
+                        message.append(" PRODUCTION");
+                    }
+                    emailHelper.setTextBody(message.toString());
+                    emailHelper.send();
+                } catch (MessagingException e) {
+                    _log.warn(e);
+                }
+            }
+        }
+    }
 
     protected void sendEmail(User user, School school, HttpServletRequest request) throws MessagingException, IOException {
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();

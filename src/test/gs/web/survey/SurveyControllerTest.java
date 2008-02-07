@@ -371,22 +371,26 @@ public class SurveyControllerTest extends BaseControllerTestCase {
     public void testOnSubmitMultiPage() throws Exception {
         UserResponseCommand urc = new UserResponseCommand();
         urc.setUser(createUser(false));
-        urc.setSchool(createSchool());
+        School school = createSchool();
+        urc.setSchool(school);
         Survey survey = createSurvey(3);
         urc.setSurvey(survey);
-        urc.setPage(survey.getPages().get(0));
+        SurveyPage page = survey.getPages().get(0);
+        urc.setPage(page);
         BindException errors = new BindException(urc, "");
         expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
         replay(_surveyDao);
 
         getRequest().setParameter("level", "m");
         getRequest().setParameter("year", "2006");
-        
+
         ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
         reset(_surveyDao);
         expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
         replay(_surveyDao);
 
         UrlBuilder builder = new UrlBuilder(createSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
@@ -397,6 +401,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         reset(_surveyDao);
         expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
         _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
         replay(_surveyDao);
 
         assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&level=m&p=3&year=2006", mAndV.getViewName());
