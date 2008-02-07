@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.38 2008/01/28 21:43:13 droy Exp $
+ * $Id: SchoolsController.java,v 1.39 2008/02/07 23:27:17 droy Exp $
  */
 
 package gs.web.school;
@@ -315,15 +315,7 @@ public class SchoolsController extends AbstractController {
     public static String calcDistrictMetaKeywords(String districtDisplayName, String cityDisplayName, State state) {
         StringBuffer sb = new StringBuffer();
 
-        String altDistrictDisplayName = districtDisplayName;
-        String lowerName = altDistrictDisplayName.toLowerCase();
-        if (!lowerName.contains("school") && !lowerName.contains("district")) {
-            altDistrictDisplayName += " School District";
-        }
-
         sb.append(districtDisplayName);
-        sb.append(" Schools, ");
-        sb.append(altDistrictDisplayName);
         sb.append(" Schools, ");
         sb.append(cityDisplayName);
         sb.append(" School District, ");
