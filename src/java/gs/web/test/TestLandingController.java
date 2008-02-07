@@ -41,8 +41,13 @@ import java.util.Map;
  */
 public class TestLandingController extends SimpleFormController {
 
+    /** Spring config id */
     public static final String BEAN_ID = "/test/landing.page";
+
+    /** Stores all of the test data */
     Map<String, Map> _cache;
+
+    /** URL of the Google Docs worksheet */
     private URL _worksheetUrl;
 
     /** Used to populate city lists */
@@ -51,6 +56,7 @@ public class TestLandingController extends SimpleFormController {
     /** Used to build article links */
     private IArticleDao _articleDao;
 
+    /** Used to populate school list drop-down */
     private ISchoolDao _schoolDao;
 
     private StateManager _stateManager;
@@ -109,7 +115,6 @@ public class TestLandingController extends SimpleFormController {
                                                  BindException errors) {
 
         String type = request.getParameter("type");
-
         String stateParam = request.getParameter("state");
         State state = _stateManager.getState(stateParam);
 
@@ -132,7 +137,7 @@ public class TestLandingController extends SimpleFormController {
 
         return new ModelAndView(view);
     }
-
+    
     private void loadCache(Map cache) {
         cache.clear();
         SpreadsheetService service = new SpreadsheetService("greatschools-tests-landing");
@@ -268,5 +273,28 @@ public class TestLandingController extends SimpleFormController {
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    // demo
+    public static void main(String[] args) {
+        SpreadsheetService service = new SpreadsheetService("greatschools-tests-landing");
+        try {
+            service.setUserCredentials("chriskimm@greatschools.net", "greattests");
+            URL metafeedUrl = new URL("http://spreadsheets.google.com/feeds/spreadsheets/private/full");
+            SpreadsheetFeed feed = service.getFeed(metafeedUrl, SpreadsheetFeed.class);
+            List spreadsheets = feed.getEntries();
+            for (Object spreadsheet : spreadsheets) {
+                SpreadsheetEntry entry = (SpreadsheetEntry) spreadsheet;
+                System.out.println("entry url: " + entry.getWorksheetFeedUrl());
+                System.out.println("\t" + entry.getTitle().getPlainText());
+                List<WorksheetEntry> worksheets = entry.getWorksheets();
+                for (WorksheetEntry we : worksheets) {
+                    System.out.println("\t\t ws name: " + we.getTitle());
+                    System.out.println("\t\t ws url: " + we.getListFeedUrl());
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
     }
 }
