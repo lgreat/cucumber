@@ -342,7 +342,7 @@ div.statsModule {
 #cityrating #ratingtext{
     position:relative;
     vertical-align:middle;
-    font-size:small;
+    font-size: 14px;
     font-weight:normal;
     color:#666666;
 }
