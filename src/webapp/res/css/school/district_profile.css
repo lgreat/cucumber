@@ -142,13 +142,20 @@ District Overview
 }
 
 #districtrating #ratingtext{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     position:relative;
     vertical-align:middle;
     font-size:.8em;
     font-weight:normal;
-    color:#888888;
+    color:#666666;
 }
 
+#districtrating a:link,
+    #cityrating a:visited,
+    #cityrating a:active{
+    text-decoration: underline;
+    font-weight:normal;
+}
 
 /* center column */
 

@@ -344,5 +344,19 @@ div.statsModule {
     vertical-align:middle;
     font-size:small;
     font-weight:normal;
-    color:#888888;
+    color:#666666;
 }
+
+#cityrating a:link,
+    #cityrating a:visited,
+    #cityrating a:active{
+    text-decoration: underline;
+    font-weight:normal;
+}
+
+
+
+
+
+
+
