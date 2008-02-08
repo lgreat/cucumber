@@ -5,7 +5,7 @@
 <br/>that's not the only way you can reach out to other parents!</p>
 
 <ul>
-<li> <a href="http://www.greatschools.net/survey/start.page?cpn=OnPage_Parentsurvey_Overview&id=$SCHOOLID&state=$STATE">Complete a parent survey for  $SCHOOLNAME.</a>
+<li> <a href="http://www.greatschools.net/survey/start.page?cpn=ParentReviewEmail&id=$SCHOOLID&state=$STATE">Complete a parent survey for  $SCHOOLNAME.</a>
 <br/>Share the unique qualities about your school's academics,
 <br/>extracurricular activities and school culture.</li>
 <br/>
