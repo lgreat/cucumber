@@ -368,15 +368,6 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
 
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        SessionContextUtil util = context.getSessionContextUtil();
-
-        StringBuffer tmpMsgCookieBuffer = new StringBuffer();
-        tmpMsgCookieBuffer.append(TMP_MSG_COOKIE_PREFIX);
-        tmpMsgCookieBuffer.append(school.getDatabaseState().getAbbreviation());
-        tmpMsgCookieBuffer.append(String.valueOf(school.getId()));
-        util.setTempMsg(response, tmpMsgCookieBuffer.toString());
-
         Survey survey = urc.getSurvey();
         SurveyPage sp = urc.getPage();
 
@@ -387,8 +378,12 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
         String redirectURL;
         if (curPageIndex >= survey.getPages().size()) {
-            UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
-            redirectURL = builder.asFullUrl(request);
+            UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SURVEY_RESULTS);
+            StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
+            buffer.append("&level=");
+            buffer.append(level);
+            buffer.append("&thanks=true");
+            redirectURL = buffer.toString();
         } else {
             UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
             StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
