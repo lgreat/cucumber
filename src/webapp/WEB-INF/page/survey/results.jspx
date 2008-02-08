@@ -39,7 +39,6 @@
         <c:when test="${pIndex eq 1}">
             <c:set var="surveyPageName" value="Student Resources" />
             <c:set var="promoImageName" value="resources"/>
-            <!--<c:when test="${not empty param.level and param.level eq 'h'}">-->
             <c:if test="${param.level eq 'h'}">
                 <meta name="Description" content="Review parent survey results about ${school.name} student resources for students with learning difficulties, english language learners, and more - ${location}"/>
                 <meta name="keywords" content="${school.name} ELL programs, ${school.name} English Language Learners, ${school.name} LD programs, ${school.name} learning difficulties, ${school.name} student resources" />
