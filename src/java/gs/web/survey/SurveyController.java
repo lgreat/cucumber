@@ -418,7 +418,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             if (taken > 3) {
                 try {
                     EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
-                    emailHelper.setToEmail("chriskimm@greatschools.net");
+                    emailHelper.setToEmail("parentsurveyfeedback@greatschools.net");
                     emailHelper.setFromEmail("survey@greatschools.net");
                     emailHelper.setFromName("GreatSchools Survey System");
                     emailHelper.setSubject("Survey submit alert for " + school.getName());
