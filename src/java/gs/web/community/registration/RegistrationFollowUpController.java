@@ -345,7 +345,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                      + "?oSe=6" ;
             fupCommand.setRedirect(redirectUrl);
         }
-        mAndV.setViewName("redirect:" + fupCommand.getRedirect());
+        mAndV.setViewName("redirect:" + fupCommand.getRedirect() + "&oSe=6");
 
         return mAndV;
     }

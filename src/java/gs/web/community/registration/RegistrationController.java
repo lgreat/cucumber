@@ -282,7 +282,7 @@ public class RegistrationController extends SimpleFormController implements Read
                      + "?oSe=6" ;
                 userCommand.setRedirectUrl(redirectUrl);
             }
-            mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
+            mAndV.setViewName("redirect:" + userCommand.getRedirectUrl() + "&oSe=6");
         }
 
         return mAndV;
