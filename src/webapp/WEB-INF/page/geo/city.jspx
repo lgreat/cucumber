@@ -79,7 +79,7 @@
     <div id="textwrapper">
         <div id="ratingtext">
             ${displayName}'s rating is based on its public schools' test results; 10 is best.
-            <gsweb:articlelink articleId="1023" anchorName="13">Learn more &gt;</gsweb:articlelink>
+            <gsweb:articlelink articleId="1023" anchorName="13">Learn&#160;more&#160;&gt;</gsweb:articlelink>
         </div>
     </div>
 </div>
