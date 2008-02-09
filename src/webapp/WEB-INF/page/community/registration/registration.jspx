@@ -314,12 +314,9 @@
             <c:set var="pageName" value="Registration page 1 Error"/>
         </c:if>
     </spring:hasBindErrors>
-    <!-- Registeration Success Event -->
-    <c:set var="events" value="event6"/>
 
     <mod:tracking pageName="${pageName}"
-                  hier1="Account,Registration,Page 1,${hier}"
-                  events="${events}"/>
+                  hier1="Account,Registration,Page 1,${hier}"/>
   </gsml:body>
 </html>
 </jsp:root>
