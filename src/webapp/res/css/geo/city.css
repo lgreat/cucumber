@@ -326,7 +326,7 @@ div.statsModule {
 }
 
 #cityrating #ratingimage{
-          position:absolute;
+    position:absolute;
     top:11px;
     left:0px;
 }
@@ -334,8 +334,8 @@ div.statsModule {
 #cityrating #textwrapper{
      position:absolute;
     top:11px;
-    left:223px;
-    width:280px;
+    left:213px;
+    width:290px;
     padding:12px 0 0 0;
 }
 
@@ -343,6 +343,7 @@ div.statsModule {
     position:relative;
     vertical-align:middle;
     font-size: 14px;
+    line-height: 16px;
     font-weight:normal;
     color:#666666;
 }
