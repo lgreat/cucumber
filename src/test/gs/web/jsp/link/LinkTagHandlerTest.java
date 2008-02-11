@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.39 2007/12/20 21:30:33 jnorton Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.40 2008/02/11 19:44:25 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -302,6 +302,11 @@ public class LinkTagHandlerTest extends BaseTestCase {
         builder = tagHandler.createUrlBuilder();
         assertEquals(relativeUrl + "&topicOption=Parent_survey",builder.asSiteRelative(null));
 
+        //Variation 3: redirect is set
+        tagHandler.setRedirect("http://www.greatschools.net/survey/results.page?id=1&state=ca&level=h&page=0");
+        tagHandler.setTopicOption(null);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals(relativeUrl + "&redirect=http%3A%2F%2Fwww.greatschools.net%2Fsurvey%2Fresults.page%3Fid%3D1%26state%3Dca%26level%3Dh%26page%3D0",builder.asSiteRelative(null));
     }
 
     public void testResearch() {

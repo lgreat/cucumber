@@ -391,6 +391,13 @@
             <type>java.lang.String</type>
             <description>Topic to be selected when opening general feedback (fbtype = gen)</description>
         </attribute>
+        <attribute>
+            <name>redirect</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>URL to redirect back to after feedback is provided</description>
+        </attribute>
     </tag>
 
     <tag>

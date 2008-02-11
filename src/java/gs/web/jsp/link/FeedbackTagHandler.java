@@ -1,6 +1,7 @@
 package gs.web.jsp.link;
 
 import gs.web.util.UrlBuilder;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Handle Feedback Jsp tag
@@ -14,6 +15,7 @@ import gs.web.util.UrlBuilder;
  */
 public class FeedbackTagHandler extends LinkTagHandler {
     private String _topicOption;
+    private String _redirect;
 
     public void setTopicOption( String topicOption ){
         _topicOption = topicOption;
@@ -25,7 +27,18 @@ public class FeedbackTagHandler extends LinkTagHandler {
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.FEEDBACK, getState(), getTopicOption());
+        if (!StringUtils.isBlank(_redirect)) {
+            builder.addParameter("redirect", _redirect);
+        }
         return builder;
+    }
+
+    public String getRedirect() {
+        return _redirect;
+    }
+
+    public void setRedirect(String redirect) {
+        _redirect = redirect;
     }
 }
 
