@@ -362,8 +362,8 @@
             <gsml:url var="redirectPage" absolute="true"
                       value="/survey/results.page?id=${school.id}&amp;state=${stateAbbrev}&amp;page=${pIndex}&amp;level=${param.level}"/>
             <gsml:img src="/res/img/survey/flag_1.gif" alt="Red flag"/>
-            Do you have questions or comments about the survey or survey results?
-            <link:feedback  target="_blank" topicOption="Parent_survey" redirect="${redirectPage}">Give us feedback &gt; </link:feedback>
+            Questions? Do these survey results look wrong?
+            <link:feedback  target="_blank" topicOption="Parent_survey" redirect="${redirectPage}">Tell us here &gt; </link:feedback>
         </div>
         <div class="previousnextouterwrap" id="outerteachers">
             <div class="previousnextwrap">
