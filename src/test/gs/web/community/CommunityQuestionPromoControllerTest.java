@@ -24,6 +24,12 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         _controller.setCachedGoogleSpreadsheetDao(_dao);
     }
 
+    public void testBasic() {
+        assertSame(_dao, _controller.getCachedGoogleSpreadsheetDao());
+        _controller.setViewName("aView");
+        assertEquals("aView", _controller.getViewName());
+    }
+
     public void testLoadSpreadsheetData() {
         Map<String, Object> model = new HashMap<String, Object>();
 
@@ -87,6 +93,24 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         assertNull(model.get(MODEL_USER_ID));
     }
 
+    public void testLoadSpreadsheetDataClearCache() throws Exception {
+        getRequest().setParameter(CommunityQuestionPromoController.CACHE_CLEAR_PARAM, "1");
+        getRequest().setParameter("worksheet", "od7");
+        String worksheet = WORKSHEET_PREFIX + "/" +
+                WORKSHEET_KEY + "/" +
+                WORKSHEET_VISIBILITY + "/" +
+                WORKSHEET_PROJECTION + "/" + "od7";
+
+        _dao.clearCache();
+        expect(_dao.getDataFromRow(worksheet,
+                WORKSHEET_PRIMARY_ID_COL,
+                DEFAULT_CODE, ICachedGoogleSpreadsheetDao.HOUR)).andReturn(null);
+        replay(_dao);
+
+        _controller.handleRequestInternal(getRequest(), getResponse());
+        verify(_dao);
+    }
+
     public void testGetWorksheetUrl() {
         String baseWorksheet = CommunityQuestionPromoController.WORKSHEET_PREFIX + "/" +
                 CommunityQuestionPromoController.WORKSHEET_KEY + "/" +
@@ -116,5 +140,23 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         getRequest().setServerName("www.greatschools.net");
         assertEquals(baseWorksheet + "od4", _controller.getWorksheetUrl(getRequest()));
+
+        getRequest().setParameter("worksheet", "lala");
+        assertEquals("expect override by param",
+                baseWorksheet + "lala", _controller.getWorksheetUrl(getRequest()));
+    }
+
+    public void testGetWorksheetKey() {
+        assertEquals("expect default", WORKSHEET_KEY, _controller.getWorksheetKey(getRequest()));
+
+        getRequest().setParameter("key", "newKey");
+        assertEquals("expect override by param", "newKey", _controller.getWorksheetKey(getRequest()));
+    }
+
+    public void testGetCode() {
+        assertEquals("expect default", DEFAULT_CODE, _controller.getCode(getRequest()));
+
+        getRequest().setParameter("code", "newCode");
+        assertEquals("expect override by param", "newCode", _controller.getCode(getRequest()));
     }
 }
