@@ -32,7 +32,7 @@
 </head>
 
 <c:set var="pageName" value="Travel Microsite"/>
-<ad:setSlotPrefix slotPrefix="Library_Microsite_Travel"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Travel_Microsite"/>
 <gsml:body adPageName="content/travel" pageLayout="travel" startAdHierarchyAtPage="true">
 <div>
     <div class="wrapBorder">
