@@ -8,19 +8,11 @@ import org.apache.commons.lang.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gdata.client.spreadsheet.SpreadsheetService;
-import com.google.gdata.data.spreadsheet.WorksheetEntry;
-import com.google.gdata.data.spreadsheet.ListFeed;
-import com.google.gdata.data.spreadsheet.ListEntry;
-import com.google.gdata.util.ServiceException;
-
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 
 import gs.web.util.UrlUtil;
+import gs.web.util.google.ICachedGoogleSpreadsheetDao;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -41,6 +33,7 @@ public class CommunityQuestionPromoController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CommunityQuestionPromoController.class);
 
     private String _viewName;
+    private ICachedGoogleSpreadsheetDao _cachedGoogleSpreadsheetDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -49,30 +42,14 @@ public class CommunityQuestionPromoController extends AbstractController {
     }
 
     protected void loadSpreadsheetDataIntoModel(Map<String, Object> model, String worksheetUrl, String code) {
-        SpreadsheetService service = new SpreadsheetService("greatschools-community-question-promo");
-        try {
-            WorksheetEntry dataWorksheet = service.getEntry(new URL(worksheetUrl), WorksheetEntry.class);
-            URL listFeedUrl = dataWorksheet.getListFeedUrl();
-            ListFeed lf = service.getFeed(listFeedUrl, ListFeed.class);
-            for (ListEntry entry : lf.getEntries()) {
-                String entryId = entry.getCustomElements().getValue(WORKSHEET_PRIMARY_ID_COL);
-                if (code.equals(entryId)) {
-                    model.put(MODEL_QUESTION_TEXT, entry.getCustomElements().getValue("text"));
-                    model.put(MODEL_QUESTION_LINK, entry.getCustomElements().getValue("link"));
-                    model.put(MODEL_USERNAME, entry.getCustomElements().getValue("username"));
-                    model.put(MODEL_USER_ID, entry.getCustomElements().getValue("memberId"));
-                    break;
-                }
-            }
-        } catch (MalformedURLException e) {
-            _log.error(e);
-            e.printStackTrace();
-        } catch (IOException e) {
-            _log.error(e);
-            e.printStackTrace();
-        } catch (ServiceException e) {
-            _log.error(e);
-            e.printStackTrace();
+        Map<String, String> dataMap = getCachedGoogleSpreadsheetDao().getDataFromRow(worksheetUrl,
+                WORKSHEET_PRIMARY_ID_COL, code, ICachedGoogleSpreadsheetDao.HOUR);
+
+        if (dataMap != null) {
+            model.put(MODEL_QUESTION_TEXT, dataMap.get("text"));
+            model.put(MODEL_QUESTION_LINK, dataMap.get("link"));
+            model.put(MODEL_USERNAME, dataMap.get("username"));
+            model.put(MODEL_USER_ID, dataMap.get("memberid"));
         }
     }
 
@@ -83,6 +60,10 @@ public class CommunityQuestionPromoController extends AbstractController {
                 WORKSHEET_PROJECTION + "/" + getWorksheet(request);
     }
 
+    /**
+     * Allows the worksheet to be overridden by the request. If not, it returns od6 (first worksheet)
+     * for dev and developer boxes, and od4 for staging, production, all else
+     */
     public String getWorksheet(HttpServletRequest request) {
         String worksheet = request.getParameter("worksheet");
         if (StringUtils.isBlank(worksheet)) {
@@ -96,6 +77,10 @@ public class CommunityQuestionPromoController extends AbstractController {
         return worksheet;
     }
 
+    /**
+     * Allows the Google Spreadsheets key (that determines which spreadsheet to use) to be overridden
+     * by the request
+     */
     public String getWorksheetKey(HttpServletRequest request) {
         String key = request.getParameter("key");
         if (StringUtils.isBlank(key)) {
@@ -104,12 +89,23 @@ public class CommunityQuestionPromoController extends AbstractController {
         return key;
     }
 
+    /**
+     * Allows the code defining which row in the worksheet to use to be overridden by the request.
+     */
     public String getCode(HttpServletRequest request) {
         String code = request.getParameter(WORKSHEET_PRIMARY_ID_COL);
         if (StringUtils.isBlank(code)) {
             code =  DEFAULT_CODE;
         }
         return code;
+    }
+
+    public ICachedGoogleSpreadsheetDao getCachedGoogleSpreadsheetDao() {
+        return _cachedGoogleSpreadsheetDao;
+    }
+
+    public void setCachedGoogleSpreadsheetDao(ICachedGoogleSpreadsheetDao cachedGoogleSpreadsheetDao) {
+        _cachedGoogleSpreadsheetDao = cachedGoogleSpreadsheetDao;
     }
 
     public void setViewName(String viewName) {

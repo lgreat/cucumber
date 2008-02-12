@@ -20,7 +20,7 @@
 
     <bean name="/community/communityQuestionPromo.module"
             class="gs.web.community.CommunityQuestionPromoController"
-            autowire="byName">
+            autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/communityQuestionPromo"/>
     </bean>
 
