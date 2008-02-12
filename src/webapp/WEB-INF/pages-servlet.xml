@@ -650,6 +650,14 @@
         </property>
     </bean>
 
+    <bean name="/content/travel.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>/content/travel</value>
+        </property>
+    </bean>
+
     <bean name="/content/summerPlanning.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

@@ -1844,6 +1844,22 @@
         </attribute>
     </tag>
     <tag>
+        <name>travel</name>
+        <tag-class>gs.web.jsp.link.microsite.TravelTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Travel, Learning and Fun</display-name>
+        <description>
+            <![CDATA[Link to travel microsite page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>mapSchool</name>
         <tag-class>gs.web.jsp.link.school.MapSchoolTagHandler</tag-class>
         <body-content>JSP</body-content>

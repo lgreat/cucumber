@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="LIBRARY"/>
+ 
+<head>
+    <title>Greatschools.net: Travel, Learning and Fun</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="description"
+          content="Plan educational and fun trips for your family and get tips on flying with kids and family friendly vacation spots."/>
+    <meta name="keywords"
+          content="Educational trips, Family Travel, Family Vacations, Travel for Kids, Summer programs for kids"/>
+    <pageHelper:externalCss file="/res/css/content/microsite.css"/>
+    <pageHelper:externalCss file="/res/css/content/travel.css"/>
+</head>
+
+<c:set var="pageName" value="Travel Microsite"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Travel"/>
+<gsml:body adPageName="content/travel" pageLayout="travel" startAdHierarchyAtPage="true">
+<div>
+    <div class="wrapBorder">
+        <jsp:include page="/content/leftNav.module" />
+
+        <div class="middle">
+            <div id="contentHeaderImage">
+                <h1 id="title">Travel, Learning and Fun</h1>
+                <gsml:img src="/res/img/content/travel/boy_on_raft.jpg" alt="Boy on raft" style="float:left;"/>
+            </div>
+
+            <content:micrositeArticleList title="Planning Your Trip"
+                                          headerId="subTitle1"
+                                          articleIds="1169,1168,1167,1164"/>
+
+            <content:micrositeArticleList title="Getting There"
+                                          headerId="subTitle2"
+                                          articleIds="1170,1171,1172,1157"/>
+
+            <content:micrositeArticleList title="Having a Wonderful Time"
+                                          headerId="subTitle3"
+                                          articleIds="1165,1166,1173,535"/>
+
+            <content:micrositeArticleList title="Travel for Kids Only"
+                                          headerId="subTitle4"
+                                          articleIds="313,543,547,544,545"/>
+
+            <div style="border-bottom: 1px dashed #ccc;">
+                <h3 id="askTheExperts">Ask the Experts</h3>
+                <p>Q: How Can I Help My Child Improve His Reading This Summer?
+                    <gsweb:articlelink articleId="820">Read the answer</gsweb:articlelink>
+                </p>
+            </div>
+
+            <content:micrositeFreeNewsletters pageName="${pageName}"/>
+
+        </div>
+    </div>
+
+    <div id="promos">
+        <content:promos referredBy="${pageName}"/>
+    </div>
+    <br style="clear:both;"/>
+</div>
+<mod:tracking pageName="${pageName}"
+              hier1="Articles, Travel"/>
+</gsml:body>
+</html>
+</jsp:root>
