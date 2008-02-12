@@ -1,29 +1,29 @@
 package gs.web.community.registration;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.orm.ObjectRetrievalFailureException;
+import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
-import gs.data.util.DigestUtil;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.soap.CreateOrUpdateUserRequest;
+import gs.data.soap.CreateOrUpdateUserRequestBean;
+import gs.data.soap.SoapRequestException;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.geo.IGeoDao;
-import gs.data.geo.City;
-import gs.data.admin.IPropertyDao;
-import gs.data.soap.CreateOrUpdateUserRequestBean;
-import gs.data.soap.CreateOrUpdateUserRequest;
-import gs.data.soap.SoapRequestException;
-import gs.web.util.ReadWriteController;
+import gs.data.util.DigestUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.ReadWriteController;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -202,6 +202,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             Student student = fupCommand.getStudents().get(x);
             if (student.getGrade() == null) {
                 errors.rejectValue("students[" + x + "]", null, ERROR_GRADE_MISSING);
+                _log.info("Registration error: " + ERROR_GRADE_MISSING);
             }
             School school = null;
             if (student.getSchoolId() != null && student.getSchoolId() != -1) {
@@ -213,6 +214,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 }
             } else if (student.getSchoolId() == null) {
                 errors.rejectValue("students[" + x + "]", null, ERROR_SCHOOL_MISSING);
+                _log.info("Registration error: " + ERROR_SCHOOL_MISSING);
             }
 
             if (school != null) {
@@ -230,6 +232,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
         if (!fupCommand.getTerms()) {
             errors.rejectValue("terms", null, ERROR_TERMS);
+            _log.info("Registration error: " + ERROR_TERMS);
         }
     }
 

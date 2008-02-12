@@ -1,10 +1,9 @@
 package gs.web.util.validator;
 
 import gs.data.community.IUserDao;
-import gs.data.community.UserProfile;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
 import gs.web.community.registration.UserCommand;
-import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -67,6 +66,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
     };
     private static final String ERROR_FIRST_NAME_BAD = "Please enter your name without numbers or symbols.";
+    private static final String ERROR_EMAIL_TAKEN = "The email address you entered has already been registered with GreatSchools.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
@@ -78,8 +78,10 @@ public class UserCommandValidator implements IRequestAwareValidator {
 
         if (StringUtils.isEmpty(email)) {
             errors.rejectValue("email", null, ERROR_EMAIL_MISSING);
+            _log.info("Registration error: " + ERROR_EMAIL_MISSING);
         } else if (email.length() > EMAIL_MAXIMUM_LENGTH) {
             errors.rejectValue("email", null, ERROR_EMAIL_LENGTH);
+            _log.info("Registration error: " + ERROR_EMAIL_LENGTH);
         } else {
             user = _userDao.findUserFromEmailIfExists(email);
 
@@ -95,10 +97,10 @@ public class UserCommandValidator implements IRequestAwareValidator {
                             SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                             "/report/email-moderator\">contact us</a> for more information.";
                     errors.rejectValue("email", null, errmsg);
+                    _log.info("Registration error: " + errmsg);
                 } else if (user.isEmailValidated()) {
-                    errors.rejectValue("email", null,
-                            "The email address you entered has already been registered " +
-                                    "with GreatSchools.");
+                    errors.rejectValue("email", null, ERROR_EMAIL_TAKEN);
+                    _log.info("Registration error: " + ERROR_EMAIL_TAKEN);
                     return; // other errors are irrelevant
                 } else if (user.isEmailProvisional()) {
                     // let them register, just overwrite previous values
@@ -112,8 +114,10 @@ public class UserCommandValidator implements IRequestAwareValidator {
                 command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH ||
                 command.getFirstName().length() < FIRST_NAME_MINIMUM_LENGTH) {
             errors.rejectValue("firstName", null, ERROR_FIRST_NAME_LENGTH);
+            _log.info("Registration error: " + ERROR_EMAIL_LENGTH);
         } else if (!StringUtils.containsNone(command.getFirstName(), FIRST_NAME_DISALLOWED_CHARACTERS)) {
             errors.rejectValue("firstName", null, ERROR_FIRST_NAME_BAD);
+            _log.info("Registration error: " + ERROR_FIRST_NAME_BAD);
         }
 
 //        if (StringUtils.isEmpty(command.getLastName())) {
@@ -131,9 +135,11 @@ public class UserCommandValidator implements IRequestAwareValidator {
                 sn.length() < SCREEN_NAME_MINIMUM_LENGTH ||
                 sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
             errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_LENGTH);
+            _log.info("Registration error: " + ERROR_SCREEN_NAME_LENGTH);
             snError = true;
         } else if (screenNameHasInvalidCharacters(sn)) {
             errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_BAD);
+            _log.info("Registration error: " + ERROR_SCREEN_NAME_BAD);
             snError = true;
         }
         // only bother checking the unique constraint if there is no other problem with the sn
@@ -141,21 +147,26 @@ public class UserCommandValidator implements IRequestAwareValidator {
             if (user == null || user.getUserProfile() == null ||
                     !StringUtils.equals(user.getUserProfile().getScreenName(), sn)) {
                 errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_TAKEN);
+                _log.info("Registration error: " + ERROR_SCREEN_NAME_TAKEN);
             }
         }
 
         String gender = command.getGender();
         if (StringUtils.isEmpty(gender)) {
             errors.rejectValue("gender", null, GENDER_MISSING);
+            _log.info("Registration error: " + GENDER_MISSING);
         } else if  (gender.length() > 1) {
             errors.rejectValue("gender", null, GENDER_MISSING);
+            _log.info("Registration error: " + GENDER_MISSING);
         } else if (!("m".equals(gender) || "f".equals(gender) || "u".equals(gender))) {
             errors.rejectValue("gender", null, GENDER_MISSING);
+            _log.info("Registration error: " + GENDER_MISSING);
         }
 
         if (command.getNumSchoolChildren() == null || command.getNumSchoolChildren().intValue() == -1) {
             if (!"u".equals(gender)) {
                 errors.rejectValue("numSchoolChildren", null, ERROR_NUM_CHILDREN_MISSING);
+                _log.info("Registration error: " + ERROR_NUM_CHILDREN_MISSING);
             }
         }
 
@@ -163,6 +174,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
                 command.getNumSchoolChildren().intValue() == 0)) {
             if (!command.getTerms()) {
                 errors.rejectValue("terms", null, ERROR_TERMS_MISSING);
+                _log.info("Registration error: " + ERROR_TERMS_MISSING);
             }
         }
 
@@ -171,10 +183,12 @@ public class UserCommandValidator implements IRequestAwareValidator {
         UserProfile userProfile = command.getUserProfile();
         if (userProfile.getState() == null) {
             errors.rejectValue("state", null, ERROR_STATE_MISSING);
+            _log.info("Registration error: " + ERROR_STATE_MISSING);
             return; // avoid NPEs
         }
         if (StringUtils.isEmpty(userProfile.getCity())) {
             errors.rejectValue("city", null, ERROR_CITY_MISSING);
+            _log.info("Registration error: " + ERROR_CITY_MISSING);
         }
     }
 
@@ -206,8 +220,10 @@ public class UserCommandValidator implements IRequestAwareValidator {
                 passwordValue.length() < PASSWORD_MINIMUM_LENGTH ||
                 passwordValue.length() > PASSWORD_MAXIMUM_LENGTH) {
             errors.rejectValue(fieldName, null, ERROR_PASSWORD_LENGTH);
+            _log.info("Registration error: " + ERROR_PASSWORD_LENGTH);
         } else if (StringUtils.isEmpty(passwordConfirmValue) || !passwordConfirmValue.equals(passwordValue)) {
             errors.rejectValue(fieldName, null, ERROR_PASSWORD_MISMATCH);
+            _log.info("Registration error: " + ERROR_PASSWORD_MISMATCH);
         }
     }
 
