@@ -22,6 +22,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
@@ -404,6 +405,10 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         return new ModelAndView("redirect:" + redirectURL);
     }
 
+
+    // This static map contains a cache of all of the warning emails "recently" sent.
+    private static Map<School, Date> sendHistory = new HashMap<School, Date>();
+
     protected void checkSubmitCount(School school, String level, int page, HttpServletRequest request) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.HOUR, -4);
@@ -411,27 +416,33 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         if (l != null) {
             int taken = _surveyDao.getNumSurveysTaken(school, page, l, cal.getTime());
             if (taken > 3) {
-                try {
-                    EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
-                    emailHelper.setToEmail("parentsurveyfeedback@greatschools.net");
-                    emailHelper.setFromEmail("survey@greatschools.net");
-                    emailHelper.setFromName("GreatSchools Survey System");
-                    emailHelper.setSubject("Survey submit alert for " + school.getName());
-                    StringBuffer message = new StringBuffer();
-                    message.append(taken);
-                    message.append(" surveys have been submitted in the past 4 hours.\n");
-                    message.append(school.toString());
-                    message.append("\nThis message was generated on: ");
-                    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-                    if (new UrlUtil().isDevEnvironment(sessionContext.getHostName())) {
-                        message.append(" DEVELOPMENT");
-                    } else {
-                        message.append(" PRODUCTION");
+                // only send an email if one has not been sent in the last day.
+                Date lastSend = sendHistory.get(school);
+                Date now = new Date();
+                if (lastSend == null || !DateUtils.isSameDay(lastSend, now)) {
+                    try {
+                        EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+                        emailHelper.setToEmail("parentsurveyfeedback@greatschools.net");
+                        emailHelper.setFromEmail("survey@greatschools.net");
+                        emailHelper.setFromName("GreatSchools Survey System");
+                        emailHelper.setSubject("Survey submit alert for " + school.getName());
+                        StringBuffer message = new StringBuffer();
+                        message.append(taken);
+                        message.append(" surveys have been submitted in the past 4 hours.\n");
+                        message.append(school.toString());
+                        message.append("\nThis message was generated on: ");
+                        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+                        if (new UrlUtil().isDevEnvironment(sessionContext.getHostName())) {
+                            message.append(" DEVELOPMENT");
+                        } else {
+                            message.append(" PRODUCTION");
+                        }
+                        emailHelper.setTextBody(message.toString());
+                        emailHelper.send();
+                        sendHistory.put(school, now);
+                    } catch (MessagingException e) {
+                        _log.warn(e);
                     }
-                    emailHelper.setTextBody(message.toString());
-                    emailHelper.send();
-                } catch (MessagingException e) {
-                    _log.warn(e);
                 }
             }
         }

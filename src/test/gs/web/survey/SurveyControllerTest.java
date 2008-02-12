@@ -759,4 +759,24 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(1), command.getResponses().get(0).getAnswerId());
         assertEquals(new Integer(1), command.getResponses().get(1).getAnswerId());
     }
+
+    public void testCheckSubmitCount() throws Exception {
+        School school = createSchool();
+
+        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(5);
+        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(6);
+        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(7);
+        replay(_surveyDao);
+        
+        _controller.checkSubmitCount(school, "h", 1, getRequest());
+        assertEquals(1, _mailSender.getSentMessages().size());
+
+        _controller.checkSubmitCount(school, "h", 1, getRequest());
+        assertEquals(1, _mailSender.getSentMessages().size());
+
+        _controller.checkSubmitCount(school, "h", 1, getRequest());
+        assertEquals(1, _mailSender.getSentMessages().size());
+
+        verify(_surveyDao);
+    }
 }
