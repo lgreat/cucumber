@@ -29,6 +29,7 @@ public class CommunityQuestionPromoController extends AbstractController {
     public static final String MODEL_QUESTION_LINK = "questionLink";
     public static final String MODEL_USERNAME = "username";
     public static final String MODEL_USER_ID = "userId";
+    public static final String CACHE_CLEAR_PARAM = "clear";
     
     private static final Logger _log = Logger.getLogger(CommunityQuestionPromoController.class);
 
@@ -36,6 +37,9 @@ public class CommunityQuestionPromoController extends AbstractController {
     private ICachedGoogleSpreadsheetDao _cachedGoogleSpreadsheetDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (!StringUtils.isBlank(request.getParameter(CACHE_CLEAR_PARAM))) {
+            getCachedGoogleSpreadsheetDao().clearCache();
+        }
         Map<String, Object> model = new HashMap<String, Object>();
         loadSpreadsheetDataIntoModel(model, getWorksheetUrl(request), getCode(request));
         return new ModelAndView(_viewName, model);
