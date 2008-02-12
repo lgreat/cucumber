@@ -8,6 +8,7 @@ div.memberSpeech {
     padding: 0 30px 20px 30px;
     font-family: "Trebuchet MS", Arial, sans-serif;
     color: #666666;
+    _zoom: 1;
 }
 
     div.memberSpeech div.avatar {
@@ -28,6 +29,7 @@ div.memberSpeech {
         background-repeat: repeat-x;
         background-position: bottom;
         background-color: #fcfcf4;
+        _height: 60px;
     }
 
         div.memberSpeech div.speech div.bodyArea {
@@ -38,6 +40,7 @@ div.memberSpeech {
             background-repeat: repeat-y;
             background-position: left;
             min-height: 30px;
+            _height: 60px;
         }
 
             div.memberSpeech div.speech div.bodyArea a {
