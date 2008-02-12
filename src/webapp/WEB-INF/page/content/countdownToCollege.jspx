@@ -27,6 +27,7 @@
     <meta name="Description"
           content="College prep advice and help from College Board and GreatSchools to help parents of high school and middle school students with academics, behavior issues and financial planning."/>
     <pageHelper:externalCss file="/res/css/content/countdownToCollege.css"/>
+    <pageHelper:externalCss file="http://www.collegeboard.com/greatschools/fin_aid_plan.css"/>
     <jsp:scriptlet>
         Calendar now = Calendar.getInstance();
         int month = now.get(Calendar.MONTH);
@@ -280,11 +281,8 @@
     </table>
 
     <h2 id="financialAidPlanner">
-        <a href="http://apps.collegeboard.com/fincalc/ep/step1-1.jsp" target="_blank">
-            <gsml:img src="/res/img/content/countdownToCollege/financial_aid_planner.gif"
-                      style="width:305px;height:269px;border:none"
-                      alt="Financial Aid EasyPlanner provided by the College Board"/>
-        </a>
+        <script type="text/javascript" src="http://www.collegeboard.com/greatschools/fin_aid_plan.js">
+        </script>
     </h2>
 
     <c:choose>
