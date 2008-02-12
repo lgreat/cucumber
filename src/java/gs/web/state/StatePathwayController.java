@@ -1,13 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.22 2006/09/25 18:56:36 aroy Exp $
+ * $Id: StatePathwayController.java,v 1.23 2008/02/12 21:54:57 thuss Exp $
  */
 package gs.web.state;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -30,11 +28,9 @@ public class StatePathwayController extends AbstractController {
     public static final String SEARCH_SINGLE = "search_single";
     public static final String SEARCH_DOUBLE = "search_double";
 
-    private static final Log _log = LogFactory.getLog(StatePathwayController.class);
-
     private String _viewName;
     private Map _pathways;
-    private ResourceBundleMessageSource _messageSource;
+    private MessageSource _messageSource;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
@@ -48,7 +44,7 @@ public class StatePathwayController extends AbstractController {
         }
 
         String paramPathway = request.getParameter("p");
-        String redirectUrl = "";
+        String redirectUrl;
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
 
         if (_pathways.containsKey(paramPathway)) {
@@ -86,7 +82,7 @@ public class StatePathwayController extends AbstractController {
 
         } else {
             Map model = new HashMap();
-            String promo = null;
+            String promo;
 
             try {
                 promo = _messageSource.getMessage(paramPathway + "_promo", null, Locale.ENGLISH);
@@ -162,11 +158,11 @@ public class StatePathwayController extends AbstractController {
         _pathways = pathways;
     }
 
-    public ResourceBundleMessageSource getMessageSource() {
+    public MessageSource getMessageSource() {
         return _messageSource;
     }
 
-    public void setMessageSource(ResourceBundleMessageSource messageSource) {
+    public void setMessageSource(MessageSource messageSource) {
         _messageSource = messageSource;
     }
 }
