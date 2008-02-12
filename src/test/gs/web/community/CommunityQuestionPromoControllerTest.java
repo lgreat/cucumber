@@ -1,7 +1,7 @@
 package gs.web.community;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.google.IGoogleSpreadsheetDao;
+import gs.web.util.google.ICachedGoogleSpreadsheetDao;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -14,14 +14,14 @@ import static org.easymock.EasyMock.*;
  */
 public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase {
     private CommunityQuestionPromoController _controller;
-    private IGoogleSpreadsheetDao _dao;
+    private ICachedGoogleSpreadsheetDao _dao;
 
     public void setUp() throws Exception {
         super.setUp();
         _controller = new CommunityQuestionPromoController();
 
-        _dao = createMock(IGoogleSpreadsheetDao.class);
-        _controller.setGoogleSpreadsheetDao(_dao);
+        _dao = createMock(ICachedGoogleSpreadsheetDao.class);
+        _controller.setCachedGoogleSpreadsheetDao(_dao);
     }
 
     public void testLoadSpreadsheetData() {
@@ -37,7 +37,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         expect(_dao.getDataFromRow("http://someUrl",
                 WORKSHEET_PRIMARY_ID_COL,
-                "someKey")).andReturn(dataMap);
+                "someKey", ICachedGoogleSpreadsheetDao.HOUR)).andReturn(dataMap);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "http://someUrl", "someKey");
@@ -57,7 +57,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         expect(_dao.getDataFromRow("http://someUrl",
                 WORKSHEET_PRIMARY_ID_COL,
-                "someKey")).andReturn(dataMap);
+                "someKey", ICachedGoogleSpreadsheetDao.HOUR)).andReturn(dataMap);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "http://someUrl", "someKey");
@@ -75,7 +75,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         expect(_dao.getDataFromRow("http://someUrl",
                 WORKSHEET_PRIMARY_ID_COL,
-                "someKey")).andReturn(null);
+                "someKey", ICachedGoogleSpreadsheetDao.HOUR)).andReturn(null);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "http://someUrl", "someKey");

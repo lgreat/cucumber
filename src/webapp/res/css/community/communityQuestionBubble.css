@@ -13,7 +13,7 @@ div.memberSpeech {
 
     div.memberSpeech div.avatar {
         padding: 10px 25px 0 0;
-        background-image: url(http://community.greatschools.net/res/img/speech/tail.gif);
+        background-image: url(/res/img/community/bubble/bubble_tail.gif);
         background-position: right 16px;
         background-repeat: no-repeat;
         width: 40px;
@@ -25,7 +25,7 @@ div.memberSpeech {
     div.memberSpeech div.speech {
         margin-left: 62px;
         position: relative;
-        background-image: url(http://community.greatschools.net/res/img/speech/side_b.gif);
+        background-image: url(/res/img/community/bubble/side_b.gif);
         background-repeat: repeat-x;
         background-position: bottom;
         background-color: #fcfcf4;
@@ -36,7 +36,7 @@ div.memberSpeech {
             position: relative;
             padding: 5px 25px 23px;
             border-right: 1px solid #e6e5e0;
-            background-image: url(http://community.greatschools.net/res/img/speech/side_l.gif);
+            background-image: url(/res/img/community/bubble/side_l.gif);
             background-repeat: repeat-y;
             background-position: left;
             min-height: 30px;
@@ -62,25 +62,25 @@ div.memberSpeech {
         }
 
         div.memberSpeech div.speech div.cornerTopLeft {
-            background-image: url(http://community.greatschools.net/res/img/speech/corner_tl.gif);
+            background-image: url(/res/img/community/bubble/corner_tl.gif);
             top: 0;
             left: 0;
         }
 
         div.memberSpeech div.speech div.cornerTopRight {
-            background-image: url(http://community.greatschools.net/res/img/speech/corner_tr.gif);
+            background-image: url(/res/img/community/bubble/corner_tr.gif);
             top: 0;
             right: 0;
         }
 
         div.memberSpeech div.speech div.cornerBottomLeft {
-            background-image: url(http://community.greatschools.net/res/img/speech/corner_bl.gif);
+            background-image: url(/res/img/community/bubble/corner_bl.gif);
             bottom: 0;
             left: 0;
         }
 
         div.memberSpeech div.speech div.cornerBottomRight {
-            background-image: url(http://community.greatschools.net/res/img/speech/corner_br.gif);
+            background-image: url(/res/img/community/bubble/corner_br.gif);
             bottom: 0;
             right: 0;
         }

@@ -23,7 +23,7 @@
             <c:set var="avatarUrl" value="http://community.greatschools.net/avatar?id=${userId}&amp;width=40&amp;height=40"/>
         </c:when>
         <c:otherwise>
-            <c:set var="avatarUrl" value="http://community.greatschools.net/res/img/avatar/other_40x40.gif"/>
+            <c:set var="avatarUrl" value="/res/img/community/avatar_40x40.gif"/>
         </c:otherwise>
     </c:choose>
 
