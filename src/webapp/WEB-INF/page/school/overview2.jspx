@@ -356,21 +356,6 @@
                     </p>
                 </c:if>
 
-                <!-- GS-5474 No "Performance Over Time section" will be displayed for any California Charter School. -->
-                <c:if test="${(special eq 'show') and (state ne 'ca')}">
-                    <gsml:a  target="_blank" href="/schoolreports/CA/GreatSchools_charter_school_report_${sid}.pdf">
-                        <gsml:img src="/res/img/school/overview/learn_PerformanceOverTime.gif" alt="" />
-                    </gsml:a>
-                    <div class="last">
-                        <gsml:a target="_blank" href="/schoolreports/CA/GreatSchools_charter_school_report_${sid}.pdf">
-                            <gsml:img id="pdficon" src="/res/img/school/overview/pdficon_small.gif" alt=""/>
-                        </gsml:a>
-                        <div id="pdf_text">
-                            <gsml:a target="_blank" href="/schoolreports/CA/GreatSchools_charter_school_report_${sid}.pdf">Download our special report on this school</gsml:a>
-                        </div>
-                    </div>
-                </c:if>
-
                 <c:if test="${!hasPrincipalView and school.levelCode != 'p'}">
                     <div id="insideScoop">
                         <link:schoolProfileEspLogin school="${school}">
