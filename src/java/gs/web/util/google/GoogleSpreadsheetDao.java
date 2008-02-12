@@ -25,7 +25,6 @@ public class GoogleSpreadsheetDao implements IGoogleSpreadsheetDao {
     public Map<String, String> getDataFromRow(String worksheetUrl, String primaryKeyColumnName, String primaryKeyCellValue) {
         Map<String, String> model = new HashMap<String, String>();
         try {
-            _log.error("Retrieving data from Google");
             SpreadsheetService service = new SpreadsheetService("greatschools-GSWeb-9.5");
             WorksheetEntry dataWorksheet = service.getEntry(new URL(worksheetUrl), WorksheetEntry.class);
             URL listFeedUrl = dataWorksheet.getListFeedUrl();
