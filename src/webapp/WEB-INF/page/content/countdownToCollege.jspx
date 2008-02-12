@@ -220,11 +220,12 @@
                 Understand that your child has options even if no college accepts her.
             </li>
         </ul>
+    </div>
+    <div align="right">
         <gsweb:articlelink articleId="1188" styleClass="noHover">
             Learn how to put admissions decision in perspective &gt;
         </gsweb:articlelink>
     </div>
-    <div align="right"><gsweb:articlelink articleId="882" styleClass="seeFullArticle">Help you child choose the right classes &gt;</gsweb:articlelink></div>
 
     <div class="midDashLine">
         <gsml:img style="height: 1px; width: 1px" alt=""
@@ -359,7 +360,6 @@
             </tr>
 
         </table>
-
         <br/><br/><br/><br/><br/>
     </td>
 </tr>
