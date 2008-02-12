@@ -1,0 +1,83 @@
+.communityQuestionPromoBottomBorder {
+    border-bottom: 1px solid #DDDDDD;    
+    margin-bottom: 20px;
+}
+
+div.memberSpeech {
+    position: relative;
+    padding: 0 30px 20px 30px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color: #666666;
+}
+
+    div.memberSpeech div.avatar {
+        padding: 10px 25px 0 0;
+        background-image: url(http://community.greatschools.net/res/img/speech/tail.gif);
+        background-position: right 16px;
+        background-repeat: no-repeat;
+        width: 40px;
+        position: absolute;
+        top: 0;
+        left: 30px;
+    }
+
+    div.memberSpeech div.speech {
+        margin-left: 62px;
+        position: relative;
+        background-image: url(http://community.greatschools.net/res/img/speech/side_b.gif);
+        background-repeat: repeat-x;
+        background-position: bottom;
+        background-color: #fcfcf4;
+    }
+
+        div.memberSpeech div.speech div.bodyArea {
+            position: relative;
+            padding: 5px 25px 23px;
+            border-right: 1px solid #e6e5e0;
+            background-image: url(http://community.greatschools.net/res/img/speech/side_l.gif);
+            background-repeat: repeat-y;
+            background-position: left;
+            min-height: 30px;
+        }
+
+            div.memberSpeech div.speech div.bodyArea a {
+                color: #3399AA;
+                text-decoration: underline;
+            }
+
+
+        div.memberSpeech div.speech div.cornerTopLeft, div.memberSpeech div.speech div.cornerTopRight,
+            div.memberSpeech div.speech div.cornerBottomLeft, div.memberSpeech div.speech div.cornerBottomRight {
+            width: 16px;
+            height: 14px;
+            background-repeat: no-repeat;
+            position: absolute;
+        }
+
+        div.memberSpeech div.speech div.cornerBottomLeft, div.memberSpeech div.speech div.cornerBottomRight {
+            background-position: bottom;
+        }
+
+        div.memberSpeech div.speech div.cornerTopLeft {
+            background-image: url(http://community.greatschools.net/res/img/speech/corner_tl.gif);
+            top: 0;
+            left: 0;
+        }
+
+        div.memberSpeech div.speech div.cornerTopRight {
+            background-image: url(http://community.greatschools.net/res/img/speech/corner_tr.gif);
+            top: 0;
+            right: 0;
+        }
+
+        div.memberSpeech div.speech div.cornerBottomLeft {
+            background-image: url(http://community.greatschools.net/res/img/speech/corner_bl.gif);
+            bottom: 0;
+            left: 0;
+        }
+
+        div.memberSpeech div.speech div.cornerBottomRight {
+            background-image: url(http://community.greatschools.net/res/img/speech/corner_br.gif);
+            bottom: 0;
+            right: 0;
+        }
