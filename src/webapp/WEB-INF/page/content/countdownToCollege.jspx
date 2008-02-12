@@ -222,7 +222,7 @@
         </ul>
     </div>
     <div align="right">
-        <gsweb:articlelink articleId="1188" styleClass="noHover">
+        <gsweb:articlelink articleId="1188" styleClass="seeFullArticle">
             Learn how to put admissions decision in perspective &gt;
         </gsweb:articlelink>
     </div>
