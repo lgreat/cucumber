@@ -44,6 +44,7 @@
             <map>
                 <entry key="/chart/pie.page" value="pieController"/>
                 <entry key="/util/isValidEmail.page" value="isValidEmailController"/>
+                <entry key="/util/gradeToLevelCode.page" value="gradeToLevelCodeController"/>
                 <entry key="/util/getVariantConfiguration.page" value="getVariantConfigurationController"/>
                 <entry key="/content/box/v1/*/*.page" value="contentBoxController"/>
             </map>
@@ -1256,6 +1257,10 @@
 
     <bean name="isValidEmailController"
           class="gs.web.util.IsValidEmailController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="gradeToLevelCodeController"
+          class="gs.web.util.GradeToLevelCodeController"
           autowire="byName" lazy-init="true"/>
 
     <bean name="getVariantConfigurationController"
