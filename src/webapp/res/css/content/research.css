@@ -6,7 +6,12 @@ div#main {
 div#leftcol {
     position:absolute;
     top:0;
-    bottom:0;
+}
+
+div#leftcolAd {
+    position:absolute;
+    bottom:100px;
+    left: 22px;
 }
 
 table#right {
@@ -516,7 +521,7 @@ body.framed #pageGS {
 .photoName {
     position: relative;
     top: 16px;
-    left: -11px;
+    left: -7px;
     font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 13px;
 	line-height: 16px;
@@ -528,7 +533,7 @@ body.framed #pageGS {
 .photoCaption {
     position: relative;
     top: 16px;
-    left: -11px;
+    left: -7px;
     font-weight: bold;
     line-height: 14px;
 }
@@ -547,4 +552,8 @@ input.goImageButton {
     height:18px;
     padding-left:8px;
     padding-top:2px;
+}
+
+#editorialFooter .leftmostBox {
+    display: none;
 }

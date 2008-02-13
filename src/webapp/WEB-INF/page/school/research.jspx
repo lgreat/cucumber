@@ -6,6 +6,7 @@
           xmlns:footer="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
@@ -400,6 +401,8 @@
 
 <div class="blueDot"></div>
 
+<footer:editorialFooter secondBoxColspan="2"/>
+
 </td>
 </tr>
 </table>
@@ -414,51 +417,27 @@
             </td>
             <td id="editorText">
                 <span class="photoName">Lisa Rosenthal</span><br />
-                <span class="photoCaption">Assistant Managing Editor</span>
+                <span class="photoCaption">Senior Editor, GreatSchools</span>
             </td>
         </tr>
         <tr>
-            <td colspan="2" id="leftBox">Looking for a school ${not empty stateOrNull ? 'in' : ''} ${stateOrNull.longName} that's the
-                <gsml:a href="/cgi-bin/showarticle/$STATE/308" styleClass="border10Links">right fit for your child</gsml:a>? As a
-                mom who has been through the
-                process, I know you probably
-                have many questions. Let our
-                <gsml:a href="/content/schoolChoiceCenter.page" styleClass="border10Links">school choice tips</gsml:a> lead the
-                way. Armed with our <gsml:a href="/cgi-bin/showarticle/$STATE/489" styleClass="border10Links">practical
-                advice</gsml:a> on choosing the
-                best option, <gsml:a href="/cgi-bin/showarticle/$STATE/197" styleClass="border10Links">public vs. private schools
-                </gsml:a> or <gsml:a href="/cgi-bin/showarticle/$STATE/487" styleClass="border10Links">charter schools</gsml:a>, <gsml:a href="/cgi-bin/showarticle/$STATE/48" styleClass="border10Links">what to ask</gsml:a> on your
-                school visit and more, you'll be
-                set to begin your search.<br/>
-
-                <img style="height: 10px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/><br/>
-
-                GET STARTED:
-                <ul class="dearParentsUL">
-                    <li class="dearParentsLI">
-                        <gsml:a href="/cgi-bin/showarticle/$STATE/197" styleClass="dearParentsLink"><span class="bold">Private vs. Public Schools:<br/>What's the Difference</span></gsml:a>
-                    </li>
-                    <li class="dearParentsLI">
-                        <gsml:a href="/cgi-bin/showarticle/$STATE/96" styleClass="dearParentsLink"><span class="bold">Choosing a School:<br/>An Overview</span></gsml:a>
-                    </li>
-                    <li class="dearParentsLI">
-                        <a href="http://school-choice.greatschools.net"
-                                onclick="Popup=window.open('http://school-choice.greatschools.net','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
-                                class="dearParentsLink"><span class="bold">School Choice: One Mom's Journey</span></a>
-                    </li>
-                    <li class="dearParentsLI">
-                        <gsml:a href="/content/schoolChoiceCenter.page" styleClass="dearParentsLink"><span class="bold">All school choice articles &gt;</span></gsml:a>
-                    </li>
-                </ul>
-
-                <div id="lisaSignature" title="Lisa Rosenthal">Lisa Rosenthal's signature</div>
-                </td>
+            <td colspan="2" id="leftBox">
+                <strong>Editor's Picks:</strong>
+                <br/><br/>
+                <gsml:a href="/cgi-bin/showarticle/197" styleClass="dearParentsLink">Private vs. Public Schools: What's the Difference?</gsml:a>
+                <br/><br/>
+                <gsml:a href="/cgi-bin/showarticle/96" styleClass="dearParentsLink">Choosing a School: An Overview</gsml:a>
+                <br/><br/>
+                <link:articleLibrary styleClass="underline">View more articles &gt;</link:articleLibrary>
+            </td>
         </tr>
     </table>
 </div>
+<!--<div id="leftcolAd">-->
+    <!--<ad:AboveFold_Right_120x600/>-->
+<!--</div>-->
 </div>
 
-<footer:editorialFooter/>
 
 <c:choose>
     <c:when test="${not empty requestScope.context.state}">
