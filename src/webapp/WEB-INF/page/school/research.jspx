@@ -47,7 +47,7 @@
     </script>
 </head>
 
-<pageHelper:addOnLoadHandler handler="adjustLeftColIE6()" />
+<!--<pageHelper:addOnLoadHandler handler="adjustLeftColIE6()" />-->
 <gsml:body adPageName="research" >
 
 <div id="main">
