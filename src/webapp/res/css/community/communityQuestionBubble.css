@@ -7,6 +7,7 @@ div.memberSpeech {
     position: relative;
     padding: 0 30px 20px 30px;
     font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 13px;
     color: #666666;
     _zoom: 1;
 }
@@ -20,6 +21,12 @@ div.memberSpeech {
         position: absolute;
         top: 0;
         left: 30px;
+    }
+
+    div.memberSpeech img.avatar {
+        border: 1px solid #c4c6b8;
+        vertical-align: middle;
+        background-color: white;
     }
 
     div.memberSpeech div.speech {
