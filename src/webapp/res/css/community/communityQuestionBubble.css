@@ -21,6 +21,7 @@ div.memberSpeech {
         position: absolute;
         top: 0;
         left: 30px;
+        _left: 28px;
     }
 
     div.memberSpeech img.avatar {
