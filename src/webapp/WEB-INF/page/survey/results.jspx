@@ -101,6 +101,15 @@
 <gsml:equalizeColumns ids="'left-col','right-col'"/>
 <div id="left-col">
 
+    <c:if test="${not empty param.feedback}">
+        <div id="surveyFeedbackThanks">
+            <gsml:img src="/res/img/community/registration/check.gif" alt="Thank you confirmation"/>
+            <p>
+                Thank you for your feedback.
+            </p>
+        </div>
+    </c:if>
+
     <div id="results-intro">
         <img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />
         <div id="right">
@@ -360,7 +369,7 @@
     <div class="nextprev">
         <div class="feedback">
             <gsml:url var="redirectPage" absolute="true"
-                      value="/survey/results.page?id=${school.id}&amp;state=${stateAbbrev}&amp;page=${pIndex}&amp;level=${param.level}"/>
+                      value="/survey/results.page?id=${school.id}&amp;state=${stateAbbrev}&amp;page=${pIndex}&amp;level=${param.level}&amp;feedback=1"/>
             <gsml:img src="/res/img/survey/flag_1.gif" alt="Red flag"/>
             Questions? Do these survey results look wrong?
             <link:feedback  target="_blank" topicOption="Parent_survey" redirect="${redirectPage}">Tell us here &gt; </link:feedback>

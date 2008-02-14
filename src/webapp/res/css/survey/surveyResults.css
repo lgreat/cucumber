@@ -264,3 +264,22 @@ div.nextprev {
 div#contentGS .sixtyBottom {
     margin-bottom: 60px;
 }
+
+div#surveyFeedbackThanks {
+    padding:5px;
+    position:relative;
+    margin-bottom:18px;
+}
+
+div#surveyFeedbackThanks img {
+    position:absolute;
+    top: 4px;
+    left: 20px;
+}
+
+div#surveyFeedbackThanks p {
+    color:#CC5569;
+    font-weight:bold;
+    font-size:14px;
+    margin-left: 45px;
+}
