@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.17 2008/01/18 17:37:46 eddie Exp $
+ * $Id: AdPosition.java,v 1.18 2008/02/14 00:07:31 aroy Exp $
  */
 package gs.web.ads;
 
@@ -120,6 +120,8 @@ public class AdPosition extends Enum {
     public static final AdPosition BelowFold_Bottom_300x125 = new AdPosition("BelowFold_Bottom_300x125", true);
 
     public static final AdPosition AboveFold_Right_120x600 = new AdPosition("AboveFold_Right_120x600", true);
+
+    public static final AdPosition AboveFold_Left_160x600 = new AdPosition("AboveFold_Left_160x600", true);
 
     public static final AdPosition Interstitial = new AdPosition("Interstitial", true);
 

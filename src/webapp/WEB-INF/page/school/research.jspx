@@ -47,6 +47,8 @@
     </script>
 </head>
 
+<ad:setSlotPrefix slotPrefix="Research_Compare_State_Home_Page"/>
+
 <!--<pageHelper:addOnLoadHandler handler="adjustLeftColIE6()" />-->
 <gsml:body adPageName="research" >
 
@@ -433,9 +435,9 @@
         </tr>
     </table>
 </div>
-<!--<div id="leftcolAd">-->
-    <!--<ad:AboveFold_Right_120x600/>-->
-<!--</div>-->
+<div id="leftcolAd">
+    <ad:AboveFold_Left_160x600/>
+</div>
 </div>
 
 
