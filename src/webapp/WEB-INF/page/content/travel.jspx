@@ -54,11 +54,11 @@
 
             <content:micrositeArticleList title="Having a Wonderful Time"
                                           headerId="subTitle3"
-                                          articleIds="1165,1166,1173,535"/>
+                                          articleIds="1165,1166,1173,535,1190"/>
 
             <content:micrositeArticleList title="Travel for Kids Only"
                                           headerId="subTitle4"
-                                          articleIds="313,543,547,544,545"/>
+                                          articleIds="313,543,547,544,545,1191"/>
 
             <div style="border-bottom: 1px dashed #ccc;">
                 <h3 id="askTheExperts">Ask the Experts</h3>
