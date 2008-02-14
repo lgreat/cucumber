@@ -11,7 +11,8 @@ div#leftcol {
 div#leftcolAd {
     position:absolute;
     bottom:100px;
-    left: 22px;
+    width: 204px;
+    margin: 0 auto 0 auto;
 }
 
 table#right {
