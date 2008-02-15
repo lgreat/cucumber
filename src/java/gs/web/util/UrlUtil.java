@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.56 2008/02/05 19:47:30 aroy Exp $
+ * $Id: UrlUtil.java,v 1.57 2008/02/15 20:33:57 jnorton Exp $
  */
 
 package gs.web.util;
@@ -341,6 +341,32 @@ public final class UrlUtil {
             }
         }
         return rval;
+    }
+
+    /**
+     * Adds a parameter to a url String
+     *
+     * @param url the base url string that the parameter will be added to
+     * @param  parameter the parameter with value to be added to the base url
+     * @return the url with the parameter appended to it
+     *
+     * @example addParameter("myBaseUrl.first", "param1=29")
+     *
+     */
+    public static String addParameter(String url, String parameter)  {
+
+        String delimiter = "";
+        if (url.contains("?")){
+             delimiter = "&";
+        } else {
+            delimiter = "?";
+        }
+
+        StringBuilder buf = new StringBuilder(url) ;
+        buf.append(delimiter);
+        buf.append(parameter);
+
+        return buf.toString();
     }
 
 }

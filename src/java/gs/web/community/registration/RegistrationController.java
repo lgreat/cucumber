@@ -278,11 +278,11 @@ public class RegistrationController extends SimpleFormController implements Read
                     !urlUtil.isCommunityContentLink(userCommand.getRedirectUrl())) {
                 // add the query param "?oSe=6" to raise the omniture success event for registration
                 String redirectUrl = "http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request)
-                     + "?oSe=6" ;
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
                 userCommand.setRedirectUrl(redirectUrl);
             }
-            mAndV.setViewName("redirect:" + userCommand.getRedirectUrl() + "&oSe=6");
+            mAndV.setViewName("redirect:" +
+                   UrlUtil.addParameter(userCommand.getRedirectUrl(),"oSe=6"));
         }
 
         return mAndV;

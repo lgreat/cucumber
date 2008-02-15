@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.45 2008/02/05 19:47:30 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.46 2008/02/15 20:33:56 jnorton Exp $
  */
 
 package gs.web.util;
@@ -322,5 +322,24 @@ public class UrlUtilSaTest extends TestCase {
         assertFalse("Expected false for non-content-creation URL on community",
                 _urlUtil.isCommunityContentLink("http://community.greatschools.net/q-and-a/"));
 
+    }
+
+    public void testAddParameterWithoutPreexistingParameters(){
+
+        String testUrl = "community.greatschools.net";
+        String testParam = "param=9";
+        String testResult = UrlUtil.addParameter(testUrl, testParam);
+        String expectedResult = testUrl + "?" + testParam;
+        assertEquals("Expect the parameter to be appended with a ? delimiter", expectedResult, testResult);
+
+
+    }
+    public void testAddParameterWithPreexistingParameters(){
+
+        String testUrl = "community.greatschools.net?id=22";
+        String testParam = "param=9";
+        String testResult = UrlUtil.addParameter(testUrl, testParam);
+        String expectedResult = testUrl + "&" + testParam;
+        assertEquals("Expect the parameter to be appended with a & delimiter", expectedResult, testResult);
     }
 }

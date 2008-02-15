@@ -3,6 +3,7 @@ package gs.web.community.registration;
 import gs.data.community.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.util.UrlBuilder;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.geo.IGeoDao;
 import gs.data.soap.CreateOrUpdateUserRequest;
@@ -75,13 +76,11 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     /**
-     * Test successful registration with a new user
-     *
-     * @throws Exception
+     * Common set up for   testRegistration(),  testRegistrationWithRedirect() and testRegistrationWithRedirectAndParameters()
+     * @param userCommand
+     * @throws SoapRequestException
      */
-    public void testRegistration() throws Exception {
-        UserCommand userCommand = new UserCommand();
-        BindException errors = new BindException(userCommand, "");
+    private void setupRegistrationTest(UserCommand userCommand) throws SoapRequestException {
         String email = "testRegistration@RegistrationControllerTest.com";
         String password = "foobar";
         userCommand.setEmail(email);
@@ -108,12 +107,65 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
         replay(_soapRequest);
-        
+    }
+
+    /**
+     * Test successful registration with a new user
+     *
+     * @throws Exception
+     */
+    public void testRegistration() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        setupRegistrationTest(userCommand);
+
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
         _userControl.verify();
         _subscriptionDaoMock.verify();
         verify(_soapRequest);
     }
+
+
+
+    /**
+     * Test successful registration with a new user that has a redirect defined without a query parameter
+     *
+     * @throws Exception
+     */
+    public void testRegistrationWithRedirect() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        String testRedirectUrl = "community.greatschools.net/advice/write";
+        userCommand.setRedirectUrl(testRedirectUrl );
+        setupRegistrationTest(userCommand);
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+
+        assertNotNull("Expect mAndV.getViewName() to have the redirect value", mAndV.getViewName());
+        String expectedResult = "redirect:" + testRedirectUrl + "?oSe=6";
+        assertEquals("Expect the redirect url to have ?oSe=6 appended to it", expectedResult, mAndV.getViewName());
+    }
+
+    /**
+     * Test successful registration with a new user  that has a redirect defined with a query parameter
+     *
+     * @throws Exception
+     */
+    public void testRegistrationWithRedirectAndParameters() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        String testRedirectUrl = "community.greatschools.net/advice/write?id=2112";
+        userCommand.setRedirectUrl(testRedirectUrl );
+
+        setupRegistrationTest(userCommand);
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+        String expectedResult = "redirect:" + testRedirectUrl + "&oSe=6";
+
+        assertNotNull("Expect mAndV.getViewName() to have the redirect value", mAndV.getViewName());
+        assertEquals("Expect the redirect url to have &oSe=6 appended to it", expectedResult, mAndV.getViewName());
+    }
+
 
     public void testRegistrationSubscribesToCommunityNewsletter() throws Exception {
         UserCommand userCommand = new UserCommand();
