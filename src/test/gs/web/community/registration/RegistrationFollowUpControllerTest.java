@@ -15,6 +15,7 @@ import gs.data.soap.CreateOrUpdateUserRequestBean;
 import gs.data.soap.SoapRequestException;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
 import static org.easymock.classextension.EasyMock.*;
 
@@ -338,6 +339,102 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertFalse(_errors.toString(), _errors.hasErrors());
         assertEquals(1, _command.getSchoolNames().size());
         assertEquals("School", _command.getSchoolNames().get(0));
+    }
+
+    public void testRegistrationWithRedirect() throws Exception {
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        followUpCommand.getUser().setId(345); // to fake the database save
+        followUpCommand.getUser().setEmail("a");
+        UserProfile userProfile = new UserProfile();
+        userProfile.setNumSchoolChildren(Integer.valueOf("0"));
+        followUpCommand.getUser().setUserProfile(userProfile);
+        followUpCommand.getUserProfile().setState(State.GA);
+
+        String testRedirectUrl = "community.greatschools.net/advice/write";
+        followUpCommand.setRedirect(testRedirectUrl);
+
+
+                Subscription newsletterSubscription = new Subscription();
+        newsletterSubscription.setUser(followUpCommand.getUser());
+        newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+        newsletterSubscription.setState(State.GA);
+
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.PARENT_CONTACT))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.COMMUNITY))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.CITY_COMMUNITY))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.SCHOOL_COMMUNITY))
+                .andReturn(null);
+        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), (List)notNull());
+
+        replay(_subscriptionDao);
+
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        replay(_soapRequest);
+
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+
+        assertNotNull("Expect mAndV.getViewName() to have the redirect value", mAndV.getViewName());
+        String expectedResult = "redirect:" + testRedirectUrl + "?oSe=6";
+        assertEquals("Expect the redirect url to have ?oSe=6 appended to it", expectedResult, mAndV.getViewName());
+    }
+
+    public void testRegistrationWithRedirectContainingParameters() throws Exception {
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        followUpCommand.getUser().setId(345); // to fake the database save
+        followUpCommand.getUser().setEmail("a");
+        UserProfile userProfile = new UserProfile();
+        userProfile.setNumSchoolChildren(Integer.valueOf("0"));
+        followUpCommand.getUser().setUserProfile(userProfile);
+        followUpCommand.getUserProfile().setState(State.GA);
+
+        String testRedirectUrl = "community.greatschools.net/advice/write?id=99";
+        followUpCommand.setRedirect(testRedirectUrl);
+
+
+                Subscription newsletterSubscription = new Subscription();
+        newsletterSubscription.setUser(followUpCommand.getUser());
+        newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+        newsletterSubscription.setState(State.GA);
+
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.PARENT_CONTACT))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.COMMUNITY))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.CITY_COMMUNITY))
+                .andReturn(null);
+        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+                SubscriptionProduct.SCHOOL_COMMUNITY))
+                .andReturn(null);
+        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), (List)notNull());
+
+        replay(_subscriptionDao);
+
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        replay(_soapRequest);
+
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+
+        assertNotNull("Expect mAndV.getViewName() to have the redirect value", mAndV.getViewName());
+        String expectedResult = "redirect:" + testRedirectUrl + "&oSe=6";
+        assertEquals("Expect the redirect url to have &oSe=6 appended to it", expectedResult, mAndV.getViewName());
     }
 
     public void testRegistrationSubscribesToCommunityNewsletter() throws Exception {

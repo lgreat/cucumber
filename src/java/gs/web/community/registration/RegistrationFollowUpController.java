@@ -342,13 +342,12 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         UrlUtil urlUtil = new UrlUtil();
         if (StringUtils.isEmpty(fupCommand.getRedirect()) ||
                 !urlUtil.isCommunityContentLink(fupCommand.getRedirect())) {
-            // add the query param "?oSe=6" to raise the omniture success event for registration
             String redirectUrl = "http://" +
-                SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request)
-                     + "?oSe=6" ;
+                SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
             fupCommand.setRedirect(redirectUrl);
         }
-        mAndV.setViewName("redirect:" + fupCommand.getRedirect() + "&oSe=6");
+        mAndV.setViewName("redirect:" +
+                   UrlUtil.addParameter(fupCommand.getRedirect(),"oSe=6"));
 
         return mAndV;
     }
