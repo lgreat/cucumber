@@ -114,7 +114,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
                 command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH ||
                 command.getFirstName().length() < FIRST_NAME_MINIMUM_LENGTH) {
             errors.rejectValue("firstName", null, ERROR_FIRST_NAME_LENGTH);
-            _log.info("Registration error: " + ERROR_EMAIL_LENGTH);
+            _log.info("Registration error: " + ERROR_FIRST_NAME_LENGTH);
         } else if (!StringUtils.containsNone(command.getFirstName(), FIRST_NAME_DISALLOWED_CHARACTERS)) {
             errors.rejectValue("firstName", null, ERROR_FIRST_NAME_BAD);
             _log.info("Registration error: " + ERROR_FIRST_NAME_BAD);
