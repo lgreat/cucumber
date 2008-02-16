@@ -260,7 +260,7 @@
                             <li>
                                 <c:choose>
                                     <c:when test="${not empty anchor.href}">
-                                        <a class="${anchor.styleClass}" href="${anchor.href}">${anchor.contents}</a>
+                                        <a class="${anchor.styleClass}" href="${fn:escapeXml(anchor.href)}">${anchor.contents}</a>
                                     </c:when>
                                     <c:otherwise>
                                         <hr/>
