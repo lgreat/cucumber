@@ -45,6 +45,13 @@
             }
         }
     </script>
+    <!-- GS-5462: Truncate editorial footer so skyscraper ad can fit to its left. This can't go in
+    a stylesheet since there is no stylesheet unique to this page. aroy 2/19/2008 -->
+    <style type="text/css">
+        #editorialFooter .leftmostBox {
+            display: none;
+        }
+    </style>
 </head>
 
 <ad:setSlotPrefix slotPrefix="Research_Compare_State_Home_Page"/>
