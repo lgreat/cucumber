@@ -398,6 +398,13 @@
             <type>java.lang.String</type>
             <description>URL to redirect back to after feedback is provided</description>
         </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Javascript onclick value</description>
+        </attribute>
     </tag>
 
     <tag>

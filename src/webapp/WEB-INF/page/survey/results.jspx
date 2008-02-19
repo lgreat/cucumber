@@ -372,7 +372,7 @@
                       value="/survey/results.page?id=${school.id}&amp;state=${stateAbbrev}&amp;page=${pIndex}&amp;level=${param.level}&amp;feedback=1"/>
             <gsml:img src="/res/img/survey/flag_1.gif" alt="Red flag"/>
             Questions? Do these survey results look wrong?
-            <link:feedback topicOption="Parent_survey" redirect="${redirectPage}">Tell us here &gt; </link:feedback>
+            <link:feedback topicOption="Parent_survey" redirect="${redirectPage}" onclick="return true;">Tell us here &gt; </link:feedback>
         </div>
         <div class="previousnextouterwrap" id="outerteachers">
             <div class="previousnextwrap">
