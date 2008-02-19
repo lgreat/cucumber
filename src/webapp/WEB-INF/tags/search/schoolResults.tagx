@@ -64,11 +64,11 @@
                 <div class="review">
                     <c:choose>
                         <c:when test="${empty parentRating}">
-                            <link:schoolProfileAddParentReview school="${school}">
+                            <link:schoolProfileParentReview school="${school}">
                                 <gsml:img src="/res/img/search/rateit.jpg"
                                           rollover="/res/img/search/rateit_on.jpg"
                                           alt="Be the first to rate!"/>
-                            </link:schoolProfileAddParentReview>
+                            </link:schoolProfileParentReview>
                         </c:when>
                         <c:otherwise>
                             <link:schoolProfileParentReview school="${school}">
