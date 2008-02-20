@@ -459,15 +459,15 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         emailHelper.readHtmlFromResource("/gs/web/survey/thankYouEmail.txt");
 
         UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        builder.addParameter("cpn", "autoprtsurvey");
         String parentReviewHref = builder.asFullUrl(request);
 
-        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, user.getEmail());
-        String regHref = builder.asFullUrl(request);
+        String communityHost = UrlBuilder.getCommunitySiteBaseUrl(request) + "?cpn=autoprtsurvey";
 
         Map replacements = new HashMap();
         replacements.put("SCHOOL_NAME", school.getName());
         replacements.put("PARENT_REVIEW_URL", parentReviewHref);
-        replacements.put("COMMUNITY_URL", regHref);
+        replacements.put("COMMUNITY_URL", communityHost);
 
         emailHelper.setInlineReplacements(replacements);
         emailHelper.send();
