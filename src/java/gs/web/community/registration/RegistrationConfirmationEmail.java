@@ -45,13 +45,15 @@ public class RegistrationConfirmationEmail extends AbstractSendEmailBean {
         emailHelper.readHtmlFromResource(HTML_EMAIL_LOCATION);
         emailHelper.readPlainTextFromResource(TEXT_EMAIL_LOCATION);
 
+        String cpn = "?cpn=Com_Welcome_email";
+
         SessionContext sc = SessionContextUtil.getSessionContext(request);
         String communityHost = sc.getSessionContextUtil().getCommunityHost(request);
-        emailHelper.addInlineReplacement("GET_STARTED", "http://" + communityHost + "?cpn=welcomereg");
+        emailHelper.addInlineReplacement("GET_STARTED", "http://" + communityHost + cpn);
         emailHelper.addInlineReplacement("USER_EMAIL", user.getEmail());
         emailHelper.addInlineReplacement("USER_PASSWORD", passwordPlaintext);
-        emailHelper.addInlineReplacement("TAKE_TOUR", "http://" + communityHost + "/tour/index.html?cpn=welcomereg");
-        emailHelper.addInlineReplacement("READ_FAQ", "http://" + communityHost + "/faq?cpn=welcomereg");
+        emailHelper.addInlineReplacement("TAKE_TOUR", "http://" + communityHost + "/tour/index.html" + cpn);
+        emailHelper.addInlineReplacement("READ_FAQ", "http://" + communityHost + "/faq" + cpn);
 
         emailHelper.send();
     }
