@@ -206,13 +206,13 @@
     <script type="text/javascript">
         function TopNav_CommunityButton_ClickEventHandler(e) {
             var obj = eventTrigger (e);
-            
+             /*
             var s=s_gi('gsnetdev');
-            s.linkTrackVars='eVar5';
+           s.linkTrackVars='eVar5';*/
             s.eVar5 = obj.id;
-            s.tl(this,'o',obj.id);
+            /*s.tl(this,'o');  */
 
-            alert("click event captured for " + s.eVar5);
+            /*alert("click event captured for " + s.eVar5 + " " + obj.id);  */
         }
 
         var node = document.getElementById("TopNav.CommunityButton");
