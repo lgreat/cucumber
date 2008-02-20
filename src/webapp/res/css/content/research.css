@@ -8,11 +8,13 @@ div#leftcol {
     top:0;
 }
 
+/** Adjusting these values will require a change to the js function adjustLeftColAd */
 div#leftcolAd {
     position:absolute;
-    bottom:100px;
+    top: 278px;
     width: 204px;
     margin: 0 auto 0 auto;
+    background-color: #DDEEEE;
 }
 
 table#right {

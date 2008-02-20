@@ -3,5 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
-    <gsweb:adTagGenerator position="AboveFold_Left_160x600"/>
+    <gsweb:adTagGenerator position="AboveFold_Left_160x600">
+        <span style="display:block;">AD</span>$AD
+    </gsweb:adTagGenerator>
 </jsp:root>
