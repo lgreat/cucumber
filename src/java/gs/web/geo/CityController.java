@@ -1,18 +1,19 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.46 2008/02/06 00:00:56 eddie Exp $
+ * $Id: CityController.java,v 1.47 2008/02/20 00:45:47 cpickslay Exp $
  */
 
 package gs.web.geo;
 
+import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.test.rating.ICityRatingDao;
 import gs.data.test.rating.CityRating;
+import gs.data.test.rating.ICityRatingDao;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -20,11 +21,11 @@ import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -117,14 +118,7 @@ public class CityController extends AbstractController {
 
         Map model = new HashMap();
 
-        // City name is what gets displayed, and can differ in a few cases from what we refer to
-        // it as in the database and in URLs.
-        String cityDisplayName;
-        if (state.equals(State.DC)) {
-            cityDisplayName = "Washington, DC";
-        } else {
-            cityDisplayName = city.getName();
-        }
+        String cityDisplayName = ((City) city).getDisplayName();
         model.put(MODEL_CITY_NAME, cityDisplayName);
         model.put(MODEL_CITY, city);
 
