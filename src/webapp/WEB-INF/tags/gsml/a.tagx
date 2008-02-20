@@ -11,6 +11,7 @@
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="target" required="false" description="name of new window this link opens in"/>
     <jsp:directive.attribute name="title" required="false" description="title attribute (tooltip)"/>
+    <jsp:directive.attribute name="id" required="false" description="id attribute "/>
     <jsp:directive.attribute name="onClick" required="false"
                              description="name of javascript function to call when link triggered"/>
 
@@ -40,6 +41,10 @@
             buffer.append(" title=\"").append(title).append('"');
         }
 
+        if (StringUtils.isNotBlank(id)) {
+            buffer.append(" id=\"").append(id).append('"');
+        }
+        
         if (StringUtils.isNotBlank(onClick)) {
             buffer.append(" onclick=\"").append(Util.escapeXml(onClick)).append('"');
         }

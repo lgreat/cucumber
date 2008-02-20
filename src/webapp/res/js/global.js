@@ -255,3 +255,30 @@ function makeCountWords(max, alertText) {
         return true;
     }
 }
+
+
+function eventTrigger (e) {
+    if (! e)
+        e = event;
+    return e.target || e.srcElement;
+}
+
+/*
+ * registers a dom event handler
+ *
+ * params
+ *    node    DOM node that the handler should be attached to
+ *    event   the name of the event type, such as "click" or "keypress"
+ *    handler the handler function
+ * example
+ *    var node = document.getElementById("My-Node-Id");
+ *    registerEventHandler(node,"click",handleCI9Info);
+ */
+function registerEventHandler(node, event, handler){
+	if (typeof document.addEventListener == "function") {
+	  	node.addEventListener(event, handler, false);
+	}
+	else {
+		node.attachEvent("on" + event, handler);
+	}
+}

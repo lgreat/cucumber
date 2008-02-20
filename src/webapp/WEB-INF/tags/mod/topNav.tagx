@@ -188,7 +188,7 @@
                         >Research &amp;amp; Compare</link:research></td>
                     <!--#10--><td ><gsml:a href="http://${communityHost}"
                         styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')}"
-                        >Community</gsml:a></td>
+                        id="TopNav.CommunityButton">Community</gsml:a></td>
                     <!--#7--><td><gsml:a href="/content/tutoring_Homework_Help.page"
                                          styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} "
                         >Tutoring &amp;amp; Homework Help</gsml:a></td>
@@ -203,6 +203,23 @@
             </td>
         </tr>
     </table>
+    <script type="text/javascript">
+        function TopNav_CommunityButton_ClickEventHandler(e) {
+            var obj = eventTrigger (e);
+            
+            var s=s_gi('gsnetdev');
+            s.linkTrackVars='eVar5';
+            s.eVar5 = obj.id;
+            s.tl(this,'o',obj.id);
+
+            alert("click event captured for " + s.eVar5);
+        }
+
+        var node = document.getElementById("TopNav.CommunityButton");
+        registerEventHandler(node,"click",TopNav_CommunityButton_ClickEventHandler);
+
+    </script>
+
 </div>
 </div>
 
