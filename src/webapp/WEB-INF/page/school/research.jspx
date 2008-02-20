@@ -36,13 +36,13 @@
     </c:choose>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
     <!-- Any adjustment to left column heights in CSS will require a change here! -->
-    <!-- 25 is bottom padding, 278 is height of editor's picks section plus 10px margin -->
+    <!-- 25 is bottom padding, 278 is height of editor's picks section plus 10px margin, 10 is top padding -->
     <script type="text/javascript">
         function adjustLeftColAd() {
             var rightcol = document.getElementById('right');
             var rightHeight = rightcol.scrollHeight;
             var leftcolAd = document.getElementById('leftcolAd');
-            leftcolAd.style.height = (rightHeight-25-278)+'px';
+            leftcolAd.style.height = (rightHeight-25-278-10)+'px';
         }
     </script>
     <!-- GS-5462: Truncate editorial footer so skyscraper ad can fit to its left. This can't go in
