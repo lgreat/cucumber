@@ -68,8 +68,6 @@
 <tr>
 <td width="66%" style="vertical-align:top">
 
-<variant:b>
-
 <c:if test="${stateAbbrevLowerCase != 'dc'}">
     
 <div id="cityrating">
@@ -84,7 +82,6 @@
     </div>
 </div>
 </c:if>
-</variant:b>
 
 
 
