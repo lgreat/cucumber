@@ -118,13 +118,27 @@ public class TestLandingController extends SimpleFormController {
         String stateParam = request.getParameter("state");
         State state = _stateManager.getState(stateParam);
 
+
         View view = null;
         if ("achievement".equals(type)) {
             String sid = request.getParameter("sid");
             Integer school_id = Integer.parseInt(sid);
             School school = getSchoolDao().getSchoolById(state, school_id);
             UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
-            view = new RedirectView(builder.asSiteRelative(request));
+            String url = builder.asSiteRelative(request);
+
+            String testIdParam = request.getParameter("tid");
+            if (StringUtils.isNotBlank(testIdParam)) {
+                String dataKey = stateParam.toUpperCase() + testIdParam;
+                Map<String, String> data = getTestData(dataKey);
+                if (data != null) {
+                    String anchor = data.get("testanchor");
+                    if (StringUtils.isNotBlank(anchor)) {
+                        url = url + "#" + anchor;
+                    }
+                }
+            }
+            view = new RedirectView(url);
             
         } else if ("compare".equals(type)) {
             StringBuffer urlBuffer = new StringBuffer();
@@ -152,7 +166,9 @@ public class TestLandingController extends SimpleFormController {
                     if ("links".equals(tag)) {
                         values.put(tag, parseAnchorList(entry.getCustomElements().getValue(tag)));
                     } else if ("levels".equals(tag)) {
-                        values.put(tag, parseLevelCodes(entry.getCustomElements().getValue(tag)));
+                        String levs = entry.getCustomElements().getValue(tag);
+                        values.put(tag, parseLevelCodes(levs));
+                        values.put("levs", levs);
                     } else {
                         values.put(tag, entry.getCustomElements().getValue(tag));
                     }

@@ -21,9 +21,12 @@
 <c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
 <c:set var="stateOrNull" value="${requestScope.context.state}" />
 <c:set var="stateAbbrev" value="${stateOrDefault.abbreviationLowerCase}" />
+<c:set var="title" value="${seofootertext}" />
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <title>GreatSchools Test Landing Page</title>
+    <meta name="description" content="Find ${stateOrDefault.abbreviation} ${displayname} test scores for you child's school and compare ${stateOrDefault.longName} ${name} test results" />
+    <meta name="keywords" content="${stateOrDefault.abbreviation} ${displayname} Test Scores, ${stateOrDefault} ${name} Test Results, ${stateOrDefault.abbreviation} ${name} Test Scores, ${displayname}, ${name} testing, ${stateOrDefault.longName} Standardized testing, ${stateOrDefault.abbreviation} Standardized testing " />
+    <title>${title}</title>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
     <pageHelper:externalCss file="/res/css/test/landing.css"/>
@@ -52,6 +55,25 @@
                 method: 'get',
                 parameters: pars
             });
+        }
+
+        function checkSchoolSelected(elem) {
+            var val = elem.sid;
+            if (val.value == "") {
+                alert("Please select a school.");
+                return false;
+            }
+            return true;
+        }
+
+        function checkCityAndLevelSelected(elem) {
+            var levelVal = elem.level.value;
+            var cityVal = elem.city.value;
+            if (cityVal == "" || levelVal == "") {
+                alert("Please select a city and grade level.");
+                return false;
+            }
+            return true;
         }
         -->
     </script>
@@ -97,7 +119,7 @@
                 <tr>
                     <td valign="top">
                         <div class="middleTitle">
-                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${requestScope.context.state.longName} Schools" border="0"/>
+                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${stateOrDefault.abbreviation} ${name} test scores" border="0"/>
                         </div>
 
                         <gsml:url var="go" value="/res/img/splash/go.gif"/>
@@ -107,10 +129,36 @@
                             <div id="achievementBox">
                                 <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
                                 <div id="achievementContent">
-                                    <div class="boxText">Find your ${levelText} school's <span>${name} RESULTS</span>:</div>
-                                    <gsweb:form action="/test/landing.page" method="post">
+                                    <div class="boxText">
+                                        <c:choose>
+                                            <c:when test="${levs eq 'e'}">
+                                                <c:set var="levelText" value="elementary" />
+                                            </c:when>
+                                            <c:when test="${levs eq 'm'}">
+                                                <c:set var="levelText" value="middle" />
+                                            </c:when>
+                                            <c:when test="${levs eq 'h'}">
+                                                <c:set var="levelText" value="high" />
+                                            </c:when>
+                                            <c:when test="${levs eq 'e,m'}">
+                                                <c:set var="levelText" value="elementary and middle" />
+                                            </c:when>
+                                            <c:when test="${levs eq 'm,h'}">
+                                                <c:set var="levelText" value="middle and high" />
+                                            </c:when>
+                                            <c:when test="${levs eq 'e,h'}">
+                                                <c:set var="levelText" value="elementary and high" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="levelText" value="" />
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:out value="${fn:replace(findtext, '$LEVEL', levelText)}" escapeXml="false" />
+                                    </div>
+                                    <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkSchoolSelected(this)">
                                         <input type="hidden" name="type" value="achievement" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
+                                        <input type="hidden" name="tid" value="${param.tid}" />
                                         <select id="achievementCities" name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}');">
                                             <option selected="selected" value="">Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
@@ -118,7 +166,7 @@
                                             </c:forEach>
                                         </select>
                                         <![CDATA[<div id="schools"></div>]]>
-                                        <input id="goAchieve" type="image" src="${go}" alt="GO"
+                                        <input id="goAchieve" type="image" src="${go}" alt="Find ${name} test scores"
                                                style="width:41px;height:26px;margin-top: 10px;display:none;"
                                                class="button" onmouseover="this.src='${goOver}';"
                                                onmouseout="this.src='${go}';" />
@@ -126,31 +174,34 @@
                                 </div>
                             </div>
 
-                            <![CDATA[<div class="blueDash"></div>]]>
-                            
-                            <div id="compareBox">
-                                <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                                <div class="boxText">Compare <span>${name} SCORES</span> in a city:</div>
-                                <gsweb:form action="/test/landing.page" method="post">
-                                    <input type="hidden" name="type" value="compare" />
-                                    <input type="hidden" name="state" value="${stateAbbrev}" />
-                                    <select id="compareCities" name="city" tabindex="5">
-                                        <option selected="selected" value="">Choose city</option>
-                                        <c:forEach var="cityOption" items="${cities}">
-                                            <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
-                                        </c:forEach>
-                                    </select>
-                                    <select id="compareLevels" name="level" tabindex="6">
-                                        <option selected="selected" value="">Choose level</option>
-                                        <c:forEach var="levelOption" items="${levels}">
-                                            <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
-                                        </c:forEach>
-                                    </select>
-                                    <input id="goCompare" type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px;"
-                                           class="button" onmouseover="this.src='${goOver}';"
-                                           onmouseout="this.src='${go}';" />
-                                </gsweb:form>
-                            </div>
+                            <c:if test="${compare ne 'no'}">
+                                <![CDATA[<div class="blueDash"></div>]]>
+                                <div id="compareBox">
+                                    <gsml:img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
+                                    <div class="boxText">
+                                        <c:out value="${comparetext}" escapeXml="false" />
+                                    </div>
+                                    <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkCityAndLevelSelected(this)">
+                                        <input type="hidden" name="type" value="compare" />
+                                        <input type="hidden" name="state" value="${stateAbbrev}" />
+                                        <select id="compareCities" name="city" tabindex="5">
+                                            <option selected="selected" value="">Choose city</option>
+                                            <c:forEach var="cityOption" items="${cities}">
+                                                <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
+                                            </c:forEach>
+                                        </select>
+                                        <select id="compareLevels" name="level" tabindex="6">
+                                            <option selected="selected" value="">Choose level</option>
+                                            <c:forEach var="levelOption" items="${levels}">
+                                                <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
+                                            </c:forEach>
+                                        </select>
+                                        <input id="goCompare" type="image" src="${go}" alt="Compare ${name} test results" style="width:41px;height:26px;margin-top: 10px;"
+                                               class="button" onmouseover="this.src='${goOver}';"
+                                               onmouseout="this.src='${go}';" />
+                                    </gsweb:form>
+                                </div>
+                            </c:if>
                         </div>
                     </td>
                     <td>
@@ -158,7 +209,7 @@
                     </td>
                     <td valign="top">
                         <div class="middleTitle">
-                            <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="Learn" border="0"/>
+                            <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="About the ${stateOrDefault.abbreviation} ${name}" border="0"/>
                         </div>
                         <div class="findBox" id="learnBox">
                             ${info}
@@ -257,16 +308,14 @@
                 <c:if test="${fn:length(links) > 0}">
                     <ul class="linkList">
                         <c:forEach var="anchor" items="${links}">
-                            <li>
-                                <c:choose>
-                                    <c:when test="${not empty anchor.href}">
-                                        <a class="${anchor.styleClass}" href="${fn:escapeXml(anchor.href)}">${anchor.contents}</a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <hr/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </li>
+                            <c:choose>
+                                <c:when test="${not empty anchor.href}">
+                                    <li><a class="${anchor.styleClass}" href="${fn:escapeXml(anchor.href)}">${anchor.contents}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="break"><hr/></li>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                     </ul>
                 </c:if>
@@ -278,9 +327,9 @@
 
 <footer:editorialFooter/>
 
-<!--<h1 class="sfooter">${seofootertext}</h1>-->
+<h1 class="sfooter">${title}</h1>
 
-<mod:tracking pageName="Test Landing" hier1="test,landing"/>
+<mod:tracking pageName="Test Home" hier1="Home,Test Home"/>
 </gsml:body>
 </html>
 </jsp:root>

@@ -23,7 +23,11 @@
 
 .listTitle {
     font-weight:bold;
-    padding:5px 0 6px 0;
+    padding:12px 0 10px 0;
+}
+
+ul.linkList li.break {
+   padding:2px 0 5px 0;
 }
 
 ul.linkList hr {
@@ -135,23 +139,26 @@ div#alert {
     border-top:3px solid #DDEEEE;
     border-bottom:3px solid #DDEEEE;
     position:relative;
-    height:57px;
+    height:56px;
 }
 
 div#alert img {
     position:absolute;
-    top:13px;
+    top:14px;
     left:11px;
 }
 
 div#alert div {
     position:relative;
     width:550px;
-    top:11px;
+    top:12px;
     left:50px;
+    line-height:17px;
 }
 
 div#alert div span.alert1 {
+    padding:0;
+    margin:0;
     font-size:15px;
     display:block;
     color:#CC5566;
@@ -160,6 +167,8 @@ div#alert div span.alert1 {
 
 
 div#alert div span.alert2 {
+    padding:0;
+    margin:0;    
     font-size:12px;
     font-weight:normal;
     color:#666666;
