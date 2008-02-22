@@ -267,9 +267,21 @@
                                                     <c:set var="cellStyle" value="odd"/>
                                                 </c:otherwise>
                                             </c:choose>
-                                            <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}"><c:if test="${entry.value > 0}">
-                                                <gsml:img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="${school.name} ${entry.key}"/>
-                                            </c:if>${entry.key}</div>
+
+                                            <c:set var="total" value="${result_question.numResponses}" />
+                                            <c:set var="checked" value="false" />
+                                            <c:if test="${entry.value > 0}">
+                                                <c:if test="${(total lt 5) or (entry.value / total) gt 0.32}">
+                                                    <c:set var="checked" value="true" />
+                                                </c:if>
+                                            </c:if>
+                                            <div class="${cellStyle} ${checked eq 'true' ? 'checked' : ''}">
+                                                <c:if test="${checked eq 'true'}">
+                                                    <gsml:img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="${school.name} ${entry.key}"/>
+                                                </c:if>
+                                                ${entry.key}
+                                                <!--: tot: ${total}, val: ${entry.value}, calc: ${entry.value/ total}, t/f: ${(entry.value/ total) gt 0.32} -->
+                                            </div>
                                         </c:forEach>
                                     </div>
                                 </c:if>
@@ -293,9 +305,20 @@
                                                 <c:set var="cellStyle" value="odd"/>
                                             </c:otherwise>
                                         </c:choose>
-                                        <div class="${cellStyle} ${entry.value > 0 ? 'checked' : ''}"><c:if test="${entry.value > 0}">
+                                        <c:set var="total" value="${result_question.numResponses}" />
+                                        <c:set var="checked" value="false" />
+                                        <c:if test="${entry.value > 0}">
+                                            <c:if test="${(total lt 5) or (entry.value / total) gt 0.32}">
+                                                <c:set var="checked" value="true" />
+                                            </c:if>
+                                        </c:if>
+                                        <div class="${cellStyle} ${checked eq 'true' ? 'checked' : ''}">
+                                            <c:if test="${checked eq 'true'}">
                                                 <gsml:img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="${school.name} ${entry.key}"/>
-                                            </c:if>${entry.key}</div>
+                                            </c:if>
+                                            ${entry.key}
+                                            <!--: tot: ${total}, val: ${entry.value}, calc: ${entry.value/ total}, t/f: ${(entry.value/ total) gt 0.32}-->
+                                        </div>
                                     </c:forEach>
                                 </div>
                             </c:if>
