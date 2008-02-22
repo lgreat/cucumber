@@ -1,15 +1,18 @@
 package gs.web.util.google;
 
-import java.util.Map;
+import gs.web.util.ICacheable;
+
+import java.util.List;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public interface IGoogleSpreadsheetDao {
-    public Map<String, String> getDataFromRow(String worksheetUrl,
-                                              String primaryKeyColumnName,
-                                              String primaryKeyCellValue);
+public interface IGoogleSpreadsheetDao extends ICacheable<String, List<SpreadsheetRow>> {
+    public SpreadsheetRow getFirstRowByKey(String keyName,
+                                           String keyValue);
 
-    public Map<String, Map<String, String>> getDataFromWorksheet(String worksheetUrl,
-                                                                 String primaryKeyColumnName);
+    public List<SpreadsheetRow> getRowsByKey(String keyName,
+                                             String keyValue);
+
+    public List<SpreadsheetRow> getAllRows();
 }

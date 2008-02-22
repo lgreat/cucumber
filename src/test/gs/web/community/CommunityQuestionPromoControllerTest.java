@@ -1,31 +1,36 @@
 package gs.web.community;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.google.ICachedGoogleSpreadsheetDao;
+import gs.web.util.google.IGoogleSpreadsheetDao;
+import gs.web.util.google.GoogleSpreadsheetFactory;
+import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.web.util.google.SpreadsheetRow;
 
 import java.util.Map;
 import java.util.HashMap;
 
 import static gs.web.community.CommunityQuestionPromoController.*;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase {
     private CommunityQuestionPromoController _controller;
-    private ICachedGoogleSpreadsheetDao _dao;
+    private GoogleSpreadsheetFactory _factory;
+    private IGoogleSpreadsheetDao _dao;
 
     public void setUp() throws Exception {
         super.setUp();
         _controller = new CommunityQuestionPromoController();
 
-        _dao = createMock(ICachedGoogleSpreadsheetDao.class);
-        _controller.setCachedGoogleSpreadsheetDao(_dao);
+        _factory = createMock(GoogleSpreadsheetFactory.class);
+        _dao = createMock(IGoogleSpreadsheetDao.class);
+        _controller.setGoogleSpreadsheetFactory(_factory);
     }
 
     public void testBasic() {
-        assertSame(_dao, _controller.getCachedGoogleSpreadsheetDao());
+        assertSame(_factory, _controller.getGoogleSpreadsheetFactory());
         _controller.setViewName("aView");
         assertEquals("aView", _controller.getViewName());
     }
@@ -33,20 +38,21 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
     public void testLoadSpreadsheetData() {
         Map<String, Object> model = new HashMap<String, Object>();
 
-        Map<String, String> dataMap = new HashMap<String, String>();
+        SpreadsheetRow row = new SpreadsheetRow();
+        row.addCell(WORKSHEET_PRIMARY_ID_COL, "someKey");
+        row.addCell("text", "text text");
+        row.addCell("link", "link link");
+        row.addCell("username", "user name");
+        row.addCell("memberid", "member id");
 
-        dataMap.put(WORKSHEET_PRIMARY_ID_COL, "someKey");
-        dataMap.put("text", "text text");
-        dataMap.put("link", "link link");
-        dataMap.put("username", "user name");
-        dataMap.put("memberid", "member id");
+        expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
+        replay(_factory);
 
-        expect(_dao.getDataFromRow("http://someUrl",
-                WORKSHEET_PRIMARY_ID_COL,
-                "someKey", ICachedGoogleSpreadsheetDao.HOUR)).andReturn(dataMap);
+        expect(_dao.getFirstRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(row);
         replay(_dao);
 
-        _controller.loadSpreadsheetDataIntoModel(model, "http://someUrl", "someKey");
+        _controller.loadSpreadsheetDataIntoModel(model, "someKey");
+        verify(_factory);
         verify(_dao);
 
         assertEquals("text text", model.get(MODEL_QUESTION_TEXT));
@@ -59,14 +65,16 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         // shouldn't crash
         Map<String, Object> model = new HashMap<String, Object>();
 
-        Map<String, String> dataMap = new HashMap<String, String>();
+        SpreadsheetRow row = new SpreadsheetRow();
 
-        expect(_dao.getDataFromRow("http://someUrl",
-                WORKSHEET_PRIMARY_ID_COL,
-                "someKey", ICachedGoogleSpreadsheetDao.HOUR)).andReturn(dataMap);
+        expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
+        replay(_factory);
+
+        expect(_dao.getFirstRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(row);
         replay(_dao);
 
-        _controller.loadSpreadsheetDataIntoModel(model, "http://someUrl", "someKey");
+        _controller.loadSpreadsheetDataIntoModel(model, "someKey");
+        verify(_factory);
         verify(_dao);
 
         assertNull(model.get(MODEL_QUESTION_TEXT));
@@ -79,12 +87,14 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         // shouldn't crash
         Map<String, Object> model = new HashMap<String, Object>();
 
-        expect(_dao.getDataFromRow("http://someUrl",
-                WORKSHEET_PRIMARY_ID_COL,
-                "someKey", ICachedGoogleSpreadsheetDao.HOUR)).andReturn(null);
+        expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
+        replay(_factory);
+
+        expect(_dao.getFirstRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(null);
         replay(_dao);
 
-        _controller.loadSpreadsheetDataIntoModel(model, "http://someUrl", "someKey");
+        _controller.loadSpreadsheetDataIntoModel(model, "someKey");
+        verify(_factory);
         verify(_dao);
 
         assertNull(model.get(MODEL_QUESTION_TEXT));
@@ -95,62 +105,29 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
     public void testLoadSpreadsheetDataClearCache() throws Exception {
         getRequest().setParameter(CommunityQuestionPromoController.CACHE_CLEAR_PARAM, "1");
-        getRequest().setParameter("worksheet", "od7");
-        String worksheet = WORKSHEET_PREFIX + "/" +
-                WORKSHEET_KEY + "/" +
-                WORKSHEET_VISIBILITY + "/" +
-                WORKSHEET_PROJECTION + "/" + "od7";
+        getRequest().setServerName("dev.greatschools.net");
+
+        _factory.setWorksheetName("od6");
+        expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
+        replay(_factory);
 
         _dao.clearCache();
-        expect(_dao.getDataFromRow(worksheet,
-                WORKSHEET_PRIMARY_ID_COL,
-                DEFAULT_CODE, ICachedGoogleSpreadsheetDao.HOUR)).andReturn(null);
+        expect(_dao.getFirstRowByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
         replay(_dao);
 
         _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_dao);
     }
 
-    public void testGetWorksheetUrl() {
-        String baseWorksheet = CommunityQuestionPromoController.WORKSHEET_PREFIX + "/" +
-                CommunityQuestionPromoController.WORKSHEET_KEY + "/" +
-                CommunityQuestionPromoController.WORKSHEET_VISIBILITY + "/" +
-                CommunityQuestionPromoController.WORKSHEET_PROJECTION + "/";
-
-        getRequest().setServerName("localhost");
-        assertEquals(baseWorksheet + "od6", _controller.getWorksheetUrl(getRequest()));
-
+    public void testGetWorksheet() {
         getRequest().setServerName("dev.greatschools.net");
-        assertEquals(baseWorksheet + "od6", _controller.getWorksheetUrl(getRequest()));
-
-        getRequest().setServerName("yahooed.dev.greatschools.net");
-        assertEquals(baseWorksheet + "od6", _controller.getWorksheetUrl(getRequest()));
-
-        getRequest().setServerName("staging.greatschools.net");
-        assertEquals(baseWorksheet + "od4", _controller.getWorksheetUrl(getRequest()));
-
-        getRequest().setServerName("rithmatic.greatschools.net");
-        assertEquals(baseWorksheet + "od4", _controller.getWorksheetUrl(getRequest()));
-
-        getRequest().setServerName("sfgate.staging.greatschools.net");
-        assertEquals(baseWorksheet + "od4", _controller.getWorksheetUrl(getRequest()));
-
-        getRequest().setServerName("sfgate.greatschools.net");
-        assertEquals(baseWorksheet + "od4", _controller.getWorksheetUrl(getRequest()));
+        assertEquals("od6", _controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("www.greatschools.net");
-        assertEquals(baseWorksheet + "od4", _controller.getWorksheetUrl(getRequest()));
+        assertEquals("od4", _controller.getWorksheet(getRequest()));
 
-        getRequest().setParameter("worksheet", "lala");
-        assertEquals("expect override by param",
-                baseWorksheet + "lala", _controller.getWorksheetUrl(getRequest()));
-    }
-
-    public void testGetWorksheetKey() {
-        assertEquals("expect default", WORKSHEET_KEY, _controller.getWorksheetKey(getRequest()));
-
-        getRequest().setParameter("key", "newKey");
-        assertEquals("expect override by param", "newKey", _controller.getWorksheetKey(getRequest()));
+        getRequest().setParameter("worksheet", "od5");
+        assertEquals("od5", _controller.getWorksheet(getRequest()));
     }
 
     public void testGetCode() {

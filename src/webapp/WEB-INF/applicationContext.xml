@@ -35,12 +35,8 @@
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
-    <bean id="googleSpreadsheetDao" class="gs.web.util.google.GoogleSpreadsheetDao"
-          autowire="byName" lazy-init="true">
-    </bean>
-
-    <bean id="cachedGoogleSpreadsheetDao" class="gs.web.util.google.CachedGoogleSpreadsheetDao"
-          autowire="byName" lazy-init="true">
+    <bean id="googleSpreadsheetFactory" class="gs.web.util.google.GoogleSpreadsheetFactory"
+          autowire="byName">
     </bean>
 
     <bean id="forgotPasswordEmail"
