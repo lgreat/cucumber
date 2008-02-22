@@ -322,5 +322,12 @@ h2#adBlurb {
 #contentGS a.actionTipsLink {
 	font-size: 11px;
 	color: #3399AA;
-	text-decoration: underline;
+	text-decoration:none;
 }
+
+#pageGS #contentGS div.moduleTitle a.noHover:hover,
+    #pageGS #contentGS a.actionTipsLink:hover
+{
+   text-decoration:underline ;
+}
+
