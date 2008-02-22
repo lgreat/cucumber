@@ -216,3 +216,13 @@ div.updatesText .printName, div.updatesText .italicTitle {
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:12px;    
 }
+
+td#editorPhoto {
+    padding-right:0;
+    margin-right:0;
+}
+
+td#editorPhoto .lisaDashedBorder {
+    margin:0 6px 3px 0;
+    *margin:0 0 3px 0;
+}
