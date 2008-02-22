@@ -24,8 +24,8 @@
 <c:set var="title" value="${seofootertext}" />
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <meta name="description" content="Find ${stateOrDefault.abbreviation} ${displayname} test scores for you child's school and compare ${stateOrDefault.longName} ${name} test results" />
-    <meta name="keywords" content="${stateOrDefault.abbreviation} ${displayname} Test Scores, ${stateOrDefault} ${name} Test Results, ${stateOrDefault.abbreviation} ${name} Test Scores, ${displayname}, ${name} testing, ${stateOrDefault.longName} Standardized testing, ${stateOrDefault.abbreviation} Standardized testing " />
+    <meta name="description" content="Find ${stateOrDefault.abbreviation} ${displayname} test scores for you child's school and compare ${stateOrDefault.longName} ${shortname} test results" />
+    <meta name="keywords" content="${stateOrDefault.abbreviation} ${displayname} Test Scores, ${stateOrDefault} ${shortname} Test Results, ${stateOrDefault.abbreviation} ${shortname} Test Scores, ${displayname}, ${shortname} testing, ${stateOrDefault.longName} Standardized testing, ${stateOrDefault.abbreviation} Standardized testing " />
     <title>${title}</title>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
@@ -119,7 +119,7 @@
                 <tr>
                     <td valign="top">
                         <div class="middleTitle">
-                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${stateOrDefault.abbreviation} ${name} test scores" border="0"/>
+                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${stateOrDefault.abbreviation} ${shortname} test scores" border="0"/>
                         </div>
 
                         <gsml:url var="go" value="/res/img/splash/go.gif"/>
@@ -166,7 +166,7 @@
                                             </c:forEach>
                                         </select>
                                         <![CDATA[<div id="schools"></div>]]>
-                                        <input id="goAchieve" type="image" src="${go}" alt="Find ${name} test scores"
+                                        <input id="goAchieve" type="image" src="${go}" alt="Find ${shortname} test scores"
                                                style="width:41px;height:26px;margin-top: 10px;display:none;"
                                                class="button" onmouseover="this.src='${goOver}';"
                                                onmouseout="this.src='${go}';" />
@@ -196,7 +196,7 @@
                                                 <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
                                             </c:forEach>
                                         </select>
-                                        <input id="goCompare" type="image" src="${go}" alt="Compare ${name} test results" style="width:41px;height:26px;margin-top: 10px;"
+                                        <input id="goCompare" type="image" src="${go}" alt="Compare ${shortname} test results" style="width:41px;height:26px;margin-top: 10px;"
                                                class="button" onmouseover="this.src='${goOver}';"
                                                onmouseout="this.src='${go}';" />
                                     </gsweb:form>
@@ -209,7 +209,7 @@
                     </td>
                     <td valign="top">
                         <div class="middleTitle">
-                            <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="About the ${stateOrDefault.abbreviation} ${name}" border="0"/>
+                            <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="About the ${stateOrDefault.abbreviation} ${shortname}" border="0"/>
                         </div>
                         <div class="findBox" id="learnBox">
                             ${info}
