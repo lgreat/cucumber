@@ -33,7 +33,6 @@ public class GoogleSpreadsheetFactory {
                 _projection + "/" +
                 _worksheetName;
         GoogleSpreadsheetDao dao;
-        _log.error("Instantiating new GoogleSpreadsheetDao -- " + worksheetUrl);
         if (!StringUtils.isEmpty(_username) && !StringUtils.isEmpty(_password)) {
             dao = new GoogleSpreadsheetDao(worksheetUrl, _username, _password);
         } else {
