@@ -1,6 +1,5 @@
 package gs.web.util.google;
 
-import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -11,8 +10,6 @@ public class GoogleSpreadsheetFactory {
     public static final String SPREADSHEET_PREFIX = "http://spreadsheets.google.com/feeds/worksheets/";
     public static final String DEFAULT_VISIBILITY = "public";
     public static final String DEFAULT_PROJECTION = "values";
-
-    private static final Logger _log = Logger.getLogger(GoogleSpreadsheetFactory.class);
 
     private String _username;
     private String _password;

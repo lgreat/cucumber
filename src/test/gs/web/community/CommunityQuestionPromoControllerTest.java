@@ -3,7 +3,6 @@ package gs.web.community;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.google.IGoogleSpreadsheetDao;
 import gs.web.util.google.GoogleSpreadsheetFactory;
-import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.google.SpreadsheetRow;
 
 import java.util.Map;

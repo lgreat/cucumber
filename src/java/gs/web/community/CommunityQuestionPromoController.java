@@ -2,7 +2,6 @@ package gs.web.community;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
-//import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +27,6 @@ public class CommunityQuestionPromoController extends AbstractController {
     public static final String MODEL_USERNAME = "username";
     public static final String MODEL_USER_ID = "userId";
     public static final String CACHE_CLEAR_PARAM = "clear";
-
-//    private static final Logger _log = Logger.getLogger(CommunityQuestionPromoController.class);
 
     private String _viewName;
     private GoogleSpreadsheetFactory _googleSpreadsheetFactory;
