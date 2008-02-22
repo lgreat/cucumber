@@ -23,10 +23,11 @@
             <ad:setSlotPrefix slotPrefix="Test_Ad"/>
             <div>
                 <ad:AboveFold_300x600/>
-                <ad:BelowFold_Bottom_300x125/>
-                <ad:Top_300x137/>
                 <ad:AboveFold_300x250/>
+                <ad:AboveFold_160x600/>
+                <ad:Top_300x137/>
                 <ad:BelowFold_Top_300x125/>
+                <ad:BelowFold_Bottom_300x125/>
             </div>
         </body>
     </html>
