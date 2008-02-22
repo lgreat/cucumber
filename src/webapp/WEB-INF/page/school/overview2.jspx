@@ -333,16 +333,11 @@
                     </p>
                 </c:if>
 
-                <c:set var="special" value="hide" />
-                <c:if test="${school.type.schoolTypeName eq 'charter' and (state eq 'ca')}">
-                    <c:set var="special" value="show" />
-                </c:if>
-
                 <c:if test="${(finance eq 'show') and (hasFinanceData)}">
                     <link:schoolProfileCensus school="${school}" anchor="finance">
                         <gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
                     </link:schoolProfileCensus>
-                    <p class="${(hasPrincipalView or (special eq 'show')) ? 'dashed' : 'last'}">
+                    <p class="${(hasPrincipalView) ? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="finance">${school.name} spending per pupil</link:schoolProfileCensus>
                     </p>
                 </c:if>
@@ -351,7 +346,7 @@
                     <link:schoolProfilePrincipalView school="${school}">
                         <gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
                     </link:schoolProfilePrincipalView>
-                    <p class="${special eq 'show' ? 'dash' : 'last'}">
+                    <p class="last">
                         <link:schoolProfilePrincipalView school="${school}">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
                     </p>
                 </c:if>
