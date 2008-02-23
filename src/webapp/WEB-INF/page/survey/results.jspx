@@ -268,7 +268,7 @@
                                                 </c:otherwise>
                                             </c:choose>
 
-                                            <c:set var="total" value="${result_question.numResponses}" />
+                                            <c:set var="total" value="${result_question.numResponseUsers}" />
                                             <c:set var="checked" value="false" />
                                             <c:if test="${entry.value > 0}">
                                                 <c:if test="${(total lt 5) or (entry.value / total) gt 0.32}">
@@ -280,7 +280,7 @@
                                                     <gsml:img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="${school.name} ${entry.key}"/>
                                                 </c:if>
                                                 ${entry.key}
-                                                <!--: tot: ${total}, val: ${entry.value}, calc: ${entry.value/ total}, t/f: ${(entry.value/ total) gt 0.32} -->
+                                                <!--: tot: ${total}, val: ${entry.value}, calc: ${entry.value/ total}, t/f: ${(entry.value/ total) gt 0.32}-->
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -305,7 +305,7 @@
                                                 <c:set var="cellStyle" value="odd"/>
                                             </c:otherwise>
                                         </c:choose>
-                                        <c:set var="total" value="${result_question.numResponses}" />
+                                        <c:set var="total" value="${result_question.numResponseUsers}" />
                                         <c:set var="checked" value="false" />
                                         <c:if test="${entry.value > 0}">
                                             <c:if test="${(total lt 5) or (entry.value / total) gt 0.32}">
