@@ -1,13 +1,15 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.soap.ReportLoginRequest;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
+import gs.data.soap.SoapRequestException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -20,6 +22,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
     private User _user;
     private LoginCommand _command;
     private BindException _errors;
+    private ReportLoginRequest _soapRequest;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -28,6 +31,9 @@ public class LoginControllerTest extends BaseControllerTestCase {
 
         _mockUserDao = createMock(IUserDao.class);
         _controller.setUserDao(_mockUserDao);
+
+        _soapRequest = createMock(ReportLoginRequest.class);
+        _controller.setReportLoginRequest(_soapRequest);
 
         _user = new User();
         _user.setEmail("testLoginController@greatschools.net");
@@ -48,7 +54,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertTrue("MSL only users expect to get an error when trying to sign in", _errors.hasErrors());
     }
 
-    public void testOnSubmitWithRedirect() throws NoSuchAlgorithmException {
+    public void testOnSubmitWithRedirect() throws NoSuchAlgorithmException, SoapRequestException {
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
@@ -61,14 +67,18 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.reportLoginRequest(_user);
+        replay(_soapRequest);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verify(_mockUserDao);
+        verify(_soapRequest);
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
     }
 
-    public void testOnSubmitNoRedirect() throws NoSuchAlgorithmException {
+    public void testOnSubmitNoRedirect() throws NoSuchAlgorithmException, SoapRequestException {
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
@@ -82,12 +92,43 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.reportLoginRequest(_user);
+        replay(_soapRequest);
+
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verify(_mockUserDao);
+        verify(_soapRequest);
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
         assertEquals("redirect:http://community.dev.greatschools.net/",
                 mAndV.getViewName());
+    }
+
+    public void testOnSubmitWithSoapError() throws NoSuchAlgorithmException, SoapRequestException {
+        // expect login to proceed despite error
+        _user.setPlaintextPassword("foobar");
+        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
+        replay(_mockUserDao);
+
+        _command.setPassword("foobar");
+        _command.setRedirect("/?14@@.598dae0f");
+
+        _controller.onBindOnNewForm(getRequest(), _command, _errors);
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        assertFalse("Controller has errors on validate", _errors.hasErrors());
+
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.reportLoginRequest(_user);
+        expectLastCall().andThrow(new SoapRequestException());
+        replay(_soapRequest);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verify(_mockUserDao);
+        verify(_soapRequest);
+        assertFalse("Controller has errors on submit", _errors.hasErrors());
+
+        assertTrue(mAndV.getViewName().startsWith("redirect:"));
     }
 
     public void testNonexistantUser() throws NoSuchAlgorithmException {

@@ -1,16 +1,18 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.29 2008/01/09 16:02:44 aroy Exp $
+ * $Id: LoginController.java,v 1.30 2008/02/25 18:40:34 aroy Exp $
  */
 package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.soap.SoapRequestException;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.soap.ReportLoginRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,6 +44,7 @@ public class LoginController extends SimpleFormController {
 
     private IUserDao _userDao;
     private AuthenticationManager _authenticationManager;
+    private ReportLoginRequest _reportLoginRequest;
 
     protected void initializeRedirectUrl(HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -147,12 +150,31 @@ public class LoginController extends SimpleFormController {
             redirectUrl = builder.asFullUrl(request);
         } else {
             // The password has validated, so set the cookies and send them onward
+            // only notify community on final step
+            try {
+                notifyCommunity(user, request);
+            } catch (SoapRequestException sre) {
+                _log.error("SOAP error - " + sre.getErrorCode() + ": " + sre.getErrorMessage());
+                // If this fails, let login continue but log it. This is not a fatal error, nor
+                // should it be user-facing.
+            }
             PageHelper.setMemberAuthorized(request, response, user, loginCommand.isRememberMe());
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
         }
 
         mAndV.setViewName("redirect:" + redirectUrl);
         return mAndV;
+    }
+
+    protected void notifyCommunity(User user, HttpServletRequest request) throws SoapRequestException {
+        ReportLoginRequest soapRequest = getReportLoginRequest();
+        UrlUtil urlUtil = new UrlUtil();
+        if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
+            soapRequest.setTarget("http://" +
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/soap/user");
+        }
+        soapRequest.reportLoginRequest(user);
     }
 
     public IUserDao getUserDao() {
@@ -169,5 +191,16 @@ public class LoginController extends SimpleFormController {
 
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         _authenticationManager = authenticationManager;
+    }
+
+    public ReportLoginRequest getReportLoginRequest() {
+        if (_reportLoginRequest == null) {
+            _reportLoginRequest = new ReportLoginRequest();
+        }
+        return _reportLoginRequest;
+    }
+
+    public void setReportLoginRequest(ReportLoginRequest reportLoginRequest) {
+        _reportLoginRequest = reportLoginRequest;
     }
 }
