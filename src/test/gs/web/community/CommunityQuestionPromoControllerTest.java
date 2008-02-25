@@ -36,6 +36,41 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         assertEquals("aView", _controller.getViewName());
     }
 
+    public void testAddExtraInfoToModel() {
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        _controller.addExtraInfoToModel(model, getRequest());
+
+        // test defaults
+        assertEquals("Expect default value", "http://community.greatschools.net", model.get(MODEL_QUESTION_LINK));
+        assertEquals("Expect default value", "http://community.greatschools.net/members",
+                model.get(MODEL_MEMBER_URL));
+        assertEquals("Expect default value", "Avatar", model.get(MODEL_AVATAR_ALT));
+        assertEquals("Expect default value", "/res/img/community/avatar_40x40.gif",
+                model.get(MODEL_AVATAR_URL));
+
+        model.put(MODEL_QUESTION_LINK, "/relative-url");
+        model.put(MODEL_USERNAME, "username");
+        model.put(MODEL_USER_ID, "15");
+
+        _controller.addExtraInfoToModel(model, getRequest());
+
+        assertEquals("Expect relative url converted to absolute",
+                "http://community.greatschools.net/relative-url", model.get(MODEL_QUESTION_LINK));
+        assertEquals("Expect member url", "http://community.greatschools.net/members/username",
+                model.get(MODEL_MEMBER_URL));
+        assertEquals("Expect avatar alt equal to username", "username", model.get(MODEL_AVATAR_ALT));
+        assertEquals("Expect avatar image to point to user with id 15",
+                "http://community.greatschools.net/avatar?id=15&width=40&height=40",
+                model.get(MODEL_AVATAR_URL));
+
+        model.put(MODEL_QUESTION_LINK, "http://absolute.url.com");
+
+        _controller.addExtraInfoToModel(model, getRequest());
+
+        assertEquals("Expect absolute url to remain absolute", "http://absolute.url.com", model.get(MODEL_QUESTION_LINK));
+    }
+
     public void testLoadSpreadsheetData() {
         Map<String, Object> model = new HashMap<String, Object>();
 

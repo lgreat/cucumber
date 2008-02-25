@@ -8,24 +8,14 @@
         >
 <pageHelper:externalCss file="/res/css/community/communityQuestionBubble.css"/>
 
-    <c:set var="topStyle" value="${(fn:length(questionText) gt 0)?'':'display:none'}"/>
-    <c:set var="questionLink" value="${(fn:length(questionLink) gt 0)?questionLink:'http://community.greatschools.net/'}"/>
-    <c:choose>
-        <c:when test="${(fn:length(username) gt 0)}">
-            <c:set var="avatarAlt" value="${username}"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="avatarAlt" value="Avatar"/>
-        </c:otherwise>
-    </c:choose>
-    <c:choose>
-        <c:when test="${(fn:length(userId) gt 0)}">
-            <c:set var="avatarUrl" value="http://community.greatschools.net/avatar?id=${userId}&amp;width=40&amp;height=40"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="avatarUrl" value="/res/img/community/avatar_40x40.gif"/>
-        </c:otherwise>
-    </c:choose>
+<!-- Expected variables in model -->
+<c:set var="questionText" value="${questionText}"/>
+<c:set var="questionLink" value="${questionLink}"/>
+<c:set var="memberUrl" value="${memberUrl}"/>
+<c:set var="avatarAlt" value="${avatarAlt}"/>
+<c:set var="avatarUrl" value="${avatarUrl}"/>
+
+<c:set var="topStyle" value="${(fn:length(questionText) gt 0)?'':'display:none'}"/>
 
 <div class="memberSpeech ${param.styleClass}" id="communityQuestionPromo" style="${topStyle}">
     <div class="speech">
@@ -42,7 +32,7 @@
         ]]>
     </div>
     <div class="avatar">
-        <a href="http://community.greatschools.net/members/${username}">
+        <a href="${memberUrl}">
             <gsml:img styleClass="avatar" alt="${avatarAlt}" src="${avatarUrl}"/>
         </a>
     </div>
