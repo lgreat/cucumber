@@ -7,6 +7,8 @@ import gs.web.util.google.SpreadsheetRow;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import static gs.web.community.CommunityQuestionPromoController.*;
 import static org.easymock.classextension.EasyMock.*;
@@ -43,11 +45,13 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         row.addCell("link", "link link");
         row.addCell("username", "user name");
         row.addCell("memberid", "member id");
+        List<SpreadsheetRow> rows = new ArrayList<SpreadsheetRow>();
+        rows.add(row);
 
         expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
         replay(_factory);
 
-        expect(_dao.getFirstRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(row);
+        expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(rows);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "someKey");
@@ -60,16 +64,54 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         assertEquals("member id", model.get(MODEL_USER_ID));
     }
 
+    public void testGetRandomRow() {
+        SpreadsheetRow row;
+        SpreadsheetRow row1 = new SpreadsheetRow();
+        SpreadsheetRow row2 = new SpreadsheetRow();
+        SpreadsheetRow row3 = new SpreadsheetRow();
+        List<SpreadsheetRow> rows;
+
+        rows = new ArrayList<SpreadsheetRow>();
+
+        rows.add(row1);
+
+        row = _controller.getRandomRow(rows);
+
+        assertSame(row1, row);
+
+        rows.add(row2);
+        rows.add(row3);
+
+        int row1count = 0;
+        int row2count = 0;
+        int row3count = 0;
+        for (int x=0; x < 1000; x++) {
+            row = _controller.getRandomRow(rows);
+            if (row3 == row) {
+                row3count++;
+            } else if (row2 == row) {
+                row2count++;
+            } else if (row1 == row) {
+                row1count++;
+            } else {
+                fail("Unexpected row! " + row);
+            }
+        }
+        assertTrue("Expected at least one row1 out of 1000 random picks", row1count > 0);
+        assertTrue("Expected at least one row2 out of 1000 random picks", row2count > 0);
+        assertTrue("Expected at least one row3 out of 1000 random picks", row3count > 0);
+    }
+
     public void testLoadSpreadsheetDataEmpty() {
         // shouldn't crash
         Map<String, Object> model = new HashMap<String, Object>();
 
-        SpreadsheetRow row = new SpreadsheetRow();
+        List<SpreadsheetRow> rows = new ArrayList<SpreadsheetRow>();
 
         expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
         replay(_factory);
 
-        expect(_dao.getFirstRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(row);
+        expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(rows);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "someKey");
@@ -89,7 +131,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
         replay(_factory);
 
-        expect(_dao.getFirstRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(null);
+        expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(null);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "someKey");
@@ -111,7 +153,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         replay(_factory);
 
         _dao.clearCache();
-        expect(_dao.getFirstRowByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
+        expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
         replay(_dao);
 
         _controller.handleRequestInternal(getRequest(), getResponse());

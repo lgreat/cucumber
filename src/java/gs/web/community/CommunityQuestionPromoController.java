@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 import gs.web.util.UrlUtil;
 import gs.web.util.google.IGoogleSpreadsheetDao;
@@ -45,15 +47,29 @@ public class CommunityQuestionPromoController extends AbstractController {
     }
 
     protected void loadSpreadsheetDataIntoModel(Map<String, Object> model, String code) {
-        SpreadsheetRow row = getGoogleSpreadsheetDao().getFirstRowByKey
+        List<SpreadsheetRow> rows = getGoogleSpreadsheetDao().getRowsByKey
                 (WORKSHEET_PRIMARY_ID_COL, code);
 
-        if (row != null) {
+        if (rows != null && !rows.isEmpty()) {
+            SpreadsheetRow row = getRandomRow(rows);
             model.put(MODEL_QUESTION_TEXT, row.getCell("text"));
             model.put(MODEL_QUESTION_LINK, row.getCell("link"));
             model.put(MODEL_USERNAME, row.getCell("username"));
             model.put(MODEL_USER_ID, row.getCell("memberid"));
         }
+    }
+
+    /**
+     * Returns a random row out of a list of rows.
+     *
+     * @param rows list of rows
+     * @return a random row contained in rows
+     */
+    protected SpreadsheetRow getRandomRow(List<SpreadsheetRow> rows) {
+        int count = rows.size();
+        Random ran = new Random();
+        int randomIndex = ran.nextInt(count);
+        return rows.get(randomIndex);
     }
 
     /**
