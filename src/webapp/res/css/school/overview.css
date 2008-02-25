@@ -668,3 +668,10 @@ div.psComment {
 #learnMoreModule #lmModules div.left {
     margin:18px 0 18px 10px;
 }
+
+div#leftcolAd {
+    margin: 0 auto 0 auto;
+	width: 177px;
+    height:700px;
+    background-color: #DDEEEE;
+}

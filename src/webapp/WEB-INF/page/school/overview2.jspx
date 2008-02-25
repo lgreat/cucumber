@@ -17,6 +17,8 @@
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.data.school.School"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -38,15 +40,19 @@
 <c:set var="gs_rating" value="${gs_rating}"/>
 <c:set var="parent_ratings" value="${parent_ratings}"/>
 <c:set var="preschoolOnly" value="${preschoolOnly}"/>
+
 <jsp:scriptlet>
-    School school = (School)request.getAttribute("school");
+    SessionContext context = SessionContextUtil.getSessionContext(request);
+    if ("c".equals(context.getABVersion())) {
+        PageHelper.hideLeaderboard(request);
+    }
+    School school = (School) request.getAttribute("school");
     if (school != null) {
         PageHelper.setYahooRealEstateCity(request, school.getCity());
     }
 </jsp:scriptlet>
 
 <head>
-
     <title>${school.name} - ${addr} - school overview</title>
     <meta name="description" content="${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, parent reviews and teacher stats."/>
     <meta name="keywords" content="${school.name}, ${school.name} ${city}, ${school.name} ${city} ${stateName}, ${school.name} ${city} ${stateAbbrev}, ${school.name} ${stateName}, ${school.name} Overview"/>
@@ -99,10 +105,11 @@
 
 		<!-- Editor -->
         <hr />
-		<div id="editor">
-		<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
-        <p class="name">Lisa Rosenthal</p>
-		<p class="title">Assistant Managing Editor</p>
+        <variant:a>
+        <div id="editor">
+            <gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
+            <p class="name">Lisa Rosenthal</p>
+            <p class="title">Assistant Managing Editor</p>
             <h3>Editor's Picks</h3>
             <c:choose>
                 <c:when test="${preschoolOnly eq true}">
@@ -134,8 +141,14 @@
                     </ul>
                 </c:otherwise>
             </c:choose>
-
 		</div><!-- end: editor -->
+        </variant:a>
+        <c:if test="${(requestScope.context.ABVersion eq 'b') or (requestScope.context.ABVersion eq 'c')}">
+            <div id="leftcolAd">
+                <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
+                <ad:AboveFold_Left_160x600/>
+            </div>
+        </c:if>
     </div><!-- end: col_left" -->
 
 		<!-- begin center column -->
