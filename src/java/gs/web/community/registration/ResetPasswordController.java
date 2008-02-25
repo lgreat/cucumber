@@ -175,7 +175,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         ModelAndView mAndV = new ModelAndView();
         String comLandingUrl = "http://" +
                 SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                "/";
+                "/dashboard";
         String targetUrl = comLandingUrl;
         if (!suppressValidation(request, objCommand)) {
             // at this point everything has been validated. Proceed with the password change request
@@ -184,7 +184,6 @@ public class ResetPasswordController extends SimpleFormController implements Rea
 
             user.setPlaintextPassword(command.getNewPassword());
             if (notifyCommunity(user, request)) {
-                _log.info("true");
                 // success
                 // save user
                 user.setUpdated(new Date());
@@ -194,7 +193,6 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                 // triggers msg #25 on community (include/message_list.php)
                 targetUrl += "?msg=B1C4-0FF2-3D70-BD27";
             } else {
-                _log.info("false");
                 // failure
                 // make sure user object is in original state
                 user.setPlaintextPassword(command.getOldPassword());
@@ -206,7 +204,6 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             }
         }
         mAndV.setViewName("redirect:" + targetUrl);
-        _log.info(mAndV.getViewName());
 
         return mAndV;
     }

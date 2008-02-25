@@ -236,7 +236,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         assertTrue(command.getUser().matchesPassword("foobar"));
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         assertFalse(errors.hasErrors());
-        assertEquals(mAndV.getViewName(), "redirect:http://community.greatschools.net/");
+        assertEquals(mAndV.getViewName(), "redirect:http://community.greatschools.net/dashboard");
         assertTrue(command.getUser().matchesPassword("foobar"));
     }
 
