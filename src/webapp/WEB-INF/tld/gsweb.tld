@@ -78,8 +78,85 @@
     <function>
         <name>createParentReviewDisplayName</name>
         <function-class>gs.web.jsp.Util</function-class>
-        <function-signature>java.lang.String createParentReviewDisplayName(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+        <function-signature>java.lang.String
+            createParentReviewDisplayName(java.lang.String,java.lang.String,java.lang.String)
+        </function-signature>
     </function>
+
+    <function>
+        <name>statePageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitle(gs.data.state.State)</function-signature>
+    </function>
+
+    <function>
+        <name>statePageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaDescription(gs.data.state.State)</function-signature>
+    </function>
+
+    <function>
+        <name>statePageKeywords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywords(gs.data.state.State)</function-signature>
+    </function>
+
+    <function>
+        <name>cityPageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitle(gs.data.geo.City)</function-signature>
+    </function>
+
+    <function>
+        <name>cityPageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaDescription(gs.data.geo.City)</function-signature>
+    </function>
+
+    <function>
+        <name>cityPageKeywords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywords(gs.data.geo.City)</function-signature>
+    </function>
+
+    <function>
+        <name>districtPageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitle(gs.data.school.district.District)</function-signature>
+    </function>
+
+    <function>
+        <name>districtPageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaDescription(gs.data.school.district.District)
+        </function-signature>
+    </function>
+
+    <function>
+        <name>districtPageKeywords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywords(gs.data.school.district.District)</function-signature>
+    </function>
+
+    <function>
+        <name>schoolPageTitle</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitle(gs.data.school.School)</function-signature>
+    </function>
+
+    <function>
+        <name>schoolPageDescription</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaDescription(gs.data.school.School)
+        </function-signature>
+    </function>
+
+    <function>
+        <name>schoolPageKeywords</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaKeywords(gs.data.school.School)</function-signature>
+    </function>
+
 
     <tag>
         <name>stateSelector</name>
