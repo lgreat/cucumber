@@ -1,7 +1,9 @@
 package gs.web.search;
 
-import gs.data.content.IArticleDao;
+import gs.data.content.Article;
 import gs.data.school.ISchoolDao;
+import gs.data.school.SchoolType;
+import gs.data.school.LevelCode;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.*;
 import gs.data.state.State;
@@ -20,11 +22,12 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.easymock.EasyMock.*;
 
 /**
  * @author Andrew Peterson <apeterson@greatschools.net>
@@ -33,17 +36,17 @@ public class SearchControllerTest extends BaseControllerTestCase {
 
     private SearchController _controller;
     private SessionContextUtil _sessionContextUtil;
-    private IDistrictDao _districtDao;
-    private IArticleDao _articleDao;
+    private ISchoolDao _schoolDao;
 
     protected void setUp() throws Exception {
         super.setUp();
 
         _controller = (SearchController) getApplicationContext().getBean(SearchController.BEAN_ID);
 
-        _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
-        _districtDao = (IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID);
-        _articleDao = (IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID);
+        _schoolDao = createMock(ISchoolDao.class);
+
+        _controller.setSchoolDao(_schoolDao);
+        IDistrictDao districtDao = (IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID);
 
         Indexer indexer = (Indexer) getApplicationContext().getBean(Indexer.BEAN_ID);
 
@@ -52,12 +55,30 @@ public class SearchControllerTest extends BaseControllerTestCase {
         indexer.indexCities(State.AK, writer);
         indexer.indexCities(State.CA, writer);
         indexer.indexCities(State.NY, writer);
-        indexer.indexDistricts(_districtDao.getDistricts(State.AK, true), writer);
-        List articles = new ArrayList();
-        articles.add(_articleDao.getArticleFromId(new Integer(246)));
-        articles.add(_articleDao.getArticleFromId(new Integer(377)));
-        articles.add(_articleDao.getArticleFromId(new Integer(355)));
-        articles.add(_articleDao.getArticleFromId(new Integer(191)));
+        indexer.indexDistricts(districtDao.getDistricts(State.AK, true), writer);
+
+        List<Article> articles = new ArrayList<Article>();
+        Article article;
+        article = new Article();
+        article.setTitle("What Your Child Should Be Learning: Kindergarten Language Arts");
+        article.setAbstract("kindergarten");
+        article.setActive(true);
+        article.setArticleText("Children learn to read at different ages, but most discover the connection between letters and sounds in kindergarten.");
+        article.setStatesAsString("ak^ca");
+        article.setId(377);
+        articles.add(article);
+        article = new Article();
+        article.setTitle("How to not get picked by search results");
+        article.setAbstract("search results");
+        article.setActive(true);
+        article.setArticleText("Try not to use any of the words that the searcher is looking for.");
+        article.setStatesAsString("ak^ca");
+        article.setId(191);
+        articles.add(article);
+//        articles.add(_articleDao.getArticleFromId(246));
+//        articles.add(_articleDao.getArticleFromId(377));
+//        articles.add(_articleDao.getArticleFromId(355));
+//        articles.add(_articleDao.getArticleFromId(191));
         indexer.indexArticles(articles, writer);
         writer.close();
 
@@ -98,7 +119,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         command.setQ("xxx");
         command.setState(State.CA);
         BindException errors = new BindException(command, null);
-        ModelAndView mv = _controller.processFormSubmission(request, (HttpServletResponse) getResponse(), command, errors);
+        ModelAndView mv = _controller.processFormSubmission(request, getResponse(), command, errors);
 
         AnchorListModel cities = (AnchorListModel) mv.getModel().get(SearchController.MODEL_CITIES);
         assertNull(cities);
@@ -131,15 +152,27 @@ public class SearchControllerTest extends BaseControllerTestCase {
         searchCommand.setQ("kindergarten");
         searchCommand.setState(State.AK);
         searchCommand.setType("topic");
+
+        replay(_schoolDao);
+
         Map map = _controller.createModel(request, searchCommand, sessionContext, false);
+
+        verify(_schoolDao);
         List results = (List) map.get(SearchController.MODEL_RESULTS);
-        assertTrue(results.size() >= 3);
+        assertNotNull(results);
+        assertEquals(1, results.size());
         int kindergartenHits = results.size();
 
         searchCommand.setQ("kindergarden");
+
+        reset(_schoolDao);
+        replay(_schoolDao);
+
         map = _controller.createModel(request, searchCommand, sessionContext, false);
+        verify(_schoolDao);
         results = (List) map.get(SearchController.MODEL_RESULTS);
-        assertTrue(results.size() >= 3);
+        assertNotNull(results);
+        assertEquals(1, results.size());
         assertEquals(kindergartenHits, results.size());
     }
 
@@ -158,7 +191,12 @@ public class SearchControllerTest extends BaseControllerTestCase {
         searchCommand.setQ("private anchorage");
         searchCommand.setState(State.AK);
 
+        expect(_schoolDao.countSchools(State.AK, SchoolType.PRIVATE, null, "Anchorage")).andReturn(1);
+        replay(_schoolDao);
+
         Map map = _controller.createModel(request, searchCommand, sessionContext, false);
+
+        verify(_schoolDao);
 
         assertNotNull(map);
         AnchorListModel filteredAnchorListModel = (AnchorListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
@@ -184,7 +222,12 @@ public class SearchControllerTest extends BaseControllerTestCase {
         searchCommand.setQ("middle anchorage");
         searchCommand.setState(State.AK);
 
+        expect(_schoolDao.countSchools(State.AK, null, LevelCode.MIDDLE, "Anchorage")).andReturn(1);
+        replay(_schoolDao);
+
         Map map = _controller.createModel(request, searchCommand, sessionContext, false);
+
+        verify(_schoolDao);
 
         assertNotNull(map);
         AnchorListModel filteredAnchorListModel = (AnchorListModel) map.get(SearchController.MODEL_FILTERED_CITIES);

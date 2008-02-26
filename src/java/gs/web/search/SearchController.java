@@ -63,8 +63,8 @@ public class SearchController extends AbstractFormController {
     public static final String PARAM_MORE_CITIES = "morecities";
     public static final String PARAM_MORE_DISTRICTS = "moredistricts";
 
-    private static final String PARAM_SCHOOL_TYPE = "st";
-
+    public static final String PARAM_SCHOOL_TYPE = "st";
+    public static final String PARAM_LEVEL_CODE = "lc";
 
     private static final String MODEL_PAGE_SIZE = "pageSize";
     protected static final String MODEL_RESULTS = "mainResults";
@@ -77,6 +77,9 @@ public class SearchController extends AbstractFormController {
     private static final String MODEL_DISTRICT = "district";*/
     private static final String MODEL_TITLE = "title";
     private static final String MODEL_HEADING1 = "heading1";
+
+    public static final String MODEL_SCHOOL_TYPE = "schoolType";
+    public static final String MODEL_LEVEL_CODE = "levelCode";
 
     public static final String MODEL_CITIES = "cities";
     public static final String MODEL_DISTRICTS = "districts";
@@ -177,7 +180,7 @@ public class SearchController extends AbstractFormController {
     }
 
     protected Map createModel(HttpServletRequest request, SearchCommand searchCommand, SessionContext sessionContext, boolean debug) throws IOException {
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
         final String queryString = searchCommand.getQueryString();
         model.put(MODEL_QUERY, queryString);
 
@@ -192,6 +195,21 @@ public class SearchController extends AbstractFormController {
             }
         }
 
+        String paramLevelCode = request.getParameter(PARAM_LEVEL_CODE);
+        LevelCode levelCode;
+        if (paramLevelCode != null) {
+            levelCode = LevelCode.createLevelCode(paramLevelCode);
+            searchCommand.setLevelCode(levelCode);
+            model.put(MODEL_LEVEL_CODE, levelCode);
+        }
+
+        String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
+        if (paramSchoolType != null) {
+            searchCommand.setSt(paramSchoolType);
+            model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
+        }
+        
+
         int pageSize = 10;
 
         boolean resultsToShow = false;
@@ -202,9 +220,9 @@ public class SearchController extends AbstractFormController {
             if (debug) {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
             }
-            model.put(MODEL_PAGE_SIZE, new Integer(pageSize));
+            model.put(MODEL_PAGE_SIZE, pageSize);
             model.put(MODEL_RESULTS, _resultsPager.getResults(page, pageSize));
-            model.put(MODEL_TOTAL_HITS, new Integer(hits.length()));
+            model.put(MODEL_TOTAL_HITS, hits.length());
             resultsToShow = true;
         }
 
@@ -319,8 +337,8 @@ public class SearchController extends AbstractFormController {
 
 
         model.put(MODEL_SHOW_QUERY_AGAIN, Boolean.TRUE);
-        model.put(MODEL_SHOW_SUGGESTIONS, Boolean.valueOf(!resultsToShow));
-        model.put(MODEL_SHOW_STATE_CHOOSER, Boolean.valueOf(!resultsToShow));
+        model.put(MODEL_SHOW_SUGGESTIONS, !resultsToShow);
+        model.put(MODEL_SHOW_STATE_CHOOSER, !resultsToShow);
         return model;
     }
 
@@ -432,8 +450,7 @@ public class SearchController extends AbstractFormController {
         districtQuery.add(new TermQuery(new Term("type", "district")),
                 BooleanClause.Occur.MUST);
         districtQuery.add(baseQuery, BooleanClause.Occur.MUST);
-        Hits districtHits = _searcher.search(districtQuery, null, null, null);
-        return districtHits;
+        return _searcher.search(districtQuery, null, null, null);
     }
 
     public void setStateManager(StateManager stateManager) {
