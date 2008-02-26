@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.24 2008/01/28 21:43:13 droy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.25 2008/02/26 17:44:51 cpickslay Exp $
  */
 
 package gs.web.school;
@@ -8,6 +8,7 @@ package gs.web.school;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.Searcher;
 import gs.data.state.State;
@@ -15,6 +16,7 @@ import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.search.SchoolSearchResult;
 import gs.web.util.context.SessionContextUtil;
+import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -152,7 +154,24 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("Alameda City Unified", model.get(SchoolsController.MODEL_DISTNAME));
         assertEquals(null, model.get(SchoolsController.MODEL_LEVEL_CODE));
         assertEquals(null, model.get(SchoolsController.MODEL_SCHOOL_TYPE));
+    }
 
+    public void testDistrictShouldBeInModel() throws Exception {
+        District district = new District();
+        district.setName("Some District Name");
+        IDistrictDao districtDao = createMock(IDistrictDao.class);
+        expect(districtDao.findDistrictById(State.CA, new Integer(1))).andReturn(district);
+        replay(districtDao);
+        _controller.setDistrictDao(districtDao);
+
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter("state", "CA");
+        request.setParameter("district", "1");
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        Map model = mav.getModel();
+        assertEquals("Expected district object", district, model.get(SchoolsController.MODEL_DISTRICT_OBJECT));
     }
 
     public void testPaging() throws Exception {
@@ -367,15 +386,6 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
         assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
         assertEquals("San Francisco Charter Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"charter"}));
-
-        assertEquals("Dayton City School District Schools, Dayton City - OH: charter and public schools. Dayton City School District - Dayton City OH School District",
-                _controller.calcDistrictSchoolsTitle("Dayton City School District", "Dayton City", State.OH));
-
-        assertEquals("Dade County Schools, Miami - FL: charter and public schools. Miami School District - Miami FL School District",
-                _controller.calcDistrictSchoolsTitle("Dade County", "Miami", State.FL));
-
-        assertEquals("Jackson Elementary District Schools, Jackson - AK: charter and public schools. Jackson School District - Jackson AK School District",
-                _controller.calcDistrictSchoolsTitle("Jackson Elementary District", "Jackson", State.AK));
     }
 
     public void testMetaDescCalc() {
@@ -395,12 +405,6 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
                 _controller.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.MIDDLE, null));
         assertEquals("View and map all public elementary schools in the Oakland Unified School District. Plus, compare or save public elementary schools in this district.",
                 _controller.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.ELEMENTARY, new String[]{"public"}));
-
-        assertEquals("Dayton City School District, Ohio - OH: Find, compare and map public schools in Dayton City School District. Plus, review test scores and academic performance for this public school district.",
-                _controller.calcDistrictMetaDesc("Dayton City School District", State.OH));
-
-        assertEquals("Dade County School District, Ohio - OH: Find, compare and map public schools in Dade County. Plus, review test scores and academic performance for this public school district.",
-                _controller.calcDistrictMetaDesc("Dade County", State.OH));
     }
 
 }

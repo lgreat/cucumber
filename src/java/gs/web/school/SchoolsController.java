@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.39 2008/02/07 23:27:17 droy Exp $
+ * $Id: SchoolsController.java,v 1.40 2008/02/26 17:44:51 cpickslay Exp $
  */
 
 package gs.web.school;
@@ -80,6 +80,7 @@ public class SchoolsController extends AbstractController {
      * The ID of the district, if provided.
      */
     public static final String MODEL_DISTRICT = "district";
+    public static final String MODEL_DISTRICT_OBJECT = "districtObject";
     public static final String MODEL_DISTNAME = "distname";
     public static final String MODEL_DIST_CITY_NAME = "distCityName";
     /**
@@ -211,6 +212,8 @@ public class SchoolsController extends AbstractController {
                         model.put(MODEL_DIST_CITY_NAME, "");                        
                     }
 
+                    model.put(MODEL_DISTRICT_OBJECT, district);
+                    
                     searchCommand.setDistrict(districtIdStr);
                     // the following is not needed and breaks sometimes. See SearcherTest.
                     // searchCommand.setQ(district.getName());
@@ -272,64 +275,6 @@ public class SchoolsController extends AbstractController {
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
-    }
-
-    public static String calcDistrictSchoolsTitle(String districtDisplayName, String cityDisplayName, State state) {
-        StringBuffer sb = new StringBuffer();
-
-        sb.append(districtDisplayName);
-        sb.append(" Schools, ");
-        sb.append(cityDisplayName);
-        sb.append(" - ");
-        sb.append(state.getAbbreviation());
-        sb.append(": charter and public schools. ");
-        sb.append(cityDisplayName);
-        sb.append(" School District - ");
-        sb.append(cityDisplayName);
-        sb.append(" ");
-        sb.append(state.getAbbreviation());
-        sb.append(" School District");
-        return sb.toString();
-    }
-
-    public static String calcDistrictMetaDesc(String districtDisplayName, State state) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(districtDisplayName);
-
-        String lowerName = districtDisplayName.toLowerCase();
-        if (!lowerName.contains("school") &&
-                !lowerName.contains("district")) {
-            sb.append(" School District");
-        }
-
-        sb.append(", ");
-        sb.append(state.getLongName());
-        sb.append(" - ");
-        sb.append(state.getAbbreviation());
-        sb.append(": Find, compare and map public schools in ");
-        sb.append(districtDisplayName);
-        sb.append(". Plus, review test scores and academic performance for this public school district.");
-        return sb.toString();
-    }
-
-    public static String calcDistrictMetaKeywords(String districtDisplayName, String cityDisplayName, State state) {
-        StringBuffer sb = new StringBuffer();
-
-        sb.append(districtDisplayName);
-        sb.append(" Schools, ");
-        sb.append(cityDisplayName);
-        sb.append(" School District, ");
-        sb.append(cityDisplayName);
-        sb.append(" ");
-        sb.append(state.getLongName());
-        sb.append(" School District, School District ");
-        sb.append(cityDisplayName);
-        sb.append(", ");
-        sb.append(districtDisplayName);
-        sb.append(" Public Schools, ");
-        sb.append(districtDisplayName);
-        sb.append(" Charter Schools");
-        return sb.toString();
     }
 
     public static String calcCitySchoolsTitle(String cityDisplayName, LevelCode levelCode, String[] schoolType) {
