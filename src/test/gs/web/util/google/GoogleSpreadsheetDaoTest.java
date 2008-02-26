@@ -58,15 +58,15 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
 
     public void testGetRowsByKey() {
         assertTrue(_cache.isEmpty());
-        List<SpreadsheetRow> rows = _dao.getRowsByKey("code", "school/parentReviews.page");
+        List<SpreadsheetRow> rows = _dao.getRowsByKey("code", "test/rowsByKey");
 
         assertEquals(2, rows.size());
         assertEquals(1, _cache.size());
 
         SpreadsheetRow row = rows.get(0);
-        assertEquals("1", row.getCell("memberid"));
-        row = rows.get(1);
         assertEquals("2", row.getCell("memberid"));
+        row = rows.get(1);
+        assertEquals("3", row.getCell("memberid"));
 
         rows = _dao.getRowsByKey("code", "school/rating.page");
 
@@ -89,7 +89,7 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
         assertTrue(_cache.isEmpty());
         List<SpreadsheetRow> rows = _dao.getAllRows();
 
-        assertEquals(3, rows.size());
+        assertEquals(4, rows.size());
     }
 
     public void testGetListFeedExceptions() throws IOException, ServiceException {
