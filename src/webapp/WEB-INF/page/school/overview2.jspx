@@ -288,6 +288,11 @@
 
              </c:if>
 
+            <jsp:include page="/community/communityQuestionPromo.module">
+                <jsp:param name="code" value="school/overview.page"/>
+                <jsp:param name="styleClass" value="bottomBorder topBorder clearLeft noPadding"/>
+            </jsp:include>
+
             <c:if test="${!requestScope.context.crawler}">
                 <school:parentReviewForm school="${school}" pageName="overview"/>
             </c:if>

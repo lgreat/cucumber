@@ -1,11 +1,27 @@
-.communityQuestionPromoBottomBorder {
+#communityQuestionPromo.bottomBorder {
     border-bottom: 1px solid #DDDDDD;    
     margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+#communityQuestionPromo.topBorder {
+    border-top: 1px solid #DDDDDD;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+#communityQuestionPromo.clearLeft {
+    clear: left;
+}
+
+#communityQuestionPromo.noPadding {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 div.memberSpeech {
     position: relative;
-    padding: 0 30px 20px 30px;
+    padding: 0 30px 0 30px;
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 13px;
     color: #666666;
@@ -22,6 +38,15 @@ div.memberSpeech {
         top: 0;
         left: 30px;
         _left: 28px;
+    }
+
+    #communityQuestionPromo.noPadding div.avatar {
+        left: 0;
+        _left: -2px;
+    }
+
+    #communityQuestionPromo.topBorder div.avatar {
+        top: 20px;
     }
 
     div.memberSpeech img.avatar {

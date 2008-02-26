@@ -97,7 +97,7 @@
 
                     <jsp:include page="/community/communityQuestionPromo.module">
                         <jsp:param name="code" value="school/rating.page"/>
-                        <jsp:param name="styleClass" value="communityQuestionPromoBottomBorder"/>
+                        <jsp:param name="styleClass" value="bottomBorder"/>
                     </jsp:include>
                     
                     <c:if test="${hasRating == 'true'}">
