@@ -116,7 +116,7 @@ public class CommunityQuestionPromoController extends AbstractController {
 
     /**
      * Allows the worksheet to be overridden by the request. If not, it returns od6 (first worksheet)
-     * for dev and developer boxes, and od4 for staging, production, all else
+     * for dev and developer boxes, oda for staging, and od4 for production and all else
      */
     public String getWorksheet(HttpServletRequest request) {
         String worksheet = request.getParameter("worksheet");
@@ -124,6 +124,8 @@ public class CommunityQuestionPromoController extends AbstractController {
             UrlUtil util = new UrlUtil();
             if (util.isDevEnvironment(request.getServerName()) && !util.isStagingServer(request.getServerName())) {
                 worksheet = "od6"; // od6 is always the first worksheet
+            } else if (util.isStagingServer(request.getServerName())) {
+                worksheet = "oda";
             } else {
                 worksheet = "od4";
             }

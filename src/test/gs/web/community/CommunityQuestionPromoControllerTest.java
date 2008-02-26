@@ -30,7 +30,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         _controller.setGoogleSpreadsheetFactory(_factory);
     }
 
-    public void testBasic() {
+    public void testBasics() {
         assertSame(_factory, _controller.getGoogleSpreadsheetFactory());
         _controller.setViewName("aView");
         assertEquals("aView", _controller.getViewName());
@@ -199,11 +199,26 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         getRequest().setServerName("dev.greatschools.net");
         assertEquals("od6", _controller.getWorksheet(getRequest()));
 
+        getRequest().setServerName("sfgate.dev.greatschools.net");
+        assertEquals("od6", _controller.getWorksheet(getRequest()));
+
+        getRequest().setServerName("aroy.dev.greatschools.net");
+        assertEquals("od6", _controller.getWorksheet(getRequest()));
+
         getRequest().setServerName("www.greatschools.net");
         assertEquals("od4", _controller.getWorksheet(getRequest()));
 
+        getRequest().setServerName("sfgate.greatschools.net");
+        assertEquals("od4", _controller.getWorksheet(getRequest()));
+
+        getRequest().setServerName("staging.greatschools.net");
+        assertEquals("oda", _controller.getWorksheet(getRequest()));
+
+        getRequest().setServerName("sfgate.staging.greatschools.net");
+        assertEquals("oda", _controller.getWorksheet(getRequest()));
+
         getRequest().setParameter("worksheet", "od5");
-        assertEquals("od5", _controller.getWorksheet(getRequest()));
+        assertEquals("Expect parameter to override", "od5", _controller.getWorksheet(getRequest()));
     }
 
     public void testGetCode() {
