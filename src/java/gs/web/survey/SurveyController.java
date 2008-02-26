@@ -407,7 +407,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
 
     // This static map contains a cache of all of the warning emails "recently" sent.
-    private static Map<School, Date> sendHistory = new HashMap<School, Date>();
+    private static Map<String, Date> sendHistory = new HashMap<String, Date>();
 
     protected void checkSubmitCount(School school, String level, int page, HttpServletRequest request) {
         Calendar cal = Calendar.getInstance();
@@ -417,7 +417,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             int taken = _surveyDao.getNumSurveysTaken(school, page, l, cal.getTime());
             if (taken > 3) {
                 // only send an email if one has not been sent in the last day.
-                Date lastSend = sendHistory.get(school);
+                String key = school.getDatabaseState().getAbbreviation() + String.valueOf(school.getId());
+                Date lastSend = sendHistory.get(key);
                 Date now = new Date();
                 if (lastSend == null || !DateUtils.isSameDay(lastSend, now)) {
                     try {
@@ -439,7 +440,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                         }
                         emailHelper.setTextBody(message.toString());
                         emailHelper.send();
-                        sendHistory.put(school, now);
+                        sendHistory.put(key, now);
                     } catch (MessagingException e) {
                         _log.warn(e);
                     }
