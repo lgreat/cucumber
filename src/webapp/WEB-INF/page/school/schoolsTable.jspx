@@ -15,7 +15,6 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
 <jsp:directive.page import="gs.data.school.LevelCode"/>
-<jsp:directive.page import="gs.data.state.State"/>
 <jsp:directive.page import="gs.web.school.SchoolsController"/>
 
 <html lang="en">
@@ -62,13 +61,8 @@
                     out.print(title);
                 </jsp:scriptlet>
             </c:when>
-            <c:when test="${not empty distname}">
-                <jsp:scriptlet>
-                    State state = gs.web.util.context.SessionContextUtil.getSessionContext(request).getStateOrDefault();
-                    String title = SchoolsController.calcDistrictSchoolsTitle(
-                            (String)request.getAttribute("distname"), (String)request.getAttribute("distCityName"), state);
-                    out.print(title);
-                </jsp:scriptlet>
+            <c:when test="${not empty districtObject}">
+                ${gsweb:districtPageTitle(districtObject)}
             </c:when>
             <c:otherwise>
                 GreatSchools.net Search
@@ -89,28 +83,16 @@
                 out.print(metadesc);
             </jsp:scriptlet>
             </c:when>
-            <c:when test="${not empty distname}">
-               <jsp:scriptlet>
-                   State state = gs.web.util.context.SessionContextUtil.getSessionContext(request).getStateOrDefault();
-                   String metadesc = SchoolsController.calcDistrictMetaDesc(
-                           (String)request.getAttribute("distname"), state);
-                   out.print(metadesc);
-            </jsp:scriptlet>
-
+            <c:when test="${not empty districtObject}">
+                ${gsweb:districtPageDescription(districtObject)}
             </c:when>
         </c:choose>
     </c:set>
 
     <c:set var="metakey">
         <c:choose>
-            <c:when test="${not empty distname}">
-               <jsp:scriptlet>
-                   State state = gs.web.util.context.SessionContextUtil.getSessionContext(request).getStateOrDefault();
-                   String metakey = SchoolsController.calcDistrictMetaKeywords(
-                           (String)request.getAttribute("distname"), (String)request.getAttribute("distCityName"), state);
-                   out.print(metakey);
-            </jsp:scriptlet>
-
+            <c:when test="${not empty districtObject}">
+                ${gsweb:districtPageKeywords(districtObject)}
             </c:when>
         </c:choose>
     </c:set>

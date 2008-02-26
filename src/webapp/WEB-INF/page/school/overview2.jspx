@@ -15,10 +15,10 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
-<jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.data.school.School"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -34,7 +34,6 @@
 <c:set var="stateName" value="${school.databaseState.longName}"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="sid" value="${school.id}"/>
-<c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
 <c:set var="pageName" value="Overview" scope="request"/>
 <c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
 <c:set var="gs_rating" value="${gs_rating}"/>
@@ -53,9 +52,9 @@
 </jsp:scriptlet>
 
 <head>
-    <title>${school.name} - ${addr} - school overview</title>
-    <meta name="description" content="${school.name} located in ${addr}. Find ${school.name} test scores, student-teacher ratio, parent reviews and teacher stats."/>
-    <meta name="keywords" content="${school.name}, ${school.name} ${city}, ${school.name} ${city} ${stateName}, ${school.name} ${city} ${stateAbbrev}, ${school.name} ${stateName}, ${school.name} Overview"/>
+    <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
+    <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
+    <title>${gsweb:schoolPageTitle(school)}</title>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
     <!-- GS-5367 variant B css that could not be inlined -->
     <style type="text/css">

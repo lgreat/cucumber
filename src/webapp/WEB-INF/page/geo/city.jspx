@@ -17,8 +17,8 @@
         xmlns:gsweb="gstaglib"
         xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
-<jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.data.geo.City"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -36,15 +36,9 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <c:set var="metaDesc">
-        Find top-rated ${fn:escapeXml(cityObject.name)} schools, read recent parent reviews, and browse private and public schools by grade level in ${fn:escapeXml(cityObject.name)}, ${requestScope.context.stateOrDefault.longName} (${stateAbbrev}).
-    </c:set>
-    <meta name="description" content="${metaDesc}"/>
-    <c:set var="metaKeywords">
-        ${fn:escapeXml(cityObject.name)} Schools, ${fn:escapeXml(cityObject.name)} ${stateAbbrev} Schools, ${fn:escapeXml(cityObject.name)} Public Schools, ${fn:escapeXml(cityObject.name)} School Ratings, Best ${fn:escapeXml(cityObject.name)} Schools, ${fn:escapeXml(cityObject.name)} ${requestScope.context.stateOrDefault.longName} Schools, ${fn:escapeXml(cityObject.name)} Private Schools
-    </c:set>
-    <meta name="keywords" content="${metaKeywords}"/>
-    <title>${displayName} Schools - ${displayName} Public Schools - ${displayName} School Ratings - Best ${displayName} Schools</title>
+    <meta name="description" content="${gsweb:cityPageDescription(cityObject)}"/>
+    <meta name="keywords" content="${gsweb:cityPageKeywords(cityObject)}"/>
+    <title>${gsweb:cityPageTitle(cityObject)}</title>
 </head>
 
 <gsml:body adPageName="city" pageLayout="cityPage">
