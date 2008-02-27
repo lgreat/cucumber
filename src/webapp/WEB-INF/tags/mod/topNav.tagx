@@ -199,7 +199,7 @@
                                          styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} "
                         >Countdown to College</gsml:a></td>
                     <!--#2--><td><link:articleLibrary
-                        id="GS_GlobalNav.ArticleLibaryButton"
+                        id="GS_GlobalNav.ArticleLibraryButton"
                         styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.LIBRARY ? 'active ractive' : 'inactive')} "
                         >Library</link:articleLibrary></td>
                     <td width="28px">&#160;</td>
