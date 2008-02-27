@@ -590,6 +590,7 @@ span#compareSelectorSpan  {
     width: 200px;
     padding: 10px 0 0 22px;
 }
+
 select#compareSelector{
     width: 185px;
     color:#666666;
@@ -602,6 +603,7 @@ span#compareGo {
     height: 25px;
     padding: 12px 6px 0 0;
 }
+
 #schoolOverview ul#frmErrors {
     margin-top: 1em;
 }
