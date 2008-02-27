@@ -8,7 +8,7 @@ s.trackInlineStats=true
 s.linkDownloadFileTypes="exe,zip,wav,mp3,mov,mpg,avi,wmv,doc,pdf,xls"
 s.linkInternalFilters="javascript:,."
 s.linkLeaveQueryString=false
-s.linkTrackVars="eVar5"
+s.linkTrackVars="None"
 s.linkTrackEvents="None"
 s.visitorNamespace="greatschools"
 var s_objectID;function s_c2fe(f){var x='',s=0,e,a,b,c;while(1){e=
@@ -240,11 +240,7 @@ un,pg,ss)}
 s.usePlugins=true
 function s_doPlugins(s) {
 /* Add calls to plugins here */
-
 s.eVar3=s.getQueryParam('cpn');
-/*s.eVar5=s.getQueryParam('ev5');
-    alert("plugin: " + s.eVar5);*/
-
 }
 s.doPlugins=s_doPlugins
 /* You may insert any plugins you wish to use here.                 */

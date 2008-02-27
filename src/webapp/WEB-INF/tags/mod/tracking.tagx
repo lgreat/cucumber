@@ -94,7 +94,22 @@
         <script type="text/javascript" src="${js}">
             /* this comment keeps the tag from collapsing */
         </script>
+        <gsml:url var="trackit_js" value="/res/js/trackIt.js"/>
+        <script type="text/javascript" src="${trackit_js}">
+            /* this comment keeps the tag from collapsing */
+        </script>        
         <script type="text/javascript" >
+
+            var clickCapture = new ClickCapture();
+            s.prop8 = clickCapture.dataObject.prop8;
+            s.prop9 = clickCapture.dataObject.prop9;
+            s.eVar1 = clickCapture.dataObject.eVar1;
+            s.eVar2 = clickCapture.dataObject.eVar2;
+            s.eVar3 = clickCapture.dataObject.eVar3;
+            s.eVar4 = clickCapture.dataObject.eVar4;
+            s.eVar5 = clickCapture.dataObject.eVar5;
+            s.eVar6 = clickCapture.dataObject.eVar6;
+
             s.pageName = "${pageName}";
             s.server = "${requestScope.context.hostName}";
             s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
@@ -106,13 +121,14 @@
             s.prop5 = "${not empty(requestScope.context.userHash) ?  'Registered' : empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}";
             s.prop6 = "${query}";
             s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
-            s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
-            s.prop9 = "${empty(referringPage) ? pageName : referringPage}";
+            if (s.prop8.length &lt; 1)
+                s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
+            if (s.prop9.length &lt; 1)
+                s.prop9 = "${empty(referringPage) ? pageName : referringPage}";
             s.prop10 = "${requestScope.context.screenName}";
             s.prop11 = "GreatSchools";
             s.events = "${events}";
             s.hier1 = "${hier1}";
-
 
             <!-- GS-5020 -->
             var locationAnchor = '';
@@ -142,5 +158,15 @@
         <script type="text/javascript">var tcdacmd="dt";</script>
         <script type="text/javascript" src="http://an.tacoda.net/an/12567/slf.js"></script>
     ]]>
+    <script type="text/javascript">
+        //get register the object click handlers...
+        function customInsight9ClickEventHandler(e) {
+            var obj = eventTrigger(e);
+            clickCapture.capture("prop9",  "${pageName}" + "." +  obj.id);
+        }
+
+        clickCapture.registerCi9LInks(customInsight9ClickEventHandler);
+    </script>
+
     </c:if>
 </jsp:root>

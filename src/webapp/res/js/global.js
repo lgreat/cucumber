@@ -3,8 +3,10 @@ function readCookie(cookieName) {
     var cookie = "" + document.cookie;
     var i = cookie.indexOf(cookieName);
     if (i == -1 || cookieName == "") return "";
+
     var j = cookie.indexOf(';', i);
     if (j == -1) j = cookie.length;
+
     return unescape(cookie.substring(i + cookieName.length + 1, j));
 }
 
@@ -16,7 +18,14 @@ function createCookie(name, value, days) {
 		date.setTime(date.getTime() + (days*24*60*60*1000));
 		expires = "; expires=" + date.toGMTString();
 	}
-	document.cookie = name + "=" + value + expires + "; path=/; domain=greatschools.net";
+
+    /* set the domain to empty string if running on a dev machine */
+    if (location.hostname == "localhost") {
+        var domain = "";
+    }else{
+        var domain = "; domain=greatschools.net";
+    }
+    document.cookie = name + "=" + escape(value) + expires + "; path=/" + domain;
 }
 
 /* Finds the HTML element specified by the ID and switches it between
