@@ -22,7 +22,7 @@
         <div class="bodyArea">
             ${questionText}
             <br/>
-            <a href="${questionLink}">Join the discusssion in our Parent Community &gt;</a>
+            <a href="${questionLink}">Join the discussion in our Parent Community &gt;</a>
         </div>
         <![CDATA[
         <div class="cornerTopLeft"></div>
