@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.web.community.registration.UserCommand;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -99,8 +100,11 @@ public class UserCommandValidator implements IRequestAwareValidator {
                     errors.rejectValue("email", null, errmsg);
                     _log.info("Registration error: " + errmsg);
                 } else if (user.isEmailValidated()) {
-                    errors.rejectValue("email", null, ERROR_EMAIL_TAKEN);
-                    _log.info("Registration error: " + ERROR_EMAIL_TAKEN);
+                    UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);
+                    builder.addParameter("email",email);
+                    String loginUrl = builder.asFullUrl(request);
+                    String errmsg = ERROR_EMAIL_TAKEN + " <b>Did you</b> <a href=\"" + loginUrl + "\"> forget your password?</a>";
+                    errors.rejectValue("email", null, errmsg);
                     return; // other errors are irrelevant
                 } else if (user.isEmailProvisional()) {
                     // let them register, just overwrite previous values
