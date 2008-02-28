@@ -230,7 +230,8 @@
             </c:if>
 
             <c:if test="${school.levelCode != 'p'}">
-                <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview">
+                <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview"
+                        id="GS_ParentSurvey.surveyTeaser">
                     <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="What is the scoop on ${school.name}?" />
                 </link:schoolStartSurvey>
             </c:if>

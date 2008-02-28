@@ -75,7 +75,7 @@ function DataObject(){
  *  to this method.
  */
 function TrackItCaptureSave2Cookie(omnitureEntity, value) {
-    //alert("TrackItCaptureSave2Cookie(" + omnitureEntity + ", " + value + ")");
+    alert("TrackItCaptureSave2Cookie(" + omnitureEntity + ", " + value + ")");
     createCookie(omnitureEntity, value);
 }
 
@@ -156,7 +156,7 @@ function TrackIt2Omniture(){
 function TrackItLifecyclePageLoad(){
     //alert("TrackItLifecyclePageLoad()");
     this.getData();
-    //this.forward();
+    this.forward();
     //this.dataObject = new DataObject();
 }
 
@@ -165,7 +165,8 @@ function TrackItGetCi9Links(customerClickHandler){
 
     //var debugLinks = "";
     for(var i = 0; i < ci9List.length; i++){
-        if (ci9List[i].id.indexOf("GS_") > -1)  {
+        if (ci9List[i].id.indexOf("GS_") > -1 ||
+            ci9List[i].id.indexOf("sppPR")  > -1 )  {
             this.registerClickEventHandler(ci9List[i], customerClickHandler);
             //debugLinks += "\n" + ci9List[i].id + "\t" + ci9List[i].href;
         }
