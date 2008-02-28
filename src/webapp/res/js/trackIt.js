@@ -7,9 +7,9 @@
 /*
  * ClickCapture object constructor
  */
-function ClickCapture(pageName){
-    this.pageName = pageName;
-    //alert("ClickCapture(" + this.pageName + ")");
+function ClickCapture(){
+
+    //alert("ClickCapture()");
     /*
      * associate the methods to the ClickCapture object
      *
@@ -19,12 +19,11 @@ function ClickCapture(pageName){
     this.capture = TrackItCaptureSave2Cookie;
     this.getData = TrackItLoadFromCookie;
     this.clearData = TrackItClearCookieData;
-    this.registerClickEventHandler = TrackItRegisterClickEventHandler;
-    this.forward = TrackIt2Omniture;
-    this.pageLoad = TrackItLifecyclePageLoad;
-    this.registerCi9LInks = TrackItGetCi9Links;
+    //this.registerCi9LInks = TrackItGetCi9Links;
+    //this.forward = TrackIt2Omniture;
 
-    this.pageLoad();
+    this.getData();
+    //this.forward();
 }
 
 function DataObject(){
@@ -113,28 +112,6 @@ function TrackItClearCookieData(){
 }
 
 
-/*
- *  TrackItRegisterClickEventHandler
- *
- *  registers the event handler to the object click event
- */
-function TrackItRegisterClickEventHandler(obj, clickHandler) {
-    //alert("TrackItRegisterClickEventHandler(" + obj.id + ")");
-    registerEventHandler(obj,"click", clickHandler);
-}
-
-/*
- *  TrackRegisterClickEventHandlers
- *
- *  registers multiple click handlers to the object click event
-
-function TrackRegisterClickEventHandlers(obj, clickHandlerList) {
-    for (var clickHandler in clickHandlerList){
-        this.registerClickEventHandler(obj, clickHandler);
-    }
-}
-*/
-
 
 /*
  *  TrackIt2Omniture
@@ -150,28 +127,6 @@ function TrackIt2Omniture(){
     }
 
     alert("TrackIt2Omniture" + debugStr) ;
-}
-
-
-function TrackItLifecyclePageLoad(){
-    //alert("TrackItLifecyclePageLoad()");
-    this.getData();
-    //this.forward();
-    //this.dataObject = new DataObject();
-}
-
-function TrackItGetCi9Links(customerClickHandler){
-    var ci9List = document.links;
-
-    //var debugLinks = "";
-    for(var i = 0; i < ci9List.length; i++){
-        if (ci9List[i].id.indexOf("GS_") > -1 ||
-            ci9List[i].id.indexOf("sppPR")  > -1 )  {
-            this.registerClickEventHandler(ci9List[i], customerClickHandler);
-            //debugLinks += "\n" + ci9List[i].id + "\t" + ci9List[i].href;
-        }
-    }
-    //alert(debugLinks);
 }
 
 

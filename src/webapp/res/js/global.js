@@ -283,11 +283,14 @@ function eventTrigger (e) {
  *    var node = document.getElementById("My-Node-Id");
  *    registerEventHandler(node,"click",handleCI9Info);
  */
-function registerEventHandler(node, event, handler){
-	if (typeof document.addEventListener == "function") {
-	  	node.addEventListener(event, handler, false);
-	}
-	else {
-		node.attachEvent("on" + event, handler);
-	}
+function registerEventHandler(node, eventType, handler){
+    if (node.addEventListener){
+        node.addEventListener(eventType, handler, false);
+        return true;
+    } else if (node.attachEvent){
+        var r = node.attachEvent("on"+eventType, handler);
+        return r;
+    } else {
+        //alert("Handler could not be attached");
+    }
 }

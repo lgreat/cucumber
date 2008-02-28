@@ -121,9 +121,9 @@
             s.prop5 = "${not empty(requestScope.context.userHash) ?  'Registered' : empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}";
             s.prop6 = "${query}";
             s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
-            if (s.prop8.length &lt; 1)
+            if (s.prop8 == undefined || s.prop8.length &lt; 1)
                 s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
-            if (s.prop9.length &lt; 1)
+            if (s.prop9 == undefined || s.prop9.length &lt; 1)
                 s.prop9 = "${empty(referringPage) ? pageName : referringPage}";
             s.prop10 = "${requestScope.context.screenName}";
             s.prop11 = "GreatSchools";
@@ -159,13 +159,35 @@
         <script type="text/javascript" src="http://an.tacoda.net/an/12567/slf.js"></script>
     ]]>
     <script type="text/javascript">
-        //get register the object click handlers...
-        function customInsight9ClickEventHandler(e) {
+
+
+
+        var customInsight9ClickEventHandler = function (e) {
+            //alert("myHandler");
             var obj = eventTrigger(e);
+
+            // if obj is an image get it's parent (expected to be a link)
+            if (obj.tagName.toLowerCase() == 'img'){
+                obj = obj.parentNode;
+            }
+
             clickCapture.capture("prop9",  "${pageName}" + "." +  obj.id);
         }
 
-        clickCapture.registerCi9LInks(customInsight9ClickEventHandler);
+        //register the object click handlers...
+        function registerCi9EventHandlers() {
+            var ci9List = document.links;
+            //var debugLinks = "";
+            for(var i = 0; i &lt; ci9List.length; i++) {
+                if (ci9List[i].id.indexOf("GS_") > -1 || ci9List[i].id.indexOf("sppPR")  > -1 )  {
+                    var res = registerEventHandler(ci9List[i],"click", customInsight9ClickEventHandler);
+                    //debugLinks += "\n" + ci9List[i].id + "\t" + res;
+                }
+            }
+            //alert(debugLinks);
+        }
+
+        registerCi9EventHandlers();
     </script>
 
     </c:if>
