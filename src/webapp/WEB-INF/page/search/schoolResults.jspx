@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib">
+
+<html lang="en">
+<!-- Allow interstitials for this page.
+     Note the property in the db must still be enabled for an interstitial to appear
+     GS-3852 -->
+<c:if test="${requestScope.context.interstitialEnabled}">
+    <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+    <pageHelper:addOnLoadHandler handler="doInterstitial()"/>
+</c:if>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>
+        <c:out value="${title}" escapeXml="false"/>
+    </title>
+</head>
+
+<gsml:body adPageName="search">
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<pageHelper:externalCss file="/res/css/search/schoolResults.css"/>
+<pageHelper:externalCss file="/res/css/brand.css"/>
+<c:set var="hasCityResults" value="false"/>
+<c:set var="hasDistrictResults" value="false"/>
+<gsml:equalizeColumns ids="'col_left','col_right'"/>
+<div id="col_left">
+    <div id="resultsheader">
+        <div id="rh_col_left">
+            ${heading1}
+        </div>
+        <!-- TODO: what the heck is this block? -->
+        <c:if test="${not empty filteredCities and not empty filteredCities.results}">
+            <c:set var="hasCityResults" value="true"/>
+            <div id="filtered" class="rollup">
+                <gsml:list model="${filteredCities}" between="&#160;|&#160;"/>
+            </div>
+        </c:if>
+        <c:if test="${not empty cities and not empty cities.results}">
+            <c:set var="hasCityResults" value="true"/>
+            <div class="rollup city">
+                <gsml:list model="${cities}" between="&#160;|&#160;"/>
+            </div>
+        </c:if>
+        <c:if test="${not empty districts and not empty districts.results}">
+            <c:set var="hasDistrictResults" value="true"/>
+            <div class="rollup district">
+                <gsml:list model="${districts}" between="&#160;|&#160;"/>
+            </div>
+        </c:if>
+        <c:if test="${empty mainResults and empty param.st and empty param.lc}">
+            <c:if test="${not empty noResultsExplanation}">
+                <div class="noResultsExplanation">
+                    <h4>${noResultsExplanation}</h4>
+                </div>
+            </c:if>
+            <c:if test="${showSuggestions}">
+                <div id="suggestions">
+                    <h4>Suggestions:</h4>
+                    <ul>
+                        <li>Make sure all words are spelled correctly.</li>
+                        <li>Try different or fewer key words.</li>
+                        <li>Try more general key words.</li>
+                    </ul>
+                </div>
+            </c:if>
+        </c:if>
+    </div>
+    <c:if test="${not empty mainResults or not empty param.lc or not empty param.st}">
+        <div id="resultsfilters">
+            <div id="resultstabs" class="cleared">
+                <ul>
+                    <li class="tableft"><a href="#">All Schools</a></li>
+                    <li class="tabactive"><a href="#">Elementary</a></li>
+                    <li><a href="#">Middle</a></li>
+                    <li class="tabright"><a href="#">High</a></li>
+                </ul>
+            </div>
+            <form id="searchfilterform" action="" method="get">
+                <div>
+                    <strong>Show me:</strong>
+                    <label><input type="checkbox" name="type_schools[]" value="public" id="type_schools_public" /> Public</label>
+                    <label><input type="checkbox" name="type_schools[]" value="charter" id="type_schools_charter" /> Charter</label>
+                    <label><input type="checkbox" name="type_schools[]" value="private" id="type_schools_private" /> Private</label>
+                </div>
+            </form>
+        </div>
+        <div id="resultspagination">
+            <c:if test="${total gt 0}">
+                <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
+                <c:set var="px" value="${(page * pageSize)}"/>
+                <strong>${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)}</strong>
+                of <strong>${total}</strong>
+            </c:if>
+        </div>
+    </c:if>
+    <div id="searchResults">
+        <c:if test="${not empty mainResults}">
+            <search:schoolResults results="${mainResults}"/>
+        </c:if>
+
+        <search:newPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>
+        <div id="searchFooter" class="cleared">
+            <c:if test="${showQueryAgain}">
+                <c:if test="${showWhatStateTheySearchedIn}">
+                    <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
+                </c:if>
+                <search:searchControl rememberQuery="true"
+                                      showStates="${showQueryAgain}"
+                                      showLinks="true"
+                                      fieldLength="30"/>
+            </c:if>
+        </div>
+    </div>
+</div>
+
+<div id="col_right">
+    <ad:setSlotPrefix slotPrefix="Search_Site"/>
+    <ad:Top_300x137/>
+    <ad:AboveFold_300x600/>
+    <ad:multiTextAd blurb="Advertiser Links"/>
+</div>
+
+<br clear="left"/>
+
+<c:set var="pagename" value="School Search"/>
+
+<!--Build the Omniture results variable-->
+<c:choose>
+    <c:when test="${total gt 0}">
+        <c:set var="rVal" value="Page${(empty param.p ? '1' : param.p)}"/>
+        <c:set var="hVal" value="${rVal}"/>
+    </c:when>
+    <c:otherwise>
+        <c:choose>
+            <c:when test="${hasCityResults}">
+                <c:choose>
+                    <c:when test="${hasDistrictResults}">
+                        <c:set var="rVal" value="City and District only"/>
+                        <c:set var="hVal" value="${rVal}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="rVal" value="City only"/>
+                        <c:set var="hVal" value="${rVal}"/>
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+            <c:otherwise>
+                <c:choose>
+                    <c:when test="${hasDistrictResults}">
+                        <c:set var="rVal" value="District Only"/>
+                        <c:set var="hVal" value="${rVal}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="rVal" value="noresults"/>
+                        <c:set var="hVal" value="Pagenoresults"/>
+                    </c:otherwise>
+                </c:choose>
+            </c:otherwise>
+        </c:choose>
+    </c:otherwise>
+</c:choose>
+
+<mod:tracking pageName="${pagename}:${rVal}"
+              constraint="${param.type}"
+              query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
+              hier1="Search,${pagename},${hVal}"/>
+</gsml:body>
+</html>
+</jsp:root>

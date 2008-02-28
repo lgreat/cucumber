@@ -8,46 +8,41 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
     <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
-    <div id="searchResultsHeader">
+    <div id="searchResultsHeader" class="cleared">
         <div id="schoolResultsHeader">
-            <br />
             School name
         </div>
-        <variant:b>
-            <div id="ratingsHeader">
-                GreatSchools<br />
-                Rating
-            </div>
-            <div id="reviewsHeader">
-                Parent<br />
-                Rating
-            </div>
-        </variant:b>
+        <div id="ratingsHeader">
+            GreatSchools Rating
+        </div>
+        <div id="reviewsHeader">
+            Parent Rating
+        </div>
     </div>
     <div id="searchResultsList">
         <c:forEach var="schoolResult" items="${results}" >
             <c:set var="school" value="${schoolResult.school}"/>
             <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
             <c:set var="parentRating" value="${schoolResult.parentRating}"/>
-            <div class="school result">
-                <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
+            <div class="result cleared">
+                <div class="school">
+                    <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <c:out value="${school.name}" escapeXml="false"/>
                     </link:schoolProfileOverview></h3>
-                <div class="about">
-                    <span class="st">${school.type.schoolTypeName}</span>
-                    <c:if test="${not empty school.gradeLevels.rangeString}">
-                        &#183;&#160;<span class="gl">${school.gradeLevels.rangeString}</span>
-                    </c:if>
+                    <div class="about">
+                        <span class="st">${school.type.schoolTypeName}</span>
+                        <c:if test="${not empty school.gradeLevels.rangeString}">
+                            &#183; <span class="gl">${school.gradeLevels.rangeString}</span>
+                        </c:if>
+                    </div>
+                    <address><c:out value="${school.physicalAddress.cityStateZip}"/></address>
+                    <div class="resultcontrols">
+                        <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
+                        <!-- TODO: C version only -->
+                        <br />
+                        <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
+                    </div>
                 </div>
-                <address>
-                    <c:out value="${school.physicalAddress.street}"/><br />
-                    <c:out value="${school.physicalAddress.cityStateZip}"/>
-                </address>
-                <div class="phone">
-                    <c:out value="${school.phone}"/>
-                </div>
-            </div>
-            <variant:b>
                 <div class="rating">
                     <c:choose>
                         <c:when test="${empty rating}">
@@ -62,23 +57,33 @@
                     </c:choose>
                 </div>
                 <div class="review">
-                    <c:choose>
-                        <c:when test="${empty parentRating}">
-                            <link:schoolProfileParentReview school="${school}">
-                                <gsml:img src="/res/img/search/rateit.jpg"
-                                          rollover="/res/img/search/rateit_on.jpg"
-                                          alt="Be the first to rate!"/>
-                            </link:schoolProfileParentReview>
-                        </c:when>
-                        <c:otherwise>
-                            <link:schoolProfileParentReview school="${school}">
-                                <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
-                                          alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
-                            </link:schoolProfileParentReview>
-                        </c:otherwise>
-                    </c:choose>
+                    <p class="stars">
+                        <c:choose>
+                            <c:when test="${empty parentRating}">
+                                <link:schoolProfileParentReview school="${school}">
+                                    <gsml:img src="/res/img/search/rateit.jpg"
+                                              rollover="/res/img/search/rateit_on.jpg"
+                                              alt="Be the first to rate!"/>
+                                </link:schoolProfileParentReview>
+                            </c:when>
+                            <c:otherwise>
+                                <link:schoolProfileParentReview school="${school}">
+                                    <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
+                                              alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
+                                </link:schoolProfileParentReview>
+                                <!-- TODO: B/C versions only, pull in number of ratings behind this rating (see parentReviews.page) -->
+                                (55)
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+
+                    <!-- TODO: B/C versions only,
+                         TODO: pull in random parent review (see city pagehttp://www.greatschools.net/city/Alameda/CA ),
+                         TODO: pull in total number of parent reviews (see parentReviews.page or module on overview page)-->
+                    <p>Random parent review goes here...
+                        <br /><link:schoolProfileParentReview school="${school}">Read all 89 reviews...</link:schoolProfileParentReview></p>
                 </div>
-            </variant:b>
+            </div>
         </c:forEach>
     </div>
 </jsp:root>

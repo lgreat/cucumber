@@ -1,0 +1,426 @@
+/* This one belongs in browsestate.css, for whatever reason */
+
+#searchRefine {
+	border-color: #c8ce9e;
+}
+
+/* The rest are from searchresults.css */
+
+#col_left {
+    width: 542px;
+    float: left;
+    border-right: 1px solid #ccc;
+    padding: 0 10px 0 0;
+}
+
+#col_right {
+    width: 300px;
+    float: right;
+}
+
+#resultsheader {
+    font-size: medium;
+    padding: 20px 20px 10px;
+    background: #F2F3DB;
+}
+
+#resultsheader #rh_col_left {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #c8ce9e;
+}
+
+.query {
+    font-weight: 700;
+    color: #C56;
+}
+
+.clear {
+	clear: both;
+}
+
+.cleared {
+	height: 1%;
+}
+
+.cleared:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+/*
+Tabs and filters
+*/
+#resultsfilters {
+	clear: both;
+}
+
+#resultsfilters #resultstabs {
+	background: #8BCBCB;
+	padding-top: 7px;
+}
+
+#resultstabs ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+#resultstabs li {
+	float: left;
+	background: url(/res/img/search/tabs_Middle_off.gif) no-repeat left bottom;
+	width: 82px;
+	height: 17px;
+	text-align: center;
+	padding: 12px 4px 0;
+	font-weight: bold;
+}
+
+#resultstabs li.tableft {
+	background-image: url(/res/img/search/tabs_Left_off.gif);
+	width: 83px;
+	padding-left: 5px;
+	padding-right: 3px;
+}
+
+#resultstabs li.tabright {
+	background-image: url(/res/img/search/tabs_Right_off.gif);
+	width: 84px;
+	padding-left: 3px;
+	padding-right: 6px;
+}
+
+#resultstabs li.tabactive {
+	background-image: url(/res/img/search/tabs_Middle_on.gif);
+	padding-top: 8px;
+	height: 21px;
+}
+
+#resultstabs li.tableft.tabactive {
+	background-image: url(/res/img/search/tabs_Left_on.gif);
+}
+
+#resultstabs li.tabright.tabactive {
+	background-image: url(/res/img/search/tabs_Right_on.gif);
+}
+
+#contentGS #resultstabs .tabactive a {
+	color: #666;
+	cursor: text;
+	text-decoration: none;
+}
+
+#searchfilterform {
+	font-size: 13px;
+	padding-top: 12px;
+	background: #fff;
+	clear: both;
+}
+
+#searchfilterform label {
+	margin: 0 0 0 10px;
+}
+
+#searchfilterform input {
+	vertical-align: middle;
+}
+
+#resultspagination {
+	margin-top: 10px;
+	font-size: 13px;
+	text-align: right;
+	background: url(/res/img/search/dotted_border.png) repeat-x left bottom;
+	padding-bottom: 10px;
+}
+
+/*
+City and district rollups
+*/
+.rollup {
+    margin-bottom: 5px;
+    font-size: medium;
+}
+
+.rollup  h3 {
+    padding: 5px 0 0 0;
+    display: inline;
+}
+
+.rollup ul {
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+.rollup ul li {
+    display: inline;
+}
+
+.rollup ul li.last {
+    border-right-width: 0;
+}
+
+/*
+Search results
+*/
+
+#searchResults {
+    padding-top: 10px;
+}
+
+#searchResults div.about,
+    #searchResults address,
+    #searchResults div.phone {
+    font-size: small;
+}
+
+div.phone {
+    margin-left: -1px;
+}
+
+#searchResults h3 {
+    font-size: medium;
+    margin-bottom: 5px;
+}
+
+
+#searchResults span.st,
+    #searchResults span.gl {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+#searchResultsHeader {
+    width: 525px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+    color: #5bc;
+}
+
+#schoolResultsHeader {
+    float: left;
+    text-align:left;
+    width: 207px;
+    padding-left: 5px;
+    margin-right: 15px;
+}
+
+#articleResultsHeader {
+    float: left;
+    text-align:left;
+    padding-left: 5px;
+}
+
+#ratingsHeader {
+    float: left;
+    width: 140px;
+    margin-right: 20px;
+}
+
+#reviewsHeader {
+    float: left;
+    width: 90px;
+}
+
+#searchResultsList {
+	
+}
+
+#searchResultsList .result {
+    border-top: 1px solid #e2e3cb;
+    padding-top: 15px;
+	margin: 0 0 15px 0;
+    clear: both;
+}
+
+#searchResultsList .school {
+    float: left;
+	padding-left: 5px;
+    width: 267px;
+    margin-right: 14px;
+}
+
+#searchResultsList .resultcontrols {
+	font-size: 13px;
+}
+
+#searchResultsList .article {
+    width: 500px;
+}
+
+#searchResultsList .rating {
+    float: left;
+    width: 100px;
+    margin-right: 5px;
+}
+
+#searchResultsList .review {
+    float: left;
+    width: 150px;
+    margin-top: -5px;
+}
+
+#searchResultsList .review .stars {
+    margin: 4px 0 3px;
+    color: #808080;
+}
+
+/* pagination controls */
+
+#pagination {
+	text-align: right;
+    clear: both;
+    background: #E9F4F4;
+    padding: 5px 15px;
+    margin: 30px 0;
+}
+
+.page, .divider {
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.divider {
+	color: #999;
+}
+
+/* search footer */
+
+#searchFooter {
+    margin-top: 1ex;
+    padding: 8px 15px 8px 40px;
+    background-color: #F2F3DB;
+    border: 1px solid #c8ce9e;
+    border-width: 1px 0 1px 0;
+}
+
+.cobranded #searchfooter {
+    width: 400px !important;
+}
+
+#searchFooter h4,
+    #searchFooter p {
+    font-size: medium;
+    padding: 5px 0 5px 0;
+}
+
+#suggestions h4 {
+    font-size: medium;
+    padding: 0 0 5px 0;
+}
+
+#searchFooter ul, #suggestions ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#searchFooter li, #suggestions li {
+    padding-bottom: 8px;
+}
+
+#searchFooter #goButton {
+    margin: 0 0 6px 5px;
+}
+
+#searchFooter #refine_stateSelector {
+    margin-left: 5px;
+}
+
+#searchFooter #refine_q {
+    margin: 8px 0 8px 0;
+    padding-left: 5px;
+    width: 210px;
+}
+
+#searchFooter #c {
+    margin: 0 0 8px 0;
+}
+
+#searchFooter #sf_col_left {
+    width: 272px;
+    float: left;
+    border-right: 1px solid #c8ce9e;
+    padding: 10px 0 5px 0;
+}
+
+#searchFooter #sf_col_right {
+    width: 170px;
+    float: left;
+    padding-left: 20px;
+}
+
+#mainresults {
+    padding-top: 5px;
+    margin-left: 18px;
+}
+
+.abstract {
+    font-size: small;
+    padding-left: 18px;
+}
+
+/* GS-3754 remove images (and enclosing paragraph) from article abstracts */
+.abstract p, .abstract div.partner {
+    display: none;
+}
+
+.highlight {
+    font-weight: 800;
+}
+
+#suggestion {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.searchbyaddress {
+    padding-left: 20mm;
+    vertical-align: bottom;
+}
+
+.contentGS h1 {
+    color: #eb7a31;
+    font-size: large;
+    font-weight: 700;
+    padding-left: 2px;
+}
+
+.mainresultsheader {
+    padding-bottom: 10px;
+}
+
+.main h2.browseheader {
+    padding-bottom: 5px;
+    font-weight: 700;
+    font-size: small;
+}
+
+pre.explanation {
+    font-size: large;
+}
+
+.refinementlist li {
+    padding-bottom: 6px;
+    padding-right: 5px;
+}
+
+.noResultsExplanation h4 {
+    padding: 3px 0 0 17px;
+    margin: 0 0 20px 6px;
+    display: block;
+}
+
+/* used on "Show all" and "View district profile" links on schoolresults */
+.minilink {
+/*font-size:xx-small;*/
+    font-size: 11px;
+    padding-left: 4px;
+}
+
+
+
+

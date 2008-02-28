@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pg="http://jsptags.com/tags/navigation/pager"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer"/>
+    <jsp:directive.attribute name="currentPage" required="true" type="java.lang.Integer"/>
+    <jsp:directive.attribute name="resultCount" required="true" type="java.lang.Integer"/>
+
+    <!-- TODO: combine with pagination.tagx. This file exists because the school results new style
+         is just different enough from the article results that I couldn't easily re-use pagination.tagx.
+         But I believe merging them won't be too hard, just didn't have time right away GS-5556 -->
+    <jsp:scriptlet><![CDATA[
+        if (resultCount.intValue() > pageSize.intValue()) {
+            int rc = resultCount.intValue();
+            int ps = pageSize.intValue();
+            int cp = currentPage.intValue();
+            int start = (cp < 10) ? 1 : (cp - 5);
+            int end = (rc / ps) + ((rc % ps) > 0 ? 1 : 0);
+            int lastToDisplay = Math.min(start + 10, end);
+            request.setAttribute("start", new Integer(start));
+            request.setAttribute("end", new Integer(end));
+            request.setAttribute("lastToDisplay", new Integer(lastToDisplay));
+        }
+        ]]></jsp:scriptlet>
+    <c:if test="${resultCount gt pageSize}">
+        <div id="pagination">
+            <c:if test="${currentPage gt 1}">
+                <link:search styleClass="page" page="${currentPage - 1}">&lt; Previous</link:search><span class="divider">|</span>
+            </c:if>
+
+            <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
+                <c:choose>
+                    <c:when test="${count eq currentPage}">
+                        <span class="page"><c:out value="${count}"/></span>
+                    </c:when>
+                    <c:otherwise>
+                        <link:search styleClass="page" page="${count}"><c:out value="${count}"/></link:search>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${currentPage lt end}">
+                <span class="divider">|</span><link:search styleClass="page" page="${currentPage + 1}">Next &gt;</link:search>
+            </c:if>
+        </div>
+    </c:if>
+</jsp:root>

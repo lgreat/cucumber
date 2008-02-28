@@ -170,13 +170,16 @@ public class SearchController extends AbstractFormController {
         Map model = createModel(request, searchCommand, sessionContext, debug);
 
         // Set the pathway: it's Research & Compare unless it's an article search.
+        String viewname;
         if (searchCommand.isTopicsOnly()) {
             PageHelper.setPathway(request, response, "2");
+            viewname = "search/mixedResults";
         } else {
             PageHelper.setPathway(request, response, "1");
+            viewname = "search/schoolResults";
         }
 
-        return new ModelAndView("search/mixedResults", model);
+        return new ModelAndView(viewname, model);
     }
 
     protected Map createModel(HttpServletRequest request, SearchCommand searchCommand, SessionContext sessionContext, boolean debug) throws IOException {
