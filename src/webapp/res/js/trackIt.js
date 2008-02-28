@@ -75,7 +75,7 @@ function DataObject(){
  *  to this method.
  */
 function TrackItCaptureSave2Cookie(omnitureEntity, value) {
-    alert("TrackItCaptureSave2Cookie(" + omnitureEntity + ", " + value + ")");
+    //alert("TrackItCaptureSave2Cookie(" + omnitureEntity + ", " + value + ")");
     createCookie(omnitureEntity, value);
 }
 
@@ -156,7 +156,7 @@ function TrackIt2Omniture(){
 function TrackItLifecyclePageLoad(){
     //alert("TrackItLifecyclePageLoad()");
     this.getData();
-    this.forward();
+    //this.forward();
     //this.dataObject = new DataObject();
 }
 
