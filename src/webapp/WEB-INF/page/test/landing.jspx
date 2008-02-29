@@ -165,9 +165,13 @@
                                                 <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
                                             </c:forEach>
                                         </select>
-                                        <![CDATA[<div id="schools"></div>]]>
+                                        <div id="schools">
+                                            <select id="schoolSelect" name="sid" class="selectSchool">
+                                                <option value="">Choose school</option>
+                                            </select>
+                                        </div>
                                         <input id="goAchieve" type="image" src="${go}" alt="Find ${shortname} test scores"
-                                               style="width:41px;height:26px;margin-top: 10px;display:none;"
+                                               style="width:41px;height:26px;margin-top: 10px;"
                                                class="button" onmouseover="this.src='${goOver}';"
                                                onmouseout="this.src='${go}';" />
                                     </gsweb:form>
