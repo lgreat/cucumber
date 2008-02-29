@@ -239,11 +239,14 @@
 }
 
 /* GLOBAL NAV MENUS */
+#topnav div#navbar {
+    margin: 0 16px 0 18px;
+}
+
 #topnav table#nav {
     background-color: #99cc67;
     height: 30px;
     width: 100%;
-    margin: 0 16px 0 18px;
     padding: 0;
 }
 
