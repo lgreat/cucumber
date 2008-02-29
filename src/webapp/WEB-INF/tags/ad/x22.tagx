@@ -7,6 +7,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
     <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="position" required="false" description="Ad slot position" />
     <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
         <div id="adLeaderboard">
             <table cellpadding="0" cellspacing="0">
@@ -16,7 +17,7 @@
                         <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
                     </td>
                     <td style="text-align:left;width:728px;height:90px" class="ad">
-                        <ad:Header_728x90/>
+                        <ad:Header_728x90 position="${position}"/>
                     </td>
                 </tr>
             </table>

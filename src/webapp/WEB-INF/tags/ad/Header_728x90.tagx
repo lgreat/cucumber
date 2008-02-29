@@ -4,5 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
-    <gsweb:adTagGenerator position="Header_728x90"/>
+    <jsp:directive.attribute name="position" required="false" description="Ad slot position" />
+    <c:set var="pos" value="${not empty position ? position : 'Header_728x90'}" />
+    <gsweb:adTagGenerator position="${pos}"/>
 </jsp:root>

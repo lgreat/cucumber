@@ -66,7 +66,15 @@
     <cobrand:header/>
 
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-        <ad:x22/>
+        <c:choose>
+            <c:when test="${requestScope.context.ABVersion eq 'b'}">
+                <c:set var="position" value="Header_728x90_A_Test" />
+            </c:when>
+            <c:when test="${requestScope.context.ABVersion eq 'c'}">
+                <c:set var="position" value="Header_728x90_B_Test" />
+            </c:when>
+        </c:choose>
+        <ad:x22 position="${position}"/>
     </c:if>
 
     <div id="pageGS" class="pageGS">

@@ -14,6 +14,8 @@
     <jsp:directive.tag import="java.util.Iterator"/>
     <jsp:directive.tag import="java.util.List"/>
     <jsp:directive.tag import="java.util.Set"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:scriptlet><![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (null != pageHelper) {
@@ -28,7 +30,15 @@
             if (hideDefaultAds == null || !hideDefaultAds.booleanValue()) {
                 adNames.add(slotPrefix + AdPosition.Footer_728x90.getName());
                 if (pageHelper.isShowingBannerAd()) {
-                    adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
+                    SessionContext context = SessionContextUtil.getSessionContext(request);
+                    // see GS-5561
+                    if ("b".equals(context.getABVersion())) {
+                        adNames.add(slotPrefix + AdPosition.Header_728x90_A_Test.getName());
+                    } else if ("c".equals(context.getABVersion())) {
+                        adNames.add(slotPrefix + AdPosition.Header_728x90_B_Test.getName());
+                    } else {
+                        adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
+                    }
                 }
             }
             for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
