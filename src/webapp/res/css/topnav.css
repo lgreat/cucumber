@@ -1,6 +1,5 @@
 #topnav {
     font-family: Century Gothic, Helvetica, sans-serif;
-    width: 900px;
     background-color: #fff;
     padding: 0 0 8px 0;
 }
@@ -243,8 +242,8 @@
 #topnav table#nav {
     background-color: #99cc67;
     height: 30px;
-    width: 864px;
-    margin: 0 0 0 18px;
+    width: 100%;
+    margin: 0 16px 0 18px;
     padding: 0;
 }
 
