@@ -104,7 +104,7 @@
 
 		<!-- Editor -->
         <hr />
-        <variant:a>
+        <c:if test="${(requestScope.context.ABVersion eq 'a') or (requestScope.context.ABVersion eq 'b')}">
         <div id="editor">
             <gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
             <p class="name">Lisa Rosenthal</p>
@@ -141,7 +141,7 @@
                 </c:otherwise>
             </c:choose>
 		</div><!-- end: editor -->
-        </variant:a>
+        </c:if>
         <c:if test="${(requestScope.context.ABVersion eq 'c') or (requestScope.context.ABVersion eq 'd')}">
             <div id="leftcolAd">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
@@ -156,73 +156,6 @@
         <div id="col_center">
 
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
-
-            <!-- Old B version learn more module (GS-5153) -->
-            <!--
-            <c:if test="${(requestScope.context.ABVersion eq 'b') and (school.type.schoolTypeName != 'private')}">
-                <div id="learnMoreModule">
-                    <div id="lmHeader">Learn More</div>
-                    <div id="lmmBorder">
-                    <div id="lmModules">
-                        <div class="left">
-                            <link:schoolProfileTestscore school="${school}"
-                                                         title="${school.name} Test Scores"
-                                                         anchor="from..LearnMoreModule">
-                                <img class="test" src="/res/img/school/overview/learn_more/test.gif"
-                                     onmouseover="this.src='/res/img/school/overview/learn_more/test_rollover.gif'"
-                                     onmouseout="this.src='/res/img/school/overview/learn_more/test.gif'"
-                                     alt="Test Scores"/>
-                            </link:schoolProfileTestscore>
-                        </div>
-                        <div class="left">
-                            <link:schoolProfileCensus school="${school}" anchor="from..LearnMoreModule">
-                                <img class="test" src="/res/img/school/overview/learn_more/teacher.gif"
-                                     onmouseover="this.src='/res/img/school/overview/learn_more/teacher_rollover.gif'"
-                                     onmouseout="this.src='/res/img/school/overview/learn_more/teacher.gif'"
-                                     alt="Parent/Teacher"/>
-                            </link:schoolProfileCensus>
-                        </div>
-                        <div class="left">
-                            <link:schoolProfileRating school="${school}" title="${school.name} GreatSchools Ratings" anchor="from..LearnMoreModule">
-                                <img class="test" src="/res/img/school/overview/learn_more/gs.gif"
-                                     onmouseover="this.src='/res/img/school/overview/learn_more/gs_rollover.gif'"
-                                     onmouseout="this.src='/res/img/school/overview/learn_more/gs.gif'"
-                                     alt="GreatSchools Ratings"/>
-                            </link:schoolProfileRating>
-                        </div>
-                        <div class="parent right">
-                            <link:schoolProfileParentReview school="${school}" title="${school.name} Parent Reviews" anchor="from..LearnMoreModule">
-                                <img class="test" src="/res/img/school/overview/learn_more/parent.gif"
-                                     onmouseover="this.src='/res/img/school/overview/learn_more/parent_rollover.gif'"
-                                     onmouseout="this.src='/res/img/school/overview/learn_more/parent.gif'"
-                                     alt="Parent Reviews"/>
-                            </link:schoolProfileParentReview>
-                        </div>
-                        <div class="survey right">
-                            <link:schoolStartSurvey school="${school}" anchor="from..LearnMoreModule">
-                                <img class="test" src="/res/img/school/overview/learn_more/survey.gif"
-                                     onmouseover="this.src='/res/img/school/overview/learn_more/survey_rollover.gif'"
-                                     onmouseout="this.src='/res/img/school/overview/learn_more/survey.gif'"
-                                     alt="Survey"/>
-                            </link:schoolStartSurvey>
-                        </div>
-                        <div class="district right">
-                            <link:districtProfile districtId="${school.districtId}"
-                                                  schoolId="${school.id}"
-                                                  state="${state}"
-                                                  title="District information"
-                                                  anchor="from..LearnMoreModule">
-                                <img class="test" src="/res/img/school/overview/learn_more/district.gif"
-                                     onmouseover="this.src='/res/img/school/overview/learn_more/district_rollover.gif'"
-                                     onmouseout="this.src='/res/img/school/overview/learn_more/district.gif'"
-                                     alt="District Overview"/>
-                            </link:districtProfile>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </c:if>
-            -->
 
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
                 <div id="topCompare" style="float:left; padding-bottom:25px;" >
