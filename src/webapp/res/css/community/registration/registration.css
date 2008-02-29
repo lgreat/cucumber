@@ -270,3 +270,13 @@ p.warning {
     left: 417px;
 }
 
+span.requiredFld {
+   font-size: 11px;
+   font-style: italic;
+   color: #8f8f8f;
+}
+span.errorBold {
+   font-size: 12px;
+   font-weight: bold;
+   color: #cc5566;
+}

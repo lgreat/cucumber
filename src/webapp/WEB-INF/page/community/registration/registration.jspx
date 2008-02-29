@@ -95,6 +95,7 @@
         <spring:hasBindErrors name="userCmd">
             <pageHelper:addOnLoadHandler handler="scrollToError();"/>
         </spring:hasBindErrors>
+        <p><span class="requiredFld">Fields with an asterik (*) are required.</span></p>
     <!-- begin registration form -->
         <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
         <!-- init vars -->
@@ -263,13 +264,17 @@
                 </li>
 
                 <li id="controlLine">
+                    <p><span class="requiredFld">*= required field</span>
+                    <gsml:inputImage src="${submitSrc}" alt="submit"
+                                     name="submit" onclick="return doSingleClick(this);" tabIndex="17"
+                                     id="submitButton"/> </p>
+                    <p><br /></p>
                     <p class="privacyBox">Items with a
                         <gsml:img src="/res/img/community/registration/icon_private_9x11.gif"
                                   alt="Private" styleClass="private"/>
                         will be private and not viewable by other users.</p>
-                    <gsml:inputImage src="${submitSrc}" alt="submit"
-                                     name="submit" onclick="return doSingleClick(this);" tabIndex="17"
-                                     id="submitButton"/>
+                    <p><br /></p>
+
                 </li>
             </ul>
 
