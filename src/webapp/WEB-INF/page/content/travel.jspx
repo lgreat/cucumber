@@ -46,7 +46,7 @@
 
             <content:micrositeArticleList title="Planning Your Trip"
                                           headerId="subTitle1"
-                                          articleIds="1169,1168,1167,1164"/>
+                                          articleIds="1169,1168,1167,1164,1199"/>
 
             <content:micrositeArticleList title="Getting There"
                                           headerId="subTitle2"
