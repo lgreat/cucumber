@@ -103,7 +103,7 @@
                         <gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
                     </td>
                 </tr>
-                <c:if test="${true}">
+                <c:if test="${(not empty alert) and (alertexpired ne 'true')}">
                     <tr>
                         <td colspan="3">
                             <div id="alert">

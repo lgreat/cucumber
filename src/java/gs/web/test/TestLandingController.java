@@ -22,6 +22,9 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.validation.Errors;
 import org.springframework.validation.BindException;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.DateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,7 +76,7 @@ public class TestLandingController extends SimpleFormController {
         String stateParam = request.getParameter("state");
         if (StringUtils.isNotBlank(stateParam)) {
             State state = getStateManager().getState(stateParam);
-            refData.put("cities", getCityList(state));
+            refData.put("cities", _geoDao.findCitiesByState(state));
             String testIdParam = request.getParameter("tid");
             if (StringUtils.isNotBlank(testIdParam)) {
                 String key = stateParam + testIdParam;
@@ -92,14 +95,6 @@ public class TestLandingController extends SimpleFormController {
         return refData;
     }
     
-    protected List<City> getCityList(State state) {
-        List<City> cities = _geoDao.findCitiesByState(state);
-        City city = new City();
-        city.setName("My city is not listed");
-        cities.add(0, city);
-        return cities;
-    }
-
     protected Map<String, String> getTestData(String key) {
         if (_cache == null) {
              _cache = new HashMap<String, Map>();
@@ -169,6 +164,15 @@ public class TestLandingController extends SimpleFormController {
                         String levs = entry.getCustomElements().getValue(tag);
                         values.put(tag, parseLevelCodes(levs));
                         values.put("levs", levs);
+                    } else if ("alertexpire".equals(tag)) {
+                        String date = entry.getCustomElements().getValue(tag);
+                        if (StringUtils.isNotBlank(date)) {
+                            DateTimeFormatter fmt = DateTimeFormat.forPattern("MM/dd/yyyy");
+                            DateTime dt = fmt.parseDateTime(date);
+                            if (dt.isBeforeNow()) {
+                                values.put("alertexpired", "true");
+                            }
+                        }
                     } else {
                         values.put(tag, entry.getCustomElements().getValue(tag));
                     }
