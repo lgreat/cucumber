@@ -91,11 +91,11 @@
 
         <h3>You're joining a national network of parents who are passionate about education. We're
             excited to have you!</h3>
-
+        <p class="requiredFld">Fields with an asterisk(*) are required.</p>
         <spring:hasBindErrors name="userCmd">
             <pageHelper:addOnLoadHandler handler="scrollToError();"/>
         </spring:hasBindErrors>
-        <p><span class="requiredFld">Fields with an asterik (*) are required.</span></p>
+
     <!-- begin registration form -->
         <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
         <!-- init vars -->
@@ -109,7 +109,6 @@
                 <c:set var="childrenStyle" value="display:none"/>
                 <c:set var="submitSrc" value="/res/img/community/registration/joinbutton.gif"/>
             </c:if>
-
             <ul>
                 <li id="genderLine">
                     <label><span class="required">*</span>I'm a</label>
@@ -264,17 +263,13 @@
                 </li>
 
                 <li id="controlLine">
-                    <p><span class="requiredFld">*= required field</span>
-                    <gsml:inputImage src="${submitSrc}" alt="submit"
-                                     name="submit" onclick="return doSingleClick(this);" tabIndex="17"
-                                     id="submitButton"/> </p>
-                    <p><br /></p>
                     <p class="privacyBox">Items with a
                         <gsml:img src="/res/img/community/registration/icon_private_9x11.gif"
                                   alt="Private" styleClass="private"/>
                         will be private and not viewable by other users.</p>
-                    <p><br /></p>
-
+                    <gsml:inputImage src="${submitSrc}" alt="submit"
+                                     name="submit" onclick="return doSingleClick(this);" tabIndex="17"
+                                     id="submitButton"/>
                 </li>
             </ul>
 
