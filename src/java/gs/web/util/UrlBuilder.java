@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.101 2008/02/12 21:49:06 droy Exp $
+ * $Id: UrlBuilder.java,v 1.102 2008/03/03 19:47:19 droy Exp $
  */
 
 package gs.web.util;
@@ -195,6 +195,9 @@ public class UrlBuilder {
     public static final VPage STATE_STANDARDS = new VPage("vpage:stateStandards");
     public static final VPage TUTORING = new VPage("vpage:tutoring");
     public static final VPage TRAVEL = new VPage("vpage:travel");
+
+    /** test score landing page */
+    public static final VPage TEST_SCORE_LANDING = new VPage("vpage:testScoreLanding");
 
 
     /**
@@ -721,6 +724,11 @@ public class UrlBuilder {
         } else if (SCHOOLS_IN_STATE.equals(page)) {
             _perlPage = false;
             _path = "/schools/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
+        } else if (TEST_SCORE_LANDING.equals(page)) {
+            _perlPage = false;
+            _path = "/test/landing.page";
+            setParameter("state", state.getAbbreviation());
+            setParameter("tid", param0);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

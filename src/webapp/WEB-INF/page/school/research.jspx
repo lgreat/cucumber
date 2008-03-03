@@ -448,6 +448,11 @@
 </div>
 </div>
 
+<jsp:include page="/test/testScoreLandingLinks.module">
+    <jsp:param name="state" value="${stateOrNull}"/>
+    <jsp:param name="showFinder" value="false"/>
+</jsp:include>
+
 
 <c:choose>
     <c:when test="${not empty requestScope.context.state}">

@@ -249,6 +249,10 @@
 </tr>
 </table>
 
+<jsp:include page="/test/testScoreLandingLinks.module">
+    <jsp:param name="state" value="${stateAbbrev}"/>
+</jsp:include>
+
 <mod:tracking pageName="city home"
               locale="${cityObject.name}"
               hier1="Home,city home,${cityObject.name}-${cityObject.state.abbreviation}"/>

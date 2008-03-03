@@ -31,6 +31,22 @@
         </property>
     </bean>
 
+    <bean name="/test/testScoreLandingLinks.module"
+            class="gs.web.test.TestScoreLandingLinksController"
+            autowire="byName" lazy-init="true">
+        <property name="viewName" value="/test/testScoreLandingLinks"/>
+        <property name="googleSpreadsheetFactory">
+            <bean class="gs.web.util.google.GoogleSpreadsheetFactory">
+                <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
+                <property name="visibility" value="public"/>
+                <property name="projection" value="values"/>
+                <property name="worksheetName" value="od7"/>
+                <!-- property name="username" value="chriskimm@greatschools.net"/>
+                <property name="password" value="greattests"/ -->
+            </bean>
+        </property>
+    </bean>
+
     <bean name="/content/parentPoll.module"
           class="gs.web.content.ParentPollController"
           autowire="byName">

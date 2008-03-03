@@ -118,7 +118,11 @@
         <div class="pageLinks">
             ${links}
         </div>
+        <jsp:include page="/test/testScoreLandingLinks.module">
+            <jsp:param name="state" value="${state}"/>
+        </jsp:include>
     </div>
+
     <mod:tracking pageName="${pageName}" hier1="Search,Browse"/>
     </body>
     </html>
