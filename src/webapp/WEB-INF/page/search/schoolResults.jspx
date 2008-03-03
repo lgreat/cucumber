@@ -51,11 +51,11 @@
                 reloadUrl += '&amp;lc=' + levelCode;
             }
 
-            if (charterBox.checked) {
-                reloadUrl += '&amp;st=charter';
-            }
             if (publicBox.checked) {
                 reloadUrl += '&amp;st=public';
+            }
+            if (charterBox.checked) {
+                reloadUrl += '&amp;st=charter';
             }
             if (privateBox.checked) {
                 reloadUrl += '&amp;st=private';
@@ -65,17 +65,22 @@
     </script>
     <jsp:scriptlet>
         String[] sts = request.getParameterValues("st");
+        String stOmniture = "";
         if (sts != null &amp;&amp; sts.length > 0) {
             for (String st: sts) {
                 if ("public".equals(st)) {
                     request.setAttribute("publicChecked", "true");
+                    stOmniture += ((stOmniture.length() > 0)?",":"") + "public";
                 } else if ("charter".equals(st)) {
                     request.setAttribute("charterChecked", "true");
+                    stOmniture += ((stOmniture.length() > 0)?",":"") + "charter";
                 } else if ("private".equals(st)) {
                     request.setAttribute("privateChecked", "true");
+                    stOmniture += ((stOmniture.length() > 0)?",":"") + "private";
                 }
             }
         }
+        request.setAttribute("stOmniture", stOmniture);;
     </jsp:scriptlet>    
 </head>
 
@@ -155,16 +160,23 @@
                 </c:choose>
                 <ul>
                     <li class="tableft ${allTabClass}">
-                        <link:schoolSearch query="${param.q}">All Schools</link:schoolSearch>
+                        <link:schoolSearch query="${param.q}" 
+                                           schoolType="${stOmniture}">All Schools</link:schoolSearch>
                     </li>
                     <li class="${eTabClass}">
-                        <link:schoolSearch query="${param.q}" levelCode="e">Elementary</link:schoolSearch>
+                        <link:schoolSearch query="${param.q}"
+                                           schoolType="${stOmniture}"
+                                           levelCode="e">Elementary</link:schoolSearch>
                     </li>
                     <li class="${mTabClass}">
-                        <link:schoolSearch query="${param.q}" levelCode="m">Middle</link:schoolSearch>
+                        <link:schoolSearch query="${param.q}"
+                                           schoolType="${stOmniture}"
+                                           levelCode="m">Middle</link:schoolSearch>
                     </li>
                     <li class="tabright ${hTabClass}">
-                        <link:schoolSearch query="${param.q}" levelCode="h">High</link:schoolSearch>
+                        <link:schoolSearch query="${param.q}"
+                                           schoolType="${stOmniture}"
+                                           levelCode="h">High</link:schoolSearch>
                     </li>
                 </ul>
             </div>
@@ -269,7 +281,9 @@
 <mod:tracking pageName="${pagename}:${rVal}"
               constraint="${param.type}"
               query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
-              hier1="Search,${pagename},${hVal}"/>
+              hier1="Search,${pagename},${hVal}"
+              schoolType="${stOmniture}"
+              schoolLevel="${param.lc}"/>
 </gsml:body>
 </html>
 </jsp:root>

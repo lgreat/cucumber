@@ -3,6 +3,8 @@ package gs.web.jsp.link;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.StringTokenizer;
+
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -21,7 +23,11 @@ public class SchoolSearchTagHandler extends LinkTagHandler {
             urlBuilder.setParameter("lc", _levelCode);
         }
         if (StringUtils.isNotBlank(_schoolType)) {
-            urlBuilder.setParameter("st", _schoolType);
+            StringTokenizer tok = new StringTokenizer(_schoolType, ",");
+            while (tok.hasMoreTokens()) {
+                String token = tok.nextToken();
+                urlBuilder.addParameter("st", token);
+            }
         }
         return urlBuilder;
     }
