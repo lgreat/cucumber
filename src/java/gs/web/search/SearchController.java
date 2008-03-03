@@ -248,8 +248,14 @@ public class SearchController extends AbstractFormController {
                     final int maxCities = StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_CITIES)) ?
                             EXTENDED_LIST_SIZE : LIST_SIZE;
                     final boolean showMore = cityHits.length() > LIST_SIZE && maxCities == LIST_SIZE;
+                    SchoolType filteredST = null;
+                    if (request.getParameterValues(PARAM_SCHOOL_TYPE) != null &&
+                            request.getParameterValues(PARAM_SCHOOL_TYPE).length == 1 &&
+                            StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE))) {
+                        filteredST = SchoolType.CHARTER;
+                    }
                     AnchorListModel cities = _anchorListModelFactory.createCitiesListModel(request, cityHits,
-                            StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null,
+                            filteredST,
                             maxCities,
                             showMore);
                     if (cities.getResults().size() > 0) {
@@ -285,8 +291,14 @@ public class SearchController extends AbstractFormController {
 
 
                 Hits districtHits = searchForDistricts(baseQuery);
+                SchoolType filteredST = null;
+                if (request.getParameterValues(PARAM_SCHOOL_TYPE) != null &&
+                        request.getParameterValues(PARAM_SCHOOL_TYPE).length == 1 &&
+                        StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE))) {
+                    filteredST = SchoolType.CHARTER;
+                }
                 AnchorListModel districts = _anchorListModelFactory.createDistrictsListModel(request, districtHits, state,
-                        StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null, StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
+                        filteredST, StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
                         EXTENDED_LIST_SIZE : LIST_SIZE, districtHits.length() > LIST_SIZE &&
                         (StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
                                 EXTENDED_LIST_SIZE : LIST_SIZE) == LIST_SIZE);

@@ -421,6 +421,8 @@ pre.explanation {
     padding-left: 4px;
 }
 
-
-
-
+div.noResults {
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}

@@ -11,6 +11,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
 
@@ -32,6 +33,50 @@
     <title>
         <c:out value="${title}" escapeXml="false"/>
     </title>
+    <script language="JavaScript" type="text/javascript">
+        var query = '${param.q}';
+        var state = '${requestScope.context.stateOrDefault.abbreviation}';
+        var levelCode = '${param.lc}';
+        var page = '${param.p}';
+        function reloadPageWithFilters() {
+            var charterBox = document.getElementById('type_schools_charter');
+            var publicBox = document.getElementById('type_schools_public');
+            var privateBox = document.getElementById('type_schools_private');
+
+            var reloadUrl = '/search/search.page?c=school';
+            reloadUrl += '&amp;search_type=0';
+            reloadUrl += '&amp;state=' + state;
+            reloadUrl += '&amp;q=' + query;
+            if (levelCode.length > 0) {
+                reloadUrl += '&amp;lc=' + levelCode;
+            }
+
+            if (charterBox.checked) {
+                reloadUrl += '&amp;st=charter';
+            }
+            if (publicBox.checked) {
+                reloadUrl += '&amp;st=public';
+            }
+            if (privateBox.checked) {
+                reloadUrl += '&amp;st=private';
+            }
+            document.location = reloadUrl;
+        }
+    </script>
+    <jsp:scriptlet>
+        String[] sts = request.getParameterValues("st");
+        if (sts != null &amp;&amp; sts.length > 0) {
+            for (String st: sts) {
+                if ("public".equals(st)) {
+                    request.setAttribute("publicChecked", "true");
+                } else if ("charter".equals(st)) {
+                    request.setAttribute("charterChecked", "true");
+                } else if ("private".equals(st)) {
+                    request.setAttribute("privateChecked", "true");
+                }
+            }
+        }
+    </jsp:scriptlet>    
 </head>
 
 <gsml:body adPageName="search">
@@ -78,6 +123,9 @@
                         <li>Make sure all words are spelled correctly.</li>
                         <li>Try different or fewer key words.</li>
                         <li>Try more general key words.</li>
+                        <c:if test="${not empty param.lc or not empty param.st}">
+                            <li>Try a different filter.</li>
+                        </c:if>
                     </ul>
                 </div>
             </c:if>
@@ -86,35 +134,74 @@
     <c:if test="${not empty mainResults or not empty param.lc or not empty param.st}">
         <div id="resultsfilters">
             <div id="resultstabs" class="cleared">
+                <!-- Figure out which tab is selected -->
+                <c:set var="allTabClass" value=""/>
+                <c:set var="eTabClass" value=""/>
+                <c:set var="mTabClass" value=""/>
+                <c:set var="hTabClass" value=""/>
+                <c:choose>
+                    <c:when test="${param.lc eq 'e'}">
+                        <c:set var="eTabClass" value="tabactive"/>
+                    </c:when>
+                    <c:when test="${param.lc eq 'm'}">
+                        <c:set var="mTabClass" value="tabactive"/>
+                    </c:when>
+                    <c:when test="${param.lc eq 'h'}">
+                        <c:set var="hTabClass" value="tabactive"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="allTabClass" value="tabactive"/>
+                    </c:otherwise>
+                </c:choose>
                 <ul>
-                    <li class="tableft"><a href="#">All Schools</a></li>
-                    <li class="tabactive"><a href="#">Elementary</a></li>
-                    <li><a href="#">Middle</a></li>
-                    <li class="tabright"><a href="#">High</a></li>
+                    <li class="tableft ${allTabClass}">
+                        <link:schoolSearch query="${param.q}">All Schools</link:schoolSearch>
+                    </li>
+                    <li class="${eTabClass}">
+                        <link:schoolSearch query="${param.q}" levelCode="e">Elementary</link:schoolSearch>
+                    </li>
+                    <li class="${mTabClass}">
+                        <link:schoolSearch query="${param.q}" levelCode="m">Middle</link:schoolSearch>
+                    </li>
+                    <li class="tabright ${hTabClass}">
+                        <link:schoolSearch query="${param.q}" levelCode="h">High</link:schoolSearch>
+                    </li>
                 </ul>
             </div>
             <form id="searchfilterform" action="" method="get">
                 <div>
                     <strong>Show me:</strong>
-                    <label><input type="checkbox" name="type_schools[]" value="public" id="type_schools_public" /> Public</label>
-                    <label><input type="checkbox" name="type_schools[]" value="charter" id="type_schools_charter" /> Charter</label>
-                    <label><input type="checkbox" name="type_schools[]" value="private" id="type_schools_private" /> Private</label>
+                    <label><gsml:checkbox name="type_schools[]"
+                                          checked="${publicChecked}"
+                                          styleId="type_schools_public"
+                                          onclick="reloadPageWithFilters();"/> Public</label>
+                    <label><gsml:checkbox name="type_schools[]"
+                                          checked="${charterChecked}"
+                                          styleId="type_schools_charter"
+                                          onclick="reloadPageWithFilters();"/> Charter</label>
+                    <label><gsml:checkbox name="type_schools[]"
+                                          checked="${privateChecked}"
+                                          styleId="type_schools_private"
+                                          onclick="reloadPageWithFilters();"/> Private</label>
                 </div>
             </form>
         </div>
-        <div id="resultspagination">
-            <c:if test="${total gt 0}">
-                <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
-                <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
-                <c:set var="px" value="${(page * pageSize)}"/>
-                <strong>${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)}</strong>
-                of <strong>${total}</strong>
-            </c:if>
-        </div>
+        <c:if test="${total gt 0}">
+            <div id="resultspagination">
+                    <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                    <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
+                    <c:set var="px" value="${(page * pageSize)}"/>
+                    <strong>${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)}</strong>
+                    of <strong>${total}</strong>
+            </div>
+        </c:if>
     </c:if>
     <div id="searchResults">
         <c:if test="${not empty mainResults}">
             <search:schoolResults results="${mainResults}"/>
+        </c:if>
+        <c:if test="${empty mainResults and (not empty param.lc or not empty param.st)}">
+            <div class="noResults">No filtered results for "<span class="query">${param.q}</span>"</div>
         </c:if>
 
         <search:newPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>

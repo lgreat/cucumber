@@ -727,6 +727,71 @@
         </attribute>
     </tag>
     <tag>
+        <name>schoolSearch</name>
+        <tag-class>gs.web.jsp.link.SchoolSearchTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Search</display-name>
+        <description>
+            <![CDATA[Link to the school search results page.]]>
+        </description>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>value of link title attribute, for tooltip</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>optional state</description>
+        </attribute>
+        <attribute>
+            <name>query</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Query string for search</description>
+        </attribute>
+        <attribute>
+            <name>schoolType</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>School type</description>
+        </attribute>
+        <attribute>
+            <name>levelCode</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Level code</description>
+        </attribute>
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Page number, defaults to 1</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>addParentReviewSearch</name>
         <tag-class>gs.web.jsp.link.AddParentReviewSearchTagHandler</tag-class>
         <body-content>JSP</body-content>

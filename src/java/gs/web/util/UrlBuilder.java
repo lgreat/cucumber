@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.102 2008/03/03 19:47:19 droy Exp $
+ * $Id: UrlBuilder.java,v 1.103 2008/03/03 22:05:57 aroy Exp $
  */
 
 package gs.web.util;
@@ -90,6 +90,8 @@ public class UrlBuilder {
     public static final VPage TERMS_OF_USE = new VPage("vpage:termsOfUse");
 
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
+
+    public static final VPage SCHOOL_SEARCH = new VPage("vpage:schoolSearch");
 
     /**
      * This page lists all districts in a state
@@ -641,7 +643,7 @@ public class UrlBuilder {
             _path = "/cgi-bin/feedback/" + state.getAbbreviation();
         } else if (FEEDBACK.equals(page)) {
             _perlPage = true;
-            
+
             setParameter("fbtype", "gen");
             if (param0 != null) {
                 addParameter("topicOption", param0);
@@ -710,7 +712,7 @@ public class UrlBuilder {
             this.setParameter("state", state.getAbbreviation());
         } else if (PARENT_REVIEW_LEARN_MORE.equals(page)) {
             _perlPage = true;
-            _path = "/cgi-bin/static/parentcomments.html/" + state.getAbbreviationLowerCase() +"/";        
+            _path = "/cgi-bin/static/parentcomments.html/" + state.getAbbreviationLowerCase() +"/";
         } else if (PARENT_RATING_EXPLAINED.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/static/what_ratings_mean.html/" + state.getAbbreviationLowerCase() +"/";
@@ -724,6 +726,13 @@ public class UrlBuilder {
         } else if (SCHOOLS_IN_STATE.equals(page)) {
             _perlPage = false;
             _path = "/schools/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
+        } else if (SCHOOL_SEARCH.equals(page)) {
+            _perlPage = false;
+            _path = "/search/search.page";
+            this.setParameter("c", "school");
+            this.setParameter("search_type", "0");
+            this.setParameter("state", state.getAbbreviation());
+            this.setParameter("q", param0);
         } else if (TEST_SCORE_LANDING.equals(page)) {
             _perlPage = false;
             _path = "/test/landing.page";

@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="styleId" required="false" description="CSS id"/>
     <jsp:directive.attribute name="tabIndex" required="false" description="Tab index"/>
+    <jsp:directive.attribute name="onclick" required="false" description="Javascript onclick function"/>
     <![CDATA[<input type="checkbox" ]]>
     <c:out value='name="${name}"' escapeXml="false"/>
     <c:if test="${not empty styleClass}">
@@ -21,6 +22,9 @@
     </c:if>
     <c:if test="${not empty tabIndex}">
         <c:out value=' tabindex="${tabIndex}"' escapeXml="false"/>
+    </c:if>
+    <c:if test="${not empty onclick}">
+        <c:out value=' onclick="${onclick}"' escapeXml="false"/>
     </c:if>
     <c:out value=" />" escapeXml="false"/>
 </jsp:root>
