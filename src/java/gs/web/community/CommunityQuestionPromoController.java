@@ -25,6 +25,7 @@ public class CommunityQuestionPromoController extends AbstractController {
     public static final String BEAN_ID = "/community/communityQuestionPromo.module";
     public static final String WORKSHEET_PRIMARY_ID_COL = "code";
     public static final String DEFAULT_CODE = "school/rating.page";
+    public static final String DEFAULT_QUESTION_LINK_TEXT = "Join the discussion in our Parent Community >";
     public static final String MODEL_QUESTION_TEXT = "questionText";
     public static final String MODEL_QUESTION_LINK = "questionLink";
     public static final String MODEL_QUESTION_LINK_TEXT = "questionLinkText";
@@ -77,7 +78,7 @@ public class CommunityQuestionPromoController extends AbstractController {
 
         String linkText = (String) model.get(MODEL_QUESTION_LINK_TEXT);
         if (StringUtils.isBlank(linkText)) {
-            model.put(MODEL_QUESTION_LINK_TEXT, "Join the discussion in our parent community >");
+            model.put(MODEL_QUESTION_LINK_TEXT, DEFAULT_QUESTION_LINK_TEXT);
         }
 
         // set avatar image alt tag

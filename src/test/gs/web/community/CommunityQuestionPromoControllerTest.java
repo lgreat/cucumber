@@ -42,7 +42,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         // test defaults
         assertEquals("Expect default value", "http://community.greatschools.net", model.get(MODEL_QUESTION_LINK));
-        assertEquals("Expect default value", "Join the discussion in our parent community >",
+        assertEquals("Expect default value", DEFAULT_QUESTION_LINK_TEXT,
                 model.get(MODEL_QUESTION_LINK_TEXT));
         assertEquals("Expect default value", "http://community.greatschools.net/members",
                 model.get(MODEL_MEMBER_URL));
