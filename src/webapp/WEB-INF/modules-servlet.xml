@@ -18,16 +18,19 @@
             autowire="byName">
     </bean>
 
+    <bean id="communityQuestionPromoTableFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pmY-74KD4CbXrSKtrPdEnSg"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+    </bean>
+
     <bean name="/community/communityQuestionPromo.module"
             class="gs.web.community.CommunityQuestionPromoController"
             autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/communityQuestionPromo"/>
-        <property name="tableDaoFactory">
-            <bean class="gs.web.util.google.GoogleSpreadsheetDaoFactory">
-                <property name="googleKey" value="pmY-74KD4CbXrSKtrPdEnSg"/>
-                <property name="visibility" value="public"/>
-                <property name="projection" value="values"/>
-            </bean>
+        <property name="tableDao">
+            <bean factory-bean="communityQuestionPromoTableFactory" factory-method="getTableDao"/>
         </property>
     </bean>
 

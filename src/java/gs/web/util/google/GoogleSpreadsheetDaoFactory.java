@@ -23,14 +23,14 @@ public class GoogleSpreadsheetDaoFactory implements ITableDaoFactory {
     public ITableDao getTableDao() {
         if (_googleKey == null) {
             throw new IllegalStateException("Cannot instantiate GoogleSpreadsheetDao without googleKey");
-        } else if (_worksheetName == null) {
-            throw new IllegalStateException("Cannot instantiate GoogleSpreadsheetDao without worksheetName");
         }
         String worksheetUrl = SPREADSHEET_PREFIX +
                 _googleKey + "/" +
                 _visibility + "/" +
-                _projection + "/" +
-                _worksheetName;
+                _projection + "/";
+        if (!StringUtils.isEmpty(_worksheetName)) {
+                worksheetUrl += _worksheetName;
+        }
         GoogleSpreadsheetDao dao;
         if (!StringUtils.isEmpty(_username) && !StringUtils.isEmpty(_password)) {
             dao = new GoogleSpreadsheetDao(worksheetUrl, _username, _password);

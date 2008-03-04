@@ -15,9 +15,7 @@ import java.util.Random;
 import gs.web.util.UrlUtil;
 import gs.data.util.table.ITableRow;
 import gs.data.util.table.ITableDao;
-import gs.data.util.table.ITableDaoFactory;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.google.GoogleSpreadsheetDaoFactory;
 import gs.web.util.google.GoogleSpreadsheetDao;
 
 /**
@@ -38,13 +36,10 @@ public class CommunityQuestionPromoController extends AbstractController {
     public static final String CACHE_CLEAR_PARAM = "clear";
 
     private String _viewName;
-    private ITableDaoFactory _tableDaoFactory;
     private ITableDao _tableDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // this could be spring configured, except that it varies depending on what hostname this request
-        // is running off of
-        ((GoogleSpreadsheetDaoFactory) getTableDaoFactory()).setWorksheetName(getWorksheet(request));
+        injectWorksheetName(request);
         if (!StringUtils.isBlank(request.getParameter(CACHE_CLEAR_PARAM))) {
             ((GoogleSpreadsheetDao)getTableDao()).clearCache();
         }
@@ -52,6 +47,19 @@ public class CommunityQuestionPromoController extends AbstractController {
         loadSpreadsheetDataIntoModel(model, getCode(request));
         addExtraInfoToModel(model, request);
         return new ModelAndView(_viewName, model);
+    }
+
+    /**
+     * This could be spring configured, except that it varies depending on what hostname this request
+     * is running off of
+     */
+    protected void injectWorksheetName(HttpServletRequest request) {
+        GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getTableDao();
+        String worksheetName = getWorksheet(request);
+        String worksheetUrl = castDao.getWorksheetUrl();
+        if (!worksheetUrl.endsWith(worksheetName)) {
+            castDao.setWorksheetUrl(worksheetUrl + worksheetName);
+        }
     }
 
     /**
@@ -153,19 +161,12 @@ public class CommunityQuestionPromoController extends AbstractController {
         return code;
     }
 
-    public ITableDaoFactory getTableDaoFactory() {
-        return _tableDaoFactory;
-    }
-
-    public void setTableDaoFactory(ITableDaoFactory tableDaoFactory) {
-        _tableDaoFactory = tableDaoFactory;
-    }
-
     public ITableDao getTableDao() {
-        if (_tableDao == null) {
-            _tableDao = getTableDaoFactory().getTableDao();
-        }
         return _tableDao;
+    }
+
+    public void setTableDao(ITableDao tableDao) {
+        _tableDao = tableDao;
     }
 
     public void setViewName(String viewName) {

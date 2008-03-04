@@ -97,6 +97,14 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
         return new SpreadsheetService("greatschools-GSWeb-9.5");
     }
 
+    public String getWorksheetUrl() {
+        return _worksheetUrl;
+    }
+
+    public void setWorksheetUrl(String worksheetUrl) {
+        _worksheetUrl = worksheetUrl;
+    }
+
     private static class GoogleTableRow extends HashMapTableRow {
         /**
          * Initialize this TableRow with the contents of a ListEntry (a Google spreadsheets row).
