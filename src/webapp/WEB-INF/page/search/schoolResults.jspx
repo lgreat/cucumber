@@ -80,7 +80,7 @@
                 }
             }
         }
-        request.setAttribute("stOmniture", stOmniture);;
+        request.setAttribute("stOmniture", stOmniture);
     </jsp:scriptlet>    
 </head>
 

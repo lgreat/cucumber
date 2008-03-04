@@ -10,7 +10,7 @@
     <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
     <div id="searchResultsHeader" class="cleared">
         <div id="schoolResultsHeader">
-            School name
+            School Name
         </div>
         <div id="ratingsHeader">
             GreatSchools Rating
