@@ -43,6 +43,8 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         // test defaults
         assertEquals("Expect default value", "http://community.greatschools.net", model.get(MODEL_QUESTION_LINK));
+        assertEquals("Expect default value", "Join the discussion in our parent community >",
+                model.get(MODEL_QUESTION_LINK_TEXT));
         assertEquals("Expect default value", "http://community.greatschools.net/members",
                 model.get(MODEL_MEMBER_URL));
         assertEquals("Expect default value", "Avatar", model.get(MODEL_AVATAR_ALT));
@@ -78,6 +80,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         row.addCell(WORKSHEET_PRIMARY_ID_COL, "someKey");
         row.addCell("text", "text text");
         row.addCell("link", "link link");
+        row.addCell("linktext", "link text");
         row.addCell("username", "user name");
         row.addCell("memberid", "member id");
         List<SpreadsheetRow> rows = new ArrayList<SpreadsheetRow>();
@@ -95,6 +98,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         assertEquals("text text", model.get(MODEL_QUESTION_TEXT));
         assertEquals("link link", model.get(MODEL_QUESTION_LINK));
+        assertEquals("link text", model.get(MODEL_QUESTION_LINK_TEXT));
         assertEquals("user name", model.get(MODEL_USERNAME));
         assertEquals("member id", model.get(MODEL_USER_ID));
     }

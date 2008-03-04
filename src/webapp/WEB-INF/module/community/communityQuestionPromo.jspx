@@ -11,6 +11,7 @@
 <!-- Expected variables in model -->
 <c:set var="questionText" value="${questionText}"/>
 <c:set var="questionLink" value="${questionLink}"/>
+<c:set var="questionLinkText" value="${questionLinkText}"/>
 <c:set var="memberUrl" value="${memberUrl}"/>
 <c:set var="avatarAlt" value="${avatarAlt}"/>
 <c:set var="avatarUrl" value="${avatarUrl}"/>
@@ -22,7 +23,7 @@
         <div class="bodyArea">
             ${questionText}
             <br/>
-            <a href="${questionLink}">Join the discussion in our Parent Community &gt;</a>
+            <a href="${questionLink}">${questionLinkText}</a>
         </div>
         <![CDATA[
         <div class="cornerTopLeft"></div>

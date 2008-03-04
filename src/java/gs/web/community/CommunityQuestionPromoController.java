@@ -27,6 +27,7 @@ public class CommunityQuestionPromoController extends AbstractController {
     public static final String DEFAULT_CODE = "school/rating.page";
     public static final String MODEL_QUESTION_TEXT = "questionText";
     public static final String MODEL_QUESTION_LINK = "questionLink";
+    public static final String MODEL_QUESTION_LINK_TEXT = "questionLinkText";
     public static final String MODEL_USERNAME = "username";
     public static final String MODEL_USER_ID = "userId";
     public static final String MODEL_MEMBER_URL = "memberUrl";
@@ -68,6 +69,11 @@ public class CommunityQuestionPromoController extends AbstractController {
             model.put(MODEL_QUESTION_LINK, link);
         }
 
+        String linkText = (String) model.get(MODEL_QUESTION_LINK_TEXT);
+        if (StringUtils.isBlank(linkText)) {
+            model.put(MODEL_QUESTION_LINK_TEXT, "Join the discussion in our parent community >");
+        }
+
         // set avatar image alt tag
         String username = (String) model.get(MODEL_USERNAME);
         if (StringUtils.isBlank(username)) {
@@ -96,6 +102,7 @@ public class CommunityQuestionPromoController extends AbstractController {
             SpreadsheetRow row = getRandomRow(rows);
             model.put(MODEL_QUESTION_TEXT, row.getCell("text"));
             model.put(MODEL_QUESTION_LINK, row.getCell("link"));
+            model.put(MODEL_QUESTION_LINK_TEXT, row.getCell("linktext"));
             model.put(MODEL_USERNAME, row.getCell("username"));
             model.put(MODEL_USER_ID, row.getCell("memberid"));
         }
