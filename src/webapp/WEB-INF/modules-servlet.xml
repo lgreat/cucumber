@@ -31,19 +31,20 @@
         </property>
     </bean>
 
+    <bean id="testScoreLandingLinksTableFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+        <property name="worksheetName" value="od7"/>
+    </bean>
+
     <bean name="/test/testScoreLandingLinks.module"
             class="gs.web.test.TestScoreLandingLinksController"
             autowire="byName" lazy-init="true">
         <property name="viewName" value="/test/testScoreLandingLinks"/>
-        <property name="tableDaoFactory">
-            <bean class="gs.web.util.google.GoogleSpreadsheetDaoFactory">
-                <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
-                <property name="visibility" value="public"/>
-                <property name="projection" value="values"/>
-                <property name="worksheetName" value="od7"/>
-                <!-- property name="username" value="chriskimm@greatschools.net"/>
-                <property name="password" value="greattests"/ -->
-            </bean>
+        <property name="tableDao">
+            <bean factory-bean="testScoreLandingLinksTableFactory" factory-method="getTableDao"/>
         </property>
     </bean>
 

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.data.util.table.ITableDao;
-import gs.data.util.table.ITableDaoFactory;
 import gs.web.util.UrlBuilder;
 import gs.data.util.table.ITableRow;
 import gs.web.util.list.Anchor;
@@ -31,7 +30,6 @@ public class TestScoreLandingLinksController extends AbstractController {
 
     private static final String _anchorStyleClass = "testScoreLandingLink";
 
-    private ITableDaoFactory _tableDaoFactory;
     private String _viewName;
     private StateManager _stateManager;
 
@@ -145,19 +143,12 @@ public class TestScoreLandingLinksController extends AbstractController {
         _viewName = viewName;
     }
 
-    public ITableDaoFactory getTableDaoFactory() {
-        return _tableDaoFactory;
-    }
-
-    public void setTableDaoFactory(ITableDaoFactory tableDaoFactory) {
-        _tableDaoFactory = tableDaoFactory;
-    }
-
     public ITableDao getTableDao() {
-        if (_tableDao == null) {
-            _tableDao = getTableDaoFactory().getTableDao();
-        }
         return _tableDao;
+    }
+
+    public void setTableDao(ITableDao tableDao) {
+        _tableDao = tableDao;
     }
 
     public StateManager getStateManager() {

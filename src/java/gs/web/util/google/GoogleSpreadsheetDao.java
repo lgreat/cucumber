@@ -24,11 +24,12 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
     private static final Logger _log = Logger.getLogger(GoogleSpreadsheetDao.class);
 
     /** For unit testing */
-    private SpreadsheetService _service;
+    private SpreadsheetService _spreadsheetService;
     /** For private/write access */
     private String _username;
     /** For private/write access */
     private String _password;
+    /** Url to retrieve spreadsheet from */
     private String _worksheetUrl;
 
     public GoogleSpreadsheetDao(String worksheetUrl) {
@@ -86,12 +87,12 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
     }
 
     protected void setSpreadsheetService(SpreadsheetService service) {
-        _service = service;
+        _spreadsheetService = service;
     }
 
     protected SpreadsheetService getSpreadsheetService() {
-        if (_service != null) {
-            return _service;
+        if (_spreadsheetService != null) {
+            return _spreadsheetService;
         }
         return new SpreadsheetService("greatschools-GSWeb-9.5");
     }
