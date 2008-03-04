@@ -24,7 +24,10 @@
             <c:set var="school" value="${schoolResult.school}"/>
             <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
             <c:set var="parentRating" value="${schoolResult.parentRating}"/>
-            <div class="result cleared">
+            <c:set var="parentRatingCount" value="${schoolResult.parentRatingCount}"/>
+            <c:set var="reviewMap" value="${schoolResult.reviewMap}" />
+
+                <div class="result cleared">
                 <div class="school">
                     <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <c:out value="${school.name}" escapeXml="false"/>
@@ -38,9 +41,12 @@
                     <address><c:out value="${school.physicalAddress.cityStateZip}"/></address>
                     <div class="resultcontrols">
                         <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
-                        <!-- TODO: C version only -->
-                        <br />
-                        <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
+                        <c:if test="${requestScope.context.ABVersion eq 'c'}">
+                            <br />
+                            <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
+                        </c:if>
+
+
                     </div>
                 </div>
                 <div class="rating">
@@ -71,17 +77,21 @@
                                     <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
                                               alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
                                 </link:schoolProfileParentReview>
-                                <!-- TODO: B/C versions only, pull in number of ratings behind this rating (see parentReviews.page) -->
-                                (55)
+                                <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c'}">
+                                    (${parentRatingCount})  
+                                </c:if>
                             </c:otherwise>
                         </c:choose>
                     </p>
 
-                    <!-- TODO: B/C versions only,
-                         TODO: pull in random parent review (see city pagehttp://www.greatschools.net/city/Alameda/CA ),
-                         TODO: pull in total number of parent reviews (see parentReviews.page or module on overview page)-->
-                    <p>Random parent review goes here...
-                        <br /><link:schoolProfileParentReview school="${school}">Read all 89 reviews...</link:schoolProfileParentReview></p>
+                    <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c'}">
+                        <c:if test="${reviewMap.reviewCount > 0}">
+                            <p>${reviewMap.reviewBlurb}...
+                                <br /><link:schoolProfileParentReview school="${school}">Read all ${reviewMap.reviewCount} reviews...</link:schoolProfileParentReview></p>
+                        </c:if>
+                    </c:if>
+
+
                 </div>
             </div>
         </c:forEach>

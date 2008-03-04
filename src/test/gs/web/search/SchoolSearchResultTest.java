@@ -27,6 +27,26 @@ public class SchoolSearchResultTest extends TestCase {
         assertNull("Expected no parent rating when less than 3 exist", result.getParentRating());
     }
 
+    public void testParentRatingCount() {
+        Document doc = new Document();
+        SchoolSearchResult result = new SchoolSearchResult(doc);
+        assertEquals(0, result.getParentRatingCount());
+
+        doc.add(new Field(Indexer.PARENT_RATINGS_COUNT, "2", Field.Store.YES, Field.Index.TOKENIZED));
+        assertEquals(2, result.getParentRatingCount());
+    }
+
+    public void testReviewMap() {
+        Document doc = new Document();
+        SchoolSearchResult result = new SchoolSearchResult(doc);
+        assertNull( result.getReviewMap().get("reviewCount"));
+
+        doc.add(new Field("reviewCount", "2", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        assertEquals("2", result.getReviewMap().get("reviewCount"));
+        doc.add(new Field("reviewBlurb", "groupof10 groupof10 groupof10 groupof10 groupof10", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        assertEquals("groupof10 groupof10 groupof10 groupof10 groupof10", result.getReviewMap().get("reviewBlurb"));
+    }
+
     public void testParentRatingComesFromIndex() {
         Document doc = new Document();
         SchoolSearchResult result = new SchoolSearchResult(doc);
