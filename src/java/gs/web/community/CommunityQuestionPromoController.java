@@ -33,16 +33,12 @@ public class CommunityQuestionPromoController extends AbstractController {
     public static final String MODEL_MEMBER_URL = "memberUrl";
     public static final String MODEL_AVATAR_ALT = "avatarAlt";
     public static final String MODEL_AVATAR_URL = "avatarUrl";
-    public static final String CACHE_CLEAR_PARAM = "clear";
 
     private String _viewName;
     private ITableDao _tableDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         injectWorksheetName(request);
-        if (!StringUtils.isBlank(request.getParameter(CACHE_CLEAR_PARAM))) {
-            ((GoogleSpreadsheetDao)getTableDao()).clearCache();
-        }
         Map<String, Object> model = new HashMap<String, Object>();
         loadSpreadsheetDataIntoModel(model, getCode(request));
         addExtraInfoToModel(model, request);

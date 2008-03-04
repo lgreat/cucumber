@@ -170,20 +170,6 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         assertNull(model.get(MODEL_USER_ID));
     }
 
-    public void testLoadSpreadsheetDataClearCache() throws Exception {
-        GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _dao;
-        getRequest().setParameter(CommunityQuestionPromoController.CACHE_CLEAR_PARAM, "1");
-        getRequest().setServerName("dev.greatschools.net");
-
-        expect(dao.getWorksheetUrl()).andReturn("od6");
-        dao.clearCache();
-        expect(dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
-        replay(dao);
-
-        _controller.handleRequestInternal(getRequest(), getResponse());
-        verify(dao);
-    }
-
     public void testGetWorksheet() {
         getRequest().setServerName("dev.greatschools.net");
         assertEquals("od6", _controller.getWorksheet(getRequest()));

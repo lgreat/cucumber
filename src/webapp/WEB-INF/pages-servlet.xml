@@ -1260,6 +1260,10 @@
         <property name="mailSender" ref="mailSender"/>
     </bean>
 
+    <bean name="/table/clear.page"
+          autowire="byName"
+          class="gs.web.util.ClearTableDaoCacheController" lazy-init="true">
+    </bean>
     <bean name="pieController"
           autowire="byName"
           class="gs.web.chart.PieController"
