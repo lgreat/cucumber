@@ -226,18 +226,3 @@ td#editorPhoto .lisaDashedBorder {
     margin:0 6px 3px 0;
     *margin:0 0 3px 0;
 }
-
-div#testScoreLandingLinks {
-    color: #888888;
-    font-size: small;
-    font-weight: normal;
-    font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
-    margin-top: 20px;
-}
-
-div#testScoreLandingLinks a.testScoreLandingLink {
-    color: #888888;
-    font-size: small;
-    font-weight: normal;
-    font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
-}

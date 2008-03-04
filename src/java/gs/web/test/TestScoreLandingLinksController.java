@@ -28,7 +28,11 @@ public class TestScoreLandingLinksController extends AbstractController {
     public static final String STATE_PARAM = "state";
     public static final String WORKSHEET_PRIMARY_ID_COL = "state";
 
-    private static final String _anchorStyleClass = "testScoreLandingLink";
+    protected static final String _anchorStyleClass = "testScoreLandingLink";
+    protected static final String MODEL_LANDING_LINKS_KEY = "testLandingLinks";
+    protected static final String TABLE_DATA_TYPE_ID_COL = "tid";
+    protected static final String TABLE_SHORT_NAME_COL = "shortname";
+    protected static final String TABLE_LONG_NAME_COL = "longname";
 
     private String _viewName;
     private StateManager _stateManager;
@@ -56,30 +60,34 @@ public class TestScoreLandingLinksController extends AbstractController {
     protected void loadSpreadsheetDataIntoModel(Map<String, Object> model, HttpServletRequest request) {
         List<Anchor> links = new ArrayList<Anchor>();
 
-        _state = _stateManager.getState(request.getParameter(STATE_PARAM));
-        if (_state != null) {
-            if (!StringUtils.equals(request.getParameter(SHOW_FINDER_PARAM), "false")) {
-                links.add(makeFindSchoolsLink());
-            }
+        String stateParam = request.getParameter(STATE_PARAM);
+        if (stateParam != null) {
+            _state = _stateManager.getState(stateParam);
+            if (_state != null) {
+                if (!StringUtils.equals(request.getParameter(SHOW_FINDER_PARAM), "false")) {
+                    links.add(makeFindSchoolsLink());
+                }
 
-            List<ITableRow> rows = getSpreadsheetRows();
-            if (rows != null && !rows.isEmpty()) {
-                for (ITableRow row : rows) {
-                    Anchor anchor = makeLandingLink(row);
-                    if (anchor != null) {
-                        links.add(anchor);
+                List<ITableRow> rows = getSpreadsheetRows();
+                if (rows != null && !rows.isEmpty()) {
+                    for (ITableRow row : rows) {
+                        Anchor anchor = makeLandingLink(row);
+                        if (anchor != null) {
+                            links.add(anchor);
+                        }
                     }
                 }
             }
         }
-        model.put("testLandingLinks", links);
+
+        model.put(MODEL_LANDING_LINKS_KEY, links);
     }
 
     /**
      * Get the rows for the current state
      * @return List of rows
      */
-    private List<ITableRow> getSpreadsheetRows() {
+    protected List<ITableRow> getSpreadsheetRows() {
         String stateAbbrev = _state.getAbbreviation();
         return getTableDao().getRowsByKey(WORKSHEET_PRIMARY_ID_COL, stateAbbrev);
     }
@@ -89,16 +97,16 @@ public class TestScoreLandingLinksController extends AbstractController {
      * @param row Row of data containing details on the test
      * @return Anchor containing link to test landing page
      */
-    private Anchor makeLandingLink(ITableRow row) {
+    protected Anchor makeLandingLink(ITableRow row) {
         Anchor result = null;
         
-        String datatype_id_str = row.getString("tid");
+        String datatype_id_str = row.getString(TABLE_DATA_TYPE_ID_COL);
         if (!StringUtils.isBlank(datatype_id_str)) {
-            String shortname = row.getString("shortname");
+            String shortname = row.getString(TABLE_SHORT_NAME_COL);
             if (!StringUtils.isBlank(shortname) ) {
                 result = makeLandingLink(shortname, datatype_id_str);
             } else {
-                String longname = row.getString("longname");
+                String longname = row.getString(TABLE_LONG_NAME_COL);
                 if (!StringUtils.isBlank(longname)) {
                     result = makeLandingLink(longname, datatype_id_str);
                 }
@@ -114,7 +122,7 @@ public class TestScoreLandingLinksController extends AbstractController {
      * @param datatype_id The datatype id of the test being linked to
      * @return Anchor containing the link to test landing page
      */
-    private Anchor makeLandingLink(String testName, String datatype_id) {
+    protected Anchor makeLandingLink(String testName, String datatype_id) {
         String testNameLower = testName.toLowerCase();
         if (!(testNameLower.endsWith(" ratings") || testNameLower.endsWith(" grades") ||
                 testNameLower.endsWith(" profiles") || testNameLower.endsWith(" scores"))) {
@@ -129,7 +137,7 @@ public class TestScoreLandingLinksController extends AbstractController {
      * Create an anchor to find more schools in the state
      * @return Anchor to find more schools
      */
-    private Anchor makeFindSchoolsLink() {
+    protected Anchor makeFindSchoolsLink() {
         String visibleText = "Find " + _state.getLongName() + " schools";
         UrlBuilder url_builder = new UrlBuilder(UrlBuilder.RESEARCH, _state);
         return new Anchor(url_builder.toString(), visibleText, _anchorStyleClass);
