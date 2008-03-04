@@ -1,9 +1,12 @@
 package gs.web.community;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.google.IGoogleSpreadsheetDao;
-import gs.web.util.google.GoogleSpreadsheetFactory;
-import gs.web.util.google.SpreadsheetRow;
+import gs.data.util.table.ITableDao;
+import gs.web.util.google.GoogleSpreadsheetDaoFactory;
+import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.data.util.table.ITableDaoFactory;
+import gs.data.util.table.HashMapTableRow;
+import gs.data.util.table.ITableRow;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -18,20 +21,20 @@ import static org.easymock.classextension.EasyMock.*;
  */
 public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase {
     private CommunityQuestionPromoController _controller;
-    private GoogleSpreadsheetFactory _factory;
-    private IGoogleSpreadsheetDao _dao;
+    private ITableDaoFactory _factory;
+    private ITableDao _dao;
 
     public void setUp() throws Exception {
         super.setUp();
         _controller = new CommunityQuestionPromoController();
 
-        _factory = createMock(GoogleSpreadsheetFactory.class);
-        _dao = createMock(IGoogleSpreadsheetDao.class);
-        _controller.setGoogleSpreadsheetFactory(_factory);
+        _factory = createMock(ITableDaoFactory.class);
+        _dao = createMock(ITableDao.class);
+        _controller.setTableDaoFactory(_factory);
     }
 
     public void testBasics() {
-        assertSame(_factory, _controller.getGoogleSpreadsheetFactory());
+        assertSame(_factory, _controller.getTableDaoFactory());
         _controller.setViewName("aView");
         assertEquals("aView", _controller.getViewName());
     }
@@ -76,17 +79,17 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
     public void testLoadSpreadsheetData() {
         Map<String, Object> model = new HashMap<String, Object>();
 
-        SpreadsheetRow row = new SpreadsheetRow();
+        HashMapTableRow row = new HashMapTableRow();
         row.addCell(WORKSHEET_PRIMARY_ID_COL, "someKey");
         row.addCell("text", "text text");
         row.addCell("link", "link link");
         row.addCell("linktext", "link text");
         row.addCell("username", "user name");
         row.addCell("memberid", "member id");
-        List<SpreadsheetRow> rows = new ArrayList<SpreadsheetRow>();
+        List<ITableRow> rows = new ArrayList<ITableRow>();
         rows.add(row);
 
-        expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
+        expect(_factory.getTableDao()).andReturn(_dao);
         replay(_factory);
 
         expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(rows);
@@ -104,13 +107,13 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
     }
 
     public void testGetRandomRow() {
-        SpreadsheetRow row;
-        SpreadsheetRow row1 = new SpreadsheetRow();
-        SpreadsheetRow row2 = new SpreadsheetRow();
-        SpreadsheetRow row3 = new SpreadsheetRow();
-        List<SpreadsheetRow> rows;
+        ITableRow row;
+        HashMapTableRow row1 = new HashMapTableRow();
+        HashMapTableRow row2 = new HashMapTableRow();
+        HashMapTableRow row3 = new HashMapTableRow();
+        List<ITableRow> rows;
 
-        rows = new ArrayList<SpreadsheetRow>();
+        rows = new ArrayList<ITableRow>();
 
         rows.add(row1);
 
@@ -145,9 +148,9 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         // shouldn't crash
         Map<String, Object> model = new HashMap<String, Object>();
 
-        List<SpreadsheetRow> rows = new ArrayList<SpreadsheetRow>();
+        List<ITableRow> rows = new ArrayList<ITableRow>();
 
-        expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
+        expect(_factory.getTableDao()).andReturn(_dao);
         replay(_factory);
 
         expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(rows);
@@ -167,7 +170,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         // shouldn't crash
         Map<String, Object> model = new HashMap<String, Object>();
 
-        expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
+        expect(_factory.getTableDao()).andReturn(_dao);
         replay(_factory);
 
         expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(null);
@@ -184,19 +187,24 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
     }
 
     public void testLoadSpreadsheetDataClearCache() throws Exception {
+        GoogleSpreadsheetDao dao = createMock(GoogleSpreadsheetDao.class);
         getRequest().setParameter(CommunityQuestionPromoController.CACHE_CLEAR_PARAM, "1");
         getRequest().setServerName("dev.greatschools.net");
 
-        _factory.setWorksheetName("od6");
-        expect(_factory.getGoogleSpreadsheetDao()).andReturn(_dao);
-        replay(_factory);
+        GoogleSpreadsheetDaoFactory factory = createMock(GoogleSpreadsheetDaoFactory.class);
+        _controller.setTableDaoFactory(factory);
 
-        _dao.clearCache();
-        expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
-        replay(_dao);
+        factory.setWorksheetName("od6");
+        expect(factory.getTableDao()).andReturn(dao);
+        replay(factory);
+
+        dao.clearCache();
+        expect(dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
+        replay(dao);
 
         _controller.handleRequestInternal(getRequest(), getResponse());
-        verify(_dao);
+        verify(dao);
+        verify(factory);
     }
 
     public void testGetWorksheet() {

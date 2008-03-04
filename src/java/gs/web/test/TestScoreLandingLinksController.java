@@ -8,11 +8,10 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gs.web.util.google.GoogleSpreadsheetFactory;
-import gs.web.util.google.IGoogleSpreadsheetDao;
-import gs.web.util.google.SpreadsheetRow;
-import gs.web.util.context.SessionContextUtil;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableDaoFactory;
 import gs.web.util.UrlBuilder;
+import gs.data.util.table.ITableRow;
 import gs.web.util.list.Anchor;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -32,11 +31,11 @@ public class TestScoreLandingLinksController extends AbstractController {
 
     private static final String _anchorStyleClass = "testScoreLandingLink";
 
-    private GoogleSpreadsheetFactory _googleSpreadsheetFactory;
+    private ITableDaoFactory _tableDaoFactory;
     private String _viewName;
     private StateManager _stateManager;
 
-    private IGoogleSpreadsheetDao _googleSpreadsheetDao;
+    private ITableDao _tableDao;
     private State _state;
 
     private Logger _log = Logger.getLogger(TestScoreLandingLinksController.class);
@@ -65,9 +64,9 @@ public class TestScoreLandingLinksController extends AbstractController {
                 links.add(makeFindSchoolsLink());
             }
 
-            List<SpreadsheetRow> rows = getSpreadsheetRows();
+            List<ITableRow> rows = getSpreadsheetRows();
             if (rows != null && !rows.isEmpty()) {
-                for (SpreadsheetRow row : rows) {
+                for (ITableRow row : rows) {
                     Anchor anchor = makeLandingLink(row);
                     if (anchor != null) {
                         links.add(anchor);
@@ -82,9 +81,9 @@ public class TestScoreLandingLinksController extends AbstractController {
      * Get the rows for the current state
      * @return List of rows
      */
-    private List<SpreadsheetRow> getSpreadsheetRows() {
+    private List<ITableRow> getSpreadsheetRows() {
         String stateAbbrev = _state.getAbbreviation();
-        return getGoogleSpreadsheetDao().getRowsByKey(WORKSHEET_PRIMARY_ID_COL, stateAbbrev);
+        return getTableDao().getRowsByKey(WORKSHEET_PRIMARY_ID_COL, stateAbbrev);
     }
 
     /**
@@ -92,16 +91,16 @@ public class TestScoreLandingLinksController extends AbstractController {
      * @param row Row of data containing details on the test
      * @return Anchor containing link to test landing page
      */
-    private Anchor makeLandingLink(SpreadsheetRow row) {
+    private Anchor makeLandingLink(ITableRow row) {
         Anchor result = null;
         
-        String datatype_id_str = row.getCell("tid");
+        String datatype_id_str = row.getString("tid");
         if (!StringUtils.isBlank(datatype_id_str)) {
-            String shortname = row.getCell("shortname");
+            String shortname = row.getString("shortname");
             if (!StringUtils.isBlank(shortname) ) {
                 result = makeLandingLink(shortname, datatype_id_str);
             } else {
-                String longname = row.getCell("longname");
+                String longname = row.getString("longname");
                 if (!StringUtils.isBlank(longname)) {
                     result = makeLandingLink(longname, datatype_id_str);
                 }
@@ -146,19 +145,19 @@ public class TestScoreLandingLinksController extends AbstractController {
         _viewName = viewName;
     }
 
-    public GoogleSpreadsheetFactory getGoogleSpreadsheetFactory() {
-        return _googleSpreadsheetFactory;
+    public ITableDaoFactory getTableDaoFactory() {
+        return _tableDaoFactory;
     }
 
-    public void setGoogleSpreadsheetFactory(GoogleSpreadsheetFactory googleSpreadsheetFactory) {
-        _googleSpreadsheetFactory = googleSpreadsheetFactory;
+    public void setTableDaoFactory(ITableDaoFactory tableDaoFactory) {
+        _tableDaoFactory = tableDaoFactory;
     }
 
-    public IGoogleSpreadsheetDao getGoogleSpreadsheetDao() {
-        if (_googleSpreadsheetDao == null) {
-            _googleSpreadsheetDao = getGoogleSpreadsheetFactory().getGoogleSpreadsheetDao();
+    public ITableDao getTableDao() {
+        if (_tableDao == null) {
+            _tableDao = getTableDaoFactory().getTableDao();
         }
-        return _googleSpreadsheetDao;
+        return _tableDao;
     }
 
     public StateManager getStateManager() {

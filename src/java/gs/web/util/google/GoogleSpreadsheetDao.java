@@ -13,25 +13,23 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
-import gs.web.util.CachedItem;
+import gs.data.util.table.HashMapTableRow;
+import gs.data.util.table.ITableRow;
+import gs.data.util.table.AbstractCachedTableDao;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class GoogleSpreadsheetDao implements IGoogleSpreadsheetDao {
+public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
     private static final Logger _log = Logger.getLogger(GoogleSpreadsheetDao.class);
-
-    protected static Map<String, CachedItem<List<SpreadsheetRow>>> _cache;
 
     /** For unit testing */
     private SpreadsheetService _service;
+    /** For private/write access */
     private String _username;
+    /** For private/write access */
     private String _password;
     private String _worksheetUrl;
-
-    static {
-        _cache = Collections.synchronizedMap(new HashMap<String, CachedItem<List<SpreadsheetRow>>>());
-    }
 
     public GoogleSpreadsheetDao(String worksheetUrl) {
         this(worksheetUrl, null, null);
@@ -43,65 +41,15 @@ public class GoogleSpreadsheetDao implements IGoogleSpreadsheetDao {
         _password = password;
     }
 
-    public SpreadsheetRow getFirstRowByKey(String keyName, String keyValue) {
-        List<SpreadsheetRow> rows = getRowsByKey(keyName, keyValue);
-        if (rows == null || rows.isEmpty()) {
-            return null;
-        }
-        return rows.get(0);
-    }
-
-    public List<SpreadsheetRow> getRowsByKey(String keyName, String keyValue) {
-        String cacheKey = _worksheetUrl + ":" + keyName + ":" + keyValue;
-
-        List<SpreadsheetRow> rows = getFromCache(cacheKey);
-        if (rows == null || rows.isEmpty()) {
-            // cache miss or expire, retrieve from Google
-            rows = getRowsByKeyExternal(keyName, keyValue);
-            if (rows != null && !rows.isEmpty()) {
-                // store in cache if results were found
-                putIntoCache(cacheKey, rows, HOUR);
-            }
-        }
-        return rows;
-    }
-
-    public List<SpreadsheetRow> getAllRows() {
-        List<SpreadsheetRow> rows = getFromCache(_worksheetUrl);
-        if (rows == null || rows.isEmpty()) {
-            // cache miss or expire, retrieve from Google
-            rows = getAllRowsExternal();
-            if (rows != null && !rows.isEmpty()) {
-                // store in cache if results were found
-                putIntoCache(_worksheetUrl, rows, HOUR);
-            }
-        }
-        return rows;
-    }
-
-    protected List<SpreadsheetRow> getRowsByKeyExternal(String keyName, String keyValue) {
-        List<SpreadsheetRow> matchingRows = new ArrayList<SpreadsheetRow>();
+    protected List<ITableRow> getRowsByKeyExternal(String keyName, String keyValue) {
+        List<ITableRow> matchingRows = new ArrayList<ITableRow>();
         ListFeed lf = getListFeed();
         if (lf != null) {
             for (ListEntry rowEntry : lf.getEntries()) {
-                SpreadsheetRow currentRow = new SpreadsheetRow(rowEntry);
-                if (keyValue.equals(currentRow.getCell(keyName))) {
+                ITableRow currentRow = new GoogleTableRow(rowEntry);
+                if (keyValue == null || keyName == null || keyValue.equals(currentRow.get(keyName))) {
                     matchingRows.add(currentRow);
                 }
-            }
-        }
-        if (matchingRows.isEmpty()) {
-            return null;
-        }
-        return matchingRows;
-    }
-
-    protected List<SpreadsheetRow> getAllRowsExternal() {
-        List<SpreadsheetRow> matchingRows = new ArrayList<SpreadsheetRow>();
-        ListFeed lf = getListFeed();
-        if (lf != null) {
-            for (ListEntry rowEntry : lf.getEntries()) {
-                matchingRows.add(new SpreadsheetRow(rowEntry));
             }
         }
         if (matchingRows.isEmpty()) {
@@ -121,44 +69,20 @@ public class GoogleSpreadsheetDao implements IGoogleSpreadsheetDao {
             URL listFeedUrl = dataWorksheet.getListFeedUrl();
             lf = service.getFeed(listFeedUrl, ListFeed.class);
         } catch (MalformedURLException e) {
-            _log.error("MalformedURLException \"" + _worksheetUrl + "\"");
+            _log.error("MalformedURLException: \"" + _worksheetUrl + "\"");
             _log.error(e);
         } catch (IOException e) {
+            _log.error("IOException: \"" + _worksheetUrl + "\"");
             _log.error(e);
-            e.printStackTrace();
         } catch (ServiceException e) {
+            _log.error("ServiceException: \"" + _worksheetUrl + "\"");
             _log.error(e);
-            e.printStackTrace();
         }
         return lf;
     }
 
-    public List<SpreadsheetRow> getFromCache(String s) {
-        List<SpreadsheetRow> rval = null;
-        CachedItem<List<SpreadsheetRow>> item = _cache.get(s);
-        if (item != null) {
-            rval = item.getDataIfNotExpired();
-            if (rval == null) {
-                clearCacheKey(s);
-            }
-        }
-        return rval;
-    }
-
-    public void putIntoCache(String s, List<SpreadsheetRow> rows, long timeToExpiration) {
-        CachedItem<List<SpreadsheetRow>> item = new CachedItem<List<SpreadsheetRow>>();
-        item.setData(rows);
-        item.setCachedAt(System.currentTimeMillis());
-        item.setCacheDuration(timeToExpiration);
-        _cache.put(s, item);
-    }
-
-    public void clearCacheKey(String s) {
-        _cache.remove(s);
-    }
-
-    public void clearCache() {
-        _cache.clear();
+    public String getCacheKey() {
+        return _worksheetUrl;
     }
 
     protected void setSpreadsheetService(SpreadsheetService service) {
@@ -170,5 +94,17 @@ public class GoogleSpreadsheetDao implements IGoogleSpreadsheetDao {
             return _service;
         }
         return new SpreadsheetService("greatschools-GSWeb-9.5");
+    }
+
+    private static class GoogleTableRow extends HashMapTableRow {
+        /**
+         * Initialize this TableRow with the contents of a ListEntry (a Google spreadsheets row).
+         * @param rowEntry row to initialize this object with.
+         */
+        public GoogleTableRow(ListEntry rowEntry) {
+            for (String columnName: rowEntry.getCustomElements().getTags()) {
+                addCell(columnName, rowEntry.getCustomElements().getValue(columnName));
+            }
+        }
     }
 }

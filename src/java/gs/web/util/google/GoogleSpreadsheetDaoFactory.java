@@ -1,11 +1,13 @@
 package gs.web.util.google;
 
 import org.apache.commons.lang.StringUtils;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableDaoFactory;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class GoogleSpreadsheetFactory {
+public class GoogleSpreadsheetDaoFactory implements ITableDaoFactory {
     public static final String BEAN_ID = "googleSpreadsheetFactory";
     public static final String SPREADSHEET_PREFIX = "http://spreadsheets.google.com/feeds/worksheets/";
     public static final String DEFAULT_VISIBILITY = "public";
@@ -18,7 +20,7 @@ public class GoogleSpreadsheetFactory {
     private String _projection = DEFAULT_PROJECTION;
     private String _worksheetName;
 
-    public IGoogleSpreadsheetDao getGoogleSpreadsheetDao() {
+    public ITableDao getTableDao() {
         if (_googleKey == null) {
             throw new IllegalStateException("Cannot instantiate GoogleSpreadsheetDao without googleKey");
         } else if (_worksheetName == null) {

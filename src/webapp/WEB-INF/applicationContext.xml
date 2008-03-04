@@ -40,10 +40,6 @@
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
-    <bean id="googleSpreadsheetFactory" class="gs.web.util.google.GoogleSpreadsheetFactory"
-          autowire="byName">
-    </bean>
-
     <bean id="forgotPasswordEmail"
           class="gs.web.community.registration.ForgotPasswordEmail"
           autowire="byName">

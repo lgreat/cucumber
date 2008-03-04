@@ -13,10 +13,12 @@ import java.util.List;
 import java.util.Random;
 
 import gs.web.util.UrlUtil;
+import gs.data.util.table.ITableRow;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableDaoFactory;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.google.IGoogleSpreadsheetDao;
-import gs.web.util.google.SpreadsheetRow;
-import gs.web.util.google.GoogleSpreadsheetFactory;
+import gs.web.util.google.GoogleSpreadsheetDaoFactory;
+import gs.web.util.google.GoogleSpreadsheetDao;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -36,15 +38,15 @@ public class CommunityQuestionPromoController extends AbstractController {
     public static final String CACHE_CLEAR_PARAM = "clear";
 
     private String _viewName;
-    private GoogleSpreadsheetFactory _googleSpreadsheetFactory;
-    private IGoogleSpreadsheetDao _googleSpreadsheetDao;
+    private ITableDaoFactory _tableDaoFactory;
+    private ITableDao _tableDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // this could be spring configured, except that it varies depending on what hostname this request
         // is running off of
-        getGoogleSpreadsheetFactory().setWorksheetName(getWorksheet(request));
+        ((GoogleSpreadsheetDaoFactory) getTableDaoFactory()).setWorksheetName(getWorksheet(request));
         if (!StringUtils.isBlank(request.getParameter(CACHE_CLEAR_PARAM))) {
-            getGoogleSpreadsheetDao().clearCache();
+            ((GoogleSpreadsheetDao)getTableDao()).clearCache();
         }
         Map<String, Object> model = new HashMap<String, Object>();
         loadSpreadsheetDataIntoModel(model, getCode(request));
@@ -95,16 +97,16 @@ public class CommunityQuestionPromoController extends AbstractController {
     }
 
     protected void loadSpreadsheetDataIntoModel(Map<String, Object> model, String code) {
-        List<SpreadsheetRow> rows = getGoogleSpreadsheetDao().getRowsByKey
+        List<ITableRow> rows = getTableDao().getRowsByKey
                 (WORKSHEET_PRIMARY_ID_COL, code);
 
         if (rows != null && !rows.isEmpty()) {
-            SpreadsheetRow row = getRandomRow(rows);
-            model.put(MODEL_QUESTION_TEXT, row.getCell("text"));
-            model.put(MODEL_QUESTION_LINK, row.getCell("link"));
-            model.put(MODEL_QUESTION_LINK_TEXT, row.getCell("linktext"));
-            model.put(MODEL_USERNAME, row.getCell("username"));
-            model.put(MODEL_USER_ID, row.getCell("memberid"));
+            ITableRow row = getRandomRow(rows);
+            model.put(MODEL_QUESTION_TEXT, row.get("text"));
+            model.put(MODEL_QUESTION_LINK, row.get("link"));
+            model.put(MODEL_QUESTION_LINK_TEXT, row.get("linktext"));
+            model.put(MODEL_USERNAME, row.get("username"));
+            model.put(MODEL_USER_ID, row.get("memberid"));
         }
     }
 
@@ -114,7 +116,7 @@ public class CommunityQuestionPromoController extends AbstractController {
      * @param rows list of rows
      * @return a random row contained in rows
      */
-    protected SpreadsheetRow getRandomRow(List<SpreadsheetRow> rows) {
+    protected ITableRow getRandomRow(List<ITableRow> rows) {
         int count = rows.size();
         Random ran = new Random();
         int randomIndex = ran.nextInt(count);
@@ -151,19 +153,19 @@ public class CommunityQuestionPromoController extends AbstractController {
         return code;
     }
 
-    public GoogleSpreadsheetFactory getGoogleSpreadsheetFactory() {
-        return _googleSpreadsheetFactory;
+    public ITableDaoFactory getTableDaoFactory() {
+        return _tableDaoFactory;
     }
 
-    public void setGoogleSpreadsheetFactory(GoogleSpreadsheetFactory googleSpreadsheetFactory) {
-        _googleSpreadsheetFactory = googleSpreadsheetFactory;
+    public void setTableDaoFactory(ITableDaoFactory tableDaoFactory) {
+        _tableDaoFactory = tableDaoFactory;
     }
 
-    public IGoogleSpreadsheetDao getGoogleSpreadsheetDao() {
-        if (_googleSpreadsheetDao == null) {
-            _googleSpreadsheetDao = getGoogleSpreadsheetFactory().getGoogleSpreadsheetDao();
+    public ITableDao getTableDao() {
+        if (_tableDao == null) {
+            _tableDao = getTableDaoFactory().getTableDao();
         }
-        return _googleSpreadsheetDao;
+        return _tableDao;
     }
 
     public void setViewName(String viewName) {
