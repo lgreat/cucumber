@@ -40,7 +40,7 @@
 }
 
 .cleared {
-	height: 1%;
+	_height: 1%;
 }
 
 .cleared:after {
@@ -61,6 +61,7 @@ Tabs and filters
 #resultsfilters #resultstabs {
 	background: #8BCBCB;
 	padding-top: 7px;
+    width: 542px;
 }
 
 #resultstabs ul {
@@ -295,6 +296,7 @@ div.phone {
     background-color: #F2F3DB;
     border: 1px solid #c8ce9e;
     border-width: 1px 0 1px 0;
+    position: relative;
 }
 
 .cobranded #searchfooter {
@@ -342,15 +344,18 @@ div.phone {
 
 #searchFooter #sf_col_left {
     width: 272px;
-    float: left;
+    /*float: left;*/
     border-right: 1px solid #c8ce9e;
     padding: 10px 0 5px 0;
 }
 
 #searchFooter #sf_col_right {
     width: 170px;
-    float: left;
+    /*float: left;*/
     padding-left: 20px;
+    position: absolute;
+    top: 8px;
+    left: 313px;
 }
 
 #mainresults {
