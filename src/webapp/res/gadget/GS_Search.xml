@@ -21,8 +21,8 @@
     <UserPref name="cobrand" display_name="Cobrand URL prefix (e.g. XXX.greatschools.net, just the XXX)" default_value="www"/>    
     <Content type="html"><![CDATA[
 
-<div style="border: 3px solid #6cc;">
-    <div style="padding: 12px 5px 0 5px; border: 2px solid #dee; border-bottom: 14px solid #dee;">
+<div style="border: 3px solid #fff;">
+    <div style="padding: 12px 5px 0 5px; border: 2px solid #fff; border-bottom: 14px solid #fff;">
         <div style="background: url(http://www.greatschools.net/res/img/gadget/border_dot.png) repeat-x left bottom; padding: 0 0 16px 0;">
             <a id="logoLink" href="http://www.greatschools.net/"></a>
         </div>
