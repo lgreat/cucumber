@@ -2068,7 +2068,7 @@
         <body-content>JSP</body-content>
         <display-name>communityLanding</display-name>
         <description>
-            <![CDATA[Link to our community landing page.</code>.]]>
+            <![CDATA[Link to our community landing page.]]>
         </description>
         <attribute>
             <name>styleClass</name>
