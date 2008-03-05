@@ -77,10 +77,13 @@ public class TestScoreLandingLinksControllerTest  extends BaseControllerTestCase
 
         assertEquals("Unexpected number of anchors returned,", 4, anchors.size());
         assertEquals("Unexpected anchor text", "Find California schools", anchors.get(0).getContents());
+
         assertEquals("Unexpected anchor text", "California Short Test A results", anchors.get(1).getContents());
         assertEquals("Unexpected href", "/test/landing.page?state=CA&amp;tid=1", anchors.get(1).getHref());
+
         assertEquals("Unexpected anchor text", "California Long Test B results", anchors.get(2).getContents());
         assertEquals("Unexpected href", "/test/landing.page?state=CA&amp;tid=2", anchors.get(2).getHref());
+
         assertEquals("Unexpected anchor text", "California Short Test C Ratings", anchors.get(3).getContents());
         assertEquals("Unexpected href", "/test/landing.page?state=CA&amp;tid=3", anchors.get(3).getHref());
     }

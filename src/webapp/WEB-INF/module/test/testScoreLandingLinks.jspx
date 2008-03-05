@@ -7,10 +7,10 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
     <c:if test="${fn:length(testLandingLinks) gt 0}">
-        <div id="testScoreLandingLinks" style="color: #888888; font-size: small; font-weight: normal; font-family: 'Trebuchet MS',Arial,Helvetica,sans-serif; margin-top: 20px;">
+        <div id="testScoreLandingLinks">
         <c:forEach var="anchor" items="${testLandingLinks}" varStatus="count">
             <c:if test="${not empty anchor.href}">
-                <a style="color: #888888; font-size: small; font-weight: normal; font-family: 'Trebuchet MS',Arial,Helvetica,sans-serif;" href="${anchor.href}">${anchor.contents}</a><c:if test="${count.index lt (fn:length(testLandingLinks) - 1)}" > | </c:if>
+                <a class="${anchor.styleClass}" href="${anchor.href}">${anchor.contents}</a><c:if test="${count.index lt (fn:length(testLandingLinks) - 1)}" > | </c:if>
             </c:if>
         </c:forEach>
         </div>
