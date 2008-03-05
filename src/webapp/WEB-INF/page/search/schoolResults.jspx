@@ -161,22 +161,26 @@
                 <ul>
                     <li class="tableft ${allTabClass}">
                         <link:schoolSearch query="${param.q}" 
-                                           schoolType="${stOmniture}">All Schools</link:schoolSearch>
+                                           schoolType="${stOmniture}"
+                                           styleClass="noInterstitial">All Schools</link:schoolSearch>
                     </li>
                     <li class="${eTabClass}">
                         <link:schoolSearch query="${param.q}"
                                            schoolType="${stOmniture}"
-                                           levelCode="e">Elementary</link:schoolSearch>
+                                           levelCode="e"
+                                           styleClass="noInterstitial">Elementary</link:schoolSearch>
                     </li>
                     <li class="${mTabClass}">
                         <link:schoolSearch query="${param.q}"
                                            schoolType="${stOmniture}"
-                                           levelCode="m">Middle</link:schoolSearch>
+                                           levelCode="m"
+                                           styleClass="noInterstitial">Middle</link:schoolSearch>
                     </li>
                     <li class="tabright ${hTabClass}">
                         <link:schoolSearch query="${param.q}"
                                            schoolType="${stOmniture}"
-                                           levelCode="h">High</link:schoolSearch>
+                                           levelCode="h"
+                                           styleClass="noInterstitial">High</link:schoolSearch>
                     </li>
                 </ul>
             </div>
