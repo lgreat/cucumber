@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.11 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: AllArticlesController.java,v 1.12 2008/03/05 18:11:24 cpickslay Exp $
  */
 package gs.web.content;
 
@@ -71,6 +71,7 @@ public class AllArticlesController extends AbstractController {
         model.put("scc_categories", sccMap);
         model.put("num_categories", String.valueOf(catMap.size() + sccMap.size()));
         model.put("index", new Integer(0));
+        model.put("articles", articles);
 
         return new ModelAndView(_viewName, model);
     }
