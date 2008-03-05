@@ -60,7 +60,7 @@
         function checkSchoolSelected(elem) {
             var val = elem.sid;
             if (val.value == "") {
-                alert("Please select a school.");
+                alert("Please select a city and school.");
                 return false;
             }
             return true;
