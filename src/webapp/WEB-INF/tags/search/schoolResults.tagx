@@ -77,14 +77,14 @@
                                     <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
                                               alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
                                 </link:schoolProfileParentReview>
-                                <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c'}">
+                                <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c' or requestScope.context.ABVersion eq 'd'}">
                                     (${parentRatingCount})  
                                 </c:if>
                             </c:otherwise>
                         </c:choose>
                     </p>
 
-                    <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c'}">
+                    <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c' or requestScope.context.ABVersion eq 'd'}">
                         <c:if test="${reviewMap.reviewCount > 0}">
                             <p>${reviewMap.reviewBlurb}...
                                 <br /><link:schoolProfileParentReview school="${school}">Read all ${reviewMap.reviewCount} reviews...</link:schoolProfileParentReview></p>
