@@ -333,6 +333,14 @@
         </property>
     </bean>
 
+    <bean name="/content/articles/rss.page"
+          class="gs.web.content.AllArticlesController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>content/rss</value>
+        </property>
+    </bean>
+
     <bean name="/about/aboutUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
