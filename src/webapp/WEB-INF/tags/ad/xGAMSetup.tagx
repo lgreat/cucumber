@@ -32,13 +32,13 @@
                 if (pageHelper.isShowingBannerAd()) {
                     SessionContext context = SessionContextUtil.getSessionContext(request);
                     // see GS-5561
-                    if ("b".equals(context.getABVersion())) {
+                    if ("a".equals(context.getABVersion())) {
+                        adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
+                    } else if ("b".equals(context.getABVersion())) {
                         adNames.add(slotPrefix + AdPosition.Header_728x90_A_Test.getName());
                     } else if ("c".equals(context.getABVersion())) {
                         adNames.add(slotPrefix + AdPosition.Header_728x90_B_Test.getName());
-                    } else {
-                        adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
-                    }
+                    } 
                 }
             }
             for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
