@@ -70,11 +70,10 @@ public class SchoolSearchResult extends SearchResult implements ILocation {
     }
 
     public Map getReviewMap(){
-            Map reviewMap = new HashMap();
-        //eddieMap.put("eddie1",getSchool().getReviewDao().getEddie());
+        Map reviewMap = new HashMap();
         reviewMap.put("reviewCount",_doc.get("reviewCount"));
         reviewMap.put("reviewBlurb",_doc.get("reviewBlurb"));
-            return reviewMap;
+        return reviewMap;
     }
 
 

@@ -87,7 +87,7 @@
                     <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c' or requestScope.context.ABVersion eq 'd'}">
                         <c:if test="${reviewMap.reviewCount > 0}">
                             <p>${reviewMap.reviewBlurb}...
-                                <br /><link:schoolProfileParentReview school="${school}">Read all ${reviewMap.reviewCount} reviews...</link:schoolProfileParentReview></p>
+                                <br /><link:schoolProfileParentReview school="${school}">Read all ${reviewMap.reviewCount} reviews &gt;</link:schoolProfileParentReview></p>
                         </c:if>
                     </c:if>
 
