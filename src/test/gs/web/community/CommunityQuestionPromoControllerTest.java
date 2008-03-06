@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import static gs.web.community.CommunityQuestionPromoController.*;
 import static org.easymock.classextension.EasyMock.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -70,6 +71,30 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         _controller.addExtraInfoToModel(model, getRequest());
 
         assertEquals("Expect absolute url to remain absolute", "http://absolute.url.com", model.get(MODEL_QUESTION_LINK));
+    }
+
+    public void testHandleRequestInternal() throws Exception {
+        GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _dao;
+
+        getRequest().setServerName("dev.greatschools.net");
+        expect(dao.getWorksheetUrl()).andReturn("google/");
+        dao.setWorksheetUrl("google/od6");
+
+        expect(dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
+        replay(dao);
+
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+
+        Map model = mAndV.getModel();
+
+        assertEquals("Expect default value", "http://community.dev.greatschools.net", model.get(MODEL_QUESTION_LINK));
+        assertEquals("Expect default value", DEFAULT_QUESTION_LINK_TEXT,
+                model.get(MODEL_QUESTION_LINK_TEXT));
+        assertEquals("Expect default value", "http://community.dev.greatschools.net/members",
+                model.get(MODEL_MEMBER_URL));
+        assertEquals("Expect default value", "Avatar", model.get(MODEL_AVATAR_ALT));
+        assertEquals("Expect default value", "/res/img/community/avatar_40x40.gif",
+                model.get(MODEL_AVATAR_URL));
     }
 
     public void testLoadSpreadsheetData() {

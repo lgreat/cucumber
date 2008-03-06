@@ -100,7 +100,14 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
     public String getWorksheetUrl() {
         return _worksheetUrl;
     }
+    
+    public String getUsername() {
+        return _username;
+    }
 
+    public String getPassword() {
+        return _password;
+    }
     public void setWorksheetUrl(String worksheetUrl) {
         _worksheetUrl = worksheetUrl;
     }

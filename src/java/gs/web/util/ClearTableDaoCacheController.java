@@ -62,7 +62,7 @@ public class ClearTableDaoCacheController implements Controller {
         return null;
     }
 
-    private static class InformativeCachedDao extends AbstractCachedTableDao {
+    protected static class InformativeCachedDao extends AbstractCachedTableDao {
         protected String getCacheKey() { return null; }
         protected List<ITableRow> getRowsByKeyExternal(String keyName, String keyValue) { return null; }
 
