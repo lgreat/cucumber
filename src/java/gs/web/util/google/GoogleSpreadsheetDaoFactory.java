@@ -5,6 +5,9 @@ import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableDaoFactory;
 
 /**
+ * Implementation of ITableDaoFactory that creates and configures GoogleSpreadsheetDao's.
+ *
+ * @see GoogleSpreadsheetDao 
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class GoogleSpreadsheetDaoFactory implements ITableDaoFactory {
@@ -13,13 +16,26 @@ public class GoogleSpreadsheetDaoFactory implements ITableDaoFactory {
     public static final String DEFAULT_VISIBILITY = "public";
     public static final String DEFAULT_PROJECTION = "values";
 
+    /** Used with password to specify credentials for private spreadsheets. */
     private String _username;
+    /** Used with username to specify credentials for private spreadsheets. */
     private String _password;
+    /** The key identifying the spreadsheet -- must be supplied! */
     private String _googleKey;
+    /** Visiblity, e.g. "public". Defaults to DEFAULT_VISIBILITY. */
     private String _visibility = DEFAULT_VISIBILITY;
+    /** Projection, e.g. "values". Defaults to DEFAULT_PROJECTION. */
     private String _projection = DEFAULT_PROJECTION;
+    /** Name of worksheet, e.g. "od6". */
     private String _worksheetName;
 
+    /**
+     * Returns a configured GoogleSpreadsheetDao. This method allows the worksheetName, username,
+     * and password to be null. If you leave the worksheetName null, be sure to add it to the
+     * GoogleSpreadsheetDao's worksheetUrl before using it!
+     *
+     * @throws IllegalStateException if googleKey is not specified.
+     */
     public ITableDao getTableDao() {
         if (_googleKey == null) {
             throw new IllegalStateException("Cannot instantiate GoogleSpreadsheetDao without googleKey");

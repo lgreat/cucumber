@@ -2,6 +2,7 @@ package gs.web.util.google;
 
 import gs.web.BaseTestCase;
 import gs.data.util.table.ITableRow;
+import gs.data.util.table.AbstractCachedTableDao;
 
 import java.util.List;
 import java.net.URL;
@@ -89,24 +90,32 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
         assertEquals(4, rows.size());
     }
 
-    public void testGetListFeedExceptions() throws IOException, ServiceException {
+    public void testGetListFeedExceptions() throws IOException, ServiceException, AbstractCachedTableDao.ExternalConnectionException {
         SpreadsheetService service = createMock(SpreadsheetService.class);
-        ListFeed listFeed;
+        ListFeed listFeed = null;
         _dao.setSpreadsheetService(service);
 
-        expect(service.getEntry(isA(URL.class), eq(WorksheetEntry.class))).andThrow(new MalformedURLException());
+        expect(service.getEntry(isA(URL.class), eq(WorksheetEntry.class))).andThrow(new MalformedURLException("m1"));
         replay(service);
 
-        listFeed = _dao.getListFeed();
+        try {
+            listFeed = _dao.getListFeed();
+        } catch (AbstractCachedTableDao.ExternalConnectionException e) {
+            assertEquals("m1", e.getMessage());
+        }
 
         verify(service);
         assertNull(listFeed);
 
         reset(service);
-        expect(service.getEntry(isA(URL.class), eq(WorksheetEntry.class))).andThrow(new IOException());
+        expect(service.getEntry(isA(URL.class), eq(WorksheetEntry.class))).andThrow(new IOException("m2"));
         replay(service);
 
-        listFeed = _dao.getListFeed();
+        try {
+            listFeed = _dao.getListFeed();
+        } catch (AbstractCachedTableDao.ExternalConnectionException e) {
+            assertEquals("m2", e.getMessage());
+        }
 
         verify(service);
         assertNull(listFeed);
@@ -115,13 +124,17 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
         expect(service.getEntry(isA(URL.class), eq(WorksheetEntry.class))).andThrow(new ServiceException("Testing ServiceException"));
         replay(service);
 
-        listFeed = _dao.getListFeed();
+        try {
+            listFeed = _dao.getListFeed();
+        } catch (AbstractCachedTableDao.ExternalConnectionException e) {
+            assertEquals("Testing ServiceException", e.getMessage());
+        }
 
         verify(service);
         assertNull(listFeed);
     }
 
-    public void testGetListFeedWithCredentials()  throws IOException, ServiceException {
+    public void testGetListFeedWithCredentials() throws IOException, ServiceException, AbstractCachedTableDao.ExternalConnectionException {
         _dao = new GoogleSpreadsheetDao(WORKSHEET_URL, "user", "pass");
 
         SpreadsheetService service = createMock(SpreadsheetService.class);
