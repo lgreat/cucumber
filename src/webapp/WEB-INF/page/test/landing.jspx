@@ -160,14 +160,14 @@
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
                                         <input type="hidden" name="tid" value="${param.tid}" />
                                         <select id="achievementCities" name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}');">
-                                            <option selected="selected" value="">Choose city</option>
+                                            <option selected="selected" value="">1. Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
                                                 <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
                                             </c:forEach>
                                         </select>
                                         <div id="schools">
                                             <select id="schoolSelect" name="sid" class="selectSchool">
-                                                <option value="">Choose school</option>
+                                                <option value="">2. Choose school</option>
                                             </select>
                                         </div>
                                         <input id="goAchieve" type="image" src="${go}" alt="Find ${shortname} test scores"
@@ -189,13 +189,13 @@
                                         <input type="hidden" name="type" value="compare" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
                                         <select id="compareCities" name="city" tabindex="5">
-                                            <option selected="selected" value="">Choose city</option>
+                                            <option selected="selected" value="">1. Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
                                                 <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
                                             </c:forEach>
                                         </select>
                                         <select id="compareLevels" name="level" tabindex="6">
-                                            <option selected="selected" value="">Choose level</option>
+                                            <option selected="selected" value="">2. Choose level</option>
                                             <c:forEach var="levelOption" items="${levels}">
                                                 <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
                                             </c:forEach>
