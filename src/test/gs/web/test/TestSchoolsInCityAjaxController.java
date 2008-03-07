@@ -21,17 +21,17 @@ public class TestSchoolsInCityAjaxController extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
         assertNull(mAndV);
         String anchorageOutput = getResponse().getContentAsString();
-        System.out.println ("anch output: " + anchorageOutput);
+        assertTrue (anchorageOutput.contains("<option value=\"116\">Abbott Loop Elementary School</option>"));
 
         getRequest().setParameter("city", "Fairbanks");
         _controller.handleRequest(getRequest(), getResponse());
         String fairbanksOutput = getResponse().getContentAsString();
-        System.out.println ("fair output: " + fairbanksOutput);
+        assertTrue (fairbanksOutput.contains("<option value=\"383\">West Valley High School</option>"));
     }
 
     public void testOutputSchoolSelect() throws Exception {
         try {
-            _controller.outputSchoolSelect(getRequest(), getResponse().getWriter());
+            _controller.outputSchoolSelect(getRequest(), getResponse().getWriter(), null);
             fail ("Method should not accept request without a 'state' attribute");
         } catch (Exception e) {
             assertTrue (true);

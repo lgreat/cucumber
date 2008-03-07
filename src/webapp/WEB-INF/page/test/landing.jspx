@@ -24,8 +24,8 @@
 <c:set var="title" value="${seofootertext}" />
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <meta name="description" content="Find ${stateOrDefault.abbreviation} ${displayname} test scores for you child's school and compare ${stateOrDefault.longName} ${shortname} test results" />
-    <meta name="keywords" content="${stateOrDefault.abbreviation} ${displayname} Test Scores, ${stateOrDefault} ${shortname} Test Results, ${stateOrDefault.abbreviation} ${shortname} Test Scores, ${displayname}, ${shortname} testing, ${stateOrDefault.longName} Standardized testing, ${stateOrDefault.abbreviation} Standardized testing " />
+    <meta name="description" content="Find ${stateOrDefault.abbreviation} ${longname} test scores for you child's school and compare ${stateOrDefault.longName} ${shortname} test results" />
+    <meta name="keywords" content="${stateOrDefault.abbreviation} ${displayname} Test Scores, ${stateOrDefault} ${longname} Test Results, ${stateOrDefault.abbreviation} ${longname} Test Scores, ${displayname}, ${longname} testing, ${stateOrDefault.longName} Standardized testing, ${stateOrDefault.abbreviation} Standardized testing " />
     <title>${title}</title>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
@@ -42,10 +42,11 @@
             }
         }
 
-        function changeCity(citySelect, state) {
+        function changeCity(citySelect, state, levels) {
             var url = '/test/schoolsInCity.page';
             var pars = {state : state,
-                        city : citySelect.value };
+                        city : citySelect.value,
+                        levels: levels };
             $('goAchieve').show();
             $('schools').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
             var myAjax = new Ajax.Updater (
@@ -119,7 +120,7 @@
                 <tr>
                     <td valign="top">
                         <div class="middleTitle">
-                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${stateOrDefault.abbreviation} ${shortname} test scores" border="0"/>
+                            <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${stateOrDefault.abbreviation} ${longname} test scores" border="0"/>
                         </div>
 
                         <gsml:url var="go" value="/res/img/splash/go.gif"/>
@@ -159,7 +160,7 @@
                                         <input type="hidden" name="type" value="achievement" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
                                         <input type="hidden" name="tid" value="${param.tid}" />
-                                        <select id="achievementCities" name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}');">
+                                        <select id="achievementCities" name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}', '${levs}');">
                                             <option selected="selected" value="">1. Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
                                                 <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
@@ -170,7 +171,7 @@
                                                 <option value="">2. Choose school</option>
                                             </select>
                                         </div>
-                                        <input id="goAchieve" type="image" src="${go}" alt="Find ${shortname} test scores"
+                                        <input id="goAchieve" type="image" src="${go}" alt="Find ${longname} test scores"
                                                style="width:41px;height:26px;margin-top: 10px;"
                                                class="button" onmouseover="this.src='${goOver}';"
                                                onmouseout="this.src='${go}';" />
@@ -188,6 +189,7 @@
                                     <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkCityAndLevelSelected(this)">
                                         <input type="hidden" name="type" value="compare" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
+                                        <input type="hidden" name="tab" value="${compare}" />
                                         <select id="compareCities" name="city" tabindex="5">
                                             <option selected="selected" value="">1. Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
@@ -213,7 +215,7 @@
                     </td>
                     <td valign="top">
                         <div class="middleTitle">
-                            <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="About the ${stateOrDefault.abbreviation} ${shortname}" border="0"/>
+                            <img id="learnTitle" src="/res/img/test/learn.gif" width="57" height="16" alt="About the ${stateOrDefault.abbreviation} ${longname}" border="0"/>
                         </div>
                         <div class="findBox" id="learnBox">
                             ${info}
@@ -298,7 +300,7 @@
         <tr>
             <td id="editorPhoto">
                 <div class="lisaDashedBorder">
-                    <div class="lisa" title="Photo of GreatSchools Senior Editor, Lisa Rosenthal">Photo of GreatSchools Senior Editor, Lisa Rosenthal</div>
+                    <div class="lisa" title="Photo of GreatSchools Assistant Managing Editor, Lisa Rosenthal">Photo of GreatSchools Assistant Managing Editor, Lisa Rosenthal</div>
                 </div>
             </td>
             <td id="editorText">

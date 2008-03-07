@@ -7,7 +7,6 @@ import gs.web.util.list.Anchor;
 import gs.web.util.UrlBuilder;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
@@ -103,7 +102,6 @@ public class TestLandingController extends SimpleFormController {
         return _cache.get(key);
     }
 
-
     protected ModelAndView processFormSubmission(HttpServletRequest request,
                                                  HttpServletResponse response,
                                                  Object cmdObject,
@@ -136,11 +134,17 @@ public class TestLandingController extends SimpleFormController {
             view = new RedirectView(url);
             
         } else if ("compare".equals(type)) {
+            String tabParam = request.getParameter("tab");
             StringBuffer urlBuffer = new StringBuffer();
             urlBuffer.append("/cgi-bin/cs_compare/");
             urlBuffer.append(stateParam).append("?area=m&city=");
             urlBuffer.append(request.getParameter("city")).append("&level=");
-            urlBuffer.append(request.getParameter("level")).append("&sortby=distance&tab=over");
+            urlBuffer.append(request.getParameter("level")).append("&sortby=distance&tab=");
+            if (StringUtils.isNotBlank(tabParam)) {
+                urlBuffer.append(tabParam);
+            } else {
+                urlBuffer.append("over");
+            }
             view = new RedirectView(urlBuffer.toString());
         } 
 

@@ -52,7 +52,7 @@ select {
 
 #compareBox, #achievementBox {
     position:relative;
-    height:130px;
+    height:140px;
     width:275px;
 }
 #compareBox img, #achievementBox img{
