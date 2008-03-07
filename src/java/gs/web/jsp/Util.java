@@ -129,13 +129,13 @@ public class Util {
     }
 
     /**
-     * Abbreviates a string - if a string is longer than maxLength characters, then
-     * truncate at a word boundary and append "..."  The resulting string will be
-     * no longer than maxLength <em>inlucding</em> the "..."
+     * Abbreviates a string - if a string is longer than maxLength characters,
+     * then truncate at a word boundary and append "..."  The resulting string
+     * will be no longer than maxLength <em>inlucding</em> the "..."
      * Null will be returned if a null String is passed as the comment
      * @param s a comment String
-     * @param maxLength the maximum lenght the comment may be before truncation, must be
-     * 3 or more.
+     * @param maxLength the maximum lenght the comment may be before
+     * truncation, must be 3 or more.
      * @return a formatted String
      */
     public static String abbreviateAtWhitespace(String s, int maxLength) {
@@ -146,13 +146,14 @@ public class Util {
                     int ind = s.lastIndexOf(" ", maxLength);
                     if (ind < 0) ind = maxLength;
                     s = s.substring(0, ind);
-                    if (!s.matches(".*[\\.\\?\\!]$")) {
+                    String END_OF_SENTENCE = ".*[\\.\\?\\!]$";
+                    if (!s.matches(END_OF_SENTENCE)) {
                         if (s.length() > maxLength-3) {
                             int ind2 = s.lastIndexOf(" ", s.length()-3);
                             if (ind2 < 0) { ind2 = s.length()-3; }
                             s = s.substring(0, ind2);
                         }
-                        if (!s.matches(".*[\\.\\?\\!]$")) {
+                        if (!s.matches(END_OF_SENTENCE)) {
                             s = s.trim() + "...";
                         }
                     }
