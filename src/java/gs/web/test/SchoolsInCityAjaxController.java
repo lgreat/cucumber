@@ -38,7 +38,7 @@ public class SchoolsInCityAjaxController implements Controller {
         if (StringUtils.isNotBlank(levels)) {
             filter = LevelCode.createLevelCode(levels);
         }
-
+        response.setContentType("text/xml");
         PrintWriter out = response.getWriter();
         try {
             outputSchoolSelect(request, out, filter);

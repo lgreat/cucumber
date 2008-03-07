@@ -49,13 +49,27 @@
                         levels: levels };
             $('goAchieve').show();
             $('schools').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-            var myAjax = new Ajax.Updater (
+            new Ajax.Updater (
                     'schools',
                     url,
             {
                 method: 'get',
-                parameters: pars
+                parameters: pars,
+                onComplete: function(transport) {
+                    var opts = document.evaluate( 'count(//option)', transport.responseXML, null, XPathResult.ANY_TYPE, null );
+                    if (opts.numberValue < 2) {
+                        var levs = buildLevels(levels);
+                        alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
+                    }
+                }
             });
+        }
+
+        function buildLevels(levels) {
+            // e,m,h should not be needed.
+            var strings = {'e':'elementary', 'm':'middle','h':'high', 'e,m':'elementary or middle',
+            'm,h':'middle or high', 'e,h':'elementary or high', 'e,m,h':'elementary, middle, or high'};
+            return strings[levels];
         }
 
         function checkSchoolSelected(elem) {
