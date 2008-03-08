@@ -53,14 +53,17 @@ public class SchoolsInCityAjaxController implements Controller {
         State state = _stateManager.getState(request.getParameter("state"));
         String city = request.getParameter("city");
         List<School> schools = _schoolDao.findSchoolsInCity(state, city, false);
+//        System.out.println ("schools size: " + schools.size());
         out.print("<select id=\"schoolSelect\" name=\"sid\" class=\"selectSchool\">");
         out.print("<option value=\"\">Choose school</option>\n");
         for (School school : schools) {
             if (school.getType() != SchoolType.PRIVATE) {
                 if (filter != null) {
+//                    System.out.print ("filter: " + filter);
+//                    System.out.println (" >>> school lc: " + school.getLevelCode());
                     if (!filter.containsSimilarLevelCode(school.getLevelCode())) {
-                        break;
-                    }
+                        continue;
+                    } 
                 }
                 
                 out.print("<option ");
