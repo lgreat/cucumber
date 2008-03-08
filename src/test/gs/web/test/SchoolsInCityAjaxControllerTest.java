@@ -56,7 +56,6 @@ public class SchoolsInCityAjaxControllerTest extends BaseControllerTestCase {
         pWriter = new PrintWriter(sWriter);        
         _controller.outputSchoolSelect(getRequest(), pWriter, LevelCode.ELEMENTARY);
         output = sWriter.toString();
-//        System.out.println ("out: " + output);
         assertTrue(output.contains("Willow Crest"));
         assertFalse(output.contains("Romig"));
         assertFalse(output.contains("West High"));
