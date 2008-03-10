@@ -34,6 +34,8 @@
         <c:out value="${title}" escapeXml="false"/>
     </title>
     <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        <!--
         var query = '${param.q}';
         var state = '${requestScope.context.stateOrDefault.abbreviation}';
         var levelCode = '${param.lc}';
@@ -44,24 +46,26 @@
             var privateBox = document.getElementById('type_schools_private');
 
             var reloadUrl = '/search/search.page?c=school';
-            reloadUrl += '&amp;search_type=0';
-            reloadUrl += '&amp;state=' + state;
-            reloadUrl += '&amp;q=' + query;
+            reloadUrl += '&search_type=0';
+            reloadUrl += '&state=' + state;
+            reloadUrl += '&q=' + query;
             if (levelCode.length > 0) {
-                reloadUrl += '&amp;lc=' + levelCode;
+                reloadUrl += '&lc=' + levelCode;
             }
 
             if (publicBox.checked) {
-                reloadUrl += '&amp;st=public';
+                reloadUrl += '&st=public';
             }
             if (charterBox.checked) {
-                reloadUrl += '&amp;st=charter';
+                reloadUrl += '&st=charter';
             }
             if (privateBox.checked) {
-                reloadUrl += '&amp;st=private';
+                reloadUrl += '&st=private';
             }
             document.location = reloadUrl;
         }
+        -->
+        ]]>
     </script>
     <jsp:scriptlet>
         String[] sts = request.getParameterValues("st");
