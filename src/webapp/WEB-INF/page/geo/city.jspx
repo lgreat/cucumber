@@ -249,9 +249,10 @@
 </tr>
 </table>
 
-<jsp:include page="/test/testScoreLandingLinks.module">
+<!-- DELAYED UNTIL 9.7 -->
+<!-- jsp:include page="/test/testScoreLandingLinks.module">
     <jsp:param name="state" value="${stateAbbrev}"/>
-</jsp:include>
+</jsp:include -->
 
 <mod:tracking pageName="city home"
               locale="${cityObject.name}"

@@ -448,10 +448,11 @@
 </div>
 </div>
 
-<jsp:include page="/test/testScoreLandingLinks.module">
+<!-- DELAYED UNTIL 9.7 -->
+<!-- jsp:include page="/test/testScoreLandingLinks.module">
     <jsp:param name="state" value="${stateOrNull}"/>
     <jsp:param name="showFinder" value="false"/>
-</jsp:include>
+</jsp:include -->
 
 
 <c:choose>
