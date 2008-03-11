@@ -43,12 +43,13 @@
         };
         -->]]>
     </script>
+    <c:set var="divClass" value=""/>
     <c:choose>
         <c:when test="${pageName eq 'parentReviews'}">
             <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/></h2>
         </c:when>
         <c:when test="${pageName eq 'overview'}">
-            <h2 id="rateReviewH2" class="noprint"><a name="rReview"><c:out escapeXml="true" value="Rate ${school.name}"/></a></h2>
+            <c:set var="divClass" value="overview"/>
         </c:when>
     </c:choose>
     <c:set var="schoolName" value="Rate this school"/>
@@ -56,7 +57,7 @@
         <c:set var="schoolName" value="Rate ${school.name}"/>
     </c:if>
 
-    <div id="rateReview" class="noprint">
+    <div id="rateReview" class="noprint ${divClass}">
         <div id="ratingTitle">${schoolName}</div>
         <c:if test="${fn:length(schoolName) > 31}">
             <script type="text/javascript">

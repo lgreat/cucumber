@@ -9,7 +9,6 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:gsweb="gstaglib"
-          xmlns:display="urn:jsptld:http://displaytag.sf.net"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -96,59 +95,56 @@
 
         <!-- Big Picture -->
         <hr />
-        <school:bigPicture school="${school}"/>
+        <school:bigPicture school="${school}" divider="true"/>
 
         <!-- promo link -->
-        <hr />
-        <gsml:a href="/promo/webbyAwardWinner.page"><gsml:img src="/res/img/promo/webby/webby.gif" alt="2007 Webby Awards People's Voice Winner - Best Family Parenting Site"/></gsml:a>
+        <!--<hr />-->
+        <!--<gsml:a href="/promo/webbyAwardWinner.page"><gsml:img src="/res/img/promo/webby/webby.gif" alt="2007 Webby Awards People's Voice Winner - Best Family Parenting Site"/></gsml:a>-->
 
 		<!-- Editor -->
-        <hr />
-        <c:if test="${(requestScope.context.ABVersion eq 'a') or (requestScope.context.ABVersion eq 'b')}">
-        <div id="editor">
-            <gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
-            <p class="name">Lisa Rosenthal</p>
-            <p class="title">Assistant Managing Editor</p>
-            <h3>Editor's Picks</h3>
-            <c:choose>
-                <c:when test="${preschoolOnly eq true}">
+        <!--<hr />-->
+        <!--<c:if test="${(requestScope.context.ABVersion eq 'a') or (requestScope.context.ABVersion eq 'b')}">-->
+        <!--<div id="editor">-->
+            <!--<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />-->
+            <!--<p class="name">Lisa Rosenthal</p>-->
+            <!--<p class="title">Assistant Managing Editor</p>-->
+            <!--<h3>Editor's Picks</h3>-->
+            <!--<c:choose>-->
+                <!--<c:when test="${preschoolOnly eq true}">-->
                     <!-- Articles for preschools -->
-                    <ul>
-                        <gsweb:articlelink articleId="204" wrappingElement="li" styleClass="articleLink"/>
-                        <gsweb:articlelink articleId="700" wrappingElement="li" styleClass="articleLink"/>
-                        <li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>
-                    </ul>
-                    <hr/>
-                    <ul>
-                        <gsweb:articlelink articleId="249" wrappingElement="li" styleClass="articleLink"/>
-                        <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
-                        <li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>
-                    </ul>
-                </c:when>
-                <c:otherwise>
+                    <!--<ul>-->
+                        <!--<gsweb:articlelink articleId="204" wrappingElement="li" styleClass="articleLink"/>-->
+                        <!--<gsweb:articlelink articleId="700" wrappingElement="li" styleClass="articleLink"/>-->
+                        <!--<li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>-->
+                    <!--</ul>-->
+                    <!--<hr/>-->
+                    <!--<ul>-->
+                        <!--<gsweb:articlelink articleId="249" wrappingElement="li" styleClass="articleLink"/>-->
+                        <!--<gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>-->
+                        <!--<li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>-->
+                    <!--</ul>-->
+                <!--</c:when>-->
+                <!--<c:otherwise>-->
                     <!-- Articles for K-12 schools -->
-                    <ul>
-                        <gsweb:articlelink articleId="204" wrappingElement="li" styleClass="articleLink"/>
-                        <gsweb:articlelink articleId="700" wrappingElement="li" styleClass="articleLink"/>
-                        <li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>
-                    </ul>
-                    <hr/>
-                    <ul>
-                        <gsweb:articlelink articleId="197" wrappingElement="li" styleClass="articleLink"/>
-                        <gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>
-                        <li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>
-                    </ul>
-                </c:otherwise>
-            </c:choose>
-		</div><!-- end: editor -->
-        </c:if>
-        <c:if test="${(requestScope.context.ABVersion eq 'c') or (requestScope.context.ABVersion eq 'd')}">
-            <div id="leftcolAd">
-                <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
-                <c:set var="position" value="${(requestScope.context.ABVersion eq 'c') ? 'AboveFold_Left_160x600_B_Test' : 'AboveFold_Left_160x600_C_Test'}" />
-                <ad:AboveFold_Left_160x600 position="${position}"/>
-            </div>
-        </c:if>
+                    <!--<ul>-->
+                        <!--<gsweb:articlelink articleId="204" wrappingElement="li" styleClass="articleLink"/>-->
+                        <!--<gsweb:articlelink articleId="700" wrappingElement="li" styleClass="articleLink"/>-->
+                        <!--<li><strong><gsml:a href="/content/allArticles.page">View more articles &#62;</gsml:a></strong></li>-->
+                    <!--</ul>-->
+                    <!--<hr/>-->
+                    <!--<ul>-->
+                        <!--<gsweb:articlelink articleId="197" wrappingElement="li" styleClass="articleLink"/>-->
+                        <!--<gsweb:articlelink articleId="96" wrappingElement="li" styleClass="articleLink"/>-->
+                        <!--<li><strong><gsml:a href="/content/schoolChoiceCenter.page">More School Choice Tips &#62;</gsml:a></strong></li>-->
+                    <!--</ul>-->
+                <!--</c:otherwise>-->
+            <!--</c:choose>-->
+		<!--</div>--><!-- end: editor -->
+        <!--</c:if>-->
+        <div id="leftcolAd">
+            <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
+            <ad:AboveFold_Left_160x600 position="AboveFold_Left_160x600"/>
+        </div>
     </div><!-- end: col_left" -->
 
 		<!-- begin center column -->
@@ -158,16 +154,18 @@
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
-                <div id="topCompare" style="float:left; padding-bottom:25px;" >
+                <div id="topCompare" style="float:left;" >
                     <school:compareSchool school="${school}"/>
                 </div>
             </c:if>
 
             <c:if test="${school.levelCode != 'p'}">
-                <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview"
-                        id="GS_ParentSurvey.surveyTeaser">
-                    <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="What is the scoop on ${school.name}?" />
-                </link:schoolStartSurvey>
+                <div id="surveyTeaser_wrapper">
+                    <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview"
+                            id="GS_ParentSurvey.surveyTeaser">
+                        <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="What is the scoop on ${school.name}?" />
+                    </link:schoolStartSurvey>
+                </div>
             </c:if>
 
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
@@ -223,10 +221,12 @@
 
              </c:if>
 
-            <jsp:include page="/community/communityQuestionPromo.module">
-                <jsp:param name="code" value="school/overview.page"/>
-                <jsp:param name="styleClass" value="bottomBorder topBorder clearLeft noPadding"/>
-            </jsp:include>
+            <div id="communityQuestion_wrapper">
+                <jsp:include page="/community/communityQuestionPromo.module">
+                    <jsp:param name="code" value="school/overview.page"/>
+                    <jsp:param name="styleClass" value="overviewBorder clearLeft"/>
+                </jsp:include>
+            </div>
 
             <c:if test="${!requestScope.context.crawler}">
                 <school:parentReviewForm school="${school}" pageName="overview"/>
