@@ -97,50 +97,72 @@
         <gsml:url var="trackit_js" value="/res/js/trackIt.js"/>
         <script type="text/javascript" src="${trackit_js}">
             /* this comment keeps the tag from collapsing */
-        </script>        
-        <script type="text/javascript" >
+        </script>
+        <gsml:url var="cookie_js" value="/res/js/cookie.js"/>
+        <script type="text/javascript" src="${cookie_js}">
+            /* this comment keeps the tag from collapsing */
+        </script>
 
+        <script type="text/javascript" > <![CDATA[
             var clickCapture = new ClickCapture();
-            s.prop8 = clickCapture.dataObject.prop8;
-            s.prop9 = clickCapture.dataObject.prop9;
-            s.eVar1 = clickCapture.dataObject.eVar1;
-            s.eVar2 = clickCapture.dataObject.eVar2;
-            s.eVar3 = clickCapture.dataObject.eVar3;
-            s.eVar4 = clickCapture.dataObject.eVar4;
-            s.eVar5 = clickCapture.dataObject.eVar5;
-            s.eVar6 = clickCapture.dataObject.eVar6;
-
             s.pageName = "${pageName}";
             s.server = "${requestScope.context.hostName}";
             s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
             s.pageType = "${pageType eq 'errorPage' ? pageType : ''}";
-            s.prop1 = "${empty(id) ? '' : id}";
-            s.prop2 = "${empty(schoolType) ? '' : schoolType}";
-            s.prop3 = "${empty(schoolLevel) ? '' : schoolLevel}";
-            s.prop4 = "${empty(locale) ? '' : locale}";
-            s.prop5 = "${not empty(requestScope.context.userHash) ?  'Registered' : empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}";
-            s.prop6 = "${query}";
-            s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
-            if (s.prop8 == undefined || s.prop8.length &lt; 1)
-                s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
-            if (s.prop9 == undefined || s.prop9.length &lt; 1)
-                s.prop9 = "${empty(referringPage) ? pageName : referringPage}";
-            s.prop10 = "${requestScope.context.screenName}";
-            s.prop11 = "GreatSchools";
-            s.events = "${events}";
-            s.hier1 = "${hier1}";
 
-            <!-- GS-5020 -->
+            s.prop1 = clickCapture.getProp(1,"${empty(id) ? '' : id}") ;
+            s.prop2 = clickCapture.getProp(2,"${empty(schoolType) ? '' : schoolType}");
+            s.prop3 = clickCapture.getProp(3,"${empty(schoolLevel) ? '' : schoolLevel}");
+            s.prop4 = clickCapture.getProp(4,"${empty(locale) ? '' : locale}");
+            s.prop5 = clickCapture.getProp(5,"${not empty(requestScope.context.userHash) ?  'Registered' : empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}");
+            s.prop6 = clickCapture.getProp(6,"${query}");
+            s.prop7 = clickCapture.getProp(7,"${pageName}:${requestScope.context.ABVersion}");
+
+            s.prop8 = clickCapture.getProp(8,"${param.cpn}");
+            /* this seems suspicious */
+            if (s.prop8 == undefined ){
+                s.prop8 = "${pageName}" ;
+            }
+
             var locationAnchor = '';
-            <![CDATA[
-            <!--
+
             if (location.href && location.href.indexOf('#from..') > -1) {
                 locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
                 s.prop9 = s.pageName + ' ' + locationAnchor;
+            } else if (clickCapture.getProp(9) != undefined ){
+                s.prop9 = s.pageName + ' ' + clickCapture.getProp(9);
+            } else {
+                s.prop9 = s.pageName;
+	        }
+
+            s.prop10 = clickCapture.getProp(10,"${requestScope.context.screenName}");
+            s.prop11 = clickCapture.getProp(11,"GreatSchools");
+
+            s.eVar1 = clickCapture.getEVar(1);
+            s.eVar2 = clickCapture.getEVar(2);
+            s.eVar3 = clickCapture.getEVar(3);
+            s.eVar4 = clickCapture.getEVar(4);
+            s.eVar5 = clickCapture.getEVar(5);
+            s.eVar6 = clickCapture.getEVar(6);
+            s.eVar7 = clickCapture.getEVar(7);
+            s.eVar8 = clickCapture.getEVar(8);
+            s.eVar9 = clickCapture.getEVar(9);
+            s.eVar10 = clickCapture.getEVar(10);
+
+            /*
+            var debugStr = "Omniture Debug";
+
+            for(var propName in s){
+                if (typeof(s[propName]) != 'function'){
+                    debugStr += "\n" + propName + " = " + s[propName];
+                }
             }
-            -->
-            ]]>
-        </script>
+            alert(debugStr) ;
+            */
+
+
+        ]]></script>
+         
         <![CDATA[
     <script type="text/javascript" language="JavaScript"><!--
     var s_code=s.t();if(s_code)document.write(s_code)//--></script>
@@ -157,38 +179,60 @@
     <![CDATA[
         <script type="text/javascript">var tcdacmd="dt";</script>
         <script type="text/javascript" src="http://an.tacoda.net/an/12567/slf.js"></script>
-    ]]>
-    <script type="text/javascript">
+
+        <script type="text/javascript">
 
 
 
-        var customInsight9ClickEventHandler = function (e) {
-            //alert("myHandler");
-            var obj = eventTrigger(e);
-
-            // if obj is an image get it's parent (expected to be a link)
-            if (obj.tagName.toLowerCase() == 'img'){
-                obj = obj.parentNode;
+            var customInsight9ClickEventHandler = function (e) {
+                var obj = getNode(e);
+                clickCapture.capture("prop9",  obj.id);
+            }
+            
+            var evar5ClickEventHandler = function(e) {
+                var obj = getNode(e);
+                clickCapture.capture("eVar5", s.pageName + ' ' +  obj.id);
             }
 
-            clickCapture.capture("prop9",  "${pageName}" + "." +  obj.id);
-        }
 
-        //register the object click handlers...
-        function registerCi9EventHandlers() {
-            var ci9List = document.links;
-            //var debugLinks = "";
-            for(var i = 0; i &lt; ci9List.length; i++) {
-                if (ci9List[i].id.indexOf("GS_") > -1 || ci9List[i].id.indexOf("sppPR")  > -1 )  {
-                    var res = registerEventHandler(ci9List[i],"click", customInsight9ClickEventHandler);
-                    //debugLinks += "\n" + ci9List[i].id + "\t" + res;
+            function getNode(e){
+
+                var obj = eventTrigger(e);
+
+                // if obj is an image get it's parent (expected to be a link)
+                if (obj.tagName.toLowerCase() == 'img'){
+                    obj = obj.parentNode;
                 }
-            }
-            //alert(debugLinks);
-        }
 
-        registerCi9EventHandlers();
+                return obj;
+            }
+
+            //register the object click handlers...
+            function registerMyEventHandlers() {
+                var links = document.links;
+                //var debugLinks = "";
+                for(var i = 0; i < links.length; i++) {
+
+                    // CI9
+                    if (links[i].className.indexOf("GS_CI9_") > -1){
+                        var res = registerEventHandler(links[i],"click", customInsight9ClickEventHandler);
+                        //debugLinks += "\n" + links[i].className + "\t";
+                    }
+
+                    // eVar 5
+                    if (links[i].className.indexOf("GS_EV5_") > -1){
+                        var res = registerEventHandler(links[i],"click", evar5ClickEventHandler);
+                        //debugLinks += "\n" + links[i].className + " " + res + "\t";
+                    }
+
+                }
+                //alert(debugLinks);
+            }
+
+            registerMyEventHandlers();
+
     </script>
+    ]]>
 
     </c:if>
 </jsp:root>
