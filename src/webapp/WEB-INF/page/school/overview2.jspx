@@ -94,7 +94,6 @@
       <school:quickFacts school="${school}"/>
 
         <!-- Big Picture -->
-        <hr />
         <school:bigPicture school="${school}" divider="true"/>
 
         <!-- promo link -->

@@ -49,7 +49,8 @@ hr { /* has IE 7 equivalent */
 /* Quick Facts */
 #quickFacts {
 	width: 173px;
-	border: 2px solid #dee;
+	border: 2px solid #eee;
+    margin-bottom: 10px;
 }
 
 #quickFacts h2 {
@@ -168,7 +169,8 @@ hr { /* has IE 7 equivalent */
 #bigPicture {
 	width: 173px;
 	clear: both;
-	border: 2px solid #dee;
+	border: 2px solid #eee;
+    margin-bottom: 10px;
 }
 
 #bigPicture h2 {
