@@ -180,28 +180,28 @@
             <td width="28px">&#160;</td>
             <c:set var="pw" value="${requestScope.context.pathway}"/>
             <!--#0--><td><link:home
-                styleClass="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')} "
-                id="GS_GlobalNav.HomeButton"
+                styleClass="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')} GS_CI9_ "
+                id="GlobalNav.HomeButton"
                 >Home</link:home></td>
             <!--#1--><td><link:research
-                styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '')} "
+                styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '')} GS_CI9_ "
                 state="${requestScope.context.state}"
-                id="GS_GlobalNav.ResearchButton"
+                id="GlobalNav.ResearchButton"
                 >Research &amp;amp; Compare</link:research></td>
             <!--#10--><td ><gsml:a href="http://${communityHost}"
-                                   styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')}"
-                                   id="GS_GlobalNav.CommunityButton">Community</gsml:a></td>
+                                   styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} GS_CI9_ GS_EV5_"
+                                   id="GlobalNav.CommunityButton">Community</gsml:a></td>
             <!--#7--><td><gsml:a href="/content/tutoring_Homework_Help.page"
-                                 id="GS_GlobalNav.SeasonalButton"
-                                 styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} "
+                                 id="GlobalNav.SeasonalButton"
+                                 styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} GS_CI9_ "
                 >Tutoring &amp;amp; Homework Help</gsml:a></td>
             <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
-                                 id="GS_GlobalNav.CountdownToCollegeButton"
-                                 styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} "
+                                 id="GlobalNav_CountdownToCollegeButton"
+                                 styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '') } GS_CI9_ "
                 >Countdown to College</gsml:a></td>
             <!--#2--><td><link:articleLibrary
-                id="GS_GlobalNav.ArticleLibraryButton"
-                styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.LIBRARY ? 'active ractive' : 'inactive')} "
+                id="GlobalNav_ArticleLibraryButton"
+                styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.LIBRARY ? 'active ractive' : 'inactive')} GS_CI9_ "
                 >Library</link:articleLibrary></td>
             <td width="28px">&#160;</td>
         </tr>
