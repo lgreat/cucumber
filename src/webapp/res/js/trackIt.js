@@ -100,8 +100,56 @@ ClickCapture.prototype.getEvents = function(pageEvents){
     
 } ;
 
+var customInsight9ClickEventHandler = function (e) {
+     var obj = getNode(e);
+     clickCapture.capture("prop9",  obj.id);
+ }
+
+ var evar5ClickEventHandler = function(e) {
+     var obj = getNode(e);
+     clickCapture.capture("eVar5", s.pageName + ' ' +  obj.id);
+ }
 
 
+ function getNode(e){
+
+     var obj = eventTrigger(e);
+
+     // if obj is an image get it's parent (expected to be a link)
+     if (obj.tagName.toLowerCase() == 'img'){
+         obj = obj.parentNode;
+     }
+
+     return obj;
+ }
+
+ //register the object click handlers...
+ function registerMyEventHandlers() {
+     var links = document.links;
+     //var debugLinks = "";
+     for(var i = 0; i < links.length; i++) {
+         var res = null;
+
+         // CI9
+         if (links[i].className.indexOf("GS_CI9_") > -1){
+             res = registerEventHandler(links[i],"click", customInsight9ClickEventHandler);
+             //debugLinks += "\n" + links[i].className + "\t";
+         }
+
+         // eVar 5
+         if (links[i].className.indexOf("GS_EV5_") > -1){
+             res = registerEventHandler(links[i],"click", evar5ClickEventHandler);
+             //debugLinks += "\n" + links[i].className + " " + res + "\t";
+         }
+
+     }
+     //alert(debugLinks);
+ }
+
+/*
+ * create an instance of ClickCapture
+ */
+var clickCapture = new ClickCapture();
 
 
 

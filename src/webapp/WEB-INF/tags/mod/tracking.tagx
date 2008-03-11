@@ -94,17 +94,19 @@
         <script type="text/javascript" src="${js}">
             /* this comment keeps the tag from collapsing */
         </script>
-        <gsml:url var="trackit_js" value="/res/js/trackIt.js"/>
-        <script type="text/javascript" src="${trackit_js}">
-            /* this comment keeps the tag from collapsing */
-        </script>
+
         <gsml:url var="cookie_js" value="/res/js/cookie.js"/>
         <script type="text/javascript" src="${cookie_js}">
             /* this comment keeps the tag from collapsing */
         </script>
 
+        <gsml:url var="trackit_js" value="/res/js/trackIt.js"/>
+        <script type="text/javascript" src="${trackit_js}">
+            /* this comment keeps the tag from collapsing */
+        </script>
+
         <script type="text/javascript" > <![CDATA[
-            var clickCapture = new ClickCapture();
+
             s.pageName = "${pageName}";
             s.server = "${requestScope.context.hostName}";
             s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
@@ -119,9 +121,8 @@
             s.prop7 = clickCapture.getProp(7,"${pageName}:${requestScope.context.ABVersion}");
 
             s.prop8 = clickCapture.getProp(8,"${param.cpn}");
-            /* this seems suspicious */
             if (s.prop8 == undefined ){
-                s.prop8 = "${pageName}" ;
+                s.prop8 = s.pageName ;
             }
 
             var locationAnchor = '';
@@ -182,56 +183,10 @@
 
         <script type="text/javascript">
 
+             /* register omniture event handlers */
+             registerMyEventHandlers();
 
-
-            var customInsight9ClickEventHandler = function (e) {
-                var obj = getNode(e);
-                clickCapture.capture("prop9",  obj.id);
-            }
-            
-            var evar5ClickEventHandler = function(e) {
-                var obj = getNode(e);
-                clickCapture.capture("eVar5", s.pageName + ' ' +  obj.id);
-            }
-
-
-            function getNode(e){
-
-                var obj = eventTrigger(e);
-
-                // if obj is an image get it's parent (expected to be a link)
-                if (obj.tagName.toLowerCase() == 'img'){
-                    obj = obj.parentNode;
-                }
-
-                return obj;
-            }
-
-            //register the object click handlers...
-            function registerMyEventHandlers() {
-                var links = document.links;
-                //var debugLinks = "";
-                for(var i = 0; i < links.length; i++) {
-
-                    // CI9
-                    if (links[i].className.indexOf("GS_CI9_") > -1){
-                        var res = registerEventHandler(links[i],"click", customInsight9ClickEventHandler);
-                        //debugLinks += "\n" + links[i].className + "\t";
-                    }
-
-                    // eVar 5
-                    if (links[i].className.indexOf("GS_EV5_") > -1){
-                        var res = registerEventHandler(links[i],"click", evar5ClickEventHandler);
-                        //debugLinks += "\n" + links[i].className + " " + res + "\t";
-                    }
-
-                }
-                //alert(debugLinks);
-            }
-
-            registerMyEventHandlers();
-
-    </script>
+        </script>
     ]]>
 
     </c:if>
