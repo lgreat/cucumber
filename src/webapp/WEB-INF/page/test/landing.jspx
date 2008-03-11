@@ -56,8 +56,7 @@
                 method: 'get',
                 parameters: pars,
                 onComplete: function(transport) {
-                    var opts = document.evaluate( 'count(//option)', transport.responseXML, null, XPathResult.ANY_TYPE, null );
-                    if (opts.numberValue < 2) {
+                    if (transport.responseText.lastIndexOf("option") < 100) {
                         var levs = buildLevels(levels);
                         alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
                     }

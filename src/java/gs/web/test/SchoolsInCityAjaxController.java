@@ -62,10 +62,9 @@ public class SchoolsInCityAjaxController implements Controller {
                         continue;
                     } 
                 }
-                
                 out.print("<option value=\"" + school.getId() + "\">");
                 out.print(school.getName());
-                out.println("</option>\n");
+                out.println("</option>");
             }
         }
         out.print("</select>");
