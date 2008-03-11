@@ -16,6 +16,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.LevelCode;
+import gs.data.util.XMLUtil;
 
 /**
  * This class provides is a service provider for ajax requests from /test/landing.page
@@ -63,7 +64,7 @@ public class SchoolsInCityAjaxController implements Controller {
                     } 
                 }
                 out.print("<option value=\"" + school.getId() + "\">");
-                out.print(school.getName());
+                out.print(XMLUtil.escape(school.getName()));
                 out.println("</option>");
             }
         }
