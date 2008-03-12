@@ -93,16 +93,13 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
             URL listFeedUrl = dataWorksheet.getListFeedUrl();
             lf = service.getFeed(listFeedUrl, ListFeed.class);
         } catch (MalformedURLException e) {
-            _log.error("MalformedURLException: \"" + _worksheetUrl + "\"");
-            _log.error(e);
+            _log.error("MalformedURLException: \"" + _worksheetUrl + "\"", e);
             throw new ExternalConnectionException(e);
         } catch (IOException e) {
-            _log.error("IOException: \"" + _worksheetUrl + "\"");
-            _log.error(e);
+            _log.error("IOException: \"" + _worksheetUrl + "\"", e);
             throw new ExternalConnectionException(e);
         } catch (ServiceException e) {
-            _log.error("ServiceException: \"" + _worksheetUrl + "\"");
-            _log.error(e);
+            _log.error("ServiceException: \"" + _worksheetUrl + "\"", e);
             throw new ExternalConnectionException(e);
         }
         return lf;
