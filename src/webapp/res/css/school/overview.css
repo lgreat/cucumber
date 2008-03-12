@@ -537,6 +537,7 @@ hr { /* has IE 7 equivalent */
 	background: url(/res/img/school/overview/header_CompareThisSchoolTo.gif) no-repeat;
 	height: 37px;
 	text-indent: -9999px;
+    margin-bottom: -4px;
 }
 
 #compareSchool img {
@@ -544,7 +545,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #compareForm {
-	width: 185px;
+	width: 192px;
 	height: 75px;
 	float: left;
 }
@@ -554,7 +555,7 @@ hr { /* has IE 7 equivalent */
 	margin: -1px 0 0 10px;
 	_margin: -2px 0 0 10px; /* IE 6 hack */
 	float: left;
-	height: 75px;
+	height: 85px;
 	width: 270px;
 	font: 12px/16px Trebuchet MS, sans-serif;
 	color: #666;
@@ -562,8 +563,8 @@ hr { /* has IE 7 equivalent */
 
 #compareSchool form input { /* has IE 7 equivalent */
 	float: left;
-	margin: 8px 8px 0 0;
-	_margin: 6px 0 -5px 0; /* IE 6 hack */
+	margin: 8px 8px 0 7px;
+	_margin: 6px 0 -5px 7px; /* IE 6 hack */
 }
 
 #compareSchool form label { /* has IE 7 equivalent */

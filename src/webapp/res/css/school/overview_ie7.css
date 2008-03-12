@@ -75,7 +75,7 @@ hr {
 /* Compare This School To */
 #compareSchool form input {
 	float: left;
-	margin: 6px 2px -5px 0;
+	margin: 6px 2px -5px 7px;
 }
 
 #compareSchool form label {
