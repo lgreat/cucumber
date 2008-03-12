@@ -160,11 +160,18 @@
 
             <c:if test="${school.levelCode != 'p'}">
                 <div id="surveyTeaser_wrapper">
-                    <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview"
-                            id="GS_ParentSurvey.surveyTeaser">
+                    <script type="text/javascript" > <![CDATA[
+                         var parentSurveyTeaserClickEventHandler = function (e) {
+                             clickCapture.capture("prop8",  "OnPage_Parentsurvey_Overview");
+                         }
+                    ]]></script>
+                    <link:schoolStartSurvey school="${school}" 
+                            id="parentSurveyTeaser"
+                            onclick="parentSurveyTeaserClickEventHandler">
                         <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="What is the scoop on ${school.name}?" />
                     </link:schoolStartSurvey>
                 </div>
+
             </c:if>
 
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
