@@ -570,6 +570,9 @@ hr { /* has IE 7 equivalent */
 	display: block;
 	margin: 8px 0 0 0;
 	_margin: 7px 0 0 0; /* IE 6 hack */
+    position: relative;
+    top: -2px;
+    _top: 0;
 }
 
 #compareSchool form .submit {
@@ -723,4 +726,9 @@ div#communityQuestionPromo.overviewBorder div.avatar {
 #rateReview.overview {
     border: 2px solid #EEEEEE;
     margin-bottom: 10px;
+}
+
+div#col_right div#nearbySchools {
+    border: 2px solid #EEEEEE;
+    padding: 8px;
 }
