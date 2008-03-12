@@ -163,12 +163,13 @@
                     <c:if test="${not empty schoolData.yearOpened}">
                         <li>Year opened: ${schoolData.yearOpened}</li>
                     </c:if>
-                    <c:if test="${not empty school.authorizer.name}">
-                        <li>Charter authorizer:<br/>${school.authorizer.name}</li>
-                    </c:if>
-                    <c:if test="${not empty school.operatorId}">
-                        <li>Charter operator:<br/>${schoolData.operator}</li>
-                    </c:if>
+                    <!-- Per GS-5684, do not display Charter authorizer/operator any more -->
+                    <!--<c:if test="${not empty school.authorizer.name}">-->
+                        <!--<li>Charter authorizer:<br/>${school.authorizer.name}</li>-->
+                    <!--</c:if>-->
+                    <!--<c:if test="${not empty school.operatorId}">-->
+                        <!--<li>Charter operator:<br/>${schoolData.operator}</li>-->
+                    <!--</c:if>-->
                 </c:if>
             </ul>
         </div>
