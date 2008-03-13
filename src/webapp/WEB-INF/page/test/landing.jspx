@@ -42,40 +42,33 @@
             }
         }
 
-
         var url = '/test/schoolsInCity.page';
-
-        function changeCity(citySelect, state, levels) {
-            $('schools').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-            new Ajax.Updater ( 'schools', url, {
-                method: 'get',
-                parameters: {state : state, city : citySelect.value, levels: levels },
-                onComplete: function(transport) {
-                    if (transport.responseText.lastIndexOf("option") < 100) {
-                        var levs = buildLevels(levels);
-                        alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
-                    }
-                }
-            });
-        }
-
-        function checkCityLevels(citySelect, state, levels) {
-            new Ajax.Request ( url, {
-                method: 'get',
-                parameters: {state : state, city : citySelect.value, levels: levels },
-                onComplete: function(transport) {
-                    if (transport.responseText.lastIndexOf("option") < 100) {
-                        var levs = buildLevels(levels);
-                        alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
-                    }
-                }
-            });
-        }
 
         function buildLevels(levels) {
             var strings = {'e':'elementary', 'm':'middle','h':'high', 'e,m':'elementary or middle',
             'm,h':'middle or high', 'e,h':'elementary or high', 'e,m,h':'elementary, middle, or high'};
             return strings[levels];
+        }
+
+        function makeCheckOptions(levels) {
+             var checkOptions = function(transport) {
+                 if (transport.responseText.lastIndexOf("option") < 100) {
+                     var levs = buildLevels(levels);
+                     alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
+                 }
+             }
+             return checkOptions;
+        }
+
+        function changeCity(citySelect, state, levels, selectId) {
+            if (selectId) {
+                $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+            }
+            new Ajax.Updater ( selectId, url, {
+                method: 'get',
+                parameters: {state : state, city : citySelect.value, levels: levels },
+                onComplete: makeCheckOptions(levels)
+            });
         }
 
         function checkSchoolSelected(elem) {
@@ -188,7 +181,7 @@
                                         <input type="hidden" name="type" value="achievement" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
                                         <input type="hidden" name="tid" value="${param.tid}" />
-                                        <select id="achievementCities" name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}', '${levs}');">
+                                        <select id="achievementCities" name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}', '${levs}', 'schools');">
                                             <option selected="selected" value="">1. Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
                                                 <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
@@ -219,7 +212,7 @@
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
                                         <input type="hidden" name="tab" value="${compare}" />
                                         <select id="compareCities" name="city" tabindex="5"
-                                                onchange="checkCityLevels(this, '${stateAbbrev}', '${levs}');">
+                                                onchange="changeCity(this, '${stateAbbrev}', '${levs}', '');">
                                             <option selected="selected" value="">1. Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
                                                 <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
