@@ -255,6 +255,10 @@
 </tr>
 </table>
 
+<c:if test="${not empty param.district}">
+    <div id="seoTitle" class="seoTitle">${title}</div>    
+</c:if>
+
 <c:choose>
     <c:when test="${not empty param.city}">
         <mod:tracking

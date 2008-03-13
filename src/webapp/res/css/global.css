@@ -585,17 +585,14 @@ div.showall{}
     .showall{width: 100%; margin: 0; float: none;}
 }
 
-div#testScoreLandingLinks {
+div.seoTitle, div#testScoreLandingLinks a.testScoreLandingLink {
     color: #888888;
-    font-size: small;
+    font-size: 12px;
     font-weight: normal;
-    font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
-    margin-top: 20px;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    margin-bottom: 4px;
 }
 
-div#testScoreLandingLinks a.testScoreLandingLink {
-    color: #888888;
-    font-size: small;
-    font-weight: normal;
-    font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+div#seoTitle {
+    margin-top: 10px;
 }

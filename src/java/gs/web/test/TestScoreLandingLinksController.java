@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class TestScoreLandingLinksController extends AbstractController {
     public static final String SHOW_FINDER_PARAM = "showFinder";
     public static final String STATE_PARAM = "state";
+    public static final String SKIP_TID_PARAM = "skip_tid";
     public static final String WORKSHEET_PRIMARY_ID_COL = "state";
 
     protected static final String _anchorStyleClass = "testScoreLandingLink";
@@ -68,10 +69,14 @@ public class TestScoreLandingLinksController extends AbstractController {
                     links.add(makeFindSchoolsLink());
                 }
 
+                String skip_tid = request.getParameter(SKIP_TID_PARAM);
+                if (skip_tid == null) {
+                    skip_tid = "";
+                }
                 List<ITableRow> rows = getSpreadsheetRows();
                 if (rows != null && !rows.isEmpty()) {
                     for (ITableRow row : rows) {
-                        Anchor anchor = makeLandingLink(row);
+                        Anchor anchor = makeLandingLink(row, skip_tid);
                         if (anchor != null) {
                             links.add(anchor);
                         }
@@ -97,11 +102,11 @@ public class TestScoreLandingLinksController extends AbstractController {
      * @param row Row of data containing details on the test
      * @return Anchor containing link to test landing page
      */
-    protected Anchor makeLandingLink(ITableRow row) {
+    protected Anchor makeLandingLink(ITableRow row, String skip_tid) {
         Anchor result = null;
         
         String datatype_id_str = row.getString(TABLE_DATA_TYPE_ID_COL);
-        if (!StringUtils.isBlank(datatype_id_str)) {
+        if (!StringUtils.isBlank(datatype_id_str) && !skip_tid.equals(datatype_id_str)) {
             String shortname = row.getString(TABLE_SHORT_NAME_COL);
             if (!StringUtils.isBlank(shortname) ) {
                 result = makeLandingLink(shortname, datatype_id_str);

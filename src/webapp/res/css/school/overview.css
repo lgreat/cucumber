@@ -733,3 +733,8 @@ div#col_right div#nearbySchools {
     border: 2px solid #EEEEEE;
     padding: 8px;
 }
+
+div#seoTitle {
+    clear: both;
+    padding-top: 15px;
+}

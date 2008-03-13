@@ -124,6 +124,14 @@
                         <gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="3">
+                        <jsp:include page="/test/testScoreLandingLinks.module">
+                            <jsp:param name="state" value="${stateOrNull}"/>
+                            <jsp:param name="skip_tid" value="${param.tid}"/>
+                        </jsp:include>
+                    </td>
+                </tr>
                 <c:if test="${(not empty alert) and (alertexpired ne 'true')}">
                     <tr>
                         <td colspan="3">

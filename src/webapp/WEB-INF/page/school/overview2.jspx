@@ -329,6 +329,8 @@
         </div>
         </div><!-- end: schoolOverview -->
 
+    <div id="seoTitle" class="seoTitle">${gsweb:schoolPageTitle(school)}</div>
+
 </school:profile>
 <c:if test="${school.type.schoolTypeName == 'private'}">
     <c:set var="pageName" value="Private School Overview"/>
