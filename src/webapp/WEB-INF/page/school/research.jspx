@@ -453,7 +453,7 @@
     <jsp:param name="showFinder" value="false"/>
 </jsp:include>
 
-<div id="seoTitle" class="seoTitle">${gsweb:statePageTitle(stateOrNull)}</div>
+<h1 id="sfooter" class="sfooter">${gsweb:statePageTitle(stateOrNull)}</h1>
 
 <c:choose>
     <c:when test="${not empty requestScope.context.state}">

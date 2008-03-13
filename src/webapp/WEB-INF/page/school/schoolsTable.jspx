@@ -256,7 +256,7 @@
 </table>
 
 <c:if test="${not empty param.district}">
-    <div id="seoTitle" class="seoTitle">${title}</div>    
+    <h1 id="sfooter" class="sfooter">${title}</h1>    
 </c:if>
 
 <c:choose>

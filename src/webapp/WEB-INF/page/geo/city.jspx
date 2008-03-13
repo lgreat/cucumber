@@ -254,7 +254,7 @@
     <jsp:param name="state" value="${stateAbbrev}"/>
 </jsp:include>
 
-<div id="seoTitle" class="seoTitle">${gsweb:cityPageTitle(cityObject)}</div>
+<h1 id="sfooter" class="sfooter">${gsweb:cityPageTitle(cityObject)}</h1>
 
 <mod:tracking pageName="city home"
               locale="${cityObject.name}"

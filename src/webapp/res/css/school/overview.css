@@ -734,7 +734,9 @@ div#col_right div#nearbySchools {
     padding: 8px;
 }
 
-div#seoTitle {
+#schoolProfile #bodyContents h1#sfooter {
     clear: both;
-    padding-top: 15px;
+    padding: 15px 0 0 0;
+    font-size: 12px;
+    font-weight: normal;
 }

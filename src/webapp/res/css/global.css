@@ -585,7 +585,7 @@ div.showall{}
     .showall{width: 100%; margin: 0; float: none;}
 }
 
-div.seoTitle, div#testScoreLandingLinks a.testScoreLandingLink {
+h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandingLink {
     color: #888888;
     font-size: 12px;
     font-weight: normal;
@@ -593,6 +593,6 @@ div.seoTitle, div#testScoreLandingLinks a.testScoreLandingLink {
     margin-bottom: 4px;
 }
 
-div#seoTitle {
+h1#sfooter {
     margin-top: 10px;
 }
