@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.57 2008/02/15 20:33:57 jnorton Exp $
+ * $Id: UrlUtil.java,v 1.58 2008/03/14 00:30:35 aroy Exp $
  */
 
 package gs.web.util;
@@ -330,6 +330,7 @@ public final class UrlUtil {
                 if (StringUtils.contains(url, "/advice/write")
                         || StringUtils.contains(url, "/groups/create")
                         || StringUtils.contains(url, "/q-and-a/?submit=true")
+                        || StringUtils.contains(url, "/q-and-a?submit=true")
                         || StringUtils.contains(url, "/report")
                         || StringUtils.contains(url, "?comment")
                         || StringUtils.contains(url, "/members/watchlist/watch")

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.46 2008/02/15 20:33:56 jnorton Exp $
+ * $Id: UrlUtilSaTest.java,v 1.47 2008/03/14 00:30:35 aroy Exp $
  */
 
 package gs.web.util;
@@ -266,7 +266,9 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue("Expected true for content-creation URL",
                 _urlUtil.isCommunityContentLink("http://community.greatschools.net/groups/create"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/q-and-a/?submit=true"));
+                _urlUtil.isCommunityContentLink("http%3A%2F%2Fcommunity.dev.greatschools.net/q-and-a?submit=true"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http%3A%2F%2Fcommunity.dev.greatschools.net/q-and-a/?submit=true"));
         assertTrue("Expected true for content-creation URL",
                 _urlUtil.isCommunityContentLink("http://community.greatschools.net/groups/2771/join"));
         assertTrue("Expected true for content-creation URL",
