@@ -14,16 +14,6 @@
     margin:0 3px 3px 3px;
 }
 
-#quickFacts div#divider {
-    text-indent: -9999px;
-    width:2px;
-    height:216px;
-    background:white;
-    position:absolute;
-    top:0;
-    left:180px;
-}
-
 #quickFacts h2 {
     background: url(/res/img/school/overview/quickfacts.gif) no-repeat 3px 3px;
     width: 359px;
@@ -37,8 +27,8 @@
 }
 
 #quickFacts div.leftCol {
-    /*background:#F2F3DB;*/
-    width:175px;
+    border-right:2px solid white;
+    width:171px;
     height:100%;
     padding:10px 0 10px 5px;
     margin:0 0 3px 3px;
@@ -46,7 +36,6 @@
 }
 
 #quickFacts div.rightCol {
-    /*background:#F2F3DB;*/
     width:169px;
     height:100%;
     position:absolute;

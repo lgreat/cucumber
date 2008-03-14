@@ -133,9 +133,7 @@
                 </c:if>
 
             </div>
-            <div id="divider">divider</div>
             <div class="rightCol">
-
                 <ul>
                     <!-- Grade levels -->
                     <c:set var="levels" value="${school.gradeLevels}"/>
@@ -192,7 +190,6 @@
                             <li>Library: ${schoolData.hasLibrary}</li>
                         </c:if>
                     </c:if>
-
                     <!-- Per GS-5684, do not display Charter authorizer/operator any more -->
                     <!--<c:if test="${not empty school.authorizer.name}">-->
                         <!--<li>Charter authorizer:<br/>${school.authorizer.name}</li>-->
