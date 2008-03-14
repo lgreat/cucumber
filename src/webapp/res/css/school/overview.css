@@ -53,6 +53,10 @@ hr { /* has IE 7 equivalent */
     margin-bottom: 10px;
 }
 
+#quickFacts h3 strong {
+    font-weight:normal;
+}
+
 #quickFacts h2 {
 	background: url(/res/img/school/overview/header_QuickFacts.gif) no-repeat 10px 6px;
 	width: 173px;

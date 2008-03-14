@@ -1,0 +1,129 @@
+/*
+ * These styles should be moved into overview.css if they are promoted from a/b testing.
+ */
+
+#quickFacts {
+    width: 362px;
+    border: 2px solid #eee;
+    margin-bottom: 10px;
+}
+
+#quickFacts div#colContainer {
+    position:relative;
+    background:#F2F3DB;
+    margin:0 3px 3px 3px;
+}
+
+#quickFacts div#divider {
+    text-indent: -9999px;
+    width:2px;
+    height:216px;
+    background:white;
+    position:absolute;
+    top:0;
+    left:180px;
+}
+
+#quickFacts h2 {
+    background: url(/res/img/school/overview/quickfacts.gif) no-repeat 3px 3px;
+    width: 359px;
+    height: 28px;
+    text-indent: -9999px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+    margin-bottom: 0;
+}
+
+#quickFacts h3 strong {
+    font-weight:bold;
+}
+
+#quickFacts div.leftCol {
+    /*background:#F2F3DB;*/
+    width:175px;
+    height:100%;
+    padding:10px 0 10px 5px;
+    margin:0 0 3px 3px;
+    position:relative;
+}
+
+#quickFacts div.rightCol {
+    /*background:#F2F3DB;*/
+    width:169px;
+    height:100%;
+    position:absolute;
+    padding:0 0 0 5px;
+    top:0;
+    left:185px;
+}
+
+#quickFacts h3 {
+   background:none;
+}
+
+#quickFacts ul li {
+    background:transparent url(/res/img/school/overview/yellowcarrot.gif) no-repeat scroll left;
+}
+
+#quickFacts div.mapit {
+    margin:15px 0 8px 10px;
+}
+
+#leftNav {
+    border: 2px solid #eee;
+    padding-top:8px;
+    padding-bottom:8px;
+    width:175px;
+    color:#55BBCC;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:14px;
+}
+
+#leftNav div.button {
+    margin:6px 3px 6px 10px;    
+    position:relative;
+    height:20px;
+}
+
+#leftNav div.button div.image {
+    text-indent:-1000em;
+    position:absolute;
+    height:20px;
+    width:13px;
+    right:0;
+    top:0;
+}
+
+#leftNav div.leftNavOver div.button {
+    background:#D6EDED;
+}
+
+#leftNav div.leftNavOut div.button {
+    background:white;
+}
+
+#leftNav div.leftNavOver div.image {
+    background: url(/res/img/school/overview/bluearrow_leftnav_on.jpg) no-repeat;
+}
+
+#leftNav div.leftNavOut div.image {
+    background: url(/res/img/school/overview/bluearrow_leftnav.gif) no-repeat;
+}
+
+#leftNav .button a {
+    display:block;
+    width:160px;
+    height:18px;
+    text-decoration:none;
+}
+
+#leftNav .button a:hover {
+    text-decoration:none;
+}
+
+#bigPicture {
+    border:none;
+    padding:10px 0 0 0;
+}
+
+#bigPicture h2 {
+    display:none;
+}

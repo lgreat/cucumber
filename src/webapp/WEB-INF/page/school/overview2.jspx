@@ -64,9 +64,24 @@
             margin: 12px 8px 12px 0pt;
         }
     </style>
+    <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+        <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/yahoo/yahoo-min.js"/>
+        <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/event/event-min.js"/>
+        <pageHelper:externalCss file="/res/css/school/gs-5687.css"/>
+
+        <script type="text/javascript">
+            function leftNavOver(e) {
+                e.className = "leftNavOver";
+            }
+
+            function leftNavOut(e) {
+                e.className = "leftNavOut";
+            }
+        </script>
+    </c:if>
 </head>
 
-<gsml:body adPageName="overview" pageLayout="research">
+<gsml:body adPageName="overview" pageLayout="research" >
     <![CDATA[
     <!--[if IE 7]>
         <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7.css" />
@@ -91,10 +106,98 @@
     <!-- being left column -->
     <div id="col_left">
 
-      <school:quickFacts school="${school}"/>
+        <c:if test="${(requestScope.context.ABVersion ne 'd')}">
+            <school:quickFacts school="${school}"/>
+            <school:bigPicture school="${school}" divider="true"/>
+        </c:if>
+        <c:if test="${(requestScope.context.ABVersion eq 'd')}">
 
-        <!-- Big Picture -->
-        <school:bigPicture school="${school}" divider="true"/>
+            <div id="leftNav">
+                <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                    <div class="button">
+                        <link:schoolProfileTestscore school="${school}">
+                            Test Scores
+                        </link:schoolProfileTestscore>
+                        <div class="image">image</div>
+                    </div>
+                </div>
+                <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                    <div class="button">
+                        <link:schoolProfileRating school="${school}">
+                            GreatSchools Ratings
+                        </link:schoolProfileRating>
+                        <div class="image">image</div>
+                    </div>
+                </div>
+                <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                    <div class="button">
+                        <link:schoolProfileCensus school="${school}">
+                            Teachers / Students
+                        </link:schoolProfileCensus>
+                        <div class="image">image</div>
+                    </div>
+                </div>
+                <c:if test="${hasAPExams}">
+                    <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                        <div class="button">
+                            <link:schoolProfileCensus school="${school}" anchor="ap">
+                                AP Scores
+                            </link:schoolProfileCensus>
+                            <div class="image">image</div>
+                        </div>
+                    </div>                    
+                </c:if>
+                <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                    <div class="button">
+                        <link:schoolProfileParentReview school="${school}">
+                            Parent Reviews
+                        </link:schoolProfileParentReview>
+                        <div class="image">image</div>
+                    </div>
+                </div>
+                <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                    <div class="button">
+                        <link:schoolStartSurvey school="${school}">
+                            Parent Survey
+                        </link:schoolStartSurvey>
+                        <div class="image">image</div>
+                    </div>
+                </div>
+                <c:if test="${hasPrincipalView}">
+                    <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                        <div class="button">
+                            <link:schoolProfilePrincipalView school="${school}">
+                                Principal's View
+                            </link:schoolProfilePrincipalView>
+                            <div class="image">image</div>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
+                    <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                        <div class="button">
+
+                            <link:districtProfile districtId="${school.districtId}"
+                                                  schoolId="${school.id}"
+                                                  state="${state}"
+                                                  title="District information" >
+                                District Overview
+                            </link:districtProfile>
+                            <div class="image">image</div>
+                        </div>
+                    </div>
+                </c:if>
+
+                <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
+                    <div class="button">
+                        <link:schoolCompareSchool school="${school}">
+                            Compare Schools
+                        </link:schoolCompareSchool>
+                        <div class="image">image</div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
 
         <!-- promo link -->
         <!--<hr />-->
@@ -148,7 +251,12 @@
 
 		<!-- begin center column -->
 
-        <div id="col_center">
+    <div id="col_center">
+
+    <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+        <school:quickFacts school="${school}"/>
+    </c:if>
+
 
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 

@@ -7,6 +7,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <jsp:directive.tag import="gs.data.school.SchoolSubtype"/>
@@ -62,107 +63,136 @@
         request.setAttribute("subtypes", subs.asPrettyCommaSeparatedString());
     </jsp:scriptlet>
 
+    <div id="quickFacts">
+        <h2>${school.name} Quick Facts</h2>
+        <div id="colContainer">
+            <div class="leftCol">
+                <!--<h3><strong style="font-weight:normal;">${school.name}</strong></h3>-->
+                <h3><strong>${school.name}</strong></h3>
+                <address>
+                    ${school.physicalAddress.street}<br />
+                    ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}&#32;${school.physicalAddress.zip}<br/>
+                    <c:if test="${not empty(school.county)}">
+                        <c:choose>
+                            <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
+                            <c:when test="${school.physicalAddress.state.abbreviation eq 'LA'}">${school.county} Parish</c:when>
+                            <c:otherwise>${school.county} County</c:otherwise>
+                        </c:choose>
+                        <br/>
+                    </c:if>
+                </address>
 
-        <div id="quickFacts">
-            <h2>${school.name} Quick Facts</h2>
-            <h3><strong style="font-weight:normal;">${school.name}</strong></h3>
-            <address>
-                ${school.physicalAddress.street}<br />
-                ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}&#32;${school.physicalAddress.zip}<br/>
-                <c:if test="${not empty(school.county)}">
-                    <c:choose>
-                        <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
-                        <c:when test="${school.physicalAddress.state.abbreviation eq 'LA'}">${school.county} Parish</c:when>
-                        <c:otherwise>${school.county} County</c:otherwise>
-                    </c:choose>
-                    <br/>
-                </c:if>
-            </address>
-
-            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                <div class="mapit">
-                    <link:mapSchool school="${school}"><gsml:img src="/res/img/map/mapit.gif" alt="Map ${school.name}"/></link:mapSchool>
-                </div>
-            </c:if>
-            
-            <p class="phoneFax">
-                <c:if test="${not empty school.phone}">Phone: ${school.phone}<br /></c:if>
-                <c:if test="${not empty school.fax}">Fax: ${school.fax}</c:if>
-            </p>
-
-            <c:if test="${not empty school.webSite}">
-                <p>
-                    <c:choose>
-                        <c:when test="${(fn:startsWith(school.webSite,'http://')) or (fn:startsWith(school.webSite,'https://'))}">
-                            <a href="${school.webSite}" target="_blank">School Web site &#62;</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="http://${school.webSite}" target="_blank">School Web site &#62;</a>
-                        </c:otherwise>
-                    </c:choose>
-                </p>
-            </c:if>
-
-            <ul>
-                <!-- Grade levels -->
-                <c:set var="levels" value="${school.gradeLevels}"/>
-                <li>
-                    <c:choose>
-                        <c:when test="${!fn:contains(levels, '-') and !fn:contains(levels,',')}">Grade&#32;${levels}</c:when>
-                        <c:otherwise>Grades&#32;${levels}</c:otherwise>
-                    </c:choose>
-                </li>
-
-                <!-- School Type -->
-                <li>${gsweb:capitalize(school.type.schoolTypeName)} school</li>
-
-                <!-- Enrollment -->
-                <c:if test="${not empty school.enrollment}">
-                    <li>${school.enrollment} ${gsweb:pluralize(school.enrollment, 'student')}</li>
-                </c:if>
-
-                <!-- Subtype(s) -->
-                <c:set var="subtypes" value="${subtypes}"/>
-                <c:if test="${(not empty subtypes) or (not empty school.affiliation)}">
-                    <c:set var="subs">
-                        <c:if test="${not empty school.affiliation}">
+                <c:if test="${(requestScope.context.ABVersion ne 'd')}">
+                    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                        <div class="mapit">
                             <c:choose>
-                                <c:when test="${(not empty subtypes)}">
-                                    ${school.affiliation},&#32;
+                                <c:when test="${(requestScope.context.ABVersion eq 'd')}">
+                                    <c:set var="mapImage" value="/res/img/school/overview/mapit.gif" />
                                 </c:when>
                                 <c:otherwise>
-                                    ${school.affiliation}
+                                    <c:set var="mapImage" value="/res/img/map/mapit.gif" />
                                 </c:otherwise>
                             </c:choose>
-                        </c:if>
-                        ${subtypes}
-                    </c:set>
+                            <link:mapSchool school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>
+                        </div>
+                    </c:if>
+                </c:if>
+
+                <p class="phoneFax">
+                    <c:if test="${not empty school.phone}">Phone: ${school.phone}<br /></c:if>
+                    <c:if test="${not empty school.fax}">Fax: ${school.fax}</c:if>
+                </p>
+
+                <c:if test="${not empty school.webSite}">
+                    <p>
+                        <c:choose>
+                            <c:when test="${(fn:startsWith(school.webSite,'http://')) or (fn:startsWith(school.webSite,'https://'))}">
+                                <a href="${school.webSite}" target="_blank">School Web site &#62;</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="http://${school.webSite}" target="_blank">School Web site &#62;</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+                </c:if>
+
+                <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+                    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                        <div class="mapit">
+                            <c:choose>
+                                <c:when test="${(requestScope.context.ABVersion eq 'd')}">
+                                    <c:set var="mapImage" value="/res/img/school/overview/mapit.gif" />
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="mapImage" value="/res/img/map/mapit.gif" />
+                                </c:otherwise>
+                            </c:choose>
+                            <link:mapSchool school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>
+                        </div>
+                    </c:if>
+                </c:if>
+
+            </div>
+            <div id="divider">divider</div>
+            <div class="rightCol">
+
+                <ul>
+                    <!-- Grade levels -->
+                    <c:set var="levels" value="${school.gradeLevels}"/>
                     <li>
-                        ${gsweb:capitalize(subs)}
+                        <c:choose>
+                            <c:when test="${!fn:contains(levels, '-') and !fn:contains(levels,',')}">Grade&#32;${levels}</c:when>
+                            <c:otherwise>Grades&#32;${levels}</c:otherwise>
+                        </c:choose>
                     </li>
-                </c:if>
 
-                <!-- Association(s) -->
-                <c:if test="${not empty school.association}">
-                    <li>Associations: ${school.association}</li>
-                </c:if>
+                    <!-- School Type -->
+                    <li>${gsweb:capitalize(school.type.schoolTypeName)} school</li>
 
-                <c:set var="schoolData" value="${schoolData}"/>
-                <c:if test="${school.type.schoolTypeName == 'private'}">
-                    <c:if test="${not empty schoolData.schoolDays}">
-                        <li>${schoolData.schoolDays} school days per year</li>
+                    <!-- Enrollment -->
+                    <c:if test="${not empty school.enrollment}">
+                        <li>${school.enrollment} ${gsweb:pluralize(school.enrollment, 'student')}</li>
                     </c:if>
-                    <c:if test="${not empty schoolData.hoursPerDay}">
-                        <li>${schoolData.hoursPerDay} hours per day</li>
+
+                    <!-- Subtype(s) -->
+                    <c:set var="subtypes" value="${subtypes}"/>
+                    <c:if test="${(not empty subtypes) or (not empty school.affiliation)}">
+                        <c:set var="subs">
+                            <c:if test="${not empty school.affiliation}">
+                                <c:choose>
+                                    <c:when test="${(not empty subtypes)}">
+                                        ${school.affiliation},&#32;
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${school.affiliation}
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
+                            ${subtypes}
+                        </c:set>
+                        <li>
+                            ${gsweb:capitalize(subs)}
+                        </li>
                     </c:if>
-                    <c:if test="${not empty schoolData.hasLibrary}">
-                        <li>Library: ${schoolData.hasLibrary}</li>
+
+                    <!-- Association(s) -->
+                    <c:if test="${not empty school.association}">
+                        <li>Associations: ${school.association}</li>
                     </c:if>
-                </c:if>
-                <c:if test="${school.type.schoolTypeName == 'charter'}">
-                    <c:if test="${not empty schoolData.yearOpened}">
-                        <li>Year opened: ${schoolData.yearOpened}</li>
+
+                    <c:set var="schoolData" value="${schoolData}"/>
+                    <c:if test="${school.type.schoolTypeName == 'private'}">
+                        <c:if test="${not empty schoolData.schoolDays}">
+                            <li>${schoolData.schoolDays} school days per year</li>
+                        </c:if>
+                        <c:if test="${not empty schoolData.hoursPerDay}">
+                            <li>${schoolData.hoursPerDay} hours per day</li>
+                        </c:if>
+                        <c:if test="${not empty schoolData.hasLibrary}">
+                            <li>Library: ${schoolData.hasLibrary}</li>
+                        </c:if>
                     </c:if>
+
                     <!-- Per GS-5684, do not display Charter authorizer/operator any more -->
                     <!--<c:if test="${not empty school.authorizer.name}">-->
                         <!--<li>Charter authorizer:<br/>${school.authorizer.name}</li>-->
@@ -170,7 +200,12 @@
                     <!--<c:if test="${not empty school.operatorId}">-->
                         <!--<li>Charter operator:<br/>${schoolData.operator}</li>-->
                     <!--</c:if>-->
+                <!--</c:if>-->
+                </ul>
+                <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+                    <school:bigPicture school="${school}" divider="false"/>
                 </c:if>
-            </ul>
+            </div>
         </div>
+    </div>
 </jsp:root>
