@@ -89,6 +89,7 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
             if (!StringUtils.isEmpty(_username) && !StringUtils.isEmpty(_password)) {
                 service.setUserCredentials(_username, _password);
             }
+            _log.info("Contacting Google: " + _worksheetUrl);
             WorksheetEntry dataWorksheet = service.getEntry(new URL(_worksheetUrl), WorksheetEntry.class);
             URL listFeedUrl = dataWorksheet.getListFeedUrl();
             lf = service.getFeed(listFeedUrl, ListFeed.class);
