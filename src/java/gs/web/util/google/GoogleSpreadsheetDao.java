@@ -54,7 +54,7 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
 
     /**
      * Delegates to getListFeed to contact Google, then iterates over the returned ListFeed
-     * to find the rows matching keyName/keyValue. If no results are found, return null.
+     * to find the rows matching keyName/keyValue. If no results are found, return empty list.
      *
      * @throws ExternalConnectionException If thrown from getListFeed
      */
@@ -69,9 +69,6 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
                     matchingRows.add(currentRow);
                 }
             }
-        }
-        if (matchingRows.isEmpty()) {
-            return null;
         }
         return matchingRows;
     }
@@ -89,7 +86,7 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
             if (!StringUtils.isEmpty(_username) && !StringUtils.isEmpty(_password)) {
                 service.setUserCredentials(_username, _password);
             }
-            _log.info("Contacting Google: " + _worksheetUrl);
+            _log.warn("Contacting Google: " + _worksheetUrl);
             WorksheetEntry dataWorksheet = service.getEntry(new URL(_worksheetUrl), WorksheetEntry.class);
             URL listFeedUrl = dataWorksheet.getListFeedUrl();
             lf = service.getFeed(listFeedUrl, ListFeed.class);
