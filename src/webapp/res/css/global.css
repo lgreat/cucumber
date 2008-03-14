@@ -590,9 +590,12 @@ h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandin
     font-size: 12px;
     font-weight: normal;
     font-family: "Trebuchet MS",Arial,sans-serif;
-    margin-bottom: 4px;
 }
 
 h1#sfooter {
+    margin-bottom: 4px;
+}
+
+div#testScoreLandingLinks {
     margin-top: 10px;
 }

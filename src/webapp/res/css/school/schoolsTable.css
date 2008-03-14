@@ -394,3 +394,7 @@ tr.school td.checkbox {
 #browseRefine {
     border-top:1px solid #CCCCCC;
 }
+
+h1#sfooter {
+    margin-top: 15px;
+}

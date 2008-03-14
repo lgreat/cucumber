@@ -357,12 +357,12 @@
 
 <footer:editorialFooter/>
 
+<h1 id="sfooter" class="sfooter">${title}</h1>
+
 <jsp:include page="/test/testScoreLandingLinks.module">
     <jsp:param name="state" value="${stateOrNull}"/>
     <jsp:param name="skip_tid" value="${param.tid}"/>
 </jsp:include>
-
-<h1 id="sfooter" class="sfooter">${title}</h1>
 
 <mod:tracking pageName="Test Home" hier1="Home,Test Home"/>
 </gsml:body>

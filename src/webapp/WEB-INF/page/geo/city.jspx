@@ -249,12 +249,11 @@
 </tr>
 </table>
 
+<h1 id="sfooter" class="sfooter">${gsweb:cityPageTitle(cityObject)}</h1>
 
 <jsp:include page="/test/testScoreLandingLinks.module">
     <jsp:param name="state" value="${stateAbbrev}"/>
 </jsp:include>
-
-<h1 id="sfooter" class="sfooter">${gsweb:cityPageTitle(cityObject)}</h1>
 
 <mod:tracking pageName="city home"
               locale="${cityObject.name}"

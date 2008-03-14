@@ -448,12 +448,12 @@
 </div>
 </div>
 
+<h1 id="sfooter" class="sfooter">${gsweb:statePageTitle(stateOrNull)}</h1>
+
 <jsp:include page="/test/testScoreLandingLinks.module">
     <jsp:param name="state" value="${stateOrNull}"/>
     <jsp:param name="showFinder" value="false"/>
 </jsp:include>
-
-<h1 id="sfooter" class="sfooter">${gsweb:statePageTitle(stateOrNull)}</h1>
 
 <c:choose>
     <c:when test="${not empty requestScope.context.state}">
