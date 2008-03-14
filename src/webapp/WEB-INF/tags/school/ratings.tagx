@@ -67,8 +67,7 @@
                         <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!"
                                   styleClass="parentTitle" />
                         <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars" />
-                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif" rollover="/res/img/school/overview/submit_RateIt_rollover.gif"
-                                  alt="Rate It" styleClass="rateIt"/>
+                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
                     </link:schoolProfileAddParentReview>
                 </c:when>
                 <c:otherwise>
@@ -81,8 +80,7 @@
                             onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"                
                             styleClass="submodal-344-362"
                             >
-                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif" rollover="/res/img/school/overview/submit_RateIt_rollover.gif"
-                                  alt="Rate It" styleClass="rateIt" />
+                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" />
                     </link:schoolProfileAddParentReview>
                     <p>
                         <link:schoolProfileParentReview school="${school}">

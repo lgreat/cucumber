@@ -328,17 +328,16 @@
 
              </c:if>
 
+            <c:if test="${!requestScope.context.crawler}">
+                <school:parentReviewForm school="${school}" pageName="overview"/>
+            </c:if>
+
             <div id="communityQuestion_wrapper">
                 <jsp:include page="/community/communityQuestionPromo.module">
                     <jsp:param name="code" value="school/overview.page"/>
                     <jsp:param name="styleClass" value="overviewBorder clearLeft"/>
                 </jsp:include>
             </div>
-
-            <c:if test="${!requestScope.context.crawler}">
-                <school:parentReviewForm school="${school}" pageName="overview"/>
-            </c:if>
-
 
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
