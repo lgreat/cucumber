@@ -127,9 +127,11 @@
 
             var locationAnchor = '';
 
-            if (location.href && location.href.indexOf('#from..') > -1) {
-                locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
-                s.prop9 = s.pageName + ' ' + locationAnchor;
+            if (location.href) {
+                if(location.href.indexOf('#from..') > -1) {
+                    locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
+                    s.prop9 = s.pageName + ' ' + locationAnchor;
+                }
             } else if (clickCapture.getProp(9) != undefined ){
                 s.prop9 = s.pageName + ' ' + clickCapture.getProp(9);
             } else {
