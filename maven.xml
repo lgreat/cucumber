@@ -9,7 +9,7 @@
 <project xmlns:j="jelly:core" xmlns:ant="jelly:ant">
 
     <preGoal name="java:compile">
-        <mkdir dir="${maven.war.webapp.dir}/WEB-INF"/>
+        <mkdir dir="${maven.src.dir}/webapp/WEB-INF"/>
         <!-- <attainGoal name="xdoclet2:run"/> -->
         <attainGoal name="create-build-version"/>
     </preGoal>
@@ -68,6 +68,7 @@
         <attainGoal name="clean"/>
         <attainGoal name="clover:on"/>
         <attainGoal name="site"/>
+        <attainGoal name="clover:report"/>
     </goal>
 </project>
 
