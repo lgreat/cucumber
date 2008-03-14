@@ -43,6 +43,7 @@
         }
 
         var url = '/test/schoolsInCity.page';
+        var cityHasSchoolsInCorrectLevel = true;
 
         function buildLevels(levels) {
             var strings = {'e':'elementary', 'm':'middle','h':'high', 'e,m':'elementary or middle',
@@ -53,8 +54,11 @@
         function makeCheckOptions(levels) {
              var checkOptions = function(transport) {
                  if (transport.responseText.lastIndexOf("option") < 100) {
+                     cityHasSchoolsInCorrectLevel = false;
                      var levs = buildLevels(levels);
                      alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
+                 } else {
+                     cityHasSchoolsInCorrectLevel = true;
                  }
              }
              return checkOptions;
@@ -80,11 +84,16 @@
             return true;
         }
 
-        function checkCityAndLevelSelected(elem) {
+        function checkCityAndLevelSelected(elem, levels) {
             var levelVal = elem.level.value;
             var cityVal = elem.city.value;
             if (cityVal == "" || levelVal == "") {
                 alert("Please select a city and grade level.");
+                return false;
+            }
+            if (!cityHasSchoolsInCorrectLevel) {
+                var levs = buildLevels(levels);
+                alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
                 return false;
             }
             return true;
@@ -199,7 +208,7 @@
                                     <div class="boxText">
                                         <c:out value="${comparetext}" escapeXml="false" />
                                     </div>
-                                    <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkCityAndLevelSelected(this)">
+                                    <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkCityAndLevelSelected(this, '${levs}')">
                                         <input type="hidden" name="type" value="compare" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
                                         <input type="hidden" name="tab" value="${compare}" />
@@ -216,7 +225,8 @@
                                                 <![CDATA[<option value="${levelOption.name}">${levelOption.longName}</option>]]>
                                             </c:forEach>
                                         </select>
-                                        <input id="goCompare" type="image" src="${go}" alt="Compare ${shortname} test results" style="width:41px;height:26px;margin-top: 10px;"
+                                        <input id="goCompare" type="image" src="${go}" alt="Compare ${shortname} test results"
+                                               style="width:41px;height:26px;margin-top: 10px;"
                                                class="button" onmouseover="this.src='${goOver}';"
                                                onmouseout="this.src='${go}';" />
                                     </gsweb:form>
