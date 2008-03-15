@@ -31,8 +31,15 @@
             showName = true;
         }
         request.setAttribute("showName", showName);
+
+        String presetRating = "0";
+        if (StringUtils.isNotBlank(request.getParameter("presetRating"))) {
+            presetRating = request.getParameter("presetRating");
+        }
+        request.setAttribute("presetRating", presetRating);
     </jsp:scriptlet>
     
+    <pageHelper:addOnLoadHandler handler="setStars(${presetRating})"/>
     <script type="text/javascript">
         <![CDATA[<!--
         var callback = {
@@ -58,6 +65,7 @@
     </c:if>
 
     <div id="rateReview" class="noprint ${divClass}">
+     To save your rating please submit your email address.
         <div id="ratingTitle">${schoolName}</div>
         <c:if test="${fn:length(schoolName) > 31}">
             <script type="text/javascript">
@@ -73,7 +81,7 @@
                     But because this page may load slowly, that's not an option.
                 -->
                 <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
-                <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
+                <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
                 <ul class="star-rating large-star">
                     <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
                     <li><a href="#"

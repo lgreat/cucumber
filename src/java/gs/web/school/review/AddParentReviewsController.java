@@ -135,7 +135,6 @@ public class AddParentReviewsController extends SimpleFormController implements 
                                           final ReviewCommand command, final boolean isNewUser) {
 
         Review review = null;
-                _log.warn("eddie\n\n"); 
         //existing user, check if they have previously left a review for this school
         if (!isNewUser) {
             review = getReviewDao().findReview(user, school);

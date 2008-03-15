@@ -210,7 +210,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         Review aReview = new Review();
         aReview.setQuality(CategoryRating.RATING_1);
         aReview.setComments("Comment 1");
-
+        aReview.setId(1);
         reviewList.add(aReview);
 
         Map reviewMap = new HashMap();
@@ -248,8 +248,8 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
             Review aReview = new Review();
             aReview.setQuality(CategoryRating.RATING_1);
             aReview.setComments("Comment 1");
-
-            reviewList.add(aReview);            
+            aReview.setId(1);
+            reviewList.add(aReview);
         }
 
         Map reviewMap = new HashMap();
@@ -280,7 +280,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
             Review aReview = new Review();
             aReview.setQuality(CategoryRating.RATING_1);
             aReview.setComments("Comment 1");
-
+            aReview.setId(1);
             reviewList.add(aReview);
         }
 
@@ -311,6 +311,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
            Review aReview = new Review();
            aReview.setQuality(CategoryRating.DECLINE_TO_STATE);
            aReview.setComments("Comment 1");
+           aReview.setId(1);
 
            reviewList.add(aReview);
 

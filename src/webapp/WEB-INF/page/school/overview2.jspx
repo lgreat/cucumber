@@ -145,7 +145,7 @@
                             </link:schoolProfileCensus>
                             <div class="image">image</div>
                         </div>
-                    </div>                    
+                    </div>
                 </c:if>
                 <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                     <div class="button">
@@ -279,28 +279,63 @@
             <c:if test="${(not empty latestReviewsModel) }">
 
                 <c:choose>
-                    <c:when test="${(school.levelCode != 'p') and (school.type.schoolTypeName ne 'private')}">
-                        <c:if test="${(not empty latestReviewsModel.latestRating) and
-                                (not empty latestReviewsModel.randomCategory) and
-                                (not empty latestReviewsModel.randomRating) and
-                                (not empty latestReviewsModel.comment)}">
+                    <c:when test="${(requestScope.context.ABVersion eq 'a') and (school.levelCode != 'p') and (school.type.schoolTypeName ne 'private')}">
+                         <c:if test="${(not empty latestReviewsModel.latestRating) and
+                                 (not empty latestReviewsModel.randomCategory) and
+                                 (not empty latestReviewsModel.randomRating) and
+                                 (not empty latestReviewsModel.comment)}">
+                             <div id="parentReviews">
+                                 <h2>Latest ${school.name} Parent Reviews</h2>
+                                 <gsml:img src="/res/img/map/ratings_parent_city_${latestReviewsModel.latestRating}.gif" alt="" styleClass="rating" />
+                                 <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
+                                     ${latestReviewsModel.randomRating}</em>
+                                     <link:schoolProfileParentReview school="${school}" title="Parent Reviews">Learn more &#62;</link:schoolProfileParentReview>
+                                 </p>
+                                 <p>${latestReviewsModel.comment}</p>
+                                 <link:schoolProfileParentReview school="${school}" title="Read all reviews">
+                                     <c:choose>
+                                         <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
+                                         <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
+                                     </c:choose>
+                                 </link:schoolProfileParentReview >
+                             </div>
+                         </c:if>
+                    </c:when>
+                    <c:when test="${(requestScope.context.ABVersion ne 'a') and (school.levelCode != 'p') and (school.type.schoolTypeName ne 'private')}">
                             <div id="parentReviews">
                                 <h2>Latest ${school.name} Parent Reviews</h2>
-                                <gsml:img src="/res/img/map/ratings_parent_city_${latestReviewsModel.latestRating}.gif" alt="" styleClass="rating" />
-                                <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
-                                    ${latestReviewsModel.randomRating}</em>
-                                    <link:schoolProfileParentReview school="${school}" title="Parent Reviews">Learn more &#62;</link:schoolProfileParentReview>
-                                </p>
-                                <p>${latestReviewsModel.comment}</p>
-                                <link:schoolProfileParentReview school="${school}" title="Read all reviews">
-                                    <c:choose>
-                                        <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
-                                        <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
-                                    </c:choose>
-                                </link:schoolProfileParentReview >
+                                <c:forEach var="psReview" items="${latestReviewsModel.schoolReviews}">
+                                    <c:if test="${reviewDisplayed eq 'yes'}"><h3 class="divider">Divider</h3></c:if>
+                                    <gsml:img src="/res/img/map/ratings_parent_city_${psReview.psRating}.gif" alt="" styleClass="psRating" />
+                                    <div class="psComment">${psReview.psComment}
+                                        <link:schoolProfileParentReview school="${school}" title="Full review" styleClass="psBlurb" anchor="ps${psReview.psId}">
+                                            More &#62;
+                                        </link:schoolProfileParentReview>
+                                    </div>
+                                    <c:set var="reviewDisplayed" value="yes"/>
+                                </c:forEach>
+                                <div class="bottomParentReview">
+                                    <div class="rateItInReview">
+                                        <link:schoolProfileAddParentReview
+                                                   school="${school}"
+                                                   onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+
+                                                   >
+                                            <gsml:img src="/res/img/school/overview/submit_RateIt.gif" 
+                                                      alt="Rate It" />
+                                        </link:schoolProfileAddParentReview>
+                                    </div>
+                                    <div class="psWithMore"> |
+                                        <link:schoolProfileParentReview school="${school}" title="Read all reviews" >  <!-- styleClass="psWithMore" -->
+                                            <c:choose>
+                                                <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
+                                                <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
+                                            </c:choose>
+                                        </link:schoolProfileParentReview>
+                                    </div>
+                                </div>
                             </div>
-                        </c:if>
-                    </c:when>
+                     </c:when>
                     <c:otherwise>
                          <div id="parentReviews">
                             <h2>Latest ${school.name} Parent Reviews</h2>
@@ -314,7 +349,7 @@
                                     <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
                                 </c:choose>
                             </link:schoolProfileParentReview>
-                            <c:if test="${not empty latestReviewsModel.randomRating}">
+                            <c:if test="${(school.levelCode eq 'p') and (not empty latestReviewsModel.randomRating)}">
                                 <div class="psCallout">Parents at this school think <em>${latestReviewsModel.randomCategory}
                                     ${latestReviewsModel.randomRating}</em>
                                     <div id="psLearnMore">
@@ -328,7 +363,7 @@
 
              </c:if>
 
-            <c:if test="${!requestScope.context.crawler}">
+            <c:if test="${!requestScope.context.crawler and (requestScope.context.ABVersion eq 'a')}">
                 <school:parentReviewForm school="${school}" pageName="overview"/>
             </c:if>
 
@@ -421,7 +456,14 @@
         </div><!-- end: col_center -->
 
 		<!-- begin right column -->
-        <div id="col_right" class="noprint">            
+        <div id="col_right" class="noprint">
+            <c:if test="${!requestScope.context.crawler and (requestScope.context.ABVersion ne 'a')}">
+            <div class="rateItWrapper">
+                <div class="rateThisSchool">
+                        <school:rateIt school="${school}" pageName="overview"/>
+                </div>
+            </div>
+            </c:if>
             <div class="ad_top">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
                 <ad:Top_300x137/>

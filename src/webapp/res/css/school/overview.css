@@ -382,7 +382,7 @@ hr { /* has IE 7 equivalent */
 
 #parentReviews h2 {
 	background: url(/res/img/school/overview/header_LatestParentsReviews.gif) no-repeat;
-	height: 25px;
+	height: 43px;
 	text-indent: -9999px;
 }
 
@@ -434,6 +434,69 @@ hr { /* has IE 7 equivalent */
     position: relative;
     right: 20px;
 }
+
+#parentReviews div.bottomParentReview,
+    #parentReviews div.bottomParentReview div.rateItInReview,
+    #parentReviews div.bottomParentReview div.psWithMore
+
+{
+    border: 0;
+}
+
+#parentReviews div.bottomParentReview{
+    position: relative;
+    height: 30px;
+}
+
+#parentReviews div.bottomParentReview div.psWithMore{
+    display:inline;
+    position: absolute;
+    right:10px;
+    top: 16px;
+    color: #999999;
+}
+
+#parentReviews div.bottomParentReview div.psWithMore a{
+    /* */
+    font-size: 12px;
+    float:none;
+    margin:0;
+    padding: 0 0 0 10px;
+    /* */
+}
+
+#parentReviews div.bottomParentReview div.rateItInReview { /* has IE 7 equivalent */
+    /* */
+    position: absolute;
+    right:156px;
+    top: 15px;
+    margin: 0;
+	_margin: 0;
+    padding: 0;
+    /* */
+}
+
+#parentReviews div.bottomParentReview div.rateItInReview a{
+    /*  */
+    margin:0;
+    float:none;
+    /* */
+}
+
+#parentReviews a.psBlurb {
+    font-size: 12px;
+    margin:0;
+    _margin:0;
+    float:none;
+}
+
+#parentReviews h3 {
+    background:transparent url(/res/img/school/overview/v1_dotline.gif) repeat-x scroll 0pt;
+    text-indent: -9999px;
+    height: 4px;
+    margin: 10px 15px 5px 15px;
+}
+
 
 #parentReviews a.ps {
    margin: 0px 0 0 0;
@@ -652,7 +715,7 @@ span#compareGo {
 }
 
 img.psRating {
-    padding:15px 0 6px 10px;
+    padding:5px 0 6px 10px;
 }
 
 div.psComment {
@@ -736,6 +799,19 @@ div#communityQuestionPromo.overviewBorder div.avatar {
 div#col_right div#nearbySchools {
     border: 2px solid #EEEEEE;
     padding: 8px;
+}
+
+#col_right div.rateItWrapper {
+    border: 2px solid #EEEEEE;
+    margin-bottom:10px;
+    padding:3px;
+    
+}
+
+#col_right div.rateItWrapper div.rateThisSchool{
+    border: 3px solid #F2F3DB;
+    padding: 3px 15px;
+    height: 84px;
 }
 
 #schoolProfile #bodyContents h1#sfooter {

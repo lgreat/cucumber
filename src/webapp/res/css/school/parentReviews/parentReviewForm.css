@@ -17,7 +17,7 @@
     position:absolute;
 }
 
-#rateReview {
+#rateReview,#rateIt {
     font-family:Trebuchet MS,sans-serif;
     border:1px solid #DDDDDD;
     padding: 0 0 10px 20px;
@@ -26,11 +26,16 @@
     clear:both;
 }
 
-#rateReview #ratingTitle {
+#rateReview #ratingTitle ,#rateIt #ratingTitle{
     font-size:19px;
     color: #55bbcc;
     font-weight:bold;
     margin:8px 0 6px 0;
+}
+
+#rateIt #ratingTitle{
+    margin:0 0 6px 0;
+    font-size: 21px;
 }
 
 #rateReview textarea{
@@ -105,4 +110,21 @@ ul#frmErrors li {
 
 #rateReview ul#nonCommentInput li {
     padding-bottom:5px;
+}
+
+#rateIt {
+    border:none;
+    position:relative;
+}
+
+#rateItForm{
+    position:absolute;
+    left: 10px;
+    top: 0px;
+}
+
+#rateItButton{
+    position:absolute;
+    right: 8px;
+    top: 32px;
 }

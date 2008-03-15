@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib">
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+
+<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+    <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
+    <pageHelper:externalCss file="/res/css/school/parentReviews/parentReviewForm.css"/>
+    <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
+    <yui:connectionManager/>
+    <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+    <c:set var="schoolId" value="${school.id}"/>
+
+    <script type="text/javascript">
+        <![CDATA[<!--
+            var callback = {
+            success:AjaxObject.handleSuccess,
+            failure:AjaxObject.handleFailure,
+            scope: AjaxObject,
+            argument: ['${ratingPage}','${pageName}']
+            };
+            var starValue = 0;
+        -->]]>
+    </script>
+
+    <div id="rateIt" class="noprint ${divClass}">
+        <div id="rateItForm">
+        <div id="ratingTitle">Rate this school</div>
+        <c:if test="${fn:length(schoolName) > 31}">
+            <script type="text/javascript">
+                var title = document.getElementById('ratingTitle');
+                title.style.height = '35px';
+                title.style.lineHeight = '20px';
+            </script>
+        </c:if>
+        <gsweb:form id="frmRateItModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
+                <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="${schoolName}"/>
+                <!--Begin star ratings.
+                    Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
+                    But because this page may load slowly, that's not an option.
+                -->
+                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+                <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
+                <ul class="star-rating large-star">
+                    <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                    <li><a href="#"
+                           title="1 star out of 5"
+                           class="one-star"
+                           onclick="this.hideFocus=true;setStars(1);starValue=1;return false;"
+                           onmouseover="showStars(1);"
+                           onmouseout="resetStars();"
+                            >1</a></li>
+                    <li><a href="#" title="2 stars out of 5" class="two-stars"
+                           onclick="this.hideFocus=true;setStars(2);starValue=2;return false;"
+                           onmouseover="showStars(2);"
+                           onmouseout="resetStars();"
+                            >2</a></li>
+                    <li><a href="#" title="3 stars out of 5" class="three-stars"
+                           onclick="this.hideFocus=true;setStars(3);starValue=3;return false;"
+                           onmouseover="showStars(3);"
+                           onmouseout="resetStars();"
+                            >3</a></li>
+                    <li><a href="#" title="4 stars out of 5" class="four-stars"
+                           onclick="this.hideFocus=true;setStars(4);starValue=4;return false;"
+                           onmouseover="showStars(4);"
+                           onmouseout="resetStars();"
+                            >4</a></li>
+                    <li><a href="#" title="5 stars out of 5" class="five-stars"
+                           onclick="this.hideFocus=true;setStars(5);starValue=5;return false;"
+                           onmouseover="showStars(5);"
+                           onmouseout="resetStars();"
+                            >5</a></li>
+                </ul>
+               <!-- end star ratings -->
+
+
+                <input type="hidden" name="id" value="${schoolId}"/>
+                <input type="hidden" name="state" value="${state}"/>
+                <input type="hidden" name="source" value="${pageName}" />
+        </gsweb:form>
+            </div>
+        <div id="rateItButton">
+        <link:schoolProfileAddParentReview
+                school="${school}"
+                onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=' + starValue,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                >
+            <gsml:img src="/res/img/school/overview/submit_RateIt.gif" 
+                      alt="Rate It" />    
+        </link:schoolProfileAddParentReview>
+        </div>
+
+    </div>
+</jsp:root>

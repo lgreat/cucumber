@@ -41,7 +41,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
     /**
      * The allowed length of the parent review blurb
      */
-    public static final int REVIEW_LENGTH = 100;
+    public static final int REVIEW_LENGTH = 90;
 
     private String _viewName;
     private IReviewDao _reviewDao;
@@ -115,7 +115,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 }
             }
             model.put("preschoolOnly", school.getLevelCode().equals(LevelCode.PRESCHOOL));
-            model.put("latestReviewsModel", createLatestReviewsModel(school));
+            model.put("latestReviewsModel", createLatestReviewsModel(school,request));
             model.put("hasPrincipalView", Boolean.valueOf(getSchoolDao().hasPrincipalView(school)));
             model.put("hasAPExams", Boolean.valueOf(hasAPExams(school)));
             model.put("hasTestData", Boolean.TRUE);
@@ -195,7 +195,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * @return a Map containing the fields to display or null if one of the
      *         user story conditions for display is not met. See GS-3204.
      */
-    Map createLatestReviewsModel(School school) {
+    Map createLatestReviewsModel(School school,HttpServletRequest request) {
 
         Map latestReviewsModel = new HashMap();
 
@@ -213,7 +213,9 @@ public class SchoolOverviewController extends AbstractSchoolController {
         if (reviews != null && reviews.size() != 0) {
             
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
-                    school.getType().equals(SchoolType.PRIVATE))  {
+                    school.getType().equals(SchoolType.PRIVATE)
+                    || !(SessionContextUtil.getSessionContext(request).getABVersion().equals("a"))
+                     )  {
 
                 doMultiParentReviews(reviews, latestReviewsModel);
                 if ((latestReviewsModel.get("randomRating") == null) &&
@@ -268,6 +270,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                     Map<String, String> schoolData = new HashMap<String, String>();
                     schoolData.put("psRating", aReview.getQuality().getName());
                     schoolData.put("psComment", Util.abbreviateAtWhitespace(aReview.getComments(), REVIEW_LENGTH));
+                    schoolData.put("psId", aReview.getId().toString());
                     schoolReviews.add(schoolData);
                 }
             }
