@@ -28,11 +28,14 @@
             scope: AjaxObject,
             argument: ['${ratingPage}','${pageName}']
             };
-            var starValue = 0;
         -->]]>
     </script>
+<script type="text/javascript">
+        var starValue = 0;
 
-    <div id="rateIt" class="noprint ${divClass}">
+</script>
+
+    <div id="rateIt" class="noprint overview">
         <div id="rateItForm">
         <div id="ratingTitle">Rate this school</div>
         <c:if test="${fn:length(schoolName) > 31}">
@@ -43,7 +46,7 @@
             </script>
         </c:if>
         <gsweb:form id="frmRateItModule" action="${formActionUrl}" method="post" onsubmit="AjaxObject.startRequest(this.action,callback);return false;">
-                <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="${schoolName}"/>
+            <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="Rate this school"/>
                 <!--Begin star ratings.
                     Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
                     But because this page may load slowly, that's not an option.
@@ -81,11 +84,6 @@
                             >5</a></li>
                 </ul>
                <!-- end star ratings -->
-
-
-                <input type="hidden" name="id" value="${schoolId}"/>
-                <input type="hidden" name="state" value="${state}"/>
-                <input type="hidden" name="source" value="${pageName}" />
         </gsweb:form>
             </div>
         <div id="rateItButton">
