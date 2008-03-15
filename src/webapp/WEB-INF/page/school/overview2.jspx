@@ -258,8 +258,10 @@
     </c:if>
 
 
-            <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
-
+    <c:if test="${(requestScope.context.ABVersion ne 'b')}">
+        <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
+    </c:if>
+ 
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
                 <div id="topCompare" style="float:left;" >
                     <school:compareSchool school="${school}"/>
