@@ -774,7 +774,7 @@ div#leftcolAd {
     height:625px;
 }
 
-div#communityQuestion_wrapper {
+div.communityQuestionPromoWrapper {
     padding: 3px;
     border: 2px solid #EEEEEE;
     float: left;

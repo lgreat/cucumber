@@ -18,25 +18,26 @@
 
 <c:set var="topStyle" value="${(fn:length(questionText) gt 0)?'':'display:none'}"/>
 
-<div class="memberSpeech ${param.styleClass}" id="communityQuestionPromo" style="${topStyle}">
-    <div class="speech">
-        <div class="bodyArea">
-            ${questionText}
-            <br/>
-            <a href="${questionLink}">${questionLinkText}</a>
+<div class="communityQuestionPromoWrapper">
+    <div class="memberSpeech ${param.styleClass}" id="communityQuestionPromo" style="${topStyle}">
+        <div class="speech">
+            <div class="bodyArea">
+                ${questionText}
+                <br/>
+                <a href="${questionLink}">${questionLinkText}</a>
+            </div>
+            <![CDATA[
+            <div class="cornerTopLeft"></div>
+            <div class="cornerTopRight"></div>
+            <div class="cornerBottomLeft"></div>
+            <div class="cornerBottomRight"></div>
+            ]]>
         </div>
-        <![CDATA[
-        <div class="cornerTopLeft"></div>
-        <div class="cornerTopRight"></div>
-        <div class="cornerBottomLeft"></div>
-        <div class="cornerBottomRight"></div>
-        ]]>
-    </div>
-    <div class="avatar">
-        <a href="${memberUrl}">
-            <gsml:img styleClass="avatar" alt="${avatarAlt}" src="${avatarUrl}"/>
-        </a>
+        <div class="avatar">
+            <a href="${memberUrl}">
+                <gsml:img styleClass="avatar" alt="${avatarAlt}" src="${avatarUrl}"/>
+            </a>
+        </div>
     </div>
 </div>
-
 </jsp:root>
