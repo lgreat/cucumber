@@ -121,22 +121,18 @@
             s.prop7 = clickCapture.getProp(7,"${pageName}:${requestScope.context.ABVersion}");
 
             s.prop8 = clickCapture.getProp(8,"${param.cpn}");
-            if (s.prop8 == undefined ){
+            if (s.prop8 == '' ){
                 s.prop8 = s.pageName ;
             }
 
             var locationAnchor = '';
 
-            if (location.href) {
-                if(location.href.indexOf('#from..') > -1) {
-                    locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
-                    s.prop9 = s.pageName + ' ' + locationAnchor;
-                }
-            } else if (clickCapture.getProp(9) != undefined ){
-                s.prop9 = s.pageName + ' ' + clickCapture.getProp(9);
+            if (location.href && location.href.indexOf('#from..') > -1) {
+                locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
+                s.prop9 = s.pageName + ' ' + locationAnchor;
             } else {
-                s.prop9 = s.pageName;
-	        }
+                s.prop9 = s.pageName + ' ' + clickCapture.getProp(9);
+            } 
 
             s.prop10 = clickCapture.getProp(10,"${requestScope.context.screenName}");
             s.prop11 = clickCapture.getProp(11,"GreatSchools");

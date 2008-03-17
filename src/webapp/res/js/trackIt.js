@@ -29,6 +29,7 @@ ClickCapture.prototype.cookieName = "OmnitureTracking"   ;
  */
 ClickCapture.prototype.capture = function (omnitureEntity, value) {
     //alert("capture(" + omnitureEntity + ", " + value + ")");
+    if(omnitureEntity == undefined || omnitureEntity.length < 1 || value == undefined || value.length < 1) alert("capture: " + omnitureEntity + ", " + value);
     subCookie.setObjectProperty(this.cookieName, omnitureEntity, value);
 };
 
@@ -74,11 +75,11 @@ ClickCapture.prototype.getVariable = function(variableType, index, overrideValue
     }
 
     if (this.dataObject == undefined){
-        return null;
+        return '';
     }
 
     if (this.dataObject[variableType + index] == undefined){
-        return null;
+        return '';
     }
 
 
