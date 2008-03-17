@@ -466,12 +466,10 @@
                 </div>
             </div>
             </c:if>
-            <c:if test="${requestScope.context.ABVersion eq 'a'}">
             <div class="ad_top">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
                 <ad:Top_300x137/>
             </div>
-            </c:if>
 
             <div class="ad_middle">
                 <ad:AboveFold_300x250 position="AboveFold_300x250"/>
