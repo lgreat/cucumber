@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.19 2008/02/29 20:09:34 chriskimm Exp $
+ * $Id: AdPosition.java,v 1.20 2008/03/18 23:28:22 chriskimm Exp $
  */
 package gs.web.ads;
 
@@ -104,6 +104,7 @@ public class AdPosition extends Enum {
     public static final AdPosition Header_728x90 = new AdPosition("Header_728x90", true);
     public static final AdPosition Header_728x90_A_Test = new AdPosition("Header_728x90_A_Test", true);
     public static final AdPosition Header_728x90_B_Test = new AdPosition("Header_728x90_B_Test", true);
+    public static final AdPosition Header_728x90_C_Test = new AdPosition("Header_728x90_C_Test", true);
 
     public static final AdPosition Footer_728x90 = new AdPosition("Footer_728x90", true);
 
@@ -127,6 +128,7 @@ public class AdPosition extends Enum {
     public static final AdPosition AboveFold_Right_120x600 = new AdPosition("AboveFold_Right_120x600", true);
 
     public static final AdPosition AboveFold_Left_160x600 = new AdPosition("AboveFold_Left_160x600", true);
+    public static final AdPosition AboveFold_Left_160x600_A_Test = new AdPosition("AboveFold_Left_160x600_A_Test", true);
     public static final AdPosition AboveFold_Left_160x600_B_Test = new AdPosition("AboveFold_Left_160x600_B_Test", true);
     public static final AdPosition AboveFold_Left_160x600_C_Test = new AdPosition("AboveFold_Left_160x600_C_Test", true);
 

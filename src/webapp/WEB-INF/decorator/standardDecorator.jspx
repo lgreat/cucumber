@@ -12,6 +12,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout}</c:set>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -67,16 +68,12 @@
 
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
         <c:if test="${requestScope.pageHelper.pageName eq 'spp_overview'}">
-            <c:choose>
-                <c:when test="${requestScope.context.ABVersion eq 'b'}">
-                    <c:set var="position" value="Header_728x90_A_Test" />
-                </c:when>
-                <c:when test="${requestScope.context.ABVersion eq 'c'}">
-                    <c:set var="position" value="Header_728x90_B_Test" />
-                </c:when>
-            </c:choose>
+            <variant:a><c:set var="headerPosition" value="Header_728x90" /></variant:a>
+            <variant:b><c:set var="headerPosition" value="Header_728x90_A_Test" /></variant:b>
+            <variant:c><c:set var="headerPosition" value="Header_728x90_B_Test" /></variant:c>
+            <variant:d><c:set var="headerPosition" value="Header_728x90_C_Test" /></variant:d>
         </c:if>
-        <ad:x22 position="${position}"/>
+        <ad:x22 position="${headerPosition}"/>
     </c:if>
 
     <div id="pageGS" class="pageGS">
