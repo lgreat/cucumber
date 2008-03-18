@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.54 2008/02/01 20:01:33 droy Exp $
+ * $Id: PageHelper.java,v 1.55 2008/03/18 17:23:00 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -197,7 +197,7 @@ public class PageHelper {
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
     private boolean _betaPage = false;
-
+    private String _pageName = "";
     private String _yahooRealEstateCity = "";
 
     private Properties _versionProperties ;
@@ -313,6 +313,9 @@ public class PageHelper {
         return _betaPage;
     }
 
+    public String getPageName() {
+        return _pageName;
+    }
 
     /**
      * Is all the stuff in the footer (SE links, About us links, copyright) shown?
@@ -420,6 +423,10 @@ public class PageHelper {
         _showingFooter = showingFooter;
     }
 
+    private void setPageName(String pageName) {
+        _pageName = pageName;
+    }
+    
     private void addOnLoadHandler(String javascript) {
         if (javascript.indexOf('\"') != -1) {
             throw new IllegalArgumentException("Quotes not coded correctly.");
@@ -546,6 +553,15 @@ public class PageHelper {
         context.setHasSearched(true);
         SessionContextUtil util = context.getSessionContextUtil();
         util.setHasSearched(response);
+    }
+
+    public static void setPageName(HttpServletRequest request, String pageName) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setPageName(pageName);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
     }
 
     /**

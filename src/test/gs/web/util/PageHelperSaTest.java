@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.38 2007/11/20 23:28:05 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.39 2008/03/18 17:23:00 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -609,5 +609,19 @@ public class PageHelperSaTest extends TestCase {
         _sessionContext.setSessionContextUtil(sessionContextUtil);
         _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
+    }
+
+    public void testSetPageName() throws Exception {
+
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        assertEquals("", pageHelper.getPageName());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        PageHelper.setPageName(_request, "foo");
+
+        PageHelper _helper = (PageHelper)_request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        assertEquals ("foo", _helper.getPageName());
+
+        pageHelper = new PageHelper(_sessionContext, _request);
+        assertEquals("", pageHelper.getPageName());
     }
 }

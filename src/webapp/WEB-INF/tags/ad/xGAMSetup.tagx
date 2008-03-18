@@ -32,7 +32,7 @@
                 if (pageHelper.isShowingBannerAd()) {
                     SessionContext context = SessionContextUtil.getSessionContext(request);
                     // see GS-5561
-                    if ("a".equals(context.getABVersion())) {
+                    if ("a".equals(context.getABVersion()) || !slotPrefix.contains("School_Profile_Page_Overview")) {
                         adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
                     } else if ("b".equals(context.getABVersion())) {
                         adNames.add(slotPrefix + AdPosition.Header_728x90_A_Test.getName());

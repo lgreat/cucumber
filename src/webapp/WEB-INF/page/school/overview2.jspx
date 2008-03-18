@@ -41,6 +41,7 @@
 
 <jsp:scriptlet>
     SessionContext context = SessionContextUtil.getSessionContext(request);
+    PageHelper.setPageName(request, "spp_overview");
     if ("d".equals(context.getABVersion())) {
         PageHelper.hideLeaderboard(request);
     }

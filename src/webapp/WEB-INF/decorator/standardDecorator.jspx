@@ -66,14 +66,16 @@
     <cobrand:header/>
 
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-        <c:choose>
-            <c:when test="${requestScope.context.ABVersion eq 'b'}">
-                <c:set var="position" value="Header_728x90_A_Test" />
-            </c:when>
-            <c:when test="${requestScope.context.ABVersion eq 'c'}">
-                <c:set var="position" value="Header_728x90_B_Test" />
-            </c:when>
-        </c:choose>
+        <c:if test="${requestScope.pageHelper.pageName eq 'spp_overview'}">
+            <c:choose>
+                <c:when test="${requestScope.context.ABVersion eq 'b'}">
+                    <c:set var="position" value="Header_728x90_A_Test" />
+                </c:when>
+                <c:when test="${requestScope.context.ABVersion eq 'c'}">
+                    <c:set var="position" value="Header_728x90_B_Test" />
+                </c:when>
+            </c:choose>
+        </c:if>
         <ad:x22 position="${position}"/>
     </c:if>
 
