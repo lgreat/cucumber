@@ -41,10 +41,8 @@
                     <address><c:out value="${school.physicalAddress.cityStateZip}"/></address>
                     <div class="resultcontrols">
                         <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
-                        <c:if test="${requestScope.context.ABVersion eq 'c'}">
                             <br />
                             <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
-                        </c:if>
 
 
                     </div>
@@ -77,14 +75,11 @@
                                     <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
                                               alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
                                 </link:schoolProfileParentReview>
-                                <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c' or requestScope.context.ABVersion eq 'd'}">
-                                    (${parentRatingCount})  
-                                </c:if>
+                                    (${parentRatingCount})
                             </c:otherwise>
                         </c:choose>
                     </p>
 
-                    <c:if test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c' or requestScope.context.ABVersion eq 'd'}">
                         <c:if test="${reviewMap.reviewCount > 0}">
                             <p>${reviewMap.reviewBlurb}...
                                 <br/><link:schoolProfileParentReview school="${school}" title="Read all reviews">
@@ -95,7 +90,6 @@
                             </link:schoolProfileParentReview >
                             </p>
                         </c:if>
-                    </c:if>
 
 
                 </div>
