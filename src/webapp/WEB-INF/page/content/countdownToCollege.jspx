@@ -80,7 +80,7 @@
 <td class="left" style="width: 173px;" valign="top">
     <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="1100" wrappingElement="li"/>
+        <gsweb:articlelink articleId="537" wrappingElement="li"/>
         <gsweb:articlelink articleId="1099" wrappingElement="li"/>
         <gsweb:articlelink articleId="688" wrappingElement="li"/>
         <gsweb:articlelink articleId="752" wrappingElement="li"/>
@@ -97,7 +97,7 @@
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="1147" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1161" wrappingElement="li"/>
+        <gsweb:articlelink articleId="835" wrappingElement="li"/>
         <gsweb:articlelink articleId="1146" wrappingElement="li"/>
     </ul>
 
@@ -163,23 +163,21 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="537" styleClass="noHover">
-            What to Look for in a Summer Program
-        </gsweb:articlelink>
+        The Study Skills Your Teen Needs
     </div>
     <div class="module">
-        It's tough to switch gears and think ahead to summer, but if you want your teen to attend a summer learning program or get a job, now's the time to act.
+        Has spring fever hit your house? We've got tips to keep your teen on track from school success:
         <br/>
         <ul class="noHover">
 
             <li>
-                Want a program that's out of the ordinary? We've tracked down some <gsweb:articlelink articleId="313">exotic summer alternatives</gsweb:articlelink>.
+                Does your teen daydream while the assignments pile up? <gsweb:articlelink articleId="688">Help your child manage procrastination</gsweb:articlelink>.
             </li>
             <li>
-                If you're considering teen travel programs, here's <gsweb:articlelink articleId="545">what to look for</gsweb:articlelink>.
+                Is studying a struggle? <gsweb:articlelink articleId="700">Help your teen learn study survival skills.</gsweb:articlelink>.
             </li>
             <li>
-                Stumped for job ideas? Here are <gsweb:articlelink articleId="536">some to get your teen started</gsweb:articlelink>.
+                Reading is the key to success. <gsweb:articlelink articleId="536">Get ready for college reading</gsweb:articlelink>.
             </li>
         </ul>
     </div>
@@ -201,29 +199,28 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="1188" styleClass="noHover">
-            Handling College Admissions Decisions
+        <gsweb:articlelink articleId="1205" styleClass="noHover">
+            Why Community Colleges?
         </gsweb:articlelink>
     </div>
 
     <div class="module">
-        If your child is a senior waiting to hear from college admissions offices, it may
-        be knuckle-biting time at your house. Here's some advice to get through the process:
+        Community college may be a great alternative for your child:
         <ul class="noHover">
             <li>
-                Don't race your child to the mailbox.
+                If your family is tight on funds.
             </li>
             <li>
-                Don't open college mail addressed to your child.
+                If your child isn't sure about going to college.
             </li>
             <li>
-                Understand that your child has options even if no college accepts her.
+                If your child would like a career-oriented degree, such as fashion design or electronics.
             </li>
         </ul>
     </div>
     <div align="right">
-        <gsweb:articlelink articleId="1188" styleClass="seeFullArticle">
-            Put admissions decisions in perspective &gt;
+        <gsweb:articlelink articleId="1205" styleClass="seeFullArticle">
+            Learn more about community college &gt;
         </gsweb:articlelink>
     </div>
 
@@ -242,20 +239,21 @@
 
                     <ul class="quickFindLinks">
                         <li style="padding-top:0;">
-                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21347.html"
-                               target="_blank">Price Isn't the Only Consideration</a>
+                            <a href="http://www.collegeboard.com/parents/csearch/know-the-options/49357.html"
+                               target="_blank">The Key to Success in Community College</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21373.html"
-                               target="_blank">Next Steps</a>
+                            <gsweb:articlelink articleId="652">
+                                The College Search: How You Can Help Your Child
+                            </gsweb:articlelink>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/parents/apply/acceptance-letters/21372.html"
-                               target="_blank">Decision-Making Guide</a>
+                            <a href="http://www.collegeboard.com/parents/csearch/know-the-options/21348.html"
+                               target="_blank">What Selectivity Means For Your Child</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/parents/csearch/know-the-options/21375.html"
-                               target="_blank">Should Your Child Take a Year Off?</a>
+                            <a href="http://www.collegeboard.com/parents/plan/hs-steps/21287.html"
+                               target="_blank">Your Child's High School Counselor</a>
                         </li>
                     </ul>
                 </td>
@@ -316,8 +314,8 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Your child can check with her school counselor and search online for <a href="http://www.collegeboard.com/parents/plan/hs-steps/21284.html" target="_blank">summer
-                               learning programs</a> offered to high school students at colleges and other institutions.
+                               Now is the time for your child to start looking for a <gsweb:articlelink articleId="536">summer job, internship</gsweb:articlelink>
+                               or <gsweb:articlelink articleId="881">volunteer opportunity</gsweb:articlelink>. Summer is a good time to learn more about areas of interest. 
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan &gt;</a>
                 </td>
@@ -325,9 +323,9 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Many colleges require or recommend applicants to take at least
-                               one <a href="http://www.collegeboard.com/student/testing/sat/about/SATII.html" target="_blank">SAT Subject Test</a>. Your
-                               child should talk to his teachers and counselor about which tests to take.
+                               Urge your child to keep up her good work in strong subjects. Help her set improvement
+                               goals in weaker ones. She should talk to the counselor about
+                               <a href="http://www.collegeboard.com/parents/tests/meet-tests/21299.html" target="_blank">AP courses</a> for next year.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan &gt;</a></td>
             </tr>
@@ -337,17 +335,17 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Most students take the SAT in spring of junior year and/or fall of senior year. You can help your child
-                               <a href="http://www.collegeboard.com/student/testing/sat/about.html" target="_blank">register online</a> for
-                               spring and summer SAT and Subject Tests.
+                               Attend local college fairs with your child. Advanced Placement Exams are in May. Your
+                               child can get ready by visiting the
+                               <a href="http://www.collegeboard.com/student/testing/ap/prep.html" target="_blank">AP Prep Center</a> for tips and prep materials.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan &gt;</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Encourage your child to look for a summer <gsweb:articlelink articleId="536">job, internship</gsweb:articlelink> or
-                               <gsweb:articlelink articleId="881">volunteer opportunity</gsweb:articlelink>. Real-world experience can
-                               help her explore careers and focus on a college major.                               
+                               Most admission decisions and financial aid award letters arrive in April. You and
+                               your child should read each carefully, <a href="http://apps.collegeboard.com/fincalc/compare_aid.jsp" target="_blank">compare
+                               aid awards</a> and note all reply deadlines.                                
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan &gt;</a></td>
             </tr>
