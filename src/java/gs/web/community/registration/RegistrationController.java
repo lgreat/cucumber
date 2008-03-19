@@ -277,7 +277,8 @@ public class RegistrationController extends SimpleFormController implements Read
             if (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                     !urlUtil.isCommunityContentLink(userCommand.getRedirectUrl())) {
                 String redirectUrl = "http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
+                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1"; 
                 userCommand.setRedirectUrl(redirectUrl);
             }
             mAndV.setViewName("redirect:" +
