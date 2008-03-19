@@ -127,24 +127,29 @@ var customInsight9ClickEventHandler = function (e) {
  //register the object click handlers...
  function registerMyEventHandlers() {
      var links = document.links;
-     //var debugLinks = "";
+     var debugLinks = "";
      for(var i = 0; i < links.length; i++) {
          var res = null;
 
          // CI9
          if (links[i].className.indexOf("GS_CI9_") > -1){
-             res = registerEventHandler(links[i],"click", customInsight9ClickEventHandler);
-             //debugLinks += "\n" + "GS_CI9_\t" + links[i].className + "\t";
+             if (links[i].id != undefined && links[i].id.length > 0) {
+             
+                 res = registerEventHandler(links[i],"click", customInsight9ClickEventHandler);
+                 debugLinks += "\n" + "GS_CI9_\t" + links[i].id + "\t";
+             }
          }
 
          // eVar 5
          if (links[i].className.indexOf("GS_EV5_") > -1){
-             res = registerEventHandler(links[i],"click", evar5ClickEventHandler);
-             //debugLinks += "\n" +"GS_EV5_\t" + links[i].className + " " + res + "\t";
+             if (links[i].id != undefined && links[i].id.length > 0) {
+                 res = registerEventHandler(links[i],"click", evar5ClickEventHandler);
+                 //debugLinks += "\n" +"GS_EV5_\t" + links[i].className + " " + res + "\t";
+             }
          }
 
      }
-     //alert(debugLinks);
+     alert(debugLinks);
  }
 
 
