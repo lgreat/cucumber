@@ -127,7 +127,7 @@ var customInsight9ClickEventHandler = function (e) {
  //register the object click handlers...
  function registerMyEventHandlers() {
      var links = document.links;
-     var debugLinks = "";
+     //var debugLinks = "";
      for(var i = 0; i < links.length; i++) {
          var res = null;
 
@@ -136,7 +136,7 @@ var customInsight9ClickEventHandler = function (e) {
              if (links[i].id != undefined && links[i].id.length > 0) {
              
                  res = registerEventHandler(links[i],"click", customInsight9ClickEventHandler);
-                 debugLinks += "\n" + "GS_CI9_\t" + links[i].id + "\t";
+                 //debugLinks += "\n" + "GS_CI9_\t" + links[i].id + "\t";
              }
          }
 
@@ -149,7 +149,7 @@ var customInsight9ClickEventHandler = function (e) {
          }
 
      }
-     alert(debugLinks);
+     //alert(debugLinks);
  }
 
 
