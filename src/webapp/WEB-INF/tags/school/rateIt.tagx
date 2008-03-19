@@ -59,31 +59,31 @@
                 <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
                 <ul class="star-rating large-star">
                     <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
-                    <li><a class="submodal-344-362 one-star GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}"
+                    <li><a class="submodal-344-362 one-star GS_CI9_" id="RightRateIt_${requestScope.context.ABVersion}"
                            href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=1&amp;showMessage=yes"
                            onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=1&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(1);"
                            onmouseout="resetStars();"
                             >5</a></li>
-                    <li><a class="submodal-344-362 two-stars GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}"
+                    <li><a class="submodal-344-362 two-stars GS_CI9_" id="RightRateIt_${requestScope.context.ABVersion}"
                            href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=2&amp;showMessage=yes"
                            onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=2&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(2);"
                            onmouseout="resetStars();"
                             >4</a></li>
-                    <li><a class="submodal-344-362 three-stars GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}"
+                    <li><a class="submodal-344-362 three-stars GS_CI9_" id="RightRateIt_${requestScope.context.ABVersion}"
                            href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=3&amp;showMessage=yes"
                            onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=3&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(3);"
                            onmouseout="resetStars();"
                             >5</a></li>
-                    <li><a class="submodal-344-362 four-stars  GS_CI9_"  id="Right Rate It ${requestScope.context.ABVersion}"
+                    <li><a class="submodal-344-362 four-stars  GS_CI9_"  id="RightRateIt_${requestScope.context.ABVersion}"
                            href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=4&amp;showMessage=yes"
                            onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=4&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(4);"
                            onmouseout="resetStars();"
                             >4</a></li>
-                    <li><a class="submodal-344-362 five-stars GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}"
+                    <li><a class="submodal-344-362 five-stars GS_CI9_" id="RightRateIt_${requestScope.context.ABVersion}"
                            href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=5&amp;showMessage=yes"
                            onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=5&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(5);"
@@ -94,7 +94,7 @@
         </gsweb:form>
         </div>
         <div id="rateItButton">
-            <a class="submodal-344-362 GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}" href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=0" onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=0' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;">
+            <a class="submodal-344-362 GS_CI9_" id="RightRateIt_${requestScope.context.ABVersion}" href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=0" onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=0' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;">
                 <gsml:img src="/res/img/school/overview/submit_RateIt.gif"
                           alt="Rate It" />
             </a>

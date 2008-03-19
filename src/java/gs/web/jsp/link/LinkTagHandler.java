@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.14 2007/11/02 23:51:10 dlee Exp $
+ * $Id: LinkTagHandler.java,v 1.15 2008/03/19 23:01:25 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -71,38 +71,7 @@ public abstract class LinkTagHandler extends TagSupport {
     }
 
     public int doAfterBody() throws JspException {
-
-/*
-        try {
-            pageContext.getOut().print("DO AFTER BODY");
-        } catch (IOException e) {
-            throw new JspException(e);
-        }
-
-        // If there was nothing in the body, then write out the default link
-        String s = bodyContent.getString();
-        if (StringUtils.isEmpty(s)) {
-
-            try {
-                pageContext.getOut().print("NO BODY CONTENT");
-            } catch (IOException e) {
-                throw new JspException(e);
-            }
-
-            String d = getDefaultLinkText();
-            if (StringUtils.isNotEmpty(d)) {
-                try {
-                    pageContext.getOut().print(d);
-                } catch (IOException e) {
-                    throw new JspException(e);
-                }
-            }
-        }
-*/
-
-
         return super.doAfterBody();
-
     }
 
     public int doEndTag() throws JspException {
