@@ -260,7 +260,95 @@
     </c:if>
 
 
-    <c:if test="${(requestScope.context.ABVersion ne 'b')}">
+    <c:if test="${requestScope.context.ABVersion eq 'c' and ((school.type.schoolTypeName != 'private') and (school.levelCode != 'p'))}">
+        <div id="centerNavWrap">
+            <div id="centerNav">
+                <div id="centerNavLeft1">
+                    <link:schoolProfileTestscore school="${school}">
+                        <gsml:img src="/res/img/school/overview/links_test.gif"
+                                  alt="test scores"
+                                  rollover="/res/img/school/overview/links_test_on.gif"
+                                />
+                    </link:schoolProfileTestscore>
+                </div>
+                <div id="centerNavRight1">
+                    <link:schoolProfileParentReview school="${school}">
+                        <gsml:img src="/res/img/school/overview/links_parentreview.gif"
+                                  alt="parent reviews"
+                                  rollover="/res/img/school/overview/links_parentreview_on.gif"
+                                />
+                    </link:schoolProfileParentReview>
+               </div>
+                <div id="centerNavLeft2">
+                    <link:schoolProfileCensus school="${school}">
+                        <gsml:img src="/res/img/school/overview/links_teachers.gif"
+                                  alt="teachers and students"
+                                  rollover="/res/img/school/overview/links_teachers_on.gif"
+                                />
+                    </link:schoolProfileCensus>
+                </div>
+                <div id="centerNavRight2">
+                    <link:schoolStartSurvey school="${school}">
+                        <gsml:img src="/res/img/school/overview/links_parentsurvey.gif"
+                                  alt="parent survey"
+                                  rollover="/res/img/school/overview/links_parentsurvey_on.gif"
+                                />
+                    </link:schoolStartSurvey>
+                </div>
+                <div id="centerNavLeft3">
+                    <link:schoolProfileRating school="${school}">
+                        <gsml:img src="/res/img/school/overview/links_gsrating.gif"
+                                  alt="greatschools rating"
+                                  rollover="/res/img/school/overview/links_gsrating_on.gif"
+                                />
+                    </link:schoolProfileRating>
+                </div>
+                <div id="centerNavRight3">
+                    <link:schoolCompareSchool school="${school}">
+                        <gsml:img src="/res/img/school/overview/links_compare.gif"
+                                  alt="compare schools"
+                                  rollover="/res/img/school/overview/links_compare_on.gif"
+                                />
+                    </link:schoolCompareSchool>
+                </div>
+                <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
+                    <div id="centerNavLeft4">
+                        <link:districtProfile districtId="${school.districtId}"
+                                              schoolId="${school.id}"
+                                              state="${state}"
+                                              title="District information" >
+                            <gsml:img src="/res/img/school/overview/links_district.gif"
+                                      alt="district information"
+                                      rollover="/res/img/school/overview/links_district_on.gif"
+                                    />
+                        </link:districtProfile>
+                    </div>
+                </c:if>
+                <c:set var="finance" value="hide" />
+                <c:set var="hasFinanceData" value="${hasFinanceData}" />
+
+                <c:if test="${school.type.schoolTypeName ne 'private'
+                and (state eq 'az' or state eq 'ca' or
+                state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
+                state eq 'oh' or state eq 'tx' )}">
+                    <c:set var="finance" value="show" />
+                </c:if>
+
+                <c:if test="${(finance eq 'show') and (hasFinanceData)}">
+                    <div id="centerNavRight4">
+                        <link:schoolProfileCensus school="${school}" anchor="finance">
+                            <gsml:img src="/res/img/school/overview/links_schoolfin.gif"
+                                      alt="finance data"
+                                      rollover="/res/img/school/overview/links_schoolfin_on.gif"
+                                    />
+                        </link:schoolProfileCensus>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+    </c:if>
+
+     <c:if test="${(requestScope.context.ABVersion ne 'b' and requestScope.context.ABVersion ne 'c')}">
         <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
     </c:if>
  
@@ -307,7 +395,7 @@
                     </c:when>
                     <c:when test="${(requestScope.context.ABVersion ne 'a') and (school.levelCode != 'p') and (school.type.schoolTypeName ne 'private')}">
                             <div id="parentReviews">
-                                <h2>Latest ${school.name} Parent Reviews</h2>
+                                <h2 style="background: url(/res/img/school/overview/header2_LatestParentsReviews.gif) no-repeat;height: 43px;">Latest ${school.name} Parent Reviews</h2>
                                 <c:forEach var="psReview" items="${latestReviewsModel.schoolReviews}">
                                     <c:if test="${reviewDisplayed eq 'yes'}"><h3 class="divider">Divider</h3></c:if>
                                     <gsml:img src="/res/img/map/ratings_parent_city_${psReview.psRating}.gif" alt="" styleClass="psRating" />
@@ -323,7 +411,7 @@
                                         <link:schoolProfileAddParentReview
                                                    school="${school}"
                                                    onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-
+                                                   styleClass="submodal-344-362"
                                                    >
                                             <gsml:img src="/res/img/school/overview/submit_RateIt.gif" 
                                                       alt="Rate It" />
@@ -376,6 +464,7 @@
                 <jsp:param name="styleClass" value="overviewBorder clearLeft"/>
             </jsp:include>
 
+            <c:if test="${((requestScope.context.ABVersion eq 'c') and hasAPExams and hasPrincipalView) or (requestScope.context.ABVersion ne 'c')}">
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
@@ -385,6 +474,8 @@
                 <c:set var="hasFinanceData" value="${hasFinanceData}" />
 
                 <h2>Learn About ${school.name}</h2>
+                <c:choose>
+                <c:when test="${(requestScope.context.ABVersion ne 'c')}">
                 <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
                     <link:schoolProfileTestscore school="${school}">
                         <gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt=""/>
@@ -453,8 +544,30 @@
                         </link:schoolProfileEspLogin>
                     </div>
                 </c:if>
-            </div>
+                </c:when>
+                <c:when test="${(requestScope.context.ABVersion eq 'c') and hasAPExams and hasPrincipalView}">
+                    <c:if test="${hasAPExams}">
+                        <link:schoolProfileCensus school="${school}" anchor="ap">
+                            <gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="" />
+                        </link:schoolProfileCensus>
+                        <p>
+                            <link:schoolProfileCensus school="${school}" anchor="ap">${school.name} AP exams</link:schoolProfileCensus>
+                        </p>
+                    </c:if>
 
+                    <c:if test="${hasPrincipalView}">
+                        <link:schoolProfilePrincipalView school="${school}">
+                            <gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
+                        </link:schoolProfilePrincipalView>
+                        <p class="last">
+                            <link:schoolProfilePrincipalView school="${school}">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
+                        </p>
+                    </c:if>
+
+                 </c:when>
+                </c:choose>
+            </div>
+            </c:if>
         </div><!-- end: col_center -->
 
 		<!-- begin right column -->

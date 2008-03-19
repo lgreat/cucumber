@@ -29,11 +29,15 @@
             argument: ['${ratingPage}','${pageName}']
             };
         -->]]>
-    </script>
-<script type="text/javascript">
         var starValue = 0;
-
-</script>
+        function setHover(presetRating){
+                  document.getElementById("rateItHover").href =
+                  "/school/addComments.page?id=" + ${school.id}
+                  + "&amp;state=AK" //+ '${school.databaseState.abbreviation}'
+                  + "&amp;presetRating=" + presetRating;
+            return false;
+        }
+    </script>
 
     <div id="rateIt" class="noprint overview">
         <div id="rateItForm">
@@ -55,45 +59,45 @@
                 <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
                 <ul class="star-rating large-star">
                     <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
-                    <li><a href="#"
-                           title="1 star out of 5"
-                           class="one-star"
-                           onclick="this.hideFocus=true;setStars(1);starValue=1;return false;"
+                    <li><a class="submodal-344-362 one-star GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}"
+                           href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=1&amp;showMessage=yes"
+                           onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=1&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(1);"
                            onmouseout="resetStars();"
-                            >1</a></li>
-                    <li><a href="#" title="2 stars out of 5" class="two-stars"
-                           onclick="this.hideFocus=true;setStars(2);starValue=2;return false;"
+                            >5</a></li>
+                    <li><a class="submodal-344-362 two-stars GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}"
+                           href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=2&amp;showMessage=yes"
+                           onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=2&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(2);"
                            onmouseout="resetStars();"
-                            >2</a></li>
-                    <li><a href="#" title="3 stars out of 5" class="three-stars"
-                           onclick="this.hideFocus=true;setStars(3);starValue=3;return false;"
+                            >4</a></li>
+                    <li><a class="submodal-344-362 three-stars GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}"
+                           href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=3&amp;showMessage=yes"
+                           onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=3&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(3);"
                            onmouseout="resetStars();"
-                            >3</a></li>
-                    <li><a href="#" title="4 stars out of 5" class="four-stars"
-                           onclick="this.hideFocus=true;setStars(4);starValue=4;return false;"
+                            >5</a></li>
+                    <li><a class="submodal-344-362 four-stars  GS_CI9_"  id="Right Rate It ${requestScope.context.ABVersion}"
+                           href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=4&amp;showMessage=yes"
+                           onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=4&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(4);"
                            onmouseout="resetStars();"
                             >4</a></li>
-                    <li><a href="#" title="5 stars out of 5" class="five-stars"
-                           onclick="this.hideFocus=true;setStars(5);starValue=5;return false;"
+                    <li><a class="submodal-344-362 five-stars GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}"
+                           href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=5&amp;showMessage=yes"
+                           onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=5&amp;showMessage=yes' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=392,left=50,top=50'); return false;"
                            onmouseover="showStars(5);"
                            onmouseout="resetStars();"
                             >5</a></li>
                 </ul>
-               <!-- end star ratings -->
+            <!-- end star ratings -->
         </gsweb:form>
-            </div>
+        </div>
         <div id="rateItButton">
-        <link:schoolProfileAddParentReview
-                school="${school}"
-                onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=' + starValue,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                >
-            <gsml:img src="/res/img/school/overview/submit_RateIt.gif" 
-                      alt="Rate It" />    
-        </link:schoolProfileAddParentReview>
+            <a class="submodal-344-362 GS_CI9_" id="Right Rate It ${requestScope.context.ABVersion}" href="/school/addComments.page?id=${school.id}&amp;state=${school.databaseState.abbreviation}&amp;presetRating=0" onclick="onClick=Popup=window.open(this.href + '&amp;presetRating=0' ,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;">
+                <gsml:img src="/res/img/school/overview/submit_RateIt.gif"
+                          alt="Rate It" />
+            </a>
         </div>
 
     </div>

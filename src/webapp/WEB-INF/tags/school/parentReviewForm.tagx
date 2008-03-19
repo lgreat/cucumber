@@ -37,6 +37,12 @@
             presetRating = request.getParameter("presetRating");
         }
         request.setAttribute("presetRating", presetRating);
+
+        String showMessage = "no";
+        if (StringUtils.isNotBlank(request.getParameter("showMessage"))) {
+            showMessage = request.getParameter("showMessage");
+        }
+        request.setAttribute("showMessage",showMessage);
     </jsp:scriptlet>
     
     <pageHelper:addOnLoadHandler handler="setStars(${presetRating})"/>
@@ -65,7 +71,9 @@
     </c:if>
 
     <div id="rateReview" class="noprint ${divClass}">
-     To save your rating please submit your email address.
+    <c:if test="${showMessage eq 'yes'}">
+        To save your rating please submit your email address.
+    </c:if>
         <div id="ratingTitle">${schoolName}</div>
         <c:if test="${fn:length(schoolName) > 31}">
             <script type="text/javascript">

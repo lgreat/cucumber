@@ -382,7 +382,7 @@ hr { /* has IE 7 equivalent */
 
 #parentReviews h2 {
 	background: url(/res/img/school/overview/header_LatestParentsReviews.gif) no-repeat;
-	height: 43px;
+	height: 28px;
 	text-indent: -9999px;
 }
 
@@ -714,6 +714,69 @@ span#compareGo {
     border: 3px solid #F2F3DB;
 }
 
+#centerNavWrap {
+    border: 2px solid #EEEEEE;
+    padding: 3px;
+    float: left;
+    margin: 0 0 10px 0;
+    width: 356px;
+    height: 151px;
+}
+
+#centerNav {
+    background-color:#F2F3DB;
+    position:relative;
+    height: 150px;
+}
+
+#centerNavLeft1{
+    position:absolute;
+    top: 15px;
+    left: 20px;
+}
+
+#centerNavRight1{
+    position:absolute;
+    top: 15px;
+    left: 204px;
+}
+
+#centerNavLeft2{
+    position:absolute;
+    top: 49px;
+    left: 20px;
+}
+
+#centerNavRight2{
+    position:absolute;
+    top: 49px;
+    left: 204px;
+}
+
+#centerNavLeft3{
+    position:absolute;
+    top: 83px;
+    left: 20px;
+}
+
+#centerNavRight3{
+    position:absolute;
+    top: 83px;
+    left: 204px;
+}
+
+#centerNavLeft4{
+    position:absolute;
+    top: 117px;
+    left: 20px;
+}
+
+#centerNavRight4{
+    position:absolute;
+    top: 117px;
+    left: 204px;
+}
+
 img.psRating {
     padding:5px 0 6px 10px;
 }
@@ -810,7 +873,7 @@ div#col_right div#nearbySchools {
 
 #col_right div.rateItWrapper div.rateThisSchool{
     border: 3px solid #F2F3DB;
-    padding: 3px 15px;
+    padding: 3px 15px 3px 5px;
     height: 84px;
 }
 

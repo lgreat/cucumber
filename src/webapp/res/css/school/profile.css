@@ -27,6 +27,7 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 #breadcrumbs {
 	margin: 2px 0 0 24px;
 	_margin: 2px 0 12px 24px; /* IE 6 hack */
+    width:550px;
 }
 
 #breadcrumbs ul li {
@@ -43,12 +44,11 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 	color: #888;
 }
 
-
 /* tools */
 #tools { /* has IE 7 equivalent */
 	width: 240px;
 	float: right;
-	margin: 2px 20px 0 0;
+	margin: 16px 20px 0 0;
 	_margin: -9px 5px 0 0; /* IE 6 hack */
 	font: 13px/15px "Trebuchet MS", Arial, sans-serif;
 	color: #777;
@@ -139,7 +139,7 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 #schoolProfile #schoolName { /* has IE 7 equivalent */
     width: 550px;
     float: left;
-    margin: 12px 0 8px 24px;
+    margin: 12px 0 11px 24px;
     _margin: 0 0 0 12px;
 }
 
@@ -160,8 +160,9 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 
 /* Ratings */
 #ratings {
-	margin: 8px 0 0 25px;
+	margin: 0 0 0 25px;
 	width: 300px;
+    float:left;
 }
 
 .rating_gs {
@@ -259,6 +260,13 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 }
 
 
+#subnavInHeader{
+    float:right;
+    margin:7px 20px 0 0;
+    width:225px;
+    clear:right;
+}
+
 /* secondary (sub) navigation */
 
 #subnav { /* Has IE 7 equivalent */
@@ -279,7 +287,13 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	float: right;
 }
 
-#subnav ul li {
+#subnavInHeader ul {
+	margin: 2px 8px 0 0;
+	_margin: 2px 5px 0 0; /* IE 6 hack */
+	float: left;
+}
+
+#subnav ul li, #subnavInHeader ul li{
 	display: inline;
 	list-style: none;
 	margin: 0;
@@ -287,7 +301,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     font-size: small; /* Gets perl side to display separating pipe at right size */
 }
 
-#subnav ul li a {
+#subnav ul li a,#subnavInHeader ul li a {
 	color: #5bc;
 	font: 11px/12px "Trebuchet MS", Arial, sans-serif;
 	text-decoration: underline;
@@ -299,7 +313,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 /* School Overview page header */
 
 .overview #ratings { /* hides the ratings */
-	display: none;
+	/* display: none;  */
 }
 
 .overview #navigation { /* has IE 7 equivalent */

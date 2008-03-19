@@ -139,28 +139,17 @@
         <c:set var="schoolType" value="private"/>
     </c:otherwise>
 </c:choose>
-<div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
+<div id="schoolProfile" class="${(tab eq 'overview' and requestScope.context.ABVersion ne 'b' and requestScope.context.ABVersion ne 'c')? 'overview' : ''}">
 <div class="printSchoolProfileHeader">
     <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"/></div>
     <br></br><div class="printName">${school.name}</div>
     <p><img src="/res/img/pixel.gif" alt=" "/></p>
 </div>
-<div id="schoolProfileHeader">
-
-    <div id="breadcrumbs">
-        <ul>
-            <li><link:research state="${state}" title="${state.longName} schools">${state.longName} schools</link:research> &gt; </li>
-            <li><link:city city="${city}" state="${state}" title="${city} schools">${city} schools</link:city>&amp;#160;</li>
-            <c:if test="${school.districtId != 0}">
-                <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}" title="District information">${school.district.name}</link:districtProfile></li>
-            </c:if>
-        </ul>
-    </div>
-    <!-- end: breadcrumbs -->
+<div id="schoolProfileHeader" style="${(requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p'))) ? 'border: 2px solid #dee;padding-bottom:10px;' : '' }">
 
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
-        <div id="tools">
+        <div id="tools" style="${(requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p'))) ? 'margin-top:7px' : '' }">
             <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
             <link:mySchoolList school="${school}" styleClass="add toolsTxt" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
 
@@ -191,6 +180,17 @@
     </c:if>
     <!-- end tools -->
 
+    <div id="breadcrumbs">
+        <ul>
+            <li><link:research state="${state}" title="${state.longName} schools">${state.longName} schools</link:research> &gt; </li>
+            <li><link:city city="${city}" state="${state}" title="${city} schools">${city} schools</link:city>&amp;#160;</li>
+            <c:if test="${school.districtId != 0}">
+                <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}" title="District information">${school.district.name}</link:districtProfile></li>
+            </c:if>
+        </ul>
+    </div>
+    <!-- end: breadcrumbs -->
+
     <!-- School name -->
     <div id="schoolName">
         <h1>${school.name}</h1>
@@ -198,8 +198,9 @@
     <!-- End School name -->
 
     <!-- Ratings -->
-    <div id="ratings">
-        <!-- Great Schools Rating -->
+    <div id="ratings" style="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c')? '' : 'display:none;'}">   
+        <!-- <div id="ratings">  -->
+        <!-- Great Schools Rating -->      
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
             <c:choose>
                 <c:when test="${tab ne 'ratings'}">
@@ -243,8 +244,27 @@
     </div>
     <!-- end: ratings -->
 
+
+    <c:if test="${(requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p')))}">
+    <div id="subnavInHeader">
+        <c:if test="${!requestScope.context.crawler}">
+            <ul>
+                <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
+                <!-- pipe characters used as opposed to li borders, as per client request -->
+                <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
+                <li><gsml:a href="${mailToFriendUrl}"
+                            onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;#160;|&amp;#160;</li>
+                <li><a href="javascript:openDelicious()"
+                       onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a></li>
+            </ul>
+        </c:if>
+        
+    </div>
+    </c:if>
+
 </div> <!-- end: schoolProfileHeader div -->
 
+<c:if test="${(requestScope.context.ABVersion ne 'c' or ((schoolType != 'private') or (school.levelCode != 'p')))}">
 <c:set var="headerAnchor" value="from..Tab"/>
 <table id="navigation" cellpadding="0" cellspacing="0">
 <tr>
@@ -326,8 +346,11 @@
     </c:if>
 </tr>
 </table>
+</c:if>
 <!-- end: navigation -->
 
+
+<c:if test="${(requestScope.context.ABVersion ne 'c' or ((schoolType eq 'private') or (school.levelCode eq 'p')))}">
 <div id="subnav">
     <c:if test="${!requestScope.context.crawler}">
         <ul>
@@ -341,6 +364,7 @@
         </ul>
     </c:if>
 </div>
+</c:if>
 <!-- end: subnav -->
 <div id="bodyContents">
     <jsp:doBody/>

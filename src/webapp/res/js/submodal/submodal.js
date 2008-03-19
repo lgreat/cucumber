@@ -45,8 +45,13 @@ function initPopUp(hoverName) {
 				var width = 400;
 				var height = 200;
 				// Parse out optional width and height from className
-				params = this.className.split('-');
-				if (params.length == 3) {
+                if(this.className.match(' ')){
+                    classes = this.className.split(' ');
+                    params = classes[0].split('-');
+                }else{
+                    params = this.className.split('-');
+                }
+                if (params.length == 3) {
 					width = parseInt(params[1]);
 					height = parseInt(params[2]);
 				}
