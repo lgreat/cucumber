@@ -113,7 +113,7 @@
             <div id="leftNav">
                 <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                     <div class="button">
-                        <link:schoolProfileTestscore school="${school}">
+                        <link:schoolProfileTestscore school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Test_Scores">
                             Test Scores
                         </link:schoolProfileTestscore>
                         <div class="image">image</div>
@@ -121,7 +121,7 @@
                 </div>
                 <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                     <div class="button">
-                        <link:schoolProfileRating school="${school}">
+                        <link:schoolProfileRating school="${school}" styleClass="GS_CI9_" styleId="LeftNav_GreatSchools_Ratings">
                             GreatSchools Ratings
                         </link:schoolProfileRating>
                         <div class="image">image</div>
@@ -129,7 +129,7 @@
                 </div>
                 <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                     <div class="button">
-                        <link:schoolProfileCensus school="${school}">
+                        <link:schoolProfileCensus school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Teachers_Students">
                             Teachers / Students
                         </link:schoolProfileCensus>
                         <div class="image">image</div>
@@ -138,7 +138,7 @@
                 <c:if test="${hasAPExams}">
                     <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                         <div class="button">
-                            <link:schoolProfileCensus school="${school}" anchor="ap">
+                            <link:schoolProfileCensus school="${school}" anchor="ap" styleClass="GS_CI9_" styleId="LeftNav_AP_Scores">
                                 AP Scores
                             </link:schoolProfileCensus>
                             <div class="image">image</div>
@@ -147,7 +147,7 @@
                 </c:if>
                 <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                     <div class="button">
-                        <link:schoolProfileParentReview school="${school}">
+                        <link:schoolProfileParentReview school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Parent_Reviews">
                             Parent Reviews
                         </link:schoolProfileParentReview>
                         <div class="image">image</div>
@@ -155,7 +155,7 @@
                 </div>
                 <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                     <div class="button">
-                        <link:schoolStartSurvey school="${school}">
+                        <link:schoolStartSurvey school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Parent_Survey">
                             Parent Survey
                         </link:schoolStartSurvey>
                         <div class="image">image</div>
@@ -164,7 +164,7 @@
                 <c:if test="${hasPrincipalView}">
                     <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                         <div class="button">
-                            <link:schoolProfilePrincipalView school="${school}">
+                            <link:schoolProfilePrincipalView school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Principals_View">
                                 Principal's View
                             </link:schoolProfilePrincipalView>
                             <div class="image">image</div>
@@ -174,11 +174,12 @@
                 <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
                     <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                         <div class="button">
-
                             <link:districtProfile districtId="${school.districtId}"
                                                   schoolId="${school.id}"
                                                   state="${state}"
-                                                  title="District information" >
+                                                  title="District information"
+                                                  styleClass="GS_CI9_"
+                                                  styleId="LeftNav_District_Overview">
                                 District Overview
                             </link:districtProfile>
                             <div class="image">image</div>
@@ -188,7 +189,7 @@
 
                 <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                     <div class="button">
-                        <link:schoolCompareSchool school="${school}">
+                        <link:schoolCompareSchool school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Compare_Schools">
                             Compare Schools
                         </link:schoolCompareSchool>
                         <div class="image">image</div>
