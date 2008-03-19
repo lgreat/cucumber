@@ -16,6 +16,8 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import java.util.Date;
 
 /**
+ * @see <a href="http://wiki.greatschools.net/bin/view/Greatschools/DatabaseConnectionManagement">Wiki Documentation</a>
+ * 
  * The read-write intercepter examines a controller to see if it implements the read-write
  * controller interface. If it does NOT it sets the ThreadLocalTransactionManager to read-only
  * so that all database connections will be load balanced across the read-only replicated
