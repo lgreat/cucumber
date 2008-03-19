@@ -217,15 +217,19 @@
         <div id="centerNavWrap">
             <div id="centerNav">
                 <div id="centerNavLeft1">
-                    <link:schoolProfileTestscore school="${school}">
+                    <link:schoolProfileTestscore school="${school}" styleClass="GS_CI9_"
+                                                 styleId="Test_Scores_CenterNav"
+                                                 title="${school.name} Test Scores">
                         <gsml:img src="/res/img/school/overview/links_test.gif"
-                                  alt="test scores"
                                   rollover="/res/img/school/overview/links_test_on.gif"
+                                alt="test scores"
                                 />
                     </link:schoolProfileTestscore>
                 </div>
                 <div id="centerNavRight1">
-                    <link:schoolProfileParentReview school="${school}">
+                    <link:schoolProfileParentReview school="${school}" styleClass="GS_CI9_"
+                                                    id="Parent_Reviews_CenterNav"
+                                                    title="${school.name} Parent Reviews">
                         <gsml:img src="/res/img/school/overview/links_parentreview.gif"
                                   alt="parent reviews"
                                   rollover="/res/img/school/overview/links_parentreview_on.gif"
@@ -233,7 +237,9 @@
                     </link:schoolProfileParentReview>
                </div>
                 <div id="centerNavLeft2">
-                    <link:schoolProfileCensus school="${school}">
+                    <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
+                                              styleId="School_Environment_CenterNav"
+                                              styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/links_teachers.gif"
                                   alt="teachers and students"
                                   rollover="/res/img/school/overview/links_teachers_on.gif"
@@ -241,7 +247,8 @@
                     </link:schoolProfileCensus>
                 </div>
                 <div id="centerNavRight2">
-                    <link:schoolStartSurvey school="${school}">
+                    <link:schoolStartSurvey school="${school}" styleClass="GS_CI9_"  title="Start Survey for ${school.name}"
+                                                 id="Start_Survey_CenterNav">
                         <gsml:img src="/res/img/school/overview/links_parentsurvey.gif"
                                   alt="parent survey"
                                   rollover="/res/img/school/overview/links_parentsurvey_on.gif"
@@ -249,7 +256,9 @@
                     </link:schoolStartSurvey>
                 </div>
                 <div id="centerNavLeft3">
-                    <link:schoolProfileRating school="${school}">
+                    <link:schoolProfileRating school="${school}" styleClass="GS_CI9_"
+                                              styleId="GreatSchools_Ratings_CenterNav"
+                                              title="${school.name} GreatSchools Ratings">
                         <gsml:img src="/res/img/school/overview/links_gsrating.gif"
                                   alt="greatschools rating"
                                   rollover="/res/img/school/overview/links_gsrating_on.gif"
@@ -257,7 +266,9 @@
                     </link:schoolProfileRating>
                 </div>
                 <div id="centerNavRight3">
-                    <link:schoolCompareSchool school="${school}">
+                    <link:schoolCompareSchool school="${school}"
+                                              styleClass="GS_CI9_"
+                                              styleId="Compare_Schools_CenterNav">
                         <gsml:img src="/res/img/school/overview/links_compare.gif"
                                   alt="compare schools"
                                   rollover="/res/img/school/overview/links_compare_on.gif"
@@ -269,7 +280,9 @@
                         <link:districtProfile districtId="${school.districtId}"
                                               schoolId="${school.id}"
                                               state="${state}"
-                                              title="District information" >
+                                              title="District information"
+                                              styleClass="GS_CI9_"
+                                              styleId="District_Profile_CenterNav">
                             <gsml:img src="/res/img/school/overview/links_district.gif"
                                       alt="district information"
                                       rollover="/res/img/school/overview/links_district_on.gif"
@@ -283,13 +296,16 @@
                 <c:if test="${school.type.schoolTypeName ne 'private'
                 and (state eq 'az' or state eq 'ca' or
                 state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
-                state eq 'oh' or state eq 'tx' )}">
+                state eq 'oh' or state eq 'tx' or requestScope.context.ABVersion eq 'c')}">
                     <c:set var="finance" value="show" />
                 </c:if>
 
                 <c:if test="${(finance eq 'show') and (hasFinanceData)}">
                     <div id="centerNavRight4">
-                        <link:schoolProfileCensus school="${school}" anchor="finance">
+                        <link:schoolProfileCensus school="${school}"
+                                                  styleClass="GS_CI9_"
+                                                  styleId="Finance_CenterNav"
+                                                  anchor="finance">
                             <gsml:img src="/res/img/school/overview/links_schoolfin.gif"
                                       alt="finance data"
                                       rollover="/res/img/school/overview/links_schoolfin_on.gif"
@@ -365,7 +381,7 @@
                                                    school="${school}"
                                                    onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                                                    styleClass="submodal-344-362 GS_CI9_"
-                                                   styleId="CenterRateIt_${requestScope.context.ABVersion}"
+                                                   styleId="Center_Rate_It_${requestScope.context.ABVersion}"
                                                    >
                                             <gsml:img src="/res/img/school/overview/submit_RateIt.gif" 
                                                       alt="Rate It" />
@@ -418,7 +434,7 @@
                 <jsp:param name="styleClass" value="overviewBorder clearLeft"/>
             </jsp:include>
 
-            <c:if test="${((requestScope.context.ABVersion eq 'c') and hasAPExams and hasPrincipalView) or (requestScope.context.ABVersion ne 'c')}">
+            <c:if test="${((requestScope.context.ABVersion eq 'c') and (hasAPExams or hasPrincipalView)) or (requestScope.context.ABVersion ne 'c')}">
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
@@ -432,35 +448,35 @@
                 <c:when test="${(requestScope.context.ABVersion ne 'c')}">
                 <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
                     <link:schoolProfileTestscore school="${school}"
-                                                 styleClass="GS_CI9_" styleId="LearnMore_Module_TestScores1">
+                                                 styleClass="GS_CI9_" styleId="LearnMore_Module_TestScores1_${requestScope.context.ABVersion}">
                         <gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt=""/>
                     </link:schoolProfileTestscore>
                     <p class="dashed">
                         <link:schoolProfileTestscore school="${school}"
                                                      styleClass="GS_CI9_"
-                                                     styleId="LearnMore_Module_TestScores2">${school.name} test scores</link:schoolProfileTestscore>
+                                                     styleId="LearnMore_Module_TestScores2_${requestScope.context.ABVersion}">${school.name} test scores</link:schoolProfileTestscore>
                     </p>
                 </c:if>
 
                 <c:if test="${hasAPExams}">
                     <link:schoolProfileCensus school="${school}" anchor="ap"
-                                              styleClass="GS_CI9_" styleId="LearnMore_Module_APExams1">
+                                              styleClass="GS_CI9_" styleId="LearnMore_Module_APExams1_${requestScope.context.ABVersion}">
                         <gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="" />
                     </link:schoolProfileCensus>
                     <p>
                         <link:schoolProfileCensus school="${school}" anchor="ap"
-                                                  styleClass="GS_CI9_" styleId="LearnMore_Module_APExams2">${school.name} AP exams</link:schoolProfileCensus>
+                                                  styleClass="GS_CI9_" styleId="LearnMore_Module_APExams2_${requestScope.context.ABVersion}">${school.name} AP exams</link:schoolProfileCensus>
                     </p>
                 </c:if>
 
                 <c:if test="${hasTeacherData}">
                     <link:schoolProfileCensus school="${school}" anchor="teachers"
-                                              styleId="LearnMore_Module_TeacherStats1" styleClass="GS_CI9_">
+                                              styleId="LearnMore_Module_TeacherStats1_${requestScope.context.ABVersion}" styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="" />
                     </link:schoolProfileCensus>
                     <p class="${(hasStudentData or hasFinanceData) ? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="teachers"
-                                                  styleId="LearnMore_Module_TeacherStats2"
+                                                  styleId="LearnMore_Module_TeacherStats2_${requestScope.context.ABVersion}"
                                                   styleClass="GS_CI9_">${school.name} teachers</link:schoolProfileCensus>
                     </p>
                 </c:if>
@@ -468,40 +484,40 @@
                 <c:if test="${school.type.schoolTypeName ne 'private'
                 and (state eq 'az' or state eq 'ca' or
                 state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
-                state eq 'oh' or state eq 'tx' )}">
+                state eq 'oh' or state eq 'tx' or requestScope.context.ABVersion eq 'c')}">
                     <c:set var="finance" value="show" />
                 </c:if>
 
                 <c:if test="${(hasStudentData)}">
                     <link:schoolProfileCensus school="${school}" anchor="students"
-                                              styleId="LearnMore_Module_StudentStats1" styleClass="GS_CI9_">
+                                              styleId="LearnMore_Module_StudentStats1_${requestScope.context.ABVersion}" styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
                     </link:schoolProfileCensus>
                     <p class="${(hasPrincipalView or ((finance eq 'show') and hasFinanceData))? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="students"
-                                                  styleId="LearnMore_Module_StudentStats2" styleClass="GS_CI9_">${school.name} students</link:schoolProfileCensus>
+                                                  styleId="LearnMore_Module_StudentStats2_${requestScope.context.ABVersion}" styleClass="GS_CI9_">${school.name} students</link:schoolProfileCensus>
                     </p>
                 </c:if>
 
                 <c:if test="${(finance eq 'show') and (hasFinanceData)}">
                     <link:schoolProfileCensus school="${school}" anchor="finance"
-                                              styleId="LearnMore_Module_SchoolFinance1" styleClass="GS_CI9_">
+                                              styleId="LearnMore_Module_SchoolFinance1_${requestScope.context.ABVersion}" styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
                     </link:schoolProfileCensus>
                     <p class="${(hasPrincipalView) ? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="finance"
-                                                  styleId="LearnMore_Module_SchoolFinance2" styleClass="GS_CI9_">${school.name} spending per pupil</link:schoolProfileCensus>
+                                                  styleId="LearnMore_Module_SchoolFinance2_${requestScope.context.ABVersion}" styleClass="GS_CI9_">${school.name} spending per pupil</link:schoolProfileCensus>
                     </p>
                 </c:if>
 
                 <c:if test="${hasPrincipalView}">
                     <link:schoolProfilePrincipalView school="${school}"
-                                                     styleId="LearnMore_Module_SchoolsView1" styleClass="GS_CI9_">
+                                                     styleId="LearnMore_Module_SchoolsView1_${requestScope.context.ABVersion}" styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
                     </link:schoolProfilePrincipalView>
                     <p class="last">
                         <link:schoolProfilePrincipalView school="${school}"
-                                                         styleId="LearnMore_Module_SchoolsView2"
+                                                         styleId="LearnMore_Module_SchoolsView2_${requestScope.context.ABVersion}"
                                                          styleClass="GS_CI9_">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
                     </p>
                 </c:if>
@@ -509,33 +525,36 @@
                 <c:if test="${!hasPrincipalView and school.levelCode != 'p'}">
                     <div id="insideScoop">
                         <link:schoolProfileEspLogin school="${school}"
-                                                    styleId="LearnMore_Module_ESP" styleClass="GS_CI9_">
+                                                    styleId="LearnMore_Module_ESP_${requestScope.context.ABVersion}" styleClass="GS_CI9_">
                             <gsml:img src="/res/img/school/overview/esp.gif" alt="What's the inside scoop on this school? Principals and school officials, tell us here" />
                         </link:schoolProfileEspLogin>
                     </div>
                 </c:if>
                 </c:when>
-                <c:when test="${(requestScope.context.ABVersion eq 'c') and hasAPExams and hasPrincipalView}">
+                <c:when test="${(requestScope.context.ABVersion eq 'c') and (hasAPExams or hasPrincipalView)}">
                     <c:if test="${hasAPExams}">
                         <link:schoolProfileCensus school="${school}" anchor="ap"
-                                                  styleId="LearnMore_Module_APExams1" styleClass="GS_CI9_">
+                                                  styleId="LearnMore_Module_APExams1_${requestScope.context.ABVersion}"
+                                                  styleClass="GS_CI9_">
                             <gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="" />
                         </link:schoolProfileCensus>
                         <p>
                             <link:schoolProfileCensus school="${school}" anchor="ap"
-                                                      styleId="LearnMore_Module_APExams2"
+                                                      styleId="LearnMore_Module_APExams2_${requestScope.context.ABVersion}"
                                                       styleClass="GS_CI9_">${school.name} AP exams</link:schoolProfileCensus>
                         </p>
                     </c:if>
 
                     <c:if test="${hasPrincipalView}">
                         <link:schoolProfilePrincipalView school="${school}"
-                                                         styleId="LearnMore_Module_SchoolsView1" styleClass="GS_CI9_">
+                                                         styleId="LearnMore_Module_SchoolsView1_${requestScope.context.ABVersion}"
+                                                         styleClass="GS_CI9_">
                             <gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
                         </link:schoolProfilePrincipalView>
                         <p class="last">
                             <link:schoolProfilePrincipalView school="${school}"
-                                                             styleId="LearnMore_Module_SchoolsView2" styleClass="GS_CI9_">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
+                                                             styleId="LearnMore_Module_SchoolsView2_${requestScope.context.ABVersion}"
+                                                             styleClass="GS_CI9_">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
                         </p>
                     </c:if>
 

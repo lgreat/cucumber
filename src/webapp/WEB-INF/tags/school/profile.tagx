@@ -264,13 +264,14 @@
 
 </div> <!-- end: schoolProfileHeader div -->
 
-<c:if test="${(requestScope.context.ABVersion ne 'c' or ((schoolType != 'private') or (school.levelCode != 'p')))}">
+<c:if test="${(requestScope.context.ABVersion ne 'c' or ((schoolType eq 'private') or (school.levelCode eq 'p')))}">
 <c:set var="headerAnchor" value="from..Tab"/>
 <table id="navigation" cellpadding="0" cellspacing="0">
 <tr>
     <td>
-        <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on' : ''}"
+        <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on GS_CI9_' : ''}"
                                     title="${school.name}"
+                                    styleId="School_Overview_Tab_${requestScope.context.ABVersion}"
                                     anchor="${(tab eq 'overview') ? '' : headerAnchor}">
             School<br/>
             Overview
@@ -278,7 +279,8 @@
     </td>
     <c:if test="${schoolType != 'private' and school.levelCode != 'p'}">
         <td>
-            <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}"
+            <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on GS_CI9_' : ''}"
+                                      styleId="GreatSchools_Ratings_Tab_${requestScope.context.ABVersion}"
                                       title="${school.name} GreatSchools Ratings"
                                       anchor="${(tab eq 'ratings') ? '' : headerAnchor}">
                 GreatSchools<br/>
@@ -288,7 +290,8 @@
     </c:if>
 
     <td>
-        <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on' : ''}"
+        <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on GS_CI9_' : ''}"
+                                        id="Parent_Reviews_Tab_${requestScope.context.ABVersion}"
                                         title="${school.name} Parent Reviews"
                                         anchor="${(tab eq 'parentReviews') ? '' : headerAnchor}">
             Parent<br/>
@@ -298,7 +301,8 @@
 
     <c:if test="${(schoolType != 'private' || state.privateTestScoresState) and (school.levelCode != 'p')}" >
         <td>
-            <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on' : ''}"
+            <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on GS_CI9_' : ''}"
+                                         styleId="Test_Scores_Tab_${requestScope.context.ABVersion}"
                                          title="${school.name} Test Scores"
                                          anchor="${(tab eq 'testscores') ? '' : headerAnchor}">
                 Test<br/>
@@ -310,6 +314,8 @@
     <!-- This link tag automatically detects private schools and links appropriately -->
     <td>
         <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
+                                  styleId="School_Environment_Tab_${requestScope.context.ABVersion}"
+                                  styleClass="GS_CI9_"
                                   anchor="${headerAnchor}">
             School<br/>
             Environment
@@ -320,6 +326,8 @@
     <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
         <td>
             <link:districtProfile districtId="${school.districtId}"
+                                  styleId="District_Overview_Tab_${requestScope.context.ABVersion}"
+                                  styleClass="GS_CI9_"
                                   schoolId="${school.id}"
                                   state="${state.abbreviationLowerCase}"
                                   title="District information"
@@ -338,7 +346,9 @@
     -->
     <c:if test="${school.levelCode != 'p'}">
         <td class="last">
-            <link:schoolCompareSchool school="${school}" styleClass="last" from="tab" anchor="${headerAnchor}">
+            <link:schoolCompareSchool school="${school}"
+                                      styleClass="last GS_CI9_"
+                                      styleId="Compare_Schools_Tab_${requestScope.context.ABVersion}" from="tab" anchor="${headerAnchor}">
                 Compare<br/>
                 Schools
             </link:schoolCompareSchool>
