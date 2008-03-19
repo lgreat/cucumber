@@ -158,6 +158,11 @@
                             <c:when test="${pageName eq 'parentReviews'}">
                                 <input id="submitReview" alt="Submit ${school.name} Parent Review and Rating" src="/res/img/school/parentReviews/submit.gif" type="image" />
                             </c:when>
+                            <c:when test="${pageName eq 'overview'}">
+                                <input id="submitReview"
+                                    class="button" alt="Submit ${school.name} Parent Review and Rating" src="/res/img/school/review/submitReview.gif" type="image"
+                                        onclick="clickCapture.capture('prop9', 'Review_Module');"/>
+                            </c:when>
                             <c:otherwise>
                                 <input id="submitReview"
                                     class="button" alt="Submit ${school.name} Parent Review and Rating" src="/res/img/school/review/submitReview.gif" type="image" />

@@ -562,8 +562,9 @@ hr { /* has IE 7 equivalent */
 	width: 356px;
 	float: left;
 	margin: 10px 0 8px 0;
+	/* Commented out per PM request for GS-5684
 	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;*/
 }
 
 #insideScoop img {

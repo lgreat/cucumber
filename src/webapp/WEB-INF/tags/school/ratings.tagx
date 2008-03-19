@@ -9,6 +9,13 @@
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="gsRating" required="true" description="GreatSchools Overall Rating Integer" type="java.lang.Integer"/>
     <jsp:directive.attribute name="parentRating" required="true" description="Parent Ratings Object" type="gs.data.school.review.Ratings"/>
+    <jsp:directive.attribute name="clickTracking" required="false" description="Implement click tracking" type="java.lang.Boolean"/>
+
+    <!-- GS-5684 If clickTracking is true, set the class on the links for click tracking -->
+    <c:set var="clickClass" value=""/>
+    <c:if test="${clickTracking}">
+        <c:set var="clickClass" value="GS_CI9_"/>
+    </c:if>
     <c:choose>
             <c:when test="${gsRating == 0}">
                 <c:set var="hasGsRating" value="${false}"/>
@@ -62,7 +69,7 @@
                     <link:schoolProfileAddParentReview
                             school="${school}"
                             onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                            styleClass="submodal-344-362"
+                            styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
                             >
                         <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!"
                                   styleClass="parentTitle" />
@@ -78,7 +85,7 @@
                     <link:schoolProfileAddParentReview
                             school="${school}"
                             onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"                
-                            styleClass="submodal-344-362"
+                            styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
                             >
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" />
                     </link:schoolProfileAddParentReview>
