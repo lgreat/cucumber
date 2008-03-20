@@ -49,7 +49,7 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 	width: 240px;
 	float: right;
 	margin: 16px 20px 0 0;
-	_margin: -9px 5px 0 0; /* IE 6 hack */
+	_margin: 16px 5px 0 0; /* IE 6 hack */
 	font: 13px/15px "Trebuchet MS", Arial, sans-serif;
 	color: #777;
 }
