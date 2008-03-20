@@ -1156,6 +1156,10 @@
           class="gs.web.test.SchoolsInCityAjaxController"
           autowire="byName" lazy-init="true"/>
 
+    <bean name="/test/schoolLevelsInCity.page"
+          class="gs.web.test.SchoolLevelsInCityAjaxController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/school/error.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

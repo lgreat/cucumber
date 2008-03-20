@@ -33,6 +33,13 @@
     <![CDATA[
     <script type="text/javascript">
         <!--
+        Array.prototype.has = function(v){
+            for (i=0; i < this.length; i++){
+                if (this[i]==v) return true;
+            }
+            return false;
+        }
+                
         function adjustLeftColIE6() {
             if(navigator.userAgent.toLowerCase().indexOf('msie 6') != -1) {
                 var rightcol = document.getElementById('right');
@@ -44,34 +51,28 @@
 
         var url = '/test/schoolsInCity.page';
         var cityHasSchoolsInCorrectLevel = true;
-
+        var levelsInCity = [];
+        
         function buildLevels(levels) {
             var strings = {'e':'elementary', 'm':'middle','h':'high', 'e,m':'elementary or middle',
             'm,h':'middle or high', 'e,h':'elementary or high', 'e,m,h':'elementary, middle, or high'};
             return strings[levels];
         }
 
-        function makeCheckOptions(levels) {
-             var checkOptions = function(transport) {
-                 if (transport.responseText.lastIndexOf("option") < 100) {
-                     cityHasSchoolsInCorrectLevel = false;
-                     var levs = buildLevels(levels);
-                     alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
-                 } else {
-                     cityHasSchoolsInCorrectLevel = true;
-                 }
-             }
-             return checkOptions;
-        }
-
-        function changeCity(citySelect, state, levels, selectId) {
-            if (selectId) {
-                $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-            }
+        function changeFindCity(citySelect, state, levels, selectId) {
+            $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
             new Ajax.Updater ( selectId, url, {
                 method: 'get',
                 parameters: {state : state, city : citySelect.value, levels: levels },
-                onComplete: makeCheckOptions(levels)
+                onComplete: function(transport) {
+                    if (transport.responseText.lastIndexOf("option") < 100) {
+                        cityHasSchoolsInCorrectLevel = false;
+                        var levs = buildLevels(levels);
+                        alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
+                    } else {
+                        cityHasSchoolsInCorrectLevel = true;
+                    }
+                }
             });
         }
 
@@ -84,7 +85,28 @@
             return true;
         }
 
-        function checkCityAndLevelSelected(elem, levels) {
+        function changeCompareCity(citySelect, state, levels) {
+            new Ajax.Request ('/test/schoolLevelsInCity.page', {
+                method: 'get',
+                parameters: {state : state, city : citySelect.value, levels: levels },
+                onSuccess: function(transport) {
+                    var json = transport.responseText.evalJSON();
+                    levelsInCity = json.levels;
+                },
+                onComplete: function(transport) {
+                    var json = transport.responseText.evalJSON();
+                    if (json.levels.length < 1) {
+                        cityHasSchoolsInCorrectLevel = false;
+                        var levs = buildLevels(levels);
+                        alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
+                    } else {
+                        cityHasSchoolsInCorrectLevel = true;
+                    }                
+                }
+            });
+        }
+
+        function checkCompareFields(elem, levels) {
             var levelVal = elem.level.value;
             var cityVal = elem.city.value;
             if (cityVal == "" || levelVal == "") {
@@ -93,6 +115,11 @@
             }
             if (!cityHasSchoolsInCorrectLevel) {
                 var levs = buildLevels(levels);
+                alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
+                return false;
+            }
+            if (!levelsInCity.has(levelVal)) {
+                var levs = buildLevels(levelVal);
                 alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
                 return false;
             }
@@ -182,7 +209,7 @@
                                         <input type="hidden" name="type" value="achievement" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
                                         <input type="hidden" name="tid" value="${param.tid}" />
-                                        <select id="achievementCities" name="city" tabindex="10" onchange="changeCity(this, '${stateAbbrev}', '${levs}', 'schools');">
+                                        <select id="achievementCities" name="city" tabindex="10" onchange="changeFindCity(this, '${stateAbbrev}', '${levs}', 'schools');">
                                             <option selected="selected" value="">1. Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
                                                 <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
@@ -208,12 +235,12 @@
                                     <div class="boxText">
                                         <c:out value="${comparetext}" escapeXml="false" />
                                     </div>
-                                    <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkCityAndLevelSelected(this, '${levs}')">
+                                    <gsweb:form action="/test/landing.page" method="post" onsubmit="return checkCompareFields(this, '${levs}')">
                                         <input type="hidden" name="type" value="compare" />
                                         <input type="hidden" name="state" value="${stateAbbrev}" />
                                         <input type="hidden" name="tab" value="${compare}" />
                                         <select id="compareCities" name="city" tabindex="5"
-                                                onchange="changeCity(this, '${stateAbbrev}', '${levs}', '');">
+                                                onchange="changeCompareCity(this, '${stateAbbrev}', '${levs}', '');">
                                             <option selected="selected" value="">1. Choose city</option>
                                             <c:forEach var="cityOption" items="${cities}">
                                                 <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
@@ -334,7 +361,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <div class="listTitle">Editors Picks</div>
+                <div class="listTitle">Editor's Picks</div>
                 <c:if test="${fn:length(links) > 0}">
                     <ul class="linkList">
                         <c:forEach var="anchor" items="${links}">

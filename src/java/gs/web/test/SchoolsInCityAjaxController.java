@@ -55,7 +55,7 @@ public class SchoolsInCityAjaxController implements Controller {
         String city = request.getParameter("city");
         List<School> schools = _schoolDao.findSchoolsInCity(state, city, false);
         out.println("<select id=\"schoolSelect\" name=\"sid\" class=\"selectSchool\">");
-        out.println("<option value=\"\">Choose school</option>");
+        out.println("<option value=\"\">2. Choose school</option>");
         for (School school : schools) {
             if (school.getType() != SchoolType.PRIVATE) {
                 if (filter != null) {
