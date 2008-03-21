@@ -16,7 +16,7 @@ import gs.data.school.LevelCode;
 
 /**
  * This class provides is a service provider for ajax requests from /test/landing.page
- * for school lists.  The required request parameters are:
+ * for school levels in a city.  The required request parameters are:
  *     state: a 2-letter abbreviation
  *     city: the cannonical city name
  *

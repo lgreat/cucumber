@@ -63,6 +63,15 @@
         request.setAttribute("subtypes", subs.asPrettyCommaSeparatedString());
     </jsp:scriptlet>
 
+    <c:choose>
+        <c:when test="${(requestScope.context.ABVersion eq 'd') and (school.type.schoolTypeName != 'private')}">
+            <c:set var="d_version" value="true"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="d_version" value="false"/>
+        </c:otherwise>
+    </c:choose>
+
     <div id="quickFacts">
         <h2>${school.name} Quick Facts</h2>
         <div id="colContainer">
@@ -82,17 +91,10 @@
                     </c:if>
                 </address>
 
-                <c:if test="${(requestScope.context.ABVersion ne 'd')}">
+                <c:if test="${!d_version}">
                     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
                         <div class="mapit">
-                            <c:choose>
-                                <c:when test="${(requestScope.context.ABVersion eq 'd')}">
-                                    <c:set var="mapImage" value="/res/img/school/overview/mapit.gif" />
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="mapImage" value="/res/img/map/mapit.gif" />
-                                </c:otherwise>
-                            </c:choose>
+                            <c:set var="mapImage" value="/res/img/map/mapit.gif" />
                             <link:mapSchool school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>
                         </div>
                     </c:if>
@@ -116,17 +118,10 @@
                     </p>
                 </c:if>
 
-                <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+                <c:if test="${d_version}">
                     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
                         <div class="mapit">
-                            <c:choose>
-                                <c:when test="${(requestScope.context.ABVersion eq 'd')}">
-                                    <c:set var="mapImage" value="/res/img/school/overview/mapit.gif" />
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="mapImage" value="/res/img/map/mapit.gif" />
-                                </c:otherwise>
-                            </c:choose>
+                            <c:set var="mapImage" value="/res/img/school/overview/mapit.gif" />
                             <link:mapSchool school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>
                         </div>
                     </c:if>
@@ -190,16 +185,8 @@
                             <li>Library: ${schoolData.hasLibrary}</li>
                         </c:if>
                     </c:if>
-                    <!-- Per GS-5684, do not display Charter authorizer/operator any more -->
-                    <!--<c:if test="${not empty school.authorizer.name}">-->
-                        <!--<li>Charter authorizer:<br/>${school.authorizer.name}</li>-->
-                    <!--</c:if>-->
-                    <!--<c:if test="${not empty school.operatorId}">-->
-                        <!--<li>Charter operator:<br/>${schoolData.operator}</li>-->
-                    <!--</c:if>-->
-                <!--</c:if>-->
                 </ul>
-                <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+                <c:if test="${d_version}">
                     <school:bigPicture school="${school}" divider="false"/>
                 </c:if>
             </div>

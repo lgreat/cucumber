@@ -27,26 +27,29 @@
 }
 
 #quickFacts div.leftCol {
-    border-right:2px solid white;
     width:171px;
-    height:100%;
-    min-height:180px;
     padding:10px 0 10px 5px;
     margin:0 0 3px 3px;
-    position:relative;
+    position:absolute;
 }
 
 #quickFacts div.rightCol {
+    border-left:2px solid white;
+    border-top:1px solid #F2F3DB;
+    border-bottom:1px solid #F2F3DB;
     width:169px;
-    height:100%;
-    position:absolute;
-    padding:0 0 0 5px;
-    top:0;
-    left:185px;
+    min-height:210px;
+    position:relative;
+    padding:0;
+    left:180px;
 }
 
 #quickFacts h3 {
    background:none;
+}
+
+#quickFacts div.rightCol ul {
+    margin-left:20px;    
 }
 
 #quickFacts ul li {
@@ -111,9 +114,13 @@
 
 #bigPicture {
     border:none;
-    padding:10px 0 0 0;
+    padding:10px 0 0 10px;
 }
 
 #bigPicture h2 {
+    display:none;
+}
+
+#learnSchool {
     display:none;
 }

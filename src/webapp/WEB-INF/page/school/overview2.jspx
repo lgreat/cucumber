@@ -38,6 +38,15 @@
 <c:set var="parent_ratings" value="${parent_ratings}"/>
 <c:set var="preschoolOnly" value="${preschoolOnly}"/>
 
+<c:choose>
+    <c:when test="${(requestScope.context.ABVersion eq 'd') and (school.type.schoolTypeName != 'private')}">
+        <c:set var="d_version" value="true"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="d_version" value="false"/>
+    </c:otherwise>
+</c:choose>
+
 <jsp:scriptlet>
     SessionContext context = SessionContextUtil.getSessionContext(request);
     PageHelper.setPageName(request, "spp_overview");
@@ -61,7 +70,7 @@
             margin: 12px 8px 12px 0pt;
         }
     </style>
-    <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+    <c:if test="${d_version}">
         <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/yahoo/yahoo-min.js"/>
         <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/event/event-min.js"/>
         <pageHelper:externalCss file="/res/css/school/gs-5687.css"/>
@@ -103,11 +112,11 @@
     <!-- being left column -->
     <div id="col_left">
 
-        <c:if test="${(requestScope.context.ABVersion ne 'd')}">
+        <c:if test="${!d_version}">
             <school:quickFacts school="${school}"/>
             <school:bigPicture school="${school}" divider="true"/>
         </c:if>
-        <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+        <c:if test="${d_version}">
             <div id="leftNav">
                 <div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">
                     <div class="button">
@@ -208,7 +217,7 @@
 
     <div id="col_center">
 
-    <c:if test="${(requestScope.context.ABVersion eq 'd')}">
+    <c:if test="${d_version}">
         <school:quickFacts school="${school}"/>
     </c:if>
 
@@ -317,7 +326,8 @@
         </div>
     </c:if>
 
-     <c:if test="${(requestScope.context.ABVersion ne 'b' and requestScope.context.ABVersion ne 'c')}">
+     <!--<c:if test="${(requestScope.context.ABVersion ne 'b' and requestScope.context.ABVersion ne 'c')}">-->
+    <c:if test="${requestScope.context.ABVersion eq 'a'}">
         <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
     </c:if>
  
