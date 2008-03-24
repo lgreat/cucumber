@@ -88,17 +88,13 @@
 
         // GS-5064
         String county = school.getCounty();
-        if (StringUtils.isNotBlank(county)) {
-            county = county.replaceAll("[^\\p{Alnum}]", "");
-            if (county.length() > 10) {
-                county = county.substring(0, 10);
-            }
-        }
+        String city = school.getCity();
 
         if (null != pageHelper) {
             pageHelper.addAdKeyword("type", schoolType);
             pageHelper.addAdKeyword("level", levelAbbrev);
             pageHelper.addAdKeyword("county", county);
+            pageHelper.addAdKeyword("city", county);
             pageHelper.addAdKeyword("school_id", school.getId().toString());
         }
     } catch (Exception e) {

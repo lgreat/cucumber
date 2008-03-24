@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.55 2008/03/18 17:23:00 chriskimm Exp $
+ * $Id: PageHelper.java,v 1.56 2008/03/24 18:28:30 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -223,6 +223,10 @@ public class PageHelper {
     public void addAdKeyword(String name, String value) {
         if (null == name || null == value) {
             throw new IllegalArgumentException("Name value pair cannot be null");
+        }
+        value = value.replaceAll("[^\\p{Alnum}]", "");
+        if (value.length() > 10) {
+            value = value.substring(0, 10);
         }
         _adKeywords.put(name,value);
     }

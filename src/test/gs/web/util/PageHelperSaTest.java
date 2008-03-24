@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.39 2008/03/18 17:23:00 chriskimm Exp $
+ * $Id: PageHelperSaTest.java,v 1.40 2008/03/24 18:28:30 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -549,7 +549,7 @@ public class PageHelperSaTest extends TestCase {
         assertEquals("state keyword set", "hello=there&state=ga", pageHelper.getOASKeywords());
 
         pageHelper.addAdKeyword("county","Palm Beach");
-        assertEquals("state keyword set", "county=Palm+Beach&hello=there&state=ga", pageHelper.getOASKeywords());
+        assertEquals("state keyword set", "county=PalmBeach&hello=there&state=ga", pageHelper.getOASKeywords());
     }
 
     public void testAdKeywords() {
@@ -568,6 +568,13 @@ public class PageHelperSaTest extends TestCase {
 
         assertEquals("there", pageHelper.getAdKeywords().get("hello"));
         assertEquals("private", pageHelper.getAdKeywords().get("type"));
+
+        pageHelper.addAdKeyword("county", "Alameda");
+        assertEquals("Alameda", pageHelper.getAdKeywords().get("county"));
+        pageHelper.addAdKeyword("county", "San Francisco");
+        assertEquals("SanFrancis", pageHelper.getAdKeywords().get("county"));
+        pageHelper.addAdKeyword("city", " New 23 City& Greater");
+        assertEquals("New23CityG", pageHelper.getAdKeywords().get("city"));
     }
 
     public void testIsAdminServer() {
