@@ -388,9 +388,10 @@ hr { /* has IE 7 equivalent */
 
 #parentReviews p {
 	margin: 5px 0 0 10px;
-	_margin: 5px 0 0 10px; /* IE 6 hack */
+	_margin: 5px 0 0 5px; /* IE 6 hack */
 	width: 160px;
-	float: left;
+    _width: 155px;
+    float: left;
 	font-size: 12px;
 	line-height: 15px;
 }
