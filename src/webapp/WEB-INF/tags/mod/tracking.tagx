@@ -117,8 +117,8 @@
             /* this comment keeps the tag from collapsing */
         </script>
 
-        <script type="text/javascript" > <![CDATA[
-
+        <script type="text/javascript" >
+            <!--
             s.pageName = "${pageName}";
             s.server = "${requestScope.context.hostName}";
             s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
@@ -170,9 +170,8 @@
             }
             alert(debugStr) ;
             */
-
-
-        ]]></script>
+            -->
+        </script>
          
         <![CDATA[
     <script type="text/javascript" language="JavaScript"><!--
