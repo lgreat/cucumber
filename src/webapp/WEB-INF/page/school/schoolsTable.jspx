@@ -16,6 +16,7 @@
           xmlns:gsweb="gstaglib">
 <jsp:directive.page import="gs.data.school.LevelCode"/>
 <jsp:directive.page import="gs.web.school.SchoolsController"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 
 <html lang="en">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE" />
@@ -46,7 +47,16 @@
                     queryString.substring(mapIndex + "map=0x".length());
         }
         out.print(queryString);
-    </jsp:scriptlet>
+
+        gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (null != pageHelper) {
+            String city = request.getParameter("city");
+            if (city != null) {
+                pageHelper.addAdKeyword("city", city);
+            }
+        }
+
+        </jsp:scriptlet>
 </c:set>
 
 <head>
