@@ -387,7 +387,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #parentReviews p {
-	margin: 5px 0 0 20px;
+	margin: 5px 0 0 10px;
 	_margin: 5px 0 0 10px; /* IE 6 hack */
 	width: 160px;
 	float: left;
@@ -404,11 +404,11 @@ hr { /* has IE 7 equivalent */
 #parentReviews a {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     float: right;
-	margin: 4px 15px 0 0;
+	margin: 4px 25px 0 0;
 }
 
 #parentReviews .rating {
-	margin: 15px 0 0 20px;
+	margin: 15px 0 0 10px;
 	float: left;
 }
 
@@ -417,7 +417,7 @@ hr { /* has IE 7 equivalent */
 	font-size: 14px;
 	line-height: 18px;
 	padding: 7px 8px 0 10px;
-	margin: 18px 0 0 0;
+	margin: 18px 10px 0 0;
 	float: right;
 	border: 1px solid #ddd;
 }
