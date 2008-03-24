@@ -42,7 +42,7 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         _sessionContextUtil.setCommunityCookieGenerator(new CookieGenerator());
         _sessionContextUtil.setHasSearchedCookieGenerator(new CookieGenerator());
         CookieGenerator stateGen = new CookieGenerator();
-        stateGen.setCookieName("STATE2");
+        stateGen.setCookieName("STATE3");
         _sessionContextUtil.setStateCookieGenerator(stateGen);
 
 
@@ -176,27 +176,41 @@ public class SessionContextUtilSaTest extends BaseTestCase {
     }
 
     public void testStateCookie() {
-        Cookie newStateCookie = new Cookie("STATE2", "CA");
-        Cookie oldStateCookie = new Cookie("STATE", "AK");
+        Cookie newStateCookie = new Cookie("STATE3", "CA");
+        Cookie oldStateCookie1 = new Cookie("STATE", "AK");
+        Cookie oldStateCookie2 = new Cookie("STATE2", "TX");
 
         assertNull(_sessionContext.getState());
 
         _request.setCookies(new Cookie[] {newStateCookie});
         _sessionContextUtil.readCookies(_request, _sessionContext);
-        assertEquals("Value not read from STATE2 cookie", State.CA, _sessionContext.getState());
+        assertEquals("Value not read from STATE3 cookie", State.CA, _sessionContext.getState());
 
-        _request.setCookies(new Cookie[] {oldStateCookie});
+        _request.setCookies(new Cookie[] {oldStateCookie1});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value did not fall back to old STATE cookie", State.AK, _sessionContext.getState());
 
-        _request.setCookies(new Cookie[] {newStateCookie, oldStateCookie});
+        _request.setCookies(new Cookie[] {newStateCookie, oldStateCookie1});
         _sessionContextUtil.readCookies(_request, _sessionContext);
-        assertEquals("Value should always default to new STATE2 cookie", State.CA, _sessionContext.getState());
+        assertEquals("Value should always default to new STATE3 cookie", State.CA, _sessionContext.getState());
 
         // make sure order of cookie doesn't matter
-        _request.setCookies(new Cookie[] {oldStateCookie, newStateCookie});
+        _request.setCookies(new Cookie[] {oldStateCookie1, newStateCookie});
         _sessionContextUtil.readCookies(_request, _sessionContext);
-        assertEquals("Value should always default to new STATE2 cookie", State.CA, _sessionContext.getState());
+        assertEquals("Value should always default to new STATE3 cookie", State.CA, _sessionContext.getState());
+
+        _request.setCookies(new Cookie[] {oldStateCookie2});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Value did not fall back to old STATE cookie", State.TX, _sessionContext.getState());
+
+        _request.setCookies(new Cookie[] {newStateCookie, oldStateCookie2});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Value should always default to new STATE3 cookie", State.CA, _sessionContext.getState());
+
+        // make sure order of cookie doesn't matter
+        _request.setCookies(new Cookie[] {oldStateCookie2, newStateCookie});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Value should always default to new STATE3 cookie", State.CA, _sessionContext.getState());
     }
 
     public void testGetCommunityHostForProduction() {

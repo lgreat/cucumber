@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.35 2008/01/29 21:50:03 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.36 2008/03/24 18:24:13 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -156,7 +156,17 @@ public class SessionContextUtil implements ApplicationContextAware {
                 } else if (StringUtils.equals("STATE", thisCookie.getName())) {
                     // Check for this value in case new state cookie isn't present.
                     // This allows old users to retain their state cookie.
-                    // The value will be transferred from the SessionContext into a STATE2 cookie in
+                    // The value will be transferred from the SessionContext into a STATE3 cookie in
+                    // the response.
+                    String state = thisCookie.getValue();
+                    State s = _stateManager.getState(state);
+                    if (s != null) {
+                        oldCookiedState = s;
+                    }
+                } else if (StringUtils.equals("STATE2", thisCookie.getName())) {
+                    // Check for this value in case new state cookie isn't present.
+                    // This allows old users to retain their state cookie.
+                    // The value will be transferred from the SessionContext into a STATE3 cookie in
                     // the response.
                     String state = thisCookie.getValue();
                     State s = _stateManager.getState(state);
