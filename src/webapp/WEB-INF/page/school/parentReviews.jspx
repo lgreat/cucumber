@@ -131,7 +131,7 @@
                                 <pg:item>
                                     <!-- does user permit name to display-->
                                     <div class="review">
-                                        <a name="ps${review.id}"/>
+                                        <![CDATA[ <a name="ps${review.id}"></a> ]]> 
                                         <c:set var="who" value=""/>
                                         <c:if test="${!(empty(review.who) or review.who eq 'other')}">
                                             <c:set var="who" value="${review.who}"/>
