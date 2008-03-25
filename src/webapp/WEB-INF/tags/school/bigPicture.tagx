@@ -13,10 +13,12 @@
         >
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="divider" required="false" description="Should a divider appear below the big picture?" type="java.lang.Boolean"/>
+<jsp:directive.attribute name="anchor" required="false" description="Anchor - typically used for #from... tracking anchors" type="java.lang.String"/>
+
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="stateName" value="${school.databaseState.longName}"/>
-<c:set var="bigPictureAnchor" value="from..BigPicture"/>
+<c:set var="bigPictureAnchor" value="${(not empty anchor) ? anchor : 'from..BigPicture'}"/>
 
     <div id="bigPicture">
         <h2>Big Picture</h2>

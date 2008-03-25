@@ -187,7 +187,7 @@
                     </c:if>
                 </ul>
                 <c:if test="${d_version}">
-                    <school:bigPicture school="${school}" divider="false"/>
+                    <school:bigPicture school="${school}" divider="false" anchor="from..QuickFacts"/>
                 </c:if>
             </div>
         </div>
