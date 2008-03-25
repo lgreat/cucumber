@@ -149,6 +149,9 @@
             s.prop10 = clickCapture.getProp(10,"${requestScope.context.screenName}");
             s.prop11 = clickCapture.getProp(11,"GreatSchools");
 
+            s.events = "${events}";
+            s.hier1 = "${hier1}";
+
             s.eVar1 = clickCapture.getEVar(1);
             s.eVar2 = clickCapture.getEVar(2);
             s.eVar3 = clickCapture.getEVar(3);
