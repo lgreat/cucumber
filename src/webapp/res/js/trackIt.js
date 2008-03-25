@@ -29,7 +29,7 @@ ClickCapture.prototype.cookieName = "OmnitureTracking"   ;
  */
 ClickCapture.prototype.capture = function (omnitureEntity, value) {
     //alert("capture(" + omnitureEntity + ", " + value + ")");
-    if(omnitureEntity == undefined || omnitureEntity.length < 1 || value == undefined || value.length < 1) alert("capture: " + omnitureEntity + ", " + value);
+    //if(omnitureEntity == undefined || omnitureEntity.length < 1 || value == undefined || value.length < 1) alert("capture: " + omnitureEntity + ", " + value);
     subCookie.setObjectProperty(this.cookieName, omnitureEntity, value);
 };
 
@@ -78,12 +78,17 @@ ClickCapture.prototype.getVariable = function(variableType, index, overrideValue
         return '';
     }
 
-    if (this.dataObject[variableType + index] == undefined){
+    var value = '';
+    if (this.dataObject[variableType + index]) {
+        value =  this.dataObject[variableType + index];
+    }
+
+    if (value != 'undefined' ){
+        return value;
+    }else{
         return '';
     }
 
-
-    return this.dataObject[variableType + index];
 } ;
 
 ClickCapture.prototype.getProp = function( index, overrideValue){
@@ -147,7 +152,6 @@ var customInsight9ClickEventHandler = function (e) {
                  //debugLinks += "\n" +"GS_EV5_\t" + links[i].className + " " + res + "\t";
              }
          }
-
      }
      //alert(debugLinks);
  }
