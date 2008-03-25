@@ -305,7 +305,7 @@
                 <c:if test="${school.type.schoolTypeName ne 'private'
                 and (state eq 'az' or state eq 'ca' or
                 state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
-                state eq 'oh' or state eq 'tx' or requestScope.context.ABVersion eq 'c')}">
+                state eq 'oh' or state eq 'tx' )}">
                     <c:set var="finance" value="show" />
                 </c:if>
 
@@ -445,7 +445,7 @@
             </jsp:include>
 
             <c:if test="${((requestScope.context.ABVersion eq 'c') and (hasAPExams or hasPrincipalView)) or (requestScope.context.ABVersion ne 'c')}">
-            <div id="learnSchool">
+            <div id="${requestScope.context.ABVersion eq 'c' ? 'learnSchoolBigText' : 'learnSchool'}">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
                 <c:set var="hasAPExams" value="${hasAPExams}"/>
@@ -543,32 +543,53 @@
                 </c:when>
                 <c:when test="${(requestScope.context.ABVersion eq 'c') and (hasAPExams or hasPrincipalView)}">
                     <c:if test="${hasAPExams}">
-                        <link:schoolProfileCensus school="${school}" anchor="ap"
-                                                  styleId="LearnMore_Module_APExams1_${requestScope.context.ABVersion}"
-                                                  styleClass="GS_CI9_">
-                            <gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="" />
-                        </link:schoolProfileCensus>
-                        <p>
-                            <link:schoolProfileCensus school="${school}" anchor="ap"
-                                                      styleId="LearnMore_Module_APExams2_${requestScope.context.ABVersion}"
-                                                      styleClass="GS_CI9_">${school.name} AP exams</link:schoolProfileCensus>
-                        </p>
+                        <div class="wrapper">
+                            <div class="learnLeft">
+                                <div class="learnText">
+                                    <link:schoolProfileCensus school="${school}" anchor="ap"
+                                                              styleId="LearnMore_Module_APExams1_${requestScope.context.ABVersion}"
+                                                              styleClass="GS_CI9_">AP test scores from ${school.name}
+                                    </link:schoolProfileCensus>
+                                </div>
+                                <div class="learnImg">
+                                    <link:schoolProfileCensus school="${school}" anchor="ap"
+                                                                    styleId="LearnMore_Module_APExams1_${requestScope.context.ABVersion}"
+                                                                    styleClass="GS_CI9_">
+                                        <gsml:img src="/res/img/school/overview/v1_gobutton.gif" alt="" />
+                                                 </link:schoolProfileCensus>
+                                                          </div>
+                                                     </div>
+                        </div>
                     </c:if>
 
                     <c:if test="${hasPrincipalView}">
-                        <link:schoolProfilePrincipalView school="${school}"
-                                                         styleId="LearnMore_Module_SchoolsView1_${requestScope.context.ABVersion}"
-                                                         styleClass="GS_CI9_">
-                            <gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
-                        </link:schoolProfilePrincipalView>
-                        <p class="last">
-                            <link:schoolProfilePrincipalView school="${school}"
-                                                             styleId="LearnMore_Module_SchoolsView2_${requestScope.context.ABVersion}"
-                                                             styleClass="GS_CI9_">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
-                        </p>
+                        <div class="wrapperLast">
+                            <div class="learnLeftLast">
+                                <div class="learnText">
+                                    <link:schoolProfilePrincipalView school="${school}"
+                                                                     styleId="LearnMore_Module_SchoolsView1_${requestScope.context.ABVersion}"
+                                                                     styleClass="GS_CI9_">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
+                                </div>
+                                <div class="learnImg">
+                                    <link:schoolProfilePrincipalView school="${school}"
+                                                                     styleId="LearnMore_Module_SchoolsView1_${requestScope.context.ABVersion}"
+                                                                     styleClass="GS_CI9_">
+                                        <gsml:img src="/res/img/school/overview/v1_gobutton.gif" alt="" />
+                                                                     </link:schoolProfilePrincipalView>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${!hasPrincipalView and school.levelCode != 'p'}">
+                        <div id="insideScoop">
+                            <link:schoolProfileEspLogin school="${school}"
+                                                        styleId="LearnMore_Module_ESP_${requestScope.context.ABVersion}" styleClass="GS_CI9_">
+                                <gsml:img src="/res/img/school/overview/esp.gif" alt="What's the inside scoop on this school? Principals and school officials, tell us here" />
+                            </link:schoolProfileEspLogin>
+                        </div>
                     </c:if>
 
-                 </c:when>
+                </c:when>
                 </c:choose>
             </div>
             </c:if>

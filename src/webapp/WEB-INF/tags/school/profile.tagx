@@ -141,11 +141,11 @@
     <br></br><div class="printName">${school.name}</div>
     <p><img src="/res/img/pixel.gif" alt=" "/></p>
 </div>
-<div id="schoolProfileHeader" style="${(requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p'))) ? 'border: 2px solid #dee;padding-bottom:10px;' : '' }">
+<div id="schoolProfileHeader" style="${(tab eq 'overview' and requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p'))) ? 'border: 2px solid #dee;padding-bottom:10px;margin-bottom:5px;' : '' }">
 
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
-        <div id="tools" style="${(requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p'))) ? 'margin-top:7px' : '' }">
+        <div id="tools" style="${(tab eq 'overview' and requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p'))) ? 'margin-top:7px' : '' }">
             <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
             <link:mySchoolList school="${school}" styleClass="add toolsTxt" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
 
@@ -194,7 +194,7 @@
     <!-- End School name -->
 
     <!-- Ratings -->
-    <div id="ratings" style="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c')? '' : 'display:none;'}">   
+    <div id="ratings" style="${(tab eq 'overview' and (requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c'))? '' : 'display:none;'}">
         <!-- <div id="ratings">  -->
         <!-- Great Schools Rating -->      
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
@@ -241,7 +241,7 @@
     <!-- end: ratings -->
 
 
-    <c:if test="${(requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p')))}">
+    <c:if test="${(tab eq 'overview' and requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p')))}">
     <div id="subnavInHeader">
         <c:if test="${!requestScope.context.crawler}">
             <ul>
@@ -260,7 +260,7 @@
 
 </div> <!-- end: schoolProfileHeader div -->
 
-<c:if test="${(requestScope.context.ABVersion ne 'c' or ((schoolType eq 'private') or (school.levelCode eq 'p')))}">
+<c:if test="${(tab ne 'overview' or requestScope.context.ABVersion ne 'c' or ((schoolType eq 'private') or (school.levelCode eq 'p')))}">
 <c:set var="headerAnchor" value="from..Tab"/>
 <table id="navigation" cellpadding="0" cellspacing="0">
 <tr>
@@ -356,7 +356,7 @@
 <!-- end: navigation -->
 
 
-<c:if test="${(requestScope.context.ABVersion ne 'c' or ((schoolType eq 'private') or (school.levelCode eq 'p')))}">
+<c:if test="${(tab ne 'overview' or requestScope.context.ABVersion ne 'c' or ((schoolType eq 'private') or (school.levelCode eq 'p')))}">
 <div id="subnav">
     <c:if test="${!requestScope.context.crawler}">
         <ul>

@@ -525,7 +525,7 @@ hr { /* has IE 7 equivalent */
 }
 
 /* Learn About This School's */
-#learnSchool {
+#learnSchool,#learnSchoolBigText {
 	width: 356px;
 	margin: 0;
 	float: left;
@@ -533,7 +533,7 @@ hr { /* has IE 7 equivalent */
     border: 2px solid #EEEEEE;
 }
 
-#learnSchool h2 {
+#learnSchool h2, #learnSchoolBigText h2{
 	background: url(/res/img/school/overview/header_LearnAboutThisSchool.gif) no-repeat;
 	height: 37px;
 	text-indent: -9999px;
@@ -552,11 +552,48 @@ hr { /* has IE 7 equivalent */
     text-decoration:none;
 }
 
+#learnSchoolBigText div.wrapper ,
+#learnSchoolBigText div.wrapperLast{
+	font-size: 14px;
+	border-bottom: 1px dashed #ccc;
+    height: 50px;
+    text-decoration:none;
+    position:relative;
+}
+
+#learnSchoolBigText div.wrapperLast {
+    border:none;
+}
+
+#learnSchoolBigText .learnLeft,
+    #learnSchoolBigText .learnLeftLast{
+/*    background: url(/res/img/school/overview/v1_gobutton.gif) no-repeat scroll 258px center;    */
+    width:290px;
+    position:absolute;
+    top:10px;
+    left:15px;
+}
+
+#learnSchoolBigText .learnImg{
+/*    background: url(/res/img/school/overview/v1_gobutton.gif) no-repeat scroll 258px center;    */
+    position:absolute;
+    top:2px;
+    left:265px;
+}
+
+#learnSchoolBigText .learnText{
+    width: 250px;
+}
+
+#learnSchoolBigText .learnLeftLast{
+    top: 15px;
+}
+
 #learnSchool .last {
 	border: 0;
 }
 
-#learnSchool div.last {
+#learnSchool div.last{
     padding-bottom:15px;
 }
 
@@ -584,6 +621,11 @@ hr { /* has IE 7 equivalent */
 
 #learnSchool div, #learnSchool a, #learnSchool a:hover, #learnSchool a:visited {
   	font: 11px Trebuchet MS, sans-serif;
+	color: #666;
+    text-decoration:none;
+}
+ #learnSchoolBigText div, #learnSchoolBigText a, #learnSchoolBigText a:hover, #learnSchoolBigText a:visited{
+ 	font: 13px Trebuchet MS, sans-serif;
 	color: #666;
     text-decoration:none;
 }
