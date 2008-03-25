@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.25 2008/03/25 23:07:07 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.26 2008/03/25 23:56:46 aroy Exp $
 */
 
 package gs.web.geo;
@@ -92,7 +92,6 @@ public class NearbyCitiesController extends AbstractController {
                     limit = new Integer(request.getParameter(PARAM_COUNT));
                 }
                 List<ICity> nearbyCities = _geoDao.findNearbyCities(city, limit);
-                List<CityAndRating> nearbyCitiesWithRatings = attachCityRatings(nearbyCities);
 
                 if (StringUtils.equals("alpha", request.getParameter(PARAM_ORDER))) {
                     Collections.sort(nearbyCities, new Comparator<ICity>() {
@@ -102,6 +101,7 @@ public class NearbyCitiesController extends AbstractController {
                     });
                 }
 
+                List<CityAndRating> nearbyCitiesWithRatings = attachCityRatings(nearbyCities);
                 model.put(MODEL_CITIES, nearbyCitiesWithRatings);
 
                 String heading = request.getParameter(PARAM_HEADING) != null ? request.getParameter(PARAM_HEADING) : "Cities Near " + city.getName();
