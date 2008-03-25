@@ -66,3 +66,7 @@ Internet Explorer 7 specific styles
 #subnav {
     border-bottom: 1px dashed #dee;    
 }
+
+#ratings {
+	padding:10px 0 0 0;
+}
