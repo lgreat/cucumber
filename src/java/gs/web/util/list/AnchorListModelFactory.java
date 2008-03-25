@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.5 2007/08/16 20:00:52 chriskimm Exp $
+ * $Id: AnchorListModelFactory.java,v 1.6 2008/03/25 23:07:06 aroy Exp $
  */
 
 package gs.web.util.list;
@@ -14,6 +14,7 @@ import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.test.rating.CityRating;
 import gs.web.geo.NearbyCitiesController;
 import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
@@ -377,6 +378,83 @@ public class AnchorListModelFactory {
             // anchor
             UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
             Anchor anchor = builder.asAnchor(request, name, styleClass);
+            anchorListModel.add(anchor);
+        }
+
+        if (includeMoreItem) {
+            UrlBuilder builder = new UrlBuilder(city, UrlBuilder.CITIES_MORE_NEARBY);
+            builder.setParameter(NearbyCitiesController.PARAM_ORDER, "alpha");
+            builder.setParameter(NearbyCitiesController.PARAM_INCLUDE_STATE, "1");
+            if (!city.getState().equals(State.DC)) {
+                builder.setParameter(NearbyCitiesController.PARAM_ALL, "1");
+            }
+            Anchor anchor = builder.asAnchor(request, "More >", "more");
+            anchorListModel.add(anchor);
+        }
+        if (includeBrowseAllItem && !city.getState().equals(State.DC)) {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.CITIES, city.getState(), null);
+            Anchor anchor = builder.asAnchor(request, "Browse all " + city.getState().getLongName() + " cities",
+                    "more");
+            anchorListModel.add(anchor);
+
+        }
+        return anchorListModel;
+    }
+
+    /**
+     * Creates a list of city page links. Links are assigned a class of
+     * "town", "city" or "bigCity" depending on their size.
+     *
+     * @param heading              of the list
+     * @param city                 cities that this is near
+     * @param nearbyCities         List of ICity objects
+     * @param limit                maximum number of nearbyCities to show
+     * @param alwaysIncludeState   if true, labels each city as City, ST; otherwise,
+     *                             it only includes the state for cities in a different state than <code>city</code>.
+     * @param includeMoreItem      includes a "More" link at the end that points to a
+     *                             nearby city.
+     * @param includeBrowseAllItem if true, includes "Browse all cities in ST" as the last
+     *                             item. (Ignored for Washington, D.C.)
+     */
+    public AnchorListModel createNearbyCitiesWithRatingsAnchorListModel(final String heading, ICity city,
+                                                             List<NearbyCitiesController.CityAndRating> nearbyCities,
+                                                             int limit,
+                                                             final boolean alwaysIncludeState,
+                                                             final boolean includeMoreItem,
+                                                             final boolean includeBrowseAllItem,
+                                                             HttpServletRequest request) {
+        AnchorListModel anchorListModel = new AnchorListModel(heading);
+
+        for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
+            NearbyCitiesController.CityAndRating cityAndRating = nearbyCities.get(i);
+            ICity nearbyCity = cityAndRating.getCity();
+            CityRating rating = cityAndRating.getRating();
+
+            // name
+            String name = nearbyCity.getName();
+            if (alwaysIncludeState ||
+                    !nearbyCity.getState().equals(city.getState())) {
+                name += ", " + nearbyCity.getState().getAbbreviation();
+            }
+
+            // style class
+            String styleClass = "town";
+            long pop = 0;
+            if (nearbyCity.getPopulation() != null) {
+                pop = nearbyCity.getPopulation().intValue();
+            }
+            if (pop > 50000) {
+                styleClass = (pop > 200000) ? "bigCity" : "city";
+            }
+
+            // anchor
+            UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
+            Anchor anchor = builder.asAnchor(request, name, styleClass);
+            if (rating == null) {
+                anchor.setAfter("0");
+            } else {
+                anchor.setAfter(String.valueOf(rating.getRating()));
+            }
             anchorListModel.add(anchor);
         }
 

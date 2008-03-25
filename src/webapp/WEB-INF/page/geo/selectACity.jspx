@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:spring="http://www.springframework.org/tags"
@@ -12,6 +12,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
         >
     <html lang="en">
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -35,24 +36,43 @@
         <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
 
-                <td style="width:33%; vertical-align: top">
+                <td style="width:290px; vertical-align: top">
                     <div id="nearbyCities">
-                        <gsml:list model="${anchorListModel}"/>
+                        <h3 class="result_title">${anchorListModel.heading}</h3>
+                        <c:forEach var="anchor" items="${anchorListModel.results}">
+                            <c:set var="listItemClass" value="${anchor.styleClass}"/>
+                            <c:if test="${anchor eq anchorListModel.results[0]}">
+                                <c:set var="listItemClass" value="${anchor.styleClass} first"/>
+                            </c:if>
+                            <li class="${listItemClass}">
+                                <a href="${anchor.hrefXml}">${anchor.contents}
+                                    <c:if test="${not empty anchor.after}">
+                                        <c:set var="imageValue" value="${anchor.after}"/>
+                                        <c:set var="imageAlt" value="GreatSchools Rating: ${imageValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                        <c:if test="${imageValue eq '0'}">
+                                            <c:set var="imageValue" value="na"/>
+                                            <c:set var="imageAlt" value="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."/>
+                                        </c:if>
+                                        <gsml:img src="/res/img/geo/ratings/cities_sm_${imageValue}.gif" alt="${imageAlt}"/>
+                                    </c:if>
+                                </a>
+                            </li>
+                        </c:forEach>
                     </div>
                 </td>
                 <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                    <td style="width:66%; vertical-align: top">
+                    <td style="vertical-align: top">
                         <div id="mapContainer">
                             <div id="map">&#160;</div>
                             <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
                         </div>
                         <map:setup/>
-                        <map:cities functionName="createMap"
-                                    id="map"
-                                    lon="${cityObject.lon}"
-                                    lat="${cityObject.lat}"
-                                    scale="7"
-                                    cities="${cities}"/>
+                        <map:citiesWithRatings functionName="createMap"
+                                               id="map"
+                                               lon="${cityObject.lon}"
+                                               lat="${cityObject.lat}"
+                                               scale="7"
+                                               cities="${cities}"/>
                         <pageHelper:addOnLoadHandler handler="createMap()"/>
                     </td>
                 </c:if>

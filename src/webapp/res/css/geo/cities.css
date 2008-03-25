@@ -1,6 +1,6 @@
 #mapContainer {
-    margin: .3em;
-    border: 1px solid #00c;
+    margin: 0;
+    border: 1px solid #999999;
     background-color: #eee;
     padding: .0em;
 }
@@ -9,6 +9,38 @@
     width: 550px;
     height: 500px;
     float: right;
+}
+
+#mapContainer div.cityInfoBubble {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+#mapContainer div.cityInfoBubble a{
+    color:#44aabb;
+}
+
+#mapContainer div.cityName {
+    font-weight: bold;
+    font-size: 14px;
+    padding-bottom: 7px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+#mapContainer div.cityRating {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+#mapContainer div.cityRating img {
+    margin: 0;
+    padding: 0;
+}
+
+#mapContainer div.medianHomePrice {
+    color:#666666;
 }
 
 div#nearbyCities h3 {
@@ -28,7 +60,18 @@ div#nearbyCities li {
     font-size: small;
     display: list-item;
     border-top: 1px dotted #999;
-    padding: 3px 0 3px 15px;
+    padding: 4px 0 4px 15px;
+    position: relative;
+}
+
+div#nearbyCities li.first {
+    border-top: 0;
+}
+
+div#nearbyCities li img {
+    position: absolute;
+    right: 0;
+    top: 3px;
 }
 
 div#nearbyCities li a {

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+    <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
+    <jsp:directive.tag import="java.text.NumberFormat"/>
+    <jsp:directive.tag import="gs.data.geo.bestplaces.BpCity"/>
+    <jsp:directive.tag body-content="empty" description="Draw a map of cities." />
+    <jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
+    <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
+    <jsp:directive.attribute name="lon" required="true" description="Longitude (center of map)"/>
+    <jsp:directive.attribute name="lat" required="true" description="Latitude (center of map)"/>
+    <jsp:directive.attribute name="scale" required="true" description="Scale of the map, in google terms"/>
+    <jsp:directive.attribute name="cities" required="true" description="Cities to map" type="java.util.Collection"/>
+    <pageHelper:externalJavascript file="/res/js/mapTooltips.js"/>
+    <script type="text/javascript">
+    <![CDATA[
+     function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating) {
+         var icon = new GIcon();
+         var imageValue = rating;
+         if (rating == 0) {
+             imageValue = 'na';
+         }
+         icon.image = "/res/img/map/pushpin_" + imageValue + ".png";
+         icon.shadow =  "/res/img/map/pushpin_shadow.png"
+         icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
+         icon.iconSize = new GSize(39,36);
+         icon.iconAnchor = new GPoint(19,34);
+         icon.infoWindowAnchor = new GPoint(19,2);
+         icon.infoShadowAnchor = new GPoint(19,2);
+         icon.shadowSize = new GSize(39,36);
+         var marker = new GMarker(point, {icon:icon, title: cityName});
+         GEvent.addListener(marker, "click", function() {
+             var bubbleText = '';
+             bubbleText += '<div class="cityInfoBubble" style="height: 130px;">\n';
+             bubbleText += '  <div class="cityName">\n';
+             bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
+             bubbleText += '  </div>\n';
+             bubbleText += '  <div class="cityRating">';
+             bubbleText += '<img src="/res/img/geo/ratings/cities_lgbox_' + imageValue + '.gif"';
+             if (imageValue != 'na') {
+                bubbleText += ' alt="GreatSchools Rating: ' + imageValue + ' out of 10. GreatSchools Ratings are based on test results. 10 is best."';
+             } else {
+                 bubbleText += ' alt="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."';
+             }
+             bubbleText += '/>';
+             bubbleText += '</div>\n';
+             if (cityMedianHomePrice != '0') {
+                 bubbleText += '  <div class="medianHomePrice">';
+                 bubbleText += "Median home price: $" + cityMedianHomePrice;
+                 bubbleText += '</div>\n';
+             }
+             bubbleText += '  <div class="viewAllSchools">\n';
+             bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityName + ' &gt;</a>\n';
+             bubbleText += '  </div>\n';
+             bubbleText += '</div>';
+             marker.openInfoWindowHtml(bubbleText);
+         });
+         return marker;
+     }
+    ]]>
+
+function ${functionName}() {
+    if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("${id}"));
+        gTooltip = document.createElement("div");
+        map.getPane(G_MAP_FLOAT_PANE).appendChild(gTooltip);
+        gTooltip.style.visibility = "hidden";
+        map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
+        map.setCenter(new GLatLng(${lat}, ${lon}), ${17-scale});
+        <c:forEach var="s" items="${cities}" >
+             //alert('${s.city.name}: ${s.city.latLon}');
+            <c:if test="${not empty s.city.latLon and not empty s.city.latLon.lon}">
+                <c:set var="city" scope="request" value="${s.city}" />
+                <c:set var="cityRating" scope="request" value="0"/>
+                <c:if test="${not empty s.rating}">
+                    <c:set var="cityRating" scope="request" value="${s.rating.rating}"/>
+                </c:if>
+                <jsp:scriptlet>
+   /*Name of City
+Median home price: $999,999*/
+            gs.data.geo.ICity c = (gs.data.geo.ICity)request.getAttribute("city");
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, c.getState(), c.getName());
+            request.setAttribute("cityPageUrl", urlBuilder.asSiteRelative(request));
+            urlBuilder = new UrlBuilder(c, UrlBuilder.SCHOOLS_IN_CITY);
+            request.setAttribute("schoolsPageUrl", urlBuilder.asSiteRelative(request));
+            String medianHomePrice = "0";
+            if (c instanceof BpCity) {
+                BpCity bpsv = (BpCity) c;
+
+                NumberFormat formatter = NumberFormat.getInstance();
+                medianHomePrice = formatter.format(bpsv.getHouseMedianValue());
+            }
+            request.setAttribute("medianHomePrice", medianHomePrice);
+                </jsp:scriptlet>
+                var cityLocation = new GLatLng(${city.latLon.lat},${city.latLon.lon});
+                var rating = ${cityRating};
+                var medianHomePrice = '${medianHomePrice}';
+                var cityPageUrl = '${cityPageUrl}';
+                var schoolsPageUrl = '${schoolsPageUrl}';
+                var cityName = '${city.name}';
+                var state = '${city.state.abbreviation}';
+                var marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating);
+                map.addOverlay(marker);
+            </c:if>
+        </c:forEach>
+    }
+}
+</script>
+
+</jsp:root>

@@ -1,21 +1,26 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.24 2007/01/02 20:09:17 cpickslay Exp $
+* $Id: NearbyCitiesController.java,v 1.25 2008/03/25 23:07:07 aroy Exp $
 */
 
 package gs.web.geo;
 
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
+import gs.data.geo.bestplaces.BpZip;
+import gs.data.geo.bestplaces.BpCity;
 import gs.data.state.State;
-import gs.web.util.context.SessionContext;
+import gs.data.test.rating.ICityRatingDao;
+import gs.data.test.rating.CityRating;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModelFactory;
 import gs.web.util.list.AnchorListModel;
-import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +37,7 @@ import java.util.*;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class NearbyCitiesController extends AbstractController {
+    protected static final Log _log = LogFactory.getLog(NearbyCitiesController.class);
     protected static final String PARAM_CITY = "city";
     protected static final String PARAM_COUNT = "count";
     /**
@@ -64,62 +70,97 @@ public class NearbyCitiesController extends AbstractController {
 
     private String _viewName;
     private IGeoDao _geoDao;
+    private ICityRatingDao _cityRatingDao;
     private AnchorListModelFactory _anchorListModelFactory;
 
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
 
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        request.getParameter(SessionContextUtil.STATE_PARAM);
-
-        State state = context.getStateOrDefault();
+        State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
 
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
             ICity city = _geoDao.findCity(state, cityNameParam);
-
             if (city != null) {
                 model.put(MODEL_CITY, city);
 
                 int limit = DEFAULT_MAX_CITIES;
                 if (request.getParameter(PARAM_COUNT) != null) {
-                    limit = new Integer(request.getParameter(PARAM_COUNT)).intValue();
+                    limit = new Integer(request.getParameter(PARAM_COUNT));
                 }
-                List nearbyCities = _geoDao.findNearbyCities(city, limit);
+                List<ICity> nearbyCities = _geoDao.findNearbyCities(city, limit);
+                List<CityAndRating> nearbyCitiesWithRatings = attachCityRatings(nearbyCities);
 
                 if (StringUtils.equals("alpha", request.getParameter(PARAM_ORDER))) {
-                    Collections.sort(nearbyCities, new Comparator() {
-                        public int compare(Object o, Object o1) {
-                            return ((ICity) o).getName().compareToIgnoreCase(((ICity) o1).getName());
+                    Collections.sort(nearbyCities, new Comparator<ICity>() {
+                        public int compare(ICity o, ICity o1) {
+                            return o.getName().compareToIgnoreCase(o1.getName());
                         }
                     });
                 }
 
-                model.put(MODEL_CITIES, nearbyCities);
+                model.put(MODEL_CITIES, nearbyCitiesWithRatings);
 
                 String heading = request.getParameter(PARAM_HEADING) != null ? request.getParameter(PARAM_HEADING) : "Cities Near " + city.getName();
-                AnchorListModel anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
+                AnchorListModel anchorListModel = _anchorListModelFactory.createNearbyCitiesWithRatingsAnchorListModel(
                         heading, city,
-                        nearbyCities,
+                        nearbyCitiesWithRatings,
                         limit,
                         request.getParameter(PARAM_INCLUDE_STATE) != null,
                         request.getParameter(PARAM_MORE) != null,
                         request.getParameter(PARAM_ALL) != null,
                         request
                 );
-
                 model.put(AnchorListModel.DEFAULT, anchorListModel);
             }
         }
-
-
-        ModelAndView modelAndView = new ModelAndView(_viewName, model);
-        return modelAndView;
+        return new ModelAndView(_viewName, model);
     }
 
+    protected List<CityAndRating> attachCityRatings(List<ICity> cities) {
+        List<CityAndRating> cityRatings = new ArrayList<CityAndRating>();
+
+        for (ICity city: cities) {
+            CityRating rating = null;
+            // grab median home price
+            ICity cityVal = populateWithBp(city);
+            // grab city rating
+            try {
+                rating = _cityRatingDao.getCityRatingByCity(city.getState(), city.getName());
+            } catch (ObjectRetrievalFailureException orfe) {
+                // this is ok, it will display N/A
+            }
+            CityAndRating cityRating = new CityAndRating(cityVal, rating);
+            cityRatings.add(cityRating);
+        }
+        return cityRatings;
+    }
+
+    protected ICity populateWithBp(ICity city) {
+        // pull from BpCity
+        ICity cityVal = _geoDao.findBpCity(city.getState(), city.getName());
+        if (cityVal == null) {
+            // can't find in BpCity, try BpZip ...
+            BpZip zip = _geoDao.findZip(city.getState(), city.getName());
+            if (zip == null) {
+                // can't find any Bp entries, just return the original without any census info
+                cityVal = city;
+            } else {
+                // BpZip isn't an ICity, so let's create a BpCity and populate it quickly
+                BpCity bpcity = new BpCity();
+                bpcity.setName(city.getName());
+                bpcity.setState(city.getState());
+                bpcity.setLat(city.getLatLon().getLat());
+                bpcity.setLon(city.getLatLon().getLon());
+                bpcity.setHouseMedianValue(zip.getHouseMedianValue());
+                cityVal = bpcity;
+            }
+        }
+        return cityVal;
+    }
 
     public String getViewName() {
         return _viewName;
@@ -144,4 +185,39 @@ public class NearbyCitiesController extends AbstractController {
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
     }
+
+    public ICityRatingDao getCityRatingDao() {
+        return _cityRatingDao;
+    }
+
+    public void setCityRatingDao(ICityRatingDao cityRatingDao) {
+        _cityRatingDao = cityRatingDao;
+    }
+
+    public static class CityAndRating {
+        private ICity _city;
+        private CityRating _rating;
+
+        public CityAndRating(ICity city, CityRating rating) {
+            _city = city;
+            _rating = rating;
+        }
+
+        public ICity getCity() {
+            return _city;
+        }
+
+        public void setCity(ICity city) {
+            _city = city;
+        }
+
+        public CityRating getRating() {
+            return _rating;
+        }
+
+        public void setRating(CityRating rating) {
+            _rating = rating;
+        }
+    }
+
 }
