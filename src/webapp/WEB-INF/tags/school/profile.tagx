@@ -145,7 +145,7 @@
 
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
-        <div id="tools" style="${(tab eq 'overview' and requestScope.context.ABVersion eq 'c' and ((schoolType != 'private') and (school.levelCode != 'p'))) ? 'margin-top:7px' : '' }">
+        <div id="tools" style="${(tab eq 'overview' and (requestScope.context.ABVersion eq 'c' or requestScope.context.ABVersion eq 'b') and ((schoolType != 'private') and (school.levelCode != 'p'))) ? requestScope.context.ABVersion eq 'b' ? 'margin-top: 20px;' : 'margin-top:7px' : '' }">
             <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
             <link:mySchoolList school="${school}" styleClass="add toolsTxt" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
 
