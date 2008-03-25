@@ -23,17 +23,11 @@
 <c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <c:choose>
-        <c:when test="${not empty stateOrNull}" >
-            <title>${gsweb:statePageTitle(stateOrNull)}</title>
-            <meta name="description" content="${gsweb:statePageDescription(stateOrNull)}"/>
-            <meta name="keywords" content="${gsweb:statePageKeywords(stateOrNull)}"/>
-        </c:when>
-        <c:otherwise>
-            <title><c:out value="Research &amp; Compare Schools" escapeXml="true"/></title>
-            <meta name="description" content="School information for K-12 schools nationwide: Test scores, school parent reviews and more. Plus, get expert advice to help find the right school for your child."/>
-        </c:otherwise>
-    </c:choose>
+    <title>${gsweb:statePageTitle(stateOrNull)}</title>
+    <meta name="description" content="${gsweb:statePageDescription(stateOrNull)}"/>
+    <c:if test="${not empty stateOrNull}" >
+        <meta name="keywords" content="${gsweb:statePageKeywords(stateOrNull)}"/>
+    </c:if>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
     <!-- Any adjustment to left column heights in CSS will require a change here! -->
     <!-- 25 is bottom padding, 278 is height of editor's picks section plus 10px margin, 10 is top padding -->
