@@ -1,12 +1,13 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.26 2008/03/25 23:56:46 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.27 2008/03/26 17:27:12 aroy Exp $
 */
 
 package gs.web.geo;
 
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.geo.bestplaces.BpCity;
 import gs.data.state.State;
@@ -65,6 +66,7 @@ public class NearbyCitiesController extends AbstractController {
     // AnchorListModel.RESULTS has a list of Anchor objects
     protected static final String MODEL_CITY = "cityObject"; // Base city, ICity
     public static final String MODEL_CITIES = "cities"; // List of nearby cities
+    public static final String MODEL_COMPARE_CITIES = "compareCities";
 
     private static final int DEFAULT_MAX_CITIES = 20;
 
@@ -82,6 +84,7 @@ public class NearbyCitiesController extends AbstractController {
 
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
+            loadCityList(state, model);
 
             ICity city = _geoDao.findCity(state, cityNameParam);
             if (city != null) {
@@ -118,6 +121,14 @@ public class NearbyCitiesController extends AbstractController {
             }
         }
         return new ModelAndView(_viewName, model);
+    }
+
+    protected void loadCityList(State state, Map<String, Object> model) {
+        List<City> cities = _geoDao.findCitiesByState(state);
+        City city = new City();
+        city.setName("Choose city");
+        cities.add(0, city);
+        model.put(MODEL_COMPARE_CITIES, cities);
     }
 
     protected List<CityAndRating> attachCityRatings(List<ICity> cities) {

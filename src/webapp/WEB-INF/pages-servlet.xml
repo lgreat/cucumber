@@ -526,6 +526,10 @@
             <value>/geo/selectACity</value>
         </property>
     </bean>
+    
+    <bean name="/citiesAjax.page"
+          class="gs.web.geo.NearbyCitiesAjaxController"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/schools/allInState.page"
           class="gs.web.school.AllInStateController"

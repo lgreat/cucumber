@@ -13,6 +13,7 @@
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:gsweb="gstaglib"
         >
     <html lang="en">
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -28,10 +29,68 @@
             ]]>
         <c:set var="city">${param["city"]}</c:set>
         <title>Select a City Near ${city}</title>
+
+        <pageHelper:externalJavascript file="/res/js/prototype.js"/>
+
+        <script type="text/javascript">
+            <![CDATA[
+            <!--
+            function verifyCity(selectId) {
+                var citySelect = document.getElementById(selectId);
+                if (citySelect.value == 'Choose city' || citySelect.value == '') {
+                    alert("Please choose a city");
+                    citySelect.focus();
+                    return false;
+                }
+                return true;
+            }
+
+            function stateChange(stateSelect, cityDivId, citySelectId) {
+                var url = 'citiesAjax.page';
+                var pars = 'state=' + stateSelect.value;
+                $(cityDivId).innerHTML = '<select name="city" id="' + citySelectId + '"><option value="">Loading ...</option></select>';
+                var myAjax = new Ajax.Updater (
+                        cityDivId,
+                        url,
+                        {
+                            method: 'get',
+                            parameters: pars
+                        });
+            }
+            -->
+            ]]>
+        </script>
     </head>
 
     <gsml:body adPageName="city">
         <pageHelper:externalCss file="res/css/geo/cities.css"/>
+
+        <div class="compareCitiesNear compareHorizontal">
+            <gsweb:form id="compareHorizontal"
+                        action="/cities.page"
+                        method="get">
+                <input type="hidden" name="includeState" value="${param['includeState']}"/>
+                <input type="hidden" name="order" value="${param['order']}"/>
+                <input type="hidden" name="all" value="${param['all']}"/>
+                <gsml:img src="/res/img/geo/compare_yellow.gif"
+                          alt="Magnifying glass"/>
+                <h2>Compare cities near:</h2>
+                <div id="horizontalCompareCity">
+                    <select id="horizontalCompareCitySelect" name="city" class="compareCitySelect">
+                        <c:forEach var="cityOption" items="${compareCities}">
+                            <option value="${cityOption.name}">${cityOption.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <gsweb:stateSelector state="${param['state']}"
+                                     styleId="horizontalCompareState"
+                                     name="state"
+                                     onChange="stateChange(this, 'horizontalCompareCity', 'horizontalCompareCitySelect');"/>
+
+                <gsml:inputImage src="/res/img/button/go.gif" alt="Go"
+                                 name="submit" onclick="return verifyCity('horizontalCompareCitySelect');"/>
+            </gsweb:form>
+        </div>
 
         <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
@@ -39,25 +98,27 @@
                 <td style="width:290px; vertical-align: top">
                     <div id="nearbyCities">
                         <h3 class="result_title">${anchorListModel.heading}</h3>
-                        <c:forEach var="anchor" items="${anchorListModel.results}">
-                            <c:set var="listItemClass" value="${anchor.styleClass}"/>
-                            <c:if test="${anchor eq anchorListModel.results[0]}">
-                                <c:set var="listItemClass" value="${anchor.styleClass} first"/>
-                            </c:if>
-                            <li class="${listItemClass}">
-                                <a href="${anchor.hrefXml}">${anchor.contents}
-                                    <c:if test="${not empty anchor.after}">
-                                        <c:set var="imageValue" value="${anchor.after}"/>
-                                        <c:set var="imageAlt" value="GreatSchools Rating: ${imageValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                                        <c:if test="${imageValue eq '0'}">
-                                            <c:set var="imageValue" value="na"/>
-                                            <c:set var="imageAlt" value="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."/>
+                        <ul>
+                            <c:forEach var="anchor" items="${anchorListModel.results}">
+                                <c:set var="listItemClass" value="${anchor.styleClass}"/>
+                                <c:if test="${anchor eq anchorListModel.results[0]}">
+                                    <c:set var="listItemClass" value="${anchor.styleClass} first"/>
+                                </c:if>
+                                <li class="${listItemClass}">
+                                    <a href="${anchor.hrefXml}">${anchor.contents}
+                                        <c:if test="${not empty anchor.after}">
+                                            <c:set var="imageValue" value="${anchor.after}"/>
+                                            <c:set var="imageAlt" value="GreatSchools Rating: ${imageValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                            <c:if test="${imageValue eq '0'}">
+                                                <c:set var="imageValue" value="na"/>
+                                                <c:set var="imageAlt" value="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."/>
+                                            </c:if>
+                                            <gsml:img src="/res/img/geo/ratings/cities_sm_${imageValue}.gif" alt="${imageAlt}"/>
                                         </c:if>
-                                        <gsml:img src="/res/img/geo/ratings/cities_sm_${imageValue}.gif" alt="${imageAlt}"/>
-                                    </c:if>
-                                </a>
-                            </li>
-                        </c:forEach>
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
                     </div>
                 </td>
                 <c:if test="${requestScope.context.cobrand ne 'yahooed'}">

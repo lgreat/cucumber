@@ -19,6 +19,7 @@
     <pageHelper:externalJavascript file="/res/js/mapTooltips.js"/>
     <script type="text/javascript">
     <![CDATA[
+    <!--
      var popTimeout;
      var isClick = false;
      function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating) {
@@ -135,6 +136,9 @@ Median home price: $999,999*/
         </c:forEach>
     }
 }
+    <![CDATA[
+    -->
+    ]]>
 </script>
 
 </jsp:root>
