@@ -94,7 +94,7 @@
             pageHelper.addAdKeyword("type", schoolType);
             pageHelper.addAdKeyword("level", levelAbbrev);
             pageHelper.addAdKeyword("county", county);
-            pageHelper.addAdKeyword("city", county);
+            pageHelper.addAdKeyword("city", city);
             pageHelper.addAdKeyword("school_id", school.getId().toString());
         }
     } catch (Exception e) {
