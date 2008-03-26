@@ -1,3 +1,14 @@
+//read cookie, return "" if cookie not found or cookie not set
+function readEscapedCookie(cookieName) {
+    var cookie = "" + document.cookie;
+    var i = cookie.indexOf(cookieName);
+    if (i == -1 || cookieName == "") return "";
+
+    var j = cookie.indexOf(';', i);
+    if (j == -1) j = cookie.length;
+
+    return unescape(cookie.substring(i + cookieName.length + 1, j));
+}
 
 
 /* circumventing browser restrictions on the number of cookies one can use */
@@ -10,7 +21,7 @@ var subCookie = {
      */
     getObject: function(cookieName){
         //alert("getObject()");
-        var cookieValue = readCookie(cookieName);
+        var cookieValue = readEscapedCookie(cookieName);
         if (cookieValue == undefined || cookieValue.length < 1) {
             //alert("return cookie is null");
             return null;
