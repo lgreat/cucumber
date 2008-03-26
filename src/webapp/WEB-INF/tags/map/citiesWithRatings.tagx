@@ -20,6 +20,7 @@
     <script type="text/javascript">
     <![CDATA[
      var popTimeout;
+     var isClick = false;
      function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating) {
          var icon = new GIcon();
          var imageValue = rating;
@@ -36,16 +37,24 @@
          icon.shadowSize = new GSize(39,36);
          var marker = new GMarker(point, {icon:icon});
          GEvent.addListener(marker, "click", function() {
+             window.clearTimeout(popTimeout);
+             isClick = true;
              marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice));
          });
          GEvent.addListener(marker, "mouseover", function() {
              window.clearTimeout(popTimeout);
              popTimeout = window.setTimeout(function() {
+                 isClick = false;
                  marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice));
              }, 500);
          });
          GEvent.addListener(marker, "mouseout", function() {
              window.clearTimeout(popTimeout);
+             popTimeout = window.setTimeout(function() {
+                 if (!isClick) {
+                     marker.closeInfoWindow();
+                 }
+             }, 1500);
          });
          return marker;
      }
