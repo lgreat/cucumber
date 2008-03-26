@@ -19,6 +19,7 @@
     <pageHelper:externalJavascript file="/res/js/mapTooltips.js"/>
     <script type="text/javascript">
     <![CDATA[
+     var popTimeout;
      function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating) {
          var icon = new GIcon();
          var imageValue = rating;
@@ -27,41 +28,56 @@
          }
          icon.image = "/res/img/map/pushpin_" + imageValue + ".png";
          icon.shadow =  "/res/img/map/pushpin_shadow.png"
-         //icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
+         icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
          icon.iconSize = new GSize(39,36);
          icon.iconAnchor = new GPoint(19,34);
          icon.infoWindowAnchor = new GPoint(19,2);
          icon.infoShadowAnchor = new GPoint(19,2);
          icon.shadowSize = new GSize(39,36);
-         var marker = new GMarker(point, {icon:icon, title: cityName});
+         var marker = new GMarker(point, {icon:icon});
          GEvent.addListener(marker, "click", function() {
-             var bubbleText = '';
-             bubbleText += '<div class="cityInfoBubble" style="height: 130px;">\n';
-             bubbleText += '  <div class="cityName">\n';
-             bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
-             bubbleText += '  </div>\n';
-             bubbleText += '  <div class="cityRating">';
-             bubbleText += '<img src="/res/img/geo/ratings/cities_lgbox_' + imageValue + '.gif"';
-             if (imageValue != 'na') {
-                bubbleText += ' alt="GreatSchools Rating: ' + imageValue + ' out of 10. GreatSchools Ratings are based on test results. 10 is best."';
-             } else {
-                 bubbleText += ' alt="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."';
-             }
-             bubbleText += '/>';
-             bubbleText += '</div>\n';
-             if (cityMedianHomePrice != '0') {
-                 bubbleText += '  <div class="medianHomePrice">';
-                 bubbleText += "Median home price: $" + cityMedianHomePrice;
-                 bubbleText += '</div>\n';
-             }
-             bubbleText += '  <div class="viewAllSchools">\n';
-             bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityName + ' &gt;</a>\n';
-             bubbleText += '  </div>\n';
-             bubbleText += '</div>';
-             marker.openInfoWindowHtml(bubbleText);
+             marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice));
+         });
+         GEvent.addListener(marker, "mouseover", function() {
+             window.clearTimeout(popTimeout);
+             popTimeout = window.setTimeout(function() {
+                 marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice));
+             }, 500);
+         });
+         GEvent.addListener(marker, "mouseout", function() {
+             window.clearTimeout(popTimeout);
          });
          return marker;
      }
+
+    function getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice) {
+        var bubbleText = '';
+        bubbleText += '<div class="cityInfoBubble" style="height: 130px;">\n';
+        bubbleText += '  <div class="cityName">\n';
+        bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
+        bubbleText += '  </div>\n';
+        bubbleText += '  <div class="cityRating">';
+        bubbleText += '  <a href="' + cityUrl + '">';
+        bubbleText += '<img src="/res/img/geo/ratings/cities_lgbox_' + imageValue + '.gif"';
+        if (imageValue != 'na') {
+           bubbleText += ' alt="GreatSchools Rating: ' + imageValue + ' out of 10. GreatSchools Ratings are based on test results. 10 is best."';
+        } else {
+            bubbleText += ' alt="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."';
+        }
+        bubbleText += '/>';
+        bubbleText += '</a>';
+        bubbleText += '</div>\n';
+        if (cityMedianHomePrice != '0') {
+            bubbleText += '  <div class="medianHomePrice">';
+            bubbleText += "Median home price: $" + cityMedianHomePrice;
+            bubbleText += '</div>\n';
+        }
+        bubbleText += '  <div class="viewAllSchools">\n';
+        bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityName + ' &gt;</a>\n';
+        bubbleText += '  </div>\n';
+        bubbleText += '</div>';
+        return bubbleText;
+    }
     ]]>
 
 function ${functionName}() {
