@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.28 2008/03/26 22:10:15 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.29 2008/03/26 22:37:30 aroy Exp $
 */
 
 package gs.web.geo;
@@ -140,39 +140,52 @@ public class NearbyCitiesController extends AbstractController {
 
         for (ICity city: cities) {
             CityRating rating = null;
-            // grab median home price
-            ICity cityVal = populateWithBp(city);
             // grab city rating
             try {
                 rating = _cityRatingDao.getCityRatingByCity(city.getState(), city.getName());
             } catch (ObjectRetrievalFailureException orfe) {
                 // this is ok, it will display N/A
             }
-            CityAndRating cityRating = new CityAndRating(cityVal, rating);
+            CityAndRating cityRating = new CityAndRating();
+            cityRating.setRating(rating);
+            // grab median home price
+            ICity cityVal = getBpCity(city);
+            // no bpcity? Try bpzip
+            if (cityVal == null) {
+                cityVal = getBpZip(city);
+                if (cityVal != null) {
+                    cityRating.setFromZip(true);
+                }
+            }
+            // no bpzip? Then forget about it
+            if (cityVal == null) {
+                cityVal = city;
+            }
+            cityRating.setCity(cityVal);
             cityRatings.add(cityRating);
         }
         return cityRatings;
     }
 
-    protected ICity populateWithBp(ICity city) {
+    protected ICity getBpCity(ICity city) {
         // pull from BpCity
-        ICity cityVal = _geoDao.findBpCity(city.getState(), city.getName());
-        if (cityVal == null) {
-            // can't find in BpCity, try BpZip ...
-            BpZip zip = _geoDao.findZip(city.getState(), city.getName());
-            if (zip == null) {
-                // can't find any Bp entries, just return the original without any census info
-                cityVal = city;
-            } else {
-                // BpZip isn't an ICity, so let's create a BpCity and populate it quickly
-                BpCity bpcity = new BpCity();
-                bpcity.setName(city.getName());
-                bpcity.setState(city.getState());
-                bpcity.setLat(city.getLatLon().getLat());
-                bpcity.setLon(city.getLatLon().getLon());
-                bpcity.setHouseMedianValue(zip.getHouseMedianValue());
-                cityVal = bpcity;
-            }
+        return _geoDao.findBpCity(city.getState(), city.getName());
+    }
+
+    protected ICity getBpZip(ICity city) {
+        ICity cityVal = null;
+        // can't find in BpCity, try BpZip ...
+        BpZip zip = _geoDao.findZip(city.getState(), city.getName());
+        if (zip != null) {
+            // BpZip isn't an ICity, so let's create a BpCity and populate it quickly
+            BpCity bpcity = new BpCity();
+            bpcity.setName(city.getName());
+            bpcity.setState(city.getState());
+            bpcity.setLat(city.getLatLon().getLat());
+            bpcity.setLon(city.getLatLon().getLon());
+            bpcity.setHouseMedianValue(zip.getHouseMedianValue());
+            bpcity.setZip(zip.getZip());
+            cityVal = bpcity;
         }
         return cityVal;
     }
@@ -212,11 +225,7 @@ public class NearbyCitiesController extends AbstractController {
     public static class CityAndRating {
         private ICity _city;
         private CityRating _rating;
-
-        public CityAndRating(ICity city, CityRating rating) {
-            _city = city;
-            _rating = rating;
-        }
+        private boolean _fromZip;
 
         public ICity getCity() {
             return _city;
@@ -232,6 +241,14 @@ public class NearbyCitiesController extends AbstractController {
 
         public void setRating(CityRating rating) {
             _rating = rating;
+        }
+
+        public boolean isFromZip() {
+            return _fromZip;
+        }
+
+        public void setFromZip(boolean fromZip) {
+            _fromZip = fromZip;
         }
     }
 

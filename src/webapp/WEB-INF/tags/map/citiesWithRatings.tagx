@@ -21,7 +21,7 @@
     <!--
      var popTimeout;
      var isClick = false;
-     function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating) {
+     function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating, zip) {
          var icon = new GIcon();
          var imageValue = rating;
          if (rating == 0) {
@@ -39,13 +39,13 @@
          GEvent.addListener(marker, "click", function() {
              window.clearTimeout(popTimeout);
              isClick = true;
-             marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice));
+             marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice, zip));
          });
          GEvent.addListener(marker, "mouseover", function() {
              window.clearTimeout(popTimeout);
              popTimeout = window.setTimeout(function() {
                  isClick = false;
-                 marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice));
+                 marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice, zip));
              }, 500);
          });
          GEvent.addListener(marker, "mouseout", function() {
@@ -59,9 +59,16 @@
          return marker;
      }
 
-    function getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice) {
+    function getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice, zip) {
         var bubbleText = '';
-        bubbleText += '<div class="cityInfoBubble" style="height: 130px;">\n';
+        var height = 110;
+        if (cityMedianHomePrice != '0') {
+            height += 20;
+            if (zip += '') {
+                height += 20;
+            }
+        }
+        bubbleText += '<div class="cityInfoBubble" style="height: ' + height + 'px;">\n';
         bubbleText += '  <div class="cityName">\n';
         bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
         bubbleText += '  </div>\n';
@@ -79,7 +86,13 @@
         if (cityMedianHomePrice != '0') {
             bubbleText += '  <div class="medianHomePrice">';
             bubbleText += "Median home price: $" + cityMedianHomePrice;
+            if (zip != '') {
+                bubbleText += '*';
+            }
             bubbleText += '</div>\n';
+            if (zip != '') {
+                bubbleText += '  <div class="zip">* Based on zip code ' + zip + '</div>\n';
+            }
         }
         bubbleText += '  <div class="viewAllSchools">\n';
         bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityName + ' &gt;</a>\n';
@@ -125,7 +138,11 @@ Median home price: $999,999*/
                 var schoolsPageUrl = "${schoolsPageUrl}";
                 var cityName = "${city.name}";
                 var state = '${city.state.abbreviation}';
-                var marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating);
+                var zip = "";
+                <c:if test="${s.fromZip eq true}">
+                    zip = "${city.zip}";
+                </c:if>
+                var marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating, zip);
                 map.addOverlay(marker);
             </c:if>
         </c:forEach>

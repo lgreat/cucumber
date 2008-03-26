@@ -43,6 +43,12 @@
     color:#666666;
 }
 
+#mapContainer div.zip {
+    margin: 0 0 5px 0;
+    font-size: 10px;
+    color: #666666;
+}
+
 div.learnMore {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 13px;
