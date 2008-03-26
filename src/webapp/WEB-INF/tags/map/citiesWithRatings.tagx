@@ -125,9 +125,9 @@ Median home price: $999,999*/
                 var cityLocation = new GLatLng(${city.latLon.lat},${city.latLon.lon});
                 var rating = ${cityRating};
                 var medianHomePrice = '${medianHomePrice}';
-                var cityPageUrl = '${cityPageUrl}';
-                var schoolsPageUrl = '${schoolsPageUrl}';
-                var cityName = '${city.name}';
+                var cityPageUrl = "${cityPageUrl}";
+                var schoolsPageUrl = "${schoolsPageUrl}";
+                var cityName = "${city.name}";
                 var state = '${city.state.abbreviation}';
                 var marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating);
                 map.addOverlay(marker);
