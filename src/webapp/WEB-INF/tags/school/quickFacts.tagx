@@ -74,7 +74,9 @@
         </c:otherwise>
     </c:choose>
 
-    <gsml:equalizeColumns ids="'leftCol','rightCol'"/>
+    <c:if test="${d_version}">
+        <gsml:equalizeColumns ids="'leftCol','rightCol'"/>
+    </c:if>
 
     <div id="quickFacts">
         <h2>${school.name} Quick Facts</h2>
