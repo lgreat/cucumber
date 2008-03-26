@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.27 2008/03/26 17:27:12 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.28 2008/03/26 22:10:15 aroy Exp $
 */
 
 package gs.web.geo;
@@ -104,13 +104,17 @@ public class NearbyCitiesController extends AbstractController {
                     });
                 }
 
+                nearbyCities.add(0, city); // add our city to list so it will get ratings/bp info
                 List<CityAndRating> nearbyCitiesWithRatings = attachCityRatings(nearbyCities);
+
+                List<CityAndRating> citiesForList = new ArrayList<CityAndRating>(nearbyCitiesWithRatings);
+                citiesForList.remove(0); // remove our city from this list so it won't appear in cities near
                 model.put(MODEL_CITIES, nearbyCitiesWithRatings);
 
                 String heading = request.getParameter(PARAM_HEADING) != null ? request.getParameter(PARAM_HEADING) : "Cities Near " + city.getName();
                 AnchorListModel anchorListModel = _anchorListModelFactory.createNearbyCitiesWithRatingsAnchorListModel(
                         heading, city,
-                        nearbyCitiesWithRatings,
+                        citiesForList,
                         limit,
                         request.getParameter(PARAM_INCLUDE_STATE) != null,
                         request.getParameter(PARAM_MORE) != null,

@@ -43,6 +43,17 @@
     color:#666666;
 }
 
+div.learnMore {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    float: right;
+}
+
+div#contentGS div.learnMore a {
+    color:#44aabb;
+    text-decoration: underline;
+}
+
 div#nearbyCities h3 {
     font-size: medium;
     font-weight: 700;
@@ -87,30 +98,11 @@ div#nearbyCities li a {
     padding-left: 16px;
 }
 
-.tooltip {
-    font-size: small;
-    font-weight: bold;
-    padding: 2px;
-    border-style: solid;
-    border-top-width: 1px;
-    border-left-width: 2px;
-    border-bottom-width: 2px;
-    border-right-width: 1px;
-    border-color: #000 #666 #666 #000;
-    background-color: #FF9;
-    color: #000;
-}
-
 div.compareCitiesNear select {
     color: #666666;
 }
 
-div.compareHorizontal img, div.compareHorizontal h2, div.compareHorizontal select, div.compareHorizontal input {
-    float: left;
-    margin-right: 10px;
-}
-
-div.compareHorizontal img {
+div.compareCitiesNear img {
     position: relative;
     top: -5px;
 }
@@ -119,6 +111,11 @@ div.compareCitiesNear h2 {
     font-size: 18px;
     font-weight: bold;
     color: #55BBCC;
+}
+
+div.compareHorizontal img, div.compareHorizontal h2, div.compareHorizontal select, div.compareHorizontal input {
+    float: left;
+    margin-right: 10px;
 }
 
 div.compareHorizontal input {
@@ -132,4 +129,64 @@ div.compareHorizontal {
     height: 35px;
     padding: 10px 0 10px 0;
     margin: 0;
+}
+
+div#editorialBar {
+    clear: both;
+    height: 115px;
+    padding: 5px 0 5px 0;
+    margin-top: 25px;
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+div.compareVertical {
+    float: left;
+    padding: 5px 0 0 0;
+    margin: 0;
+    border-right: 1px solid #DDDDDD;
+    height: 109px;
+    width: 285px;
+}
+
+div.compareVertical img, div.compareVertical h2, div.compareVertical select, div.compareVertical input {
+    float: left;
+}
+
+div.compareVertical img, div.compareVertical select.compareCitySelect {
+    margin: 0 10px 0 0;
+}
+
+div.compareVertical img {
+    top: 0;
+}
+
+div.compareVertical h2 {
+    position: relative;
+    top: 5px;
+    margin-bottom: 20px;
+}
+
+div.compareVertical select.compareCitySelect {
+    clear: left;
+}
+
+div.compareVertical input {
+    clear: left;
+    margin-top: 6px;
+}
+
+div.editorialMoving, div.editorialChoosing {
+    padding: 15px 0 0 10px;
+    margin: 0;
+    float: left;
+    width: 275px;
+    height: 99px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color:#55BBCC;    
+}
+
+div.editorialMoving {
+    border-right: 1px solid #DDDDDD;
 }
