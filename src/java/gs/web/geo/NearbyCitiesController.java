@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.30 2008/03/27 15:24:40 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.31 2008/03/27 17:39:52 aroy Exp $
 */
 
 package gs.web.geo;
@@ -42,6 +42,7 @@ public class NearbyCitiesController extends AbstractController {
     protected static final Log _log = LogFactory.getLog(NearbyCitiesController.class);
     protected static final String PARAM_CITY = "city";
     protected static final String PARAM_COUNT = "count";
+    protected static final String PARAM_MODULE = "module";
     /**
      * Set if you want a "see more nearby cities..." link.
      */
@@ -63,7 +64,6 @@ public class NearbyCitiesController extends AbstractController {
 
     protected static final String PARAM_HEADING = "heading";
 
-
     // AnchorListModel.RESULTS has a list of Anchor objects
     protected static final String MODEL_CITY = "cityObject"; // Base city, ICity
     public static final String MODEL_CITIES = "cities"; // List of nearby cities
@@ -83,9 +83,13 @@ public class NearbyCitiesController extends AbstractController {
 
         State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
 
+        boolean isModule = StringUtils.equals("true", request.getParameter(PARAM_MODULE));
+
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
-            loadCityList(state, model);
+            if (!isModule) {
+                loadCityList(state, model);
+            }
 
             ICity city = _geoDao.findCity(state, cityNameParam);
             if (city != null) {
@@ -104,24 +108,36 @@ public class NearbyCitiesController extends AbstractController {
                         }
                     });
                 }
-
-                nearbyCities.add(0, city); // add our city to list so it will get ratings/bp info
-                List<CityAndRating> nearbyCitiesWithRatings = attachCityRatings(nearbyCities);
-
-                List<CityAndRating> citiesForList = new ArrayList<CityAndRating>(nearbyCitiesWithRatings);
-                citiesForList.remove(0); // remove our city from this list so it won't appear in cities near
-                model.put(MODEL_CITIES, nearbyCitiesWithRatings);
-
+                AnchorListModel anchorListModel;
                 String heading = request.getParameter(PARAM_HEADING) != null ? request.getParameter(PARAM_HEADING) : "Cities Near " + city.getName();
-                AnchorListModel anchorListModel = _anchorListModelFactory.createNearbyCitiesWithRatingsAnchorListModel(
-                        heading, city,
-                        citiesForList,
-                        limit,
-                        request.getParameter(PARAM_INCLUDE_STATE) != null,
-                        request.getParameter(PARAM_MORE) != null,
-                        request.getParameter(PARAM_ALL) != null,
-                        request
-                );
+                if (!isModule) {
+                    nearbyCities.add(0, city); // add our city to list so it will get ratings/bp info
+                    List<CityAndRating> nearbyCitiesWithRatings = attachCityRatings(nearbyCities);
+
+                    List<CityAndRating> citiesForList = new ArrayList<CityAndRating>(nearbyCitiesWithRatings);
+                    citiesForList.remove(0); // remove our city from this list so it won't appear in cities near
+                    model.put(MODEL_CITIES, nearbyCitiesWithRatings);
+
+                    anchorListModel = _anchorListModelFactory.createNearbyCitiesWithRatingsAnchorListModel(
+                            heading, city,
+                            citiesForList,
+                            limit,
+                            request.getParameter(PARAM_INCLUDE_STATE) != null,
+                            request.getParameter(PARAM_MORE) != null,
+                            request.getParameter(PARAM_ALL) != null,
+                            request
+                    );
+                } else {
+                    anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
+                            heading, city,
+                            nearbyCities,
+                            limit,
+                            request.getParameter(PARAM_INCLUDE_STATE) != null,
+                            request.getParameter(PARAM_MORE) != null,
+                            request.getParameter(PARAM_ALL) != null,
+                            request
+                    );
+                }
                 model.put(AnchorListModel.DEFAULT, anchorListModel);
             }
         }

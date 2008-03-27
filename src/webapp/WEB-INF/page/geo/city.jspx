@@ -56,7 +56,7 @@
             </td>
             <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
                 <jsp:include
-                        page="/geo/nearbyCities.module?city=${cityObject.name}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities&amp;state=${stateAbbrev}"/>
+                        page="/geo/nearbyCities.module?city=${cityObject.name}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities&amp;state=${stateAbbrev}&amp;module=true"/>
             </td>
         </tr>
     </table>
