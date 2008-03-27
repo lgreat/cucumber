@@ -1,1 +1,134 @@
-/* Placeholder */
+div#top {
+    position:relative;
+}
+
+div#top div#rightCol {
+    padding-left:8px;
+    margin:0 0 10px 10px;
+    float: right;
+}
+
+div#article {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    padding: 0 56px 0 56px;
+}
+
+div.article-title {
+    font-size: 21px;
+    font-weight: bold;
+    padding-top: 35px;
+    margin-bottom: 15px;
+}
+
+div.abstract, div.byline {
+    margin-bottom: 15px;
+}
+
+div#articleText p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    padding: 6px 0 6px 0;
+}
+
+.rlbcopy {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 10pt;
+    font-weight: bold;
+    color: #003399;
+}
+
+.rcopy, div#nameEmail {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    color: #000000;
+}
+
+.orangeBold {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ff6600;
+}
+
+div#articletools {
+    float: right;
+    padding:2px 5px 2px 5px;
+    font-family:Geneva, Arial, Helvetica, sans-serif;
+    width:332px;
+}
+
+#toolsmenu {
+    border:1px solid #BBB;
+    float:right;
+    background-color:#EEE;
+    font-size:11px;
+    padding:2px 5px 2px 5px;
+    font-family:Geneva, Arial, Helvetica, sans-serif;
+    width:200px;
+    color: #BBBBBB;
+}
+
+div.simplemenu {
+    margin:0;
+    padding: 5px 0 0 10px;
+    font-family:Geneva, Arial, Helvetica, sans-serif;
+    font-weight:bold;
+    list-style-position:inside;
+}
+
+div.simplemenu img {
+    width: 15px;
+    height: 11px;
+}
+
+div.simplemenu a {
+    margin-left: 5px;
+}
+
+#squareadvert {
+    color: #999;
+    width:312px;
+    padding:5px 5px 5px 5px;
+    margin:10px 0 10px 0;
+    border:1px solid #BBB;
+    font-size:10px;
+    float:right;
+    clear: both;
+}
+
+div#article a {
+    color: #003399;
+    text-decoration: underline;
+}
+
+div#article a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+div#articleComments {
+    padding-left: 56px;
+    margin-top: 15px;
+}
+
+div#nameEmail {
+    margin: 10px 0 15px 0;
+}
+
+.ncopy {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 10pt;
+    color: #000000;
+}
+
+hr.commentDivider {
+    color: #003399;
+}

@@ -26,11 +26,40 @@
     <body>
 
     <div id="top">
-        <gsml:equalizeColumns ids="'leftCol','rightCol'"/>
+        <c:if test="${requestScope.newArticle eq true}">
+            <gsml:equalizeColumns ids="'leftCol','rightCol'"/>
+        </c:if>
         <div id="leftCol">
             <c:choose>
                 <c:when test="${not empty requestScope.article}">
                     <div id="article">
+                        <c:if test="${requestScope.newArticle eq false}">
+                            <div id="articletools">
+                                <div id="toolsmenu">
+                                    <strong>Article Tools</strong>
+                                    <hr size="1" noshade="noshade"/>
+                                    <div class="simplemenu">
+                                        <gsml:img src="/images/editorial/printgrey.gif" alt="Print this article"/>
+                                        <a href="javascript:window.print();">Print This Article</a>
+                                    </div>
+                                    <div class="simplemenu">
+                                        <gsml:img src="/images/editorial/emailgrey.gif" alt="Email this article"/>
+                                        <a href="">Email This Article</a>
+                                    </div>
+                                    <div class="simplemenu">
+                                        <gsml:img src="/images/editorial/signupgrey.gif" alt="Sign-up for newsletters"/>
+                                        <link:newsletterCenter>Sign-up For Newsletters</link:newsletterCenter>
+                                    </div>
+                                    <br/>
+                                    <div class="simplemenu">
+                                        <link:articleLibrary>See full library of articles</link:articleLibrary>
+                                    </div>
+                                </div>
+                                <div id="squareadvert">
+                                    <ad:AboveFold_300x250/>
+                                </div>
+                            </div>
+                        </c:if>
                         <div class="article-title">${requestScope.article.title}</div>
                         <div class="abstract">${requestScope.article.abstract}</div>
                         <div class="byline">${requestScope.article.author}</div>
@@ -43,21 +72,23 @@
             </c:choose>
         </div>
         <div id="rightCol">
-            <div id="articleTools">
-                <h2>Article Tools</h2>
-                <ul>
-                    <li id="printLink"><gsml:a href="">Print This Article</gsml:a></li>
-                    <li id="emailLink"><gsml:a href="">Email This Article</gsml:a></li>
-                    <li id="signupLink"><gsml:a href="">Sign-up For Newsletters</gsml:a></li>
-                    <c:if test="${true}">
-                        <li id="discuss"><gsml:a href="">Discuss This Article</gsml:a></li>
-                    </c:if>
-                    <li id="libraryLink">
-                        <link:articleLibrary>See full library of articles</link:articleLibrary>
-                    </li>
-                </ul>
-            </div>
-            <ad:AboveFold_300x250/>
+            <c:if test="${requestScope.newArticle eq true}">
+                <div id="articleTools">
+                    <h2>Article Tools</h2>
+                    <ul>
+                        <li id="printLink"><gsml:a href="">Print This Article</gsml:a></li>
+                        <li id="emailLink"><gsml:a href="">Email This Article</gsml:a></li>
+                        <li id="signupLink"><gsml:a href="">Sign-up For Newsletters</gsml:a></li>
+                        <c:if test="${true}">
+                            <li id="discuss"><gsml:a href="">Discuss This Article</gsml:a></li>
+                        </c:if>
+                        <li id="libraryLink">
+                            <link:articleLibrary>See full library of articles</link:articleLibrary>
+                        </li>
+                    </ul>
+                </div>
+                <ad:AboveFold_300x250/>
+            </c:if>
         </div>
     </div>
 
@@ -89,6 +120,9 @@
             </form>
         </div>
 
+        <c:if test="${requestScope.newArticle eq false}">
+            <hr width="90%" class="commentDivider"/>
+        </c:if>
         <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
         <div id="comments">
             <c:forEach var="comment" items="${requestScope.article.userComments}">
