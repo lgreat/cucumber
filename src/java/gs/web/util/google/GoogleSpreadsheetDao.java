@@ -86,18 +86,17 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
             if (!StringUtils.isEmpty(_username) && !StringUtils.isEmpty(_password)) {
                 service.setUserCredentials(_username, _password);
             }
-            _log.warn("Contacting Google: " + _worksheetUrl);
             WorksheetEntry dataWorksheet = service.getEntry(new URL(_worksheetUrl), WorksheetEntry.class);
             URL listFeedUrl = dataWorksheet.getListFeedUrl();
             lf = service.getFeed(listFeedUrl, ListFeed.class);
         } catch (MalformedURLException e) {
-            _log.error("MalformedURLException: \"" + _worksheetUrl + "\"", e);
+            _log.warn("MalformedURLException: \"" + _worksheetUrl + "\"", e);
             throw new ExternalConnectionException(e);
         } catch (IOException e) {
-            _log.error("IOException: \"" + _worksheetUrl + "\"", e);
+            _log.warn("IOException: \"" + _worksheetUrl + "\"", e);
             throw new ExternalConnectionException(e);
         } catch (ServiceException e) {
-            _log.error("ServiceException: \"" + _worksheetUrl + "\"", e);
+            _log.warn("ServiceException: \"" + _worksheetUrl + "\"", e);
             throw new ExternalConnectionException(e);
         }
         return lf;
