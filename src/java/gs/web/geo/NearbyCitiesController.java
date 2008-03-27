@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.29 2008/03/26 22:37:30 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.30 2008/03/27 15:24:40 aroy Exp $
 */
 
 package gs.web.geo;
@@ -35,7 +35,8 @@ import java.util.*;
  * <li>count - maximum number of cities to show. (optional)
  * Uses the styles "town", "city" and "bigCity" based on population.
  *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author Andrew J. Peterson
+ * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  */
 public class NearbyCitiesController extends AbstractController {
     protected static final Log _log = LogFactory.getLog(NearbyCitiesController.class);

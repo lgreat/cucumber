@@ -5,9 +5,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
-import gs.data.school.ISchoolDao;
-import gs.data.school.Grade;
-import gs.data.school.School;
 import gs.data.state.StateManager;
 import gs.data.state.State;
 import gs.data.geo.IGeoDao;
@@ -20,6 +17,8 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
+ * Provides a list of cities in a state on demand.
+ * 
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class NearbyCitiesAjaxController  implements Controller {

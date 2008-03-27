@@ -174,11 +174,17 @@
             </div>
 
             <div class="editorialMoving">
-                Moving?
+                <link:movingWithKids>
+                    <gsml:img src="/res/img/content/movingWithKids/movingWithText.jpg"
+                              alt="Moving? View our tips to help your child with the transition"/>
+                </link:movingWithKids>
             </div>
 
             <div class="editorialChoosing">
-                Choosing a school?
+                <link:schoolChoiceCenter>
+                    <gsml:img src="/res/img/content/schoolChoiceTips/sctWithText.jpg"
+                              alt="Choosing a school? Check out our school choice tips"/>
+                </link:schoolChoiceCenter>
             </div>
         </div>
 
