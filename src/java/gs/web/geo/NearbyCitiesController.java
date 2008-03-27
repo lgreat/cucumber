@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.31 2008/03/27 17:39:52 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.32 2008/03/27 20:54:46 aroy Exp $
 */
 
 package gs.web.geo;
@@ -69,7 +69,7 @@ public class NearbyCitiesController extends AbstractController {
     public static final String MODEL_CITIES = "cities"; // List of nearby cities
     public static final String MODEL_COMPARE_CITIES = "compareCities";
 
-    private static final int DEFAULT_MAX_CITIES = 20;
+    protected static final int DEFAULT_MAX_CITIES = 20;
 
     private String _viewName;
     private IGeoDao _geoDao;
