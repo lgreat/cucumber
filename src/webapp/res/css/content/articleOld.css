@@ -42,7 +42,7 @@ div#articleText p {
     color: #003399;
 }
 
-.rcopy, div#nameEmail {
+.rcopy, div#nameEmail, div.comment div {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-style: normal;
@@ -115,6 +115,11 @@ div#article a:hover {
 div#articleComments {
     padding-left: 56px;
     margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+div.comment {
+    padding: 10px 0 10px 0;
 }
 
 div#nameEmail {
@@ -132,3 +137,13 @@ div#nameEmail {
 hr.commentDivider {
     color: #003399;
 }
+
+.r2ibcopy {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 10pt;
+    color: #000000;
+}
+

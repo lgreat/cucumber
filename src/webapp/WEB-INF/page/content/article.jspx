@@ -121,7 +121,7 @@
         </div>
 
         <c:if test="${requestScope.newArticle eq false}">
-            <hr width="90%" class="commentDivider"/>
+            <hr width="100%" class="commentDivider"/>
         </c:if>
         <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
         <div id="comments">
@@ -130,6 +130,9 @@
                     <span class="r2ibcopy comment-date">${comment.posted}</span>
                     <div id="comment-text">${comment.text}</div>
                 </div>
+                <c:if test="${requestScope.newArticle eq false}">
+                    <center><hr width="90%" class="commentDivider"/></center>
+                </c:if>
             </c:forEach>
         </div>
     </div>
