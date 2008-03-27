@@ -33,6 +33,10 @@ public class NearbyCitiesAjaxControllerTest extends BaseControllerTestCase {
         _controller.setGeoDao(_geoDao);
     }
 
+    public void testBasics() {
+        assertSame(_stateManager, _controller.getStateManager());
+        assertSame(_geoDao, _controller.getGeoDao());
+    }
     public void testHandleRequest() throws Exception {
         // set up data
         getRequest().setParameter("state", "CA");
