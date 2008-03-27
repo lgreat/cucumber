@@ -11,10 +11,17 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>${requestScope.article.title}</title>
-        <pageHelper:externalCss file="/res/css/content/article.css"/>
-        <c:if test="${param.print}">
-            <pageHelper:externalCss file="/res/css/content/article_print.css"/>
-        </c:if>
+        <c:choose>
+            <c:when test="${requestScope.newArticle eq true}">
+                <pageHelper:externalCss file="/res/css/content/article.css"/>
+                <c:if test="${param.print}">
+                    <pageHelper:externalCss file="/res/css/content/article_print.css"/>
+                </c:if>
+            </c:when>
+            <c:otherwise>
+                <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
+            </c:otherwise>
+        </c:choose>
     </head>
     <body>
 
