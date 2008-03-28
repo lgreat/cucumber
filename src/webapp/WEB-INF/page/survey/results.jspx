@@ -11,7 +11,6 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:yui="urn:jsptagdir:/WEB-INF/tags/yui"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
 <jsp:output doctype-root-element="html"
@@ -24,11 +23,9 @@
 <c:set var="pIndex" value="${(not empty param.page) ? param.page : 0}" />
 
 <head>
-
     <c:set var="stateLong" value="${school.databaseState.longName}" />
     <c:set var="stateAbbrev" value="${school.databaseState.abbreviation}" />
     <c:set var="location" value="${school.city}, ${stateLong} - ${stateAbbrev}" />
-
     <c:choose>
         <c:when test="${pIndex eq 0}">
             <c:set var="surveyPageName" value="Extracurricular Activities" />
@@ -75,15 +72,7 @@
 
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
     <pageHelper:externalCss file="/res/css/survey/surveyResults.css"/>
-    <script type="text/javascript">
-        function initPanel() {
-			// Instantiate a Panel from markup
-            YAHOO.util.Dom.setStyle(['graphPanel'], 'display', 'block');
-            YAHOO.graphPanel = new YAHOO.widget.Panel("graphPanel", { width:"320px", visible:false, constraintoviewport:true } );
-			YAHOO.graphPanel.render();
-            YAHOO.util.Event.addListener("graphPanelLink", "click", YAHOO.graphPanel.show, YAHOO.graphPanel, true);
-        }
-    </script>
+
 </head>
 <body>
 <school:profile school="${school}">
@@ -99,6 +88,7 @@
 </c:if>
 
 <gsml:equalizeColumns ids="'left-col','right-col'"/>
+
 <div id="left-col">
 
     <c:if test="${not empty param.feedback}">
@@ -439,8 +429,3 @@
 </body>
 </html>
 </jsp:root>
-
-
-
-
-  
