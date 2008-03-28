@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.12 2007/02/03 00:59:03 eddie Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.13 2008/03/28 20:51:56 droy Exp $
  */
 
 package gs.web.test.rating;
@@ -44,6 +44,10 @@ public class SchoolRatingsDisplayTest extends TestCase {
         for (int i = 0; i < rowLabels.length; i++) {
             String rowLabel = rowLabels[i];
 
+            if (rowLabel.equals("Grade 6")) {
+                // There are data sets for Grade 6 but this school doesn't have any values for it
+                continue;
+            }
             for (int j = 0; j < subjects.length; j++) {
                 Subject subject = subjects[j];
 
@@ -102,8 +106,8 @@ public class SchoolRatingsDisplayTest extends TestCase {
         assertEquals("By Gender", ((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getLabel());
         assertEquals("By Ethnicity", ((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getLabel());
 
-        //4 grades
-        assertEquals(4, ((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getNumRows());
+        //5 grades
+        assertEquals(5, ((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getNumRows());
         //1 gender
         assertEquals(1, ((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getNumRows());
         //4 ethnicities
@@ -113,6 +117,9 @@ public class SchoolRatingsDisplayTest extends TestCase {
         assertEquals("Grade 2", ((IRatingsDisplay.IRowGroup.IRow) ((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(1)).getLabel());
         assertEquals("Grade 3", ((IRatingsDisplay.IRowGroup.IRow) ((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(2)).getLabel());
         assertEquals("Grade 4", ((IRatingsDisplay.IRowGroup.IRow) ((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(3)).getLabel());
+        // Note that the schools level was set to grades 1-4, but we put a g5 value in the results.  This test shows
+        // that it was picked up.
+        assertEquals("Grade 5", ((IRatingsDisplay.IRowGroup.IRow) ((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(4)).getLabel());
 
         assertEquals("Male", ((IRatingsDisplay.IRowGroup.IRow) ((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getRows().get(0)).getLabel());
         assertEquals(Integer.valueOf("9"), ((IRatingsDisplay.IRowGroup.IRow.ICell) ((IRatingsDisplay.IRowGroup.IRow) ((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getRows().get(0)).getCells().get(0)).getRating());
@@ -134,7 +141,7 @@ public class SchoolRatingsDisplayTest extends TestCase {
         assertEquals("By Grade", ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(0)).getLabel());
         assertEquals("By Gender", ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(1)).getLabel());
         assertEquals("By Ethnicity", ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(2)).getLabel());
-        assertEquals(4, ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(0)).getNumRows());
+        assertEquals(5, ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(0)).getNumRows());
         assertEquals(1, ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(1)).getNumRows());
         assertEquals(4, ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(2)).getNumRows());
     }

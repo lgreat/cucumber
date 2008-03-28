@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.32 2008/03/13 17:16:33 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.33 2008/03/28 20:51:56 droy Exp $
  */
 
 package gs.web.test.rating;
@@ -10,6 +10,7 @@ import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.test.ITestDataSetDao;
+import gs.data.test.TestDataSet;
 import gs.data.test.rating.IRatingsConfig;
 
 import java.util.ArrayList;
@@ -35,8 +36,16 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
         _rawResults = testDataSetDao.findAllRawResults(school,
                 new int [] {ratingsConfig.getYear()}, true);
+      
+        Grades grades = Grades.createGrades();
+        for (Object v: _rawResults.values()) {
+            ITestDataSetDao.IRawResult result = (ITestDataSetDao.IRawResult)v;
+            TestDataSet dataSet = result.getTestDataSet();
+            Grade grade = dataSet.getGrade();
+            grades.addLevel(grade);
+        }
 
-        Grades grades = school.getGradeLevels();
+        //Grades grades = school.getGradeLevels();
 
         // Subject group labels are precalculated.
         _subjectGroupLabels = new ArrayList();

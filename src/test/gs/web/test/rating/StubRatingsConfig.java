@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StubRatingsConfig.java,v 1.3 2006/11/07 19:12:02 dlee Exp $
+ * $Id: StubRatingsConfig.java,v 1.4 2008/03/28 20:51:56 droy Exp $
  */
 package gs.web.test.rating;
 
@@ -9,6 +9,7 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.Subject;
 import gs.data.test.TestDataSet;
 import gs.data.test.rating.IRatingsConfig;
+import gs.data.school.Grade;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +45,7 @@ public class StubRatingsConfig implements IRatingsConfig {
             "Grade 3",
             "Grade 4",
             "Grade 5",
+            "Grade 6",
             "Male",
             "Female",
             "All Students",
@@ -67,7 +69,8 @@ public class StubRatingsConfig implements IRatingsConfig {
             {9f, 8f, 8f, -1f,},      //grade2 - a null result
             {9f, 8f, 8f, 9f,},       //grade3 -
             {-1f, -1f, -1f, -1f},    //grade4 - null results appear
-            {-1f, -1f, -1f, -1f},    //grade5 - school does not have grade 5
+            {9f, 8f, 7f, 6f},        //grade5 - school has data for g5, but the level_code doesn't include it
+            {-1f, -1f, -1f, -1f},    //grade6 - school does not have grade 6
 
             //By Gender RowGroup
             {9f, 8f, -1f, 9f,},      //male
@@ -95,6 +98,10 @@ public class StubRatingsConfig implements IRatingsConfig {
                 TestDataSet testDataSet = new TestDataSet();
                 testDataSet.setId(new Integer(String.valueOf(i + 1) + String.valueOf(j + 1)));
                 testDataSet.setSchoolDecileTops(DECILES);
+                if (rowLabel.startsWith("Grade ")) {
+                    Grade grade = Grade.getGradeLevel(rowLabel.substring(6));
+                    testDataSet.setGrade(grade);
+                }
 
                 SchoolTestValue schoolTestValue = new SchoolTestValue();
                 schoolTestValue.setDataSet(testDataSet);
@@ -154,21 +161,22 @@ public class StubRatingsConfig implements IRatingsConfig {
                                 new StubRowConfig(_rowLabels[2], _rowGroupLabels[0]),
                                 new StubRowConfig(_rowLabels[3], _rowGroupLabels[0]),
                                 new StubRowConfig(_rowLabels[4], _rowGroupLabels[0]),
+                                new StubRowConfig(_rowLabels[5], _rowGroupLabels[0]),
                         }),
 
                 new StubRowGroupConfig(_rowGroupLabels[1],
                         new IRowConfig[]{
-                                new StubRowConfig(_rowLabels[5], _rowGroupLabels[1]),
                                 new StubRowConfig(_rowLabels[6], _rowGroupLabels[1]),
+                                new StubRowConfig(_rowLabels[7], _rowGroupLabels[1]),
                         }),
 
                 new StubRowGroupConfig(_rowGroupLabels[2],
                         new IRowConfig[]{
-                                new StubRowConfig(_rowLabels[7], _rowGroupLabels[2]),
                                 new StubRowConfig(_rowLabels[8], _rowGroupLabels[2]),
                                 new StubRowConfig(_rowLabels[9], _rowGroupLabels[2]),
                                 new StubRowConfig(_rowLabels[10], _rowGroupLabels[2]),
                                 new StubRowConfig(_rowLabels[11], _rowGroupLabels[2]),
+                                new StubRowConfig(_rowLabels[12], _rowGroupLabels[2]),
                         }),
         };
     }
