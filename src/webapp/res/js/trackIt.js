@@ -131,32 +131,39 @@ var customInsight9ClickEventHandler = function (e) {
 
  //register the object click handlers...
  function registerMyEventHandlers() {
-     var links = document.links;
-     //var debugLinks = "";
-     for(var i = 0; i < links.length; i++) {
-         var res = null;
 
-         // CI9
-         if (links[i].className.indexOf("GS_CI9_") > -1){
-             if (links[i].id != undefined && links[i].id.length > 0) {
-             
-                 res = registerEventHandler(links[i],"click", customInsight9ClickEventHandler);
-                 //debugLinks += "\n" + "GS_CI9_\t" + links[i].id + "\t";
-             }
-         }
-
-         // eVar 5
-         if (links[i].className.indexOf("GS_EV5_") > -1){
-             if (links[i].id != undefined && links[i].id.length > 0) {
-                 res = registerEventHandler(links[i],"click", evar5ClickEventHandler);
-                 //debugLinks += "\n" +"GS_EV5_\t" + links[i].className + " " + res + "\t";
-             }
-         }
-     }
-     //alert(debugLinks);
+     registerClickHandlers(customInsight9ClickEventHandler,'GS_CI9_');
  }
 
+/*
+ * registers click handler, customClickHandler, to each element that has a class with className in it
+ */
+function registerClickHandlers(customClickHandler, className){
+    //alert("registerClickHandlers");
+    var elements = document.getElementsByClassName(className);
 
+    for(var i = 0; i < elements.length; i++) {
+        var res = null;
+
+        if (elements[i].id != undefined && elements[i].id.length > 0) {
+             res = registerEventHandler(elements[i],"click", customClickHandler);
+         }
+    }
+}
+
+/*
+ * from http://javascript.about.com/library/bldom08.htm
+ */
+document.getElementsByClassName = function(cl) {
+    var retnode = [];
+    var myclass = new RegExp('\\b'+cl+'\\b');
+    var elem = this.getElementsByTagName('*');
+    for (var i = 0; i < elem.length; i++) {
+        var classes = elem[i].className;
+        if (myclass.test(classes)) retnode.push(elem[i]);
+    }
+    return retnode;
+};
 /*
  * create an instance of ClickCapture
  */
