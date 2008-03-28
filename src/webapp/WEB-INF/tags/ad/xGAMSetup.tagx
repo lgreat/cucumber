@@ -16,14 +16,17 @@
     <jsp:directive.tag import="java.util.Set"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="org.apache.log4j.Logger"/>
     <jsp:scriptlet><![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        Logger _log = Logger.getLogger("xGAMsetup.tagx");
         if (null != pageHelper) {
             List adNames = new ArrayList();
             Set adPositions = pageHelper.getAdPositions();
             String slotPrefix = (String) request.getAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
 
             if (StringUtils.isEmpty(slotPrefix)) {
+                _log.warn("Setting ad slot with empty prefix: " + request.getRequestURL());
                 slotPrefix = "";
             }
 
