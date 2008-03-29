@@ -338,16 +338,18 @@
                                 <div class="resultSchool">
                                     <div class="header">${result_question.displayText}</div>
                                     <ul>
-                                        <c:forEach items="${result_question.responseValuesAsMap}" var="mKey">
-                                            <li>
-                                                <c:choose>
-                                                    <c:when test="${mKey.key.class eq 'class gs.data.school.School'}">
-                                                        <link:schoolProfileOverview school="${mKey.key}">${mKey.key.name}</link:schoolProfileOverview>
-                                                    </c:when>
-                                                    <c:otherwise>${mKey.key}</c:otherwise>
-                                                </c:choose>
-                                                (${mKey.value})
-                                            </li>
+                                        <c:forEach items="${result_question.responseValuesAsOrderedSet}" var="mKey" varStatus="count">
+                                            <c:if test="${count.index lt 3}">
+                                                <li>
+                                                    <c:choose>
+                                                        <c:when test="${mKey.key.class eq 'class gs.data.school.School'}">
+                                                            <link:schoolProfileOverview school="${mKey.key}">${mKey.key.name}</link:schoolProfileOverview>
+                                                        </c:when>
+                                                        <c:otherwise>${mKey.key}</c:otherwise>
+                                                    </c:choose>
+                                                    (${mKey.value})
+                                                </li>
+                                            </c:if>
                                         </c:forEach>
                                     </ul>
                                 </div>
