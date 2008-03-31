@@ -62,6 +62,7 @@
     function getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice, zip) {
         var bubbleText = '';
         var height = 110;
+        var ieWidth = 'style="_width=244px"';
         if (cityMedianHomePrice != '0') {
             height += 20;
             if (zip += '') {
@@ -69,10 +70,10 @@
             }
         }
         bubbleText += '<div class="cityInfoBubble" style="height: ' + height + 'px;">\n';
-        bubbleText += '  <div class="cityName">\n';
+        bubbleText += '  <div class="cityName" ' + ieWidth + '>\n';
         bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
         bubbleText += '  </div>\n';
-        bubbleText += '  <div class="cityRating">';
+        bubbleText += '  <div class="cityRating" ' + ieWidth + '>';
         bubbleText += '  <a href="' + cityUrl + '">';
         bubbleText += '<img src="/res/img/geo/ratings/cities_lgbox_' + imageValue + '.gif"';
         if (imageValue != 'na') {
@@ -84,17 +85,17 @@
         bubbleText += '</a>';
         bubbleText += '</div>\n';
         if (cityMedianHomePrice != '0') {
-            bubbleText += '  <div class="medianHomePrice">';
+            bubbleText += '  <div class="medianHomePrice" ' + ieWidth + '>';
             bubbleText += "Median home price: $" + cityMedianHomePrice;
             if (zip != '') {
                 bubbleText += '*';
             }
             bubbleText += '</div>\n';
             if (zip != '') {
-                bubbleText += '  <div class="zip">* Based on zip code ' + zip + '</div>\n';
+                bubbleText += '  <div class="zip" ' + ieWidth + '>* Based on zip code ' + zip + '</div>\n';
             }
         }
-        bubbleText += '  <div class="viewAllSchools">\n';
+        bubbleText += '  <div class="viewAllSchools" ' + ieWidth + '>\n';
         bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityName + ' &gt;</a>\n';
         bubbleText += '  </div>\n';
         bubbleText += '</div>';
