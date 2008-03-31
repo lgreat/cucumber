@@ -62,7 +62,7 @@
     function getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice, zip) {
         var bubbleText = '';
         var height = 110;
-        var ieWidth = 'style="_width=244px"';
+        var ieWidth = 'style="width=244px"';
         if (cityMedianHomePrice != '0') {
             height += 20;
             if (zip += '') {
