@@ -65,18 +65,18 @@
         request.setAttribute("subtypes", subs.asPrettyCommaSeparatedString());
     </jsp:scriptlet>
 
-    <c:choose>
-        <c:when test="${(requestScope.context.ABVersion eq 'd') and (school.type.schoolTypeName != 'private')}">
-            <c:set var="d_version" value="true"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="d_version" value="false"/>
-        </c:otherwise>
-    </c:choose>
+    <!--<c:choose>-->
+        <!--<c:when test="${(requestScope.context.ABVersion eq 'd') and (school.type.schoolTypeName != 'private')}">-->
+            <!--<c:set var="d_version" value="true"/>-->
+        <!--</c:when>-->
+        <!--<c:otherwise>-->
+            <!--<c:set var="d_version" value="false"/>-->
+        <!--</c:otherwise>-->
+    <!--</c:choose>-->
 
-    <c:if test="${d_version}">
-        <gsml:equalizeColumns ids="'leftCol','rightCol'"/>
-    </c:if>
+    <!--<c:if test="${d_version}">-->
+        <!--<gsml:equalizeColumns ids="'leftCol','rightCol'"/>-->
+    <!--</c:if>-->
 
     <div id="quickFacts">
         <h2>${school.name} Quick Facts</h2>
@@ -97,14 +97,14 @@
                     </c:if>
                 </address>
 
-                <c:if test="${!d_version}">
+                <!--<c:if test="${!d_version}">-->
                     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
                         <div class="mapit">
                             <c:set var="mapImage" value="/res/img/map/mapit.gif" />
                             <link:mapSchool school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>
                         </div>
                     </c:if>
-                </c:if>
+                <!--</c:if>-->
 
                 <p class="phoneFax">
                     <c:if test="${not empty school.phone}">Phone: ${school.phone}<br /></c:if>
@@ -124,14 +124,14 @@
                     </p>
                 </c:if>
 
-                <c:if test="${d_version}">
-                    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                        <div class="mapit">
-                            <c:set var="mapImage" value="/res/img/school/overview/mapit.gif" />
-                            <link:mapSchool school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>
-                        </div>
-                    </c:if>
-                </c:if>
+                <!--<c:if test="${d_version}">-->
+                    <!--<c:if test="${requestScope.context.cobrand ne 'yahooed'}">-->
+                        <!--<div class="mapit">-->
+                            <!--<c:set var="mapImage" value="/res/img/school/overview/mapit.gif" />-->
+                            <!--<link:mapSchool school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>-->
+                        <!--</div>-->
+                    <!--</c:if>-->
+                <!--</c:if>-->
 
             </div>
             <div class="rightCol" id="rightCol">
@@ -192,9 +192,9 @@
                         </c:if>
                     </c:if>
                 </ul>
-                <c:if test="${d_version}">
-                    <school:bigPicture school="${school}" divider="false" anchor="from..QuickFacts"/>
-                </c:if>
+                <!--<c:if test="${d_version}">-->
+                    <!--<school:bigPicture school="${school}" divider="false" anchor="from..QuickFacts"/>-->
+                <!--</c:if>-->
             </div>
         </div>
     </div>

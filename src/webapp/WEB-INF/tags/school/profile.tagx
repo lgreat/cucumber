@@ -9,11 +9,8 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant" >
-<jsp:directive.tag import="gs.data.school.ISchoolDao"/>
-<jsp:directive.tag import="gs.data.school.School"/>
+>
 <jsp:directive.tag import="gs.data.school.review.IReviewDao"/>
-<jsp:directive.tag import="gs.data.state.State"/>
 <jsp:directive.tag import="gs.data.test.SchoolTestValue"/>
 <jsp:directive.tag import="gs.data.test.TestManager"/>
 <jsp:directive.tag import="gs.data.test.rating.IRatingsConfig"/>
@@ -135,17 +132,17 @@
         <c:set var="schoolType" value="private"/>
     </c:otherwise>
 </c:choose>
-<div id="schoolProfile" class="${(tab eq 'overview' and requestScope.context.ABVersion eq 'a')? 'overview' : ''}">
+<div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
 <div class="printSchoolProfileHeader">
     <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"/></div>
     <br></br><div class="printName">${school.name}</div>
     <p><img src="/res/img/pixel.gif" alt=" "/></p>
 </div>
-<div id="schoolProfileHeader" style="${(tab eq 'overview' and (requestScope.context.ABVersion eq 'c' or requestScope.context.ABVersion eq 'd') and ((schoolType != 'private') and (school.levelCode != 'p'))) ? 'border: 2px solid #dee;padding-bottom:10px;margin-bottom:5px;' : '' }">
+<div id="schoolProfileHeader">
 
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
-        <div id="tools" style="${(tab eq 'overview' and (requestScope.context.ABVersion ne 'a') and ((schoolType != 'private') and (school.levelCode != 'p'))) ? requestScope.context.ABVersion eq 'b' ? 'margin-top: 20px;' : 'margin-top:7px' : '' }">
+        <div id="tools">
             <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
             <link:mySchoolList school="${school}" styleClass="add toolsTxt" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
 
@@ -194,7 +191,7 @@
     <!-- End School name -->
 
     <!-- Ratings -->
-    <div id="ratings" style="${(tab eq 'overview' and requestScope.context.ABVersion eq 'a') ? 'display:none;' : ''}">
+    <div id="ratings" style="${(tab eq 'overview')? 'display:none;' : ''}">
         <!-- <div id="ratings">  -->
         <!-- Great Schools Rating -->      
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
@@ -240,34 +237,16 @@
     </div>
     <!-- end: ratings -->
 
-
-    <c:if test="${(tab eq 'overview' and (requestScope.context.ABVersion eq 'c' or requestScope.context.ABVersion eq 'd') and ((schoolType != 'private') and (school.levelCode != 'p')))}">
-    <div id="subnavInHeader">
-        <c:if test="${!requestScope.context.crawler}">
-            <ul>
-                <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
-                <!-- pipe characters used as opposed to li borders, as per client request -->
-                <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
-                <li><gsml:a href="${mailToFriendUrl}"
-                            onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;#160;|&amp;#160;</li>
-                <li><a href="javascript:openDelicious()"
-                       onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a></li>
-            </ul>
-        </c:if>
-        
-    </div>
-    </c:if>
-
 </div> <!-- end: schoolProfileHeader div -->
 
-<c:if test="${(tab ne 'overview' or (tab eq 'overview' and requestScope.context.ABVersion ne 'c' and requestScope.context.ABVersion ne 'd') or ((schoolType eq 'private') or (school.levelCode eq 'p')))}">
 <c:set var="headerAnchor" value="from..Tab"/>
+<c:set var="styleIdSuffix" value=""/>
 <table id="navigation" cellpadding="0" cellspacing="0">
 <tr>
     <td>
         <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on GS_CI9_' : ''}"
                                     title="${school.name}"
-                                    styleId="School_Overview_Tab_${requestScope.context.ABVersion}"
+                                    styleId="School_Overview_Tab${styleIdSuffix}"
                                     anchor="${(tab eq 'overview') ? '' : headerAnchor}">
             School<br/>
             Overview
@@ -276,7 +255,7 @@
     <c:if test="${schoolType != 'private' and school.levelCode != 'p'}">
         <td>
             <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on GS_CI9_' : ''}"
-                                      styleId="GreatSchools_Ratings_Tab_${requestScope.context.ABVersion}"
+                                      styleId="GreatSchools_Ratings_Tab${styleIdSuffix}"
                                       title="${school.name} GreatSchools Ratings"
                                       anchor="${(tab eq 'ratings') ? '' : headerAnchor}">
                 GreatSchools<br/>
@@ -287,7 +266,7 @@
 
     <td>
         <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on GS_CI9_' : ''}"
-                                        id="Parent_Reviews_Tab_${requestScope.context.ABVersion}"
+                                        id="Parent_Reviews_Tab${styleIdSuffix}"
                                         title="${school.name} Parent Reviews"
                                         anchor="${(tab eq 'parentReviews') ? '' : headerAnchor}">
             Parent<br/>
@@ -298,7 +277,7 @@
     <c:if test="${(schoolType != 'private' || state.privateTestScoresState) and (school.levelCode != 'p')}" >
         <td>
             <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on GS_CI9_' : ''}"
-                                         styleId="Test_Scores_Tab_${requestScope.context.ABVersion}"
+                                         styleId="Test_Scores_Tab${styleIdSuffix}"
                                          title="${school.name} Test Scores"
                                          anchor="${(tab eq 'testscores') ? '' : headerAnchor}">
                 Test<br/>
@@ -310,7 +289,7 @@
     <!-- This link tag automatically detects private schools and links appropriately -->
     <td>
         <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
-                                  styleId="School_Environment_Tab_${requestScope.context.ABVersion}"
+                                  styleId="School_Environment_Tab${styleIdSuffix}"
                                   styleClass="GS_CI9_"
                                   anchor="${headerAnchor}">
             School<br/>
@@ -322,7 +301,7 @@
     <c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">
         <td>
             <link:districtProfile districtId="${school.districtId}"
-                                  styleId="District_Overview_Tab_${requestScope.context.ABVersion}"
+                                  styleId="District_Overview_Tab${styleIdSuffix}"
                                   styleClass="GS_CI9_"
                                   schoolId="${school.id}"
                                   state="${state.abbreviationLowerCase}"
@@ -344,7 +323,7 @@
         <td class="last">
             <link:schoolCompareSchool school="${school}"
                                       styleClass="last GS_CI9_"
-                                      styleId="Compare_Schools_Tab_${requestScope.context.ABVersion}" from="tab" anchor="${headerAnchor}">
+                                      styleId="Compare_Schools_Tab${styleIdSuffix}" from="tab" anchor="${headerAnchor}">
                 Compare<br/>
                 Schools
             </link:schoolCompareSchool>
@@ -352,11 +331,9 @@
     </c:if>
 </tr>
 </table>
-</c:if>
 <!-- end: navigation -->
 
 
-<c:if test="${(tab ne 'overview' or (tab eq 'overview' and requestScope.context.ABVersion ne 'c' and requestScope.context.ABVersion ne 'd') or ((schoolType eq 'private') or (school.levelCode eq 'p')))}">
 <div id="subnav">
     <c:if test="${!requestScope.context.crawler}">
         <ul>
@@ -370,7 +347,6 @@
         </ul>
     </c:if>
 </div>
-</c:if>
 <!-- end: subnav -->
 <div id="bodyContents">
     <jsp:doBody/>

@@ -601,9 +601,12 @@ hr { /* has IE 7 equivalent */
 	width: 356px;
 	float: left;
 	margin: 10px 0 8px 0;
-	/* Commented out per PM request for GS-5684
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;*/
+    padding: 3px;
+    border: 2px solid #EEEEEE;
+}
+
+#insideScoop .overviewBorder {
+    padding-left: 10px;
 }
 
 #insideScoop img {
@@ -892,7 +895,7 @@ div.communityQuestionPromoWrapper {
     width: 356px;
 }
 
-div#communityQuestionPromo.overviewBorder {
+.overviewBorder {
     padding: 3px 15px;
     border: 3px solid #F2F3DB;
 }
