@@ -31,7 +31,7 @@ div#articleText p {
     color: #003399;
 }
 
-.rcopy, div.comment div {
+.rcopy, div#articleComments {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-style: normal;

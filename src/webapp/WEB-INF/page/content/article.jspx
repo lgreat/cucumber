@@ -107,8 +107,8 @@
                         <div id="comments">
                             <c:forEach var="comment" items="${requestScope.article.userComments}">
                                 <div class="comment">
-                                    <span class="r2ibcopy comment-date">${comment.posted}</span>
-                                    <div id="comment-text">${comment.text}</div>
+                                    <span class="r2ibcopy comment-date">${comment.posted}:</span>
+                                    <div class="comment-text">"${comment.text}"</div>
                                 </div>
                                 <c:if test="${requestScope.newArticle eq false}">
                                     <center><hr width="90%" class="commentDivider"/></center>
