@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbyCitiesControllerTest.java,v 1.10 2008/03/27 20:54:46 aroy Exp $
+ * $Id: NearbyCitiesControllerTest.java,v 1.11 2008/04/01 17:25:22 aroy Exp $
  */
 
 package gs.web.geo;
@@ -65,9 +65,11 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         car.setCity(city);
         car.setRating(rating);
         car.setFromZip(true);
+        car.setCenter(true);
         assertSame(city, car.getCity());
         assertSame(rating, car.getRating());
         assertTrue(car.isFromZip());
+        assertTrue(car.isCenter());
     }
 
     public void testNoCity() throws Exception {

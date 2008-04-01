@@ -21,20 +21,29 @@
     <!--
      var popTimeout;
      var isClick = false;
-     function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating, zip) {
+     function createMarker(cityName, state, point, cityUrl, schoolsUrl, cityMedianHomePrice, rating, zip, center) {
          var icon = new GIcon();
          var imageValue = rating;
          if (rating == 0) {
              imageValue = 'na';
          }
-         icon.image = "/res/img/map/pushpin_" + imageValue + ".png";
-         icon.shadow =  "/res/img/map/pushpin_shadow.png"
-         icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
-         icon.iconSize = new GSize(39,36);
-         icon.iconAnchor = new GPoint(19,34);
-         icon.infoWindowAnchor = new GPoint(19,2);
-         icon.infoShadowAnchor = new GPoint(19,2);
-         icon.shadowSize = new GSize(39,36);
+         if (!center) {
+             icon.image = "/res/img/map/pushpin_" + imageValue + ".png";
+             icon.shadow =  "/res/img/map/pushpin_shadow.png"
+             icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
+             icon.iconSize = new GSize(39,36);
+             icon.iconAnchor = new GPoint(19,34);
+             icon.infoWindowAnchor = new GPoint(19,2);
+             icon.infoShadowAnchor = new GPoint(19,2);
+             icon.shadowSize = new GSize(39,36);
+         } else {
+             icon.image = "/res/img/map/map_star.png";
+             icon.transparent = "/res/img/map/map_star_trans.png";
+             icon.iconSize = new GSize(24,23);
+             icon.iconAnchor = new GPoint(11,11);
+             icon.infoWindowAnchor = new GPoint(11,11);
+             icon.infoShadowAnchor = new GPoint(11,11);
+         }
          var marker = new GMarker(point, {icon:icon});
          GEvent.addListener(marker, "click", function() {
              window.clearTimeout(popTimeout);
@@ -145,7 +154,11 @@ Median home price: $999,999*/
                 <c:if test="${s.fromZip eq true}">
                     zip = "${city.zip}";
                 </c:if>
-                var marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating, zip);
+                var center = false;
+                <c:if test="${s.center eq true}">
+                    center = true;
+                </c:if>
+                var marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating, zip, center);
                 map.addOverlay(marker);
             </c:if>
         </c:forEach>

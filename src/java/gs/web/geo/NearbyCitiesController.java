@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.32 2008/03/27 20:54:46 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.33 2008/04/01 17:25:22 aroy Exp $
 */
 
 package gs.web.geo;
@@ -181,6 +181,7 @@ public class NearbyCitiesController extends AbstractController {
             cityRating.setCity(cityVal);
             cityRatings.add(cityRating);
         }
+        cityRatings.get(0).setCenter(true);
         return cityRatings;
     }
 
@@ -242,7 +243,8 @@ public class NearbyCitiesController extends AbstractController {
     public static class CityAndRating {
         private ICity _city;
         private CityRating _rating;
-        private boolean _fromZip;
+        private boolean _fromZip = false;
+        private boolean _center = false;
 
         public ICity getCity() {
             return _city;
@@ -266,6 +268,14 @@ public class NearbyCitiesController extends AbstractController {
 
         public void setFromZip(boolean fromZip) {
             _fromZip = fromZip;
+        }
+
+        public boolean isCenter() {
+            return _center;
+        }
+
+        public void setCenter(boolean center) {
+            _center = center;
         }
     }
 
