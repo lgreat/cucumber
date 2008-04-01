@@ -26,7 +26,7 @@
             <h3 class="divider">Divider</h3>
         </c:if>
 
-        <c:if test="${school.districtId != 0}">
+        <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
             <h3><link:districtProfile districtId="${school.districtId}" state="${state}" anchor="${bigPictureAnchor}">This school district's performance&#160;&#62;</link:districtProfile></h3>
         </c:if>
         <h3><link:city city="${city}" state="${state}" title="${city} schools" anchor="${bigPictureAnchor}">Top-rated ${city} schools&#160;&#62;</link:city></h3>

@@ -177,7 +177,7 @@
         <ul>
             <li><link:research state="${state}" title="${state.longName} schools">${state.longName} schools</link:research> &gt; </li>
             <li><link:city city="${city}" state="${state}" title="${city} schools">${city} schools</link:city>&amp;#160;</li>
-            <c:if test="${school.districtId != 0}">
+            <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                 <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}" title="District information">${school.district.name}</link:districtProfile></li>
             </c:if>
         </ul>
