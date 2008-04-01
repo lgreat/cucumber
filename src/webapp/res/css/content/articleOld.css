@@ -1,18 +1,7 @@
-div#top {
-    position:relative;
-}
-
-div#top div#rightCol {
-    padding-left:8px;
-    margin:0 0 10px 10px;
-    float: right;
-}
-
 div#article {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     color: #000000;
-    padding: 0 56px 0 56px;
 }
 
 div.article-title {
@@ -42,11 +31,19 @@ div#articleText p {
     color: #003399;
 }
 
-.rcopy, div#nameEmail, div.comment div {
+.rcopy, div.comment div {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-style: normal;
     color: #000000;
+}
+
+div#enterComment {
+    color: #000000;
+}
+
+div#articleComments {
+    font-size: 12px;
 }
 
 .orangeBold {
@@ -113,7 +110,6 @@ div#article a:hover {
 }
 
 div#articleComments {
-    padding-left: 56px;
     margin-top: 15px;
     margin-bottom: 25px;
 }

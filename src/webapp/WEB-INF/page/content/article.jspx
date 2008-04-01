@@ -11,131 +11,114 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>${requestScope.article.title}</title>
-        <c:choose>
-            <c:when test="${requestScope.newArticle eq true}">
-                <pageHelper:externalCss file="/res/css/content/article.css"/>
-                <c:if test="${param.print}">
-                    <pageHelper:externalCss file="/res/css/content/article_print.css"/>
-                </c:if>
-            </c:when>
-            <c:otherwise>
-                <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
-            </c:otherwise>
-        </c:choose>
+        <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
+
+        <c:if test="${requestScope.newArticle eq true}">
+            <pageHelper:externalCss file="/res/css/content/article.css"/>
+            <c:if test="${param.print}">
+                <pageHelper:externalCss file="/res/css/content/article_print.css"/>
+            </c:if>
+        </c:if>
     </head>
     <body>
 
-    <div id="top">
-        <c:if test="${requestScope.newArticle eq true}">
-            <gsml:equalizeColumns ids="'leftCol','rightCol'"/>
-        </c:if>
-        <div id="leftCol">
-            <c:choose>
-                <c:when test="${not empty requestScope.article}">
-                    <div id="article">
-                        <c:if test="${requestScope.newArticle eq false}">
-                            <div id="articletools">
-                                <div id="toolsmenu">
-                                    <strong>Article Tools</strong>
-                                    <hr size="1" noshade="noshade"/>
-                                    <div class="simplemenu">
-                                        <gsml:img src="/images/editorial/printgrey.gif" alt="Print this article"/>
-                                        <a href="javascript:window.print();">Print This Article</a>
-                                    </div>
-                                    <div class="simplemenu">
-                                        <gsml:img src="/images/editorial/emailgrey.gif" alt="Email this article"/>
-                                        <a href="">Email This Article</a>
-                                    </div>
-                                    <div class="simplemenu">
-                                        <gsml:img src="/images/editorial/signupgrey.gif" alt="Sign-up for newsletters"/>
-                                        <link:newsletterCenter>Sign-up For Newsletters</link:newsletterCenter>
-                                    </div>
-                                    <br/>
-                                    <div class="simplemenu">
-                                        <link:articleLibrary>See full library of articles</link:articleLibrary>
-                                    </div>
-                                </div>
-                                <div id="squareadvert">
-                                    <ad:AboveFold_300x250/>
-                                </div>
+    <table cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td class="articlecopy">
+                    <!-- Tools -->
+                    <div id="articletools">
+                        <div id="toolsmenu">
+                            <strong>Article Tools</strong>
+                            <hr size="1" noshade="noshade"/>
+                            <div class="simplemenu">
+                                <gsml:img src="/images/editorial/printgrey.gif" alt="Print this article"/>
+                                <a href="javascript:window.print();">Print This Article</a>
                             </div>
-                        </c:if>
-                        <div class="article-title">${requestScope.article.title}</div>
-                        <div class="abstract">${requestScope.article.abstract}</div>
-                        <div class="byline">${requestScope.article.author}</div>
-                        <div id="articleText">${requestScope.article.articleText}</div>
+                            <div class="simplemenu">
+                                <gsml:img src="/images/editorial/emailgrey.gif" alt="Email this article"/>
+                                <a href="">Email This Article</a>
+                            </div>
+                            <div class="simplemenu">
+                                <gsml:img src="/images/editorial/signupgrey.gif" alt="Sign-up for newsletters"/>
+                                <link:newsletterCenter>Sign-up For Newsletters</link:newsletterCenter>
+                            </div>
+                            <br/>
+                            <div class="simplemenu">
+                                <link:articleLibrary>See full library of articles</link:articleLibrary>
+                            </div>
+                        </div>
+                        <div id="squareadvert">
+                            <ad:AboveFold_300x250/>
+                        </div>
                     </div>
-                </c:when>
-                <c:otherwise>
-                    <h2 class="noarticle">Article not found</h2>
-                </c:otherwise>
-            </c:choose>
-        </div>
-        <div id="rightCol">
-            <c:if test="${requestScope.newArticle eq true}">
-                <div id="articleTools">
-                    <h2>Article Tools</h2>
-                    <ul>
-                        <li id="printLink"><gsml:a href="">Print This Article</gsml:a></li>
-                        <li id="emailLink"><gsml:a href="">Email This Article</gsml:a></li>
-                        <li id="signupLink"><gsml:a href="">Sign-up For Newsletters</gsml:a></li>
-                        <c:if test="${true}">
-                            <li id="discuss"><gsml:a href="">Discuss This Article</gsml:a></li>
+                    <!-- Article -->
+                    <c:choose>
+                        <c:when test="${not empty requestScope.article}">
+                            <div id="article">
+                                <div class="article-title">${requestScope.article.title}</div>
+                                <div class="abstract">${requestScope.article.abstract}</div>
+                                <div class="byline">By ${requestScope.article.author}</div>
+                                <div id="articleText">${requestScope.article.articleText}</div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <h2 class="noarticle">Article not found</h2>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <div id="articleComments">
+                        <div id="enterComment">
+                            <form action="/cgi-bin/feedback-submit" method="post">
+                                <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
+                                <input type="hidden" name="type" value="article" />
+                                <input type="hidden" name="id" value="${requestScope.article.id}" />
+
+                                <div class="greenHeader" id="commentHeader">
+                                    <span class="rlbcopy">Email us your feedback</span>
+                                </div>
+                                <![CDATA[<textarea name="description" cols="30" rows="10"></textarea>]]>
+                                <div id="nameEmail">
+                                    Name (optional):<input name="name" class="text" size="25" type="text"/>
+                                    <br /><br />
+                                    Email (optional):<input name="email" class="text" size="25" type="text"/>
+                                    <br /><br />
+                                    <input value="submit" type="submit"/>
+                                </div>
+                                <div id="terms">
+                                    <input name="permit" type="checkbox"/>
+                                    <span class="ncopy permission">
+                                        Yes, I agree to the <a href="/#permission">GreatSchools Terms of Use</a> and give GreatSchools
+                                        permission to post my comments for other parents to read.
+                                    </span>
+                                    <span class="note">
+                                        <span class="rlbcopy">Note: </span>Your email address is
+                                        required if you would like a response from GreatSchools.net.
+                                    </span><br />
+                                </div>
+                            </form>
+                        </div>
+
+                        <c:if test="${requestScope.newArticle eq false}">
+                            <hr width="100%" class="commentDivider"/>
                         </c:if>
-                        <li id="libraryLink">
-                            <link:articleLibrary>See full library of articles</link:articleLibrary>
-                        </li>
-                    </ul>
-                </div>
-                <ad:AboveFold_300x250/>
-            </c:if>
-        </div>
-    </div>
-
-    <div id="articleComments">
-        <div id="enterComment">
-            <form action="/cgi-bin/feedback-submit" method="post">
-                <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
-                <input type="hidden" name="type" value="article" />
-                <input type="hidden" name="id" value="${requestScope.article.id}" />
-
-                <div class="greenHeader" id="commentHeader"><span class="rlbcopy">Email us your feedback</span></div>
-                <textarea name="description" cols="30" rows="10">.</textarea>
-                <div id="nameEmail">
-                    Name (optional):<input name="name" class="text" size="25" type="text"></input>
-                    <br /><br />
-                    Email (optional):<input name="email" class="text" size="25" type="text"></input>
-                    <br /><br />
-                    <input value="submit" type="submit"></input>
-                </div>
-                <div id="terms">
-                    <input name="permit" type="checkbox"></input>
-                    <span class="ncopy">
-                        Yes, I agree to the <a href="/#permission">GreatSchools Terms of Use</a> and give GreatSchools
-                        permission to post my comments for other parents to read.
-
-                        <span class="rlbcopy">Note: </span>Your email address is
-                        required if you would like a response from GreatSchools.net.</span><br />
-                </div>
-            </form>
-        </div>
-
-        <c:if test="${requestScope.newArticle eq false}">
-            <hr width="100%" class="commentDivider"/>
-        </c:if>
-        <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
-        <div id="comments">
-            <c:forEach var="comment" items="${requestScope.article.userComments}">
-                <div class="comment">
-                    <span class="r2ibcopy comment-date">${comment.posted}</span>
-                    <div id="comment-text">${comment.text}</div>
-                </div>
-                <c:if test="${requestScope.newArticle eq false}">
-                    <center><hr width="90%" class="commentDivider"/></center>
-                </c:if>
-            </c:forEach>
-        </div>
-    </div>
+                        <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
+                        <div id="comments">
+                            <c:forEach var="comment" items="${requestScope.article.userComments}">
+                                <div class="comment">
+                                    <span class="r2ibcopy comment-date">${comment.posted}</span>
+                                    <div id="comment-text">${comment.text}</div>
+                                </div>
+                                <c:if test="${requestScope.newArticle eq false}">
+                                    <center><hr width="90%" class="commentDivider"/></center>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     </body>
     </html>
 </jsp:root>

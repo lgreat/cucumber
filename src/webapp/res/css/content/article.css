@@ -1,5 +1,12 @@
-div#article {
-    padding-left:20px;
+td.articlecopy {
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    padding: 15px 56px 85px 56px;
+}
+
+div#articletools div.simplemenu a {
+    color: #3399AA;
+    text-decoration:underline;
 }
 
 div.article-title {
@@ -20,67 +27,8 @@ div#articleText {
     padding:20px 0 0 0;
 }
 
-div#articleTools {
-    border:solid 2px #66CDCB;
-}
-    div#articleTools h2 {
-        font-weight:bold;
-        color:#333333;
-        border-bottom:solid 1px #AAAAAA;
-        padding:5px 3px 5px 3px;
-        margin: 0px 3px 10px 3px;
-    }
-
-    div#articleTools ul {
-        margin:10px;
-        line-height:19px;
-    }
-
-    div#articleTools li a {
-        color: #3399AA;
-        text-decoration:underline;
-    }
-
-    div#articleTools li {
-        margin-left:35px;
-    }
-
-    div#articleTools li#printLink {
-        list-style-image:url("/res/img/content/article/yellowprinter.gif")
-    }
-
-    div#articleTools li#emailLink {
-        list-style-image:url("/res/img/content/article/yellowenvelope.gif")
-    }
-
-    div#articleTools li#signupLink {
-        list-style-image:url("/res/img/content/article/yellowcheck.gif")
-    }
-
-    div#articleTools li#discuss {
-        list-style-image:url("/res/img/content/article/discussgrey.gif")
-    }
-
 div#articleText li .rlbcopy {
     color:#55BBCA;
-}
-
-div#top {
-    position:relative;
-}
-
-div#top div#leftCol {
-    border-right:1px solid #CCCCCC;
-    width:550px;
-}
-
-div#top div#rightCol {
-    position:absolute;
-    top:0;
-    right:0;
-    width:300px;
-    padding-left:8px;
-    margin:0 0 10px 10px;
 }
 
 div#moreAbout {
@@ -166,7 +114,7 @@ div.dotted-divider hr {
 
 div.dotted-divider {
     height:5px;
-    border:0px;
+    border:0;
     margin:20px 0 20px 0;
     background-image: url("/res/img/splash/greyDot.gif");
     background-repeat: repeat-x;
@@ -190,10 +138,10 @@ div#more-about ul {
 }
 
 div#more-about li {
-    padding: 0px 0px 2px 10px;
+    padding: 0 0 2px 10px;
     background-image: url("/res/img/content/article/greenarrow.gif");
     background-repeat: no-repeat;
-    background-position: 0ex .9ex;
+    background-position: 0 .9ex;
     color:#3399AA;
 }
 
@@ -365,7 +313,7 @@ span.permission, span.note {
 
 div#articleComments div#enterComment
     div#terms span.rlbcopy {
-    padding-left:0px;
+    padding-left:0;
 }
 
 /* =====   leftSidebar  ===== */
@@ -377,7 +325,7 @@ div.leftSidebar {
     border-width: 2px;
     border-color: #ddeeee;
     float: left;
-    margin:10px 10px 0px 0px;
+    margin:10px 10px 0 0;
     padding:10px 10px 10px 10px ;
 }
 
