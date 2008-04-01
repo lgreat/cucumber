@@ -11,6 +11,7 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>${requestScope.article.title}</title>
+        <pageHelper:setPathway pathway="LIBRARY"/>
         <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
 
         <c:if test="${requestScope.newArticle eq true}">
@@ -79,16 +80,16 @@
                                 </div>
                                 <![CDATA[<textarea name="description" cols="30" rows="10"></textarea>]]>
                                 <div id="nameEmail">
-                                    Name (optional):<input name="name" class="text" size="25" type="text"/>
+                                    Name (optional): &amp;nbsp;&amp;nbsp;<input name="name" class="text" size="25" type="text"/>
                                     <br /><br />
-                                    Email (optional):<input name="email" class="text" size="25" type="text"/>
+                                    Email (optional): &amp;nbsp;&amp;nbsp;&amp;nbsp;<input name="email" class="text" size="25" type="text"/>
                                     <br /><br />
                                     <input value="submit" type="submit"/>
                                 </div>
                                 <div id="terms">
-                                    <input name="permit" type="checkbox"/>
+                                    <input name="permit" type="checkbox" checked="checked"/>
                                     <span class="ncopy permission">
-                                        Yes, I agree to the <a href="/#permission">GreatSchools Terms of Use</a> and give GreatSchools
+                                        Yes, I agree to the <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
                                         permission to post my comments for other parents to read.
                                     </span>
                                     <span class="note">

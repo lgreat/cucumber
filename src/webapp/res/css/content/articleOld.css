@@ -1,13 +1,13 @@
-div#article {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    color: #000000;
+td.articlecopy {
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    padding: 15px 60px 85px 60px;
 }
 
 div.article-title {
     font-size: 21px;
     font-weight: bold;
-    padding-top: 35px;
+    padding-top: 20px;
     margin-bottom: 15px;
 }
 
@@ -55,7 +55,7 @@ div#articleComments {
 
 div#articletools {
     float: right;
-    padding:2px 5px 2px 5px;
+    padding: 0 13px 2px 5px;
     font-family:Geneva, Arial, Helvetica, sans-serif;
     width:332px;
 }
@@ -71,6 +71,10 @@ div#articletools {
     color: #BBBBBB;
 }
 
+div#toolsmenu strong {
+    padding-left: 3px;
+}
+
 div.simplemenu {
     margin:0;
     padding: 5px 0 0 10px;
@@ -84,7 +88,7 @@ div.simplemenu img {
     height: 11px;
 }
 
-div.simplemenu a {
+.contentGS div.simplemenu a {
     margin-left: 5px;
 }
 
@@ -99,12 +103,12 @@ div.simplemenu a {
     clear: both;
 }
 
-div#article a {
+.contentGS .articlecopy a {
     color: #003399;
     text-decoration: underline;
 }
 
-div#article a:hover {
+.contentGS .articlecopy a:hover {
     color: #000000;
     text-decoration: underline;
 }
