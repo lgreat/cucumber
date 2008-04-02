@@ -131,8 +131,9 @@ div.paragraph {
     font-weight:bold;
 }
 
-#article-main a, .byline a, a {
+#article-main a, .byline a, .contentGS a, .contentGS a:link, .contentGS a:visited, .contentGS a:active {
     color:#3399AA;
+    text-decoration: underline;
 }
 
 div.dotted-divider hr {

@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          version="2.0" >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <title>GreatSchools Editorial Style Guide</title>
+    <pageHelper:setPathway pathway="LIBRARY"/>
+    <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
+    <pageHelper:externalCss file="/res/css/content/article.css"/>
+    <jsp:scriptlet>
+        PageHelper.hideLeaderboard(request);
+        PageHelper.hideHeader(request);
+        PageHelper.hideFooterAd(request);
+        PageHelper.hideFooter(request);
+    </jsp:scriptlet>
+
+      <style type="text/css">
+
+        body {
+            /*width:1000px;*/
+            background-color:#FFFFFF;
+        }
+
+        body.unframed div#pageGS {
+            width: 1000px;
+            margin: 0 auto;
+            border: 0;
+        }
+
+        div#contentGS {
+            width: 100%;
+            border: 0;
+            margin: 25px;
+        }
+
+        div#intro {
+            margin:0 30px 20px 145px;
+        }
+
+        div#main {
+
+        }
+        
+        div#toc{
+        float:left;
+        }
+
+        div#main div#article-main {
+            margin-left:115px;
+        }
+
+        div.style {
+            border:1px solid;
+            margin:auto 30px 20px;
+            padding:10px;
+            background:#CCCCCC;
+        }
+
+        div.style h3 {
+            margin:0px;
+        }
+
+        div.style div.style-description,
+        div.style div.style-example,
+        div.style div.style-code {
+            border:1px solid;
+            padding:10px 20px;
+            margin:10px 0 0 0;
+            background:#FFFFFF;
+        }
+
+        div.style span.sghead {
+            font-size:12px;
+            font-weight:bold;
+            display:block;
+        }
+
+        div.style .screenshot img {
+            border:1px solid;
+            margin:10px;
+        }
+
+        pre {
+            font-family:monospace;
+        }
+
+  </style>
+</head>
+<body>
+
+
+  <div id="intro">
+  <h1>Editorial Style Guide</h1>
+  This page contains code and visual examples of the styles used in
+  GreatSchools articles.
+  </div>
+
+  <div id="main">
+  <div id="toc">
+    <a href="#article-title">Article Title</a><br/>
+    <a href="#abstract">Abstract</a><br/>
+
+    <a href="#abstractPartner">Abstract Partner Logo</a><br/>
+    <a href="#paragraphs">Paragraphs</a><br/>
+    <a href="#byline">By Line</a><br/>
+    <a href="#caption">Caption</a><br/>
+    <a href="#headline">"More On" Headline</a><br/>
+    <a href="#header_1">Header 1</a><br/>
+
+    <a href="#header_2">Header 2</a><br/>
+    <a href="#header_3">Header 3</a><br/>
+    <a href="#microsite">Microsite</a><br/>
+    <a href="#spanish-link">Spanish Link</a><br/>
+    <a href="#blue-module">Blue Module</a><br/>
+    <a href="#leftSidebar">Left Sidebar</a><br/>
+
+    <a href="#rightSidebar">Right Sidebar</a><br/>
+    <a href="#pullQuote">Pull Quote</a><br/>
+    <a href="#leftImage">Left Image</a><br/>
+    <a href="#rightImage">Right Image</a><br/>
+    <a href="#expertImage">Expert Image</a><br/>
+    <!--<a href="#green-module">Green Module</a><br/>-->
+  </div>
+
+  <div id="article-main">
+
+    <![CDATA[<a name="article-title"></a>]]>
+    <div class="style">
+      <h3>Article Title</h3>
+      <div class="style-code">
+        <span class="sghead">code:</span>
+        No additional code is required for this style
+      </div>
+
+      <div class="style-example">
+        <span class="sghead">example:</span>
+        <h2 class="article-title">10 Tips for Adjusting to a New School</h2>
+      </div>
+    </div>
+
+    <![CDATA[<a name="abstract"></a>]]>
+    <div class="style">
+
+      <h3>Abstract</h3>
+      <div class="style-code">
+        <span class="sghead">code:</span>
+        No additional code is required for this style
+      </div>
+      <div class="style-example">
+        <span class="sghead">example:</span>
+        <div class="abstract">
+
+          Whether your child is facing a mid-year move or the start of the
+          school year, these tips will make the first day easier.
+        </div>
+      </div>
+    </div>
+
+    <![CDATA[<a name="abstractPartner"></a>]]>
+    <div class="style">
+      <h3>Abstract Partner Logo</h3>
+      <div class="style-code">
+
+        <span class="sghead">code:</span>
+          <pre>
+              <![CDATA[
+          Here's how you can help your student plan for the future.
+          &lt;div class="partner"&gt;
+              &lt;a href="http://www.collegeboard.com" target="_blank"&gt;
+                  &lt;img src="/res/img/content/countdownToCollege/collegeboard_logo.gif"
+                    alt="The College Board" border="0"/&gt;
+              &lt;/a&gt;
+
+          &lt;/div&gt;
+          ]]>
+          </pre>
+      </div>
+      <div class="style-example">
+        <span class="sghead">example:</span>
+          <p class="abstract">
+              Here's how you can help your student plan for the future.
+              <![CDATA[
+              <div class="partner">
+
+                  <a href="http://www.collegeboard.com" target="_blank">
+                      <img src="/res/img/content/countdownToCollege/collegeboard_logo.gif" alt="The College Board" border="0"/>
+                  </a>
+              </div>
+              ]]>
+          </p>
+      </div>
+    </div>
+
+    <![CDATA[<a name="paragraphs"></a>]]>
+
+    <div class="style">
+      <h3>Paragraphs</h3>
+      <div class="style-code">
+        <span class="sghead">code:</span>
+		<pre>&lt;div class="paragraph"&gt;First it was all about the boys and the bullies. Media attention
+focused on bullying and how to stop stronger boys from physically
+attacking the weaker ones. Schools developed anti-bullying campaigns
+and character-education programs to combat the behavior.&lt;/div&gt;
+
+&lt;div class="paragraph"&gt;In recent years, the attention has turned to adolescent girls and to
+what psychologists call "relational aggression," or the kind of
+behavior depicted in the film "Mean Girls." These girls' cliques
+spread rumors and lies, exclude and sometimes show outright physical
+aggression toward other girls. Their targets are usually girls who
+haven't yet started developing physically, who dress differently
+than others or who just don't fit in.&lt;/div&gt;
+
+		</pre>
+      </div>
+      <div class="style-example">
+        <span class="sghead">example:</span>
+        <div class="paragraph">First it was all about the boys and the bullies. Media attention
+focused on bullying and how to stop stronger boys from physically
+attacking the weaker ones. Schools developed anti-bullying campaigns
+and character-education programs to combat the behavior.</div>
+        <div class="paragraph">In recent years, the attention has turned to adolescent girls and to
+what psychologists call "relational aggression," or the kind of
+behavior depicted in the film "Mean Girls." These girls' cliques
+spread rumors and lies, exclude and sometimes show outright physical
+aggression toward other girls. Their targets are usually girls who
+haven't yet started developing physically, who dress differently
+than others or who just don't fit in.</div>
+
+	  </div>
+    </div>
+
+    <![CDATA[<a name="byline"></a>]]>
+    <div class="style">
+      <h3>ByLine</h3>
+      <div class="style-code">
+        <span class="sghead">code:</span>
+
+        No additional code is required for this style
+      </div>
+      <div class="style-example">
+        <span class="sghead">example:</span>
+        <span class="byline">GreatSchools Staff</span>
+      </div>
+    </div>
+
+    <![CDATA[<a name="caption"></a>]]>
+
+    <div class="style">
+      <h3>Caption</h3>
+      <div class="style-code">
+        <span class="sghead">code:</span>
+        <pre>
+          &lt;span class="caption"&gt;Photo of Oscar Wilde&lt;/span&gt;
+
+        </pre>
+      </div>
+      <div class="style-example">
+        <span class="sghead">example:</span>
+        <span class="caption">Photo of Oscar Wilde</span>
+      </div>
+    </div>
+
+    <![CDATA[<a name="headline"></a>]]>
+
+    <div class="style">
+      <h3>"More On" Headline</h3>
+      <div class="style-code">
+        <span class="sghead">code:</span>
+        <pre>
+            <![CDATA[
+          &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
+            ]]>
+        </pre>
+      </div>
+      <div class="style-example">
+        <span class="sghead">example:</span>
+        <span class="headline">More on GreatSchools.net</span>
+      </div>
+    </div>
+
+  <![CDATA[<a name="header_1"></a>]]>
+  <div class="style">
+    <h3>Header 1</h3>
+    <div class="style-code">
+      <span class="sghead">code:</span>
+      <pre>
+      <![CDATA[
+        &lt;span class=&quot;header&quot;&gt;Set Priorities and Schedules&lt;/span&gt;
+        ]]>
+      </pre>
+    </div>
+    <div class="style-example">
+      <span class="sghead">example:</span>
+      <span class="header">Set Priorities and Schedules</span>
+    </div>
+  </div>
+
+  <![CDATA[<a name="header_2"></a>]]>
+  <div class="style">
+    <h3>Header 2</h3>
+    <div class="style-code">
+      <span class="sghead">code:</span>
+      <pre>
+      <![CDATA[
+        &lt;span class=&quot;subheader&quot;&gt;Encourage school involvement&lt;/span&gt;
+        ]]>
+      </pre>
+    </div>
+    <div class="style-example">
+      <span class="sghead">example:</span>
+      <span class="subheader">Encourage school involvement</span>
+    </div>
+  </div>
+
+  <![CDATA[<a name="header_3"></a>]]>
+  <div class="style">
+    <h3>Header 3 (Text Lead In)</h3>
+    <div class="style-description">
+      Used for the third level of headings. In the Ask the Experts
+      articles used for the Question and Answer text. In the Author's bio it is used for
+      the author's name.
+    </div>
+    <div class="style-code">
+      <span class="sghead">code:</span>
+
+        <pre>
+            <![CDATA[
+          &lt;span class=&quot;lead-in&quot;&gt;Barrow's favorites&lt;/span&gt;
+          ]]>
+        </pre>
+    </div>
+    <div class="style-example">
+      <span class="sghead">example:</span>
+
+      <span class="lead-in">Barrow's favorites</span>
+    </div>
+    <div class="style-code">
+      <span class="sghead">code:</span>
+        <pre>
+      <![CDATA[
+          &lt;span class=&quot;lead-in&quot;&gt;Question:&lt;/span&gt;
+]]>
+        </pre>
+    </div>
+    <div class="style-example">
+      <span class="sghead">example:</span>
+      <span class="lead-in">Question:</span>
+    </div>
+  </div>
+
+  <![CDATA[<a name="microsite"></a>]]>
+  <div class="style">
+    <h3>Microsite</h3>
+    <div class="style-code">
+      <span class="sghead">code:</span>
+      <pre>
+      <![CDATA[
+        &lt;span class="microsite"&gt;Learn more about how to help
+        &lt;a href="/content/specialNeeds.page"&gt;your child with special needs.&lt;/a&gt;
+
+        &lt;/span&gt;
+        ]]>
+      </pre>
+    </div>
+    <div class="style-example">
+      <span class="sghead">example:</span>
+      <span class="microsite">Learn more about how to help
+        <gsml:a href="/content/specialNeeds.page">your child with special needs.</gsml:a>
+      </span>
+
+    </div>
+    <div class="style-example screenshot">
+      <span class="sghead">screenshot: (note top and bottom padding)</span>
+       <gsml:img src="/images/editorial/styleguide/microsite.jpg"
+       alt="microsite screenshot" />
+    </div>
+  </div>
+
+
+  <![CDATA[<a name="spanish-link"></a>]]>
+
+  <div class="style">
+    <h3>Spanish Link</h3>
+    <div class="style-code">
+      <span class="sghead">code:</span>
+        <pre>
+            <![CDATA[
+        &lt;a class=&quot;spanish&quot;&gt;Read this article in Spanish &amp;gt; &lt;/a&gt;
+        ]]>
+        </pre>
+        Note the escaped ">" character
+    </div>
+    <div class="style-example">
+      <span class="sghead">example:</span>
+      <a href="#" class="spanish">Read this article in Spanish &gt;</a>
+    </div>
+  </div>
+
+  <![CDATA[<a name="blue-module"></a>]]>
+  <div class="style">
+    <h3>Blue Module</h3>
+    <div class="style-code">
+      <span class="sghead">code:</span>
+        <pre>
+            <![CDATA[
+          &lt;div class="blueModule"&gt;
+
+            &lt;div class="blueHeader"&gt;&lt;span class="r2bcopy"&gt;Got a Question?&lt;/span&gt;&lt;/div&gt;
+            &lt;div class="content"&gt;
+              If your kindergartner has an academic or school-related behavior
+              problem you would like help solving, send it to
+              &lt;a href="mailto:mykindergartner@greatschools.net"&gt;
+                   mykindergartner@greatschools.net
+              &lt;/a&gt;
+
+            &lt;/div&gt;
+          &lt;/div&gt;
+          ]]>
+        </pre>
+    </div>
+    <div class="style-example">
+      <span class="sghead">example:</span>
+      <div class="blueModule">
+
+        <div class="blueHeader"><span class="r2bcopy">Got a Question?</span></div>
+        <div class="content">
+          If your kindergartner has an academic or school-related behavior
+          problem you would like help solving, send it to
+          <a href="mailto:mykindergartner@greatschools.net">mykindergartner@greatschools.net</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  <![CDATA[<a name="green-module"></a>]]>
+  <div class="style">
+    <h3>Green Module</h3>
+    <div class="style-code">
+      <span class="sghead">code:</span>
+        <pre>
+          &lt;div class="greenModule"&gt;
+            &lt;div class="greenHeader"&gt;&lt;span class="r2bcopy"&gt;Got a Question?&lt;/span&gt;&lt;/div&gt;
+            &lt;div class="content"&gt;
+              If your kindergartner has an academic or school-related behavior
+              problem you would like help solving, send it to
+              &lt;a href="mailto:mykindergartner@greatschools.net"&gt;
+                   mykindergartner@greatschools.net
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        </pre>
+    </div>
+    <div class="style-example">
+      <span class="sghead">example:</span>
+      <div class="greenModule">
+        <div class="greenHeader"><span class="r2bcopy">Got a Question?</span></div>
+        <div class="content">
+          If your kindergartner has an academic or school-related behavior
+          problem you would like help solving, send it to
+          <a href="mailto:mykindergartner@greatschools.net">mykindergartner@greatschools.net</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+<!-- Left Sidebar -->
+<![CDATA[<a name="leftSidebar"   ></a>]]>
+    <div class="style">
+      <h3>Left Sidebar Style</h3>
+      <div class="style-code">
+        <span class="sghead">code:</span>
+          <pre>
+<![CDATA[
+&lt;div class="paragraph"&gt;In recent years, the attention has
+turned to adolescent girls and to what psychologists call "relational
+aggression," or the kind of behavior depicted in the film "Mean Girls."
+These girls' cliques spread rumors
+<b>&lt;div class="leftSidebar"&gt;</b>
+    <b>&lt;div class="headline"&gt;</b>
+        10 Tips for Avoiding the Land Mines of Perfect Parent World
+    <b>&lt;/div&gt;</b>
+    &lt;div class="paragraph"&gt;
+        By Rosalind Wiseman
+    &lt;/div&gt;
+
+    &lt;div class="paragraph"&gt;&lt;b&gt;1. Know your kids, but never assume.&lt;/b&gt; Just like
+        adults, children often show different sides of themselves at school,
+        home, and with their friends. Another parent, teacher, or child could have
+        a valuable perspective on your son/daughter that might never occur to you.
+    &lt;/div&gt;
+    &lt;a href="/cgi-bin/showarticle/ca/1113/"&gt;More >&lt;/a&gt;
+<b>&lt;/div&gt;</b>
+and lies, exclude and sometimes show outright physical
+aggression toward other girls. Their targets are usually girls who
+haven't yet started developing physically, who dress differently
+than others or who just don't fit in.&lt;/div&gt;
+
+etc.
+]]>
+         </pre>
+      </div>
+      <div class="style-example withParagraphs">
+        <span class="sghead">example:</span>
+		   <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors
+		     <div class="leftSidebar">
+				<div class="headline">
+					10 Tips for Avoiding the Land Mines of Perfect Parent World
+				</div>
+
+                <div class="paragraph">
+                    By Rosalind Wiseman
+                </div>
+
+				<div class="paragraph"><b>1. Know your kids, but never assume.</b> Just like adults, children often show different sides of themselves at school, home, and with their friends. Another parent, teacher, or child could have a valuable perspective on your son/daughter that might never occur to you.
+                </div>
+				<gsml:a href="/cgi-bin/showarticle/ca/1113/">More &gt;</gsml:a>
+			</div>
+		   and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+
+           <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+		   <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+           <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+      </div>
+    </div>
+
+
+    <!-- Right Sidebar -->
+
+    <![CDATA[<a name="rightSidebar"   ></a>]]>
+        <div class="style">
+          <h3>Right Sidebar Style</h3>
+          <div class="style-code">
+            <span class="sghead">code:</span>
+              <pre>
+                  <![CDATA[
+
+    &lt;div class="paragraph"&gt;In recent years, the attention has
+    turned to adolescent girls and to what psychologists call "relational
+    aggression," or the kind of behavior depicted in the film "Mean Girls."
+    These girls' cliques spread rumors
+    <b>&lt;div class="rightSidebar"&gt;</b>
+
+        <b>&lt;div class="headline"&gt;</b>
+            10 Tips for Avoiding the Land Mines of Perfect Parent World
+        <b>&lt;/div&gt;</b>
+        &lt;div class="paragraph"&gt;
+            By Rosalind Wiseman
+        &lt;/div&gt;
+        &lt;div class="paragraph"&gt;&lt;b&gt;1. Know your kids, but never assume.&lt;/b&gt; Just like
+            adults, children often show different sides of themselves at school,
+            home, and with their friends. Another parent, teacher, or child could have
+            a valuable perspective on your son/daughter that might never occur to you.
+        &lt;/div&gt;
+
+        &lt;a href="/cgi-bin/showarticle/ca/1113/"&gt;More >&lt;/a&gt;
+    <b>&lt;/div&gt;</b>
+    and lies, exclude and sometimes show outright physical
+    aggression toward other girls. Their targets are usually girls who
+    haven't yet started developing physically, who dress differently
+    than others or who just don't fit in.&lt;/div&gt;
+
+    etc.
+    ]]>
+             </pre>
+          </div>
+
+          <div class="style-example withParagraphs">
+            <span class="sghead">example:</span>
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors
+                 <div class="rightSidebar">
+                    <div class="headline">
+                        10 Tips for Avoiding the Land Mines of Perfect Parent World
+                    </div>
+                    <div class="paragraph">
+                        By Rosalind Wiseman
+                    </div>
+
+                    <div class="paragraph"><b>1. Know your kids, but never assume.</b> Just like adults, children often show different sides of themselves at school, home, and with their friends. Another parent, teacher, or child could have a valuable perspective on your son/daughter that might never occur to you.
+                    </div>
+                    <gsml:a href="/cgi-bin/showarticle/ca/1113/">More &gt;</gsml:a>
+                </div>
+               and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+               <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+
+               <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character education programs to combat the behavior.
+               First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+          </div>
+        </div>
+
+    <!-- Pull Quote -->
+    <![CDATA[<a name="pullQuote"   ></a>]]>
+        <div class="style">
+          <h3>Pull Quote Style</h3>
+
+          <div class="style-code">
+            <span class="sghead">code:</span>
+              <pre>
+                  <![CDATA[
+
+    &lt;div class="paragraph"&gt;In recent years, the attention has
+    turned to adolescent girls and to what psychologists call "relational
+    aggression," or the kind of behavior depicted in the film "Mean Girls."
+    These girls' cliques spread rumors
+    <b>&lt;div class="pullQuote"&gt;</b>
+        Just like adults, children often show different sides of themselves at school,
+        home, and with their friends. Another parent could have
+        a perspective on your son/daughter that might never occur to you.
+        <b>&lt;div class="attribute"&gt;</b>
+
+            From the journal of something or another
+        <b>&lt;/div&gt;</b>
+    <b>&lt;/div&gt;</b>
+    and lies, exclude and sometimes show outright physical
+    aggression toward other girls. Their targets are usually girls who
+    haven't yet started developing physically, who dress differently
+    than others or who just don't fit in.&lt;/div&gt;
+
+    etc.
+    ]]>
+             </pre>
+          </div>
+
+          <div class="style-example withParagraphs">
+            <span class="sghead">example:</span>
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors
+                 <div class="pullQuote">
+                        Just like adults, children often show different sides of themselves at school,
+                        home, and with their friends. Another parent could have
+                        a perspective on your son/daughter that might never occur to you.
+                     <div class="attribute">
+                        From the journal of something or another
+                    </div>
+                </div>
+               and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+
+               <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+               <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character education programs to combat the behavior.
+               First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+          </div>
+        </div>
+
+    <!-- Left Image -->
+    <![CDATA[<a name="leftImage"   ></a>]]>
+
+        <div class="style">
+          <h3>Left Image Style</h3>
+          <div class="style-code">
+            <span class="sghead">code:</span>
+              <pre>
+<![CDATA[
+    &lt;div class="paragraph"&gt;In recent years, the attention has
+    turned to adolescent girls and to what psychologists call "relational
+    aggression," or the kind of behavior depicted in the film "Mean Girls."
+    These girls' cliques spread rumors
+    <b>&lt;div class="leftImage" style="width:140px;"&gt;</b>
+
+        <b>&lt;img src="/images/articles/flutebath.jpg"&gt;</b>
+        <b>&lt;div class="copyright"&gt;</b>
+            From the journal of something or another
+        <b>&lt;/div&gt;</b>
+        <b>&lt;div class="caption"&gt;</b>
+            A sample caption here
+        <b>&lt;/div&gt;</b>
+
+    <b>&lt;/div&gt;</b>
+    and lies, exclude and sometimes show outright physical
+    aggression toward other girls. Their targets are usually girls who
+    haven't yet started developing physically, who dress differently
+    than others or who just don't fit in.&lt;/div&gt;
+
+    etc.
+    ]]>
+             </pre>
+          </div>
+          <div class="style-example withParagraphs">
+            <span class="sghead">example:</span>
+
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors
+                 <div class="leftImage" style="width:140px;">
+
+                    <gsml:img src="/images/articles/flutebath.jpg" alt=""/>
+
+                    <div class="copyright">
+                        From the journal of something or another
+                    </div>
+                    <div class="caption">
+                        A sample caption here
+                    </div>
+
+                </div>
+               and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+               <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+          </div>
+        </div>
+
+    <!-- Left Image -->
+
+    <![CDATA[<a name="rightImage"   ></a>]]>
+        <div class="style">
+          <h3>Right Image Style</h3>
+          <div class="style-code">
+            <span class="sghead">code:</span>
+              <pre>
+<![CDATA[
+    &lt;div class="paragraph"&gt;In recent years, the attention has
+    turned to adolescent girls and to what psychologists call "relational
+    aggression," or the kind of behavior depicted in the film "Mean Girls."
+    These girls' cliques spread rumors
+    <b>&lt;div class="rightImage" style="width:140px;"&gt;</b>
+
+        <b>&lt;img src="/images/articles/flutebath.jpg"&gt;</b>
+        <b>&lt;div class="copyright"&gt;</b>
+            From the journal of something or another
+        <b>&lt;/div&gt;</b>
+        <b>&lt;div class="caption"&gt;</b>
+            A sample caption here
+        <b>&lt;/div&gt;</b>
+
+    <b>&lt;/div&gt;</b>
+    and lies, exclude and sometimes show outright physical
+    aggression toward other girls. Their targets are usually girls who
+    haven't yet started developing physically, who dress differently
+    than others or who just don't fit in.&lt;/div&gt;
+
+    etc.
+    ]]>
+             </pre>
+          </div>
+          <div class="style-example withParagraphs">
+            <span class="sghead">example:</span>
+
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors
+                 <div class="rightImage" style="width:140px;">
+
+                    <gsml:img src="/images/articles/flutebath.jpg" alt=""/>
+
+                    <div class="copyright">
+                        From the journal of something or another
+                    </div>
+                    <div class="caption">
+                        A sample caption here
+                    </div>
+
+                </div>
+               and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+               <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+          </div>
+        </div>
+
+        <!-- Experts Image -->
+
+    <![CDATA[<a name="expertImage"   ></a>]]>
+        <div class="style">
+          <h3>Expert Image Style</h3>
+          <div class="style-code">
+            <span class="sghead">code:</span>
+              <pre>
+<![CDATA[
+    &lt;div class="paragraph"&gt;In recent years, the attention has
+    turned to adolescent girls and to what psychologists call "relational
+    aggression," or the kind of behavior depicted in the film "Mean Girls."
+    These girls' cliques spread rumors
+    <b>&lt;div class="expertImage" style="width:140px;"&gt;</b>
+
+        <b>&lt;img src="/images/articles/flutebath.jpg"&gt;</b>
+        <b>&lt;div class="copyright"&gt;</b>
+            From the journal of something or another
+        <b>&lt;/div&gt;</b>
+        <b>&lt;div class="caption"&gt;</b>
+            A sample caption here
+        <b>&lt;/div&gt;</b>
+
+    <b>&lt;/div&gt;</b>
+    and lies, exclude and sometimes show outright physical
+    aggression toward other girls. Their targets are usually girls who
+    haven't yet started developing physically, who dress differently
+    than others or who just don't fit in.&lt;/div&gt;
+
+    etc.
+    ]]>
+             </pre>
+          </div>
+          <div class="style-example withParagraphs">
+            <span class="sghead">example:</span>
+
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors
+                 <div class="expertImage" style="width:140px;">
+                    <gsml:img src="/images/articles/flutebath.jpg" alt=""/>
+                    <div class="copyright">
+                        From the journal of something or another
+                    </div>
+                    <div class="caption">
+                        A sample caption here
+                    </div>
+                </div>
+
+               and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+               <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+               <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+          </div>
+        </div>
+
+  <br/>
+  <br/>
+
+  </div>
+  </div>
+
+
+</body>
+</html>
+</jsp:root>
