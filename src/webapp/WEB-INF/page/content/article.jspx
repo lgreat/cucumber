@@ -51,6 +51,7 @@
                             </div>
                         </div>
                         <div id="squareadvert">
+                            <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
                             <ad:AboveFold_300x250/>
                         </div>
                     </div>
