@@ -29,15 +29,19 @@ public class SurveyResultsController extends AbstractController {
     private ISurveyDao _surveyDao;
     private ISchoolDao _schoolDao;
 
+    private static final String VIEW_NAME = "survey/results";
+    private static final String MODEL_NAME = "results";
+    private static final String LEVEL_PARAM = "level";
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // This controller is configured to be school-aware in pages-servlet.xml
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
 
-        String level = request.getParameter("level");
+        String level = request.getParameter(LEVEL_PARAM);
         SurveyResults results = getSurveyDao().getSurveyResultsForSchool(level, school);
-        ModelAndView mAndV = new ModelAndView("survey/results");
-        mAndV.getModel().put("results", results);
+        ModelAndView mAndV = new ModelAndView(VIEW_NAME);
+        mAndV.getModel().put(MODEL_NAME, results);
         return mAndV;
     }
 
