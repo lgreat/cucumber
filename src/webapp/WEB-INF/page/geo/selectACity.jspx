@@ -16,6 +16,7 @@
         xmlns:gsweb="gstaglib"
         >
     <html lang="en">
+    <ad:setSlotPrefix slotPrefix="Nearby_Cities"/>
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"

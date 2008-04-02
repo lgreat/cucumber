@@ -31,8 +31,11 @@
             }
 
             if (hideDefaultAds == null || !hideDefaultAds.booleanValue()) {
-                adNames.add(slotPrefix + AdPosition.Footer_728x90.getName());
-                if (pageHelper.isShowingBannerAd()) {
+                if (pageHelper.isShowingFooterAd()) {
+                    adNames.add(slotPrefix + AdPosition.Footer_728x90.getName());
+                }
+
+                if (pageHelper.isShowingBannerAd() && pageHelper.isShowingLeaderboard()) {
                     SessionContext context = SessionContextUtil.getSessionContext(request);
                     adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
                 }
@@ -41,6 +44,11 @@
                 AdPosition ad = (AdPosition) iter.next();
 
                 if (ad.isGAMPosition()) {
+
+                    if (StringUtils.isEmpty(slotPrefix)) {
+                        _log.warn(">empty prefix for: " + ad.getName());
+                    }                    
+
                     adNames.add(slotPrefix + ad.getName());
                 }
             }

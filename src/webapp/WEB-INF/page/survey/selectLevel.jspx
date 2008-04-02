@@ -17,6 +17,7 @@
         <title>${titleText} ${school.name} in ${school.city}, ${school.databaseState}</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <pageHelper:externalCss file="/res/css/survey/survey.css"/>
+        <ad:setSlotPrefix slotPrefix="Parent_Survey_Select_Level"/>
         <style type="text/css">
             div#left-col {
                 height:580px;

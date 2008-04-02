@@ -2,6 +2,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
@@ -24,18 +25,21 @@
                 <c:set var="path" value="/schools/cities/" />
                 <c:set var="heading" value="${state.longName} School Information by City" />
                 <c:set var="pageName" value="All Cities in State" />
+                <ad:setSlotPrefix slotPrefix="All_Cities_in_State"/>
             </c:when>
             <c:when test="${type eq 'district'}">
                 <c:set var="thing" value="school districts" />
                 <c:set var="path" value="/schools/districts/" />
                 <c:set var="heading" value="${state.longName} School Districts" />
                 <c:set var="pageName" value="All Districts in State" />
+                <ad:setSlotPrefix slotPrefix="All_Districts_in_State"/>
             </c:when>
             <c:otherwise>
                 <c:set var="thing" value="schools" />
                 <c:set var="path" value="/schools/" />
                 <c:set var="heading" value="All schools in ${state.longName}" />
                 <c:set var="pageName" value="All Schools in State" />
+                <ad:setSlotPrefix slotPrefix="All_Schools_in_State"/>
             </c:otherwise>
         </c:choose>
         <script type="text/javascript">
