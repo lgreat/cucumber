@@ -214,7 +214,6 @@ public class SchoolOverviewController extends AbstractSchoolController {
             
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
                     school.getType().equals(SchoolType.PRIVATE)
-                    || !(SessionContextUtil.getSessionContext(request).getABVersion().equals("a"))
                      )  {
 
                 doMultiParentReviews(reviews, latestReviewsModel);

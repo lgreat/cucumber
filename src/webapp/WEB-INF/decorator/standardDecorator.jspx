@@ -67,13 +67,7 @@
     <cobrand:header/>
 
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-        <c:if test="${requestScope.pageHelper.pageName eq 'spp_overview'}">
-            <variant:a><c:set var="headerPosition" value="Header_728x90" /></variant:a>
-            <variant:b><c:set var="headerPosition" value="Header_728x90_A_Test" /></variant:b>
-            <variant:c><c:set var="headerPosition" value="Header_728x90_B_Test" /></variant:c>
-            <variant:d><c:set var="headerPosition" value="Header_728x90_C_Test" /></variant:d>
-        </c:if>
-        <ad:x22 position="${headerPosition}"/>
+        <ad:x22 position="Header_728x90"/>
     </c:if>
 
     <div id="pageGS" class="pageGS">

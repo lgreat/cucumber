@@ -38,6 +38,7 @@
     Files besides this one that were modified:
     quickFacts.tagx (previous version: 1.32): used comments to remove versioned stuff
     profile.tagx (previous version: 1.114): did not use comments, you must revert to 1.114 to see versioned stuff
+    standardDecorator.jspx: Removed A/B position names
 
 
 -->
