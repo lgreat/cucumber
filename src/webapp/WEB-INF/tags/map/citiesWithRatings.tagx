@@ -80,7 +80,7 @@
                 height += 20;
             }
         }
-        if (cityName.length > 22) {
+        if (cityName.length > 15) {
             height += 20;
             if (cityName.length > 24) {
                 height += 10;
