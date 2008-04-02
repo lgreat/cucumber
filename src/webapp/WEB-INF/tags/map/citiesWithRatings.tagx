@@ -80,6 +80,12 @@
                 height += 20;
             }
         }
+        if (cityName.length > 22) {
+            height += 20;
+            if (cityName.length > 24) {
+                height += 20;
+            }
+        }
         bubbleText += '<div class="cityInfoBubble" style="height: ' + height + 'px; width:210px">\n';
         bubbleText += '  <div class="cityName" ' + ieWidth + '>\n';
         bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
