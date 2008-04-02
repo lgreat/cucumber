@@ -49,14 +49,14 @@
              window.clearTimeout(popTimeout);
              isClick = true;
              marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
-                     state, imageValue, cityMedianHomePrice, zip), {maxWidth: 244});
+                     state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
          });
          GEvent.addListener(marker, "mouseover", function() {
              window.clearTimeout(popTimeout);
              popTimeout = window.setTimeout(function() {
                  isClick = false;
                  marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
-                         state, imageValue, cityMedianHomePrice, zip), {maxWidth: 244});
+                         state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
              }, 500);
          });
          GEvent.addListener(marker, "mouseout", function() {
@@ -73,14 +73,14 @@
     function getBubbleHtml(cityUrl, schoolsUrl, cityName, state, imageValue, cityMedianHomePrice, zip) {
         var bubbleText = '';
         var height = 110;
-        var ieWidth = 'style="width:244px"';
+        var ieWidth = 'style="width:210px"';
         if (cityMedianHomePrice != '0') {
             height += 20;
             if (zip += '') {
                 height += 20;
             }
         }
-        bubbleText += '<div class="cityInfoBubble" style="height: ' + height + 'px; width:244px">\n';
+        bubbleText += '<div class="cityInfoBubble" style="height: ' + height + 'px; width:210px">\n';
         bubbleText += '  <div class="cityName" ' + ieWidth + '>\n';
         bubbleText += '    <a href="' + cityUrl + '">' + cityName + ", " + state + "</a>\n";
         bubbleText += '  </div>\n';
