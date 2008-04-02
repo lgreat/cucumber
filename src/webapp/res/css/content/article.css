@@ -43,6 +43,39 @@ div.comment {
 div#article-main {
     padding-right:10px
 }
+
+/* aroy: overriding article-old.css which is overriding global.css */
+
+.contentGS .articlecopy ul {
+    margin: 0;
+    font-size: 15px;
+}
+
+.contentGS .articlecopy li {
+    list-style-type:none;
+    margin-left: 0;
+    font-size: 15px;
+}
+
+/* aroy: adding these styles from editorial.css to get articles displaying right
+   Don't know why they aren't below */
+
+div.paragraph {
+    margin-bottom: 22px;
+}
+
+#article-main .header {
+    margin-bottom: 20px;
+}
+
+#article-main .subheader {
+    margin-bottom: 10px;
+}
+
+#article-main .header, #article-main .subheader  {
+    display: block;
+}
+
 /*  styles from editorial.css - changes have been made below.  diff before merging back to perl styles. */
 
 .contentGS .article-title {
@@ -125,13 +158,13 @@ span.headline {
     color:#99CC66;
 }
 
-div#more-about ul {
+.contentGS div#more-about ul {
     margin:10px 0 0 0;
     padding:0;;
     list-style:none;
 }
 
-div#more-about li {
+.contentGS div#more-about li {
     padding: 0 0 2px 10px;
     background-image: url("/res/img/content/article/greenarrow.gif");
     background-repeat: no-repeat;
@@ -310,44 +343,79 @@ div#articleComments div#enterComment
     padding-left:0;
 }
 
-/* =====   leftSidebar  ===== */
+/* =====   leftSidebar, rightSidebar, pullQuote  ===== */
 
-div.leftSidebar {
+div.leftSidebar,
+div.rightSidebar,
+div.pullQuote{
     width: 225px;
-    background: #f9fcfc;
     border-style: solid;
     border-width: 2px;
-    border-color: #ddeeee;
-    float: left;
-    margin:10px 10px 0 0;
-    padding:10px 10px 10px 10px ;
+    border-color: #6BCACC ;
+    margin:20px 20px 0 0;
+    padding:15px 15px 22px 15px ;
+}
+div.rightSidebar{
+    margin:20px 0 0 20px;
+    float: right;
 }
 
-div.leftSidebar .sidebarHeadline {
+div.leftSidebar, div.pullQuote {
+    float: left;
+}
+
+div.leftSidebar .headline, div.rightSidebar .headline {
     color:#99CC66;
     font-size:18px;
     font-weight: bold;
-    line-height:22pt;
+    line-height:22px;
     margin:0 0 10px 0;
 }
 
 div.leftSidebar li {
     list-style-position: outside;
-    font-weight: bold;
-    line-height:22pt;
+    font-weight: normal;
+    line-height:22px;
     margin:0 0 10px 0;
-
+    padding-left: 0;
 }
 
 div.leftSidebar ul, div.leftSidebar ol{
-    padding-left: 1em;
+    padding-left: 10px;
+    margin-left: 0;
 }
 
-li {
-     list-style-position: inside;
+div.pullQuote {
+    font-size:17px;
+    line-height:22px;
+    color: #55BBCC;
+    border-color: #8BCBCB  ;
+    padding-top: 40px;
+    padding-left:28px;
+    padding-right:12px;
+    width:218px;
+    background: url("/images/editorial/quoteStart.GIF") no-repeat;
+    background-color: #F3F9F9;
+    border-style: none;
+    border-width: 0;
 }
 
-ul, ol{
+div.pullQuote div.attribute{
+    font-size:14px;
+    line-height:18px;
+    color: #444444;
+    xfloat: left;
+    margin-top: 6px ;
+    padding-top:30px;
+    background: url("/images/editorial/quoteEnd.GIF") no-repeat;
+}
+
+.contentGS .articlecopy li {
+    list-style-position: inside;
+    margin-bottom: 10px;
+}
+
+.contentGS .articlecopy ul, .contentGS .articlecopy ol{
      padding-left: 0.5em
 }
 
