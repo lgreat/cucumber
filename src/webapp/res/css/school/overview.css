@@ -756,7 +756,7 @@ span#compareGo {
     border: 2px solid #EEEEEE;
     padding: 3px;
     float: left;
-    margin: 10px 0 10px 0;
+    margin: 0 0 10px 0;
 }
 
 .surveyTeaser {
@@ -891,6 +891,7 @@ div.communityQuestionPromoWrapper {
     padding: 3px;
     border: 2px solid #EEEEEE;
     float: left;
+    margin-top: 10px;
     margin-bottom: 10px;
     width: 356px;
 }

@@ -357,14 +357,10 @@
                 </div>
             </c:if>
 
-            <c:if test="${school.levelCode != 'p'}">
-                <div id="surveyTeaser_wrapper">
-                    <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview"
-                            id="GS_ParentSurvey.surveyTeaser">
-                        <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="What is the scoop on ${school.name}?" />
-                    </link:schoolStartSurvey>
-                </div>
-            </c:if>
+            <jsp:include page="/community/communityQuestionPromo.module">
+                <jsp:param name="code" value="school/overview.page"/>
+                <jsp:param name="styleClass" value="overviewBorder clearLeft"/>
+            </jsp:include>
 
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${(not empty latestReviewsModel) }">
@@ -459,11 +455,16 @@
                 <school:parentReviewForm school="${school}" pageName="overview"/>
             </c:if>
 
-            <jsp:include page="/community/communityQuestionPromo.module">
-                <jsp:param name="code" value="school/overview.page"/>
-                <jsp:param name="styleClass" value="overviewBorder clearLeft"/>
-            </jsp:include>
 
+            <c:if test="${school.levelCode != 'p'}">
+                <div id="surveyTeaser_wrapper">
+                    <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview"
+                            id="GS_ParentSurvey.surveyTeaser">
+                        <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="What is the scoop on ${school.name}?" />
+                    </link:schoolStartSurvey>
+                </div>
+            </c:if>
+    
             <!--<c:if test="${((requestScope.context.ABVersion eq 'c') and (hasAPExams or hasPrincipalView)) or (requestScope.context.ABVersion ne 'c')}">-->
             <!--<c:set var="styleIdSuffix" value="_${requestScope.context.ABVersion}"/>-->
             <c:set var="styleIdSuffix" value=""/>
