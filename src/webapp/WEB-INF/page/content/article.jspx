@@ -39,7 +39,7 @@
                             </div>
                             <div class="simplemenu">
                                 <gsml:img src="/images/editorial/emailgrey.gif" alt="Email this article"/>
-                                <a href="">Email This Article</a>
+                                <a href="#">Email This Article</a>
                             </div>
                             <div class="simplemenu">
                                 <gsml:img src="/images/editorial/signupgrey.gif" alt="Sign-up for newsletters"/>

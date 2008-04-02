@@ -1,8 +1,97 @@
-td.articlecopy {
+/* Generic styles from perl gs.css, and overrides of Java global.css */
+
+.articlecopy {
     border-left: 1px solid #cccccc;
     border-right: 1px solid #cccccc;
     padding: 15px 60px 85px 60px;
+    font-size: 14px;
 }
+
+.articlecopy p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    margin: 10px 0;
+}
+
+.ncopy {
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 10pt;
+}
+
+.rcopy {
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+}
+
+.r2bcopy, .rlbcopy, .r2ibcopy {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 10px;
+}
+
+.r2bcopy {
+    color: #000000;
+    font-style: normal;
+}
+
+.rlbcopy {
+    color: #003399;
+    font-style: normal;
+}
+
+.r2ibcopy {
+    color: #000000;
+    font-style: italic;
+}
+
+.orangeBold {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ff6600;
+}
+
+.contentGS .articlecopy ul {
+    margin: 10px 0 10px 20px;
+    font-size: 14px;
+}
+
+.contentGS .articlecopy li {
+    list-style-type:disc;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.contentGS .articlecopy a {
+    color: #000000;
+}
+
+.contentGS .articlecopy a:link {
+    color: #003399;
+    text-decoration: underline;
+}
+
+.contentGS .articlecopy a:visited {
+    color: #666666;
+    text-decoration: underline;
+}
+
+.contentGS .articlecopy a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.articlecopy table p, .contentGS .articlecopy table li {
+    font-size: 13px;
+}
+/* Article specific styles */
 
 div.article-title {
     font-size: 21px;
@@ -15,23 +104,7 @@ div.abstract, div.byline {
     margin-bottom: 15px;
 }
 
-div#articleText p {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    color: #000000;
-    padding: 6px 0 6px 0;
-}
-
-.rlbcopy {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    line-height: 10pt;
-    font-weight: bold;
-    color: #003399;
-}
-
-.rcopy, div#articleComments {
+div#articleComments {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-style: normal;
@@ -44,13 +117,6 @@ div#enterComment {
 
 div#articleComments {
     font-size: 12px;
-}
-
-.orangeBold {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    color: #ff6600;
 }
 
 div#articletools {
@@ -103,16 +169,6 @@ div.simplemenu img {
     clear: both;
 }
 
-.contentGS .articlecopy a {
-    color: #003399;
-    text-decoration: underline;
-}
-
-.contentGS .articlecopy a:hover {
-    color: #000000;
-    text-decoration: underline;
-}
-
 div#articleComments {
     margin-top: 15px;
     margin-bottom: 25px;
@@ -126,24 +182,8 @@ div#nameEmail {
     margin: 10px 0 15px 0;
 }
 
-.ncopy {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    font-style: normal;
-    line-height: 10pt;
-    color: #000000;
-}
-
 hr.commentDivider {
     color: #003399;
 }
 
-.r2ibcopy {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: bold;
-    line-height: 10pt;
-    color: #000000;
-}
 
