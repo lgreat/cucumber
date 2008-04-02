@@ -896,7 +896,7 @@ div.communityQuestionPromoWrapper {
     width: 356px;
 }
 
-.overviewBorder {
+.overviewBorder, div#communityQuestionPromo.overviewBorder {
     padding: 3px 15px;
     border: 3px solid #F2F3DB;
 }
