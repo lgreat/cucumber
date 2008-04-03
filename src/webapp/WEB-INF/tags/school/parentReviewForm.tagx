@@ -48,8 +48,20 @@
     <pageHelper:addOnLoadHandler handler="setStars(${presetRating})"/>
     <script type="text/javascript">
         <![CDATA[<!--
+        function onAjaxSuccess(o) {
+            AjaxObject.handleSuccess(o);
+            ]]>
+            <!-- Force recalculation of heights on overview page so the SEO text will
+                 move down if error nodes are attached -->
+            <c:if test="${pageName eq 'overview'}">
+                document.getElementById('col_center').style.height = null;
+                document.getElementById('col_right').style.height = null;
+                BoxHeights.equalize('col_center','col_right');
+            </c:if>
+            <![CDATA[
+        }
         var callback = {
-            success:AjaxObject.handleSuccess,
+            success: onAjaxSuccess,
             failure:AjaxObject.handleFailure,
             scope: AjaxObject,
             argument: ['${ratingPage}','${pageName}']
