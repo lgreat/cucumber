@@ -119,6 +119,19 @@
     padding-bottom:3px;
 }
 
+div#intro-results-link {
+    background:url("/res/img/survey/schoolicon.gif") no-repeat 0 2px;
+    padding-left:20px;
+    position:absolute;
+    top:170px;
+    right:20px;
+}
+
+div#intro-results-link a {
+    text-decoration:underline;
+    font-size:13px;
+}
+
 /******************** question-group ***************************/
 
 div.question-group{
