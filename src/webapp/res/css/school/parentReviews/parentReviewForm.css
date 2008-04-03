@@ -60,10 +60,8 @@
 }
 
 #rateReview #submitReview {
-    position: relative;
-    vertical-align:middle;
     padding-left:8px;
-    top: -3px;
+    margin-top: 1px;
 }
 
 #rateReview #reviewEmail {
@@ -72,6 +70,7 @@
     height:15px;
     line-height:15px;
     padding: 1px 1px 1px 4px;
+    vertical-align: top;
 }
 
 #rateReview #privacyPolicy {
