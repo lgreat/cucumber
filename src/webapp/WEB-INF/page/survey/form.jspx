@@ -63,7 +63,7 @@
                 </c:forEach>
             </ul>
         </div>
-        <div id="intro-results-link"><link:surveyResults school="${school}">View Survey Results &gt;</link:surveyResults></div>
+        <div id="intro-results-link"><link:startSurveyResults school="${school}">View Survey Results &gt;</link:startSurveyResults></div>
     </div>
 
 <c:choose>

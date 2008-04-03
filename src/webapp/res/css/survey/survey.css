@@ -130,6 +130,7 @@ div#intro-results-link {
 div#intro-results-link a {
     text-decoration:underline;
     font-size:13px;
+    color:#3399AA;
 }
 
 /******************** question-group ***************************/

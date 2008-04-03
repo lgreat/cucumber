@@ -1776,7 +1776,43 @@
             <description>The results page</description>
         </attribute>
     </tag>
-
+    <tag>
+        <name>startSurveyResults</name>
+        <tag-class>gs.web.jsp.link.school.StartSurveyResultsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Survey Results</display-name>
+        <description>
+            <![CDATA[View survey results (start page).]]>
+        </description>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Element title (tooltip)</description>
+        </attribute>
+    </tag>
     <tag>
         <name>allSchoolsInDistrict</name>
         <tag-class>gs.web.jsp.link.DistrictsAllSchoolsTagHandler</tag-class>
