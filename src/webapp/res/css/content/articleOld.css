@@ -187,3 +187,17 @@ hr.commentDivider {
 }
 
 
+/* P R I N T   S T Y L E S */
+@media print {
+    .search, #adLeaderboard, #footer, .noprint, #topnav, #promoContent  {
+        display:none;
+    }
+    .articlecopy {
+        border-left: 0;
+        border-right: 0;
+    }
+    body, body.unframed #pageGS {
+        background-color: #fff;
+        border: 0 solid   #fff;
+    }
+}

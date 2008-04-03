@@ -29,7 +29,7 @@
             <tr>
                 <td class="articlecopy">
                     <!-- Tools -->
-                    <div id="articletools">
+                    <div id="articletools" class="noprint">
                         <div id="toolsmenu">
                             <strong>Article Tools</strong>
                             <hr size="1" noshade="noshade"/>
@@ -70,7 +70,7 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <div id="articleComments">
+                    <div id="articleComments" class="noprint">
                         <div id="enterComment">
                             <form action="/cgi-bin/feedback-submit" method="post">
                                 <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
