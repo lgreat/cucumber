@@ -193,13 +193,6 @@ Parent Review Page
     font-size:11px;
 }
 
-#parentReview #rateReview #submitReview {
-    position: relative;
-    vertical-align:middle;
-    padding-left:8px;
-    top: -3px;
-}
-
 #parentReview #rateReview #tos {
     position: relative;
     display: block;

@@ -51,13 +51,20 @@
         function onAjaxSuccess(o) {
             AjaxObject.handleSuccess(o);
             ]]>
-            <!-- Force recalculation of heights on overview page so the SEO text will
-                 move down if error nodes are attached -->
-            <c:if test="${pageName eq 'overview'}">
-                document.getElementById('col_center').style.height = null;
-                document.getElementById('col_right').style.height = null;
-                BoxHeights.equalize('col_center','col_right');
-            </c:if>
+            <!-- Force recalculation of heights so the SEO text will
+                 move down if error nodes are added -->
+        <c:choose>
+            <c:when test="${pageName eq 'parentReviews'}">
+                         document.getElementById('col_left').style.height = null;
+                         document.getElementById('col_right').style.height = null;
+                         BoxHeights.equalize('col_left','col_right');
+            </c:when>
+            <c:when test="${pageName eq 'overview'}">
+                         document.getElementById('col_center').style.height = null;
+                         document.getElementById('col_right').style.height = null;
+                         BoxHeights.equalize('col_center','col_right');
+            </c:when>
+        </c:choose>
             <![CDATA[
         }
         var callback = {
