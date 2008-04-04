@@ -47,8 +47,7 @@ public class ResultsPager {
 
     public enum ResultType {
         school,
-        topic,
-        all
+        topic
     }
 
     public ResultsPager(Hits hits, ResultType type) {
