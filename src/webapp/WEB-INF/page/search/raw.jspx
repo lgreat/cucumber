@@ -1,22 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
-<jsp:directive.page contentType="text/html"/>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
 <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>GS Raw Search</title>
-    <style type="text/css">
-        ul {
-            margin-top: 0;
-        }
 
-        tr {
-            vertical-align: top;
-        }
+    <style type="text/css">
+        ul { margin-top: 0; }
+        tr { vertical-align: top; }
 
         #resultsTable td, #termFreqTable td {
             border-bottom: 1px solid #BBBBBB;
@@ -24,19 +27,9 @@
             padding: 3px 5px 3px 5px;
         }
 
-        td.id, td.state {
-            width: 50px;
-            text-align: center;
-        }
-
-        th.fieldTerms {
-            text-align: left;
-            padding: 0 20px 0 0;
-        }
-
-        .total {
-            font-weight: bold;
-        }
+        td.id, td.state { width: 50px; text-align: center; }
+        th.fieldTerms { text-align: left; padding: 0 20px 0 0; }
+        .total { font-weight: bold; }
 
         #fields {
             border: 1px solid #BBBBBB;
@@ -55,11 +48,13 @@
 
         div#searchForm {
             border: 1px solid;
-            width: 550px;
-            padding: 17px 0 0 35px;
-            margin: 0 0 30px 0;
+            padding:17px;
+            margin-bottom:30px;
         }
 
+        form {
+            padding:0; margin:0;
+        }
     </style>
     <script type="text/javascript">
         function showExplanation(d) {
@@ -68,8 +63,9 @@
             return false;
         }
     </script>
+    <![CDATA[
     <script type="text/javascript" src="/res/js/prototype.js"></script>
-
+    ]]>
 </head>
 
 <body onload="document.getElementById('qfield').focus()">
