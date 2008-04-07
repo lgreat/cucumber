@@ -903,11 +903,13 @@ div.communityQuestionPromoWrapper {
 
 div#communityQuestionPromo.overviewBorder div.avatar {
     left: 15px;
+    _left: 13px;
 }
 
 #rateReview.overview {
     border: 2px solid #EEEEEE;
     margin-bottom: 10px;
+    padding-left: 20px;
 }
 
 div#col_right div#nearbySchools {
