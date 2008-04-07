@@ -14,7 +14,7 @@
         </head>
 
         <body>
-        Framed ad:
+        Framed ad:<br /><br />
         <iframe src="/content/gsadframe.html" marginwidth="0" marginheight="0" hspace="0" vspace="0" bordercolor="#000000" frameborder="0" height="90" scrolling="no" width="728"></iframe>
         </body>
     </html>
