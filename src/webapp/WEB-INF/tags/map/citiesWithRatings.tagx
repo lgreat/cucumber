@@ -125,6 +125,18 @@ function ${functionName}() {
         var map = new GMap2(document.getElementById("${id}"));
         map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
         map.setCenter(new GLatLng(${lat}, ${lon}), ${17-scale});
+
+        var cityLocation;
+        var rating;
+        var medianHomePrice;
+        var cityPageUrl;
+        var schoolsPageUrl;
+        var cityName;
+        var state;
+        var zip;
+        var center;
+        var marker;
+
         <c:forEach var="s" items="${cities}" >
             <c:if test="${not empty s.city.latLon and not empty s.city.latLon.lon}">
                 <c:set var="city" scope="request" value="${s.city}" />
@@ -149,22 +161,22 @@ Median home price: $999,999*/
             }
             request.setAttribute("medianHomePrice", medianHomePrice);
                 </jsp:scriptlet>
-                var cityLocation = new GLatLng(${city.latLon.lat},${city.latLon.lon});
-                var rating = ${cityRating};
-                var medianHomePrice = '${medianHomePrice}';
-                var cityPageUrl = "${cityPageUrl}";
-                var schoolsPageUrl = "${schoolsPageUrl}";
-                var cityName = "${city.name}";
-                var state = '${city.state.abbreviation}';
-                var zip = "";
+                cityLocation = new GLatLng(${city.latLon.lat},${city.latLon.lon});
+                rating = ${cityRating};
+                medianHomePrice = '${medianHomePrice}';
+                cityPageUrl = "${cityPageUrl}";
+                schoolsPageUrl = "${schoolsPageUrl}";
+                cityName = "${city.name}";
+                state = '${city.state.abbreviation}';
+                zip = "";
                 <c:if test="${s.fromZip eq true}">
                     zip = "${city.zip}";
                 </c:if>
-                var center = false;
+                center = false;
                 <c:if test="${s.center eq true}">
                     center = true;
                 </c:if>
-                var marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating, zip, center);
+                marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating, zip, center);
                 map.addOverlay(marker);
             </c:if>
         </c:forEach>
