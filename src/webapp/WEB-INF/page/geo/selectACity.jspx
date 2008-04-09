@@ -15,7 +15,8 @@
         xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:gsweb="gstaglib"
         >
-    <html lang="en">
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<html lang="en">
     <ad:setSlotPrefix slotPrefix="Nearby_Cities"/>
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <jsp:output doctype-root-element="html"
@@ -35,7 +36,7 @@
 
         <script type="text/javascript">
             <![CDATA[
-            <!--
+            //<!--
             function verifyCity(selectId) {
                 var citySelect = document.getElementById(selectId);
                 if (citySelect.value == 'Choose city' || citySelect.value == '') {
@@ -58,9 +59,18 @@
                             parameters: pars
                         });
             }
-            -->
+            //-->
             ]]>
         </script>
+        <jsp:scriptlet>
+            try {
+                PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+                String city = request.getParameter("city");
+                if (null != pageHelper) {
+                    pageHelper.addAdKeyword("city", city);
+                }
+            } catch (Exception e) { /* ignore */ }
+        </jsp:scriptlet>
     </head>
 
     <gsml:body adPageName="city">
