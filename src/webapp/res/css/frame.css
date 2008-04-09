@@ -21,8 +21,10 @@ body.cobranded {
     margin-right: auto;
     background-color: #fff;
 }
+
 body.unframed #pageGS {
-    border: 4px solid   #acd;
+    /* see GS-6016 */
+    /*border: 4px solid   #acd;*/
 }
 
 #adLeaderboard {

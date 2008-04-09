@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
     <!--
     We check for ad free sites because number1expert, mcguire, and framed don't have cobrand headers
@@ -41,4 +42,11 @@
             </script>
         </div>
     </c:if>
+
+    <div id="promoheader">
+        <link:healthyKids>No more couch potatoes! How to raise a Healthy Kid</link:healthyKids>
+        <div id="promoheader_pipe">|</div>
+        <a href="http://community.greatschools.net/q-and-a/164403/My-kid-was-punched-in-his-eye-by-his-classmate">Help! My kid got punched in the eye by his classmate!</a>
+    </div>
+
 </jsp:root>

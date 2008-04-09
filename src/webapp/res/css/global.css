@@ -599,3 +599,30 @@ h1#sfooter {
 div#testScoreLandingLinks {
     margin-top: 10px;
 }
+
+div#promoheader {
+    width:900px;
+    background:url("/res/img/header_promo_background.gif");
+    margin:0 auto;
+    padding:0;
+    height:32px;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-weight:bold;
+    font-size: 13px;
+    color: #3399AA;
+    line-height:26px;
+}
+
+div#promoheader #promoheader_pipe {
+    display:inline;
+    padding:0 5px 0 6px;
+}
+
+div#promoheader a {
+    color: #3399AA;
+    text-decoration:none;
+}
+
+div#promoheader a:hover {
+    text-decoration:underline;
+}
