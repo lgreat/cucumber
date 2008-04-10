@@ -3,6 +3,8 @@ package gs.web.community;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.content.Article;
+import gs.data.content.IArticleDao;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -28,6 +30,7 @@ public class MailToFriendController extends SimpleFormController {
 
     private JavaMailSender _mailSender;
     private ISchoolDao _schoolDao;
+    private IArticleDao _articleDao;
 
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
@@ -46,7 +49,7 @@ public class MailToFriendController extends SimpleFormController {
 
         if (0 != mtc.getSchoolId()) {
             State state = session.getState();
-            School school = getSchoolDao().getSchoolById(state, new Integer(mtc.getSchoolId()));
+            School school = getSchoolDao().getSchoolById(state, mtc.getSchoolId());
 
             if (null != school && school.isActive()) {
                 mtc.setSubject("Check out this info about " + school.getName());
@@ -70,6 +73,23 @@ public class MailToFriendController extends SimpleFormController {
                     urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
                 }
                 msgBuffer.append(urlBuilder.asFullUrl(request));
+                mtc.setMessage(msgBuffer.toString());
+            }
+        } else if (0 != mtc.getArticleId()) {
+            State state = session.getStateOrDefault();
+            Article article = getArticleDao().getArticleFromId(mtc.getArticleId());
+            if (null != article) {
+                mtc.setSubject("I think you'll like GreatSchools");
+
+                StringBuffer msgBuffer = new StringBuffer();
+                UrlBuilder urlBuilder = new UrlBuilder(article, state, false);
+
+                msgBuffer.append("Check out this helpful resource I found").append
+                        (" on GreatSchools.net to support my child!").append
+                        ("\n\n").append
+                        ("Click on this link to learn more:").append
+                        ("\n\n").append
+                        (urlBuilder.asFullUrl(request));
                 mtc.setMessage(msgBuffer.toString());
             }
         }
@@ -151,5 +171,13 @@ public class MailToFriendController extends SimpleFormController {
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public IArticleDao getArticleDao() {
+        return _articleDao;
+    }
+
+    public void setArticleDao(IArticleDao articleDao) {
+        _articleDao = articleDao;
     }
 }

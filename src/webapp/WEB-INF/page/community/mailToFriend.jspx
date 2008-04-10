@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -154,10 +154,19 @@
         </fieldset>
         <spring:bind path="mailToFriendCmd.refer">
             <input type="hidden" name="${status.expression}" value="${status.value}"/>
-            <mod:tracking pageName="School Tell a Friend Form"
-                          hier1="School,Tell a Friend,Form,${status.value}"
-                    />
-        </spring:bind>        
+            <c:choose>
+                <c:when test="${status.value eq 'article'}">
+                    <mod:tracking pageName="Article Tell a Friend Form"
+                                  hier1="Article,Tell a Friend,Form"
+                            />
+                </c:when>
+                <c:otherwise>
+                    <mod:tracking pageName="School Tell a Friend Form"
+                                  hier1="School,Tell a Friend,Form,${status.value}"
+                            />
+                </c:otherwise>
+            </c:choose>
+        </spring:bind>
     </form>
 </gsml:body>
 </html>

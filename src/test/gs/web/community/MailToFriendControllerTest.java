@@ -4,40 +4,45 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.util.email.MockJavaMailSender;
+import gs.data.content.IArticleDao;
+import gs.data.content.Article;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContext;
-import org.easymock.MockControl;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
+import static org.easymock.EasyMock.*;
+
 /**
+ * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
 public class MailToFriendControllerTest extends BaseControllerTestCase {
     private MailToFriendController _controller;
+    private ISchoolDao _schoolDao;
+    private IArticleDao _articleDao;
+    private MockJavaMailSender _sender;
+    private School _school;
     private static final String SCHOOL_TEST_NAME = "TestNameSchool";
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = new MailToFriendController();
 
-        MockJavaMailSender _sender = new MockJavaMailSender();
+        _sender = new MockJavaMailSender();
         _sender.setHost("mail.greatschools.net");
         _controller.setMailSender(_sender);
 
-        School school = new School();
-        school.setId(new Integer("1"));
-        school.setName(SCHOOL_TEST_NAME);
-        school.setActive(true);
-        school.setDatabaseState(State.CA);
+        _school = new School();
+        _school.setId(new Integer("1"));
+        _school.setName(SCHOOL_TEST_NAME);
+        _school.setActive(true);
+        _school.setDatabaseState(State.CA);
 
-        MockControl schoolDaoMockControl = MockControl.createControl(ISchoolDao.class);
-        ISchoolDao schoolDao = (ISchoolDao) schoolDaoMockControl.getMock();
-        schoolDao.getSchoolById(State.CA, Integer.valueOf("1"));
-        schoolDaoMockControl.setReturnValue(school);
-        schoolDaoMockControl.replay();
-
-        _controller.setSchoolDao(schoolDao);
+        _schoolDao = createStrictMock(ISchoolDao.class);
+        _controller.setSchoolDao(_schoolDao);
+        _articleDao = createStrictMock(IArticleDao.class);
+        _controller.setArticleDao(_articleDao);
     }
 
     public void testGetEmailFromSessionOnBind() {
@@ -60,6 +65,7 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         assertEquals("", command.getFriendEmail());
         assertEquals("", command.getMessage());
         assertEquals(0, command.getSchoolId());
+        assertEquals(0, command.getArticleId());
     }
 
     public void testPassInaSchoolIdAsParameter() {
@@ -69,12 +75,35 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         getSessionContext().setState(State.CA);
 
         command.setSchoolId(1);
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(_school);
+        replay(_schoolDao);
         _controller.onBindOnNewForm(getRequest(), command, errors);
+        verify(_schoolDao);
 
         assertTrue(command.getMessage().indexOf(SCHOOL_TEST_NAME) > -1);
         //link to school profile page is part of the message
         assertTrue(command.getMessage().indexOf("browse_school") > -1);
         assertTrue(command.getSubject().indexOf(SCHOOL_TEST_NAME) > -1);
+    }
+
+    public void testArticleId() {
+        MailToFriendCommand command = new MailToFriendCommand();
+        BindException errors = new BindException(command, "");
+
+        getSessionContext().setState(State.CA);
+
+        command.setArticleId(1);
+        Article article = new Article();
+        article.setId(1);
+
+        expect(_articleDao.getArticleFromId(1)).andReturn(article);
+        replay(_articleDao, _schoolDao );
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        verify(_articleDao, _schoolDao);
+
+        assertTrue(command.getMessage().indexOf("helpful resource") > -1);
+        assertTrue(command.getMessage().indexOf("article") > -1);
+        assertTrue(command.getMessage().indexOf("1") > -1);
     }
 
     //test emails validate correctly
@@ -125,36 +154,29 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
     }
 
     public void testDoSubmitAction() {
-        MockJavaMailSender sender = new MockJavaMailSender();
-        //must set a host to some value
-        sender.setHost("hithere.com");
         MailToFriendCommand command = new MailToFriendCommand();
         command.setUserEmail("dlee@greatschools.net");
         command.setFriendEmail("dlee@greatschools.net");
 
         command.setRefer("School Profile");
 
-        _controller.setMailSender(sender);
+        _controller.setMailSender(_sender);
         ModelAndView mv = _controller.onSubmit(command);
 
-        assertEquals(1, sender.getSentMessages().size());
+        assertEquals(1, _sender.getSentMessages().size());
         assertEquals("School Profile", (String) mv.getModel().get("refer"));
     }
 
     public void testDoSubmitActionAuthorizer() {
-        MockJavaMailSender sender = new MockJavaMailSender();
-        //must set a host to some value
-        sender.setHost("hithere.com");
         MailToFriendCommand command = new MailToFriendCommand();
         command.setUserEmail("dlee@greatschools.net");
         command.setFriendEmail("dlee@greatschools.net");
 
         command.setRefer("authorizer");
 
-        _controller.setMailSender(sender);
         ModelAndView mv = _controller.onSubmit(command);
 
-        assertEquals(1, sender.getSentMessages().size());
+        assertEquals(1, _sender.getSentMessages().size());
         assertEquals("authorizer", (String) mv.getModel().get("refer"));        
     }
 
@@ -170,6 +192,9 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
 
         command.setRefer("School Profile Overview");
         assertEquals("School Profile Overview", command.getRefer());
+
+        command.setRefer("article");
+        assertEquals("article", command.getRefer());
 
     }
 

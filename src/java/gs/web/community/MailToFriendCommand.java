@@ -15,6 +15,8 @@ public class MailToFriendCommand {
 
     private int _schoolId;
 
+    private int _articleId;
+
 
     public String getUserEmail() {
         return _userEmail;
@@ -64,6 +66,13 @@ public class MailToFriendCommand {
         _schoolId = schoolId;
     }
 
+    public int getArticleId() {
+        return _articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        _articleId = articleId;
+    }
 
     public String getRefer() {
         return _refer;

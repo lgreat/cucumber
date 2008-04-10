@@ -39,7 +39,9 @@
                             </div>
                             <div class="simplemenu">
                                 <gsml:img src="/images/editorial/emailgrey.gif" alt="Email this article"/>
-                                <a href="#">Email This Article</a>
+                                <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?articleId=${requestScope.article.id}&amp;refer=article"/>
+                                <gsml:a href="${mailToFriendUrl}"
+                                            onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email This Article</gsml:a>
                             </div>
                             <div class="simplemenu">
                                 <gsml:img src="/images/editorial/signupgrey.gif" alt="Sign-up for newsletters"/>
