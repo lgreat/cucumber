@@ -1,7 +1,6 @@
 package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.context.SessionContextUtil;
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
 import gs.data.state.State;

@@ -21,7 +21,8 @@ import java.util.regex.Matcher;
 /**
  * This is the controller for the article page.  A single article and any
  * associated tools are displayed on article.page given an article id.
- *  
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class ArticleController extends AbstractController {
@@ -72,6 +73,10 @@ public class ArticleController extends AbstractController {
         return new ModelAndView("content/article", model);
     }
 
+//    private int parseArticleId(String articleId) {
+//        return -1;
+//    }
+
     /**
      * Performs various string replacements on the given text.
      * Replaces $LONGSTATE with the state's long name.
@@ -80,6 +85,9 @@ public class ArticleController extends AbstractController {
      * Calls processArticleForStateSubstrings for state-specific content
      */
     protected String processArticleString(State state, String text) {
+        if (StringUtils.isEmpty(text)) {
+            return text;
+        }
         text = StringUtils.replace(text, "$LONGSTATE",
                 state.getLongName());
         text = StringUtils.replace(text, "$STATE",
