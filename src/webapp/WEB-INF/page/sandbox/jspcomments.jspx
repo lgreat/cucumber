@@ -50,6 +50,28 @@
         }
     </script>
     -->
+    <script type="text/javascript">
+        // <!--
+        function bad () {
+            if (2 < 3) {
+                if (true && true) {
+                    alert("ok"); 
+                }
+            }
+        }
+        // -->
+    </script>
+    <script type="text/javascript">
+        <![CDATA[<!--
+        function good () {
+            if (2 < 3) {
+                if (true && true) {
+                    alert("ok");
+                }
+            }
+        }
+        -->]]>
+    </script>
 </head>
 <body>
 <!-- If this were a jsp page and not a jspx page, this comment would be visible by the client -->
@@ -79,6 +101,10 @@ U.T.S.L.
     <!--jsp el still works inside CDATA tags.-->
     <!--But otherwise, there is no way to hide comments from the client inside a CDATA -->
 ]]>
+
+<jsp:text>
+    <![CDATA[<div><br/></div>]]>
+</jsp:text>
 </body>
 </html>
 </jsp:root>
