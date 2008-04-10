@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.36 2008/03/24 18:24:13 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.37 2008/04/10 18:15:28 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -413,6 +413,15 @@ public class SessionContextUtil implements ApplicationContextAware {
 
             if (state != null) {
                 context.setState(state);
+                //_stateCookieGenerator.setCookieDomain();
+                if (_urlUtil.isDeveloperWorkstation(httpServletRequest.getServerName())) {
+                    // don't set domain for developer workstations
+                    // so they can still access the cookie!!
+                    _stateCookieGenerator.setCookieDomain(null);
+                } else {
+                    _stateCookieGenerator.setCookieDomain(".greatschools.net");
+                }
+
                 _stateCookieGenerator.addCookie(httpServletResponse, state.getAbbreviation());
                 _log.debug("switching user's state: " + state);
             }
