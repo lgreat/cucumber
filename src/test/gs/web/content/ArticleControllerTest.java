@@ -1,19 +1,25 @@
 package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.GsMockHttpServletRequest;
+import gs.web.util.context.SessionContextUtil;
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
+import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.easymock.EasyMock.*;
+
 /**
+ * Unit tests for ArticleController.
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class ArticleControllerTest extends BaseControllerTestCase {
 
     private ArticleController _controller;
     private IArticleDao _articleDao;
+    private State _state;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -21,22 +27,8 @@ public class ArticleControllerTest extends BaseControllerTestCase {
 
         _articleDao = createStrictMock(IArticleDao.class);
         _controller.setArticleDao(_articleDao);
-    }
 
-    // AR: this was in here already so I left it as-is
-    public void testHandleRequestInternal() {
-        ArticleController controller =
-                (ArticleController)getApplicationContext().
-                        getBean(ArticleController.BEAN_ID);
-
-        GsMockHttpServletRequest request = getRequest();
-        request.setParameter(ArticleController.PARAM_AID, "2");
-        ModelAndView mAndV =
-                controller.handleRequestInternal(request, getResponse());
-        Article article =
-                (Article)mAndV.getModel().get("article");
-        assertEquals("Article title does not match.",
-                "Who Makes School Discipline Decisions?", article.getTitle());
+        _state = State.CA;
     }
 
     public void testNewStyleArticle() {
@@ -71,5 +63,65 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         verify(_articleDao);
 
         assertNull("Expect failure to retrieve article", mAndV.getModel().get(ArticleController.MODEL_ARTICLE));
+    }
+
+    public void testProcessArticleString() {
+        assertEquals("in California",
+                _controller.processArticleString(_state,
+                        "in $LONGSTATE"));
+
+        assertEquals("for (California)",
+                _controller.processArticleString(_state,
+                        "for ($LONGSTATE)"));
+
+        assertEquals("for a longstate",
+                _controller.processArticleString(_state,
+                        "for a longstate"));
+
+        assertEquals("in CA",
+                _controller.processArticleString(_state,
+                        "in $STATE"));
+
+        assertEquals("/cgi-bin/showarticle/CA/174/impove",
+                _controller.processArticleString(_state,
+                        "/cgi-bin/showarticle/$STATE/174/impove"));
+
+        assertEquals("Hello",
+                _controller.processArticleString(_state,
+                        "<span id=\"nopagebreaks\"/>Hello"));
+
+        assertEquals("Hello. Good-bye. We meet again.",
+                _controller.processArticleString(_state,
+                        "Hello. <span id=\"pagebreak\"/>Good-bye. <span id=\"pagebreak\"/>We meet again."));
+    }
+
+    public void testProcessArticleForStateSubstrings() {
+        assertEquals("", _controller.processArticleForStateSubstrings(_state, ""));
+
+        assertEquals("Hello!", _controller.processArticleForStateSubstrings(_state,
+                "^gstate=\"ca\"^Hello!^/gstate^"));
+
+        assertEquals("Hello!", _controller.processArticleForStateSubstrings(_state,
+                "^gstate=\"ak\"^what?^/gstate^^gstate=\"ca\"^Hello!^/gstate^"));
+
+        assertEquals("what?", _controller.processArticleForStateSubstrings(_state,
+                "^gstate=\"ca\"^what?^/gstate^^gstate=\"!ca\"^Hello!^/gstate^"));
+
+        assertEquals("what? Hello!", _controller.processArticleForStateSubstrings(_state,
+                "^gstate=\"ca,ak\"^what?^/gstate^ ^gstate=\"ak,ca\"^Hello!^/gstate^"));
+
+        assertEquals("For some states, including California, these things come naturally",
+                _controller.processArticleForStateSubstrings(_state,
+                "For some states^gstate=\"ca\"^, including California,^/gstate^" +
+                        " these things come naturally"));
+
+        assertEquals("For some states these things come naturally",
+                _controller.processArticleForStateSubstrings(_state,
+                "For some states^gstate=\"ak\"^, including California,^/gstate^" +
+                        " these things come naturally"));
+
+        assertEquals("For some states these things come naturally",
+                _controller.processArticleForStateSubstrings(_state,
+                "For some states these things come naturally"));
     }
 }

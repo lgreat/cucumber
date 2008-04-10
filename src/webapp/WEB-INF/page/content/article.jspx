@@ -59,10 +59,10 @@
                     <c:choose>
                         <c:when test="${not empty requestScope.article}">
                             <div id="article">
-                                <div class="article-title">${requestScope.article.title}</div>
-                                <div class="abstract">${requestScope.article.abstract}</div>
+                                <div class="article-title">${requestScope.articleTitle}</div>
+                                <div class="abstract">${requestScope.articleAbstract}</div>
                                 <div class="byline">By ${requestScope.article.author}</div>
-                                <div id="articleText">${requestScope.article.articleText}</div>
+                                <div id="articleText">${requestScope.articleText}</div>
                             </div>
                         </c:when>
                         <c:otherwise>
