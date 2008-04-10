@@ -123,4 +123,23 @@ public class ArticleControllerTest extends BaseControllerTestCase {
                 _controller.processArticleForStateSubstrings(_state,
                 "For some states these things come naturally"));
     }
+
+    public void testParseArticleId() {
+        assertEquals(-1, _controller.parseArticleId(_state, null));
+
+        assertEquals(1, _controller.parseArticleId(_state, "1"));
+
+        assertEquals(-1, _controller.parseArticleId(_state, "blah"));
+
+        assertEquals("Expect 51 states in achievement map",
+                51, ArticleController._achievementMap.size());
+
+        assertEquals(866, _controller.parseArticleId(_state, "achievement"));
+        assertEquals(862, _controller.parseArticleId(State.TX, "achievement"));
+        assertEquals(887, _controller.parseArticleId(State.IN, "achievement"));
+        assertEquals(894, _controller.parseArticleId(State.OK, "achievement"));
+        assertEquals(899, _controller.parseArticleId(State.DC, "achievement"));
+        assertEquals(912, _controller.parseArticleId(State.ME, "achievement"));
+        assertEquals(921, _controller.parseArticleId(State.SD, "achievement"));
+    }
 }

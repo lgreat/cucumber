@@ -11,7 +11,7 @@
     <html lang="en">
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <title>${requestScope.article.title}</title>
+        <title>${requestScope.articleTitle} - ${requestScope.context.stateOrDefault.longName} - GreatSchools.net</title>
         <pageHelper:setPathway pathway="LIBRARY"/>
         <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
 
