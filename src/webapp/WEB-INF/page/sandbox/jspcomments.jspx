@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   This is an xml comment - it won't get delivered to the client.
+   xml comments may not contain a double dashes.
+   xml comments can appear anywhere after the ?xml declaration on line 1,
+   but not within xml elements.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
+<head>
+    <title>JSP comments</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <jsp:scriptlet>
+        /**
+         Multi line java comments are supported.
+         */
+        StringBuilder buffer = new StringBuilder();  // as are to-line-end comments
+        buffer.append("comment this!");
+        /*
+         Scriplet code is compiled to servlet code and is server-side only.
+         */
+    </jsp:scriptlet>
+    <script type="text/javascript" src="/res/js/sandbox/jspcomments.js"></script>
+    <!--
+    <script type="text/javascript">
+        function inlineLessThan() {
+            var x = 0;
+            var y = 1;
+            // Invalid xml must be escaped
+            // The following is valid in the jsp source but *not* valid in the client source.
+            if (x &lt; y) {
+                alert("foo");
+            }
+        }
+
+        function inlineLogicalAnd() {
+            var x = true;
+            var y = true;
+            // The following is valid in the jsp source but again, is *not* valid in the client source.
+            if (x &amp;&amp; y) {
+                alert("bar");
+            }
+        }
+    </script>
+    -->
+</head>
+<body>
+<!-- If this were a jsp page and not a jspx page, this comment would be visible by the client -->
+U.T.S.L.
+
+<!--
+   <div>not visible by client</div>
+-->
+
+<!--
+<![CDATA[
+   As expected, the outer XML comment marker hides the CDATA from the client   
+]]>
+-->
+
+<![CDATA[
+    <div><!-- xml comment inside a div --></div>
+    <!--
+    visible by client, but not rendered
+    invalid xml noise: >>>><div<<> & >  still validates on the client because
+    it's inside *client-side* xml comments
+    -->
+]]>
+
+<![CDATA[
+    ${param.foo}
+    <!--jsp el still works inside CDATA tags.-->
+    <!--But otherwise, there is no way to hide comments from the client inside a CDATA -->
+]]>
+</body>
+</html>
+</jsp:root>
+
+
+<!--
+Invalid (or dangerous) characters in xml are:
+   character       escape
+       <            &lt;
+       &            &amp;
+       "            &quot;
+       '            &apos;
+-->

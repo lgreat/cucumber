@@ -45,6 +45,7 @@
         <pattern>*/survey/admin.page*</pattern>
         <pattern>*/survey/edit.page*</pattern>
         <pattern>*/ads/tacoda/*</pattern>
+        <pattern>*/sandbox/*</pattern>
     </excludes>
 
 </decorators>
