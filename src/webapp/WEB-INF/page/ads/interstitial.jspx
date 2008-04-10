@@ -17,6 +17,7 @@
         gs.web.util.PageHelper.hideHeader(request);
         gs.web.util.PageHelper.hideFooterAd(request);
         gs.web.util.PageHelper.hideFooter(request);
+        gs.web.util.PageHelper.setPageName(request, "interstitial");
     </jsp:scriptlet>
     <html lang="en">
     <pageHelper:addOnLoadHandler handler="createCookie('gs_interstitial', 'viewed', 1);"/>
