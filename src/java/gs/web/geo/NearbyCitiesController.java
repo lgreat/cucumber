@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.33 2008/04/01 17:25:22 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.34 2008/04/11 21:25:09 chriskimm Exp $
 */
 
 package gs.web.geo;
@@ -34,9 +34,6 @@ import java.util.*;
  * <li>city
  * <li>count - maximum number of cities to show. (optional)
  * Uses the styles "town", "city" and "bigCity" based on population.
- *
- * @author Andrew J. Peterson
- * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  */
 public class NearbyCitiesController extends AbstractController {
     protected static final Log _log = LogFactory.getLog(NearbyCitiesController.class);
@@ -76,7 +73,6 @@ public class NearbyCitiesController extends AbstractController {
     private ICityRatingDao _cityRatingDao;
     private AnchorListModelFactory _anchorListModelFactory;
 
-
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         Map<String, Object> model = new HashMap<String, Object>();
@@ -113,14 +109,11 @@ public class NearbyCitiesController extends AbstractController {
                 if (!isModule) {
                     nearbyCities.add(0, city); // add our city to list so it will get ratings/bp info
                     List<CityAndRating> nearbyCitiesWithRatings = attachCityRatings(nearbyCities);
-
-                    List<CityAndRating> citiesForList = new ArrayList<CityAndRating>(nearbyCitiesWithRatings);
-                    citiesForList.remove(0); // remove our city from this list so it won't appear in cities near
                     model.put(MODEL_CITIES, nearbyCitiesWithRatings);
 
                     anchorListModel = _anchorListModelFactory.createNearbyCitiesWithRatingsAnchorListModel(
                             heading, city,
-                            citiesForList,
+                            nearbyCitiesWithRatings,
                             limit,
                             request.getParameter(PARAM_INCLUDE_STATE) != null,
                             request.getParameter(PARAM_MORE) != null,

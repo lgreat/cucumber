@@ -133,13 +133,6 @@
         </property>
     </bean>
 
-    <bean name="/sandbox/jspcomments.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>sandbox/jspcomments</value>
-        </property>
-    </bean>
-
     <!-- ******************************************  -->
     <!--BEGIN configuration for the Beta group pages -->
     <!-- ******************************************  -->
@@ -459,6 +452,14 @@
 
     <bean name="/test/*"
           class="gs.web.util.TestViewController" lazy-init="true"/>
+
+    <bean name="/sandbox/jspcomments.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>sandbox/jspcomments</value>
+        </property>
+    </bean>
+
 
     <!--Begin conversion pages -->
     <bean name="/community/conversion/conversion.page"

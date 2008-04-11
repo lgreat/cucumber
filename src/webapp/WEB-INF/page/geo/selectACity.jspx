@@ -3,6 +3,7 @@
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:spring="http://www.springframework.org/tags"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
@@ -59,6 +60,10 @@
                             parameters: pars
                         });
             }
+
+            function openDefinition() {
+                window.open("", "issues", 'width=400,height=300,scrollbars=yes');
+            }
             //-->
             ]]>
         </script>
@@ -105,12 +110,10 @@
 
         <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
-
                 <td style="width:290px; vertical-align: top">
                     <div id="nearbyCities">
-                        <h3 class="result_title">${anchorListModel.heading}</h3>
                         <ul>
-                            <c:forEach var="anchor" items="${anchorListModel.results}">
+                            <c:forEach var="anchor" items="${anchorListModel.results}" varStatus="count">
                                 <c:set var="listItemClass" value="${anchor.styleClass}"/>
                                 <c:if test="${anchor eq anchorListModel.results[0]}">
                                     <c:set var="listItemClass" value="${anchor.styleClass} first"/>
@@ -150,11 +153,25 @@
                         <div class="learnMore">
                             <gsweb:articlelink
                                     articleId="1023"
-                                    anchorName="13">Learn More about GreatSchools City Ratings &gt;</gsweb:articlelink>
+                                    anchorName="13">Learn more about GreatSchools City Ratings &gt;</gsweb:articlelink>
                         </div>
                     </td>
                 </c:if>
-            </tr></table>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="reference">
+                        <div class="bpReference">
+                            Median home price data provided by <a href="http://www.bestplaces.net" target="_blank">Sperling's Best Places.</a>
+                        </div>
+                        <gsml:a href="/definitions/natl/median_home_price.html" target="issues" onClick="openDefinition();" title="Information about this data">
+                            <img src="/res/img/yellow_circle_i.gif" alt="yellow i in circle" />
+                        </gsml:a>
+                    </div>
+                </td>
+            </tr>
+            </table>
 
         <div id="editorialBar">
             <div class="compareCitiesNear compareVertical">

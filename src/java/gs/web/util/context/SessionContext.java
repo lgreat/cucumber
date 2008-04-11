@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.18 2007/09/04 17:07:46 dlee Exp $
+ * $Id: SessionContext.java,v 1.19 2008/04/11 21:25:09 chriskimm Exp $
  */
 package gs.web.util.context;
 
@@ -31,7 +31,6 @@ import java.security.NoSuchAlgorithmException;
  * Finally, this class gets called at the beginning of each request, and can
  * perform global operations like changing the user's state, host or cobrand.
  *
- * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  * @see SessionContextInterceptor
  */
 public class SessionContext implements ApplicationContextAware, Serializable {
