@@ -108,7 +108,10 @@ ClickCapture.prototype.getEvents = function(pageEvents){
 
 var customInsight9ClickEventHandler = function (e) {
      var obj = getNode(e);
-     clickCapture.capture("prop9",  obj.id);
+     var id = obj.id;
+     var idParts = id.split("__");
+     var mostSignificantPart = idParts[0];
+     clickCapture.capture("prop9",  mostSignificantPart);
  }
 
  var evar5ClickEventHandler = function(e) {
