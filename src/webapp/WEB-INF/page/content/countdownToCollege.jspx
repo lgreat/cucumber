@@ -163,7 +163,7 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="1214" styleClass="seeFullArticle">
+        <gsweb:articlelink articleId="1214" styleClass="noHover">
             What If Your Teen Wants to Skip College?
         </gsweb:articlelink>
 
@@ -326,8 +326,7 @@
                            <span class="actionTip">
                                Encourage your child to start making summer plans. Consider
                                <a href="http://www.collegeboard.com/parents/plan/hs-steps/21283.html"
-                               target="_blank">jobs, internships, volunteer activities</a>
-                               , or athletic programs. 
+                               target="_blank">jobs, internships, volunteer activities</a>, or athletic programs.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan &gt;</a></td>
             </tr>
