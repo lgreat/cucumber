@@ -81,7 +81,11 @@
     <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="537" wrappingElement="li"/>
-        <gsweb:articlelink articleId="999" wrappingElement="li"/>
+
+        <li >
+            <a href="http://www.schwablearning.org/articles.aspx?r=999">When Your Teenager's Peers Are Headed to College, but He Is Not</a>
+        </li>
+
         <gsweb:articlelink articleId="688" wrappingElement="li"/>
         <gsweb:articlelink articleId="752" wrappingElement="li"/>
         <gsweb:articlelink articleId="1076" wrappingElement="li"/>
