@@ -1,16 +1,14 @@
 package gs.web.util;
 
 import gs.web.util.context.SessionContext;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletRequest;
-
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
@@ -50,6 +48,7 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
                 String redirect = response.encodeRedirectURL(redirectUrl);
                 response.setStatus(301);
                 response.setHeader("Location", redirect);
+                response.setHeader("Cache-Control", "no-cache");
                 response.setHeader("Connection", "close");
                 logRedirect(request, redirectUrl);
                 return false;
