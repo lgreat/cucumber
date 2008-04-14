@@ -190,11 +190,11 @@
                 >Research &amp;amp; Compare</link:research></td>
             <!--#10--><td ><gsml:a href="http://${communityHost}"
                                    styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} GS_CI9_ GS_EV5_"
-                                   id="GlobalNav_CommunityButton">Community</gsml:a></td>
-            <!--#7--><td><gsml:a href="/content/tutoring_Homework_Help.page"
+                                   id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
+            <!--#7--><td><gsml:a href="/content/travel.page"
                                  id="GlobalNav_SeasonalButton"
                                  styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} GS_CI9_ "
-                >Tutoring &amp;amp; Homework Help</gsml:a></td>
+                >Travel &amp;amp; Learning</gsml:a></td>
             <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
                                  id="GlobalNav_CountdownToCollegeButton"
                                  styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '') } GS_CI9_ "
