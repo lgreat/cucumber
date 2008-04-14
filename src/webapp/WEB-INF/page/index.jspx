@@ -97,7 +97,7 @@
 
 
                     if (MM_FlashCanPlay) {
-                        var HouseAdMediaResource = '/res/swf/c?path=/res/swf/HouseAd_tutor.swf';
+                        var HouseAdMediaResource = '/res/swf/c?path=/res/swf/HouseAd_travel.swf';
 
                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
