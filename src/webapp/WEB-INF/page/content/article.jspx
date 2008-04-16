@@ -107,8 +107,8 @@
                             </form>
                         </div>
 
-                        <hr width="100%" class="commentDivider"/>
                         <c:if test="${requestScope.article.userComments ne null and fn:length(requestScope.article.userComments) gt 0}">
+                            <hr width="100%" class="commentDivider"/>
                             <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
                             <div id="comments">
                                 <c:forEach var="comment" items="${requestScope.article.userComments}">
