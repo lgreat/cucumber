@@ -375,7 +375,7 @@ hr { /* has IE 7 equivalent */
 #parentReviews {
 	width: 356px;
 	float: left;
-	margin: 0 0 10px 0;
+	margin: 10px 0 10px 0;
     padding: 3px 3px 18px 3px;
     border: 2px solid #EEEEEE;
 }
@@ -892,7 +892,6 @@ div.communityQuestionPromoWrapper {
     border: 2px solid #EEEEEE;
     float: left;
     margin-top: 10px;
-    margin-bottom: 10px;
     width: 356px;
 }
 

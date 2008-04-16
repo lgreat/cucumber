@@ -18,8 +18,8 @@
 
 <c:set var="topStyle" value="${(fn:length(questionText) gt 0)?'':'display:none'}"/>
 
-<div class="communityQuestionPromoWrapper">
-    <div class="memberSpeech ${param.styleClass}" id="communityQuestionPromo" style="${topStyle}">
+<div class="communityQuestionPromoWrapper" style="${topStyle}">
+    <div class="memberSpeech ${param.styleClass}" id="communityQuestionPromo">
         <div class="speech">
             <div class="bodyArea">
                 ${questionText}
