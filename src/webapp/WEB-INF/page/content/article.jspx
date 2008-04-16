@@ -77,7 +77,7 @@
 
                     <div id="articleComments" class="noprint">
                         <div id="enterComment">
-                            <form action="/cgi-bin/feedback-submit" method="post">
+                            <form action="/cgi-bin/feedback_submit" method="post">
                                 <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
                                 <input type="hidden" name="type" value="article" />
                                 <input type="hidden" name="id" value="${requestScope.article.id}" />
