@@ -27,9 +27,20 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
+    <pageHelper:externalJavascript file="/res/js/jquery-1.2.3.min.js"/>
 
     <script type="text/javascript">
         var countWords = makeCountWords(150, "Survey answers are limited to 150 words.")
+    </script>
+    <script type="text/javascript">
+        function testDisable() {
+            var b = $(".link2"); //.addClass("testMe");
+            alert("debug: " + b);
+            b.addClass('testMe');
+//            $(document).ready (function() {
+                
+//            });
+        }
     </script>
 </head>
 <body>
@@ -95,7 +106,11 @@
     <div class="question-group">
     <h2 class="question-group-heading"><c:out value="${questionGroup.title}" escapeXml="true"/></h2>
     <c:forEach var="question" items="${questionGroup.questions}" varStatus="questionCount">
-        <div class="question">
+        <c:set var="type_style" value="single" />
+        <c:if test="${question.type eq 'LINKED'}">
+            <c:set var="type_style" value="disabled" />
+        </c:if>
+        <div class="question ${type_style}">
             <div class="question-text"><span class="number">${questionCount.index + 1}.</span>${question.text}</div>
             <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
                 <h3 class="answer-sibling-heading">${answer.title}</h3>

@@ -502,3 +502,7 @@ div#who {
 input.terms {
     margin:8px 0 0 0;
 }
+
+.disabled {
+    /*background:red;*/
+}
