@@ -1,0 +1,430 @@
+/* Java compatibility */
+.contentGS .articlecopy a:link, .contentGS .articlecopy a:visited, .contentGS .articlecopy a:hover {
+    color: #3399AA;
+}
+
+.contentGS .articlecopy ul {
+    margin: 10px 0 10px 0;
+    font-size: 15px;
+}
+
+.contentGS .articlecopy li {
+    font-size: 15px;
+}
+
+/* Pre-existing editorial.css styles (may be slightly modified) */
+.article-title {
+    font-family:"Times New Roman", Helvetica, sans-serif;
+    font-size:28px;
+    line-height:31px;
+    color:#444444;
+}
+
+.byline {
+    font-family:"Times New Roman", Helvetica, sans-serif;
+    font-size:14px;
+    line-height:20px;
+    color:#55BBCC;
+}
+
+.byline a {
+    text-decoration:none;
+}
+
+.abstract {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:15px;
+    line-height:20px;
+    color:#444444;
+    background:#FFFFFF;
+}
+
+.content, #article-main, .subheader {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:15px;
+    line-height:22px;
+    color:#444444;
+}
+
+#article-main span.caption {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:12px;
+    font-weight:normal;
+    line-height:15px;
+    color:#444444;
+}
+
+#article-main .header,
+#article-main .subheader{
+    display: block;
+}
+
+#article-main .subheader{
+    margin-bottom: 10px;
+}
+#article-main .header{
+    margin-bottom: 20px;
+}
+
+
+#article-main .header {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:17px;
+    font-weight:bold;
+    line-height:22px;
+    color:#444444;
+}
+
+.subheader {
+    font-weight:bold;
+}
+#article-main a, .byline a, a {
+    color:#3399AA;
+}
+
+div.dotted-divider hr {
+    display:none;
+}
+
+div.dotted-divider {
+    height:5px;
+    border:0;
+    margin:20px 0 20px 0;
+    background-image: url("/res/img/splash/greyDot.gif");
+    background-repeat: repeat-x;
+}
+
+div#more-about {
+    margin:20px 0 0 0;
+}
+
+span.headline {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:18px;
+    font-weight:bold;
+    color:#99CC66;
+}
+
+div#more-about ul {
+    margin:10px 0 0 0;
+    padding:0;
+}
+
+div#more-about li {
+    list-style:none;
+    padding: 0 0 2px 10px;
+    background-image: url("/res/img/content/article/greenarrow.gif");
+    background-repeat: no-repeat;
+    background-position: 0 .9ex;
+    color:#3399AA;
+}
+
+div.blueModule {
+    position:relative;
+    border:2px solid #E4F3F5;
+    margin-bottom:15px;
+}
+
+div.blueModule div.blueHeader {
+    background:#E4F3F5;
+    height:25px;
+}
+
+div.blueModule div.blueHeader span {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    line-height:24px;
+    padding-left:15px;
+    color:#3399AA;
+}
+
+div.blueModule div.content,
+div.greenModule div.content {
+    font-size:13px;
+    line-height:20px;
+    padding:10px;
+}
+
+/** Comment Area **/
+div#articleComments div#enterComment,
+div.greenModule {
+    position:relative;
+    border:2px solid #E1EFD1;
+    margin-bottom:15px;
+    color:#444444;
+}
+
+div.greenHeader {
+    background:#E1EFD1;
+    height:25px;
+}
+
+div.greenHeader span {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    line-height:24px;
+    padding-left:15px;
+    color:#6BA230;
+}
+
+div#articleComments div#enterComment textarea {
+    width:360px;
+    height:17em;
+    border:2px solid #CCCCCC;
+    margin:10px 0 0 10px;
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    color:#666666;
+}
+
+div#articleComments div#enterComment div#nameEmail {
+    position:absolute;
+    top:35px;
+    left:400px;
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+}
+
+div#articleComments div#enterComment input.text {
+    border:1px solid #CCCCCC;
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    color:#666666;
+}
+
+div#articleComments div#enterComment div#terms {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:13px;
+    padding:30px 10px 10px 20px;
+    color:#444444;
+}
+
+div#articleComments div#enterComment div#terms a {
+    color:#3399AA;
+}
+
+div#articleComments div#enterComment div#terms span {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    color:#444444;
+}
+
+div#terms span.permission {
+    font-size:14px;
+}
+
+div#terms span.note {
+    font-size:13px;
+}
+
+div#terms span.note .rlbcopy {
+    font-size:13px;
+    font-weight:normal;
+}
+
+div#articleComments div#enterComment div#terms span.rlbcopy {
+    padding-left:25px;
+    color:#444444;
+}
+
+div#toolsmenu .simplemenu a {
+    color:#3399AA;
+}
+
+div#articleComments {
+   font-family:"Trebuchet MS", Helvetica, sans-serif;
+   font-size:14px;
+   font-style:normal;
+   color:#666666;
+}
+
+div#articleComments span#commentsHeader {
+
+}
+
+div#articleComments hr {
+    display:none;
+}
+
+div#articleComments span.r2ibcopy {
+   font-family:"Trebuchet MS", Helvetica, sans-serif;
+   font-size:11px;
+   font-weight:bold;
+   font-style:normal;
+   color:#CC5566;
+}
+
+a.spanish {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:13px;
+    font-style:normal;
+    color:#3399AA;
+    text-decoration:none;
+}
+
+span.lead-in {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    color:#CC5566;
+}
+
+span.microsite {
+    color:#444444;
+    font-size:13px;
+    line-height:50px;
+}
+
+div#terms input {
+   float:left;
+   margin:0 13px 40px 0;
+
+}
+
+span.permission, span.note {
+    display:block;
+    line-height:16px;
+    padding:0 0 10px 0;
+}
+
+div#articleComments div#enterComment
+    div#terms span.rlbcopy {
+    padding-left:0;
+}
+
+/* =====   leftSidebar, rightSidebar, pullQuote  ===== */
+
+div.leftSidebar,
+div.rightSidebar,
+div.pullQuote{
+    width: 225px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #6BCACC ;
+    margin:20px 20px 0 0;
+    padding:15px 15px 22px 15px ;
+}
+div.rightSidebar{
+    margin:20px 0 0 20px;
+    float: right;
+}
+
+div.leftSidebar,
+div.pullQuote {
+    float: left;
+}
+
+div.leftSidebar .headline,
+div.rightSidebar .headline {
+    color:#99CC66;
+    font-size:18px;
+    font-weight: bold;
+    line-height:22px;
+    margin:0 0 10px 0;
+}
+
+div.leftSidebar li {
+    list-style-position: outside;
+    font-weight: normal;
+    line-height:22px;
+    margin:0 0 10px 0;
+    padding-left: 0;
+}
+
+div.leftSidebar ul, div.leftSidebar ol{
+    padding-left: 10px;
+    margin-left: 0;
+}
+
+div.pullQuote {
+    font-size:17px;
+    line-height:22px;
+    color: #55BBCC;
+    border-color: #8BCBCB  ;
+    padding-top: 40px;
+    padding-left:28px;
+    padding-right:12px;
+    width:218px;
+    background: url("/res/img/content/article/quoteStart.GIF") no-repeat;
+    background-color: #F3F9F9;
+
+    border-style: none;
+    border-width: 0;
+
+
+}
+
+div.pullQuote div.attribute{
+    font-size:14px;
+    line-height:18px;
+    color: #444444;
+    margin-top: 6px ;
+    padding-top:30px;
+    background: url("/res/img/content/article/quoteEnd.GIF") no-repeat;
+}
+
+li, .contentGS li {
+    list-style-position: inside;
+    margin-bottom: 10px;
+}
+
+ul, .contentGS ul, ol, .contentGS ol{
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+div.paragraph {
+	margin-bottom: 22px;
+}
+
+/* =====   image  ===== */
+
+div.rightImage,
+div.leftImage,
+div.expertImage{
+
+    margin:20px 20px  10px 0;
+
+}
+
+
+div.rightImage {
+    float: right;
+    margin:20px 0 10px 20px;
+}
+div.leftImage,
+div.expertImage{
+    float: left;
+    margin-right: 10px;
+    margin-left: 0;
+}
+
+div.expertImage {
+    margin-right: 16px;
+}
+
+div.expertImage img {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #DDDDDD ;
+    padding: 2px;
+
+}
+
+
+
+div.rightImage div.caption,
+div.leftImage div.caption,
+div.rightImage div.copyright,
+div.leftImage div.copyright,
+div.expertImage div.copyright,
+div.expertImage div.caption{
+
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:12px;
+    font-weight:normal;
+    line-height:15px;
+    color:#444444;
+    padding-top: 10px;
+
+}
+

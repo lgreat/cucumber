@@ -460,6 +460,9 @@
         </property>
     </bean>
 
+    <bean name="/sandbox/*"
+          class="gs.web.util.TestViewController" lazy-init="true"/>
+
 
     <!--Begin conversion pages -->
     <bean name="/community/conversion/conversion.page"

@@ -8,38 +8,20 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0" >
-<jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 <head>
     <title>GreatSchools Editorial Style Guide</title>
-    <pageHelper:setPathway pathway="LIBRARY"/>
-    <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
-    <pageHelper:externalCss file="/res/css/content/article.css"/>
-    <jsp:scriptlet>
-        PageHelper.hideLeaderboard(request);
-        PageHelper.hideHeader(request);
-        PageHelper.hideFooterAd(request);
-        PageHelper.hideFooter(request);
-    </jsp:scriptlet>
+    <link rel="stylesheet" type="text/css" href="/res/css/content/article.css"/>
+    <link rel="stylesheet" type="text/css" href="/res/css/content/articleNew.css"/>
 
       <style type="text/css">
 
         body {
-            /*width:1000px;*/
             background-color:#FFFFFF;
-        }
-
-        body.unframed div#pageGS {
             width: 1000px;
             margin: 0 auto;
             border: 0;
-        }
-
-        div#contentGS {
-            width: 100%;
-            border: 0;
-            margin: 25px;
         }
 
         div#intro {
@@ -47,7 +29,7 @@
         }
 
         div#main {
-
+            font-family: Arial, Helvetica, sans-serif;
         }
         
         div#toc{
@@ -66,7 +48,7 @@
         }
 
         div.style h3 {
-            margin:0px;
+            margin:0;
         }
 
         div.style div.style-description,
@@ -114,6 +96,8 @@
     <a href="#byline">By Line</a><br/>
     <a href="#caption">Caption</a><br/>
     <a href="#headline">"More On" Headline</a><br/>
+    <a href="#moreon">"More On" Section</a><br/>
+
     <a href="#header_1">Header 1</a><br/>
 
     <a href="#header_2">Header 2</a><br/>
@@ -286,6 +270,55 @@ than others or who just don't fit in.</div>
         <span class="headline">More on GreatSchools.net</span>
       </div>
     </div>
+
+    <![CDATA[<a name="moreon"></a>]]>
+    <div class="style">
+        <h3>"More On" Section</h3>
+        <div class="style-code">
+            <span class="sghead">code (should be placed at the bottom of the article):</span>
+            <pre>
+<![CDATA[
+&lt;div class=&quot;dotted-divider&quot;&gt;&lt;hr /&gt;&lt;/div&gt;
+&lt;div id=&quot;more-about&quot;&gt;
+    &lt;div class=&quot;paragraph&quot;&gt;
+        &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;paragraph&quot;&gt;
+        &lt;span class=&quot;headline&quot;&gt;Related Links&lt;/span&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;http://www.englishcompanion.com/Tools/notemaking.html&quot; target=&quot;_blank&quot;&gt;Jim Burke's English Companion&lt;/a&gt; &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+]]>
+            </pre>
+        </div>
+        <div class="style-example">
+            <div class="dotted-divider"><hr /></div>
+            <div id="more-about">
+                <div class="paragraph">
+                    <span class="headline">More on GreatSchools.net</span>
+                    <ul>
+                        <li><a href="/cgi-bin/showarticle/701/">How to Take Great Notes</a></li>
+                        <li><a href="/cgi-bin/showarticle/477/">Go Online for Homework Help</a></li>
+                        <li><a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></li>
+                    </ul>
+                </div>
+                <div class="paragraph">
+                    <span class="headline">Related Links</span>
+                    <ul>
+                        <li><a href="http://www.englishcompanion.com/Tools/notemaking.html" target="_blank">Jim Burke's English Companion</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
   <![CDATA[<a name="header_1"></a>]]>
   <div class="style">

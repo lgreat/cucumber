@@ -1,12 +1,5 @@
 /* Generic styles from perl gs.css, and overrides of Java global.css */
 
-.articlecopy {
-    border-left: 1px solid #cccccc;
-    border-right: 1px solid #cccccc;
-    padding: 15px 60px 85px 60px;
-    font-size: 14px;
-}
-
 .articlecopy p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
@@ -64,9 +57,8 @@
 }
 
 .contentGS .articlecopy li {
-    list-style-type:disc;
-    margin-left: 20px;
     font-size: 14px;
+    margin-left: 20px;
 }
 
 .contentGS .articlecopy a {
@@ -75,129 +67,16 @@
 
 .contentGS .articlecopy a:link {
     color: #003399;
-    text-decoration: underline;
 }
 
 .contentGS .articlecopy a:visited {
     color: #666666;
-    text-decoration: underline;
 }
 
 .contentGS .articlecopy a:hover {
     color: #000000;
-    text-decoration: underline;
 }
 
 .articlecopy table p, .contentGS .articlecopy table li {
     font-size: 13px;
-}
-/* Article specific styles */
-
-div.article-title {
-    font-size: 21px;
-    font-weight: bold;
-    padding-top: 20px;
-    margin-bottom: 15px;
-}
-
-div.abstract, div.byline {
-    margin-bottom: 15px;
-}
-
-div#articleComments {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    color: #000000;
-}
-
-div#enterComment {
-    color: #000000;
-}
-
-div#articleComments {
-    font-size: 12px;
-}
-
-div#articletools {
-    float: right;
-    padding: 0 13px 2px 5px;
-    font-family:Geneva, Arial, Helvetica, sans-serif;
-    width:332px;
-}
-
-#toolsmenu {
-    border:1px solid #BBB;
-    float:right;
-    background-color:#EEE;
-    font-size:11px;
-    padding:2px 5px 2px 5px;
-    font-family:Geneva, Arial, Helvetica, sans-serif;
-    width:200px;
-    color: #BBBBBB;
-}
-
-div#toolsmenu strong {
-    padding-left: 3px;
-}
-
-div.simplemenu {
-    margin:0;
-    padding: 5px 0 0 10px;
-    font-family:Geneva, Arial, Helvetica, sans-serif;
-    font-weight:bold;
-    list-style-position:inside;
-}
-
-div.simplemenu img {
-    width: 15px;
-    height: 11px;
-}
-
-.contentGS div.simplemenu a {
-    margin-left: 5px;
-}
-
-#squareadvert {
-    color: #999;
-    width:312px;
-    padding:5px 5px 5px 5px;
-    margin:10px 0 10px 0;
-    border:1px solid #BBB;
-    font-size:10px;
-    float:right;
-    clear: both;
-}
-
-div#articleComments {
-    margin-top: 15px;
-    margin-bottom: 25px;
-}
-
-div.comment {
-    padding: 10px 0 10px 0;
-}
-
-div#nameEmail {
-    margin: 10px 0 15px 0;
-}
-
-hr.commentDivider {
-    color: #003399;
-}
-
-
-/* P R I N T   S T Y L E S */
-@media print {
-    .search, #adLeaderboard, #footer, .noprint, #topnav, #promoContent  {
-        display:none;
-    }
-    .articlecopy {
-        border-left: 0;
-        border-right: 0;
-    }
-    body, body.unframed #pageGS {
-        background-color: #fff;
-        border: 0 solid   #fff;
-    }
 }

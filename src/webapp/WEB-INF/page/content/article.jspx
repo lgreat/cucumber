@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
@@ -13,14 +14,16 @@
     <head>
         <title>${requestScope.articleTitle} - ${requestScope.context.stateOrDefault.longName} - GreatSchools.net</title>
         <pageHelper:setPathway pathway="LIBRARY"/>
-        <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
+        <pageHelper:externalCss file="/res/css/content/article.css"/>
 
-        <c:if test="${requestScope.newArticle eq true}">
-            <pageHelper:externalCss file="/res/css/content/article.css"/>
-            <c:if test="${param.print}">
-                <pageHelper:externalCss file="/res/css/content/article_print.css"/>
-            </c:if>
-        </c:if>
+        <c:choose>
+            <c:when test="${requestScope.newArticle eq true}">
+                <pageHelper:externalCss file="/res/css/content/articleNew.css"/>
+            </c:when>
+            <c:otherwise>
+                <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
+            </c:otherwise>
+        </c:choose>
     </head>
     <body>
 
@@ -104,21 +107,21 @@
                             </form>
                         </div>
 
-                        <c:if test="${requestScope.newArticle eq false}">
-                            <hr width="100%" class="commentDivider"/>
+                        <hr width="100%" class="commentDivider"/>
+                        <c:if test="${requestScope.article.userComments ne null and fn:length(requestScope.article.userComments) gt 0}">
+                            <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
+                            <div id="comments">
+                                <c:forEach var="comment" items="${requestScope.article.userComments}">
+                                    <div class="comment">
+                                        <span class="r2ibcopy comment-date"><fmt:formatDate value="${comment.posted}" pattern="MM/d/yyyy"/>:</span>
+                                        <div class="comment-text">"${comment.text}"</div>
+                                    </div>
+                                    <c:if test="${requestScope.newArticle eq false}">
+                                        <center><hr width="90%" class="commentDivider"/></center>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
                         </c:if>
-                        <div class="orangeBold greenHeader"><span>Comments From GreatSchools.net Users</span></div>
-                        <div id="comments">
-                            <c:forEach var="comment" items="${requestScope.article.userComments}">
-                                <div class="comment">
-                                    <span class="r2ibcopy comment-date"><fmt:formatDate value="${comment.posted}" pattern="MM/d/yyyy"/>:</span>
-                                    <div class="comment-text">"${comment.text}"</div>
-                                </div>
-                                <c:if test="${requestScope.newArticle eq false}">
-                                    <center><hr width="90%" class="commentDivider"/></center>
-                                </c:if>
-                            </c:forEach>
-                        </div>
                     </div>
                 </td>
             </tr>
