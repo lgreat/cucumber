@@ -91,6 +91,27 @@
                                     <br /><br />
                                     Email (optional): &amp;nbsp;&amp;nbsp;&amp;nbsp;<input name="email" class="text" size="25" type="text"/>
                                     <br /><br />
+                                    <div class="captcha">
+                                        <script type="text/javascript">
+                                            var RecaptchaOptions = {theme:'white', tabindex: 0};
+                                        </script>
+                                        <script type="text/javascript"
+                                           src="http://api.recaptcha.net/challenge?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR">
+                                           /* this comment keeps the tag from collapsing */
+                                        </script>
+
+                                        <![CDATA[
+                                        <noscript>
+                                           <iframe src="http://api.recaptcha.net/noscript?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR"
+                                               height="300" width="500" frameborder="0"></iframe><br/>
+                                           <textarea name="recaptcha_challenge_field"
+                                                     rows="3" cols="40" style="height: 60px;">
+                                           </textarea>
+                                           <input type="hidden" name="recaptcha_response_field"
+                                               value="manual_challenge"/>
+                                        </noscript>
+                                        ]]>
+                                    </div>
                                     <input value="submit" type="submit"/>
                                 </div>
                                 <div id="terms">

@@ -112,7 +112,9 @@ hr.commentDivider {
     color: #003399;
 }
 
-
+div.captcha {
+    margin-bottom: 10px;
+}
 
 
 
