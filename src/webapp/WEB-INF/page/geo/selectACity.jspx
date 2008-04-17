@@ -52,7 +52,7 @@
                 var url = 'citiesAjax.page';
                 var pars = 'state=' + stateSelect.value;
                 $(cityDivId).innerHTML = '<select name="city" id="' + citySelectId + '" class="compareCitySelect"><option value="">Loading ...</option></select>';
-                var myAjax = new Ajax.Updater (
+                new Ajax.Updater (
                         cityDivId,
                         url,
                         {
@@ -93,8 +93,10 @@
                 <h2>Compare cities near:</h2>
                 <div id="horizontalCompareCity">
                     <select id="horizontalCompareCitySelect" name="city" class="compareCitySelect">
-                        <c:forEach var="cityOption" items="${compareCities}">
-                            <option value="${cityOption.name}">${cityOption.name}</option>
+                        <c:forEach var="cityOption" items="${requestScope.compareCities}">
+                            <gsml:selectOption selected="${requestScope.cityObject.name eq cityOption.name}"
+                                               value="${cityOption.name}"
+                                >${cityOption.name}</gsml:selectOption>
                         </c:forEach>
                     </select>
                 </div>
@@ -113,9 +115,9 @@
                 <td style="width:290px; vertical-align: top">
                     <div id="nearbyCities">
                         <ul>
-                            <c:forEach var="anchor" items="${anchorListModel.results}" varStatus="count">
+                            <c:forEach var="anchor" items="${requestScope.anchorListModel.results}" varStatus="count">
                                 <c:set var="listItemClass" value="${anchor.styleClass}"/>
-                                <c:if test="${anchor eq anchorListModel.results[0]}">
+                                <c:if test="${anchor eq requestScope.anchorListModel.results[0]}">
                                     <c:set var="listItemClass" value="${anchor.styleClass} first"/>
                                 </c:if>
                                 <li class="${listItemClass}">
@@ -144,10 +146,10 @@
                         <map:setup/>
                         <map:citiesWithRatings functionName="createMap"
                                                id="map"
-                                               lon="${cityObject.lon}"
-                                               lat="${cityObject.lat}"
+                                               lon="${requestScope.cityObject.lon}"
+                                               lat="${requestScope.cityObject.lat}"
                                                scale="7"
-                                               cities="${cities}"/>
+                                               cities="${requestScope.cities}"/>
                         <pageHelper:addOnLoadHandler handler="createMap()"/>
                         <br/>
                         <div class="learnMore">
@@ -159,7 +161,7 @@
                 </c:if>
             </tr>
             <tr>
-                <td></td>
+                <td>&amp;nbsp;</td>
                 <td>
                     <div class="reference">
                         <div class="bpReference">
@@ -186,8 +188,10 @@
                     <h2>Compare cities near:</h2>
                     <div id="verticalCompareCity">
                         <select id="verticalCompareCitySelect" name="city" class="compareCitySelect">
-                            <c:forEach var="cityOption" items="${compareCities}">
-                                <option value="${cityOption.name}">${cityOption.name}</option>
+                            <c:forEach var="cityOption" items="${requestScope.compareCities}">
+                                <gsml:selectOption selected="${requestScope.cityObject.name eq cityOption.name}"
+                                                   value="${cityOption.name}"
+                                    >${cityOption.name}</gsml:selectOption>
                             </c:forEach>
                         </select>
                     </div>
