@@ -503,6 +503,14 @@ input.terms {
     margin:8px 0 0 0;
 }
 
-.disabled {
-    /*background:red;*/
+div.disabled {
+    color:#CCCCCC;
+}
+
+div.disabled span.number {
+    color:#FF8899;
+}
+
+div.disabled .question-text {
+    color:#BBBBBB;
 }

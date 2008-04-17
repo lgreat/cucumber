@@ -55,9 +55,10 @@
     <!-- This tag includes ad_popunder.js -->
     <ad:xPopunder/>
 
-    <decorator:head/>
-
     ${requestScope.pageHelper.headElements}
+
+    <decorator:head/>
+    
     <ad:xGAMSetup/>
 </head>
 

@@ -27,19 +27,26 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
-    <pageHelper:externalJavascript file="/res/js/jquery-1.2.3.min.js"/>
+    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
 
     <script type="text/javascript">
         var countWords = makeCountWords(150, "Survey answers are limited to 150 words.")
     </script>
     <script type="text/javascript">
-        function testDisable() {
-            var b = $(".link2"); //.addClass("testMe");
-            alert("debug: " + b);
-            b.addClass('testMe');
-//            $(document).ready (function() {
-                
-//            });
+        function toggleLinkedChild(input, child) {
+            var lc = $(child);
+            if (input.value == "yes") {
+                lc.removeClassName("disabled");
+                lc.getElementsBySelector('input').each(function (item) {
+                    item.enable();
+                });
+            } else {
+                lc.addClassName("disabled");
+                lc.getElementsBySelector('input').each(function (item) {
+                    item.disable();
+                    item.checked = false;
+                });
+            }
         }
     </script>
 </head>
@@ -110,7 +117,7 @@
         <c:if test="${question.type eq 'LINKED'}">
             <c:set var="type_style" value="disabled" />
         </c:if>
-        <div class="question ${type_style}">
+        <div class="question ${type_style}" id="q_${question.id}">
             <div class="question-text"><span class="number">${questionCount.index + 1}.</span>${question.text}</div>
             <c:forEach var="answer" items="${question.answers}" varStatus="answerIndex">
                 <h3 class="answer-sibling-heading">${answer.title}</h3>
@@ -151,11 +158,13 @@
                                             <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
                                                 <form:checkbox cssClass="multiCheck"
                                                                path="responseMap[${mapKey}].values"
-                                                               id="${mapKey}" value="${answerValue.symbol}"/>
+                                                               id="${mapKey}" value="${answerValue.symbol}"
+                                                               disabled="${question.type eq 'LINKED'}" />
                                             </c:when>
                                             <c:otherwise>
-                                                <input class="multiCheck" name="responseMap[${mapKey}].values"
-                                                       value="${answerValue.symbol}" type="checkbox"/>
+                                                <gsml:checkbox styleClass="multiCheck"
+                                                               name="responseMap[${mapKey}].values"
+                                                               disabled="${question.type eq 'LINKED'}" />
                                             </c:otherwise>
                                         </c:choose>
                                         <div class="answerValue">
@@ -172,11 +181,15 @@
                             <c:choose>
                                 <c:when test="${not empty userResponseCommand.responseMap[mapKey]}">
                                     <form:radiobutton path="responseMap[${mapKey}].values"
-                                                      id="${mapKey}" value="${answerValue.symbol}"/>
+                                                      id="${mapKey}" value="${answerValue.symbol}"
+                                                      cssClass="single"
+                                                      onclick="toggleLinkedChild(this, 'q_${question.linkchild}');"/>
                                 </c:when>
                                 <c:otherwise>
                                     <input name="responseMap[${mapKey}].values"
-                                           value="${answerValue.symbol}" type="radio"/>
+                                           value="${answerValue.symbol}" type="radio"
+                                           class="single"
+                                           onclick="toggleLinkedChild(this, 'q_${question.linkchild}');"/>
                                 </c:otherwise>
                             </c:choose>
                             ${answerValue.display}
