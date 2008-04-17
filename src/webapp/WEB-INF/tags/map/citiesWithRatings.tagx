@@ -45,6 +45,12 @@
              icon.infoShadowAnchor = new GPoint(11,11);
          }
          var marker = new GMarker(point, {icon:icon});
+         if (center) {
+             window.setTimeout(function() {
+                marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
+                     state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
+             }, 100);
+         }
          GEvent.addListener(marker, "click", function() {
              window.clearTimeout(popTimeout);
              isClick = true;
