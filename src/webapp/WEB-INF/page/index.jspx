@@ -161,20 +161,20 @@
             <table>
                 <tr>
                     <td><select name="page">
-                        <option value="/content/countdownToCollege.page"> College prep </option>
-                        <option value="/search/search.page?q=Troubleshooter&amp;amp;type=topic"> Ask the experts </option>
-                        <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
-                        <option value="/content/specialNeeds.page"> Learning difficulties </option>
-                        <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
-                        <option value="/search/search.page?q=reading tips&amp;amp;type=topic"> Reading tips </option>
-                        <option value="/search/search.page?q=math tips&amp;amp;type=topic"> Math tips </option>
-                        <option value="/search/search.page?q=bullying&amp;amp;type=topic"> Bullying </option>
-                        <option value="/search/search.page?q=healthy+food&amp;amp;type=topic"> Healthy food ideas </option>
-                        <option value="/search/search.page?q=homework&amp;amp;type=topic"> Homework battles </option>
-                        <option value="/content/guideToTests.page"> Standardized tests </option>
-                        <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
-                        <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
-                        <option value="/cgi-bin/showarticle/ca/41"> Get involved</option>
+                        <option value="/content/schoolChoiceCenter.page"> School Choice Tips </option>
+                        <option value="/cgi-bin/showarticle/197"> Private vs. Public Schools </option>
+                        <option value="/content/movingWithKids.page"> Moving with Kids </option>
+                        <option value="/content/tutoring_Homework_Help.page"> Tutoring and Homework Help </option>
+                        <option value="/content/healthyKids.page"> Healthy Kids </option>
+                        <option value="/content/travel.page"> Travel, Learning, and Fun </option>
+                        <option value="/content/countdownToCollege.page"> College Prep </option>
+                        <option value="/content/specialNeeds.page"> Learning Differences </option>
+                        <option value="/search/search.page?q=bullying&amp;type=topic"> Bullying </option>
+                        <option value="/cgi-bin/showarticle/97"> Gifted and Talented </option>
+                        <option value="/search/search.page?q=math%20tips&amp;type=topic"> Math Tips </option>
+                        <option value="/search/search.page?q=reading%20tips&amp;type=topic"> Reading Tips </option>
+                        <option value="/content/mediaChoices.page"> Media and Your Child </option>
+                        <option value="/content/stateStandards.page"> Learning Standards </option>
                     </select>
                     </td>
                     <td>&#160;</td>
