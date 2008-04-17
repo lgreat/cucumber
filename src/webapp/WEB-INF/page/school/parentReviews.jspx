@@ -185,7 +185,7 @@
 
                     <!-- begin Callouts -->
                     <div id="callouts" class="noprint">
-                        <div class="learnMore"><p><link:parentReviewsLearnMore>Learn more</link:parentReviewsLearnMore> about Parent Reviews and read about the <link:parentReviewGuidelines>types of reviews</link:parentReviewGuidelines> we post.</p></div>
+                        <div class="learnMore"><p>Learn more about Parent Reviews and read about the <link:parentReviewGuidelines>types of reviews</link:parentReviewGuidelines> we post.</p></div>
                         <div class="feedback">
                             <c:choose>
                                 <c:when test="${cmd.totalReviews gt 0}">
