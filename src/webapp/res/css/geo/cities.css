@@ -208,9 +208,11 @@ div.editorialMoving {
 }
 
 .reference .bpReference {
-   position:absolute;
-   right:35px;
-   top:41px;
+    position:absolute;
+    right:35px;
+    top:41px;
+    text-align:right;
+    width:355px;    
 }
 
 .reference .bpReference a {
