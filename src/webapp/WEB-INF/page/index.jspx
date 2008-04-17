@@ -162,21 +162,21 @@
                 <tr>
                     <td><select name="page">
                         <![CDATA[
-                        <option value="/content/schoolChoiceCenter.page"> School Choice Tips </option>
-                        <option value="/cgi-bin/showarticle/197"> Private vs. Public Schools </option>
-                        <option value="/content/movingWithKids.page"> Moving with Kids </option>
-                        <option value="/content/tutoring_Homework_Help.page"> Tutoring and Homework Help </option>
-                        <option value="/content/healthyKids.page"> Healthy Kids </option>
-                        <option value="/content/travel.page"> Travel, Learning, and Fun </option>
-                        <option value="/content/countdownToCollege.page"> College Prep </option>
-                        <option value="/content/specialNeeds.page"> Learning Differences </option>
+                        <option value="/content/schoolChoiceCenter.page"> School choice tips </option>
+                        <option value="/cgi-bin/showarticle/197"> Private vs. public schools </option>
+                        <option value="/content/movingWithKids.page"> Moving with kids </option>
+                        <option value="/content/tutoring_Homework_Help.page"> Tutoring and homework help </option>
+                        <option value="/content/healthyKids.page"> Healthy kids </option>
+                        <option value="/content/travel.page"> Travel, learning, and fun </option>
+                        <option value="/content/countdownToCollege.page"> College prep </option>
+                        <option value="/content/specialNeeds.page"> Learning difficulties </option>
                         <option value="/search/search.page?q=bullying&amp;type=topic"> Bullying </option>
-                        <option value="/cgi-bin/showarticle/97"> Gifted and Talented </option>
-                        <option value="/search/search.page?q=math%20tips&amp;type=topic"> Math Tips </option>
-                        <option value="/search/search.page?q=reading%20tips&amp;type=topic"> Reading Tips </option>
-                        <option value="/content/mediaChoices.page"> Media and Your Child </option>
-                        <option value="/search/search.page?search_type=0&amp;q=standardized+tests&amp;c=topic"> Standardized Tests </option>
-                        <option value="/content/stateStandards.page"> Learning Standards </option>
+                        <option value="/cgi-bin/showarticle/97"> Gifted and talented </option>
+                        <option value="/search/search.page?q=math%20tips&amp;type=topic"> Math tips </option>
+                        <option value="/search/search.page?q=reading%20tips&amp;type=topic"> Reading tips </option>
+                        <option value="/content/mediaChoices.page"> Media and your child </option>
+                        <option value="/search/search.page?search_type=0&amp;q=standardized+tests&amp;c=topic"> Standardized tests </option>
+                        <option value="/content/stateStandards.page"> Learning standards </option>
                         ]]>
                     </select>
                     </td>
