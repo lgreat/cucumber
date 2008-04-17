@@ -161,6 +161,7 @@
             <table>
                 <tr>
                     <td><select name="page">
+                        <![CDATA[
                         <option value="/content/schoolChoiceCenter.page"> School Choice Tips </option>
                         <option value="/cgi-bin/showarticle/197"> Private vs. Public Schools </option>
                         <option value="/content/movingWithKids.page"> Moving with Kids </option>
@@ -174,7 +175,9 @@
                         <option value="/search/search.page?q=math%20tips&amp;type=topic"> Math Tips </option>
                         <option value="/search/search.page?q=reading%20tips&amp;type=topic"> Reading Tips </option>
                         <option value="/content/mediaChoices.page"> Media and Your Child </option>
+                        <option value="/search/search.page?search_type=0&amp;q=standardized+tests&amp;c=topic"> Standardized Tests </option>
                         <option value="/content/stateStandards.page"> Learning Standards </option>
+                        ]]>
                     </select>
                     </td>
                     <td>&#160;</td>
