@@ -163,14 +163,16 @@
             <tr>
                 <td>&amp;nbsp;</td>
                 <td>
-                    <div class="reference">
-                        <div class="bpReference">
-                            Median home price data provided by <a href="http://www.bestplaces.net" target="_blank">Sperling's Best Places</a>
+                    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                        <div class="reference">
+                            <div class="bpReference">
+                                Median home price data provided by <a href="http://www.bestplaces.net" target="_blank">Sperling's Best Places</a>
+                            </div>
+                            <gsml:a href="/definitions/natl/median_home_price.html" target="issues" onClick="openDefinition();" title="Information about this data">
+                                <img src="/res/img/yellow_circle_i.gif" alt="yellow i in circle" />
+                            </gsml:a>
                         </div>
-                        <gsml:a href="/definitions/natl/median_home_price.html" target="issues" onClick="openDefinition();" title="Information about this data">
-                            <img src="/res/img/yellow_circle_i.gif" alt="yellow i in circle" />
-                        </gsml:a>
-                    </div>
+                    </c:if>
                 </td>
             </tr>
             </table>
