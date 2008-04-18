@@ -20,6 +20,11 @@
     request.setAttribute("tabs", PageHelper.pageIds);
 </jsp:scriptlet>
 
+<c:set var="navBarClass" value=""/>
+<c:when test="${inCommunity eq true}">
+    <c:set var="navBarClass" value="community"/>
+</c:when>
+
 <!-- GS-3686 init vars -->
 <c:set var="communityClassSearch" value=""/>
 <c:set var="webbyStyle" value=""/>
@@ -175,7 +180,7 @@
     <!--<table width="100%" border="0" cellspacing="0" cellpadding="0">-->
         <!--<tr>-->
             <!--<td>-->
-    <table cellpadding="0" cellspacing="0" id="nav">
+    <table cellpadding="0" cellspacing="0" id="nav" class="${navBarClass}">
         <tr>
             <td width="28px">&#160;</td>
             <c:set var="pw" value="${requestScope.context.pathway}"/>
