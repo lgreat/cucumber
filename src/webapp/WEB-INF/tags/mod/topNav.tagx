@@ -21,9 +21,9 @@
 </jsp:scriptlet>
 
 <c:set var="navBarClass" value=""/>
-<c:when test="${inCommunity eq true}">
+<c:if test="${inCommunity eq true}">
     <c:set var="navBarClass" value="community"/>
-</c:when>
+</c:if>
 
 <!-- GS-3686 init vars -->
 <c:set var="communityClassSearch" value=""/>
