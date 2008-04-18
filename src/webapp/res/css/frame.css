@@ -23,8 +23,7 @@ body.cobranded {
 }
 
 body.unframed #pageGS {
-    /* see GS-6016 */
-    /*border: 4px solid   #acd;*/
+    border: 4px solid   #acd;
 }
 
 #adLeaderboard {

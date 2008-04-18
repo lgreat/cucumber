@@ -42,16 +42,4 @@
             </script>
         </div>
     </c:if>
-
-    <c:if test="${requestScope.pageHelper.pageName != 'interstitial'}">
-        <div id="promoheader">
-            <link:healthyKids styleClass="GS_CI9_" styleId="Header_Promo_1">No more couch potatoes! How to raise a Healthy Kid</link:healthyKids>
-            <div id="promoheader_pipe">|</div>
-            <a href="http://community.greatschools.net/q-and-a/164403/My-kid-was-punched-in-his-eye-by-his-classmate"
-                    class="GS_CI9_" id="Header_Promo_2">
-                Help! My kid got punched in the eye by his classmate!
-            </a>
-        </div>
-    </c:if>
-
 </jsp:root>
