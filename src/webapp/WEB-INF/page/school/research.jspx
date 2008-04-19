@@ -9,6 +9,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0" >
@@ -46,6 +47,12 @@
             display: none;
         }
     </style>
+    <variant:b>
+        <c:if test="${requestScope.context.interstitialEnabled}">
+            <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+            <pageHelper:addOnLoadHandler handler="doInterstitial('rc')"/>
+        </c:if>
+    </variant:b>
 </head>
 
 <ad:setSlotPrefix slotPrefix="Research_Compare_State_Home_Page"/>
@@ -87,7 +94,7 @@
     <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
 </div>
     <div class="compareBox">
-        <gsweb:form action="/school/research.page" method="get">
+        <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
             <input type="hidden" name="sortby" value="distance" />
             <input type="hidden" name="tab" value="over" />
             <input type="hidden" name="area" value="m" />
@@ -158,7 +165,7 @@
             </table>
         </gsweb:form>
         <div class="blueDash"></div><br/>
-        <gsweb:form action="/school/research.page" method="get">
+        <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
             <input type="hidden" name="form" value="district" />
             <table width="264" cellpadding="0" cellspacing="0" border="0">
                 <tr>
@@ -224,7 +231,7 @@
     </div>
 
     <div class="findBox">
-        <gsweb:form action="/school/research.page" method="get">
+        <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
             <input name="form" value="cities" type="hidden" />
             <table width="254" cellpadding="0" cellspacing="0" border="0">
                 <tr>
@@ -295,7 +302,7 @@
             </table>
         </gsweb:form>
         <div class="blueDash"></div><br/>
-        <gsweb:form action="/search/search.page" method="get">
+        <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial">
             <input type="hidden" name="c" value="school" />
             <table width="264" cellpadding="0" cellspacing="0" border="0">
                 <tr>

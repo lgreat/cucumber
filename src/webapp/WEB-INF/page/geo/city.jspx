@@ -43,6 +43,12 @@
     <meta name="description" content="${gsweb:cityPageDescription(cityObject)}"/>
     <meta name="keywords" content="${gsweb:cityPageKeywords(cityObject)}"/>
     <title>${gsweb:cityPageTitle(cityObject)}</title>
+    <variant:b>
+        <c:if test="${requestScope.context.interstitialEnabled}">
+            <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+            <pageHelper:addOnLoadHandler handler="doInterstitial('city')"/>
+        </c:if>
+    </variant:b>
 </head>
 
 <gsml:body adPageName="city" pageLayout="cityPage">

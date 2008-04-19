@@ -216,10 +216,10 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.print(openParagraph());
 
                 if (State.DC.equals(_state)) {
-                    out.print("<a href=\"http://data.greatschools.net/district_of_columbia/index.html\">" +
+                    out.print("<a href=\"http://data.greatschools.net/district_of_columbia/index.html\" class=\"noInterstitial\">" +
                             "Read more about data updates in Washington DC</a>");                    
                 } else {
-                    out.print("<a href=\"http://data.greatschools.net/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\">" +
+                    out.print("<a href=\"http://data.greatschools.net/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\" class=\"noInterstitial\">" +
                             "Read more about data updates in "+ _state.getLongName() +"</a>");
                 }
 

@@ -67,7 +67,21 @@
                 </tr>
                 <tr>
                     <td id="interstitial">
-                        <ad:interstitial/>
+                        <c:choose>
+                            <c:when test="${(not empty param.adslot) and (param.adslot eq 'city')}">
+                                <c:set var="pos" value="Interstitial_City" />
+                            </c:when>
+                            <c:when test="${(not empty param.adslot) and (param.adslot eq 'rc')}">
+                                <c:set var="pos" value="Interstitial_RC" />
+                            </c:when>
+                            <c:when test="${(not empty param.adslot) and (param.adslot eq 'search')}">
+                                <c:set var="pos" value="Interstitial_Search" />
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="pos" value="Interstitial" />
+                            </c:otherwise>
+                        </c:choose>
+                        <ad:interstitial position="${pos}"/>
                     </td>
                 </tr>
             </table>

@@ -21,7 +21,7 @@
      GS-3852 -->
 <c:if test="${requestScope.context.interstitialEnabled}">
     <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
-    <pageHelper:addOnLoadHandler handler="doInterstitial()"/>
+    <pageHelper:addOnLoadHandler handler="doInterstitial('search')"/>
 </c:if>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"

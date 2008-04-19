@@ -118,7 +118,7 @@
                 <tr>
                     <td style="vertical-align: bottom; text-align: right; padding-right:0;font-size: xx-small; border-bottom-width: 0" rowspan="2" colspan="2">
                         Source:
-                        <a href="http://bestplaces.net" target="_blank"><gsml:img
+                        <a href="http://bestplaces.net" target="_blank" class="noInterstitial"><gsml:img
                                 src="/res/img/geo/bestPlaces135x34.gif" alt="Sperling's Best Places"/></a>
                     </td>
                 </tr>
