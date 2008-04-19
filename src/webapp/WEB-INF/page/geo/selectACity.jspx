@@ -222,8 +222,9 @@
             </div>
         </div>
 
-        <mod:tracking pageName="nearbyCities:${city}-${requestScope.context.stateOrDefault.abbreviation}"
-                      hier1="Search,NearbyCities,${city}-${requestScope.context.stateOrDefault.abbreviation}"/>
+        <mod:tracking pageName="nearbyCities"
+                      locale="${city}"
+                      hier1="Home, City Home, Nearby Cities"/>
 
     </gsml:body>
 
