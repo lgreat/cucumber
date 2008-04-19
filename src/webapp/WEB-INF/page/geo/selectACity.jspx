@@ -224,7 +224,7 @@
 
         <mod:tracking pageName="nearbyCities"
                       locale="${city}"
-                      hier1="Home, City Home, Nearby Cities"/>
+                      hier1="Home,City Home,Nearby Cities"/>
 
     </gsml:body>
 
