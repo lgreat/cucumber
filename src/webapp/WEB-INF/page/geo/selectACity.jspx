@@ -222,7 +222,7 @@
             </div>
         </div>
 
-        <mod:tracking pageName="nearbyCities"
+        <mod:tracking pageName="Nearby Cities"
                       locale="${city}"
                       hier1="Home,City Home,Nearby Cities"/>
 
