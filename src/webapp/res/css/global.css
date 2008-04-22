@@ -585,11 +585,17 @@ div.showall{}
     .showall{width: 100%; margin: 0; float: none;}
 }
 
-h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandingLink, div#YahooRealEstateLink, div#YahooRealEstateLink a {
+h1.sfooter, h1#sfooter, div.sfooter, div#testScoreLandingLinks a.testScoreLandingLink, div#YahooRealEstateLink {
     color: #888888;
     font-size: 12px;
     font-weight: normal;
     font-family: "Trebuchet MS",Arial,sans-serif;
+}
+
+div#YahooRealEstateLink a {
+    font-weight: normal;
+    color: #39A;
+    text-decoration: none;
 }
 
 div#YahooRealEstateLink a:hover {
