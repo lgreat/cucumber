@@ -165,7 +165,8 @@
                         <option value="/content/schoolChoiceCenter.page"> School choice tips </option>
                         <option value="/cgi-bin/showarticle/197"> Private vs. public schools </option>
                         <option value="/content/movingWithKids.page"> Moving with kids </option>
-                        <option value="/content/tutoring_Homework_Help.page"> Tutoring and homework help </option>
+                        <option value="/content/tutoring_Homework_Help.page"> Tutoring </option>
+                        <option value="/content/tutoring_Homework_Help.page"> Homework help </option>
                         <option value="/content/healthyKids.page"> Healthy kids </option>
                         <option value="/content/travel.page"> Travel, learning, and fun </option>
                         <option value="/content/countdownToCollege.page"> College prep </option>
