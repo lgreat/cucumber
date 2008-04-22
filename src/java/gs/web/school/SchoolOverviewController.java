@@ -7,10 +7,7 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.IGroupDataTypeDao;
 import gs.data.school.census.SchoolCensusValue;
-import gs.data.school.review.CategoryRating;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
+import gs.data.school.review.*;
 import gs.data.test.ITestDataSetDao;
 import gs.data.test.SchoolTestValue;
 import gs.data.util.NameValuePair;
@@ -19,6 +16,8 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +36,8 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * Spring Bean id
      */
     public static final String BEAN_ID = "/school/overview.page";
+
+    protected static final Log _log = LogFactory.getLog(SchoolOverviewController.class.getName());
 
     /**
      * The allowed length of the parent review blurb
@@ -60,7 +61,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      */
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
 
         String schoolIdStr = request.getParameter("id");
 
@@ -197,7 +198,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      */
     Map createLatestReviewsModel(School school,HttpServletRequest request) {
 
-        Map latestReviewsModel = new HashMap();
+        Map<String, Object> latestReviewsModel = new HashMap<String, Object>();
 
         // Do the random Rating
         Ratings ratings = getReviewDao().findRatingsBySchool(school);
@@ -250,7 +251,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * @param reviews - a list of reviews for the school
      * @param latestReviewsModel - the Map to store the results
      */
-    static void doMultiParentReviews(List reviews, Map latestReviewsModel) {
+    static void doMultiParentReviews(List reviews, Map<String, Object> latestReviewsModel) {
         if (reviews == null){
             return;
         }
@@ -296,7 +297,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * @param reviews - a list of reviews for the schoold
      * @param latestReviewsModel - the Map to store the results
      */
-    static void doSingleParentReview(List reviews, Map latestReviewsModel){
+    static void doSingleParentReview(List reviews, Map<String, Object> latestReviewsModel){
          if (reviews == null){
              return;
          }
@@ -327,7 +328,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * @param randomRating is a NameValuePair that contains the Random Category and Rating
      * @param latestReviewsModel Is the map to store the results
      */
-    static void doRandomRating(NameValuePair<Ratings.Category, Integer> randomRating, Map latestReviewsModel) {
+    static void doRandomRating(NameValuePair<Ratings.Category, Integer> randomRating, Map<String, Object> latestReviewsModel) {
         String[] ratingStrings = {
                 "unsatifactory",
                 "below average",
@@ -356,14 +357,14 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 case Principal:
                     randomCategory = PRINCIPAL_CAT;
                     break;
-                case Saftey:
+                case Safety:
                     randomCategory = SAFETY_CAT;
                     break;
-                case Teacher:
+                case Teachers:
                     randomCategory = TEACHERS_CAT;
                     break;
                 default:
-                    // todo: log the error condition.  probably the enum has been changed... jn
+                    _log.error("Unknown Parent Rating Category: " + randomRating.getKey());
                     break;
             }
 
