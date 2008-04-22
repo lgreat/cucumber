@@ -14,6 +14,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:gsweb="gstaglib"
         xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
@@ -270,7 +271,7 @@
     <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
     <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
     <div id="YahooRealEstateLink" style="padding-top: 10px;">
-        Are you relocating? Find <gsml:a href="${yahooRealEstateURL}" target="_blank" styleClass="plaintextlink">${yahooRealEstateCity} Real Estate</gsml:a>
+        <b>Are you relocating?</b> Learn about <link:mediaChoices>Media and Your Child</link:mediaChoices> | Read our <link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter> | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
     </div>
 </c:if>
 
