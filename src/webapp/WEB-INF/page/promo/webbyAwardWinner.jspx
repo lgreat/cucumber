@@ -21,19 +21,18 @@
             <div id="rightSide">
                 <span class="header grey">GreatSchools</span><span class="header green"> THANKS YOU</span><br/><span class="header grey">for your support!</span>
 
-                <p>GreatSchools is the winner of the 2007 People's Voice Webby Award,
-                thanks to the votes of parents like you.  We're honored that you
-                chose GreatSchools as the best Family/Parenting site in the
-                awards, known as the "Oscars of the Internet."  More important,
-                we're proud that you find GreatSchools helpful in guiding your
-                child's education.  That makes you the real winners!
+                <p>
+                    GreatSchools is proud to be the winner of the 2007 People's Voice Webby Award, thanks to the votes of parents like you. We're honored that you chose GreatSchools as the best Family/Parenting site in the awards, known as the "Oscars of the Internet."
                 </p>
 
+                <p>
+                    We've also been named a 2008 Webby Honoree in the best Guides/Ratings/Reviews site category. Thank you for submitting all the parent reviews that have helped GreatSchools in its efforts to provide comprehensive information in guiding your child's education. That makes you the real winners!
+                </p>
                 <p id="learnMore">Learn More</p>
 
                 <ul id="links">
-                    <li><gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">Read the press release &amp;gt;</gsml:a></li>
-                    <li><a href="http://www.webbyawards.com/webbys/current.php?season=11#webby_entry_family" target="_blank">View all Webby Award winners &amp;gt;</a></li>
+                    <li><gsml:a href="/cgi-bin/static/press20080417.txt/$STATE">Read the press release &amp;gt;</gsml:a></li>
+                    <li><a href="http://www.webbyawards.com" target="_blank">About the Webby Awards &amp;gt;</a></li>
                 </ul>
             </div>
             <br style="clear:both;"/>
