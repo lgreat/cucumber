@@ -11,7 +11,7 @@
 }
 
 #rightSide {
-    padding-top:0px;
+    padding-top:12px;
 }
 
 #content #rightSide p {
@@ -42,6 +42,7 @@
 #links li a {
     color: #3399aa;
     text-decoration: underline;
+    font-family:Trebuchet MS,Arial,sans-serif;
 }
 
 /* Award panel */
