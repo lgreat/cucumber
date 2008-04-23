@@ -166,6 +166,7 @@
                                             <c:otherwise>
                                                 <gsml:checkbox styleClass="multiCheck"
                                                                name="responseMap[${mapKey}].values"
+                                                               value="${answerValue.symbol}"
                                                                disabled="${question.type eq 'LINKED'}" />
                                             </c:otherwise>
                                         </c:choose>

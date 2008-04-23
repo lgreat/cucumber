@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="styleId" required="false" description="CSS id"/>
     <jsp:directive.attribute name="tabIndex" required="false" description="Tab index"/>
+    <jsp:directive.attribute name="value" required="false" description="value of the checkbox"/>
     <jsp:directive.attribute name="onclick" required="false" description="Javascript onclick function"/>
     <jsp:directive.attribute name="disabled" required="false" description="disable the control"/>
     <![CDATA[<input type="checkbox" ]]>
@@ -17,6 +18,9 @@
     </c:if>
     <c:if test="${not empty styleId}">
         <c:out value=' id="${styleId}"' escapeXml="false"/>
+    </c:if>
+    <c:if test="${not empty value}">
+        <c:out value=' value="${value}"' escapeXml="false"/>
     </c:if>
     <c:if test="${checked eq 'true'}">
         <c:out value=' checked="checked"' escapeXml="false"/>
