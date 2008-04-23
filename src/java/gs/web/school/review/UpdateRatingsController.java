@@ -17,9 +17,11 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * Controller for parent review hover form
  */
 public class UpdateRatingsController extends SimpleFormController implements ReadWriteController {
 
@@ -62,17 +64,27 @@ public class UpdateRatingsController extends SimpleFormController implements Rea
         review.setParents(rc.getParent());
         review.setSafety(rc.getSafety());
         
+        review.setPParents(rc.getPParents());
+        _log.error("setPParents=" + rc.getPParents());
+        review.setPProgram(rc.getPProgram());
+        _log.error("setPProgram=" + rc.getPProgram());
+        review.setPSafety(rc.getPSafety());
+        _log.error("setPSafety=" + rc.getPSafety());
+        review.setPTeachers(rc.getPTeachers());
+        _log.error("setPTeachers=" + rc.getPTeachers());
+        review.setPFacilities(rc.getPFacilities());
+        _log.error("setPFacilities=" + rc.getPFacilities());
+
         return review;
     }
 
     protected ModelAndView showThankYouPage(final School school) {
         List reviews = getReviewDao().getPublishedReviewsBySchool(school);
 
-        ModelAndView mAndV = new ModelAndView();
-        mAndV.getModel().put(ThankYouController.MODEL_SCHOOL, school);
-        mAndV.getModel().put(ThankYouController.MODEL_HAS_REVIEW, reviews.size() != 0);
-        mAndV.setViewName(getSuccessView());
-        return mAndV;
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put(ThankYouController.MODEL_SCHOOL, school);
+        model.put(ThankYouController.MODEL_HAS_REVIEW, reviews.size() != 0);
+        return new ModelAndView(getSuccessView(), model);
     }
 
     public IUserDao getUserDao() {

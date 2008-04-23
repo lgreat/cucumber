@@ -210,7 +210,7 @@
         <!-- Parent Rating -->
         <c:set var="parent_rating" value="0"/>
         <c:if test="${parent_ratings ne null and parent_ratings.displayOverallRating eq true}">
-            <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
+            <c:set var="parent_rating" value="${parent_ratings.overall}"/>
         </c:if>
 
         <!-- Change the second class to change how many stars the parent rating displays -->

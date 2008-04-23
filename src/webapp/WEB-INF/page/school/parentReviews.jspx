@@ -18,6 +18,7 @@
         >
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.data.school.review.Ratings"/>
 <html lang="en">
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -39,6 +40,11 @@
         <jsp:scriptlet>
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+            request.setAttribute("catFacilities", Ratings.Category.P_Facilities);
+            request.setAttribute("catParents", Ratings.Category.P_Parents);
+            request.setAttribute("catProgram", Ratings.Category.P_Program);
+            request.setAttribute("catSafety", Ratings.Category.P_Safety);
+            request.setAttribute("catTeachers", Ratings.Category.P_Teachers);
         </jsp:scriptlet>
     </head>
     <gsml:body adPageName="parentReviews" pageLayout="parentReviews">
@@ -51,7 +57,7 @@
                         <div id="showParentRatings">
                             <div id="rating_parent">
                                 <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif" alt="Overall Parent Rating - ${school.name} Parent Reviews and Overall Parent Rating" styleClass="parentTitle" />
-                                <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.avgQuality}.gif" alt="Overall rating: ${cmd.ratings.avgQuality} out of 5 stars" styleClass="stars" />
+                                <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.overall}.gif" alt="Overall rating: ${cmd.ratings.overall} out of 5 stars" styleClass="stars" />
                                 <link:schoolProfileAddParentReview
                                         school="${school}"
                                         onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
@@ -59,29 +65,58 @@
                                 <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
                             </div><!-- end: rating_parent -->
 
-                            <c:if test="${not empty cmd.ratings.avgPrincipal or not empty cmd.ratings.avgTeachers
-                                            or not empty cmd.ratings.avgActivities or not empty cmd.ratings.avgParents
-                                            or not empty cmd.ratings.avgSafety}">
-                                <ul>
-                                    <c:if test="${not empty cmd.ratings.avgPrincipal}">
-                                        <li>Principal Leadership<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif" alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
-                                    </c:if>
-                                    <c:if test="${not empty cmd.ratings.avgTeachers}">
-                                        <li>Teacher Quality<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif" alt="Teacher Quality: ${cmd.ratings.avgTeachers} out of 5 stars" styleClass="sm_stars" /></li>
-                                    </c:if>
-                                    <c:if test="${not empty cmd.ratings.avgActivities}">
-                                        <li>Extracurricular Activities<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgActivities}.gif" alt="Extracurricular Activities: ${cmd.ratings.avgActivities} out of 5 stars" styleClass="sm_stars" /></li>
-                                    </c:if>
-                                    <c:if test="${not empty cmd.ratings.avgParents}">
-                                        <li>Parent Involvement<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif" alt="Parent Involvement: ${cmd.ratings.avgParents} out of 5 stars" styleClass="sm_stars" /></li>
-                                    </c:if>
-                                    <c:if test="${not empty cmd.ratings.avgSafety}">
-                                        <li>Safety and Discipline<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgSafety}.gif" alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
-                                    </c:if>
-                                </ul>
-
-                                <p class="categoriesMore"><link:parentRatingsExplained>More about these categories &#62;</link:parentRatingsExplained></p>
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${cmd.ratings.preschool}">
+                                    <ul>
+                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catProgram]}"/>
+                                        <c:set var="curCatName" value="Program &amp; Equipment"/>
+                                        <c:if test="${not empty curCatValue}">
+                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
+                                        <c:set var="curCatName" value="Facilities &amp; Equipment"/>
+                                        <c:if test="${not empty curCatValue}">
+                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catSafety]}"/>
+                                        <c:set var="curCatName" value="Health &amp; Safety"/>
+                                        <c:if test="${not empty curCatValue}">
+                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
+                                        <c:set var="curCatName" value="Teacher Quality"/>
+                                        <c:if test="${not empty curCatValue}">
+                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catParents]}"/>
+                                        <c:set var="curCatName" value="Parent Involvement"/>
+                                        <c:if test="${not empty curCatValue}">
+                                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                    </ul>
+                                    <p class="categoriesMore"><a href="#">More about these categories &#62;</a></p>
+                                </c:when>
+                                <c:when test="${cmd.ratings.gradeschool}">
+                                    <ul>
+                                        <c:if test="${not empty cmd.ratings.avgPrincipal}">
+                                            <li>Principal Leadership<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif" alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                        <c:if test="${not empty cmd.ratings.avgTeachers}">
+                                            <li>Teacher Quality<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif" alt="Teacher Quality: ${cmd.ratings.avgTeachers} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                        <c:if test="${not empty cmd.ratings.avgActivities}">
+                                            <li>Extracurricular Activities<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgActivities}.gif" alt="Extracurricular Activities: ${cmd.ratings.avgActivities} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                        <c:if test="${not empty cmd.ratings.avgParents}">
+                                            <li>Parent Involvement<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif" alt="Parent Involvement: ${cmd.ratings.avgParents} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                        <c:if test="${not empty cmd.ratings.avgSafety}">
+                                            <li>Safety and Discipline<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgSafety}.gif" alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
+                                        </c:if>
+                                    </ul>
+                                    <p class="categoriesMore"><link:parentRatingsExplained>More about these categories &#62;</link:parentRatingsExplained></p>
+                                </c:when>
+                            </c:choose>
                         </div><!-- end: showParentRatings -->
                     </c:if>
 

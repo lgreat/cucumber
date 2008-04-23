@@ -2,10 +2,10 @@ package gs.web.school.review;
 
 import gs.data.community.*;
 import gs.data.school.School;
+import gs.data.school.LevelCode;
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
-import gs.data.state.State;
 import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
@@ -143,13 +143,21 @@ public class AddParentReviewsController extends SimpleFormController implements 
                 //old review is not blank and current review is blank
                 if (StringUtils.isNotBlank(review.getComments()) && StringUtils.isBlank(command.getComments())) {
                     //only update the overall quality rating and who they are
-                    review.setQuality(command.getOverall());
+                    if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                        review.setPOverall(command.getOverall());
+                    } else {
+                        review.setQuality(command.getOverall());
+                    }
                     review.setPoster(command.getPoster());
                     return review;
                 } else {
                     //only set the category rating if one was given
                     if (!CategoryRating.DECLINE_TO_STATE.equals(command.getOverall()) && command.getOverall() != null) {
-                        review.setQuality(command.getOverall());
+                        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                            review.setPOverall(command.getOverall());
+                        } else {
+                            review.setQuality(command.getOverall());
+                        }
                     }
                     review.setPosted(new Date());
                     review.setProcessDate(null);
@@ -170,12 +178,21 @@ public class AddParentReviewsController extends SimpleFormController implements 
             review.setUser(user);
             review.setSchool(school);
 
-            review.setPrincipal(command.getPrincipal());
-            review.setTeachers(command.getTeacher());
-            review.setActivities(command.getActivities());
-            review.setParents(command.getParent());
-            review.setSafety(command.getSafety());
-            review.setQuality(command.getOverall());
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                review.setPOverall(command.getPFacilities());
+                review.setPOverall(command.getPParents());
+                review.setPOverall(command.getPProgram());
+                review.setPOverall(command.getPSafety());
+                review.setPOverall(command.getPTeachers());
+                review.setPOverall(command.getOverall());
+            } else {
+                review.setPrincipal(command.getPrincipal());
+                review.setTeachers(command.getTeacher());
+                review.setActivities(command.getActivities());
+                review.setParents(command.getParent());
+                review.setSafety(command.getSafety());
+                review.setQuality(command.getOverall());
+            }
         }
 
         review.setPoster(command.getPoster());

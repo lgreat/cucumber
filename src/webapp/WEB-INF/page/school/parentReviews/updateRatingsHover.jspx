@@ -23,7 +23,14 @@
     <c:set var="school" value="${requestScope.school}"/>
     <c:set var="stateAbbrev" value="${school.databaseState.abbreviation}"/>
     <title>Parent Review: Rate ${school.name} - ${school.physicalAddress.city}, ${stateAbbrev}</title>
-    <meta name="description" content="GreatSchools Parents, review your school in the following areas: principal leadership, teacher quality, extracurricular activities, parent involvement, and safety &amp; discipline."/>
+    <c:choose>
+        <c:when test="${school.levelCode eq 'p'}">
+            <meta name="description" content="GreatSchools Parents, review your school in the following areas: program &amp; curriculum, facilities &amp; equipment, health &amp; safety, teacher quality, and parent involvement."/>
+        </c:when>
+        <c:otherwise>
+            <meta name="description" content="GreatSchools Parents, review your school in the following areas: principal leadership, teacher quality, extracurricular activities, parent involvement, and safety &amp; discipline."/>
+        </c:otherwise>
+    </c:choose>
     <pageHelper:externalCss file="/res/css/school/parentReviews/hover.css"/>
     <base target="_self"/>
     <style type="text/css">
@@ -39,28 +46,61 @@
         <p id="rateHeader">Parents would love to know how you rate the school in these additional areas:</p>
         <form:form commandName="parentReviewCommand" method="post">
         <table>
-            <tr>
-                <td>Principal Leadership</td>
-                <td><gsml:starRating id="principalAsString" additionalClass="med-star"/></td>
-            </tr>
-            <tr>
-                <td>Teacher Quality</td>
-                <td><gsml:starRating id="teacherAsString" additionalClass="med-star"/></td>
-            </tr>
-            <tr>
-                <td style="width:170px;">Extracurricular Activities</td>
-                <td><gsml:starRating id="activitiesAsString" additionalClass="med-star"/></td>
-            </tr>
-            <tr>
-                <td>Parent Involvement</td>
-                <td><gsml:starRating id="parentAsString" additionalClass="med-star"/></td>
-            </tr>
-            <tr>
-                <td>Safety and Discipline</td>
-                <td><gsml:starRating id="safetyAsString" additionalClass="med-star"/></td>
-            </tr>
+            <c:choose>
+                <c:when test="${school.levelCode eq 'p'}">
+                    <tr>
+                        <td>Program &amp; Curriculum</td>
+                        <td><gsml:starRating id="PProgramAsString" additionalClass="med-star"/></td>
+                    </tr>
+                    <tr>
+                        <td style="width:170px;">Facilities &amp; Equipment</td>
+                        <td><gsml:starRating id="PFacilitiesAsString" additionalClass="med-star"/></td>
+                    </tr>
+                    <tr>
+                        <td>Health &amp; Safety</td>
+                        <td><gsml:starRating id="PSafetyAsString" additionalClass="med-star"/></td>
+                    </tr>
+                    <tr>
+                        <td>Teacher Quality</td>
+                        <td><gsml:starRating id="PTeachersAsString" additionalClass="med-star"/></td>
+                    </tr>
+                    <tr>
+                        <td>Parent Involvement</td>
+                        <td><gsml:starRating id="PParentsAsString" additionalClass="med-star"/></td>
+                    </tr>
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                        <td>Principal Leadership</td>
+                        <td><gsml:starRating id="principalAsString" additionalClass="med-star"/></td>
+                    </tr>
+                    <tr>
+                        <td>Teacher Quality</td>
+                        <td><gsml:starRating id="teacherAsString" additionalClass="med-star"/></td>
+                    </tr>
+                    <tr>
+                        <td style="width:170px;">Extracurricular Activities</td>
+                        <td><gsml:starRating id="activitiesAsString" additionalClass="med-star"/></td>
+                    </tr>
+                    <tr>
+                        <td>Parent Involvement</td>
+                        <td><gsml:starRating id="parentAsString" additionalClass="med-star"/></td>
+                    </tr>
+                    <tr>
+                        <td>Safety and Discipline</td>
+                        <td><gsml:starRating id="safetyAsString" additionalClass="med-star"/></td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
         </table>
-            <link:parentRatingsExplained target="_blank" styleClass="learnMore">Learn more about these categories &gt;</link:parentRatingsExplained>
+            <c:choose>
+                <c:when test="${school.levelCode eq 'p'}">
+                    <a href="#" class="learnMore" target="_blank">Learn more about these categories &gt;</a>
+                </c:when>
+                <c:otherwise>
+                    <link:parentRatingsExplained target="_blank" styleClass="learnMore">Learn more about these categories &gt;</link:parentRatingsExplained>
+                </c:otherwise>
+            </c:choose>
 
             <div id="subButtons">
                 <gsml:url var="thankYouPage"
