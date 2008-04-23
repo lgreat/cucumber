@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.56 2008/03/24 18:28:30 chriskimm Exp $
+ * $Id: PageHelper.java,v 1.57 2008/04/23 23:12:27 droy Exp $
  */
 
 package gs.web.util;
@@ -13,6 +13,8 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.MultiHashMap;
 import org.springframework.context.ApplicationContext;
 
 import javax.servlet.http.Cookie;
@@ -213,7 +215,7 @@ public class PageHelper {
     //ad positions that appear on current page
     private Set<AdPosition> _adPositions = new HashSet<AdPosition>();
     //ad keywords for current page
-    private Map<String,String> _adKeywords = new HashMap<String,String>();
+    private MultiMap _adKeywords = new MultiHashMap();
 
     /**
      * Add a keyword/value pair for current page to be passed on to ad server
@@ -221,12 +223,34 @@ public class PageHelper {
      * @param value value of keyword
      */
     public void addAdKeyword(String name, String value) {
+        addAdKeyword(name, value, false);
+    }
+
+    /**
+     * Add a keyword/value pair for current page to be passed on to ad server
+     * @param name name of keyword
+     * @param value value of keyword
+     */
+    public void addAdKeywordMulti(String name, String value) {
+        addAdKeyword(name, value, true);
+    }
+
+    /**
+     * Add a keyword/value pair for current page to be passed on to ad server
+     * @param name name of keyword
+     * @param value value of keyword
+     * @param allowMultipleValuesForKey whether to allow the multimap behavior or use default map behavior
+     */
+    public void addAdKeyword(String name, String value, boolean allowMultipleValuesForKey) {
         if (null == name || null == value) {
             throw new IllegalArgumentException("Name value pair cannot be null");
         }
         value = value.replaceAll("[^\\p{Alnum}]", "");
         if (value.length() > 10) {
             value = value.substring(0, 10);
+        }
+        if (!allowMultipleValuesForKey && _adKeywords.containsKey(name)) {
+            _adKeywords.remove(name);
         }
         _adKeywords.put(name,value);
     }
@@ -235,8 +259,26 @@ public class PageHelper {
      * Get a map of the ad keyword/value pairs
      * @return An empty map or map containing the keyword value pair if they exist
      */
-    public Map<String,String> getAdKeywords() {
+    public MultiMap getAdKeywords() {
         return _adKeywords;
+    }
+
+    /**
+     *
+     * @return The keyword value
+     */
+    public String getAdKeywordValue(String key) {
+        Collection values = (Collection)_adKeywords.get(key);
+        String value = null;
+
+        if (values != null) {
+            Iterator i = values.iterator();
+            if (i.hasNext()) {
+                value = (String)i.next();
+            }
+        }
+
+        return value;
     }
 
     /**
@@ -248,15 +290,17 @@ public class PageHelper {
 
         for (Iterator it = _adKeywords.keySet().iterator(); it.hasNext();) {
             String key = (String) it.next();
-            String value = _adKeywords.get(key);
+            Collection values = (Collection)_adKeywords.get(key);
+            for (Object obj : values) {
+                String value = (String)obj;
+                if ("state".equals(key)) {
+                    value = value.toLowerCase();
+                }
 
-            if ("state".equals(key)) {
-                value = value.toLowerCase();
-            }
-
-            buffer.append(key).append("=").append(value.replaceAll(" ","+"));
-            if (it.hasNext()) {
-                buffer.append("&");
+                buffer.append(key).append("=").append(value.replaceAll(" ","+"));
+                if (it.hasNext()) {
+                    buffer.append("&");
+                }
             }
         }
         return buffer.toString();

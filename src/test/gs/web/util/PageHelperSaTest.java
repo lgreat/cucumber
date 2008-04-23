@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.40 2008/03/24 18:28:30 chriskimm Exp $
+ * $Id: PageHelperSaTest.java,v 1.41 2008/04/23 23:12:27 droy Exp $
  */
 
 package gs.web.util;
@@ -22,6 +22,7 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
+import java.util.Collection;
 
 /**
  * Provides...
@@ -566,15 +567,56 @@ public class PageHelperSaTest extends TestCase {
         assertTrue(pageHelper.getAdKeywords().containsKey("hello"));
         assertTrue(pageHelper.getAdKeywords().containsKey("type"));
 
-        assertEquals("there", pageHelper.getAdKeywords().get("hello"));
-        assertEquals("private", pageHelper.getAdKeywords().get("type"));
+        assertEquals("there", pageHelper.getAdKeywordValue("hello"));
+        assertEquals("private", pageHelper.getAdKeywordValue("type"));
 
         pageHelper.addAdKeyword("county", "Alameda");
-        assertEquals("Alameda", pageHelper.getAdKeywords().get("county"));
+        assertEquals("Alameda", pageHelper.getAdKeywordValue("county"));
         pageHelper.addAdKeyword("county", "San Francisco");
-        assertEquals("SanFrancis", pageHelper.getAdKeywords().get("county"));
+        assertEquals("SanFrancis", pageHelper.getAdKeywordValue("county"));
         pageHelper.addAdKeyword("city", " New 23 City& Greater");
-        assertEquals("New23CityG", pageHelper.getAdKeywords().get("city"));
+        assertEquals("New23CityG", pageHelper.getAdKeywordValue("city"));
+    }
+
+    public void testAdMultiKeywords() {
+        MockSessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        assertEquals(0, pageHelper.getAdKeywords().size());
+
+        // Null is returned when the key doesn't exist
+        assertNull(pageHelper.getAdKeywords().get("foo"));
+        
+        pageHelper.addAdKeywordMulti("editorial", "my 1st grader");
+        pageHelper.addAdKeywordMulti("editorial", "my 2nd grader");
+        pageHelper.addAdKeywordMulti("editorial", "my 3rd grader");
+
+        // Only 1 key in the map
+        assertEquals(1, pageHelper.getAdKeywords().size());
+
+        // That key has 3 values
+        assertEquals(3, ((Collection)pageHelper.getAdKeywords().get("editorial")).size());
+
+        // getAdKeywordValue only returns the first value
+        assertEquals("my1stgrade", pageHelper.getAdKeywordValue("editorial"));
+
+        Collection values = (Collection)pageHelper.getAdKeywords().get("editorial");
+        String[] expectedValues = {"my1stgrade", "my2ndgrade", "my3rdgrade"};
+        int i = 0;
+        for (Object obj: values) {
+            String value = (String)obj;
+
+            assertEquals(value, expectedValues[i]);
+            i++;
+        }
+        
+        pageHelper.getAdKeywords().remove("editorial", "my1stgrade");
+        pageHelper.getAdKeywords().remove("editorial", "my2ndgrade");
+        pageHelper.getAdKeywords().remove("editorial", "my3rdgrade");
+        // Removing all the value for a key removed the key 
+        assertFalse(pageHelper.getAdKeywords().containsKey("editorial"));
+        // No key, no value
+        assertNull(pageHelper.getAdKeywords().get("editorial"));
     }
 
     public void testIsAdminServer() {

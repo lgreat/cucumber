@@ -10,11 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
+import gs.data.content.ArticleManager;
+import gs.data.content.ArticleCategory;
 import gs.data.state.State;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.PageHelper;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -47,9 +51,15 @@ public class ArticleController extends AbstractController {
     public static final String MODEL_ARTICLE_ABSTRACT = "articleAbstract";
     /** Article text -- after string replacement */
     public static final String MODEL_ARTICLE_TEXT = "articleText";
+    /** Ad Attribute keyword */
+    public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
 
     /** Provides access to database articles */
     private IArticleDao _articleDao;
+
+    /** Article category manipulation methods */
+    private ArticleManager _articleManager;
+
     /**
      * Regular expression for state-specific content.
      * (\^gstate=\"[a-z,\!]+\"\^)([^\^]+)(\^\/gstate\^)
@@ -71,6 +81,13 @@ public class ArticleController extends AbstractController {
                 model.put(MODEL_ARTICLE_TITLE, processArticleString(state, article.getTitle()));
                 model.put(MODEL_ARTICLE_ABSTRACT, processArticleString(state, article.getAbstract()));
                 model.put(MODEL_ARTICLE_TEXT, processArticleString(state, article.getArticleText()));
+
+                PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+                List categories = _articleManager.getCategories(article.getCategory());
+                for (Object obj : categories) {
+                    ArticleCategory category = (ArticleCategory)obj;
+                    pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+                }
             }
         } else {
             _log.warn("Bad article id: " + request.getParameter(PARAM_AID));
@@ -156,6 +173,15 @@ public class ArticleController extends AbstractController {
     public void setArticleDao(IArticleDao articleDao) {
         _articleDao = articleDao;
     }
+
+    public ArticleManager getArticleManager() {
+        return _articleManager;
+    }
+
+    public void setArticleManager(ArticleManager articleManager) {
+        _articleManager = articleManager;
+    }
+
 
     static {
         _achievementMap.put(State.CA, 866);
