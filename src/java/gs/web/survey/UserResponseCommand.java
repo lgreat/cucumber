@@ -39,6 +39,8 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     private String _nextCity;
     private int _nextSchoolId;
 
+    private int _previousResponseCount = 0;
+
     private LevelCode.Level _level;
 
     public UserResponseCommand () {
@@ -211,6 +213,14 @@ public class UserResponseCommand implements EmailValidator.IEmail {
 
     public void setLevel(LevelCode.Level level) {
         _level = level;
+    }
+
+    public int getPreviousResponseCount() {
+        return _previousResponseCount;
+    }
+
+    public void setPreviousResponseCount(int previousResponseCount) {
+        _previousResponseCount = previousResponseCount;
     }
 }
 

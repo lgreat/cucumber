@@ -214,10 +214,10 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         }
 
         int index = getPageIndexFromRequest(request);
+
         if (index < 1 || index > survey.getPages().size()) {
             index = 1;
         }
-
         SurveyPage page = survey.getPages().get(index - 1);
         urc.setPage(page);
         request.setAttribute(CURRENT_PAGE, index);
@@ -232,6 +232,12 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                 urc.setNextCity(school.getCity());
             }
         }
+
+        List responses = _surveyDao.getSurveyResponses(survey.getId(), school);
+        if (responses != null) {
+            urc.setPreviousResponseCount(responses.size());
+        }
+
         return urc;
     }
 
@@ -373,6 +379,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         SurveyPage sp = urc.getPage();
 
         int curPageIndex = sp.getIndex();
+
 
         String level = request.getParameter("level");
         checkSubmitCount(school, level, sp.getId(), request);

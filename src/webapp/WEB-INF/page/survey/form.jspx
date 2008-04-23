@@ -81,7 +81,9 @@
                 </c:forEach>
             </ul>
         </div>
-        <div id="intro-results-link"><link:startSurveyResults school="${school}">View Survey Results &gt;</link:startSurveyResults></div>
+        <c:if test="${userResponseCommand.previousReponseCount > 0}">
+            <div id="intro-results-link"><link:startSurveyResults school="${school}">View Survey Results &gt;</link:startSurveyResults></div>
+        </c:if>
     </div>
 
 <c:choose>
