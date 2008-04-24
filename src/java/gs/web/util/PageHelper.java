@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.57 2008/04/23 23:12:27 droy Exp $
+ * $Id: PageHelper.java,v 1.58 2008/04/24 22:58:58 droy Exp $
  */
 
 package gs.web.util;
@@ -214,11 +214,16 @@ public class PageHelper {
 
     //ad positions that appear on current page
     private Set<AdPosition> _adPositions = new HashSet<AdPosition>();
-    //ad keywords for current page
+    /** ad keywords for current page.  Stored in a MultiMap so that multiple values can be associated with a given
+     * key.  This functionality is allowed by the Google API and is required for at least one of our use cases.  This
+     * MultiMap has Strings for keys and Collections of Strings for values.
+     */
     private MultiMap _adKeywords = new MultiHashMap();
 
     /**
-     * Add a keyword/value pair for current page to be passed on to ad server
+     * Add a keyword/value pair for current page to be passed on to ad server.  This method use Map semantics on
+     * the underlying MultiMap -- that is it will overwrite an existing value.  These semantics were left intact
+     * via this method because much client code was already expecting it this way.
      * @param name name of keyword
      * @param value value of keyword
      */
@@ -227,7 +232,8 @@ public class PageHelper {
     }
 
     /**
-     * Add a keyword/value pair for current page to be passed on to ad server
+     * Add a keyword/value pair for current page to be passed on to ad server.  This method uses MultiMap semantics
+     * and will therefore allow setting two or more values for the same key.
      * @param name name of keyword
      * @param value value of keyword
      */
@@ -236,7 +242,8 @@ public class PageHelper {
     }
 
     /**
-     * Add a keyword/value pair for current page to be passed on to ad server
+     * Add a keyword/value pair for current page to be passed on to ad server.  This mehtod allows either Map or
+     * MultiMap semantics depending on the value of the boolean parameter.
      * @param name name of keyword
      * @param value value of keyword
      * @param allowMultipleValuesForKey whether to allow the multimap behavior or use default map behavior
@@ -256,7 +263,7 @@ public class PageHelper {
     }
 
     /**
-     * Get a map of the ad keyword/value pairs
+     * Get a multimap of the ad keyword/value pairs
      * @return An empty map or map containing the keyword value pair if they exist
      */
     public MultiMap getAdKeywords() {
@@ -264,8 +271,10 @@ public class PageHelper {
     }
 
     /**
-     *
-     * @return The keyword value
+     * Convenience method to obtain the first key for an ad keyword in the multimap.  This allows Map semantics
+     * on the MultiMap when you only want the first value of a key.
+     * @param key Key string to get the ad keyword value of
+     * @return The keyword value, or the first one if multiple were set
      */
     public String getAdKeywordValue(String key) {
         Collection values = (Collection)_adKeywords.get(key);
