@@ -64,6 +64,27 @@
             function openDefinition() {
                 window.open("", "issues", 'width=400,height=300,scrollbars=yes');
             }
+
+            var markers = {};
+            var currentCity = null;
+            function openInfoWindow(cityAndState, t) {
+                var city = cityAndState.replace (/,...$/, '');
+                if (currentCity != city) {
+                    GEvent.trigger(markers[city], 'click');
+                    currentCity = city;
+                }
+            }
+
+            function closeInfoWindow(element, event, cityAndState) {
+                var currentTarget = event.toElement || event.relatedTarget;
+                if ((element != currentTarget) && !$(currentTarget).descendantOf(element) ) {
+                    var city = cityAndState.replace (/,...$/, '');
+                    if (currentCity == city) {
+                        markers[city].closeInfoWindow();
+                        currentCity = null;
+                    }
+                }
+            }
             //-->
             ]]>
         </script>
@@ -120,7 +141,9 @@
                                 <c:if test="${anchor eq requestScope.anchorListModel.results[0]}">
                                     <c:set var="listItemClass" value="${anchor.styleClass} first"/>
                                 </c:if>
-                                <li class="${listItemClass}">
+                                <li class="${listItemClass} foo"
+                                    onmouseover="openInfoWindow('${anchor.contents}')"
+                                    onmouseout="closeInfoWindow(this, event, '${anchor.contents}')">
                                     <a href="${anchor.hrefXml}">${anchor.contents}
                                         <c:if test="${not empty anchor.after}">
                                             <c:set var="imageValue" value="${anchor.after}"/>

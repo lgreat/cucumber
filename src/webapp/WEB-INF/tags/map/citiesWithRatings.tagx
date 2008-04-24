@@ -150,23 +150,22 @@ function ${functionName}() {
                 <c:if test="${not empty s.rating}">
                     <c:set var="cityRating" scope="request" value="${s.rating.rating}"/>
                 </c:if>
-                <jsp:scriptlet>
-   /*Name of City
-Median home price: $999,999*/
-            gs.data.geo.ICity c = (gs.data.geo.ICity)request.getAttribute("city");
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, c.getState(), c.getName());
-            request.setAttribute("cityPageUrl", urlBuilder.asSiteRelative(request));
-            urlBuilder = new UrlBuilder(c, UrlBuilder.SCHOOLS_IN_CITY);
-            request.setAttribute("schoolsPageUrl", urlBuilder.asSiteRelative(request));
-            String medianHomePrice = "0";
-            if (c instanceof BpCity) {
-                BpCity bpsv = (BpCity) c;
 
-                NumberFormat formatter = NumberFormat.getInstance();
-                medianHomePrice = formatter.format(bpsv.getHouseMedianValue());
-            }
-            request.setAttribute("medianHomePrice", medianHomePrice);
+                <jsp:scriptlet>
+                     gs.data.geo.ICity c = (gs.data.geo.ICity)request.getAttribute("city");
+                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, c.getState(), c.getName());
+                     request.setAttribute("cityPageUrl", urlBuilder.asSiteRelative(request));
+                     urlBuilder = new UrlBuilder(c, UrlBuilder.SCHOOLS_IN_CITY);
+                     request.setAttribute("schoolsPageUrl", urlBuilder.asSiteRelative(request));
+                     String medianHomePrice = "0";
+                     if (c instanceof BpCity) {
+                         BpCity bpsv = (BpCity) c;
+                         NumberFormat formatter = NumberFormat.getInstance();
+                         medianHomePrice = formatter.format(bpsv.getHouseMedianValue());
+                     }
+                     request.setAttribute("medianHomePrice", medianHomePrice);
                 </jsp:scriptlet>
+        
                 cityLocation = new GLatLng(${city.latLon.lat},${city.latLon.lon});
                 rating = ${cityRating};
                 medianHomePrice = '${medianHomePrice}';
@@ -183,6 +182,7 @@ Median home price: $999,999*/
                     center = true;
                 </c:if>
                 marker = createMarker(cityName, state, cityLocation, cityPageUrl, schoolsPageUrl, medianHomePrice, rating, zip, center);
+                markers[cityName] = marker;
                 map.addOverlay(marker);
             </c:if>
         </c:forEach>
