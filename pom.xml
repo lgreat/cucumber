@@ -1,0 +1,266 @@
+<project>
+    <!--
+       mvn package : Builds jar with dependencies in target/
+       mvn -Dmaven.test.skip=true package : Same as above but no unit tests
+       mvn site : Generate site documentation include javadoc and clover reports
+    -->
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>gs-web</artifactId>
+    <name>GS Web Project</name>
+    <groupId>gs</groupId>
+    <version>10.0</version>
+    <packaging>war</packaging>
+
+    <build>
+        <directory>target</directory>
+        <outputDirectory>target/classes</outputDirectory>
+        <finalName>${artifactId}-${version}</finalName>
+        <testOutputDirectory>target/test-classes</testOutputDirectory>
+        <sourceDirectory>src/java</sourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.txt</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/conf</directory>
+                <includes>
+                    <include>*.properties</include>
+                    <include>*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <!-- Plugins -->
+        <plugins>
+            <plugin>
+                <artifactId>maven-idea-plugin</artifactId>
+                <version>2.0</version>
+                <!--<configuration>-->
+                <!--<downloadSources>false</downloadSources>-->
+                <!--<downloadJavadocs>false</downloadJavadocs>-->
+                <!--<dependenciesAsLibraries>true</dependenciesAsLibraries>-->
+                <!--<useFullNames>false</useFullNames>-->
+                <!--</configuration>-->
+            </plugin>
+
+            <!-- Clover code coverage plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clover-plugin</artifactId>
+                <configuration>
+                    <licenseLocation>${basedir}/../GSData/metadata/maven/clover.license</licenseLocation>
+                    <jdk>1.5</jdk>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>instrument</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <!-- Generate the build.timestamp file -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <tasks>
+                                <echo>Creating build.timestamp property file</echo>
+                                <propertyfile file="${project.build.directory}/classes/build.timestamp">
+                                    <entry key="gsweb.buildtime"
+                                           type="date"
+                                           default="now"
+                                           pattern="yyyyMMddkkmmss"/>
+                                </propertyfile>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>ant</groupId>
+                        <artifactId>ant-nodeps</artifactId>
+                        <version>1.6.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- This is here so maven 2 will compile source with java 1.5 features like generics -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clover-plugin</artifactId>
+                <configuration>
+                    <licenseLocation>${basedir}/../GSData/metadata/maven/clover.license</licenseLocation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <!-- Search http://mvnrepository.com for new dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>gs</groupId>
+            <artifactId>gs-data</artifactId>
+            <version>10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>servletapi</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jspapi</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>taglibs-cache</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>2.5.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- HttpUnit dependencies -->
+        <dependency>
+            <groupId>httpunit</groupId>
+            <artifactId>httpunit</artifactId>
+            <version>1.6</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+            <version>0.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <version>1.2.22</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>1.2.22</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <!-- This is in our local repository at  http://maven.dev.greatschools.net. -->
+            <!-- It's included in the GWT distribution and used by the gwt:compile goal -->
+            <groupId>gwt</groupId>
+            <artifactId>gwt-dev-mac</artifactId>
+            <version>1.2.22</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jfreechart</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>jfreechart</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>1.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>jsptags</groupId>
+            <artifactId>pager-taglib</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>gdata</groupId>
+            <artifactId>gdata-core</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>gdata</groupId>
+            <artifactId>gdata-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>gdata</groupId>
+            <artifactId>gdata-spreadsheet</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+</project>
