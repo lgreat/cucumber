@@ -11,6 +11,29 @@
     <version>10.0</version>
     <packaging>war</packaging>
 
+    <repositories>
+        <!-- These get called in sequential order -->
+        <repository>
+            <id>gs-repo</id>
+            <url>http://maven2.dev.greatschools.net</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>google-maven-gwt-plugin-repo</id>
+            <url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>google-maven-gwt-plugin-repo</id>
+            <url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <directory>target</directory>
         <outputDirectory>target/classes</outputDirectory>
@@ -31,13 +54,56 @@
                 <directory>src/conf</directory>
                 <includes>
                     <include>*.properties</include>
-                    <include>*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/../GSData/src/conf</directory>
+                <includes>
+                    <include>log4j-production.properties</include>
                 </includes>
             </resource>
         </resources>
 
         <!-- Plugins -->
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webappDirectory>src/webapp</webappDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.totsp.gwt</groupId>
+                <artifactId>maven-googlewebtoolkit2-plugin</artifactId>
+                <version>2.0-beta15</version>
+                <configuration>
+                    <logLevel>ERROR</logLevel>
+                    <gwtVersion>1.4.60</gwtVersion>
+                    <compileTargets>
+                        <compileTarget>gs.web.admin.gwt.TableCopyGWTPanel</compileTarget>
+                    </compileTargets>
+                    <runTarget>gs.web.admin.gwt.TableCopyGWTPanel/TableCopy.html</runTarget>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!-- These two goals enable automatic GWT setup, but are expirimental -->
+                            <goal>setup</goal>
+                            <goal>extractGwt</goal>
+
+                            <!-- these are the standard goals -->
+                            <!--<goal>generateClientBeans</goal>-->
+                            <!--<goal>mergewebxml</goal>-->
+                            <goal>compile</goal>
+                            <!--<goal>testGwt</goal>-->
+                            <!--<goal>gwt</goal>-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-idea-plugin</artifactId>
                 <version>2.0</version>
@@ -73,6 +139,7 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>build timestamp</id>
                         <phase>process-resources</phase>
                         <configuration>
                             <tasks>
@@ -83,6 +150,22 @@
                                            default="now"
                                            pattern="yyyyMMddkkmmss"/>
                                 </propertyfile>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>relocate compiled gwt files</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="src/webapp/res/gwt"/>
+                                <move todir="src/webapp/res/gwt">
+                                    <fileset dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel" includes="**/*"/>
+                                </move>
+                                <delete dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"/>
                             </tasks>
                         </configuration>
                         <goals>
@@ -137,21 +220,21 @@
         </dependency>
 
         <dependency>
-            <groupId>servletapi</groupId>
+            <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>jspapi</groupId>
+            <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>jstl</groupId>
+            <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.1.2</version>
         </dependency>
@@ -188,15 +271,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>2.5.3</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
 
-        <!-- HttpUnit dependencies -->
         <dependency>
             <groupId>httpunit</groupId>
             <artifactId>httpunit</artifactId>
             <version>1.6</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -214,31 +296,23 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <version>1.2.22</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>1.2.22</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <!-- This is in our local repository at  http://maven.dev.greatschools.net. -->
-            <!-- It's included in the GWT distribution and used by the gwt:compile goal -->
-            <groupId>gwt</groupId>
-            <artifactId>gwt-dev-mac</artifactId>
-            <version>1.2.22</version>
-            <scope>compile</scope>
+            <version>1.4.60</version>
         </dependency>
 
         <dependency>
-            <groupId>jfreechart</groupId>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>1.4.60</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>1.0.5</version>
         </dependency>
         <dependency>
-            <groupId>jfreechart</groupId>
+            <groupId>jfree</groupId>
             <artifactId>jcommon</artifactId>
             <version>1.0.9</version>
         </dependency>
