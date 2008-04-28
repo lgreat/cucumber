@@ -146,6 +146,17 @@ div.greenModule div.content {
     padding:10px;
 }
 
+div.blueModule div.content ul {
+    font-size: 13px;
+    line-height: 20px;
+    margin: 13px 0 13px 0;
+}
+
+div.blueModule div.content li {
+    font-size: 13px;
+    line-height: 20px;
+}
+
 /** Comment Area **/
 div#articleComments div#enterComment,
 div.greenModule {
