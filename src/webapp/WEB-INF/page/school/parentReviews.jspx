@@ -171,8 +171,13 @@
                                         <c:if test="${!(empty(review.who) or review.who eq 'other')}">
                                             <c:set var="who" value="${review.who}"/>
                                         </c:if>
-                                        <c:if test="${(review.quality.name ne 'decline') and (who ne 'principal')}">
-                                            <gsml:img src="/res/img/school/parentReviews/stars_med_${review.quality.name}.gif" styleClass="stars" alt="${review.quality.name} out of 5 stars" />
+                                        <c:set var="curStarRating" value="${review.quality.name}"/>
+                                        <c:if test="${school.levelCode eq 'p'}">
+                                            <c:set var="curStarRating" value="${review.POverall.name}"/>
+                                        </c:if>
+                                        <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
+                                            <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
+                                                      styleClass="stars" alt="${curStarRating} out of 5 stars" />
                                         </c:if>
                                         <p class="author">Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
 
