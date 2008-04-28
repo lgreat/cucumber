@@ -44,6 +44,10 @@ public class ArticleController extends AbstractController {
     public static final String MODEL_NEW_ARTICLE = "newArticle";
     /** Article object itself */
     public static final String MODEL_ARTICLE = "article";
+    /** Article meta description */
+    public static final String MODEL_ARTICLE_META_DESCRIPTOR = "articleMetaDescriptor";
+    /** Article meta keywords */
+    public static final String MODEL_ARTICLE_META_KEYWORDS = "articleMetaKeywords";
 
     /** Article title -- after string replacement */
     public static final String MODEL_ARTICLE_TITLE = "articleTitle";
@@ -81,6 +85,8 @@ public class ArticleController extends AbstractController {
                 model.put(MODEL_ARTICLE_TITLE, processArticleString(state, article.getTitle()));
                 model.put(MODEL_ARTICLE_ABSTRACT, processArticleString(state, article.getAbstract()));
                 model.put(MODEL_ARTICLE_TEXT, processArticleString(state, article.getArticleText()));
+                model.put(MODEL_ARTICLE_META_DESCRIPTOR, article.getMetaDescriptor());
+                model.put(MODEL_ARTICLE_META_KEYWORDS, article.getMetaKeywords());
 
                 PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
                 List categories = _articleManager.getCategories(article.getCategory());
