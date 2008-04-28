@@ -78,9 +78,9 @@ function jumpToCounty(newLoc, state) {
     }
 }
 
-//get state from cookie
+//get user's state from cookie
 function getState() {
-    return readCookie('STATE');
+    return readCookie('STATE3');
 }
 
 /*
