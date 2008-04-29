@@ -251,33 +251,39 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * @param reviews - a list of reviews for the school
      * @param latestReviewsModel - the Map to store the results
      */
-    static void doMultiParentReviews(List reviews, Map<String, Object> latestReviewsModel) {
+    static void doMultiParentReviews(List<Review> reviews, Map<String, Object> latestReviewsModel) {
         if (reviews == null){
             return;
         }
 
-        Review latestReview = null;
         List<Map> schoolReviews = null;
 
-        for (int i = 0; i < reviews.size(); i++) {
-            Review aReview = (Review) reviews.get(i);
-
-            if (!CategoryRating.DECLINE_TO_STATE.equals(aReview.getQuality()) && aReview.getComments() != null) {
+        for (Review aReview : reviews) {
+            boolean hasRating;
+            String theRating;
+            if (LevelCode.PRESCHOOL.equals(aReview.getSchool().getLevelCode())) {
+                hasRating = !CategoryRating.DECLINE_TO_STATE.equals(aReview.getPOverall());
+                theRating = aReview.getPOverall().getName();
+            } else {
+                hasRating = !CategoryRating.DECLINE_TO_STATE.equals(aReview.getQuality());
+                theRating = aReview.getQuality().getName();
+            }
+            if (hasRating && aReview.getComments() != null) {
                 if (schoolReviews != null && schoolReviews.size() > 2) {
                     break;
                 } else {
                     if (schoolReviews == null) schoolReviews = new ArrayList<Map>();
                     Map<String, String> schoolData = new HashMap<String, String>();
-                    schoolData.put("psRating", aReview.getQuality().getName());
+                    schoolData.put("psRating", theRating);
                     schoolData.put("psComment", Util.abbreviateAtWhitespace(aReview.getComments(), REVIEW_LENGTH));
                     schoolData.put("psId", aReview.getId().toString());
                     schoolReviews.add(schoolData);
                 }
             }
-       }
+        }
 
         if (schoolReviews != null) {
-            latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
+            latestReviewsModel.put("totalReviews", reviews.size());
             latestReviewsModel.put("schoolReviews", schoolReviews);
         }
     }

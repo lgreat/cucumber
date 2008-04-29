@@ -2,6 +2,8 @@ package gs.web.school;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.school.review.CategoryRating;
@@ -207,9 +209,16 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
         List<Review> reviewList = new ArrayList<Review>();
 
+        School school = new School();
+        school.setLevelCode(LevelCode.ELEMENTARY);
+        school.setId(1);
+        school.setType(SchoolType.PUBLIC);
+        school.setDatabaseState(State.CA);
+
         Review aReview = new Review();
         aReview.setQuality(CategoryRating.RATING_1);
         aReview.setComments("Comment 1");
+        aReview.setSchool(school);
         aReview.setId(1);
         reviewList.add(aReview);
 
@@ -238,17 +247,68 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
     /**
      * Tests the functionality of the static function to create the display reviews for a school
+     * One Review
+     */
+    public void testDoMultiParentReviews_OneReview_Preschool(){
+
+        List<Review> reviewList = new ArrayList<Review>();
+
+        School school = new School();
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        school.setId(1);
+        school.setType(SchoolType.PUBLIC);
+        school.setDatabaseState(State.CA);
+
+        Review aReview = new Review();
+        aReview.setPOverall(CategoryRating.RATING_1);
+        aReview.setComments("Comment 1");
+        aReview.setSchool(school);
+        aReview.setId(1);
+        reviewList.add(aReview);
+
+        Map<String, Object> reviewMap = new HashMap<String, Object>();
+
+        SchoolOverviewController.doMultiParentReviews(reviewList, reviewMap);
+        assertEquals("Expect reviewMap.size to be 2", 2, reviewMap.size());
+        assertNotNull("Expected to find key: 'totalReviews'", reviewMap.get("totalReviews"));
+        assertNotNull("Expected to find key: 'schoolReviews'", reviewMap.get("schoolReviews"));
+
+        assertEquals("Expected totalReviews to be 1", new Integer(1), reviewMap.get("totalReviews"));
+        assertNotNull("Expected schoolReviews not to be null", reviewMap.get("schoolReviews"));
+
+        List<Map<String, String>> schoolReviews = (List<Map<String,String>>)reviewMap.get("schoolReviews");
+
+        assertEquals("Expected schoolReviews to have one entry", 1, schoolReviews.size());
+        // get the map from the list
+        Map<String, String> schoolData = schoolReviews.get(0);
+
+        assertNotNull("Expected to find key: 'psRating'", schoolData.get("psRating"));
+        assertNotNull("Expected to find key: 'psComment'", schoolData.get("psComment"));
+
+        assertEquals("Expected psRating to be: ",aReview.getPOverall().getName(), schoolData.get("psRating")) ;
+        assertEquals("Expected psComment to be: ", Util.abbreviateAtWhitespace(aReview.getComments(), SchoolOverviewController.REVIEW_LENGTH),(String)schoolData.get("psComment"));
+    }
+
+    /**
+     * Tests the functionality of the static function to create the display reviews for a school
      * Three Reviews
      */
     public void testDoMultiParentReviews_MaxReviews(){
 
         List<Review> reviewList = new ArrayList<Review>();
 
+        School school = new School();
+        school.setLevelCode(LevelCode.ELEMENTARY);
+        school.setId(1);
+        school.setType(SchoolType.PUBLIC);
+        school.setDatabaseState(State.CA);
+
         for (int i = 0; i<3; i++){
             Review aReview = new Review();
             aReview.setQuality(CategoryRating.RATING_1);
             aReview.setComments("Comment 1");
             aReview.setId(1);
+            aReview.setSchool(school);
             reviewList.add(aReview);
         }
 
@@ -276,11 +336,18 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
         List<Review> reviewList = new ArrayList<Review>();
 
+        School school = new School();
+        school.setLevelCode(LevelCode.ELEMENTARY);
+        school.setId(1);
+        school.setType(SchoolType.PUBLIC);
+        school.setDatabaseState(State.CA);
+
         for (int i = 0; i<5; i++){
             Review aReview = new Review();
             aReview.setQuality(CategoryRating.RATING_1);
             aReview.setComments("Comment 1");
             aReview.setId(1);
+            aReview.setSchool(school);
             reviewList.add(aReview);
         }
 
@@ -306,12 +373,18 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
      */
     public void testDoMultiParentReviews_DeclineToState(){
 
+        School school = new School();
+        school.setLevelCode(LevelCode.ELEMENTARY);
+        school.setId(1);
+        school.setType(SchoolType.PUBLIC);
+        school.setDatabaseState(State.CA);
 
            List<Review> reviewList = new ArrayList<Review>();
            Review aReview = new Review();
            aReview.setQuality(CategoryRating.DECLINE_TO_STATE);
            aReview.setComments("Comment 1");
            aReview.setId(1);
+        aReview.setSchool(school);
 
            reviewList.add(aReview);
 
