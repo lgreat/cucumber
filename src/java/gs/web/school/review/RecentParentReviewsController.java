@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.17 2007/12/20 22:06:09 aroy Exp $
+ * $Id: RecentParentReviewsController.java,v 1.18 2008/04/29 00:26:48 aroy Exp $
  */
 
 package gs.web.school.review;
 
 import gs.data.school.School;
+import gs.data.school.LevelCode;
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -110,7 +111,12 @@ public class RecentParentReviewsController extends AbstractController {
         }
 
         public int getStars() {
-            final CategoryRating quality = _review.getQuality();
+            CategoryRating quality;
+            if (LevelCode.PRESCHOOL.equals(_school.getLevelCode())) {
+                quality = _review.getPOverall();
+            } else {
+                quality = _review.getQuality();
+            }
 
             if (CategoryRating.RATING_1.equals(quality)) {
                 return 1;
