@@ -19,6 +19,9 @@
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.tag import="java.util.List"/>
+<jsp:directive.tag import="java.util.Iterator"/>
+<jsp:directive.tag import="gs.data.test.ITestDataSetDao"/>
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
@@ -96,6 +99,24 @@
         }
     } catch (Exception e) {
     }
+
+    boolean privateTestData = false;
+
+    if(school.getType().getSchoolTypeName().equals("private") && school.getStateAbbreviation().isPrivateTestScoresState()){
+
+        ITestDataSetDao testDataSetDao = (ITestDataSetDao) ac.getBean(ITestDataSetDao.BEAN_ID);
+        List values = testDataSetDao.findValues(school);
+        for (Iterator iter = values.iterator(); iter.hasNext();) {
+            SchoolTestValue value = (SchoolTestValue)iter.next();
+            if (value.isActive() && value.getDataSet().isActive()) {
+                privateTestData = true;
+                break;
+            }
+        }
+    }
+    
+    request.setAttribute("privateHasTestData",privateTestData);
+
     ]]></jsp:scriptlet>
 
 <![CDATA[
@@ -274,7 +295,7 @@
         </link:schoolProfileParentReview>
     </td>
 
-    <c:if test="${(schoolType != 'private' || state.privateTestScoresState) and (school.levelCode != 'p')}" >
+    <c:if test="${(schoolType != 'private' || ( state.privateTestScoresState and privateHasTestData) ) and (school.levelCode != 'p')}" >
         <td>
             <link:schoolProfileTestscore school="${school}" styleClass="${(tab eq 'testscores') ? 'on GS_CI9_' : ''}"
                                          styleId="Test_Scores_Tab${styleIdSuffix}"
