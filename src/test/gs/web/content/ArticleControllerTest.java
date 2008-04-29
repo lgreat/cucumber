@@ -99,6 +99,12 @@ public class ArticleControllerTest extends BaseControllerTestCase {
                         "Hello. <span id=\"pagebreak\"/>Good-bye. <span id=\"pagebreak\"/>We meet again."));
     }
 
+    public void testProcessHier1() {
+        assertEquals("Contains commas commas and commas", _controller.processHier1("Contains commas, commas, and commas"));
+        assertEquals("Contains \\\"double quotes\\\"", _controller.processHier1("Contains \"double quotes\""));
+        assertEquals("Contains lots of spaces", _controller.processHier1("Contains   lots    of     spaces"));
+    }
+
     public void testProcessArticleForStateSubstrings() {
         assertEquals("", _controller.processArticleForStateSubstrings(_state, ""));
 

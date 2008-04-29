@@ -55,6 +55,8 @@ public class ArticleController extends AbstractController {
     public static final String MODEL_ARTICLE_ABSTRACT = "articleAbstract";
     /** Article text -- after string replacement */
     public static final String MODEL_ARTICLE_TEXT = "articleText";
+    /** Article hier1 -- after string replacement */
+    public static final String MODEL_HIER1 = "articleHier1";
     /** Ad Attribute keyword */
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
 
@@ -82,7 +84,9 @@ public class ArticleController extends AbstractController {
             if (article != null) {
                 model.put(MODEL_NEW_ARTICLE, isArticleNewStyle(article));
                 model.put(MODEL_ARTICLE, article);
-                model.put(MODEL_ARTICLE_TITLE, processArticleString(state, article.getTitle()));
+                String articleTitle = processArticleString(state, article.getTitle());
+                model.put(MODEL_ARTICLE_TITLE, articleTitle);
+                model.put(MODEL_HIER1, processHier1(articleTitle));
                 model.put(MODEL_ARTICLE_ABSTRACT, processArticleString(state, article.getAbstract()));
                 model.put(MODEL_ARTICLE_TEXT, processArticleString(state, article.getArticleText()));
                 model.put(MODEL_ARTICLE_META_DESCRIPTOR, article.getMetaDescriptor());
@@ -131,6 +135,28 @@ public class ArticleController extends AbstractController {
         text = StringUtils.replace(text, "<span id=\"nopagebreaks\"/>", "");
         text = StringUtils.replace(text, "<span id=\"pagebreak\"/>", "");
         text = processArticleForStateSubstrings(state, text);
+        return text;
+    }
+
+    /**
+     * Transform the title to be a valid part of an omniture hier1.  Heir1 is comma separated
+     * so commas in the title need to be removed.  Hier1 is stored in a double quotes javascript string
+     * so the double quotes in the title need to be escaped.
+     * @param text Text to convert to valid Hier1 component
+     * @return valid hier1 component
+     */
+    protected String processHier1(String text) {
+        if (StringUtils.isEmpty(text)) {
+            return text;
+        }
+
+        // Hier1 is comma separated so remove commas
+        text = StringUtils.replace(text, ",", "");
+        // Hier1 is stored in a double quoted javascript variable so escape double quotes
+        text = StringUtils.replace(text, "\"", "\\\"");
+        // Collapse multiple spaces to 1
+        text = text.replaceAll("\\s+", " ");
+
         return text;
     }
 
