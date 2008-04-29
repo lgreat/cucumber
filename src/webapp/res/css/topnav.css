@@ -260,7 +260,7 @@
     font-size: 12px;
     font-weight: 800;
     height: 14px;
-    margin: 0px;
+    margin: 0;
     border-right: 1px dashed #99CC67;
     border-left: 1px dashed #99CC67;
     padding: 8px 14px 8px 14px;
@@ -309,4 +309,9 @@
     padding-right: 10px;
     padding-bottom: 8px;
     padding-left: 10px;
+}
+
+#topnav table#nav_parent {
+    width:865px;
+    margin:0 auto;
 }
