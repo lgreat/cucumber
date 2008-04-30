@@ -135,14 +135,6 @@
 
     <c:choose>
         <c:when test="${page.numResponses gt 0}">
-            <!-- There are responses, first show cross promotion then page -->
-            <div class="crossPromo crossPromoHeader">
-                <link:schoolStartSurvey school="${school}"
-                        id="GS_CrossPromo_1"><gsml:img
-                        src="/res/img/survey/promo/do_you_agree.gif"
-                        alt="Do you agree with what parents say about ${school.name}?"/>
-                </link:schoolStartSurvey>
-            </div>
             <div class="page-header">${fn:replace(page.headerName, "$SCHOOLNAME", school.name)}</div>
             <c:forEach items="${page.groups}" var="group">
 
