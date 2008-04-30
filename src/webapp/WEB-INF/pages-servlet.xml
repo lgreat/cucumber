@@ -1345,6 +1345,13 @@
     <bean name="/school/ajaxFindSchoolAndCity.page"
         class="gs.web.school.FindSchoolController" autowire="byName" lazy-init="true"/>
 
+    <bean name="/community/msl.page"
+          class="gs.web.community.MySchoolListController" autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>community/msl</value>
+        </property>
+    </bean>
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">

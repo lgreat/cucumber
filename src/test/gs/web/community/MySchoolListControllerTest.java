@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListControllerTest.java,v 1.3 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: MySchoolListControllerTest.java,v 1.4 2008/04/30 21:02:42 chriskimm Exp $
  */
 
 package gs.web.community;
@@ -15,11 +15,10 @@ import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Set;
 
 /**
- * Tests SchoolsController.
- *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * Tests MySchoolListController.
  */
 public class MySchoolListControllerTest extends BaseControllerTestCase {
 
@@ -42,22 +41,8 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.setParameter(SessionContextUtil.MEMBER_PARAM, "1");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
-
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
-
-        List list = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
-        assertEquals(4, list.size());
-
-        // test limit
-        request.setParameter(MySchoolListController.PARAM_LIMIT, "2");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-
-        modelAndView = _controller.handleRequestInternal(request, getResponse());
-
-        list = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
-        assertEquals(3, list.size());
-
-
+        Set schools = (Set) modelAndView.getModel().get("schools");
+        assertEquals(4, schools.size());
     }
-
 }
