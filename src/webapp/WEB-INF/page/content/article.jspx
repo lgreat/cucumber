@@ -84,7 +84,8 @@
 
                     <div id="articleComments" class="noprint">
                         <div id="enterComment">
-                            <form action="/cgi-bin/feedback_submit" method="post">
+                            <form action="/cgi-bin/feedback_submit" method="post"
+                                  onsubmit="captchaChallenge.value = Recaptcha.$('recaptcha_challenge_field').value;captchaResponse.value = Recaptcha.$('recaptcha_response_field').value;">
                                 <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
                                 <input type="hidden" name="type" value="article" />
                                 <input type="hidden" name="id" value="${requestScope.article.id}" />
