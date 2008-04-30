@@ -88,6 +88,8 @@
                                 <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
                                 <input type="hidden" name="type" value="article" />
                                 <input type="hidden" name="id" value="${requestScope.article.id}" />
+                                <input type="hidden" name="captchaChallenge" value="the Challenge"/>
+                                <input type="hidden" name="captchaResponse" value="the Response"/>
 
                                 <div class="greenHeader" id="commentHeader">
                                     <span class="rlbcopy">Email us your feedback</span>
