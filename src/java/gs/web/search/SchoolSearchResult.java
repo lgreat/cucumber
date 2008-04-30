@@ -56,7 +56,11 @@ public class SchoolSearchResult extends SearchResult implements ILocation {
             return null;
         }
         if (Integer.valueOf(parentRatingsCount) > 2) {
-            return _doc.get(Indexer.PARENT_RATINGS_AVG_QUALITY);
+            if (LevelCode.PRESCHOOL.equals(_school.getLevelCode())) {
+                return _doc.get(Indexer.PARENT_RATINGS_AVG_P_OVERALL);
+            } else {
+                return _doc.get(Indexer.PARENT_RATINGS_AVG_QUALITY);
+            }
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.school.School;
+import gs.data.school.LevelCode;
 import gs.data.search.Indexer;
 import junit.framework.TestCase;
 import org.apache.lucene.document.Document;
@@ -50,10 +51,40 @@ public class SchoolSearchResultTest extends TestCase {
     public void testParentRatingComesFromIndex() {
         Document doc = new Document();
         SchoolSearchResult result = new SchoolSearchResult(doc);
+        School school = new School();
+        school.setLevelCode(LevelCode.ELEMENTARY);
+        result.setSchool(school);
         doc.add(new Field(Indexer.PARENT_RATINGS_COUNT, "3", Field.Store.YES, Field.Index.TOKENIZED));
         doc.add(new Field(Indexer.PARENT_RATINGS_AVG_QUALITY, "4", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field(Indexer.PARENT_RATINGS_AVG_P_OVERALL, "5", Field.Store.YES, Field.Index.TOKENIZED));
 
         assertEquals("Unexpected parent rating value", "4", result.getParentRating());
+    }
+
+    public void testPreschoolElementaryParentRatingComesFromIndex() {
+        Document doc = new Document();
+        SchoolSearchResult result = new SchoolSearchResult(doc);
+        School school = new School();
+        school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
+        result.setSchool(school);
+        doc.add(new Field(Indexer.PARENT_RATINGS_COUNT, "3", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field(Indexer.PARENT_RATINGS_AVG_QUALITY, "4", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field(Indexer.PARENT_RATINGS_AVG_P_OVERALL, "5", Field.Store.YES, Field.Index.TOKENIZED));
+
+        assertEquals("Unexpected parent rating value", "4", result.getParentRating());
+    }
+
+    public void testPreschoolParentRatingComesFromIndex() {
+        Document doc = new Document();
+        SchoolSearchResult result = new SchoolSearchResult(doc);
+        School school = new School();
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        result.setSchool(school);
+        doc.add(new Field(Indexer.PARENT_RATINGS_COUNT, "3", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field(Indexer.PARENT_RATINGS_AVG_QUALITY, "4", Field.Store.YES, Field.Index.TOKENIZED));
+        doc.add(new Field(Indexer.PARENT_RATINGS_AVG_P_OVERALL, "5", Field.Store.YES, Field.Index.TOKENIZED));
+
+        assertEquals("Unexpected parent rating value", "5", result.getParentRating());
     }
 
     public void testSchoolShouldBeNullByDefault() {
