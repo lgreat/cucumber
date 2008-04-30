@@ -603,9 +603,10 @@ div#YahooRealEstateLink a:hover {
 }
 
 h1#sfooter {
-    margin-bottom: 4px;
+    margin: 10px 0 4px;
 }
 
-div#testScoreLandingLinks {
-    margin-top: 10px;
+div#YahooRealEstateLink {
+    padding-top: 20px;
+    clear:both;
 }
