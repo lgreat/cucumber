@@ -25,10 +25,10 @@
                 <pageHelper:externalCss file="/res/css/content/articleOld.css"/>
             </c:otherwise>
         </c:choose>
-        <c:if test="${requestScope.articleMetaDescriptor != null and requestScope.articleMetaDescriptor ne ''}">
+        <c:if test="${not empty requestScope.articleMetaDescriptor}">
             <meta name="description" content="${requestScope.articleMetaDescriptor}" />
         </c:if>
-        <c:if test="${requestScope.articleMetaKeywords != null and requestScope.articleMetaKeywords ne ''}">
+        <c:if test="${not empty requestScope.articleMetaKeywords}">
             <meta name="keywords" content="${requestScope.articleMetaKeywords}" />
         </c:if>
     </head>
