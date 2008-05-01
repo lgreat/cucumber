@@ -145,6 +145,9 @@ public class MonitorController implements ReadWriteController {
 
         model.put("indexVersion", getIndexVersion());
 
+        model.put("x_cluster_client_ip", request.getHeader("HTTP_X_CLUSTER_CLIENT_IP"));
+        model.put("remote_addr", request.getRemoteAddr());
+
         return new ModelAndView(_viewName, model);
     }
 
