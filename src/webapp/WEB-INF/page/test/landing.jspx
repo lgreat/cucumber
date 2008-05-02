@@ -51,7 +51,6 @@
             }
         }
 
-        var url = '/test/schoolsInCity.page';
         var cityHasSchoolsInCorrectLevel = true;
         var levelsInCity = [];
         
@@ -63,7 +62,7 @@
 
         function changeFindCity(citySelect, state, levels, selectId) {
             $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-            new Ajax.Updater ( selectId, url, {
+            new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
                 method: 'get',
                 parameters: {state : state, city : citySelect.value, levels: levels },
                 onComplete: function(transport) {
