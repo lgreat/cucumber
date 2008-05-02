@@ -100,22 +100,15 @@
     } catch (Exception e) {
     }
 
-    boolean privateTestData = false;
 
+    boolean privateTestData = false;
     if(school.getType().getSchoolTypeName().equals("private") && school.getStateAbbreviation().isPrivateTestScoresState()){
 
         ITestDataSetDao testDataSetDao = (ITestDataSetDao) ac.getBean(ITestDataSetDao.BEAN_ID);
-        List values = testDataSetDao.findValues(school);
-        for (Iterator iter = values.iterator(); iter.hasNext();) {
-            SchoolTestValue value = (SchoolTestValue)iter.next();
-            if (value.isActive() && value.getDataSet().isActive()) {
-                privateTestData = true;
-                break;
-            }
-        }
+        privateTestData = testDataSetDao.hasDisplayableData(school);
     }
-    
     request.setAttribute("privateHasTestData",privateTestData);
+    
 
     ]]></jsp:scriptlet>
 
