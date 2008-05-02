@@ -503,19 +503,19 @@ div.vignette {
 		margin-bottom: 2px;
 	}
 
-div.copyright {
+div.articleCopyright {
 	color: #777777;
 	font-weight: normal;
-	font-size: 14px;
+	font-size: 13px;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
-	div.copyright div.text {
+	div.articleCopyright div.text {
 		margin-left: auto;
 		text-align: left;
 		width: 452px;
 	}
 
-	div.copyright div.dotted-divider {
+	div.articleCopyright div.dotted-divider {
 		margin-top: 10px;
 	}
