@@ -153,4 +153,11 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         assertEquals(912, _controller.parseArticleId(State.ME, "achievement"));
         assertEquals(921, _controller.parseArticleId(State.SD, "achievement"));
     }
-}
+
+    public void testGetMetaDescriptor() {
+        Article article = new Article();
+        assertNull(article.getMetaDescriptor());
+        article.setAbstract("<tag>inside first</tag> less than sign < <more>inside second</more>");
+        assertEquals("inside first less than sign < inside second",article.getMetaDescriptor());
+    }
+ }
