@@ -83,7 +83,7 @@
         <gsweb:articlelink articleId="537" wrappingElement="li"/>
 
         <li >
-            <a href="http://www.schwablearning.org/articles.aspx?r=999">When Your Teenager's Peers Are Headed to College, but He Is Not</a>
+            <a href="http://www.schwablearning.org/articles.aspx?r=737">Risky Behavior in Teens with AD/HD</a>
         </li>
 
         <gsweb:articlelink articleId="688" wrappingElement="li"/>
@@ -101,7 +101,7 @@
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="1147" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1209" wrappingElement="li"/>
+        <gsweb:articlelink articleId="3539" wrappingElement="li"/>
         <gsweb:articlelink articleId="1146" wrappingElement="li"/>
     </ul>
 
@@ -167,21 +167,21 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="1214" styleClass="noHover">
-            What If Your Teen Wants to Skip College?
+        <gsweb:articlelink articleId="1067" styleClass="noHover">
+            If I Could Do It Over Again: Advice From Grads
         </gsweb:articlelink>
 
     </div>
     <div class="module">
-        Your teenager may have good reasons to delay college or skip it altogether. But that doesn't mean he can afford
-        to skip getting the training he needs to succeed. There are good jobs in fields from biotech to 3-D animation,
-        but they require academic and technical skills. Your teen will need a strong foundation in core subjects in high
-        school and he should consider taking technical classes to prepare him for the job of his choice, even if your high school doesn't offer them.
+        As your teen hustles through high school, she's likely getting loads of advice from
+        adults as well as pressure from peers.  Have her take a deep breath and read what
+        some recent high school grads say they wish they'd done differently in high school.
+        Whether it's study skills or sleep habits, these wise-but-cool adults offer sound
+        advice.
         <br/>
-
-         <div align="right">
-            <gsweb:articlelink articleId="1214" styleClass="seeFullArticle">
-                Learn how to help your child chart his course &gt;
+        <div align="right">
+            <gsweb:articlelink articleId="1067" styleClass="seeFullArticle">
+                Help your teen learn from others' experience &gt;
             </gsweb:articlelink>
         </div>
     </div>
@@ -203,27 +203,18 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="1163" styleClass="noHover">
-            Savings Clubs Can Supplement a College Fund
+        <gsweb:articlelink articleId="948" styleClass="noHover">
+            10 Hottest Careers for College Graduates
         </gsweb:articlelink>
     </div>
 
     <div class="module">
-        College savings clubs:
-        <ul class="noHover">
-            <li>
-                Allow you to use everyday purchases to save some money for college.
-            </li>
-            <li>
-                Allow you to accumulate rebates in a 529 college fund, where they'll accumulate and grow tax free.
-            </li>
-            <li>
-                May offer the alternative of simply receiving the funds directly in cash.
-            </li>
-        </ul>
+        Wondering where the jobs will be in the future? Government economists estimate which occupations
+        will grow fastest between 2004 and 2014. They also predict which occupations will have the most
+        new jobs.
     </div>
     <div align="right">
-        <gsweb:articlelink articleId="1163" styleClass="seeFullArticle">
+        <gsweb:articlelink articleId="948" styleClass="seeFullArticle">
             Learn more about savings clubs &gt;
         </gsweb:articlelink>
     </div>
@@ -240,23 +231,18 @@
                     <content:collegeQuickFinder/>
                 </td>
                 <td valign="top">
-
                     <ul class="quickFindLinks">
                         <li style="padding-top:0;">
-                            <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21393.html"
-                               target="_blank">Your Savings Options</a>
+                            <a href="http://www.collegeboard.com/student/csearch/majors_careers/237.html"
+                               target="_blank">10 Industries With the Fastest Employment Growth</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21417.html"
-                               target="_blank">Take from Your Savings</a>
+                            <a href="http://www.collegeboard.com/student/csearch/majors_careers/49485.html"
+                               target="_blank">Career of the Week</a>
                         </li>
                         <li>
-                            <a href="http://apps.collegeboard.com/fincalc/ep/wizard-home.jsp"
-                               target="_blank">Financial Aid Easy Planner</a>
-                        </li>
-                        <li>
-                            <a href="http://www.collegeboard.com/student/pay/add-it-up/401.html"
-                               target="_blank">College Financing Calculators</a>
+                            <a href="http://www.collegeboard.com/student/csearch/majors_careers/46089.html"
+                               target="_blank">Career Calculus</a>
                         </li>
                     </ul>
                 </td>
@@ -317,10 +303,8 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Your child can check with his school counselor and search online for 
-                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21284.html"
-                               target="_blank">summer learning programs</a>
-                               offered to high school students at colleges and other institutions.
+                               Start a summer <a href="http://www.collegeboard.com/student/plan/boost-your-skills/23628.html" target="_blank">reading list</a>. 
+                               Ask your teachers to recommend books.
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan &gt;</a>
                 </td>
@@ -328,9 +312,8 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Encourage your child to start making summer plans. Consider
-                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21283.html"
-                               target="_blank">jobs, internships, volunteer activities</a>, or athletic programs.
+                               Check with your counselor and search online for <a href="http://www.collegeboard.com/student/plan/high-school/9839.html" target="_blank">summer
+                               school programs</a> for high school students at colleges.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan &gt;</a></td>
             </tr>
@@ -340,13 +323,15 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               If applicable, your child should prepare writing samples, portfolios, audition tapes, and other material for the fall college application season.                                
+                               Review your senior year class schedule with your counselor. Challenge yourself with
+                               honors and AP classes and stick with sequences you've begun, in the languages, for
+                               example. Read about <a href="http://www.collegeboard.com/student/plan/high-school/33.html" target="_blank">how to select your courses</a>.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan &gt;</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               If you haven't already done so, you and your teen might make a final visit to the college(s) where he's been accepted before making a decision.
+                               Have your child send thank-you notes to teachers and other mentors who wrote recommendations.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan &gt;</a></td>
             </tr>
