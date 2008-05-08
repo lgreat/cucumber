@@ -47,7 +47,7 @@ public class TestLandingController extends SimpleFormController {
     public static final String BEAN_ID = "/test/landing.page";
 
     /** Stores all of the test data */
-    Map<String, Map> _cache;
+    static Map<String, Map> _cache;
 
     /** URL of the Google Docs worksheet */
     private URL _worksheetUrl;
