@@ -100,8 +100,8 @@
 
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="1147" wrappingElement="li"/>
         <gsweb:articlelink articleId="3539" wrappingElement="li"/>
+        <gsweb:articlelink articleId="1147" wrappingElement="li"/>
         <gsweb:articlelink articleId="1146" wrappingElement="li"/>
     </ul>
 
@@ -215,7 +215,7 @@
     </div>
     <div align="right">
         <gsweb:articlelink articleId="948" styleClass="seeFullArticle">
-            Learn more about savings clubs &gt;
+            Learn more about hot careers &gt;
         </gsweb:articlelink>
     </div>
 
