@@ -1,5 +1,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
 
 <html lang="en">
@@ -7,11 +8,19 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <jsp:directive.page contentType="text/html"/>
-    <head><title>Simple jspx page</title></head>
+    <head>
+        <title>My School List</title>
+        <pageHelper:externalCss file="/res/css/community/msl.css"/>
+    </head>
     <body>
-    <c:forEach var="school" items="${schools}">
-        school: ${school}
-    </c:forEach>
+    <div id="msl">
+        <c:forEach var="school" items="${schools}">
+            <div class="school">
+                <div class="schoolName">${school.name}</div>
+                <div class="address">${school.physicalAddress}</div>
+            </div>
+        </c:forEach>
+    </div>
     </body>
 </html>
 </jsp:root>
