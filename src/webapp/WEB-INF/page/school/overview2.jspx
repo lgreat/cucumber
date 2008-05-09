@@ -639,6 +639,11 @@
                 <c:set var="position300x250" value="AboveFold_300x250" />
                 <ad:AboveFold_300x250 position="${position300x250}"/>
             </div>
+
+            <c:if test="${school.levelCode != 'p'}">
+                <jsp:include page="/promo/articleCommunityWidget.module"/>
+            </c:if>
+
             <c:if test="${empty param.hideMap}">
                 <school:nearbySchools school="${school}"/>
             </c:if>

@@ -1,0 +1,111 @@
+.articleCommunityWidget {
+    border: 2px solid #EEEEEE;
+    width: 280px;
+    padding: 8px;
+    margin-top: 20px;
+    height: 230px;
+}
+
+.articleCommunityTitle {
+    height: 15px;
+    background: #8BCBCB none repeat scroll 0;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 7px 0 7px 15px;
+}
+
+.contentGS .articleCommunityArticleList {
+    margin: 15px 0 0 30px;
+    list-style: square outside url(/res/img/content/article/greenarrow.gif);
+}
+
+.contentGS .articleCommunityArticleList li {
+    margin-bottom: 8px;
+    list-style: square outside url(/res/img/content/article/greenarrow.gif);
+}
+
+.contentGS .articleCommunityPostList {
+    margin: 15px 0 0 15px;
+}
+
+.contentGS .articleCommunityPostList li {
+    margin-bottom: 8px;
+    list-style-image: none;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.contentGS .articleCommunityPostList li a {
+    margin-left: 30px;
+    display : block;
+}
+
+.contentGS .articleCommunityPostList li.advice {
+    background-image: url(/res/img/community/small_icons/advice.gif);
+}
+
+
+.contentGS .articleCommunityPostList li.question {
+    background-image: url(/res/img/community/small_icons/question.gif);
+}
+
+.cleared {
+	_height: 1%;
+}
+
+#resultstabs {
+	background: #8BCBCB;
+    width: 280px;
+    height: 58px;
+}
+
+#resultstabs ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+#resultstabs li {
+	float: left;
+	background: url(/res/img/search/tabs_Middle_off.gif) no-repeat left bottom;
+	width: 82px;
+	height: 17px;
+	text-align: center;
+	padding: 12px 4px 0;
+	font-weight: bold;
+}
+
+#resultstabs li.tableft {
+	background-image: url(/res/img/search/tabs_Left_off.gif);
+	width: 83px;
+	padding-left: 5px;
+	padding-right: 3px;
+}
+
+#resultstabs li.tabright {
+	background-image: url(/res/img/search/tabs_Right_off.gif);
+	width: 84px;
+	padding-left: 3px;
+	padding-right: 6px;
+}
+
+#resultstabs li.tabactive {
+	background-image: url(/res/img/search/tabs_Middle_on.gif);
+	padding-top: 8px;
+	height: 21px;
+}
+
+#resultstabs li.tableft.tabactive {
+	background-image: url(/res/img/search/tabs_Left_on.gif);
+}
+
+#resultstabs li.tabright.tabactive {
+	background-image: url(/res/img/search/tabs_Right_on.gif);
+}
+
+#contentGS #resultstabs .tabactive a {
+	color: #666;
+	cursor: text;
+	text-decoration: none;
+}
+

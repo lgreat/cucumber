@@ -51,6 +51,12 @@
         </property>
     </bean>
 
+    <bean name="/promo/articleCommunityWidget.module"
+            class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+            autowire="byName" lazy-init="true">
+        <property name="viewName" value="/promo/articleCommunityWidget"/>
+    </bean>
+
     <bean name="/content/parentPoll.module"
           class="gs.web.content.ParentPollController"
           autowire="byName">
