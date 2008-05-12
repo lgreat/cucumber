@@ -194,7 +194,7 @@
                 id="GlobalNav_ResearchButton"
                 >Research &amp;amp; Compare</link:research></td>
             <!--#10--><td ><gsml:a href="http://${communityHost}"
-                                   styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} GS_CI9_ GS_EV5_"
+                                   styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} GS_CI9_ "
                                    id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
             <!--#7--><td><gsml:a href="/content/travel.page"
                                  id="GlobalNav_SeasonalButton"
