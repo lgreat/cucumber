@@ -380,7 +380,7 @@
             <link:city city="${city}" state="${state}">${city} schools</link:city>
 
             <c:choose>
-                <c:when test="${school.districtId != 0}">
+                <c:when test="${school.districtId != 0 and school.levelCode != 'p'}">
                     ${delimiter}
                     <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
                     <c:if test="${tab ne 'overview'}">
