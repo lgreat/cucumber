@@ -141,6 +141,7 @@ var customInsight9ClickEventHandler = function (e) {
  function registerMyEventHandlers() {
 
      registerClickHandlers(customInsight9ClickEventHandler,'GS_CI9_');
+     registerClickHandlers(evar5ClickEventHandler,'GS_EV5_');
  }
 
 /*
