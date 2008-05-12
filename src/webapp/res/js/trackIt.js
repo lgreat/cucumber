@@ -108,15 +108,20 @@ ClickCapture.prototype.getEvents = function(pageEvents){
 
 var customInsight9ClickEventHandler = function (e) {
      var obj = getNode(e);
-     var id = obj.id;
-     var idParts = id.split("__");
-     var mostSignificantPart = idParts[0];
-     clickCapture.capture("prop9",  mostSignificantPart);
+     clickCapture.capture("prop9",  obj.id);
+     //removed the truncating of anything past the most significant part of the obj.id
+     //var id = obj.id;
+     //var idParts = id.split("__");
+     //var mostSignificantPart = idParts[0];
+     //clickCapture.capture("prop9",  mostSignificantPart);
  }
 
  var evar5ClickEventHandler = function(e) {
      var obj = getNode(e);
-     clickCapture.capture("eVar5", s.pageName + ' ' +  obj.id);
+     var id = obj.id;
+     var idParts = id.split("__");
+     var mostSignificantPart = idParts[0];
+     clickCapture.capture("eVar5",   mostSignificantPart);
  }
 
 
