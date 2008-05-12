@@ -53,8 +53,6 @@
                 }
                 -->
             </script>
-            <noscript>
-            </noscript>
             ]]>
     <div class="articleCommunityWidget">
         <div class="cleared" id="resultstabs">
@@ -76,9 +74,9 @@
         </ul>
         <ul id="articleCommunityPostList" class="articleCommunityPostList" style="display: none;">
             <li class="advice"><a href="${communityURLPrefix}/advice/117/What-to-Look-for-in-a-School">What to Look for in a School</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/163385/How-do-I-tell-my-Daughter-we-have-to-move-to-a-different-state ">How do I tell my daughter that we have to move to a different state?</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/175818/Does-a-school-have-to-be-ranked-1-to-be-considered-great ">Does a school have to be ranked #1 to be considered great?</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/163731/Do-I-keep-my-child-in-current-school-or-transfer-to-new-one ">Do I keep my child in his current school or transfer him to a new one?</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/163385/How-do-I-tell-my-Daughter-we-have-to-move-to-a-different-state">How do I tell my daughter that we have to move to a different state?</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/182732/Which-is-better-a-small-or-a-large-school">Which is better--a small or large school?</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/163731/Do-I-keep-my-child-in-current-school-or-transfer-to-new-one">Do I keep my child in his current school or transfer him to a new one?</a></li>
         </ul>
     </div>
 </jsp:root>

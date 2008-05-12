@@ -1,9 +1,8 @@
 .articleCommunityWidget {
     border: 2px solid #EEEEEE;
-    width: 280px;
-    padding: 8px;
-    margin-top: 20px;
-    height: 230px;
+    width: 290px;
+    padding: 3px;
+    height: 214px;
 }
 
 .articleCommunityTitle {
@@ -12,12 +11,19 @@
     color: white;
     font-weight: bold;
     font-size: 15px;
-    padding: 7px 0 7px 15px;
+    padding: 5px 0 9px 15px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
 }
 
 .contentGS .articleCommunityArticleList {
-    margin: 15px 0 0 30px;
+    margin: 12px 4px 7px 24px;
     list-style: square outside url(/res/img/content/article/greenarrow.gif);
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    color: #3399AA;
+    text-decoration: none;
+    letter-spacing: 0px;
 }
 
 .contentGS .articleCommunityArticleList li {
@@ -26,14 +32,14 @@
 }
 
 .contentGS .articleCommunityPostList {
-    margin: 15px 0 0 15px;
+    margin: 12px 4px 7px 10px;
 }
 
 .contentGS .articleCommunityPostList li {
     margin-bottom: 8px;
     list-style-image: none;
     background-repeat: no-repeat;
-    background-position: left center;
+    background-position: left top;
 }
 
 .contentGS .articleCommunityPostList li a {
@@ -56,8 +62,9 @@
 
 #resultstabs {
 	background: #8BCBCB;
-    width: 280px;
+    width: 290px;
     height: 58px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
 }
 
 #resultstabs ul {
@@ -91,7 +98,7 @@
 
 #resultstabs li.tabactive {
 	background-image: url(/res/img/search/tabs_Middle_on.gif);
-	padding-top: 8px;
+	padding-top: 9px;
 	height: 21px;
 }
 
@@ -106,6 +113,10 @@
 #contentGS #resultstabs .tabactive a {
 	color: #666;
 	cursor: text;
+	text-decoration: none;
+}
+
+#contentGS #resultstabs li a {
 	text-decoration: none;
 }
 

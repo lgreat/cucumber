@@ -640,13 +640,15 @@
                 <ad:AboveFold_300x250 position="${position300x250}"/>
             </div>
 
-            <c:if test="${school.levelCode != 'p'}">
-                <jsp:include page="/promo/articleCommunityWidget.module"/>
-            </c:if>
+            <div id="belowAdWrapper">
+                <c:if test="${school.levelCode != 'p'}">
+                    <jsp:include page="/promo/articleCommunityWidget.module"/>
+                </c:if>
 
-            <c:if test="${empty param.hideMap}">
-                <school:nearbySchools school="${school}"/>
-            </c:if>
+                <c:if test="${empty param.hideMap}">
+                    <school:nearbySchools school="${school}"/>
+                </c:if>
+            </div>
         </div>
     </div><!-- end: schoolOverview -->
 
