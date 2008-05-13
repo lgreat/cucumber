@@ -69,7 +69,7 @@
                                 <c:when test="${cmd.ratings.preschool}">
                                     <ul>
                                         <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catProgram]}"/>
-                                        <c:set var="curCatName" value="Program &amp; Equipment"/>
+                                        <c:set var="curCatName" value="Program &amp; Curriculum"/>
                                         <c:if test="${not empty curCatValue}">
                                             <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
                                         </c:if>
