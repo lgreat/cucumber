@@ -52,18 +52,9 @@
         }
         request.setAttribute("schoolData", schoolData);
 
-        SchoolSubtype mask = SchoolSubtype.create("special_education, " +
-                "special_education_program, gifted_talented, alternative, " +
-                "alternative_program, magnet, magnet_program, other_alternative, " +
-                "vocational_technical, continuation, opportunity_community, " +
-                "home_school_program, independent_study, virtual_online, KIPP, " +
-                "Montessori, Waldorf, Core_Knowledge, all_male, all_female, coed, " +
-                "boarding, boarding_and_day, tribal, religious, nonprofit, " +
-                "year_round, state_run");
-        SchoolSubtype subs = school.getSubtype();
-        subs = SchoolSubtype.createWithMask(SchoolSubtype.NONE, mask, subs);
-        request.setAttribute("subtypes", subs.asPrettyCommaSeparatedString());
-    </jsp:scriptlet>
+        request.setAttribute("subtypes", SchoolSubtype.getSubtypes(school));
+
+     </jsp:scriptlet>
 
     <!--<c:choose>-->
         <!--<c:when test="${(requestScope.context.ABVersion eq 'd') and (school.type.schoolTypeName != 'private')}">-->
@@ -136,6 +127,17 @@
             </div>
             <div class="rightCol" id="rightCol">
                 <ul>
+                    <!-- Preschool -->
+                    <c:if test="${school.levelCode eq 'p'}">
+                        <li>Preschool</li>
+                    </c:if>
+
+                    <!-- Age range -->
+                    <c:if test="${school.levelCode eq 'p' and school.ageRangeAsString ne ''}">
+                        <li>${school.ageRangeAsString}</li>
+                    </c:if>
+
+
                     <!-- Grade levels -->
                     <c:set var="levels" value="${school.gradeLevels}"/>
                     <li>
@@ -146,12 +148,20 @@
                     </li>
 
                     <!-- School Type -->
+                    <c:if test="${school.levelCode != 'p'}">
                     <li>${gsweb:capitalize(school.type.schoolTypeName)} school</li>
+                    </c:if>
 
                     <!-- Enrollment -->
-                    <c:if test="${not empty school.enrollment}">
-                        <li>${school.enrollment} ${gsweb:pluralize(school.enrollment, 'student')}</li>
-                    </c:if>
+                    <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+                    <c:choose>
+                        <c:when test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                            <li>${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}</li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>Enrollment: N/A</li>
+                        </c:otherwise>
+                    </c:choose>
 
                     <!-- Subtype(s) -->
                     <c:set var="subtypes" value="${subtypes}"/>
