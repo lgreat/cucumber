@@ -2,21 +2,21 @@
     border: 2px solid #EEEEEE;
     width: 290px;
     padding: 3px;
-    height: 214px;
+    height: 227px;
 }
 
 .articleCommunityTitle {
-    height: 15px;
-    background: #8BCBCB none repeat scroll 0;
+    height: 20px;
+    background: #66CCCC none repeat scroll 0;
     color: white;
     font-weight: bold;
     font-size: 15px;
-    padding: 5px 0 9px 15px;
+    padding: 5px 0 0 15px;
     font-family:"Trebuchet MS",Arial,sans-serif;
 }
 
-.contentGS .articleCommunityArticleList {
-    margin: 12px 4px 7px 24px;
+#articleCommunityWidget .articleCommunityArticleList {
+    margin: 12px 42px 7px 24px;
     list-style: square outside url(/res/img/content/article/greenarrow.gif);
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 12px;
@@ -26,44 +26,53 @@
     letter-spacing: 0px;
 }
 
-.contentGS .articleCommunityArticleList li {
+#articleCommunityWidget .articleCommunityArticleList li {
     margin-bottom: 8px;
     list-style: square outside url(/res/img/content/article/greenarrow.gif);
 }
 
-.contentGS .articleCommunityPostList {
-    margin: 12px 4px 7px 10px;
+#articleCommunityWidget #articleCommunityArticleList li a {
+    text-decoration: none;
 }
 
-.contentGS .articleCommunityPostList li {
+#articleCommunityWidget #articleCommunityArticleList li a:hover {
+    text-decoration:underline;
+}
+
+#articleCommunityWidget .articleCommunityPostList {
+    margin: 12px 42px 7px 10px;
+}
+
+#articleCommunityWidget .articleCommunityPostList li {
     margin-bottom: 8px;
     list-style-image: none;
     background-repeat: no-repeat;
     background-position: left top;
 }
 
-.contentGS .articleCommunityPostList li a {
+#articleCommunityWidget #articleCommunityPostList li a {
     margin-left: 30px;
     display : block;
+    text-decoration: none;
 }
 
-.contentGS .articleCommunityPostList li.advice {
+#articleCommunityWidget #articleCommunityPostList li a:hover {
+    text-decoration:underline;
+}
+
+#articleCommunityWidget .articleCommunityPostList li.advice {
     background-image: url(/res/img/community/small_icons/advice.gif);
 }
 
 
-.contentGS .articleCommunityPostList li.question {
+#articleCommunityWidget .articleCommunityPostList li.question {
     background-image: url(/res/img/community/small_icons/question.gif);
 }
 
-.cleared {
-	_height: 1%;
-}
-
 #resultstabs {
-	background: #8BCBCB;
+	background: #66CCCC;
     width: 290px;
-    height: 58px;
+    height: 30px;
     font-family:"Trebuchet MS",Arial,sans-serif;
 }
 
@@ -74,40 +83,40 @@
 }
 #resultstabs li {
 	float: left;
-	background: url(/res/img/search/tabs_Middle_off.gif) no-repeat left bottom;
-	width: 82px;
-	height: 17px;
+	width: 112px;
+	height: 18px;
 	text-align: center;
-	padding: 12px 4px 0;
+	padding: 12px 4px 0 4px;
 	font-weight: bold;
+    background-repeat: no-repeat;
+	background-position: bottom center;
 }
 
 #resultstabs li.tableft {
-	background-image: url(/res/img/search/tabs_Left_off.gif);
-	width: 83px;
+	background-image: url(/res/img/tabs/lefttab_off.gif);
+    _background-position: 0px 2px;
 	padding-left: 5px;
 	padding-right: 3px;
 }
 
 #resultstabs li.tabright {
-	background-image: url(/res/img/search/tabs_Right_off.gif);
-	width: 84px;
+	background-image: url(/res/img/tabs/righttab_off.gif);
 	padding-left: 3px;
 	padding-right: 6px;
 }
 
 #resultstabs li.tabactive {
-	background-image: url(/res/img/search/tabs_Middle_on.gif);
 	padding-top: 9px;
 	height: 21px;
 }
 
 #resultstabs li.tableft.tabactive {
-	background-image: url(/res/img/search/tabs_Left_on.gif);
+	background-image: url(/res/img/tabs/lefttab_on.gif);
+    _background-position: 4px 2px;
 }
 
 #resultstabs li.tabright.tabactive {
-	background-image: url(/res/img/search/tabs_Right_on.gif);
+	background-image: url(/res/img/tabs/righttab_on.gif);
 }
 
 #contentGS #resultstabs .tabactive a {
@@ -119,4 +128,3 @@
 #contentGS #resultstabs li a {
 	text-decoration: none;
 }
-

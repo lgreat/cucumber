@@ -29,22 +29,22 @@
                             document.getElementById("articleCommunityPostList").style.display = 'none';
                             document.getElementById("articleCommunityArticleList").style.display = 'block';
 
-                            var activateTab = document.getElementById("articleCommunityPostTab");
-                            activateTab.setAttribute("class", "tableft ");
-                            activateTab.setAttribute("className", "tableft ");
+                            var deactivateTab = document.getElementById("articleCommunityPostTab");
+                            deactivateTab.setAttribute("class", "tabright ");
+                            deactivateTab.setAttribute("className", "tabright ");
                             
-                            tabClicked.setAttribute("class", "tabright tabactive");
-                            tabClicked.setAttribute("className", "tabright tabactive");
+                            tabClicked.setAttribute("class", "tableft tabactive");
+                            tabClicked.setAttribute("className", "tableft tabactive");
                         } else if (tabClicked.id == "articleCommunityPostTab") {
                             document.getElementById("articleCommunityArticleList").style.display = 'none';
                             document.getElementById("articleCommunityPostList").style.display = 'block';
 
-                            var activateTab = document.getElementById("articleCommunityArticleTab");
-                            activateTab.setAttribute("class", "tabright ");
-                            activateTab.setAttribute("className", "tabright ");
+                            var deactivateTab = document.getElementById("articleCommunityArticleTab");
+                            deactivateTab.setAttribute("class", "tableft ");
+                            deactivateTab.setAttribute("className", "tableft ");
                             
-                            tabClicked.setAttribute("class", "tableft tabactive");
-                            tabClicked.setAttribute("className", "tableft tabactive");
+                            tabClicked.setAttribute("class", "tabright tabactive");
+                            tabClicked.setAttribute("className", "tabright tabactive");
                         } else {
                             alert("No such tab");
                             return;
@@ -54,9 +54,9 @@
                 -->
             </script>
             ]]>
-    <div class="articleCommunityWidget">
-        <div class="cleared" id="resultstabs">
-            <div class="articleCommunityTitle">Choosing a School</div>
+    <div id="articleCommunityWidget" class="articleCommunityWidget">
+        <div class="articleCommunityTitle">Choosing a School</div>
+        <div id="resultstabs">
             <ul>
                 <li id="articleCommunityArticleTab" class="tableft tabactive" onClick="articleCommunityTabClicked(this); return false;">
                     <a class="noInterstitial" href="#" onClick="return false;">Articles</a>
@@ -67,16 +67,16 @@
             </ul>
         </div>
         <ul id="articleCommunityArticleList" class="articleCommunityArticleList">
-            <li><gsweb:articlelink articleId="96"/></li>
-            <li><gsweb:articlelink articleId="48"/></li>
-            <li><gsweb:articlelink articleId="87"/></li>
-            <li><gsweb:articlelink articleId="197"/></li>
+            <li><gsweb:articlelink articleId="96" styleId="Overivew-choosingschool-articles__1" styleClass="GS_EV5_"/></li>
+            <li><gsweb:articlelink articleId="48" styleId="Overivew-choosingschool-articles__2" styleClass="GS_EV5_"/></li>
+            <li><gsweb:articlelink articleId="87" styleId="Overivew-choosingschool-articles__3" styleClass="GS_EV5_"/></li>
+            <li><gsweb:articlelink articleId="197" styleId="Overivew-choosingschool-articles__4" styleClass="GS_EV5_"/></li>
         </ul>
         <ul id="articleCommunityPostList" class="articleCommunityPostList" style="display: none;">
-            <li class="advice"><a href="${communityURLPrefix}/advice/117/What-to-Look-for-in-a-School">What to Look for in a School</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/163385/How-do-I-tell-my-Daughter-we-have-to-move-to-a-different-state">How do I tell my daughter that we have to move to a different state?</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/182732/Which-is-better-a-small-or-a-large-school">Which is better--a small or large school?</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/163731/Do-I-keep-my-child-in-current-school-or-transfer-to-new-one">Do I keep my child in his current school or transfer him to a new one?</a></li>
+            <li class="advice"><a href="${communityURLPrefix}/advice/117/What-to-Look-for-in-a-School" id="Overivew-choosingschool-parentposts__1" class="GS_EV5_">What to Look for in a School</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/163385/How-do-I-tell-my-Daughter-we-have-to-move-to-a-different-state" id="Overivew-choosingschool-parentposts__2" class="GS_EV5_">How do I tell my daughter that we have to move to a different state?</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/182732/Which-is-better-a-small-or-a-large-school" id="Overivew-choosingschool-parentposts__3" class="GS_EV5_">Which is better--a small or large school?</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/163731/Do-I-keep-my-child-in-current-school-or-transfer-to-new-one" id="Overivew-choosingschool-parentposts__4" class="GS_EV5_">Do I keep my child in his current school or transfer him to a new one?</a></li>
         </ul>
     </div>
 </jsp:root>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.37 2008/02/06 00:00:56 eddie Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.38 2008/05/13 21:16:03 droy Exp $
  */
 package gs.web.content;
 
@@ -33,6 +33,11 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
      * CSS class to apply to anchor.
      */
     private String _styleClass;
+
+    /**
+     * Element id to apply to anchor.
+     */
+    private String _styleId;
 
     /**
      * The article id to link to. Set either this or the article.
@@ -101,7 +106,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         String link = getHref(article);
         b.append(link);
         if (StringUtils.isNotEmpty(_anchorName)) {
-            b.append('#' + _anchorName);
+            b.append('#').append(_anchorName);
         }
 
         b.append("\"");
@@ -113,6 +118,10 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         if (StringUtils.isNotEmpty(_styleClass)) {
             b.append(" class=\"").append(_styleClass).append("\"");
         }
+        if (StringUtils.isNotEmpty(_styleId)) {
+            b.append(" id=\"").append(_styleId).append("\"");
+        }
+
         b.append(">");
 
 
@@ -180,7 +189,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     /**
      * returns a url to the article to be used as the href
-     * @param article
+     * @param article Article to obtain href for
      * @return url for href
      */
     protected String getHref(Article article) {
@@ -253,5 +262,11 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         this._anchorName = _anchorName;
     }
 
+    public String getStyleId() {
+        return _styleId;
+    }
 
+    public void setStyleId(String styleId) {
+        _styleId = styleId;
+    }
 }
