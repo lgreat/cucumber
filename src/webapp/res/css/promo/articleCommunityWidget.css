@@ -101,6 +101,7 @@
 
 #resultstabs li.tabright {
 	background-image: url(/res/img/tabs/righttab_off.gif);
+    _background-position: 4px 2px;
 	padding-left: 3px;
 	padding-right: 6px;
 }

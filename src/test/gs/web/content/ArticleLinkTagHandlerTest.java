@@ -111,6 +111,22 @@ public class ArticleLinkTagHandlerTest extends TestCase {
                 _out.getOutputBuffer().toString());
     }
 
+    public void testLinkId() throws IOException {
+        Article article = new Article();
+        article.setId(new Integer(1));
+        article.setTitle("title");
+        article.setActive(true);
+        article.setStatesAsString("CA");
+
+        _tagHandler.setArticle(article);
+        _tagHandler.setStyleId("link-id");
+
+        _tagHandler.doTag();
+
+        assertEquals("<a href=\"/cgi-bin/showarticle/1\" id=\"link-id\">title</a>",
+                _out.getOutputBuffer().toString());
+    }
+
     public void testNoArticleId() throws IOException {
         _tagHandler.doTag();
         assertEquals("", _out.getOutputBuffer().toString());
