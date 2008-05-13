@@ -25,25 +25,6 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<!--
-
-
-    Notes on implementing a 9.7 B/C/D version of this page:
-
-    I commented out all references to B/C/D versions but left them in place.
-    In some cases I commented out a line and duplicated it immediately below without references
-    to variants, so watch for this.
-    Despite all this, it may be easier to revert to version 1.66 and go from there.
-
-    Files besides this one that were modified:
-    quickFacts.tagx (previous version: 1.32): used comments to remove versioned stuff
-    profile.tagx (previous version: 1.114): did not use comments, you must revert to 1.114 to see versioned stuff
-    standardDecorator.jspx: Removed A/B position names
-    xGAMSetup.tagx: Removed A/B position names
-
-
--->
-
 <c:set var="school" value="${school}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
@@ -55,15 +36,6 @@
 <c:set var="gs_rating" value="${gs_rating}"/>
 <c:set var="parent_ratings" value="${parent_ratings}"/>
 <c:set var="preschoolOnly" value="${preschoolOnly}"/>
-
-<!--<c:choose>-->
-    <!--<c:when test="${(requestScope.context.ABVersion eq 'd') and (school.type.schoolTypeName != 'private')}">-->
-        <!--<c:set var="d_version" value="true"/>-->
-    <!--</c:when>-->
-    <!--<c:otherwise>-->
-        <!--<c:set var="d_version" value="false"/>-->
-    <!--</c:otherwise>-->
-<!--</c:choose>-->
 
 <jsp:scriptlet>
     SessionContext context = SessionContextUtil.getSessionContext(request);
@@ -79,8 +51,7 @@
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
     <title>${gsweb:schoolPageTitle(school)}</title>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
-    <!-- GS-5367 variant B css that could not be inlined -->
-    <!-- aroy: I'm unclear if the following style is B version specific. It doesn't appear to be used by A -->
+
     <style type="text/css">
         #stateSelector2 {
             color:#666666;
@@ -89,21 +60,6 @@
             margin: 12px 8px 12px 0pt;
         }
     </style>
-    <!--<c:if test="${d_version}">-->
-        <!--<pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/yahoo/yahoo-min.js"/>-->
-        <!--<pageHelper:externalJavascript file="http://yui.yahooapis.com/2.2.2/build/event/event-min.js"/>-->
-        <!--<pageHelper:externalCss file="/res/css/school/gs-5687.css"/>-->
-<!---->
-        <!--<script type="text/javascript">-->
-            <!--function leftNavOver(e) {-->
-                <!--e.className = "leftNavOver";-->
-            <!--}-->
-<!---->
-            <!--function leftNavOut(e) {-->
-                <!--e.className = "leftNavOut";-->
-            <!--}-->
-        <!--</script>-->
-    <!--</c:if>-->
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research" >
@@ -130,227 +86,19 @@
     <gsml:equalizeColumns ids="'col_center','col_right'"/>
     <!-- being left column -->
     <div id="col_left">
-
-        <!--<c:if test="${!d_version}">-->
-            <school:quickFacts school="${school}"/>
-            <school:bigPicture school="${school}" divider="true"/>
-        <!--</c:if>-->
-        <!--<c:if test="${d_version}">-->
-            <!--<div id="leftNav">-->
-                <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                    <!--<div class="button">-->
-                        <!--<link:schoolProfileTestscore school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Test_Scores">-->
-                            <!--Test Scores-->
-                        <!--</link:schoolProfileTestscore>-->
-                        <!--<div class="image">image</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                    <!--<div class="button">-->
-                        <!--<link:schoolProfileRating school="${school}" styleClass="GS_CI9_" styleId="LeftNav_GreatSchools_Ratings">-->
-                            <!--GreatSchools Ratings-->
-                        <!--</link:schoolProfileRating>-->
-                        <!--<div class="image">image</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                    <!--<div class="button">-->
-                        <!--<link:schoolProfileCensus school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Teachers_Students">-->
-                            <!--Teachers / Students-->
-                        <!--</link:schoolProfileCensus>-->
-                        <!--<div class="image">image</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<c:if test="${hasAPExams}">-->
-                    <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                        <!--<div class="button">-->
-                            <!--<link:schoolProfileCensus school="${school}" anchor="ap" styleClass="GS_CI9_" styleId="LeftNav_AP_Scores">-->
-                                <!--AP Scores-->
-                            <!--</link:schoolProfileCensus>-->
-                            <!--<div class="image">image</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</c:if>-->
-                <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                    <!--<div class="button">-->
-                        <!--<link:schoolProfileParentReview school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Parent_Reviews">-->
-                            <!--Parent Reviews-->
-                        <!--</link:schoolProfileParentReview>-->
-                        <!--<div class="image">image</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                    <!--<div class="button">-->
-                        <!--<link:schoolStartSurvey school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Parent_Survey">-->
-                            <!--Parent Survey-->
-                        <!--</link:schoolStartSurvey>-->
-                        <!--<div class="image">image</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<c:if test="${hasPrincipalView}">-->
-                    <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                        <!--<div class="button">-->
-                            <!--<link:schoolProfilePrincipalView school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Principals_View">-->
-                                <!--Principal's View-->
-                            <!--</link:schoolProfilePrincipalView>-->
-                            <!--<div class="image">image</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</c:if>-->
-                <!--<c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">-->
-                    <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                        <!--<div class="button">-->
-                            <!--<link:districtProfile districtId="${school.districtId}"-->
-                                                  <!--schoolId="${school.id}"-->
-                                                  <!--state="${state}"-->
-                                                  <!--title="District information"-->
-                                                  <!--styleClass="GS_CI9_"-->
-                                                  <!--styleId="LeftNav_District_Overview">-->
-                                <!--District Overview-->
-                            <!--</link:districtProfile>-->
-                            <!--<div class="image">image</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</c:if>-->
-                <!--<div onmouseover="leftNavOver(this);" onmouseout="leftNavOut(this);" class="leftNavOut">-->
-                    <!--<div class="button">-->
-                        <!--<link:schoolCompareSchool school="${school}" styleClass="GS_CI9_" styleId="LeftNav_Compare_Schools">-->
-                            <!--Compare Schools-->
-                        <!--</link:schoolCompareSchool>-->
-                        <!--<div class="image">image</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</c:if>-->
+        <school:quickFacts school="${school}"/>
+        <school:bigPicture school="${school}" divider="true"/>
         <div id="leftcolAd">
             <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
-            <!--<variant:a><c:set var="positionAF160x600" value="AboveFold_Left_160x600" /></variant:a>-->
-            <!--<variant:b><c:set var="positionAF160x600" value="AboveFold_Left_160x600_A_Test" /></variant:b>-->
-            <!--<variant:c><c:set var="positionAF160x600" value="AboveFold_Left_160x600_B_Test" /></variant:c>-->
-            <!--<variant:d><c:set var="positionAF160x600" value="AboveFold_Left_160x600_C_Test" /></variant:d>-->
             <c:set var="positionAF160x600" value="AboveFold_Left_160x600" />
             <ad:AboveFold_Left_160x600 position="${positionAF160x600}"/>
         </div>
     </div><!-- end: col_left" -->
 
-		<!-- begin center column -->
+    <!-- begin center column -->
 
     <div id="col_center">
-
-    <!--<c:if test="${d_version}">-->
-        <!--<school:quickFacts school="${school}"/>-->
-    <!--</c:if>-->
-
-
-    <!--<c:if test="${requestScope.context.ABVersion eq 'c' and ((school.type.schoolTypeName != 'private') and (school.levelCode != 'p'))}">-->
-        <!--<div id="centerNavWrap">-->
-            <!--<div id="centerNav">-->
-                <!--<div id="centerNavLeft1">-->
-                    <!--<link:schoolProfileTestscore school="${school}" styleClass="GS_CI9_"-->
-                                                 <!--styleId="Test_Scores_CenterNav"-->
-                                                 <!--title="${school.name} Test Scores">-->
-                        <!--<gsml:img src="/res/img/school/overview/links_test.gif"-->
-                                  <!--rollover="/res/img/school/overview/links_test_on.gif"-->
-                                <!--alt="test scores"-->
-                                <!--/>-->
-                    <!--</link:schoolProfileTestscore>-->
-                <!--</div>-->
-                <!--<div id="centerNavRight1">-->
-                    <!--<link:schoolProfileParentReview school="${school}" styleClass="GS_CI9_"-->
-                                                    <!--id="Parent_Reviews_CenterNav"-->
-                                                    <!--title="${school.name} Parent Reviews">-->
-                        <!--<gsml:img src="/res/img/school/overview/links_parentreview.gif"-->
-                                  <!--alt="parent reviews"-->
-                                  <!--rollover="/res/img/school/overview/links_parentreview_on.gif"-->
-                                <!--/>-->
-                    <!--</link:schoolProfileParentReview>-->
-               <!--</div>-->
-                <!--<div id="centerNavLeft2">-->
-                    <!--<link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"-->
-                                              <!--styleId="School_Environment_CenterNav"-->
-                                              <!--styleClass="GS_CI9_">-->
-                        <!--<gsml:img src="/res/img/school/overview/links_teachers.gif"-->
-                                  <!--alt="teachers and students"-->
-                                  <!--rollover="/res/img/school/overview/links_teachers_on.gif"-->
-                                <!--/>-->
-                    <!--</link:schoolProfileCensus>-->
-                <!--</div>-->
-                <!--<div id="centerNavRight2">-->
-                    <!--<link:schoolStartSurvey school="${school}" styleClass="GS_CI9_"  title="Start Survey for ${school.name}"-->
-                                                 <!--id="Start_Survey_CenterNav">-->
-                        <!--<gsml:img src="/res/img/school/overview/links_parentsurvey.gif"-->
-                                  <!--alt="parent survey"-->
-                                  <!--rollover="/res/img/school/overview/links_parentsurvey_on.gif"-->
-                                <!--/>-->
-                    <!--</link:schoolStartSurvey>-->
-                <!--</div>-->
-                <!--<div id="centerNavLeft3">-->
-                    <!--<link:schoolProfileRating school="${school}" styleClass="GS_CI9_"-->
-                                              <!--styleId="GreatSchools_Ratings_CenterNav"-->
-                                              <!--title="${school.name} GreatSchools Ratings">-->
-                        <!--<gsml:img src="/res/img/school/overview/links_gsrating.gif"-->
-                                  <!--alt="greatschools rating"-->
-                                  <!--rollover="/res/img/school/overview/links_gsrating_on.gif"-->
-                                <!--/>-->
-                    <!--</link:schoolProfileRating>-->
-                <!--</div>-->
-                <!--<div id="centerNavRight3">-->
-                    <!--<link:schoolCompareSchool school="${school}"-->
-                                              <!--styleClass="GS_CI9_"-->
-                                              <!--styleId="Compare_Schools_CenterNav">-->
-                        <!--<gsml:img src="/res/img/school/overview/links_compare.gif"-->
-                                  <!--alt="compare schools"-->
-                                  <!--rollover="/res/img/school/overview/links_compare_on.gif"-->
-                                <!--/>-->
-                    <!--</link:schoolCompareSchool>-->
-                <!--</div>-->
-                <!--<c:if test="${(school.districtId != 0) and (school.levelCode != 'p')}">-->
-                    <!--<div id="centerNavLeft4">-->
-                        <!--<link:districtProfile districtId="${school.districtId}"-->
-                                              <!--schoolId="${school.id}"-->
-                                              <!--state="${state}"-->
-                                              <!--title="District information"-->
-                                              <!--styleClass="GS_CI9_"-->
-                                              <!--styleId="District_Profile_CenterNav">-->
-                            <!--<gsml:img src="/res/img/school/overview/links_district.gif"-->
-                                      <!--alt="district information"-->
-                                      <!--rollover="/res/img/school/overview/links_district_on.gif"-->
-                                    <!--/>-->
-                        <!--</link:districtProfile>-->
-                    <!--</div>-->
-                <!--</c:if>-->
-                <!--<c:set var="finance" value="hide" />-->
-                <!--<c:set var="hasFinanceData" value="${hasFinanceData}" />-->
-<!---->
-                <!--<c:if test="${school.type.schoolTypeName ne 'private'-->
-                <!--and (state eq 'az' or state eq 'ca' or-->
-                <!--state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or-->
-                <!--state eq 'oh' or state eq 'tx' )}">-->
-                    <!--<c:set var="finance" value="show" />-->
-                <!--</c:if>-->
-<!---->
-                <!--<c:if test="${(finance eq 'show') and (hasFinanceData)}">-->
-                    <!--<div id="centerNavRight4">-->
-                        <!--<link:schoolProfileCensus school="${school}"-->
-                                                  <!--styleClass="GS_CI9_"-->
-                                                  <!--styleId="Finance_CenterNav"-->
-                                                  <!--anchor="finance">-->
-                            <!--<gsml:img src="/res/img/school/overview/links_schoolfin.gif"-->
-                                      <!--alt="finance data"-->
-                                      <!--rollover="/res/img/school/overview/links_schoolfin_on.gif"-->
-                                    <!--/>-->
-                        <!--</link:schoolProfileCensus>-->
-                    <!--</div>-->
-                <!--</c:if>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</c:if>-->
-
-     <!--<c:if test="${(requestScope.context.ABVersion ne 'b' and requestScope.context.ABVersion ne 'c')}">-->
-    <!--<c:if test="${requestScope.context.ABVersion eq 'a'}">-->
         <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
-    <!--</c:if>-->
- 
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
                 <div id="topCompare" style="float:left;" >
                     <school:compareSchool school="${school}"/>
@@ -388,42 +136,6 @@
                              </div>
                          </c:if>
                     </c:when>
-                    <!--<c:when test="${(requestScope.context.ABVersion ne 'a') and (school.levelCode != 'p') and (school.type.schoolTypeName ne 'private')}">-->
-                            <!--<div id="parentReviews">-->
-                                <!--<h2 style="background: url(/res/img/school/overview/header2_LatestParentsReviews.gif) no-repeat;height: 43px;">Latest ${school.name} Parent Reviews</h2>-->
-                                <!--<c:forEach var="psReview" items="${latestReviewsModel.schoolReviews}">-->
-                                    <!--<c:if test="${reviewDisplayed eq 'yes'}"><h3 class="divider">Divider</h3></c:if>-->
-                                    <!--<gsml:img src="/res/img/map/ratings_parent_city_${psReview.psRating}.gif" alt="" styleClass="psRating" />-->
-                                    <!--<div class="psComment">${psReview.psComment}-->
-                                        <!--<link:schoolProfileParentReview school="${school}" title="Full review" styleClass="psBlurb" anchor="ps${psReview.psId}">-->
-                                            <!--More &#62;-->
-                                        <!--</link:schoolProfileParentReview>-->
-                                    <!--</div>-->
-                                    <!--<c:set var="reviewDisplayed" value="yes"/>-->
-                                <!--</c:forEach>-->
-                                <!--<div class="bottomParentReview">-->
-                                    <!--<div class="rateItInReview">-->
-                                        <!--<link:schoolProfileAddParentReview-->
-                                                   <!--school="${school}"-->
-                                                   <!--onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"-->
-                                                   <!--styleClass="submodal-344-362 GS_CI9_"-->
-                                                   <!--styleId="Center_Rate_It_${requestScope.context.ABVersion}"-->
-                                                   <!-->-->
-                                            <!--<gsml:img src="/res/img/school/overview/submit_RateIt.gif" -->
-                                                      <!--alt="Rate It" />-->
-                                        <!--</link:schoolProfileAddParentReview>-->
-                                    <!--</div>-->
-                                    <!--<div class="psWithMore"> |-->
-                                        <!--<link:schoolProfileParentReview school="${school}" title="Read all reviews" >  --><!-- styleClass="psWithMore" -->
-                                            <!--<c:choose>-->
-                                                <!--<c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>-->
-                                                <!--<c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>-->
-                                            <!--</c:choose>-->
-                                        <!--</link:schoolProfileParentReview>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                     <!--</c:when>-->
                     <c:otherwise>
                          <div id="parentReviews">
                             <h2>Latest ${school.name} Parent Reviews</h2>
@@ -464,11 +176,7 @@
                     </link:schoolStartSurvey>
                 </div>
             </c:if>
-    
-            <!--<c:if test="${((requestScope.context.ABVersion eq 'c') and (hasAPExams or hasPrincipalView)) or (requestScope.context.ABVersion ne 'c')}">-->
-            <!--<c:set var="styleIdSuffix" value="_${requestScope.context.ABVersion}"/>-->
             <c:set var="styleIdSuffix" value=""/>
-            <!--<div id="${requestScope.context.ABVersion eq 'c' ? 'learnSchoolBigText' : 'learnSchool'}">-->
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
@@ -478,8 +186,6 @@
                 <c:set var="hasFinanceData" value="${hasFinanceData}" />
 
                 <h2>Learn About ${school.name}</h2>
-                <!--<c:choose>-->
-                <!--<c:when test="${(requestScope.context.ABVersion ne 'c')}">-->
                 <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
                     <link:schoolProfileTestscore school="${school}"
                                                  styleClass="GS_CI9_" styleId="LearnMore_Module_TestScores1${styleIdSuffix}">
@@ -515,12 +221,6 @@
                     </p>
                 </c:if>
 
-                <!--<c:if test="${school.type.schoolTypeName ne 'private'-->
-                <!--and (state eq 'az' or state eq 'ca' or-->
-                <!--state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or-->
-                <!--state eq 'oh' or state eq 'tx' or requestScope.context.ABVersion eq 'c')}">-->
-                    <!--<c:set var="finance" value="show" />-->
-                <!--</c:if>-->
                 <c:if test="${school.type.schoolTypeName ne 'private'
                     and (state eq 'az' or state eq 'ca' or
                     state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
@@ -561,50 +261,7 @@
                                                          styleClass="GS_CI9_">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>
                     </p>
                 </c:if>
-                <!--</c:when>-->
-                <!--<c:when test="${(requestScope.context.ABVersion eq 'c') and (hasAPExams or hasPrincipalView)}">-->
-                    <!--<c:if test="${hasAPExams}">-->
-                        <!--<div class="wrapper">-->
-                            <!--<div class="learnLeft">-->
-                                <!--<div class="learnText">-->
-                                    <!--<link:schoolProfileCensus school="${school}" anchor="ap"-->
-                                                              <!--styleId="LearnMore_Module_APExams1_${requestScope.context.ABVersion}"-->
-                                                              <!--styleClass="GS_CI9_">AP test scores from ${school.name}-->
-                                    <!--</link:schoolProfileCensus>-->
-                                <!--</div>-->
-                                <!--<div class="learnImg">-->
-                                    <!--<link:schoolProfileCensus school="${school}" anchor="ap"-->
-                                                                    <!--styleId="LearnMore_Module_APExams1_${requestScope.context.ABVersion}"-->
-                                                                    <!--styleClass="GS_CI9_">-->
-                                        <!--<gsml:img src="/res/img/school/overview/v1_gobutton.gif" alt="" />-->
-                                                 <!--</link:schoolProfileCensus>-->
-                                                          <!--</div>-->
-                                                     <!--</div>-->
-                        <!--</div>-->
-                    <!--</c:if>-->
-<!---->
-                    <!--<c:if test="${hasPrincipalView}">-->
-                        <!--<div class="wrapperLast">-->
-                            <!--<div class="learnLeftLast">-->
-                                <!--<div class="learnText">-->
-                                    <!--<link:schoolProfilePrincipalView school="${school}"-->
-                                                                     <!--styleId="LearnMore_Module_SchoolsView1_${requestScope.context.ABVersion}"-->
-                                                                     <!--styleClass="GS_CI9_">The inside scoop on ${school.name}</link:schoolProfilePrincipalView>-->
-                                <!--</div>-->
-                                <!--<div class="learnImg">-->
-                                    <!--<link:schoolProfilePrincipalView school="${school}"-->
-                                                                     <!--styleId="LearnMore_Module_SchoolsView1_${requestScope.context.ABVersion}"-->
-                                                                     <!--styleClass="GS_CI9_">-->
-                                        <!--<gsml:img src="/res/img/school/overview/v1_gobutton.gif" alt="" />-->
-                                                                     <!--</link:schoolProfilePrincipalView>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</c:if>-->
-                <!--</c:when>-->
-                <!--</c:choose>-->
             </div>
-            <!--</c:if>-->
             <c:if test="${!hasPrincipalView and school.levelCode != 'p'}">
                 <div id="insideScoop">
                     <div class="overviewBorder">
@@ -619,23 +276,12 @@
 
 		<!-- begin right column -->
         <div id="col_right" class="noprint">
-            <!--<c:if test="${!requestScope.context.crawler and (requestScope.context.ABVersion ne 'a')}">-->
-            <!--<div class="rateItWrapper">-->
-                <!--<div class="rateThisSchool">-->
-                        <!--<school:rateIt school="${school}" pageName="overview"/>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--</c:if>-->
             <div class="ad_top">
                 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
                 <ad:Top_300x137/>
             </div>
 
             <div class="ad_middle">
-                <!--<variant:a><c:set var="position300x250" value="AboveFold_300x250" /></variant:a>-->
-                <!--<variant:b><c:set var="position300x250" value="AboveFold_300x250_A_Test" /></variant:b>-->
-                <!--<variant:c><c:set var="position300x250" value="AboveFold_300x250_B_Test" /></variant:c>-->
-                <!--<variant:d><c:set var="position300x250" value="AboveFold_300x250_C_Test" /></variant:d>-->
                 <c:set var="position300x250" value="AboveFold_300x250" />
                 <ad:AboveFold_300x250 position="${position300x250}"/>
             </div>
