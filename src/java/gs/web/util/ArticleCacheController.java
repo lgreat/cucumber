@@ -15,7 +15,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Cache;
 
 /**
- * This controller provides a web interface to gs.data.school.LevelCode.createLevelCode();
+ * This controller provides a web interface to expire cached Articles.
  *
  * @author Dave Roy <mailto:droy@greatschools.net>
  */
