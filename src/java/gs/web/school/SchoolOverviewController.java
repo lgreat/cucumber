@@ -27,21 +27,15 @@ import java.util.*;
 /**
  * This controller handles requests for the School Profile Overview page:
  * http://www.greatschools.net/school/overview.page?state=tx&id=10683
- *
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class SchoolOverviewController extends AbstractSchoolController {
 
-    /**
-     * Spring Bean id
-     */
+    /** Spring Bean id */
     public static final String BEAN_ID = "/school/overview.page";
 
     protected static final Log _log = LogFactory.getLog(SchoolOverviewController.class.getName());
 
-    /**
-     * The allowed length of the parent review blurb
-     */
+    /** The allowed max length of the parent review blurb */
     public static final int REVIEW_LENGTH = 90;
 
     private String _viewName;
@@ -120,10 +114,13 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("hasPrincipalView", Boolean.valueOf(getSchoolDao().hasPrincipalView(school)));
             model.put("hasAPExams", Boolean.valueOf(hasAPExams(school)));
             model.put("hasTestData", Boolean.TRUE);
-//            model.put("hasTeacherData", Boolean.valueOf(_groupDataTypeDao.hasTeacherData(school)));
-//            model.put("hasStudentData", Boolean.valueOf(_groupDataTypeDao.hasStudentData(school)));
-            model.put("hasTeacherData", Boolean.TRUE);
-            model.put("hasStudentData", Boolean.TRUE);
+            if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
+                model.put("hasTeacherData", Boolean.valueOf(_groupDataTypeDao.hasTeacherData(school)));
+                model.put("hasStudentData", Boolean.valueOf(_groupDataTypeDao.hasStudentData(school)));
+            } else {
+                model.put("hasTeacherData", Boolean.TRUE);
+                model.put("hasStudentData", Boolean.TRUE);
+            }
             model.put("hasFinanceData", Boolean.TRUE);
 
             String tempMsg = sessionContext.getTempMsg();
@@ -386,9 +383,9 @@ public class SchoolOverviewController extends AbstractSchoolController {
         this._testDataSetDao = _testDao;
     }
 
-//    public IGroupDataTypeDao getGroupDataTypeDao() {
-//        return _groupDataTypeDao;
-//    }
+    public IGroupDataTypeDao getGroupDataTypeDao() {
+        return _groupDataTypeDao;
+    }
 
     public void setGroupDataTypeDao(IGroupDataTypeDao groupDataTypeDao) {
         _groupDataTypeDao = groupDataTypeDao;
