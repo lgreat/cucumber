@@ -1157,6 +1157,14 @@
         </property>
     </bean>
 
+    <bean id="testScoreLandingPageTableFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+        <property name="worksheetName" value="od7"/>
+    </bean>
+
     <bean name="/test/landing.page"
           class="gs.web.test.TestLandingController"
           autowire="byName" lazy-init="true">
@@ -1164,8 +1172,9 @@
         <property name="commandName" value="testLandingCommand"/>
         <property name="commandClass" value="gs.web.test.TestLandingCommand"/>
         <property name="formView" value="/test/landing" />
-        <property name="successView" value="redirect:http://www.google.com"/>
-        <property name="worksheetUrl" value="http://spreadsheets.google.com/feeds/worksheets/o02465749437938730339.5684652189673031494/private/full/od7" />
+        <property name="tableDao">
+            <bean factory-bean="testScoreLandingPageTableFactory" factory-method="getTableDao"/>
+        </property>
     </bean>
 
     <bean name="/test/schoolsInCity.page"

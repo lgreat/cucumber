@@ -1,10 +1,8 @@
 package gs.web.test;
 
-import com.google.gdata.client.spreadsheet.SpreadsheetService;
-import com.google.gdata.data.spreadsheet.*;
-import com.google.gdata.util.ServiceException;
 import gs.web.util.list.Anchor;
 import gs.web.util.UrlBuilder;
+import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
@@ -13,6 +11,8 @@ import gs.data.content.Article;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableRow;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -27,13 +27,8 @@ import org.joda.time.DateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This is the controller for the Test Landing Page.  It gets the data for the page
@@ -49,9 +44,6 @@ public class TestLandingController extends SimpleFormController {
     /** Stores all of the test data */
     static Map<String, Map> _cache;
 
-    /** URL of the Google Docs worksheet */
-    private URL _worksheetUrl;
-
     /** Used to populate city lists */
     private IGeoDao _geoDao;
 
@@ -63,6 +55,8 @@ public class TestLandingController extends SimpleFormController {
 
     private StateManager _stateManager;
 
+    private ITableDao _tableDao;
+
     private static final Logger _log = Logger.getLogger(TestLandingController.class);
 
     protected Map referenceData(HttpServletRequest request, Object cmd, Errors errors) throws Exception {
@@ -73,6 +67,7 @@ public class TestLandingController extends SimpleFormController {
         }
 
         String stateParam = request.getParameter("state");
+
         if (StringUtils.isNotBlank(stateParam)) {
             State state = getStateManager().getState(stateParam);
             refData.put("cities", _geoDao.findCitiesByState(state));
@@ -95,7 +90,7 @@ public class TestLandingController extends SimpleFormController {
     }
     
     protected Map<String, String> getTestData(String key) {
-        if (_cache == null) {
+        if (_cache == null || _cache.isEmpty()) {
              _cache = new HashMap<String, Map>();
             loadCache(_cache);
         }
@@ -110,7 +105,6 @@ public class TestLandingController extends SimpleFormController {
         String type = request.getParameter("type");
         String stateParam = request.getParameter("state");
         State state = _stateManager.getState(stateParam);
-
 
         View view = null;
         if ("achievement".equals(type)) {
@@ -150,47 +144,36 @@ public class TestLandingController extends SimpleFormController {
 
         return new ModelAndView(view);
     }
-    
-    private void loadCache(Map cache) {
-        cache.clear();
-        SpreadsheetService service = new SpreadsheetService("greatschools-tests-landing");
-        try {
-            service.setUserCredentials("chriskimm@greatschools.net", "greattests");
-            WorksheetEntry dataWorksheet = service.getEntry(getWorksheetUrl(), WorksheetEntry.class);
-            URL listFeedUrl = dataWorksheet.getListFeedUrl();
-            ListFeed lf = service.getFeed(listFeedUrl, ListFeed.class);
-            for (ListEntry entry : lf.getEntries()) {
-                Map<String, Object> values = new HashMap<String, Object>();
-                for (String tag : entry.getCustomElements().getTags()) {
-                    if ("links".equals(tag)) {
-                        values.put(tag, parseAnchorList(entry.getCustomElements().getValue(tag)));
-                    } else if ("levels".equals(tag)) {
-                        String levs = entry.getCustomElements().getValue(tag);
-                        values.put(tag, parseLevelCodes(levs));
+
+    public void loadCache(Map<String, Map> cache) {
+        GoogleSpreadsheetDao spreadsheetDao = (GoogleSpreadsheetDao) getTableDao();
+        List<ITableRow> rows = spreadsheetDao.getAllRows();
+        for (ITableRow row : rows) {
+            Map<String, Object> values = new HashMap<String, Object>();
+            for (Object o : row.getColumnNames()) {
+                String tag = (String)o;
+                if ("links".equals(tag)) {
+                    values.put(tag, parseAnchorList(row.getString(tag)));
+                } else if ("levels".equals(tag)) {
+                    String levs = row.getString(tag);
+                    values.put(tag, parseLevelCodes(levs));
                         values.put("levs", levs);
-                    } else if ("alertexpire".equals(tag)) {
-                        String date = entry.getCustomElements().getValue(tag);
-                        if (StringUtils.isNotBlank(date)) {
-                            DateTimeFormatter fmt = DateTimeFormat.forPattern("MM/dd/yyyy");
-                            DateTime dt = fmt.parseDateTime(date);
-                            if (dt.isBeforeNow()) {
-                                values.put("alertexpired", "true");
-                            }
+                } else if ("alertexpire".equals(tag)) {
+                    String date = row.getString(tag);
+                    if (StringUtils.isNotBlank(date)) {
+                        DateTimeFormatter fmt = DateTimeFormat.forPattern("MM/dd/yyyy");
+                        DateTime dt = fmt.parseDateTime(date);
+                        if (dt.isBeforeNow()) {
+                            values.put("alertexpired", "true");
                         }
-                    } else {
-                        values.put(tag, entry.getCustomElements().getValue(tag));
                     }
+                } else {
+                    values.put(tag, row.getString(tag));
                 }
-                String state = entry.getCustomElements().getValue("state");
-                String tid = entry.getCustomElements().getValue("tid");
-                cache.put(state+tid, values);
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ServiceException e) {
-            e.printStackTrace();
+            String state = row.getString("state");
+            String tid = row.getString("tid");
+            cache.put(state+tid, values);
         }
     }
 
@@ -243,14 +226,6 @@ public class TestLandingController extends SimpleFormController {
         return list;
     }
 
-    public URL getWorksheetUrl() {
-        return _worksheetUrl;
-    }
-
-    public void setWorksheetUrl(URL worksheetUrl) {
-        _worksheetUrl = worksheetUrl;
-    }
-
     public IGeoDao getGeoDao() {
         return _geoDao;
     }
@@ -281,5 +256,13 @@ public class TestLandingController extends SimpleFormController {
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public ITableDao getTableDao() {
+        return _tableDao;
+    }
+
+    public void setTableDao(ITableDao tableDao) {
+        _tableDao = tableDao;
     }
 }
