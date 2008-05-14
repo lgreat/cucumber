@@ -35,6 +35,9 @@
                             
                             tabClicked.setAttribute("class", "tableft tabactive");
                             tabClicked.setAttribute("className", "tableft tabactive");
+                            if (s.tl) {
+                                s.tl(tabClicked,'o', 'Overview_RC_Articles');
+                            }
                         } else if (tabClicked.id == "articleCommunityPostTab") {
                             document.getElementById("articleCommunityArticleList").style.display = 'none';
                             document.getElementById("articleCommunityPostList").style.display = 'block';
@@ -45,9 +48,9 @@
                             
                             tabClicked.setAttribute("class", "tabright tabactive");
                             tabClicked.setAttribute("className", "tabright tabactive");
-                        } else {
-                            alert("No such tab");
-                            return;
+                            if (s.tl) {
+                                s.tl(tabClicked,'o', 'Overview_RC_Posts');
+                            }
                         }
                     }
                 }
