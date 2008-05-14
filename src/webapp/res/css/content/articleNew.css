@@ -3,7 +3,8 @@
     color: #3399AA;
 }
 
-.contentGS .articlecopy ul {
+.contentGS .articlecopy ul,
+.contentGS .articlecopy ol{
     margin: 10px 0 10px 0;
     font-size: 15px;
 }
@@ -105,7 +106,8 @@ span.headline {
     color:#99CC66;
 }
 
-div#more-about ul {
+div#more-about ul,
+div#more-about ol{
     margin:10px 0 0 0;
     padding:0;
 }
@@ -145,7 +147,8 @@ div.greenModule div.content {
     padding:10px;
 }
 
-div.blueModule div.content ul {
+div.blueModule div.content ul,
+div.blueModule div.content ol,{
     font-size: 13px;
     line-height: 20px;
     margin: 13px 0 13px 0;
@@ -493,7 +496,8 @@ div.vignette {
 	padding: 10px 25px 10px 25px;
 }
 
-	div.vignette ul {
+	div.vignette ul,
+    div.vignette ol{
 		margin: 0;
 		padding-left: 0;
 	}

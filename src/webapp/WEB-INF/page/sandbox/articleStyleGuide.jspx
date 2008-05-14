@@ -851,6 +851,72 @@ etc.
   <br/>
   <br/>
 
+
+          <!-- Ordered List -->
+
+    <![CDATA[<a name="orderedList"></a>]]>
+    <div class="style">
+        <h3>Ordered List Style</h3>
+        <div class="style-code">
+
+            <pre>
+<![CDATA[
+
+        &lt;ol&gt;
+          &lt;li&gt;Item 1&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;Item 2&lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;Item 3&lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+
+]]>
+            </pre>
+        </div>
+        <div class="style-example">
+
+            <ol>
+              <li>Item 1<a href="/cgi-bin/showarticle/701/">How to Take Great Notes</a></li>
+              <li>Item 2<a href="/cgi-bin/showarticle/477/">Go Online for Homework Help</a></li>
+              <li>Item 3<a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></li>
+            </ol>
+
+        </div>
+    </div>
+
+    <!-- Unordered List -->
+
+  <![CDATA[<a name="unorderedList"></a>]]>
+  <div class="style">
+  <h3>Unordered List Style</h3>
+  <div class="style-code">
+
+      <pre>
+  <![CDATA[
+
+  &lt;ul&gt;
+      &lt;li&gt;Item 1&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Item 2&lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Item 3&lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+
+  ]]>
+      </pre>
+  </div>
+  <div class="style-example">
+
+      <ul>
+          <li>Item 1<a href="/cgi-bin/showarticle/701/">How to Take Great Notes</a></li>
+          <li>Item 2<a href="/cgi-bin/showarticle/477/">Go Online for Homework Help</a></li>
+          <li>Item 3<a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></li>
+      </ul>
+
+  </div>
+  </div>
+
+
+
+  <br/>
+  <br/>
+
   </div>
   </div>
 
