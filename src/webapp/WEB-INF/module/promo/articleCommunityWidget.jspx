@@ -70,16 +70,16 @@
             </ul>
         </div>
         <ul id="articleCommunityArticleList" class="articleCommunityArticleList">
-            <li class="greenarrow"><gsweb:articlelink articleId="96" styleId="Overivew-choosingschool-articles__1" styleClass="GS_EV5_"/></li>
-            <li class="greenarrow"><gsweb:articlelink articleId="48" styleId="Overivew-choosingschool-articles__2" styleClass="GS_EV5_"/></li>
-            <li class="greenarrow"><gsweb:articlelink articleId="87" styleId="Overivew-choosingschool-articles__3" styleClass="GS_EV5_"/></li>
-            <li class="greenarrow"><gsweb:articlelink articleId="197" styleId="Overivew-choosingschool-articles__4" styleClass="GS_EV5_"/></li>
+            <li class="greenarrow"><gsweb:articlelink articleId="96" styleId="Overview-choosingschool-articles__1" styleClass="GS_EV5_"/></li>
+            <li class="greenarrow"><gsweb:articlelink articleId="48" styleId="Overview-choosingschool-articles__2" styleClass="GS_EV5_"/></li>
+            <li class="greenarrow"><gsweb:articlelink articleId="87" styleId="Overview-choosingschool-articles__3" styleClass="GS_EV5_"/></li>
+            <li class="greenarrow"><gsweb:articlelink articleId="197" styleId="Overview-choosingschool-articles__4" styleClass="GS_EV5_"/></li>
         </ul>
         <ul id="articleCommunityPostList" class="articleCommunityPostList" style="display: none;">
-            <li class="advice"><a href="${communityURLPrefix}/advice/117/What-to-Look-for-in-a-School" id="Overivew-choosingschool-parentposts__1" class="GS_EV5_">What to Look for in a School</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/163385/How-do-I-tell-my-Daughter-we-have-to-move-to-a-different-state" id="Overivew-choosingschool-parentposts__2" class="GS_EV5_">How do I tell my daughter that we have to move to a different state?</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/182732/Which-is-better-a-small-or-a-large-school" id="Overivew-choosingschool-parentposts__3" class="GS_EV5_">Which is better--a small or large school?</a></li>
-            <li class="question"><a href="${communityURLPrefix}/q-and-a/163731/Do-I-keep-my-child-in-current-school-or-transfer-to-new-one" id="Overivew-choosingschool-parentposts__4" class="GS_EV5_">Do I keep my child in his current school or transfer him to a new one?</a></li>
+            <li class="advice"><a href="${communityURLPrefix}/advice/117/What-to-Look-for-in-a-School" id="Overview-choosingschool-parentposts__1" class="GS_EV5_">What to Look for in a School</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/163385/How-do-I-tell-my-Daughter-we-have-to-move-to-a-different-state" id="Overview-choosingschool-parentposts__2" class="GS_EV5_">How do I tell my daughter that we have to move to a different state?</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/182732/Which-is-better-a-small-or-a-large-school" id="Overview-choosingschool-parentposts__3" class="GS_EV5_">Which is better--a small or large school?</a></li>
+            <li class="question"><a href="${communityURLPrefix}/q-and-a/163731/Do-I-keep-my-child-in-current-school-or-transfer-to-new-one" id="Overview-choosingschool-parentposts__4" class="GS_EV5_">Do I keep my child in his current school or transfer him to a new one?</a></li>
         </ul>
     </div>
 </jsp:root>
