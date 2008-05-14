@@ -185,7 +185,9 @@
                 <c:set var="finance" value="hide" />
                 <c:set var="hasFinanceData" value="${hasFinanceData}" />
 
-                <h2>Learn About ${school.name}</h2>
+                <c:if test="${school.levelCode != 'p' or (hasStudentData or hasTeacherData)}">
+                    <h2>Learn About ${school.name}</h2>
+                </c:if>
                 <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
                     <link:schoolProfileTestscore school="${school}"
                                                  styleClass="GS_CI9_" styleId="LearnMore_Module_TestScores1${styleIdSuffix}">
