@@ -3,6 +3,16 @@
     color: #3399AA;
 }
 
+
+ol{
+    font-weight:bold;
+}
+ol span.liText,
+ul span.liText {
+    font-weight: normal;
+   padding-left: .7em;
+}
+
 .contentGS .articlecopy ul,
 .contentGS .articlecopy ol{
     margin: 10px 0 10px 0;

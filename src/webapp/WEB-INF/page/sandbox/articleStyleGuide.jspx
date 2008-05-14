@@ -863,9 +863,32 @@ etc.
 <![CDATA[
 
         &lt;ol&gt;
-          &lt;li&gt;Item 1&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;Item 2&lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;Item 3&lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text with a link
+                 &lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;
+              &lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;
+                 Some Really, really long text that is likely to wrap to the next
+                 line.  Here we go running away from ourselves.  Are we there yet?
+                 It keeps going and going.  Then it repeats. Some Really, really
+                 long text that is likely to wrap to the next line.  Here we go running
+                 away from ourselves.  Are we there yet?  ...
+              &lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;
+                 Some Really, really long text that is likely to wrap to the next
+                 line.  Here we go running away from ourselves.  Are we there yet?
+                 It keeps going and going.  Then it repeats. Some Really, really
+                 long text that is likely to wrap to the next line.  Here we go running
+                 away from ourselves.  Are we there yet?  ...
+              &lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
         &lt;/ol&gt;
 
 ]]>
@@ -873,11 +896,32 @@ etc.
         </div>
         <div class="style-example">
 
-            <ol>
-              <li>Item 1<a href="/cgi-bin/showarticle/701/">How to Take Great Notes</a></li>
-              <li>Item 2<a href="/cgi-bin/showarticle/477/">Go Online for Homework Help</a></li>
-              <li>Item 3<a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></li>
-            </ol>
+        <ol>
+            <li><span class="liText">Some Text</span></li>
+            <li><span class="liText">Some Text with a link<a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></span></li>
+            <li><span class="liText">
+                 Some Really, really long text that is likely to wrap to the next
+                 line.  Here we go running away from ourselves.  Are we there yet?
+                 It keeps going and going.  Then it repeats. Some Really, really
+                 long text that is likely to wrap to the next line.  Here we go running
+                 away from ourselves.  Are we there yet?  ...
+            </span></li>
+            <li><span class="liText">
+                 Some Really, really long text that is likely to wrap to the next
+                 line.  Here we go running away from ourselves.  Are we there yet?
+                 It keeps going and going.  Then it repeats. Some Really, really
+                 long text that is likely to wrap to the next line.  Here we go running
+                 away from ourselves.  Are we there yet?  ...
+            </span></li>
+           <li><span class="liText">Some Text</span></li>
+           <li><span class="liText">Some Text</span></li>
+           <li><span class="liText">Some Text</span></li>
+           <li><span class="liText">Some Text</span></li>
+           <li><span class="liText">Some Text</span></li>
+           <li><span class="liText">Some Text</span></li>
+           <li><span class="liText">Some Text</span></li>
+           <li><span class="liText">Some Text</span></li>
+        </ol>
 
         </div>
     </div>
@@ -893,9 +937,25 @@ etc.
   <![CDATA[
 
   &lt;ul&gt;
-      &lt;li&gt;Item 1&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Item 2&lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Item 3&lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text with a link
+                 &lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;
+              &lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;
+                 Some Really, really long text that is likely to wrap to the next
+                 line.  Here we go running away from ourselves.  Are we there yet?
+                 It keeps going and going.  Then it repeats. Some Really, really
+                 long text that is likely to wrap to the next line.  Here we go running
+                 away from ourselves.  Are we there yet?  ...
+              &lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;
+                 Some Really, really long text that is likely to wrap to the next
+                 line.  Here we go running away from ourselves.  Are we there yet?
+                 It keeps going and going.  Then it repeats. Some Really, really
+                 long text that is likely to wrap to the next line.  Here we go running
+                 away from ourselves.  Are we there yet?  ...
+              &lt;/span&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
   &lt;/ul&gt;
 
   ]]>
@@ -904,9 +964,24 @@ etc.
   <div class="style-example">
 
       <ul>
-          <li>Item 1<a href="/cgi-bin/showarticle/701/">How to Take Great Notes</a></li>
-          <li>Item 2<a href="/cgi-bin/showarticle/477/">Go Online for Homework Help</a></li>
-          <li>Item 3<a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></li>
+            <li><span class="liText">Some Text</span></li>
+            <li><span class="liText">Some Text with a link<a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></span></li>
+            <li><span class="liText">
+                 Some Really, really long text that is likely to wrap to the next
+                 line.  Here we go running away from ourselves.  Are we there yet?
+                 It keeps going and going.  Then it repeats. Some Really, really
+                 long text that is likely to wrap to the next line.  Here we go running
+                 away from ourselves.  Are we there yet?  ...
+            </span></li>
+            <li><span class="liText">
+                 Some Really, really long text that is likely to wrap to the next
+                 line.  Here we go running away from ourselves.  Are we there yet?
+                 It keeps going and going.  Then it repeats. Some Really, really
+                 long text that is likely to wrap to the next line.  Here we go running
+                 away from ourselves.  Are we there yet?  ...
+            </span></li>
+           <li><span class="liText">Some Text</span></li>
+
       </ul>
 
   </div>
