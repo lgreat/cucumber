@@ -28,10 +28,14 @@
 
 #articleCommunityWidget .articleCommunityArticleList li {
     padding-bottom: 8px;
-    list-style: square outside url(/res/img/content/article/greenarrow.gif);
+    list-style-image: none;
+    background-repeat: no-repeat;
+    background-position: left top;
 }
 
 #articleCommunityWidget #articleCommunityArticleList li a {
+    margin-left: 15px;
+    display : block;
     text-decoration: none;
 }
 
@@ -66,13 +70,22 @@
     text-decoration:underline;
 }
 
-#articleCommunityWidget .articleCommunityPostList li.advice {
-    background-image: url(/res/img/community/small_icons/advice.gif);
+#articleCommunityWidget ul li.greenarrow {
+    background-image: url(/res/img/content/article/greenarrow.gif);
+    background-position: 0 4px;
+    #background-position: 0 3px;
 }
 
+#articleCommunityWidget ul li.advice {
+    background-image: url(/res/img/community/small_icons/advice.gif);
+    background-position: 0 2px;
+    #background-position: 0px 1px;
+}
 
-#articleCommunityWidget .articleCommunityPostList li.question {
+#articleCommunityWidget ul li.question {
     background-image: url(/res/img/community/small_icons/question.gif);
+    background-position: 0 0px;
+    #background-position: 0 -1px;
 }
 
 #resultstabs {

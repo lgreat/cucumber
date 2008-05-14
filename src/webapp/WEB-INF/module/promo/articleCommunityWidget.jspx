@@ -70,10 +70,10 @@
             </ul>
         </div>
         <ul id="articleCommunityArticleList" class="articleCommunityArticleList">
-            <li><gsweb:articlelink articleId="96" styleId="Overivew-choosingschool-articles__1" styleClass="GS_EV5_"/></li>
-            <li><gsweb:articlelink articleId="48" styleId="Overivew-choosingschool-articles__2" styleClass="GS_EV5_"/></li>
-            <li><gsweb:articlelink articleId="87" styleId="Overivew-choosingschool-articles__3" styleClass="GS_EV5_"/></li>
-            <li><gsweb:articlelink articleId="197" styleId="Overivew-choosingschool-articles__4" styleClass="GS_EV5_"/></li>
+            <li class="greenarrow"><gsweb:articlelink articleId="96" styleId="Overivew-choosingschool-articles__1" styleClass="GS_EV5_"/></li>
+            <li class="greenarrow"><gsweb:articlelink articleId="48" styleId="Overivew-choosingschool-articles__2" styleClass="GS_EV5_"/></li>
+            <li class="greenarrow"><gsweb:articlelink articleId="87" styleId="Overivew-choosingschool-articles__3" styleClass="GS_EV5_"/></li>
+            <li class="greenarrow"><gsweb:articlelink articleId="197" styleId="Overivew-choosingschool-articles__4" styleClass="GS_EV5_"/></li>
         </ul>
         <ul id="articleCommunityPostList" class="articleCommunityPostList" style="display: none;">
             <li class="advice"><a href="${communityURLPrefix}/advice/117/What-to-Look-for-in-a-School" id="Overivew-choosingschool-parentposts__1" class="GS_EV5_">What to Look for in a School</a></li>
