@@ -3,8 +3,10 @@ package gs.web.test;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.list.Anchor;
 import gs.web.util.UrlBuilder;
+import gs.web.util.google.GoogleSpreadsheetDaoFactory;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.util.table.ITableDao;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -22,6 +24,13 @@ public class TestLandingControllerTest extends BaseControllerTestCase {
     public void setUp() throws Exception {
         super.setUp();
         _controller = (TestLandingController)getApplicationContext().getBean(TestLandingController.BEAN_ID);
+        GoogleSpreadsheetDaoFactory factory = new GoogleSpreadsheetDaoFactory();
+        factory.setGoogleKey("pYwV1uQwaOCJGhxtFDPHjTg");
+        factory.setVisibility("public");
+        factory.setProjection("values");
+        factory.setWorksheetName("od6");
+        ITableDao tableDao = factory.getTableDao();
+        _controller.setTableDao(tableDao);
     }
 
     public void testHandleRequestWithNoParams() throws Exception {
