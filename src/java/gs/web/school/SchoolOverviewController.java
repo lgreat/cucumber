@@ -114,6 +114,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("hasPrincipalView", Boolean.valueOf(getSchoolDao().hasPrincipalView(school)));
             model.put("hasAPExams", Boolean.valueOf(hasAPExams(school)));
             model.put("hasTestData", Boolean.TRUE);
+
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
                 model.put("hasTeacherData", Boolean.valueOf(_groupDataTypeDao.hasTeacherData(school)));
                 model.put("hasStudentData", Boolean.valueOf(_groupDataTypeDao.hasStudentData(school)));
