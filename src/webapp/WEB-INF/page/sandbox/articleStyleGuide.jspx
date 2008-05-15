@@ -987,6 +987,221 @@ etc.
   </div>
   </div>
 
+    <!-- Editorial Tables -->
+<a name="table"></a>
+<div class="style">
+  <h3>Table</h3>
+  <div class="style-code">
+    <span class="sghead">code:</span>
+      <pre>
+  <![CDATA[
+&lt;div class="paragraph"&gt;
+Goodstein doesn't think this is a problem. She said, "If they are involved
+with [strangers] on a site that is explicitly for kids, it is the same as
+going to a playground where they play with kids they might not know. If
+they're on a site that is mixed, with kids and adults, then they have to
+be a lot more careful, listen to their gut and feel when something doesn't
+feel right."&lt;/div&gt;
+
+<b>&lt;table cellspacing="0" cellpadding="0" class="editorialTable"&gt;
+&lt;tr&gt;
+    &lt;th colspan="2"&gt;How do you rate your skills in handling conflict?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="column1"&gt;Excellent&lt;/td&gt;
+    &lt;td class="column2"&gt;19%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="column1"&gt;Could use improvement&lt;/td&gt;
+    &lt;td class="column2"&gt;38%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="column1"&gt;Poor&lt;/td&gt;
+    &lt;td class="column2"&gt;2%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="column1"&gt;It depends on the situation/people involved&lt;/td&gt;
+    &lt;td class="column2"&gt;41%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</b>
+
+&lt;div class="paragraph"&gt;
+Goodstein doesn't think this is a problem. She said, "If they are involved
+with [strangers] on a site that is explicitly for kids, it is the same as
+going to a playground where they play with kids they might not know. If
+they're on a site that is mixed, with kids and adults, then they have to
+be a lot more careful, listen to their gut and feel when something doesn't
+feel right."&lt;/div&gt;
+
+<b>&lt;table cellspacing="0" cellpadding="0" class="editorialTable"&gt;
+&lt;tr&gt;
+    &lt;th class="column1"&gt;Learning or Attention Problem&lt;/th&gt;
+    &lt;th class="column2"&gt;Challenges when Planning a Meal&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="column1"&gt;Reading&lt;/td&gt;
+    &lt;td class="column2"&gt;Trouble reading through cookbooks for recipes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="column1"&gt;Receptive language (understanding written or spoken language)&lt;/td&gt;
+    &lt;td class="column2"&gt;Problems understanding common meal terms like "appetizer" or "main course"&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="column1"&gt;Math&lt;/td&gt;
+    &lt;td class="column2"&gt;Trouble adjusting recipe ingredients to suit number served (e.g., "doubling" a recipe)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</b>
+
+&lt;div class="paragraph"&gt;
+Goodstein doesn't think this is a problem. She said, "If they are involved
+with [strangers] on a site that is explicitly for kids, it is the same as
+going to a playground where they play with kids they might not know. If
+they're on a site that is mixed, with kids and adults, then they have to
+be a lot more careful, listen to their gut and feel when something doesn't
+feel right."&lt;/div&gt;
+ ]]>
+      </pre>
+  </div>
+  <div class="style-example">
+    <span class="sghead">example:</span>
+    <div class="paragraph">
+    Goodstein doesn't think this is a problem. She said, "If they are involved
+    with [strangers] on a site that is explicitly for kids, it is the same as
+    going to a playground where they play with kids they might not know. If
+    they're on a site that is mixed, with kids and adults, then they have to
+    be a lot more careful, listen to their gut and feel when something doesn't
+    feel right."</div>
+    <table cellspacing="0" cellpadding="0" class="editorialTable">
+        <tr>
+            <th colspan="2">How do you rate your skills in handling conflict?</th>
+        </tr>
+        <tr>
+            <td class="column1">Excellent</td>
+            <td class="column2">19%</td>
+        </tr>
+        <tr>
+            <td class="column1">Could use improvement</td>
+            <td class="column2">38%</td>
+        </tr>
+        <tr>
+            <td class="column1">Poor</td>
+            <td class="column2">2%</td>
+        </tr>
+        <tr>
+            <td class="column1">It depends on the situation/people involved</td>
+            <td class="column2">41%</td>
+        </tr>
+    </table>
+
+    <div class="paragraph">
+    Goodstein doesn't think this is a problem. She said, "If they are involved
+    with [strangers] on a site that is explicitly for kids, it is the same as
+    going to a playground where they play with kids they might not know. If
+    they're on a site that is mixed, with kids and adults, then they have to
+    be a lot more careful, listen to their gut and feel when something doesn't
+    feel right."</div>
+
+    <table cellspacing="0" cellpadding="0" class="editorialTable" style="width:580px;">
+        <tr>
+            <th class="column1" style="width:55%;"   >Learning or Attention Problem</th>
+            <th style="width:15%;" >Third Column</th>
+            <th style="width:15%">Fourth Column</th>
+            <th style="width:15%">Fifth Column</th>
+            <th class="column2" >Challenges when Planning a Meal</th>
+        </tr>
+        <tr>
+            <td class="column1">Reading</td>
+            <td>This is the data here</td>
+            <td>This is the data here</td>
+            <td>This is the data here</td>
+            <td class="column2">Trouble reading through cookbooks for recipes</td>
+
+        </tr>
+        <tr>
+            <td class="column1">Receptive language (understanding written or spoken language)</td>
+            <td>This is the data here</td>
+            <td>This is the data here</td>
+            <td>This is the data here</td>
+            <td class="column2">Problems understanding common meal terms like "appetizer" or "main course"</td>
+
+        </tr>
+        <tr>
+            <td class="column1">Math</td>
+            <td>This is the data here</td>
+            <td>This is the data here</td>
+            <td>This is the data here</td>
+            <td class="column2">Trouble adjusting recipe ingredients to suit number served (e.g., "doubling" a recipe)</td>
+            
+        </tr>
+    </table>
+
+    <div class="paragraph">
+    Goodstein doesn't think this is a problem. She said, "If they are involved
+    with [strangers] on a site that is explicitly for kids, it is the same as
+    going to a playground where they play with kids they might not know. If
+    they're on a site that is mixed, with kids and adults, then they have to
+    be a lot more careful, listen to their gut and feel when something doesn't
+    feel right."</div>
+  </div>
+</div>
+
+
+    <![CDATA[<a name="references"></a>]]>
+    <div class="style">
+        <h3>References Style</h3>
+        <div class="style-code">
+            <span class="sghead">code (should be placed at the bottom of the article):</span>
+            <pre>
+<![CDATA[
+&lt;div class=&quot;dotted-divider&quot;&gt;&lt;hr /&gt;&lt;/div&gt;
+&lt;div id=&quot;more-about&quot;&gt;
+    &lt;div class=&quot;paragraph&quot;&gt;
+        &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;paragraph&quot;&gt;
+        &lt;span class=&quot;headline&quot;&gt;Related Links&lt;/span&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;http://www.englishcompanion.com/Tools/notemaking.html&quot; target=&quot;_blank&quot;&gt;Jim Burke's English Companion&lt;/a&gt; &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+]]>
+            </pre>
+        </div>
+        <div class="style-example">
+            <div id="references">
+                <span class="subheader">References</span>
+                <ul>
+                    <li><a href="http://www.pnas.org/cgi/content/full/95/5/2636?maxtoshow=&amp;HITS=10&amp;hits=10&amp;RESULTFORMAT=&amp;author1=shaywitz&amp;searchid=1011981781170_3730&amp;stored_search=&amp;FIRSTINDEX=0&amp;fdate=1/1/1998&amp;tdate=12/31/1998">Functional Disruption in the Organization of the Brain for Reading in Dyslexia</a>
+                        <div class="paragraph">
+                             by S E. Shaywitz , B. A. Shaywitz , K. R. Pugh, R. K. Fulbright, R. T. Constable, W. E. Mencl, D. P. Shankweiler, A. M. Liberman, P. Skudlarski, J. M. Fletcher, L. Katz, K. E. Marchione, C. Lacadie, C. Gatenby, and J. C. Gore in Proceedings of the National Academy of Sciences of the United States of America, Vol. 95, Issue 5, March 3, 1998
+                        </div>
+                    </li>
+                    <li>Cerebral Mechanisms Involved in Word Reading in Dyslexic Children: A Magnetic Imaging Approach
+                        <div class="paragraph">
+                             by P.G.Simos, J.I. Breier, J.M. Fletcher, E. Bergman, and A.C. Papanicolau in Cerebral Cortex 2000; 10:pp. 809-816
+                        </div>
+                    </li>
+                    <li> Developmental Dyslexia: Four Consecutive Cases with Cortical Anomalies
+                        <div class="paragraph">
+                            by A. M. Galaburda, G. F. Sherman, G. D. Rosen, F. Aboitiz, N. Geschwind in Annals of Neurology 1985;18:pp. 222-233.
+                        </div>
+                    </li>
+                    <li><a href="http://www.sciencemag.org/">Dyslexia: Cultural Diversity and Biological Unity</a>
+                        <div class="paragraph">
+                             by E. Paulesu, et al Science March 16, 2001; 291: pp. 2165-2167. Reprints can be ordered.
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
   <br/>

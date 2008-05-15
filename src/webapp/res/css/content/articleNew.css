@@ -452,7 +452,7 @@ div.expertImage div.caption{
 }
 
 table.editorialTable {
-	width: 580px;
+    width:580px;
 	margin: 20px auto 20px auto;
 }
 
@@ -465,13 +465,16 @@ table.editorialTable {
 		line-height: 22px;
 		padding: 5px 20px 5px 20px;
 		text-align: left;
-	}
+        border-right: 1px solid #FFFFFF;
+        border-left: 1px solid #FFFFFF;
+    }
 
 	table.editorialTable th.column1 {
 		border-right: 1px solid #FFFFFF;
 	}
 
-	table.editorialTable th.column2 {
+
+    table.editorialTable th.column2 {
 		border-left: 1px solid #FFFFFF;
 	}
 
@@ -483,21 +486,26 @@ table.editorialTable {
 		line-height: 19px;
 		padding: 5px 20px 5px 20px;
 		vertical-align: top;
-	}
+        border-bottom: 2px solid #E8F5F5;
+        border-left: 1px solid #E8F5F5;
+        border-right: 1px solid #E8F5F5;
+    }
 
 	table.editorialTable td.column1 {
 		border-left: 2px solid #E8F5F5;
 		border-bottom: 2px solid #E8F5F5;
 		border-right: 1px solid #E8F5F5;
-		width: 197px;
+
 	}
 
 	table.editorialTable td.column2 {
 		border-bottom: 2px solid #E8F5F5;
 		border-right: 2px solid #E8F5F5;
 		border-left: 1px solid #E8F5F5;
-		width: 297px;
+
 	}
+
+
 
 div.vignette {
 	border-top: 2px solid #8BCBCB;
