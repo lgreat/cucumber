@@ -96,6 +96,7 @@
             pageHelper.addAdKeyword("county", county);
             pageHelper.addAdKeyword("city", city);
             pageHelper.addAdKeyword("school_id", school.getId().toString());
+            pageHelper.addAdKeyword("zipcode", school.getZipcode());
         }
     } catch (Exception e) {
     }
