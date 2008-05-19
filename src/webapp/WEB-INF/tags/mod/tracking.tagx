@@ -149,6 +149,9 @@
             s.prop10 = clickCapture.getProp(10,"${requestScope.context.screenName}");
             s.prop11 = clickCapture.getProp(11,"GreatSchools");
 
+            //s.prop13 is being set on the article.page to distinguish new and old articles
+            s.prop13 = "${articleStyle}";
+
             s.events = "${events}";
             s.hier1 = "${hier1}";
 
