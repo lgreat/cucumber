@@ -456,7 +456,7 @@ table.editorialTable {
 	margin: 20px auto 20px auto;
 }
 
-	table.editorialTable th {
+	table.editorialTable th    {
 		background-color: #E8F5F5;
 		color: #444444;
 		font-weight: bold;
@@ -469,14 +469,23 @@ table.editorialTable {
         border-left: 1px solid #FFFFFF;
     }
 
-	table.editorialTable th.column1 {
+    table.editorialTable th.multiHeader{
+        border-left: 2px solid #E8F5F5;
+        border-right: 2px solid #E8F5F5;
+    }
+
+
+
+    table.editorialTable th.firstColumn {
 		border-right: 1px solid #FFFFFF;
-	}
+        border-left: 2px solid #E8F5F5;
+    }
 
 
-    table.editorialTable th.column2 {
+    table.editorialTable th.lastColumn {
 		border-left: 1px solid #FFFFFF;
-	}
+        border-right: 2px solid #E8F5F5;
+    }
 
 	table.editorialTable td {
 		color: #444444;
@@ -491,14 +500,14 @@ table.editorialTable {
         border-right: 1px solid #E8F5F5;
     }
 
-	table.editorialTable td.column1 {
+	table.editorialTable td.firstColumn {
 		border-left: 2px solid #E8F5F5;
 		border-bottom: 2px solid #E8F5F5;
 		border-right: 1px solid #E8F5F5;
 
 	}
 
-	table.editorialTable td.column2 {
+	table.editorialTable td.lastColumn {
 		border-bottom: 2px solid #E8F5F5;
 		border-right: 2px solid #E8F5F5;
 		border-left: 1px solid #E8F5F5;
