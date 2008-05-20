@@ -30,6 +30,7 @@
         </c:choose>
         <variant:b>
             <pageHelper:externalCss file="/res/css/content/articleAB.css"/>
+            <pageHelper:externalJavascript file="/res/js/prototype.js"/>
         </variant:b>
 
         <c:if test="${not empty requestScope.articleMetaDescriptor}">
@@ -187,7 +188,7 @@
     />
     <variant:b>
         <c:if test="${articleStyle eq 'new'}">
-            <script type="text/javascript" >
+            <script type="text/javascript" >  <![CDATA[
 
                 function moveNode(targetNodeId, destinationNodeId){
 
@@ -204,9 +205,20 @@
                     destinationNodeParent.replaceChild(targetNode, destinationNode);
                 }
 
+                function hideMoreOnGreatSchoolsHeader(parentNodeId){
+                    var parentNode = document.getElementById(parentNodeId);
+                    var elements = parentNode.getElementsByClassName("headline") ;
+                    for(var i = 0; i < elements.length; i++) {
+                        if (elements[i].innerHTML == "More on GreatSchools.net" )
+                            elements[i].hide();
+                    }
+                }
+
+                hideMoreOnGreatSchoolsHeader("more-about");
                 moveNode("more-about","newMoreOnPosition");
 
 
+              ]]>
             </script>
         </c:if>
     </variant:b>

@@ -11,7 +11,8 @@ div#more-about{
     padding: 38px 10px 10px 14px;
 }
 
-div#more-about a:link{
+div#more-about a:link, 
+div#more-about a:visited{
     text-decoration: none;
     font-family: Trebuchet MS,Helvetica,sans-serif;
     font-size: 14px;
@@ -22,7 +23,7 @@ div#more-about a:hover{
 }
 
 div#more-about span.headline{
-    display: none;
+    @display: none;
 }
 
 /* hide the filler text */
