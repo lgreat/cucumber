@@ -74,7 +74,7 @@
             <li class="greenarrow"><gsweb:articlelink articleId="48" styleId="Overview-choosingschool-articles__2" styleClass="GS_EV5_">The School Visit: What to Look For</gsweb:articlelink></li>
             <li class="greenarrow"><gsweb:articlelink articleId="87" styleId="Overview-choosingschool-articles__3" styleClass="GS_EV5_">Imagining Your Ideal School</gsweb:articlelink></li>
             <li class="greenarrow"><gsweb:articlelink articleId="197" styleId="Overview-choosingschool-articles__4" styleClass="GS_EV5_">Private vs. Public Schools</gsweb:articlelink></li>
-            <li class="greenarrow lastitem"><a id="Overview-choosingschool-articles__5" class="GS_EV5_" href="http://school-choice.greatschools.net/">School Choice Blog: One Mom's Journey</a></li>
+            <li class="greenarrow lastitem"><a id="Overview-choosingschool-articles__5" class="GS_EV5_" href="http://school-choice.greatschools.net/" target="_blank">School Choice Blog: One Mom's Journey</a></li>
         </ul>
         <ul id="articleCommunityPostList" class="articleCommunityPostList" style="display: none;">
             <li class="advice"><a href="${communityURLPrefix}/advice/117/What-to-Look-for-in-a-School" id="Overview-choosingschool-parentposts__1" class="GS_EV5_">What to Look for in a School</a></li>
