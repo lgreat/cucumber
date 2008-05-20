@@ -1,0 +1,15 @@
+/* GS-6223 variant b */
+div#more-about{
+    float:right;
+    width:298px;
+    margin:5px 0px 5px 0px;
+    border-style: solid;
+    border-width:1px;
+    border-color: lightgray;
+    padding: 5px 10px 10px 14px;
+}
+
+/* hide the filler text */
+div#newMoreOnPosition p{
+    color: white;
+}
