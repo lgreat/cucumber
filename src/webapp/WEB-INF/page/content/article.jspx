@@ -30,7 +30,6 @@
         </c:choose>
         <variant:b>
             <pageHelper:externalCss file="/res/css/content/articleAB.css"/>
-            <pageHelper:externalJavascript file="/res/js/prototype.js"/>
         </variant:b>
 
         <c:if test="${not empty requestScope.articleMetaDescriptor}">
