@@ -352,7 +352,8 @@
 </tr>
 </table>
 <mod:tracking pageName="${pageName}"
-              hier1="Article,Countdown To College"/>
+              hier1="Article,Countdown To College"
+              microsite="${pageName}"/>
 </gsml:body>
 </html>
 </jsp:root>

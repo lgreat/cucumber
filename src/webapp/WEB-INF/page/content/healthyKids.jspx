@@ -89,7 +89,8 @@
 <br style="clear:both;"/>
 </div>
 <mod:tracking pageName="${pageName}"
-              hier1="Article,Healthy Kids"/>
+              hier1="Article,Healthy Kids"
+              microsite="${pageName}"/>
 </gsml:body>
 </html>
 </jsp:root>
