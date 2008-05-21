@@ -61,11 +61,11 @@
         <div class="articleCommunityTitle">Choosing a School</div>
         <div id="resultstabs">
             <ul>
-                <li id="articleCommunityArticleTab" class="tableft tabactive" onClick="articleCommunityTabClicked(this); return false;">
-                    <a class="noInterstitial" href="#" onClick="return false;">Articles</a>
+                <li id="articleCommunityArticleTab" class="tableft tabactive" onclick="articleCommunityTabClicked(this); return false;">
+                    <a class="noInterstitial" href="#" onclick="return false;">Articles</a>
                 </li>
-                <li id="articleCommunityPostTab" class="tabright " onClick="articleCommunityTabClicked(this); return false;">
-                    <a class="noInterstitial" href="#" onClick="return false;">Parent Posts</a>
+                <li id="articleCommunityPostTab" class="tabright " onclick="articleCommunityTabClicked(this); return false;">
+                    <a class="noInterstitial" href="#" onclick="return false;">Parent Posts</a>
                 </li>
             </ul>
         </div>
