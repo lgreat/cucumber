@@ -18,7 +18,6 @@ div#more-about-alt a:visited{
     font-size: 14px;
 }
 div#more-about-alt a:hover{
-
     text-decoration: underline;
 }
 
@@ -42,5 +41,4 @@ div#more-about-alt li {
 
 div#more-about-alt div.paragraph {
   margin-bottom:0;
-    
 }
