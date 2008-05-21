@@ -183,8 +183,9 @@
         </tbody>
     </table>
     <mod:tracking pageName="${pageName}"
-                  hier1="Article,ArticleTitle: ${requestScope.articleHier1}"
+                hier1="Article,ArticleTitle: ${requestScope.articleHier1}"
                 events="event7"
+                articleStyle="${articleStyle}"
     />
     <variant:b>
         <c:if test="${articleStyle eq 'new'}">

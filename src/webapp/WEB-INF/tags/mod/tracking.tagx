@@ -68,6 +68,10 @@
             name="microsite"
             description="The name of the microsite"
             required="false"/>
+    <jsp:directive.attribute
+            name="articleStyle"
+            description="Article Style: new or old"
+            required="false"/>
 
     <jsp:scriptlet>
         request.setAttribute("scheme", request.getScheme());
