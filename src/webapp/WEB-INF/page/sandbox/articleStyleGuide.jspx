@@ -935,7 +935,6 @@ etc.
 
       <pre>
   <![CDATA[
-
   &lt;ul&gt;
           &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
           &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text with a link
@@ -1052,17 +1051,9 @@ etc.
     </table>
   </div>
   <div class="style-code">
-    <span class="sghead">code:</span>
+    <span class="sghead">code: 2 column example with merged column header</span>
       <pre>
   <![CDATA[
-&lt;div class="paragraph"&gt;
-Goodstein doesn't think this is a problem. She said, "If they are involved
-with [strangers] on a site that is explicitly for kids, it is the same as
-going to a playground where they play with kids they might not know. If
-they're on a site that is mixed, with kids and adults, then they have to
-be a lot more careful, listen to their gut and feel when something doesn't
-feel right."&lt;/div&gt;
-
 <b>&lt;table cellspacing="0" cellpadding="0" class="editorialTable" style="width:580px;"&gt;
 &lt;tr&gt;
     &lt;th colspan="2"&gt;How do you rate your skills in handling conflict?&lt;/th&gt;
@@ -1084,61 +1075,13 @@ feel right."&lt;/div&gt;
     &lt;td class="lastColumn"&gt;41%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</b>
-
-&lt;div class="paragraph"&gt;
-Goodstein doesn't think this is a problem. She said, "If they are involved
-with [strangers] on a site that is explicitly for kids, it is the same as
-going to a playground where they play with kids they might not know. If
-they're on a site that is mixed, with kids and adults, then they have to
-be a lot more careful, listen to their gut and feel when something doesn't
-feel right."&lt;/div&gt;
-
-<b>&lt;table cellspacing="0" cellpadding="0" class="editorialTable" style="width:580px;"&gt;
-&lt;tr&gt;
-    &lt;th class="firstColumn"&gt;Learning or Attention Problem&lt;/th&gt;
-    &lt;th&gt;A Middle Column&lt;/th&gt;
-    &lt;th&gt;Another Middle Column&lt;/th&gt;        
-    &lt;th class="lastColumn"&gt;Challenges when Planning a Meal&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="firstColumn"&gt;Reading&lt;/td&gt;
-    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
-    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
-    &lt;td class="lastColumn"&gt;Trouble reading through cookbooks for recipes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="firstColumn"&gt;Receptive language (understanding written or spoken language)&lt;/td&gt;
-    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
-    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
-    &lt;td class="lastColumn"&gt;Problems understanding common meal terms like "appetizer" or "main course"&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="firstColumn"&gt;Math&lt;/td&gt;
-    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
-    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
-    &lt;td class="lastColumn"&gt;Trouble adjusting recipe ingredients to suit number served (e.g., "doubling" a recipe)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;</b>
-
-&lt;div class="paragraph"&gt;
-Goodstein doesn't think this is a problem. She said, "If they are involved
-with [strangers] on a site that is explicitly for kids, it is the same as
-going to a playground where they play with kids they might not know. If
-they're on a site that is mixed, with kids and adults, then they have to
-be a lot more careful, listen to their gut and feel when something doesn't
-feel right."&lt;/div&gt;
- ]]>
+     ]]>
       </pre>
   </div>
-  <div class="style-example">
+
+    <div class="style-example">
     <span class="sghead">example:</span>
-    <div class="paragraph">
-    Goodstein doesn't think this is a problem. She said, "If they are involved
-    with [strangers] on a site that is explicitly for kids, it is the same as
-    going to a playground where they play with kids they might not know. If
-    they're on a site that is mixed, with kids and adults, then they have to
-    be a lot more careful, listen to their gut and feel when something doesn't
-    feel right."</div>
+
     <table cellspacing="0" cellpadding="0" class="editorialTable" style="width:580px;">
         <tr>
             <th class="multiHeader" colspan="2">How do you rate your skills in handling conflict?</th>
@@ -1160,16 +1103,114 @@ feel right."&lt;/div&gt;
             <td class="lastColumn">41%</td>
         </tr>
     </table>
+  </div> 
 
-    <div class="paragraph">
-    Goodstein doesn't think this is a problem. She said, "If they are involved
-    with [strangers] on a site that is explicitly for kids, it is the same as
-    going to a playground where they play with kids they might not know. If
-    they're on a site that is mixed, with kids and adults, then they have to
-    be a lot more careful, listen to their gut and feel when something doesn't
-    feel right."
-    </div>
+  <div class="style-code">
+    <span class="sghead">code: 3 column example</span>
+      <pre>
+  <![CDATA[
+<b>&lt;table cellspacing="0" cellpadding="0" class="editorialTable" style="width:580px;"&gt;
+&lt;tr&gt;
+    &lt;th class="firstColumn"&gt;Learning or Attention Problem&lt;/th&gt;
+    &lt;th&gt;A Middle Column&lt;/th&gt;
+    &lt;th class="lastColumn"&gt;Challenges when Planning a Meal&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="firstColumn"&gt;Reading&lt;/td&gt;
+    &lt;td &gt;This is the data here&lt;/td&gt;
+    &lt;td class="lastColumn"&gt;Trouble reading through cookbooks for recipes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="firstColumn"&gt;Receptive language (understanding written or spoken
+        language)&lt;/td&gt;
+    &lt;td&gt;This is the data here&lt;/td&gt;
+    &lt;td class="lastColumn"&gt;Problems understanding common meal terms like "appetizer"
+        or "main course"&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="firstColumn"&gt;Math&lt;/td&gt;
+    &lt;td&gt;This is the data here&lt;/td&gt;
+    &lt;td class="lastColumn"&gt;Trouble adjusting recipe ingredients to suit number
+        served (e.g., "doubling" a recipe)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</b>
 
+
+ ]]>
+      </pre>
+  </div>
+
+  <div class="style-example">
+    <span class="sghead">example:</span>
+    <table cellspacing="0" cellpadding="0" class="editorialTable" style="width:580px;">
+        <tr>
+            <th class="firstColumn" style="width:25%;"   >Learning or Attention Problem</th>
+            <th style="width:15%;" >A Middle Column</th>
+            <th class="lastColumn" >Challenges when Planning a Meal</th>
+        </tr>
+        <tr>
+            <td class="firstColumn">Reading</td>
+            <td>This is the data here</td>
+            <td class="lastColumn">Trouble reading through cookbooks for recipes</td>
+
+        </tr>
+        <tr>
+            <td class="firstColumn">Receptive language (understanding written or spoken language)</td>
+            <td>This is the data here</td>
+            <td class="lastColumn">Problems understanding common meal terms like "appetizer" or "main course"</td>
+
+        </tr>
+        <tr>
+            <td class="firstColumn">Math</td>
+            <td>This is the data here</td>
+            <td class="lastColumn">Trouble adjusting recipe ingredients to suit number served (e.g., "doubling" a recipe)</td>
+
+        </tr>
+    </table>
+
+
+  </div>  
+  <div class="style-code">
+    <span class="sghead">code: 4 column example</span>
+      <pre>
+  <![CDATA[
+<b>&lt;table cellspacing="0" cellpadding="0" class="editorialTable" style="width:580px;"&gt;
+&lt;tr&gt;
+    &lt;th class="firstColumn"&gt;Learning or Attention Problem&lt;/th&gt;
+    &lt;th&gt;A Middle Column&lt;/th&gt;
+    &lt;th&gt;Another Middle Column&lt;/th&gt;        
+    &lt;th class="lastColumn"&gt;Challenges when Planning a Meal&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="firstColumn"&gt;Reading&lt;/td&gt;
+    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
+    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
+    &lt;td class="lastColumn"&gt;Trouble reading through cookbooks for recipes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="firstColumn"&gt;Receptive language (understanding written or spoken
+        language)&lt;/td&gt;
+    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
+    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
+    &lt;td class="lastColumn"&gt;Problems understanding common meal terms like "appetizer"
+        or "main course"&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td class="firstColumn"&gt;Math&lt;/td&gt;
+    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
+    &lt;td class="firstColumn"&gt;This is the data here&lt;/td&gt;
+    &lt;td class="lastColumn"&gt;Trouble adjusting recipe ingredients to suit number
+        served (e.g., "doubling" a recipe)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</b>
+
+
+ ]]>
+      </pre>
+  </div>
+
+  <div class="style-example">
+    <span class="sghead">example:</span>
     <table cellspacing="0" cellpadding="0" class="editorialTable" style="width:580px;">
         <tr>
             <th class="firstColumn" style="width:25%;"   >Learning or Attention Problem</th>
@@ -1194,19 +1235,13 @@ feel right."&lt;/div&gt;
         <tr>
             <td class="firstColumn">Math</td>
             <td>This is the data here</td>
-            <td>This is the data here</td>>
+            <td>This is the data here</td>
             <td class="lastColumn">Trouble adjusting recipe ingredients to suit number served (e.g., "doubling" a recipe)</td>
             
         </tr>
     </table>
 
-    <div class="paragraph">
-    Goodstein doesn't think this is a problem. She said, "If they are involved
-    with [strangers] on a site that is explicitly for kids, it is the same as
-    going to a playground where they play with kids they might not know. If
-    they're on a site that is mixed, with kids and adults, then they have to
-    be a lot more careful, listen to their gut and feel when something doesn't
-    feel right."</div>
+
   </div>
 </div>
 
@@ -1218,23 +1253,46 @@ feel right."&lt;/div&gt;
             <span class="sghead">code (should be placed at the bottom of the article):</span>
             <pre>
 <![CDATA[
-&lt;div class=&quot;dotted-divider&quot;&gt;&lt;hr /&gt;&lt;/div&gt;
-&lt;div id=&quot;more-about&quot;&gt;
-    &lt;div class=&quot;paragraph&quot;&gt;
-        &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
-        &lt;ul&gt;
-            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;paragraph&quot;&gt;
-        &lt;span class=&quot;headline&quot;&gt;Related Links&lt;/span&gt;
-        &lt;ul&gt;
-            &lt;li&gt;&lt;a href=&quot;http://www.englishcompanion.com/Tools/notemaking.html&quot; target=&quot;_blank&quot;&gt;Jim Burke's English Companion&lt;/a&gt; &lt;/li&gt;
-        &lt;/ul&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
+<b>&lt;div id="references"&gt;</b>
+    <b>&lt;span class="subheader"&gt;References&lt;/span&gt;</b>
+    <b>&lt;ul&gt;</b>
+        <b>&lt;li&gt;</b>&lt;a href="http://www.pnas.org/cgi/content/full/95/5/2636?maxtoshow=&amp;
+            HITS=10&amp;hits=10&amp;RESULTFORMAT=&amp;author1=shaywitz&amp;searchid=1011981781170_3730
+            &amp;stored_search=&amp;FIRSTINDEX=0&amp;fdate=1/1/1998&amp;tdate=12/31/1998"&gt;
+            Functional Disruption in the Organization of the Brain for Reading in
+                Dyslexia&lt;/a&gt;
+            &lt;div class="paragraph"&gt;
+                 by S E. Shaywitz , B. A. Shaywitz , K. R. Pugh, R. K. Fulbright, R. T.
+                 Constable, W. E. Mencl, D. P. Shankweiler, A. M. Liberman, P.
+                 Skudlarski, J. M. Fletcher, L. Katz, K. E. Marchione, C. Lacadie, C.
+                 Gatenby, and J. C. Gore in Proceedings of the National Academy of
+                 Sciences of the United States of America, Vol. 95, Issue 5, March 3,
+                 1998
+            &lt;/div&gt;
+        <b>&lt;/li&gt;</b>
+        <b>&lt;li&gt;</b>Cerebral Mechanisms Involved in Word Reading in Dyslexic Children: A
+            Magnetic Imaging Approach
+            &lt;div class="paragraph"&gt;
+                 by P.G.Simos, J.I. Breier, J.M. Fletcher, E. Bergman, and A.C.
+                 Papanicolau in Cerebral Cortex 2000; 10:pp. 809-816
+            &lt;/div&gt;
+        <b>&lt;/li&gt;</b>
+        <b>&lt;li&gt;</b> Developmental Dyslexia: Four Consecutive Cases with Cortical Anomalies
+            &lt;div class="paragraph"&gt;
+                by A. M. Galaburda, G. F. Sherman, G. D. Rosen, F. Aboitiz, N.
+                Geschwind in Annals of Neurology 1985;18:pp. 222-233.
+            &lt;/div&gt;
+        <b>&lt;/li&gt;</b>
+        <b>&lt;li&gt;</b>&lt;a href="http://www.sciencemag.org/"&gt;Dyslexia: Cultural Diversity and
+            Biological Unity&lt;/a&gt;
+            &lt;div class="paragraph"&gt;
+                 by E. Paulesu, et al Science March 16, 2001; 291: pp. 2165-2167.
+                 Reprints can be ordered.
+            &lt;/div&gt;
+
+        <b>&lt;/li&gt;</b>
+    <b>&lt;/ul&gt;</b>
+<b>&lt;/div&gt;</b>
 ]]>
             </pre>
         </div>
