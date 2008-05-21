@@ -1,5 +1,5 @@
 /* GS-6223 variant b */
-div#more-about{
+div#more-about-alt{
     background: url("/res/img/content/article/altmoreonheader.gif") no-repeat;
     background-position: 0.5ex 0.5ex;
     float:right;
@@ -7,35 +7,40 @@ div#more-about{
     margin:5px 0px 5px 0px;
     border-style: solid;
     border-width:1px;
-    border-color: #cccccc;
+    border-color: #BBBBBB;
     padding: 38px 10px 10px 14px;
 }
 
-div#more-about a:link, 
-div#more-about a:visited{
+div#more-about-alt a:link,
+div#more-about-alt a:visited{
     text-decoration: none;
     font-family: Trebuchet MS,Helvetica,sans-serif;
     font-size: 14px;
 }
-div#more-about a:hover{
+div#more-about-alt a:hover{
 
     text-decoration: underline;
 }
 
-div#more-about span.headline{
-    @display: none;
+div#more-about-alt span.headline{
+    display: none;
 }
 
 /* hide the filler text */
-div#newMoreOnPosition p{
-    color: white;
+p#destination-insert-before-node {
+    display:none;
 }
 
 
-div#more-about li {
+div#more-about-alt li {
     list-style:none;
     padding: 0 0 2px 10px;
     background-image: url("/res/img/content/article/altmoreonbullet.gif");
     background-repeat: no-repeat;
     background-position: 0 .6ex;
+}
+
+div#more-about-alt div.paragraph {
+  margin-bottom:0;
+    
 }
