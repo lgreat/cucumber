@@ -188,26 +188,26 @@
     />
     <variant:b>
         <c:if test="${articleStyle eq 'new'}">
-            <script type="text/javascript" >  <![CDATA[
+            <script type="text/javascript" >  <![CDATA[  <!--
 
                 var moreOnElementNode = document.getElementById("more-about");
                 var destinationNode = document.getElementById("destination-insert-before-node");
 
                 if (moreOnElementNode != null ){
-                    /* move only the first div into the new position, exclude the rekated links div */
                     var nodes = moreOnElementNode.getElementsByTagName("div") ;
 
                     if (nodes != null && nodes.length > 0){
+                        /* assuming the more-about is first, move only the first div into the new position, exclude the related links div */
                         destinationNode.parentNode.insertBefore(nodes[0], destinationNode);
                     } else {
-                        /* there weren't any divs defined so, get rid of the more-about-alt div altogether */
-                        destinationNode.parentNode.parentNode.removeChild(destinationNode.parentNode);
+                        /* assuming there is only a more-about section and no related links... */
+                        destinationNode.parentNode.insertBefore(moreOnElementNode, destinationNode);
                     }
-                }  else {
+                } else {
                    /* couldn't find the more-about div so, get rid of the more-about-alt div altogether */
                    destinationNode.parentNode.parentNode.removeChild(destinationNode.parentNode);
                 }
-              ]]>
+             --> ]]>
             </script>
         </c:if>
     </variant:b>
