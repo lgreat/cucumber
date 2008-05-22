@@ -71,7 +71,13 @@
                         </div>
                         <div id="squareadvert">
                             <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
-                            <ad:AboveFold_300x250/>
+                            <variant:a>
+                                <ad:AboveFold_300x250/>
+                            </variant:a>
+                            <variant:b>
+                                <ad:AboveFold_300x250_B_Test/>
+                            </variant:b>
+
                         </div>
 
                         <variant:b>
