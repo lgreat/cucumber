@@ -8,9 +8,9 @@ div#more-about-alt{
     border-style: solid;
     border-width:1px;
     border-color: #BBBBBB;
-    padding: 3em 10px 10px 0px;
+    padding: 3em 10px 0px 0px;
 }
-
+div#more-about-alt li,
 div#more-about-alt a:link,
 div#more-about-alt a:visited{
     text-decoration: none;
@@ -29,8 +29,14 @@ div#more-about-alt span.headline{
 p#destination-insert-before-node {
     display:none;
 }
+div#more-about-alt ul{
+    
+}
 
-
+div#more-about-alt ul{
+   margin-bottom: 0;
+   padding-bottom:00px;
+}
 div#more-about-alt li {
     list-style:none;
     padding: 0 0 2px 1.0em;
@@ -45,3 +51,4 @@ div#more-about-alt li {
 div#more-about-alt div.paragraph {
   margin-bottom:0;
 }
+
