@@ -29,23 +29,20 @@ div#more-about-alt span.headline{
 p#destination-insert-before-node {
     display:none;
 }
-div#more-about-alt ul{
-    
-}
+
 
 div#more-about-alt ul{
    margin-bottom: 0;
-   padding-bottom:00px;
+   padding-bottom: 0px;
 }
-div#more-about-alt li {
+div#more-about-alt li{
     list-style:none;
     padding: 0 0 2px 1.0em;
     margin-left: 0px;
     background-image: url("/res/img/content/article/altmoreonbullet.gif");
     background-repeat: no-repeat;
     background-position: 0 .6ex;
-    list-style-position:outside;
-    
+    list-style-position:outside;  
 }
 
 div#more-about-alt div.paragraph {
