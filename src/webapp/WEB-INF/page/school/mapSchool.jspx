@@ -138,6 +138,7 @@
 
             <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
             <div class="ad_middle">
+                <ad:setSlotPrefix slotPrefix="MapSchool"/>
                 <ad:AboveFold_300x250/>
             </div>
         </div><!-- end: col_right" -->

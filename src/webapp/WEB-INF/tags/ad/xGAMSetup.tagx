@@ -26,8 +26,10 @@
             String slotPrefix = (String) request.getAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
 
             if (StringUtils.isEmpty(slotPrefix)) {
-                _log.warn("Setting ad slot with empty prefix: " + request.getRequestURL());
-                slotPrefix = "";
+                if (!"interstitial".equals(pageHelper.getPageName())) {
+                    _log.warn("Setting ad slot with empty prefix: " + request.getRequestURL());
+                    slotPrefix = "";
+                }
             }
 
             if (hideDefaultAds == null || !hideDefaultAds.booleanValue()) {

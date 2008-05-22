@@ -27,6 +27,8 @@
 
     <gsml:body adPageName="aboutUs" pageLayout="singleTextOnlyColumnLayout">
 
+    <ad:setSlotPrefix slotPrefix="AboutUs"/>
+
     <mod:tracking pageName="aboutUs" hier1="Home,Corporate,AboutUs,AboutUsOverview"/>
 
    <h3>Our Story</h3>
