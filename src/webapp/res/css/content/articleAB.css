@@ -3,12 +3,12 @@ div#more-about-alt{
     background: url("/res/img/content/article/altmoreonheader.gif") no-repeat;
     background-position: 0.5ex 0.5ex;
     float:right;
-    width:298px;
-    margin:5px 0px 5px 0px;
+    width:312px;
+    margin:0px 0px 5px 0px;
     border-style: solid;
     border-width:1px;
     border-color: #BBBBBB;
-    padding: 38px 10px 10px 14px;
+    padding: 3em 10px 10px 0px;
 }
 
 div#more-about-alt a:link,
@@ -33,10 +33,13 @@ p#destination-insert-before-node {
 
 div#more-about-alt li {
     list-style:none;
-    padding: 0 0 2px 10px;
+    padding: 0 0 2px 1.0em;
+    margin-left: 0px;
     background-image: url("/res/img/content/article/altmoreonbullet.gif");
     background-repeat: no-repeat;
     background-position: 0 .6ex;
+    list-style-position:outside;
+    
 }
 
 div#more-about-alt div.paragraph {
