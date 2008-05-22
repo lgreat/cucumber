@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.19 2007/12/17 18:32:17 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.20 2008/05/22 00:33:47 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -109,6 +109,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
         orderMap.put(SubscriptionProduct.PARENT_ADVISOR, compareOrder++);
         orderMap.put(SubscriptionProduct.COMMUNITY, compareOrder++);
         orderMap.put(SubscriptionProduct.SPONSOR_OPT_IN, compareOrder++);
+        orderMap.put(SubscriptionProduct.MY_PRESCHOOLER, compareOrder++);
         orderMap.put(SubscriptionProduct.MY_KINDERGARTNER, compareOrder++);
         orderMap.put(SubscriptionProduct.MY_FIRST_GRADER, compareOrder++);
         orderMap.put(SubscriptionProduct.MY_SECOND_GRADER, compareOrder++);
@@ -150,14 +151,15 @@ public class SubscriptionSummaryController extends SimpleFormController {
 
     protected Set<String> getOrderedNewsletterSet() {
         final Map<String, Integer> orderMap = new HashMap<String, Integer> ();
-        orderMap.put(SubscriptionProduct.MY_KINDERGARTNER.getLongName(), 0);
-        orderMap.put(SubscriptionProduct.MY_FIRST_GRADER.getLongName(), 1);
-        orderMap.put(SubscriptionProduct.MY_SECOND_GRADER.getLongName(), 2);
-        orderMap.put(SubscriptionProduct.MY_THIRD_GRADER.getLongName(), 3);
-        orderMap.put(SubscriptionProduct.MY_FOURTH_GRADER.getLongName(), 4);
-        orderMap.put(SubscriptionProduct.MY_FIFTH_GRADER.getLongName(), 5);
-        orderMap.put(SubscriptionProduct.MY_MS.getLongName(), 6);
-        orderMap.put(SubscriptionProduct.MY_HS.getLongName(), 7);
+        orderMap.put(SubscriptionProduct.MY_PRESCHOOLER.getLongName(), 0);
+        orderMap.put(SubscriptionProduct.MY_KINDERGARTNER.getLongName(), 1);
+        orderMap.put(SubscriptionProduct.MY_FIRST_GRADER.getLongName(), 2);
+        orderMap.put(SubscriptionProduct.MY_SECOND_GRADER.getLongName(), 3);
+        orderMap.put(SubscriptionProduct.MY_THIRD_GRADER.getLongName(), 4);
+        orderMap.put(SubscriptionProduct.MY_FOURTH_GRADER.getLongName(), 5);
+        orderMap.put(SubscriptionProduct.MY_FIFTH_GRADER.getLongName(), 6);
+        orderMap.put(SubscriptionProduct.MY_MS.getLongName(), 7);
+        orderMap.put(SubscriptionProduct.MY_HS.getLongName(), 8);
         return new TreeSet<String> (
                 new Comparator<String>() {
                     public int compare(String spOne, String spTwo) {
@@ -203,10 +205,11 @@ public class SubscriptionSummaryController extends SimpleFormController {
 
                 Set<String> setNthMsHs = getOrderedNewsletterSet();
 
+
                 for (Subscription sub : subscriptions) {
                     SubscriptionProduct sp = sub.getProduct();
-
                     if (sp.isNewsletter()) {
+                        System.out.println ("sp: " + sp);
                         if (sp == SubscriptionProduct.MYSTAT) {
                             if (sub.getSchoolId() == nc.getSchoolId()
                                     && sub.getState() == state) {
@@ -225,6 +228,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
                             model.put(MODEL_LEARNING_DIFFERENCES, sp.getLongName());
                         } else if (sp == SubscriptionProduct.MY_MS
                                 || sp == SubscriptionProduct.MY_HS
+                                || sp == SubscriptionProduct.MY_PRESCHOOLER
                                 || sp == SubscriptionProduct.MY_KINDERGARTNER
                                 || sp == SubscriptionProduct.MY_FIRST_GRADER
                                 || sp == SubscriptionProduct.MY_SECOND_GRADER
@@ -241,8 +245,10 @@ public class SubscriptionSummaryController extends SimpleFormController {
                     }
                 }
 
+                System.out.println ("before: " + setNthMsHs);
                 splitSet(setNthMsHs, model);
-
+                System.out.println ("after: " + setNthMsHs);
+                
                 model.put(MODEL_SET_NTH_MS_HS, setNthMsHs);
                 model.put(MODEL_EMAIL, email);
 

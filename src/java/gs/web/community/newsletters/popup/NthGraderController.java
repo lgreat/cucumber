@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.22 2007/09/04 16:50:51 aroy Exp $
+ * $Id: NthGraderController.java,v 1.23 2008/05/22 00:33:47 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -54,18 +54,9 @@ public class NthGraderController extends SimpleFormController implements ReadWri
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
                                    BindException errors) {
-
         String autocheck = request.getParameter(PARAM_AUTOCHECK);
 
         NewsletterCommand nc = (NewsletterCommand) command;
-
-        //state is an optional parameter.
-        if (null == nc.getState()) {
-            // no longer force state cookie to CA if not specified
-            //set state to value from cookie or default state
-            //SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            //nc.setState(sessionContext.getStateOrDefault());
-        }
 
         List<Validator> validators = getOnLoadValidators();
         // removed the onload state validator, so add a null check here for safety
@@ -78,6 +69,7 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         }
 
         if (StringUtils.isNotBlank(autocheck)) {
+            if ("mypk".equalsIgnoreCase(autocheck)) { nc.setMyPk(true); }
             if ("myk".equalsIgnoreCase(autocheck)) { nc.setMyk(true); }
             if ("my1".equalsIgnoreCase(autocheck)) { nc.setMy1(true); }
             if ("my2".equalsIgnoreCase(autocheck)) { nc.setMy2(true); }
@@ -125,85 +117,17 @@ public class NthGraderController extends SimpleFormController implements ReadWri
 
         List<Subscription> subscriptions = new ArrayList<Subscription>();
 
-        if (nc.isMyk()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MY_KINDERGARTNER);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isMy1()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MY_FIRST_GRADER);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isMy2()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MY_SECOND_GRADER);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isMy3()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MY_THIRD_GRADER);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isMy4()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MY_FOURTH_GRADER);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isMy5()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MY_FIFTH_GRADER);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isMyMs()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MY_MS);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isMyHs()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MY_HS);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isGn()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.PARENT_ADVISOR);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
-
-        if (nc.isSponsor()) {
-            Subscription sub = new Subscription();
-            sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
-            sub.setState(state);
-            subscriptions.add(sub);
-        }
+        if (nc.isMyPk()) { addSub(user, state, SubscriptionProduct.MY_PRESCHOOLER, subscriptions); }
+        if (nc.isMyk()) { addSub(user, state, SubscriptionProduct.MY_KINDERGARTNER, subscriptions); }
+        if (nc.isMy1()) { addSub(user, state, SubscriptionProduct.MY_FIRST_GRADER, subscriptions); }
+        if (nc.isMy2()) { addSub(user, state, SubscriptionProduct.MY_SECOND_GRADER, subscriptions); }
+        if (nc.isMy3()) { addSub(user, state, SubscriptionProduct.MY_THIRD_GRADER, subscriptions); }
+        if (nc.isMy4()) { addSub(user, state, SubscriptionProduct.MY_FOURTH_GRADER, subscriptions); }
+        if (nc.isMy5()) { addSub(user, state, SubscriptionProduct.MY_FIFTH_GRADER, subscriptions); }
+        if (nc.isMyMs()) { addSub(user, state, SubscriptionProduct.MY_MS, subscriptions); }
+        if (nc.isMyHs()) { addSub(user, state, SubscriptionProduct.MY_HS, subscriptions); }
+        if (nc.isGn()) { addSub(user, state, SubscriptionProduct.PARENT_ADVISOR, subscriptions); }
+        if (nc.isSponsor()) { addSub(user, state, SubscriptionProduct.SPONSOR_OPT_IN, subscriptions); }
 
         getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
 
@@ -220,6 +144,14 @@ public class NthGraderController extends SimpleFormController implements ReadWri
             mAndV.getModel().put(SubscriptionSummaryController.PARAM_SHOW_FIND_SCHOOL_LINK, "1");
         }
         return mAndV;
+    }
+
+    private void addSub(User u, State state, SubscriptionProduct sp, List<Subscription> subscriptions) {
+        Subscription sub = new Subscription();
+        sub.setUser(u);
+        sub.setProduct(sp);
+        sub.setState(state);
+        subscriptions.add(sub);
     }
 
     public IUserDao getUserDao() {

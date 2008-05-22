@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.25 2007/12/17 18:32:17 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.26 2008/05/22 00:33:47 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -118,11 +118,11 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         Set myNthMsHs = (Set) model.get(SubscriptionSummaryController.MODEL_SET_NTH_MS_HS);
         assertNotNull(myNthMsHs);
-
-        assertTrue("Expect exactly 8 nth grader newsletters (found " + myNthMsHs.size() + "). " +
+        System.out.println ("myNthMsHs: " + myNthMsHs);
+        assertTrue("Expect exactly 9 nth grader newsletters (found " + myNthMsHs.size() + "). " +
                 "If this fails, either an unknown newsletter is being added to this category or " +
                 "you should update this assert to expect the new # of nth grader newsletters",
-                8 == myNthMsHs.size());
+                9 == myNthMsHs.size());
 
         assertNotNull(model.get(SubscriptionSummaryController.MODEL_PARENT_ADVISOR));
         assertNotNull(model.get(SubscriptionSummaryController.MODEL_SCHOOL_NAME));
@@ -140,6 +140,7 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         newsletterSubs.add(createSubscription(MY_FIFTH_GRADER));
         newsletterSubs.add(createSubscription(PARENT_ADVISOR));
         newsletterSubs.add(createSubscription(MY_FOURTH_GRADER));
+        newsletterSubs.add(createSubscription(MY_PRESCHOOLER));
         newsletterSubs.add(createSubscription(MY_SECOND_GRADER));
         newsletterSubs.add(createSubscription(SPONSOR_OPT_IN));
         newsletterSubs.add(createSubscription(MY_KINDERGARTNER));
@@ -148,20 +149,21 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         newsletterSubs.add(createSubscription(MY_THIRD_GRADER));
         newsletterSubs.add(createSubscription(MY_FIRST_GRADER));
         newsletterSubs.add(createSubscription(MY_MS));
-        assertEquals(MY_MS, newsletterSubs.get(11).getProduct());
+        assertEquals(MY_MS, newsletterSubs.get(12).getProduct());
         _controller.sortNewsletterSubs(newsletterSubs);
         assertEquals(MYSTAT, newsletterSubs.get(0).getProduct());
         assertEquals(PARENT_ADVISOR, newsletterSubs.get(1).getProduct());
         assertEquals(COMMUNITY, newsletterSubs.get(2).getProduct());
         assertEquals(SPONSOR_OPT_IN, newsletterSubs.get(3).getProduct());
-        assertEquals(MY_KINDERGARTNER, newsletterSubs.get(4).getProduct());
-        assertEquals(MY_FIRST_GRADER, newsletterSubs.get(5).getProduct());
-        assertEquals(MY_SECOND_GRADER, newsletterSubs.get(6).getProduct());
-        assertEquals(MY_THIRD_GRADER, newsletterSubs.get(7).getProduct());
-        assertEquals(MY_FOURTH_GRADER, newsletterSubs.get(8).getProduct());
-        assertEquals(MY_FIFTH_GRADER, newsletterSubs.get(9).getProduct());
-        assertEquals(MY_MS, newsletterSubs.get(10).getProduct());
-        assertEquals(MY_HS, newsletterSubs.get(11).getProduct());
+        assertEquals(MY_PRESCHOOLER, newsletterSubs.get(4).getProduct());
+        assertEquals(MY_KINDERGARTNER, newsletterSubs.get(5).getProduct());
+        assertEquals(MY_FIRST_GRADER, newsletterSubs.get(6).getProduct());
+        assertEquals(MY_SECOND_GRADER, newsletterSubs.get(7).getProduct());
+        assertEquals(MY_THIRD_GRADER, newsletterSubs.get(8).getProduct());
+        assertEquals(MY_FOURTH_GRADER, newsletterSubs.get(9).getProduct());
+        assertEquals(MY_FIFTH_GRADER, newsletterSubs.get(10).getProduct());
+        assertEquals(MY_MS, newsletterSubs.get(11).getProduct());
+        assertEquals(MY_HS, newsletterSubs.get(12).getProduct());
     }
 
     public void testSplitList() {

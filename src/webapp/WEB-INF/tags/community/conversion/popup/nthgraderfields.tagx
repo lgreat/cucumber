@@ -7,45 +7,44 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <pageHelper:externalCss file="/res/css/community/newsletters/popup/nthgraderfields.css"/>
-    <table align="center" id="nthgraderfields" width="380">
+    <table align="center" id="nthgraderfields">
         <tr>
             <td id="left">
                 <div id="ldiv">
                     <table id="k5table">
                         <tr>
                             <td>
+                                <spring:bind path="newsCmd.myPk">
+                                    <gsml:checkbox name="${status.expression}" checked="${status.value}" />
+                                </spring:bind>
+                                Preschool
+
                                 <spring:bind path="newsCmd.myk">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
-                                K
+                                Kindergarten
                             </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <spring:bind path="newsCmd.my1">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
                                 1
-                            </td>
-                            <td>
                                 <spring:bind path="newsCmd.my2">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
-                                2
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
+                                2                                
                                 <spring:bind path="newsCmd.my3">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
                                 3
-                            </td>
-                            <td>
+
                                 <spring:bind path="newsCmd.my4">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
                                 4
-                            </td>
-                            <td>
+
                                 <spring:bind path="newsCmd.my5">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
@@ -53,7 +52,7 @@
                             </td>
                         </tr>
                     </table>
-                    <div class="aquaText">Monthly tips for what to<br/>expect in the classroom</div>
+                    <div class="aquaText">Timely tips for what to<br/>expect in the classroom</div>
                 </div>
             </td>
             <td id="right">

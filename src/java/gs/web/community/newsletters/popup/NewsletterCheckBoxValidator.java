@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCheckBoxValidator.java,v 1.5 2006/06/02 19:22:08 dlee Exp $
+ * $Id: NewsletterCheckBoxValidator.java,v 1.6 2008/05/22 00:33:47 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -23,7 +23,7 @@ public class NewsletterCheckBoxValidator implements Validator {
         NewsletterCommand cmd = (NewsletterCommand) object;
 
         if (!cmd.isChecked()) {
-            errors.reject("no_checkboxes_checked", "Please check at least one box.");
+            errors.reject("no_checkboxes_checked", ERROR_MSG);
         }
     }
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.15 2007/09/20 23:51:51 aroy Exp $
+ * $Id: NthGraderControllerTest.java,v 1.16 2008/05/22 00:33:47 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -121,6 +121,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         _command.setSchoolId(1);
 
         Set<SubscriptionProduct> products = new HashSet<SubscriptionProduct>();
+        products.add(SubscriptionProduct.MY_PRESCHOOLER);
         products.add(SubscriptionProduct.MY_KINDERGARTNER);
         products.add(SubscriptionProduct.MY_FIRST_GRADER);
         products.add(SubscriptionProduct.MY_SECOND_GRADER);
@@ -132,6 +133,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         products.add(SubscriptionProduct.PARENT_ADVISOR);
         products.add(SubscriptionProduct.SPONSOR_OPT_IN);
 
+        _command.setMyPk(true);
         _command.setMyk(true);
         _command.setMy1(true);
         _command.setMy2(true);

@@ -1,5 +1,10 @@
 table#nthgraderfields{
-   padding-left: 13px;
+   padding-left: 0;
+   width:435px;
+}
+
+table#nthgraderfields input {
+   margin-left:8px;
 }
 
 table#nthgraderfields td{
@@ -12,8 +17,8 @@ table#nthgraderfields td#left, table#nthgraderfields td#right{
 }
 
 table#nthgraderfields div#ldiv {
-    padding:0 37px 10px 0;
-    margin:0 20px 0 0;
+    padding:0 0 10px 0;
+    margin:0 5px 0 0;
     border-right:1px solid #AAAAAA;
 }
 
@@ -21,7 +26,11 @@ table#nthgraderfields div#rdiv {
     padding:0 0 10px 20px;
 }
 
-.aquaText {
+table#nthgraderfields td.aquaText, .aquaText {
     font-weight: normal;
     color: #39a;
+}
+
+table#nthgraderfields div#ldiv .aquaText {
+    padding-left:40px;
 }
