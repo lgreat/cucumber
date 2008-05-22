@@ -97,12 +97,10 @@
     <a href="#caption">Caption</a><br/>
     <a href="#headline">"More On" Headline</a><br/>
     <a href="#moreon">"More On" Section</a><br/>
-
+    <a href="#microsite">"More On" Microsite Link</a><br/>
     <a href="#header_1">Header 1</a><br/>
-
     <a href="#header_2">Header 2</a><br/>
     <a href="#header_3">Header 3</a><br/>
-    <a href="#microsite">Microsite</a><br/>
     <a href="#spanish-link">Spanish Link</a><br/>
     <a href="#blue-module">Blue Module</a><br/>
     <a href="#leftSidebar">Left Sidebar</a><br/>
@@ -319,6 +317,43 @@ than others or who just don't fit in.</div>
         </div>
     </div>
 
+    <![CDATA[<a name="microsite"></a>]]>
+    <div class="style">
+      <h3>Microsite</h3>
+      <div class="style-code">
+          <p>Microsite links are just like other items in the &quot;More on&quot; section, but they have the &quot;microsite&quot; class applied</p>
+        <span class="sghead">code:</span>
+        <pre>
+        <![CDATA[
+&lt;div id=&quot;more-about&quot;&gt;
+    &lt;div class=&quot;paragraph&quot;&gt;
+        &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="microsite"&gt;Learn more about how to help
+              &lt;a href="/content/specialNeeds.page"&gt;your child with special needs&lt;/a&gt;.&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+          ]]>
+        </pre>
+      </div>
+      <div class="style-example">
+        <span class="sghead">example:</span>
+          <div id="more-about">
+              <div class="paragraph">
+                  <span class="headline">More on GreatSchools.net</span>
+                  <ul>
+                      <li><a href="/cgi-bin/showarticle/701/">How to Take Great Notes</a></li>
+                      <li class="microsite">Learn more about how to help <a href="/content/specialNeeds.page">your child with special needs</a>.</li>
+                  </ul>
+              </div>
+          </div>
+
+      </div>
+    </div>
+
+
 
   <![CDATA[<a name="header_1"></a>]]>
   <div class="style">
@@ -389,35 +424,6 @@ than others or who just don't fit in.</div>
       <span class="lead-in">Question:</span>
     </div>
   </div>
-
-  <![CDATA[<a name="microsite"></a>]]>
-  <div class="style">
-    <h3>Microsite</h3>
-    <div class="style-code">
-      <span class="sghead">code:</span>
-      <pre>
-      <![CDATA[
-        &lt;span class="microsite"&gt;Learn more about how to help
-        &lt;a href="/content/specialNeeds.page"&gt;your child with special needs.&lt;/a&gt;
-
-        &lt;/span&gt;
-        ]]>
-      </pre>
-    </div>
-    <div class="style-example">
-      <span class="sghead">example:</span>
-      <span class="microsite">Learn more about how to help
-        <gsml:a href="/content/specialNeeds.page">your child with special needs.</gsml:a>
-      </span>
-
-    </div>
-    <div class="style-example screenshot">
-      <span class="sghead">screenshot: (note top and bottom padding)</span>
-       <gsml:img src="/images/editorial/styleguide/microsite.jpg"
-       alt="microsite screenshot" />
-    </div>
-  </div>
-
 
   <![CDATA[<a name="spanish-link"></a>]]>
 
