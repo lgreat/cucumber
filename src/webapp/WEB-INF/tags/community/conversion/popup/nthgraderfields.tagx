@@ -18,7 +18,6 @@
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
                                 Preschool
-
                                 <spring:bind path="newsCmd.myk">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
@@ -39,12 +38,10 @@
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
                                 3
-
                                 <spring:bind path="newsCmd.my4">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>
                                 4
-
                                 <spring:bind path="newsCmd.my5">
                                     <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                                 </spring:bind>

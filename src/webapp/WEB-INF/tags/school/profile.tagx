@@ -176,8 +176,16 @@
                     <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false" styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
                 </c:when>
                 <c:otherwise>
-                    <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
-                    <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+                    <c:choose>
+                        <c:when test="${school.levelCode == 'p'}">
+                            <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                            <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+                        </c:when>
+                        <c:otherwise>
+                            <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif" alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                            <promo:nthGraderHover referredBy="schoolProfile" isForm="false" styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+                        </c:otherwise>
+                    </c:choose>
                 </c:otherwise>
             </c:choose>
             <c:if test="${school.levelCode != 'p'}">
