@@ -372,6 +372,7 @@ hr { /* has IE 7 equivalent */
 }
 
 /* Latest Parent Reviews */
+#parentReviewsRateIt,
 #parentReviews {
 	width: 356px;
 	float: left;
@@ -380,12 +381,22 @@ hr { /* has IE 7 equivalent */
     border: 2px solid #EEEEEE;
 }
 
+#parentReviewsRateIt {
+    padding: 3px 3px 2px 3px;
+}
+
+#parentReviewsRateIt h2,
 #parentReviews h2 {
 	background: url(/res/img/school/overview/header_LatestParentsReviews.gif) no-repeat;
 	height: 28px;
 	text-indent: -9999px;
 }
 
+#parentReviewsRateIt h2{
+    margin: 0 0 10px 0;
+}
+
+#parentReviewsRateIt p,
 #parentReviews p {
 	margin: 5px 0 0 10px;
 	_margin: 5px 0 0 5px; /* IE 6 hack */
@@ -396,23 +407,28 @@ hr { /* has IE 7 equivalent */
 	line-height: 15px;
 }
 
+#parentReviewsRateIt em,
 #parentReviews em {
 	color: #5bc;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 14px;
 }
+
+#parentReviewsRateIt a,
 #parentReviews a {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     float: right;
 	margin: 4px 25px 0 0;
 }
 
+#parentReviewsRateIt .rating,
 #parentReviews .rating {
 	margin: 15px 0 0 10px;
 	float: left;
 }
 
+#parentReviewsRateIt .callout,
 #parentReviews .callout {
 	width: 144px;
 	font-size: 14px;
@@ -423,6 +439,11 @@ hr { /* has IE 7 equivalent */
 	border: 1px solid #ddd;
 }
 
+#parentReviewsRateIt .callout{
+    margin: 0px 10px 0 0;
+}
+
+#parentReviewsRateIt .callout a,
 #parentReviews .callout a {
 	font-size: 12px;
 	margin: 16px 6px 7px 0;
@@ -430,6 +451,7 @@ hr { /* has IE 7 equivalent */
 	float: right;
 }
 
+#parentReviewsRateIt a.ps, #parentReviewsRateIt div.psCallout a,
 #parentReviews a.ps, #parentReviews div.psCallout a {
     font-size: 12px;
     position: relative;
@@ -439,6 +461,10 @@ hr { /* has IE 7 equivalent */
 #parentReviews div.bottomParentReview,
     #parentReviews div.bottomParentReview div.rateItInReview,
     #parentReviews div.bottomParentReview div.psWithMore
+    #parentReviewsRateIt div.bottomParentReview,
+    #parentReviewsRateIt div.bottomParentReview div.rateItInReview,
+    #parentReviewsRateIt div.bottomParentReview div.rateItInReviewSingle,
+    #parentReviewsRateIt div.bottomParentReview div.psWithMore
 
 {
     border: 0;
@@ -449,6 +475,12 @@ hr { /* has IE 7 equivalent */
     height: 30px;
 }
 
+#parentReviewsRateIt div.bottomParentReview{
+    position: relative;
+    height: 53px;
+}
+
+#parentReviewsRateIt div.bottomParentReview div.psWithMore,
 #parentReviews div.bottomParentReview div.psWithMore{
     display:inline;
     position: absolute;
@@ -457,6 +489,11 @@ hr { /* has IE 7 equivalent */
     color: #999999;
 }
 
+#parentReviewsRateIt div.bottomParentReview div.psWithMore{
+    right:30px;   /* was 10px */
+}
+
+#parentReviewsRateIt div.bottomParentReview div.psWithMore a,
 #parentReviews div.bottomParentReview div.psWithMore a{
     /* */
     font-size: 12px;
@@ -466,6 +503,8 @@ hr { /* has IE 7 equivalent */
     /* */
 }
 
+#parentReviewsRateIt div.bottomParentReview div.rateItInReview,
+#parentReviewsRateIt div.bottomParentReview div.rateItInReviewSingle,
 #parentReviews div.bottomParentReview div.rateItInReview { /* has IE 7 equivalent */
     /* */
     position: absolute;
@@ -477,6 +516,16 @@ hr { /* has IE 7 equivalent */
     /* */
 }
 
+#parentReviewsRateIt div.bottomParentReview div.rateItInReview { /* has IE 7 equivalent */
+    right:176px;
+}
+
+#parentReviewsRateIt div.bottomParentReview div.rateItInReviewSingle { /* has IE 7 equivalent */
+    right:190px;
+}
+
+#parentReviewsRateIt div.bottomParentReview div.rateItInReview a,
+#parentReviewsRateIt div.bottomParentReview div.rateItInReviewSingle a,
 #parentReviews div.bottomParentReview div.rateItInReview a{
     /*  */
     margin:0;
@@ -484,6 +533,7 @@ hr { /* has IE 7 equivalent */
     /* */
 }
 
+#parentReviewsRateIt a.psBlurb,
 #parentReviews a.psBlurb {
     font-size: 12px;
     margin:0;
@@ -491,6 +541,7 @@ hr { /* has IE 7 equivalent */
     float:none;
 }
 
+#parentReviewsRateIt h3,
 #parentReviews h3 {
     background:transparent url(/res/img/school/overview/v1_dotline.gif) repeat-x scroll 0pt;
     text-indent: -9999px;
@@ -500,14 +551,18 @@ hr { /* has IE 7 equivalent */
 }
 
 
+#parentReviewsRateIt a.ps,
 #parentReviews a.ps {
    margin: 0px 0 0 0;
    padding: 5px 0 0 0;
 }
+
+#parentReviewsRateIt div.psCallout a,
 #parentReviews div.psCallout a {
     margin: -5px 0 0 0;
 }
 
+#parentReviewsRateIt div.psCallout,
 #parentReviews div.psCallout  {
     font: 16px Trebuchet MS, sans-serif;
     padding:8px 0px 20px 15px;
@@ -517,6 +572,11 @@ hr { /* has IE 7 equivalent */
     position:relative;
 }
 
+#parentReviewsRateIt div.psCallout  {
+    margin:0;
+}
+
+#parentReviewsRateIt div.psCallout em,
 #parentReviews div.psCallout em {
     font-family:Trebuchet MS, sans-serif;
     font-size:16px;
@@ -832,14 +892,14 @@ span#compareGo {
 }
 
 img.psRating {
-    padding:5px 0 6px 10px;
+    padding:5px 0 6px 14px;
     _padding:0px 0 6px 10px;
 }
 
 div.psComment {
 	font: 12px/15px Trebuchet MS, sans-serif;
     color:#666666;
-    padding:0 40px 0 10px;
+    padding:0 40px 0 14px;
 }
 
 #learnMoreModule {

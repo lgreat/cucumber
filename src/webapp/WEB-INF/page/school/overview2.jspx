@@ -137,19 +137,36 @@
                          </c:if>
                     </c:when>
                     <c:otherwise>
-                         <div id="parentReviews">
+                        <div id="parentReviewsRateIt">
                             <h2>Latest ${school.name} Parent Reviews</h2>
                             <c:forEach var="psReview" items="${latestReviewsModel.schoolReviews}">
                                 <gsml:img src="/res/img/map/ratings_parent_city_${psReview.psRating}.gif" alt="" styleClass="psRating" />
                                 <div class="psComment">${psReview.psComment}</div>
                             </c:forEach>
-                            <link:schoolProfileParentReview school="${school}" title="Read all reviews" styleClass="ps">
-                                <c:choose>
-                                    <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
-                                    <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
-                                </c:choose>
-                            </link:schoolProfileParentReview>
-                            <c:if test="${(school.levelCode eq 'p') and (not empty latestReviewsModel.randomRating)}">
+                            <div class="bottomParentReview">
+                                <div class="${latestReviewsModel.totalReviews eq 1 ? 'rateItInReviewSingle' : 'rateItInReview'}">
+                                    <link:schoolProfileAddParentReview
+                                            school="${school}"
+                                            styleId="rateItInParentReview "
+                                            styleClass="submodal-344-362 GS_CI9_"
+                                            onclick="onClick=Popup=window.open(this.href,'Popup',
+                                                                 'toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50');
+                                                                 return false;">
+                                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif"
+                                                  alt="Rate It" />
+                                    </link:schoolProfileAddParentReview>
+                                </div>
+                                <div class="psWithMore"> |
+                                    <link:schoolProfileParentReview school="${school}" title="Read all reviews" >  <!-- styleClass="psWithMore" -->
+                                        <c:choose>
+                                            <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
+                                            <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileParentReview>
+                                </div>
+                            </div>
+
+                            <c:if test="${(not empty latestReviewsModel.randomRating)}">
                                 <div class="psCallout">Parents at this school think <em>${latestReviewsModel.randomCategory}
                                     ${latestReviewsModel.randomRating}</em>
                                     <div id="psLearnMore">
@@ -157,7 +174,7 @@
                                     </div>
                                 </div>
                             </c:if>
-                         </div>
+                        </div>
                     </c:otherwise>
                 </c:choose>
 
