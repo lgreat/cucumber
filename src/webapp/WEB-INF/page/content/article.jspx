@@ -209,16 +209,16 @@
                     return null;
                  }
             }
-            /* execute before the tracking tag... */
-            function setOmnitureTagging(variant){
-                var moreOnElementNode = getMoreOnContent();
-
-                if (moreOnElementNode != null ){
-                    var aNodes = moreOnElementNode.getElementsByTagName("a") ;
+            /* execute after the tracking tag... */
+            function setOmnitureTagging(node, variant){
+                if (node != null ){
+                    var aNodes = node.getElementsByTagName("a") ;
                     for(var i = 0; i < aNodes.length; i++) {
-                        aNodes[i].setAttribute("class", "GS_EV5_");
                         aNodes[i].setAttribute("id", "moreon" + variant + "__" + i);
+                        /* register handler directly for because of ie issues */
+                        res = registerEventHandler(aNodes[i],"click", evar5ClickEventHandler);
                     }
+                    /* alert("setOmnitureTagging " + node.innerHTML); */
                 }
             }
             /* execute berore resetting the id and class of the more-about div */
@@ -236,36 +236,26 @@
          --> ]]>
         </script>
     </c:if>
+
+    <mod:tracking pageName="${pageName}"
+                hier1="Article,ArticleTitle: ${requestScope.articleHier1}"
+                events="event7"
+                articleStyle="${articleStyle}"
+    />
+
+
     <variant:a>
         <c:if test="${articleStyle eq 'new'}">
             <script type="text/javascript" >  <![CDATA[  <!--
-
                     /* Omniture Tagging */
-                    setOmnitureTagging("A");
-
+                    setOmnitureTagging(getMoreOnContent(),"A");
              --> ]]>
             </script>
         </c:if>
     </variant:a>
     <variant:b>
         <c:if test="${articleStyle eq 'new'}">
-            <script type="text/javascript" >  <![CDATA[   <!--
-
-                    /* Omniture Tagging */
-                    setOmnitureTagging("B");
-
-                 --> ]]>
-            </script>
-        </c:if>
-    </variant:b>
-    <mod:tracking pageName="${pageName}"
-                hier1="Article,ArticleTitle: ${requestScope.articleHier1}"
-                events="event7"
-                articleStyle="${articleStyle}"
-    />
-    <variant:b>
-        <c:if test="${articleStyle eq 'new'}">
-            <script type="text/javascript" >  <![CDATA[  <!--
+            <script type="text/javascript" >  <![CDATA[  <!--  
                 /* More-about Move */
                 var moreOnElementNode = getMoreOnContent();
                 var destinationNode = document.getElementById("destination-insert-before-node");
@@ -277,6 +267,7 @@
                     moreOnElementNode.setAttribute("id", "");
                     /* move the node */
                     destinationNode.parentNode.insertBefore(moreOnElementNode, destinationNode);
+                    setOmnitureTagging(moreOnElementNode,"B");
                 } else {
                     /* couldn't find the more-about div so, get rid of the more-about-alt div altogether */
                     destinationNode.parentNode.parentNode.removeChild(destinationNode.parentNode);
@@ -286,6 +277,8 @@
             </script>
         </c:if>
     </variant:b>
+
+
     </body>
     </html>
 </jsp:root>
