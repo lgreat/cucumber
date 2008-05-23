@@ -418,7 +418,7 @@
 </div>
 <br style="clear:both;"/>
 <mod:tracking pageName="Parent Survey Display: ${pIndex + 1} "
-              hier1="Schools,Parent Survey,Display,Page ${pIndex + 1}"/>
+              hier1="School,Parent Survey,Display,Page ${pIndex + 1}"/>
 </school:profile>
 </body>
 </html>

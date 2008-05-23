@@ -408,7 +408,7 @@
 </div>
 </school:profile>
 <mod:tracking pageName="Parent Survey Questions:${requestScope.currentPage} "
-              hier1="School,SchoolProfileOverview,Public"/>
+              hier1="School,Parent Survey,Question,Page ${requestScope.currentPage}"/>
 </body>
 </html>
 </jsp:root>
