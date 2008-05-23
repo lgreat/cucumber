@@ -9,14 +9,14 @@
     <jsp:directive.tag import="gs.web.ads.AdPosition"/>
     <jsp:directive.tag import="gs.web.ads.AdTagHandler"/>
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+    <jsp:directive.tag import="org.apache.log4j.Logger"/>
     <jsp:directive.tag import="java.util.ArrayList"/>
     <jsp:directive.tag import="java.util.Iterator"/>
     <jsp:directive.tag import="java.util.List"/>
     <jsp:directive.tag import="java.util.Set"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-    <jsp:directive.tag import="org.apache.log4j.Logger"/>
     <jsp:scriptlet><![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         Logger _log = Logger.getLogger("xGAMsetup.tagx");
@@ -59,6 +59,9 @@
             request.setAttribute("GAMadKeywords", pageHelper.getAdKeywords());
         }
         ]]></jsp:scriptlet>
+        <jsp:scriptlet>
+            // compfilter is used to prevent the same campaign from filling in multiple slots on the same page
+        </jsp:scriptlet>
         <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
             <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
             <script type="text/javascript">                 
@@ -72,7 +75,7 @@
                     GA_googleAddAttr('${keywordEntry.key}','${keywordValue}');
                 </c:forEach>
             </c:forEach>
-            GA_googleAddAttr('compfilter','${gsweb:randomNumber(4)+1}');
+            GA_googleAddAttr('compfilter','${gsweb:randomNumber(100)+1}');
             <c:forEach var="slotName" items="${GAMadNames}">
                 GA_googleAddSlot("ca-pub-9662012843341888", '${slotName}');</c:forEach>
             <![CDATA[
@@ -80,6 +83,7 @@
             </script>
             ]]>
             <script type="text/javascript">
+                GA_googleUseSyncSRARendering();
                 GA_googleFetchAds();
             </script>
         </c:if>
