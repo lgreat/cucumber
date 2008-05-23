@@ -332,11 +332,11 @@ div.statsModule {
 }
 
 #cityrating #textwrapper{
-     position:absolute;
+    position:absolute;
     top:11px;
     left:223px;
     width:280px;
-    padding:12px 0 0 0;
+    padding: 0px 0 0 0;
 }
 
 #cityrating #ratingtext{
@@ -362,7 +362,7 @@ div#testScoreLandingLinks {
 a#nearbyCityLink, #cityrating a#nearbyCityLink, a.callToAction {
     color: #3399AA;
     font-size: 13px;
-    font-family: Trebuchet MA, Arial, sans-serif;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     text-decoration: none;
 }
 
