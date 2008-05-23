@@ -358,3 +358,14 @@ div.statsModule {
 div#testScoreLandingLinks {
     margin-top: 10px;
 }
+
+a#nearbyCityLink, #cityrating a#nearbyCityLink, a.callToAction {
+    color: #3399AA;
+    font-size: 13px;
+    font-family: Trebuchet MA, Arial, sans-serif;
+    text-decoration: none;
+}
+
+a#nearbyCityLink:hover, #cityrating a#nearbyCityLink:hover, a.callToAction:hover{
+    text-decoration: underline;
+}

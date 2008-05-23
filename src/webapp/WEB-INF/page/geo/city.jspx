@@ -83,6 +83,15 @@
                 ${displayName}'s rating is based on its public schools' test results; 10 is best.
                 <gsweb:articlelink articleId="1023" anchorName="13">Learn&#160;more&#160;&gt;</gsweb:articlelink>
             </div>
+            <div style="margin-top: 5px;">
+                <link:nearbyCities city="${cityObject.name}"
+                                   state="${requestScope.context.stateOrDefault}"
+                                   title="Cities near ${cityObject.name}"
+                                   styleClass="callToAction"
+                                   styleId="nearbyCityLink">
+                    Compare to nearby cities &gt;
+                </link:nearbyCities>
+            </div>
         </div>
     </div>
 </c:if>
