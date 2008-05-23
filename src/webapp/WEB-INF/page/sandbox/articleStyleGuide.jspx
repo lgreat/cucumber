@@ -644,6 +644,7 @@ etc.
           <h3>Pull Quote Style</h3>
 
           <div class="style-code">
+              If there's no attribution, you must still include an empty <![CDATA[&lt;div class=&quot;attribute&quot;&gt;&lt;/div&gt;]]> tag.
             <span class="sghead">code:</span>
               <pre>
                   <![CDATA[
@@ -657,7 +658,6 @@ etc.
         home, and with their friends. Another parent could have
         a perspective on your son/daughter that might never occur to you.
         <b>&lt;div class="attribute"&gt;</b>
-
             From the journal of something or another
         <b>&lt;/div&gt;</b>
     <b>&lt;/div&gt;</b>
@@ -679,7 +679,7 @@ etc.
                         home, and with their friends. Another parent could have
                         a perspective on your son/daughter that might never occur to you.
                      <div class="attribute">
-                        From the journal of something or another
+                         From the journal of something or another
                     </div>
                 </div>
                and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
