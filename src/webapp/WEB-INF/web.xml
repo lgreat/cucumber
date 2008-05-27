@@ -70,6 +70,11 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/articles/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/robots.txt</url-pattern>
     </servlet-mapping>
 
@@ -148,6 +153,11 @@
         <filter-name>disablejsessionid</filter-name>
         <url-pattern>/schools/*</url-pattern>
     </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/articles/*</url-pattern>
+    </filter-mapping>
     <!-- End Sitemesh -->
 
     <!-- OSIV should come before the sitemesh filter so that it wraps sitemesh -->
@@ -174,6 +184,14 @@
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/articles/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
     <!-- End OSIV -->
 
     <!-- Sitemesh -->
@@ -190,6 +208,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/schools/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/articles/*</url-pattern>
     </filter-mapping>
     <!-- End Sitemesh -->
     

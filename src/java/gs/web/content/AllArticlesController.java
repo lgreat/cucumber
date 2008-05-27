@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.12 2008/03/05 18:11:24 cpickslay Exp $
+ * $Id: AllArticlesController.java,v 1.13 2008/05/27 18:22:16 aroy Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
-import gs.data.content.ArticleCategory;
+import gs.data.content.ArticleCategoryEnum;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
 import gs.web.util.context.SessionContext;
@@ -47,7 +47,7 @@ public class AllArticlesController extends AbstractController {
         //initialize the map that holds all the categories
         List categories = _articleManager.getAllCategories();
         for (int i = 0; i < categories.size(); i++) {
-            ArticleCategory articleCategory = (ArticleCategory) categories.get(i);
+            ArticleCategoryEnum articleCategory = (ArticleCategoryEnum) categories.get(i);
             catMap.put(articleCategory, null);
             sccMap.put(articleCategory, null);
         }
@@ -57,7 +57,7 @@ public class AllArticlesController extends AbstractController {
             categories = _articleManager.getCategories(article.getCategory());
 
             for (int j = 0; j < categories.size(); j++) {
-                ArticleCategory articleCategory = (ArticleCategory) categories.get(j);
+                ArticleCategoryEnum articleCategory = (ArticleCategoryEnum) categories.get(j);
 
                 if (articleCategory.isSchoolChoiceCenterCategory()) {
                     addArticleToMap(sccMap, articleCategory, article);
@@ -76,7 +76,7 @@ public class AllArticlesController extends AbstractController {
         return new ModelAndView(_viewName, model);
     }
 
-    private void addArticleToMap(Map map, ArticleCategory category, Article a) {
+    private void addArticleToMap(Map map, ArticleCategoryEnum category, Article a) {
         if (map.containsKey(category)) {
             List articlesInCategory = (List) map.get(category);
 

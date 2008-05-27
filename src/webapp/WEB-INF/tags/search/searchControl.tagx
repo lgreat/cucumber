@@ -48,8 +48,8 @@
                        value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
                 <c:if test="${(empty showConstraint) or showConstraint}">
                     <select name="c" id="c" class="label">
-                        <option value="school">Schools</option>
-                        <option value="topic">Articles</option>
+                        <gsml:selectOption value="school">School</gsml:selectOption>
+                        <gsml:selectOption value="topic" selected="${(requestScope.typeOverride eq 'topic')?'true':'false'}">Articles</gsml:selectOption>
                     </select>
                 </c:if>
                 <c:if test="${not ((empty showConstraint) or showConstraint)}">

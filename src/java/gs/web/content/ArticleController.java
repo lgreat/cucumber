@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
 import gs.data.content.ArticleManager;
-import gs.data.content.ArticleCategory;
+import gs.data.content.ArticleCategoryEnum;
 import gs.data.state.State;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
@@ -95,7 +95,7 @@ public class ArticleController extends AbstractController {
                 PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
                 List categories = _articleManager.getCategories(article.getCategory());
                 for (Object obj : categories) {
-                    ArticleCategory category = (ArticleCategory)obj;
+                    ArticleCategoryEnum category = (ArticleCategoryEnum)obj;
                     pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
                 }
             }

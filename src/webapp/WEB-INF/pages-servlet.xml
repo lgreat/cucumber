@@ -42,6 +42,16 @@
         </property>
     </bean>
 
+    <bean name="articleCategoryHandlerMapping" parent="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
+        <!-- bean mappings for article category browse pages -->
+        <property name="urlMap">
+            <map>
+                <entry key="/articles/**" value="/articleCategory.page"/>
+            </map>
+        </property>
+    </bean>
+
     <bean name="noInterceptorsHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
           lazy-init="true">
         <!-- controllers that shouldn't have any interceptors other than cache headers running around them -->
@@ -518,6 +528,10 @@
 
     <bean name="/path/compareEntry.page"
           class="gs.web.path.CompareEntryController" lazy-init="true"/>
+
+    <bean name="/articleCategory.page"
+          class="gs.web.content.ArticlesByCategoryController"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/city.page"
           class="gs.web.geo.CityController"
