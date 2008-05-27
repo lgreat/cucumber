@@ -26,17 +26,17 @@ import gs.web.search.ResultsPager;
 public class ArticlesByCategoryController extends AbstractController {
     private static final Log _log = LogFactory.getLog(ArticlesByCategoryController.class);
 
-    protected static final String MODEL_TOP_LEVEL_CATEGORY = "topLevelCategory";
-    protected static final String PARAM_PAGE = "p";
+    protected static final String MODEL_SUBCATEGORY = "subcategory";
     protected static final String MODEL_PAGE = "p";
+    protected static final String MODEL_PAGE_SIZE = "pageSize";
+    protected static final String MODEL_RESULTS = "mainResults";
+    protected static final String MODEL_TOTAL_HITS = "total";
 
+    public static final String PARAM_PAGE = "p";
     public static final int PAGE_SIZE = 10;
 
     private Searcher _searcher;
     private IArticleCategoryDao _articleCategoryDao;
-    private static final String MODEL_PAGE_SIZE = "pageSize";
-    private static final String MODEL_RESULTS = "mainResults";
-    private static final String MODEL_TOTAL_HITS = "total";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -47,24 +47,21 @@ public class ArticlesByCategoryController extends AbstractController {
         String p = request.getParameter(PARAM_PAGE);
         if (p != null) {
             try {
-                model.put(MODEL_PAGE, p);
                 page = Integer.parseInt(p);
             } catch (Exception e) {
                 // ignore this and just assume the page is 1.
             }
         }
+        model.put(MODEL_PAGE, page);
 
         if (categories != null) {
-            _log.error(categories);
-
-            model.put(MODEL_TOP_LEVEL_CATEGORY, categories.get(categories.size()-1));
+            model.put(MODEL_SUBCATEGORY, categories.get(categories.size()-1));
 
             ResultsPager resultsPager = getResultsForCategory(categories.get(0), model);
             if (resultsPager != null) {
                 model.put(MODEL_PAGE_SIZE, PAGE_SIZE);
                 model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
             }
-
         }
 
         return new ModelAndView("content/articleCategory", model);
@@ -107,7 +104,6 @@ public class ArticlesByCategoryController extends AbstractController {
         ArticleCategory category = _articleCategoryDao.getArticleCategory(Integer.valueOf(categoryId));
         categories.add(category);
 
-        _log.warn("Looking for parent " + category.getParentType());
         ArticleCategory parent = _articleCategoryDao.getArticleCategoryByType(category.getParentType());
         while (parent != null) {
             categories.add(parent);
@@ -118,7 +114,6 @@ public class ArticlesByCategoryController extends AbstractController {
             } else if (parent.getParentType() == null) {
                 break;
             }
-            _log.warn("Looking for parent " + category.getParentType());
             parent = _articleCategoryDao.getArticleCategoryByType(parent.getParentType());
         }
         return categories;
