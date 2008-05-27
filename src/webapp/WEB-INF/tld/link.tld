@@ -2062,6 +2062,39 @@
         </attribute>
     </tag>
     <tag>
+        <name>summerPlanning</name>
+        <tag-class>gs.web.jsp.link.microsite.SummerPlanningTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Summer Reading Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to summer planning microsite page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>summerReading</name>
+        <tag-class>gs.web.jsp.link.microsite.SummerReadingTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Summer Reading Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to summer reading microsite page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>tutoring</name>
         <tag-class>gs.web.jsp.link.microsite.TutoringTagHandler</tag-class>
         <body-content>JSP</body-content>
