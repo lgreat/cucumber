@@ -88,7 +88,8 @@
                                    state="${requestScope.context.stateOrDefault}"
                                    title="Cities near ${cityObject.name}"
                                    styleClass="callToAction"
-                                   styleId="nearbyCityLink">
+                                   styleId="nearbyCityLink"
+                                   onclick="if (s.tl) {s.tl(this,'o', 'Compare_Cities_Link');} return true;">
                     Compare to nearby cities &gt;
                 </link:nearbyCities>
             </div>

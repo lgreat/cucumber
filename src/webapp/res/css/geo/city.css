@@ -351,8 +351,12 @@ div.statsModule {
 #cityrating a:link,
     #cityrating a:visited,
     #cityrating a:active{
-    text-decoration: underline;
+    txext-decoration: none;
     font-weight:normal;
+}
+
+#cityrating a:hover {
+    text-decoration: underline;
 }
 
 div#testScoreLandingLinks {

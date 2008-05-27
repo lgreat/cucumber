@@ -568,6 +568,13 @@
             <type>java.lang.String</type>
             <description>Anchor value</description>
         </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>onclick handler</description>
+        </attribute>
     </tag>
     <tag>
         <name>districts</name>
