@@ -60,7 +60,27 @@
         }
         ]]></jsp:scriptlet>
         <jsp:scriptlet>
-            // compfilter is used to prevent the same campaign from filling in multiple slots on the same page
+            /*
+            Explanation of compfilter attribute from Sera:
+
+            We can use the compfilter for a couple of different things. One is to make
+            sure competing ads don't appear on the same page - i.e. we make Concerta a
+            "1" and Adderall a "2" so that Concerta only appears when "1" is displayed
+            and Adderall only appears when a "2" is displayed and thus they never
+            appear together.
+
+            Another way we use this is for companion ads - i.e. we exclusively set the
+            Concerta banner, sky and box all to display every time a "2" is shown so
+            that the ads always show together.
+
+            We can also use the exclusive feature to rig share of voice, as "1" ought
+            to appear approximately 25% of the time.
+
+            The reason we needed to have the range of values increased from 1-4 to
+            1-100 is so we can appropriately set the percentage. With 1-4 every
+            campaign (when set to exclusive) could only be rigged as 25%, 50%, 75% or
+            100%. With 1-100 we can set it to any percentage.
+            */
         </jsp:scriptlet>
         <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
             <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
