@@ -63,7 +63,7 @@ public class ArticlesByCategoryController extends AbstractController {
         model.put(MODEL_PAGE, page);
 
         if (categories != null) {
-            model.put(MODEL_SUBCATEGORY, categories.get(categories.size()-1));
+            model.put(MODEL_SUBCATEGORY, categories.get(0));
 
             ResultsPager resultsPager = getResultsForCategory(categories.get(0), model);
             if (resultsPager != null) {
@@ -112,17 +112,25 @@ public class ArticlesByCategoryController extends AbstractController {
         ArticleCategory category = _articleCategoryDao.getArticleCategory(Integer.valueOf(categoryId));
         categories.add(category);
 
-        ArticleCategory parent = _articleCategoryDao.getArticleCategoryByType(category.getParentType());
-        while (parent != null) {
-            categories.add(parent);
-            if (StringUtils.equals(parent.getType(), parent.getParentType())) {
-                _log.warn("Category's type \"" + parent.getType() +
-                        "\" equals parent \"" + parent.getParentType() + "\"");
-                break;
-            } else if (parent.getParentType() == null) {
-                break;
+        // only proceed if the parent type looks valid
+        if (category.getParentType() != null &&
+                !StringUtils.equals(category.getType(), category.getParentType())) {
+            // grab parent
+            ArticleCategory parent = _articleCategoryDao.getArticleCategoryByType(category.getParentType());
+            while (parent != null) {
+                // add parent to the list
+                categories.add(parent);
+                // if the parent's parent looks invalid, break out of the loop
+                if (StringUtils.equals(parent.getType(), parent.getParentType())) {
+                    _log.warn("Category's type \"" + parent.getType() +
+                            "\" equals parent \"" + parent.getParentType() + "\"");
+                    break;
+                } else if (parent.getParentType() == null) {
+                    break;
+                }
+                // otherwise grab the parent's parent
+                parent = _articleCategoryDao.getArticleCategoryByType(parent.getParentType());
             }
-            parent = _articleCategoryDao.getArticleCategoryByType(parent.getParentType());
         }
         return categories;
     }
