@@ -110,7 +110,8 @@
 
 <gsml:body adPageName="mail" pageLayout="mail">
     <gsweb:form action="/mailToFriend.page" method="post" id="mailForm"/>
-    <form method="post" id="mailForm" name="mailForm" action="">
+    <form method="post" id="mailForm" name="mailForm" action=""
+             onsubmit="challenge.value = Recaptcha.$('recaptcha_challenge_field').value;response.value = Recaptcha.$('recaptcha_response_field').value;description.value = wrapCommentWithDelimiter(comment.value);">
         <fieldset>
             <legend>Tell a friend about GreatSchools.net</legend>
 
@@ -124,6 +125,18 @@
             <spring:bind path="mailToFriendCmd.userEmail">
                 <label for="${status.expression}">Your email : </label>
                 <input name="${status.expression}" id="${status.expression}" type="text" tabindex="2"
+                       value="${status.value}"/>
+            </spring:bind>
+
+
+            <spring:bind path="mailToFriendCmd.challenge">
+                <input name="${status.expression}" id="${status.expression}" type="hidden"
+                       value="${status.value}"/>
+            </spring:bind>
+
+
+            <spring:bind path="mailToFriendCmd.response">
+                <input name="${status.expression}" id="${status.expression}" type="hidden"
                        value="${status.value}"/>
             </spring:bind>
 
@@ -144,12 +157,36 @@
                        value="${status.value}"/>
             </spring:bind>
 
+            
             <p>Text of email (use our message or write your own note):</p>
             <spring:bind path="mailToFriendCmd.message">
                 <![CDATA[
               <textarea name="${status.expression}" rows="8" cols="60" warp="soft" tabindex="4">${status.value}</textarea>
               ]]>
             </spring:bind>
+
+            <div class="captcha" style="padding-top:15px;">
+                <script type="text/javascript">
+                    var RecaptchaOptions = {theme:'white', tabindex: 0};
+                </script>
+                <script type="text/javascript"
+                   src="http://api.recaptcha.net/challenge?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR">
+                   /* this comment keeps the tag from collapsing */
+                </script>
+
+                <![CDATA[
+                <noscript>
+                   <iframe src="http://api.recaptcha.net/noscript?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR"
+                       height="300" width="500" frameborder="0"></iframe><br/>
+                   <textarea name="recaptcha_challenge_field"
+                             rows="3" cols="40" style="height: 60px;">
+                   </textarea>
+                   <input type="hidden" name="recaptcha_response_field"
+                       value="manual_challenge"/>
+                </noscript>
+                ]]>
+            </div> 
+
             <p><input type="submit" name="Submit" value="Send" bgcolor="#fff" id="submit"/></p>
         </fieldset>
         <spring:bind path="mailToFriendCmd.refer">

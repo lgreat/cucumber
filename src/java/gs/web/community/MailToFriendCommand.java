@@ -1,17 +1,20 @@
 package gs.web.community;
 
 import org.apache.commons.lang.StringUtils;
+import gs.web.community.ICaptchaCommand;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
-public class MailToFriendCommand {
+public class MailToFriendCommand implements ICaptchaCommand {
     private String _userEmail = "";
     private String _friendEmail = "";
     private String _subject = "";
     private String _message = "";
     private String [] _friendEmails;
     private String _refer = "";
+    private String _challenge = "";
+    private String _response = "";
 
     private int _schoolId;
 
@@ -90,5 +93,23 @@ public class MailToFriendCommand {
                 _refer = refer;
             }
         }
+    }
+
+
+    public String getChallenge(){
+        return _challenge;
+
+    }
+    public void setChallenge(String v){
+        _challenge = v;
+
+    }
+    public String getResponse(){
+        return _response;
+
+    }
+    public void setResponse(String v){
+        _response = v;
+
     }
 }

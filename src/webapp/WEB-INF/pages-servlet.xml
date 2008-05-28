@@ -1302,7 +1302,7 @@
 
     <bean name="/community/mailToFriend.page"
           autowire="byName"
-          class="gs.web.community.MailToFriendController" lazy-init="true">
+          class="gs.web.community.MailToFriendControllerWithReCaptcha" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="formView" value="community/mailToFriend"/>
         <property name="successView" value="community/mailToFriendConfirmation"/>
