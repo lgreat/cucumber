@@ -40,8 +40,7 @@ public class ArticlesByCategoryController extends AbstractController {
     private Searcher _searcher;
     private IArticleCategoryDao _articleCategoryDao;
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
         // Look in the URL for parameters
         List<ArticleCategory> categories;
@@ -110,28 +109,30 @@ public class ArticlesByCategoryController extends AbstractController {
     protected List<ArticleCategory> getCategoriesFromId(String categoryId) {
         List<ArticleCategory> categories = new ArrayList<ArticleCategory>();
         ArticleCategory category = _articleCategoryDao.getArticleCategory(Integer.valueOf(categoryId));
-        categories.add(category);
+        if (category != null) {
+            categories.add(category);
 
-        // only proceed if the parent type looks valid
-        if (category.getParentType() != null &&
-                !StringUtils.equals(category.getType(), category.getParentType())) {
-            // grab parent
-            ArticleCategory parent = _articleCategoryDao.getArticleCategoryByType(category.getParentType());
-            while (parent != null) {
-                // add parent to the list
-                categories.add(parent);
-                // if the parent's parent looks invalid, break out of the loop
-                if (StringUtils.equals(parent.getType(), parent.getParentType())) {
-                    _log.warn("Category's type \"" + parent.getType() +
-                            "\" equals parent \"" + parent.getParentType() + "\"");
-                    break;
-                } else if (parent.getParentType() == null) {
-                    break;
-                }
-                // otherwise grab the parent's parent
-                parent = _articleCategoryDao.getArticleCategoryByType(parent.getParentType());
-            }
-        }
+            // only proceed if the parent type looks valid
+            if (category.getParentType() != null &&
+                    !StringUtils.equals(category.getType(), category.getParentType())) {
+                // grab parent
+                ArticleCategory parent = _articleCategoryDao.getArticleCategoryByType(category.getParentType());
+                while (parent != null) {
+                    // add parent to the list
+                    categories.add(parent);
+                    // if the parent's parent looks invalid, break out of the loop
+                    if (StringUtils.equals(parent.getType(), parent.getParentType())) {
+                        _log.warn("Category's type \"" + parent.getType() +
+                                "\" equals parent \"" + parent.getParentType() + "\"");
+                        break;
+                    } else if (parent.getParentType() == null) {
+                        break;
+                    }
+                    // otherwise grab the parent's parent
+                    parent = _articleCategoryDao.getArticleCategoryByType(parent.getParentType());
+                } // end while loop
+            } // end if parentType != null
+        } // end if category != null
         return categories;
     }
 
