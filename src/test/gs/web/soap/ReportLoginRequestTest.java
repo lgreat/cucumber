@@ -151,8 +151,9 @@ public class ReportLoginRequestTest extends BaseTestCase {
 //        User user = new User();
 //        // comdev aroy=2068065
 //        user.setId(2068065);
+//        String ip = "172.21.1.142";
 //        try {
-//            _request.reportLoginRequest(user);
+//            _request.reportLoginRequest(user, ip);
 //        } catch (SoapRequestException e) {
 //            fail("Received unexpected exception " + e.getErrorCode() + ": " + e.getErrorMessage());
 //        }

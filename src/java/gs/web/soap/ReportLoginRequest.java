@@ -82,7 +82,7 @@ public class ReportLoginRequest extends SoapRequest {
         call.addParameter("id", XSD_STRING, ParameterMode.IN);
         params[++index] = String.valueOf(user.getId());
         call.addParameter("ip", XSD_STRING, ParameterMode.IN);
-        params[++index] = String.valueOf(ip);
+        params[++index] = ip;
 
         return params;
     }
