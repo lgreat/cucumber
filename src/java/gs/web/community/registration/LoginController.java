@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.31 2008/05/28 00:29:38 aroy Exp $
+ * $Id: LoginController.java,v 1.32 2008/05/28 00:30:03 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -175,7 +175,7 @@ public class LoginController extends SimpleFormController {
                     "/soap/user");
         }
         Object attr = request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        String userIp = null;
+        String userIp;
         if (attr != null) {
             userIp = String.valueOf(attr);
         } else {
