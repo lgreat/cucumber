@@ -25,14 +25,14 @@ public class ReportLoginRequest extends SoapRequest {
         setTimeout(DEFAULT_TIMEOUT);
     }
 
-    public void reportLoginRequest(User user) throws SoapRequestException {
+    public void reportLoginRequest(User user, String ip) throws SoapRequestException {
         // quick hack to disable this class but still allow test cases to work
         if (isDisabled()) { return; }
         String conTime = System.getProperty(CONNECT_TIMEOUT_PROP);
         String readTime = System.getProperty(READ_TIMEOUT_PROP);
         try {
             Call call = setupCall("reportLoginRequest");
-            Object[] params = setupParameters(call, user);
+            Object[] params = setupParameters(call, user, ip);
 
             System.setProperty(CONNECT_TIMEOUT_PROP, CONNECT_TIMEOUT);
             System.setProperty(READ_TIMEOUT_PROP, READ_TIMEOUT);
@@ -73,14 +73,16 @@ public class ReportLoginRequest extends SoapRequest {
      * @param user to get values for the parameters
      * @return parameters for the invoke method
      */
-    private Object[] setupParameters(Call call, User user) {
-        Object[] params = new Object[1];
+    private Object[] setupParameters(Call call, User user, String ip) {
+        Object[] params = new Object[2];
         int index = -1;
         // set up outbound parameters
         // (note the ParameterMode is IN because these are the parameters passed IN to the SOAP call, but
         //  I prefer to think of them as outbound parameters)
         call.addParameter("id", XSD_STRING, ParameterMode.IN);
         params[++index] = String.valueOf(user.getId());
+        call.addParameter("ip", XSD_STRING, ParameterMode.IN);
+        params[++index] = String.valueOf(ip);
 
         return params;
     }

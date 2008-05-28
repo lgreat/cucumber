@@ -20,6 +20,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
     private LoginController _controller;
     private IUserDao _mockUserDao;
     private User _user;
+    private String _ip;
     private LoginCommand _command;
     private BindException _errors;
     private ReportLoginRequest _soapRequest;
@@ -38,6 +39,9 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _user = new User();
         _user.setEmail("testLoginController@greatschools.net");
         _user.setId(99);
+
+        // this is the IP used when the request attribute is missing
+        _ip = "127.0.0.1";
 
         _command = new LoginCommand();
         _command.setEmail(_user.getEmail());
@@ -68,7 +72,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
         _soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        _soapRequest.reportLoginRequest(_user);
+        _soapRequest.reportLoginRequest(_user, _ip);
         replay(_soapRequest);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         verify(_mockUserDao);
@@ -76,6 +80,34 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertFalse("Controller has errors on submit", _errors.hasErrors());
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
+    }
+
+    public void testOnSubmitWithIPAttribute() throws NoSuchAlgorithmException, SoapRequestException {
+        _user.setPlaintextPassword("foobar");
+        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
+        replay(_mockUserDao);
+
+        _command.setPassword("foobar");
+
+        getRequest().setServerName("dev.greatschools.net");
+
+        _controller.onBindOnNewForm(getRequest(), _command, _errors);
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        assertFalse("Controller has errors on validate", _errors.hasErrors());
+
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _request.setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "192.168.0.100");
+        _soapRequest.reportLoginRequest(_user, "192.168.0.100");
+        replay(_soapRequest);
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verify(_mockUserDao);
+        verify(_soapRequest);
+        assertFalse("Controller has errors on submit", _errors.hasErrors());
+
+        assertEquals("redirect:http://community.dev.greatschools.net/",
+                mAndV.getViewName());
     }
 
     public void testOnSubmitNoRedirect() throws NoSuchAlgorithmException, SoapRequestException {
@@ -93,7 +125,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
         _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
-        _soapRequest.reportLoginRequest(_user);
+        _soapRequest.reportLoginRequest(_user, _ip);
         replay(_soapRequest);
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
@@ -120,7 +152,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertFalse("Controller has errors on validate", _errors.hasErrors());
 
         _soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        _soapRequest.reportLoginRequest(_user);
+        _soapRequest.reportLoginRequest(_user, _ip);
         expectLastCall().andThrow(new SoapRequestException());
         replay(_soapRequest);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);

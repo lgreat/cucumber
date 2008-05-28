@@ -17,14 +17,17 @@ public class ReportLoginRequestTest extends BaseTestCase {
     private ReportLoginRequest _request;
     private User _user;
     private Call _call;
+    private String _ip;
 
     public void setUp() throws Exception {
         super.setUp();
         _request = new ReportLoginRequest();
         _user = new User();
         _user.setId(123);
+        _ip = "192.168.0.1";
         _call = createMock(Call.class);
         _call.addParameter(eq("id"), (QName) anyObject(), (ParameterMode) anyObject());
+        _call.addParameter(eq("ip"), (QName) anyObject(), (ParameterMode) anyObject());
         _request.setMockCall(_call);
     }
 
@@ -37,7 +40,7 @@ public class ReportLoginRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.reportLoginRequest(_user);
+            _request.reportLoginRequest(_user, _ip);
         } catch (SoapRequestException e) {
             fail(e.getErrorMessage());
         }
@@ -54,7 +57,7 @@ public class ReportLoginRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.reportLoginRequest(_user);
+            _request.reportLoginRequest(_user, _ip);
         } catch (SoapRequestException e) {
             fail(e.getErrorMessage());
         }
@@ -71,7 +74,7 @@ public class ReportLoginRequestTest extends BaseTestCase {
 
         _request.setMockCall(_call);
         try {
-            _request.reportLoginRequest(_user);
+            _request.reportLoginRequest(_user, _ip);
         } catch (SoapRequestException e) {
             fail(e.getErrorMessage());
         }
@@ -84,7 +87,7 @@ public class ReportLoginRequestTest extends BaseTestCase {
         _request.setMockCall(null);
 
         try {
-            _request.reportLoginRequest(_user);
+            _request.reportLoginRequest(_user, _ip);
             // success -- null target, but no exceptions, means no call was made
         } catch (SoapRequestException e) {
             fail("Unexpected exception: " + e.getMessage());
@@ -99,7 +102,7 @@ public class ReportLoginRequestTest extends BaseTestCase {
         replay(_call);
 
         try {
-            _request.reportLoginRequest(_user);
+            _request.reportLoginRequest(_user, _ip);
             fail("Didn't receive expected exception");
         } catch (SoapRequestException e) {
             // success
@@ -116,7 +119,7 @@ public class ReportLoginRequestTest extends BaseTestCase {
         replay(_call);
 
         try {
-            _request.reportLoginRequest(_user);
+            _request.reportLoginRequest(_user, _ip);
             fail("Didn't receive expected exception");
         } catch (SoapRequestException e) {
             // success
@@ -133,7 +136,7 @@ public class ReportLoginRequestTest extends BaseTestCase {
         replay(_call);
 
         try {
-            _request.reportLoginRequest(_user);
+            _request.reportLoginRequest(_user, _ip);
             fail("Didn't receive expected exception");
         } catch (SoapRequestException e) {
             // success
