@@ -19,11 +19,15 @@
             request.setAttribute("lastToDisplay", lastToDisplay);
         }
         ]]></jsp:scriptlet>
+    <c:set var="idOverride" value=""/>
+    <c:if test="${param.id > 0}">
+        <c:set var="idOverride" value="&amp;id=${param.id}"/>
+    </c:if>
     <c:choose>
         <c:when test="${resultCount gt pageSize}">
             <div id="pagination">
                 <c:if test="${currentPage gt 1}">
-                    <a href="?p=${currentPage - 1}" class="page">&lt; Previous</a><span class="divider">|</span>
+                    <a href="?p=${currentPage - 1}${idOverride}" class="page">&lt; Previous</a><span class="divider">|</span>
                 </c:if>
 
                 <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
@@ -32,13 +36,13 @@
                             <span class="page"><c:out value="${count}"/></span>
                         </c:when>
                         <c:otherwise>
-                            <a href="?p=${count}" class="page"><c:out value="${count}"/></a>
+                            <a href="?p=${count}${idOverride}" class="page"><c:out value="${count}"/></a>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
 
                 <c:if test="${currentPage lt end}">
-                    <span class="divider">|</span><a href="?p=${currentPage + 1}" class="page">Next &gt;</a>
+                    <span class="divider">|</span><a href="?p=${currentPage + 1}${idOverride}" class="page">Next &gt;</a>
                 </c:if>
             </div>
         </c:when>

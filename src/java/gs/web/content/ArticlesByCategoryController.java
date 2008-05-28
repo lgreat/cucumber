@@ -33,6 +33,8 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_TOTAL_HITS = "total";
 
     public static final String PARAM_PAGE = "p";
+    /** Allow override of category id */
+    public static final String PARAM_ID = "id";
     public static final int PAGE_SIZE = 10;
 
     private Searcher _searcher;
@@ -42,7 +44,13 @@ public class ArticlesByCategoryController extends AbstractController {
             throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
         // Look in the URL for parameters
-        List<ArticleCategory> categories = getCategoriesFromURI(request.getRequestURI());
+        List<ArticleCategory> categories;
+        if (request.getParameter(PARAM_ID) == null) {
+            categories = getCategoriesFromURI(request.getRequestURI());
+        } else {
+            // allow request parameter to override URI
+            categories = getCategoriesFromId(request.getParameter(PARAM_ID));
+        }
         int page = 1;
         String p = request.getParameter(PARAM_PAGE);
         if (p != null) {
