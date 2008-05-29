@@ -6,10 +6,8 @@ import org.springframework.web.servlet.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashMap;
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 import gs.data.util.table.AbstractCachedTableDao;
 import gs.data.util.table.ITableRow;
@@ -26,6 +24,8 @@ public class ClearTableDaoCacheController implements Controller {
         PrintWriter out = response.getWriter();
         InformativeCachedDao dao = new InformativeCachedDao();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS 'on' EEE MMM dd, yyyy");
+
         if (request.getParameter("debug") != null) {
             try {
                 out.print("Dumping contents of cache:\n\n");
@@ -36,6 +36,10 @@ public class ClearTableDaoCacheController implements Controller {
                     for (String key: keys) {
                         out.print(key + ":\n");
                         CachedItem<List<ITableRow>> item = cache.get(key);
+                        Date cachedAt = new Date(item.getCachedAt());
+                        out.print("Cached at " + sdf.format(cachedAt) + "\n");
+                        Date expiresAt = new Date(item.getCachedAt() + item.getCacheDuration());
+                        out.print("Expires at " + sdf.format(expiresAt) + "\n");
                         List<ITableRow> rows = item.getData();
                         for (ITableRow row: rows) {
                             out.print("Item {\n");
