@@ -32,17 +32,21 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_RESULTS = "mainResults";
     protected static final String MODEL_TOTAL_HITS = "total";
 
+    /** Page number */
     public static final String PARAM_PAGE = "p";
     /** Allow override of category id */
     public static final String PARAM_ID = "id";
+    /** Results per page */
     public static final int PAGE_SIZE = 10;
 
     private Searcher _searcher;
     private IArticleCategoryDao _articleCategoryDao;
+    /** Whether to look up the subcategory's parent categories */
+    private boolean _getParents = false;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
-        // Look in the URL for parameters
+        // Look in the URL for parameters describing the category
         List<ArticleCategory> categories;
         if (request.getParameter(PARAM_ID) == null) {
             categories = getCategoriesFromURI(request.getRequestURI());
@@ -51,6 +55,7 @@ public class ArticlesByCategoryController extends AbstractController {
             categories = getCategoriesFromId(request.getParameter(PARAM_ID));
         }
         int page = 1;
+        // check for page number
         String p = request.getParameter(PARAM_PAGE);
         if (p != null) {
             try {
@@ -60,21 +65,25 @@ public class ArticlesByCategoryController extends AbstractController {
             }
         }
         model.put(MODEL_PAGE, page);
+        model.put(MODEL_PAGE_SIZE, PAGE_SIZE); // results per page
 
-        if (categories != null) {
+        // if we found a category, ask the searcher for results and put them in the model
+        if (categories != null && categories.size() > 0) {
             model.put(MODEL_SUBCATEGORY, categories.get(0));
-
-            ResultsPager resultsPager = getResultsForCategory(categories.get(0), model);
-            if (resultsPager != null) {
-                model.put(MODEL_PAGE_SIZE, PAGE_SIZE);
-                model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
-            }
+            storeResultsForCategory(categories.get(0), model, page);
         }
 
         return new ModelAndView("content/articleCategory", model);
     }
 
-    protected ResultsPager getResultsForCategory(ArticleCategory category, Map<String, Object> model) {
+    /**
+     * Queries the search indexes for any articles tagged with this category and stores the results
+     * in the model
+     *
+     * @param category Category to search for
+     * @param model Model to place results
+     */
+    protected void storeResultsForCategory(ArticleCategory category, Map<String, Object> model, int page) {
         TermQuery termQuery = new TermQuery(new Term("category", category.getType()));
         Filter typeFilter =
                 new CachingWrapperFilter(new QueryFilter(new TermQuery(new Term("type", "article"))));
@@ -83,10 +92,9 @@ public class ArticlesByCategoryController extends AbstractController {
 
         if (hits != null && hits.length() > 0) {
             model.put(MODEL_TOTAL_HITS, hits.length());
-            return new ResultsPager(hits, ResultsPager.ResultType.topic);
+            ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
+            model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
         }
-
-        return null;
     }
 
     protected List<ArticleCategory> getCategoriesFromURI(String requestURI) {
@@ -113,7 +121,9 @@ public class ArticlesByCategoryController extends AbstractController {
             categories.add(category);
 
             // only proceed if the parent type looks valid
-            if (category.getParentType() != null &&
+            // it doesn't seem this page needs to know what the parent categories are
+            // I've disabled this loop for now, but can re-enable it by setting getParents to true
+            if (_getParents && category.getParentType() != null &&
                     !StringUtils.equals(category.getType(), category.getParentType())) {
                 // grab parent
                 ArticleCategory parent = _articleCategoryDao.getArticleCategoryByType(category.getParentType());
@@ -150,5 +160,13 @@ public class ArticlesByCategoryController extends AbstractController {
 
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
+    }
+
+    public boolean isGetParents() {
+        return _getParents;
+    }
+
+    public void setGetParents(boolean getParents) {
+        _getParents = getParents;
     }
 }

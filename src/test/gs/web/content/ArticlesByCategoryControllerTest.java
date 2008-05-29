@@ -35,11 +35,14 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
 
         _searcher = createStrictMock(Searcher.class);
         _controller.setSearcher(_searcher);
+
+        _controller.setGetParents(true);
     }
 
     public void testBasics() {
         assertSame(_dao, _controller.getArticleCategoryDao());
         assertSame(_searcher, _controller.getSearcher());
+        assertTrue(_controller.isGetParents());
     }
 
     public void testGetCategoriesFromIdNull() {
@@ -109,6 +112,30 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         assertSame(category, cats.get(0));
         assertSame(category2, cats.get(1));
         assertSame(category3, cats.get(2));
+    }
+
+    public void testGetCategoriesFromIdWithParentsButNoGetParents() {
+        ArticleCategory category = new ArticleCategory();
+        ArticleCategory category2 = new ArticleCategory();
+        ArticleCategory category3 = new ArticleCategory();
+
+        category.setType("cat1");
+        category.setParentType("cat2");
+        category2.setType("cat2");
+        category2.setParentType("cat3");
+        category3.setType("cat3");
+
+        expect(_dao.getArticleCategory(15)).andReturn(category);
+        replay(_dao);
+
+        _controller.setGetParents(false);
+        List<ArticleCategory> cats = _controller.getCategoriesFromId("15");
+        _controller.setGetParents(true);
+        verify(_dao);
+
+        assertNotNull(cats);
+        assertEquals(1, cats.size());
+        assertSame(category, cats.get(0));
     }
 
     public void testGetCategoriesFromIdWithLoop() {
@@ -213,7 +240,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
                 (HitCollector)isNull(), isA(Filter.class))).andReturn(null);
         replay(_searcher);
 
-        assertNull(_controller.getResultsForCategory(category, model));
+        _controller.storeResultsForCategory(category, model, 1);
         verify(_searcher);
     }
 
@@ -238,8 +265,28 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         assertNotNull(mAndV);
 
         assertEquals(new Integer(1), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE).toString()));
+        assertEquals(new Integer(ArticlesByCategoryController.PAGE_SIZE), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE).toString()));
         assertSame(category, mAndV.getModel().get(ArticlesByCategoryController.MODEL_SUBCATEGORY));
-        assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE));
+        assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_TOTAL_HITS));
+        assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_RESULTS));
+    }
+
+    public void testHandleRequestInternalNoResults() {
+        getRequest().setRequestURI("/articles/15/blah-blah");
+
+        expect(_dao.getArticleCategory(15)).andReturn(null);
+        replay(_dao);
+
+        replay(_searcher);
+
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verify(_dao);
+        verify(_searcher);
+
+        assertNotNull(mAndV);
+
+        assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_SUBCATEGORY));
+        assertEquals(new Integer(ArticlesByCategoryController.PAGE_SIZE), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE).toString()));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_TOTAL_HITS));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_RESULTS));
     }
@@ -267,7 +314,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
 
         assertEquals(new Integer(1), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE).toString()));
         assertSame(category, mAndV.getModel().get(ArticlesByCategoryController.MODEL_SUBCATEGORY));
-        assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(ArticlesByCategoryController.PAGE_SIZE), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE).toString()));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_TOTAL_HITS));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_RESULTS));
     }
@@ -296,7 +343,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         assertEquals("Expect page to pick up request param value of 2",
                 new Integer(2), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE).toString()));
         assertSame(category, mAndV.getModel().get(ArticlesByCategoryController.MODEL_SUBCATEGORY));
-        assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(ArticlesByCategoryController.PAGE_SIZE), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE).toString()));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_TOTAL_HITS));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_RESULTS));
     }
@@ -325,7 +372,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         assertEquals("Expect page to default to 1",
                 new Integer(1), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE).toString()));
         assertSame(category, mAndV.getModel().get(ArticlesByCategoryController.MODEL_SUBCATEGORY));
-        assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(ArticlesByCategoryController.PAGE_SIZE), new Integer(mAndV.getModel().get(ArticlesByCategoryController.MODEL_PAGE_SIZE).toString()));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_TOTAL_HITS));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_RESULTS));
     }
