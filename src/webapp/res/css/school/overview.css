@@ -393,7 +393,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #parentReviewsRateIt h2{
-    margin: 0 0 10px 0;
+    margin: 0 0 15px 0;
 }
 
 #parentReviewsRateIt p,
@@ -517,7 +517,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #parentReviewsRateIt div.bottomParentReview div.rateItInReview { /* has IE 7 equivalent */
-    right:176px;
+    right:172px;
 }
 
 #parentReviewsRateIt div.bottomParentReview div.rateItInReviewSingle { /* has IE 7 equivalent */
