@@ -42,15 +42,14 @@
                     adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
                 }
             }
+
             for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
                 AdPosition ad = (AdPosition) iter.next();
-
                 if (ad.isGAMPosition()) {
-
                     if (StringUtils.isEmpty(slotPrefix)) {
+                        slotPrefix = "";
                         _log.warn(">empty prefix for: " + ad.getName());
                     }                    
-
                     adNames.add(slotPrefix + ad.getName());
                 }
             }
