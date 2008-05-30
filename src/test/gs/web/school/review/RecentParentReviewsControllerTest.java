@@ -1,16 +1,19 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.7 2007/12/20 22:06:09 aroy Exp $
+ * $Id: RecentParentReviewsControllerTest.java,v 1.8 2008/05/30 19:26:27 cpickslay Exp $
  */
 
 package gs.web.school.review;
 
 import gs.data.school.review.IReviewDao;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
+import static org.easymock.EasyMock.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +37,11 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
     }
 
     public void testRecentParentReviewsController() throws Exception {
+        IReviewDao reviewDao = createMock(IReviewDao.class);
+        expect(reviewDao.findRecentReviewsInCity(State.AK,"Anchorage", 10, RecentParentReviewsController.DEFAULT_MAX_AGE)).
+                andReturn(new ArrayList<Integer>());
+        replay(reviewDao);
+        _controller.setReviewDao(reviewDao);
 
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "AK");
@@ -46,18 +54,6 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
         List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
                 (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
 
-        assertTrue(parentReviewList.size() == 10);
-
-        for (RecentParentReviewsController.IParentReviewModel review : parentReviewList) {
-            assertNotNull(review.getQuip());
-            assertTrue("Expect quip to be no more than 90 characters long: \"" + review.getQuip() + 
-                    "\", actual length " + review.getQuip().length(),
-                    review.getQuip().length() < 91);
-            assertNotNull(review.getDate());
-            assertNotNull(review.getSchoolName());
-            assertNotNull(review.getSchool());
-            assertTrue(review.getStars() > 0);
-            assertTrue(review.getStars() <= 5);
-        }
+        assertNotNull(parentReviewList);
     }
 }
