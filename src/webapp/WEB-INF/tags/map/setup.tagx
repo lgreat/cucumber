@@ -40,6 +40,7 @@
                 WebApplicationContextUtils.getWebApplicationContext(application);
         ICobrandDao dao = (ICobrandDao) ac.getBean(ICobrandDao.BEAN_ID);
         String serverName = request.getServerName();
+        // GS-6354 remove typo-ed trailing dot from server name before looking up
         serverName = StringUtils.chomp(serverName, ".");
         Cobrand c = dao.getCobrandByHostname(serverName);
         if (c == null) {
