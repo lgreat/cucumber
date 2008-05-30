@@ -140,7 +140,14 @@
             <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
             <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
             <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
-            <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
+            <c:choose>
+                <c:when test="${school.levelCode == 'p'}">
+                    <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}', 'true')"/>                    
+                </c:when>
+                <c:otherwise>
+                    <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
+                </c:otherwise>
+            </c:choose>
         </c:if>
     </c:when>
     <c:otherwise>
