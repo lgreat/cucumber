@@ -1,0 +1,37 @@
+div.editorialMoving, div.editorialChoosing {
+    padding:2px 0 0 10px;
+    margin: 0;
+    float: left;
+    width: 275px;
+    height: 99px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color:#55BBCC;
+}
+
+div.editorialMoving {
+    border-right: 1px solid #DDDDDD;
+}
+
+div.editorialMoving a img,
+div.editorialChoosing a img {
+    float:left;
+    margin-right:12px;
+}
+
+div#editorialBar img.word {
+    margin:10px 0 7px 0;
+}
+
+div#editorialBar li {
+    list-style-type:disc;
+    margin-left:15px;
+    line-height:21px;
+
+}
+
+div#editorialBar ul li a {
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size:13px;
+    color:#3399AA;
+}

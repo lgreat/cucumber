@@ -1,0 +1,16 @@
+div.editorialMoving, div.editorialChoosing {
+    padding: 15px 0 0 10px;
+    margin: 0;
+    float: left;
+    width: 275px;
+    height: 99px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color:#55BBCC;
+}
+
+div.editorialMoving {
+    border-right: 1px solid #DDDDDD;
+}
+
+
