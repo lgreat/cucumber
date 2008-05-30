@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.19 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.20 2008/05/30 19:04:00 cpickslay Exp $
  */
 package gs.web.content;
 
@@ -9,14 +9,10 @@ import gs.data.content.Article;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
 import gs.web.BaseControllerTestCase;
-import gs.web.util.list.Anchor;
-import gs.web.util.list.AnchorListModel;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * The purpose is to test the various controllers in the content package.
@@ -60,64 +56,6 @@ public class ContentControllerTest extends BaseControllerTestCase {
         Object article = modelAndView.getModel().get("article");
         assertTrue(article instanceof Article);
         assertEquals("", modelAndView.getModel().get("heading"));
-
-
-        getRequest().setParameter("position", IArticleDao.FOCUS_ON_CHOICE);
-        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
-        article = modelAndView.getModel().get("article");
-        assertTrue(article instanceof Article);
-        assertEquals("School Choosers Guide", modelAndView.getModel().get("heading"));
-
-        getRequest().setParameter("position", IArticleDao.PATH1_FEATURE);
-        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
-        article = modelAndView.getModel().get("article");
-        assertTrue(article instanceof Article);
-        assertEquals("Featured Topics", modelAndView.getModel().get("heading"));
-    }
-
-    /** @noinspection OverlyLongMethod*/
-    public void testFeaturedArticlesControllerMultiple() throws Exception {
-        FeaturedArticlesController c = (FeaturedArticlesController) getApplicationContext().getBean("/promo/featuredArticles.module");
-
-        getRequest().addParameter("position", IArticleDao.FOCUS_ON_CHOICE);
-        getRequest().addParameter("count", "3");
-        getRequest().addParameter("heading", "Grateful");
-
-        ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
-
-        Map model = modelAndView.getModel();
-        assertEquals("/unorderedList", modelAndView.getViewName());
-        assertNull(model.get("article"));
-
-        List articles = (List) model.get(AnchorListModel.RESULTS);
-        assertTrue(articles instanceof Collection);
-        assertEquals(5, articles.size());
-        assertEquals(Anchor.class, articles.get(0).getClass());
-        assertEquals(Anchor.class, articles.get(1).getClass());
-        assertEquals(Anchor.class, articles.get(2).getClass());
-        assertEquals("Grateful", model.get(AnchorListModel.HEADING)); // Grateful Heading
-
-        // Ask for 4, but only get 3
-        getRequest().setParameter("count", "4");
-        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
-        model = modelAndView.getModel();
-        articles = (List) model.get(AnchorListModel.RESULTS);
-        assertTrue(articles instanceof Collection);
-        assertEquals(5, articles.size());
-
-        // Ask for 2, and get 2
-        getRequest().setParameter("count", "2");
-        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
-        model = modelAndView.getModel();
-        assertEquals("/unorderedList", modelAndView.getViewName());
-        assertNull(model.get("article"));
-
-        articles = (List) model.get(AnchorListModel.RESULTS);
-        assertTrue(articles instanceof Collection);
-        assertEquals(4, articles.size());
-        assertEquals(Anchor.class, articles.get(0).getClass());
-        assertEquals(Anchor.class, articles.get(1).getClass());
-
     }
 
     public void testParentPollController() throws Exception {
