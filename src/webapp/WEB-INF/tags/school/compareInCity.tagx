@@ -10,19 +10,24 @@
         >
 
     <jsp:directive.attribute name="city" required="true" description="Name of the city" type="java.lang.String"/>
+    <jsp:directive.attribute name="state" required="true" description="2-letter state abrev" type="java.lang.String"/>
+
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     
     <script type="text/javascript">
         <![CDATA[
         //<!--
         function goCompare() {
-            var path = "/cgi-bin/cs_compare/ca/?tab=over&amp;area=m&amp;city=";
+            var path = "/cgi-bin/cs_compare/";
+            var state = "${state}";
+            path += state.toLowerCase();
+            path += "/?tab=over&area=m&city=";
             var level = "e"; // default
             var levelRadios = $$('input.level');
             var city = "${city}"
             city = city.replace(/\s/, "+");
             path += city;
-            path += "&amp;level=";
+            path += "&level=";
             for(var i = 0; i != 3; i++) {
                 var inp = levelRadios[i];
                 if (inp.checked) {
