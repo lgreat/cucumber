@@ -15,6 +15,7 @@
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         xmlns:gsweb="gstaglib"
         xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
@@ -263,10 +264,21 @@
                 </td>
             </tr>
         </c:if>
+        <variant:b>
+            <tr>
+                <td>
+                    <school:compareInCity city="${cityObject.name}"/>
+                </td>
+            </tr>
+        </variant:b>
     </table>
 </td>
 </tr>
 </table>
+
+<variant:b>
+    <school:compareFooter />
+</variant:b>
 
 <c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
     <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />

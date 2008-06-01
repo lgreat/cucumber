@@ -1,0 +1,50 @@
+div#compareInCity {
+    border:2px solid #EEEEEE;
+    padding:2px 2px 8px 2px;
+    position:relative;
+}
+
+div#compareInCity div#headWrap {
+    position:relative;
+    clear:both;
+    height:100%;
+    border:1px solid #FFFFFF;
+}
+
+div#compareInCity div#head {
+    background:#66CCCC;
+    margin-bottom:10px;
+    padding:5px 0 5px 15px;
+    clear:both;
+}
+
+div#compareInCity div#head div#headText {
+    width:210px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight:bold;
+    font-size: 16px;
+    color:#FFFFFF;
+}
+
+
+div#compareInCity div#headWrap img {
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
+div#level_radios {
+    padding:8px 10px 8px 18px;
+    width:100px;
+}
+
+div#level_radios label {
+    line-height:25px;
+    padding: 0 0 0 10px;
+}
+
+div#compareInCity input.submit {
+    position:absolute;
+    bottom:23px;
+    right:60px;
+}

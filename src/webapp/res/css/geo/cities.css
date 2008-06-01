@@ -139,51 +139,6 @@ div.compareHorizontal {
     margin: 0;
 }
 
-div#editorialBar {
-    clear: both;
-    height: 115px;
-    padding: 5px 0 5px 0;
-    margin-top: 25px;
-    border-top: 1px solid #DDDDDD;
-    border-bottom: 1px solid #DDDDDD;
-}
-
-div.compareVertical {
-    float: left;
-    padding: 5px 0 0 0;
-    margin: 0;
-    border-right: 1px solid #DDDDDD;
-    height: 109px;
-    width: 285px;
-}
-
-div.compareVertical img, div.compareVertical h2, div.compareVertical select, div.compareVertical input {
-    float: left;
-}
-
-div.compareVertical img, div.compareVertical select.compareCitySelect {
-    margin: 0 10px 0 0;
-}
-
-div.compareVertical img {
-    top: 0;
-}
-
-div.compareVertical h2 {
-    position: relative;
-    top: 5px;
-    margin-bottom: 20px;
-}
-
-div.compareVertical select.compareCitySelect {
-    clear: left;
-}
-
-div.compareVertical input {
-    clear: left;
-    margin-top: 6px;
-}
-
 .reference {
     position:relative;
     height:50px;
