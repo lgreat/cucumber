@@ -179,8 +179,8 @@
             </tr>
             </table>
 
-        <school:compareFooter />
-
+        <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${requestScope.cityObject.name}" />
+        
         <mod:tracking pageName="Nearby Cities"
                       locale="${city}"
                       hier1="Home,City Home,Nearby Cities"/>

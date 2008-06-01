@@ -72,6 +72,11 @@
         </property>
     </bean>
 
+    <bean name="/school/compareFooter.module"
+          class="gs.web.school.CompareFooterModuleController"
+          autowire="byName">
+    </bean>
+
     <bean name="/content/leftNav.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

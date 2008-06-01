@@ -9,7 +9,7 @@ function verifyCity(selectId) {
 }
 
 function stateChange(stateSelect, cityDivId, citySelectId) {
-    var url = 'citiesAjax.page';
+    var url = '/citiesAjax.page';
     var pars = 'state=' + stateSelect.value;
     $(cityDivId).innerHTML = '<select name="city" id="' + citySelectId + '" class="compareCitySelect"><option value="">Loading ...</option></select>';
     new Ajax.Updater (

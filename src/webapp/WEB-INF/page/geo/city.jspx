@@ -277,7 +277,7 @@
 </table>
 
 <variant:b>
-    <school:compareFooter />
+    <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${cityObject.name}" />
 </variant:b>
 
 <c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
