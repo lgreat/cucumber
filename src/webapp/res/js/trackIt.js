@@ -125,17 +125,7 @@ var customInsight9ClickEventHandler = function (e) {
  }
 
 
- function getNode(e){
 
-     var obj = eventTrigger(e);
-
-     // if obj is an image get it's parent (expected to be a link)
-     if (obj.tagName.toLowerCase() == 'img'){
-         obj = obj.parentNode;
-     }
-
-     return obj;
- }
 
  //register the object click handlers...
  function registerMyEventHandlers() {

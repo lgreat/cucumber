@@ -13,6 +13,7 @@ var gRedirectAnchor = null;
 var gTabIndexes = new Array();
 var gTabbableTags = new Array("A","BUTTON","TEXTAREA","INPUT","IFRAME");
 var gIsIE = window.navigator.userAgent.indexOf("MSIE") > -1 ? 1 : 0;
+var gHoverName = "";
 if (!document.all) {
 	document.onkeypress = keyDownHandler;
 }
@@ -28,6 +29,7 @@ function initPopUp(hoverName) {
     if (getElement(POP_MASK_ID)) {
         return;
     }
+    gHoverName = hoverName;
     var body = document.getElementsByTagName('body')[0];
     var popmask = createContainer(body, POP_MASK_ID, true);
     var popcont = createContainer(body, POP_CONTAINER_ID, true);
@@ -38,27 +40,41 @@ function initPopUp(hoverName) {
 		gHideSelects = true;
 	}
 	var elms = document.getElementsByTagName('a');
-	for (i = 0; i < elms.length; i++) {
+	for (var i = 0; i < elms.length; i++) {
 		if (elms[i].className.indexOf("submodal") == 0) {
-			elms[i].onclick = function(){
-				// default width and height
-				var width = 400;
-				var height = 200;
-				// Parse out optional width and height from className
-                if(this.className.match(' ')){
-                    classes = this.className.split(' ');
-                    params = classes[0].split('-');
-                }else{
-                    params = this.className.split('-');
-                }
-                if (params.length == 3) {
-					width = parseInt(params[1]);
-					height = parseInt(params[2]);
-				}
-				showPopWin(this.href,width,height,null,hoverName); return false;
-			}
-		}
+           elms[i].onclick = subModalClickHandler;
+        }
 	}
+}
+
+function subModalClickHandler(e){
+    //alert("subModalClickHandler");
+    // default width and height
+    var width = 400;
+    var height = 200;
+    var classes = "";
+    var params = "";
+    var obj = getNode(e);
+    var className = obj.className;
+    // Parse out optional width and height from className
+    if(className.match(' ')){
+        classes = className.split(' ');
+        params = classes[0].split('-');
+    }else{
+        params = className.split('-');
+    }
+    if (params.length == 3) {
+        width = parseInt(params[1]);
+        height = parseInt(params[2]);
+    }
+
+    for (var n = 0; n< classes.length; n++){
+        if (classes[n] == "GS_CI9_"){
+            customInsight9ClickEventHandler(e);
+            break;
+        }
+    }
+    showPopWin(obj.href,width,height,null,gHoverName); return false;
 }
 
 function showPopWin(url, width, height, returnFunc, hoverName) {
@@ -176,7 +192,7 @@ function hidePopWin(callReturnFunc) {
 }
 
 function setPopTitleAndRewriteTargets() {
-	if (window.frames["popupFrame"].document.title == null) {
+	if (window.frames["popupFrame"].document == null || window.frames["popupFrame"].document.title == null) {
 		window.setTimeout("setPopTitleAndRewriteTargets();", 10);
 	} else {
 		var popupDocument = window.frames["popupFrame"].document;

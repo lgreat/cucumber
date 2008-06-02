@@ -267,11 +267,22 @@ function makeCountWords(max, alertText) {
 
 
 function eventTrigger (e) {
-    if (! e)
+    if ( e == null || ! e)
         e = event;
     return e.target || e.srcElement;
 }
 
+function getNode(e){
+
+     var obj = eventTrigger(e);
+
+     // if obj is an image get it's parent (expected to be a link)
+     if (obj.tagName.toLowerCase() == 'img'){
+         obj = obj.parentNode;
+     }
+
+     return obj;
+ }
 /*
  * registers a dom event handler
  *

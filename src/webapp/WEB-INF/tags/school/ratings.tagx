@@ -68,7 +68,7 @@
                 <c:when test="${not hasParentRating}">
                     <link:schoolProfileAddParentReview
                             school="${school}"
-                            onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                            onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                             styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
                             >
                         <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!"
@@ -84,7 +84,7 @@
                     </link:schoolProfileParentReview>
                     <link:schoolProfileAddParentReview
                             school="${school}"
-                            onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"                
+                            onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                             styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
                             >
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" />
