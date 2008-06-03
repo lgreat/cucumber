@@ -10,7 +10,7 @@
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
 
     <pageHelper:externalJavascript file="/res/js/compareModule.js"/>
-    <pageHelper:externalCss file="/res/css/school/compareFooter_b.css"/>
+    <pageHelper:externalCss file="/res/css/school/compareFooter.css"/>
 
 <div id="editorialBar">
     <div class="compareCitiesNear compareVertical">
@@ -61,7 +61,7 @@
                           alt="Moving? View our tips to help your child with the transition"/>
             </link:movingWithKids>
             <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
-            <ul>
+            <ul class="contentList">
                 <gsweb:articlelink articleId="826" wrappingElement="li">
                     Choosing a Mover
                 </gsweb:articlelink>
@@ -79,7 +79,7 @@
                           alt="Choosing a school? Check out our school choice tips"/>
             </link:schoolChoiceCenter>
             <gsml:img src="/res/img/choosingschool.gif" alt="Choosing a school?" styleClass="word"/>
-            <ul>
+            <ul class="contentList">
                 <gsweb:articlelink articleId="87" wrappingElement="li">
                     Imagining Your Ideal School
                 </gsweb:articlelink>

@@ -8,7 +8,7 @@ div#editorialBar {
 }
 
 div.editorialMoving, div.editorialChoosing {
-    padding: 15px 0 0 10px;
+    padding:2px 0 0 10px;
     margin: 0;
     float: left;
     width: 275px;
@@ -58,3 +58,37 @@ div.compareVertical input {
     margin-top: 6px;
 }
 
+div.editorialMoving a img,
+div.editorialChoosing a img {
+    float:left;
+    margin-right:12px;
+}
+
+div#editorialBar img.word {
+    margin:10px 0 7px 0;
+}
+
+div#editorialBar li {
+    list-style-type:disc;
+    margin-left:15px;
+    line-height:21px;
+
+}
+
+div#editorialBar ul li a {
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size:13px;
+    color:#3399AA;
+    font-weight:normal;
+}
+
+div.compareCitiesNear h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #55BBCC;
+}
+
+div#editorialBar ul.contentList {
+    float:right;
+    width:196px;
+}
