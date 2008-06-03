@@ -22,3 +22,16 @@ div#mapContainer {
     border-top: 1px solid #CCCCCC;
     padding-top: 20px;
 }
+
+#searchResults span.enrollment {
+    font-weight: bold;
+}
+
+form#searchfilterform div label a,
+    form#searchfilterform div label a:link,
+    form#searchfilterform div label a:visited,
+    form#searchfilterform div label a:active,
+    form#searchfilterform div label a:hover {
+    color: #666666;
+    text-decoration: none;
+}

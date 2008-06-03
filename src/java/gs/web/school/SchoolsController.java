@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.41 2008/06/03 00:52:24 aroy Exp $
+ * $Id: SchoolsController.java,v 1.42 2008/06/03 19:44:30 aroy Exp $
  */
 
 package gs.web.school;
@@ -343,15 +343,17 @@ public class SchoolsController extends AbstractController {
 
 
         if (districtDisplayName == null) {
-            cityWithModifier.append(cityDisplayName+" "+modifier);
-        sb.append("View and map all "+cityWithModifier+"schools. Plus, compare or save "+modifier+"schools.");
+            cityWithModifier.append(cityDisplayName).append(" ").append(modifier);
+            sb.append("View and map all ").append(cityWithModifier).
+                    append("schools. Plus, compare or save ").
+                    append(modifier).append("schools.");
         }
-         else if (districtDisplayName != null)
-        {
-           
-
-           sb.append("View and map all "+modifier+"schools in the "+districtDisplayName+". Plus, compare or save "+modifier+"schools in this district.");
-        }
+         else {
+            sb.append("View and map all ").append(modifier).
+                     append("schools in the ").append(districtDisplayName).
+                     append(". Plus, compare or save ").append(modifier).
+                     append("schools in this district.");
+         }
 
         return sb.toString();
     }

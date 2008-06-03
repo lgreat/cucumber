@@ -184,21 +184,42 @@
     <jsp:scriptlet>
         String[] sts = request.getParameterValues("st");
         String stOmniture = "";
+        String pubCheckbox = "";
+        String chaCheckbox = "";
+        String priCheckbox = "";
         if (sts != null &amp;&amp; sts.length > 0) {
             for (String st: sts) {
                 if ("public".equals(st)) {
                     request.setAttribute("publicChecked", "true");
                     stOmniture += ((stOmniture.length() > 0)?",":"") + "public";
+                    chaCheckbox += ((stOmniture.length() > 0)?",":"") + "public";
+                    priCheckbox += ((stOmniture.length() > 0)?",":"") + "public";
                 } else if ("charter".equals(st)) {
                     request.setAttribute("charterChecked", "true");
                     stOmniture += ((stOmniture.length() > 0)?",":"") + "charter";
+                    pubCheckbox += ((stOmniture.length() > 0)?",":"") + "charter";
+                    priCheckbox += ((stOmniture.length() > 0)?",":"") + "charter";
                 } else if ("private".equals(st)) {
                     request.setAttribute("privateChecked", "true");
                     stOmniture += ((stOmniture.length() > 0)?",":"") + "private";
+                    pubCheckbox += ((stOmniture.length() > 0)?",":"") + "private";
+                    chaCheckbox += ((stOmniture.length() > 0)?",":"") + "private";
                 }
             }
         }
+        if (request.getAttribute("publicChecked") == null) {
+            pubCheckbox += ((stOmniture.length() > 0)?",":"") + "public";
+        }
+        if (request.getAttribute("charterChecked") == null) {
+            chaCheckbox += ((stOmniture.length() > 0)?",":"") + "charter";
+        }
+        if (request.getAttribute("privateChecked") == null) {
+            priCheckbox += ((stOmniture.length() > 0)?",":"") + "private";            
+        }
         request.setAttribute("stOmniture", stOmniture);
+        request.setAttribute("pubCheckbox", pubCheckbox);
+        request.setAttribute("chaCheckbox", chaCheckbox);
+        request.setAttribute("priCheckbox", priCheckbox);
     </jsp:scriptlet>
 </head>
 
@@ -299,15 +320,27 @@
                         <label><gsml:checkbox name="type_schools[]"
                                               checked="${publicChecked}"
                                               styleId="type_schools_public"
-                                              onclick="reloadPageWithFilters();"/> Public</label>
+                                              onclick="reloadPageWithFilters();"/><link:schools
+                                cityName="${cityName}"
+                                districtId="${district}"
+                                schoolType="${pubCheckbox}"
+                                levelCode="${param.lc}"> Public</link:schools></label>
                         <label><gsml:checkbox name="type_schools[]"
                                               checked="${charterChecked}"
                                               styleId="type_schools_charter"
-                                              onclick="reloadPageWithFilters();"/> Charter</label>
+                                              onclick="reloadPageWithFilters();"/><link:schools
+                                cityName="${cityName}"
+                                districtId="${district}"
+                                schoolType="${chaCheckbox}"
+                                levelCode="${param.lc}"> Charter</link:schools></label>
                         <label><gsml:checkbox name="type_schools[]"
                                               checked="${privateChecked}"
                                               styleId="type_schools_private"
-                                              onclick="reloadPageWithFilters();"/> Private</label>
+                                              onclick="reloadPageWithFilters();"/><link:schools
+                                cityName="${cityName}"
+                                districtId="${district}"
+                                schoolType="${priCheckbox}"
+                                levelCode="${param.lc}"> Private</link:schools></label>
                     </div>
                 </form>
             </c:if>

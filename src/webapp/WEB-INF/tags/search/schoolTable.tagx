@@ -42,21 +42,33 @@
                             &#183; <span class="gl">${school.gradeLevels.rangeString}</span>
                         </c:if>
                         <c:if test="${not empty school.enrollment}">
-                            &#183; ${school.enrollment} student${(school.enrollment eq 1) ? '' : 's'}
+                            &#183; <span class="enrollment">${school.enrollment} student${(school.enrollment eq 1) ? '' : 's'}</span>
                         </c:if>
                     </div>
 
-                    <address><c:out value="${school.physicalAddress}"/></address>
+                    <address>${school.physicalAddress.street}<c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if></address>
+                    <address>${school.physicalAddress.cityStateZip}</address>
                     <div class="phone">${school.phone}</div>
                     <c:if test="${not empty school.district}">
                         <div class="district">
-                            District:<c:out value="${school.district.name}"/>
+                            District: ${school.district.name}
                         </div>
                     </c:if>
                     <c:if test="${params.lc ne 'p'}">
                         <div class="resultcontrols">
                             <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
                             <br />
+<!-- cgi-bin/cs_compare/ca/
+?area=m
+&city=Alameda
+&level=m
+&miles=1000
+&school_selected=1
+&showall=1
+&sortby=distance
+&street=2201+Encinal+Ave.
+&tab=over
+&zip=94501-->
                             <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
                         </div>
                     </c:if>
