@@ -30,6 +30,19 @@
     border-bottom: 1px solid #c8ce9e;
 }
 
+#resultsheaderwhite {
+    font-size: medium;
+    padding: 20px 0px 10px;
+    _padding: 20px 0px 10px;
+    background: #FFFFFF;
+}
+
+#resultsheaderwhite #rh_col_left {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #cccccc;
+}
+
 .query {
     font-weight: 700;
     color: #C56;
@@ -152,6 +165,11 @@ City and district rollups
 .rollup ul {
     margin: 0;
     padding-bottom: 5px;
+}
+
+#arrowed_results{
+    padding-left: 10px;
+    _padding-left: 10px;
 }
 
 .rollup ul li {
