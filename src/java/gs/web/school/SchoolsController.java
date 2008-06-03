@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.40 2008/02/26 17:44:51 cpickslay Exp $
+ * $Id: SchoolsController.java,v 1.41 2008/06/03 00:52:24 aroy Exp $
  */
 
 package gs.web.school;
@@ -71,6 +71,9 @@ public class SchoolsController extends AbstractController {
     public static final String MODEL_CITY_NAME = "cityName";
     public static final String MODEL_CITY_DISPLAY_NAME = "cityDisplayName";
 
+    /** Page heading */
+    public static final String MODEL_HEADING1 = "heading1";
+
     /**
      * Whether we should show all records
      */
@@ -129,7 +132,7 @@ public class SchoolsController extends AbstractController {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
 
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
 
         final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
         LevelCode levelCode = null;
@@ -184,6 +187,7 @@ public class SchoolsController extends AbstractController {
             }
             model.put(MODEL_CITY_NAME, cityName);
             model.put(MODEL_CITY_DISPLAY_NAME, displayName);
+            model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
             searchCommand.setCity(cityName);
             searchCommand.setQ(cityName);
 
@@ -195,10 +199,12 @@ public class SchoolsController extends AbstractController {
                 String districtIdStr = request.getParameter(PARAM_DISTRICT);
                 model.put(MODEL_DISTRICT, districtIdStr);
                 int districtId = Integer.parseInt(districtIdStr);
-                District district = null;
+                District district;
                 try {
-                    district = _districtDao.findDistrictById(state, new Integer(districtId));
+                    district = _districtDao.findDistrictById(state, districtId);
                     model.put(MODEL_DISTNAME, district.getName());
+
+                    model.put(MODEL_HEADING1, "Schools in " + district.getName());
 
                     Address districtAddress = district.getPhysicalAddress();
                     if (districtAddress != null) {
@@ -226,8 +232,7 @@ public class SchoolsController extends AbstractController {
                     model.put("showSearchControl", Boolean.TRUE);
                     model.put("title", "District not found");
 
-                    ModelAndView modelAndView = new ModelAndView("status/error", model);
-                    return modelAndView;
+                    return new ModelAndView("status/error", model);
                 }
             }
         }
@@ -236,20 +241,18 @@ public class SchoolsController extends AbstractController {
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
             ResultsPager _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
-            Map resultsModel = new HashMap();
-            resultsModel.put(MODEL_SCHOOLS_TOTAL, new Integer(hts.length()));
+            Map<String, Object> resultsModel = new HashMap<String, Object>();
+            resultsModel.put(MODEL_SCHOOLS_TOTAL, hts.length());
             resultsModel.put(MODEL_SCHOOLS, _resultsPager.getResults(page, pageSize));
-            resultsModel.put(MODEL_PAGE_SIZE, new Integer(pageSize));
-            resultsModel.put(MODEL_TOTAL, new Integer(hts.length()));
+            resultsModel.put(MODEL_PAGE_SIZE, pageSize);
+            resultsModel.put(MODEL_TOTAL, hts.length());
             resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
             model.put("results", resultsModel);
         } else {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);
         }
 
-        final ModelAndView modelAndView = new ModelAndView("school/schoolsTable", model);
-        return modelAndView;
-
+        return new ModelAndView("school/schoolsTable", model);
     }
 
 

@@ -227,7 +227,28 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.geo.ICity</type>
-            <description>Optional.</description>
+            <description>Optional city for city browse.</description>
+        </attribute>
+        <attribute>
+            <name>cityName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional city name for city browse.</description>
+        </attribute>
+        <attribute>
+            <name>districtId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Optional district id for district browse.</description>
+        </attribute>
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Optional page</description>
         </attribute>
         <attribute>
             <name>levelCode</name>
@@ -237,7 +258,7 @@
             <description>Optional LevelCode restriction.</description>
         </attribute>
         <attribute>
-            <name>schoolTypes</name>
+            <name>schoolType</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>

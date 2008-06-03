@@ -24,7 +24,10 @@
                              required="false"
                              description="Constraint, or default if showConstraint is set to true."
                              type="java.lang.String"/>
-
+    <jsp:directive.attribute name="queryOverride"
+                             required="false"
+                             description="Query to show in search again box, overrides any default values."
+                             type="java.lang.String"/>
 
     <div class="globalSearch">
         <div id="sf_col_left">
@@ -38,6 +41,12 @@
                 <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
                     <span class="label">Search</span>
                 </c:if>
+                <c:set var="defaultQuery"
+                       value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
+                <c:if test="${not empty queryOverride}">
+                    <c:set var="defaultQuery"
+                           value="${queryOverride}"/>
+                </c:if>
                 <input type="text"
                        id="refine_q"
                        name="q"
@@ -45,7 +54,7 @@
                        class="label"
                        style="font-size:small"
                        maxlength="255"
-                       value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
+                       value="${defaultQuery}"/>
                 <c:if test="${(empty showConstraint) or showConstraint}">
                     <select name="c" id="c" class="label">
                         <gsml:selectOption value="school">School</gsml:selectOption>

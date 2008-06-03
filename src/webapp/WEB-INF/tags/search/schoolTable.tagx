@@ -10,62 +10,102 @@
     <jsp:directive.attribute name="schools" required="true"
                              type="java.util.Collection"/>
 
-    <tr class="control_row">
-        <td colspan="2">
-            <table cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                    <td style="padding-top:5px">
-                        <input type="image" name="compare"
-                               onclick="return checkSelections();"
-                               src="/res/img/button/btn_comparechecked_149x21.gif"
-                               alt="Compare checked Schools"/>
-                        <input type="image"
-                               name="save"
-                               onclick="return checkSelections();"
-                               src="/res/img/button/btn_savechecked2msl_173x21.gif"
-                               alt="Save checked to My School List"/>
-                    </td>
-                    <td class="results_pagenav">
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <th class="result_title" colspan="2">
-            <span id="tableTitle">Schools</span>
-            <span id="pagingInfo"><c:out value="${requestScope.pagingInfo}" escapeXml="false"/></span>
-        </th>
-    </tr>
+    <c:set var="results" value="${schools}"/>
 
-    <c:forEach items="${schools}" var="schoolResult">
-        <c:set var="school" value="${schoolResult.school}"/>
-        <c:if test="${not empty school}">
-            <c:set var="stateAbbrev"
-                   value="${school.databaseState.abbreviationLowerCase}"/>
-            <tr class="school">
-                <td class="checkbox">
-                    <input name="sc" type="checkbox" value="${stateAbbrev}${school.id}"/>
-                </td>
-                <td class="data">
-                    <h4><link:schoolProfileOverview school="${school}" title="${school.name}"><c:out value="${school.name}"/></link:schoolProfileOverview></h4>
-                    <c:out value="${gsweb:capitalize(school.type.schoolTypeName)}"/> school
-                    &#32;&#183;&#32;
-                    <c:set var="grades" value="${school.gradeLevels.rangeString}"/>
-                    Grade${(fn:length(grades) > 2) ? 's' : ''} <c:out value="${(empty grades) ? '' : grades}"/>
-                    <c:if test="${not empty school.enrollment}">
-                        <c:out value="&#32;&#183;&#32;${school.enrollment} student${(school.enrollment eq 1) ? '' : 's'}"/>
-                    </c:if>
-                    <br/>
-                    <div style="padding-right:33px;"><c:out value="${school.physicalAddress}"/></div>
-                    <div class="phone"><c:out value="${school.phone}"/></div>
+    <div id="searchResultsHeader" class="cleared">
+        <div id="schoolResultsHeader">
+            School Name
+        </div>
+        <div id="ratingsHeader">
+            GreatSchools Rating
+        </div>
+        <div id="reviewsHeader">
+            Parent Rating
+        </div>
+    </div>
+    <div id="searchResultsList">
+        <c:forEach var="schoolResult" items="${results}" >
+            <c:set var="school" value="${schoolResult.school}"/>
+            <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
+            <c:set var="parentRating" value="${schoolResult.parentRating}"/>
+            <c:set var="parentRatingCount" value="${schoolResult.parentRatingCount}"/>
+            <c:set var="reviewMap" value="${schoolResult.reviewMap}" />
+
+                <div class="result cleared">
+                <div class="school">
+                    <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
+                    <c:out value="${school.name}" escapeXml="false"/>
+                    </link:schoolProfileOverview></h3>
+                    <div class="about">
+                        <span class="st">${school.type.schoolTypeName}</span>
+                        <c:if test="${not empty school.gradeLevels.rangeString}">
+                            &#183; <span class="gl">${school.gradeLevels.rangeString}</span>
+                        </c:if>
+                        <c:if test="${not empty school.enrollment}">
+                            &#183; ${school.enrollment} student${(school.enrollment eq 1) ? '' : 's'}
+                        </c:if>
+                    </div>
+
+                    <address><c:out value="${school.physicalAddress}"/></address>
+                    <div class="phone">${school.phone}</div>
                     <c:if test="${not empty school.district}">
                         <div class="district">
-                        <h5>District:</h5><c:out value="${school.district.name}"/>
+                            District:<c:out value="${school.district.name}"/>
                         </div>
                     </c:if>
-                </td>
-            </tr>
-        </c:if>
-    </c:forEach>
+                    <c:if test="${params.lc ne 'p'}">
+                        <div class="resultcontrols">
+                            <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
+                            <br />
+                            <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
+                        </div>
+                    </c:if>
+                </div>
+                <div class="rating">
+                    <c:choose>
+                        <c:when test="${empty rating}">
+                            <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolProfileRating school="${school}">
+                                <gsml:img src="/res/img/school/ratings/${rating}.gif"
+                                          alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                            </link:schoolProfileRating>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="review">
+                    <p class="stars">
+                        <c:choose>
+                            <c:when test="${empty parentRating}">
+                                <link:schoolProfileParentReview school="${school}">
+                                    <gsml:img src="/res/img/search/rateit.jpg"
+                                              rollover="/res/img/search/rateit_on.jpg"
+                                              alt="Be the first to rate!"/>
+                                </link:schoolProfileParentReview>
+                            </c:when>
+                            <c:otherwise>
+                                <link:schoolProfileParentReview school="${school}">
+                                    <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
+                                              alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
+                                </link:schoolProfileParentReview>
+                                    (${parentRatingCount})
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+
+                    <c:if test="${reviewMap.reviewCount > 0}">
+                        <p>${reviewMap.reviewBlurb}...
+                            <br/><link:schoolProfileParentReview school="${school}" title="Read all reviews">
+                            <c:choose>
+                                <c:when test="${reviewMap.reviewCount eq 1}">Read the full review &#62;</c:when>
+                                <c:otherwise>Read all ${reviewMap.reviewCount} reviews &#62;</c:otherwise>
+                            </c:choose>
+                        </link:schoolProfileParentReview >
+                        </p>
+                    </c:if>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 </jsp:root>
