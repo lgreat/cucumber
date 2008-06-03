@@ -73,7 +73,7 @@
         </school:profile>
 
         <mod:tracking pageName="${pagename}"
-                      hier1="Schools,Parent Survey,School Level Select Page"/>
+                      hier1="School,Parent Survey,School Level Select Page"/>
     </body>
     </html>
 </jsp:root>
