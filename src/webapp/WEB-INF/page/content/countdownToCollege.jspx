@@ -279,7 +279,9 @@
             <ad:BelowFold_Top_300x125 blurb="Countdown to College Sponsored By:"/>
         </c:when>
         <c:otherwise>
-            <div id="bottomAdFiller" style="height:140px;"/>
+            <div id="bottomAdFiller" style="height:140px;">
+                <!--comment to avoid collapsing div-->
+            </div>
         </c:otherwise>
     </c:choose>
 </td>
