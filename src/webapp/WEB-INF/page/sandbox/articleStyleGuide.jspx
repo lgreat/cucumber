@@ -8,49 +8,60 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0" >
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>GreatSchools Editorial Style Guide</title>
     <link rel="stylesheet" type="text/css" href="/res/css/content/article.css"/>
     <link rel="stylesheet" type="text/css" href="/res/css/content/articleNew.css"/>
 
-      <style type="text/css">
+    <!-- These stylesheets are added by the standard decorator -->
+    <link rel="stylesheet" type="text/css" href="/res/css/global.css"/>
+    <link rel="stylesheet" type="text/css" href="/res/css/topnav.css"/>
+    <link rel="stylesheet" type="text/css" href="/res/css/frame.css"/>
+    <link rel="stylesheet" type="text/css" href="/res/css/footer.css"/>
+    <link rel="stylesheet" type="text/css" href="/res/css/ads.css"/>
 
+      <style type="text/css">
         body {
             background-color:#FFFFFF;
-            width: 1000px;
+            width: 1050px;
             margin: 0 auto;
             border: 0;
         }
-
         div#intro {
             margin:0 30px 20px 145px;
         }
-
         div#main {
             font-family: Arial, Helvetica, sans-serif;
         }
-        
         div#toc{
-        float:left;
+            float:left;
+            width:185px;
         }
-
+        div#toc ul {
+            line-height:15px;
+            padding:0;
+        }
+        /*div#toc ul, div#toc li {*/
+            /*list-style-position:outside;*/
+        /*}*/
         div#main div#article-main {
-            margin-left:115px;
+            margin-left:165px;
         }
-
         div.style {
             border:1px solid;
             margin:auto 30px 20px;
             padding:10px;
             background:#CCCCCC;
         }
-
         div.style h3 {
             margin:0;
         }
-
         div.style div.style-description,
         div.style div.style-example,
         div.style div.style-code {
@@ -59,22 +70,18 @@
             margin:10px 0 0 0;
             background:#FFFFFF;
         }
-
         div.style span.sghead {
             font-size:12px;
             font-weight:bold;
             display:block;
         }
-
         div.style .screenshot img {
             border:1px solid;
             margin:10px;
         }
-
         pre {
             font-family:monospace;
         }
-
   </style>
 </head>
 <body>
@@ -88,29 +95,32 @@
 
   <div id="main">
   <div id="toc">
-    <a href="#article-title">Article Title</a><br/>
-    <a href="#abstract">Abstract</a><br/>
-
-    <a href="#abstractPartner">Abstract Partner Logo</a><br/>
-    <a href="#paragraphs">Paragraphs</a><br/>
-    <a href="#byline">By Line</a><br/>
-    <a href="#caption">Caption</a><br/>
-    <a href="#headline">"More On" Headline</a><br/>
-    <a href="#moreon">"More On" Section</a><br/>
-    <a href="#microsite">"More On" Microsite Link</a><br/>
-    <a href="#header_1">Header 1</a><br/>
-    <a href="#header_2">Header 2</a><br/>
-    <a href="#header_3">Header 3</a><br/>
-    <a href="#spanish-link">Spanish Link</a><br/>
-    <a href="#blue-module">Blue Module</a><br/>
-    <a href="#leftSidebar">Left Sidebar</a><br/>
-
-    <a href="#rightSidebar">Right Sidebar</a><br/>
-    <a href="#pullQuote">Pull Quote</a><br/>
-    <a href="#leftImage">Left Image</a><br/>
-    <a href="#rightImage">Right Image</a><br/>
-    <a href="#expertImage">Expert Image</a><br/>
-    <!--<a href="#green-module">Green Module</a><br/>-->
+      <ul>
+          <li><a href="#article-title">Article Title</a></li>
+          <li><a href="#abstract">Abstract</a></li>
+          <li><a href="#abstractPartner">Abstract Partner Logo</a></li>
+          <li><a href="#paragraphs">Paragraphs</a></li>
+          <li><a href="#byline">By Line</a></li>
+          <li><a href="#caption">Caption</a></li>
+          <li><a href="#headline">"More On" Headline</a></li>
+          <li><a href="#moreon">"More On" Section</a></li>
+          <li><a href="#microsite">"More On" Microsite Link</a></li>
+          <li><a href="#header_1">Header 1</a></li>
+          <li><a href="#header_2">Header 2</a></li>
+          <li><a href="#header_3">Header 3</a></li>
+          <li><a href="#spanish-link">Spanish Link</a></li>
+          <li><a href="#blue-module">Blue Module</a></li>
+          <li><a href="#leftSidebar">Left Sidebar</a></li>
+          <li><a href="#rightSidebar">Right Sidebar</a></li>
+          <li><a href="#pullQuote">Pull Quote</a></li>
+          <li><a href="#leftImage">Left Image</a></li>
+          <li><a href="#rightImage">Right Image</a></li>
+          <li><a href="#expertImage">Expert Image</a></li>
+          <li><a href="#orderedList">Ordered List</a></li>
+          <li><a href="#unorderedList">Unordered List</a></li>
+          <li><a href="#references">References</a></li>
+          <!--<a href="#green-module">Green Module</a><br/>-->
+      </ul>
   </div>
 
   <div id="article-main">
@@ -155,7 +165,9 @@
         <span class="sghead">code:</span>
           <pre>
               <![CDATA[
-          Here's how you can help your student plan for the future.
+          &lt;p&gt;
+              Here's how you can help your student plan for the future.
+          &lt;/p&gt;
           &lt;div class="partner"&gt;
               &lt;a href="http://www.collegeboard.com" target="_blank"&gt;
                   &lt;img src="/res/img/content/countdownToCollege/collegeboard_logo.gif"
@@ -168,17 +180,18 @@
       </div>
       <div class="style-example">
         <span class="sghead">example:</span>
-          <p class="abstract">
-              Here's how you can help your student plan for the future.
+          <div class="abstract">
+              <p>
+                  Here's how you can help your student plan for the future.
+              </p>
               <![CDATA[
               <div class="partner">
-
                   <a href="http://www.collegeboard.com" target="_blank">
                       <img src="/res/img/content/countdownToCollege/collegeboard_logo.gif" alt="The College Board" border="0"/>
                   </a>
               </div>
               ]]>
-          </p>
+          </div>
       </div>
     </div>
 
@@ -281,15 +294,22 @@ than others or who just don't fit in.</div>
     &lt;div class=&quot;paragraph&quot;&gt;
         &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
         &lt;ul&gt;
-            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/cgi-bin/showarticle/477/&quot;&gt;Go Online for Homework Help&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/cgi-bin/showarticle/586/&quot;&gt;How Much Homework is Too Much?&lt;/a&gt;
+            &lt;/li&gt;
         &lt;/ul&gt;
     &lt;/div&gt;
     &lt;div class=&quot;paragraph&quot;&gt;
         &lt;span class=&quot;headline&quot;&gt;Related Links&lt;/span&gt;
         &lt;ul&gt;
-            &lt;li&gt;&lt;a href=&quot;http://www.englishcompanion.com/Tools/notemaking.html&quot; target=&quot;_blank&quot;&gt;Jim Burke's English Companion&lt;/a&gt; &lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;http://www.englishcompanion.com/Tools/notemaking.html&quot;
+                            target=&quot;_blank&quot;&gt;Jim Burke's English Companion&lt;/a&gt; &lt;/li&gt;
         &lt;/ul&gt;
     &lt;/div&gt;
 &lt;/div&gt;
@@ -331,7 +351,8 @@ than others or who just don't fit in.</div>
         &lt;ul&gt;
             &lt;li&gt;&lt;a href=&quot;/cgi-bin/showarticle/701/&quot;&gt;How to Take Great Notes&lt;/a&gt;&lt;/li&gt;
             &lt;li class="microsite"&gt;Learn more about how to help
-              &lt;a href="/content/specialNeeds.page"&gt;your child with special needs&lt;/a&gt;.&lt;/li&gt;
+              &lt;a href="/content/specialNeeds.page"&gt;your child with special needs&lt;/a&gt;.
+            &lt;/li&gt;
         &lt;/ul&gt;
     &lt;/div&gt;
 &lt;/div&gt;
@@ -877,15 +898,15 @@ etc.
                  Some Really, really long text that is likely to wrap to the next
                  line.  Here we go running away from ourselves.  Are we there yet?
                  It keeps going and going.  Then it repeats. Some Really, really
-                 long text that is likely to wrap to the next line.  Here we go running
-                 away from ourselves.  Are we there yet?  ...
+                 long text that is likely to wrap to the next line.  Here we go
+                 running away from ourselves.  Are we there yet?  ...
               &lt;/span&gt;&lt;/li&gt;
           &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;
                  Some Really, really long text that is likely to wrap to the next
                  line.  Here we go running away from ourselves.  Are we there yet?
                  It keeps going and going.  Then it repeats. Some Really, really
-                 long text that is likely to wrap to the next line.  Here we go running
-                 away from ourselves.  Are we there yet?  ...
+                 long text that is likely to wrap to the next line.  Here we go 
+                 running away from ourselves.  Are we there yet?  ...
               &lt;/span&gt;&lt;/li&gt;
           &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
           &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
@@ -950,15 +971,15 @@ etc.
                  Some Really, really long text that is likely to wrap to the next
                  line.  Here we go running away from ourselves.  Are we there yet?
                  It keeps going and going.  Then it repeats. Some Really, really
-                 long text that is likely to wrap to the next line.  Here we go running
-                 away from ourselves.  Are we there yet?  ...
+                 long text that is likely to wrap to the next line.  Here we go
+                  running away from ourselves.  Are we there yet?  ...
               &lt;/span&gt;&lt;/li&gt;
           &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;
                  Some Really, really long text that is likely to wrap to the next
                  line.  Here we go running away from ourselves.  Are we there yet?
                  It keeps going and going.  Then it repeats. Some Really, really
-                 long text that is likely to wrap to the next line.  Here we go running
-                 away from ourselves.  Are we there yet?  ...
+                 long text that is likely to wrap to the next line.  Here we go
+                  running away from ourselves.  Are we there yet?  ...
               &lt;/span&gt;&lt;/li&gt;
           &lt;li&gt;&lt;span class=&quot;liText&quot;&gt;Some Text&lt;/span&gt;&lt;/li&gt;
   &lt;/ul&gt;

@@ -10,7 +10,8 @@ ol{
 ol span.liText,
 ul span.liText {
     font-weight: normal;
-   padding-left: .7em;
+    padding-left: .7em;
+    display:block;
 }
 
 .contentGS .articlecopy ul,
@@ -111,7 +112,7 @@ div#more-about {
 
 span.headline {
     font-family:"Trebuchet MS", Helvetica, sans-serif;
-    font-size:18px;
+    font-size:15px;
     font-weight:bold;
     color:#99CC66;
 }
@@ -120,6 +121,7 @@ div#more-about ul,
 div#more-about ol{
     margin:10px 0 0 0;
     padding:0;
+    line-height:10px;
 }
 
 div#more-about li {
@@ -127,7 +129,16 @@ div#more-about li {
     padding: 0 0 2px 10px;
     background-image: url("/res/img/content/article/greenarrow.gif");
     background-repeat: no-repeat;
-    background-position: 0 .9ex;
+    background-position: 0 0.1ex;
+    font-size: 9.75pt;
+}
+
+div#more-about li a {
+    text-decoration:none;
+}
+
+div#more-about li a:hover {
+    text-decoration:underline;                       
 }
 
 div.blueModule {
@@ -386,7 +397,7 @@ div.pullQuote div.attribute{
 }
 
 li, .contentGS li {
-    list-style-position: inside;
+    list-style-position: outside;
     margin-bottom: 10px;
 }
 
@@ -549,3 +560,14 @@ div.articleCopyright {
 	div.articleCopyright div.dotted-divider {
 		margin-top: 10px;
 	}
+
+div#references {
+    font-size:12px;
+    line-height:17px;
+    color:#444444;
+}
+
+div#references li {
+    list-style:square;
+}
+
