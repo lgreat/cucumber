@@ -2,6 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.*;
 import gs.data.util.DigestUtil;
+import gs.data.util.table.ITableDao;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.data.state.State;
@@ -38,6 +39,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
     private IUserDao _userDao;
     private IGeoDao _geoDao;
+    private ITableDao _tableDao;
     private ISubscriptionDao _subscriptionDao;
     private JavaMailSender _mailSender;
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
@@ -48,6 +50,7 @@ public class RegistrationController extends SimpleFormController implements Read
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
     public static final String TERMS_PARAMETER = "termsStr";
     public static final String BETA_PARAMETER = "betaStr";
+    public static final String SPREADSHEET_ID_FIELD = "ip";
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -116,6 +119,19 @@ public class RegistrationController extends SimpleFormController implements Read
                                  HttpServletResponse response,
                                  Object command,
                                  BindException errors) throws Exception {
+
+        // First, check to see if the request is from a blocked IP address. If so,
+        // then, log the attempt and show the error view.
+        String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
+        if (StringUtils.isBlank(requestIP)) {
+            requestIP = request.getRemoteAddr();
+        }
+
+        if (_tableDao.getFirstRowByKey(SPREADSHEET_ID_FIELD, requestIP) != null) {
+            _log.warn("Request from blocked IP Address: " + requestIP);
+            return new ModelAndView(getErrorView());
+        }
+
         UserCommand userCommand = (UserCommand) command;
         User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
 
@@ -353,5 +369,13 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setSoapRequest(CreateOrUpdateUserRequest soapRequest) {
         _soapRequest = soapRequest;
+    }
+
+    public ITableDao getTableDao() {
+        return _tableDao;
+    }
+
+    public void setTableDao(ITableDao tableDao) {
+        _tableDao = tableDao;
     }
 }

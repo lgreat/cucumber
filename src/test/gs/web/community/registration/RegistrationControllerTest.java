@@ -3,7 +3,7 @@ package gs.web.community.registration;
 import gs.data.community.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.web.util.UrlBuilder;
+import gs.web.util.google.GoogleSpreadsheetDaoFactory;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.geo.IGeoDao;
 import gs.data.soap.CreateOrUpdateUserRequest;
@@ -68,6 +68,17 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _controller.setSuccessView(SUCCESS_VIEW);
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.setAuthenticationManager(_authenticationManager);
+
+
+         GoogleSpreadsheetDaoFactory tableDaoFactory =
+                (GoogleSpreadsheetDaoFactory)getApplicationContext().
+                        getBean("communityRegistrationTableFactory");
+        tableDaoFactory.setGoogleKey("pYwV1uQwaOCKLqeupJ7WqXA");
+        tableDaoFactory.setVisibility("public");
+        tableDaoFactory.setProjection("values");
+        tableDaoFactory.setWorksheetName("od7");
+
+        _controller.setTableDao(tableDaoFactory.getTableDao());
 
         RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
                 getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
@@ -258,6 +269,37 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         verify(_subscriptionDao);
         verify(_soapRequest);
+    }
+
+    public void testIPAddressBlockingWithAttributeOnly() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        setupRegistrationTest(userCommand);
+        getRequest().setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "1.2.3.4");
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+        assertEquals("Error view should be returned when the request is from a blocked IP.",
+                _controller.getErrorView(), mAndV.getViewName());
+    }
+
+    public void testIPAddressBlockingWithRequestIPOnly() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        setupRegistrationTest(userCommand);
+        getRequest().setRemoteAddr("127.0.0.1");
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+        assertTrue ("Request from valid IP address should return non-error viewname",
+                mAndV.getViewName().contains("redirect:http://community.greatschools.net"));
+    }
+
+    public void testIPAddressBlockingRegistrationWithValidRequestIPandBlockedAttributeIP () throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        setupRegistrationTest(userCommand);
+        getRequest().setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "1.2.3.4");
+        getRequest().setRemoteAddr("127.0.0.1");
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+        assertEquals("Error view should be returned when the request is from a blocked IP.",
+                _controller.getErrorView(), mAndV.getViewName());
     }
 
     public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {

@@ -526,6 +526,12 @@
     </bean>
     <!-- End Conversion pages -->
 
+    <!--
+    <bean name="/api/"
+          class="gs.web.api.ApiController"
+          autowire="byName" lazy-init="true"/>
+    -->
+    
     <bean name="/path/compareEntry.page"
           class="gs.web.path.CompareEntryController" lazy-init="true"/>
 
@@ -965,6 +971,15 @@
     </bean>
     <!--End Myschool stats newsletter popups -->
 
+    <!-- Factory to be used by /community/registration.page -->
+    <bean id="communityRegistrationTableFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pYwV1uQwaOCKLqeupJ7WqXA"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+        <property name="worksheetName" value="od7"/>
+    </bean>
+
     <!--Begin Registration pages -->
     <bean name="/community/registration.page"
           class="gs.web.community.registration.RegistrationController"
@@ -984,6 +999,9 @@
             <ref bean="mailSender"/>
         </property>
         <property name="requireEmailValidation" value="false"/>
+        <property name="tableDao">
+            <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
+        </property>
     </bean>
 
     <bean name="/community/registration2.page"
