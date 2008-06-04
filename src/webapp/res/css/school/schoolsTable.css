@@ -35,3 +35,11 @@ form#searchfilterform div label a,
     color: #666666;
     text-decoration: none;
 }
+
+div#compareInCity div#head div#headText {
+    line-height: 18px;
+}
+
+div#col_right div#compareInCity div#headWrap {
+    height: auto;
+}

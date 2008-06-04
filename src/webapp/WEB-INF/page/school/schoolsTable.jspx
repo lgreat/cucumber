@@ -12,6 +12,7 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
@@ -393,7 +394,16 @@
         <c:set var="slotPrefix" value="Search_All_Cities"/>
     </c:if>
     <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
-    <ad:Top_300x137/>
+    <c:choose>
+        <c:when test="${not empty param.city}">
+            <school:compareInCity city="${cityName}" state="${state}"/>
+        </c:when>
+        <c:otherwise>
+            <school:compareInDistrict district="${district}" state="${state}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <!--<ad:Top_300x137/>-->
     <ad:AboveFold_300x600/>
 
     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">

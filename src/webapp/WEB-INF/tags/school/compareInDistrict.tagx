@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+
+    <jsp:directive.attribute name="district" required="true" description="Id of the distrct" type="java.lang.Integer"/>
+    <jsp:directive.attribute name="state" required="true" description="2-letter state abrev" type="java.lang.String"/>
+
+    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
+
+    <script type="text/javascript">
+        <![CDATA[
+        //<!--
+        function goCompare() {
+            var path = "/cgi-bin/cs_compare/";
+            var state = "${state}";
+            path += state.toLowerCase();
+            path += "/?tab=over&area=d&district=";
+            var level = "e"; // default
+            var levelRadios = $$('input.level');
+            path += "${district}"
+            path += "&level=";
+            for(var i = 0; i != 3; i++) {
+                var inp = levelRadios[i];
+                if (inp.checked) {
+                     level = inp.value;
+                }
+            }
+            path += level;
+            window.location.href = path;
+        }
+        //-->
+        //http://www.greatschools.net/cgi-bin/cs_compare/ca/?level=e&area=d&district=1&sortby=name&tab=over&x=37&y=15
+        ]]>
+    </script>
+    <pageHelper:externalCss file="/res/css/school/compareInDistrict.css"/>
+
+    <div id="compareInCity">
+        <div id="headWrap">
+            <div id="head">
+                <div id="headText">
+                    Compare Schools in this District
+                </div>
+            </div>
+            <gsml:img src="/res/img/compareShort.gif" alt="magnifying glass"/>
+        </div>
+
+        <div id="level_radios">
+            <input name="level_group" class="level" id="eRadio" type="radio" value="e" checked="checked" />
+            <label for="eRadio">Elementary</label><br/>
+            <input name="level_group" class="level" id="mRadio" type="radio" value="m" />
+            <label for="mRadio">Middle</label><br/>
+            <input name="level_group" class="level" id="hRadio" type="radio" value="h" />
+            <label for="hRadio">High</label>
+        </div>
+
+        <c:set var="submit_normal_img" value="/res/img/school/overview/submit_compare.gif"/>
+        <gsml:inputImage src="${submit_normal_img}" alt="Compare" styleClass="submit" onclick="goCompare();"/>
+    </div>
+</jsp:root>

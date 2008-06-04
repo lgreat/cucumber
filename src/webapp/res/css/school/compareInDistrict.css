@@ -1,0 +1,6 @@
+@import url("/res/css/school/compareInCity.css");
+
+div#compareInCity div#head div#headText {
+    width: 260px;
+    height: 30px;
+}
