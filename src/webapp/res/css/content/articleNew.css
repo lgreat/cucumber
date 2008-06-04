@@ -101,7 +101,7 @@ div.dotted-divider hr {
 div.dotted-divider {
     height:5px;
     border:0;
-    margin:20px 0 20px 0;
+    margin:15px 0 15px 0;
     background-image: url("/res/img/splash/greyDot.gif");
     background-repeat: repeat-x;
 }
@@ -112,7 +112,7 @@ div#more-about {
 
 span.headline {
     font-family:"Trebuchet MS", Helvetica, sans-serif;
-    font-size:15px;
+    font-size:15.5px;
     font-weight:bold;
     color:#99CC66;
 }
@@ -549,6 +549,7 @@ div.articleCopyright {
 	font-weight: normal;
 	font-size: 13px;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
+    line-height:17px;
 }
 
 	div.articleCopyright div.text {
@@ -561,10 +562,20 @@ div.articleCopyright {
 		margin-top: 10px;
 	}
 
-div#references li {
+div#references {
+    border-top:2px solid #E1EED0;
+    padding-top:10px;
+}
+
+div#references ol, div#references ul {
+    margin-top:2px;
+}
+
+div#references li, div#references span.subheader {
     font-size:12px;
     line-height:17px;
     color:#444444;
+    margin-bottom:0;
 }
 
 div#references li {
