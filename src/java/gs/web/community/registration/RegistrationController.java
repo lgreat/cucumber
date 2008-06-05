@@ -126,10 +126,13 @@ public class RegistrationController extends SimpleFormController implements Read
         if (StringUtils.isBlank(requestIP)) {
             requestIP = request.getRemoteAddr();
         }
-
-        if (_tableDao.getFirstRowByKey(SPREADSHEET_ID_FIELD, requestIP) != null) {
-            _log.warn("Request from blocked IP Address: " + requestIP);
-            return new ModelAndView(getErrorView());
+        try {
+            if (_tableDao.getFirstRowByKey(SPREADSHEET_ID_FIELD, requestIP) != null) {
+                _log.warn("Request from blocked IP Address: " + requestIP);
+                return new ModelAndView(getErrorView());
+            }
+        } catch (Exception e) {
+            _log.warn("Error checking IP address", e);
         }
 
         UserCommand userCommand = (UserCommand) command;

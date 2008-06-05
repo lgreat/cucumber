@@ -43,6 +43,13 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
     }
 
     public void testGetFirstRowByKey() {
+        try {
+            _dao.getFirstRowByKey("code", null);
+            fail("IllegalArgumentException should be thrown when keyValue argument is null");
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
         ITableRow row = _dao.getFirstRowByKey("code", "school/rating.page");
 
         assertEquals("Other than the education one receives - what makes a school \"great\"?",

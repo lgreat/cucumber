@@ -291,7 +291,17 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
                 mAndV.getViewName().contains("redirect:http://community.greatschools.net"));
     }
 
-    public void testIPAddressBlockingRegistrationWithValidRequestIPandBlockedAttributeIP () throws Exception {
+    public void testIPAddressBlockingWithNoIP() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        setupRegistrationTest(userCommand);
+        getRequest().setRemoteAddr(null);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+        assertTrue ("Request from no IP address should return non-error viewname",
+                mAndV.getViewName().contains("redirect:http://community.greatschools.net"));
+    }
+
+    public void testIPAddressBlockingWithValidRequestIPandBlockedAttributeIP () throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         setupRegistrationTest(userCommand);
