@@ -12,6 +12,17 @@
 
     <c:set var="results" value="${schools}"/>
 
+    <![CDATA[
+      <!--[if IE]>
+        <style type="text/css">
+            .compare_schools_row .compare_checkbox {
+                top: 2px;
+                margin-right: -2px;
+            }
+        </style>
+      <![endif]-->
+    ]]>
+
     <div id="searchResultsHeader" class="cleared">
         <div id="schoolResultsHeader">
             School Name
@@ -23,6 +34,8 @@
             Parent Rating
         </div>
     </div>
+    <form method="get" action="/compareSchools.page">
+        <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <div id="searchResultsList">
         <c:forEach var="schoolResult" items="${results}" >
             <c:set var="school" value="${schoolResult.school}"/>
@@ -69,7 +82,18 @@
 &street=2201+Encinal+Ave.
 &tab=over
 &zip=94501-->
-                            <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
+                            <div class="compare_schools_row">
+                                <gsml:checkbox
+                                        name="sc"
+                                        value="${requestScope.context.stateOrDefault.abbreviation}${school.id}"
+                                        styleClass="compare_checkbox"
+                                        styleId="compare_schools_${school.id}"
+                                        onclick="try {evaluateCheckboxes();} catch (e) {alert(e.name + ':' + e.message);}"/>
+                                <label class="compare_label" id="compare_schools_label_${school.id}" for="compare_schools_${school.id}"> Compare schools</label>
+                                <label class="compare_error" id="compare_schools_error_${school.id}" for="compare_schools_${school.id}" style="display: none;"> Check two or more schools to compare</label>
+                                <span class="compare_submit" id="compare_schools_submit_${school.id}" style="display: none;"> <input type="image" name="compare" src="/res/img/button/compare_schools.gif" alt="Compare Selected Schools"/></span>
+                            </div>
+                            <!--<link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>-->
                         </div>
                     </c:if>
                 </div>
@@ -120,4 +144,5 @@
             </div>
         </c:forEach>
     </div>
+    </form>
 </jsp:root>

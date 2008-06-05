@@ -35,18 +35,13 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<c:set var="results" value="${requestScope.results}"/>
+<pageHelper:externalJavascript file="/res/js/schoolsCompare.js"/>
 
-<c:set var="queryStringNoMap">
-    <jsp:scriptlet>
-        String queryString = request.getQueryString();
-        if (queryString == null) {
-            queryString = "";
-        }
-
-        out.print(queryString);
-    </jsp:scriptlet>
-</c:set>
+<c:set var="cityName" value="${requestScope.cityName}"/>
+<c:set var="district" value="${requestScope.district}"/>
+<c:set var="cityDisplayName" value="${requestScope.cityDisplayName}"/>
+<c:set var="districtObject" value="${requestScope.districtObject}"/>
+<c:set var="heading1" value="${requestScope.heading1}"/>
 
 <jsp:scriptlet>
     gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
@@ -147,27 +142,6 @@
     <meta name="description" content="${metadesc}"/>
     <meta name="keywords" content="${metakey}"/>
     <title>${title}</title>
-
-    <![CDATA[
-       <script language="javascript" type="text/javascript">
-       <!--
-           function checkSelections() {
-               var checks = document.getElementsByTagName('input');
-
-               count = 0;
-               for (i=0;i < checks.length; i++) {
-                   if (checks.item(i).checked == true) {
-                       count++
-                   }
-               }
-               if (count == 0) {
-                   alert("Please select the checkbox for at least one school.");
-                   return false;
-               }
-           }
-       -->
-       </script>
-    ]]>
 
     <c:if test="${not requestScope.context.cobranded}">
         <style type="text/css">
@@ -280,7 +254,8 @@
                         <link:schools cityName="${cityName}"
                                       districtId="${district}"
                                       schoolType="${stOmniture}"
-                                      styleClass="noInterstitial">All Schools</link:schools>
+                                      styleClass="noInterstitial"
+                                      showAll="${not empty param.showall}">All Schools</link:schools>
                     </li>
                     <!-- Commenting out preschool tab until preschools are live.
                          Uncommenting this block should be all that is required -->
@@ -289,28 +264,32 @@
                         <link:schools cityName="${cityName}"
                                       districtId="${district}"
                                       levelCode="p"
-                                      styleClass="noInterstitial">Preschool</link:schools>
+                                      styleClass="noInterstitial"
+                                      showAll="${not empty param.showall}">Preschool</link:schools>
                     </li>
                     <li class="${eTabClass}">
                         <link:schools cityName="${cityName}"
                                       districtId="${district}"
                                       schoolType="${stOmniture}"
                                       levelCode="e"
-                                      styleClass="noInterstitial">Elementary</link:schools>
+                                      styleClass="noInterstitial"
+                                      showAll="${not empty param.showall}">Elementary</link:schools>
                     </li>
                     <li class="${mTabClass}">
                         <link:schools cityName="${cityName}"
                                       districtId="${district}"
                                       schoolType="${stOmniture}"
                                       levelCode="m"
-                                      styleClass="noInterstitial">Middle</link:schools>
+                                      styleClass="noInterstitial"
+                                      showAll="${not empty param.showall}">Middle</link:schools>
                     </li>
                     <li class="tabright ${hTabClass}">
                         <link:schools cityName="${cityName}"
                                       districtId="${district}"
                                       schoolType="${stOmniture}"
                                       levelCode="h"
-                                      styleClass="noInterstitial">High</link:schools>
+                                      styleClass="noInterstitial"
+                                      showAll="${not empty param.showall}">High</link:schools>
                     </li>
                 </ul>
             </div>
@@ -325,7 +304,8 @@
                                 cityName="${cityName}"
                                 districtId="${district}"
                                 schoolType="${pubCheckbox}"
-                                levelCode="${param.lc}"> Public</link:schools></label>
+                                levelCode="${param.lc}"
+                                showAll="${not empty param.showall}"> Public</link:schools></label>
                         <label><gsml:checkbox name="type_schools[]"
                                               checked="${charterChecked}"
                                               styleId="type_schools_charter"
@@ -333,7 +313,8 @@
                                 cityName="${cityName}"
                                 districtId="${district}"
                                 schoolType="${chaCheckbox}"
-                                levelCode="${param.lc}"> Charter</link:schools></label>
+                                levelCode="${param.lc}"
+                                showAll="${not empty param.showall}"> Charter</link:schools></label>
                         <label><gsml:checkbox name="type_schools[]"
                                               checked="${privateChecked}"
                                               styleId="type_schools_private"
@@ -341,7 +322,8 @@
                                 cityName="${cityName}"
                                 districtId="${district}"
                                 schoolType="${priCheckbox}"
-                                levelCode="${param.lc}"> Private</link:schools></label>
+                                levelCode="${param.lc}"
+                                showAll="${not empty param.showall}"> Private</link:schools></label>
                     </div>
                 </form>
             </c:if>
@@ -353,6 +335,11 @@
                     <c:set var="px" value="${(page * pageSize)}"/>
                     <strong>${px + 1} - ${(results.total lt px + pageSize) ? (results.total) : (px + pageSize)}</strong>
                     of <strong>${results.total}</strong>
+                <c:if test="${results.total gt pageSize}">
+                    <link:schools cityName="${cityName}" districtId="${district}"
+                                  schoolType="${stOmniture}" levelCode="${param.lc}"
+                                  styleClass="showAll" showAll="true"> Show All &gt;</link:schools>
+                </c:if>
             </div>
         </c:if>
     </c:if>
@@ -424,123 +411,6 @@
 </div>
 
 <br clear="left"/>
-
-
-
-
-
-
-<!--<table id="main" width="100%" cellspacing="0"><tr>-->
-    <!--<td class="leftcol" id="leftsearchcolumn" valign="top">-->
-        <!--<div class="filters">-->
-            <!--<jsp:include page="/search/schoolFilters.module?${pageContext.request.queryString}"/>-->
-        <!--</div>-->
-
-        <!--<c:if test="${requestScope.context.cobrand ne 'yahooed'}">-->
-            <!--<c:if test="${param.map ne 1 and results.total gt 0}">-->
-                <!--<div class="mapIt"><p>-->
-                    <!--<gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">-->
-                        <!--<gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>-->
-                        <!--<br/><br/>See results on our<br />interactive local map-->
-                    <!--</gsml:a></p>-->
-                <!--</div>-->
-            <!--</c:if>-->
-            <!--<c:if test="${param.map eq 1 }">-->
-                <!--<div class="mapIt">-->
-                    <!--<gsml:a href="/schools.page?map=0&amp;${queryStringNoMap}">-->
-                        <!--<gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>-->
-                        <!--<h4>Hide Map</h4>-->
-                    <!--</gsml:a>-->
-                <!--</div>-->
-            <!--</c:if>-->
-        <!--</c:if>-->
-        <!--<pageHelper:externalCss file="/res/css/mod/browseState.css"/>-->
-        <!--<div id="browseStateControl">-->
-            <!--<mod:browseState state="${state}"/>-->
-        <!--</div>-->
-    <!--</td>-->
-    <!--<td valign="top" class="middleColumn">-->
-
-        <!--<gsweb:form action="/compareSchools.page" method="get">-->
-            <!--<input type="hidden" name="state" value="${state}}"/>-->
-
-            <!--<gsweb:schoolTableHeader total="${results.total}"-->
-                                     <!--srcQuery="${pageContext.request.queryString}"-->
-                                     <!--showAll="${results.showAll}"-->
-                                     <!--cityName="${cityName}"-->
-                                     <!--cityDisplayName="${cityDisplayName}"-->
-                                     <!--districtId="${district}"-->
-                                     <!--pageSize="${results.pageSize}"-->
-                                     <!--schoolType="${st}"-->
-                                     <!--levelCode="${lc}"-->
-                    <!-->-->
-            <!--</gsweb:schoolTableHeader>-->
-
-            <!--<c:if test="${requestScope.context.cobrand ne 'yahooed'}">-->
-                <!--<c:if test="${results.total gt 0}">-->
-                    <!--<c:if test="${param.map eq 1}">-->
-                        <!--<div style="width:100%; text-align:right; padding-right: 5px;  font-size: small;font-weight:bold">-->
-                            <!--<gsml:a href="/schools.page?map=0&amp;${queryStringNoMap}">Hide Map</gsml:a>-->
-                        <!--</div>-->
-
-                        <!--<div id="mapContainer">-->
-                            <!--<![CDATA[-->
-                            <!--<script type="text/javascript">document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>')</script>-->
-                            <!--]]>-->
-                            <!--<noscript>In order to view this map, enable JavaScript in your browser.</noscript>-->
-                        <!--</div>-->
-                        <!--<map:schools id="map"-->
-                                     <!--bubbles="true"-->
-                                     <!--schools="${results.schools}"/>-->
-                    <!--</c:if>-->
-                    <!--<c:if test="${param.map eq 5}">-->
-                        <!--<div style="border: 1px solid #999; border-width: 1px 0 1px 0; font-size: small;">-->
-                            <!--<table width="100%" cellpadding="0" cellspacing="0">-->
-                                <!--<tr>-->
-                                    <!--<td rowspan="2">-->
-                                        <!--<gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">-->
-                                            <!--<gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>-->
-                                        <!--</gsml:a>-->
-                                    <!--</td>-->
-                                    <!--<td style="text-align:right; padding-right: 5px; font-weight:bold">-->
-                                        <!--<gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">Show-->
-                                            <!--Map</gsml:a>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<td style="padding-left: 15px; padding-bottom: 4px; font-weight: bold">See your-->
-                                        <!--results on our interactive local map-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                            <!--</table>-->
-                        <!--</div>-->
-                    <!--</c:if>-->
-                <!--</c:if>-->
-            <!--</c:if>-->
-            <!--<gsweb:schoolTable schools="${results.schools}"-->
-                               <!--total="${results.total}"-->
-                               <!--srcQuery="${pageContext.request.queryString}"-->
-                               <!--showAll="${results.showAll}"-->
-                               <!--pageSize="${results.pageSize}"-->
-                               <!--schoolType="${st}"-->
-                               <!--levelCode="${lc}"-->
-                    <!-->-->
-                <!--<search:schoolTable schools="${results.schools}"/>-->
-            <!--</gsweb:schoolTable>-->
-        <!--</gsweb:form>-->
-    <!--</td>-->
-    <!--<td class="rightcolumn" align="center">-->
-        <!--<c:set var="slotPrefix" value="Search_Site"/>-->
-        <!--<c:if test="${not empty param.city}">-->
-            <!--<c:set var="slotPrefix" value="Search_All_Cities"/>-->
-        <!--</c:if>-->
-        <!--<ad:setSlotPrefix slotPrefix="${slotPrefix}"/>-->
-        <!--<ad:Top_300x137/>-->
-        <!--<ad:AboveFold_300x600/>-->
-        <!--<ad:multiTextAd blurb="Advertiser Links"/>-->
-    <!--</td>-->
-<!--</tr>-->
-<!--</table>-->
 
 <c:if test="${not empty param.district}">
     <h1 id="sfooter" class="sfooter">${title}</h1>    

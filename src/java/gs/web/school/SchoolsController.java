@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.42 2008/06/03 19:44:30 aroy Exp $
+ * $Id: SchoolsController.java,v 1.43 2008/06/05 00:13:54 aroy Exp $
  */
 
 package gs.web.school;

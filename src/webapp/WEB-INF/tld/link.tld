@@ -271,6 +271,13 @@
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
         </attribute>
+        <attribute>
+            <name>showAll</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>True to show all results</description>
+        </attribute>
     </tag>
 
     <tag>

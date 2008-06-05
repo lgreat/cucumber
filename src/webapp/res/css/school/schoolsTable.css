@@ -43,3 +43,13 @@ div#compareInCity div#head div#headText {
 div#col_right div#compareInCity div#headWrap {
     height: auto;
 }
+
+.compare_schools_row .compare_error {
+    color: #cc5566;
+}
+
+.compare_schools_row .compare_checkbox {
+    position: relative;
+    top: -1px;
+}
+
