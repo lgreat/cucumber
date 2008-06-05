@@ -251,19 +251,21 @@
                 <ad:AboveFold_300x250/>
             </td>
         </tr>
-        <c:if test="${not empty requestScope.topRatedSchools}">
-            <tr>
-                <td>
-                    <div class="featuredArticles">
-                        <h2>Most Popular Articles</h2>
-                        <jsp:include
-                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
-                        <jsp:include
-                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
-                    </div>
-                </td>
-            </tr>
-        </c:if>
+        <variant:a>
+            <c:if test="${not empty requestScope.topRatedSchools}">
+                <tr>
+                    <td>
+                        <div class="featuredArticles">
+                            <h2>Most Popular Articles</h2>
+                            <jsp:include
+                                    page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
+                            <jsp:include
+                                    page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
+                        </div>
+                    </td>
+                </tr>
+            </c:if>
+        </variant:a>
         <variant:b>
             <tr>
                 <td>

@@ -1,6 +1,7 @@
 div#compareInCity {
     border:2px solid #EEEEEE;
-    padding:2px 2px 8px 2px;
+    padding:2px 2px 10px 2px;
+    _padding:2px 2px 14px 2px;
     position:relative;
 }
 
@@ -34,8 +35,9 @@ div#compareInCity div#headWrap img {
 }
 
 div#level_radios {
-    padding:8px 10px 8px 18px;
+    padding:0 10px 0 18px;
     width:100px;
+    margin:0;
 }
 
 div#level_radios label {
@@ -45,6 +47,6 @@ div#level_radios label {
 
 div#compareInCity input.submit {
     position:absolute;
-    bottom:23px;
+    bottom:17px;
     right:60px;
 }
