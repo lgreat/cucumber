@@ -61,6 +61,13 @@
     <bean id="sessionContextUtil"
           class="gs.web.util.context.SessionContextUtil"
           autowire="byName">
+        <property name="omnitureSubCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="OmnitureTracking"/>
+                <property name="cookieDomain" value=".greatschools.net"/>
+
+            </bean>
+        </property>
         <property name="stateCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="STATE3"/>

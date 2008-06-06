@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.58 2008/03/14 00:30:35 aroy Exp $
+ * $Id: UrlUtil.java,v 1.59 2008/06/06 20:27:52 jnorton Exp $
  */
 
 package gs.web.util;
@@ -261,7 +261,7 @@ public final class UrlUtil {
     /**
      * Is this code running on a developers workstation?
      */
-    public boolean isDeveloperWorkstation(String hostName) {
+    public static boolean isDeveloperWorkstation(String hostName) {
         return hostName.indexOf("localhost") > -1 ||
                 hostName.indexOf("127.0.0.1") > -1 ||
                 hostName.matches("^172\\.21\\.1.*") ||

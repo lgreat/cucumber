@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.37 2008/04/10 18:15:28 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.38 2008/06/06 20:27:52 jnorton Exp $
  */
 
 package gs.web.util.context;
@@ -91,6 +91,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private StateManager _stateManager;
     private UrlUtil _urlUtil = new UrlUtil();
 
+    private CookieGenerator _omnitureSubCookieGenerator;
     private CookieGenerator _stateCookieGenerator;
     private CookieGenerator _memberIdCookieGenerator;
     private CookieGenerator _hasSearchedCookieGenerator;
@@ -351,6 +352,15 @@ public class SessionContextUtil implements ApplicationContextAware {
      */
     public void setHasSearched(HttpServletResponse response) {
         _hasSearchedCookieGenerator.addCookie(response, "true");
+    }
+
+
+    public void setOmnitureSubCookieGenerator(CookieGenerator cookieGenerator) {
+        _omnitureSubCookieGenerator = cookieGenerator;
+    }
+
+    public CookieGenerator getOmnitureSubCookieGenerator() {
+        return _omnitureSubCookieGenerator;
     }
 
     public void setStateCookieGenerator(CookieGenerator stateCookieGenerator) {

@@ -358,7 +358,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
          * set the events with Event10.
          */
         if (getPageIndexFromRequest(request) == 1 && responses.size() > 3 ){
-            SubCookie subCookie = new SubCookie("OmnitureTracking",request, response);
+            SubCookie subCookie = new SubCookie(request, response);
             subCookie.setProperty("events","event10;");
         }
 

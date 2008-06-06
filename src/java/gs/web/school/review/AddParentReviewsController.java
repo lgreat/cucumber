@@ -136,7 +136,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
         }
         if (omnitureEvents.length() > 0)    {
-            SubCookie subCookie = new SubCookie("OmnitureTracking",request, response);
+            SubCookie subCookie = new SubCookie(request, response);
             subCookie.setProperty("events",omnitureEvents);
         }
 
