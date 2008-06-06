@@ -160,7 +160,7 @@
             //s.prop13 is being set on the article.page to distinguish new and old articles
             s.prop13 = "${articleStyle}";
 
-            s.events = "${events}";
+            s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
 
             s.eVar1 = clickCapture.getEVar(1);

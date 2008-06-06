@@ -10,6 +10,7 @@ import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
+import gs.web.util.context.SubCookie;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -119,7 +120,26 @@ public class AddParentReviewsController extends SimpleFormController implements 
         }else if ("u".equals(r.getStatus())  && StringUtils.isNotBlank(r.getComments())) {
             sendMessage(user, r.getComments(), school, "communityEmail.txt");
         }
-        
+
+
+        String omnitureEvents = "";
+        //trigger the success events
+        if (CategoryRating.DECLINE_TO_STATE.equals(rc.getOverall()) || null == rc.getOverall()) {
+            // no joy
+        } else {
+            // set the parent rating success event!
+            omnitureEvents += "event8;";
+        }
+
+        if (StringUtils.isNotBlank(rc.getComments())) {
+            omnitureEvents += "event9;";
+
+        }
+        if (omnitureEvents.length() > 0)    {
+            SubCookie subCookie = new SubCookie("OmnitureTracking",request, response);
+            subCookie.setProperty("events",omnitureEvents);
+        }
+
 
         if (isAjaxPage()) {
             successJSON(response);

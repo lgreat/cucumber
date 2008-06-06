@@ -97,14 +97,90 @@ ClickCapture.prototype.getProp = function( index, overrideValue){
 
 ClickCapture.prototype.getEVar = function( index, overrideValue){
     return this.getVariable("eVar", index, overrideValue);
-}
+};
 
 ClickCapture.prototype.getEvents = function(pageEvents){
-
     // if pageEvents isn't null, merge it into the ones captured
+    var events = this.getVariable("events", "") ;
+    var result = this.mergeStringList(events, pageEvents);
+    return result;
 
-    
 } ;
+
+ClickCapture.prototype.arrayToString = function (a){
+    var result = "";
+    if (a == null){
+        return result;
+    }
+    for(var i=0; i < a.length; i++){
+        if (a[i].length > 0){
+            result += a[i];
+            result += ";";
+        }
+    }
+    return result;
+};
+
+ClickCapture.prototype.mergeStringList = function (a, b){
+    if (b == undefined && a == undefined){
+        return ""
+    }
+    if ( a != undefined && b == undefined ){
+        return a;
+    }
+    if ( b != undefined && a == undefined ){
+        return b;
+    }
+
+    var arrayA = a.split(";");
+    var arrayB = b.split(";");
+
+    var arrayResult =  this.mergeArrayList(arrayA, arrayB);
+    return this.arrayToString(arrayResult);
+};
+
+ClickCapture.prototype.mergeArrayList = function (a, b){
+    if (a == null && b == null){
+        return new Array();
+    }
+    if (a == null){
+        return b;
+    }
+    if (b == null){
+        return a;
+    }
+    if (a.length == 0){
+        return b;
+    }
+
+    if (b.length == 0) {
+        return a;
+    }
+
+    for (var i = 0; i < b.length ; i++){
+        if (!this.containsInArray(a, b[i])) {
+            a.push(b[i]);
+        }
+    }
+
+    return a;
+};
+
+ClickCapture.prototype.containsInArray = function (array, item){
+    if (array == null || item == null){
+        return false;
+    }
+    if (array.length == 0){
+        return false;
+    }
+    for (var i = 0; i< array.length; i++){
+        if (array[i] == item){
+            return true;
+        }
+    }
+    return false;
+}
+
 
 var customInsight9ClickEventHandler = function (e) {
      var obj = getNode(e);
@@ -114,7 +190,7 @@ var customInsight9ClickEventHandler = function (e) {
      //var idParts = id.split("__");
      //var mostSignificantPart = idParts[0];
      //clickCapture.capture("prop9",  mostSignificantPart);
- }
+ }  ;
 
  var evar5ClickEventHandler = function(e) {
      var obj = getNode(e);
@@ -122,7 +198,7 @@ var customInsight9ClickEventHandler = function (e) {
      var idParts = id.split("__");
      var mostSignificantPart = idParts[0];
      clickCapture.capture("eVar5",   mostSignificantPart);
- }
+ };
 
 
 
@@ -167,6 +243,14 @@ document.getElementsByClassName = function(cl) {
  * create an instance of ClickCapture
  */
 var clickCapture = new ClickCapture();
+
+
+
+
+
+
+
+
 
 
 

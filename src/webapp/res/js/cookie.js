@@ -31,7 +31,7 @@ var subCookie = {
         var result = new Array();
 
         //var debug = "";
-        for (var i in pairs)    {
+        for (var i = 0; i < pairs.length; i++ )    {
             var nameValue = pairs[i].split(subCookie.nameValueSeparator) ;
             result[nameValue[0]] = nameValue[1];
             //debug += "\n" +  nameValue[0] + " = " +  nameValue[1];
@@ -48,7 +48,7 @@ var subCookie = {
 
         //alert( "setObject() " + cookieName + ", " + subcookieObj);
         var cookieValue = '';
-		for (var i in subcookieObj)
+		for (var i=0; i < subcookieObj.length; i++)
 		{
 			cookieValue += i + subCookie.nameValueSeparator;
 			cookieValue += subcookieObj[i];

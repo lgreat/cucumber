@@ -20,6 +20,7 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SubCookie;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -30,7 +31,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.joda.time.DateTime;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -351,6 +351,16 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
         //user needs to have been populated before call to getResponses
         List<UserResponse> responses = urc.getResponses();
+
+        /**
+         * Omniture Success Event10
+         * When the user successuflly completes the first page and answers on question
+         * set the events with Event10.
+         */
+        if (getPageIndexFromRequest(request) == 1 && responses.size() > 3 ){
+            SubCookie subCookie = new SubCookie("OmnitureTracking",request, response);
+            subCookie.setProperty("events","event10;");
+        }
 
         if (isExistingUser) {
             if (!_surveyDao.hasTakenASurvey(user, school)) {
