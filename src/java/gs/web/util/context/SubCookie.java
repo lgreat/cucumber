@@ -28,16 +28,17 @@ public class SubCookie {
 	private static final String subcookieSeparator = "$$/$$";
     private static final String nameValueSeparatorRegEx = "\\$\\$:\\$\\$";
 	private static final String subcookieSeparatorRegEx = "\\$\\$/\\$\\$";
-    private Map<String, String> properties = new HashMap();
+    private Map<String, String> properties;
     private HttpServletRequest request;
     private HttpServletResponse response;
-    private UrlUtil urlUtil = new UrlUtil();
+
 
 
 
     public SubCookie(HttpServletRequest request, HttpServletResponse response){
         this.request = request;
         this.response = response;
+        readCookie();
     }
 
     public void setProperty(String property, String value){
@@ -53,6 +54,24 @@ public class SubCookie {
         properties.remove(property);
         writeCookie();
     }
+
+    protected void readCookie(){
+        properties = new HashMap<String, String>();
+
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        CookieGenerator generator = context.getSessionContextUtil().getOmnitureSubCookieGenerator();
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies == null) {
+            return;
+        }
+        for (Cookie thisCookie : cookies) {
+            if (generator.getCookieName().equals(thisCookie.getName())){
+                properties = decodeProperties(thisCookie);
+            }
+        }
+    }
+
 
     protected void writeCookie() {
         String cookieValue = encodeProperties(this.properties);
@@ -94,6 +113,8 @@ public class SubCookie {
     }
 
     protected static Map<String, String> decodeProperties(Cookie cookie) {
+         _log.info("SubCookie.decodeProperties: " + cookie.getValue());
+      
         Map<String, String> decodedProperties = new HashMap<String, String>();
         String value = cookie.getValue();
         String[] keyValuePairs = value.split(subcookieSeparatorRegEx);
