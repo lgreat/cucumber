@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.25 2008/02/26 17:44:51 cpickslay Exp $
+ * $Id: SchoolsControllerTest.java,v 1.26 2008/06/09 17:53:44 aroy Exp $
  */
 
 package gs.web.school;
@@ -381,7 +381,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Elementary Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY, null));
         assertEquals("San Francisco Middle Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE, null));
         assertEquals("San Francisco High Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.HIGH, null));
-        assertEquals("San Francisco Preschool Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.PRESCHOOL, null));
+        assertEquals("San Francisco Preschools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.PRESCHOOL, null));
 
         assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
         assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
