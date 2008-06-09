@@ -305,7 +305,8 @@
                                 districtId="${district}"
                                 schoolType="${pubCheckbox}"
                                 levelCode="${param.lc}"
-                                showAll="${not empty param.showall}"> Public</link:schools></label>
+                                showAll="${not empty param.showall}"
+                                styleClass="noInterstitial"> Public</link:schools></label>
                         <label><gsml:checkbox name="type_schools[]"
                                               checked="${charterChecked}"
                                               styleId="type_schools_charter"
@@ -314,7 +315,8 @@
                                 districtId="${district}"
                                 schoolType="${chaCheckbox}"
                                 levelCode="${param.lc}"
-                                showAll="${not empty param.showall}"> Charter</link:schools></label>
+                                showAll="${not empty param.showall}"
+                                styleClass="noInterstitial"> Charter</link:schools></label>
                         <label><gsml:checkbox name="type_schools[]"
                                               checked="${privateChecked}"
                                               styleId="type_schools_private"
@@ -323,7 +325,8 @@
                                 districtId="${district}"
                                 schoolType="${priCheckbox}"
                                 levelCode="${param.lc}"
-                                showAll="${not empty param.showall}"> Private</link:schools></label>
+                                showAll="${not empty param.showall}"
+                                styleClass="noInterstitial"> Private</link:schools></label>
                     </div>
                 </form>
             </c:if>
