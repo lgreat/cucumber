@@ -15,6 +15,7 @@
     <jsp:directive.attribute name="rollover" required="false" description="rollover image context-relative URL"/>
     <jsp:directive.attribute name="onmouseover" required="false" description="onmouseover javascript"/>
     <jsp:directive.attribute name="onmouseout" required="false" description="onmouseout javascript"/>
+    <jsp:directive.attribute name="onclick" required="false" description="onclick javascript"/>
     <jsp:directive.attribute name="absolute" required="false" description="true for absolute url"/>
     <jsp:scriptlet><![CDATA[
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
@@ -62,6 +63,9 @@
             if (StringUtils.isNotBlank(onmouseout)) {
                 buffer.append(" onmouseout=\"").append(onmouseout).append('"');
             }
+        }
+        if (StringUtils.isNotBlank(onclick)) {
+            buffer.append(" onclick=\"").append(onclick).append('"');
         }
 
         buffer.append("/>");

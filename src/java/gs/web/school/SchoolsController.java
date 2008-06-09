@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.44 2008/06/06 20:27:52 jnorton Exp $
+ * $Id: SchoolsController.java,v 1.45 2008/06/09 17:45:43 aroy Exp $
  */
 
 package gs.web.school;
@@ -59,8 +59,6 @@ public class SchoolsController extends AbstractController {
      * Zero or more of (public,private,charter), as separate parameters.
      */
     public static final String PARAM_SCHOOL_TYPE = "st";
-
-    public static final String PARAM_SHOW_MAP = "map";
 
     // OUTPUT
     // request attributes
@@ -304,7 +302,13 @@ public class SchoolsController extends AbstractController {
                 sb.append(" High");
             }
         }
-        sb.append(" Schools");
+        if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1 &&
+                levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+            sb.append("s");
+        } else {
+            sb.append(" Schools");
+        }
         return sb.toString();
     }
 

@@ -9,6 +9,18 @@
     padding-left: 4px;
 }
 
+.showAll {
+    margin-left: 10px;
+}
+
+#searchResultsList .school {
+    width: 217px;
+}
+
+#searchResultsList .rating {
+    margin-left: 50px;
+}
+
 #searchResults div.district {
     font-size: small;
 }
@@ -44,12 +56,31 @@ div#col_right div#compareInCity div#headWrap {
     height: auto;
 }
 
-.compare_schools_row .compare_error {
-    color: #cc5566;
+.compare_schools_row {
+    margin-top: 5px;
+    height: 13px;
+    position: relative;
 }
 
-.compare_schools_row .compare_checkbox {
+.compare_schools_row label, .compare_schools_row span {
+    vertical-align: bottom;
+    height: 13px;
+    width: 200px;
+}
+
+.compare_schools_row span.compare_submit {
+    position: absolute;
+    left: 15px;
+}
+.compare_schools_row .compare_submit input {
+    position: absolute;
+    left: 5px;
+    top: -3px;
+}
+
+.compare_schools_row label img {
     position: relative;
-    top: -1px;
+    left: 5px;
+    top: 2px;
 }
 

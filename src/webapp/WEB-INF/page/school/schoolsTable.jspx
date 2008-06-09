@@ -214,12 +214,12 @@
             <c:when test="${not empty param.city}">
                 <link:city
                         city="${param.city}"
-                        state="${state}"><span class="minilink">View city information</span></link:city>
+                        state="${state}"><span class="minilink">View city information &gt;</span></link:city>
             </c:when>
             <c:otherwise>
                 <link:districtProfile
                         districtId="${param.district}"
-                        state="${state}"><span class="minilink">View district information</span></link:districtProfile>
+                        state="${state}"><span class="minilink">View district information &gt;</span></link:districtProfile>
             </c:otherwise>
         </c:choose>
     </div>
@@ -259,7 +259,7 @@
                     </li>
                     <!-- Commenting out preschool tab until preschools are live.
                          Uncommenting this block should be all that is required -->
-                    <!-- TODO: comment out this link before 10.2 goes live -->
+                    <!-- TODO: comment out this link before 10.3 goes live -->
                     <li class="${pTabClass}">
                         <link:schools cityName="${cityName}"
                                       districtId="${district}"
@@ -338,7 +338,7 @@
                 <c:if test="${results.total gt pageSize}">
                     <link:schools cityName="${cityName}" districtId="${district}"
                                   schoolType="${stOmniture}" levelCode="${param.lc}"
-                                  styleClass="showAll" showAll="true"> Show All &gt;</link:schools>
+                                  styleClass="showAll" showAll="true">Show all &gt;</link:schools>
                 </c:if>
             </div>
         </c:if>
@@ -397,7 +397,11 @@
         <c:if test="${results.total gt 0}">
             <div id="mapContainer">
                 <![CDATA[
-                <script type="text/javascript">document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>')</script>
+                <script type="text/javascript">
+                    <!--
+                    document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>');
+                    -->
+                </script>
                 ]]>
                 <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
             </div>

@@ -15,9 +15,19 @@
     <![CDATA[
       <!--[if IE]>
         <style type="text/css">
-            .compare_schools_row .compare_checkbox {
-                top: 2px;
-                margin-right: -2px;
+            .compare_schools_row {
+                margin-top: 0;
+                margin-left: -4px;
+            }
+            .compare_schools_row label img {
+                left: 2px;
+            }
+            .compare_schools_row .compare_submit input {
+                top: 1px;
+                left: 7px;
+            }
+            .compare_schools_row .compare_error img {
+                top: 3px;
             }
         </style>
       <![endif]-->
@@ -71,27 +81,31 @@
                         <div class="resultcontrols">
                             <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
                             <br />
-<!-- cgi-bin/cs_compare/ca/
-?area=m
-&city=Alameda
-&level=m
-&miles=1000
-&school_selected=1
-&showall=1
-&sortby=distance
-&street=2201+Encinal+Ave.
-&tab=over
-&zip=94501-->
                             <div class="compare_schools_row">
                                 <gsml:checkbox
                                         name="sc"
                                         value="${requestScope.context.stateOrDefault.abbreviation}${school.id}"
                                         styleClass="compare_checkbox"
                                         styleId="compare_schools_${school.id}"
-                                        onclick="try {evaluateCheckboxes();} catch (e) {alert(e.name + ':' + e.message);}"/>
-                                <label class="compare_label" id="compare_schools_label_${school.id}" for="compare_schools_${school.id}"> Compare schools</label>
-                                <label class="compare_error" id="compare_schools_error_${school.id}" for="compare_schools_${school.id}" style="display: none;"> Check two or more schools to compare</label>
-                                <span class="compare_submit" id="compare_schools_submit_${school.id}" style="display: none;"> <input type="image" name="compare" src="/res/img/button/compare_schools.gif" alt="Compare Selected Schools"/></span>
+                                        onclick="evaluateCheckboxes();"/>
+                                <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
+                                <label class="compare_label"
+                                       id="compare_schools_label_${school.id}"><gsml:img
+                                        src="/res/img/button/button_check_to_compare.gif"
+                                        alt="Check to compare"
+                                        onclick="document.getElementById('compare_schools_${school.id}').click();"/></label>
+                                <label class="compare_error"
+                                       id="compare_schools_error_${school.id}"
+                                       style="display: none;"><gsml:img
+                                        src="/res/img/button/button_check_two_more.gif"
+                                        alt="Check two or more"
+                                        onclick="document.getElementById('compare_schools_${school.id}').click();"/></label>
+                                <span class="compare_submit"
+                                      id="compare_schools_submit_${school.id}"
+                                      style="display: none;"><input type="image"
+                                                                    name="compare"
+                                                                    src="/res/img/button/button_compare_now.gif"
+                                                                    alt="Compare now"/></span>
                             </div>
                             <!--<link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>-->
                         </div>
