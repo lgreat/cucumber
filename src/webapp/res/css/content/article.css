@@ -126,9 +126,17 @@ div.captcha {
     .articlecopy {
         border-left: 0;
         border-right: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
     body, body.unframed #pageGS {
         background-color: #fff;
         border: 0 solid   #fff;
+    }
+    #contentGS {
+        width: 650px;
+    }
+    #pageGS {
+        width: 684px;
     }
 }
