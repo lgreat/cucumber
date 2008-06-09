@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.21 2008/04/19 00:42:27 chriskimm Exp $
+ * $Id: AdPosition.java,v 1.22 2008/06/09 19:04:39 jnorton Exp $
  */
 package gs.web.ads;
 
@@ -102,18 +102,18 @@ public class AdPosition extends Enum {
     public static final AdPosition House_Ad_300x137 = new AdPosition("House_Ad_300x137", true);
 
     public static final AdPosition Header_728x90 = new AdPosition("Header_728x90", true);
-    public static final AdPosition Header_728x90_A_Test = new AdPosition("Header_728x90_A_Test", true);
-    public static final AdPosition Header_728x90_B_Test = new AdPosition("Header_728x90_B_Test", true);
-    public static final AdPosition Header_728x90_C_Test = new AdPosition("Header_728x90_C_Test", true);
+    public static final AdPosition Header_728x90_A_Test = new AdPosition("Header_728x90_A_Test", true, Header_728x90);
+    public static final AdPosition Header_728x90_B_Test = new AdPosition("Header_728x90_B_Test", true, Header_728x90);
+    public static final AdPosition Header_728x90_C_Test = new AdPosition("Header_728x90_C_Test", true, Header_728x90);
 
     public static final AdPosition Footer_728x90 = new AdPosition("Footer_728x90", true);
 
     public static final AdPosition AboveFold_300x125 = new AdPosition("AboveFold_300x125", true);
 
     public static final AdPosition AboveFold_300x250 = new AdPosition("AboveFold_300x250", true);
-    public static final AdPosition AboveFold_300x250_A_Test = new AdPosition("AboveFold_300x250_A_Test", true);
-    public static final AdPosition AboveFold_300x250_B_Test = new AdPosition("AboveFold_300x250_B_Test", true);
-    public static final AdPosition AboveFold_300x250_C_Test = new AdPosition("AboveFold_300x250_C_Test", true);
+    public static final AdPosition AboveFold_300x250_A_Test = new AdPosition("AboveFold_300x250_A_Test", true, AboveFold_300x250);
+    public static final AdPosition AboveFold_300x250_B_Test = new AdPosition("AboveFold_300x250_B_Test", true, AboveFold_300x250);
+    public static final AdPosition AboveFold_300x250_C_Test = new AdPosition("AboveFold_300x250_C_Test", true, AboveFold_300x250);
 
     public static final AdPosition Homepage_300x250 = new AdPosition("Homepage_300x250", true);
 
@@ -128,10 +128,9 @@ public class AdPosition extends Enum {
     public static final AdPosition AboveFold_Right_120x600 = new AdPosition("AboveFold_Right_120x600", true);
 
     public static final AdPosition AboveFold_Left_160x600 = new AdPosition("AboveFold_Left_160x600", true);
-    public static final AdPosition AboveFold_Left_160x600_A_Test = new AdPosition("AboveFold_Left_160x600_A_Test", true);
-    public static final AdPosition AboveFold_Left_160x600_B_Test = new AdPosition("AboveFold_Left_160x600_B_Test", true);
-    public static final AdPosition AboveFold_Left_160x600_C_Test = new AdPosition("AboveFold_Left_160x600_C_Test", true);
-
+    public static final AdPosition AboveFold_Left_160x600_A_Test = new AdPosition("AboveFold_Left_160x600_A_Test", true, AboveFold_Left_160x600);
+    public static final AdPosition AboveFold_Left_160x600_B_Test = new AdPosition("AboveFold_Left_160x600_B_Test", true, AboveFold_Left_160x600);
+    public static final AdPosition AboveFold_Left_160x600_C_Test = new AdPosition("AboveFold_Left_160x600_C_Test", true, AboveFold_Left_160x600);
     public static final AdPosition Interstitial = new AdPosition("Interstitial", true);
 
     // The following 3 were created for GS-6114
@@ -140,12 +139,18 @@ public class AdPosition extends Enum {
     public static final AdPosition Interstitial_Search = new AdPosition("Interstitial_Search", true);
 
     private boolean _isGAMPosition;
+    private String _baseName = null;
 
     private boolean _isActive;
 
     private AdPosition(String s, boolean isGamControlled) {
         super(s);
         _isGAMPosition = isGamControlled;
+    }
+
+    public AdPosition(String s, boolean isGamControlled, AdPosition baseAdPosition) {
+        this(s,isGamControlled);
+        _baseName = baseAdPosition.getName();
     }
 
     /**
@@ -184,4 +189,18 @@ public class AdPosition extends Enum {
     public boolean isActive() {
         return _isActive;
     }
+
+    /**
+     * used in cobrands
+     * @return
+     */
+    public String getBaseName(){
+        if (_baseName == null ) {
+            return this.getName();
+        } else {
+            return _baseName;
+        }
+    }
 }
+
+

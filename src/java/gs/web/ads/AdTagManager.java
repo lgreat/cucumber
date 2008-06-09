@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagManager.java,v 1.2 2006/09/20 17:06:39 dlee Exp $
+ * $Id: AdTagManager.java,v 1.3 2008/06/09 19:04:39 jnorton Exp $
  */
 package gs.web.ads;
 
@@ -103,6 +103,6 @@ public final class AdTagManager {
         if (cobrand.matches("yahoo|yahooed")) {
             cobrand = "yahoo";
         }
-        return cobrand + adPosition.getName();
+        return cobrand + adPosition.getBaseName();
     }
 }
