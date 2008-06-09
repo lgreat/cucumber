@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.34 2008/04/01 23:40:22 droy Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.35 2008/06/09 17:03:52 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -191,7 +191,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                     label = "Regents Exams";
                 }
                 else if(state.equals(State.OK)){
-                    label = "OCCT EOI";
+                    label = "OCCT";
                 }
                 else if(state.equals(State.SD)){
                     label = "Dakota STEP";
