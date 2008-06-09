@@ -141,12 +141,28 @@ Tabs and filters
 	vertical-align: middle;
 }
 
+#resultspaginationB,
 #resultspagination {
 	margin-top: 10px;
 	font-size: 13px;
 	text-align: right;
 	background: url(/res/img/search/dotted_border.png) repeat-x left bottom;
 	padding-bottom: 10px;
+}
+
+#filterWrapperB{
+    background-color:green;
+    position: relative;
+    background: url(/res/img/search/dotted_border.png) repeat-x left bottom;
+    padding-bottom: 10px;
+}
+
+#resultspaginationB{
+    display: inline;
+    padding:0 0 0 200px;
+    *padding: 0 0 0 180px;    /* ie6 and ie7*/
+    _padding: 0 0 0 180px;   /* ie6 only*/
+    background: none;
 }
 
 /*
@@ -210,13 +226,18 @@ div.phone {
     text-transform: capitalize;
 }
 
+#searchResultsHeaderB,
 #searchResultsHeader {
     width: 525px;
     margin-bottom: 5px;
     text-align: center;
     font-size: small;
     font-weight: bold;
-    color: #5bc;
+    color: #5bc
+}
+
+#searchResultsHeaderB{
+    color: #666666;
 }
 
 #schoolResultsHeader {
