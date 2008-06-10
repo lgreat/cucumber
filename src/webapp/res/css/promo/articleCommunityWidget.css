@@ -13,6 +13,7 @@
     font-size: 15px;
     padding: 5px 0 0 15px;
     font-family:"Trebuchet MS",Arial,sans-serif;
+    display: none;
 }
 
 #articleCommunityWidget .articleCommunityArticleList {
@@ -155,4 +156,10 @@
 
 #contentGS #resultstabs li a {
 	text-decoration: none;
+}
+
+div.articleCommunityWidget a.more{
+    float:right;
+    padding-right:15px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
 }
