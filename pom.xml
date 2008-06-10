@@ -1,6 +1,6 @@
 <project>
     <!--
-       mvn package : Builds jar with dependencies in target/
+       mvn package : Builds war with dependencies in target/
        mvn -Dmaven.test.skip=true package : Same as above but no unit tests
        mvn site : Generate site documentation include javadoc and clover reports
     -->
@@ -8,8 +8,12 @@
     <artifactId>gs-web</artifactId>
     <name>GS Web Project</name>
     <groupId>gs</groupId>
-    <version>10.0</version>
+    <version>${gs.version}</version>
     <packaging>war</packaging>
+
+        <properties>
+        <gs.version>10.3</gs.version>
+    </properties>
 
     <repositories>
         <!-- These get called in sequential order -->
@@ -92,8 +96,6 @@
                             <!-- These two goals enable automatic GWT setup, but are expirimental -->
                             <goal>setup</goal>
                             <goal>extractGwt</goal>
-
-                            <!-- these are the standard goals -->
                             <!--<goal>generateClientBeans</goal>-->
                             <!--<goal>mergewebxml</goal>-->
                             <goal>compile</goal>
@@ -163,7 +165,8 @@
                             <tasks>
                                 <mkdir dir="src/webapp/res/gwt"/>
                                 <move todir="src/webapp/res/gwt">
-                                    <fileset dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel" includes="**/*"/>
+                                    <fileset dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"
+                                             includes="**/*"/>
                                 </move>
                                 <delete dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"/>
                             </tasks>
@@ -216,7 +219,7 @@
         <dependency>
             <groupId>gs</groupId>
             <artifactId>gs-data</artifactId>
-            <version>10.0</version>
+            <version>${gs.version}</version>
         </dependency>
 
         <dependency>
@@ -336,5 +339,11 @@
             <artifactId>gdata-spreadsheet</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>recaptcha4j</groupId>
+            <artifactId>recaptcha4j</artifactId>
+            <version>0.0.7</version>
+        </dependency>
     </dependencies>
+
 </project>
