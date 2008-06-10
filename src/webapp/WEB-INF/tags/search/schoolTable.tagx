@@ -74,9 +74,9 @@
                             District: ${school.district.name}
                         </div>
                     </c:if>
-                    <c:if test="${params.lc ne 'p'}">
-                        <div class="resultcontrols">
-                            <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
+                    <div class="resultcontrols">
+                        <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
+                        <c:if test="${school.levelCode ne 'p'}">
                             <br />
                             <div class="compare_schools_row">
                                 <gsml:checkbox
@@ -104,9 +104,8 @@
                                                                     src="/res/img/button/button_compare_now.gif"
                                                                     alt="Compare now"/></span>
                             </div>
-                            <!--<link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>-->
-                        </div>
-                    </c:if>
+                        </c:if>
+                    </div>
                 </div>
                 <div class="rating">
                     <c:choose>
