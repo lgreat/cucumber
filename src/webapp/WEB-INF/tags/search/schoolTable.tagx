@@ -44,7 +44,7 @@
     <form method="get" action="/compareSchools.page">
         <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <div id="searchResultsList">
-        <c:forEach var="schoolResult" items="${results}" >
+        <c:forEach var="schoolResult" items="${results}" varStatus="loopStatus">
             <c:set var="school" value="${schoolResult.school}"/>
             <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
             <c:set var="parentRating" value="${schoolResult.parentRating}"/>
@@ -76,7 +76,7 @@
                     </c:if>
                     <div class="resultcontrols">
                         <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
-                        <c:if test="${school.levelCode ne 'p'}">
+                        <c:if test="${school.levelCode ne 'p' and loopStatus.count gt 1}">
                             <br />
                             <div class="compare_schools_row">
                                 <gsml:checkbox
