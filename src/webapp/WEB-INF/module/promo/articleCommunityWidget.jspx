@@ -62,7 +62,7 @@
         <div id="resultstabs">
             <ul>
                 <li id="articleCommunityArticleTab" class="tableft" onclick="articleCommunityTabClicked(this); return false;">
-                    <a class="noInterstitial" href="#" onclick="return false;">Articles</a>
+                    <a class="noInterstitial" href="#" onclick="return false;">Popular Articles</a>
                 </li>
                 <li id="articleCommunityPostTab" class="tabright tabactive" onclick="articleCommunityTabClicked(this); return false;">
                     <a class="noInterstitial" href="#" onclick="return false;">Parent Posts</a>
