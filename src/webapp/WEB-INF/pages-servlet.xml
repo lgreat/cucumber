@@ -456,7 +456,15 @@
 
     <bean name="/schools.page"
           class="gs.web.school.SchoolsController"
-          autowire="byName" lazy-init="true"/>
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="school/schoolsTable"/>
+    </bean>
+
+    <bean name="/schools2.page"
+          class="gs.web.school.SchoolsController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="school/schoolsTable2"/>
+    </bean>
 
     <bean name="/school/sampleSchoolRedirect.page" class="gs.web.school.RedirectToSampleSchoolController"
           autowire="byName" lazy-init="true"/>

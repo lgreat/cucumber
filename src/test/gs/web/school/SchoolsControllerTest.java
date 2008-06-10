@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.26 2008/06/09 17:53:44 aroy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.27 2008/06/10 21:39:34 aroy Exp $
  */
 
 package gs.web.school;
@@ -370,41 +370,41 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
     public void testTitleCalcCode() {
         // These all have standard headers
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, null));
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY_MIDDLE, null));
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE_HIGH, null));
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public", "private"}));
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public", "charter"}));
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private", "charter"}));
+        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, null));
+        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY_MIDDLE, null));
+        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE_HIGH, null));
+        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"public", "private"}));
+        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"public", "charter"}));
+        assertEquals("San Francisco Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"private", "charter"}));
 
         // These useful views get nice SEO friendly titles
-        assertEquals("San Francisco Elementary Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY, null));
-        assertEquals("San Francisco Middle Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE, null));
-        assertEquals("San Francisco High Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.HIGH, null));
-        assertEquals("San Francisco Preschools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.PRESCHOOL, null));
+        assertEquals("San Francisco Elementary Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY, null));
+        assertEquals("San Francisco Middle Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE, null));
+        assertEquals("San Francisco High Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.HIGH, null));
+        assertEquals("San Francisco Preschools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.PRESCHOOL, null));
 
-        assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
-        assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
-        assertEquals("San Francisco Charter Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"charter"}));
+        assertEquals("San Francisco Public Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
+        assertEquals("San Francisco Private Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
+        assertEquals("San Francisco Charter Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"charter"}));
     }
 
     public void testMetaDescCalc() {
         assertEquals("View and map all San Francisco schools. Plus, compare or save schools.",
-                _controller.calcMetaDesc(null, "San Francisco", null, null));
+                SchoolsController.calcMetaDesc(null, "San Francisco", null, null));
         assertEquals("View and map all San Francisco middle schools. Plus, compare or save middle schools.",
-                _controller.calcMetaDesc(null, "San Francisco", LevelCode.MIDDLE, null));
+                SchoolsController.calcMetaDesc(null, "San Francisco", LevelCode.MIDDLE, null));
         assertEquals("View and map all San Francisco public elementary schools. Plus, compare or save public elementary schools.",
-                _controller.calcMetaDesc(null, "San Francisco", LevelCode.ELEMENTARY, new String[]{"public"}));
+                SchoolsController.calcMetaDesc(null, "San Francisco", LevelCode.ELEMENTARY, new String[]{"public"}));
 
         assertEquals("View and map all San Francisco public preschool schools. Plus, compare or save public preschool schools.",
-                _controller.calcMetaDesc(null, "San Francisco", LevelCode.PRESCHOOL, new String[]{"public"}));
+                SchoolsController.calcMetaDesc(null, "San Francisco", LevelCode.PRESCHOOL, new String[]{"public"}));
 
         assertEquals("View and map all schools in the Oakland Unified School District. Plus, compare or save schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School District", "Oakland", null, null));
+                SchoolsController.calcMetaDesc("Oakland Unified School District", "Oakland", null, null));
         assertEquals("View and map all middle schools in the Oakland Unified School District. Plus, compare or save middle schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.MIDDLE, null));
+                SchoolsController.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.MIDDLE, null));
         assertEquals("View and map all public elementary schools in the Oakland Unified School District. Plus, compare or save public elementary schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.ELEMENTARY, new String[]{"public"}));
+                SchoolsController.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.ELEMENTARY, new String[]{"public"}));
     }
 
 }

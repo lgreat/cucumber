@@ -26,9 +26,6 @@
                 top: 1px;
                 left: 7px;
             }
-            .compare_schools_row .compare_error img {
-                top: 3px;
-            }
         </style>
       <![endif]-->
     ]]>

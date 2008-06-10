@@ -9,6 +9,10 @@
     padding-left: 4px;
 }
 
+.minilink:hover {
+    text-decoration: underline;
+}
+
 .showAll {
     margin-left: 10px;
 }

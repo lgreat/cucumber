@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.45 2008/06/09 17:45:43 aroy Exp $
+ * $Id: SchoolsController.java,v 1.46 2008/06/10 21:39:34 aroy Exp $
  */
 
 package gs.web.school;
@@ -41,6 +41,7 @@ public class SchoolsController extends AbstractController {
     private Searcher _searcher;
     private IDistrictDao _districtDao;
     private IGeoDao _geoDao;
+    private String _viewName;
 
     // INPUTS
     public static final String PARAM_PAGE = "p";
@@ -250,7 +251,7 @@ public class SchoolsController extends AbstractController {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);
         }
 
-        return new ModelAndView("school/schoolsTable", model);
+        return new ModelAndView(getViewName(), model);
     }
 
 
@@ -362,4 +363,11 @@ public class SchoolsController extends AbstractController {
         return sb.toString();
     }
 
+    public String getViewName() {
+        return _viewName;
+    }
+
+    public void setViewName(String viewName) {
+        _viewName = viewName;
+    }
 }

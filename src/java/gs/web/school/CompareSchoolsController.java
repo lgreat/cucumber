@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 /**
  * This controller handles requests for "compare checked schools" and
@@ -41,6 +42,10 @@ public class CompareSchoolsController extends AbstractController {
         String idDelimiter = ",";
 
         String p1 = request.getParameter("compare.x");
+
+        if (p1 == null) {
+            p1 = request.getParameter("hover_compare");
+        }
 
         if (p1 != null) {
             urlBuffer.append("/modperl/msl_compare/");
