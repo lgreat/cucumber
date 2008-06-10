@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="schools" required="true"
+                             type="java.util.Collection"/>
+    <pageHelper:externalCss file="http://yui.yahooapis.com/2.5.2/build/container/assets/skins/sam/container.css"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
+
+    <c:set var="results" value="${schools}"/>
+
+    <![CDATA[
+      <!--[if IE]>
+        <style type="text/css">
+            .compare_schools_row {
+                margin-top: 0;
+                margin-left: -4px;
+            }
+            .compare_schools_row label img {
+                left: 2px;
+            }
+            .compare_schools_row .compare_submit input {
+                top: 1px;
+                left: 7px;
+            }
+            .compare_schools_row .compare_error img {
+                top: 3px;
+            }
+        </style>
+      <![endif]-->
+    ]]>
+
+    <div id="dialog_c" class="yui-skin-sam">
+        <div id="myDialog">
+            <div class="hd">&amp;nbsp;</div>
+            <div class="bd">
+                <c:forEach var="curLevel" items="e,m,h">
+                    <gsweb:form method="get" action="/compareSchools.page">
+                        <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+                        <input type="hidden" name="hover_compare" value="true"/>
+                        <div id="hover_${curLevel}" style="display:none;">
+                            <span class="hover_lc_title">
+                                <c:choose>
+                                    <c:when test="${curLevel eq 'e'}">Elementary School</c:when>
+                                    <c:when test="${curLevel eq 'm'}">Middle School</c:when>
+                                    <c:when test="${curLevel eq 'h'}">High School</c:when>
+                                </c:choose>
+                            </span>
+                            <span class="hover_compareButton">
+                                <input type="image"
+                                       name="compare"
+                                       src="/res/img/school/compare/compare.gif" alt="Compare"/>
+                            </span>
+                            <c:forEach var="schoolResult" items="${results}" >
+                                <c:set var="school" value="${schoolResult.school}"/>
+                                <c:if test="${fn:startsWith(school.levelCode, curLevel)}">
+                                    <input type="hidden"
+                                           id="hover_input_${school.id}"
+                                           name="sc"
+                                           disabled="disabled"
+                                           value="${requestScope.context.stateOrDefault.abbreviation}${school.id}"/>
+                                    <div id="hover_div_${school.id}" style="display:none">${school.name}</div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </gsweb:form>
+                </c:forEach>
+                <div id="hover_close">
+                    <gsml:img src="/res/img/button/closeWindow.gif" alt="Close window" onclick="myDialog.cancel();"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        <!--
+        var handleCancel = function() {
+            this.cancel();
+        }
+        var myDialog = new YAHOO.widget.Dialog("myDialog",
+        {
+            postmethod: "form",
+            width: "300px",
+            fixedcenter: true,
+            visible: false,
+            constraintoviewport: true,
+            draggable: false,
+            modal: true,
+            close: true
+        });
+        myDialog.render();
+
+        function evaluateSchoolsForCompare() {
+            var inputs = document.getElementsByTagName("input");
+            var levelCodeMap = new Object;
+            for (var i=0; i < inputs.length; i++) {
+                var currentElem = inputs[i];
+                if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
+                    if (currentElem.checked) {
+                        var schoolId = currentElem.id.substring(ID_PREFIX.length);
+                        var levelCode = document.getElementById("school_lc_" + schoolId).value;
+                        var splitResult = levelCode.split(",");
+                        if (splitResult && splitResult.length > 0) {
+                            levelCode = splitResult[0];
+                        }
+                        if (!levelCodeMap[levelCode]) {
+                            levelCodeMap[levelCode] = new Array();
+                        }
+                        levelCodeMap[levelCode].push(schoolId);
+                        document.getElementById("hover_div_" + schoolId).style.display="block";
+                        document.getElementById("hover_input_" + schoolId).disabled = false;
+                    }
+                }
+            }
+            var numLevelCodes = 0;
+            for (levelCode in levelCodeMap) {
+                numLevelCodes++;
+                document.getElementById("hover_" + levelCode).style.display="block";
+            }
+
+            if (numLevelCodes == 1) {
+                // send to regular compare
+                return true;
+            }
+
+            myDialog.show();
+            return false;
+        }
+        -->
+        ]]>
+    </script>
+
+    <div id="searchResultsHeader" class="cleared">
+        <div id="schoolResultsHeader">
+            School Name
+        </div>
+        <div id="ratingsHeader">
+            GreatSchools Rating
+        </div>
+        <div id="reviewsHeader">
+            Parent Rating
+        </div>
+    </div>
+    <form method="get" action="/compareSchools.page">
+        <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <div id="searchResultsList">
+        <c:forEach var="schoolResult" items="${results}" >
+            <c:set var="school" value="${schoolResult.school}"/>
+            <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
+            <c:set var="parentRating" value="${schoolResult.parentRating}"/>
+            <c:set var="parentRatingCount" value="${schoolResult.parentRatingCount}"/>
+            <c:set var="reviewMap" value="${schoolResult.reviewMap}" />
+
+                <div class="result cleared">
+                <div class="school">
+                    <input type="hidden" id="school_lc_${school.id}" value="${school.levelCode}"/>
+                    <input type="hidden" id="school_name_${school.id}" value="${school.name}"/>
+                    <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
+                    <c:out value="${school.name}" escapeXml="false"/>
+                    </link:schoolProfileOverview></h3>
+                    <div class="about">
+                        <span class="st">${school.type.schoolTypeName}</span>
+                        <c:if test="${not empty school.gradeLevels.rangeString}">
+                            &#183; <span class="gl">${school.gradeLevels.rangeString}</span>
+                        </c:if>
+                        <c:if test="${not empty school.enrollmentOrCapacity}">
+                            &#183; <span class="enrollment">${school.enrollmentOrCapacity} student${(school.enrollmentOrCapacity eq 1) ? '' : 's'}</span>
+                        </c:if>
+                    </div>
+
+                    <address>${school.physicalAddress.street}<c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if></address>
+                    <address>${school.physicalAddress.cityStateZip}</address>
+                    <div class="phone">${school.phone}</div>
+                    <c:if test="${not empty school.district}">
+                        <div class="district">
+                            District: ${school.district.name}
+                        </div>
+                    </c:if>
+                    <c:if test="${params.lc ne 'p'}">
+                        <div class="resultcontrols">
+                            <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
+                            <br />
+                            <div class="compare_schools_row">
+                                <gsml:checkbox
+                                        name="sc"
+                                        value="${requestScope.context.stateOrDefault.abbreviation}${school.id}"
+                                        styleClass="compare_checkbox"
+                                        styleId="compare_schools_${school.id}"
+                                        onclick="evaluateCheckboxes();"/>
+                                <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
+                                <label class="compare_label"
+                                       id="compare_schools_label_${school.id}"><gsml:img
+                                        src="/res/img/button/button_check_to_compare.gif"
+                                        alt="Check to compare"
+                                        onclick="document.getElementById('compare_schools_${school.id}').click();"/></label>
+                                <label class="compare_error"
+                                       id="compare_schools_error_${school.id}"
+                                       style="display: none;"><gsml:img
+                                        src="/res/img/button/button_check_two_more.gif"
+                                        alt="Check two or more"
+                                        onclick="document.getElementById('compare_schools_${school.id}').click();"/></label>
+                                <span class="compare_submit"
+                                      id="compare_schools_submit_${school.id}"
+                                      style="display: none;"><input type="image"
+                                                                    name="compare"
+                                                                    src="/res/img/button/button_compare_now.gif"
+                                                                    alt="Compare now" onclick="return evaluateSchoolsForCompare();"/></span>
+                            </div>
+                            <!--<link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>-->
+                        </div>
+                    </c:if>
+                </div>
+                <div class="rating">
+                    <c:choose>
+                        <c:when test="${empty rating}">
+                            <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolProfileRating school="${school}">
+                                <gsml:img src="/res/img/school/ratings/${rating}.gif"
+                                          alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                            </link:schoolProfileRating>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="review">
+                    <p class="stars">
+                        <c:choose>
+                            <c:when test="${empty parentRating}">
+                                <link:schoolProfileParentReview school="${school}">
+                                    <gsml:img src="/res/img/search/rateit.jpg"
+                                              rollover="/res/img/search/rateit_on.jpg"
+                                              alt="Be the first to rate!"/>
+                                </link:schoolProfileParentReview>
+                            </c:when>
+                            <c:otherwise>
+                                <link:schoolProfileParentReview school="${school}">
+                                    <gsml:img src="/res/img/map/ratings_parent_city_${parentRating}.gif"
+                                              alt="${parentRating} out of 5 stars" styleClass="starsOnly"/>
+                                </link:schoolProfileParentReview>
+                                    (${parentRatingCount})
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+
+                    <c:if test="${reviewMap.reviewCount > 0}">
+                        <p>${reviewMap.reviewBlurb}...
+                            <br/><link:schoolProfileParentReview school="${school}" title="Read all reviews">
+                            <c:choose>
+                                <c:when test="${reviewMap.reviewCount eq 1}">Read the full review &#62;</c:when>
+                                <c:otherwise>Read all ${reviewMap.reviewCount} reviews &#62;</c:otherwise>
+                            </c:choose>
+                        </link:schoolProfileParentReview >
+                        </p>
+                    </c:if>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+    </form>
+</jsp:root>
