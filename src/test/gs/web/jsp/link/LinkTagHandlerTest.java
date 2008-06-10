@@ -1,14 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.42 2008/06/03 00:52:25 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.43 2008/06/10 21:48:04 aroy Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.content.Article;
-import gs.data.geo.City;
 import gs.data.school.Grade;
-import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
@@ -356,32 +354,21 @@ public class LinkTagHandlerTest extends BaseTestCase {
     }
 
     public void testSchools() {
-        // TODO: GS-6398 implement test 
-//        SchoolsTagHandler tagHandler = new SchoolsTagHandler();
-//        tagHandler.setCity(new City("New York", State.NY));
-//
-//        tagHandler.setPageContext(new MockPageContext());
-//        UrlBuilder builder = tagHandler.createUrlBuilder();
-//        assertEquals("/schools.page?city=New+York&state=NY", builder.asSiteRelative(null));
-//
-//        tagHandler.setSchoolTypes("public");
-//        builder = tagHandler.createUrlBuilder();
-//        assertEquals("/schools.page?city=New+York&st=public&state=NY", builder.asSiteRelative(null));
-//
-//        tagHandler.setLevelCode(LevelCode.HIGH);
-//        builder = tagHandler.createUrlBuilder();
-//        assertEquals("/schools.page?city=New+York&lc=h&st=public&state=NY", builder.asSiteRelative(null));
-//
-//        tagHandler.setSchoolTypes("private");
-//        builder = tagHandler.createUrlBuilder();
-//        assertEquals("/schools.page?city=New+York&lc=h&st=private&state=NY", builder.asSiteRelative(null));
-//
-//        tagHandler.setLevelCode(LevelCode.MIDDLE_HIGH);
-//        tagHandler.setSchoolTypes("public,charter");
-//        builder = tagHandler.createUrlBuilder();
-//        assertEquals("/schools.page?city=New+York&lc=m&lc=h&st=public&st=charter&state=NY", builder.asSiteRelative(null));
+        SchoolsTagHandler tagHandler = new SchoolsTagHandler();
 
+        tagHandler.setCityName("Alameda");
+        tagHandler.setLevelCode("e");
+        tagHandler.setPage(2);
+        tagHandler.setSchoolType("private");
+        tagHandler.setShowAll(true);
+        tagHandler.setPageContext(new MockPageContext());
 
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/schools.page?city=Alameda&lc=e&p=2&showall=1&st=private&state=CA", builder.asSiteRelative(null));
+
+        tagHandler.setSchoolType("public,charter");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/schools.page?city=Alameda&lc=e&p=2&showall=1&st=public&st=charter&state=CA", builder.asSiteRelative(null));
     }
 
     public void testBetaTags() {
