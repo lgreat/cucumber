@@ -76,7 +76,7 @@
                     </c:if>
                     <div class="resultcontrols">
                         <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
-                        <c:if test="${school.levelCode ne 'p' and loopStatus.count gt 1}">
+                        <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
                             <br />
                             <div class="compare_schools_row">
                                 <gsml:checkbox
