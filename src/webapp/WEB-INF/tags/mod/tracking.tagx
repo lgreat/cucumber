@@ -129,7 +129,7 @@
 
             s.pageName = "${pageName}";
             s.server = "${requestScope.context.hostName}";
-            s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
+            s.channel = "${not empty(state) ? state : not empty(requestScope.context.state) ? requestScope.context.state.abbreviation : ''}";
             s.pageType = "${pageType eq 'errorPage' ? pageType : ''}";
 
             s.prop1 = clickCapture.getProp(1,"${empty(id) ? '' : id}") ;
