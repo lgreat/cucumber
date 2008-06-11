@@ -8,3 +8,4 @@ gsweb.log.*
 junit*.properties
 search.log
 build.propertiesx
+.gwt-cache

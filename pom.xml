@@ -1,19 +1,21 @@
 <project>
     <!--
+       mvn compile war:inplace tomcat:inplace : builds and deploys an in-place class reloading war
+       mvn tomcat:redeploy : reload the war (necessary for certain config and XML changes)
        mvn package : Builds war with dependencies in target/
        mvn -Dmaven.test.skip=true package : Same as above but no unit tests
        mvn site : Generate site documentation include javadoc and clover reports
     -->
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>gs</groupId>
+        <artifactId>gs-meta</artifactId>
+        <version>1</version>
+    </parent>
     <artifactId>gs-web</artifactId>
     <name>GS Web Project</name>
-    <groupId>gs</groupId>
     <version>${gs.version}</version>
     <packaging>war</packaging>
-
-        <properties>
-        <gs.version>10.3</gs.version>
-    </properties>
 
     <repositories>
         <!-- These get called in sequential order -->
@@ -40,7 +42,7 @@
 
     <build>
         <directory>target</directory>
-        <outputDirectory>target/classes</outputDirectory>
+        <outputDirectory>src/webapp/WEB-INF/classes</outputDirectory>
         <finalName>${artifactId}-${version}</finalName>
         <testOutputDirectory>target/test-classes</testOutputDirectory>
         <sourceDirectory>src/java</sourceDirectory>
@@ -58,7 +60,10 @@
                 <directory>src/conf</directory>
                 <includes>
                     <include>*.properties</include>
+                    <include>*.xml</include>
                 </includes>
+                <!-- filtering is on for context.xml -->
+                <filtering>true</filtering>
             </resource>
             <resource>
                 <directory>${basedir}/../GSData/src/conf</directory>
@@ -70,11 +75,56 @@
 
         <!-- Plugins -->
         <plugins>
+            <!--<plugin>-->
+            <!--<artifactId>maven-idea-plugin</artifactId>-->
+            <!--<configuration>-->
+            <!--<jdkLevel>1.5</jdkLevel>-->
+            <!--<deploymentDescriptorFile>src/webapp/WEB-INF/web.xml</deploymentDescriptorFile>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <webappDirectory>src/webapp</webappDirectory>
+                    <warSourceDirectory>${basedir}/src/webapp</warSourceDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <configuration>
+                    <update>true</update>
+                    <path>/</path>
+                    <mode>context</mode>
+                    <contextFile>src/webapp/WEB-INF/classes/context.xml</contextFile>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/webapp/WEB-INF/lib</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>src/webapp/WEB-INF/classes</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>src/webapp/WEB-INF/gwtBin</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>src/webapp/res/gwt</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>src/webapp/META-INF</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>.gwt-cache</directory>
+                        </fileset>
+                    </filesets>
                 </configuration>
             </plugin>
 
@@ -106,17 +156,6 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-idea-plugin</artifactId>
-                <version>2.0</version>
-                <!--<configuration>-->
-                <!--<downloadSources>false</downloadSources>-->
-                <!--<downloadJavadocs>false</downloadJavadocs>-->
-                <!--<dependenciesAsLibraries>true</dependenciesAsLibraries>-->
-                <!--<useFullNames>false</useFullNames>-->
-                <!--</configuration>-->
-            </plugin>
-
             <!-- Clover code coverage plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -146,7 +185,7 @@
                         <configuration>
                             <tasks>
                                 <echo>Creating build.timestamp property file</echo>
-                                <propertyfile file="${project.build.directory}/classes/build.timestamp">
+                                <propertyfile file="src/webapp/WEB-INF/classes/version.properties">
                                     <entry key="gsweb.buildtime"
                                            type="date"
                                            default="now"
@@ -184,16 +223,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
-            <!-- This is here so maven 2 will compile source with java 1.5 features like generics -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -221,27 +250,23 @@
             <artifactId>gs-data</artifactId>
             <version>${gs.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.1.2</version>
         </dependency>
-
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
@@ -257,58 +282,37 @@
             <artifactId>sitemesh</artifactId>
             <version>2.2.1</version>
         </dependency>
-
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
             <version>1.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>2.5.3</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>2.5.3</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>httpunit</groupId>
-            <artifactId>httpunit</artifactId>
-            <version>1.6</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>jdom</groupId>
             <artifactId>jdom</artifactId>
             <version>1.0</version>
         </dependency>
-
         <dependency>
             <groupId>rome</groupId>
             <artifactId>rome</artifactId>
             <version>0.8</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>1.4.60</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <version>1.4.60</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
@@ -344,6 +348,18 @@
             <artifactId>recaptcha4j</artifactId>
             <version>0.0.7</version>
         </dependency>
+        <!-- Test only dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>2.5.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>httpunit</groupId>
+            <artifactId>httpunit</artifactId>
+            <version>1.6</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
 </project>
