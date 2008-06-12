@@ -36,7 +36,6 @@
             window.location.href = path;
         }
         //-->
-        //http://www.greatschools.net/cgi-bin/cs_compare/ca/?level=e&area=d&district=1&sortby=name&tab=over&x=37&y=15
         ]]>
     </script>
     <pageHelper:externalCss file="/res/css/school/compareInDistrict.css"/>
