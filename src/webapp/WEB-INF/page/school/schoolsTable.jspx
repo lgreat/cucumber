@@ -333,16 +333,24 @@
         </div>
         <c:if test="${results.total gt 0}">
             <div id="resultspagination">
-                    <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
-                    <c:set var="pageSize" value="${ (results.pageSize > 0) ? (results.pageSize) : 10}"/>
-                    <c:set var="px" value="${(page * pageSize)}"/>
-                    <strong>${px + 1} - ${(results.total lt px + pageSize) ? (results.total) : (px + pageSize)}</strong>
-                    of <strong>${results.total}</strong>
-                <c:if test="${results.total gt pageSize}">
-                    <link:schools cityName="${cityName}" districtId="${district}"
-                                  schoolType="${stOmniture}" levelCode="${param.lc}"
-                                  styleClass="showAll" showAll="true">Show all &gt;</link:schools>
-                </c:if>
+                <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                <c:set var="pageSize" value="${ (results.showAll eq 1) ? results.total : ((results.pageSize > 0) ? (results.pageSize) : 10)}"/>
+                <c:choose>
+                    <c:when test="${results.showAll eq 1}">
+                        <strong>1 - ${results.total}</strong>
+                        of <strong>${results.total}</strong>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="px" value="${(page * pageSize)}"/>
+                        <strong>${px + 1} - ${(results.total lt px + pageSize) ? (results.total) : (px + pageSize)}</strong>
+                        of <strong>${results.total}</strong>
+                        <c:if test="${results.total gt pageSize}">
+                            <link:schools cityName="${cityName}" districtId="${district}"
+                                          schoolType="${stOmniture}" levelCode="${param.lc}"
+                                          styleClass="showAll" showAll="true">Show all &gt;</link:schools>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </c:if>
     </c:if>
