@@ -30,9 +30,6 @@
                 top: 1px;
                 left: 7px;
             }
-            .compare_schools_row .compare_error img {
-                top: 3px;
-            }
         </style>
       <![endif]-->
     ]]>
@@ -80,7 +77,7 @@
     </div>
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
-        <!--
+        //<!--
         var handleCancel = function() {
             this.cancel();
         }
@@ -133,7 +130,7 @@
             myDialog.show();
             return false;
         }
-        -->
+        //-->
         ]]>
     </script>
 
@@ -151,7 +148,7 @@
     <form method="get" action="/compareSchools.page">
         <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <div id="searchResultsList">
-        <c:forEach var="schoolResult" items="${results}" >
+        <c:forEach var="schoolResult" items="${results}" varStatus="loopStatus">
             <c:set var="school" value="${schoolResult.school}"/>
             <c:set var="rating" value="${schoolResult.greatSchoolsRating}"/>
             <c:set var="parentRating" value="${schoolResult.parentRating}"/>
@@ -211,9 +208,9 @@
                                       style="display: none;"><input type="image"
                                                                     name="compare"
                                                                     src="/res/img/button/button_compare_now.gif"
-                                                                    alt="Compare now" onclick="return evaluateSchoolsForCompare();"/></span>
+                                                                    alt="Compare now"
+                                                                    onclick="return evaluateSchoolsForCompare();"/></span>
                             </div>
-                            <!--<link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>-->
                         </div>
                     </c:if>
                 </div>
