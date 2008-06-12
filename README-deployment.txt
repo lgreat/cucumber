@@ -30,16 +30,9 @@ lines to conf/tomcat-users.xml:
 create a build.properites file with the following line:
 maven.war.webapp.dir=${maven.war.src}
 
-Then do a "maven tomcat:remove" and a "maven tomcat:install" while Tomcat is running. Then you
-should be able to edit JSP file and see the changes simply by hitting refresh in your browser.
-
 3. To deploy without running unit tests:
 
-maven -Dmaven.test.skip=true tomcat:install
-(or tomcat:reload or tomcat:remove)
-
-Note: runinng tomcat:install also copies CVS files over to target/gs-web/ so that you can
-edit JSP files in the exploded war without redeploying.
+maven -Dmaven.test.skip=true war:webapp
 
 4. To deploy, you'll need to have the certificates installed on your system.
 
@@ -54,7 +47,7 @@ Setup:
 a) Do step 2.
 b) Then in IDEA right click on gs-web -> module settings -> paths and change Output path
 to that path of your source tree such as C:\java\greatschools\GSWeb\src\webapp\WEB-INF\classes .
-c) go to gs-web -> module settings -> Java EE Build Settings and un-check "Create web module exploded directory"
+c) go to gs-web -> module settings -> (Web) -> Java EE Build Settings and un-check "Create web module exploded directory"
 d) Edit $TOMCAT_HOME\conf\server.xml and add the following modified for your source
 path one line above the </Host> tag:
 <Context path="/gs-web" docBase="c:/java/greatschools/GSWeb/src/webapp" reloadable="true">
