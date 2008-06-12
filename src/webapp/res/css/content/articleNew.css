@@ -3,10 +3,6 @@
     color: #3399AA;
 }
 
-ol{
-    font-weight:bold;
-}
-
 ol span.liText,
 ul span.liText {
     font-weight: normal;
@@ -121,7 +117,7 @@ div#more-about ul,
 div#more-about ol{
     margin:10px 0 0 0;
     padding:0;
-    line-height:10px;
+    line-height:16px;
 }
 
 div#more-about li {
@@ -129,8 +125,9 @@ div#more-about li {
     padding: 0 0 2px 10px;
     background-image: url("/res/img/content/article/greenarrow.gif");
     background-repeat: no-repeat;
-    background-position: 0 0.1ex;
+    background-position: 0 0.4ex;
     font-size: 9.75pt;
+    margin:0 0 4px 0;
 }
 
 div#more-about li a {

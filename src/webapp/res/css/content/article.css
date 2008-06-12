@@ -11,7 +11,11 @@
     font-size: 14px;
 }
 
-.contentGS .articlecopy li {
+.contentGS .articlecopy ol li {
+     list-style:decimal;
+}
+
+.contentGS .articlecopy ul li {
     list-style-type:disc;
 }
 
