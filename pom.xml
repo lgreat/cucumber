@@ -148,37 +148,10 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>gwt-setup</id>
                         <goals>
                             <goal>setup</goal>
                             <goal>extractGwt</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>gwt-build</id>
-                        <!-- I'd like to move this to prepare-package when M2.1 comes out -->
-                        <phase>process-classes</phase>
-                        <goals>
                             <goal>compile</goal>
-                        </goals>
-                    </execution>
-
-                </executions>
-            </plugin>
-
-            <!-- Clover code coverage plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clover-plugin</artifactId>
-                <configuration>
-                    <licenseLocation>${basedir}/../GSData/metadata/maven/clover.license</licenseLocation>
-                    <jdk>1.5</jdk>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>pre-site</phase>
-                        <goals>
-                            <goal>instrument</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -195,6 +168,7 @@
                         <configuration>
                             <tasks>
                                 <echo>Creating build.timestamp property file</echo>
+                                <mkdir dir="src/webapp/WEB-INF/classes"/>
                                 <propertyfile file="src/webapp/WEB-INF/classes/version.properties">
                                     <entry key="gsweb.buildtime"
                                            type="date"
@@ -210,18 +184,54 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
-                    <!-- relocate generated GWT code to the proper location -->
+                    <!-- relocate generated GWT code to the proper location, except when using clover -->
                     <execution>
                         <id>relocate compiled gwt files</id>
                         <phase>process-classes</phase>
                         <configuration>
                             <tasks>
-                                <mkdir dir="src/webapp/res/gwt"/>
-                                <move todir="src/webapp/res/gwt">
-                                    <fileset dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"
-                                             includes="**/*"/>
-                                </move>
-                                <delete dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"/>
+                                <!-- ant contrib provides if/then tasks -->
+                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+                                <if>
+                                    <available file="target/clover" type="dir"/>
+                                    <else>
+                                        <mkdir dir="src/webapp/res/gwt"/>
+                                        <move todir="src/webapp/res/gwt">
+                                            <fileset
+                                                    dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"
+                                                    includes="**/*"/>
+                                        </move>
+                                        <delete dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"/>
+                                    </else>
+                                </if>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- clover requires some working around with GWT -->
+                    <execution>
+                        <id>relocate files for clover if necessary</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <tasks>
+                                <!-- ant contrib provides if/then tasks -->
+                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+                                <if>
+                                    <available file="target/clover" type="dir"/>
+                                    <then>
+                                        <copy todir="target/clover/classes">
+                                            <fileset dir="src/webapp/WEB-INF/classes"
+                                                     includes="version.properties"/>
+                                        </copy>
+                                        <mkdir dir="src/webapp/WEB-INF/gwtBin"/>
+                                        <copy todir="src/webapp/WEB-INF/gwtBin">
+                                            <fileset dir="target/clover/gwtBin"
+                                                     includes="**/*"/>
+                                        </copy>
+                                    </then>
+                                </if>
                             </tasks>
                         </configuration>
                         <goals>
@@ -234,6 +244,11 @@
                         <groupId>ant</groupId>
                         <artifactId>ant-nodeps</artifactId>
                         <version>1.6.5</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>ant-contrib</groupId>
+                        <artifactId>ant-contrib</artifactId>
+                        <version>1.0b2</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -249,23 +264,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clover-plugin</artifactId>
-                <configuration>
-                    <licenseLocation>${basedir}/../GSData/metadata/maven/clover.license</licenseLocation>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <!-- Search http://mvnrepository.com for new dependencies -->
     <dependencies>
