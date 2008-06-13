@@ -57,9 +57,9 @@
                                 value="${city.medianHomePrice}"
                                 maxFractionDigits="0"/></c:if><c:if
                                 test="${city.medianHomePrice lt 0}">n/a</c:if></td>
-                        <td class="e"><link:schools city="${city}" levelCode="e" schoolTypes="public,charter"><c:if test="${city.elementarySchoolsCount eq 1}">1 school</c:if><c:if test="${city.elementarySchoolsCount gt 1}">${city.elementarySchoolsCount} schools</c:if></link:schools></td>
-                        <td class="m"><link:schools city="${city}" levelCode="m" schoolTypes="public,charter"><c:if test="${city.middleSchoolsCount eq 1}">1 school</c:if><c:if test="${city.middleSchoolsCount gt 1}">${city.middleSchoolsCount} schools</c:if></link:schools></td>
-                        <td class="h"><link:schools city="${city}" levelCode="h" schoolTypes="public,charter"><c:if test="${city.highSchoolsCount eq 1}">1 school</c:if><c:if test="${city.highSchoolsCount gt 1}">${city.highSchoolsCount} schools</c:if></link:schools></td>
+                        <td class="e"><link:schools city="${city}" levelCode="e" schoolType="public,charter"><c:if test="${city.elementarySchoolsCount eq 1}">1 school</c:if><c:if test="${city.elementarySchoolsCount gt 1}">${city.elementarySchoolsCount} schools</c:if></link:schools></td>
+                        <td class="m"><link:schools city="${city}" levelCode="m" schoolType="public,charter"><c:if test="${city.middleSchoolsCount eq 1}">1 school</c:if><c:if test="${city.middleSchoolsCount gt 1}">${city.middleSchoolsCount} schools</c:if></link:schools></td>
+                        <td class="h"><link:schools city="${city}" levelCode="h" schoolType="public,charter"><c:if test="${city.highSchoolsCount eq 1}">1 school</c:if><c:if test="${city.highSchoolsCount gt 1}">${city.highSchoolsCount} schools</c:if></link:schools></td>
                         <!--<td class="link"><gsml:a href="${city.schoolsPageHref}">Browse ${city.cityName} schools</gsml:a>-->
                         <!--</td>-->
                     </tr>
