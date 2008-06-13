@@ -41,8 +41,11 @@ public class ResultsPagerTest extends TestCase {
 
     public void testNullArguments() {
         ResultsPager pager = new ResultsPager(null, ResultsPager.ResultType.school);
+        // Since schoolDao is static, backup and restore to avoid side effects in other tests
+        ISchoolDao oldSchoolDao = pager.getSchoolDao();
         pager.setSchoolDao(_schoolDao);
         assertNotNull(pager.getResults(1, 1));
+        pager.setSchoolDao(oldSchoolDao);
     }
 
     public void testPageSizes() {
@@ -71,12 +74,16 @@ public class ResultsPagerTest extends TestCase {
 
     public void testGetPageOfSchoolResults() {
         ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school);
+        // Since schoolDao is static, backup and restore to avoid side effects in other tests
+        ISchoolDao oldSchoolDao = pager.getSchoolDao();
         pager.setSchoolDao(_schoolDao);
+        // State manager is static so we need to back it up and restore it
+        StateManager oldStateManager = pager.getStateManager();
         pager.setStateManager(_stateManager);
         expect(_stateManager.getState(SEARCH_STATE))
                 .andReturn(State.CA)
                 .anyTimes();
-        for (int i=0; i<11; i++) {
+        for (int i = 0; i < 11; i++) {
             School school = new School();
             school.setId(i);
             expect(_schoolDao.getSchoolById(State.CA, i))
@@ -95,6 +102,8 @@ public class ResultsPagerTest extends TestCase {
             assertEquals("Based on test data setup, rating should equal school ID",
                     schoolResult.getGreatSchoolsRating(), schoolResult.getSchool().getId().toString());
         }
+        pager.setStateManager(oldStateManager);
+        pager.setSchoolDao(oldSchoolDao);
     }
 
     private static void getHits() {

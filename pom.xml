@@ -1,11 +1,5 @@
 <project>
-    <!--
-       mvn compile war:inplace tomcat:inplace : builds and deploys an in-place class reloading war
-       mvn tomcat:redeploy : reload the war (necessary for certain config and XML changes)
-       mvn package : Builds war with dependencies in target/
-       mvn -Dmaven.test.skip=true package : Same as above but no unit tests
-       mvn site : Generate site documentation include javadoc and clover reports
-    -->
+    <!-- Documentation: http://wiki.greatschools.net/bin/view/Greatschools/UsingMaven2 -->
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>gs</groupId>
@@ -72,22 +66,34 @@
                 </includes>
             </resource>
         </resources>
+        <testResources>
+            <testResource>
+                <directory>src/webapp/WEB-INF</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
 
         <!-- Plugins -->
         <plugins>
-            <!--<plugin>-->
-            <!--<artifactId>maven-idea-plugin</artifactId>-->
-            <!--<configuration>-->
-            <!--<jdkLevel>1.5</jdkLevel>-->
-            <!--<deploymentDescriptorFile>src/webapp/WEB-INF/web.xml</deploymentDescriptorFile>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
+            <plugin>
+                <artifactId>maven-idea-plugin</artifactId>
+                <configuration>
+                    <jdkLevel>1.5</jdkLevel>
+                    <deploymentDescriptorFile>src/webapp/WEB-INF/web.xml</deploymentDescriptorFile>
+                    <exclude>.gwt-cache,src/webapp/WEB-INF/gwtBin</exclude>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <warSourceDirectory>${basedir}/src/webapp</warSourceDirectory>
+                    <warSourceExcludes>
+                        **/gwtBin/**
+                    </warSourceExcludes>
                 </configuration>
             </plugin>
 
@@ -129,12 +135,12 @@
             </plugin>
 
             <plugin>
+                <!-- http://code.google.com/p/gwt-maven/ -->
                 <groupId>com.totsp.gwt</groupId>
                 <artifactId>maven-googlewebtoolkit2-plugin</artifactId>
-                <version>2.0-beta15</version>
                 <configuration>
                     <logLevel>ERROR</logLevel>
-                    <gwtVersion>1.4.60</gwtVersion>
+                    <gwtVersion>1.4.61</gwtVersion>
                     <compileTargets>
                         <compileTarget>gs.web.admin.gwt.TableCopyGWTPanel</compileTarget>
                     </compileTargets>
@@ -142,17 +148,21 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>gwt-setup</id>
                         <goals>
-                            <!-- These two goals enable automatic GWT setup, but are expirimental -->
                             <goal>setup</goal>
                             <goal>extractGwt</goal>
-                            <!--<goal>generateClientBeans</goal>-->
-                            <!--<goal>mergewebxml</goal>-->
-                            <goal>compile</goal>
-                            <!--<goal>testGwt</goal>-->
-                            <!--<goal>gwt</goal>-->
                         </goals>
                     </execution>
+                    <execution>
+                        <id>gwt-build</id>
+                        <!-- I'd like to move this to prepare-package when M2.1 comes out -->
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+
                 </executions>
             </plugin>
 
@@ -175,10 +185,10 @@
             </plugin>
 
             <plugin>
-                <!-- Generate the build.timestamp file -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
+                    <!-- Generate the build.timestamp file -->
                     <execution>
                         <id>build timestamp</id>
                         <phase>process-resources</phase>
@@ -190,6 +200,9 @@
                                            type="date"
                                            default="now"
                                            pattern="yyyyMMddkkmmss"/>
+                                    <entry key="gsweb.version"
+                                           type="string"
+                                           default="${gs.version}"/>
                                 </propertyfile>
                             </tasks>
                         </configuration>
@@ -197,6 +210,7 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <!-- relocate generated GWT code to the proper location -->
                     <execution>
                         <id>relocate compiled gwt files</id>
                         <phase>process-classes</phase>
@@ -222,6 +236,16 @@
                         <version>1.6.5</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*TestCase.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

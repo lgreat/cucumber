@@ -45,6 +45,14 @@ public class ResultsPager {
      */
     public static final String BEAN_ID = "resultsPager";
 
+    public StateManager getStateManager() {
+        return _stateManager;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
     public enum ResultType {
         school,
         topic
