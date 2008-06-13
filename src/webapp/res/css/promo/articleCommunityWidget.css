@@ -103,6 +103,13 @@
     #background-position: 0 0px;
 }
 
+#articleCommunityWidget ul li.discussion {
+    background-image: url(/res/img/community/small_icons/discussion.gif);
+    background-position: 0 0px;
+    #background-position: 0 0px;
+}
+
+
 #resultstabs {
 	background: #66CCCC;
     width: 290px;

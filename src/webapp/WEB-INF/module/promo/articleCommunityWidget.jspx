@@ -78,9 +78,9 @@
         </ul>
         <ul id="articleCommunityPostList" class="articleCommunityPostList" >
             <li class="advice"><a href="${communityURLPrefix}/advice/278/mean-girls--the-long-haul" id="Overview-choosingschool-parentposts__1" class="GS_EV5_">Mean Girls: The Long Haul</a></li>
-            <li class="groups"><a href="${communityURLPrefix}/groups/14875/discussion/196821" id="Overview-choosingschool-parentposts__2" class="GS_EV5_">Reading Is Going to the Dogs</a></li>
+            <li class="discussion"><a href="${communityURLPrefix}/groups/14875/discussion/196821" id="Overview-choosingschool-parentposts__2" class="GS_EV5_">Reading Is Going to the Dogs</a></li>
             <li class="question"><a href="${communityURLPrefix}/q-and-a/193910/Marihuana" id="Overview-choosingschool-parentposts__3" class="GS_EV5_">My son's friends tell him that marijuana is not really a drug!</a></li>
-            <li class="groups lastitem"><a href="${communityURLPrefix}/groups/11527/discussion/156483" id="Overview-choosingschool-parentposts__4" class="GS_EV5_">Anyone have experience with combined first and second grade?</a></li>
+            <li class="discussion lastitem"><a href="${communityURLPrefix}/groups/11527/discussion/156483" id="Overview-choosingschool-parentposts__4" class="GS_EV5_">Anyone have experience with combined first and second grade?</a></li>
         </ul>
         <gsml:a href="/content/schoolChoiceCenter.page" styleClass="more">More hot topics &gt;</gsml:a>
         
