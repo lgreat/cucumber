@@ -8,9 +8,11 @@
     <jsp:directive.page import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.page import="java.net.URLDecoder"/>
     <jsp:scriptlet>
-        // Create a cookie that expires in one day
+        // Create a domain cookie that the user has seen the ad
         Cookie interstitialCookie = new Cookie("gs_interstitial", "viewed");
         interstitialCookie.setMaxAge(86400); // expires in one day
+        interstitialCookie.setPath("/");
+        interstitialCookie.setDomain("greatschools.net");
         response.addCookie(interstitialCookie);
 
         String uri = request.getParameter("passThroughURI");
