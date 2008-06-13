@@ -75,14 +75,16 @@
             <li class="greenarrow"><gsweb:articlelink articleId="87" styleId="Overview-choosingschool-articles__3" styleClass="GS_EV5_">Imagining Your Ideal School</gsweb:articlelink></li>
             <li class="greenarrow"><gsweb:articlelink articleId="197" styleId="Overview-choosingschool-articles__4" styleClass="GS_EV5_">Private vs. Public Schools</gsweb:articlelink></li>
             <li class="greenarrow lastitem"><a id="Overview-choosingschool-articles__5" class="GS_EV5_" href="http://school-choice.greatschools.net/" target="_blank">School Choice Blog: One Mom's Journey</a></li>
+            <gsml:a href="/content/schoolChoiceCenter.page" styleClass="more">More school choice tips &gt;</gsml:a>
         </ul>
         <ul id="articleCommunityPostList" class="articleCommunityPostList" >
             <li class="advice"><a href="${communityURLPrefix}/advice/278/mean-girls--the-long-haul" id="Overview-choosingschool-parentposts__1" class="GS_EV5_">Mean Girls: The Long Haul</a></li>
             <li class="discussion"><a href="${communityURLPrefix}/groups/14875/discussion/196821" id="Overview-choosingschool-parentposts__2" class="GS_EV5_">Reading Is Going to the Dogs</a></li>
             <li class="question"><a href="${communityURLPrefix}/q-and-a/193910/Marihuana" id="Overview-choosingschool-parentposts__3" class="GS_EV5_">My son's friends tell him that marijuana is not really a drug!</a></li>
             <li class="discussion lastitem"><a href="${communityURLPrefix}/groups/11527/discussion/156483" id="Overview-choosingschool-parentposts__4" class="GS_EV5_">Anyone have experience with combined first and second grade?</a></li>
+        <gsml:a href="${communityURLPrefix}/q-and-a" styleClass="more">More hot topics &gt;</gsml:a>
         </ul>
-        <gsml:a href="/content/schoolChoiceCenter.page" styleClass="more">More hot topics &gt;</gsml:a>
+
         
         
     </div>

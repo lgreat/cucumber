@@ -173,6 +173,7 @@
 
 div.articleCommunityWidget a.more{
     float:right;
+    padding-top:8px;
     padding-right:15px;
     font-family:"Trebuchet MS",Arial,sans-serif;
 }
