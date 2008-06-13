@@ -8,11 +8,17 @@
     <jsp:directive.page import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.page import="java.net.URLDecoder"/>
     <jsp:scriptlet>
+        // Create a cookie that expires in one day
+        Cookie interstitialCookie = new Cookie("gs_interstitial", "viewed");
+        interstitialCookie.setMaxAge(86400); // expires in one day
+        response.addCookie(interstitialCookie);
+
         String uri = request.getParameter("passThroughURI");
         if (StringUtils.isNotEmpty(uri)) {
             String uriDecoded = URLDecoder.decode(uri, "UTF-8");
             request.setAttribute("passThroughURI", uriDecoded);
         }
+
         gs.web.util.PageHelper.hideLeaderboard(request);
         gs.web.util.PageHelper.hideHeader(request);
         gs.web.util.PageHelper.hideFooterAd(request);
@@ -20,7 +26,6 @@
         gs.web.util.PageHelper.setPageName(request, "interstitial");
     </jsp:scriptlet>
     <html lang="en">
-    <pageHelper:addOnLoadHandler handler="createCookie('gs_interstitial', 'viewed', 1);"/>
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
