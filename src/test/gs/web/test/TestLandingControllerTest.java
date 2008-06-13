@@ -76,6 +76,20 @@ public class TestLandingControllerTest extends BaseControllerTestCase {
         assertNotNull(a1.getHref());
     }
 
+    public void testRequestFormWithLowercaseState() throws Exception {
+        getRequest().setMethod("GET");
+        getRequest().setParameter("state", "fl");
+        getRequest().setParameter("tid", "1");
+        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        assertEquals("/test/landing", mAndV.getViewName());
+        assertTrue(mAndV.getModel().get("displayname").toString().contains("Florida"));
+        assertTrue(mAndV.getModel().get("info").toString().contains("FCAT"));
+        List<Anchor> anchors = (List<Anchor>)mAndV.getModel().get("links");
+        Anchor a1 = anchors.get(0);
+        assertNotNull(a1.getContents());
+        assertNotNull(a1.getHref());
+    }
+
     public void testParseAnchorList() throws Exception {
         List<Anchor> aList = _controller.parseAnchorList(null);
         assertEquals(0, aList.size());

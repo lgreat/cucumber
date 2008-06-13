@@ -67,13 +67,12 @@ public class TestLandingController extends SimpleFormController {
         }
 
         String stateParam = request.getParameter("state");
-
         if (StringUtils.isNotBlank(stateParam)) {
             State state = getStateManager().getState(stateParam);
             refData.put("cities", _geoDao.findCitiesByState(state));
             String testIdParam = request.getParameter("tid");
             if (StringUtils.isNotBlank(testIdParam)) {
-                String key = stateParam + testIdParam;
+                String key = state.getAbbreviation() + testIdParam;
                 Map<String, String> testData = getTestData(key);
                 if (testData == null) {
                     errors.reject("Could not find test info for: " + key);
@@ -116,7 +115,7 @@ public class TestLandingController extends SimpleFormController {
 
             String testIdParam = request.getParameter("tid");
             if (StringUtils.isNotBlank(testIdParam)) {
-                String dataKey = stateParam.toUpperCase() + testIdParam;
+                String dataKey = state.getAbbreviation() + testIdParam;
                 Map<String, String> data = getTestData(dataKey);
                 if (data != null) {
                     String anchor = data.get("testanchor");
@@ -131,7 +130,7 @@ public class TestLandingController extends SimpleFormController {
             String tabParam = request.getParameter("tab");
             StringBuffer urlBuffer = new StringBuffer();
             urlBuffer.append("/cgi-bin/cs_compare/");
-            urlBuffer.append(stateParam).append("?area=m&city=");
+            urlBuffer.append(state.getAbbreviationLowerCase()).append("?area=m&city=");
             urlBuffer.append(request.getParameter("city")).append("&level=");
             urlBuffer.append(request.getParameter("level")).append("&sortby=distance&tab=");
             if (StringUtils.isNotBlank(tabParam)) {
