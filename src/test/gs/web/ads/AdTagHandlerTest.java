@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.11 2007/10/10 18:37:00 dlee Exp $
+ * $Id: AdTagHandlerTest.java,v 1.12 2008/06/13 17:04:17 cpickslay Exp $
  */
 package gs.web.ads;
 
@@ -96,7 +96,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('Top_300x137');</script></div>", output);
         assertTrue(pageHelper.getAdPositions().contains(AdPosition.Top_300x137));
 
-        assertEquals(false, _tag.isDeferred());
+        assertEquals("Ads should be deferred by default", true, _tag.isDeferred());
         //try to set the same ad position
         try {
             _tag.setPosition("Top_300x137");
