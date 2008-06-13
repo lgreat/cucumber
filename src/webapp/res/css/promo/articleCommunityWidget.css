@@ -97,6 +97,12 @@
     #background-position: 0 -1px;
 }
 
+#articleCommunityWidget ul li.groups {
+    background-image: url(/res/img/community/small_icons/groups.gif);
+    background-position: 0 0px;
+    #background-position: 0 0px;
+}
+
 #resultstabs {
 	background: #66CCCC;
     width: 290px;
