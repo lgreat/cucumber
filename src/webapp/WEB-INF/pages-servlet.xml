@@ -673,6 +673,14 @@
         </property>
     </bean>
 
+    <bean name="/content/backToSchool2.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>/content/backToSchool2</value>
+        </property>
+    </bean>
+
     <bean name="/content/stateStandards.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
