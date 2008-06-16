@@ -1407,10 +1407,10 @@
     <bean name="/school/ajaxFindSchoolAndCity.page"
         class="gs.web.school.FindSchoolController" autowire="byName" lazy-init="true"/>
 
-    <bean name="/community/msl.page"
+    <bean name="/community/mySchoolList.page"
           class="gs.web.community.MySchoolListController" autowire="byName" lazy-init="true">
         <property name="viewName">
-            <value>community/msl</value>
+            <value>community/mySchoolList</value>
         </property>
     </bean>
 
