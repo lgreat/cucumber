@@ -28,6 +28,9 @@
                 <c:set var="articleStyle" value="old" scope="request"/>
             </c:otherwise>
         </c:choose>
+        <variant:b>
+            <pageHelper:externalCss file="/res/css/content/articleAB.css"/>
+        </variant:b>
 
         <c:if test="${not empty requestScope.articleMetaDescriptor}">
             <meta name="description" content="${requestScope.articleMetaDescriptor}" />
@@ -68,8 +71,22 @@
                         </div>
                         <div id="squareadvert">
                             <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
-                            <ad:AboveFold_300x250/>
+                            <variant:a>
+                                <ad:AboveFold_300x250/>
+                            </variant:a>
+                            <variant:b>
+                                <ad:AboveFold_300x250_B_Test/>
+                            </variant:b>
+
                         </div>
+
+                        <variant:b>
+                            <c:if test="${articleStyle eq 'new'}">
+                                <div id="more-about-alt" >
+                                    <p id="destination-insert-before-node"> Junk line!</p>
+                                </div>
+                            </c:if>
+                        </variant:b>
                     </div>
                     <!-- Article -->
                     <c:choose>
@@ -223,18 +240,44 @@
     <mod:tracking pageName="${pageName}"
                 hier1="Article,ArticleTitle: ${requestScope.articleHier1}"
                 events="event7"
-                articleStyle="${articleStyle}" />
+                articleStyle="${articleStyle}"
+    />
 
-    <c:if test="${articleStyle eq 'new'}">
-        <script type="text/javascript" >
-            <![CDATA[
-            <!--
-                /* Omniture Tagging */
-                setOmnitureTagging(getMoreOnContent(),"A");
-             -->
-            ]]>
-        </script>
-    </c:if>
+
+    <variant:a>
+        <c:if test="${articleStyle eq 'new'}">
+            <script type="text/javascript" >  <![CDATA[  <!--
+                    /* Omniture Tagging */
+                    setOmnitureTagging(getMoreOnContent(),"A");
+             --> ]]>
+            </script>
+        </c:if>
+    </variant:a>
+    <variant:b>
+        <c:if test="${articleStyle eq 'new'}">
+            <script type="text/javascript" >  <![CDATA[  <!--
+                /* More-about Move */
+                var moreOnElementNode = getMoreOnContent();
+                var destinationNode = document.getElementById("destination-insert-before-node");
+
+                if (moreOnElementNode != null ){
+                    hideDottedDivider(moreOnElementNode);
+                    /* reset the id and class to make the styling simpler */
+                    moreOnElementNode.setAttribute("class", "paragraph");
+                    moreOnElementNode.setAttribute("id", "");
+                    /* move the node */
+                    destinationNode.parentNode.insertBefore(moreOnElementNode, destinationNode);
+                    setOmnitureTagging(moreOnElementNode,"B");
+                } else {
+                    /* couldn't find the more-about div so, get rid of the more-about-alt div altogether */
+                    destinationNode.parentNode.parentNode.removeChild(destinationNode.parentNode);
+                }
+
+             --> ]]>
+            </script>
+        </c:if>
+    </variant:b>
+
 
     </body>
     </html>
