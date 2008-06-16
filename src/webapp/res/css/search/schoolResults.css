@@ -160,12 +160,15 @@ Tabs and filters
 
 #resultspaginationB{
     display: inline;
-    padding:0 0 0 200px;
-    *padding: 0 0 0 180px;    /* ie6 and ie7*/
-    _padding: 0 0 0 180px;   /* ie6 only*/
     background: none;
 }
 
+#paginationAlignRight{
+    display: inline;
+    position: absolute;
+    right: 0px;
+    _padding: 0 10px 0 0;   /* ie6 only */
+}
 /*
 City and district rollups
 */

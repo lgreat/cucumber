@@ -217,11 +217,13 @@
                                           onclick="reloadPageWithFilters();"/> Private</label>
                     <c:if test="${requestScope.context.ABVersion eq 'b' and total gt 0}">
                         <div id="resultspaginationB">
+                            <div id="paginationAlignRight">
                                 <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
                                 <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
                                 <c:set var="px" value="${(page * pageSize)}"/>
                                 <strong>${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)}</strong>
                                 of <strong>${total}</strong>
+                            </div>  
                         </div>
                     </c:if>
                 </div>
