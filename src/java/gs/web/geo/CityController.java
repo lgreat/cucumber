@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.47 2008/02/20 00:45:47 cpickslay Exp $
+ * $Id: CityController.java,v 1.48 2008/06/16 22:32:29 eddie Exp $
  */
 
 package gs.web.geo;
@@ -172,7 +172,7 @@ public class CityController extends AbstractController {
         model.put("strCityRating",strCityRating);
         model.put("cityratingAlt",cityRatingAlt);
 
-
+        model.put("levelCode",_schoolDao.getLevelCodeInCity(city.getName(),state));
 
         return new ModelAndView("geo/city", model);
     }

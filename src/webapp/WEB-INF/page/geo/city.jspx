@@ -269,7 +269,7 @@
         <variant:b>
             <tr>
                 <td>
-                    <school:compareInCity city="${cityObject.name}" state="${stateAbbrevLowerCase}"/>
+                    <school:compareInCity city="${cityObject.name}" state="${stateAbbrevLowerCase}" levelCode="${levelCode}"/>
                 </td>
             </tr>
         </variant:b>
