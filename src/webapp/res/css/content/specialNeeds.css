@@ -2,10 +2,21 @@ h1#specialNeedsText {
     background: url( "../../img/content/specialNeeds/headertext.gif" ) no-repeat;
 }
 
+
+#contentGS div.welcome {
+
+    border-bottom:0px dotted #CCCCCC;
+    padding-top:10px;
+    padding-bottom: 18px;
+    margin-bottom: 0px;
+    background:transparent url(../../img/content/countdownToCollege/red_dot.gif) repeat-x scroll center bottom;
+}
 #contentGS div.welcome p {
-   font-size: 16px;
-   color:#3399AA;
-  @  text-align: center;
+    font-size: 16px;
+    color:#3399AA;
+    text-align: center;
+    padding-right: 16px;
+
 }
 #contentGS div.welcome p#msg{
     font-weight: bold;
@@ -17,6 +28,7 @@ h1#specialNeedsText {
 
 h2#Identifying-a-Learning-Difficulty {
     background: url( "../../img/content/specialNeeds/text_1.gif" ) no-repeat;
+
 }
 
 h2#Managing-Home-and-Family {

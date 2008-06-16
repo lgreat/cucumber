@@ -36,11 +36,11 @@
         <jsp:include page="/content/leftNav.module" />
 
         <div class="middle">
-            <div id="contentHeaderImage">
-                <h1 id="specialNeedsText" class="pageHeading">Special Needs</h1>
-                <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg"
-                          alt="Male teacher and boy reading together"/>
-            </div>
+           
+            <h1 id="specialNeedsText" class="pageHeading">Special Needs</h1>
+            <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg"
+                      alt="Male teacher and boy reading together"/>
+
 
             <div class="welcome">
                 <p id="msg">Welcome to SchwabLearning Parents</p>
