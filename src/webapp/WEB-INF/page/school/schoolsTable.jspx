@@ -394,10 +394,12 @@
     <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
     <c:choose>
         <c:when test="${not empty param.city}">
-            <school:compareInCity city="${cityName}" state="${state}"/>
+            <school:compareInCity city="${cityName}" state="${state}"
+                                  levelCode="${requestScope.allLevelCodes}"/>
         </c:when>
         <c:otherwise>
-            <school:compareInDistrict district="${district}" state="${state}"/>
+            <school:compareInDistrict district="${district}" state="${state}" 
+                                      levelCode="${requestScope.allLevelCodes}"/>
         </c:otherwise>
     </c:choose>
 

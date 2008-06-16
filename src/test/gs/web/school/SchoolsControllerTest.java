@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.27 2008/06/10 21:39:34 aroy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.28 2008/06/16 23:53:14 aroy Exp $
  */
 
 package gs.web.school;
@@ -8,6 +8,7 @@ package gs.web.school;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.ISchoolDao;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.Searcher;
@@ -39,6 +40,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _controller = new SchoolsController();
         _controller.setApplicationContext(getApplicationContext());
         _controller.setDistrictDao((IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID));
+        _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _controller.setSearcher((Searcher) getApplicationContext().getBean(Searcher.BEAN_ID));
 
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);

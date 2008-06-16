@@ -8,7 +8,6 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
-    <jsp:directive.tag import="java.util.regex.Pattern"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
 
     <jsp:directive.attribute name="city" required="true" description="Name of the city" type="java.lang.String"/>

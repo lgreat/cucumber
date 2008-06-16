@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.46 2008/06/10 21:39:34 aroy Exp $
+ * $Id: SchoolsController.java,v 1.47 2008/06/16 23:53:13 aroy Exp $
  */
 
 package gs.web.school;
 
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
+import gs.data.school.ISchoolDao;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchCommand;
@@ -41,6 +42,7 @@ public class SchoolsController extends AbstractController {
     private Searcher _searcher;
     private IDistrictDao _districtDao;
     private IGeoDao _geoDao;
+    private ISchoolDao _schoolDao;
     private String _viewName;
 
     // INPUTS
@@ -113,6 +115,8 @@ public class SchoolsController extends AbstractController {
      * of the schools list.
      */
     public static final String MODEL_PAGE_SIZE = "pageSize";
+
+    public static final String MODEL_ALL_LEVEL_CODES = "allLevelCodes";
 
     /**
      * Though this method throws <code>Exception</code>, it should swallow most
@@ -190,6 +194,7 @@ public class SchoolsController extends AbstractController {
             searchCommand.setCity(cityName);
             searchCommand.setQ(cityName);
 
+            model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));
         } else {
             String districtParam = request.getParameter(PARAM_DISTRICT);
             if (districtParam != null) {
@@ -218,7 +223,8 @@ public class SchoolsController extends AbstractController {
                     }
 
                     model.put(MODEL_DISTRICT_OBJECT, district);
-                    
+                    model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInDistrict(districtId, state));
+
                     searchCommand.setDistrict(districtIdStr);
                     // the following is not needed and breaks sometimes. See SearcherTest.
                     // searchCommand.setQ(district.getName());
@@ -369,5 +375,13 @@ public class SchoolsController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }
