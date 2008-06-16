@@ -2,20 +2,37 @@ h1#specialNeedsText {
     background: url( "../../img/content/specialNeeds/headertext.gif" ) no-repeat;
 }
 
-h2#identifyLearningProblem {
+#contentGS div.welcome p {
+   font-size: 16px;
+   color:#3399AA;
+  @  text-align: center;
+}
+#contentGS div.welcome p#msg{
+    font-weight: bold;
+}
+
+#contentGS div.welcome p#from{
+    font-weight: normal;
+}
+
+h2#Identifying-a-Learning-Difficulty {
     background: url( "../../img/content/specialNeeds/text_1.gif" ) no-repeat;
 }
 
-h2#supportChild {
+h2#Managing-Home-and-Family {
+    background: url( "../../img/content/specialNeeds/text_2.gif" ) no-repeat;
+}
+
+h2#Managing-School-and-Learning {
     background: url( "../../img/content/specialNeeds/text_3.gif" ) no-repeat;
 }
 
-h2#knowLegalRights {
+h2#Technology-to-Support-Learning{
     background: url( "../../img/content/specialNeeds/text_4.gif" ) no-repeat;
 }
 
-h2#specificDisabilities {
-    background: url( "../../img/content/specialNeeds/text_2.gif" ) no-repeat;
+h2#Other-Disabilities{
+    background: url( "../../img/content/specialNeeds/text_5.gif" ) no-repeat;
 }
 
 #contentGS div.multipleQuestions {

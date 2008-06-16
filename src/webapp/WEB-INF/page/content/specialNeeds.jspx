@@ -42,22 +42,68 @@
                           alt="Male teacher and boy reading together"/>
             </div>
 
+            <div class="welcome">
+                <p id="msg">Welcome to SchwabLearning Parents</p>
+                <p id="from">from Bill Jackson, Founder and President</p>
+            </div>
 
-            <content:micrositeArticleList title="Identify a Learning Difficulty"
-                                          headerId="identifyLearningProblem"
-                                          articleIds="979,980,840"/>
+            <div>
+            <h2 id="Identifying-a-Learning-Difficulty">Identifying a Learning Difficulty</h2>
+            <ul class="plain">
+                <li><a href="/articles/66/LD/Identifying-a-Learning-Difficulty/Early-Signs-and-Symptoms">Early Signs and Symptoms</a></li>
+                <li><a href="/articles/67/LD/Identifying-a-Learning-Difficulty/LD-Basics">LD Basics</a></li>
+                <li><a href="/articles/68/LD/Identifying-a-Learning-Difficulty/AD-HD-Basics">AD/HD Basics</a></li>
+                <li><a href="/articles/69/LD/Identifying-a-Learning-Difficulty/Reading-Basics">Reading Basics </a></li>
+                <li><a href="/articles/70/LD/Identifying-a-Learning-Difficulty/LD-Evaluatio-Process">LD Evaluation Process</a></li>
+                <li><a href="/articles/95/LD/Identifying-a-Learning-Difficulty/Social-Emotional-Pychological-Issues">Social, Emotional and Psychological Issues</a></li>
+                <li><a href="/articles/71/LD/Identifying-a-Learning-Difficulty/Child-Development">Child Development </a></li>
+            </ul>
+            </div>
 
-            <content:micrositeArticleList title="Support Your Child at School"
-                                          headerId="supportChild"
-                                          articleIds="982,22,983,984,985,981"/>
+            <div>
+            <h2 id="Managing-Home-and-Family">Managing Home &amp; Family </h2>
+            <ul class="plain">
+                <li><a href="/articles/73/LD/Managing-Your-Child/Talking-about-LD-ADHD">Talking about LD/ADHD</a></li>
+                <li><a href="/articles/74/LD/Managing-Your-Child/Fostering-Self-Esteem-and-Success">Fostering Self Esteem &amp; Success</a></li>
+                <li><a href="/articles/97/LD/Managing-Your-Child/Emotion-and-Psychological-Issues">Emotions &amp; Psychological Issues</a></li>
+                <li><a href="/articles/75/LD/Managing-Your-Child/Social-Skills">Social Skills</a></li>
+                <li><a href="/articles/76/LD/Managing-Your-Child/Behavior">Behavior</a></li>
+                <li><a href="/articles/77/LD/Managing-Home-and-Family/Managing-AD-HD">Managing AD/HD</a></li>
+                <li><a href="/articles/96/LD/Managing-Home-and-Family/Activities-Outside-of-School">Activities Outside of School</a></li>
+            </ul>
+            </div>
 
-            <content:micrositeArticleList title="Know Your Child's Legal Rights"
-                                          headerId="knowLegalRights"
-                                          articleIds="978,993,986,987,989"/>
+            <div>
+            <h2 id="Managing-School-and-Learning">Managing School &amp; Learning</h2>
+            <ul class="plain">
+                <li><a href="/articles/84/LD/Managing-School-and-Learning/Reading-Writing-and-Math">Reading, Writing and Math</a></li>
+                <li><a href="/articles/85/LD/Managing-School-and-Learning/Homework" >Homework</a></li>
+                <li><a href="/articles/86/LD/Managing-School-and-Learning/Working-with-your-Childs-School">Working with your Child's School</a></li>
+                <li><a href="/articles/87/LD/Managing-School-and-Learning/IEP-and-504-Plans">IEP and 504 Plans</a></li>
+                <li><a href="/articles/88/LD/Managing-School-and-Learning/Legal-Rights-and-Advocacy">Legal Rights &amp; Advocacy</a></li>
+                <li><a href="/articles/89/LD/Managing-School-and-Learning/Preparing-for-Life-After-High-School">Preparing for Life After High School</a></li>
+            </ul>
+            </div>
 
-            <content:micrositeArticleList title="Specific Challenges"
-                                          headerId="specificDisabilities"
-                                          articleIds="988,999,998,389,385,990" lower="true"/>
+            <div>
+            <h2 id="Technology-to-Support-Learning">Technology to Support Learning</h2>
+            <ul class="plain">
+                <li><a href="/articles/92/LD/Technology-to-Support-Learning">Technology to Support Learning</a></li>
+                <gsweb:articlelink articleId="3702" wrappingElement="li"/>
+                <gsweb:articlelink articleId="3701" wrappingElement="li"/>
+                <gsweb:articlelink articleId="3083" wrappingElement="li"/>
+                <gsweb:articlelink articleId="3067" wrappingElement="li"/>
+                <gsweb:articlelink articleId="3084" wrappingElement="li"/>
+            </ul>
+            </div>
+
+            <div>
+            <h2 id="Other-Disabilities">Other Disabilities </h2>
+            <ul class="plain">
+                <gsweb:articlelink articleId="389" wrappingElement="li"/>
+                <gsweb:articlelink articleId="385" wrappingElement="li"/>
+            </ul>            
+            </div>
 
             <div class="question multipleQuestions">
                 <h3 id="askTheExperts">Ask the Experts</h3>
