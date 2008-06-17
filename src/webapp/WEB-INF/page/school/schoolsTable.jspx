@@ -259,14 +259,13 @@
                     </li>
                     <!-- Commenting out preschool tab until preschools are live.
                          Uncommenting this block should be all that is required -->
-                    <!-- TODO: comment out this link before 10.3 goes live -->
-                    <li class="${pTabClass}">
-                        <link:schools cityName="${cityName}"
-                                      districtId="${district}"
-                                      levelCode="p"
-                                      styleClass="noInterstitial"
-                                      showAll="${not empty param.showall}">Preschool</link:schools>
-                    </li>
+                    <!--<li class="${pTabClass}">-->
+                        <!--<link:schools cityName="${cityName}"-->
+                                      <!--districtId="${district}"-->
+                                      <!--levelCode="p"-->
+                                      <!--styleClass="noInterstitial"-->
+                                      <!--showAll="${not empty param.showall}">Preschool</link:schools>-->
+                    <!--</li>-->
                     <li class="${eTabClass}">
                         <link:schools cityName="${cityName}"
                                       districtId="${district}"
