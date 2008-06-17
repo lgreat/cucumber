@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.12 2008/06/13 17:04:17 cpickslay Exp $
+ * $Id: AdTagHandlerTest.java,v 1.13 2008/06/17 19:08:48 cpickslay Exp $
  */
 package gs.web.ads;
 
@@ -96,13 +96,20 @@ public class AdTagHandlerTest extends BaseTestCase {
         assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('Top_300x137');</script></div>", output);
         assertTrue(pageHelper.getAdPositions().contains(AdPosition.Top_300x137));
 
-        assertEquals("Ads should be deferred by default", true, _tag.isDeferred());
         //try to set the same ad position
         try {
             _tag.setPosition("Top_300x137");
             _tag.getDeferredContent();
             fail("Top_300x137 already set so we shouldn't allow it to be set again");
         } catch (IllegalArgumentException e){}        
+    }
+
+    public void testDeferredAdLoading() {
+        _tag.setPosition("Top_300x137");
+        assertFalse("Google ad slots should not be deferred", _tag.isDeferred());
+
+        _tag.setPosition("x11");
+        assertTrue("24/7 ad slots should be deferred", _tag.isDeferred());
     }
 
     public void testPrefixSlotNameGAMDeferWorks() throws Exception {

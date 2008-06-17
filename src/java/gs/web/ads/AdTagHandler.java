@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.17 2008/06/13 17:04:11 cpickslay Exp $
+ * $Id: AdTagHandler.java,v 1.18 2008/06/17 19:08:48 cpickslay Exp $
  */
 package gs.web.ads;
 
@@ -128,6 +128,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
      * @return true is ad tag is deferred.  False otherwise.
      */
     public boolean isDeferred() {
-        return true; 
+        return !_adPosition.isGAMPosition();
     }
 }
