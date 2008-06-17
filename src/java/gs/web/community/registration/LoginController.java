@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.32 2008/05/28 00:30:03 aroy Exp $
+ * $Id: LoginController.java,v 1.33 2008/06/17 17:05:14 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -168,20 +168,16 @@ public class LoginController extends SimpleFormController {
 
     protected void notifyCommunity(User user, HttpServletRequest request) throws SoapRequestException {
         ReportLoginRequest soapRequest = getReportLoginRequest();
-        UrlUtil urlUtil = new UrlUtil();
-        if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
             soapRequest.setTarget("http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/soap/user");
         }
-        Object attr = request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        String userIp;
-        if (attr != null) {
-            userIp = String.valueOf(attr);
-        } else {
-            userIp = "127.0.0.1";
+        String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
+        if (StringUtils.isBlank(requestIP)) {
+            requestIP = request.getRemoteAddr();
         }
-        soapRequest.reportLoginRequest(user, userIp);
+        soapRequest.reportLoginRequest(user, requestIP);
     }
 
     public IUserDao getUserDao() {

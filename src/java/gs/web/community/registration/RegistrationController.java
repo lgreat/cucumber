@@ -310,11 +310,14 @@ public class RegistrationController extends SimpleFormController implements Read
     protected void notifyCommunity(Integer userId, String screenName, String email, String password,
                                    Date dateCreated,
                                    HttpServletRequest request) throws SoapRequestException {
+        String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
+        if (StringUtils.isBlank(requestIP)) {
+            requestIP = request.getRemoteAddr();
+        }        
         CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
-                (userId, screenName, email, password, dateCreated);
+                (userId, screenName, email, password, dateCreated, requestIP);
         CreateOrUpdateUserRequest soapRequest = getSoapRequest();
-        UrlUtil urlUtil = new UrlUtil();
-        if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
             soapRequest.setTarget("http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/soap/user");
