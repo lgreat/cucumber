@@ -30,7 +30,7 @@
             city = city.replace(/\s/, "+");
             path += city;
             path += "&level=";
-            for(var i = 0; i != 3; i++) {
+            for(var i = 0; i < levelRadios.length; i++) {
                 var inp = levelRadios[i];
                 if (inp.checked) {
                      level = inp.value;
