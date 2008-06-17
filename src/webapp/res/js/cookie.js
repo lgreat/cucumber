@@ -6,8 +6,9 @@ function readEscapedCookie(cookieName) {
 
     var j = cookie.indexOf(';', i);
     if (j == -1) j = cookie.length;
+    var value = cookie.substring(i + cookieName.length + 1, j) ;
 
-    return unescape(cookie.substring(i + cookieName.length + 1, j));
+    return unescape(value);
 }
 
 
@@ -48,13 +49,12 @@ var subCookie = {
 
         //alert( "setObject() " + cookieName + ", " + subcookieObj);
         var cookieValue = '';
-		for (var i=0; i < subcookieObj.length; i++)
-		{
-			cookieValue += i + subCookie.nameValueSeparator;
-			cookieValue += subcookieObj[i];
-			cookieValue += subCookie.subcookieSeparator;
+        for (var property in subcookieObj)
+        {
+			cookieValue += property + subCookie.nameValueSeparator;
+			cookieValue += subcookieObj[property];
+            cookieValue += subCookie.subcookieSeparator;
 		}
-		/* remove trailing subcookieSeparator */
 		cookieValue = cookieValue.substring(0,cookieValue.length-subCookie.subcookieSeparator.length);
 		createCookie(cookieName,cookieValue,days);
 	},
@@ -66,9 +66,7 @@ var subCookie = {
         //alert( "setObjectProperty()");
         var cookieObj = subCookie.getObject(cookieName) ;
         if (cookieObj == undefined){
-            //alert("cookieObj is undefined");
-            cookieObj = new Array();
-
+            cookieObj = {};
         }
         cookieObj[propertyName]  = propertyValue;
         subCookie.setObject(cookieName, cookieObj, days);
