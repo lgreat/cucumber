@@ -38,7 +38,7 @@
     </div>
 
     <div class="manila">
-        <h2>Back to School</h2>
+        <h2><img src="/res/img/community/backtoschool/manila/back_to_school.png" alt="Back to School" title=""/></h2>
 
         <div class="left-side">
 
@@ -239,7 +239,7 @@
             </div>
         </div>
 
-        <div class="moduleBox">
+        <div class="moduleBox last">
             <div class="wrapper">
                 <h3><img src="/res/img/community/backtoschool/modules/supply_list.png" alt="School Supply List" /></h3>
                 <img class="leadoff" src="/res/img/community/backtoschool/modules/img_supply.jpg" alt="" title="" />
@@ -293,9 +293,9 @@
 </div>
 
 <div id="contentRight">
-    <!-- TODO: This ad slot needs to be updated to the correct value. -->
     <ad:setSlotPrefix slotPrefix="Library_Microsite_Countdown_To_College"/>
     <ad:AboveFold_300x250/>
+    <!-- TODO: This ad slot needs to be updated to the correct value. -->
 </div>
 
 <div id="contentBottom">

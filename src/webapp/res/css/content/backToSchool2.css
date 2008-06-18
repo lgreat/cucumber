@@ -2,20 +2,19 @@
 
 #pageGS {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    width: 980px;
+    width: 975px;
 }
 
 #adLeaderboard {
-    width: 980px;
+    width: 975px;
 }
 
 #topnav table#nav {
-    margin: 0 0 0 12px;
-    width: 956px;
+    width: 952px;
 }
 
 #contentGS {
-    width: 960px;
+    width: 962px;
     margin-left: 10px;
 }
 
@@ -44,7 +43,8 @@
 #contentTop .manila {
 	background: url(/res/img/community/backtoschool/manila/manila.png) no-repeat left top;
 	padding: 1px 0;
-	height: 324px;
+    margin: 0 0 0 -2px;
+    height: 324px;
 }
 
 .manila h2 {
@@ -52,7 +52,7 @@
 	text-align: center;
 	font: 18px "Times New Roman", Times, sans-serif;
 	color: #81c83c;
-	margin: 5px 0 2px 12px;
+	margin: 10px 0 2px 12px;
 }
 
 .manila .left-side {
@@ -117,20 +117,19 @@
 }
 
 #contentMiddle {
-    width: 635px;
+    width: 642px;
     float: left;
 }
 
 #contentRight {
     height: 600px; /* Temporary, will let content determine height. */
     float: right;
-    background-color: red;
-    margin: 0 5px 0 0;
+    margin: 0 10px 0 0;
 }
 
 .contentMiddleModule {
     border-top: 2px dotted #ccc;
-    margin: 0 0 7px 5px;
+    margin: 0 0 7px 2px;
     padding-top: 7px;
 }
 
@@ -143,7 +142,7 @@
 }
 
 #contentBottom {
-    width: 100%;
+    width: 952px;
     height: 200px;
     border-top: 2px dotted #ccc;
     background-color: black;
@@ -152,13 +151,20 @@
 }
 
 .moduleBox {
-    width: 203px;
+    width: 208px;
     background: url(/res/img/community/backtoschool/modules/shadowbox_bg.png) repeat-y;
     float: left;
-    margin: 0 5px 0 0;
+    margin: 0 8px 0 0;
 }
 
-.moduleBox .wrapper {
+.moduleBox.last {
+    width: 208px;
+    background: url(/res/img/community/backtoschool/modules/shadowbox_bg.png) repeat-y;
+    float: left;
+    margin: 0 0 0 0;
+}
+
+.moduleBox .wrapper {                                   
 	background: url(/res/img/community/backtoschool/modules/shadowbox_bottom.png) no-repeat left bottom;
 	padding-bottom: 9px;
 	min-height: 290px;
@@ -198,21 +204,17 @@
 
 .box {
 	background: #fff;
-	width: 260px;
+	width: 266px;
 	min-height: 250px;
 	height: auto !important;
 	height: 250px;
 	float: left;
 	margin-top: 14px;
 	padding: 10px 15px 0;
-
-    /* added by Young -- to be checked on IE6/7 */
-    /*margin-left: 15px;*/
 }
 
-/* commented out by Young -- to be checked on IE6/7 */
 .box.first {
-	margin-right: 15px;
+	margin-right: 17px;
 }
 
 
