@@ -11,29 +11,6 @@
     <version>${gs.version}</version>
     <packaging>war</packaging>
 
-    <repositories>
-        <!-- These get called in sequential order -->
-        <repository>
-            <id>gs-repo</id>
-            <url>http://maven2.dev.greatschools.net</url>
-        </repository>
-        <repository>
-            <id>central</id>
-            <url>http://repo1.maven.org/maven2</url>
-        </repository>
-        <repository>
-            <id>google-maven-gwt-plugin-repo</id>
-            <url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>google-maven-gwt-plugin-repo</id>
-            <url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <build>
         <directory>target</directory>
         <outputDirectory>src/webapp/WEB-INF/classes</outputDirectory>
