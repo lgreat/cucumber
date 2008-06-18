@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.104 2008/05/27 17:09:36 jnorton Exp $
+ * $Id: UrlBuilder.java,v 1.105 2008/06/18 17:12:53 yfan Exp $
  */
 
 package gs.web.util;
@@ -242,6 +242,10 @@ public class UrlBuilder {
      * @param featured should the "featured" url be used instead of the normal one. This is
      */
     public UrlBuilder(Article article, State s, boolean featured) {
+        this(article != null ? article.getId() : new Integer(1), featured);
+    }
+
+    public UrlBuilder(Integer articleId, boolean featured) {
         _perlPage = true;
 
         // Calculate page to use
@@ -252,14 +256,10 @@ public class UrlBuilder {
             page = "showarticle";
         }
 
-        // Calculate link
-        // TH: Commented this out because buildHref is noop with a null request
-        Integer id = article != null ? article.getId() : new Integer(1);
-
         _path = "/cgi-bin/" +
                 page +
                 "/" +
-                id;
+                articleId;
     }
 
     public UrlBuilder(School school, VPage page) {

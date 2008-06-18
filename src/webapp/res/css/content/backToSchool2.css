@@ -1,6 +1,7 @@
 /* Many of these styles should be refactored into a new microsite stylesheet. */
 
 #pageGS {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     width: 980px;
 }
 
@@ -9,22 +10,114 @@
 }
 
 #topnav table#nav {
-    width: 945px;
+    margin: 0 0 0 12px;
+    width: 956px;
 }
 
 #contentGS {
-    width: 945px;
+    width: 960px;
+    margin-left: 10px;
+}
+
+.contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
+	color: #39A;
+}
+
+.bulleted li {
+	background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 5px;
+	padding-left: 10px;
+	margin-bottom: 2px;
 }
 
 #contentTop {
-    width: 945px;
-    height: 320px;
-    background-color: blue;
-    margin: 0 0 10px 0;
+    padding-top: 0px;
+    margin: 0 0 4px 0;
+    position: relative;
+}
+
+#contentTop .sponsor {
+	position: absolute;
+	right: 0px;
+	top: -8px;
+}
+
+#contentTop .manila {
+	background: url(/res/img/community/backtoschool/manila/manila.png) no-repeat left top;
+	padding: 1px 0;
+	height: 324px;
+}
+
+.manila h2 {
+	width: 175px;
+	text-align: center;
+	font: 18px "Times New Roman", Times, sans-serif;
+	color: #81c83c;
+	margin: 5px 0 2px 12px;
+}
+
+.manila .left-side {
+	float: left;
+	padding: 18px 0 0 30px;
+	width: 300px;
+}
+
+#stickies {
+	list-style-type: none;
+	margin: 17px 0 0;
+	padding: 0;
+}
+                                                                                                                 
+#stickies li {
+	float: left;
+}
+
+.manila .hr {
+	margin: 5px 0 10px;
+	height: 0px;
+	border: none;
+	border-top: 1px solid #c1bdbd;
+	border-bottom: 1px solid #fff;
+}
+
+.hr hr {
+	display: none;
+}
+
+.manila ul {
+	margin-top: 5px;
+}
+
+.manila .bulleted li {
+	background: url(/res/img/community/backtoschool/manila/bullet.png) no-repeat left 5px;
+	padding: 0 0 0 10px;
+    margin: 0;
+}
+
+#contentTop .flash {
+	float: right;
+	margin: 12px 15px 0 0;
+}
+
+.manila .header {
+	font-size: 1.25em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3ab3d0;
+}
+
+.clear {
+	clear: both;
+}
+
+.cleared:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 
 #contentMiddle {
-    width: 625px;
+    width: 635px;
     float: left;
 }
 
@@ -32,35 +125,112 @@
     height: 600px; /* Temporary, will let content determine height. */
     float: right;
     background-color: red;
+    margin: 0 5px 0 0;
 }
 
 .contentMiddleModule {
-    width: 100%;
-    height: 295px; /* Temporary */
-    border-top: 2px dotted #CCCCCC;
-    background-color: green;
-    margin: 0 0 5px 0;
+    border-top: 2px dotted #ccc;
+    margin: 0 0 7px 5px;
+    padding-top: 7px;
+}
+
+.gray .wrapper {
+	background: url(/res/img/community/backtoschool/tier3_bg.jpg) repeat-x;
+    padding: 0 0 0 15px;
+    min-height: 288px;
+	height: auto !important;
+	height: 288px;
 }
 
 #contentBottom {
     width: 100%;
     height: 200px;
-    border-top: 2px dotted #CCCCCC;
+    border-top: 2px dotted #ccc;
     background-color: black;
     clear: both;
     margin: 10px 0 0 0;
 }
 
 .moduleBox {
-    width: 201px;
-    height: 295px;
-    background-color: yellow;
+    width: 203px;
+    background: url(/res/img/community/backtoschool/modules/shadowbox_bg.png) repeat-y;
     float: left;
+    margin: 0 5px 0 0;
 }
 
-.moduleBoxSpacer {
-    width: 10px;
-    height: 295px;
-    float: left;
-    background-color: gray;
+.moduleBox .wrapper {
+	background: url(/res/img/community/backtoschool/modules/shadowbox_bottom.png) no-repeat left bottom;
+	padding-bottom: 9px;
+	min-height: 290px;
+	height: auto !important;
+	height: 290px;
+}
+
+.moduleBox h3 img {
+	display: block;
+}
+
+.moduleBox .leadoff {
+	margin: 10px 0 5px 10px;
+}
+
+.moduleBox p {
+	margin: 5px 10px;
+	color: #626262;
+}
+
+.moduleBox form {
+	margin: 15px 0;
+}
+
+.moduleBox select {
+	width: 175px;
+}
+
+.moduleBox .bulleted {
+	margin: 5px 15px 10px;
+}
+
+.moduleBox .ad {
+	text-align: left;
+	padding: 0 0 0 10px;
+}
+
+.box {
+	background: #fff;
+	width: 260px;
+	min-height: 250px;
+	height: auto !important;
+	height: 250px;
+	float: left;
+	margin-top: 14px;
+	padding: 10px 15px 0;
+
+    /* added by Young -- to be checked on IE6/7 */
+    /*margin-left: 15px;*/
+}
+
+/* commented out by Young -- to be checked on IE6/7 */
+.box.first {
+	margin-right: 15px;
+}
+
+
+.box .bulleted {
+	margin: 10px;
+}
+
+.box .bulleted li {
+	margin-bottom: 7px;
+}
+
+p.question {
+	background: url(/res/img/community/backtoschool/q.png) no-repeat left top;
+	padding: 1px 0 0 25px;
+	margin: 10px;
+}
+
+.box .ad {
+	text-align: left;
+	margin: 0 10px;
 }

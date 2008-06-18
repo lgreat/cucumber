@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.59 2008/06/06 20:27:52 jnorton Exp $
+ * $Id: UrlUtil.java,v 1.60 2008/06/18 17:12:53 yfan Exp $
  */
 
 package gs.web.util;
@@ -370,4 +370,11 @@ public final class UrlUtil {
         return buf.toString();
     }
 
+    public static String buildArticleUrl(Integer articleId) {
+        if (articleId == null) {
+            throw new IllegalArgumentException("Article ID must not be null");
+        }
+        UrlBuilder builder = new UrlBuilder(articleId, false);
+        return builder.toString();
+    }
 }

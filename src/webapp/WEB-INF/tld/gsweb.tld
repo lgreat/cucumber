@@ -157,6 +157,12 @@
         <function-signature>java.lang.String generateMetaKeywords(gs.data.school.School)</function-signature>
     </function>
 
+    <function>
+        <name>articleUrl</name>
+        <function-class>gs.web.util.UrlUtil</function-class>
+        <function-signature>java.lang.String buildArticleUrl(java.lang.Integer)</function-signature>
+    </function>
+
 
     <tag>
         <name>stateSelector</name>

@@ -28,37 +28,272 @@
 </head>
 <c:set var="pageName" value="Back to School"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
+<pageHelper:addOnLoadHandler handler="imgSetup();initWeek();"/>
 <gsml:body adPageName="content/backToSchool" pageLayout="backToSchool" startAdHierarchyAtPage="true">
 
 <div id="contentTop">
-    <!-- don't collapse -->
+
+    <div class="sponsor">
+        <a href="#"><img src="/res/img/community/backtoschool/ad_walmart.jpg" alt="Sponsored by: WalMart"/></a>
+    </div>
+
+    <div class="manila">
+        <h2>Back to School</h2>
+
+        <div class="left-side">
+
+            <img id="countdown-header" src="/res/img/community/backtoschool/manila/countdown_header.png"
+                 alt="Countdown to Back-to-School!" title=""/>
+
+            <ul id="stickies" class="cleared">
+                <li><a href="#" onmouseover="hoverIn('week4');" onmouseout="hoverOut('week4');"
+                    onclick="return changeWeek('week4');"><img id="week4-img"
+                    src="/res/img/community/backtoschool/manila/4weeks.png" alt="4+ weeks" title=""/></a></li>
+                <li><a href="#" onmouseover="hoverIn('week3');" onmouseout="hoverOut('week3');"
+                    onclick="return changeWeek('week3');"><img id="week3-img"
+                    src="/res/img/community/backtoschool/manila/3weeks.png" alt="3 weeks" title=""/></a></li>
+                <li><a href="#" onmouseover="hoverIn('week2');" onmouseout="hoverOut('week2');"
+                    onclick="return changeWeek('week2');"><img id="week2-img"
+                    src="/res/img/community/backtoschool/manila/2weeks.png" alt="2 weeks" title=""/></a></li>
+                <li><a href="#" onmouseover="hoverIn('week1');" onmouseout="hoverOut('week1');"
+                    onclick="return changeWeek('week1');"><img id="week1-img"
+                    src="/res/img/community/backtoschool/manila/1week.png" alt="1 week" title=""/></a>
+                </li>
+            </ul>
+
+            <hr class="clear"/>
+
+            <div id="week4" style="display: none;">
+                <p class="header">Summer Reading: Great Preparation for Back to School</p>
+                <ul class="bulleted">
+                    <gsweb:articlelink articleId="320" wrappingElement="li">
+                        &quot;But Mom, I Hate to Read!&quot; &#8211; Tips for Reluctant Readers</gsweb:articlelink>
+                    <gsweb:articlelink articleId="595" wrappingElement="li">
+                        It's Not Just for Oprah: Book Clubs for Kids</gsweb:articlelink>
+                </ul>
+            </div>
+            <div id="week3" style="display: none;">
+                <p class="header">Back to School shopping</p>
+                <ul class="bulleted">
+                    <gsweb:articlelink articleId="324" wrappingElement="li">
+                        Shopping With Tweens and Teens</gsweb:articlelink>
+                    <gsweb:articlelink articleId="657" wrappingElement="li">
+                        10 Tips for Smart Back-to-School Shopping</gsweb:articlelink>
+                </ul>
+            </div>
+            <div id="week2" style="display: none;">
+                <p class="header">Get healthy for Back to School</p>
+                <ul class="bulleted">
+                    <gsweb:articlelink articleId="1145" wrappingElement="li">
+                        Sleep: The Secret Weapon</gsweb:articlelink>
+                    <gsweb:articlelink articleId="330" wrappingElement="li">
+                        Help Your Child Eat a Healthy Lunch</gsweb:articlelink>
+                </ul>
+            </div>
+            <div id="week1" style="display: none;">
+                <p class="header">Get organized</p>
+                <ul class="bulleted">
+                    <gsweb:articlelink articleId="1051" wrappingElement="li">
+                        Seven Things to Tell the Teacher About Your Child</gsweb:articlelink>
+                    <gsweb:articlelink articleId="1053" wrappingElement="li">
+                        Finding Balance in Your Child's Life</gsweb:articlelink>
+                </ul>
+            </div>
+        </div>
+
+        <img class="flash" src="/res/img/community/backtoschool/manila/flash_standin.jpg" alt=""/>
+    </div>
+
+    <script type="text/javascript" charset="utf-8">
+	    <![CDATA[
+        // <!--
+        var img = new Object();
+
+        function newImg(path) {
+            result = new Image();
+            result.src = path;
+            return result;
+        }
+
+        function imgSetup() {
+            // Manila hovers; preloading function
+            img['week1'] = newImg('/res/img/community/backtoschool/manila/1week.png');
+            img['week1-hover'] = newImg('/res/img/community/backtoschool/manila/1week-hover.png');
+            img['week2'] = newImg('/res/img/community/backtoschool/manila/2weeks.png');
+            img['week2-hover'] = newImg('/res/img/community/backtoschool/manila/2weeks-hover.png');
+            img['week3'] = newImg('/res/img/community/backtoschool/manila/3weeks.png');
+            img['week3-hover'] = newImg('/res/img/community/backtoschool/manila/3weeks-hover.png');
+            img['week4'] = newImg('/res/img/community/backtoschool/manila/4weeks.png');
+            img['week4-hover'] = newImg('/res/img/community/backtoschool/manila/4weeks-hover.png');
+        }
+
+        function hoverIn(root) {
+            // Swaps the hover images in
+            document.getElementById(root + '-img').src = img[root + '-hover'].src;
+        }
+
+        var currentWeek = '';
+
+        function hoverOut(root) {
+            if (root != currentWeek) {
+                // Swaps the hover image out
+                document.getElementById(root + '-img').src = img[root].src;
+            }
+        }
+
+        function changeWeek(selectedWeek) {
+            currentWeek = selectedWeek;
+
+            for (var i = 1; i <= 4; i++) {
+                if (selectedWeek == 'week' + i) {
+                    hoverIn('week' + i);
+                } else {
+                    hoverOut('week' + i);
+                }
+
+                document.getElementById('week' + i).style.display = ((selectedWeek == 'week' + i) ? 'block' : 'none');
+            }
+
+            document.getElementById(selectedWeek + '-img').blur();
+
+            return false;
+        }
+
+        function initWeek() {
+            var today = new Date();
+            // month is 0-11 in JavaScript
+            var threeWeekStart = new Date(2008, 6, 30);
+            var twoWeekStart = new Date(2008, 7, 6);
+            var oneWeekStart = new Date(2008, 7, 13);
+
+            if (today.getTime() < threeWeekStart.getTime()) {
+                // 4+ weeks
+                changeWeek('week4');
+            } else if (today.getTime() < twoWeekStart.getTime()) {
+                // 3 weeks
+                changeWeek('week3');
+            } else if (today.getTime() < oneWeekStart.getTime()) {
+                // 2 weeks
+                changeWeek('week2');
+            } else {
+                // 1 week
+                changeWeek('week1');
+            }
+        }
+
+        //-->
+        ]]>
+    </script>
+
 </div>
 
 <div id="contentMiddle">
-    <div class="contentMiddleModule">
+    <div class="contentMiddleModule cleared">
         <div class="moduleBox">
-            <!-- don't collapse -->
+            <div class="wrapper">
+                <h3><img src="/res/img/community/backtoschool/modules/get_organized.png" alt="Get Organized" /></h3>
+                <img class="leadoff" src="/res/img/community/backtoschool/modules/img_organized.jpg" alt="" title="" />
+                <ul class="bulleted">
+                    <gsweb:articlelink articleId="324"
+                        wrappingElement="li">Shopping With Tweens and Teens</gsweb:articlelink>
+                    <gsweb:articlelink articleId="256"
+                        wrappingElement="li">Tips for Buying a Backpack</gsweb:articlelink>
+                    <gsweb:articlelink articleId="674"
+                        wrappingElement="li">What to Do When Buying a Computer</gsweb:articlelink>
+                    <gsweb:articlelink articleId="700"
+                        wrappingElement="li">Middle and High School Study Skills</gsweb:articlelink>
+                    <gsweb:articlelink articleId="242"
+                        wrappingElement="li">No More Back-to-School Blues</gsweb:articlelink>
+                    <gsweb:articlelink articleId="1045"
+                        wrappingElement="li">Get Organized for School</gsweb:articlelink>
+                    <gsweb:articlelink articleId="688"
+                        wrappingElement="li">Help Manage Procrastination</gsweb:articlelink>
+                </ul>
+
+                <div class="ad">
+                    <a href="#"><img src="/res/img/community/backtoschool/sponsor_clorox.jpg" alt="Sponsored by: Clorox" title="" /></a>
+                </div>
+            </div>
         </div>
-        <div class="moduleBoxSpacer">
-            <!-- don't collapse -->
-        </div>
+
         <div class="moduleBox">
-            <!-- don't collapse -->
+            <div class="wrapper">
+                <h3><img src="/res/img/community/backtoschool/modules/prep.png" alt="Prep for School Success" /></h3>
+                <img class="leadoff" src="/res/img/community/backtoschool/modules/img_prep.jpg" alt="" title="" />
+                <ul class="bulleted">
+                    <gsweb:articlelink articleId="44"
+                        wrappingElement="li">How to Read With Your Child</gsweb:articlelink>
+                    <gsweb:articlelink articleId="209"
+                        wrappingElement="li">Get Your Child Excited about Math</gsweb:articlelink>
+                    <gsweb:articlelink articleId="60"
+                        wrappingElement="li">Adjusting to a New School</gsweb:articlelink>
+                    <gsweb:articlelink articleId="232"
+                        wrappingElement="li">Keep Your Child Reading This Summer</gsweb:articlelink>
+                    <gsweb:articlelink articleId="360"
+                        wrappingElement="li">Tips to Get Kids Reading</gsweb:articlelink>
+                    <gsweb:articlelink articleId="733"
+                        wrappingElement="li">6-12 Reading Tips From the Pros</gsweb:articlelink>
+                    <gsweb:articlelink articleId="634"
+                        wrappingElement="li">Finding the Reading Sweet Spot</gsweb:articlelink>
+                </ul>
+            </div>
         </div>
-        <div class="moduleBoxSpacer">
-            <!-- don't collapse -->
-        </div>
+
         <div class="moduleBox">
-            <!-- don't collapse -->
+            <div class="wrapper">
+                <h3><img src="/res/img/community/backtoschool/modules/supply_list.png" alt="School Supply List" /></h3>
+                <img class="leadoff" src="/res/img/community/backtoschool/modules/img_supply.jpg" alt="" title="" />
+
+                <p>Shopping early for back-to-school supplies gives you a chance to look for bargains.</p>
+
+                <p>Choose a grade level:</p>
+                <p>
+                <select onchange="document.location.href = this.options[this.options.selectedIndex].value;">
+                    <option value="">-- Select a grade level --</option>
+                    <option value="${gsweb:articleUrl(3562)}">Kindergarten - 2nd Grade</option>
+                    <option value="${gsweb:articleUrl(3563)}">3rd - 5th Grade</option>
+                    <option value="${gsweb:articleUrl(3564)}">Middle School</option>
+                    <option value="${gsweb:articleUrl(3565)}">High School</option>
+                </select>
+                </p>
+
+                <div class="ad">
+                    <a href="#"><img src="/res/img/community/backtoschool/sponsor_walmart.jpg" alt="Sponsored by: WalMart" title="" /></a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="contentMiddleModule">
-        <!-- don't collapse -->
+
+    <div class="contentMiddleModule gray">
+        <div class="wrapper">
+
+            <!-- The difference in white boxes is necessary thanks to IE 6's craptastic handling of margins/widths -->
+            <div class="box first">
+                <h3><img src="/res/img/community/backtoschool/join_discussion.png" alt="Join the Discussion" title=""/></h3>
+
+                <jsp:include page="/community/micrositePromo.module?page=backtoschool"/>
+            </div>
+
+            <div class="box">
+                <h3><img src="/res/img/community/backtoschool/ask_experts.png" alt="Ask the Experts" title=""/></h3>
+
+                <p class="question">How can I help ease the transition to middle school?<br/>
+                    <gsweb:articlelink articleId="1075">Read the answer &#187;</gsweb:articlelink></p>
+
+                <p class="question">My kindergartner has separation anxiety. What can I do?<br/>
+                    <gsweb:articlelink articleId="1072">Read the answer &#187;</gsweb:articlelink></p>
+
+                <div class="ad">
+                    <a href="#"><img src="/res/img/community/backtoschool/sponsor_clorox.jpg" alt="Sponsored by: Clorox"
+                                     title=""/></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div id="contentRight">
-    <!-- This ad slot needs to be updated to the correct value. -->
+    <!-- TODO: This ad slot needs to be updated to the correct value. -->
     <ad:setSlotPrefix slotPrefix="Library_Microsite_Countdown_To_College"/>
     <ad:AboveFold_300x250/>
 </div>

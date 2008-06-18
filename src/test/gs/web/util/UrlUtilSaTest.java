@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.47 2008/03/14 00:30:35 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.48 2008/06/18 17:12:53 yfan Exp $
  */
 
 package gs.web.util;
@@ -343,5 +343,16 @@ public class UrlUtilSaTest extends TestCase {
         String testResult = UrlUtil.addParameter(testUrl, testParam);
         String expectedResult = testUrl + "&" + testParam;
         assertEquals("Expect the parameter to be appended with a & delimiter", expectedResult, testResult);
+    }
+
+    public void testBuildArticleUrl() {
+        try {
+            _urlUtil.buildArticleUrl(null);
+            fail("Expected IllegalArgumentException with null argument.");
+        } catch (IllegalArgumentException iae) {
+            assertTrue(true);
+        }
+
+        assertEquals("Expected valid article URL", "/cgi-bin/showarticle/5", _urlUtil.buildArticleUrl(5));
     }
 }
