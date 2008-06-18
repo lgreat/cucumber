@@ -201,7 +201,7 @@
                 </ul>
             </div>
             <form id="searchfilterform" action="" method="get">
-                <div id="${requestScope.context.ABVersion eq 'b' ? 'filterWrapperB' : ''}">
+                <div class="${requestScope.context.ABVersion eq 'b' ? 'filterWrapperB' : ''}">
                     <strong>Show me:</strong>
                     <label><gsml:checkbox name="type_schools[]"
                                           checked="${publicChecked}"

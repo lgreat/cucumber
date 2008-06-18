@@ -29,7 +29,7 @@
 
     <c:choose>
         <c:when test="${empty columns or columns lt 2}">
-            <ul id="${requestScope.context.ABVersion eq 'b' ? 'arrowed_results' : ''}">
+            <ul class="${requestScope.context.ABVersion eq 'b' ? 'arrowed_results' : ''}">
                 <c:forEach var="i" items="${list}">
                     <c:choose>
                         <c:when test="${i ne list[0]}" >
