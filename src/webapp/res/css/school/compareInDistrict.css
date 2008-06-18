@@ -17,3 +17,8 @@ div#compareInCity form {
     padding: 0;
     margin: 0;
 }
+
+div#col_right div#compareInCity div#headWrap img {
+    _top: 28px;
+    _right: 5px;
+}

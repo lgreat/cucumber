@@ -60,6 +60,17 @@ div#col_right div#compareInCity div#headWrap {
     height: auto;
 }
 
+div#col_right.city div#compareInCity div#headWrap img {
+    _display: none;
+}
+
+div#col_right div#compareInCity input.submit {
+    _position: relative;
+    _float: right;
+    _bottom: 22px;
+    _right: 58px;
+}
+
 .compare_schools_row {
     margin-top: 5px;
     height: 13px;

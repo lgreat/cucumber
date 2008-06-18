@@ -385,7 +385,7 @@
     </div>
 </div>
 
-<div id="col_right">
+<div id="col_right" class="${(not empty param.city)?'city':'district'}">
     <c:set var="slotPrefix" value="Search_Site"/>
     <c:if test="${not empty param.city}">
         <c:set var="slotPrefix" value="Search_All_Cities"/>
