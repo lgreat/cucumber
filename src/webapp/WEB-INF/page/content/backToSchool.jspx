@@ -24,7 +24,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="GreatSchools.net: Back to School"/>
     <title>GreatSchools.net: Back to School</title>
-    <pageHelper:externalCss file="/res/css/content/backToSchool2.css"/>
+    <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
 </head>
 <c:set var="pageName" value="Back to School"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
