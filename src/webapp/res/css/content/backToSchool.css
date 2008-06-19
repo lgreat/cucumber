@@ -19,7 +19,8 @@
 }
 
 .contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
-	color: #39A;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #39A;
 }
 
 .bulleted li {
@@ -167,9 +168,11 @@
 .moduleBox .wrapper {
 	background: url(/res/img/community/backtoschool/modules/shadowbox_bottom.png) no-repeat left bottom;
 	padding-bottom: 9px;
-	min-height: 290px;
+    /* min-height: 290px; */
+    min-height: 350px;
 	height: auto !important;
-	height: 290px;
+    /* height: 290px; */
+    height: 350px;
 }
 
 .moduleBox h3 img {
@@ -235,4 +238,10 @@ p.question {
 .box .ad {
 	text-align: left;
 	margin: 0 10px;
+}
+
+#AboveFold_300x250 {
+    border: 0;
+    margin: 0;
+    padding-top: 0;    
 }

@@ -27,7 +27,9 @@
     <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
 </head>
 <c:set var="pageName" value="Back to School"/>
-<ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
+<!-- FIXME -->
+<!--ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/-->
+<ad:setSlotPrefix slotPrefix="Library"/>
 <pageHelper:addOnLoadHandler handler="imgSetup();initWeek();"/>
 <gsml:body adPageName="content/backToSchool" pageLayout="backToSchool" startAdHierarchyAtPage="true">
 
@@ -258,6 +260,8 @@
                 </p>
 
                 <div class="ad">
+                    <!-- sponsored by Walmart -->
+                    <!-- ad:Badge_166x45 position="ModuleBoxRight_166x45"/ -->
                     <a href="#"><img src="/res/img/community/backtoschool/sponsor_walmart.jpg" alt="Sponsored by: WalMart" title="" /></a>
                 </div>
             </div>
@@ -284,6 +288,8 @@
                     <gsweb:articlelink articleId="1072">Read the answer &#187;</gsweb:articlelink></p>
 
                 <div class="ad">
+                    <!-- sponsored by Clorox -->
+                    <!-- ad:Badge_166x45 position="BoxRight_166x45"/ -->
                     <a href="#"><img src="/res/img/community/backtoschool/sponsor_clorox.jpg" alt="Sponsored by: Clorox"
                                      title=""/></a>
                 </div>
@@ -293,14 +299,12 @@
 </div>
 
 <div id="contentRight">
-    <ad:setSlotPrefix slotPrefix="Library_Microsite_Countdown_To_College"/>
     <ad:AboveFold_300x250/>
-    <!-- TODO: This ad slot needs to be updated to the correct value. -->
 </div>
 
-<div id="contentBottom">
+<!-- div id="contentBottom" -->
     <!-- don't collapse -->
-</div>
+<!-- /div -->
 
 <!-- mod:tracking pageName="${pageName}"
               hier1="Article,Back to School"
