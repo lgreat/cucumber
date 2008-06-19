@@ -196,7 +196,7 @@
             <!--#10--><td ><gsml:a href="http://${communityHost}"
                                    styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} GS_CI9_ "
                                    id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
-            <!--#7--><td><gsml:a href="/content/backToSchool2.page"
+            <!--#7--><td><gsml:a href="/content/backToSchool.page"
                                  id="GlobalNav_SeasonalButton"
                                  styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} GS_CI9_ "
                 >Back to School</gsml:a></td>

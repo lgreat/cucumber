@@ -39,6 +39,7 @@
 	position: absolute;
 	right: 0px;
 	top: -8px;
+    right: 8px;
 }
 
 #contentTop .manila {
@@ -244,4 +245,32 @@ p.question {
     border: 0;
     margin: 0;
     padding-top: 0;    
+}
+
+.greenBoxWrapper {
+    border-top: 1px solid #CCCCCC;
+    margin-top: 20px;
+    padding-top: 15px;
+}
+
+.greenBox {
+    border: solid 8px #81C83C;
+    padding: 15px;
+}
+
+.greenBox h2 {
+    color: #81C83C;
+    border-bottom: 1px solid #CCCCCC;
+    font-size: 12pt;
+}
+
+ul.greenArrow {
+    line-height: 18px;
+    margin: 10px 0 0 0;
+}
+
+.greenArrow li {
+    background: url(/res/img/content/article/greenarrow.gif) no-repeat left 4px;
+    padding: 0 0 0 10px;
+    margin: 10px 0 0 0;
 }

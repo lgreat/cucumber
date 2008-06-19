@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.23 2008/06/19 20:36:38 droy Exp $
+ * $Id: AdPosition.java,v 1.24 2008/06/19 21:30:59 yfan Exp $
  */
 package gs.web.ads;
 
@@ -139,6 +139,13 @@ public class AdPosition extends Enum {
     public static final AdPosition Interstitial_RC = new AdPosition("Interstitial_RC", true);
     public static final AdPosition Interstitial_City = new AdPosition("Interstitial_City", true);
     public static final AdPosition Interstitial_Search = new AdPosition("Interstitial_Search", true);
+
+    public static final AdPosition PageSponsor_99x32 = new AdPosition("PageSponsor_99x32", true);
+    public static final AdPosition ModuleBoxLeft_166x45 = new AdPosition("ModuleBoxLeft_166x45", true);
+    public static final AdPosition ModuleBoxMiddle_166x45 = new AdPosition("ModuleBoxMiddle_166x45", true);
+    public static final AdPosition ModuleBoxRight_166x45 = new AdPosition("ModuleBoxRight_166x45", true);
+    public static final AdPosition BoxLeft_166x45 = new AdPosition("BoxLeft_166x45", true);
+    public static final AdPosition BoxRight_166x45 = new AdPosition("BoxRight_166x45", true);
 
     private boolean _isGAMPosition;
     private String _baseName = null;
