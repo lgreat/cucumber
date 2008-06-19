@@ -30,7 +30,7 @@
                 <div class="result cleared">
                 <div class="school">
                     <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
-                    <c:out value="${school.name}" escapeXml="false"/>
+                    <span>${school.name}"</span>
                     </link:schoolProfileOverview></h3>
                     <div class="about">
                         <span class="st">${school.type.schoolTypeName}</span>
