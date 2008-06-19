@@ -6,6 +6,7 @@ import gs.data.school.SchoolType;
 import gs.data.search.GSQueryParser;
 import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
+import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.util.PageHelper;
@@ -30,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
 
 /**
  * This controller handles all search requests.
@@ -130,6 +132,9 @@ public class SearchController extends AbstractFormController {
     public ModelAndView processFormSubmission(
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
             throws Exception {
+        _log.warn("processFormSubmission");
+
+        _log.info(request.getQueryString());
 
         // Validate inputs
         if (command == null) {
@@ -212,9 +217,30 @@ public class SearchController extends AbstractFormController {
         
 
         int pageSize = 10;
+        try{
+            Integer paramPageSize = new Integer(request.getParameter("pageSize"));
+            if (paramPageSize > 1){
+                pageSize = paramPageSize;
+            }
+        }catch (Exception ex){}
 
         boolean resultsToShow = false;
+        Sort sort = createSort(request, searchCommand);
+        searchCommand.setSort(sort);
+
+        _log.warn("sort: " + ((sort != null) ?  sort.toString(): "null"));
+        _log.warn("searchCommand: \n" + searchCommand.toString());
+
         Hits hits = _searcher.search(searchCommand);
+        _log.warn("hits: " + hits.length());
+        
+        /* debug block */
+        for(Iterator<Hit> iter = hits.iterator(); iter.hasNext(); ) {
+            Hit h = iter.next();
+            _log.warn("\t" + h.getDocument().get(Indexer.SCHOOL_NAME));
+        }
+        /* end of debug block */
+
         ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
         model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
         if (hits != null && hits.length() > 0) {
@@ -353,6 +379,36 @@ public class SearchController extends AbstractFormController {
         model.put(MODEL_SHOW_SUGGESTIONS, !resultsToShow);
         model.put(MODEL_SHOW_STATE_CHOOSER, !resultsToShow);
         return model;
+    }
+
+    protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand){
+
+        _log.warn("SearchController.createSort");
+
+        if(!searchCommand.isSchoolsOnly()){
+            return null;
+        }
+
+
+        String sortColumn = request.getParameter("sortColumn");
+        String sortDirection = request.getParameter("sortDirection");
+        Sort result = null;
+
+       _log.warn("createSort: sortColumn: " + sortColumn);
+       _log.warn("createSort: sortDirection: " + sortDirection);
+
+        if ( sortColumn == null || sortColumn.equals("schoolName")){
+            boolean descending = false;  // default is ascending order
+            if (sortDirection != null && sortDirection.equals("desc")){
+                descending = true;
+            }
+            result = new Sort( new SortField(Indexer.SORTABLE_NAME, SortField.STRING, descending));
+
+            _log.warn("createSort: SortField: " + Indexer.SORTABLE_NAME + ", " + SortField.STRING + ", " + descending);
+        }
+       // default is School, ascending
+
+        return result;
     }
 
     /**
