@@ -171,6 +171,10 @@ ul li.checkmark {
     background-image: url( ../img/bullet/yellow/trans/check.gif );
 }
 
+#week ul li.sponsor_ad img {
+    padding: 0;
+}
+
 /*
 
 */

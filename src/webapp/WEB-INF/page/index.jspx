@@ -211,6 +211,7 @@
                                                                  state="${requestScope.context.state}"/></li>
                             <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"
                                                                     state="${requestScope.context.state}"/></li>
+                            <li class="sponsor_ad"><ad:Homepage_185x28/></li>
                         </ul>
                     </div>
                 </td>
