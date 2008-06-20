@@ -19,18 +19,14 @@
 }
 
 .contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
-    /*font-family: Arial, Helvetica, sans-serif;*/
     color: #39A;
 }
 
 .bulleted li {
-    /* FIXME */
     background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 5px;
     _background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 10px;
-    background-repeat: no-repeat;
     padding-left: 10px;
 	margin-bottom: 2px;
-    _margin: -5px 0 2px 0;
 }
 
 #contentTop {
@@ -96,7 +92,8 @@
 
 .manila .bulleted li {
 	background: url(/res/img/community/backtoschool/manila/bullet.png) no-repeat left 5px;
-	padding: 0 0 0 10px;
+	_background: url(/res/img/community/backtoschool/manila/bullet.png) no-repeat left 10px;
+    padding: 0 0 0 10px;
     margin: 0;
 }
 
@@ -176,13 +173,18 @@
 .moduleBox .wrapper {
 	background: url(/res/img/community/backtoschool/modules/shadowbox_bottom.png) no-repeat left bottom;
 	padding-bottom: 9px;
-    /* min-height: 290px; */
     min-height: 350px;
-    _min-height: 420px;
+    _min-height: 400px;
     height: auto !important;
-    /* height: 290px; */
     height: 350px;
-    _min-height: 420px;
+    _height: 400px;
+}
+
+#contentMiddleModuleTop {
+    height: 350px;
+    _height: 400px;
+    margin-bottom: 17px;
+    _margin-bottom: 8px;
 }
 
 .moduleBox h3 img {
@@ -240,10 +242,9 @@
 }
 
 p.question {
-    /* FIXME */
     background: url(/res/img/community/backtoschool/q.png) no-repeat left top;
+    _background: url(/res/img/community/backtoschool/q.png) no-repeat left 2px;
     padding: 1px 0 0 25px;
-    _padding: -10px 0 0 25px;
     margin: 10px;
 }
 
@@ -267,12 +268,17 @@ p.question {
 .greenBox {
     border: solid 8px #81C83C;
     padding: 15px;
+    _padding-left: 10px;
 }
 
-.greenBox h2 {
+.greenBox h3 {
     color: #81C83C;
+    font-size: 12px;
     border-bottom: 1px solid #CCCCCC;
-    font-size: 12pt;
+}
+
+#popularArticlesImg {
+    _margin-left: 7px;
 }
 
 ul.greenArrow {
@@ -282,8 +288,9 @@ ul.greenArrow {
 
 .greenArrow li {
     background: url(/res/img/content/article/greenarrow.gif) no-repeat left 4px;
-    padding: 0 0 0 10px;
+    _background: url(/res/img/content/article/greenarrow.gif) no-repeat left 4px;
+    padding: 0 0 0 10px; 
     _padding: 0 0 0 20px;
     margin: 10px 0 0 0;
-   _margin: 0 0 0 -5px;
+    _margin: 10px 0 0 0px;
 }

@@ -25,6 +25,7 @@
     <meta name="Description" content="GreatSchools.net: Back to School"/>
     <title>GreatSchools.net: Back to School</title>
     <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
+    <pageHelper:externalCss file="/res/css/content/backToSchool-ie7.css" userAgentSubstring="IE "/>
     <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
 </head>
 <c:set var="pageName" value="Back to School"/>
@@ -237,7 +238,7 @@
 </div>
 
 <div id="contentMiddle">
-    <div class="contentMiddleModule cleared">
+    <div id="contentMiddleModuleTop" class="contentMiddleModule cleared">
         <div class="moduleBox">
             <div class="wrapper">
                 <h3><img src="/res/img/community/backtoschool/modules/get_organized.png" alt="Get Organized" /></h3>
@@ -346,7 +347,7 @@
 
     <div class="greenBoxWrapper">
         <div class="greenBox">
-            <h3><img src="/res/img/community/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
+            <h3><img id="popularArticlesImg" src="/res/img/community/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
             <ul class="greenArrow">
                 <gsweb:articlelink articleId="233"
                                    wrappingElement="li">Practically Free Summer Activities</gsweb:articlelink>
