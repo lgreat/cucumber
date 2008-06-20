@@ -241,6 +241,21 @@ s.usePlugins=true
 function s_doPlugins(s) {
 /* Add calls to plugins here */
 s.eVar3=s.getQueryParam('cpn');
+var msg = "";
+for (var property in s){
+
+    if ( property.substring(0,4) == "prop" ||
+         property.substring(0,4) == "eVar" ||
+         property.substring(0,4) == "even" ||
+         property == "pageName" ||
+         property == "server" ||
+         property == "channel" ||
+         property.substring(0,4) == "hier" ||
+         property == "pageType" ){
+        msg += "\n" + property + ": " + s[property];
+    }
+}
+    //alert("omniture info" + msg);
 }
 s.doPlugins=s_doPlugins
 /* You may insert any plugins you wish to use here.                 */
