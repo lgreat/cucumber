@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.13 2008/05/27 18:22:16 aroy Exp $
+ * $Id: AllArticlesController.java,v 1.14 2008/06/20 23:59:43 chriskimm Exp $
  */
 package gs.web.content;
 
@@ -38,27 +38,22 @@ public class AllArticlesController extends AbstractController {
 
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
-        List articles = _articleDao.getArticlesForState(sessionContext.getStateOrDefault());
+        List<Article> articles = _articleDao.getArticlesForState(sessionContext.getStateOrDefault());
 
-        Map catMap = new LinkedHashMap();
-        Map sccMap = new LinkedHashMap();
-        Map model = new HashMap();
+        Map<ArticleCategoryEnum, List> catMap = new LinkedHashMap<ArticleCategoryEnum, List>();
+        Map<ArticleCategoryEnum, List> sccMap = new LinkedHashMap<ArticleCategoryEnum, List>();
+        Map<String, Object> model = new HashMap<String, Object>();
 
         //initialize the map that holds all the categories
-        List categories = _articleManager.getAllCategories();
-        for (int i = 0; i < categories.size(); i++) {
-            ArticleCategoryEnum articleCategory = (ArticleCategoryEnum) categories.get(i);
+        List<ArticleCategoryEnum> categories = _articleManager.getAllCategories();
+        for (ArticleCategoryEnum articleCategory : categories) {
             catMap.put(articleCategory, null);
             sccMap.put(articleCategory, null);
         }
 
-        for (int i = 0; i < articles.size(); i++) {
-            Article article = (Article) articles.get(i);
+        for (Article article : articles) {
             categories = _articleManager.getCategories(article.getCategory());
-
-            for (int j = 0; j < categories.size(); j++) {
-                ArticleCategoryEnum articleCategory = (ArticleCategoryEnum) categories.get(j);
-
+            for (ArticleCategoryEnum articleCategory : categories) {
                 if (articleCategory.isSchoolChoiceCenterCategory()) {
                     addArticleToMap(sccMap, articleCategory, article);
                 } else {
@@ -70,15 +65,15 @@ public class AllArticlesController extends AbstractController {
         model.put("categories", catMap);
         model.put("scc_categories", sccMap);
         model.put("num_categories", String.valueOf(catMap.size() + sccMap.size()));
-        model.put("index", new Integer(0));
+        model.put("index", 0);
         model.put("articles", articles);
 
         return new ModelAndView(_viewName, model);
     }
 
-    private void addArticleToMap(Map map, ArticleCategoryEnum category, Article a) {
+    private void addArticleToMap(Map<ArticleCategoryEnum, List> map, ArticleCategoryEnum category, Article a) {
         if (map.containsKey(category)) {
-            List articlesInCategory = (List) map.get(category);
+            List articlesInCategory = map.get(category);
 
             if (articlesInCategory == null) {
                 articlesInCategory = new ArrayList();

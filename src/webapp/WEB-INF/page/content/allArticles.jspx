@@ -145,6 +145,7 @@
 
     <c:forEach items="${categories}" var="category">
         <c:if test="${!empty category.value}">
+            
             <div class="category">
                 <a href="javascript:toggleById('articlelist${index}');"><h2>
                     <c:out value="${category.key.categoryName}"/></h2></a>
