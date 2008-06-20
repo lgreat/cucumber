@@ -19,14 +19,18 @@
 }
 
 .contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
     color: #39A;
 }
 
 .bulleted li {
-	background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 5px;
-	padding-left: 10px;
+    /* FIXME */
+    background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 5px;
+    _background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 10px;
+    background-repeat: no-repeat;
+    padding-left: 10px;
 	margin-bottom: 2px;
+    _margin: -5px 0 2px 0;
 }
 
 #contentTop {
@@ -65,8 +69,9 @@
 
 #stickies {
 	list-style-type: none;
-	margin: 17px 0 0;
-	padding: 0;
+	margin: 17px 0 0 0;
+    _margin: 17px 0 -17px 0;
+    padding: 0;
 }
 
 #stickies li {
@@ -98,6 +103,7 @@
 #contentTop .flash {
 	float: right;
 	margin: 12px 15px 0 0;
+    _margin: 12px 7px 0 0;
 }
 
 .manila .header {
@@ -127,6 +133,7 @@
     height: 600px; /* Temporary, will let content determine height. */
     float: right;
     margin: 0 10px 0 0;
+    _margin: 0 5px 0 0;
 }
 
 .contentMiddleModule {
@@ -171,9 +178,11 @@
 	padding-bottom: 9px;
     /* min-height: 290px; */
     min-height: 350px;
-	height: auto !important;
+    _min-height: 420px;
+    height: auto !important;
     /* height: 290px; */
     height: 350px;
+    _min-height: 420px;
 }
 
 .moduleBox h3 img {
@@ -231,9 +240,11 @@
 }
 
 p.question {
-	background: url(/res/img/community/backtoschool/q.png) no-repeat left top;
-	padding: 1px 0 0 25px;
-	margin: 10px;
+    /* FIXME */
+    background: url(/res/img/community/backtoschool/q.png) no-repeat left top;
+    padding: 1px 0 0 25px;
+    _padding: -10px 0 0 25px;
+    margin: 10px;
 }
 
 .box .ad {
@@ -272,5 +283,7 @@ ul.greenArrow {
 .greenArrow li {
     background: url(/res/img/content/article/greenarrow.gif) no-repeat left 4px;
     padding: 0 0 0 10px;
+    _padding: 0 0 0 20px;
     margin: 10px 0 0 0;
+   _margin: 0 0 0 -5px;
 }
