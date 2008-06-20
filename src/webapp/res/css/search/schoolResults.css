@@ -20,8 +20,7 @@
 
 #resultsheader {
     font-size: medium;
-    padding: 20px 20px 10px;
-    background: #F2F3DB;
+    padding: 0px 0px 8px 0px;
 }
 
 #resultsheader #rh_col_left {
@@ -46,6 +45,7 @@
 .query {
     font-weight: 700;
     color: #C56;
+    float: left;
 }
 
 .clear {
@@ -146,8 +146,7 @@ Tabs and filters
 	margin-top: 10px;
 	font-size: 13px;
 	text-align: right;
-	background: url(/res/img/search/dotted_border.png) repeat-x left bottom;
-	padding-bottom: 10px;
+	padding-bottom: 4px;
 }
 
 .filterWrapperB{
