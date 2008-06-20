@@ -19,7 +19,7 @@ function makeInterstitialHref(passThroughHref, adSlot) {
  */
 function makeInterstitialOnSubmit(adSlot) {
 
-    return function (f) {
+    return function () {
         var path = this.action + "?";
         var inputs = this.getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
@@ -32,12 +32,12 @@ function makeInterstitialOnSubmit(adSlot) {
         }
 
         var selects = this.getElementsByTagName('select');
-        for (var i = 0; i < selects.length; i++) {
-            if (!isBlank(selects[i].name)) {
-                if (isBlank(selects[i].value)) {
+        for (var j = 0; j < selects.length; j++) {
+            if (!isBlank(selects[j].name)) {
+                if (isBlank(selects[j].value)) {
                     return true;
                 }
-                path += selects[i].name + "=" + selects[i].value + "&";
+                path += selects[j].name + "=" + selects[j].value + "&";
             }
         }
 
@@ -55,14 +55,16 @@ function doInterstitial(adSlot) {
         for (var i = 0; i < document.links.length; i++) {
             var link = document.links[i];
             if (!isAdLink(link) && !isExcludedLink(link)) {
+                var linkContent = link.innerHTML;
                 link.href = makeInterstitialHref(link.href, adSlot);
+                link.innerHTML = linkContent;
             }
         }
 
         var forms = document.getElementsByTagName('form');
-        for(var i = 0; i < forms.length; i++) {
-            if (forms[i].className.match(/goInterstitial/)) {
-                forms[i].onsubmit = makeInterstitialOnSubmit(adSlot);
+        for(var j = 0; j < forms.length; j++) {
+            if (forms[j].className.match(/goInterstitial/)) {
+                forms[j].onsubmit = makeInterstitialOnSubmit(adSlot);
             }
         }
     }

@@ -30,7 +30,7 @@
                 <div class="result cleared">
                 <div class="school">
                     <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
-                    <span>${school.name}"</span>
+                    <c:out value="${school.name}" escapeXml="false"/>
                     </link:schoolProfileOverview></h3>
                     <div class="about">
                         <span class="st">${school.type.schoolTypeName}</span>
@@ -41,10 +41,8 @@
                     <address><c:out value="${school.physicalAddress.cityStateZip}"/></address>
                     <div class="resultcontrols">
                         <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
-                            <br />
-                            <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
-
-
+                        <br />
+                        <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>
                     </div>
                 </div>
                 <div class="rating">
