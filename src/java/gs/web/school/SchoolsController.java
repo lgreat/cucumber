@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.47 2008/06/16 23:53:13 aroy Exp $
+ * $Id: SchoolsController.java,v 1.48 2008/06/20 00:16:20 jnorton Exp $
  */
 
 package gs.web.school;
@@ -12,6 +12,7 @@ import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
+import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.search.ResultsPager;
@@ -20,6 +21,8 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.search.Hits;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -162,6 +165,12 @@ public class SchoolsController extends AbstractController {
         model.put(MODEL_PAGE, Integer.toString(page));
 
         int pageSize = 10;
+        try{
+            Integer paramPageSize = new Integer(request.getParameter("pageSize"));
+            if (paramPageSize > 1){
+                pageSize = paramPageSize;
+            }
+        }catch (Exception ex){}
 
         String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
         if (context.isCrawler()) {
@@ -243,6 +252,9 @@ public class SchoolsController extends AbstractController {
         }
 
         // Build the results and the model
+        Sort sort = createSort(request, searchCommand);
+        searchCommand.setSort(sort);
+
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
             ResultsPager _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
@@ -258,6 +270,35 @@ public class SchoolsController extends AbstractController {
         }
 
         return new ModelAndView(getViewName(), model);
+    }
+
+    protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand){
+
+        _log.debug("SearchController.createSort");
+
+        if(!searchCommand.isSchoolsOnly()){
+            return null;
+        }
+
+        String sortColumn = request.getParameter("sortColumn");
+        String sortDirection = request.getParameter("sortDirection");
+        Sort result = null;
+
+       _log.debug("createSort: sortColumn: " + sortColumn);
+       _log.debug("createSort: sortDirection: " + sortDirection);
+
+        if ( sortColumn == null || sortColumn.equals("schoolName")){
+            boolean descending = false;  // default is ascending order
+            if (sortDirection != null && sortDirection.equals("desc")){
+                descending = true;
+            }
+            result = new Sort( new SortField(Indexer.SORTABLE_NAME, SortField.STRING, descending));
+
+            _log.debug("createSort: SortField: " + Indexer.SORTABLE_NAME + ", " + SortField.STRING + ", " + descending);
+        }
+       // default is School, ascending
+
+        return result;
     }
 
 
