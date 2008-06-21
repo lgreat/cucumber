@@ -55,7 +55,7 @@ function doInterstitial(adSlot) {
         for (var i = 0; i < document.links.length; i++) {
             var link = document.links[i];
             if (!isAdLink(link) && !isExcludedLink(link)) {
-                var linkContent = link.innerHTML;
+                var linkContent = link.innerHTML; // GS-6538
                 link.href = makeInterstitialHref(link.href, adSlot);
                 link.innerHTML = linkContent;
             }
