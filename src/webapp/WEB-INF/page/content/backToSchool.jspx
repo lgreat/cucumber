@@ -67,7 +67,7 @@
             <hr class="clear"/>
 
             <div id="week4" style="display: none;">
-                <p class="header">Summer Reading: Great Preparation for Back to School</p>
+                <p class="header">Plan your child's summer brain workout</p>
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="320" wrappingElement="li">
                         &quot;But Mom, I Hate to Read!&quot; &#8211; Tips for Reluctant Readers</gsweb:articlelink>
@@ -245,19 +245,15 @@
                 <img class="leadoff" src="/res/img/community/backtoschool/modules/img_organized.jpg" alt="" title="" />
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="324"
-                        wrappingElement="li">Shopping With Tweens and Teens</gsweb:articlelink>
+                        wrappingElement="li">Shopping With Tweens</gsweb:articlelink>
                     <gsweb:articlelink articleId="256"
                         wrappingElement="li">Tips for Buying a Backpack</gsweb:articlelink>
                     <gsweb:articlelink articleId="674"
-                        wrappingElement="li">What to Do When Buying a Computer</gsweb:articlelink>
-                    <gsweb:articlelink articleId="700"
-                        wrappingElement="li">Middle and High School Study Skills</gsweb:articlelink>
+                        wrappingElement="li">Buying a Computer</gsweb:articlelink>
                     <gsweb:articlelink articleId="242"
-                        wrappingElement="li">No More Back-to-School Blues</gsweb:articlelink>
+                        wrappingElement="li">Avoid Back-to-School Blues</gsweb:articlelink>
                     <gsweb:articlelink articleId="1045"
                         wrappingElement="li">Get Organized for School</gsweb:articlelink>
-                    <gsweb:articlelink articleId="688"
-                        wrappingElement="li">Help Manage Procrastination</gsweb:articlelink>
                 </ul>
 
                 <div class="ad">
@@ -272,19 +268,15 @@
                 <img class="leadoff" src="/res/img/community/backtoschool/modules/img_prep.jpg" alt="" title="" />
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="44"
-                        wrappingElement="li">How to Read With Your Child</gsweb:articlelink>
+                        wrappingElement="li">Reading With Your Child</gsweb:articlelink>
                     <gsweb:articlelink articleId="209"
-                        wrappingElement="li">Get Your Child Excited about Math</gsweb:articlelink>
+                        wrappingElement="li">Get Excited about Math</gsweb:articlelink>
                     <gsweb:articlelink articleId="60"
                         wrappingElement="li">Adjusting to a New School</gsweb:articlelink>
                     <gsweb:articlelink articleId="232"
-                        wrappingElement="li">Keep Your Child Reading This Summer</gsweb:articlelink>
-                    <gsweb:articlelink articleId="360"
-                        wrappingElement="li">Tips to Get Kids Reading</gsweb:articlelink>
-                    <gsweb:articlelink articleId="733"
-                        wrappingElement="li">6-12 Reading Tips From the Pros</gsweb:articlelink>
+                        wrappingElement="li">Summer Reading Tips</gsweb:articlelink>
                     <gsweb:articlelink articleId="634"
-                        wrappingElement="li">Finding the Reading Sweet Spot</gsweb:articlelink>
+                        wrappingElement="li">Find the Reading Sweet Spot</gsweb:articlelink>
                 </ul>
             </div>
         </div>
@@ -296,9 +288,9 @@
 
                 <p>Shopping early for back-to-school supplies gives you a chance to look for bargains.</p>
 
-                <p>Choose a grade level:</p>
-                <p>
-                <select onchange="document.location.href = this.options[this.options.selectedIndex].value;">
+                <p id="supplyListMenu">
+                <select onchange="document.location.href = this.options[this.options.selectedIndex].value;"
+                        style="font-family: 'Trebuchet MS'; color: #666;">
                     <option value="">-- Select a grade level --</option>
                     <option value="${gsweb:articleUrl(3562)}">Kindergarten - 2nd Grade</option>
                     <option value="${gsweb:articleUrl(3563)}">3rd - 5th Grade</option>
@@ -329,10 +321,10 @@
                 <h3><img src="/res/img/community/backtoschool/ask_experts.png" alt="Ask the Experts" title=""/></h3>
 
                 <p class="question">How can I help ease the transition to middle school?<br/>
-                    <gsweb:articlelink articleId="1075">Read the answer &#187;</gsweb:articlelink></p>
+                    <gsweb:articlelink articleId="1075">Read the answer &#8250;</gsweb:articlelink></p>
 
                 <p class="question">My kindergartner has separation anxiety. What can I do?<br/>
-                    <gsweb:articlelink articleId="1072">Read the answer &#187;</gsweb:articlelink></p>
+                    <gsweb:articlelink articleId="1072">Read the answer &#8250;</gsweb:articlelink></p>
 
                 <div class="ad">
                     <ad:Badge_166x45 position="BoxRight_166x45"/>
@@ -346,7 +338,7 @@
     <ad:AboveFold_300x250/>
 
     <div class="greenBoxWrapper">
-        <div class="greenBox">
+        <div id="greenBox" class="greenBox">
             <h3><img id="popularArticlesImg" src="/res/img/community/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
             <ul class="greenArrow">
                 <gsweb:articlelink articleId="233"
