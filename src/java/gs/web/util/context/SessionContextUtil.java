@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.38 2008/06/06 20:27:52 jnorton Exp $
+ * $Id: SessionContextUtil.java,v 1.39 2008/06/21 00:20:08 cpickslay Exp $
  */
 
 package gs.web.util.context;
@@ -259,6 +259,16 @@ public class SessionContextUtil implements ApplicationContextAware {
         }
     }
 
+
+    /**
+     * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
+     * @param request
+     * @param sessionContext
+     */
+    public void updateFromRequestURI(HttpServletRequest request, SessionContext sessionContext) {
+        sessionContext.setOriginalRequestURI(request.getRequestURI());
+    }
+
     private void updateHostnameCobrandFromParams(HttpServletRequest request, SessionContext context) {
         // Get the real hostname or see if it's been overridden
         String paramHost = request.getParameter(HOST_PARAM);
@@ -491,6 +501,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         */
         SessionContext context = guaranteeSessionContext(request);
         readCookies(request, context);
+        updateFromRequestURI(request, context);
         updateFromRequestAttributes(request, context);
         updateFromParams(request, response, context);
         saveCookies(response, context);

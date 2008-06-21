@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.19 2008/04/11 21:25:09 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.20 2008/06/21 00:20:08 cpickslay Exp $
  */
 package gs.web.util.context;
 
@@ -88,6 +88,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      * display the topics search control by default.
      */
     private boolean _isTopicPage = false;
+    private String _originalRequestURI;
 
     /**
      * Created by Spring as needed.
@@ -403,5 +404,13 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setTempMsg(String tempMsg) {
         _tempMsg = tempMsg;
+    }
+
+    public String getOriginalRequestURI() {
+        return _originalRequestURI;
+    }
+
+    public void setOriginalRequestURI(String requestURI) {
+        _originalRequestURI = requestURI;
     }
 }

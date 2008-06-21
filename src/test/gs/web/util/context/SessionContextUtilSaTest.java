@@ -7,6 +7,8 @@ import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
+import org.springframework.context.ApplicationContext;
+import static org.easymock.EasyMock.*;
 
 import javax.servlet.http.Cookie;
 
@@ -242,5 +244,18 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         assertEquals("Unexpected community host for some other cobrand domain on dev", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
         _request.setServerName("cpickslay.office.greatschools.net");
         assertEquals("Unexpected community host for an office workstation", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+    }
+
+    public void testUpdateFromRequestURI() {
+        ApplicationContext ac = createMock(ApplicationContext.class);
+        expect(ac.getBean(SessionContext.BEAN_ID)).andReturn(_sessionContext);
+        replay(ac);
+        _sessionContextUtil.setApplicationContext(ac);
+        _request.setRequestURI("/some/path");
+        _sessionContextUtil.prepareSessionContext(_request, _response);
+
+        verify(ac);
+        assertEquals("Expected to find orginal URI in request", "/some/path", _sessionContext.getOriginalRequestURI());
+        reset(ac);
     }
 }
