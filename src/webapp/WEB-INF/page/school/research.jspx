@@ -39,6 +39,17 @@
             var leftcolAd = document.getElementById('leftcolAd');
             leftcolAd.style.height = (rightHeight-25-278-10)+'px';
         }
+
+        // Returns true if a state has been selected.
+        function checkStateSelection(id) {
+            var select = document.getElementById(id);
+            if (select.options[select.selectedIndex].value == "") {
+                alert("Please select a state");
+                return false;
+            } else {
+                return true;
+            }
+        }
     </script>
     <!-- GS-5462: Truncate editorial footer so skyscraper ad can fit to its left. This can't go in
     a stylesheet since there is no stylesheet unique to this page. aroy 2/19/2008 -->
@@ -229,7 +240,7 @@
     </div>
 
     <div class="findBox">
-        <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
+        <gsweb:form action="/school/research.page" method="get" onsubmit="return checkStateSelection('stateSelector2');" styleClass="goInterstitial">
             <input name="form" value="cities" type="hidden" />
             <table width="254" cellpadding="0" cellspacing="0" border="0">
                 <tr>
@@ -300,7 +311,7 @@
             </table>
         </gsweb:form>
         <div class="blueDash"></div><br/>
-        <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial">
+        <gsweb:form action="/search/search.page" method="get" onsubmit="return checkStateSelection('stateSelector3');" styleClass="goInterstitial">
             <input type="hidden" name="c" value="school" />
             <table width="264" cellpadding="0" cellspacing="0" border="0">
                 <tr>
