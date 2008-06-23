@@ -126,7 +126,6 @@
 }
 
 #contentRight {
-    height: 600px; /* Temporary, will let content determine height. */
     float: right;
     margin: 0 10px 0 0;
     _margin: 0 5px 0 0;
@@ -173,15 +172,12 @@
 	background: url(/res/img/community/backtoschool/modules/shadowbox_bottom.png) no-repeat left bottom;
 	padding-bottom: 9px;
     min-height: 281px;
-    _min-height: 281px;
     height: auto !important;
     height: 281px;
-    _height: 281px;
 }
 
 #contentMiddleModuleTop {
     height: 281px;
-    _height: 281px;
     margin-bottom: 17px;
     _margin-bottom: 8px;
 }
@@ -212,7 +208,9 @@
 }
 
 #supplyListMenu {
-    margin-top: 20px;
+    margin-top: 22px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666;
 }
 
 .moduleBox .ad {
@@ -245,6 +243,15 @@
 	margin-right: 17px;
 }
 
+.wrapper .box {
+    position: relative;
+}
+
+.wrapper .box .ad {
+    position: absolute;
+    bottom: 5px;
+}
+
 
 .box .bulleted {
 	margin: 10px;
@@ -273,21 +280,19 @@ p.question {
 }
 
 .greenBoxWrapper {
-    /*border-top: 1px solid #CCCCCC;*/
-    /*margin-top: 20px;*/
-    padding-top: 12px;
-    /*padding-top: 15px;*/
+    border-top: 1px solid #CCCCCC;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 .greenBox {
     border: solid 8px #81C83C;
     padding: 15px;
-    _padding-left: 10px;
 }
 
 #greenBox {
     width: 255px;
-    height: 280px;
+    height: 272px;
 }
 
 .greenBox h3 {
@@ -301,15 +306,13 @@ p.question {
 }
 
 ul.greenArrow {
-    line-height: 15px;
+    line-height: 14px;
     margin: 10px 0 0 0;
 }
 
 .greenArrow li {
-    background: url(/res/img/content/article/greenarrow.gif) no-repeat left 4px;
-    _background: url(/res/img/content/article/greenarrow.gif) no-repeat left 4px;
+    background: url(/res/img/content/article/greenarrow.gif) no-repeat left 3px;
     padding: 0 0 0 10px; 
     _padding: 0 0 0 20px;
     margin: 10px 0 0 0;
-    _margin: 10px 0 0 0px;
 }

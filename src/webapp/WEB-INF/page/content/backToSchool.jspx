@@ -25,7 +25,28 @@
     <meta name="Description" content="GreatSchools.net: Back to School"/>
     <title>GreatSchools.net: Back to School</title>
     <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
-    <pageHelper:externalCss file="/res/css/content/backToSchool-ie7.css" userAgentSubstring="IE "/>
+    <![CDATA[
+    <!--[if IE]>
+    <style type="text/css">
+    /* IE 7 */
+    .bulleted li {
+        background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 7px;
+    }
+
+    #stickies {
+       margin: 17px 0 -17px 0;
+    }
+
+    #contentTop .flash {
+        margin: 12px 7px 0 0;
+    }
+
+    p.question {
+        background: url(/res/img/community/backtoschool/q.png) no-repeat left 2px;
+    }
+    </style>
+    <![endif]-->
+    ]]>
     <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
 </head>
 <c:set var="pageName" value="Back to School"/>
@@ -67,40 +88,46 @@
             <hr class="clear"/>
 
             <div id="week4" style="display: none;">
-                <p class="header">Plan your child's summer brain workout</p>
+                <p class="header">Create a Summer Brain Workout!</p>
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="320" wrappingElement="li">
-                        &quot;But Mom, I Hate to Read!&quot; &#8211; Tips for Reluctant Readers</gsweb:articlelink>
+                        Tips for Reluctant Readers</gsweb:articlelink>
                     <gsweb:articlelink articleId="595" wrappingElement="li">
                         It's Not Just for Oprah: Book Clubs for Kids</gsweb:articlelink>
                 </ul>
+                <p style="font-family: 'Trebuchet MS'; color: #39a;">
+                    <gsweb:articlelink articleId="3576">Learn more</gsweb:articlelink>
+                </p>
             </div>
             <div id="week3" style="display: none;">
-                <p class="header">Back to School shopping</p>
-                <ul class="bulleted">
-                    <gsweb:articlelink articleId="324" wrappingElement="li">
-                        Shopping With Tweens and Teens</gsweb:articlelink>
-                    <gsweb:articlelink articleId="657" wrappingElement="li">
-                        10 Tips for Smart Back-to-School Shopping</gsweb:articlelink>
-                </ul>
-            </div>
-            <div id="week2" style="display: none;">
-                <p class="header">Get healthy for Back to School</p>
+                <p class="header">Get Healthy for Back to School</p>
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="1145" wrappingElement="li">
                         Sleep: The Secret Weapon</gsweb:articlelink>
                     <gsweb:articlelink articleId="330" wrappingElement="li">
                         Help Your Child Eat a Healthy Lunch</gsweb:articlelink>
                 </ul>
+                3577
+            </div>
+            <div id="week2" style="display: none;">
+                <p class="header">Back-to-School Shopping</p>
+                <ul class="bulleted">
+                    <gsweb:articlelink articleId="324" wrappingElement="li">
+                        Shopping With Tweens and Teens</gsweb:articlelink>
+                    <gsweb:articlelink articleId="657" wrappingElement="li">
+                        10 Tips for Smart Back-to-School Shopping</gsweb:articlelink>
+                </ul>
+                3578
             </div>
             <div id="week1" style="display: none;">
-                <p class="header">Get organized</p>
+                <p class="header">Get Organized</p>
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="1051" wrappingElement="li">
                         Seven Things to Tell the Teacher About Your Child</gsweb:articlelink>
                     <gsweb:articlelink articleId="1053" wrappingElement="li">
                         Finding Balance in Your Child's Life</gsweb:articlelink>
                 </ul>
+                3579
             </div>
         </div>
 
@@ -288,9 +315,8 @@
 
                 <p>Shopping early for back-to-school supplies gives you a chance to look for bargains.</p>
 
-                <p id="supplyListMenu">
-                <select onchange="document.location.href = this.options[this.options.selectedIndex].value;"
-                        style="font-family: 'Trebuchet MS'; color: #666;">
+                <p>
+                <select id="supplyListMenu" onchange="document.location.href = this.options[this.options.selectedIndex].value;">
                     <option value="">-- Select a grade level --</option>
                     <option value="${gsweb:articleUrl(3562)}">Kindergarten - 2nd Grade</option>
                     <option value="${gsweb:articleUrl(3563)}">3rd - 5th Grade</option>
@@ -370,9 +396,9 @@
     <!-- don't collapse -->
 <!-- /div -->
 
-<mod:tracking pageName="${pageName}"
+<!--mod:tracking pageName="${pageName}"
               hier1="Article,Back to School"
-              microsite="${pageName}"/>
+              microsite="${pageName}"/-->
 
 </gsml:body>
 
