@@ -57,7 +57,6 @@
         <property name="googleKey" value="pHIaC-TrslBhDBlR3glRcMg"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
-        <property name="worksheetName" value="od6"/>
     </bean>
 
     <bean name="/community/micrositePromo.module"
@@ -65,6 +64,9 @@
         <property name="tableDao">
             <bean factory-bean="communityMicrositePromoFactory" factory-method="getTableDao"/>
         </property>
+        <property name="devWorksheetName" value="od6"/>
+        <property name="stagingWorksheetName" value="od4"/>
+        <property name="productionWorksheetName" value="od7"/>
     </bean>
 
     <bean name="/promo/articleCommunityWidget.module"

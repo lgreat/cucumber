@@ -95,6 +95,8 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         assertEquals("Expect default value", "Avatar", model.get(MODEL_AVATAR_ALT));
         assertEquals("Expect default value", "/res/img/community/avatar_40x40.gif",
                 model.get(MODEL_AVATAR_URL));
+
+        verify(dao);
     }
 
     public void testLoadSpreadsheetData() {

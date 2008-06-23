@@ -8,6 +8,8 @@ import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
+import gs.web.util.UrlUtil;
+import gs.web.util.google.GoogleSpreadsheetDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +24,17 @@ public class MicrositePromoController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     private ITableDao _tableDao;
+
+    private String devWorksheetName;
+    private String stagingWorksheetName;
+    private String productionWorksheetName;
+
     public static final String VIEW_NAME = "/community/micrositePromo";
     public static final String PARAM_PAGE = "page";
     public static final String MODEL_ANCHOR_LIST = "modelAnchorList";    
-    private static final String SPREADSHEET_PAGE = "page";
-    private static final String SPREADSHEET_TEXT = "text";
-    private static final String SPREADSHEET_URL = "url";
+    public static final String SPREADSHEET_PAGE = "page";
+    public static final String SPREADSHEET_TEXT = "text";
+    public static final String SPREADSHEET_URL = "url";
 
     public ITableDao getTableDao() {
         return _tableDao;
@@ -37,6 +44,59 @@ public class MicrositePromoController extends AbstractController {
         _tableDao = tableDao;
     }
 
+    public String getDevWorksheetName() {
+        return devWorksheetName;
+    }
+
+    public void setDevWorksheetName(String devWorksheetName) {
+        this.devWorksheetName = devWorksheetName;
+    }
+
+    public String getStagingWorksheetName() {
+        return stagingWorksheetName;
+    }
+
+    public void setStagingWorksheetName(String stagingWorksheetName) {
+        this.stagingWorksheetName = stagingWorksheetName;
+    }
+
+    public String getProductionWorksheetName() {
+        return productionWorksheetName;
+    }
+
+    public void setProductionWorksheetName(String productionWorksheetName) {
+        this.productionWorksheetName = productionWorksheetName;
+    }
+
+    /**
+     * This could be spring configured, except that it varies depending on what hostname this request
+     * is running off of
+     * @see gs.web.community.CommunityQuestionPromoController
+     */
+    protected void injectWorksheetName(HttpServletRequest request) {
+        GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getTableDao();
+        String worksheetName = getWorksheet(request);
+        String worksheetUrl = castDao.getWorksheetUrl();
+        if (!worksheetUrl.endsWith(worksheetName)) {
+            castDao.setWorksheetUrl(worksheetUrl + worksheetName);
+        }
+    }
+
+    protected String getWorksheet(HttpServletRequest request) {
+        String worksheetName;
+        UrlUtil util = new UrlUtil();
+
+        if (util.isDevEnvironment(request.getServerName()) && !util.isStagingServer(request.getServerName())) {
+            worksheetName = getDevWorksheetName();
+        } else if (util.isStagingServer(request.getServerName())) {
+            worksheetName = getStagingWorksheetName();
+        } else {
+            worksheetName = getProductionWorksheetName();
+        }
+
+        return worksheetName;
+    }
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
         String page = request.getParameter(PARAM_PAGE);
@@ -44,6 +104,8 @@ public class MicrositePromoController extends AbstractController {
         if (page == null) {
             return null;
         }
+
+        injectWorksheetName(request);
 
         // Note: GoogleSpreadsheetDao returns an empty list of ITableRow if no results found.
 
