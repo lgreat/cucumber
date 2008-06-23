@@ -763,6 +763,12 @@
         <property name="viewName" value="/content/mediaChoices"/>
     </bean>
 
+    <bean name="/content/election2008.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/election2008"/>
+    </bean>
+
     <bean name="/geo/landing/dayton_ohio.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

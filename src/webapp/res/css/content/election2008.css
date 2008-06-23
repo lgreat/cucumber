@@ -1,0 +1,325 @@
+/* Many of these styles should be refactored into a new microsite stylesheet. */
+
+#pageGS {
+    width: 975px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666666;
+    line-height: 16px;
+}
+
+#adLeaderboard {
+    width: 975px;
+}
+
+#topnav table#nav {
+    width: 952px;
+}
+
+#contentGS {
+    width: 962px;
+    height: 1117px;
+    position: relative;
+    margin-left: 11px;
+}
+
+#contentGS a {
+    color: #3399AA;
+}
+
+.hr.dotted {
+    border-bottom: 2px dotted #CCCCCC;
+    margin-right: 10px;
+    height: 10px;
+}
+
+.hr hr {
+    display: none;
+}
+
+#contentMiddle .hr.dotted {
+    margin-right: 2px;
+}
+
+#contentTop {
+    width: 952px;
+    height: 320px;
+    /*background-color: #0000FF;*/
+    padding-top: 15px;
+    position: relative;
+}
+
+#contentMiddle {
+    float: left;
+    width: 548px;
+}
+
+#contentRight {
+    float: right;
+    padding-top: 10px;
+    margin-right: 3px;
+}
+
+.contentMiddleModule {
+    margin: 0;
+    padding-top: 10px;
+}
+
+.moduleBox {
+    background: transparent url(/res/img/content/election2008/shadow_bottom.png) repeat-x scroll left bottom;
+    float: left;
+    margin: 0 7px 0 0;
+    padding: 0 0 9px;
+}
+
+.moduleBox .wrapper-outer {
+    background: transparent url(/res/img/content/election2008/shadow_left.png) repeat-y scroll left top;
+}
+
+.moduleBox .wrapper-inner {
+    background: transparent url(/res/img/content/election2008/shadow_right.png) repeat-y scroll right top;
+    min-height: 230px;
+    height: auto !important;
+    height: 230px;    
+    padding-bottom: 1px;
+    position: relative;
+    width: 270px;
+}
+
+.moduleBox .left-corner {
+	position: absolute;
+	bottom: -9px;
+	left: 0;
+}
+
+.moduleBox .right-corner {
+	position: absolute;
+	bottom: -9px;
+	right: 0;
+}
+
+.moduleBox input {
+    color: #666666;
+}
+
+.seeMore {
+    position: absolute;
+    bottom: -8px;
+    left: -12px;
+}
+
+#emailField {
+    width: 100%;
+}
+
+.flush {
+    margin: 0;
+}
+
+.moduleBox h3 img {
+    display: block;
+}
+
+.moduleBox .leadoff {
+    margin: 10px 0 5px 10px;
+}
+
+.moduleBox form {
+    margin: 15px 0 0;
+    padding: 1px 0 0;
+}
+
+.moduleBox p {
+    color: #666666;
+    margin: 10px 20px;
+}
+
+.moduleBox p.flush {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.alignright {
+    text-align: right;
+}
+
+.gray .wrapper {
+    background: transparent url(/res/img/content/election2008/third-tier_bg.png) no-repeat scroll left top;
+    height: 231px;
+    padding: 16px;
+}
+
+.moduleBox.large .wrapper-inner {
+    width: 398px;
+}
+
+.cleared:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+div.video {
+    margin: 8px 0 25px 8px;
+}
+
+/*#contentGS .mainDivider {*/
+    /*position: absolute;*/
+    /*top: 328px;*/
+    /*left: 0;*/
+    /*margin: 0;*/
+    /*width: 952px;*/
+/*}*/
+
+/*#contentMiddle {*/
+    /*width: 547px;*/
+    /*height: 657px;*/
+    /*position: absolute;*/
+    /*top: 338px;*/
+    /*left: 0;*/
+/*}*/
+
+/*#contentRight {*/
+    /*position: absolute;*/
+    /*top: 338px;*/
+    /*right: 10px;*/
+    /*height: 657px;*/
+    /*width: 397px;*/
+/*}*/
+
+/*.contentMiddleModule {*/
+    /*width: 100%;*/
+    /*background-color: green;*/
+    /*margin: 0;*/
+    /*position: relative;*/
+/*}*/
+
+/*.upperBoxes {*/
+    /*height: 216px;*/
+/*}*/
+
+/*.hotTopics {*/
+    /*height: 263px;*/
+/*}*/
+
+/*.moduleBox {*/
+    /*width: 269px;*/
+    /*height: 216px;*/
+    /*background-color: yellow;*/
+/*}*/
+
+/*.contentMiddleModule .left {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+/*}*/
+
+/*.contentMiddleModule .right {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+/*}*/
+
+/*div.horizontalDividerLine {*/
+    /*height: 2px;*/
+    /*width: 100%;*/
+    /*margin: 8px 0;*/
+    /*background-color: #000000;*/
+/*}*/
+
+/*div#video {*/
+    /*width: 397px;*/
+    /*height: 329px;*/
+    /*background-color: #00FFFF;*/
+    /*margin-bottom: 10px;*/
+/*}*/
+
+/** Strong American Schools */
+.strongAmericanSchools {
+    height: 155px;
+    margin-top: 5px;
+    position: relative;
+    background-color: #FFFFFF;
+}
+
+.img_strong {
+    position: absolute;
+    top: 15px;
+}
+
+.strongAmericanSchools div.text {
+    position: absolute;
+    width: 345px;
+    top: 15px;
+    left: 182px;
+}
+
+.strongAmericanSchools .header {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.strongAmericanSchools .body {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+/** Toolkits */
+div.toolkitsWrapper {
+    width: 397px;
+    height: 318px;
+    background-color: #3B6BAB;
+    float: left;
+    clear: left;
+    margin-top: 8px;
+}
+
+div.toolkits {
+    background-color: #FFFFFF;
+    width: 373px;
+    height: 294px;
+    position: relative;
+    top: 12px;
+    left: 12px;
+}
+
+.img_edin08 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.img_toolkits {
+    position: absolute;
+    top: 20px;
+    left: 159px
+}
+
+div.toolkits ul {
+    position: relative;
+    top: 102px;
+    margin: 0 20px 10px 20px;
+}
+
+div.toolkits ul li {
+    margin: 0 0 10px 0;
+    position: relative;
+    padding: 0 0 0 25px;
+}
+
+div.toolkits ul li img {
+    position: absolute;
+    left: 0;
+    top: 1px;
+}
+
+div.toolkits ul li a {
+    font-size: 14px;
+}
+
+div.toolkits ul li span {
+    font-size: 12px;
+    display: block;
+}
+
