@@ -10,11 +10,15 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true"
                              type="java.util.Collection"/>
+    <jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>
+
 
     <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
 
     <c:set var="results" value="${schools}"/>
-
+    <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }" />
+    
     <![CDATA[
       <!--[if IE]>
         <style type="text/css">
@@ -34,14 +38,22 @@
     ]]>
 
     <div id="searchResultsHeader" class="cleared">
-        <div class="active" id="schoolResultsHeader">
-            School Name
+        <div class="${activeColumn eq 'schoolResultsHeader' ? 'active': ''}" id="schoolResultsHeader" onclick="reloadPageWithFilters('schoolResultsHeader')">
+            School Name <gsml:img styleClass="sort${activeColumn eq 'schoolResultsHeader' ? 'Active': 'InActive'}"
+                                  src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
         </div>
-        <div class="divided" id="ratingsHeader">
+        <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''} divided" id="ratingsHeader"  onclick="reloadPageWithFilters('ratingsHeader')">
             GreatSchools Rating
+            <gsml:img styleClass="sort${activeColumn eq 'ratingsHeader' ? 'Active': 'InActive'}"
+                                  src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
         </div>
-        <div class="divided" id="reviewsHeader">
+        <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''} divided" id="reviewsHeader"  onclick="reloadPageWithFilters('reviewsHeader')">
             Parent Rating
+            <gsml:img styleClass="sort${activeColumn eq 'reviewsHeader' ? 'Active': 'InActive'}"
+                                  src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
+                                  alt="sort ${sortDirection}" />
         </div>
     </div>
     <form method="get" action="/compareSchools.page">

@@ -74,6 +74,8 @@
         </c:choose>
     </c:set>
 
+
+
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         <!--
@@ -81,7 +83,7 @@
         var district = '${param.district}';
         var state = '${requestScope.context.stateOrDefault.abbreviation}';
         var levelCode = '${param.lc}';
-        function reloadPageWithFilters() {
+        function reloadPageWithFilters(sortColId) {
             var charterBox = document.getElementById('type_schools_charter');
             var publicBox = document.getElementById('type_schools_public');
             var privateBox = document.getElementById('type_schools_private');
@@ -126,10 +128,33 @@
                 reloadUrl += "&showall=1";
             }
 
+            if ( sortColId != undefined ) {
+                reloadUrl += "&sortColumn=" + sortColId;
+
+                if (sortColId != "${results.sortColumn}"){
+                    var direction = "desc";
+                    if (sortColId == "schoolResultsHeader" ){
+                        direction = "asc";
+                    }
+                    reloadUrl += "&sortColumn=" + sortColId + "&sortDirection=" + direction;
+                }
+            }
+
+
             reloadUrl += "&p=1";
+
+            /* sort Direction */
+            if (sortColId == "${results.sortColumn}"){
+                reloadUrl += "&sortDirection=${(results.sortDirection eq 'desc' ? 'asc' : 'desc')}";
+
+            }
 
             document.location = reloadUrl;
         }
+
+
+
+
         -->
         ]]>
     </script>
@@ -389,7 +414,7 @@
     <div id="searchResults">
         
         <c:if test="${not empty results.schools}">
-            <search:schoolTable schools="${results.schools}"/>
+            <search:schoolTable schools="${results.schools}" sortColumn="${results.sortColumn}" sortDirection="${results.sortDirection ne null ? results.sortDirection : 'asc'}"/>
         </c:if>
         <c:if test="${empty results.schools and (not empty param.lc or not empty param.st)}">
             <div class="noResults">No filtered results in

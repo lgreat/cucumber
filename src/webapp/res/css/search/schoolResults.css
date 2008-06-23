@@ -278,13 +278,25 @@ div.phone {
     padding-left: 5px;
 }
 
+
+
 #searchResultsHeader div.divided {
     background: url(/res/img/search/tab_divider.gif) no-repeat;
     @width:2px;
     float:left;
     text-align: center;
 }
+#searchResultsHeader div.active{
+    background: url(/res/img/search/tab_on_bg.gif) repeat;
+}
 
+#searchResultsHeader img.sortActive{
+    display: inline;
+}
+
+#searchResultsHeader img.sortInActive{
+    display: none;
+}
 #ratingsHeader {
     float: left;
     width: 160px;

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.48 2008/06/20 00:16:20 jnorton Exp $
+ * $Id: SchoolsController.java,v 1.49 2008/06/23 23:23:32 jnorton Exp $
  */
 
 package gs.web.school;
@@ -252,7 +252,11 @@ public class SchoolsController extends AbstractController {
         }
 
         // Build the results and the model
-        Sort sort = createSort(request, searchCommand);
+
+        String sortColumn = request.getParameter("sortColumn");
+        String sortDirection = request.getParameter("sortDirection");
+
+        Sort sort = createSort(request, searchCommand, sortColumn, sortDirection);
         searchCommand.setSort(sort);
 
         Hits hts = _searcher.search(searchCommand);
@@ -264,6 +268,8 @@ public class SchoolsController extends AbstractController {
             resultsModel.put(MODEL_PAGE_SIZE, pageSize);
             resultsModel.put(MODEL_TOTAL, hts.length());
             resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
+            resultsModel.put("sortColumn", sortColumn);
+            resultsModel.put("sortDirection", sortDirection);
             model.put("results", resultsModel);
         } else {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);
@@ -272,7 +278,7 @@ public class SchoolsController extends AbstractController {
         return new ModelAndView(getViewName(), model);
     }
 
-    protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand){
+    protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand, String sortColumn, String sortDirection){
 
         _log.debug("SearchController.createSort");
 
@@ -280,14 +286,12 @@ public class SchoolsController extends AbstractController {
             return null;
         }
 
-        String sortColumn = request.getParameter("sortColumn");
-        String sortDirection = request.getParameter("sortDirection");
         Sort result = null;
 
        _log.debug("createSort: sortColumn: " + sortColumn);
        _log.debug("createSort: sortDirection: " + sortDirection);
 
-        if ( sortColumn == null || sortColumn.equals("schoolName")){
+        if ( sortColumn == null || sortColumn.equals("schoolResultsHeader")){
             boolean descending = false;  // default is ascending order
             if (sortDirection != null && sortDirection.equals("desc")){
                 descending = true;
