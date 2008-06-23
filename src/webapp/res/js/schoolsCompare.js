@@ -74,3 +74,13 @@ function evaluateCheckboxes() {
         setCheckedToDisplaySubmit();
     }
 }
+
+/* --------- S O R T I N G &  P A G E  S E T T I N G S ----------------- */
+
+function initializeColumnHeaders(){
+
+}
+
+function initializeResultsPerPage(){
+    
+}

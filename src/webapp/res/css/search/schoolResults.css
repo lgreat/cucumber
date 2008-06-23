@@ -128,10 +128,27 @@ Tabs and filters
 
 #searchfilterform {
 	font-size: 13px;
-	padding-top: 12px;
+	padding-top: 8px;
 	background: #fff;
 	clear: both;
 }
+#searchfilterform div.formContainer{
+    padding-bottom: 15px;
+}
+#searchfilterform div.checkboxes {
+    float:left;
+    padding-top: 3px;
+}
+#searchfilterform div.resultsPerPage {
+    float: right;
+    padding: 0 0 0 0;
+}
+
+#searchfilterform select {
+    margin-left:10px;
+}
+
+
 
 #searchfilterform label {
 	margin: 0 0 0 10px;
@@ -231,12 +248,15 @@ div.phone {
 
 #searchResultsHeaderB,
 #searchResultsHeader {
-    width: 525px;
+    @width: 525px;
     margin-bottom: 5px;
+    margin-top:5px;
     text-align: center;
     font-size: small;
     font-weight: bold;
-    color: #5bc
+    @color: #5bc;
+    background: url(/res/img/search/tab_off_bg.gif) repeat;
+    line-height:22px;
 }
 
 #searchResultsHeaderB{
@@ -246,9 +266,10 @@ div.phone {
 #schoolResultsHeader {
     float: left;
     text-align:left;
-    width: 207px;
+    width: 210px;
     padding-left: 5px;
-    margin-right: 15px;
+    @margin-right: 15px;
+
 }
 
 #articleResultsHeader {
@@ -257,15 +278,22 @@ div.phone {
     padding-left: 5px;
 }
 
+#searchResultsHeader div.divided {
+    background: url(/res/img/search/tab_divider.gif) no-repeat;
+    @width:2px;
+    float:left;
+    text-align: center;
+}
+
 #ratingsHeader {
     float: left;
-    width: 140px;
-    margin-right: 20px;
+    width: 160px;
+    @margin-right: 20px;
 }
 
 #reviewsHeader {
     float: left;
-    width: 90px;
+    width: 150px;
 }
 
 #searchResultsList {
@@ -273,8 +301,8 @@ div.phone {
 }
 
 #searchResultsList .result {
-    border-top: 1px solid #e2e3cb;
-    padding-top: 15px;
+    @border-top: 1px solid #e2e3cb;
+    padding-top: 8px;
 	margin: 0 0 15px 0;
     clear: both;
 }

@@ -5,10 +5,21 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="value" required="true" description="Value of the option"/>
     <jsp:directive.attribute name="selected" required="false" description="Selected or not - defaults to not selected"/>
+    <jsp:directive.attribute name="id" required="false" description="id of the element"/>
+    <jsp:directive.attribute name="onclick" required="false" description="Handles click events"/>
+
     <![CDATA[<option value="${value}"]]>
     <c:if test="${selected eq 'true'}">
         <c:out value=' selected="selected"' escapeXml="false"/>
     </c:if>
+    <c:if test="${id ne null }">
+        <c:out value=' id=${id}'/>
+    </c:if>
+
+    <c:if test="${onclick ne null }">
+        <c:out value=' onclick=${onclick}'/>
+    </c:if>
+
     <![CDATA[>]]>
     <jsp:doBody/>
     <![CDATA[</option>]]>

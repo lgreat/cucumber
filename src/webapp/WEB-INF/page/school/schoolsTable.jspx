@@ -76,7 +76,7 @@
 
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
-        <!--
+
         var city = '${param.city}';
         var district = '${param.district}';
         var state = '${requestScope.context.stateOrDefault.abbreviation}';
@@ -85,6 +85,11 @@
             var charterBox = document.getElementById('type_schools_charter');
             var publicBox = document.getElementById('type_schools_public');
             var privateBox = document.getElementById('type_schools_private');
+
+            var rppOption10 = document.getElementById('rppOption10');
+            var rppOption25 = document.getElementById('rppOption25');
+            var rppOption50 = document.getElementById('rppOption50');
+            var rppOptionAll = document.getElementById('rppOptionAll');
 
             var reloadUrl = '/schools.page';
             if (city != '') {
@@ -106,9 +111,26 @@
             if (privateBox.checked) {
                 reloadUrl += '&st=private';
             }
+
+            /* page size */
+            if (rppOption10 != undefined && rppOption10.selected) {
+                reloadUrl += "&pageSize=10";
+            }
+            if (rppOption25 != undefined && rppOption25.selected) {
+                reloadUrl += "&pageSize=25";
+            }
+            if (rppOption50 != undefined && rppOption50.selected) {
+                reloadUrl += "&pageSize=50";
+            }
+            if (rppOptionAll != undefined && rppOptionAll.selected) {
+                reloadUrl += "&showall=1";
+            }
+
+            reloadUrl += "&p=1";
+
             document.location = reloadUrl;
         }
-        -->
+
         ]]>
     </script>
 
@@ -311,7 +333,8 @@
             </div>
             <c:if test="${param.lc ne 'p'}">
                 <form id="searchfilterform" action="" method="get">
-                    <div>
+                    <div class="formContainer">
+                    <div class="checkboxes">
                         <strong>Show me:</strong>
                         <label><gsml:checkbox name="type_schools[]"
                                               checked="${publicChecked}"
@@ -343,6 +366,21 @@
                                 levelCode="${param.lc}"
                                 showAll="${not empty param.showall}"
                                 styleClass="noInterstitial"> Private</link:schools></label>
+                    </div>
+                    <c:if test="${not empty results.schools}">
+                        
+                        <div class="resultsPerPage">
+                            <strong>Results per page:</strong>
+                            <select id="resultsPerPageSelector">
+
+                                <gsml:selectOption id="rppOption10" value="10" selected="${results.pageSize eq 10}"  onclick="reloadPageWithFilters();">10</gsml:selectOption>
+                                <gsml:selectOption id="rppOption25" value="25" selected="${results.pageSize eq 25}"  onclick="reloadPageWithFilters();">25</gsml:selectOption>
+                                <gsml:selectOption id="rppOption50" value="10" selected="${results.pageSize eq 50}"  onclick="reloadPageWithFilters();">50</gsml:selectOption>
+                                <gsml:selectOption id="rppOptionAll" value="-1" selected="${not empty param.showall}"  onclick="reloadPageWithFilters();">All</gsml:selectOption>
+
+                            </select>
+                        </div>
+                    </c:if>
                     </div>
                 </form>
             </c:if>
