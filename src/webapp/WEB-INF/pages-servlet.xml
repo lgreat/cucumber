@@ -1414,6 +1414,9 @@
         </property>
     </bean>
 
+    <!-- XML feed related web services -->
+    <bean name="/util/feed/city.page" class="gs.web.util.feed.CityFeedController" autowire="byName" lazy-init="true"/>
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">
