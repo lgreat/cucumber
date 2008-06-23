@@ -76,7 +76,7 @@
 
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
-
+        <!--
         var city = '${param.city}';
         var district = '${param.district}';
         var state = '${requestScope.context.stateOrDefault.abbreviation}';
@@ -130,7 +130,7 @@
 
             document.location = reloadUrl;
         }
-
+        -->
         ]]>
     </script>
 
