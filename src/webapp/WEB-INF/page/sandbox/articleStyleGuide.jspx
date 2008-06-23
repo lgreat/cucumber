@@ -115,7 +115,8 @@
           <li><a href="#pullQuote">Pull Quote</a></li>
           <li><a href="#leftImage">Left Image</a></li>
           <li><a href="#rightImage">Right Image</a></li>
-          <li><a href="#expertImage">Expert Image</a></li>
+          <li><a href="#expertImage">Left Expert Image</a></li>
+          <li><a href="#expertImageRight">Right Expert Image</a></li>
           <li><a href="#orderedList">Ordered List</a></li>
           <li><a href="#unorderedList">Unordered List</a></li>
           <li><a href="#refs">References</a></li>
@@ -828,11 +829,10 @@ etc.
           </div>
         </div>
 
-        <!-- Experts Image -->
-
-    <a name="expertImage"><!-- no collapse --></a>
+  <!-- Left Expert Image -->
+  <a name="expertImage"><!-- no collapse --></a>
         <div class="style">
-          <h3>Expert Image Style</h3>
+          <h3>Left Expert Image Style</h3>
           <div class="style-code">
             <span class="sghead">code:</span>
               <pre>
@@ -842,7 +842,6 @@ etc.
     aggression," or the kind of behavior depicted in the film "Mean Girls."
     These girls' cliques spread rumors
     <b>&lt;div class="expertImage" style="width:140px;"&gt;</b>
-
         <b>&lt;img src="/images/articles/flutebath.jpg"&gt;</b>
         <b>&lt;div class="copyright"&gt;</b>
             From the journal of something or another
@@ -850,7 +849,6 @@ etc.
         <b>&lt;div class="caption"&gt;</b>
             A sample caption here
         <b>&lt;/div&gt;</b>
-
     <b>&lt;/div&gt;</b>
     and lies, exclude and sometimes show outright physical
     aggression toward other girls. Their targets are usually girls who
@@ -883,6 +881,55 @@ etc.
 
   <br/>
   <br/>
+
+  <!-- Right Expert Image -->
+  <a name="expertImageRight"><!-- no collapse --></a>
+  <div class="style">
+      <h3>Right Expert Image Style</h3>
+      <div class="style-code">
+          <span class="sghead">code:</span>
+          <pre>
+<![CDATA[
+    &lt;div class="paragraph"&gt;In recent years, the attention has
+    turned to adolescent girls and to what psychologists call "relational
+    aggression," or the kind of behavior depicted in the film "Mean Girls."
+    These girls' cliques spread rumors
+    <b>&lt;div class="expertImage expertImageRight" style="width:140px;"&gt;</b>
+        <b>&lt;img src="/images/articles/flutebath.jpg"&gt;</b>
+        <b>&lt;div class="copyright"&gt;</b>
+            From the journal of something or another
+        <b>&lt;/div&gt;</b>
+        <b>&lt;div class="caption"&gt;</b>
+            A sample caption here
+        <b>&lt;/div&gt;</b>
+    <b>&lt;/div&gt;</b>
+    and lies, exclude and sometimes show outright physical
+    aggression toward other girls. Their targets are usually girls who
+    haven't yet started developing physically, who dress differently
+    than others or who just don't fit in.&lt;/div&gt;
+
+    etc.
+]]>
+          </pre>
+      </div>
+      <div class="style-example withParagraphs">
+          <span class="sghead">example:</span>
+          <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors
+              <div class="expertImage expertImageRight" style="width:140px;">
+                  <gsml:img src="/images/articles/flutebath.jpg" alt=""/>
+                  <div class="copyright">
+                      From the journal of something or another
+                  </div>
+                  <div class="caption">
+                      A sample caption here
+                  </div>
+              </div>
+
+              and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+          <div class="paragraph">First it was all about the boys and the bullies. Media attention focused on bullying and how to stop stronger boys from physically attacking the weaker ones. Schools developed anti-bullying campaigns and character-education programs to combat the behavior.</div>
+          <div class="paragraph">In recent years, the attention has turned to adolescent girls and to what psychologists call "relational aggression," or the kind of behavior depicted in the film "Mean Girls." These girls' cliques spread rumors and lies, exclude and sometimes show outright physical aggression toward other girls. Their targets are usually girls who haven't yet started developing physically, who dress differently than others or who just don't fit in.</div>
+      </div>
+  </div>
 
           <!-- Ordered List -->
   <a name="orderedList"><!-- no collapse --></a>
@@ -956,6 +1003,10 @@ etc.
 
         </div>
     </div>
+
+
+
+
 
     <!-- Unordered List -->
 

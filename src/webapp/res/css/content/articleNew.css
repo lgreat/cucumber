@@ -417,11 +417,8 @@ div.paragraph {
 div.rightImage,
 div.leftImage,
 div.expertImage{
-
     margin:20px 20px  10px 0;
-
 }
-
 
 div.rightImage {
     float: right;
@@ -443,10 +440,7 @@ div.expertImage img {
     border-width: 1px;
     border-color: #DDDDDD ;
     padding: 2px;
-
 }
-
-
 
 div.rightImage div.caption,
 div.leftImage div.caption,
@@ -454,14 +448,18 @@ div.rightImage div.copyright,
 div.leftImage div.copyright,
 div.expertImage div.copyright,
 div.expertImage div.caption{
-
     font-family:"Trebuchet MS", Helvetica, sans-serif;
     font-size:12px;
     font-weight:normal;
     line-height:15px;
     color:#444444;
     padding-top: 10px;
+}
 
+div.expertImageRight {
+    float:right;
+    margin-left:10px;
+    margin-right:0;
 }
 
 table.editorialTable {
