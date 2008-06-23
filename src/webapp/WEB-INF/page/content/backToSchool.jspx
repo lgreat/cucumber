@@ -275,7 +275,7 @@
         <div class="moduleBox">
             <div class="wrapper">
                 <h3><img src="/res/img/community/backtoschool/modules/get_organized.png" alt="Get Organized" /></h3>
-                <img class="leadoff" src="/res/img/community/backtoschool/modules/img_organized.jpg" alt="Smiling boy" title="" />
+                <img class="leadoff" src="/res/img/community/backtoschool/modules/bts_smallgirl_01.jpg" alt="Smiling girl" title="" />
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="324"
                         wrappingElement="li">Shopping With Tweens</gsweb:articlelink>
@@ -298,7 +298,7 @@
         <div class="moduleBox">
             <div class="wrapper">
                 <h3><img src="/res/img/community/backtoschool/modules/prep.png" alt="Prep for School Success" /></h3>
-                <img class="leadoff" src="/res/img/community/backtoschool/modules/img_prep.jpg" alt="Girl and woman" title="" />
+                <img class="leadoff" src="/res/img/community/backtoschool/modules/bts_smalltwoboys.jpg" alt="Two boys" title="" />
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="44"
                         wrappingElement="li">Reading With Your Child</gsweb:articlelink>
@@ -317,7 +317,7 @@
         <div class="moduleBox last">
             <div class="wrapper">
                 <h3><img src="/res/img/community/backtoschool/modules/supply_list.png" alt="School Supply List" /></h3>
-                <img class="leadoff" src="/res/img/community/backtoschool/modules/img_supply.jpg" alt="Colored pencils" title="" />
+                <img class="leadoff" src="/res/img/community/backtoschool/modules/bts_small_pencils.jpg" alt="Pencils" title="" />
 
                 <p>Shopping early for back-to-school supplies gives you a chance to look for bargains.</p>
 
