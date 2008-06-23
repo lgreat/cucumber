@@ -87,7 +87,7 @@
 <body>
 
 
-  <div id="intro">
+<div id="intro">
   <h1>Editorial Style Guide</h1>
   This page contains code and visual examples of the styles used in
   GreatSchools articles.
@@ -118,51 +118,52 @@
           <li><a href="#expertImage">Expert Image</a></li>
           <li><a href="#orderedList">Ordered List</a></li>
           <li><a href="#unorderedList">Unordered List</a></li>
-          <li><a href="#references">References</a></li>
+          <li><a href="#refs">References</a></li>
           <!--<a href="#green-module">Green Module</a><br/>-->
       </ul>
   </div>
 
   <div id="article-main">
 
-    <![CDATA[<a name="article-title"></a>]]>
-    <div class="style">
+  <!-- Style [Article Title] -->
+  <a name="article-title"><!-- no collapse --></a>
+  <div class="style">
       <h3>Article Title</h3>
       <div class="style-code">
-        <span class="sghead">code:</span>
-        No additional code is required for this style
+          <span class="sghead">code:</span>
+          No additional code is required for this style
       </div>
 
       <div class="style-example">
-        <span class="sghead">example:</span>
-        <h2 class="article-title">10 Tips for Adjusting to a New School</h2>
+          <span class="sghead">example:</span>
+          <h2 class="article-title">10 Tips for Adjusting to a New School</h2>
       </div>
-    </div>
+  </div>
 
-    <![CDATA[<a name="abstract"></a>]]>
-    <div class="style">
-
+  <!-- Style [Abstract] -->
+  <a name="abstract"><!-- no collapse --></a>
+  <div class="style">
       <h3>Abstract</h3>
       <div class="style-code">
-        <span class="sghead">code:</span>
-        No additional code is required for this style
+          <span class="sghead">code:</span>
+          No additional code is required for this style
       </div>
       <div class="style-example">
-        <span class="sghead">example:</span>
-        <div class="abstract">
+          <span class="sghead">example:</span>
+          <div class="abstract">
 
-          Whether your child is facing a mid-year move or the start of the
-          school year, these tips will make the first day easier.
-        </div>
+              Whether your child is facing a mid-year move or the start of the
+              school year, these tips will make the first day easier.
+          </div>
       </div>
-    </div>
+  </div>
 
-    <![CDATA[<a name="abstractPartner"></a>]]>
-    <div class="style">
+  <!-- Style [Abstract Partner Logo] -->
+  <a name="abstractPartner"><!-- no collapse --></a>
+  <div class="style">
       <h3>Abstract Partner Logo</h3>
       <div class="style-code">
-
-        <span class="sghead">code:</span>
+          <span class="sghead">code:</span>
           <pre>
               <![CDATA[
           &lt;p&gt;
@@ -179,7 +180,7 @@
           </pre>
       </div>
       <div class="style-example">
-        <span class="sghead">example:</span>
+          <span class="sghead">example:</span>
           <div class="abstract">
               <p>
                   Here's how you can help your student plan for the future.
@@ -193,96 +194,103 @@
               ]]>
           </div>
       </div>
-    </div>
+  </div>
 
-    <![CDATA[<a name="paragraphs"></a>]]>
-
-    <div class="style">
+  <!-- Style [Paragraphs ] -->
+  <a name="paragraphs"><!-- no collapse --></a>
+  <div class="style">
       <h3>Paragraphs</h3>
       <div class="style-code">
-        <span class="sghead">code:</span>
-		<pre>&lt;div class="paragraph"&gt;First it was all about the boys and the bullies. Media attention
+          <span class="sghead">code:</span>
+          <pre>
+<![CDATA[
+&lt;div class="paragraph"&gt;
+First it was all about the boys and the bullies. Media attention
 focused on bullying and how to stop stronger boys from physically
 attacking the weaker ones. Schools developed anti-bullying campaigns
-and character-education programs to combat the behavior.&lt;/div&gt;
+and character-education programs to combat the behavior.
+&lt;/div&gt;
 
-&lt;div class="paragraph"&gt;In recent years, the attention has turned to adolescent girls and to
+&lt;div class="paragraph"&gt;
+In recent years, the attention has turned to adolescent girls and to
 what psychologists call "relational aggression," or the kind of
 behavior depicted in the film "Mean Girls." These girls' cliques
 spread rumors and lies, exclude and sometimes show outright physical
 aggression toward other girls. Their targets are usually girls who
 haven't yet started developing physically, who dress differently
-than others or who just don't fit in.&lt;/div&gt;
-
-		</pre>
+than others or who just don't fit in.
+&lt;/div&gt;
+              ]]>
+          </pre>
       </div>
       <div class="style-example">
-        <span class="sghead">example:</span>
-        <div class="paragraph">First it was all about the boys and the bullies. Media attention
-focused on bullying and how to stop stronger boys from physically
-attacking the weaker ones. Schools developed anti-bullying campaigns
-and character-education programs to combat the behavior.</div>
-        <div class="paragraph">In recent years, the attention has turned to adolescent girls and to
-what psychologists call "relational aggression," or the kind of
-behavior depicted in the film "Mean Girls." These girls' cliques
-spread rumors and lies, exclude and sometimes show outright physical
-aggression toward other girls. Their targets are usually girls who
-haven't yet started developing physically, who dress differently
-than others or who just don't fit in.</div>
+          <span class="sghead">example:</span>
+          <div class="paragraph">First it was all about the boys and the bullies. Media attention
+              focused on bullying and how to stop stronger boys from physically
+              attacking the weaker ones. Schools developed anti-bullying campaigns
+              and character-education programs to combat the behavior.</div>
+          <div class="paragraph">In recent years, the attention has turned to adolescent girls and to
+              what psychologists call "relational aggression," or the kind of
+              behavior depicted in the film "Mean Girls." These girls' cliques
+              spread rumors and lies, exclude and sometimes show outright physical
+              aggression toward other girls. Their targets are usually girls who
+              haven't yet started developing physically, who dress differently
+              than others or who just don't fit in.</div>
+      </div>
+  </div>
 
-	  </div>
-    </div>
-
-    <![CDATA[<a name="byline"></a>]]>
-    <div class="style">
+  <!-- Style [By Line] -->
+  <a name="byline"><!-- no collapse --></a>
+  <div class="style">
       <h3>ByLine</h3>
       <div class="style-code">
-        <span class="sghead">code:</span>
-
-        No additional code is required for this style
+          <span class="sghead">code:</span>
+          No additional code is required for this style
       </div>
       <div class="style-example">
-        <span class="sghead">example:</span>
-        <span class="byline">GreatSchools Staff</span>
+          <span class="sghead">example:</span>
+          <span class="byline">GreatSchools Staff</span>
       </div>
-    </div>
+  </div>
 
-    <![CDATA[<a name="caption"></a>]]>
-
-    <div class="style">
+  <!-- Style [Caption] -->
+  <a name="caption"><!-- no collapse --></a>
+  <div class="style">
       <h3>Caption</h3>
       <div class="style-code">
-        <span class="sghead">code:</span>
-        <pre>
-          &lt;span class="caption"&gt;Photo of Oscar Wilde&lt;/span&gt;
-
-        </pre>
+          <span class="sghead">code:</span>
+          <pre>
+              <![CDATA[
+              &lt;span class="caption"&gt;Photo of Oscar Wilde&lt;/span&gt;
+              ]]>
+          </pre>
       </div>
       <div class="style-example">
-        <span class="sghead">example:</span>
-        <span class="caption">Photo of Oscar Wilde</span>
+          <span class="sghead">example:</span>
+          <span class="caption">Photo of Oscar Wilde</span>
       </div>
-    </div>
+  </div>
 
-    <![CDATA[<a name="headline"></a>]]>
-
-    <div class="style">
+  <!-- Style [Headline] -->
+  <a name="headline"><!-- no collapse --></a>
+  <div class="style">
       <h3>"More On" Headline</h3>
       <div class="style-code">
-        <span class="sghead">code:</span>
-        <pre>
-            <![CDATA[
+          <span class="sghead">code:</span>
+          <pre>
+              <![CDATA[
           &lt;span class=&quot;headline&quot;&gt;More on GreatSchools.net&lt;/span&gt;
             ]]>
-        </pre>
+          </pre>
       </div>
       <div class="style-example">
-        <span class="sghead">example:</span>
-        <span class="headline">More on GreatSchools.net</span>
+          <span class="sghead">example:</span>
+          <span class="headline">More on GreatSchools.net</span>
       </div>
-    </div>
+  </div>
 
-    <![CDATA[<a name="moreon"></a>]]>
+  <!-- Style [More About] -->
+  <a name="moreon"><!-- no collapse --></a>
     <div class="style">
         <h3>"More On" Section</h3>
         <div class="style-code">
@@ -318,13 +326,13 @@ than others or who just don't fit in.</div>
         </div>
         <div class="style-example">
             <div class="dotted-divider"><hr /></div>
-            <div id="more-about">
+            <div class="more-about">
                 <div class="paragraph">
                     <span class="headline">More on GreatSchools.net</span>
                     <ul>
-                        <li><a href="/cgi-bin/showarticle/701/">How to Take Great Notes</a></li>
-                        <li><a href="/cgi-bin/showarticle/477/">Go Online for Homework Help</a></li>
-                        <li><a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></li>
+                        <li><a href="#">How to Take Great Notes</a></li>
+                        <li><a href="#">Go Online for Homework Help</a></li>
+                        <li><a href="#">How Much Homework is Too Much?</a></li>
                     </ul>
                 </div>
                 <div class="paragraph">
@@ -337,7 +345,7 @@ than others or who just don't fit in.</div>
         </div>
     </div>
 
-    <![CDATA[<a name="microsite"></a>]]>
+    <a name="microsite"><!-- no collapse --></a>
     <div class="style">
       <h3>Microsite</h3>
       <div class="style-code">
@@ -361,11 +369,11 @@ than others or who just don't fit in.</div>
       </div>
       <div class="style-example">
         <span class="sghead">example:</span>
-          <div id="more-about">
+          <div class="more-about">
               <div class="paragraph">
                   <span class="headline">More on GreatSchools.net</span>
                   <ul>
-                      <li><a href="/cgi-bin/showarticle/701/">How to Take Great Notes</a></li>
+                      <li><a href="#">How to Take Great Notes</a></li>
                       <li class="microsite">Learn more about how to help <a href="/content/specialNeeds.page">your child with special needs</a>.</li>
                   </ul>
               </div>
@@ -374,9 +382,7 @@ than others or who just don't fit in.</div>
       </div>
     </div>
 
-
-
-  <![CDATA[<a name="header_1"></a>]]>
+  <a name="header_1"><!-- no collapse --></a>
   <div class="style">
     <h3>Header 1</h3>
     <div class="style-code">
@@ -393,7 +399,7 @@ than others or who just don't fit in.</div>
     </div>
   </div>
 
-  <![CDATA[<a name="header_2"></a>]]>
+  <a name="header_2"><!-- no collapse --></a>
   <div class="style">
     <h3>Header 2</h3>
     <div class="style-code">
@@ -410,7 +416,7 @@ than others or who just don't fit in.</div>
     </div>
   </div>
 
-  <![CDATA[<a name="header_3"></a>]]>
+  <a name="header_3"><!-- no collapse --></a>
   <div class="style">
     <h3>Header 3 (Text Lead In)</h3>
     <div class="style-description">
@@ -446,7 +452,7 @@ than others or who just don't fit in.</div>
     </div>
   </div>
 
-  <![CDATA[<a name="spanish-link"></a>]]>
+  <a name="spanish-link"><!-- no collapse --></a>
 
   <div class="style">
     <h3>Spanish Link</h3>
@@ -465,7 +471,7 @@ than others or who just don't fit in.</div>
     </div>
   </div>
 
-  <![CDATA[<a name="blue-module"></a>]]>
+  <a name="blue-module"><!-- no collapse --></a>
   <div class="style">
     <h3>Blue Module</h3>
     <div class="style-code">
@@ -535,7 +541,7 @@ than others or who just don't fit in.</div>
   -->
 
 <!-- Left Sidebar -->
-<![CDATA[<a name="leftSidebar"   ></a>]]>
+<a name="leftSidebar"><!-- no collapse --></a>
     <div class="style">
       <h3>Left Sidebar Style</h3>
       <div class="style-code">
@@ -597,7 +603,7 @@ etc.
 
     <!-- Right Sidebar -->
 
-    <![CDATA[<a name="rightSidebar"   ></a>]]>
+    <a name="rightSidebar"><!-- no collapse --></a>
         <div class="style">
           <h3>Right Sidebar Style</h3>
           <div class="style-code">
@@ -660,7 +666,7 @@ etc.
         </div>
 
     <!-- Pull Quote -->
-    <![CDATA[<a name="pullQuote"   ></a>]]>
+    <a name="pullQuote"><!-- no collapse --></a>
         <div class="style">
           <h3>Pull Quote Style</h3>
 
@@ -713,7 +719,7 @@ etc.
         </div>
 
     <!-- Left Image -->
-    <![CDATA[<a name="leftImage"   ></a>]]>
+    <a name="leftImage"><!-- no collapse --></a>
 
         <div class="style">
           <h3>Left Image Style</h3>
@@ -769,7 +775,7 @@ etc.
 
     <!-- Left Image -->
 
-    <![CDATA[<a name="rightImage"   ></a>]]>
+    <a name="rightImage"><!-- no collapse --></a>
         <div class="style">
           <h3>Right Image Style</h3>
           <div class="style-code">
@@ -824,7 +830,7 @@ etc.
 
         <!-- Experts Image -->
 
-    <![CDATA[<a name="expertImage"   ></a>]]>
+    <a name="expertImage"><!-- no collapse --></a>
         <div class="style">
           <h3>Expert Image Style</h3>
           <div class="style-code">
@@ -878,10 +884,8 @@ etc.
   <br/>
   <br/>
 
-
           <!-- Ordered List -->
-
-    <![CDATA[<a name="orderedList"></a>]]>
+  <a name="orderedList"><!-- no collapse --></a>
     <div class="style">
         <h3>Ordered List Style</h3>
         <div class="style-code">
@@ -925,7 +929,7 @@ etc.
 
         <ol>
             <li><span class="liText">Some Text</span></li>
-            <li><span class="liText">Some Text with a link<a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></span></li>
+            <li><span class="liText">Some Text with a link<a href="#">How Much Homework is Too Much?</a></span></li>
             <li><span class="liText">
                  Some Really, really long text that is likely to wrap to the next
                  line.  Here we go running away from ourselves.  Are we there yet?
@@ -955,7 +959,7 @@ etc.
 
     <!-- Unordered List -->
 
-  <![CDATA[<a name="unorderedList"></a>]]>
+  <a name="unorderedList"><!-- no collapse --></a>
   <div class="style">
   <h3>Unordered List Style</h3>
   <div class="style-code">
@@ -991,7 +995,7 @@ etc.
 
       <ul>
             <li><span class="liText">Some Text</span></li>
-            <li><span class="liText">Some Text with a link<a href="/cgi-bin/showarticle/586/">How Much Homework is Too Much?</a></span></li>
+            <li><span class="liText">Some Text with a link<a href="#">How Much Homework is Too Much?</a></span></li>
             <li><span class="liText">
                  Some Really, really long text that is likely to wrap to the next
                  line.  Here we go running away from ourselves.  Are we there yet?
@@ -1271,9 +1275,7 @@ etc.
 
   </div>
 </div>
-
-
-    <![CDATA[<a name="references"></a>]]>
+    <a name="refs"><!-- no collapse --></a>
     <div class="style">
         <h3>References Style</h3>
         <div class="style-code">
@@ -1283,9 +1285,7 @@ etc.
 <b>&lt;div id="references"&gt;</b>
     <b>&lt;span class="subheader"&gt;References&lt;/span&gt;</b>
     <b>&lt;ul&gt;</b>
-        <b>&lt;li&gt;</b>&lt;a href="http://www.pnas.org/cgi/content/full/95/5/2636?maxtoshow=&amp;
-            HITS=10&amp;hits=10&amp;RESULTFORMAT=&amp;author1=shaywitz&amp;searchid=1011981781170_3730
-            &amp;stored_search=&amp;FIRSTINDEX=0&amp;fdate=1/1/1998&amp;tdate=12/31/1998"&gt;
+        <b>&lt;li&gt;</b>&lt;a href="http://www.pnas.org/cgi/content/full/95/5/2636"&gt;
             Functional Disruption in the Organization of the Brain for Reading in
                 Dyslexia&lt;/a&gt;
             &lt;div class="paragraph"&gt;
@@ -1326,8 +1326,9 @@ etc.
         <div class="style-example">
             <div id="references">
                 <span class="subheader">References</span>
+
                 <ul>
-                    <li><a href="http://www.pnas.org/cgi/content/full/95/5/2636?maxtoshow=&amp;HITS=10&amp;hits=10&amp;RESULTFORMAT=&amp;author1=shaywitz&amp;searchid=1011981781170_3730&amp;stored_search=&amp;FIRSTINDEX=0&amp;fdate=1/1/1998&amp;tdate=12/31/1998">Functional Disruption in the Organization of the Brain for Reading in Dyslexia</a>
+                    <li><a href="http://www.pnas.org/cgi/content/full/95/5/2636">Functional Disruption in the Organization of the Brain for Reading in Dyslexia</a>
                         <div class="paragraph">
                              by S E. Shaywitz , B. A. Shaywitz , K. R. Pugh, R. K. Fulbright, R. T. Constable, W. E. Mencl, D. P. Shankweiler, A. M. Liberman, P. Skudlarski, J. M. Fletcher, L. Katz, K. E. Marchione, C. Lacadie, C. Gatenby, and J. C. Gore in Proceedings of the National Academy of Sciences of the United States of America, Vol. 95, Issue 5, March 3, 1998
                         </div>
@@ -1346,9 +1347,9 @@ etc.
                         <div class="paragraph">
                              by E. Paulesu, et al Science March 16, 2001; 291: pp. 2165-2167. Reprints can be ordered.
                         </div>
-
                     </li>
                 </ul>
+
             </div>
         </div>
     </div>
