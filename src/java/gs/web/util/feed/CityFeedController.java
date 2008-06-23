@@ -100,7 +100,7 @@ public class CityFeedController implements Controller {
         }
 
         // Write out the servlet response
-        response.setContentType("text/xml");
+        response.setContentType("application/xml");
         serializeDocument(response.getWriter(), doc);
         return null;
     }

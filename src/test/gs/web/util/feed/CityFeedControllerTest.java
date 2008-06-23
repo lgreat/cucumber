@@ -21,7 +21,7 @@ public class CityFeedControllerTest extends BaseControllerTestCase {
 
     public void testNoParameters() throws Exception {
         _cityFeedController.handleRequest(_request, _response);
-        assertEquals("text/xml", _response.getContentType());
+        assertEquals("application/xml", _response.getContentType());
         _xml.assertXMLEqual("<error>state is a required parameter</error>", _response.getContentAsString());
     }
 
