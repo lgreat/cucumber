@@ -63,6 +63,11 @@
 	width: 300px;
 }
 
+.manila .learnMore {
+    text-align: right;
+    margin-top: 7px;
+}
+
 #stickies {
 	list-style-type: none;
 	margin: 17px 0 0 0;
