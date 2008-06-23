@@ -3,7 +3,6 @@ package gs.web.content;
 import gs.web.BaseControllerTestCase;
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
-import gs.data.content.ArticleManager;
 import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +18,6 @@ public class ArticleControllerTest extends BaseControllerTestCase {
 
     private ArticleController _controller;
     private IArticleDao _articleDao;
-    private ArticleManager _articleManager;
     private State _state;
 
     public void setUp() throws Exception {
@@ -28,9 +26,6 @@ public class ArticleControllerTest extends BaseControllerTestCase {
 
         _articleDao = createStrictMock(IArticleDao.class);
         _controller.setArticleDao(_articleDao);
-
-        _articleManager = new ArticleManager();
-        _controller.setArticleManager(_articleManager);
 
         _state = State.CA;
     }

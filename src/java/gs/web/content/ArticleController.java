@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
-import gs.data.content.ArticleManager;
-import gs.data.content.ArticleCategoryEnum;
 import gs.data.state.State;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
@@ -63,9 +61,6 @@ public class ArticleController extends AbstractController {
     /** Provides access to database articles */
     private IArticleDao _articleDao;
 
-    /** Article category manipulation methods */
-    private ArticleManager _articleManager;
-
     /**
      * Regular expression for state-specific content.
      * (\^gstate=\"[a-z,\!]+\"\^)([^\^]+)(\^\/gstate\^)
@@ -93,10 +88,9 @@ public class ArticleController extends AbstractController {
                 model.put(MODEL_ARTICLE_META_KEYWORDS, article.getMetaKeywords());
 
                 PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-                List categories = _articleManager.getCategories(article.getCategory());
-                for (Object obj : categories) {
-                    ArticleCategoryEnum category = (ArticleCategoryEnum)obj;
-                    pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+                List<String> categories = article.getCategoriesAsStringList();
+                for (String category : categories) {
+                    pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category);
                 }
             }
         } else {
@@ -205,15 +199,6 @@ public class ArticleController extends AbstractController {
     public void setArticleDao(IArticleDao articleDao) {
         _articleDao = articleDao;
     }
-
-    public ArticleManager getArticleManager() {
-        return _articleManager;
-    }
-
-    public void setArticleManager(ArticleManager articleManager) {
-        _articleManager = articleManager;
-    }
-
 
     static {
         _achievementMap.put(State.CA, 866);
