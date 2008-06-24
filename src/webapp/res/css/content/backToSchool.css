@@ -45,7 +45,7 @@
 #contentTop .manila {
 	background: url(/res/img/community/backtoschool/manila/manila.png) no-repeat left top;
 	padding: 1px 0;
-    margin: 0 0 0 -2px;
+    margin: 8px 0 0 -2px;
     height: 324px;
 }
 
@@ -150,15 +150,6 @@
     min-height: 288px;
 	height: auto !important;
 	height: 288px;
-}
-
-#contentBottom {
-    width: 952px;
-    height: 200px;
-    border-top: 2px dotted #ccc;
-    background-color: black;
-    clear: both;
-    margin: 10px 0 0 0;
 }
 
 .moduleBox {
@@ -324,4 +315,22 @@ ul.greenArrow {
     padding: 0 0 0 10px; 
     _padding: 0 0 0 20px;
     margin: 10px 0 0 0;
+}
+
+#contentBottom {
+    width: 952px;
+    height: 200px;
+    border-top: 2px dotted #ccc;
+    clear: both;
+    margin: 10px 0 0 0;
+}
+
+.editorialFooterBox {
+    float: left;
+    width: 175px;
+    height: 200px;
+}
+
+.editorialFooterBox h3 {
+    font-size: 12pt;
 }

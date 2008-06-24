@@ -11,8 +11,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
-          xmlns:gsweb="gstaglib"
-        >
+          xmlns:gsweb="gstaglib">
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -58,7 +57,7 @@
 <div id="contentTop">
 
     <div class="sponsor">
-        <ad:Badge_99x32 position="PageSponsor_99x32"/>
+        <ad:Badge_99x40 position="PageSponsor_99x40"/>
     </div>
 
     <div class="manila">
@@ -127,7 +126,7 @@
                 <p class="header">Get Organized</p>
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="1051" wrappingElement="li">
-                        Seven Things to Tell the Teacher About Your Child</gsweb:articlelink>
+                        Seven Things to Tell Your Child's New Teacher</gsweb:articlelink>
                     <gsweb:articlelink articleId="1053" wrappingElement="li">
                         Finding Balance in Your Child's Life</gsweb:articlelink>
                 </ul>
@@ -398,9 +397,9 @@
     </div>
 </div>
 
-<!-- div id="contentBottom" -->
+<div id="contentBottom">
     <!-- don't collapse -->
-<!-- /div -->
+</div>
 
 <!--mod:tracking pageName="${pageName}"
               hier1="Article,Back to School"
