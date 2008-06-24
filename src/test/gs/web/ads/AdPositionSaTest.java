@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPositionSaTest.java,v 1.3 2007/05/03 00:32:44 dlee Exp $
+ * $Id: AdPositionSaTest.java,v 1.4 2008/06/24 20:51:06 aroy Exp $
  */
 package gs.web.ads;
 
@@ -34,6 +34,8 @@ public class AdPositionSaTest extends TestCase {
         assertEquals(AdPosition.X_66, AdPosition.getAdPosition("x66"));
 
         assertNotSame(AdPosition.X_66, AdPosition.getAdPosition("x22"));
+
+        assertEquals(AdPosition.YouTube_381x311, AdPosition.getAdPosition("YouTube_381x311"));
 
         assertEquals("x22", AdPosition.X_22.getName());
 

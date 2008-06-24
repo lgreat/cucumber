@@ -39,7 +39,6 @@
     //-->
     ]]>
     </script>
-
 </head>
 <c:set var="pageName" value="Education 2008"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_EDin08"/>
@@ -48,7 +47,6 @@
 <!--[if IE]>
     <style type="text/css" media="screen">
         .cleared { height: 1%; }
-        .bulleted li, .manila .bulleted li { background-position: left 7px; }
     </style>
 <![endif]-->
 
@@ -164,13 +162,14 @@
                              alt="Learn More about the Issues"/></h3>
 
                     <div class="video">
-                        <object width="381" height="311">
-                            <param name="movie"
-                                   value="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"/>
-                            <embed src="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"
-                                   type="application/x-shockwave-flash"
-                                   width="381" height="311"/>
-                        </object>
+                        <ad:YouTube_381x311/>
+                        <!--<object width="381" height="311">-->
+                            <!--<param name="movie"-->
+                                   <!--value="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"/>-->
+                            <!--<embed src="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"-->
+                                   <!--type="application/x-shockwave-flash"-->
+                                   <!--width="381" height="311"/>-->
+                        <!--</object>-->
                     </div>
                     <p class="seeMore"><a href="http://www.youtube.com/edin08">See more videos</a></p>
 
