@@ -120,12 +120,28 @@
 
         <div class="contentMiddleModule gray">
             <div class="wrapper">
-                Hot Topics
+                <div class="hot_topics">
+                    <img src="/res/img/content/election2008/hotTopics.jpg"
+                         alt="Hot Topics" width="165" height="36"
+                         class="hot_topics"/>
+                    <div class="header">
+                        <span class="red">Topic of the Week: </span>
+                        <a href="#">Education is Key to Economic Competitiveness</a>
+                    </div>
+                    <ul>
+                        <li><a href="#">NLCB Tutoring helps companies, not kids.</a><span class="source">SchoolMatters</span></li>
+                        <li><a href="#">Bringing Equity to the Education System.</a><span class="source">Roy's blog on Schools</span></li>
+                        <li><a href="#">Viral Professional Development.</a><span class="source">Change Agency</span></li>
+                        <li><a href="#">NLCB Tutoring helps companies, not kids.</a><span class="source">SchoolMatters</span></li>
+                        <li><a href="#">Bringing Equity to the Education System.</a><span class="source">Roy's blog on Schools</span></li>
+                        <li><a href="#">Viral Professional Development.</a><span class="source">Change Agency</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div class="contentMiddleModule strongAmericanSchools">
-            <img src="/res/img/blahblah.jpg" alt="Strong American Schools"
+            <img src="/res/img/content/election2008/blahblah.jpg" alt="Strong American Schools"
                  class="img_strong" width="162" height="85"/>
             <div class="text">
                 <div class="header">About <a href="#">Strong American Schools</a></div>
@@ -167,9 +183,9 @@
         </div>
         <div class="toolkitsWrapper">
             <div class="toolkits">
-                <img src="/res/img/blahblah.jpg" alt="Ed in '08"
+                <img src="/res/img/content/election2008/blahblah.jpg" alt="Ed in '08"
                      class="img_edin08" width="129" height="62"/>
-                <img src="/res/img/blahblah.jpg"
+                <img src="/res/img/content/election2008/blahblah.jpg"
                      alt="Strong American Schools Toolkits"
                      class="img_toolkits"
                      width="194" height="62"/>
@@ -193,67 +209,10 @@
             </div>
         </div>
     </div>
-    
 
-    <!---->
-<!--<div id="contentTop">-->
-    <!--<img src="/res/img/blahblah.jpg" alt="One Nation Left Behind" width="975" height="320"/>-->
-<!--</div>-->
-
-<!--<div class="horizontalDividerLine mainDivider">-->
-    <!-- don't collapse -->
-<!--</div>-->
-    <!---->
-<!--<div id="contentMiddle">-->
-    <!--<div class="contentMiddleModule upperBoxes">-->
-        <!-- Get Involved -->
-        <!--<div class="moduleBox left">-->
-            <!--Get Involved-->
-        <!--</div>-->
-        <!-- Sign Up -->
-        <!--<div class="moduleBox right">-->
-            <!--Sign Up-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="horizontalDividerLine">-->
-        <!-- don't collapse -->
-    <!--</div>-->
-    <!--<div class="contentMiddleModule hotTopics">-->
-        <!--Hot Topics-->
-    <!--</div>-->
-<!--</div>-->
-
-<!--<div id="contentRight">-->
-    <!-- TODO: This ad slot needs to be updated to the correct value. -->
-    <!--<ad:setSlotPrefix slotPrefix="Library_Microsite_Countdown_To_College"/>-->
-    <!--<div id="video">-->
-        <!--<object width="380" height="260">-->
-            <!--<param name="movie" value="http://www.youtube.com/v/4bkvsXCMqfo&amp;hl=en&amp;rel=0"/>-->
-            <!--<embed src="http://www.youtube.com/v/4bkvsXCMqfo&amp;hl=en&amp;rel=0" type="application/x-shockwave-flash" width="380" height="260"/>-->
-        <!--</object>-->
-    <!--</div>-->
-    <!--<div class="toolkitsWrapper">-->
-        <!--<div class="toolkits">-->
-            <!--<img src="/res/img/blahblah.jpg" alt="Ed in '08" class="img_edin08" width="129" height="62"/>-->
-            <!--<img src="/res/img/blahblah.jpg" alt="Strong American Schools Toolkits" class="img_toolkits"-->
-                 <!--width="194" height="62"/>-->
-            <!--<ul>-->
-                <!--<li><a href="#">Tools for parents</a>-->
-                    <!--Concrete steps you can take to help shape your child's education -->
-                    <!--and his or her future-->
-                <!--</li>-->
-                <!--<li><a href="#">Tools for parents</a>-->
-                    <!--Concrete steps you can take to help shape your child's education -->
-                    <!--and his or her future-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
- <mod:tracking pageName="${pageName}"
-              hier1="Article,Education 2008"
-              microsite="${pageName}"/>
+    <mod:tracking pageName="${pageName}"
+                  hier1="Article,Education 2008"
+                  microsite="${pageName}"/>
 
 </gsml:body>
 

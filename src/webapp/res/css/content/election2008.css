@@ -164,6 +164,39 @@ div.video {
     margin: 8px 0 25px 8px;
 }
 
+div.hot_topics {
+    padding: 68px 15px 15px 30px;
+    position: relative;
+}
+
+.hot_topics img.hot_topics {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.hot_topics .header {
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+.red {
+    color: #ED1B24;
+    font-weight: bold;
+}
+
+.hot_topics ul li {
+    background: transparent url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat scroll left 7px;
+    line-height: 20px;
+    padding-left: 10px;
+    font-size: 13px;    
+}
+
+.hot_topics .source {
+    color: #999999;
+    padding-left: 2px;
+}
+
 /*#contentGS .mainDivider {*/
     /*position: absolute;*/
     /*top: 328px;*/
