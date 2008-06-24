@@ -20,7 +20,8 @@
 
 #resultsheader {
     font-size: medium;
-    padding: 0px 0px 8px 0px;
+    padding: 20px 20px 10px;
+    background: #F2F3DB;
 }
 
 #resultsheader #rh_col_left {
@@ -45,7 +46,6 @@
 .query {
     font-weight: 700;
     color: #C56;
-    float: left;
 }
 
 .clear {
@@ -128,27 +128,10 @@ Tabs and filters
 
 #searchfilterform {
 	font-size: 13px;
-	padding-top: 8px;
+	padding-top: 12px;
 	background: #fff;
 	clear: both;
 }
-#searchfilterform div.formContainer{
-    padding-bottom: 15px;
-}
-#searchfilterform div.checkboxes {
-    float:left;
-    padding-top: 3px;
-}
-#searchfilterform div.resultsPerPage {
-    float: right;
-    padding: 0 0 0 0;
-}
-
-#searchfilterform select {
-    margin-left:10px;
-}
-
-
 
 #searchfilterform label {
 	margin: 0 0 0 10px;
@@ -163,7 +146,8 @@ Tabs and filters
 	margin-top: 10px;
 	font-size: 13px;
 	text-align: right;
-	padding-bottom: 4px;
+	background: url(/res/img/search/dotted_border.png) repeat-x left bottom;
+	padding-bottom: 10px;
 }
 
 .filterWrapperB{
@@ -248,15 +232,12 @@ div.phone {
 
 #searchResultsHeaderB,
 #searchResultsHeader {
-    @width: 525px;
+    width: 525px;
     margin-bottom: 5px;
-    margin-top:5px;
     text-align: center;
     font-size: small;
     font-weight: bold;
-    @color: #5bc;
-    background: url(/res/img/search/tab_off_bg.gif) repeat;
-    line-height:22px;
+    color: #5bc
 }
 
 #searchResultsHeaderB{
@@ -266,10 +247,9 @@ div.phone {
 #schoolResultsHeader {
     float: left;
     text-align:left;
-    width: 210px;
+    width: 207px;
     padding-left: 5px;
-    @margin-right: 15px;
-
+    margin-right: 15px;
 }
 
 #articleResultsHeader {
@@ -278,34 +258,15 @@ div.phone {
     padding-left: 5px;
 }
 
-
-
-#searchResultsHeader div.divided {
-    background: url(/res/img/search/tab_divider.gif) no-repeat;
-    @width:2px;
-    float:left;
-    text-align: center;
-}
-#searchResultsHeader div.active{
-    background: url(/res/img/search/tab_on_bg.gif) repeat;
-}
-
-#searchResultsHeader img.sortActive{
-    display: inline;
-}
-
-#searchResultsHeader img.sortInActive{
-    display: none;
-}
 #ratingsHeader {
     float: left;
-    width: 160px;
-    @margin-right: 20px;
+    width: 140px;
+    margin-right: 20px;
 }
 
 #reviewsHeader {
     float: left;
-    width: 150px;
+    width: 90px;
 }
 
 #searchResultsList {
@@ -313,8 +274,8 @@ div.phone {
 }
 
 #searchResultsList .result {
-    @border-top: 1px solid #e2e3cb;
-    padding-top: 8px;
+    border-top: 1px solid #e2e3cb;
+    padding-top: 15px;
 	margin: 0 0 15px 0;
     clear: both;
 }
