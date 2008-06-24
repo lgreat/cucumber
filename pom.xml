@@ -82,6 +82,8 @@
                     <path>/</path>
                     <mode>context</mode>
                     <contextFile>src/webapp/WEB-INF/classes/context.xml</contextFile>
+                    <!-- mytomcat references tomcat admin user/pass in ${user.home}/.m2/settings.xml file -->
+                    <server>mytomcat</server>
                 </configuration>
             </plugin>
 

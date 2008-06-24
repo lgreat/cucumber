@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.60 2008/06/18 17:12:53 yfan Exp $
+ * $Id: UrlUtil.java,v 1.61 2008/06/24 23:26:50 thuss Exp $
  */
 
 package gs.web.util;
@@ -41,15 +41,12 @@ public final class UrlUtil {
                 && !hostName.startsWith("dev")
                 && !hostName.startsWith("localhost")
                 && !hostName.startsWith("main.dev")
-                && !hostName.startsWith("dlee.dev")
-                && !hostName.startsWith("apeterson")
                 && !hostName.startsWith("thuss.dev")
                 && !hostName.startsWith("chriskimm.dev")
-                && !hostName.startsWith("droy.dev")
                 && !hostName.startsWith("aroy.office")
                 && !hostName.startsWith("aroy.dev")
                 && !hostName.startsWith("cpickslay.")
-                && !hostName.startsWith("nuked")
+                && !(hostName.indexOf("vpn.greatschools.net") != -1)
                 && !hostName.equals("127.0.0.1")
                 && hostName.indexOf('.') != -1;
         if (isCobrand) {
@@ -356,7 +353,7 @@ public final class UrlUtil {
      */
     public static String addParameter(String url, String parameter)  {
 
-        String delimiter = "";
+        String delimiter;
         if (url.contains("?")){
              delimiter = "&";
         } else {
