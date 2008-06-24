@@ -17,8 +17,14 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="SEASONAL"/>
+<jsp:scriptlet>
+    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="GreatSchools.net: Back to School"/>
@@ -38,6 +44,10 @@
 
     #contentTop .flash {
         margin: 12px 7px 0 0;
+    }
+
+    #contentBottom {
+        _margin: 5px 0 10px 0;
     }
 
     p.question {
@@ -337,7 +347,7 @@
         </div>
     </div>
 
-    <div class="contentMiddleModule gray">
+    <div id="contentMiddleModuleBottom" class="contentMiddleModule gray">
         <div class="wrapper">
 
             <!-- The difference in white boxes is necessary thanks to IE 6's craptastic handling of margins/widths -->
@@ -398,7 +408,54 @@
 </div>
 
 <div id="contentBottom">
-    <!-- don't collapse -->
+    <h2>More from GreatSchools</h2>
+
+    <div class="editorialFooterBox">
+        <h3>Find a School</h3>
+        <p id="searchPrompt">Name, District, or City</p>
+        <gsweb:form action="/search/search.page" method="get">
+            <input style="width:150px;" id="footerSearchBox" name="q" type="text"/>
+            <gsweb:stateSelector styleId="footerStateSelector" name="state"/>
+            <br/>
+            <gsml:inputImage src="/res/img/button/go.gif" alt="Go" id="goButton" name="submit"/>
+        </gsweb:form>
+    </div>
+    <div class="editorialFooterBox">
+        <h3>K-12 Success</h3>
+        <ul class="bulleted">
+            <li><a href="/content/schoolChoiceCenter.page">School Choice Tips</a></li>
+            <li><a href="/content/healthyKids.page">Healthy Kids</a></li>
+            <li><a href="/content/specialNeeds.page">Learning Difficulties</a></li>
+            <li><a href="/content/summerReading.page">Summer Reading</a></li>
+        </ul>
+    </div>
+    <div class="editorialFooterBox">
+        <h3>Is Your Child on Track?</h3>
+        <p>
+            Track your child's learning grade by grade with our
+            FREE newsletters that parents love!
+        </p>
+        <p>
+            <a onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50'); return false;"
+               class="submodal-480-550" href="/community/newsletters/popup/newsletter.page?referrer=backToSchool"><img src="/res/img/button/btn_signmeup.gif" id="signMeUpButton" alt="Sign me up!"/></a>
+        </p>
+    </div>
+    <div class="editorialFooterBox">
+        <h3>Connect With Others</h3>
+        <p>
+            Join the GreatSchools community and connect with parents
+            who are passionate about education.<br/>
+            <a href="/community/registration.page?email=&amp;redirect=">Join now &#8250;</a>
+        </p>
+    </div>
+    <div class="editorialFooterBox last">
+        <h3>Election 2008</h3>
+        <p>
+            GreatSchools is working with Strong American Schools
+            to help start a serious nationwide debate on education reform.<br/>
+            <a href="/content/election2008.page">Learn more &#8250;</a>
+        </p>
+    </div>
 </div>
 
 <!--mod:tracking pageName="${pageName}"

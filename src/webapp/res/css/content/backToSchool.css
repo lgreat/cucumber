@@ -140,7 +140,7 @@
 
 .contentMiddleModule {
     border-top: 2px dotted #ccc;
-    margin: 0 0 7px 2px;
+    margin: 0 0 0px 0px; /* 0 0 7px 2px */
     padding-top: 7px;
 }
 
@@ -178,6 +178,10 @@
     height: 281px;
     margin-bottom: 17px;
     _margin-bottom: 8px;
+}
+
+#contentMiddleModuleBottom {
+    height: 288px;
 }
 
 .moduleBox h3 img {
@@ -319,18 +323,65 @@ ul.greenArrow {
 
 #contentBottom {
     width: 952px;
-    height: 200px;
+    height: 220px;
     border-top: 2px dotted #ccc;
     clear: both;
-    margin: 10px 0 0 0;
+    position: relative;
+    top: 15px;
+    _top: 10px;
+}
+
+#contentBottom h2 {
+    font-size: 14pt;
+    color: #66CCCC;
+    margin-top: 8px;
+    margin-bottom: 6px;
 }
 
 .editorialFooterBox {
     float: left;
-    width: 175px;
-    height: 200px;
+    width: 158px;
+    height: 160px;
+    line-height: 18px;
+    font-size: 7px;
+    color: #888888;
+    border-right: 1px solid #DDDDDD;
+    padding: 2px 15px 0 15px;
+    margin: 0;
+}
+
+#footerSearchBox {
+    color: #888;
+}
+
+#footerStateSelector {
+    margin-top: 6px;
+    color: #888;
+}
+
+#goButton {
+    float: right;
+}
+
+#signMeUpButton {
+    margin-top: 10px;
+    float: right;
+}
+
+.editorialFooterBox.last {
+    border-right: 0px;
+    background: none; /* without this, IE6 shows the .moduleBox.last background, for some reason */
 }
 
 .editorialFooterBox h3 {
-    font-size: 12pt;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+#searchPrompt {
+    font-size: 9pt;
+    padding-top: 12px;
+    margin-bottom: 6px;
 }
