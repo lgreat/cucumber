@@ -17,7 +17,6 @@
 
 #contentGS {
     width: 962px;
-    height: 1117px;
     position: relative;
     margin-left: 11px;
 }
@@ -29,23 +28,32 @@
 .hr.dotted {
     border-bottom: 2px dotted #CCCCCC;
     margin-right: 10px;
-    height: 10px;
 }
 
 .hr hr {
     display: none;
 }
 
-#contentMiddle .hr.dotted {
+.hr.topDivider {
+    height: 3px;
+}
+
+.hr.middleDivider {
+    height: 10px;
     margin-right: 2px;
 }
 
 #contentTop {
     width: 952px;
-    height: 320px;
-    /*background-color: #0000FF;*/
+    height: 278px;
     padding-top: 15px;
     position: relative;
+}
+
+#contentTop a img {
+    position: absolute;
+    bottom: 21px;
+    right: 50px;
 }
 
 #contentMiddle {
@@ -356,3 +364,93 @@ div.toolkits ul li span {
     display: block;
 }
 
+
+/** Content bottom*/
+ul.bulleted {
+    /* to handle IE6 bug: http://www.webmasterworld.com/forum83/9077.htm */
+    position: relative;
+}
+
+.bulleted li {
+    background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 7px;
+    padding-left: 10px;
+	margin-bottom: 2px;
+    line-height: 20px;
+}
+
+#contentBottom {
+    width: 950px;
+    height: 163px;
+    border-top: 2px dotted #ccc;
+    position: relative;
+    left: 2px;
+    margin-top: 2px;
+    padding-top: 7px;
+    margin-bottom: 25px; /* this actually creates a 35px gap on the bottom */
+}
+
+#contentBottomHeader {
+    width: 950px;
+    position: relative;
+    left: 2px;
+    clear: both;
+}
+
+#contentBottomHeader h2 {
+    font-size: 14pt;
+    color: #66CCCC;
+    padding-bottom: 5px;
+}
+
+.editorialFooterBox {
+    float: left;
+    width: 158px;
+    height: 160px;
+    line-height: 18px;
+    font-size: 7px;
+    color: #888888;
+    border-right: 1px solid #DDDDDD;
+    padding: 2px 15px 0 15px;
+    margin: 0;
+}
+
+#footerSearchBox {
+    color: #888;
+    width: 150px;
+}
+
+#footerStateSelector {
+    margin-top: 6px;
+    color: #888;
+}
+
+#goButton {
+    float: right;
+}
+
+#signMeUpButton {
+    margin-top: 10px;
+    float: right;
+}
+
+.editorialFooterBox.right {
+    border-right: 0;
+}
+
+.editorialFooterBox h3 {
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+#searchPrompt {
+    font-size: 9pt;
+    padding-top: 12px;
+    margin-bottom: 6px;
+}
+
+.editorialFooterBox.right a {
+    float: right;
+}

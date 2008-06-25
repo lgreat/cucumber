@@ -20,6 +20,8 @@
 
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="COUNTDOWN_COLLEGE"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="GreatSchools.net: Education In 2008"/>
@@ -51,9 +53,16 @@
 <![endif]-->
 
     <div id="contentTop">
-        <p>One Nation Left Behind</p>
+        <img src="/res/img/content/election2008/Edin08_header.jpg"
+             alt="One Nation Left Behind"
+             width="952" height="278"/>
+        <a href="#">
+            <img src="/res/img/content/election2008/learnMoreButton.gif"
+                 alt="Learn More"
+                 width="104" height="20"/>
+        </a>
     </div>
-    <div class="hr dotted"><hr/></div>
+    <div class="hr dotted topDivider"><hr/></div>
     <div id="contentMiddle">
         <div class="contentMiddleModule cleared">
             <div class="moduleBox">
@@ -114,7 +123,7 @@
             <!-- END: MODULE BOX 2 -->
         </div>
 
-        <div class="hr dotted"><hr/></div>
+        <div class="hr dotted middleDivider"><hr/></div>
 
         <div class="contentMiddleModule gray">
             <div class="wrapper">
@@ -166,7 +175,7 @@
                         <!--<object width="381" height="311">-->
                             <!--<param name="movie"-->
                                    <!--value="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"/>-->
-                            <!--<embed src="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"-->
+                            <!--<embed src="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0&amp;autoplay=1"-->
                                    <!--type="application/x-shockwave-flash"-->
                                    <!--width="381" height="311"/>-->
                         <!--</object>-->
@@ -208,6 +217,62 @@
             </div>
         </div>
     </div>
+
+    <div id="contentBottomHeader">
+        <h2>More from GreatSchools</h2>
+    </div>
+
+    <div id="contentBottom">
+        <div class="editorialFooterBox">
+            <h3>Find a School</h3>
+            <p id="searchPrompt">Name, District, or City</p>
+            <gsweb:form action="/search/search.page" method="get">
+                <input style="width:150px;" id="footerSearchBox" name="q" type="text"/>
+                <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                     state="${requestScope.context.state}"
+                                     noStateLabel="--" usingLongNames="false"
+                                     styleId="footerStateSelector" name="state"/>
+                <br/>
+                <gsml:inputImage src="/res/img/button/go.gif" alt="Go" id="goButton" name="submit"/>
+            </gsweb:form>
+        </div>
+        <div class="editorialFooterBox">
+            <h3>K-12 Success</h3>
+            <ul class="bulleted">
+                <li><a href="/content/schoolChoiceCenter.page">School Choice Tips</a></li>
+                <li><a href="/content/healthyKids.page">Healthy Kids</a></li>
+                <li><a href="/content/specialNeeds.page">Learning Difficulties</a></li>
+                <li><a href="/content/summerReading.page">Summer Reading</a></li>
+            </ul>
+        </div>
+        <div class="editorialFooterBox">
+            <h3>Is Your Child on Track?</h3>
+            <p>
+                Track your child's learning grade by grade with our
+                FREE newsletters that parents love!
+            </p>
+            <p>
+                <a onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50'); return false;"
+                   class="submodal-480-550" href="/community/newsletters/popup/newsletter.page?referrer=backToSchool"><img src="/res/img/button/btn_signmeup.gif" id="signMeUpButton" alt="Sign me up!"/></a>
+            </p>
+        </div>
+        <div class="editorialFooterBox">
+            <h3>Connect With Others</h3>
+            <p>
+                Join the GreatSchools community and connect with parents
+                who are passionate about education.<br/>
+                <a href="/community/registration.page" style="float: right;">Join now &#8250;</a>
+            </p>
+        </div>
+        <div class="editorialFooterBox right">
+            <h3>Back to School</h3>
+            <p>
+                REPLACE ME<br/>
+                <a href="/content/backToSchool.page">Learn more &#8250;</a>
+            </p>
+        </div>
+    </div>
+
 
     <mod:tracking pageName="${pageName}"
                   hier1="Article,Education 2008"
