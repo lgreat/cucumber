@@ -417,7 +417,7 @@
                                  state="${requestScope.context.state}"
                                  noStateLabel="--" usingLongNames="false" 
                                  styleId="footerStateSelector" name="state"/>
-            <br/>                       ${requestScope.context.state}
+            <br/>
             <gsml:inputImage src="/res/img/button/go.gif" alt="Go" id="goButton" name="submit"/>
         </gsweb:form>
     </div>
