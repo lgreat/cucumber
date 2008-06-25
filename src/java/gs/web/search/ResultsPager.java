@@ -11,11 +11,11 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.Hit;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class handles the organization of <code>Hits</code> into
@@ -33,6 +33,7 @@ public class ResultsPager {
     private ResultType _type;
     private Searcher _searcher;
     private Query _explanationQuery;
+    private List<Hit> _hitList;
 
     static {
         _stateManager = (StateManager) SpringUtil.getApplicationContext().getBean(StateManager.BEAN_ID);
@@ -61,6 +62,32 @@ public class ResultsPager {
     public ResultsPager(Hits hits, ResultType type) {
         _hits = hits;
         _type = type;
+
+        if (hits == null){
+            return;
+        }
+
+        _hitList = new ArrayList<Hit>();
+
+
+
+        for(Iterator<Hit> iter = _hits.iterator(); iter.hasNext(); ) {
+            Hit h = iter.next();
+           
+            //Document doc = h.getDocument() ;
+            _hitList.add(h);
+        }
+    }
+
+    public ResultsPager(Hits hits, ResultType type, Comparator comparator) throws ClassCastException{
+        this(hits, type);
+
+        if (_hitList == null){
+            return;
+        }
+
+        Collections.sort(_hitList, comparator);
+
     }
 
     public void setSchoolDao(ISchoolDao schoolDao) {
@@ -103,8 +130,12 @@ public class ResultsPager {
             }
 
             try {
-                for (int i = startIndex; i < endIndex; i++) {
-                    Document d = _hits.doc(i);
+
+                for (int i = startIndex; i < endIndex; i++){
+                //for (int i = startIndex; i < endIndex; i++) {
+                    //Document d = _hits.doc(i);
+                    Hit hit = _hitList.get(i);
+                    Document d = hit.getDocument();
 
                     if (_type == ResultType.school) {
                         State state = _stateManager.getState(d.get("state"));
@@ -127,7 +158,8 @@ public class ResultsPager {
                     } else {
                         SearchResult sr = new SearchResult(d);
                         if (_searcher != null) {
-                            sr.setExplanation(_searcher.explain(_explanationQuery, _hits.id(i)));
+                            // sr.setExplanation(_searcher.explain(_explanationQuery, _hits.id(i)));
+                            sr.setExplanation(_searcher.explain(_explanationQuery, hit.getId()));
                         }
                         searchResults.add(sr);
                     }
@@ -143,5 +175,11 @@ public class ResultsPager {
     public ResultType getType() {
         return _type;
     }
+
+    /**
+     * todo:
+     * create a new class that knows how to sort Hits based on a custom comparable class for schools
+     * use that class and take the comparitor as a property
+     */
 }
 

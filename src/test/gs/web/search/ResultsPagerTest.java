@@ -3,6 +3,7 @@ package gs.web.search;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.search.Indexer;
+import gs.data.search.SchoolComparatorFactory;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import junit.framework.TestCase;
@@ -104,6 +105,107 @@ public class ResultsPagerTest extends TestCase {
         }
         pager.setStateManager(oldStateManager);
         pager.setSchoolDao(oldSchoolDao);
+    }
+
+    public void testSortedParentOverallDescendingResults(){
+
+        _hits = null;
+        getSortedHits();
+        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school, SchoolComparatorFactory.getByParentOverallRatingDescending());
+        // Since schoolDao is static, backup and restore to avoid side effects in other tests
+        //ISchoolDao oldSchoolDao = pager.getSchoolDao();
+        pager.setSchoolDao(_schoolDao);
+        // State manager is static so we need to back it up and restore it
+        StateManager oldStateManager = pager.getStateManager();
+        pager.setStateManager(_stateManager);
+        expect(_stateManager.getState(SEARCH_STATE))
+                .andReturn(State.CA)
+                .anyTimes();
+        for (int i = 50; i > 0; --i) {
+            School school = new School();
+            school.setId(i);
+            expect(_schoolDao.getSchoolById(State.CA, i))
+                    .andReturn(school)
+                    .anyTimes();
+        }
+        replay(_stateManager);
+        replay(_schoolDao);
+
+        List results = pager.getResults(1, 20);
+        for (int i = 0; i < 20 ; i++ ) {
+            Integer expected = (49 - i )* 2 ;
+            SchoolSearchResult schoolResult = (SchoolSearchResult) results.get(i);
+            assertEquals("Each schoolResult should have a greatSchollsRating from 490 - i * 10", expected.toString(), schoolResult.getParentRating());
+            System.out.println(schoolResult.getParentRating() + ", " + schoolResult.getParentRatingCount() + ", " + schoolResult.getId());
+        }
+
+    }
+
+    public void testSortedGSRatingDescendingResults(){
+
+        _hits = null;
+        getSortedHits();
+        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school, SchoolComparatorFactory.getByGsRatingDescending());
+        // Since schoolDao is static, backup and restore to avoid side effects in other tests
+        //ISchoolDao oldSchoolDao = pager.getSchoolDao();
+        pager.setSchoolDao(_schoolDao);
+        // State manager is static so we need to back it up and restore it
+        StateManager oldStateManager = pager.getStateManager();
+        pager.setStateManager(_stateManager);
+        expect(_stateManager.getState(SEARCH_STATE))
+                .andReturn(State.CA)
+                .anyTimes();
+        for (int i = 50; i > 0; --i) {
+            School school = new School();
+            school.setId(i);
+            expect(_schoolDao.getSchoolById(State.CA, i))
+                    .andReturn(school)
+                    .anyTimes();
+        }
+        replay(_stateManager);
+        replay(_schoolDao);
+
+        List results = pager.getResults(1, 10);
+        for (int i = 0; i < 10 ; i++ ) {
+            Integer expected = 49 - i;
+            SchoolSearchResult schoolResult = (SchoolSearchResult) results.get(i);
+            assertEquals("Each schoolResult should have a greatSchollsRating from 49 - i", expected.toString(), schoolResult.getGreatSchoolsRating());  
+        }
+        
+    }
+
+
+
+    private static void getSortedHits() {
+
+        if (_hits == null) {
+            try {
+                Directory directory = new RAMDirectory();
+                Analyzer analyzer = new SimpleAnalyzer();
+                IndexWriter writer = new IndexWriter(directory, analyzer, true);
+
+                for (int j = 0; j < NUMBER_OF_HITS; j++) {
+                    Document d = new Document();
+
+                    d.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
+                    d.add(new Field(Indexer.ID, String.valueOf(j), Field.Store.YES, Field.Index.TOKENIZED));
+                    d.add(new Field(Indexer.OVERALL_RATING, String.valueOf(j), Field.Store.YES, Field.Index.TOKENIZED));
+                    d.add(new Field(Indexer.PARENT_RATINGS_AVG_P_OVERALL, String.valueOf(j * 10), Field.Store.YES, Field.Index.TOKENIZED));
+                    d.add(new Field(Indexer.PARENT_RATINGS_COUNT, String.valueOf(5), Field.Store.YES, Field.Index.TOKENIZED));
+                    d.add(new Field(Indexer.PARENT_RATINGS_AVG_QUALITY, String.valueOf(j * 2), Field.Store.YES, Field.Index.TOKENIZED));
+
+                    d.add(new Field("test", "x", Field.Store.YES, Field.Index.TOKENIZED));
+                    d.add(new Field(Indexer.STATE, SEARCH_STATE, Field.Store.YES, Field.Index.TOKENIZED));
+                    writer.addDocument(d);
+                }
+                writer.close();
+                Searcher searcher = new IndexSearcher(directory);
+                _hits = searcher.search(new TermQuery(new Term("test", "x")));
+            } catch (IOException ioe) {
+                fail("Could not build test Hits object");
+            }
+
+        }
     }
 
     private static void getHits() {
