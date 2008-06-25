@@ -334,20 +334,29 @@ ul.greenArrow {
 
 #contentBottom {
     width: 950px;
-    height: 197px;
+    height: 163px;
     border-top: 2px dotted #ccc;
     clear: both;
     position: relative;
-    top: 18px; /* this actually creates a 25px gap on the top */
+    top: 17px;
     left: 2px;
+    padding-top: 7px;
     margin-bottom: 25px; /* this actually creates a 35px gap on the bottom */
 }
 
-#contentBottom h2 {
+#contentBottomHeader {
+    width: 950px;
+    height: 27px;
+    position: relative;
+    top: 17px;
+    left: 2px;
+    clear: both;
+}
+
+#contentBottomHeader h2 {
     font-size: 14pt;
     color: #66CCCC;
-    margin-top: 8px;
-    margin-bottom: 6px;
+    padding-bottom: 5px;
 }
 
 .editorialFooterBox {

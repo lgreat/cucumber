@@ -405,8 +405,11 @@
     </div>
 </div>
 
-<div id="contentBottom">
+<div id="contentBottomHeader">
     <h2>More from GreatSchools</h2>
+</div>
+
+<div id="contentBottom">
 
     <div class="editorialFooterBox">
         <h3>Find a School</h3>
@@ -446,7 +449,7 @@
         <p>
             Join the GreatSchools community and connect with parents
             who are passionate about education.<br/>
-            <a href="/community/registration.page">Join now &#8250;</a>
+            <a href="/community/registration.page" style="float: right;">Join now &#8250;</a>
         </p>
     </div>
     <div class="editorialFooterBox right">
@@ -454,7 +457,7 @@
         <p>
             GreatSchools is working with Strong American Schools
             to help start a serious nationwide debate on education reform.<br/>
-            <a href="/content/election2008.page">Learn more &#8250;</a>
+            <a href="/content/election2008.page" style="float: right;">Learn more &#8250;</a>
         </p>
     </div>
 </div>
