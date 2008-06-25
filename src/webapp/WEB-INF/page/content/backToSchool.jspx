@@ -17,15 +17,10 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page import="gs.web.util.context.SessionContext"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="SEASONAL"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-<jsp:scriptlet>
-    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
-</jsp:scriptlet>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="GreatSchools.net: Back to School"/>
@@ -36,7 +31,7 @@
     <style type="text/css">
     /* IE 7 */
     .bulleted li {
-        background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 7px;
+        background: url(/res/img/content/backtoschool/modules/orange_bullet.jpg) no-repeat left 7px;
     }
 
     #stickies {
@@ -49,7 +44,7 @@
     }
 
     p.question {
-        background: url(/res/img/community/backtoschool/q.png) no-repeat left 2px;
+        background: url(/res/img/content/backtoschool/q.png) no-repeat left 2px;
     }
     </style>
     <![endif]-->
@@ -69,26 +64,26 @@
     </div>
 
     <div class="manila">
-        <h2><img src="/res/img/community/backtoschool/manila/back_to_school.png" alt="Back to School" title=""/></h2>
+        <h2><img src="/res/img/content/backtoschool/manila/back_to_school.png" alt="Back to School" title=""/></h2>
 
         <div class="left-side">
 
-            <img id="countdown-header" src="/res/img/community/backtoschool/manila/countdown_header.png"
+            <img id="countdown-header" src="/res/img/content/backtoschool/manila/countdown_header.png"
                  alt="Countdown to Back-to-School!" title=""/>
 
             <ul id="stickies" class="cleared">
                 <li><a href="#" onmouseover="hoverIn('week4');" onmouseout="hoverOut('week4');"
                     onclick="return changeWeek('week4');"><img id="week4-img"
-                    src="/res/img/community/backtoschool/manila/4weeks.png" alt="4+ weeks" title=""/></a></li>
+                    src="/res/img/content/backtoschool/manila/4weeks.png" alt="4+ weeks" title=""/></a></li>
                 <li><a href="#" onmouseover="hoverIn('week3');" onmouseout="hoverOut('week3');"
                     onclick="return changeWeek('week3');"><img id="week3-img"
-                    src="/res/img/community/backtoschool/manila/3weeks.png" alt="3 weeks" title=""/></a></li>
+                    src="/res/img/content/backtoschool/manila/3weeks.png" alt="3 weeks" title=""/></a></li>
                 <li><a href="#" onmouseover="hoverIn('week2');" onmouseout="hoverOut('week2');"
                     onclick="return changeWeek('week2');"><img id="week2-img"
-                    src="/res/img/community/backtoschool/manila/2weeks.png" alt="2 weeks" title=""/></a></li>
+                    src="/res/img/content/backtoschool/manila/2weeks.png" alt="2 weeks" title=""/></a></li>
                 <li><a href="#" onmouseover="hoverIn('week1');" onmouseout="hoverOut('week1');"
                     onclick="return changeWeek('week1');"><img id="week1-img"
-                    src="/res/img/community/backtoschool/manila/1week.png" alt="1 week" title=""/></a>
+                    src="/res/img/content/backtoschool/manila/1week.png" alt="1 week" title=""/></a>
                 </li>
             </ul>
 
@@ -171,7 +166,7 @@
 
                     if (MM_FlashCanPlay) {
                         // c.swf does flash detection
-                        var backToSchoolResource = '/res/swf/c?path=/res/img/community/backtoschool/manila/back_to_school.swf';
+                        var backToSchoolResource = '/res/swf/c?path=/res/img/content/backtoschool/manila/back_to_school.swf';
 
                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
@@ -183,12 +178,12 @@
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
                                 'movie', backToSchoolResource);
                     } else {
-                        document.write('<img class="flash" src="/res/img/community/backtoschool/manila/flash_standin.jpg" alt=""/>');
+                        document.write('<img class="flash" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>');
                     }
                     -->
                 </script>
                 <noscript>
-                    <img class="flash" src="/res/img/community/backtoschool/manila/flash_standin.jpg" alt=""/>
+                    <img class="flash" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>
                 </noscript>
                 ]]>
         </div>
@@ -207,14 +202,14 @@
 
         function imgSetup() {
             // Manila hovers; preloading function
-            img['week1'] = newImg('/res/img/community/backtoschool/manila/1week.png');
-            img['week1-hover'] = newImg('/res/img/community/backtoschool/manila/1week-hover.png');
-            img['week2'] = newImg('/res/img/community/backtoschool/manila/2weeks.png');
-            img['week2-hover'] = newImg('/res/img/community/backtoschool/manila/2weeks-hover.png');
-            img['week3'] = newImg('/res/img/community/backtoschool/manila/3weeks.png');
-            img['week3-hover'] = newImg('/res/img/community/backtoschool/manila/3weeks-hover.png');
-            img['week4'] = newImg('/res/img/community/backtoschool/manila/4weeks.png');
-            img['week4-hover'] = newImg('/res/img/community/backtoschool/manila/4weeks-hover.png');
+            img['week1'] = newImg('/res/img/content/backtoschool/manila/1week.png');
+            img['week1-hover'] = newImg('/res/img/content/backtoschool/manila/1week-hover.png');
+            img['week2'] = newImg('/res/img/content/backtoschool/manila/2weeks.png');
+            img['week2-hover'] = newImg('/res/img/content/backtoschool/manila/2weeks-hover.png');
+            img['week3'] = newImg('/res/img/content/backtoschool/manila/3weeks.png');
+            img['week3-hover'] = newImg('/res/img/content/backtoschool/manila/3weeks-hover.png');
+            img['week4'] = newImg('/res/img/content/backtoschool/manila/4weeks.png');
+            img['week4-hover'] = newImg('/res/img/content/backtoschool/manila/4weeks-hover.png');
         }
 
         function hoverIn(root) {
@@ -281,8 +276,8 @@
     <div id="contentMiddleModuleTop" class="contentMiddleModule cleared">
         <div class="moduleBox">
             <div class="wrapper">
-                <h3><img src="/res/img/community/backtoschool/modules/get_organized.png" alt="Get Organized" /></h3>
-                <img class="leadoff" src="/res/img/community/backtoschool/modules/bts_smallgirl_01.jpg" alt="Smiling girl" title="" />
+                <h3><img src="/res/img/content/backtoschool/modules/get_organized.png" alt="Get Organized" /></h3>
+                <img class="leadoff" src="/res/img/content/backtoschool/modules/bts_smallgirl_01.jpg" alt="Smiling girl" title="" />
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="324"
                         wrappingElement="li">Shopping With Tweens</gsweb:articlelink>
@@ -304,8 +299,8 @@
 
         <div class="moduleBox">
             <div class="wrapper">
-                <h3><img src="/res/img/community/backtoschool/modules/prep.png" alt="Prep for School Success" /></h3>
-                <img class="leadoff" src="/res/img/community/backtoschool/modules/bts_smalltwoboys.jpg" alt="Two boys" title="" />
+                <h3><img src="/res/img/content/backtoschool/modules/prep.png" alt="Prep for School Success" /></h3>
+                <img class="leadoff" src="/res/img/content/backtoschool/modules/bts_smalltwoboys.jpg" alt="Two boys" title="" />
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="44"
                         wrappingElement="li">Reading With Your Child</gsweb:articlelink>
@@ -323,8 +318,8 @@
 
         <div class="moduleBox last">
             <div class="wrapper">
-                <h3><img src="/res/img/community/backtoschool/modules/supply_list.png" alt="School Supply List" /></h3>
-                <img class="leadoff" src="/res/img/community/backtoschool/modules/bts_small_pencils.jpg" alt="Pencils" title="" />
+                <h3><img src="/res/img/content/backtoschool/modules/supply_list.png" alt="School Supply List" /></h3>
+                <img class="leadoff" src="/res/img/content/backtoschool/modules/bts_small_pencils.jpg" alt="Pencils" title="" />
 
                 <p>Shopping early for back-to-school supplies gives you a chance to look for bargains.</p>
 
@@ -350,14 +345,14 @@
 
             <!-- The difference in white boxes is necessary thanks to IE 6's craptastic handling of margins/widths -->
             <div class="box first">
-                <h3><img src="/res/img/community/backtoschool/join_discussion.png"
+                <h3><img src="/res/img/content/backtoschool/join_discussion.png"
                      alt="Join the Discussion" title=""/></h3>
 
-                <jsp:include page="/community/micrositePromo.module?page=backtoschool"/>
+                <jsp:include page="/content/micrositePromo.module?page=backtoschool"/>
             </div>
 
             <div class="box">
-                <h3><img src="/res/img/community/backtoschool/ask_experts.png" alt="Ask the Experts" title=""/></h3>
+                <h3><img src="/res/img/content/backtoschool/ask_experts.png" alt="Ask the Experts" title=""/></h3>
 
                 <p class="question">How can I help ease the transition to middle school?<br/>
                     <gsweb:articlelink articleId="1075">Read the answer &#8250;</gsweb:articlelink></p>
@@ -378,7 +373,7 @@
 
     <div class="greenBoxWrapper">
         <div id="greenBox" class="greenBox">
-            <h3><img id="popularArticlesImg" src="/res/img/community/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
+            <h3><img id="popularArticlesImg" src="/res/img/content/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
             <ul class="greenArrow">
                 <gsweb:articlelink articleId="233"
                                    wrappingElement="li">Practically Free Summer Activities</gsweb:articlelink>

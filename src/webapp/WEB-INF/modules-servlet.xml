@@ -51,18 +51,18 @@
         </property>
     </bean>
 
-    <!-- Factory to be used by communityMicrositePromoController -->
-    <bean id="communityMicrositePromoFactory"
+    <!-- Factory to be used by micrositePromoController -->
+    <bean id="micrositePromoFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBhDBlR3glRcMg"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
     </bean>
 
-    <bean name="/community/micrositePromo.module"
-          class="gs.web.community.MicrositePromoController" autowire="byName" lazy-init="true">
+    <bean name="/content/micrositePromo.module"
+          class="gs.web.content.MicrositePromoController" autowire="byName" lazy-init="true">
         <property name="tableDao">
-            <bean factory-bean="communityMicrositePromoFactory" factory-method="getTableDao"/>
+            <bean factory-bean="micrositePromoFactory" factory-method="getTableDao"/>
         </property>
         <property name="devWorksheetName" value="od6"/>
         <property name="stagingWorksheetName" value="od4"/>
