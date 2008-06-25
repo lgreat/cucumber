@@ -1,20 +1,17 @@
 #contentBottom {
     width: 950px;
-    height: 163px;
     border-top: 2px dotted #ccc;
-    clear: both;
     position: relative;
-    top: 17px;
     left: 2px;
     padding-top: 7px;
-    margin-bottom: 25px; /* this actually creates a 35px gap on the bottom */
+    height: 162px;
 }
 
 #contentBottomHeader {
     width: 950px;
     height: 27px;
     position: relative;
-    top: 17px;
+    padding-top: 17px;
     left: 2px;
     clear: both;
 }

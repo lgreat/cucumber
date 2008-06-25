@@ -407,9 +407,11 @@
 
 <content:micrositeFooter crossPromo="election2008"/>
 
+<div style="display: none;">
 <mod:tracking pageName="${pageName}"
               hier1="Article,Back to School"
               microsite="${pageName}"/>
+</div>
 
 </gsml:body>
 
