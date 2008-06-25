@@ -38,6 +38,9 @@
     ]]>
 
     <div id="searchResultsHeader" class="cleared">
+         <div class="firstspace">
+            <!-- comment to keep the tag from collapsing -->
+        </div>
         <div class="${activeColumn eq 'schoolResultsHeader' ? 'active': ''}" id="schoolResultsHeader" onclick="reloadPageWithFilters('schoolResultsHeader')">
             School Name <gsml:img styleClass="sort${activeColumn eq 'schoolResultsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"

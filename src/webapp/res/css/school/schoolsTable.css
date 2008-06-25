@@ -54,7 +54,13 @@
     padding: 0px;
     height:22px;
 }
-
+#searchResultsHeader div.firstspace {
+    float:left;
+    width:0px;
+    margin: 0px;
+    padding: 0px;
+    height:22px;
+}
 #searchResultsHeader div.active{
     background: url(/res/img/search/tab_on_bg.gif) repeat;
 }
@@ -117,6 +123,11 @@
 
 #searchResults div.district {
     font-size: small;
+}
+
+
+#searchResultsHeader :hover{
+    background: url(/res/img/search/tab_on_bg.gif) repeat;
 }
 
 .cobranded #searchfooter {
