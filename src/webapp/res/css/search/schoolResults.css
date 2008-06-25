@@ -30,19 +30,6 @@
     border-bottom: 1px solid #c8ce9e;
 }
 
-#resultsheaderwhite {
-    font-size: medium;
-    padding: 20px 0px 10px;
-    _padding: 20px 0px 10px;
-    background: #FFFFFF;
-}
-
-#resultsheaderwhite #rh_col_left {
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #cccccc;
-}
-
 .query {
     font-weight: 700;
     color: #C56;
@@ -141,7 +128,6 @@ Tabs and filters
 	vertical-align: middle;
 }
 
-#resultspaginationB,
 #resultspagination {
 	margin-top: 10px;
 	font-size: 13px;
@@ -150,25 +136,6 @@ Tabs and filters
 	padding-bottom: 10px;
 }
 
-.filterWrapperB{
-    background-color:green;
-    position: relative;
-    background: url(/res/img/search/dotted_border.png) repeat-x left bottom;
-    padding-bottom: 10px;
-    margin-bottom: 5px;
-}
-
-#resultspaginationB{
-    display: inline;
-    background: none;
-}
-
-#paginationAlignRight{
-    display: inline;
-    position: absolute;
-    right: 0px;
-    _padding: 0 10px 0 0;   /* ie6 only */
-}
 /*
 City and district rollups
 */
@@ -185,11 +152,6 @@ City and district rollups
 .rollup ul {
     margin: 0;
     padding-bottom: 5px;
-}
-
-.arrowed_results{
-    padding-left: 10px;
-    _padding-left: 10px;
 }
 
 .rollup ul li {
@@ -230,18 +192,13 @@ div.phone {
     text-transform: capitalize;
 }
 
-#searchResultsHeaderB,
 #searchResultsHeader {
     width: 525px;
     margin-bottom: 5px;
     text-align: center;
     font-size: small;
     font-weight: bold;
-    color: #5bc
-}
-
-#searchResultsHeaderB{
-    color: #666666;
+    color: #5bc;
 }
 
 #schoolResultsHeader {

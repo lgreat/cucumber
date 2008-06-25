@@ -35,7 +35,8 @@
 #searchResultsHeader {
     width: 542px;
     margin-top:5px;
-    @color: #5bc;
+    color: #666666;
+    margin-bottom: 0;
     background: url(/res/img/search/tab_off_bg.gif) repeat;
     line-height:22px;
 }
