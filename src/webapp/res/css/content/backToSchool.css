@@ -338,9 +338,9 @@ ul.greenArrow {
     border-top: 2px dotted #ccc;
     clear: both;
     position: relative;
-    top: 18px;
+    top: 18px; /* this actually creates a 25px gap on the top */
     left: 2px;
-    margin-bottom: 15px;
+    margin-bottom: 25px; /* this actually creates a 35px gap on the bottom */
 }
 
 #contentBottom h2 {
