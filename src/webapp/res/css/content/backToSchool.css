@@ -36,7 +36,7 @@ ul.bulleted {
 }
 
 .bulleted li {
-    background: url(/res/img/community/backtoschool/modules/orange_bullet.jpg) no-repeat left 5px;
+    background: url(/res/img/content/backtoschool/modules/orange_bullet.jpg) no-repeat left 5px;
     padding-left: 10px;
 	margin-bottom: 2px;
     line-height: 20px;
@@ -57,7 +57,7 @@ ul.bulleted {
 }
 
 #contentTop .manila {
-	background: url(/res/img/community/backtoschool/manila/manila.png) no-repeat left top;
+	background: url(/res/img/content/backtoschool/manila/manila.png) no-repeat left top;
 	padding: 1px 0;
     margin: 8px 0 0 -4px;
     height: 324px;
@@ -109,7 +109,7 @@ ul.bulleted {
 }
 
 .manila .bulleted li {
-	background: url(/res/img/community/backtoschool/manila/bullet.png) no-repeat left 7px;
+	background: url(/res/img/content/backtoschool/manila/bullet.png) no-repeat left 7px;
     padding: 0 0 0 10px;
     margin: 0;
 }
@@ -159,7 +159,7 @@ ul.bulleted {
 }
 
 .gray .wrapper {
-	background: url(/res/img/community/backtoschool/tier3_bg.jpg) repeat-x;
+	background: url(/res/img/content/backtoschool/tier3_bg.jpg) repeat-x;
     padding: 0 0 0 15px;
     min-height: 288px;
 	height: auto !important;
@@ -168,7 +168,7 @@ ul.bulleted {
 
 .moduleBox {
     width: 208px;
-    background: url(/res/img/community/backtoschool/modules/shadowbox_bg.png) repeat-y;
+    background: url(/res/img/content/backtoschool/modules/shadowbox_bg.png) repeat-y;
     float: left;
     margin: 0 8px 0 0;
 }
@@ -185,13 +185,13 @@ ul.bulleted {
 
 .moduleBox.last {
     width: 208px;
-    background: url(/res/img/community/backtoschool/modules/shadowbox_bg.png) repeat-y;
+    background: url(/res/img/content/backtoschool/modules/shadowbox_bg.png) repeat-y;
     float: left;
     margin: 0 0 0 0;
 }
 
 .moduleBox .wrapper {
-	background: url(/res/img/community/backtoschool/modules/shadowbox_bottom.png) no-repeat left bottom;
+	background: url(/res/img/content/backtoschool/modules/shadowbox_bottom.png) no-repeat left bottom;
 	padding-bottom: 9px;
     min-height: 281px;
     height: auto !important;
@@ -279,8 +279,8 @@ ul.bulleted {
 }
 
 p.question {
-    background: url(/res/img/community/backtoschool/q.png) no-repeat left top;
-    _background: url(/res/img/community/backtoschool/q.png) no-repeat left 2px;
+    background: url(/res/img/content/backtoschool/q.png) no-repeat left top;
+    _background: url(/res/img/content/backtoschool/q.png) no-repeat left 2px;
     padding: 1px 0 0 25px;
     margin: 10px;
 }
