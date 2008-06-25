@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.48 2008/06/18 17:12:53 yfan Exp $
+ * $Id: UrlUtilSaTest.java,v 1.49 2008/06/25 00:13:03 thuss Exp $
  */
 
 package gs.web.util;
@@ -118,7 +118,6 @@ public class UrlUtilSaTest extends TestCase {
         assertNull(_urlUtil.cobrandFromUrl("secure.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("maddy.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("clone.greatschools.net"));
-        assertNull(_urlUtil.cobrandFromUrl("apeterson.dev.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("localhost"));
         assertNull(_urlUtil.cobrandFromUrl("maddy"));
         assertEquals("bob", _urlUtil.cobrandFromUrl("bob.greatschools.net"));
@@ -139,7 +138,6 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("charterschoolratings", _urlUtil.cobrandFromUrl("charterschoolratings.dev.greatschools.net/"));
 
         assertNull(_urlUtil.cobrandFromUrl("127.0.0.1"));
-        assertNull(_urlUtil.cobrandFromUrl("apeterson.office.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("aroy.office.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("aroy.dev.greatschools.net"));
 
@@ -192,8 +190,6 @@ public class UrlUtilSaTest extends TestCase {
         assertFalse(_urlUtil.isDeveloperWorkstation("clone.greatschools.net"));
         assertFalse(_urlUtil.isDeveloperWorkstation("dev.greatschools.net"));
         assertFalse(_urlUtil.isDeveloperWorkstation("staging.greatschools.net"));
-        assertFalse(_urlUtil.isDeveloperWorkstation("apeterson.dev.greatschools.net"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("apeterson.office.greatschools.net"));
         assertFalse(_urlUtil.isDeveloperWorkstation("aroy.dev.greatschools.net"));
         assertTrue(_urlUtil.isDeveloperWorkstation("aroy.office.greatschools.net"));
         assertTrue(_urlUtil.isDeveloperWorkstation("somenewdeveloper.office.greatschools.net"));
@@ -221,8 +217,6 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(_urlUtil.isDevEnvironment("cobrand.dev.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("charterschoolratings.dev.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("staging.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("apeterson.dev.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("apeterson.office.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("aroy.dev.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("aroy.office.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("aroy.office"));
