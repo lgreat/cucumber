@@ -108,14 +108,13 @@ public class ResultsPagerTest extends TestCase {
     }
 
 
-
-    public void testSortedGSRatingDescendingResults(){
+    public void testSortedGSRatingDescendingResults() {
 
         _hits = null;
         getSortedHits();
         ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school, SchoolComparatorFactory.getByGsRatingDescending());
         // Since schoolDao is static, backup and restore to avoid side effects in other tests
-        //ISchoolDao oldSchoolDao = pager.getSchoolDao();
+        ISchoolDao oldSchoolDao = pager.getSchoolDao();
         pager.setSchoolDao(_schoolDao);
         // State manager is static so we need to back it up and restore it
         StateManager oldStateManager = pager.getStateManager();
@@ -134,14 +133,14 @@ public class ResultsPagerTest extends TestCase {
         replay(_schoolDao);
 
         List results = pager.getResults(1, 10);
-        for (int i = 0; i < 10 ; i++ ) {
+        for (int i = 0; i < 10; i++) {
             Integer expected = 49 - i;
             SchoolSearchResult schoolResult = (SchoolSearchResult) results.get(i);
-            assertEquals("Each schoolResult should have a greatSchollsRating from 49 - i", expected.toString(), schoolResult.getGreatSchoolsRating());  
+            assertEquals("Each schoolResult should have a greatSchollsRating from 49 - i", expected.toString(), schoolResult.getGreatSchoolsRating());
         }
-        
+        pager.setStateManager(oldStateManager);
+        pager.setSchoolDao(oldSchoolDao);
     }
-
 
 
     private static void getSortedHits() {
