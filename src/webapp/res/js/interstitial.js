@@ -50,6 +50,7 @@ function makeInterstitialOnSubmit(adSlot) {
  * adSlot is an option argument which specifies a google adslot. @see GS-6114
   */
 function doInterstitial(adSlot) {
+    if (document.cookie.length == 0) return; // GS-6541
     var interstitial = readCookie('gs_interstitial');
     if (!interstitial) {
         for (var i = 0; i < document.links.length; i++) {
