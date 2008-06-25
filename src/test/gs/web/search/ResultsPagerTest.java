@@ -107,39 +107,7 @@ public class ResultsPagerTest extends TestCase {
         pager.setSchoolDao(oldSchoolDao);
     }
 
-    public void testSortedParentOverallDescendingResults(){
 
-        _hits = null;
-        getSortedHits();
-        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school, SchoolComparatorFactory.getByParentOverallRatingDescending());
-        // Since schoolDao is static, backup and restore to avoid side effects in other tests
-        //ISchoolDao oldSchoolDao = pager.getSchoolDao();
-        pager.setSchoolDao(_schoolDao);
-        // State manager is static so we need to back it up and restore it
-        StateManager oldStateManager = pager.getStateManager();
-        pager.setStateManager(_stateManager);
-        expect(_stateManager.getState(SEARCH_STATE))
-                .andReturn(State.CA)
-                .anyTimes();
-        for (int i = 50; i > 0; --i) {
-            School school = new School();
-            school.setId(i);
-            expect(_schoolDao.getSchoolById(State.CA, i))
-                    .andReturn(school)
-                    .anyTimes();
-        }
-        replay(_stateManager);
-        replay(_schoolDao);
-
-        List results = pager.getResults(1, 20);
-        for (int i = 0; i < 20 ; i++ ) {
-            Integer expected = (49 - i )* 2 ;
-            SchoolSearchResult schoolResult = (SchoolSearchResult) results.get(i);
-            assertEquals("Each schoolResult should have a greatSchollsRating from 490 - i * 10", expected.toString(), schoolResult.getParentRating());
-            System.out.println(schoolResult.getParentRating() + ", " + schoolResult.getParentRatingCount() + ", " + schoolResult.getId());
-        }
-
-    }
 
     public void testSortedGSRatingDescendingResults(){
 
