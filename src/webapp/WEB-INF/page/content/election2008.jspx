@@ -220,10 +220,11 @@
 
     <content:micrositeFooter crossPromo="backToSchool"/>
 
-    <mod:tracking pageName="${pageName}"
-                  hier1="Article,Education 2008"
-                  microsite="${pageName}"/>
-
+    <div style="display:none;">
+        <mod:tracking pageName="${pageName}"
+                      hier1="Article,Education 2008"
+                      microsite="${pageName}"/>
+    </div>
 </gsml:body>
 
 </html>
