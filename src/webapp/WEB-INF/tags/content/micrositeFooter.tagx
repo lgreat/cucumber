@@ -14,7 +14,8 @@
 <pageHelper:externalCss file="/res/css/content/micrositeFooter.css"/>
 
     <div id="contentBottomHeader">
-        <h2>More from GreatSchools</h2>
+        <h2><img src="/res/img/content/micrositeFooter/moretools_subhed.gif"
+                 alt="More Tools to Help Your Child Succeed"/></h2>
     </div>
 
     <div id="contentBottom">

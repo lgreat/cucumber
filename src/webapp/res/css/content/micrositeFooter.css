@@ -9,11 +9,11 @@
 
 #contentBottomHeader {
     width: 950px;
-    height: 27px;
+    height: 16px;
     position: relative;
-    padding-top: 17px;
     left: 2px;
     clear: both;
+    padding: 18px 0 7px 0; 
 }
 
 #contentBottomHeader h2 {
