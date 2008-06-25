@@ -42,14 +42,21 @@
             School Name <gsml:img styleClass="sort${activeColumn eq 'schoolResultsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
                                   alt="sort ${sortDirection}" />
+
         </div>
-        <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''} divided" id="ratingsHeader"  onclick="reloadPageWithFilters('ratingsHeader')">
+        <div class="divider">
+            <!-- comment to keep the tag from collapsing -->
+        </div>
+        <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''}" id="ratingsHeader"  onclick="reloadPageWithFilters('ratingsHeader')">
             GreatSchools Rating
             <gsml:img styleClass="sort${activeColumn eq 'ratingsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
                                   alt="sort ${sortDirection}" />
         </div>
-        <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''} divided" id="reviewsHeader"  onclick="reloadPageWithFilters('reviewsHeader')">
+        <div class="divider">
+            <!-- comment to keep the tag from collapsing -->
+        </div>        
+        <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''}" id="reviewsHeader"  onclick="reloadPageWithFilters('reviewsHeader')">
             Parent Rating
             <gsml:img styleClass="sort${activeColumn eq 'reviewsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"

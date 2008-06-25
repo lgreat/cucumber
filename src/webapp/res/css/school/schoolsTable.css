@@ -1,3 +1,92 @@
+
+#resultsheader {
+    padding: 20px 20px 10px 20px;
+}
+
+.query {
+    float: left;
+}
+
+#searchfilterform {
+	padding-top: 8px;
+
+}
+#searchfilterform div.formContainer{
+    padding-bottom: 15px;
+}
+#searchfilterform div.checkboxes {
+    float:left;
+    padding-top: 3px;
+}
+#searchfilterform div.resultsPerPage {
+    float: right;
+    padding: 0 0 0 0;
+}
+
+#searchfilterform select {
+    margin-left:10px;
+}
+
+#resultspagination {
+	padding-bottom: 4px;
+    background: none;
+}
+
+#searchResultsHeader {
+    width: 542px;
+    margin-top:5px;
+    @color: #5bc;
+    background: url(/res/img/search/tab_off_bg.gif) repeat;
+    line-height:22px;
+}
+
+#schoolResultsHeader {
+    width: 205px;
+    margin-right: 0px;
+    margin-left: 0px
+}
+#searchResultsHeader div.divider {
+    float:left;
+    background: url(/res/img/search/tab_divider.gif) no-repeat;
+    width:3px;
+    margin: 0px;
+    padding: 0px;
+    height:22px;
+}
+
+#searchResultsHeader div.active{
+    background: url(/res/img/search/tab_on_bg.gif) repeat;
+}
+
+#searchResultsHeader img.sortActive{
+    display: inline;
+    margin: 2px;
+}
+
+#searchResultsHeader img.sortInActive{
+    display: none;
+}
+
+#ratingsHeader {
+    width: 163px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#searchResultsList .result {
+    @border-top: 1px solid #e2e3cb;
+    padding-top: 8px;
+}
+
+#reviewsHeader {
+    float:left;
+    width: 163px;
+    margin-right: 0px;
+    margin-left: 0px
+}
+
+
+
 .contentGS {
     padding: 0 10px 0 10px;
 }
