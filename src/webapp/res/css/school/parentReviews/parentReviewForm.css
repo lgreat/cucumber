@@ -40,7 +40,6 @@
 }
 
 #rateReview textarea{
-    overflow: hidden;
     height:60px;
     line-height:15px;
     padding:4px 0pt 5px 7px;
