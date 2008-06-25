@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.49 2008/06/23 23:23:32 jnorton Exp $
+ * $Id: SchoolsController.java,v 1.50 2008/06/25 15:17:51 jnorton Exp $
  */
 
 package gs.web.school;
@@ -13,6 +13,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.search.Indexer;
+import gs.data.search.SchoolComparatorFactory;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.search.ResultsPager;
@@ -32,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Comparator;
 
 /**
  * Provides...
@@ -255,13 +257,33 @@ public class SchoolsController extends AbstractController {
 
         String sortColumn = request.getParameter("sortColumn");
         String sortDirection = request.getParameter("sortDirection");
+        if (sortColumn == null){
+            sortColumn = "schoolResultsHeader";
+            sortDirection = "asc";
+        }
+        if (sortDirection == null){
+            if (sortColumn.equals("schoolResultsHeader")) {
+                sortDirection = "asc";
+            }else{
+                sortDirection = "desc";
+            }
+        }
 
         Sort sort = createSort(request, searchCommand, sortColumn, sortDirection);
         searchCommand.setSort(sort);
 
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
-            ResultsPager _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
+            Comparator hitComparator = getComparator(sortColumn, sortDirection);
+
+            ResultsPager _resultsPager;
+            if (hitComparator != null){
+                // sort the hits using the hitComparator
+                _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school,hitComparator);
+            } else {
+                _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
+            }
+
             Map<String, Object> resultsModel = new HashMap<String, Object>();
             resultsModel.put(MODEL_SCHOOLS_TOTAL, hts.length());
             resultsModel.put(MODEL_SCHOOLS, _resultsPager.getResults(page, pageSize));
@@ -276,6 +298,25 @@ public class SchoolsController extends AbstractController {
         }
 
         return new ModelAndView(getViewName(), model);
+    }
+
+    protected Comparator getComparator(String sortColumn, String sortDirection) {
+        if ( sortColumn == null || sortDirection == null){
+            return null;
+        }        
+        if (sortColumn.equals("ratingsHeader") && sortDirection.equals("desc")) {
+            return SchoolComparatorFactory.getByGsRatingDescending();
+        }
+        if (sortColumn.equals("ratingsHeader")) {
+            return SchoolComparatorFactory.getByGsRating();
+        }
+        if (sortColumn.equals("reviewsHeader") && sortDirection.equals("desc")) {
+            return SchoolComparatorFactory.getByParentOverallRatingDescending();
+        }
+        if (sortColumn.equals("reviewsHeader")) {
+            return SchoolComparatorFactory.getByParentOverallRating();
+        }
+        return null;
     }
 
     protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand, String sortColumn, String sortDirection){
