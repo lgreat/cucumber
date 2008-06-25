@@ -334,13 +334,14 @@ ul.greenArrow {
 
 #contentBottom {
     width: 950px;
-    height: 205px;
+    height: 197px;
     border-top: 2px dotted #ccc;
     clear: both;
     position: relative;
     top: 18px;
     left: 2px;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
+    background-color: red;
 }
 
 #contentBottom h2 {
