@@ -21,6 +21,7 @@
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="SEASONAL"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <jsp:scriptlet>
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
     request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
@@ -412,8 +413,11 @@
         <p id="searchPrompt">Name, District, or City</p>
         <gsweb:form action="/search/search.page" method="get">
             <input style="width:150px;" id="footerSearchBox" name="q" type="text"/>
-            <gsweb:stateSelector styleId="footerStateSelector" name="state"/>
-            <br/>
+            <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                 state="${requestScope.context.state}"
+                                 noStateLabel="--" usingLongNames="false" 
+                                 styleId="footerStateSelector" name="state"/>
+            <br/>                       ${requestScope.context.state}
             <gsml:inputImage src="/res/img/button/go.gif" alt="Go" id="goButton" name="submit"/>
         </gsweb:form>
     </div>
@@ -455,9 +459,9 @@
     </div>
 </div>
 
-<!--mod:tracking pageName="${pageName}"
+<mod:tracking pageName="${pageName}"
               hier1="Article,Back to School"
-              microsite="${pageName}"/-->
+              microsite="${pageName}"/>
 
 </gsml:body>
 

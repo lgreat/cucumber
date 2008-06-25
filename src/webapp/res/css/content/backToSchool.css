@@ -334,12 +334,13 @@ ul.greenArrow {
 
 #contentBottom {
     width: 950px;
-    height: 220px;
+    height: 205px;
     border-top: 2px dotted #ccc;
     clear: both;
     position: relative;
-    top: 8px;
+    top: 18px;
     left: 2px;
+    margin-bottom: 35px;
 }
 
 #contentBottom h2 {
@@ -384,8 +385,9 @@ ul.greenArrow {
 }
 
 .editorialFooterBox h3 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
     margin-top: 5px;
     margin-bottom: 15px;
 }
