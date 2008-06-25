@@ -240,7 +240,7 @@
     </div>
 
     <div class="findBox">
-        <gsweb:form action="/school/research.page" method="get" onsubmit="return checkStateSelection('stateSelector2');" styleClass="goInterstitial">
+        <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
             <input name="form" value="cities" type="hidden" />
             <table width="254" cellpadding="0" cellspacing="0" border="0">
                 <tr>
@@ -278,6 +278,7 @@
 
                     <td valign="top"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                                             onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                                            onclick="return checkStateSelection('stateSelector2');"
                                             class="button" style="width:41px;height:26px;" alt="Find ${requestScope.context.state.longName} Schools"
                                             src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
                         <c:if test="${stateOrNull ne null and stateOrDefault.abbreviation ne 'DC'}">
@@ -311,7 +312,7 @@
             </table>
         </gsweb:form>
         <div class="blueDash"></div><br/>
-        <gsweb:form action="/search/search.page" method="get" onsubmit="return checkStateSelection('stateSelector3');" styleClass="goInterstitial">
+        <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial">
             <input type="hidden" name="c" value="school" />
             <table width="264" cellpadding="0" cellspacing="0" border="0">
                 <tr>
@@ -347,6 +348,7 @@
                     <td valign="bottom"><input
                             onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                             onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                            onclick="return checkStateSelection('stateSelector3');"
                             class="button" style="width:41px;height:26px;padding-bottom:2px;" alt="Find ${requestScope.context.state.longName} Schools"
                             src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
                     </td>
