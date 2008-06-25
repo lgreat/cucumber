@@ -62,32 +62,20 @@ public class ResultsPager {
     public ResultsPager(Hits hits, ResultType type) {
         _hits = hits;
         _type = type;
-
-        if (hits == null){
-            return;
-        }
-
-        _hitList = new ArrayList<Hit>();
-
-
-
-        for(Iterator<Hit> iter = _hits.iterator(); iter.hasNext(); ) {
-            Hit h = iter.next();
-           
-            //Document doc = h.getDocument() ;
-            _hitList.add(h);
-        }
     }
 
     public ResultsPager(Hits hits, ResultType type, Comparator comparator) throws ClassCastException{
         this(hits, type);
 
-        if (_hitList == null){
-            return;
+        if (_hits != null){
+         _hitList = new ArrayList<Hit>();
+
+            for(Iterator<Hit> iter = _hits.iterator(); iter.hasNext(); ) {
+                Hit h = iter.next();
+                _hitList.add(h);
+            }
+            Collections.sort(_hitList, comparator);           
         }
-
-        Collections.sort(_hitList, comparator);
-
     }
 
     public void setSchoolDao(ISchoolDao schoolDao) {
@@ -132,10 +120,16 @@ public class ResultsPager {
             try {
 
                 for (int i = startIndex; i < endIndex; i++){
-                //for (int i = startIndex; i < endIndex; i++) {
-                    //Document d = _hits.doc(i);
-                    Hit hit = _hitList.get(i);
-                    Document d = hit.getDocument();
+                    Document d;
+                    Hit hit = null;
+
+                    // if the _hitList, the results aren't specially sorted.  So acceess _hits to get the document
+                    if (_hitList != null){
+                        hit = _hitList.get(i);
+                        d = hit.getDocument();
+                    } else {
+                        d = _hits.doc(i);
+                    }
 
                     if (_type == ResultType.school) {
                         State state = _stateManager.getState(d.get("state"));
@@ -158,8 +152,13 @@ public class ResultsPager {
                     } else {
                         SearchResult sr = new SearchResult(d);
                         if (_searcher != null) {
-                            // sr.setExplanation(_searcher.explain(_explanationQuery, _hits.id(i)));
-                            sr.setExplanation(_searcher.explain(_explanationQuery, hit.getId()));
+
+                            // if hit is null, then the list is not specially sorted and should get the explaination using _hits...
+                            if (hit != null){
+                                sr.setExplanation(_searcher.explain(_explanationQuery, hit.getId()));
+                            } else {
+                                sr.setExplanation(_searcher.explain(_explanationQuery, _hits.id(i)));
+                            }
                         }
                         searchResults.add(sr);
                     }
@@ -175,11 +174,5 @@ public class ResultsPager {
     public ResultType getType() {
         return _type;
     }
-
-    /**
-     * todo:
-     * create a new class that knows how to sort Hits based on a custom comparable class for schools
-     * use that class and take the comparitor as a property
-     */
 }
 
