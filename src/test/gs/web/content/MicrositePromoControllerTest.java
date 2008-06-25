@@ -1,8 +1,7 @@
-package gs.web.community;
+package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
-import static gs.web.community.CommunityQuestionPromoController.WORKSHEET_PRIMARY_ID_COL;
-import static gs.web.community.CommunityQuestionPromoController.DEFAULT_CODE;
+import gs.web.content.MicrositePromoController;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.Anchor;

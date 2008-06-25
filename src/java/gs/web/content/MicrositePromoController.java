@@ -1,4 +1,4 @@
-package gs.web.community;
+package gs.web.content;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author <a href="yfan@greatschools.net">Young Fan</a>
  */
 public class MicrositePromoController extends AbstractController {
-    public static final String BEAN_ID = "/community/micrositePromo.module";
+    public static final String BEAN_ID = "/content/micrositePromo.module";
     protected final Log _log = LogFactory.getLog(getClass());
 
     private ITableDao _tableDao;
@@ -29,7 +29,7 @@ public class MicrositePromoController extends AbstractController {
     private String stagingWorksheetName;
     private String productionWorksheetName;
 
-    public static final String VIEW_NAME = "/community/micrositePromo";
+    public static final String VIEW_NAME = "/content/micrositePromo";
     public static final String PARAM_PAGE = "page";
     public static final String MODEL_ANCHOR_LIST = "modelAnchorList";    
     public static final String SPREADSHEET_PAGE = "page";
