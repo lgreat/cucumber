@@ -119,7 +119,7 @@
                 <artifactId>maven-googlewebtoolkit2-plugin</artifactId>
                 <configuration>
                     <logLevel>ERROR</logLevel>
-                    <gwtVersion>1.4.61</gwtVersion>
+                    <gwtVersion>1.4.62</gwtVersion>
                     <compileTargets>
                         <compileTarget>gs.web.admin.gwt.TableCopyGWTPanel</compileTarget>
                     </compileTargets>
