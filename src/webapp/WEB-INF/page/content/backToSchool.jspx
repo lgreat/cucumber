@@ -42,12 +42,9 @@
        margin: 17px 0 -17px 0;
     }
 
-    #contentTop .flash {
-        margin: 12px 7px 0 0;
-    }
-
-    #contentBottom {
-        _margin: 5px 0 10px 0;
+    #contentTop {
+       top: 8px;
+       margin: 0 0 11px 0;
     }
 
     p.question {
@@ -448,7 +445,7 @@
             <a href="/community/registration.page?email=&amp;redirect=">Join now &#8250;</a>
         </p>
     </div>
-    <div class="editorialFooterBox last">
+    <div class="editorialFooterBox right">
         <h3>Election 2008</h3>
         <p>
             GreatSchools is working with Strong American Schools
