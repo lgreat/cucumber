@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-lazy-init="true">
 
     <!-- TH: DO NOT put a defaultHandlerMapping here with interceptors that are also in pages-servlet -->
     <!-- They will be run multiple times causing performance problems -->
@@ -14,8 +15,8 @@
     </bean>
 
     <bean name="/school/review/recentParentReviews.module"
-            class="gs.web.school.review.RecentParentReviewsController"
-            autowire="byName">
+          class="gs.web.school.review.RecentParentReviewsController"
+          autowire="byName">
     </bean>
 
     <bean id="communityQuestionPromoTableFactory"
@@ -26,8 +27,8 @@
     </bean>
 
     <bean name="/community/communityQuestionPromo.module"
-            class="gs.web.community.CommunityQuestionPromoController"
-            autowire="byName" lazy-init="true">
+          class="gs.web.community.CommunityQuestionPromoController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/communityQuestionPromo"/>
         <property name="tableDao">
             <bean factory-bean="communityQuestionPromoTableFactory" factory-method="getTableDao"/>
@@ -43,8 +44,8 @@
     </bean>
 
     <bean name="/test/testScoreLandingLinks.module"
-            class="gs.web.test.TestScoreLandingLinksController"
-            autowire="byName" lazy-init="true">
+          class="gs.web.test.TestScoreLandingLinksController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/test/testScoreLandingLinks"/>
         <property name="tableDao">
             <bean factory-bean="testScoreLandingLinksTableFactory" factory-method="getTableDao"/>
@@ -70,8 +71,8 @@
     </bean>
 
     <bean name="/promo/articleCommunityWidget.module"
-            class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-            autowire="byName" lazy-init="true">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/promo/articleCommunityWidget"/>
     </bean>
 

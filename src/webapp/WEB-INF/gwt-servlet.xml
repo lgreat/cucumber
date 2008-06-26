@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-lazy-init="true">
 
     <bean name="simpleServletHandlerAdapter"
           class="org.springframework.web.servlet.handler.SimpleServletHandlerAdapter">
     </bean>
 
     <bean name="simpleServletPostProcessor"
-        class="org.springframework.web.servlet.handler.SimpleServletPostProcessor"/>
+          class="org.springframework.web.servlet.handler.SimpleServletPostProcessor"/>
 
     <bean id="handlerMapping"
-        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="interceptors">
             <list>
                 <ref bean="openSessionInViewInterceptor"/>

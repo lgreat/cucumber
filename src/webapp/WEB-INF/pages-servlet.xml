@@ -6,11 +6,11 @@
             http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-2.5.xsd"
-       default-autowire="byName">
+       default-autowire="byName" default-lazy-init="true">
 
     <context:component-scan base-package="gs.web">
         <context:include-filter type="annotation"
-            expression="org.springframework.stereotype.Controller"/>
+                                expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <!--
@@ -194,7 +194,8 @@
         </property>
     </bean>
 
-    <bean name="/gsHeader.page" class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+    <bean name="/gsHeader.page" class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          lazy-init="true">
         <property name="viewName">
             <value>gsHeader</value>
         </property>
@@ -539,7 +540,7 @@
           class="gs.web.api.ApiController"
           autowire="byName" lazy-init="true"/>
     -->
-    
+
     <bean name="/path/compareEntry.page"
           class="gs.web.path.CompareEntryController" lazy-init="true"/>
 
@@ -566,7 +567,7 @@
             <value>/geo/selectACity</value>
         </property>
     </bean>
-    
+
     <bean name="/citiesAjax.page"
           class="gs.web.geo.NearbyCitiesAjaxController"
           autowire="byName" lazy-init="true"/>
@@ -764,13 +765,13 @@
     <bean name="/geo/landing/dayton_ohio.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/geo/landing/dayton_ohio" />
+        <property name="viewName" value="/geo/landing/dayton_ohio"/>
     </bean>
 
     <bean name="/geo/landing/milwaukee.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/geo/landing/milwaukee" />
+        <property name="viewName" value="/geo/landing/milwaukee"/>
     </bean>
 
     <bean name="/promo/shutterfly/cards.page"
@@ -833,7 +834,7 @@
     </bean>
 
     <bean name="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/copyTables.page"
-          class="gs.web.admin.LimitToDevController">
+          class="gs.web.admin.LimitToDevController" lazy-init="true">
         <property name="viewName">
             <value>admin/database/copyTables</value>
         </property>
@@ -1167,9 +1168,9 @@
     </bean>
 
     <bean name="/community/redirect.page"
-        class="gs.web.community.CommunityRedirectController"
-        autowire="byName" lazy-init="true"/>
-        
+          class="gs.web.community.CommunityRedirectController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/redirect.page"
           class="gs.web.util.RedirectController"
           autowire="byName" lazy-init="true"/>
@@ -1217,7 +1218,7 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="testLandingCommand"/>
         <property name="commandClass" value="gs.web.test.TestLandingCommand"/>
-        <property name="formView" value="/test/landing" />
+        <property name="formView" value="/test/landing"/>
         <property name="tableDao">
             <bean factory-bean="testScoreLandingPageTableFactory" factory-method="getTableDao"/>
         </property>
@@ -1287,9 +1288,9 @@
     </bean>
 
     <bean name="addParentReviewsValidator"
-        class="gs.web.school.review.AddParentReviewsValidator"
-        autowire="byName"
-        lazy-init="true"/>
+          class="gs.web.school.review.AddParentReviewsValidator"
+          autowire="byName"
+          lazy-init="true"/>
 
     <bean name="updateRatings"
           class="gs.web.school.review.UpdateRatingsController"
@@ -1302,9 +1303,9 @@
     </bean>
 
     <bean name="/school/thankYouHover.page"
-        class="gs.web.school.review.ThankYouController"
-        autowire="byName"
-        lazy-init="true">
+          class="gs.web.school.review.ThankYouController"
+          autowire="byName"
+          lazy-init="true">
         <property name="viewName" value="/school/parentReviews/thankYouHover"/>
     </bean>
 
@@ -1383,7 +1384,7 @@
 
     <bean name="surveyResultsController"
           class="gs.web.survey.SurveyResultsController" autowire="byName" lazy-init="true">
-    </bean>    
+    </bean>
 
     <bean name="surveySchoolLevelController"
           class="gs.web.survey.SchoolLevelController" autowire="byName" lazy-init="true">
@@ -1403,7 +1404,7 @@
     </bean>
 
     <bean name="/school/ajaxFindSchoolAndCity.page"
-        class="gs.web.school.FindSchoolController" autowire="byName" lazy-init="true"/>
+          class="gs.web.school.FindSchoolController" autowire="byName" lazy-init="true"/>
 
     <bean name="/community/mySchoolList.page"
           class="gs.web.community.MySchoolListController" autowire="byName" lazy-init="true">
