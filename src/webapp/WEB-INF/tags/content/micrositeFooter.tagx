@@ -18,8 +18,8 @@
                  alt="More Tools to Help Your Child Succeed"/></h2>
     </div>
 
-    <div id="contentBottom">
-        <div class="editorialFooterBox">
+    <div id="contentBottom" class="${crossPromo}">
+        <div class="editorialFooterBox left">
             <h3>Find a School</h3>
             <p id="searchPrompt">Name, District, or City</p>
             <gsweb:form action="/search/search.page" method="get">
@@ -71,9 +71,12 @@
                     </p>
                 </c:when>
                 <c:otherwise>
-                    <h3>Back to School</h3>
+                    <h3>Countdown to Back to School</h3>
                     <p>
-                        REPLACE ME<br/>
+                        Check out our week-by-week
+                        tips for getting your child
+                        ready for school!
+                        <br/>
                         <a href="/content/backToSchool.page">Learn more &#8250;</a>
                     </p>
                 </c:otherwise>

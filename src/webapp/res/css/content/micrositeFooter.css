@@ -53,8 +53,18 @@
     float: right;
 }
 
-.editorialFooterBox.right {
+#contentBottom.backToSchool .editorialFooterBox.left {
+    padding-left: 5px;
+}
+
+#contentBottom.backToSchool .editorialFooterBox.right {
     border-right: 0;
+    padding-right: 0;
+    width: 187px;
+}
+
+#contentBottom.backToSchool .editorialFooterBox.right p {
+    padding-right: 15px;
 }
 
 .editorialFooterBox.right a {

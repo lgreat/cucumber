@@ -27,20 +27,6 @@
     <meta name="Description" content="GreatSchools.net: Education In 2008"/>
     <title>GreatSchools.net: Education In 2008</title>
     <pageHelper:externalCss file="/res/css/content/election2008.css"/>
-    <!--<pageHelper:externalCss file="/res/css/content/leftbehind.css"/>-->
-
-    <script type="text/javascript" charset="utf-8">
-    <![CDATA[
-    //<!--
-        function textSwitch(el, target, replace) {
-            el = document.getElementById(el);
-            if (el.value == replace || (replace && !el.value)) {
-                el.value = target;
-            }
-        }
-    //-->
-    ]]>
-    </script>
 </head>
 <c:set var="pageName" value="Education 2008"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_EDin08"/>
@@ -95,18 +81,16 @@
             </div>
 
             <div class="moduleBox flush">
-
                 <div class="wrapper-outer">
                     <div class="wrapper-inner">
                         <h3><img src="/res/img/content/election2008/sign_up.png" alt="Sign Up"/></h3>
 
                         <form action="#">
-                            <p>Get email updates about the latest developments in education policy</p>
-
-                            <p><input class="text" type="text" id="emailField" name=""
-                                      value="Enter email address"
-                                      onfocus="textSwitch('emailField', '', 'Enter email address');"
-                                      onblur="textSwitch('emailField', 'Enter email address', '');" /></p>
+                            <p>
+                                Get email updates from Strong American
+                                Schools. Take action by spreading the word to
+                                improve your local school.
+                            </p>
 
                             <p class="alignright"><input type="image"
                                                          src="/res/img/content/election2008/button_sign-up.png"
@@ -120,7 +104,6 @@
                     </div>
                 </div>
             </div>
-            <!-- END: MODULE BOX 2 -->
         </div>
 
         <div class="hr dotted middleDivider"><hr/></div>
@@ -147,18 +130,16 @@
             </div>
         </div>
 
+        <div class="hr dotted middleDivider"><hr/></div>
+
         <div class="contentMiddleModule strongAmericanSchools">
-            <img src="/res/img/content/election2008/blahblah.jpg" alt="Strong American Schools"
-                 class="img_strong" width="162" height="85"/>
-            <div class="text">
-                <div class="header">About <a href="#">Strong American Schools</a></div>
-                <div class="body">
-                    Strong American Schools is a nonpartisan public awareness
-                    and advocacy effort aimed at elevating discussion amongst
-                    America's leaders about the need for education reform.
-                    <br/>
-                    <a href="#">See press coverage</a>
-                </div>
+            <div class="header">About <a href="#">Strong American Schools</a></div>
+            <div class="body">
+                Strong American Schools is a nonpartisan public awareness
+                and advocacy effort aimed at elevating discussion amongst
+                America's leaders about the need for education reform.
+                <br/>
+                <a href="#">Learn more &gt;</a>
             </div>
         </div>
     </div>
