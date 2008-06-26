@@ -53,12 +53,15 @@
     float: right;
 }
 
+.editorialFooterBox.right {
+    border-right: 0;
+}
+
 #contentBottom.backToSchool .editorialFooterBox.left {
     padding-left: 5px;
 }
 
 #contentBottom.backToSchool .editorialFooterBox.right {
-    border-right: 0;
     padding-right: 0;
     width: 187px;
 }
