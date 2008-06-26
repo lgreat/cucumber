@@ -68,7 +68,7 @@
 
         <div class="left-side">
 
-            <img id="countdown-header" src="/res/img/content/backtoschool/manila/countdown_header.png"
+            <img id="countdown-header" src="/res/img/content/backtoschool/manila/countdown_header.gif"
                  alt="Countdown to Back-to-School!" title=""/>
 
             <ul id="stickies" class="cleared">
