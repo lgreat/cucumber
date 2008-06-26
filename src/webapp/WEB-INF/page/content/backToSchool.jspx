@@ -283,12 +283,12 @@
                         wrappingElement="li">Shopping With Tweens</gsweb:articlelink>
                     <gsweb:articlelink articleId="256"
                         wrappingElement="li">Tips for Buying a Backpack</gsweb:articlelink>
-                    <gsweb:articlelink articleId="674"
-                        wrappingElement="li">Buying a Computer</gsweb:articlelink>
-                    <gsweb:articlelink articleId="242"
-                        wrappingElement="li">Avoid Back-to-School Blues</gsweb:articlelink>
                     <gsweb:articlelink articleId="1045"
                         wrappingElement="li">Get Organized for School</gsweb:articlelink>
+                    <gsweb:articlelink articleId="242"
+                        wrappingElement="li">Avoid Back-to-School Blues</gsweb:articlelink>
+                    <gsweb:articlelink articleId="657"
+                        wrappingElement="li">10 Tips for Smart Shopping</gsweb:articlelink>
                 </ul>
 
                 <div class="ad">
