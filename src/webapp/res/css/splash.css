@@ -224,3 +224,10 @@ td#billsBlog div.billsdiv { width: 263px; }
 div#footerGS { margin-top:0px; }
 /* overrides footer.css */
 div#footer { padding-top:2px; }
+
+#homepageFooterAd {
+    width: 728px;
+    height: 90px;
+    padding-top: 50px;
+    margin: auto;
+}
