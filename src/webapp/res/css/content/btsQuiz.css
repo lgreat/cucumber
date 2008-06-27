@@ -1,0 +1,116 @@
+#marginGS
+{
+    width: 100%;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#pageGS {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 976px;
+}
+
+#adLeaderboard {
+    width: 976px;
+}
+
+#topnav table#nav {
+    width: 952px;
+}
+
+#contentGS {
+    width: 952px;
+    margin: 0 12px 25px;
+}
+
+.contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
+    color: #39A;
+}
+
+ul.bulleted {
+    /* to handle IE6 bug: http://www.webmasterworld.com/forum83/9077.htm */
+    position: relative;
+}
+
+.bulleted li {
+    background: url(/res/img/content/backtoschool/modules/orange_bullet.jpg) no-repeat left 5px;
+    padding-left: 10px;
+	margin-bottom: 2px;
+    line-height: 20px;
+}
+
+#contentGS {
+    margin-bottom: 0px;
+}
+
+#contentMiddle {
+    width: 642px;
+    float: left;
+    position: relative;
+}
+
+#contentMiddleTop {
+    width: 624px;
+    height: 278px;
+    background-color: orange;
+}
+
+
+#contentRight {
+    float: right;
+    margin: 0;
+    height: 604px;
+    width: 300px;
+    position: relative;
+}
+
+#AboveFold_300x250 {
+    border: 0;
+    margin: 0;
+    padding-top: 0;
+}
+
+.greenBoxWrapper {
+    border-top: 1px solid #CCCCCC;
+    margin-top: 10px;
+    padding-top: 10px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.greenBox {
+    border: solid 8px #81C83C;
+    padding: 15px;
+}
+
+#greenBox {
+    width: 255px;
+    height: 272px;
+}
+
+.greenBox h3 {
+    color: #81C83C;
+    font-size: 12px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+ul.greenArrow {
+    line-height: 15px;
+    margin: 10px 0 0 0;
+}
+
+.greenArrow li {
+    background: url(/res/img/content/article/greenarrow.gif) no-repeat left 3px;
+    padding: 0 0 0 10px;
+    _padding: 0 0 0 20px;
+    margin: 10px 0 0 0;
+}
+
+.contentMiddleModule {
+    /*border-top: 2px dotted #ccc;*/
+    border: none;
+    margin: 0 0 7px 2px;
+    padding-top: 7px;
+    position: relative;
+}

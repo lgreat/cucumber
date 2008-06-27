@@ -1416,6 +1416,14 @@
     <!-- XML feed related web services -->
     <bean name="/util/feed/city.page" class="gs.web.util.feed.CityFeedController" autowire="byName" lazy-init="true"/>
 
+    <bean name="/content/btsQuiz.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>content/btsQuiz</value>
+        </property>
+    </bean>
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">

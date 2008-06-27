@@ -340,32 +340,8 @@
         </div>
     </div>
 
-    <div id="contentMiddleModuleBottom" class="contentMiddleModule gray">
-        <div class="wrapper">
+    <content:micrositeContent showTopBorder="true"/>
 
-            <!-- The difference in white boxes is necessary thanks to IE 6's craptastic handling of margins/widths -->
-            <div class="box first">
-                <h3><img src="/res/img/content/backtoschool/join_discussion.png"
-                     alt="Join the Discussion" title=""/></h3>
-
-                <jsp:include page="/content/micrositePromo.module?page=backtoschool"/>
-            </div>
-
-            <div class="box">
-                <h3><img src="/res/img/content/backtoschool/ask_experts.png" alt="Ask the Experts" title=""/></h3>
-
-                <p class="question">How can I help ease the transition to middle school?<br/>
-                    <gsweb:articlelink articleId="1075">Read the answer &#8250;</gsweb:articlelink></p>
-
-                <p class="question">My kindergartner has separation anxiety. What can I do?<br/>
-                    <gsweb:articlelink articleId="1072">Read the answer &#8250;</gsweb:articlelink></p>
-
-                <div class="ad">
-                    <ad:Badge_166x45 position="BoxRight_166x45"/>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div id="contentRight">

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsweb="gstaglib"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0">
+
+<pageHelper:externalCss file="/res/css/content/micrositeContent.css"/>
+
+<jsp:directive.attribute name="showTopBorder" type="java.lang.Boolean"
+                         description="Whether or not to show top border" required="true"/>
+
+<c:if test="${!showTopBorder}">
+    <style type="text/css">
+    .contentMiddleModule {
+        border-top: none;
+        padding-top: 0;
+    }
+    </style>
+</c:if>
+
+    <![CDATA[
+    <!--[if IE]>
+    <style type="text/css">
+    /* IE 7 */
+    p.question {
+        background: url(/res/img/content/backtoschool/q.png) no-repeat left 2px;
+    }
+    </style>
+    <![endif]-->
+    ]]>
+
+    <div id="contentMiddleModuleBottom" class="contentMiddleModule gray">
+        <div class="wrapper">
+
+            <!-- The difference in white boxes is necessary thanks to IE 6's craptastic handling of margins/widths -->
+            <div class="box first">
+                <h3><img src="/res/img/content/backtoschool/join_discussion.png"
+                     alt="Join the Discussion" title=""/></h3>
+
+                <jsp:include page="/content/micrositePromo.module?page=backtoschool"/>
+            </div>
+
+            <div class="box">
+                <h3><img src="/res/img/content/backtoschool/ask_experts.png" alt="Ask the Experts" title=""/></h3>
+
+                <p class="question">How can I help ease the transition to middle school?<br/>
+                    <gsweb:articlelink articleId="1075">Read the answer &#8250;</gsweb:articlelink></p>
+
+                <p class="question">My kindergartner has separation anxiety. What can I do?<br/>
+                    <gsweb:articlelink articleId="1072">Read the answer &#8250;</gsweb:articlelink></p>
+
+                <div class="ad">
+                    <ad:Badge_166x45 position="BoxRight_166x45"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

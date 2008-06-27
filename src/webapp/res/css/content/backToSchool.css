@@ -152,21 +152,6 @@ ul.bulleted {
     position: relative;
 }
 
-.contentMiddleModule {
-    border-top: 2px dotted #ccc;
-    margin: 0 0 7px 2px;
-    padding-top: 7px;
-    position: relative;
-}
-
-.gray .wrapper {
-	background: url(/res/img/content/backtoschool/tier3_bg.jpg) repeat-x;
-    padding: 0 0 0 15px;
-    min-height: 288px;
-	height: auto !important;
-	height: 288px;
-}
-
 .moduleBox {
     width: 208px;
     background: url(/res/img/content/backtoschool/modules/shadowbox_bg.png) repeat-y;
@@ -178,10 +163,6 @@ ul.bulleted {
     height: 281px;
     margin-bottom: 17px;
     _margin-bottom: 1px;
-}
-
-#contentMiddleModuleBottom {
-    height: 288px;
 }
 
 .moduleBox.last {
@@ -245,51 +226,7 @@ ul.bulleted {
     bottom: 5px;
 }
 
-.box {
-	background: #fff;
-	width: 266px;
-	min-height: 250px;
-	height: auto !important;
-	height: 250px;
-	float: left;
-	margin-top: 14px;
-	padding: 10px 15px 0;
-    color: #666;
-}
-
-.box.first {
-	margin-right: 17px;
-}
-
-.wrapper .box {
-    position: relative;
-}
-
-.wrapper .box .ad {
-    position: absolute;
-    bottom: 5px;
-}
-
-
-.box .bulleted {
-	margin: 10px;
-}
-
-.box .bulleted li {
-	margin-bottom: 7px;
-}
-
-p.question {
-    background: url(/res/img/content/backtoschool/q.png) no-repeat left top;
-    _background: url(/res/img/content/backtoschool/q.png) no-repeat left 2px;
-    padding: 1px 0 0 25px;
-    margin: 10px;
-}
-
-.box .ad {
-	text-align: left;
-	margin: 0 10px;
-}
+/* GS-6582 - remove styles below */
 
 #AboveFold_300x250 {
     border: 0;
@@ -332,3 +269,5 @@ ul.greenArrow {
     _padding: 0 0 0 20px;
     margin: 10px 0 0 0;
 }
+
+/* GS-6582 - remove styles above */
