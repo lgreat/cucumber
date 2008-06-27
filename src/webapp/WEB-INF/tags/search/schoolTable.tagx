@@ -37,12 +37,11 @@
       <![endif]-->
     ]]>
 
-    <script>
+    <script language="JavaScript" type="text/javascript">
         <![CDATA[
-
+        <!--
          var SchoolTableTag = {
             mouseOver: function(node){
-                //alert("mouseOver");
                 var images = node.getElementsByTagName('img');
                 for(var i = 0; i < images.length; i++ ) {
                     if (images[i].className == "sortActive"){
@@ -54,7 +53,6 @@
                 }
             },
             mouseOut: function(node){
-                //alert("mouseOut");
                 var images = node.getElementsByTagName('img');
                 for(var i = 0; i < images.length; i++ ) {
                     if (images[i].className == "sortActive"){
@@ -64,11 +62,10 @@
                         images[i].style.display = "none";
                     }
                 }
-
             }
         }
+         -->
         ]]>
-
     </script>
 
     <div id="searchResultsHeader" class="cleared">
@@ -76,8 +73,8 @@
             <!-- comment to keep the tag from collapsing -->
         </div>
         <div class="${activeColumn eq 'schoolResultsHeader' ? 'active': ''}" id="schoolResultsHeader"
-             onMouseOver="SchoolTableTag.mouseOver(this)"
-             onMouseOut="SchoolTableTag.mouseOut(this)"
+             onmouseover="SchoolTableTag.mouseOver(this)"
+             onmouseout="SchoolTableTag.mouseOut(this)"
              onclick="reloadPageWithFilters('schoolResultsHeader')">
             School Name
             <gsml:img styleClass="sort${activeColumn eq 'schoolResultsHeader' ? 'Active': 'InActive'}"
@@ -93,8 +90,8 @@
             <!-- comment to keep the tag from collapsing -->
         </div>
         <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''}" id="ratingsHeader"
-             onMouseOver="SchoolTableTag.mouseOver(this)"
-             onMouseOut="SchoolTableTag.mouseOut(this)"
+             onmouseover="SchoolTableTag.mouseOver(this)"
+             onmouseout="SchoolTableTag.mouseOut(this)"
              onclick="reloadPageWithFilters('ratingsHeader')">
             GreatSchools Rating
             <gsml:img styleClass="sort${activeColumn eq 'ratingsHeader' ? 'Active': 'InActive'}"
@@ -109,8 +106,8 @@
             <!-- comment to keep the tag from collapsing -->
         </div>        
         <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''}" id="reviewsHeader"
-             onMouseOver="SchoolTableTag.mouseOver(this)"
-             onMouseOut="SchoolTableTag.mouseOut(this)"
+             onmouseover="SchoolTableTag.mouseOver(this)"
+             onmouseout="SchoolTableTag.mouseOut(this)"
              onclick="reloadPageWithFilters('reviewsHeader')">
             Parent Rating
             <gsml:img styleClass="sort${activeColumn eq 'reviewsHeader' ? 'Active': 'InActive'}"

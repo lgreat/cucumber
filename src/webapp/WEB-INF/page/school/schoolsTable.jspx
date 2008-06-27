@@ -105,7 +105,6 @@
                 reloadUrl += '&lc=' + levelCode;
             }
 
-            /* ---------- checkboxes --------------*/
             if (publicBox.checked) {
                 reloadUrl += '&st=public';
             }
@@ -116,7 +115,7 @@
                 reloadUrl += '&st=private';
             }
 
-            /* ---------- page size ---------------*/
+
             if (rppOption10 != undefined && rppOption10.selected) {
                 reloadUrl += "&pageSize=10";
             }
@@ -131,7 +130,7 @@
             }
 
 
-            /* ---------- sort column -------------*/
+
             if ( sortColId != undefined ) {
                 reloadUrl += "&sortColumn=" + sortColId;
             } else {
@@ -139,7 +138,7 @@
             }
 
 
-            /* ---------- sort Direction ----------*/
+
             if (sortColId == "${results.sortColumn}"){
                 reloadUrl += "&sortDirection=${(results.sortDirection eq 'desc' ? 'asc' : 'desc')}";
             } else  if (sortColId == "schoolResultsHeader"){
@@ -150,7 +149,7 @@
                 reloadUrl += "&sortDirection=${results.sortDirection}";
             }
 
-            /* ---------- page number -------------*/
+
             reloadUrl += "&p=1";
            
             document.location = reloadUrl;
