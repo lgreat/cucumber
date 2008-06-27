@@ -12,6 +12,9 @@
                          description="Key for content in final box" required="true"/>
 
 <pageHelper:externalCss file="/res/css/content/micrositeFooter.css"/>
+<pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+<pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+<pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
     <div id="contentBottomHeader">
         <h2><img src="/res/img/content/micrositeFooter/moretools_subhed.gif"
@@ -48,7 +51,7 @@
                 FREE newsletters that parents love!
             </p>
             <p>
-                <a onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50'); return false;"
+                <a onclick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50'); return false;"
                    class="submodal-480-550" href="/community/newsletters/popup/newsletter.page?referrer=backToSchool"><img src="/res/img/button/btn_signmeup.gif" id="signMeUpButton" alt="Sign me up!"/></a>
             </p>
         </div>
