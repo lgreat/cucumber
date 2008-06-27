@@ -42,6 +42,7 @@
 <c:set var="cityDisplayName" value="${requestScope.cityDisplayName}"/>
 <c:set var="districtObject" value="${requestScope.districtObject}"/>
 <c:set var="heading1" value="${requestScope.heading1}"/>
+<c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }" />
 
 <jsp:scriptlet>
     gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
@@ -104,6 +105,7 @@
                 reloadUrl += '&lc=' + levelCode;
             }
 
+            /* ---------- checkboxes --------------*/
             if (publicBox.checked) {
                 reloadUrl += '&st=public';
             }
@@ -114,7 +116,7 @@
                 reloadUrl += '&st=private';
             }
 
-            /* page size */
+            /* ---------- page size ---------------*/
             if (rppOption10 != undefined && rppOption10.selected) {
                 reloadUrl += "&pageSize=10";
             }
@@ -128,33 +130,31 @@
                 reloadUrl += "&showall=1";
             }
 
+
+            /* ---------- sort column -------------*/
             if ( sortColId != undefined ) {
                 reloadUrl += "&sortColumn=" + sortColId;
-
-                if (sortColId != "${results.sortColumn}"){
-                    var direction = "desc";
-                    if (sortColId == "schoolResultsHeader" ){
-                        direction = "asc";
-                    }
-                    reloadUrl += "&sortColumn=" + sortColId + "&sortDirection=" + direction;
-                }
+            } else {
+                reloadUrl += "&sortColumn=" + "${results.sortColumn}";
             }
 
 
-            reloadUrl += "&p=1";
-
-            /* sort Direction */
+            /* ---------- sort Direction ----------*/
             if (sortColId == "${results.sortColumn}"){
                 reloadUrl += "&sortDirection=${(results.sortDirection eq 'desc' ? 'asc' : 'desc')}";
-
+            } else  if (sortColId == "schoolResultsHeader"){
+                reloadUrl += "&sortDirection=asc";
+            } else if (sortColId != null ){
+                reloadUrl += "&sortDirection=desc";
+            } else {
+                reloadUrl += "&sortDirection=${results.sortDirection}";
             }
 
+            /* ---------- page number -------------*/
+            reloadUrl += "&p=1";
+           
             document.location = reloadUrl;
         }
-
-
-
-
         -->
         ]]>
     </script>
@@ -396,12 +396,12 @@
                         
                         <div class="resultsPerPage">
                             <strong>Results per page:</strong>
-                            <select id="resultsPerPageSelector">
+                            <select id="resultsPerPageSelector" onchange="reloadPageWithFilters();">
 
-                                <gsml:selectOption id="rppOption10" value="10" selected="${results.pageSize eq 10}"  onclick="reloadPageWithFilters();">10</gsml:selectOption>
-                                <gsml:selectOption id="rppOption25" value="25" selected="${results.pageSize eq 25}"  onclick="reloadPageWithFilters();">25</gsml:selectOption>
-                                <gsml:selectOption id="rppOption50" value="10" selected="${results.pageSize eq 50}"  onclick="reloadPageWithFilters();">50</gsml:selectOption>
-                                <gsml:selectOption id="rppOptionAll" value="-1" selected="${not empty param.showall}"  onclick="reloadPageWithFilters();">All</gsml:selectOption>
+                                <gsml:selectOption id="rppOption10" value="10" selected="${results.pageSize eq 10}">10</gsml:selectOption>
+                                <gsml:selectOption id="rppOption25" value="25" selected="${results.pageSize eq 25}">25</gsml:selectOption>
+                                <gsml:selectOption id="rppOption50" value="10" selected="${results.pageSize eq 50}">50</gsml:selectOption>
+                                <gsml:selectOption id="rppOptionAll" value="-1" selected="${not empty param.showall}">All</gsml:selectOption>
 
                             </select>
                         </div>

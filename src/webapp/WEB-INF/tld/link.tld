@@ -278,6 +278,27 @@
             <type>java.lang.Boolean</type>
             <description>True to show all results</description>
         </attribute>
+        <attribute>
+            <name>sortColumn</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional column to sort on.</description>
+        </attribute>
+        <attribute>
+            <name>sortDirection</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional sort direction.</description>
+        </attribute>
+        <attribute>
+            <name>resultsPerPage</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Optional results per page.</description>
+        </attribute>
     </tag>
 
     <tag>

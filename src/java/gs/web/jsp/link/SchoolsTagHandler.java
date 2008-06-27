@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.5 2008/06/05 00:13:54 aroy Exp $
+ * $Id: SchoolsTagHandler.java,v 1.6 2008/06/27 07:36:51 jnorton Exp $
  */
 
 package gs.web.jsp.link;
@@ -26,6 +26,9 @@ public class SchoolsTagHandler extends LinkTagHandler {
     private String _cityName;
     private Integer _districtId;
     private boolean _showAll = false;
+    private Integer _resultsPerPage;
+    private String _sortColumn;
+    private String _sortDirection;
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, getState(), "");
@@ -50,6 +53,15 @@ public class SchoolsTagHandler extends LinkTagHandler {
         }
         if (_showAll) {
             urlBuilder.setParameter(SchoolsController.PARAM_SHOW_ALL, "1");
+        }
+        if (null != _resultsPerPage) {
+            urlBuilder.setParameter(SchoolsController.PARAM_RESULTS_PER_PAGE, _resultsPerPage.toString());
+        }
+        if (null != _sortColumn) {
+            urlBuilder.setParameter(SchoolsController.PARAM_SORT_COLUMN, _sortColumn);
+        }
+        if (null != _sortDirection) {
+            urlBuilder.setParameter(SchoolsController.PARAM_SORT_DIRECTION, _sortDirection);
         }
         return urlBuilder;
     }
@@ -119,5 +131,29 @@ public class SchoolsTagHandler extends LinkTagHandler {
 
     public void setShowAll(boolean showAll) {
         _showAll = showAll;
+    }
+
+    public String getSortColumn(){
+        return _sortColumn;
+    }
+
+    public void setSortColumn(String sortColumn){
+        _sortColumn = sortColumn;
+    }
+
+    public String getSortDirection(){
+        return _sortDirection;
+    }
+
+    public void setSortDirection(String sortDirection){
+        _sortDirection = sortDirection;
+    }
+
+    public Integer getResultsPerPage(){
+        return _resultsPerPage;
+    }
+
+    public void setResultsPerPage(Integer resultsPerPage){
+        _resultsPerPage = resultsPerPage;
     }
 }

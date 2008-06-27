@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.50 2008/06/25 15:17:51 jnorton Exp $
+ * $Id: SchoolsController.java,v 1.51 2008/06/27 07:36:51 jnorton Exp $
  */
 
 package gs.web.school;
@@ -55,6 +55,10 @@ public class SchoolsController extends AbstractController {
     public static final String PARAM_DISTRICT = "district";
     public static final String PARAM_DISTRICT_NAME = "distname";
     public static final String PARAM_SHOW_ALL = "showall";
+    public static final String PARAM_RESULTS_PER_PAGE = "pageSize";
+    public static final String PARAM_SORT_COLUMN = "sortColumn";
+    public static final String PARAM_SORT_DIRECTION = "sortDirection";
+
     /**
      * The name of the city, if provided.
      */
@@ -255,8 +259,8 @@ public class SchoolsController extends AbstractController {
 
         // Build the results and the model
 
-        String sortColumn = request.getParameter("sortColumn");
-        String sortDirection = request.getParameter("sortDirection");
+        String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
+        String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
         if (sortColumn == null){
             sortColumn = "schoolResultsHeader";
             sortDirection = "asc";
@@ -290,8 +294,8 @@ public class SchoolsController extends AbstractController {
             resultsModel.put(MODEL_PAGE_SIZE, pageSize);
             resultsModel.put(MODEL_TOTAL, hts.length());
             resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
-            resultsModel.put("sortColumn", sortColumn);
-            resultsModel.put("sortDirection", sortDirection);
+            resultsModel.put(PARAM_SORT_COLUMN, sortColumn);
+            resultsModel.put(PARAM_SORT_DIRECTION, sortDirection);
             model.put("results", resultsModel);
         } else {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);

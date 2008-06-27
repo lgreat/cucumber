@@ -1,4 +1,3 @@
-
 #resultsheader {
     padding: 20px 20px 10px 20px;
 }
@@ -32,11 +31,15 @@
     background: none;
 }
 
+#resultsheader #rh_col_left{
+    height: 18px;
+}
+
 #searchResultsHeader {
     width: 542px;
     margin-top:5px;
     color: #666666;
-    margin-bottom: 0;
+    margin-bottom: 5px;
     background: url(/res/img/search/tab_off_bg.gif) repeat;
     line-height:22px;
 }
@@ -73,6 +76,10 @@
 #searchResultsHeader img.sortInActive{
     display: none;
 }
+#searchResultsHeader img.sortMouseOver{
+    display: none;
+    margin: 2px;
+}
 
 #ratingsHeader {
     width: 163px;
@@ -83,6 +90,9 @@
 #searchResultsList .result {
     @border-top: 1px solid #e2e3cb;
     padding-top: 8px;
+}
+#searchResultsList .result:first-child{
+    border-top: 0px;
 }
 
 #reviewsHeader {
