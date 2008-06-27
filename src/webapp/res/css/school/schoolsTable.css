@@ -31,6 +31,12 @@
     background: none;
 }
 
+#pagination .showAll {
+    float:left;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
 #resultsheader #rh_col_left{
     height: 18px;
 }

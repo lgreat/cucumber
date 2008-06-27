@@ -25,7 +25,7 @@
                 <c:if test="${currentPage gt 1}">
                     <link:schools styleClass="page" page="${currentPage - 1}">&lt; Previous</link:schools><span class="divider">|</span>
                 </c:if>
-
+                <link:schools styleClass="page showAll noInterstitial" showAll="1">Show all ></link:schools>
                 <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
                     <c:choose>
                         <c:when test="${count eq currentPage}">
