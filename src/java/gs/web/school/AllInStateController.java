@@ -253,7 +253,8 @@ public class AllInStateController extends AbstractController {
                     name = city;
                 }
                 // Add the current working list to the alphaGroups on each letter change.
-                if ((currentLetter != name.trim().toLowerCase().charAt(0))) {
+                String lowerName = name.trim().toLowerCase();
+                if ((lowerName.length() < 1) || (currentLetter != lowerName.charAt(0))) {
                     if (workingList.size() > 0) {
                         alphaGroups.add(workingList);
                         workingList = new ArrayList();
