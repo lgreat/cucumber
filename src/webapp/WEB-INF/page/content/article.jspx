@@ -11,7 +11,9 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           version="2.0" >
-    <html lang="en">
+<jsp:directive.page import="gs.data.content.Article"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<html lang="en">
     <jsp:directive.page contentType="text/html"/>
     <c:set var="pageName" value="article" scope="request"/>
     <head>
@@ -35,6 +37,13 @@
         <c:if test="${not empty requestScope.articleMetaKeywords}">
             <meta name="keywords" content="${requestScope.articleMetaKeywords}" />
         </c:if>
+        <jsp:scriptlet>
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            if (null != pageHelper) {
+                Article article = (Article) request.getAttribute("article");
+                pageHelper.addAdKeyword("article_id", article.getId().toString());
+            }
+        </jsp:scriptlet>
     </head>
     <body>
 
