@@ -1,0 +1,32 @@
+package gs.web.community;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class SchwabForumRedirectController implements Controller {
+    private Log _log = LogFactory.getLog(SchwabForumRedirectController.class);
+
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String threadId = request.getParameter("thread");
+
+        // default to /content/specialNeeds.page
+        String redirectURL = "/content/specialNeeds.page";
+
+        try {
+            int articleIdAsInt = Integer.parseInt(threadId);
+            redirectURL = "http://schwabforumarchive.greatschools.net/archive/" + threadId + ".html";
+        } catch (NumberFormatException e) {
+            _log.error("Bad thread ID passed to SchwabForumRedirectController: " + threadId, e);
+        }
+
+        response.setStatus(301);
+        response.setHeader("Location", redirectURL);
+        response.setHeader("Connection", "close");
+        return null;
+    }
+}
