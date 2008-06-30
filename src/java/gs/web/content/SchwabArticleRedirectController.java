@@ -7,12 +7,27 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Redirect requests for schwablearning.org articles to the corresponding article on the greatschools site
  */
 public class SchwabArticleRedirectController implements Controller {
     private Log _log = LogFactory.getLog(SchwabArticleRedirectController.class);
+    protected static Map<String, Integer> staticRedirects = new HashMap<String, Integer>() {{
+        put("315",1213);
+        put("366", 1164);
+        put("370", 982);
+        put("405", 993);
+        put("516", 1050);
+        put("532", 998);
+        put("625", 989);
+        put("628", 0);
+        put("878", 1160);
+        put("1091", 999);
+        put("1130", 1187);
+    }};
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String articleId = request.getParameter("r");
@@ -20,14 +35,19 @@ public class SchwabArticleRedirectController implements Controller {
         // default to /content/specialNeeds.page
         String redirectURL = "/content/specialNeeds.page";
 
-        try {
-            int articleIdAsInt = Integer.parseInt(articleId);
-            if (articleIdAsInt  < 1501) {
-                int newArticleId = articleIdAsInt + 3000;
-                redirectURL = "/cgi-bin/showarticle/" + newArticleId;
+        Integer staticArticleId = staticRedirects.get(articleId);
+        if (staticArticleId != null) {
+            redirectURL = "/cgi-bin/showarticle/" + staticArticleId;
+        } else {
+            try {
+                int articleIdAsInt = Integer.parseInt(articleId);
+                if (articleIdAsInt  < 1501) {
+                    int newArticleId = articleIdAsInt + 3000;
+                    redirectURL = "/cgi-bin/showarticle/" + newArticleId;
+                }
+            } catch (NumberFormatException e) {
+                _log.error("Bad article ID passed to SchwabArticleRedirectController: " + articleId, e);
             }
-        } catch (NumberFormatException e) {
-            _log.error("Bad article ID passed to SchwabArticleRedirectController: " + articleId, e);
         }
 
         response.setStatus(301);

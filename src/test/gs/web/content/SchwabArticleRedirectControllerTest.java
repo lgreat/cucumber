@@ -5,8 +5,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.opensymphony.module.sitemesh.velocity.VelocityDecoratorServlet;
-
 public class SchwabArticleRedirectControllerTest extends BaseControllerTestCase {
     private SchwabArticleRedirectController _controller = new SchwabArticleRedirectController();
 
@@ -35,5 +33,16 @@ public class SchwabArticleRedirectControllerTest extends BaseControllerTestCase 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Expected permanent redirect so crawlers will follow link", HttpServletResponse.SC_MOVED_PERMANENTLY, _response.getStatus());
         assertEquals("Unexpected redirect URL for ID > 1500", "/content/specialNeeds.page", _response.getHeader("Location"));
+    }
+
+    public void testStaticListShouldOverrideDefaultLogic() throws Exception {
+        for (String key : SchwabArticleRedirectController.staticRedirects.keySet()) {
+            _request.addParameter("r", key);
+            ModelAndView modelAndView = _controller.handleRequest(_request, _response);
+            assertEquals("Expected permanent redirect so crawlers will follow link", HttpServletResponse.SC_MOVED_PERMANENTLY, _response.getStatus());
+            assertEquals("Unexpected redirect URL for key " + key,
+                    "/cgi-bin/showarticle/" + SchwabArticleRedirectController.staticRedirects.get(key), _response.getHeader("Location"));
+            _request.removeAllParameters();
+        }
     }
 }
