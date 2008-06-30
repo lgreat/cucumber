@@ -8,6 +8,9 @@ import org.springframework.web.servlet.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Redirect requests for schwablearning.org forum posts to the static archive
+ */
 public class SchwabForumRedirectController implements Controller {
     private Log _log = LogFactory.getLog(SchwabForumRedirectController.class);
 
