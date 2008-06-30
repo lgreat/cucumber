@@ -1,15 +1,13 @@
 package gs.web.content;
 
-import org.springframework.web.servlet.mvc.Controller;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.beans.factory.xml.BeanDefinitionParserDelegate;
+import gs.web.util.context.SessionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import gs.web.util.context.SessionContext;
 
 /**
  * Redirect requests for schwablearning.org articles to the corresponding article on the greatschools site
