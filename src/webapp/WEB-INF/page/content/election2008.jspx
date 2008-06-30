@@ -41,12 +41,7 @@
     <div id="contentTop">
         <img src="/res/img/content/election2008/Edin08_header.jpg"
              alt="One Nation Left Behind"
-             width="952" height="278"/>
-        <a href="#">
-            <img src="/res/img/content/election2008/learnMoreButton.gif"
-                 alt="Learn More"
-                 width="104" height="20"/>
-        </a>
+             width="952" height="271"/>
     </div>
     <div class="hr dotted topDivider"><hr/></div>
     <div id="contentMiddle">
@@ -54,22 +49,22 @@
             <div class="moduleBox">
                 <div class="wrapper-outer">
                     <div class="wrapper-inner">
-                        <h3><img src="/res/img/content/election2008/get_involved.png"
-                                 alt="Get Involved"/></h3>
+                        <h3><img src="/res/img/content/election2008/startling_stat_head.gif"
+                                 alt="Startling Stat"/></h3>
 
                         <img class="leadoff" src="/res/img/content/election2008/flag.jpg"
                              alt="American flag"/>
 
                         <form action="#">
                             <p class="flush">
-                                Download our toolkit and tell your
-                                friends and colleagues about how they
-                                can help make education a top issue in
-                                the 2008 elections.
+                                Seventy percent of eighth graders are not
+                                proficient in reading &amp;#8212; and most will never catch up.
                             </p>
-                            <p class="alignright"><input type="image"
-                                                         src="/res/img/content/election2008/button_go.png"
-                                                         alt="GO"/></p>
+                            <p class="alignright">
+                                <a href="http://www.edin08.com/GetTheFacts.aspx"><img
+                                        src="/res/img/content/election2008/morestats_btn.gif" 
+                                        alt="More Stats"/></a>
+                            </p>
                         </form>
 
                         <img class="left-corner"
@@ -83,18 +78,21 @@
             <div class="moduleBox flush">
                 <div class="wrapper-outer">
                     <div class="wrapper-inner">
-                        <h3><img src="/res/img/content/election2008/sign_up.png" alt="Sign Up"/></h3>
+                        <h3><img src="/res/img/content/election2008/signup_head.gif"
+                                 alt="Sign Up &amp;amp; Take Action"/></h3>
 
                         <form action="#">
                             <p>
                                 Get email updates from Strong American
                                 Schools. Take action by spreading the word to
-                                improve your local school.
+                                improve your local schools.
                             </p>
 
-                            <p class="alignright"><input type="image"
-                                                         src="/res/img/content/election2008/button_sign-up.png"
-                                                         alt="Sign Up"/></p>
+                            <p class="alignright">
+                                <a href="http://www.edin08.com/Participate.aspx"><img
+                                        src="/res/img/content/election2008/getinvolved_btn.gif"
+                                        alt="Get Involved"/></a>
+                            </p>
                         </form>
 
                         <img class="left-corner"
@@ -111,8 +109,8 @@
         <div class="contentMiddleModule gray">
             <div class="wrapper">
                 <div class="hot_topics">
-                    <img src="/res/img/content/election2008/hotTopics.jpg"
-                         alt="Hot Topics" width="165" height="36"
+                    <img src="/res/img/content/election2008/hot_topics.gif"
+                         alt="Hot Topics" width="154" height="28"
                          class="hot_topics"/>
                     <div class="header">
                         <span class="red">Topic of the Week: </span>
@@ -139,7 +137,7 @@
                 and advocacy effort aimed at elevating discussion amongst
                 America's leaders about the need for education reform.
                 <br/>
-                <a href="#">Learn more &gt;</a>
+                <a href="http://www.edin08.com/">Learn more &gt;</a>
             </div>
         </div>
     </div>
@@ -148,18 +146,11 @@
         <div class="moduleBox large">
             <div class="wrapper-outer">
                 <div class="wrapper-inner">
-                    <h3><img src="/res/img/content/election2008/learn_more.png"
-                             alt="Learn More about the Issues"/></h3>
+                    <h3><img src="/res/img/content/election2008/crisis_head.gif"
+                             alt="Education isn't an issue. It's a crisis."/></h3>
 
                     <div class="video">
                         <ad:YouTube_381x311/>
-                        <!--<object width="381" height="311">-->
-                            <!--<param name="movie"-->
-                                   <!--value="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"/>-->
-                            <!--<embed src="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0&amp;autoplay=1"-->
-                                   <!--type="application/x-shockwave-flash"-->
-                                   <!--width="381" height="311"/>-->
-                        <!--</object>-->
                     </div>
                     <p class="seeMore"><a href="http://www.youtube.com/edin08">See more videos</a></p>
 
@@ -172,25 +163,22 @@
         </div>
         <div class="toolkitsWrapper">
             <div class="toolkits">
-                <img src="/res/img/content/election2008/blahblah.jpg" alt="Ed in '08"
-                     class="img_edin08" width="129" height="62"/>
-                <img src="/res/img/content/election2008/blahblah.jpg"
+                <img src="/res/img/content/election2008/kids_strongschools.jpg"
                      alt="Strong American Schools Toolkits"
-                     class="img_toolkits"
-                     width="194" height="62"/>
+                     class="img_edin08" width="317" height="62"/>
                 <ul>
                     <li><gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
-                        <a href="#">Tools for parents</a>
+                        <a href="http://www.edin08.com/toolkits.aspx?id=324">Tools for parents</a>
                         <span>Concrete steps you can take to help shape your child's education
-                        and his or her future.</span>
+                        &amp;#8212; and his or her future.</span>
                     </li>
                     <li><gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
-                        <a href="#">Tools for communities</a>
+                        <a href="http://www.edin08.com/toolkits.aspx?id=220">Tools for communities</a>
                         <span>Demand and protect a child's right to a high-quality
                         public education.</span>
                     </li>
                     <li><gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
-                        <a href="#">Tools for educators</a>
+                        <a href="http://www.edin08.com/toolkits.aspx?id=222">Tools for educators</a>
                         <span>Ask your students' families to play a role in setting a
                         high benchmark for their child's education.</span>
                     </li>

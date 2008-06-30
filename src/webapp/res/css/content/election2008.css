@@ -28,32 +28,22 @@
 .hr.dotted {
     border-bottom: 2px dotted #CCCCCC;
     margin-right: 10px;
+    height: 10px;
 }
 
 .hr hr {
     display: none;
 }
 
-.hr.topDivider {
-    height: 3px;
-}
-
 .hr.middleDivider {
-    height: 10px;
     margin-right: 2px;
 }
 
 #contentTop {
     width: 952px;
-    height: 278px;
+    height: 271px;
     padding-top: 15px;
     position: relative;
-}
-
-#contentTop a img {
-    position: absolute;
-    bottom: 21px;
-    right: 50px;
 }
 
 #contentMiddle {
@@ -205,77 +195,6 @@ div.hot_topics {
     padding-left: 2px;
 }
 
-/*#contentGS .mainDivider {*/
-    /*position: absolute;*/
-    /*top: 328px;*/
-    /*left: 0;*/
-    /*margin: 0;*/
-    /*width: 952px;*/
-/*}*/
-
-/*#contentMiddle {*/
-    /*width: 547px;*/
-    /*height: 657px;*/
-    /*position: absolute;*/
-    /*top: 338px;*/
-    /*left: 0;*/
-/*}*/
-
-/*#contentRight {*/
-    /*position: absolute;*/
-    /*top: 338px;*/
-    /*right: 10px;*/
-    /*height: 657px;*/
-    /*width: 397px;*/
-/*}*/
-
-/*.contentMiddleModule {*/
-    /*width: 100%;*/
-    /*background-color: green;*/
-    /*margin: 0;*/
-    /*position: relative;*/
-/*}*/
-
-/*.upperBoxes {*/
-    /*height: 216px;*/
-/*}*/
-
-/*.hotTopics {*/
-    /*height: 263px;*/
-/*}*/
-
-/*.moduleBox {*/
-    /*width: 269px;*/
-    /*height: 216px;*/
-    /*background-color: yellow;*/
-/*}*/
-
-/*.contentMiddleModule .left {*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-/*}*/
-
-/*.contentMiddleModule .right {*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*right: 0;*/
-/*}*/
-
-/*div.horizontalDividerLine {*/
-    /*height: 2px;*/
-    /*width: 100%;*/
-    /*margin: 8px 0;*/
-    /*background-color: #000000;*/
-/*}*/
-
-/*div#video {*/
-    /*width: 397px;*/
-    /*height: 329px;*/
-    /*background-color: #00FFFF;*/
-    /*margin-bottom: 10px;*/
-/*}*/
-
 /** Strong American Schools */
 .strongAmericanSchools {
     height: 155px;
@@ -330,12 +249,6 @@ div.toolkits {
     position: absolute;
     top: 20px;
     left: 20px;
-}
-
-.img_toolkits {
-    position: absolute;
-    top: 20px;
-    left: 159px
 }
 
 div.toolkits ul {
