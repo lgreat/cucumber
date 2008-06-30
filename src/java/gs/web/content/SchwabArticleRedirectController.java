@@ -1,6 +1,5 @@
 package gs.web.content;
 
-import gs.web.util.context.SessionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +15,8 @@ public class SchwabArticleRedirectController implements Controller {
     private Log _log = LogFactory.getLog(SchwabArticleRedirectController.class);
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
         String articleId = request.getParameter("r");
+
         // default to /content/specialNeeds.page
         String redirectURL = "/content/specialNeeds.page";
 
