@@ -833,6 +833,15 @@
         <property name="successView" value="redirect:/admin/news/list.page"/>
     </bean>
 
+    <bean name="/admin/database/tableMover.page" class="gs.web.admin.LimitToDevController" lazy-init="true">
+        <property name="viewName">
+            <value>admin/database/tableMover</value>
+        </property>
+        <property name="errorViewName">
+            <value>admin/noProductionAccess</value>
+        </property>
+    </bean>
+
     <bean name="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/copyTables.page"
           class="gs.web.admin.LimitToDevController" lazy-init="true">
         <property name="viewName">
