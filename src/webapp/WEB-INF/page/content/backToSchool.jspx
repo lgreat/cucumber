@@ -98,7 +98,7 @@
                         It's Not Just for Oprah: Book Clubs for Kids</gsweb:articlelink>
                 </ul>
                 <p class="learnMore">
-                    <gsweb:articlelink articleId="3576">Learn more &#8250;</gsweb:articlelink>
+                    <gsweb:articlelink articleId="3576">Learn more &gt;</gsweb:articlelink>
                 </p>
             </div>
             <div id="week3" style="display: none;">
@@ -110,7 +110,7 @@
                         Help Your Child Eat a Healthy Lunch</gsweb:articlelink>
                 </ul>
                 <p class="learnMore">
-                    <gsweb:articlelink articleId="3577">Learn more &#8250;</gsweb:articlelink>
+                    <gsweb:articlelink articleId="3577">Learn more &gt;</gsweb:articlelink>
                 </p>
             </div>
             <div id="week2" style="display: none;">
@@ -122,7 +122,7 @@
                         10 Tips for Smart Back-to-School Shopping</gsweb:articlelink>
                 </ul>
                 <p class="learnMore">
-                    <gsweb:articlelink articleId="3578">Learn more &#8250;</gsweb:articlelink>
+                    <gsweb:articlelink articleId="3578">Learn more &gt;</gsweb:articlelink>
                 </p>
             </div>
             <div id="week1" style="display: none;">
@@ -134,7 +134,7 @@
                         Finding Balance in Your Child's Life</gsweb:articlelink>
                 </ul>
                 <p class="learnMore">
-                    <gsweb:articlelink articleId="3579">Learn more &#8250;</gsweb:articlelink>
+                    <gsweb:articlelink articleId="3579">Learn more &gt;</gsweb:articlelink>
                 </p>
             </div>
         </div>

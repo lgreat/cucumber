@@ -60,7 +60,7 @@
             <p>
                 Join the GreatSchools Community and connect with parents
                 who are passionate about education.<br/>
-                <a href="/community/registration.page" style="float: right;">Join now &#8250;</a>
+                <a href="/community/registration.page" style="float: right;">Join now &gt;</a>
             </p>
         </div>
         <div class="editorialFooterBox right">
@@ -70,7 +70,7 @@
                     <p>
                         GreatSchools is working with Strong American Schools
                         to help start a serious nationwide debate on education reform.<br/>
-                        <a href="/content/election2008.page">Learn more &#8250;</a>
+                        <a href="/content/election2008.page">Learn more &gt;</a>
                     </p>
                 </c:when>
                 <c:otherwise>
@@ -80,7 +80,7 @@
                         tips for getting your child
                         ready for school!
                         <br/>
-                        <a href="/content/backToSchool.page">Learn more &#8250;</a>
+                        <a href="/content/backToSchool.page">Learn more &gt;</a>
                     </p>
                 </c:otherwise>
             </c:choose>
