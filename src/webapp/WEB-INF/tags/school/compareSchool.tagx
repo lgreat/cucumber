@@ -11,6 +11,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
@@ -27,6 +28,8 @@
                 <c:set var="level" value="middle"/>
             </c:when>
         </c:choose>
+
+        <variant:a>
         <gsweb:form action="/school/compareSchool.page" method="get">
             <table id="compareForm" cellpadding="0" cellspacing="0">
                 <tr>
@@ -52,6 +55,21 @@
             <gsml:inputImage src="${submit_normal_img}" alt="Compare" styleClass="submit"/>
         </gsweb:form>
         <br style="clear:both;" />
+        </variant:a>
+
+        <variant:b>
+            <c:set var="queryParameters">
+                &amp;id=${school.id}&amp;state=${state}&amp;city=${school.physicalAddress.city}&amp;level=${school.levelCode}&amp;from=form
+            </c:set>
+            <ul class="compareSchoolB">
+                <li><a href="/school/compareSchool.page?type=distance${queryParameters}">Nearby ${level} schools &gt;</a></li>
+                <c:if test="${school.district ne null}">
+                    <li><a href="/school/compareSchool.page?type=district${queryParameters}">${gsweb:capitalize(level)} schools in this district &gt;</a></li>
+                </c:if>
+                <li><a href="/school/compareSchool.page?type=city${queryParameters}">${gsweb:capitalize(level)} schools in this city &gt;</a></li>
+            </ul>            
+        </variant:b>
+
     </div>
 
 </jsp:root>
