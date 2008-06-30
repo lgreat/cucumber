@@ -305,7 +305,7 @@
                     <gsweb:articlelink articleId="44"
                         wrappingElement="li">Reading With Your Child</gsweb:articlelink>
                     <gsweb:articlelink articleId="209"
-                        wrappingElement="li">Get Excited about Math</gsweb:articlelink>
+                        wrappingElement="li">Get Excited About Math</gsweb:articlelink>
                     <gsweb:articlelink articleId="60"
                         wrappingElement="li">Adjusting to a New School</gsweb:articlelink>
                     <gsweb:articlelink articleId="232"
@@ -321,7 +321,8 @@
                 <h3><img src="/res/img/content/backtoschool/modules/supply_list.png" alt="School Supply List" /></h3>
                 <img class="leadoff" src="/res/img/content/backtoschool/modules/bts_small_pencils.jpg" alt="Pencils" title="" />
 
-                <p>Shopping early for back-to-school supplies gives you a chance to look for bargains.</p>
+                <p>Shopping early for <span style="white-space: nowrap;">back-to-school</span>
+                    supplies gives you a chance to look for bargains.</p>
 
                 <p>
                 <select id="supplyListMenu" onchange="document.location.href = this.options[this.options.selectedIndex].value;">
