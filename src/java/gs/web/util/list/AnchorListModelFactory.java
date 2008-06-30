@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.6 2008/03/25 23:07:06 aroy Exp $
+ * $Id: AnchorListModelFactory.java,v 1.7 2008/06/30 21:03:09 chriskimm Exp $
  */
 
 package gs.web.util.list;
@@ -20,6 +20,7 @@ import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Hits;
 
@@ -75,7 +76,7 @@ public class AnchorListModelFactory {
                 District d = (District) iter.next();
                 String url = "/cgi-bin/" + state.getAbbreviationLowerCase() + "/district_profile/" + d.getId() + "/";
                 url = _urlUtil.buildUrl(url, request);
-                districts.add(new Anchor(url, d.getName()));
+                districts.add(new Anchor(url, StringEscapeUtils.escapeXml(d.getName())));
             }
 
             if (needViewAll) {
@@ -176,68 +177,6 @@ public class AnchorListModelFactory {
         return schoolBreakdownAnchorList;
     }
 
-
-    /**
-     * Returns a map of level letter (e,m or h) -> AnchorListModel, where the list model has links to a list of schools and
-     * a Map & List link, both taking you to the schools page.
-     * For example, the elementary school list model would be:
-     * <code>
-     * <h1>Elementary Schools (54)</h1>
-     * <ul>
-     * <li><a href="...">List</a></li>
-     * <li><a href="...">List & Map</a></li>
-     * </ul>
-     * </code>
-     *
-     * @param state   required state
-     * @param city    required
-     * @param request required
-     * @return non-null, but possibly empty map
-     */
-//    public Map createSchoolsByLevelModel(State state, ICity city, HttpServletRequest request) {
-//        // the summaries of schools in a city
-//        Map map;
-//
-//        map = new HashMap();
-//
-//        UrlBuilder builder = new UrlBuilder(city, UrlBuilder.SCHOOLS_IN_CITY);
-//
-//        int sc;
-//        sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, city.getName());
-//        if (sc > 0) {
-//            AnchorListModel m = new AnchorListModel("Elementary Schools (" + sc + ")");
-//            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
-//            m.add(builder.asAnchor(request, "List"));
-//            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-//            m.add(builder.asAnchor(request, "Map & List"));
-//            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-//            map.put("e", m);
-//        }
-//
-//        sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, city.getName());
-//        if (sc > 0) {
-//            AnchorListModel m = new AnchorListModel("Middle Schools (" + sc + ")");
-//            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
-//            m.add(builder.asAnchor(request, "List"));
-//            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-//            m.add(builder.asAnchor(request, "Map & List"));
-//            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-//            map.put("m", m);
-//        }
-//
-//        sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, city.getName());
-//        if (sc > 0) {
-//            AnchorListModel m = new AnchorListModel("High Schools (" + sc + ")");
-//            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "h");
-//            m.add(builder.asAnchor(request, "List"));
-//            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-//            m.add(builder.asAnchor(request, "Map & List"));
-//            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-//            map.put("h", m);
-//        }
-//
-//        return map;
-//    }
 
     /**
      * Generates a list of links to schools in the given Hits cities.

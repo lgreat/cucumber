@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.2 2008/06/30 21:03:10 chriskimm Exp $
  */
 
 package gs.web.util.list;
@@ -8,8 +8,12 @@ package gs.web.util.list;
 import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.state.State;
+import gs.data.school.district.IDistrictDao;
+import gs.data.school.district.District;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
+
+import static org.easymock.EasyMock.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -54,7 +58,6 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals("/schools.page?city=Anchorage&st=private&state=AK", ((Anchor) list.get(4)).getHref());
     }
 
-
     public void testFindDistricts() throws Exception {
         AnchorListModel anchorListModel = _anchorListModelFactory.createDistrictList(State.NY, "Dolgeville", _request);
 
@@ -93,7 +96,29 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
                 "Hey!", city, nearbyCities, 4, true, true, true, _request);
         assertEquals(1, anchorListModel.getResults().size());
+    }
 
+    public void testCreateDistrictList_EscapeAmpersand() throws Exception {
+        AnchorListModelFactory anchorListModelFactory = (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID);
+        IDistrictDao mockDao = createMock(IDistrictDao.class);
+        anchorListModelFactory.setDistrictDao(mockDao);
 
+        List<District> returnList = new ArrayList<District>();
+        District d1 = new District();
+        d1.setDatabaseState(State.DC);
+        d1.setName("Arts & Technology");
+        d1.setId(1234);
+        returnList.add(d1);
+
+        expect(mockDao.findDistrictsInCity(State.DC, "Washington", true)).andReturn(returnList);
+        mockDao.sortDistrictsByName(returnList);
+        replay(mockDao);
+
+        AnchorListModel model = anchorListModelFactory.createDistrictList(State.DC, "Washington", _request);
+
+        List list = model.getResults();
+        assertTrue(list.size() == 1);
+
+        assertEquals("Arts &amp; Technology", ((Anchor) list.get(0)).getContents());
     }
 }
