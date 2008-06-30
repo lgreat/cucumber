@@ -1433,6 +1433,16 @@
         </property>
     </bean>
 
+    <!-- schwab learning redirects -->
+    <bean name="/content/schwabArticle.page"
+          class="gs.web.content.SchwabArticleRedirectController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="/community/schwabForumArchive.page"
+          class="gs.web.community.SchwabForumRedirectController"
+          autowire="byName" lazy-init="true"/>
+
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">
