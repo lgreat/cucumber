@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.web.util.context.SessionContext;
 
+/**
+ * Redirect requests for schwablearning.org articles to the corresponding article on the greatschools site
+ */
 public class SchwabArticleRedirectController implements Controller {
     private Log _log = LogFactory.getLog(SchwabArticleRedirectController.class);
 
