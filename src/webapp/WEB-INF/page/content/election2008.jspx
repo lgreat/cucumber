@@ -20,6 +20,8 @@
 
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="COUNTDOWN_COLLEGE"/>
+<pageHelper:hideFooterAd/>
+<pageHelper:hideLeaderboard/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
 <head>
@@ -55,17 +57,15 @@
                         <img class="leadoff" src="/res/img/content/election2008/flag.jpg"
                              alt="American flag"/>
 
-                        <form action="#">
-                            <p class="flush">
-                                Seventy percent of eighth graders are not
-                                proficient in reading &amp;#8212; and most will never catch up.
-                            </p>
-                            <p class="alignright">
-                                <a href="http://www.edin08.com/GetTheFacts.aspx"><img
-                                        src="/res/img/content/election2008/morestats_btn.gif" 
-                                        alt="More Stats"/></a>
-                            </p>
-                        </form>
+                        <p class="flush">
+                            Seventy percent of eighth graders are not
+                            proficient in reading &amp;#8212; and most will never catch up.
+                        </p>
+                        <p class="alignright">
+                            <a href="http://www.edin08.com/GetTheFacts.aspx" target="_blank"><img
+                                    src="/res/img/content/election2008/morestats_btn.gif"
+                                    alt="More Stats"/></a>
+                        </p>
 
                         <img class="left-corner"
                              src="/res/img/content/election2008/shadow_left-corner.png" alt=""/>
@@ -81,19 +81,17 @@
                         <h3><img src="/res/img/content/election2008/signup_head.gif"
                                  alt="Sign Up &amp;amp; Take Action"/></h3>
 
-                        <form action="#">
-                            <p>
-                                Get email updates from Strong American
-                                Schools. Take action by spreading the word to
-                                improve your local schools.
-                            </p>
+                        <p>
+                            Get email updates from Strong American
+                            Schools. Take action by spreading the word to
+                            improve your local schools.
+                        </p>
 
-                            <p class="alignright">
-                                <a href="http://www.edin08.com/Participate.aspx"><img
-                                        src="/res/img/content/election2008/getinvolved_btn.gif"
-                                        alt="Get Involved"/></a>
-                            </p>
-                        </form>
+                        <p class="alignright">
+                            <a href="http://www.edin08.com/Participate.aspx" target="_blank"><img
+                                    src="/res/img/content/election2008/getinvolved_btn.gif"
+                                    alt="Get Involved"/></a>
+                        </p>
 
                         <img class="left-corner"
                              src="/res/img/content/election2008/shadow_left-corner.png" alt=""/>
@@ -114,15 +112,15 @@
                          class="hot_topics"/>
                     <div class="header">
                         <span class="red">Topic of the Week: </span>
-                        <a href="http://community.greatschools.net/">Education is Key to Economic Competitiveness</a>
+                        <a href="http://community.greatschools.net/q-and-a/206794/What-should-our-schools-do-to-make-sure-our-students-can-compete-in-the-global-marketplace">What should our schools do to
+                            make sure our students can compete in the global marketplace?</a>
                     </div>
                     <ul>
-                        <li><a href="http://community.greatschools.net/">NLCB Tutoring helps companies, not kids.</a><span class="source">SchoolMatters</span></li>
-                        <li><a href="http://community.greatschools.net/">Bringing Equity to the Education System.</a><span class="source">Roy's blog on Schools</span></li>
-                        <li><a href="http://community.greatschools.net/">Viral Professional Development.</a><span class="source">Change Agency</span></li>
-                        <li><a href="http://community.greatschools.net/">NLCB Tutoring helps companies, not kids.</a><span class="source">SchoolMatters</span></li>
-                        <li><a href="http://community.greatschools.net/">Bringing Equity to the Education System.</a><span class="source">Roy's blog on Schools</span></li>
-                        <li><a href="http://community.greatschools.net/">Viral Professional Development.</a><span class="source">Change Agency</span></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206868/How-does-education-help-us-contribute-to-society-more-broadly">How does education help us contribute to society more broadly?</a></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206840/Besides-being-able-to-afford-it-what-is-keeping-todays-students-from-succeeding-in-college-">Besides being able to afford it, what is keeping today's students from succeeding in college?</a></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206884/How-would-an-improved-education-system-affect-our-economy">How would an improved education system affect our economy?</a></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206886/How-has-education-helped-change-your-life">How has education helped change your life?</a></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206893/Whats-worked-in-your-community-to-get-strong-school-board-candidates">What's worked in your community to get strong school board candidates?</a></li>
                     </ul>
                 </div>
             </div>
@@ -131,13 +129,14 @@
         <div class="hr dotted middleDivider"><hr/></div>
 
         <div class="contentMiddleModule strongAmericanSchools">
-            <div class="header">About <a href="http://www.edin08.com/">Strong American Schools</a></div>
+            <div class="header">About <a href="http://www.edin08.com/"
+                                         target="_blank">Strong American Schools</a></div>
             <div class="body">
                 Strong American Schools is a nonpartisan public awareness
                 and advocacy effort aimed at elevating discussion amongst
                 America's leaders about the need for education reform.
                 <br/>
-                <a href="http://www.edin08.com/">Learn more &gt;</a>
+                <a href="http://www.edin08.com/" target="_blank">Learn more &gt;</a>
             </div>
         </div>
     </div>
