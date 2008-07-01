@@ -46,7 +46,7 @@ public class SchwabArticleRedirectController implements Controller {
             try {
                 int articleIdAsInt = Integer.parseInt(articleId);
                 if (articleIdAsInt  < 1501) {
-                    int newArticleId = articleIdAsInt + 3000;
+                    int newArticleId = articleIdAsInt + 2000;
                     redirectURL = wwwSiteHostname + "/cgi-bin/showarticle/" + newArticleId;
                 }
             } catch (NumberFormatException e) {
