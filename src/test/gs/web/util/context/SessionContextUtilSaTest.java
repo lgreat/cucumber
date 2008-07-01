@@ -5,10 +5,10 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
+import static org.easymock.EasyMock.*;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
-import org.springframework.context.ApplicationContext;
-import static org.easymock.EasyMock.*;
 
 import javax.servlet.http.Cookie;
 
@@ -242,7 +242,7 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         assertEquals("Unexpected community host for sfgate cobrand domain on dev", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
         _request.setServerName("somenewcobrand.dev.greatschools.net");
         assertEquals("Unexpected community host for some other cobrand domain on dev", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
-        _request.setServerName("cpickslay.office.greatschools.net");
+        _request.setServerName("aroy.office.greatschools.net");
         assertEquals("Unexpected community host for an office workstation", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
     }
 
