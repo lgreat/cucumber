@@ -1,5 +1,6 @@
 package gs.web.community;
 
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,8 +18,11 @@ public class SchwabForumRedirectController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String threadId = request.getParameter("thread");
 
+        String hostPrefix = SessionContextUtil.getServerName(request);
+        String wwwSiteHostname = "http://" + hostPrefix + ".greatschools.net";
+
         // default to /content/specialNeeds.page
-        String redirectURL = "/content/specialNeeds.page";
+        String redirectURL = wwwSiteHostname + "/content/specialNeeds.page";
 
         try {
             int articleIdAsInt = Integer.parseInt(threadId);

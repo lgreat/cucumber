@@ -1,5 +1,6 @@
 package gs.web.content;
 
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,18 +33,21 @@ public class SchwabArticleRedirectController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String articleId = request.getParameter("r");
 
+        String hostPrefix = SessionContextUtil.getServerName(request);
+        String wwwSiteHostname = "http://" + hostPrefix + ".greatschools.net";
+
         // default to /content/specialNeeds.page
-        String redirectURL = "/content/specialNeeds.page";
+        String redirectURL = wwwSiteHostname + "/content/specialNeeds.page";
 
         Integer staticArticleId = staticRedirects.get(articleId);
         if (staticArticleId != null) {
-            redirectURL = "/cgi-bin/showarticle/" + staticArticleId;
+            redirectURL = wwwSiteHostname + "/cgi-bin/showarticle/" + staticArticleId;
         } else {
             try {
                 int articleIdAsInt = Integer.parseInt(articleId);
                 if (articleIdAsInt  < 1501) {
                     int newArticleId = articleIdAsInt + 3000;
-                    redirectURL = "/cgi-bin/showarticle/" + newArticleId;
+                    redirectURL = wwwSiteHostname + "/cgi-bin/showarticle/" + newArticleId;
                 }
             } catch (NumberFormatException e) {
                 _log.error("Bad article ID passed to SchwabArticleRedirectController: " + articleId, e);
