@@ -252,15 +252,17 @@ public class AllInStateController extends AbstractController {
                 if (CITIES_TYPE.equals(type)) {
                     name = city;
                 }
+
                 // Add the current working list to the alphaGroups on each letter change.
                 String lowerName = name.trim().toLowerCase();
-                if ((lowerName.length() < 1) || (currentLetter != lowerName.charAt(0))) {
+                if ((lowerName.length() > 0) && (currentLetter != lowerName.charAt(0))) {
                     if (workingList.size() > 0) {
                         alphaGroups.add(workingList);
                         workingList = new ArrayList();
                     }
-                    currentLetter = name.trim().toLowerCase().charAt(0);
+                    currentLetter = lowerName.charAt(0);
                 }
+                
                 if (name.matches("^\\p{Alnum}.*")) {
                     Map fields = new HashMap();
                     fields.put("name", name);
