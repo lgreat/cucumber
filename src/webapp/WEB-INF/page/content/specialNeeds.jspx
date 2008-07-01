@@ -61,11 +61,11 @@
             </div>
 
             <div>
-            <h2 id="Managing-Home-and-Family">Managing Home &amp; Family </h2>
+            <h2 id="Managing-Home-and-Family">Managing Home &amp;amp; Family </h2>
             <ul class="plain">
                 <li><a href="/articles/73/LD/Managing-Your-Child/Talking-about-LD-ADHD">Talking about LD/ADHD</a></li>
-                <li><a href="/articles/74/LD/Managing-Your-Child/Fostering-Self-Esteem-and-Success">Fostering Self Esteem &amp; Success</a></li>
-                <li><a href="/articles/97/LD/Managing-Your-Child/Emotion-and-Psychological-Issues">Emotions &amp; Psychological Issues</a></li>
+                <li><a href="/articles/74/LD/Managing-Your-Child/Fostering-Self-Esteem-and-Success">Fostering Self Esteem &amp;amp; Success</a></li>
+                <li><a href="/articles/97/LD/Managing-Your-Child/Emotion-and-Psychological-Issues">Emotions &amp;amp; Psychological Issues</a></li>
                 <li><a href="/articles/75/LD/Managing-Your-Child/Social-Skills">Social Skills</a></li>
                 <li><a href="/articles/76/LD/Managing-Your-Child/Behavior">Behavior</a></li>
                 <li><a href="/articles/77/LD/Managing-Home-and-Family/Managing-AD-HD">Managing AD/HD</a></li>
@@ -74,13 +74,13 @@
             </div>
 
             <div>
-            <h2 id="Managing-School-and-Learning">Managing School &amp; Learning</h2>
+            <h2 id="Managing-School-and-Learning">Managing School &amp;amp; Learning</h2>
             <ul class="plain">
                 <li><a href="/articles/84/LD/Managing-School-and-Learning/Reading-Writing-and-Math">Reading, Writing and Math</a></li>
                 <li><a href="/articles/85/LD/Managing-School-and-Learning/Homework" >Homework</a></li>
                 <li><a href="/articles/86/LD/Managing-School-and-Learning/Working-with-your-Childs-School">Working with your Child's School</a></li>
                 <li><a href="/articles/87/LD/Managing-School-and-Learning/IEP-and-504-Plans">IEP and 504 Plans</a></li>
-                <li><a href="/articles/88/LD/Managing-School-and-Learning/Legal-Rights-and-Advocacy">Legal Rights &amp; Advocacy</a></li>
+                <li><a href="/articles/88/LD/Managing-School-and-Learning/Legal-Rights-and-Advocacy">Legal Rights &amp;amp; Advocacy</a></li>
                 <li><a href="/articles/89/LD/Managing-School-and-Learning/Preparing-for-Life-After-High-School">Preparing for Life After High School</a></li>
             </ul>
             </div>
@@ -93,7 +93,7 @@
                 <li><a href="/cgi-bin/showarticle/3072">Math</a></li>
                 <li><a href="/cgi-bin/showarticle/3071">Reading</a></li>
                 <li><a href="/cgi-bin/showarticle/3083">Listening</a></li>
-                <li><a href="/cgi-bin/showarticle/3067">Organizanation &amp; Memory</a></li>
+                <li><a href="/cgi-bin/showarticle/3067">Organizanation &amp;amp; Memory</a></li>
                 <li><a href="/cgi-bin/showarticle/3084">Writing</a></li>
 
             </ul>
@@ -102,7 +102,7 @@
             <div>
             <h2 id="Other-Disabilities">Other Disabilities </h2>
             <ul class="plain">
-                <gsweb:articlelink articleId="389" wrappingElement="li"/>
+                <!--gsweb:articlelink articleId="389" wrappingElement="li"/-->
                 <gsweb:articlelink articleId="385" wrappingElement="li"/>
             </ul>            
             </div>
