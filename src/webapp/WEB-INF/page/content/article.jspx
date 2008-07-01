@@ -39,9 +39,11 @@
         </c:if>
         <jsp:scriptlet>
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            if (null != pageHelper) {
+            if (pageHelper != null) {
                 Article article = (Article) request.getAttribute("article");
-                pageHelper.addAdKeyword("article_id", article.getId().toString());
+                if (article != null) {
+                    pageHelper.addAdKeyword("article_id", article.getId().toString());
+                }
             }
         </jsp:scriptlet>
     </head>
