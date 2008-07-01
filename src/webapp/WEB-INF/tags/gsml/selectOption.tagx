@@ -12,12 +12,12 @@
     <c:if test="${selected eq 'true'}">
         <c:out value=' selected="selected"' escapeXml="false"/>
     </c:if>
-    <c:if test="${id ne null }">
-        <c:out value=' id=${id}'/>
+    <c:if test="${!empty id}">
+        <c:out value=' id="${id}"' escapeXml="false"/>
     </c:if>
 
-    <c:if test="${onclick ne null }">
-        <c:out value=' onclick=${onclick}'/>
+    <c:if test="${!empty onclick}">
+        <c:out value=' onclick="${onclick}"' escapeXml="false"/>
     </c:if>
 
     <![CDATA[>]]>

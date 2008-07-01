@@ -152,6 +152,7 @@
 #searchResultsHeader :hover{
     background: url(/res/img/search/tab_on_bg.gif) repeat;
     text-decoration: underline;
+    cursor:pointer;
 }
 
 .cobranded #searchfooter {
