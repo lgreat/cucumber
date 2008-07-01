@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.50 2008/07/01 04:37:12 cpickslay Exp $
+ * $Id: UrlUtilSaTest.java,v 1.51 2008/07/01 13:56:13 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -203,7 +203,6 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(_urlUtil.isDeveloperWorkstation("172.21.1.142"));
         assertTrue(_urlUtil.isDeveloperWorkstation("172.21.1.142:8080"));
         assertFalse("cpickslay.office should not be dev workstation", UrlUtil.isDeveloperWorkstation("cpickslay.office.greatschools.net"));
-        assertTrue("cpickslay.dev should be dev workstation", UrlUtil.isDeveloperWorkstation("cpickslay.dev.greatschools.net"));
     }
 
     public void testIsDevEnvironment() {
