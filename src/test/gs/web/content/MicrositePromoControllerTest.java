@@ -53,29 +53,25 @@ public class MicrositePromoControllerTest extends BaseControllerTestCase {
         expect(dao.getWorksheetUrl()).andReturn("google/");
         dao.setWorksheetUrl("google/od6");
 
-        List<ITableRow> tableRowList = new ArrayList<ITableRow>();
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
         hashMapTableRow.addCell(MicrositePromoController.SPREADSHEET_TEXT, "GreatSchools.net");
         hashMapTableRow.addCell(MicrositePromoController.SPREADSHEET_URL, "http://www.greatschools.net");
-        tableRowList.add(hashMapTableRow);
-        expect(dao.getRowsByKey(MicrositePromoController.SPREADSHEET_PAGE,
-            getRequest().getParameter(MicrositePromoController.PARAM_PAGE))).andReturn(tableRowList);
+        expect(dao.getRandomRowByKey(MicrositePromoController.SPREADSHEET_PAGE,
+            getRequest().getParameter(MicrositePromoController.PARAM_PAGE))).andReturn(hashMapTableRow);
         replay(dao);
 
         modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
 
         assertEquals("View name did not match " + MicrositePromoController.VIEW_NAME,
             MicrositePromoController.VIEW_NAME, modelAndView.getViewName());
-        assertTrue("Model did not contain anchor list key",
-            modelAndView.getModel().containsKey(MicrositePromoController.MODEL_ANCHOR_LIST));
-        assertTrue("Model anchor list was not AnchorListModel object",
-            modelAndView.getModel().get(MicrositePromoController.MODEL_ANCHOR_LIST) instanceof AnchorListModel);
+        assertTrue("Model did not contain anchor",
+            modelAndView.getModel().containsKey(MicrositePromoController.MODEL_ANCHOR));
+        assertTrue("Model anchor was not Anchor object",
+            modelAndView.getModel().get(MicrositePromoController.MODEL_ANCHOR) instanceof Anchor);
 
-        AnchorListModel anchorListModel =
-            (AnchorListModel) modelAndView.getModel().get(MicrositePromoController.MODEL_ANCHOR_LIST);
-        Anchor firstAnchor = (Anchor) anchorListModel.getResults().get(0);
-        assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", firstAnchor.getContents());
-        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", firstAnchor.getHref());
+        Anchor anchor = (Anchor) modelAndView.getModel().get(MicrositePromoController.MODEL_ANCHOR);
+        assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", anchor.getContents());
+        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", anchor.getHref());
 
         verify(dao);
     }

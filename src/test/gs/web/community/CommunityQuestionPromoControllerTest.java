@@ -80,7 +80,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         expect(dao.getWorksheetUrl()).andReturn("google/");
         dao.setWorksheetUrl("google/od6");
 
-        expect(dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
+        expect(dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
         replay(dao);
 
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
@@ -109,10 +109,8 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         row.addCell("linktext", "link text");
         row.addCell("username", "user name");
         row.addCell("memberid", "member id");
-        List<ITableRow> rows = new ArrayList<ITableRow>();
-        rows.add(row);
 
-        expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(rows);
+        expect(_dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(row);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "someKey");
@@ -125,51 +123,13 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         assertEquals("member id", model.get(MODEL_USER_ID));
     }
 
-    public void testGetRandomRow() {
-        ITableRow row;
-        HashMapTableRow row1 = new HashMapTableRow();
-        HashMapTableRow row2 = new HashMapTableRow();
-        HashMapTableRow row3 = new HashMapTableRow();
-        List<ITableRow> rows;
-
-        rows = new ArrayList<ITableRow>();
-
-        rows.add(row1);
-
-        row = _controller.getRandomRow(rows);
-
-        assertSame(row1, row);
-
-        rows.add(row2);
-        rows.add(row3);
-
-        int row1count = 0;
-        int row2count = 0;
-        int row3count = 0;
-        for (int x=0; x < 1000; x++) {
-            row = _controller.getRandomRow(rows);
-            if (row3 == row) {
-                row3count++;
-            } else if (row2 == row) {
-                row2count++;
-            } else if (row1 == row) {
-                row1count++;
-            } else {
-                fail("Unexpected row! " + row);
-            }
-        }
-        assertTrue("Expected at least one row1 out of 1000 random picks", row1count > 0);
-        assertTrue("Expected at least one row2 out of 1000 random picks", row2count > 0);
-        assertTrue("Expected at least one row3 out of 1000 random picks", row3count > 0);
-    }
-
     public void testLoadSpreadsheetDataEmpty() {
         // shouldn't crash
         Map<String, Object> model = new HashMap<String, Object>();
 
-        List<ITableRow> rows = new ArrayList<ITableRow>();
+        ITableRow row = new HashMapTableRow();
 
-        expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(rows);
+        expect(_dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(row);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "someKey");
@@ -185,7 +145,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         // shouldn't crash
         Map<String, Object> model = new HashMap<String, Object>();
 
-        expect(_dao.getRowsByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(null);
+        expect(_dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(null);
         replay(_dao);
 
         _controller.loadSpreadsheetDataIntoModel(model, "someKey");

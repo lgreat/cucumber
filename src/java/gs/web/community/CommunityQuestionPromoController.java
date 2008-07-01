@@ -102,11 +102,10 @@ public class CommunityQuestionPromoController extends AbstractController {
     }
 
     protected void loadSpreadsheetDataIntoModel(Map<String, Object> model, String code) {
-        List<ITableRow> rows = getTableDao().getRowsByKey
+        ITableRow row = getTableDao().getRandomRowByKey
                 (WORKSHEET_PRIMARY_ID_COL, code);
 
-        if (rows != null && !rows.isEmpty()) {
-            ITableRow row = getRandomRow(rows);
+        if (row != null) {
             model.put(MODEL_QUESTION_TEXT, row.get("text"));
             model.put(MODEL_QUESTION_LINK, row.get("link"));
             model.put(MODEL_QUESTION_LINK_TEXT, row.get("linktext"));

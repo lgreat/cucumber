@@ -9,9 +9,7 @@
 
 <div>
     <ul class="bulleted">
-        <c:forEach var="anchor" items="${requestScope.modelAnchorList.results}">
-            <li><a href="${anchor.href}">${anchor.contents}</a></li>
-        </c:forEach>
+        <li><a href="${requestScope.modelAnchor.href}">${requestScope.modelAnchor.contents}</a></li>
     </ul>
 </div>
 
