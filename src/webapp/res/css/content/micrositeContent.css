@@ -29,6 +29,10 @@
     color: #666;
 }
 
+#boxFirstHeader {
+    margin-top: 7px;
+}
+
 .box.first {
 	margin-right: 17px;
 }

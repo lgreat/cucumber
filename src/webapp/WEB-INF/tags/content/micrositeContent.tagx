@@ -39,8 +39,8 @@
 
             <!-- The difference in white boxes is necessary thanks to IE 6's craptastic handling of margins/widths -->
             <div class="box first">
-                <h3><img src="/res/img/content/backtoschool/join_discussion.png"
-                     alt="Join the Discussion" title=""/></h3>
+                <h3 id="boxFirstHeader"><img src="/res/img/content/backtoschool/parent_to_parent.gif"
+                     alt="Parent to Parent Stories" title=""/></h3>
 
                 <jsp:include page="/content/micrositePromo.module?page=backtoschool"/>
             </div>
