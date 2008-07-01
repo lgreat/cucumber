@@ -114,15 +114,15 @@
                          class="hot_topics"/>
                     <div class="header">
                         <span class="red">Topic of the Week: </span>
-                        <a href="#">Education is Key to Economic Competitiveness</a>
+                        <a href="http://community.greatschools.net/">Education is Key to Economic Competitiveness</a>
                     </div>
                     <ul>
-                        <li><a href="#">NLCB Tutoring helps companies, not kids.</a><span class="source">SchoolMatters</span></li>
-                        <li><a href="#">Bringing Equity to the Education System.</a><span class="source">Roy's blog on Schools</span></li>
-                        <li><a href="#">Viral Professional Development.</a><span class="source">Change Agency</span></li>
-                        <li><a href="#">NLCB Tutoring helps companies, not kids.</a><span class="source">SchoolMatters</span></li>
-                        <li><a href="#">Bringing Equity to the Education System.</a><span class="source">Roy's blog on Schools</span></li>
-                        <li><a href="#">Viral Professional Development.</a><span class="source">Change Agency</span></li>
+                        <li><a href="http://community.greatschools.net/">NLCB Tutoring helps companies, not kids.</a><span class="source">SchoolMatters</span></li>
+                        <li><a href="http://community.greatschools.net/">Bringing Equity to the Education System.</a><span class="source">Roy's blog on Schools</span></li>
+                        <li><a href="http://community.greatschools.net/">Viral Professional Development.</a><span class="source">Change Agency</span></li>
+                        <li><a href="http://community.greatschools.net/">NLCB Tutoring helps companies, not kids.</a><span class="source">SchoolMatters</span></li>
+                        <li><a href="http://community.greatschools.net/">Bringing Equity to the Education System.</a><span class="source">Roy's blog on Schools</span></li>
+                        <li><a href="http://community.greatschools.net/">Viral Professional Development.</a><span class="source">Change Agency</span></li>
                     </ul>
                 </div>
             </div>
@@ -131,7 +131,7 @@
         <div class="hr dotted middleDivider"><hr/></div>
 
         <div class="contentMiddleModule strongAmericanSchools">
-            <div class="header">About <a href="#">Strong American Schools</a></div>
+            <div class="header">About <a href="http://www.edin08.com/">Strong American Schools</a></div>
             <div class="body">
                 Strong American Schools is a nonpartisan public awareness
                 and advocacy effort aimed at elevating discussion amongst
@@ -152,7 +152,6 @@
                     <div class="video">
                         <ad:YouTube_381x311/>
                     </div>
-                    <p class="seeMore"><a href="http://www.youtube.com/edin08">See more videos</a></p>
 
                     <img class="left-corner"
                          src="/res/img/content/election2008/shadow_left-corner.png" alt="" />
@@ -167,18 +166,30 @@
                      alt="Strong American Schools Toolkits"
                      class="img_edin08" width="317" height="62"/>
                 <ul>
-                    <li><gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
-                        <a href="http://www.edin08.com/toolkits.aspx?id=324">Tools for parents</a>
+                    <li>
+                        <a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Parents.pdf"
+                           target="_blank">
+                            <gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
+                            Tools for parents
+                        </a>
                         <span>Concrete steps you can take to help shape your child's education
                         &amp;#8212; and his or her future.</span>
                     </li>
-                    <li><gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
-                        <a href="http://www.edin08.com/toolkits.aspx?id=220">Tools for communities</a>
+                    <li>
+                        <a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Communities.pdf"
+                           target="_blank">
+                            <gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
+                            Tools for communities
+                        </a>
                         <span>Demand and protect a child's right to a high-quality
                         public education.</span>
                     </li>
-                    <li><gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
-                        <a href="http://www.edin08.com/toolkits.aspx?id=222">Tools for educators</a>
+                    <li>
+                        <a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Educators.pdf"
+                           target="_blank">
+                            <gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>
+                            Tools for educators
+                        </a>
                         <span>Ask your students' families to play a role in setting a
                         high benchmark for their child's education.</span>
                     </li>
