@@ -356,7 +356,7 @@
                 </ul>
             </div>
             <c:if test="${param.lc ne 'p'}">
-                <form id="searchfilterform" action="" method="get">
+                <form id="searchfilterform" style="display:inline" action="" method="get">
                     <div class="formContainer">
                     <div class="checkboxes">
                         <strong>Show me:</strong>
@@ -392,18 +392,16 @@
                                 styleClass="noInterstitial"> Private</link:schools></label>
                     </div>
                     <c:if test="${not empty results.schools}">
-                        
-                        <div class="resultsPerPage">
-                            <strong>Results per page:</strong>
-                            <select id="resultsPerPageSelector" onchange="reloadPageWithFilters();">
+                        <select id="resultsPerPageSelector" onchange="reloadPageWithFilters();">
 
-                                <gsml:selectOption id="rppOption10" value="10" selected="${results.pageSize eq 10}">10</gsml:selectOption>
-                                <gsml:selectOption id="rppOption25" value="25" selected="${results.pageSize eq 25}">25</gsml:selectOption>
-                                <gsml:selectOption id="rppOption50" value="10" selected="${results.pageSize eq 50}">50</gsml:selectOption>
-                                <gsml:selectOption id="rppOptionAll" value="-1" selected="${not empty param.showall}">All</gsml:selectOption>
+                            <gsml:selectOption id="rppOption10" value="10" selected="${results.pageSize eq 10}">10</gsml:selectOption>
+                            <gsml:selectOption id="rppOption25" value="25" selected="${results.pageSize eq 25}">25</gsml:selectOption>
+                            <gsml:selectOption id="rppOption50" value="10" selected="${results.pageSize eq 50}">50</gsml:selectOption>
+                            <gsml:selectOption id="rppOptionAll" value="-1" selected="${not empty param.showall}">All</gsml:selectOption>
 
-                            </select>
-                        </div>
+                        </select>
+
+                        <div class="resultsPerPage"><strong>Results per page:</strong></div>
                     </c:if>
                     </div>
                 </form>
