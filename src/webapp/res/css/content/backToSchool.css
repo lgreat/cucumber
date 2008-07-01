@@ -162,7 +162,7 @@ ul.bulleted {
 #contentMiddleModuleTop {
     height: 281px;
     margin-bottom: 17px;
-    _margin-bottom: 1px;
+    _margin-bottom: 8px;
 }
 
 .moduleBox.last {
@@ -226,48 +226,16 @@ ul.bulleted {
     bottom: 5px;
 }
 
-/* GS-6582 - remove styles below */
-
 #AboveFold_300x250 {
     border: 0;
     margin: 0;
     padding-top: 0;    
 }
 
-.greenBoxWrapper {
+#btsQuizPromo {
     border-top: 1px solid #CCCCCC;
     margin-top: 10px;
     padding-top: 10px;
     position: absolute;
     bottom: 0px;
 }
-
-.greenBox {
-    border: solid 8px #81C83C;
-    padding: 15px;
-}
-
-#greenBox {
-    width: 255px;
-    height: 272px;
-}
-
-.greenBox h3 {
-    color: #81C83C;
-    font-size: 12px;
-    border-bottom: 1px solid #CCCCCC;
-}
-
-ul.greenArrow {
-    line-height: 15px;
-    margin: 10px 0 0 0;
-}
-
-.greenArrow li {
-    background: url(/res/img/content/article/greenarrow.gif) no-repeat left 3px;
-    padding: 0 0 0 10px; 
-    _padding: 0 0 0 20px;
-    margin: 10px 0 0 0;
-}
-
-/* GS-6582 - remove styles above */

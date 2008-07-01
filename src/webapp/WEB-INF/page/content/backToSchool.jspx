@@ -18,6 +18,8 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <pageHelper:setPathway pathway="SEASONAL"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
@@ -348,32 +350,9 @@
 <div id="contentRight">
     <ad:AboveFold_300x250/>
 
-    <div class="greenBoxWrapper">
-        <div id="greenBox" class="greenBox">
-            <h3><img id="popularArticlesImg" src="/res/img/content/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
-            <ul class="greenArrow">
-                <gsweb:articlelink articleId="233"
-                                   wrappingElement="li">Practically Free Summer Activities</gsweb:articlelink>
-                <gsweb:articlelink articleId="314"
-                                   wrappingElement="li">Build Math Skills This Summer</gsweb:articlelink>
-                <gsweb:articlelink articleId="650"
-                                   wrappingElement="li">Managing Screen Time</gsweb:articlelink>
-                <gsweb:articlelink articleId="1073"
-                                   wrappingElement="li">Should Kids Hang Out at Club Penguin?</gsweb:articlelink>
-                <gsweb:articlelink articleId="902"
-                                   wrappingElement="li">Book Picks for Grades K-5</gsweb:articlelink>
-                <gsweb:articlelink articleId="903"
-                                   wrappingElement="li">Reading Tips for Grades 6-12</gsweb:articlelink>
-                <gsweb:articlelink articleId="3557"
-                                   wrappingElement="li">Tween Beach Reads</gsweb:articlelink>
-                <gsweb:articlelink articleId="3558"
-                                   wrappingElement="li">Teen Beach Reads</gsweb:articlelink>
-                <gsweb:articlelink articleId="34"
-                                   wrappingElement="li">What Makes a Great Parent?</gsweb:articlelink>
-                <gsweb:articlelink articleId="259"
-                                   wrappingElement="li">What Makes a Great Teacher?</gsweb:articlelink>
-            </ul>
-        </div>
+    <div id="btsQuizPromo">
+        <a href="/content/btsQuiz.page"><img src="/res/img/content/backtoschool/bts_quiz_promo.jpg"
+                                             alt="Back-to-School Quiz" width="300" height="316"/></a>
     </div>
 </div>
 

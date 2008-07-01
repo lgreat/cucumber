@@ -8,9 +8,13 @@
         >
 
 <div>
-    <ul class="bulleted">
-        <li><a href="${requestScope.modelAnchor.href}">${requestScope.modelAnchor.contents}</a></li>
-    </ul>
+    <p id="promoPrompt">
+        ${requestScope.modelAnchor.contents}
+    </p>
+
+    <p id="promoResponseButton">
+        <a href="${requestScope.modelAnchor.href}"><img src="/res/img/button/btn_answer.gif" alt="Answer"/></a>
+    </p>
 </div>
 
 </jsp:root>

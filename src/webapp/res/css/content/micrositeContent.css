@@ -30,7 +30,8 @@
 }
 
 #boxFirstHeader {
-    margin-top: 7px;
+    padding-top: 7px;
+    position: relative;
 }
 
 .box.first {
@@ -65,4 +66,22 @@ p.question {
 .box .ad {
 	text-align: left;
 	margin: 0 10px;
+}
+
+#promoPrompt {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #666;
+    padding: 25px 5px 10px 20px;
+}
+
+#promoResponseButton {
+    text-align: right;
+    padding: 0 10px 15px 15px;
+}
+
+
+#seeOtherStories {
+    text-align: right;
+    padding-right: 10px;
 }

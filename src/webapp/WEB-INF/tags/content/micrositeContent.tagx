@@ -14,6 +14,14 @@
 <jsp:directive.attribute name="showTopBorder" type="java.lang.Boolean"
                          description="Whether or not to show top border" required="true"/>
 
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+
+<jsp:scriptlet>
+SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
+
 <c:if test="${!showTopBorder}">
     <style type="text/css">
     .contentMiddleModule {
@@ -43,16 +51,20 @@
                      alt="Parent to Parent Stories" title=""/></h3>
 
                 <jsp:include page="/content/micrositePromo.module?page=backtoschool"/>
+
+                <p id="seeOtherStories">
+                    <a href="http://${communityHost}/category/walmart/">See other stories &gt;</a>
+                </p>
             </div>
 
             <div class="box">
                 <h3><img src="/res/img/content/backtoschool/ask_experts.png" alt="Ask the Experts" title=""/></h3>
 
                 <p class="question">How can I help ease the transition to middle school?<br/>
-                    <gsweb:articlelink articleId="1075">Read the answer &#8250;</gsweb:articlelink></p>
+                    <gsweb:articlelink articleId="1075">Read the answer &gt;</gsweb:articlelink></p>
 
                 <p class="question">My kindergartner has separation anxiety. What can I do?<br/>
-                    <gsweb:articlelink articleId="1072">Read the answer &#8250;</gsweb:articlelink></p>
+                    <gsweb:articlelink articleId="1072">Read the answer &gt;</gsweb:articlelink></p>
 
                 <div class="ad">
                     <ad:Badge_166x45 position="BoxRight_166x45"/>
