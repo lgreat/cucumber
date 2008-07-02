@@ -92,4 +92,10 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         assertTrue(tables.contains("_or.school"));
         assertTrue(tables.contains("_wy.school"));
     }
+
+    public void testGetBasedFormSubmission() {
+        assertFalse(_controller.isFormSubmission(_request));
+        _request.addParameter("target", "dev");
+        assertTrue(_controller.isFormSubmission(_request));
+    }
 }

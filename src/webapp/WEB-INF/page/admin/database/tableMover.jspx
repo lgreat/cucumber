@@ -33,7 +33,7 @@
 <div id="bd">
     <!--<div id="selection" style="${show=='selection'?'':'display:none;'}">-->
     <div id="selection">
-        <form:form commandName="tableMoverCmd">
+        <form:form commandName="tableMoverCmd" method="GET">
             <div class="yui-gb" style="border: 1px solid; padding: 10px">
                 <div class="yui-u first">
                     <h2>Table Sets</h2>

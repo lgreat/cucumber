@@ -85,6 +85,14 @@ public class TableMoverController extends SimpleFormController {
         return new ArrayList<String>(tables);
     }
 
+    protected boolean isFormSubmission(HttpServletRequest request) {
+        boolean submission = false;
+        if (request.getParameter("target") != null) {
+            submission = true;
+        }
+        return submission;
+    }
+
     public void setErrorViewName(String errorViewName) {
         _errorViewName = errorViewName;
     }
