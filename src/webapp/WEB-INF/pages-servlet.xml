@@ -833,13 +833,17 @@
         <property name="successView" value="redirect:/admin/news/list.page"/>
     </bean>
 
-    <bean name="/admin/database/tableMover.page" class="gs.web.admin.LimitToDevController" lazy-init="true">
-        <property name="viewName">
-            <value>admin/database/tableMover</value>
-        </property>
-        <property name="errorViewName">
-            <value>admin/noProductionAccess</value>
-        </property>
+    <bean name="/admin/database/tableMover.page" class="gs.web.admin.database.TableMoverController" lazy-init="true">
+        <property name="formView" value="admin/database/tableMover"/>
+        <property name="successView" value="admin/database/tableMoverPreview"/>
+        <property name="errorViewName" value="admin/noProductionAccess"/>
+        <property name="commandName" value="tableMoverCmd"/>
+        <property name="commandClass" value="gs.web.admin.database.TableMoverCommand"/>
+        <!--<property name="validators">-->
+            <!--<list>-->
+                <!--<ref local="emailValidator"/>-->
+            <!--</list>-->
+        <!--</property>-->
     </bean>
 
     <bean name="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/copyTables.page"
