@@ -26,7 +26,7 @@ public class SchwabForumRedirectController implements Controller {
 
         try {
             int articleIdAsInt = Integer.parseInt(threadId);
-            redirectURL = "http://schwabforumarchive.greatschools.net/archive/" + threadId + ".html";
+            redirectURL = "http://schwablearningforumarchive.greatschools.net/archive/" + threadId + ".html";
         } catch (NumberFormatException e) {
             _log.error("Bad thread ID passed to SchwabForumRedirectController: " + threadId, e);
         }

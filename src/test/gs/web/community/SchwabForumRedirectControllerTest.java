@@ -12,7 +12,7 @@ public class SchwabForumRedirectControllerTest extends BaseControllerTestCase {
         _request.addParameter("thread", "200");
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Expected permanent redirect so crawlers will follow link", HttpServletResponse.SC_MOVED_PERMANENTLY, _response.getStatus());
-        assertEquals("Unexpected redirect URL", "http://schwabforumarchive.greatschools.net/archive/200.html", _response.getHeader("Location"));
+        assertEquals("Unexpected redirect URL", "http://schwablearningforumarchive.greatschools.net/archive/200.html", _response.getHeader("Location"));
     }
 
     public void testShouldRedirectToLDMicrositeIfNoID() throws Exception {
