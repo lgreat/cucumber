@@ -24,7 +24,6 @@ public class SchwabArticleRedirectController implements Controller {
         put("516", 1050);
         put("532", 998);
         put("625", 989);
-        put("628", 0);
         put("878", 1160);
         put("1091", 999);
         put("1130", 1187);
