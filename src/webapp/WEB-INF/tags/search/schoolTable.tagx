@@ -42,6 +42,8 @@
         <!--
          var SchoolTableTag = {
             mouseOver: function(node){
+
+                node.style.textDecoration = "underline";
                 var images = node.getElementsByTagName('img');
                 for(var i = 0; i < images.length; i++ ) {
                     if (images[i].className == "sortActive"){
@@ -53,6 +55,7 @@
                 }
             },
             mouseOut: function(node){
+                node.style.textDecoration = "none";
                 var images = node.getElementsByTagName('img');
                 for(var i = 0; i < images.length; i++ ) {
                     if (images[i].className == "sortActive"){
