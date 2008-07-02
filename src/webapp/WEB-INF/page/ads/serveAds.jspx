@@ -57,6 +57,16 @@
                             <ad:Footer_728x90/>
                         </Footer_728x90>
                     </c:when>
+                    <c:when test="${curAd eq 'AboveFold_Left_160x600'}">
+                        <AboveFold_Left_160x600>
+                            <ad:AboveFold_Left_160x600/>
+                        </AboveFold_Left_160x600>
+                    </c:when>
+                    <c:when test="${curAd eq 'Inline_460x94'}">
+                        <Inline_460x94>
+                            <ad:Inline_460x94/>
+                        </Inline_460x94>
+                    </c:when>
                 </c:choose>
                 <jsp:scriptlet>
             }
