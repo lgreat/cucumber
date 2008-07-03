@@ -8,5 +8,5 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
 
-    <gsweb:adTagGenerator position="YouTube_381x311"/>
+    <gsweb:adTagGenerator position="YouTube_381x311" alwaysShow="true"/>
 </jsp:root>

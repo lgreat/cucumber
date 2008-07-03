@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.13 2008/06/17 19:08:48 cpickslay Exp $
+ * $Id: AdTagHandlerTest.java,v 1.14 2008/07/03 20:54:49 aroy Exp $
  */
 package gs.web.ads;
 
@@ -54,6 +54,61 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setPosition("x22");
 
         assertEquals("", _tag.getDeferredContent());
+    }
+
+    public void testAdFreeCobrandsWithAlwaysShowFramed() throws Exception {
+        _sessionContext.setCobrand("framed");
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _tag.setJspContext(jspContext);
+        _tag.setPosition("YouTube_381x311");
+        _tag.setAlwaysShow(true);
+
+        assertEquals("Expect ad tag even though ad free cobrand",
+                "<div id=\"adYouTube_381x311\" class=\"adYouTube_381x311 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('YouTube_381x311');</script></div>", _tag.getDeferredContent());
+        _tag.setAlwaysShow(false);
+    }
+
+    public void testAdFreeCobrandsWithAlwaysShowAdvertisingOffline() throws Exception {
+        _sessionContext.setCobrand("framed");
+        _sessionContext.setAdvertisingOnline(false);
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _tag.setJspContext(jspContext);
+        _tag.setPosition("YouTube_381x311");
+        _tag.setAlwaysShow(true);
+
+        assertEquals("Expect advertising offline to hide ad",
+                "", _tag.getDeferredContent());
+        _tag.setAlwaysShow(false);
+        _sessionContext.setAdvertisingOnline(true);
+    }
+
+    public void testAdFreeCobrandsWithAlwaysShowCrawler() throws Exception {
+        _sessionContext.setCobrand("framed");
+        _sessionContext.setCrawler(true);
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _tag.setJspContext(jspContext);
+        _tag.setPosition("YouTube_381x311");
+        _tag.setAlwaysShow(true);
+
+        assertEquals("Expect crawler to hide ad",
+                "", _tag.getDeferredContent());
+        _tag.setAlwaysShow(false);
+        _sessionContext.setCrawler(false);
     }
 
     public void testBasicDeferWorks() throws Exception {
@@ -158,6 +213,25 @@ public class AdTagHandlerTest extends BaseTestCase {
          
 
         XMLAssert.assertXMLEqual(encode(expectedOutput), encode(output));
+    }
+
+    public void testCobrandServedAdWithAlwaysShow() throws Exception {
+        _sessionContext.setCobrand("yahoo");
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _tag.setJspContext(jspContext);
+        _tag.setPosition("YouTube_381x311");
+        _tag.setAlwaysShow(true);
+
+        String output = _tag.getDeferredContent();
+        String expectedOutput = "<div id=\"adYouTube_381x311\" class=\"adYouTube_381x311 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('YouTube_381x311');</script></div>";
+
+        XMLAssert.assertEquals(encode(expectedOutput), encode(output));
+        _tag.setAlwaysShow(false);
     }
 
     public void testCustomCobrandWithNoAdPositionDefinedReturnsEmptyString() throws Exception {

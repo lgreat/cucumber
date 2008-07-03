@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.58 2008/04/24 22:58:58 droy Exp $
+ * $Id: PageHelper.java,v 1.59 2008/07/03 20:54:49 aroy Exp $
  */
 
 package gs.web.util;
@@ -443,6 +443,16 @@ public class PageHelper {
      */
     public boolean isAdFree() {
         return !_sessionContext.isAdvertisingOnline() || isFramed() || _sessionContext.isCrawler();
+    }
+
+    /**
+     * Content served through ads slots is only removed if advertising is disabled sitewide, or if the visitor
+     * is a crawler. Framed cobrands ARE served this type of content, but not actual ads.
+     *
+     * @return true if content served through ads shouldn't be displayed
+     */
+    public boolean isAdContentFree() {
+        return !_sessionContext.isAdvertisingOnline() || _sessionContext.isCrawler();
     }
 
     /**

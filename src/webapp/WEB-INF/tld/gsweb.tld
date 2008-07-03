@@ -609,6 +609,12 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>alwaysShow</name>
+            <description>If true, will always display ad regardless of setting/cobrand</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>

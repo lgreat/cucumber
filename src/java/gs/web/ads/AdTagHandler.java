@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.18 2008/06/17 19:08:48 cpickslay Exp $
+ * $Id: AdTagHandler.java,v 1.19 2008/07/03 20:54:48 aroy Exp $
  */
 package gs.web.ads;
 
@@ -28,6 +28,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     private String _position;
     private AdPosition _adPosition;
+    private boolean _alwaysShow = false;
 
     private static final Log _log = LogFactory.getLog(AdTagManager.class);
     private static final String JS_METHOD_NAME_24_7 = "OAS_AD";
@@ -49,7 +50,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
-        if (pageHelper.isAdFree()) {
+        if (pageHelper.isAdContentFree() || (!_alwaysShow && pageHelper.isAdFree())) {
             return ""; //early exit
         }
 
@@ -64,7 +65,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 .append("\"")
                 .append(">");
 
-        if (pageHelper.isAdServedByCobrand()) {
+        if (!_alwaysShow && pageHelper.isAdServedByCobrand()) {
             AdTagManager adManager = AdTagManager.getInstance();
             String customAdTag = adManager.getAdTag(sc.getCobrand(), _adPosition);
             if (StringUtils.isEmpty(customAdTag)) {
@@ -129,5 +130,13 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
      */
     public boolean isDeferred() {
         return !_adPosition.isGAMPosition();
+    }
+
+    public boolean isAlwaysShow() {
+        return _alwaysShow;
+    }
+
+    public void setAlwaysShow(boolean alwaysShow) {
+        this._alwaysShow = alwaysShow;
     }
 }

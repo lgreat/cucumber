@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.41 2008/04/23 23:12:27 droy Exp $
+ * $Id: PageHelperSaTest.java,v 1.42 2008/07/03 20:54:48 aroy Exp $
  */
 
 package gs.web.util;
@@ -379,10 +379,12 @@ public class PageHelperSaTest extends TestCase {
         sessionFacade.setHostName("www.greatschools.net");
         PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isAdFree());
+        assertFalse(pageHelper.isAdContentFree());
         // In the case of an ad server outage we turn advertising off
         sessionFacade.setAdvertisingOnline(false);
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
+        assertTrue(pageHelper.isAdContentFree());
 
         // Test for a cobrand that shows ads
         sessionFacade = new MockSessionContext();
@@ -390,10 +392,12 @@ public class PageHelperSaTest extends TestCase {
         sessionFacade.setCobrand("sfgate");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isAdFree());
+        assertFalse(pageHelper.isAdContentFree());
         // In the case of an ad server outage we turn advertising off
         sessionFacade.setAdvertisingOnline(false);
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
+        assertTrue(pageHelper.isAdContentFree());
 
         // Test for an ad free cobrand
         sessionFacade = new MockSessionContext();
@@ -401,10 +405,12 @@ public class PageHelperSaTest extends TestCase {
         sessionFacade.setCobrand("framed");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
+        assertFalse(pageHelper.isAdContentFree());
         // Turning advertising off should have no effect
         sessionFacade.setAdvertisingOnline(false);
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
+        assertTrue(pageHelper.isAdContentFree());
     }
 
     public void testSetMemberCookie() {
