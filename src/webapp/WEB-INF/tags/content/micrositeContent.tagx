@@ -22,15 +22,6 @@ SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
 </jsp:scriptlet>
 
-<c:if test="${!showTopBorder}">
-    <style type="text/css">
-    .contentMiddleModule {
-        border-top: none;
-        padding-top: 0;
-    }
-    </style>
-</c:if>
-
     <![CDATA[
     <!--[if IE]>
     <style type="text/css">
@@ -42,7 +33,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
     <![endif]-->
     ]]>
 
-    <div id="contentMiddleModuleBottom" class="contentMiddleModule gray">
+    <div id="micrositeContent" class="contentMiddleModule gray ${showTopBorder ? '' : 'hideTopBorder'}">
         <div class="wrapper">
 
             <!-- The difference in white boxes is necessary thanks to IE 6's craptastic handling of margins/widths -->

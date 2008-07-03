@@ -1,5 +1,4 @@
-#marginGS
-{
+#marginGS {
     width: 100%;
     text-align: left;
     margin-left: auto;
@@ -41,7 +40,7 @@ ul.bulleted {
 }
 
 #contentGS {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 #contentMiddle {
@@ -51,12 +50,12 @@ ul.bulleted {
 }
 
 #contentMiddleTop {
-    width: 642px;
+    width: 640px;
     height: 278px;
-    background-color: orange;
-    margin-bottom: 10px;
+    margin: 0 0 10px 1px;
+    border: 1px solid #81C83C;
+    position:relative;
 }
-
 
 #contentRight {
     float: right;
@@ -72,25 +71,19 @@ ul.bulleted {
     padding-top: 0;
 }
 
-.greenBoxWrapper {
+.popularArticlesWrapper {
     border-top: 1px solid #CCCCCC;
     margin-top: 10px;
-    padding-top: 10px;
-    position: absolute;
-    bottom: 0px;
+    padding-top: 15px;
 }
 
-.greenBox {
-    border: solid 8px #81C83C;
+#popularArticlesBox {
+    border: solid 8px #DEDEDE;
     padding: 15px;
-}
-
-#greenBox {
     width: 255px;
-    height: 272px;
 }
 
-.greenBox h3 {
+#popularArticlesBox h3 {
     color: #81C83C;
     font-size: 12px;
     border-bottom: 1px solid #CCCCCC;
@@ -108,10 +101,17 @@ ul.greenArrow {
     margin: 10px 0 0 0;
 }
 
-.contentMiddleModule {
-    /*border-top: 2px dotted #ccc;*/
-    border: none;
-    margin: 0 0 7px 2px;
-    padding-top: 7px;
-    position: relative;
+div#quizContent {
+    padding: 15px 15px 0 15px;
+    float:left;
+}
+
+div#quizContent div#quizIcon {
+    margin: 0 0 10px 0;
+}
+
+div#quizSponsor {
+   position:absolute;
+   right:10px;
+   bottom:10px;
 }

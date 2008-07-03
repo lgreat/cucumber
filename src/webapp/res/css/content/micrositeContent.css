@@ -1,21 +1,26 @@
 .contentMiddleModule {
     border-top: 2px dotted #ccc;
+    padding:7px 0 0 0;
+}
+
+.hideTopBorder {
+    border-top: none;
+    padding-top: 0;
+}
+
+.contentMiddleModule {
     margin: 0 0 7px 2px;
-    padding-top: 7px;
     position: relative;
 }
 
 .gray .wrapper {
 	background: url(/res/img/content/backtoschool/tier3_bg.jpg) repeat-x;
-    padding: 0 0 0 15px;
+    padding: 0 0 0 16px;
     min-height: 288px;
 	height: auto !important;
 	height: 288px;
 }
 
-#contentMiddleModuleBottom {
-    height: 288px;
-}
 
 .box {
 	background: #fff;
@@ -85,3 +90,4 @@ p.question {
     text-align: right;
     padding-right: 10px;
 }
+
