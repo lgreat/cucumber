@@ -7,14 +7,28 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 
-<div>
-    <p id="promoPrompt">
-        ${requestScope.modelAnchor.contents}
-    </p>
+<c:choose>
+    <c:when test="${!empty requestScope.modelAnchor}">
+        <div>
+            <p id="promoPrompt">
+                ${requestScope.modelAnchor.contents}
+            </p>
 
-    <p id="promoResponseButton">
-        <a href="${requestScope.modelAnchor.href}"><img src="/res/img/button/btn_answer.gif" alt="Answer"/></a>
-    </p>
-</div>
+            <p id="promoResponseButton">
+                <a href="${requestScope.modelAnchor.href}"><img src="/res/img/button/btn_answer.gif" alt="Answer"/></a>
+            </p>
+        </div>
+    </c:when>
+    <c:when test="${!empty requestScope.modelAnchorList}">
+        <div>
+            <ul class="bulleted">
+                <c:forEach var="anchor" items="${requestScope.modelAnchorList.results}">
+                    <li><a href="${anchor.href}">${anchor.contents}</a></li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:when>
+</c:choose>
 
 </jsp:root>
+        

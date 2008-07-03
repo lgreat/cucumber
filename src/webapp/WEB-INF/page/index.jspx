@@ -21,6 +21,13 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+
+<jsp:scriptlet>
+SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
 
 <gsml:url var="stateWidgetUrl" value="/miniSelectAState.page"/>
 
@@ -62,15 +69,26 @@
 
 <gsml:body adPageName="splash">
 <pageHelper:externalCss file="/res/css/splash.css"/>
+<pageHelper:externalCss file="/res/css/home/module_base.css"/>
+<pageHelper:externalCss file="/res/css/home/blue_module.css"/>
+<![CDATA[
+<!--[if IE]>
+<style type="text/css">
+.cleared {
+	height: 1%;
+}
+</style>
+<![endif]-->
+]]>
 <!--must match subversion numbers in Template.pm-->
 <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
 <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
 <pageHelper:addOnLoadHandler handler="hoverHome()"/>
+<pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
-<table cellpadding="0" cellspacing="0" width="100%">
-<tr>
-<td>
+
+<div id="contentTop">
     <div id="houseAd">
         <![CDATA[
 
@@ -98,7 +116,7 @@
 
                     if (MM_FlashCanPlay) {
                         // c.swf does flash detection
-                        var HouseAdMediaResource = '/res/swf/c?path=/res/swf/HouseAd_bts2008.swf';
+                        var HouseAdMediaResource = '/res/swf/c?path=/res/swf/HouseAd_bts2007.swf';
 
                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
@@ -124,10 +142,13 @@
                 </noscript>
                 ]]>
     </div>
-</td>
-<td width="8">
-</td>
-<td id="findAndCompare" width="275">
+
+    <div id="contentTopDivider">
+        <!-- don't collapse -->
+    </div>
+
+    <div id="findAndCompareWrapper">
+    <div id="findAndCompare">
 
     <gsml:url var="go" value="/res/img/splash/go.gif"/>
     <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
@@ -191,71 +212,120 @@
             </table>
         </gsweb:form>
     </div>
-</td>
-</tr>
-</table>
- <c:set var="splashAd" value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
-<div class="bigDottedDivider"><hr/></div>
+    </div>
+</div>
+</div>
 
-        <table cellpadding="0" cellspacing="0" width="100%" border="0">
-            <tr>
-                <td id="${splashAd ? 'firstbox' : 'firstboxAdFree'}">
-                    <div id="${splashAd  ? 'week' : 'weekAdFree'}">
-                        <gsml:img src="/res/img/splash/thisweek.gif" alt="This Week at GreatSchools"/>
+<div id="contentMiddle">
 
-                        <!-- <h3>This Week at GreatSchools</h3>  -->
-                        <ul>
-                            <li class="burst"><content:newsItem category="SPLASH POSITION 1"
-                                                                state="${requestScope.context.state}"/></li>
-                            <li class="dialog"><content:newsItem category="SPLASH POSITION 2"
-                                                                 state="${requestScope.context.state}"/></li>
-                            <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"
-                                                                    state="${requestScope.context.state}"/></li>
-                            <li class="sponsor_ad"><ad:Homepage_185x28/></li>
-                        </ul>
+    <div class="moduleBox">
+		<div class="wrapper-outer">
+			<div class="wrapper-inner">
+				<div class="wrapper-content" style="width: 261px; height: 264px;">
+					<!-- Define width (and alternatively height) on .wrapper-content -->
+                    <img class="heading" src="/res/img/home/tools_header.gif" alt="The Latest Tools and Advice" title="" />
+                    <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter" />
+					<ul class="arrows">
+                        <li>Stay on track for <a href="/content/backToSchool.page">Back to School</a>.</li>
+						<li>Get the edge. Start a <a href="/content/countdownToCollege.page">Countdown to College</a>.</li>
+						<li>Are you smarter than your fourth-grader? <a href="/content/btsQuiz.page">See if you make the grade</a>.</li>
+					</ul>
+                    <div class="sponsor_ad"><ad:Homepage_185x28/></div>
+                </div>
+			</div>
+		</div>
+	</div>
+
+    <div class="moduleBox">
+		<div class="wrapper-outer">
+			<div class="wrapper-inner">
+				<div class="wrapper-content" style="width: 241px; height: 264px;">
+					<a onclick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50'); return false;"
+                       class="submodal-480-550" href="/community/newsletters/popup/newsletter.page?referrer=backToSchool"><img src="/res/img/home/newsletter.gif"
+                       alt="Sign me up for free newsletters" title="" /></a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+    <div id="contentMiddleRight">
+        <c:set var="splashAd"
+               value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
+        <c:if test="${splashAd}">
+            <div id="splashAdContent">
+                <ad:Homepage_300x250/>
+            </div>
+        </c:if>
+    </div>
+</div>
+
+<div id="contentBottom">
+
+    <div class="moduleBox">
+		<div class="wrapper-outer">
+			<div class="wrapper-inner">
+				<div class="wrapper-content" style="width: 261px; height: 215px;">
+					<!-- Define width (and alternatively height) on .wrapper-content -->
+                    <img class="heading" src="/res/img/home/choose_school_header.gif" alt="Choosing the right school" title="" />
+                    <div style="width: 85px; height: 171px; float: left;">
+                    <img class="leadoff left" src="/res/img/home/pencil_apple.jpg" alt="Pencil and apple" />
                     </div>
-                </td>
-                <td width="4">
-                </td>
-                <td width="1" style="background-color: #ddd">
-                </td>
-                <td width="4">
-                </td>       
-                <td id="${splashAd  ? 'billsBlog' : 'billsBlogAdFree'}">
-                    <div id="billsdiv"><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
-                        <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsblog.jpg" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
-                        <div class="rss">
-                             <cache:cache scope="application" name="blog" key="bill3">
-                                <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
-                                                  defaultTitle="Bill's thoughts on education"
-                                                  defaultUrl="http://billsblog.greatschools.net"/>
-                            </cache:cache>
-                            <gsml:url var="read" value="/res/img/splash/read.gif"/>
-                            <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
-                            <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
-                                    src="${read}"
-                                    alt="Read Bill's Blog"
-                                    style="margin: 5px 0 4px -2px"
-                                    onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>  
+                    <div id="rightSchoolDiv">
+                    <ul id="rightSchoolLinksDiv" class="bulleted">
+                        <gsweb:articlelink articleId="96" wrappingElement="li">Where do I even start?</gsweb:articlelink>
+                        <gsweb:articlelink articleId="197" wrappingElement="li">Private vs. Public: How to decide?</gsweb:articlelink>
+                        <gsweb:articlelink articleId="87" wrappingElement="li">Tips for selecting the right school</gsweb:articlelink>
+                        <gsweb:articlelink articleId="48" wrappingElement="li">My Checklist for the School Visit</gsweb:articlelink>
+                    </ul>
+
+                    <p class="more" style="margin-top: -7px;">
+                        <a href="/content/schoolChoiceCenter.page">Read more &gt;</a>
+                    </p>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+
+    <div class="moduleBox">
+		<div class="wrapper-outer">
+			<div class="wrapper-inner">
+				<div class="wrapper-content" style="width: 579px; height: 215px;">
+					<div class="blue cleared"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
+
+						<img class="heading" src="/res/img/home/blue_module/parent_to_parent.png" alt="Parent to Parent" title="" />
+
+						<div class="white-box">
+							<h3 class="bubble">Parent Discussions</h3>
+
+                            <jsp:include page="/content/micrositePromo.module?page=home&amp;type=all"/>
+
+                            <p>
+                                <a href="http://${communityHost}/q-and-a"><img src="/res/img/home/blue_module/question_button.png" alt="Ask a Question" title="" border="0" /></a>
+                            </p>
+						</div>
+
+						<div class="transparent-box">
+							<h3>Find Parents Like Me</h3>
+
+							<ul class="bulleted">                                
+                                <li><a href="http://${communityHost}/groups/11534">Parents of preschoolers</a></li>
+								<li><a href="http://${communityHost}/groups/11527">Elementary School Parents</a></li>
+								<li><a href="http://${communityHost}/groups/11528">Middle School Parents</a></li>
+								<li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
+							</ul>
+
+                            <p class="more">
+                                <a href="http://${communityHost}/groups">Find more &gt;</a>
+                            </p>
                         </div>
-                    </div>
-                </td>
-                <c:if test="${splashAd}">
-                <td width="4">
-                </td>
-                <td width="1" style="background-color: #ddd">
-                </td>
-                <td width="4">
-                </td>
-                 <td valign="top" align="center" bgcolor="#EEEEEE">
-                    <div id="splashAdContent">
-                        <!-- <ad:setSlotPrefix slotPrefix="Homepage"/>     -->
-                        <ad:Homepage_300x250/>
-                    </div>
-                </td>
-                </c:if>
-            </tr>
-        </table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div id="homepageFooterAd">
     <ad:Homepage_Footer_728x90/>

@@ -14,7 +14,6 @@ import gs.web.util.google.GoogleSpreadsheetDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Random;
 
 /**
  * This class fetches links from a Google Spreadsheet for rendering in a list to be shown on a microsite page.
@@ -32,7 +31,11 @@ public class MicrositePromoController extends AbstractController {
 
     public static final String VIEW_NAME = "/content/micrositePromo";
     public static final String PARAM_PAGE = "page";
-    public static final String MODEL_ANCHOR = "modelAnchor";    
+    public static final String PARAM_TYPE = "type";
+    public static final String VALUE_ALL = "all";
+    public static final String VALUE_RANDOM = "random";
+    public static final String MODEL_ANCHOR = "modelAnchor";
+    public static final String MODEL_ANCHOR_LIST = "modelAnchorList";
     public static final String SPREADSHEET_PAGE = "page";
     public static final String SPREADSHEET_TEXT = "text";
     public static final String SPREADSHEET_URL = "url";
@@ -98,24 +101,13 @@ public class MicrositePromoController extends AbstractController {
         return worksheetName;
     }
 
-        /**
-     * Returns a random row out of a list of rows.
-     *
-     * @param rows list of rows
-     * @return a random row contained in rows
-     */
-    protected ITableRow getRandomRow(List<ITableRow> rows) {
-        int count = rows.size();
-        Random ran = new Random();
-        int randomIndex = ran.nextInt(count);
-        return rows.get(randomIndex);
-    }
-
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
         String page = request.getParameter(PARAM_PAGE);
+        String type = request.getParameter(PARAM_TYPE);
 
-        if (page == null) {
+        if (page == null || type == null ||
+            (!VALUE_ALL.equals(type) && !VALUE_RANDOM.equals(type))) {
             return null;
         }
 
@@ -123,11 +115,23 @@ public class MicrositePromoController extends AbstractController {
 
         // Note: GoogleSpreadsheetDao returns an empty list of ITableRow if no results found.
 
-        ITableRow row = _tableDao.getRandomRowByKey(SPREADSHEET_PAGE, page);
-        Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
-
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
-        modelAndView.addObject(MODEL_ANCHOR, anchor);
+
+        if (VALUE_RANDOM.equals(type)) {
+            ITableRow row = _tableDao.getRandomRowByKey(SPREADSHEET_PAGE, page);
+            Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
+            modelAndView.addObject(MODEL_ANCHOR, anchor);
+        }
+        else if (VALUE_ALL.equals(type)) {
+            List<ITableRow> rows = _tableDao.getRowsByKey(SPREADSHEET_PAGE, page);
+            AnchorListModel anchorListModel = new AnchorListModel();
+            for (ITableRow row : rows) {
+                Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
+                anchorListModel.add(anchor);
+            }
+            modelAndView.addObject(MODEL_ANCHOR_LIST, anchorListModel);
+        }
+
         return modelAndView;
     }
 }

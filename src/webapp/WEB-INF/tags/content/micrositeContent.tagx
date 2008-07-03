@@ -50,7 +50,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                 <h3 id="boxFirstHeader"><img src="/res/img/content/backtoschool/parent_to_parent.gif"
                      alt="Parent to Parent Stories" title=""/></h3>
 
-                <jsp:include page="/content/micrositePromo.module?page=backtoschool"/>
+                <jsp:include page="/content/micrositePromo.module?page=backtoschool&amp;type=random"/>
 
                 <p id="seeOtherStories">
                     <a href="http://${communityHost}/category/walmart/">See other stories &gt;</a>

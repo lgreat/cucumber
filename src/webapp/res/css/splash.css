@@ -1,35 +1,40 @@
 #contentGS {
     padding-top: 0px;
     font-family: "Trebuchet MS", Arial, sans-serif;
+    color: #666;
+    /*margin: 0 18px;*/
+    margin: 0 8px;
 }
-
-.bigDottedDivider {
-    margin-top: 10px;
-    text-align:center;
-    background-image: url( ../img/splash/greyDot.gif );
-    background-repeat:repeat-x;
-    background-position:bottom;
-    padding-bottom:5px;
-    padding-top:3px;
-    padding-left:9px;
-    margin-bottom: 10px;
-    width: 851px;
-}
-
-.bigDottedDivider hr {
-    display:none;
-    width:0;
-}
-
 
 /* TOP SECTION */
 
+#houseAd {
+    float: left;
+    width: 584px;
+    height: 291px;
+}
+
+#contentTopDivider {
+    width: 8px;
+    height: 291px;
+    float: left;
+}
+
+#findAndCompareWrapper {
+    width: 273px;
+    height: 251px;
+    float: left;
+}
+
 #findAndCompare {
     border: 3px solid #6cc;
-    padding: 20px 8px 10px 9px;
+    padding: 40px 8px 10px 9px;
     margin: 0;
-    width: 240px;
-    height: 100%;
+    /*width: 240px;*/
+    /*height: 100%;*/
+
+    width: 249px;
+    height: 235px;
 }
 
 #findAndCompare h3 {
@@ -92,129 +97,6 @@
     margin: 3px 3px 3px 0px;
 }
 
-#firstbox,#firstboxAdFree {
-    vertical-align: top;
-    height: 100%;
-    background-color:#eee;
-}
-
-#firstbox {
-    width: 263px;
-}
-
-#firstboxAdFree {
-    width: 428px;
-}
-
-#week,#weekAdFree {
-    background-color: #eee;
-    color: #666666;
-    font-weight: 100;
-    padding: 22px 20px 10px 8px;
-    min-height: 205px; /* padding-top + min-height = 150px */
-    height: 100%;
-}
-#weekAdFree {
-    padding-left: 24px;
-}
-
-#week img{
-    padding-left: 14px;
-}
-
-#weekAdFree img{
-    padding-left: 30px;
-}
-
-#week ul,#weekAdFree ul {
-    padding-left: 0px;
-    padding-right: 20px;
-    padding-top: 20px;
-}
-
-#week h3,#weekAdFree h3 {
-    height: 35px;
-    text-indent: -9999px;
-    overflow: hidden;
-    background-repeat: no-repeat;
-    background-position: 24px -2px;
-}
-
-#week ul li,#weekAdFree ul li {
-    font-size: .9em;
-    margin: 0 0 3px 0;
-    padding: 0px 0 0px 32px;
-    background-repeat: no-repeat;
-    background-position: 4px 4px;
-}
-
-#week ul li a,#weekAdFree ul li a {
-    color: #555555;
-    font-weight: bold;
-    text-decoration: underline;
-    display: block;
-}
-
-#week ul li a:visited,#weekAdFree ul li {
-    color: #555555;
-}
-
-ul li.burst {
-    background-image: url( ../img/bullet/yellow/trans/burst.gif );
-}
-
-ul li.dialog {
-    background-image: url( ../img/bullet/yellow/trans/dialog.gif );
-}
-
-ul li.checkmark {
-    background-image: url( ../img/bullet/yellow/trans/check.gif );
-}
-
-#week ul li.sponsor_ad img {
-    padding: 0;
-}
-
-/*
-
-*/
-td#billsBlog, td#billsBlogAdFree {
-    background-color: #eee;
-    color: #666666;
-    font-weight: 100;
-    padding: 22px 16px 16px 22px;
-    min-height: 130px; /* padding-top + min-height = 150px */
-    height: 100%;
-    vertical-align: top;
-}
-
-
-td#billsBlog img,td#billsBlogAdFree img { margin-bottom: 17px; }
-
-td#billsBlog div.billsdiv { width: 263px; }
-
-#billsBlog div.rss,#billsBlogAdFree div.rss {
-    margin-top: 0px;
-    font-size: 12px;
-    font-weight: normal;
-    line-height:15px;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-#billsBlog div.rss{
-    width: 222px;
-}
-
-
-
-#billsBlog a, #billsBlog a:hover, #billsBlog a:visited,
-    #billsBlogAdFree a, #billsBlogAdFree a:hover, #billsBlogAdFree a:visited
-{
-    color: #3399aa;
-    text-decoration: underline;
-}
-
 /* PM don't want search box on the splash page */
 #topnav .searchLabel, #topnav .search {
     display: none;
@@ -228,6 +110,52 @@ div#footer { padding-top:2px; }
 #homepageFooterAd {
     width: 728px;
     height: 90px;
-    padding-top: 50px;
+    padding-top: 10px;
     margin: auto;
+    clear: both;
+}
+
+#contentTop {
+    width: 865px;
+    height: 291px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#contentMiddle {
+    width: 870px;
+    height: 277px;
+    margin-bottom: 10px;
+    _margin-bottom: 2px;
+    margin-left: 3px;
+}
+
+#contentMiddleRight {
+    float: right;
+    background-color: #EEEEEE;
+}
+
+#contentBottom {
+    clear: both;
+    width: 880px;
+    height: 250px;
+    margin-left: 3px;
+}
+
+.contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
+    color: #39A;
+}
+
+.more {
+    text-align: right;
+}
+
+#rightSchoolDiv {
+    float: right;
+    width: 164px; 
+}
+
+#rightSchoolLinksDiv {
+    margin-left: 0px;
+    margin-top: 10px;
 }
