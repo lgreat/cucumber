@@ -64,6 +64,14 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
         }
     </script>
 
+    <!--[if IE]>
+    <style type="text/css">
+    .cleared {
+        height: 1%;
+    }
+    </style> 
+    <![endif]-->
+
     <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8=" />
 </head>
 
@@ -71,15 +79,6 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 <pageHelper:externalCss file="/res/css/splash.css"/>
 <pageHelper:externalCss file="/res/css/home/module_base.css"/>
 <pageHelper:externalCss file="/res/css/home/blue_module.css"/>
-<![CDATA[
-<!--[if IE]>
-<style type="text/css">
-.cleared {
-	height: 1%;
-}
-</style>
-<![endif]-->
-]]>
 <!--must match subversion numbers in Template.pm-->
 <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
 <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
@@ -230,7 +229,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 						<li>Get the edge. Start a <a href="/content/countdownToCollege.page">Countdown to College</a>.</li>
 						<li>Are you smarter than your fourth-grader? <a href="/content/btsQuiz.page">See if you make the grade</a>.</li>
 					</ul>
-                    <div class="sponsor_ad"><ad:Homepage_185x28/></div>
+                    <div class="sponsor_ad" style="width: 185px; height: 28px; background-color: red;"><ad:Homepage_185x28/></div>
                 </div>
 			</div>
 		</div>
@@ -320,8 +319,8 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                                 <a href="http://${communityHost}/groups">Find more &gt;</a>
                             </p>
                         </div>
-					</div>
-				</div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>

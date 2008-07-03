@@ -110,7 +110,7 @@ div#footer { padding-top:2px; }
 #homepageFooterAd {
     width: 728px;
     height: 90px;
-    padding-top: 10px;
+    padding-top: 30px;
     margin: auto;
     clear: both;
 }
@@ -138,7 +138,7 @@ div#footer { padding-top:2px; }
 #contentBottom {
     clear: both;
     width: 880px;
-    height: 250px;
+    height: 215px;  /*215*/
     margin-left: 3px;
 }
 
