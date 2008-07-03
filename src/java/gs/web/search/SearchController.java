@@ -226,7 +226,7 @@ public class SearchController extends AbstractFormController {
 
         boolean resultsToShow = false;
         Sort sort = createSort(request, searchCommand);
-        searchCommand.setSort(sort);
+        //searchCommand.setSort(sort);
 
         _log.warn("sort: " + ((sort != null) ?  sort.toString(): "null"));
         _log.warn("searchCommand: \n" + searchCommand.toString());
