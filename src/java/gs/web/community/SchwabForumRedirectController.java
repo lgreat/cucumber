@@ -20,13 +20,15 @@ public class SchwabForumRedirectController implements Controller {
 
         String hostPrefix = SessionContextUtil.getServerName(request);
         String wwwSiteHostname = "http://" + hostPrefix + ".greatschools.net";
+        String hostInfix = ("www".equals(hostPrefix)) ? "" : "." + hostPrefix;
+        String forumArchiveHostname = "http://schwablearningforumarchive" + hostInfix + ".greatschools.net";
 
         // default to /content/specialNeeds.page
         String redirectURL = wwwSiteHostname + "/content/specialNeeds.page";
 
         try {
             int articleIdAsInt = Integer.parseInt(threadId);
-            redirectURL = "http://schwablearningforumarchive.greatschools.net/archive/" + threadId + ".html";
+            redirectURL = forumArchiveHostname + "/thread/" + threadId + ".html";
         } catch (NumberFormatException e) {
             _log.error("Bad thread ID passed to SchwabForumRedirectController: " + threadId, e);
         }

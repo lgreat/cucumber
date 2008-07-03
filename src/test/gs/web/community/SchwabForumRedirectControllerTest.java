@@ -12,7 +12,7 @@ public class SchwabForumRedirectControllerTest extends BaseControllerTestCase {
         _request.addParameter("thread", "200");
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Expected permanent redirect so crawlers will follow link", HttpServletResponse.SC_MOVED_PERMANENTLY, _response.getStatus());
-        assertEquals("Unexpected redirect URL", "http://schwablearningforumarchive.greatschools.net/archive/200.html", _response.getHeader("Location"));
+        assertEquals("Unexpected redirect URL", "http://schwablearningforumarchive.greatschools.net/thread/200.html", _response.getHeader("Location"));
     }
 
     public void testShouldRedirectToLDMicrositeIfNoID() throws Exception {
@@ -26,6 +26,26 @@ public class SchwabForumRedirectControllerTest extends BaseControllerTestCase {
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Expected permanent redirect so crawlers will follow link", HttpServletResponse.SC_MOVED_PERMANENTLY, _response.getStatus());
         assertEquals("Unexpected default redirect URL", "http://www.greatschools.net/content/specialNeeds.page", _response.getHeader("Location"));
+    }
+
+    public void testShouldRedirectToCorrectEnvironment() throws Exception {
+        _sessionContext.setHostName("www.schwablearning.org");
+        _request.addParameter("thread", "200");
+        ModelAndView modelAndView = _controller.handleRequest(_request, _response);
+        assertEquals("Expected permanent redirect so crawlers will follow link", HttpServletResponse.SC_MOVED_PERMANENTLY, _response.getStatus());
+        assertEquals("Unexpected redirect URL", "http://schwablearningforumarchive.greatschools.net/thread/200.html", _response.getHeader("Location"));
+
+        _sessionContext.setHostName("schwablearning.greatschools.net");
+        modelAndView = _controller.handleRequest(_request, _response);
+        assertEquals("Unexpected redirect URL", "http://schwablearningforumarchive.greatschools.net/thread/200.html", _response.getHeader("Location"));
+
+        _sessionContext.setHostName("schwablearning.staging.greatschools.net");
+        modelAndView = _controller.handleRequest(_request, _response);
+        assertEquals("Unexpected redirect URL", "http://schwablearningforumarchive.staging.greatschools.net/thread/200.html", _response.getHeader("Location"));
+
+        _sessionContext.setHostName("schwablearning.dev.greatschools.net");
+        modelAndView = _controller.handleRequest(_request, _response);
+        assertEquals("Unexpected redirect URL", "http://schwablearningforumarchive.dev.greatschools.net/thread/200.html", _response.getHeader("Location"));
     }
 
     public void testShouldRedirectErrorsToCorrectEnvironment() throws Exception {
