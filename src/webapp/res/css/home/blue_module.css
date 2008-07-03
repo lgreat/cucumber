@@ -1,5 +1,6 @@
 .moduleBox .blue {
 	background: url(/res/img/home/blue_module/blue_bg.png) repeat-x left 20px;
+    height: 215px;
 }
 
 .blue .heading {
