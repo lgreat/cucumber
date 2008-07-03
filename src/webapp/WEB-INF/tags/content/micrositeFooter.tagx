@@ -66,11 +66,17 @@
         <div class="editorialFooterBox right">
             <c:choose>
                 <c:when test="${crossPromo eq 'election2008'}">
-                    <h3>Election 2008</h3>
+                    <!--<h3>Election 2008</h3>-->
+                    <!--<p>-->
+                        <!--GreatSchools is working with Strong American Schools-->
+                        <!--to help start a serious nationwide debate on education reform.<br/>-->
+                        <!--<a href="/content/election2008.page">Learn more &gt;</a>-->
+                    <!--</p>-->
+                    <h3>Countdown to College</h3>
                     <p>
-                        GreatSchools is working with Strong American Schools
-                        to help start a serious nationwide debate on education reform.<br/>
-                        <a href="/content/election2008.page">Learn more &gt;</a>
+                        Resources and tools to help you and your
+                        high-schooler prepare for college.<br/>
+                        <a href="/content/countdownToCollege.page">Learn more &gt;</a>
                     </p>
                 </c:when>
                 <c:otherwise>

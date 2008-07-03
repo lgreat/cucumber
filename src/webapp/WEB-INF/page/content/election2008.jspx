@@ -61,11 +61,11 @@
                             Seventy percent of eighth graders are not
                             proficient in reading &amp;#8212; and most will never catch up.
                         </p>
-                        <p class="alignright">
-                            <a href="http://www.edin08.com/GetTheFacts.aspx" target="_blank"><img
-                                    src="/res/img/content/election2008/morestats_btn.gif"
-                                    alt="More Stats"/></a>
-                        </p>
+                        <!--<p class="alignright">-->
+                            <!--<a href="http://www.edin08.com/GetTheFacts.aspx" target="_blank"><img-->
+                                    <!--src="/res/img/content/election2008/morestats_btn.gif"-->
+                                    <!--alt="More Stats"/></a>-->
+                        <!--</p>-->
 
                         <img class="left-corner"
                              src="/res/img/content/election2008/shadow_left-corner.png" alt=""/>
@@ -129,14 +129,14 @@
         <div class="hr dotted middleDivider"><hr/></div>
 
         <div class="contentMiddleModule strongAmericanSchools">
-            <div class="header">About <a href="http://www.edin08.com/"
+            <div class="header">About <a href="http://www.edin08.com/Participate.aspx"
                                          target="_blank">Strong American Schools</a></div>
             <div class="body">
                 Strong American Schools is a nonpartisan public awareness
                 and advocacy effort aimed at elevating discussion amongst
                 America's leaders about the need for education reform.
                 <br/>
-                <a href="http://www.edin08.com/" target="_blank">Learn more &gt;</a>
+                <a href="http://www.edin08.com/Participate.aspx" target="_blank">Learn more &gt;</a>
             </div>
         </div>
     </div>
