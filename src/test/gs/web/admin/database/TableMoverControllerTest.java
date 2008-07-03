@@ -5,7 +5,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
 import java.util.List;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TableMoverControllerTest extends BaseControllerTestCase {
     private TableMoverController _controller;
@@ -25,7 +26,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
     public void testRequestToProductionFails() throws Exception {
         _sessionContext.setHostName("www.greatschools.net");
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
-        assertEquals("Unexpected view for production", _controller._errorViewName, modelAndView.getViewName());
+        assertEquals("Unexpected view for production", _controller._errorView, modelAndView.getViewName());
     }
 
     public void testRequiredStateAndTableSetsValidation() {
@@ -55,10 +56,12 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(cmd, "");
 
         // Test duplicate tables with the database specified
+        cmd.setMode("preview");
         cmd.setTablesets(new String[]{"us_geo.city,us_geo.city", "us_geo.city"});
-        cmd.setStates(new String[]{});
+        cmd.setStates(new String[]{"CA"});
         ModelAndView mv = _controller.onSubmit(_request, _response, cmd, errors);
-        List tables = (List) mv.getModel().get("tables");
+        List tables = Arrays.asList(cmd.getTables());
+        assertNotNull(tables);
         assertEquals(1, tables.size());
         assertEquals("us_geo.city", tables.get(0));
 
@@ -66,7 +69,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         cmd.setTablesets(new String[]{"school,us_geo.city", "us_geo.city,school"});
         cmd.setStates(new String[]{"WY", "OR"});
         mv = _controller.onSubmit(_request, _response, cmd, errors);
-        tables = (List) mv.getModel().get("tables");
+        tables = Arrays.asList(cmd.getTables());
         assertEquals(3, tables.size());
         assertTrue(tables.contains("us_geo.city"));
         assertTrue(tables.contains("_or.school"));
@@ -76,7 +79,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         cmd.setTablesets(new String[]{"school", "us_geo.city"});
         cmd.setStates(new String[]{"WY", "OR"});
         mv = _controller.onSubmit(_request, _response, cmd, errors);
-        tables = (List) mv.getModel().get("tables");
+        tables = Arrays.asList(cmd.getTables());
         assertEquals(3, tables.size());
         assertTrue(tables.contains("us_geo.city"));
         assertTrue(tables.contains("_or.school"));
@@ -86,7 +89,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         cmd.setTablesets(new String[]{"school", "us_geo.city"});
         cmd.setStates(new String[]{"", "OR"});
         mv = _controller.onSubmit(_request, _response, cmd, errors);
-        tables = (List) mv.getModel().get("tables");
+        tables = Arrays.asList(cmd.getTables());
         assertEquals(52, tables.size());
         assertTrue(tables.contains("us_geo.city"));
         assertTrue(tables.contains("_or.school"));
@@ -95,7 +98,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
 
     public void testGetBasedFormSubmission() {
         assertFalse(_controller.isFormSubmission(_request));
-        _request.addParameter("target", "dev");
+        _request.addParameter("mode", "preview");
         assertTrue(_controller.isFormSubmission(_request));
     }
 }

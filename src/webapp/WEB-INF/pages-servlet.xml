@@ -835,8 +835,9 @@
 
     <bean name="/admin/database/tableMover.page" class="gs.web.admin.database.TableMoverController" lazy-init="true">
         <property name="formView" value="admin/database/tableMover"/>
-        <property name="successView" value="admin/database/tableMoverPreview"/>
-        <property name="errorViewName" value="admin/noProductionAccess"/>
+        <property name="previewView" value="admin/database/tableMoverPreview"/>
+        <property name="successView" value="admin/database/tableMoverComplete"/>
+        <property name="errorView" value="admin/noProductionAccess"/>
         <property name="commandName" value="tableMoverCmd"/>
         <property name="commandClass" value="gs.web.admin.database.TableMoverCommand"/>
         <!--<property name="validators">-->

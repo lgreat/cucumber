@@ -20,30 +20,41 @@ import java.util.*;
 public class TableMoverController extends SimpleFormController {
     public static final String BEAN_ID = "/admin/database/tableMover.page";
 
-    protected String _viewName;
-    protected String _errorViewName;
+    protected String _previewView;
+    protected String _errorView;
     protected StateManager _stateManager;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         if (!new UrlUtil().isDevEnvironment(sessionContext.getHostName())) {
             // Only allowed to access from dev, otherwise, this error
-            return new ModelAndView(_errorViewName);
+            return new ModelAndView(_errorView);
         } else {
             request.setAttribute("allStates", _stateManager.getListByAbbreviations());
             return super.handleRequest(request, response);
         }
     }
 
+    protected boolean isFormChangeRequest(HttpServletRequest request, Object command) {
+        TableMoverCommand cmd = (TableMoverCommand) command;
+        return "edit".equals(cmd.getMode());
+    }
+
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
                                      BindException errors) {
-        TableMoverCommand tableMoverCommand = (TableMoverCommand) command;
-        if (tableMoverCommand.getTablesets().length == 0) {
-            errors.reject("tablesets", "You must select at least one table set.");
-        }
-        if (tableMoverCommand.getStates().length == 0) {
-            errors.reject("states", "You must select at least one state.");
+        TableMoverCommand cmd = (TableMoverCommand) command;
+        if ("move".equals(cmd.getMode())) {
+            if (cmd.getTables().length == 0) {
+                errors.reject("tables", "You must select at least on table to move.");
+            }
+        } else {
+            if (cmd.getTablesets().length == 0) {
+                errors.reject("tablesets", "You must select at least one table set.");
+            }
+            if (cmd.getStates().length == 0) {
+                errors.reject("states", "You must select at least one state.");
+            }
         }
     }
 
@@ -54,12 +65,19 @@ public class TableMoverController extends SimpleFormController {
         TableMoverCommand cmd = (TableMoverCommand) command;
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(getCommandName(), cmd);
-
-        model.put("tables", processTableSets(cmd.getTablesets(), cmd.getStates()));
-        return new ModelAndView(getSuccessView(), model);
+        if ("move".equals(cmd.getMode())) {
+            try {
+                Thread.sleep(4000);
+            } catch (Exception e) {
+            }
+            return new ModelAndView(getSuccessView(), model);
+        } else {
+            cmd.setTables(processTableSets(cmd.getTablesets(), cmd.getStates()));
+            return new ModelAndView(getPreviewView(), model);
+        }
     }
 
-    protected List<String> processTableSets(String[] tableSets, String[] states) {
+    protected String[] processTableSets(String[] tableSets, String[] states) {
         Set<String> tables = new TreeSet<String>();
         // Reduce to unique table names
         for (String tableSet : tableSets) {
@@ -82,19 +100,27 @@ public class TableMoverController extends SimpleFormController {
                 tables.remove(table);
             }
         }
-        return new ArrayList<String>(tables);
+        return tables.toArray(new String[tables.size()]);
     }
 
     protected boolean isFormSubmission(HttpServletRequest request) {
         boolean submission = false;
-        if (request.getParameter("target") != null) {
+        if (request.getParameter("mode") != null) {
             submission = true;
         }
         return submission;
     }
 
-    public void setErrorViewName(String errorViewName) {
-        _errorViewName = errorViewName;
+    public void setErrorView(String errorView) {
+        _errorView = errorView;
+    }
+
+    public void setPreviewView(String previewView) {
+        _previewView = previewView;
+    }
+
+    public String getPreviewView() {
+        return _previewView;
     }
 
     public void setStateManager(StateManager stateManager) {

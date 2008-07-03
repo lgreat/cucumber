@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TableMoverCommand.java,v 1.1 2008/07/02 01:00:10 thuss Exp $
+ * $Id: TableMoverCommand.java,v 1.2 2008/07/03 01:01:40 thuss Exp $
  */
 package gs.web.admin.database;
 
@@ -15,6 +15,8 @@ public class TableMoverCommand {
     private String _jira;
     private String _initials;
     private String _notes;
+    private String[] _tables;
+    private String mode;
 
     public String getTarget() {
         return _target;
@@ -62,5 +64,21 @@ public class TableMoverCommand {
 
     public void setNotes(String notes) {
         _notes = notes;
+    }
+
+    public String[] getTables() {
+        return _tables;
+    }
+
+    public void setTables(String[] tables) {
+        _tables = tables;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }
