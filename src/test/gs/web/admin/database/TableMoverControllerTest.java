@@ -1,14 +1,15 @@
 package gs.web.admin.database;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.admin.gwt.server.TableCopyServiceImpl;
 import gs.web.admin.gwt.client.ServiceException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.io.IOException;
+
+import static org.easymock.classextension.EasyMock.*;
 
 public class TableMoverControllerTest extends BaseControllerTestCase {
     private TableMoverController _controller;
@@ -34,6 +35,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
     public void testValidation() {
         TableMoverCommand cmd = new TableMoverCommand();
         cmd.setTarget("dev");
+        cmd.setMode("preview");
         cmd.setTablesets(new String[0]);
         cmd.setStates(new String[0]);
         BindException errors = new BindException(cmd, "");
@@ -54,19 +56,29 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
                 0, errors.getAllErrors().size());
 
         cmd.setTablesets(new String[]{"gs_schooldb.operator"});
+        errors = new BindException(cmd, "");
         _controller.onBindAndValidate(_request, cmd, errors);
         assertEquals("Should be an error because gs_schooldb.operator is blocked by the blacklist",
                 1, errors.getAllErrors().size());
 
         cmd.setTablesets(new String[]{"gs_schooldb.operator"});
+        errors = new BindException(cmd, "");
         _controller.onBindAndValidate(_request, cmd, errors);
         assertEquals("Should be an error because gs_schooldb.operator is blocked by the blacklist",
                 1, errors.getAllErrors().size());
 
         cmd.setTarget("staging");
         cmd.setTablesets(new String[]{"gs_schooldb.foo"});
+        errors = new BindException(cmd, "");
         _controller.onBindAndValidate(_request, cmd, errors);
         assertEquals("Should be an error because gs_schooldb.operator is not on the whitelist",
+                1, errors.getAllErrors().size());
+
+        cmd.setMode("move");
+        cmd.setTables(new String[]{});
+        errors = new BindException(cmd, "");
+        _controller.onBindAndValidate(_request, cmd, errors);
+        assertEquals("Should be an error because a list of tables are required when mode is to move tables",
                 1, errors.getAllErrors().size());
     }
 
@@ -80,7 +92,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         cmd.setTablesets(new String[]{"us_geo.city,us_geo.city", "us_geo.city"});
         cmd.setStates(new String[]{"CA"});
         _controller.onBindAndValidate(_request, cmd, errors);
-        ModelAndView mv = _controller.onSubmit(_request, _response, cmd, errors);
+        _controller.onSubmit(_request, _response, cmd, errors);
         List tables = Arrays.asList(cmd.getTables());
         assertNotNull(tables);
         assertEquals(1, tables.size());
@@ -90,7 +102,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         cmd.setTablesets(new String[]{"school,us_geo.city", "us_geo.city,school"});
         cmd.setStates(new String[]{"WY", "OR"});
         _controller.onBindAndValidate(_request, cmd, errors);
-        mv = _controller.onSubmit(_request, _response, cmd, errors);
+        _controller.onSubmit(_request, _response, cmd, errors);
         tables = Arrays.asList(cmd.getTables());
         assertEquals(3, tables.size());
         assertTrue(tables.contains("us_geo.city"));
@@ -101,7 +113,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         cmd.setTablesets(new String[]{"school", "us_geo.city"});
         cmd.setStates(new String[]{"WY", "OR"});
         _controller.onBindAndValidate(_request, cmd, errors);
-        mv = _controller.onSubmit(_request, _response, cmd, errors);
+        _controller.onSubmit(_request, _response, cmd, errors);
         tables = Arrays.asList(cmd.getTables());
         assertEquals(3, tables.size());
         assertTrue(tables.contains("us_geo.city"));
@@ -112,12 +124,41 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         cmd.setTablesets(new String[]{"school", "us_geo.city"});
         cmd.setStates(new String[]{"", "OR"});
         _controller.onBindAndValidate(_request, cmd, errors);
-        mv = _controller.onSubmit(_request, _response, cmd, errors);
+        _controller.onSubmit(_request, _response, cmd, errors);
         tables = Arrays.asList(cmd.getTables());
         assertEquals(52, tables.size());
         assertTrue(tables.contains("us_geo.city"));
         assertTrue(tables.contains("_or.school"));
         assertTrue(tables.contains("_wy.school"));
+    }
+
+    public void testMoveTables() throws Exception {
+        TableMoverCommand cmd = new TableMoverCommand();
+        cmd.setTarget("staging");
+        BindException errors = new BindException(cmd, "");
+        cmd.setMode("move");
+        cmd.setTables(new String[]{"us_geo.city", "gs_schooldb.test"});
+
+        // backup and then put in a table copy service mock
+        TableCopyServiceImpl tcsBackup = _controller._tableCopyService;
+        try {
+            TableCopyServiceImpl tcs = createMock(TableCopyServiceImpl.class);
+            expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andReturn("ABC");
+            expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andThrow(new ServiceException("XYZ"));
+            replay(tcs);
+            _controller.setTableCopyService(tcs);
+
+            // Check normal operation
+            ModelAndView mv = _controller.onSubmit(_request, _response, cmd, errors);
+            assertEquals("ABC", mv.getModel().get("wikiText"));
+
+            // Check when an exception is thrown
+            mv = _controller.onSubmit(_request, _response, cmd, errors);
+            assertTrue(((String)mv.getModel().get("errors")).startsWith("XYZ"));
+            verify(tcs);
+        } finally {
+            _controller.setTableCopyService(tcsBackup);
+        }
     }
 
     public void testGetBasedFormSubmission() {

@@ -23,10 +23,12 @@ import java.io.Writer;
 
 /**
  * Controller to handle moving tables
+ *
+ * @author thuss
  */
 public class TableMoverController extends SimpleFormController {
-    public static final String BEAN_ID = "/admin/database/tableMover.page";
 
+    public static final String BEAN_ID = "/admin/database/tableMover.page";
     protected String _previewView;
     protected String _errorView;
     protected StateManager _stateManager;
@@ -38,6 +40,7 @@ public class TableMoverController extends SimpleFormController {
             // Only allowed to access from dev, otherwise, this error
             return new ModelAndView(_errorView);
         } else {
+            request.setAttribute("allTableSets", getAllTableSets());
             request.setAttribute("allStates", _stateManager.getListByAbbreviations());
             return super.handleRequest(request, response);
         }
@@ -135,6 +138,33 @@ public class TableMoverController extends SimpleFormController {
             submission = true;
         }
         return submission;
+    }
+
+    private Map<String, String> getAllTableSets() {
+        // Tables without a database prefix are assumed to be state specific.
+        Map<String, String> tableSets = new LinkedHashMap<String, String>();
+        tableSets.put("gs_schooldb.configuation,TestDataSet,TestDataSchoolValue,city_rating,district_rating", "All ratings");
+        tableSets.put("gs_schooldb.configuation,TestDataSet,TestDataSchoolValue", "School ratings");
+        tableSets.put("city_rating", "City ratings");
+        tableSets.put("district_rating", "District ratings");
+        tableSets.put("school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer", "Public Directory (with census)");
+        tableSets.put("school,district,pq,pq_volunteer", "Public Directory (no census)");
+        tableSets.put("school,census_data_set,census_data_school_value,pq,pq_volunteer", "Private Directory: Schools only (with census)");
+        tableSets.put("school,pq,pq_volunteer", "Private Directory: Schools only (no census)");
+        tableSets.put("gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby", "Directory Copy Up (with census)");
+        tableSets.put("gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby", "Directory Copy Up (no census)");
+        tableSets.put("school,pq,pq_volunteer", "Schools and ESP");
+        tableSets.put("nearby", "Nearby");
+        tableSets.put("pq,pq_volunteer", "ESP");
+        tableSets.put("school,nearby", "School and Nearby");
+        tableSets.put("school", "Schools only (no census)");
+        tableSets.put("district", "Districts only (no census)");
+        tableSets.put("us_geo.city", "Cities");
+        tableSets.put("census_data_set,census_data_school_value,census_data_district_value", "School and District Census");
+        tableSets.put("census_data_set,census_data_school_value", "School Census");
+        tableSets.put("gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad", "Census Copy Up");
+        tableSets.put("gs_schooldb.test", "Table for testing this tool");
+        return tableSets;
     }
 
     public void setErrorView(String errorView) {

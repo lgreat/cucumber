@@ -198,34 +198,29 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testGetDatabaseTableMatcher() {
-        String database = "xxx";
-        String table = "yyy";
-        assertEquals("Unexpected regular expression to match database and table on one line", "(?m)^.*>\\s*xxx\\s*<.*>\\s*yyy\\s*<(.*/td>\\s*<td){4}.*$",
-                _tableCopyService.getDatabaseTableMatcher(database, table));
-
-        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.census_data_school_file"}), null);
+        String page = generateTableToMovePage(Arrays.asList("database1.table1", "database2.census_data_school_file", "all -database3 -database4.table2"), null);
         assertTrue("Expected to match database1.table1",
                 Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database1", "table1")).matcher(page).find());
-        assertFalse("Shouldn't match database1.table2",
-                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database1", "table2")).matcher(page).find());
+        assertFalse("Shouldn't match database1.table3",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database1", "table3")).matcher(page).find());
         assertTrue("Expected to match database2.census_data_school_file",
                 Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database2", "census_data_school_file")).matcher(page).find());
         assertFalse("Shouldn't match partial database name",
                 Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database", "census_data_school_file")).matcher(page).find());
         assertFalse("Shouldn't match partial table name",
                 Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database2", "school")).matcher(page).find());
+        assertFalse("Shouldn't match database3.table2 because it's excluded with a minus",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database3", "table2")).matcher(page).find());
+        assertFalse("Shouldn't match database4.table2 because it's excluded with a minus",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database4", "table2")).matcher(page).find());
+        assertTrue("Should match database5.table2 because it falls into the all group",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database5", "table2")).matcher(page).find());
     }
 
     public void testGetDatabaseTableCopiedToDevMatcher() {
-        String database = "xxx";
-        String table = "yyy";
-        assertEquals("Unexpected regular expression to match database and table on one line with live -> dev marked done",
-                "(?m)^.*>\\s*xxx\\s*<.*>\\s*yyy\\s*<.*>\\s*(done|n/a|N/A)\\s*<(.*/td>\\s*<td){3}.*$",
-                _tableCopyService.getDatabaseTableCopiedToDevMatcher(database, table));
-
-        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2", "database3.table3", "database4.table4"}),
-                new String[]{"done", "N/A", "n/a", ""});
-
+        String page = generateTableToMovePage(Arrays.asList("database1.table1", "database2.table2", "database3.table3",
+                "database4.table4", "all -database1 -database2.table5", "all -database1 -database2.table6"),
+                new String[]{"done", "N/A", "n/a", "", "done", ""});
         assertTrue("Expected to match database1.table1 marked as done",
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table1")).matcher(page).find());
         assertTrue("Expected to match database2.table2 marked as N/A",
@@ -240,6 +235,14 @@ public class TableCopyServiceSaTest extends BaseTestCase {
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("base3", "table3")).matcher(page).find());
         assertFalse("Shouldn't match partial table name",
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database3", "table")).matcher(page).find());
+        assertTrue("Expected to match database9.table5 falls into all group and marked done",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database9", "table5")).matcher(page).find());
+        assertFalse("Shouldn't match database1.table5 because it's minused from all group",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table5")).matcher(page).find());
+        assertFalse("Shouldn't match database9.table6 not marked done",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database9", "table6")).matcher(page).find());
+        assertFalse("Shouldn't match database1.table6 not marked done",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table6")).matcher(page).find());
     }
 
     public void testCheckWikiForSelectedTablesWhenAlreadyCopied() throws IOException {
@@ -297,11 +300,21 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
     public void testFilterDatabaseListForDevToStaging() {
         Set gs_schooldbTables = (Set) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("gs_schooldb");
-        List allGs_schooldbTables = new ArrayList() {{add("test1");add("test2");}};
+        List allGs_schooldbTables = new ArrayList() {
+            {
+                add("test1");
+                add("test2");
+            }
+        };
         allGs_schooldbTables.addAll(gs_schooldbTables);
 
         Set us_geoTables = (Set) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("us_geo");
-        List allUs_geoTables = new ArrayList() {{add("test1");add("test2");}};
+        List allUs_geoTables = new ArrayList() {
+            {
+                add("test1");
+                add("test2");
+            }
+        };
         allUs_geoTables.addAll(us_geoTables);
 
         TableData databases = new TableData();
@@ -353,20 +366,20 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         }
 
         return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
-            "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> \n" +
-            "<head>\n" +
-            " <link href=\"/pub/TWiki/GnuSkin/twikiblue.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
-            " <title> Wiki . Greatschools . TableToMove   </title>\n" +
-            " <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n" +
-            "  \n" +
-            " <base href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" />\n" +
-            "</head>\n" +
-            "\n" +
-            "<body bgcolor=\"white\" text=\"black\" link=\"blue\" alink=\"aqua\" vlink=\"purple\">\n" +
-            tableBuffer.toString() +
-            "</table>\n" +
-            "</body>\n" +
-            "</html>";
+                "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> \n" +
+                "<head>\n" +
+                " <link href=\"/pub/TWiki/GnuSkin/twikiblue.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+                " <title> Wiki . Greatschools . TableToMove   </title>\n" +
+                " <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n" +
+                "  \n" +
+                " <base href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" />\n" +
+                "</head>\n" +
+                "\n" +
+                "<body bgcolor=\"white\" text=\"black\" link=\"blue\" alink=\"aqua\" vlink=\"purple\">\n" +
+                tableBuffer.toString() +
+                "</table>\n" +
+                "</body>\n" +
+                "</html>";
     }
 
 }

@@ -258,12 +258,12 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
 
     public String getDatabaseTableMatcher(String database, String table) {
         // match database and table surrounded by tags, only on the same line, followed by at least 4 table cells
-        return "(?m)^.*>\\s*" + database + "\\s*<.*>\\s*" + table + "\\s*<(.*/td>\\s*<td){4}.*$";
+        return "(?m)^.*>\\s*(" + database + "|all|all(\\s+-(?!" + database + ")\\S+)+)\\s*<.*>\\s*" + table + "\\s*<(.*/td>\\s*<td){4}.*$";
     }
 
     public String getDatabaseTableCopiedToDevMatcher(String database, String table) {
         // match database and table surrounded by tags, only on the same line, with "done" followed by at least 3 table cells
-        return "(?m)^.*>\\s*" + database + "\\s*<.*>\\s*" + table + "\\s*<.*>\\s*(done|n/a|N/A)\\s*<(.*/td>\\s*<td){3}.*$";
+        return "(?m)^.*>\\s*(" + database + "|all|all(\\s+-(?!" + database + ")\\S+)+)\\s*<.*>\\s*" + table + "\\s*<.*>\\s*(done|n/a|N/A)\\s*<(.*/td>\\s*<td){3}.*$";
     }
 
     public List tablesFoundInTablesToMove(List databaseTablePairs) throws IOException {
