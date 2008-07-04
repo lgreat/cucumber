@@ -112,7 +112,8 @@ public class TableMoverController extends SimpleFormController {
 
         // Check if we're going to be processing all states
         if (Arrays.asList(states).contains("")) {
-            states = (String[]) _stateManager.getSortedAbbreviations().toArray();
+            List<String> allStates = _stateManager.getSortedAbbreviations();
+            states = allStates.toArray(new String[allStates.size()]);
         }
 
         // Add states to the tables that need it        
