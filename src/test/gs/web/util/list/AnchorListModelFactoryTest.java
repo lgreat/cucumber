@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.2 2008/06/30 21:03:10 chriskimm Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.3 2008/07/04 00:09:59 thuss Exp $
  */
 
 package gs.web.util.list;
@@ -101,24 +101,27 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
     public void testCreateDistrictList_EscapeAmpersand() throws Exception {
         AnchorListModelFactory anchorListModelFactory = (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID);
         IDistrictDao mockDao = createMock(IDistrictDao.class);
+        IDistrictDao backupDistrictDao = anchorListModelFactory._districtDao;
         anchorListModelFactory.setDistrictDao(mockDao);
 
-        List<District> returnList = new ArrayList<District>();
-        District d1 = new District();
-        d1.setDatabaseState(State.DC);
-        d1.setName("Arts & Technology");
-        d1.setId(1234);
-        returnList.add(d1);
+        try {
+            List<District> returnList = new ArrayList<District>();
+            District d1 = new District();
+            d1.setDatabaseState(State.DC);
+            d1.setName("Arts & Technology");
+            d1.setId(1234);
+            returnList.add(d1);
 
-        expect(mockDao.findDistrictsInCity(State.DC, "Washington", true)).andReturn(returnList);
-        mockDao.sortDistrictsByName(returnList);
-        replay(mockDao);
+            expect(mockDao.findDistrictsInCity(State.DC, "Washington", true)).andReturn(returnList);
+            mockDao.sortDistrictsByName(returnList);
+            replay(mockDao);
 
-        AnchorListModel model = anchorListModelFactory.createDistrictList(State.DC, "Washington", _request);
-
-        List list = model.getResults();
-        assertTrue(list.size() == 1);
-
-        assertEquals("Arts &amp; Technology", ((Anchor) list.get(0)).getContents());
+            AnchorListModel model = anchorListModelFactory.createDistrictList(State.DC, "Washington", _request);
+            List list = model.getResults();
+            assertTrue(list.size() == 1);
+            assertEquals("Arts &amp; Technology", ((Anchor) list.get(0)).getContents());
+        } finally {
+            anchorListModelFactory.setDistrictDao(backupDistrictDao);
+        }
     }
 }

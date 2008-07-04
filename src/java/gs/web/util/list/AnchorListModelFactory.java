@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.7 2008/06/30 21:03:09 chriskimm Exp $
+ * $Id: AnchorListModelFactory.java,v 1.8 2008/07/04 00:09:59 thuss Exp $
  */
 
 package gs.web.util.list;
@@ -43,7 +43,7 @@ public class AnchorListModelFactory {
     public static final String BEAN_ID = "anchorListModelFactory";
 
     private ISchoolDao _schoolDao;
-    private IDistrictDao _districtDao;
+    protected IDistrictDao _districtDao;
     private StateManager _stateManager;
     private final UrlUtil _urlUtil = new UrlUtil();
 
