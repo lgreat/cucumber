@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.lang.StringUtils;
 
 
 public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
@@ -37,31 +38,41 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
     public static final String OUTDIR_FLAG_FOR_BACKUP_COMMAND = "--outdir /var/gsbackups/tablecopy";
     public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
-    public static final List PRODUCTION_TO_DEV_BLACKLIST = new ArrayList() {{
-        add("gs_schooldb");
-        add("us_geo");
-    }};
-    public static final Map DEV_TO_STAGING_WHITELIST = new HashMap() {{
-        put("gs_schooldb", new HashSet() {{
-            add("census_data_set_file");
-            add("census_data_type");
-            add("census_group_data_type");
-            add("configuration");
-            add("operator");
-            add("DataFile");
-            add("DataLoad");
-            add("DataSource");
-            add("TestDataSetFile");
-            add("TestDataSubject");
-            add("TestDataType");
-            add("TestProficiencyBand");
-            add("TestProficiencyBandGroup");
-        }});
-        put("us_geo", new HashSet() {{add("city");}});
-    }};
+    public static final List PRODUCTION_TO_DEV_BLACKLIST = new ArrayList() {
+        {
+            add("gs_schooldb");
+            add("us_geo");
+        }
+    };
+    public static final Map DEV_TO_STAGING_WHITELIST = new HashMap() {
+        {
+            put("gs_schooldb", new HashSet() {
+                {
+                    add("census_data_set_file");
+                    add("census_data_type");
+                    add("census_group_data_type");
+                    add("configuration");
+                    add("operator");
+                    add("DataFile");
+                    add("DataLoad");
+                    add("DataSource");
+                    add("TestDataSetFile");
+                    add("TestDataSubject");
+                    add("TestDataType");
+                    add("TestProficiencyBand");
+                    add("TestProficiencyBandGroup");
+                    add("test");
+                }
+            });
+            put("us_geo", new HashSet() {
+                {
+                    add("city");
+                }
+            });
+        }
+    };
 
     public TableData getTables(TableData.DatabaseDirection direction) {
-//        return populateTestData();
         _log.info("Retrieving tables");
         long start = System.currentTimeMillis();
         TableData databases = new TableData();
@@ -91,7 +102,10 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     }
 
     public String copyTables(TableData.DatabaseDirection direction, String[] tableList, boolean overrideWarnings) throws ServiceException {
-//        return "success!";
+        return copyTables(direction, tableList, overrideWarnings, null, null, null);
+    }
+
+    public String copyTables(TableData.DatabaseDirection direction, String[] tableList, boolean overrideWarnings, String initials, String jira, String notes) throws ServiceException {
         _log.info("Copying tables");
         long start = System.currentTimeMillis();
 
@@ -138,10 +152,9 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             throw new ServiceException("Error copying tables: " + e.getMessage());
         }
 
-
         long stop = System.currentTimeMillis();
         _log.info("Took " + (stop - start) + " milliseconds to copy tables");
-        return generateWikiText(direction, Arrays.asList(tableList));
+        return generateWikiText(direction, Arrays.asList(tableList), initials, jira, notes);
     }
 
     private String executeCommand(String copyCommand) throws IOException {
@@ -152,7 +165,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             StringBuffer buffer = new StringBuffer();
             String line;
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 buffer.append(line).append("\n");
             }
             return buffer.toString();
@@ -161,7 +174,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 if (reader != null) {
                     reader.close();
                 }
-            } catch (IOException e) {}
+            } catch (IOException e) {
+            }
         }
     }
 
@@ -201,12 +215,15 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return command.toString();
     }
 
-    public String generateWikiText(TableData.DatabaseDirection direction, List databasesAndTables) {
+    public String generateWikiText(TableData.DatabaseDirection direction, List databasesAndTables, String initials, String jira, String notes) {
+        if (StringUtils.isEmpty(initials)) initials = "??";
+        if (StringUtils.isEmpty(jira)) jira = "GS-????";
+        if (StringUtils.isEmpty(notes)) notes = "";
         StringBuffer wikiText = new StringBuffer("|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n");
         for (Iterator iterator = databasesAndTables.iterator(); iterator.hasNext();) {
             String databaseAndTable = (String) iterator.next();
             String[] split = databaseAndTable.split("\\.");
-            wikiText.append("| ??/GS-???? | ");
+            wikiText.append("| " + initials + "/" + jira + " | ");
             wikiText.append(split[0]);
             wikiText.append(" | ");
             wikiText.append(split[1]);
@@ -217,7 +234,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 wikiText.append("done");
             }
             wikiText.append(" | ");
-            wikiText.append(" | ");
+            wikiText.append(" | " + notes);
             wikiText.append(" |\n");
         }
         return wikiText.toString();
@@ -311,6 +328,36 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         } else if (TableData.DEV_TO_STAGING.equals(databases.getDirection())) {
             databases.filterTables(DEV_TO_STAGING_WHITELIST);
         }
+    }
+
+    /**
+     * Use black and white lists to filter out tables that should be skipped
+     *
+     * @param direction
+     * @param tables
+     * @return Filtered table list
+     */
+    public String[] filter(TableData.DatabaseDirection direction, String[] tables) {
+        ArrayList<String> tablesToKeep = new ArrayList<String>();
+        for (String table : tables) {
+            if (TableData.PRODUCTION_TO_DEV.equals(direction)) {
+                boolean match = false;
+                for (Object database : PRODUCTION_TO_DEV_BLACKLIST) {
+                    if (table.startsWith((String) database)) match = true;
+                }
+                if (!match || table.equals("gs_schooldb.test")) tablesToKeep.add(table);
+            } else if (TableData.DEV_TO_STAGING.equals(direction)) {
+                String database = table.split("\\.")[0];
+                String tableSuffix = table.split("\\.")[1];
+                Set tableOKSet = (Set) DEV_TO_STAGING_WHITELIST.get(database);
+                if (tableOKSet == null) {
+                    tablesToKeep.add(table);
+                } else if (tableOKSet.contains(tableSuffix)) {
+                    tablesToKeep.add(table);
+                }
+            }
+        }
+        return tablesToKeep.toArray(new String[tablesToKeep.size()]);
     }
 
     private String generateWarningOutput(List tables, String errorMessage) {

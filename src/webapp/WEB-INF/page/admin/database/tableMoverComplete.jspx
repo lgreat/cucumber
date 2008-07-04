@@ -7,18 +7,25 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:gsweb="gstaglib">
     <jsp:directive.page contentType="text/html"/>
-    <div style="text-align:center"><h2>Move Complete</h2></div>
-    <div style="margin-left: 220px">
-        <strong>Update <a target="_blank"
-                          href="http://wiki.greatschools.net/bin/view/Greatschools/TableToMove">Tables To Move</a> with the following</strong><br/>
-        <br/>
-        <code>
-            <c:forEach var="table" items="${tableMoverCmd.tables}">
-                | ${tableMoverCmd.initials}/${tableMoverCmd.jira} | ${fn:split(table, '.')[0]} | ${fn:split(table, '.')[1]} | done | ${(tableMoverCmd.target=='staging')?'done':''} | | ${tableMoverCmd.notes} |<br/>
-            </c:forEach>
-        </code>
-        <br/>
-        | Who/Jira | Db | Table | live -> dev | dev -> staging | staging -> live | Notes |
-        <br/><br/>
-    </div>
+    <c:choose>
+        <c:when test="${fn:length(errors) > 0}">
+            <div style="color:red">
+                <div style="text-align:center"><h2>Error</h2></div>
+                <div style="margin-left:50px;height:300px;overflow:auto">
+                    <pre>${errors}</pre>
+                </div>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div style="text-align:center"><h2>Move Complete</h2></div>
+            <div style="margin-left: 220px">
+                <strong>Update <a target="_blank"
+                                  href="http://wiki.greatschools.net/bin/view/Greatschools/TableToMove">Tables To Move</a> with the following</strong><br/>
+                <br/>
+                <pre>${wikiText}</pre>
+                <br/>
+                <br/><br/>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </jsp:root>

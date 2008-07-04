@@ -16,105 +16,126 @@
     <![CDATA[
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/reset-fonts-grids/reset-fonts-grids.css"></link>
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/base/base-min.css"></link>
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         ]]>
+    <script type="text/javascript">
+        google.load("jquery", "1.2.6");
+    </script>
 </head>
 <body>
 <div id="doc4" class="yui-t7">
-    <div id="hd" style="text-align: center">
-        <h1>Database Table Mover</h1>
-        <spring:hasBindErrors name="tableMoverCmd">
-            <div class="error" style="color: red; margin-bottom: 20px;">
-                <c:forEach var="errMsgObj" items="${errors.allErrors}">
-                    <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/><br/>
-                </c:forEach>
-            </div>
-        </spring:hasBindErrors>
-    </div>
-    <div id="bd">
-        <!--<div id="selection" style="${show=='selection'?'':'display:none;'}">-->
-        <div id="selection">
-            <form:form commandName="tableMoverCmd" method="GET">
-                <div class="yui-gb" style="border: 1px solid; padding: 10px">
-                    <div class="yui-u first">
-                        <h2>Table Sets (<a target="_blank"
-                                           href="http://wiki.greatschools.net/bin/view/Greatschools/TableCopyToolSets">documentation</a>)
-                        </h2>
-
-                        <div style="height:345px;overflow:auto;border: 1px solid;">
-                            <!--Tables without a database prefix are assumed to be state specific-->
-                            <form:checkbox path="tablesets"
-                                           value="gs_schooldb.configuation,TestDataSet,TestDataSchoolValue,city_rating,district_rating"/> All ratings<br/>
-                            <form:checkbox path="tablesets"
-                                           value="gs_schooldb.configuation,TestDataSet,TestDataSchoolValue"/> School ratings<br/>
-                            <form:checkbox path="tablesets" value="city_rating"/> City ratings<br/>
-                            <form:checkbox path="tablesets" value="district_rating"/> District ratings<br/>
-                            <form:checkbox path="tablesets"
-                                           value="school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer"/> Public Directory (with census)<br/>
-                            <form:checkbox path="tablesets"
-                                           value="school,district,pq,pq_volunteer"/> Public Directory (no census)<br/>
-                            <form:checkbox path="tablesets"
-                                           value="school,census_data_set,census_data_school_value,pq,pq_volunteer"/> Private Directory: Schools only (with census)<br/>
-                            <form:checkbox path="tablesets"
-                                           value="school,pq,pq_volunteer"/> Private Directory: Schools only (no census)<br/>
-                            <form:checkbox path="tablesets"
-                                           value="gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby"/> Directory Copy Up (with census)<br/>
-                            <form:checkbox path="tablesets"
-                                           value="gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby"/> Directory Copy Up (no census)<br/>
-                            <form:checkbox path="tablesets"
-                                           value="school,pq,pq_volunteer"/> Schools and ESP<br/>
-                            <form:checkbox path="tablesets" value="nearby"/> Nearby<br/>
-                            <form:checkbox path="tablesets" value="pq,pq_volunteer"/> ESP<br/>
-                            <form:checkbox path="tablesets" value="school,nearby"/> School and Nearby<br/>
-                            <form:checkbox path="tablesets" value="school"/> Schools only (no census)<br/>
-                            <form:checkbox path="tablesets" value="district"/> Districts only (no census)<br/>
-                            <form:checkbox path="tablesets" value="us_geo.city"/> Cities<br/>
-                            <form:checkbox path="tablesets"
-                                           value="census_data_set,census_data_school_value,census_data_district_value"/> School and District Census<br/>
-                            <form:checkbox path="tablesets"
-                                           value="census_data_set,census_data_school_value"/> School Census<br/>
-                            <form:checkbox path="tablesets"
-                                           value="gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad"/> Census Copy Up<br/>
-                            <form:checkbox path="tablesets" value="gs_schooldb.test"/> Table for testing this tool<br/>
-                        </div>
-                    </div>
-                    <div class="yui-u">
-                        <div style="margin-left:80px">
-                            <h2>States</h2>
-                            <form:select path="states" multiple="true" size="23">
-                                <form:option value="">All States</form:option>
-                                <c:forEach var="state" items="${allStates}">
-                                    <form:option
-                                            value="${state.abbreviation}">${state.abbreviation} - ${state.longName}</form:option>
-                                </c:forEach>
-                            </form:select>
-                        </div>
-                    </div>
-                    <div class="yui-u">
-                        <h2>Direction</h2>
-                        <form:select path="target">
-                            <form:option value="dev">Live to Development</form:option>
-                            <form:option value="staging">Development to Staging</form:option>
-                        </form:select>
-                        <br/><br/>
-
-                        <h2>Wiki</h2>
-                        Jira Issue (e.g. GS-1234) <br/>
-                        <form:input path="jira"/>
-                        <br/><br/>
-                        Your Initials<br/>
-                        <form:input path="initials"/>
-                        <br/><br/>
-                        Notes<br/>
-                        <form:input path="notes"/>
-                        <input type="hidden" name="mode" value="preview"/>
-                    </div>
-                </div>
-                <div class="yui-g" style="text-align: center; padding: 10px">
-                    <input type="submit" value="Preview"/>
-                </div>
-            </form:form>
+<div id="hd" style="text-align: center">
+    <h1>Database Table Mover</h1>
+    <spring:hasBindErrors name="tableMoverCmd">
+        <div class="error" style="color: red; margin-bottom: 20px;">
+            <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/><br/>
+            </c:forEach>
         </div>
-    </div>
+    </spring:hasBindErrors>
+</div>
+<div id="bd">
+<!--<div id="selection" style="${show=='selection'?'':'display:none;'}">-->
+<div id="selection">
+    <form:form id="tableMoverForm" commandName="tableMoverCmd" method="get">
+        <div class="yui-gb" style="border: 1px solid; padding: 10px">
+            <div class="yui-u first">
+                <h2>Table Sets (<a target="_blank"
+                                   href="http://wiki.greatschools.net/bin/view/Greatschools/TableCopyToolSets">documentation</a>)
+                </h2>
+
+                <div style="height:345px;overflow:auto;border: 1px solid;">
+                    <!--Tables without a database prefix are assumed to be state specific-->
+                    <form:checkbox path="tablesets"
+                                   value="gs_schooldb.configuation,TestDataSet,TestDataSchoolValue,city_rating,district_rating"/> All ratings<br/>
+                    <form:checkbox path="tablesets"
+                                   value="gs_schooldb.configuation,TestDataSet,TestDataSchoolValue"/> School ratings<br/>
+                    <form:checkbox path="tablesets" value="city_rating"/> City ratings<br/>
+                    <form:checkbox path="tablesets" value="district_rating"/> District ratings<br/>
+                    <form:checkbox path="tablesets"
+                                   value="school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer"/> Public Directory (with census)<br/>
+                    <form:checkbox path="tablesets"
+                                   value="school,district,pq,pq_volunteer"/> Public Directory (no census)<br/>
+                    <form:checkbox path="tablesets"
+                                   value="school,census_data_set,census_data_school_value,pq,pq_volunteer"/> Private Directory: Schools only (with census)<br/>
+                    <form:checkbox path="tablesets"
+                                   value="school,pq,pq_volunteer"/> Private Directory: Schools only (no census)<br/>
+                    <form:checkbox path="tablesets"
+                                   value="gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby"/> Directory Copy Up (with census)<br/>
+                    <form:checkbox path="tablesets"
+                                   value="gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby"/> Directory Copy Up (no census)<br/>
+                    <form:checkbox path="tablesets"
+                                   value="school,pq,pq_volunteer"/> Schools and ESP<br/>
+                    <form:checkbox path="tablesets" value="nearby"/> Nearby<br/>
+                    <form:checkbox path="tablesets" value="pq,pq_volunteer"/> ESP<br/>
+                    <form:checkbox path="tablesets" value="school,nearby"/> School and Nearby<br/>
+                    <form:checkbox path="tablesets" value="school"/> Schools only (no census)<br/>
+                    <form:checkbox path="tablesets" value="district"/> Districts only (no census)<br/>
+                    <form:checkbox path="tablesets" value="us_geo.city"/> Cities<br/>
+                    <form:checkbox path="tablesets"
+                                   value="census_data_set,census_data_school_value,census_data_district_value"/> School and District Census<br/>
+                    <form:checkbox path="tablesets"
+                                   value="census_data_set,census_data_school_value"/> School Census<br/>
+                    <form:checkbox path="tablesets"
+                                   value="gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad"/> Census Copy Up<br/>
+                    <form:checkbox path="tablesets" value="gs_schooldb.test"/> Table for testing this tool<br/>
+                </div>
+            </div>
+            <div class="yui-u">
+                <div style="margin-left:80px">
+                    <h2>States</h2>
+                    <form:select path="states" multiple="true" size="23">
+                        <form:option value="">All States</form:option>
+                        <c:forEach var="state" items="${allStates}">
+                            <form:option
+                                    value="${state.abbreviation}">${state.abbreviation} - ${state.longName}</form:option>
+                        </c:forEach>
+                    </form:select>
+                </div>
+            </div>
+            <div class="yui-u">
+                <h2>Direction</h2>
+                <form:select path="target">
+                    <form:option value="dev">Live to Development</form:option>
+                    <form:option value="staging">Development to Staging</form:option>
+                </form:select>
+                <br/><br/>
+
+                <h2>Wiki</h2>
+                Jira Issue (e.g. GS-1234) <br/>
+                <form:input path="jira"/>
+                <br/><br/>
+                Your Initials<br/>
+                <form:input path="initials"/>
+                <br/><br/>
+                Notes<br/>
+                <form:input path="notes"/>
+                <input type="hidden" name="mode" value="preview"/>
+            </div>
+        </div>
+        <div class="yui-g" style="text-align: center; padding: 10px">
+            <input id="reset" type="reset" value="Clear"/>&#160;
+            <script type="text/javascript">
+                $('#reset').click(
+                        function() {
+                            // Clear the form, input type="reset" doesn't do the job right
+                            $('input,select,textarea', $('#tableMoverForm')).each(function() {
+                                if (this.type == 'checkbox' || this.type == 'radio')
+                                    this.checked = false;
+                                else if (this.type == 'text')
+                                    this.value = '';
+                                else if (this.tagName.toLowerCase() == 'select')
+                                    this.multiple ? this.selectedIndex = -1 : this.selectedIndex = 0;
+                            })
+                            return false;
+                        }
+                        );
+            </script>
+            <input type="submit" value="Preview"/>
+        </div>
+    </form:form>
+</div>
+</div>
 </div>
 </body>
 </html>

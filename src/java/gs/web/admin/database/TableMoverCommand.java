@@ -1,8 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TableMoverCommand.java,v 1.2 2008/07/03 01:01:40 thuss Exp $
+ * $Id: TableMoverCommand.java,v 1.3 2008/07/04 00:11:06 thuss Exp $
  */
 package gs.web.admin.database;
+
+import gs.web.admin.gwt.client.TableData;
 
 /**
  * Backing object for #TableMoverController
@@ -80,5 +82,15 @@ public class TableMoverCommand {
 
     public void setMode(String mode) {
         this.mode = mode;
+    }
+
+    public TableData.DatabaseDirection getDirection() {
+        TableData.DatabaseDirection direction = null;
+        if ("dev".equals(_target)) {
+            direction = TableData.PRODUCTION_TO_DEV;
+        } else if ("staging".equals(_target)) {
+            direction = TableData.DEV_TO_STAGING;
+        }
+        return direction;
     }
 }

@@ -1,12 +1,14 @@
 package gs.web.admin.database;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.admin.gwt.client.ServiceException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.IOException;
 
 public class TableMoverControllerTest extends BaseControllerTestCase {
     private TableMoverController _controller;
@@ -29,8 +31,9 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         assertEquals("Unexpected view for production", _controller._errorView, modelAndView.getViewName());
     }
 
-    public void testRequiredStateAndTableSetsValidation() {
+    public void testValidation() {
         TableMoverCommand cmd = new TableMoverCommand();
+        cmd.setTarget("dev");
         cmd.setTablesets(new String[0]);
         cmd.setStates(new String[0]);
         BindException errors = new BindException(cmd, "");
@@ -49,16 +52,34 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(_request, cmd, errors);
         assertEquals("Should not be an error because state and table sets provided",
                 0, errors.getAllErrors().size());
+
+        cmd.setTablesets(new String[]{"gs_schooldb.operator"});
+        _controller.onBindAndValidate(_request, cmd, errors);
+        assertEquals("Should be an error because gs_schooldb.operator is blocked by the blacklist",
+                1, errors.getAllErrors().size());
+
+        cmd.setTablesets(new String[]{"gs_schooldb.operator"});
+        _controller.onBindAndValidate(_request, cmd, errors);
+        assertEquals("Should be an error because gs_schooldb.operator is blocked by the blacklist",
+                1, errors.getAllErrors().size());
+
+        cmd.setTarget("staging");
+        cmd.setTablesets(new String[]{"gs_schooldb.foo"});
+        _controller.onBindAndValidate(_request, cmd, errors);
+        assertEquals("Should be an error because gs_schooldb.operator is not on the whitelist",
+                1, errors.getAllErrors().size());
     }
 
-    public void testTableSets() {
+    public void testTableSets() throws Exception {
         TableMoverCommand cmd = new TableMoverCommand();
+        cmd.setTarget("staging");
         BindException errors = new BindException(cmd, "");
 
         // Test duplicate tables with the database specified
         cmd.setMode("preview");
         cmd.setTablesets(new String[]{"us_geo.city,us_geo.city", "us_geo.city"});
         cmd.setStates(new String[]{"CA"});
+        _controller.onBindAndValidate(_request, cmd, errors);
         ModelAndView mv = _controller.onSubmit(_request, _response, cmd, errors);
         List tables = Arrays.asList(cmd.getTables());
         assertNotNull(tables);
@@ -68,6 +89,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         // Test state specific tables and dups
         cmd.setTablesets(new String[]{"school,us_geo.city", "us_geo.city,school"});
         cmd.setStates(new String[]{"WY", "OR"});
+        _controller.onBindAndValidate(_request, cmd, errors);
         mv = _controller.onSubmit(_request, _response, cmd, errors);
         tables = Arrays.asList(cmd.getTables());
         assertEquals(3, tables.size());
@@ -78,6 +100,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         // Test no dups
         cmd.setTablesets(new String[]{"school", "us_geo.city"});
         cmd.setStates(new String[]{"WY", "OR"});
+        _controller.onBindAndValidate(_request, cmd, errors);
         mv = _controller.onSubmit(_request, _response, cmd, errors);
         tables = Arrays.asList(cmd.getTables());
         assertEquals(3, tables.size());
@@ -88,6 +111,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         // Test all states
         cmd.setTablesets(new String[]{"school", "us_geo.city"});
         cmd.setStates(new String[]{"", "OR"});
+        _controller.onBindAndValidate(_request, cmd, errors);
         mv = _controller.onSubmit(_request, _response, cmd, errors);
         tables = Arrays.asList(cmd.getTables());
         assertEquals(52, tables.size());
@@ -100,5 +124,13 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         assertFalse(_controller.isFormSubmission(_request));
         _request.addParameter("mode", "preview");
         assertTrue(_controller.isFormSubmission(_request));
+    }
+
+    public void testIsFormChangeRequest() {
+        TableMoverCommand cmd = new TableMoverCommand();
+        cmd.setMode("edit");
+        assertTrue(_controller.isFormChangeRequest(_request, cmd));
+        cmd.setMode("preview");
+        assertFalse(_controller.isFormChangeRequest(_request, cmd));
     }
 }

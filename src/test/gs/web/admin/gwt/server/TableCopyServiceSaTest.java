@@ -102,7 +102,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String table2 = "gs_schooldb.table2";
         String table3 = "_az.aztable1";
         String wikiText = _tableCopyService.generateWikiText(direction,
-                Arrays.asList(new String[]{table1, table2, table3}));
+                Arrays.asList(new String[]{table1, table2, table3}), null, null, null);
 
         String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
                 "| ??/GS-???? | gs_schooldb | table1 | done |  |  |  |\n" +
@@ -118,12 +118,12 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String table2 = "gs_schooldb.table2";
         String table3 = "_az.aztable1";
         String wikiText = _tableCopyService.generateWikiText(direction,
-                Arrays.asList(new String[]{table1, table2, table3}));
+                Arrays.asList(new String[]{table1, table2, table3}), "TH", "GS-1234", "Note123");
 
         String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
-                "| ??/GS-???? | gs_schooldb | table1 | done | done |  |  |\n" +
-                "| ??/GS-???? | gs_schooldb | table2 | done | done |  |  |\n" +
-                "| ??/GS-???? | _az | aztable1 | done | done |  |  |\n";
+                "| TH/GS-1234 | gs_schooldb | table1 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | gs_schooldb | table2 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | _az | aztable1 | done | done |  | Note123 |\n";
 
         assertEquals("Unexpected wiki text for dev to staging", expectedWikiText, wikiText);
     }

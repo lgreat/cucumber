@@ -14,43 +14,27 @@
         </property>
     </bean>
 
-    <!--    <bean id="propertyConfigurer"-->
-    <!--        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-    <!--        <description>Override because couldn't get other property file read.</description>-->
-    <!--        <property name="locations">-->
-    <!--            <list>-->
-    <!--                <value>file:/Users/apeterson/dev/GSData/database.properties</value>-->
-    <!--            </list>-->
-    <!--        </property>-->
-    <!--    </bean>-->
+    <bean id="schoolTableTagHandler" class="gs.web.search.SchoolTableTagHandler"/>
 
-    <bean id="schoolTableTagHandler"
-          class="gs.web.search.SchoolTableTagHandler">
-    </bean>
+    <bean id="tableCopyService" class="gs.web.admin.gwt.server.TableCopyServiceImpl"/>
 
-    <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"
-          autowire="byName" lazy-init="true">
-    </bean>
+    <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"/>
 
     <bean id="registrationConfirmationEmail"
-          class="gs.web.community.registration.RegistrationConfirmationEmail"
-          autowire="byName">
+          class="gs.web.community.registration.RegistrationConfirmationEmail">
         <property name="subject" value="Welcome to the GreatSchools Parent Community!"/>
         <property name="fromEmail" value="gs-batch@greatschools.net"/>
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
-    <bean id="forgotPasswordEmail"
-          class="gs.web.community.registration.ForgotPasswordEmail"
-          autowire="byName">
+    <bean id="forgotPasswordEmail" class="gs.web.community.registration.ForgotPasswordEmail">
         <property name="subject" value="GreatSchools reset password link"/>
         <property name="fromEmail" value="gs-batch@greatschools.net"/>
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
     <!-- factory bean for user session information -->
-    <bean id="sessionContext"
-          class="gs.web.util.context.SessionContext"
+    <bean id="sessionContext" class="gs.web.util.context.SessionContext"
           scope="prototype">
         <!-- NOTE: not autowired for performance reasons. AJP 3/2006 -->
         <property name="propertyDao" ref="propertyDao"/>
@@ -58,9 +42,7 @@
         <property name="sessionContextUtil" ref="sessionContextUtil"/>
     </bean>
 
-    <bean id="sessionContextUtil"
-          class="gs.web.util.context.SessionContextUtil"
-          autowire="byName">
+    <bean id="sessionContextUtil" class="gs.web.util.context.SessionContextUtil">
         <property name="omnitureSubCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="OmnitureTracking"/>
@@ -141,9 +123,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="anchorListModelFactory"
-          class="gs.web.util.list.AnchorListModelFactory"
-          autowire="byName"/>
+    <bean id="anchorListModelFactory" class="gs.web.util.list.AnchorListModelFactory"/>
 
     <bean id="versionProperties"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">

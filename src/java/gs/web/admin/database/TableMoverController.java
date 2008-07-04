@@ -10,9 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlUtil;
+import gs.web.admin.gwt.server.TableCopyServiceImpl;
+import gs.web.admin.gwt.client.ServiceException;
+import gs.web.admin.gwt.client.TableData;
 import gs.data.state.StateManager;
 
 import java.util.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * Controller to handle moving tables
@@ -23,6 +30,7 @@ public class TableMoverController extends SimpleFormController {
     protected String _previewView;
     protected String _errorView;
     protected StateManager _stateManager;
+    protected TableCopyServiceImpl _tableCopyService;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -46,7 +54,7 @@ public class TableMoverController extends SimpleFormController {
         TableMoverCommand cmd = (TableMoverCommand) command;
         if ("move".equals(cmd.getMode())) {
             if (cmd.getTables().length == 0) {
-                errors.reject("tables", "You must select at least on table to move.");
+                errors.reject("tables", "You must select at least one table to move.");
             }
         } else {
             if (cmd.getTablesets().length == 0) {
@@ -55,29 +63,47 @@ public class TableMoverController extends SimpleFormController {
             if (cmd.getStates().length == 0) {
                 errors.reject("states", "You must select at least one state.");
             }
+            if (!errors.hasErrors()) {
+                cmd.setTables(processTableSets(cmd.getTablesets(), cmd.getStates(), cmd.getDirection()));
+                if (cmd.getTables().length == 0) {
+                    errors.reject("tablesets", "No tables left to move after filtering tables against blacklist and whitelist.");
+                }
+            }
         }
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
-                                 BindException errors) {
+                                 BindException errors) throws IOException, ServiceException {
         TableMoverCommand cmd = (TableMoverCommand) command;
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(getCommandName(), cmd);
         if ("move".equals(cmd.getMode())) {
             try {
-                Thread.sleep(4000);
+                model.put("wikiText", _tableCopyService.copyTables(cmd.getDirection(), cmd.getTables(),
+                        true, cmd.getInitials(), cmd.getJira(), cmd.getNotes()));
             } catch (Exception e) {
+                Writer result = new StringWriter();
+                e.printStackTrace(new PrintWriter(result));
+                model.put("errors", e.getMessage() + "\n\n" + result.toString());
             }
             return new ModelAndView(getSuccessView(), model);
         } else {
-            cmd.setTables(processTableSets(cmd.getTablesets(), cmd.getStates()));
+            model.put("warnings", _tableCopyService.checkWikiForSelectedTables(cmd.getDirection(), Arrays.asList(cmd.getTables())));
             return new ModelAndView(getPreviewView(), model);
         }
     }
 
-    protected String[] processTableSets(String[] tableSets, String[] states) {
+    /**
+     * Process the table sets down to tables and then filter out tables based on black and white lists
+     *
+     * @param tableSets
+     * @param direction
+     * @param states
+     * @return Array of database.tablesname strings
+     */
+    protected String[] processTableSets(String[] tableSets, String[] states, TableData.DatabaseDirection direction) {
         Set<String> tables = new TreeSet<String>();
         // Reduce to unique table names
         for (String tableSet : tableSets) {
@@ -86,8 +112,7 @@ public class TableMoverController extends SimpleFormController {
 
         // Check if we're going to be processing all states
         if (Arrays.asList(states).contains("")) {
-            List allStates = _stateManager.getSortedAbbreviations();
-            states = (String[]) allStates.toArray(new String[allStates.size()]);
+            states = (String[]) _stateManager.getSortedAbbreviations().toArray();
         }
 
         // Add states to the tables that need it        
@@ -100,7 +125,7 @@ public class TableMoverController extends SimpleFormController {
                 tables.remove(table);
             }
         }
-        return tables.toArray(new String[tables.size()]);
+        return _tableCopyService.filter(direction, tables.toArray(new String[tables.size()]));
     }
 
     protected boolean isFormSubmission(HttpServletRequest request) {
@@ -125,5 +150,9 @@ public class TableMoverController extends SimpleFormController {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    public void setTableCopyService(TableCopyServiceImpl tableCopyService) {
+        _tableCopyService = tableCopyService;
     }
 }
