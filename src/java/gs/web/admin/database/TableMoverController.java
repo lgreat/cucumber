@@ -69,6 +69,7 @@ public class TableMoverController extends SimpleFormController {
             if (!errors.hasErrors()) {
                 List<String> tablesFilteredOut = new ArrayList<String>();
                 cmd.setTables(processTableSets(cmd.getTablesets(), cmd.getStates(), cmd.getDirection(), tablesFilteredOut));
+                cmd.setTablesFilteredOut(tablesFilteredOut.toArray(new String[tablesFilteredOut.size()]));
                 if (cmd.getTables().length == 0) {
                     errors.reject("tablesets", "No tables left to move after filtering tables against blacklist and whitelist.");
                 }

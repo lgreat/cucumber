@@ -90,7 +90,9 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
                 1, errors.getAllErrors().size());
     }
 
-    public void testTableSets() throws Exception {
+    public void testPreview() throws Exception {
+        // @todo mock checkWiki call
+        // @todo check for filtered tables
         TableMoverCommand cmd = new TableMoverCommand();
         cmd.setTarget("staging");
         BindException errors = new BindException(cmd, "");
@@ -140,7 +142,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         assertTrue(tables.contains("_wy.school"));
     }
 
-    public void testMoveTables() throws Exception {
+    public void testMove() throws Exception {
         TableMoverCommand cmd = new TableMoverCommand();
         cmd.setTarget("staging");
         BindException errors = new BindException(cmd, "");

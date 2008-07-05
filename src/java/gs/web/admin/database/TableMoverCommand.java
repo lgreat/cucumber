@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TableMoverCommand.java,v 1.3 2008/07/04 00:11:06 thuss Exp $
+ * $Id: TableMoverCommand.java,v 1.4 2008/07/05 17:40:29 thuss Exp $
  */
 package gs.web.admin.database;
 
@@ -18,6 +18,7 @@ public class TableMoverCommand {
     private String _initials;
     private String _notes;
     private String[] _tables;
+    private String[] _tablesFilteredOut;
     private String mode;
 
     public String getTarget() {
@@ -92,5 +93,13 @@ public class TableMoverCommand {
             direction = TableData.DEV_TO_STAGING;
         }
         return direction;
+    }
+
+    public String[] getTablesFilteredOut() {
+        return _tablesFilteredOut;
+    }
+
+    public void setTablesFilteredOut(String[] tablesFilteredOut) {
+        _tablesFilteredOut = tablesFilteredOut;
     }
 }
