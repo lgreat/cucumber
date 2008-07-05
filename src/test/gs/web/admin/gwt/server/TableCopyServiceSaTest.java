@@ -2,9 +2,9 @@ package gs.web.admin.gwt.server;
 
 import gs.web.BaseTestCase;
 import gs.web.admin.gwt.client.TableData;
+import gs.data.state.State;
+import gs.data.state.StateManager;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.easymock.MockControl;
-import org.easymock.classextension.MockClassControl;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -13,59 +13,58 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.io.IOException;
 
+import static org.easymock.classextension.EasyMock.*;
+
 public class TableCopyServiceSaTest extends BaseTestCase {
     private TableCopyServiceImpl _tableCopyService;
-    private MockControl _jdbcMock;
-    private JdbcOperations _context;
-    private MockControl _httpClientMock;
-    private HttpClient _client;
+    private JdbcOperations _jdbcMock;
+    private HttpClient _httpClientMock;
 
     protected void setUp() throws Exception {
         _tableCopyService = new TableCopyServiceImpl();
-        _jdbcMock = MockControl.createControl(JdbcOperations.class);
-        _context = (JdbcOperations) _jdbcMock.getMock();
-        _tableCopyService.setJdbcContext(_context);
-        _httpClientMock = MockClassControl.createControl(HttpClient.class);
-        _client = (HttpClient) _httpClientMock.getMock();
-        _tableCopyService.setHttpClient(_client);
+        _jdbcMock = createMock(JdbcOperations.class);
+        _tableCopyService.setJdbcContext(_jdbcMock);
+        _httpClientMock = createMock(HttpClient.class);
+        _tableCopyService.setHttpClient(_httpClientMock);
+        _tableCopyService.setStateManager(new StateManager());
     }
 
     public void testGetTables() {
-        List resultSet = new ArrayList();
-        resultSet.add(new HashMap() {
+        List<HashMap<String, String>> resultSet = new ArrayList<HashMap<String, String>>();
+        resultSet.add(new HashMap<String, String>() {
             {
                 put(TableCopyServiceImpl.DATABASE_COLUMN, "gs_schooldb");
                 put(TableCopyServiceImpl.TABLE_COLUMN, "table1");
             }
         });
-        resultSet.add(new HashMap() {
+        resultSet.add(new HashMap<String, String>() {
             {
                 put(TableCopyServiceImpl.DATABASE_COLUMN, "gs_schooldb");
                 put(TableCopyServiceImpl.TABLE_COLUMN, "table2");
             }
         });
-        resultSet.add(new HashMap() {
+        resultSet.add(new HashMap<String, String>() {
             {
                 put(TableCopyServiceImpl.DATABASE_COLUMN, "_az");
                 put(TableCopyServiceImpl.TABLE_COLUMN, "az_table1");
             }
         });
-        resultSet.add(new HashMap() {
+        resultSet.add(new HashMap<String, String>() {
             {
                 put(TableCopyServiceImpl.DATABASE_COLUMN, "_az");
                 put(TableCopyServiceImpl.TABLE_COLUMN, "az_table2");
             }
         });
 
-        _jdbcMock.expectAndReturn(_context.queryForList(TableCopyServiceImpl.TABLE_LIST_QUERY), resultSet);
-        _jdbcMock.replay();
+        expect(_jdbcMock.queryForList(TableCopyServiceImpl.TABLE_LIST_QUERY)).andReturn(resultSet);
+        replay(_jdbcMock);
 
         TableData tableData = _tableCopyService.getTables(TableData.DEV_TO_STAGING);
 
         assertEquals("Expected 2 databases", 2, tableData.getDatabasesAndTables().size());
         assertEquals("Unexpected direction", TableData.DEV_TO_STAGING, tableData.getDirection());
 
-        _jdbcMock.verify();
+        verify(_jdbcMock);
     }
 
     public void testGenerateCopyCommand() {
@@ -73,8 +72,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String table1 = "gs_schooldb.table1";
         String table2 = "gs_schooldb.table2";
         String table3 = "_az.aztable1";
-        String copyCommand = _tableCopyService.generateCopyCommand(direction,
-                Arrays.asList(new String[]{table1, table2, table3}));
+        String copyCommand = _tableCopyService.generateCopyCommand(direction, Arrays.asList(table1, table2, table3));
         assertTrue("Expected copy command", copyCommand.startsWith(TableCopyServiceImpl.COPY_TABLES_COMMAND));
         assertTrue("Expected dev as from database", copyCommand.matches(".* --fromhost " + direction.getSource() + " .*"));
         assertTrue("Expected staging as to database", copyCommand.matches(".* --tohost " + direction.getTarget() + " .*"));
@@ -88,7 +86,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String table2 = "gs_schooldb.table2";
         String table3 = "_az.aztable1";
         String copyCommand = _tableCopyService.generateBackupCommand(direction,
-                Arrays.asList(new String[]{table1, table2, table3}));
+                Arrays.asList(table1, table2, table3));
         assertTrue("Expected copy command", copyCommand.startsWith(TableCopyServiceImpl.COPY_TABLES_COMMAND));
         assertTrue("Expected staging as from database", copyCommand.matches(".* --fromhost " + direction.getTarget() + " .*"));
         assertTrue("Expected outdir to be set", copyCommand.matches(".* " + TableCopyServiceImpl.OUTDIR_FLAG_FOR_BACKUP_COMMAND + " .*"));
@@ -98,33 +96,79 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
     public void testGenerateProductionToDevWikiText() {
         TableData.DatabaseDirection direction = TableData.PRODUCTION_TO_DEV;
-        String table1 = "gs_schooldb.table1";
-        String table2 = "gs_schooldb.table2";
-        String table3 = "_az.aztable1";
-        String wikiText = _tableCopyService.generateWikiText(direction,
-                Arrays.asList(new String[]{table1, table2, table3}), null, null, null);
-
+        final StateManager sm = new StateManager();
+        final List<State> allStates = sm.getListByAbbreviations();
+        final List<State> mostStates = new ArrayList<State>(sm.getListByAbbreviations());
+        mostStates.remove(State.CA);
+        mostStates.remove(State.WY);
+        List<String> tables = new ArrayList<String>() {
+            {
+                add("gs_schooldb.table1");
+                add("gs_schooldb.table2");
+                add("_az.aztable1");
+                addAll(generateTableListWithStates(allStates, "table3"));
+                addAll(generateTableListWithStates(mostStates, "table4"));
+            }
+        };
+        String wikiText = _tableCopyService.generateWikiText(direction, tables, null, null, null);
         String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
+                "| ??/GS-???? | _az | aztable1 | done |  |  |  |\n" +
+                "| ??/GS-???? | all -ca -wy | table4 | done |  |  |  |\n" +
+                "| ??/GS-???? | all | table3 | done |  |  |  |\n" +
                 "| ??/GS-???? | gs_schooldb | table1 | done |  |  |  |\n" +
-                "| ??/GS-???? | gs_schooldb | table2 | done |  |  |  |\n" +
-                "| ??/GS-???? | _az | aztable1 | done |  |  |  |\n";
+                "| ??/GS-???? | gs_schooldb | table2 | done |  |  |  |\n";
+
+        assertEquals("Unexpected wiki text for production to dev", expectedWikiText, wikiText);
+    }
+
+    private List<String> generateTableListWithStates(List<State> states, String tableName) {
+        List<String> tables = new ArrayList<String>();
+        for (State state : states) {
+            tables.add("_" + state.getAbbreviationLowerCase() + "." + tableName);
+        }
+        return tables;
+    }
+
+    public void testGeneratedWikiTextWithNoStateSpecificTables() {
+        TableData.DatabaseDirection direction = TableData.PRODUCTION_TO_DEV;
+        List<String> tables = Arrays.asList("gs_schooldb.table1");
+        String wikiText = _tableCopyService.generateWikiText(direction, tables, null, null, null);
+        String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
+                "| ??/GS-???? | gs_schooldb | table1 | done |  |  |  |\n";
 
         assertEquals("Unexpected wiki text for production to dev", expectedWikiText, wikiText);
     }
 
     public void testGenerateDevToStagingWikiText() {
         TableData.DatabaseDirection direction = TableData.DEV_TO_STAGING;
-        String table1 = "gs_schooldb.table1";
-        String table2 = "gs_schooldb.table2";
-        String table3 = "_az.aztable1";
-        String wikiText = _tableCopyService.generateWikiText(direction,
-                Arrays.asList(new String[]{table1, table2, table3}), "TH", "GS-1234", "Note123");
-
+        final StateManager sm = new StateManager();
+        final List<State> allStates = sm.getListByAbbreviations();
+        final List<State> mostStates = new ArrayList<State>(sm.getListByAbbreviations());
+        mostStates.remove(State.CA);
+        mostStates.remove(State.WY);
+        mostStates.remove(State.OR);
+        final List<State> aFewStates = new ArrayList<State>(sm.getListByAbbreviations().subList(3, 7));
+        List<String> tables = new ArrayList<String>() {
+            {
+                add("_ak.table1");
+                add("_ak.table2");
+                add("_az.aztable1");
+                addAll(generateTableListWithStates(allStates, "table3"));
+                addAll(generateTableListWithStates(mostStates, "table4"));
+                addAll(generateTableListWithStates(aFewStates, "table5"));
+            }
+        };
+        String wikiText = _tableCopyService.generateWikiText(direction, tables, "TH", "GS-1234", "Note123");
         String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
-                "| TH/GS-1234 | gs_schooldb | table1 | done | done |  | Note123 |\n" +
-                "| TH/GS-1234 | gs_schooldb | table2 | done | done |  | Note123 |\n" +
-                "| TH/GS-1234 | _az | aztable1 | done | done |  | Note123 |\n";
-
+                "| TH/GS-1234 | _ak | table1 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | _ak | table2 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | _az | aztable1 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | _az | table5 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | _ca | table5 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | _co | table5 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | _ct | table5 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | all -ca -or -wy | table4 | done | done |  | Note123 |\n" +
+                "| TH/GS-1234 | all | table3 | done | done |  | Note123 |\n";
         assertEquals("Unexpected wiki text for dev to staging", expectedWikiText, wikiText);
     }
 
@@ -159,7 +203,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testTablesFoundInTablesToMove() throws IOException {
-        List tableList = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+        List<String> tableList = Arrays.asList("database1.table1", "database2.table2");
         setUpWikiRequest(tableList, null);
 
         List tablesFound = _tableCopyService.tablesFoundInTablesToMove(tableList);
@@ -167,11 +211,11 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertTrue("Expected to find database1.table1 in TableToMove", tablesFound.contains("database1.table1"));
         assertTrue("Expected to find database2.table2 in TableToMove", tablesFound.contains("database2.table2"));
 
-        _httpClientMock.verify();
+        verify(_httpClientMock);
     }
 
     public void testTablesAlreadyCopiedToDev() throws IOException {
-        final List tableList = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+        final List<String> tableList = Arrays.asList("database1.table1", "database2.table2");
 
         GetMethod oneTableNotDoneRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
             public String getResponseBodyAsString() throws IOException {
@@ -180,21 +224,20 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         };
         _tableCopyService.setRequest(oneTableNotDoneRequest);
 
-        _httpClientMock.expectAndReturn(_client.executeMethod(oneTableNotDoneRequest),
-                HttpStatus.SC_OK, 4);
-        _httpClientMock.replay();
+        expect(_httpClientMock.executeMethod(oneTableNotDoneRequest)).andReturn(HttpStatus.SC_OK);
+        expectLastCall().times(4);        
+        replay(_httpClientMock);
 
         assertEquals("No result expected when table found and marked done", 0,
-                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList(new String[]{"database1.table1"})).size());
+                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList("database1.table1")).size());
         assertEquals("Expected database2.table2 in list, as it's not marked done", "database2.table2",
-                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList(new String[]{"database2.table2"})).get(0));
+                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList("database2.table2")).get(0));
         assertEquals("Expected database1.table2 in list, as it's not on wiki page", "database1.table2",
-                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList(new String[]{"database1.table2"})).get(0));
-        List errorList = _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList(new String[]{"database1.table1", "database2.table2"}));
+                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList("database1.table2")).get(0));
+        List errorList = _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList("database1.table1", "database2.table2"));
         assertEquals("Expected one error, as first table is marked done", 1, errorList.size());
         assertEquals("Expected database2.table2 in list, as it's not marked done", "database2.table2", errorList.get(0));
-
-        _httpClientMock.verify();
+        verify(_httpClientMock);
     }
 
     public void testGetDatabaseTableMatcher() {
@@ -246,7 +289,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testCheckWikiForSelectedTablesWhenAlreadyCopied() throws IOException {
-        List selectedTables = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+        List<String> selectedTables = Arrays.asList("database1.table1", "database2.table2");
         setUpWikiRequest(selectedTables, null);
 
         String status = _tableCopyService.checkWikiForSelectedTables(TableData.PRODUCTION_TO_DEV, selectedTables);
@@ -257,14 +300,14 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testCheckWikiForSelectedTablesWhenNotCopied() throws IOException {
-        setUpWikiRequest(new ArrayList(), null);
+        setUpWikiRequest(new ArrayList<String>(), null);
 
-        String status = _tableCopyService.checkWikiForSelectedTables(TableData.PRODUCTION_TO_DEV, Arrays.asList(new String[]{"database1.table1", "database2.table2"}));
+        String status = _tableCopyService.checkWikiForSelectedTables(TableData.PRODUCTION_TO_DEV, Arrays.asList("database1.table1", "database2.table2"));
         assertNull("No error expected when selected tables aren't found", status);
     }
 
     public void testCheckWikiForSelectedTablesFromLiveToDev() throws IOException {
-        List selectedTables = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+        List<String> selectedTables = Arrays.asList("database1.table1", "database2.table2");
         setUpWikiRequest(selectedTables, new String[]{"done", "N/A"});
 
         String status = _tableCopyService.checkWikiForSelectedTables(TableData.DEV_TO_STAGING, selectedTables);
@@ -272,7 +315,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testCheckWikiForSelectedTablesWhenNotCopiedFromLiveToDev() throws IOException {
-        List selectedTables = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+        List<String> selectedTables = Arrays.asList("database1.table1", "database2.table2");
         setUpWikiRequest(selectedTables, new String[]{"done", ""});
 
         String status = _tableCopyService.checkWikiForSelectedTables(TableData.DEV_TO_STAGING, selectedTables);
@@ -284,10 +327,10 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     public void testFilterDatabaseListForProductionToDev() {
         TableData databases = new TableData();
         databases.setDirection(TableData.PRODUCTION_TO_DEV);
-        databases.addDatabase("test", Arrays.asList(new String[]{"test1", "test2"}));
-        databases.addDatabase("test2", Arrays.asList(new String[]{"test1", "test2"}));
-        databases.addDatabase("gs_schooldb", Arrays.asList(new String[]{"test1", "test2"}));
-        databases.addDatabase("us_geo", Arrays.asList(new String[]{"test1", "test2"}));
+        databases.addDatabase("test", Arrays.asList("test1", "test2"));
+        databases.addDatabase("test2", Arrays.asList("test1", "test2"));
+        databases.addDatabase("gs_schooldb", Arrays.asList("test1", "test2"));
+        databases.addDatabase("us_geo", Arrays.asList("test1", "test2"));
 
         _tableCopyService.filterDatabases(databases);
         List databasesAndTables = databases.getDatabasesAndTables();
@@ -299,8 +342,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testFilterDatabaseListForDevToStaging() {
-        Set gs_schooldbTables = (Set) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("gs_schooldb");
-        List allGs_schooldbTables = new ArrayList() {
+        HashSet<String> gs_schooldbTables = TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("gs_schooldb");
+        List<String> allGs_schooldbTables = new ArrayList<String>() {
             {
                 add("test1");
                 add("test2");
@@ -308,8 +351,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         };
         allGs_schooldbTables.addAll(gs_schooldbTables);
 
-        Set us_geoTables = (Set) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("us_geo");
-        List allUs_geoTables = new ArrayList() {
+        Set<String> us_geoTables = TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("us_geo");
+        List<String> allUs_geoTables = new ArrayList<String>() {
             {
                 add("test1");
                 add("test2");
@@ -319,8 +362,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
         TableData databases = new TableData();
         databases.setDirection(TableData.DEV_TO_STAGING);
-        databases.addDatabase("test", Arrays.asList(new String[]{"test1", "test2"}));
-        databases.addDatabase("test2", Arrays.asList(new String[]{"test1", "test2"}));
+        databases.addDatabase("test", Arrays.asList("test1", "test2"));
+        databases.addDatabase("test2", Arrays.asList("test1", "test2"));
         databases.addDatabase("gs_schooldb", allGs_schooldbTables);
         databases.addDatabase("us_geo", allUs_geoTables);
 
@@ -333,7 +376,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertEquals("Unexpected number of tables in us_geo", us_geoTables.size(), us_geo.getTables().size());
     }
 
-    private void setUpWikiRequest(final List selectedTables, final String[] liveToDevStatus) throws IOException {
+    private void setUpWikiRequest(final List<String> selectedTables, final String[] liveToDevStatus) throws IOException {
         GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
             public String getResponseBodyAsString() throws IOException {
                 return generateTableToMovePage(selectedTables, liveToDevStatus);
@@ -341,16 +384,15 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         };
         _tableCopyService.setRequest(tablesFoundRequest);
 
-        _httpClientMock.expectAndReturn(_client.executeMethod(tablesFoundRequest),
-                HttpStatus.SC_OK);
-        _httpClientMock.replay();
+        expect(_httpClientMock.executeMethod(tablesFoundRequest)).andReturn(HttpStatus.SC_OK);
+        replay(_httpClientMock);
     }
 
-    private String generateTableToMovePage(List tables, String[] liveToDev) {
+    private String generateTableToMovePage(List<String> tables, String[] liveToDev) {
         StringBuffer tableBuffer = new StringBuffer();
         int count = 0;
-        for (Iterator iterator = tables.iterator(); iterator.hasNext(); count++) {
-            String databaseAndTable = (String) iterator.next();
+        for (Iterator<String> iterator = tables.iterator(); iterator.hasNext(); count++) {
+            String databaseAndTable = iterator.next();
             String[] databaseTable = databaseAndTable.split("\\.");
             tableBuffer.append("<tr><td> DR/<a href=\"http://jira.greatschools.net:8080/browse/GS-3033\" TARGET=\"_blank\">GS-3033</a> </td><td> ");
             tableBuffer.append(databaseTable[0]);

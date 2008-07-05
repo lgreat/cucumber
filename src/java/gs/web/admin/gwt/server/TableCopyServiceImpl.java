@@ -1,34 +1,36 @@
 package gs.web.admin.gwt.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
+import gs.data.state.StateManager;
+import gs.web.admin.gwt.client.ServiceException;
 import gs.web.admin.gwt.client.TableCopyService;
 import gs.web.admin.gwt.client.TableData;
-import gs.web.admin.gwt.client.ServiceException;
-import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
-
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
-import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.hibernate.SessionFactory;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.collections.ListUtils;
+import org.hibernate.SessionFactory;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
-    private static final Log _log = LogFactory.getLog(TableCopyServiceImpl.class);
-    private JdbcOperations _jdbcContext;
-    private SessionFactory _sessionFactory;
-    private HttpClient _httpClient = new HttpClient();
-    private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
+    transient private static final Log _log = LogFactory.getLog(TableCopyServiceImpl.class);
+    transient private JdbcOperations _jdbcContext;
+    transient private SessionFactory _sessionFactory;
+    transient private StateManager _stateManager;
+    transient private HttpClient _httpClient = new HttpClient();
+    transient private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
 
     public static final String DATABASE_COLUMN = "table_schema";
     public static final String TABLE_COLUMN = "table_name";
@@ -38,15 +40,16 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
     public static final String OUTDIR_FLAG_FOR_BACKUP_COMMAND = "--outdir /var/gsbackups/tablecopy";
     public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
-    public static final List PRODUCTION_TO_DEV_BLACKLIST = new ArrayList() {
+
+    transient public static final List<String> PRODUCTION_TO_DEV_BLACKLIST = new ArrayList<String>() {
         {
             add("gs_schooldb");
             add("us_geo");
         }
     };
-    public static final Map DEV_TO_STAGING_WHITELIST = new HashMap() {
+    transient public static final Map<String, HashSet<String>> DEV_TO_STAGING_WHITELIST = new HashMap<String, HashSet<String>>() {
         {
-            put("gs_schooldb", new HashSet() {
+            put("gs_schooldb", new HashSet<String>() {
                 {
                     add("census_data_set_file");
                     add("census_data_type");
@@ -64,7 +67,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                     add("test");
                 }
             });
-            put("us_geo", new HashSet() {
+            put("us_geo", new HashSet<String>() {
                 {
                     add("city");
                 }
@@ -83,8 +86,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         List results = jdbcOperations.queryForList(TABLE_LIST_QUERY);
         long endQuery = System.currentTimeMillis();
 
-        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-            Map result = (Map) iterator.next();
+        for (Object result1 : results) {
+            Map result = (Map) result1;
             String database = (String) result.get(DATABASE_COLUMN);
             String table = (String) result.get(TABLE_COLUMN);
             databases.addDatabaseAndTable(database, table);
@@ -115,8 +118,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 _log.debug("Checking wiki");
                 String copyStatus = checkWikiForSelectedTables(direction, Arrays.asList(tableList));
                 if (copyStatus != null) {
-                    ServiceException exception = new ServiceException(copyStatus);
-                    throw exception;
+                    throw new ServiceException(copyStatus);
                 }
             } catch (IOException e) {
                 _log.error("Error getting wiki status", e);
@@ -135,8 +137,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             String errorText = parseCommandOutput(backupOutput);
             if (errorText != null) {
                 _log.error("Error backing up tables with dumpcopy: " + errorText);
-                ServiceException exception = new ServiceException("Error backing up tables: " + errorText);
-                throw exception;
+                throw new ServiceException("Error backing up tables: " + errorText);
             }
 
             String copyOutput = executeCommand(copyCommand);
@@ -144,8 +145,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             errorText = parseCommandOutput(backupOutput);
             if (errorText != null) {
                 _log.error("Error copying tables with dumpcopy: " + errorText);
-                ServiceException exception = new ServiceException("Error copying tables: " + errorText);
-                throw exception;
+                throw new ServiceException("Error copying tables: " + errorText);
             }
         } catch (IOException e) {
             _log.error("Error executing dumpcopy", e);
@@ -175,18 +175,19 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                     reader.close();
                 }
             } catch (IOException e) {
+                // Do nothing
             }
         }
     }
 
-    public String generateCopyCommand(TableData.DatabaseDirection direction, List tables) {
+    public String generateCopyCommand(TableData.DatabaseDirection direction, List<String> tables) {
         StringBuffer command = new StringBuffer();
         command.append(COPY_TABLES_COMMAND);
-        command.append(" --fromhost " + direction.getSource() + " ");
-        command.append(" --tohost " + direction.getTarget() + " ");
+        command.append(" --fromhost ").append(direction.getSource()).append(" ");
+        command.append(" --tohost ").append(direction.getTarget()).append(" ");
         StringBuffer tableList = new StringBuffer(" --tablelist ");
-        for (Iterator iterator = tables.iterator(); iterator.hasNext();) {
-            String databaseAndTable = (String) iterator.next();
+        for (Iterator<String> iterator = tables.iterator(); iterator.hasNext();) {
+            String databaseAndTable = iterator.next();
             tableList.append(databaseAndTable);
             if (iterator.hasNext()) {
                 tableList.append(",");
@@ -197,14 +198,14 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return command.toString();
     }
 
-    public String generateBackupCommand(TableData.DatabaseDirection direction, List tables) {
+    public String generateBackupCommand(TableData.DatabaseDirection direction, List<String> tables) {
         StringBuffer command = new StringBuffer();
         command.append(COPY_TABLES_COMMAND);
-        command.append(" --fromhost " + direction.getTarget() + " ");
+        command.append(" --fromhost ").append(direction.getTarget()).append(" ");
         command.append(OUTDIR_FLAG_FOR_BACKUP_COMMAND);
         StringBuffer tableList = new StringBuffer(" --tablelist ");
-        for (Iterator iterator = tables.iterator(); iterator.hasNext();) {
-            String databaseAndTable = (String) iterator.next();
+        for (Iterator<String> iterator = tables.iterator(); iterator.hasNext();) {
+            String databaseAndTable = iterator.next();
             tableList.append(databaseAndTable);
             if (iterator.hasNext()) {
                 tableList.append(",");
@@ -215,15 +216,14 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return command.toString();
     }
 
-    public String generateWikiText(TableData.DatabaseDirection direction, List databasesAndTables, String initials, String jira, String notes) {
+    public String generateWikiText(TableData.DatabaseDirection direction, List<String> databasesAndTables, String initials, String jira, String notes) {
         if (StringUtils.isEmpty(initials)) initials = "??";
         if (StringUtils.isEmpty(jira)) jira = "GS-????";
         if (StringUtils.isEmpty(notes)) notes = "";
         StringBuffer wikiText = new StringBuffer("|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n");
-        for (Iterator iterator = databasesAndTables.iterator(); iterator.hasNext();) {
-            String databaseAndTable = (String) iterator.next();
-            String[] split = databaseAndTable.split("\\.");
-            wikiText.append("| " + initials + "/" + jira + " | ");
+        for (String databasesAndTable : condenseTableList(databasesAndTables)) {
+            String[] split = databasesAndTable.split("\\.");
+            wikiText.append("| ").append(initials).append("/").append(jira).append(" | ");
             wikiText.append(split[0]);
             wikiText.append(" | ");
             wikiText.append(split[1]);
@@ -234,10 +234,46 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 wikiText.append("done");
             }
             wikiText.append(" | ");
-            wikiText.append(" | " + notes);
+            wikiText.append(" | ").append(notes);
             wikiText.append(" |\n");
         }
         return wikiText.toString();
+    }
+
+    private List<String> condenseTableList(List<String> tables) {
+        final int MIN_NUMBER_OF_STATES = 40;
+        List<String> condensed = new ArrayList<String>();
+
+        // Do first pass to build tableToDatabaseMap
+        Map<String, List<String>> tableToDatabaseMap = new HashMap<String, List<String>>();
+        for (String table : tables) {
+            if (table.startsWith("_")) {
+                String state = table.split("\\.")[0].substring(1).toUpperCase(); // e.g. _ca becomes CA
+                String tableSuffix = table.split("\\.")[1]; // e.g. census_school_value
+                if (tableToDatabaseMap.get(tableSuffix) == null)
+                    tableToDatabaseMap.put(tableSuffix, new ArrayList<String>());
+                tableToDatabaseMap.get(tableSuffix).add(state);
+            } else {
+                condensed.add(table);
+            }
+        }
+
+        // Do second pass to condense tables with MIN_NUMBER_OF_STATES or greater
+        for (String tableSuffix : tableToDatabaseMap.keySet()) {
+            List<String> states = tableToDatabaseMap.get(tableSuffix);
+            if (states.size() >= MIN_NUMBER_OF_STATES) {
+                // To condense we have to invert the list of states
+                StringBuffer condensedStates = new StringBuffer("all");
+                for (Object negativeState : ListUtils.subtract(_stateManager.getSortedAbbreviations(), states))
+                    condensedStates.append(" -").append(((String) negativeState).toLowerCase());
+                condensedStates.append(".").append(tableSuffix);
+                condensed.add(condensedStates.toString());
+            } else {
+                for (String state : states) condensed.add("_" + state.toLowerCase() + "." + tableSuffix);
+            }
+        }
+        Collections.sort(condensed);
+        return condensed;
     }
 
     public String parseCommandOutput(String output) {
@@ -266,32 +302,30 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return "(?m)^.*>\\s*(" + database + "|all|all(\\s+-(?!" + database + ")\\S+)+)\\s*<.*>\\s*" + table + "\\s*<.*>\\s*(done|n/a|N/A)\\s*<(.*/td>\\s*<td){3}.*$";
     }
 
-    public List tablesFoundInTablesToMove(List databaseTablePairs) throws IOException {
+    public List<String> tablesFoundInTablesToMove(List<String> databaseTablePairs) throws IOException {
         _httpClient.executeMethod(_request);
 
-        List found = new ArrayList();
+        List<String> found = new ArrayList<String>();
 
-        for (Iterator iterator = databaseTablePairs.iterator(); iterator.hasNext();) {
-            String databaseTable = (String) iterator.next();
-            String[] databaseAndTable = databaseTable.split("\\.");
+        for (String databaseTablePair : databaseTablePairs) {
+            String[] databaseAndTable = databaseTablePair.split("\\.");
             // String.matches() doesn't seem to work with multiline searches
             Pattern pattern = Pattern.compile(getDatabaseTableMatcher(databaseAndTable[0], databaseAndTable[1]));
             String pageBody = _request.getResponseBodyAsString();
             Matcher matcher = pattern.matcher(pageBody);
             if (matcher.find()) {
-                found.add(databaseTable);
+                found.add(databaseTablePair);
             }
         }
         return found;
     }
 
-    public List tablesNotYetCopiedToDev(List databaseTablePairs) throws IOException {
+    public List<String> tablesNotYetCopiedToDev(List<String> databaseTablePairs) throws IOException {
         _httpClient.executeMethod(_request);
 
-        List notFound = new ArrayList();
+        List<String> notFound = new ArrayList<String>();
 
-        for (Iterator iterator = databaseTablePairs.iterator(); iterator.hasNext();) {
-            String databaseTable = (String) iterator.next();
+        for (String databaseTable : databaseTablePairs) {
             String[] databaseAndTable = databaseTable.split("\\.");
             // String.matches() doesn't seem to work with multiline searches
             Pattern pattern = Pattern.compile(getDatabaseTableCopiedToDevMatcher(databaseAndTable[0], databaseAndTable[1]));
@@ -305,12 +339,12 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return notFound;
     }
 
-    public String checkWikiForSelectedTables(TableData.DatabaseDirection direction, List selectedTables) throws IOException {
+    public String checkWikiForSelectedTables(TableData.DatabaseDirection direction, List<String> selectedTables) throws IOException {
         if (TableData.PRODUCTION_TO_DEV.equals(direction)) {
-            List tablesAlreadyMoved = tablesFoundInTablesToMove(selectedTables);
+            List<String> tablesAlreadyMoved = tablesFoundInTablesToMove(selectedTables);
             return generateWarningOutput(tablesAlreadyMoved, TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR);
         } else if (TableData.DEV_TO_STAGING.equals(direction)) {
-            List tablesNotYetMoved = tablesNotYetCopiedToDev(selectedTables);
+            List<String> tablesNotYetMoved = tablesNotYetCopiedToDev(selectedTables);
             return generateWarningOutput(tablesNotYetMoved, TABLES_NOT_YET_MOVED_ERROR);
         }
         return null;
@@ -343,8 +377,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         for (String table : tables) {
             if (TableData.PRODUCTION_TO_DEV.equals(direction)) {
                 boolean match = false;
-                for (Object database : PRODUCTION_TO_DEV_BLACKLIST) {
-                    if (table.startsWith((String) database)) match = true;
+                for (String database : PRODUCTION_TO_DEV_BLACKLIST) {
+                    if (table.startsWith(database)) match = true;
                 }
                 if (!match || table.equals("gs_schooldb.test")) {
                     tablesToKeep.add(table);
@@ -354,7 +388,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             } else if (TableData.DEV_TO_STAGING.equals(direction)) {
                 String database = table.split("\\.")[0];
                 String tableSuffix = table.split("\\.")[1];
-                Set tableOKSet = (Set) DEV_TO_STAGING_WHITELIST.get(database);
+                Set<String> tableOKSet = DEV_TO_STAGING_WHITELIST.get(database);
                 if (tableOKSet == null) {
                     tablesToKeep.add(table);
                 } else if (tableOKSet.contains(tableSuffix)) {
@@ -367,12 +401,11 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return tablesToKeep.toArray(new String[tablesToKeep.size()]);
     }
 
-    private String generateWarningOutput(List tables, String errorMessage) {
+    private String generateWarningOutput(List<String> tables, String errorMessage) {
         if (!tables.isEmpty()) {
             StringBuffer error = new StringBuffer(errorMessage);
-            for (Iterator iterator = tables.iterator(); iterator.hasNext();) {
-                String table = (String) iterator.next();
-                error.append(table).append(LINE_BREAK);
+            for (String table1 : tables) {
+                error.append(table1).append(LINE_BREAK);
             }
             return error.toString();
         }
@@ -410,18 +443,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         _request = request;
     }
 
-    private TableData populateTestData() {
-        List gsList = new ArrayList();
-        List azList = new ArrayList();
-        TableData tableData = new TableData();
-        gsList.add("table1");
-        gsList.add("table2");
-        azList.add("az_table1");
-        azList.add("az_table2");
-        tableData.addDatabase("gs_schooldb", gsList);
-        tableData.addDatabase("_az", azList);
-        tableData.setDirection(TableData.DEV_TO_STAGING);
-        return tableData;
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
     }
-
 }

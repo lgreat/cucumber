@@ -9,16 +9,25 @@ import org.springframework.validation.BindException;
 
 import java.util.List;
 import java.util.Arrays;
+import java.io.IOException;
 
 import static org.easymock.classextension.EasyMock.*;
 
 public class TableMoverControllerTest extends BaseControllerTestCase {
     private TableMoverController _controller;
 
+    private TableCopyServiceImpl _tableCopyServiceBackup;
+
     protected void setUp() throws Exception {
         super.setUp();
         _request.setMethod("GET");
         _controller = (TableMoverController) getApplicationContext().getBean(TableMoverController.BEAN_ID);
+        // We back this up because it will often be mocked
+        _tableCopyServiceBackup = _controller._tableCopyService;
+    }
+
+    protected void tearDown() throws Exception {
+        _controller.setTableCopyService(_tableCopyServiceBackup);
     }
 
     public void testRequestToDevSucceeds() throws Exception {
@@ -101,22 +110,29 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
     }
 
     public void testPreview() throws Exception {
-        // @todo mock checkWiki call
-        // @todo check for filtered tables
         TableMoverCommand cmd = new TableMoverCommand();
         cmd.setTarget("staging");
         BindException errors = new BindException(cmd, "");
+
+        // Override checkWikiForSelectedTables so the test doesn't actually go out to the wiki
+        TableCopyServiceImpl tcs = new TableCopyServiceImpl() {
+            public String checkWikiForSelectedTables(TableData.DatabaseDirection direction, List<String> selectedTables) throws IOException {
+                return "SomeWarningText";
+            }
+        };
+        _controller.setTableCopyService(tcs);
 
         // Test duplicate tables with the database specified
         cmd.setMode("preview");
         cmd.setTablesets(new String[]{"us_geo.city,us_geo.city", "us_geo.city"});
         cmd.setStates(new String[]{"CA"});
         _controller.onBindAndValidate(_request, cmd, errors);
-        _controller.onSubmit(_request, _response, cmd, errors);
-        List tables = Arrays.asList(cmd.getTables());
+        ModelAndView mv = _controller.onSubmit(_request, _response, cmd, errors);
+        List<String> tables = Arrays.asList(cmd.getTables());
         assertNotNull(tables);
         assertEquals(1, tables.size());
         assertEquals("us_geo.city", tables.get(0));
+        assertEquals("SomeWarningText", mv.getModel().get("warnings"));
 
         // Test state specific tables and dups
         cmd.setTablesets(new String[]{"school,us_geo.city", "us_geo.city,school"});
@@ -150,6 +166,25 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         assertTrue(tables.contains("us_geo.city"));
         assertTrue(tables.contains("_or.school"));
         assertTrue(tables.contains("_wy.school"));
+
+        // Test table filtering, foo is not whitelisted for dev to staging
+        cmd.setTablesets(new String[]{"us_geo.city", "gs_schooldb.foo"});
+        cmd.setStates(new String[0]);
+        _controller.onBindAndValidate(_request, cmd, errors);
+        _controller.onSubmit(_request, _response, cmd, errors);
+        tables = Arrays.asList(cmd.getTables());
+        assertEquals(1, tables.size());
+        assertTrue(tables.contains("us_geo.city"));
+
+        // Test table filtering, us_geo.city is blacklisted for live to dev
+        cmd.setTarget("dev");
+        cmd.setTablesets(new String[]{"us_geo.city", "_ca.test"});
+        cmd.setStates(new String[0]);
+        _controller.onBindAndValidate(_request, cmd, errors);
+        _controller.onSubmit(_request, _response, cmd, errors);
+        tables = Arrays.asList(cmd.getTables());
+        assertEquals(1, tables.size());
+        assertTrue(tables.contains("_ca.test"));
     }
 
     public void testMove() throws Exception {
@@ -158,27 +193,20 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(cmd, "");
         cmd.setMode("move");
         cmd.setTables(new String[]{"us_geo.city", "gs_schooldb.test"});
+        TableCopyServiceImpl tcs = createMock(TableCopyServiceImpl.class);
+        expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andReturn("ABC");
+        expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andThrow(new ServiceException("XYZ"));
+        replay(tcs);
+        _controller.setTableCopyService(tcs);
 
-        // backup and then put in a table copy service mock
-        TableCopyServiceImpl tcsBackup = _controller._tableCopyService;
-        try {
-            TableCopyServiceImpl tcs = createMock(TableCopyServiceImpl.class);
-            expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andReturn("ABC");
-            expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andThrow(new ServiceException("XYZ"));
-            replay(tcs);
-            _controller.setTableCopyService(tcs);
+        // Check normal operation
+        ModelAndView mv = _controller.onSubmit(_request, _response, cmd, errors);
+        assertEquals("ABC", mv.getModel().get("wikiText"));
 
-            // Check normal operation
-            ModelAndView mv = _controller.onSubmit(_request, _response, cmd, errors);
-            assertEquals("ABC", mv.getModel().get("wikiText"));
-
-            // Check when an exception is thrown
-            mv = _controller.onSubmit(_request, _response, cmd, errors);
-            assertTrue(((String) mv.getModel().get("errors")).startsWith("XYZ"));
-            verify(tcs);
-        } finally {
-            _controller.setTableCopyService(tcsBackup);
-        }
+        // Check when an exception is thrown
+        mv = _controller.onSubmit(_request, _response, cmd, errors);
+        assertTrue(((String) mv.getModel().get("errors")).startsWith("XYZ"));
+        verify(tcs);
     }
 
     public void testGetBasedFormSubmission() {
