@@ -3,6 +3,7 @@ package gs.web.admin.database;
 import gs.web.BaseControllerTestCase;
 import gs.web.admin.gwt.server.TableCopyServiceImpl;
 import gs.web.admin.gwt.client.ServiceException;
+import gs.web.admin.gwt.client.TableData;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
@@ -73,6 +74,13 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(_request, cmd, errors);
         assertEquals("Should be an error because gs_schooldb.operator is not on the whitelist",
                 1, errors.getAllErrors().size());
+
+        cmd.setMode("move");
+        cmd.setTables(new String[]{"gs_schooldb.foo"});
+        errors = new BindException(cmd, "");
+        _controller.onBindAndValidate(_request, cmd, errors);
+        assertEquals("Should not be any validation errors",
+                0, errors.getAllErrors().size());
 
         cmd.setMode("move");
         cmd.setTables(new String[]{});
@@ -154,7 +162,7 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
 
             // Check when an exception is thrown
             mv = _controller.onSubmit(_request, _response, cmd, errors);
-            assertTrue(((String)mv.getModel().get("errors")).startsWith("XYZ"));
+            assertTrue(((String) mv.getModel().get("errors")).startsWith("XYZ"));
             verify(tcs);
         } finally {
             _controller.setTableCopyService(tcsBackup);
@@ -173,5 +181,19 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         assertTrue(_controller.isFormChangeRequest(_request, cmd));
         cmd.setMode("preview");
         assertFalse(_controller.isFormChangeRequest(_request, cmd));
+    }
+
+    public void testTableMoverCommand() {
+        TableMoverCommand cmd = new TableMoverCommand();
+        cmd.setInitials("TH");
+        cmd.setJira("ABC");
+        cmd.setNotes("123");
+        cmd.setTarget("dev");
+        assertEquals(TableData.PRODUCTION_TO_DEV, cmd.getDirection());
+        cmd.setTarget("staging");
+        assertEquals(TableData.DEV_TO_STAGING, cmd.getDirection());
+        assertEquals("TH", cmd.getInitials());
+        assertEquals("ABC", cmd.getJira());
+        assertEquals("123", cmd.getNotes());
     }
 }

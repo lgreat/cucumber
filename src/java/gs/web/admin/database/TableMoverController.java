@@ -67,7 +67,8 @@ public class TableMoverController extends SimpleFormController {
                 errors.reject("states", "You must select at least one state.");
             }
             if (!errors.hasErrors()) {
-                cmd.setTables(processTableSets(cmd.getTablesets(), cmd.getStates(), cmd.getDirection()));
+                List<String> tablesFilteredOut = new ArrayList<String>();
+                cmd.setTables(processTableSets(cmd.getTablesets(), cmd.getStates(), cmd.getDirection(), tablesFilteredOut));
                 if (cmd.getTables().length == 0) {
                     errors.reject("tablesets", "No tables left to move after filtering tables against blacklist and whitelist.");
                 }
@@ -106,7 +107,7 @@ public class TableMoverController extends SimpleFormController {
      * @param states
      * @return Array of database.tablesname strings
      */
-    protected String[] processTableSets(String[] tableSets, String[] states, TableData.DatabaseDirection direction) {
+    protected String[] processTableSets(String[] tableSets, String[] states, TableData.DatabaseDirection direction, List<String> tablesFilteredOut) {
         Set<String> tables = new TreeSet<String>();
         // Reduce to unique table names
         for (String tableSet : tableSets) {
@@ -129,7 +130,7 @@ public class TableMoverController extends SimpleFormController {
                 tables.remove(table);
             }
         }
-        return _tableCopyService.filter(direction, tables.toArray(new String[tables.size()]));
+        return _tableCopyService.filter(direction, tables.toArray(new String[tables.size()]), tablesFilteredOut);
     }
 
     protected boolean isFormSubmission(HttpServletRequest request) {

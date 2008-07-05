@@ -335,9 +335,10 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
      *
      * @param direction
      * @param tables
+     * @param tablesFilteredOut is a list where filtered tables will be put
      * @return Filtered table list
      */
-    public String[] filter(TableData.DatabaseDirection direction, String[] tables) {
+    public String[] filter(TableData.DatabaseDirection direction, String[] tables, List<String> tablesFilteredOut) {
         ArrayList<String> tablesToKeep = new ArrayList<String>();
         for (String table : tables) {
             if (TableData.PRODUCTION_TO_DEV.equals(direction)) {
@@ -345,7 +346,11 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 for (Object database : PRODUCTION_TO_DEV_BLACKLIST) {
                     if (table.startsWith((String) database)) match = true;
                 }
-                if (!match || table.equals("gs_schooldb.test")) tablesToKeep.add(table);
+                if (!match || table.equals("gs_schooldb.test")) {
+                    tablesToKeep.add(table);
+                } else {
+                    tablesFilteredOut.add(table);
+                }
             } else if (TableData.DEV_TO_STAGING.equals(direction)) {
                 String database = table.split("\\.")[0];
                 String tableSuffix = table.split("\\.")[1];
@@ -354,6 +359,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                     tablesToKeep.add(table);
                 } else if (tableOKSet.contains(tableSuffix)) {
                     tablesToKeep.add(table);
+                } else {
+                    tablesFilteredOut.add(table);
                 }
             }
         }
