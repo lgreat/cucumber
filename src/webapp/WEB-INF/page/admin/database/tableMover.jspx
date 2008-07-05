@@ -45,12 +45,24 @@
                         </h2>
 
                         <div style="height:345px;overflow:auto;border: 1px solid;">
-                            <form:checkboxes path="tablesets" items="${allTableSets}" delimiter="&lt;br/&gt;" />
+                            <form:checkboxes path="tablesets" items="${allTableSets}" delimiter="&lt;br/&gt;"/>
                         </div>
                     </div>
                     <div class="yui-u">
-                        <div style="margin-left:80px">
+                        <div style="margin-left:80px;position:relative">
                             <h2>States</h2>
+                            <input id="selectAllStates" style="position:absolute;left:80px;top:0px" type="button"
+                                   value="Select All"/>
+                            <script type="text/javascript">
+                                $.fn.reverse = [].reverse;                                
+                                $('#selectAllStates').click(
+                                        function() {
+                                            $('option', $('#states')).reverse().each(function() {
+                                                if (this.value != '') this.selected = 'selected';
+                                            });
+                                        }
+                                        );
+                            </script>
                             <form:select path="states" multiple="true" size="23">
                                 <form:option value="">All States</form:option>
                                 <c:forEach var="state" items="${allStates}">

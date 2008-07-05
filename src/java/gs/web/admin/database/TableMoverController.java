@@ -12,7 +12,6 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlUtil;
 import gs.web.admin.gwt.server.TableCopyServiceImpl;
 import gs.web.admin.gwt.client.ServiceException;
-import gs.web.admin.gwt.client.TableData;
 import gs.data.state.StateManager;
 
 import java.util.*;
@@ -60,16 +59,14 @@ public class TableMoverController extends SimpleFormController {
                 errors.reject("tables", "You must select at least one table to move.");
             }
         } else {
+            boolean includesStateSpecificTables = processTableSetsDownToTables(cmd);
             if (cmd.getTablesets().length == 0) {
                 errors.reject("tablesets", "You must select at least one table set.");
             }
-            if (cmd.getStates().length == 0) {
+            if (cmd.getStates().length == 0 && includesStateSpecificTables) {
                 errors.reject("states", "You must select at least one state.");
             }
             if (!errors.hasErrors()) {
-                List<String> tablesFilteredOut = new ArrayList<String>();
-                cmd.setTables(processTableSets(cmd.getTablesets(), cmd.getStates(), cmd.getDirection(), tablesFilteredOut));
-                cmd.setTablesFilteredOut(tablesFilteredOut.toArray(new String[tablesFilteredOut.size()]));
                 if (cmd.getTables().length == 0) {
                     errors.reject("tablesets", "No tables left to move after filtering tables against blacklist and whitelist.");
                 }
@@ -101,22 +98,23 @@ public class TableMoverController extends SimpleFormController {
     }
 
     /**
-     * Process the table sets down to tables and then filter out tables based on black and white lists
+     * Process the table sets down to tables, filter out tables based on black and white lists
      *
-     * @param tableSets
-     * @param direction
-     * @param states
-     * @return Array of database.tablesname strings
+     * @param cmd TableMoverCommand
+     * @return true if there are state specific tables in the generated output
      */
-    protected String[] processTableSets(String[] tableSets, String[] states, TableData.DatabaseDirection direction, List<String> tablesFilteredOut) {
+    protected boolean processTableSetsDownToTables(TableMoverCommand cmd) {
+        boolean stateSpecificTables = false;
+        List<String> tablesFilteredOut = new ArrayList<String>();
         Set<String> tables = new TreeSet<String>();
         // Reduce to unique table names
-        for (String tableSet : tableSets) {
+        for (String tableSet : cmd.getTablesets()) {
             tables.addAll(Arrays.asList(tableSet.split(",")));
         }
 
         // Check if we're going to be processing all states
-        if (Arrays.asList(states).contains("")) {
+        String[] states = cmd.getStates();
+        if (Arrays.asList(cmd.getStates()).contains("")) {
             List<String> allStates = _stateManager.getSortedAbbreviations();
             states = allStates.toArray(new String[allStates.size()]);
         }
@@ -124,6 +122,7 @@ public class TableMoverController extends SimpleFormController {
         // Add states to the tables that need it        
         for (String table : new TreeSet<String>(tables)) {
             if (!table.contains(".")) {
+                stateSpecificTables = true;
                 for (String state : states) {
                     tables.add("_" + state.toLowerCase() + "." + table);
                 }
@@ -131,7 +130,10 @@ public class TableMoverController extends SimpleFormController {
                 tables.remove(table);
             }
         }
-        return _tableCopyService.filter(direction, tables.toArray(new String[tables.size()]), tablesFilteredOut);
+        cmd.setTables(_tableCopyService.filter(cmd.getDirection(), tables.toArray(new String[tables.size()]), tablesFilteredOut));
+        cmd.setTablesFilteredOut(tablesFilteredOut.toArray(new String[tablesFilteredOut.size()]));
+
+        return stateSpecificTables;
     }
 
     protected boolean isFormSubmission(HttpServletRequest request) {

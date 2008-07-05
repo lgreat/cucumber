@@ -37,20 +37,30 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         TableMoverCommand cmd = new TableMoverCommand();
         cmd.setTarget("dev");
         cmd.setMode("preview");
+
         cmd.setTablesets(new String[0]);
         cmd.setStates(new String[0]);
         BindException errors = new BindException(cmd, "");
         _controller.onBindAndValidate(_request, cmd, errors);
-        assertEquals("There should be an error for missing state and table sets",
-                2, errors.getAllErrors().size());
-
-        cmd.setStates(new String[]{"CA"});
-        errors = new BindException(cmd, "");
-        _controller.onBindAndValidate(_request, cmd, errors);
         assertEquals("There should be an error for missing table sets",
                 1, errors.getAllErrors().size());
 
+        cmd.setTablesets(new String[]{"test"});
+        cmd.setStates(new String[0]);
+        errors = new BindException(cmd, "");
+        _controller.onBindAndValidate(_request, cmd, errors);
+        assertEquals("There should be an error for missing state because no database prefix means state specific table",
+                1, errors.getAllErrors().size());
+
+        cmd.setTablesets(new String[]{"gs_schooldb.test"});
+        cmd.setStates(new String[0]);
+        errors = new BindException(cmd, "");
+        _controller.onBindAndValidate(_request, cmd, errors);
+        assertEquals("There should be no error because gs_schooldb.test doesn't require a state",
+                0, errors.getAllErrors().size());
+
         cmd.setTablesets(new String[]{"school"});
+        cmd.setStates(new String[]{"CA"});
         errors = new BindException(cmd, "");
         _controller.onBindAndValidate(_request, cmd, errors);
         assertEquals("Should not be an error because state and table sets provided",

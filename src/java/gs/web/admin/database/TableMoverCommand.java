@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TableMoverCommand.java,v 1.4 2008/07/05 17:40:29 thuss Exp $
+ * $Id: TableMoverCommand.java,v 1.5 2008/07/05 19:37:02 thuss Exp $
  */
 package gs.web.admin.database;
 
@@ -8,17 +8,18 @@ import gs.web.admin.gwt.client.TableData;
 
 /**
  * Backing object for #TableMoverController
+ *
  * @author thuss
  */
 public class TableMoverCommand {
-    private String _target;
+    private String[] _states = new String[0];
     private String[] _tablesets;
-    private String[] _states;
+    private String[] _tables;
+    private String[] _tablesFilteredOut;
+    private String _target;
     private String _jira;
     private String _initials;
     private String _notes;
-    private String[] _tables;
-    private String[] _tablesFilteredOut;
     private String mode;
 
     public String getTarget() {
