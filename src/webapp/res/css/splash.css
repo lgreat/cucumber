@@ -2,8 +2,8 @@
     padding-top: 0px;
     font-family: "Trebuchet MS", Arial, sans-serif;
     color: #666;
-    /*margin: 0 18px;*/
     margin: 0 8px;
+    width: 884px;
 }
 
 /* TOP SECTION */
@@ -30,9 +30,6 @@
     border: 3px solid #6cc;
     padding: 40px 8px 10px 9px;
     margin: 0;
-    /*width: 240px;*/
-    /*height: 100%;*/
-
     width: 249px;
     height: 235px;
 }
@@ -124,22 +121,20 @@ div#footer { padding-top:2px; }
 
 #contentMiddle {
     width: 870px;
-    height: 277px;
-    margin-bottom: 10px;
-    _margin-bottom: 2px;
     margin-left: 3px;
+    margin-bottom: 2px;
 }
 
 #contentMiddleRight {
     float: right;
-    background-color: #EEEEEE;
+    padding: 4px 0 0 0;
 }
 
 #contentBottom {
     clear: both;
     width: 880px;
-    height: 215px;  /*215*/
     margin-left: 3px;
+    margin-top: 0;
 }
 
 .contentGS a:link, .contentGS a:visited, .contentGS a:hover, .contentGS a:active {
@@ -147,15 +142,33 @@ div#footer { padding-top:2px; }
 }
 
 .more {
-    text-align: right;
+    position: absolute;
+    bottom: 10px;
+}
+
+.more.right {
+    right: 10px;
 }
 
 #rightSchoolDiv {
-    float: right;
-    width: 164px; 
+    float: left;
+    width: 164px;
+    padding-left: 10px;
 }
 
 #rightSchoolLinksDiv {
     margin-left: 0px;
     margin-top: 10px;
+}
+
+.adBox .wrapper-content {
+    width: 303px;
+    height: 265px;
+}
+
+.sponsor_ad {
+    width: 185px;
+    height: 28px;
+    margin-left: 10px;
+    background-color: red;
 }

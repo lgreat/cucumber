@@ -71,6 +71,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 <pageHelper:externalCss file="/res/css/splash.css"/>
 <pageHelper:externalCss file="/res/css/home/module_base.css"/>
 <pageHelper:externalCss file="/res/css/home/blue_module.css"/>
+<pageHelper:externalCss file="/res/css/home/adbox.css"/>
 <!--must match subversion numbers in Template.pm-->
 <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
 <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
@@ -78,6 +79,8 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 <pageHelper:addOnLoadHandler handler="hoverHome()"/>
 <pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
+<c:set var="showAd"
+       value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
 <div id="contentTop">
     <div id="houseAd">
@@ -212,16 +215,16 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
     <div class="moduleBox">
 		<div class="wrapper-outer">
 			<div class="wrapper-inner">
-				<div class="wrapper-content" style="width: 261px; height: 264px;">
+				<div class="wrapper-content" style="width: 261px; height: 264px; position: relative;">
 					<!-- Define width (and alternatively height) on .wrapper-content -->
                     <img class="heading" src="/res/img/home/tools_header.gif" alt="The Latest Tools and Advice" title="" />
                     <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter" />
 					<ul class="arrows">
                         <li>Stay on track for <a href="/content/backToSchool.page">Back to School</a>.</li>
 						<li>Get the edge. Start a <a href="/content/countdownToCollege.page">Countdown to College</a>.</li>
-						<li>Are you smarter than your fourth-grader? <a href="/content/btsQuiz.page">See if you make the grade</a>.</li>
+						<li>Are you smarter than your fourth-<br/>grader? <a href="/content/btsQuiz.page">See if you make the grade</a>.</li>
 					</ul>
-                    <div class="sponsor_ad" style="width: 185px; height: 28px; background-color: red;"><ad:Homepage_185x28/></div>
+                    <div class="sponsor_ad"><ad:Homepage_185x28/></div>
                 </div>
 			</div>
 		</div>
@@ -230,7 +233,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
     <div class="moduleBox">
 		<div class="wrapper-outer">
 			<div class="wrapper-inner">
-				<div class="wrapper-content" style="width: 241px; height: 264px;">
+				<div class="wrapper-content" style="width: 241px; height: 263px;">
 					<a onclick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50'); return false;"
                        class="submodal-480-550" href="/community/newsletters/popup/newsletter.page?referrer=backToSchool"><img src="/res/img/home/newsletter.gif"
                        alt="Sign me up for free newsletters" title="" /></a>
@@ -241,12 +244,8 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 	</div>
 
     <div id="contentMiddleRight">
-        <c:set var="splashAd"
-               value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
-        <c:if test="${splashAd}">
-            <div id="splashAdContent">
+        <c:if test="${showAd}">
                 <ad:Homepage_300x250/>
-            </div>
         </c:if>
     </div>
 </div>
@@ -256,8 +255,8 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
     <div class="moduleBox">
 		<div class="wrapper-outer">
 			<div class="wrapper-inner">
-				<div class="wrapper-content" style="width: 261px; height: 215px;">
-					<!-- Define width (and alternatively height) on .wrapper-content -->
+				<div class="wrapper-content" style="width: 261px; height: 215px; position: relative;">
+                    <!-- Define width (and alternatively height) on .wrapper-content -->
                     <img class="heading" src="/res/img/home/choose_school_header.gif" alt="Choosing the right school" title="" />
                     <div style="width: 85px; height: 171px; float: left;">
                     <img class="leadoff left" src="/res/img/home/pencil_apple.jpg" alt="Pencil and apple" />
@@ -270,7 +269,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                         <gsweb:articlelink articleId="48" wrappingElement="li">My Checklist for the School Visit</gsweb:articlelink>
                     </ul>
 
-                    <p class="more" style="margin-top: -7px;">
+                    <p class="more right">
                         <a href="/content/schoolChoiceCenter.page">Read more &gt;</a>
                     </p>
                     </div>
@@ -282,8 +281,8 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
     <div class="moduleBox">
 		<div class="wrapper-outer">
 			<div class="wrapper-inner">
-				<div class="wrapper-content" style="width: 579px; height: 215px;">
-					<div class="blue"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
+				<div class="wrapper-content" style="width: 579px; height: 215px; position: relative;">
+                    <div class="blue"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
 
 						<img class="heading" src="/res/img/home/blue_module/parent_to_parent.png" alt="Parent to Parent" title="" />
 
@@ -292,7 +291,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
                             <jsp:include page="/content/micrositePromo.module?page=home&amp;type=all"/>
 
-                            <p>
+                            <p class="more">
                                 <a href="http://${communityHost}/q-and-a"><img src="/res/img/home/blue_module/question_button.png" alt="Ask a Question" title="" border="0" /></a>
                             </p>
 						</div>
@@ -307,7 +306,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 								<li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
 							</ul>
 
-                            <p class="more">
+                            <p class="more right">
                                 <a href="http://${communityHost}/groups">Find more &gt;</a>
                             </p>
                         </div>
@@ -318,9 +317,11 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 	</div>
 </div>
 
+<c:if test="${showAd}">
 <div id="homepageFooterAd">
     <ad:Homepage_Footer_728x90/>
 </div>
+</c:if>
 
 <mod:tracking pageName="splash" hier1="Home,Splash"/>
 </gsml:body>
