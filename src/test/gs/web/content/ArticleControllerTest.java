@@ -35,7 +35,7 @@ public class ArticleControllerTest extends BaseControllerTestCase {
 
         Article article = new Article();
         article.setArticleText("<div id=\"article-main\">Don't hit your child</div>");
-        expect(_articleDao.getArticleFromId(78)).andReturn(article);
+        expect(_articleDao.getArticleFromId(78, true)).andReturn(article);
         replay(_articleDao);
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_articleDao);
@@ -47,7 +47,7 @@ public class ArticleControllerTest extends BaseControllerTestCase {
 
         Article article = new Article();
         article.setArticleText("<div>Don't hit your child</div>");
-        expect(_articleDao.getArticleFromId(78)).andReturn(article);
+        expect(_articleDao.getArticleFromId(78, true)).andReturn(article);
         replay(_articleDao);
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_articleDao);
