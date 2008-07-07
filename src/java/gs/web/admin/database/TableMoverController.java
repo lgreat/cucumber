@@ -147,8 +147,8 @@ public class TableMoverController extends SimpleFormController {
     private Map<String, String> getAllTableSets() {
         // Tables without a database prefix are assumed to be state specific.
         Map<String, String> tableSets = new LinkedHashMap<String, String>();
-        tableSets.put("gs_schooldb.configuation,TestDataSet,TestDataSchoolValue,city_rating,district_rating", "All ratings");
-        tableSets.put("gs_schooldb.configuation,TestDataSet,TestDataSchoolValue", "School ratings");
+        tableSets.put("gs_schooldb.configuration,TestDataSet,TestDataSchoolValue,city_rating,district_rating", "All ratings");
+        tableSets.put("gs_schooldb.configuration,TestDataSet,TestDataSchoolValue", "School ratings");
         tableSets.put("city_rating", "City ratings");
         tableSets.put("district_rating", "District ratings");
         tableSets.put("school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer", "Public Directory (with census)");

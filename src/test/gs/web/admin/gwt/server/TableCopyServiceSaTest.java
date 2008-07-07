@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.lang.ArrayUtils;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -225,7 +226,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         _tableCopyService.setRequest(oneTableNotDoneRequest);
 
         expect(_httpClientMock.executeMethod(oneTableNotDoneRequest)).andReturn(HttpStatus.SC_OK);
-        expectLastCall().times(4);        
+        expectLastCall().times(4);
         replay(_httpClientMock);
 
         assertEquals("No result expected when table found and marked done", 0,
@@ -374,6 +375,25 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertEquals("Unexpected number of tables in gsschool_db", gs_schooldbTables.size(), gs_schooldb.getTables().size());
         TableData.DatabaseTables us_geo = databases.getDatabase("us_geo");
         assertEquals("Unexpected number of tables in us_geo", us_geoTables.size(), us_geo.getTables().size());
+    }
+
+    public void testDatabaseFiltering() {
+        String[] tables = {};
+        List<String> tablesFilteredOut = new ArrayList();
+        String[] resultTables = _tableCopyService.filter(TableData.DEV_TO_STAGING, tables, tablesFilteredOut);
+        assertEquals(0, resultTables.length);
+        assertEquals(0, tablesFilteredOut.size());
+
+        // Try the whitelist for dev to staging
+        tables = new String[]{"gs_schooldb.configuration", "gs_schooldb.foo", "_ca.foo"};
+        tablesFilteredOut.clear();
+        resultTables = _tableCopyService.filter(TableData.DEV_TO_STAGING, tables, tablesFilteredOut);
+        assertEquals(2, resultTables.length);
+        assertTrue("Table is in the white list", ArrayUtils.contains(resultTables, "gs_schooldb.configuration"));
+        assertFalse("Table is not in the white list", ArrayUtils.contains(resultTables, "gs_schooldb.foo"));
+        assertTrue("Database not managed by the white list", ArrayUtils.contains(resultTables, "_ca.foo"));
+        assertEquals(1, tablesFilteredOut.size());
+        assertTrue(tablesFilteredOut.contains("gs_schooldb.foo"));
     }
 
     private void setUpWikiRequest(final List<String> selectedTables, final String[] liveToDevStatus) throws IOException {

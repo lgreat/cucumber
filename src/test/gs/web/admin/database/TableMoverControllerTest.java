@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.io.IOException;
 
 import static org.easymock.classextension.EasyMock.*;
+import org.apache.commons.lang.ArrayUtils;
 
 public class TableMoverControllerTest extends BaseControllerTestCase {
     private TableMoverController _controller;
@@ -168,13 +169,15 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         assertTrue(tables.contains("_wy.school"));
 
         // Test table filtering, foo is not whitelisted for dev to staging
-        cmd.setTablesets(new String[]{"us_geo.city", "gs_schooldb.foo"});
+        cmd.setTablesets(new String[]{"us_geo.city", "gs_schooldb.foo", "gs_schooldb.configuration"});
         cmd.setStates(new String[0]);
         _controller.onBindAndValidate(_request, cmd, errors);
         _controller.onSubmit(_request, _response, cmd, errors);
         tables = Arrays.asList(cmd.getTables());
-        assertEquals(1, tables.size());
+        assertEquals(2, tables.size());
         assertTrue(tables.contains("us_geo.city"));
+        assertTrue(tables.contains("gs_schooldb.configuration"));
+        assertTrue(ArrayUtils.contains(cmd.getTablesFilteredOut(), "gs_schooldb.foo"));
 
         // Test table filtering, us_geo.city is blacklisted for live to dev
         cmd.setTarget("dev");
