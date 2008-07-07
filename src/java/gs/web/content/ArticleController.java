@@ -75,7 +75,7 @@ public class ArticleController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
 
         if (articleId > 0) {
-            Article article = _articleDao.getArticleFromId(articleId);
+            Article article = _articleDao.getArticleFromId(articleId, true);
             if (article != null) {
                 model.put(MODEL_NEW_ARTICLE, isArticleNewStyle(article));
                 model.put(MODEL_ARTICLE, article);
