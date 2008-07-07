@@ -1,4 +1,4 @@
-li.linkList {
-  background: none;
-
+.singleTextOnlyColumnLayout .contentGS ul.linkList li {
+    background: none;
+    margin-left:50px;
 }
