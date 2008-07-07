@@ -96,26 +96,28 @@
 <c:set var="hasDistrictResults" value="false"/>
 <gsml:equalizeColumns ids="'col_left','col_right'"/>
 <div id="col_left">
-    <div id="resultsheader">
+    <div id="resultsheaderwhite">
         <div id="rh_col_left">
             ${heading1}
         </div>
         <!-- TODO: what the heck is this block? -->
-        <c:if test="${not empty filteredCities and not empty filteredCities.results}">
-            <c:set var="hasCityResults" value="true"/>
-            <div id="filtered" class="rollup">
-                <gsml:list model="${filteredCities}" between="&#160;|&#160;"/>
-            </div>
-        </c:if>
+
         <c:if test="${not empty cities and not empty cities.results}">
             <c:set var="hasCityResults" value="true"/>
             <div class="rollup city">
+                <gsml:img src="/res/img/bullet/pinkarrow.gif"
+                          alt="pinkarrow"
+                          style="padding-right:5px;"/>
+
                 <gsml:list model="${cities}" between="&#160;|&#160;"/>
             </div>
         </c:if>
         <c:if test="${not empty districts and not empty districts.results}">
             <c:set var="hasDistrictResults" value="true"/>
             <div class="rollup district">
+                <gsml:img src="/res/img/bullet/pinkarrow.gif"
+                          alt="pinkarrow"
+                          style="padding-right:5px;"/>                
                 <gsml:list model="${districts}" between="&#160;|&#160;"/>
             </div>
         </c:if>
@@ -189,7 +191,7 @@
                 </ul>
             </div>
             <form id="searchfilterform" action="" method="get">
-                <div>
+                <div class="filterWrapper">
                     <strong>Show me:</strong>
                     <label><gsml:checkbox name="type_schools[]"
                                           checked="${publicChecked}"
@@ -203,18 +205,20 @@
                                           checked="${privateChecked}"
                                           styleId="type_schools_private"
                                           onclick="reloadPageWithFilters();"/> Private</label>
+                    <c:if test="${total gt 0}">
+                        <div id="resultspagination">
+                            <div id="paginationAlignRight">
+                                <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                                <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
+                                <c:set var="px" value="${(page * pageSize)}"/>
+                                <strong>${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)}</strong>
+                                of <strong>${total}</strong>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </form>
         </div>
-        <c:if test="${total gt 0}">
-            <div id="resultspagination">
-                    <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
-                    <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
-                    <c:set var="px" value="${(page * pageSize)}"/>
-                    <strong>${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)}</strong>
-                    of <strong>${total}</strong>
-            </div>
-        </c:if>
     </c:if>
     <div id="searchResults">
         <c:if test="${not empty mainResults}">
