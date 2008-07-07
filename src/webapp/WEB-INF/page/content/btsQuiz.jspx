@@ -92,7 +92,7 @@
                 </noscript>
             ]]>
         </div>
-        <div class="quizSponsor">
+        <div id="quizSponsor">
             <ad:Badge_99x40 position="PageSponsor_99x40"/>
         </div>        
     </div>
