@@ -31,7 +31,6 @@
     <![CDATA[
     <!--[if IE]>
     <style type="text/css">
-    /* IE 7 */
     .bulleted li {
         background: url(/res/img/content/backtoschool/modules/orange_bullet.jpg) no-repeat left 7px;
     }
@@ -76,16 +75,16 @@
             <ul id="stickies" class="cleared">
                 <li><a href="#" onmouseover="hoverIn('week4');" onmouseout="hoverOut('week4');"
                     onclick="return changeWeek('week4');"><img id="week4-img"
-                    src="/res/img/content/backtoschool/manila/calendar_upstate_04.jpg" alt="4+ weeks" title=""/></a></li>
+                    src="/res/img/content/backtoschool/manila/calendar_unselected_04.jpg" alt="4+ weeks" title=""/></a></li>
                 <li><a href="#" onmouseover="hoverIn('week3');" onmouseout="hoverOut('week3');"
                     onclick="return changeWeek('week3');"><img id="week3-img"
-                    src="/res/img/content/backtoschool/manila/calendar_upstate_03.jpg" alt="3 weeks" title=""/></a></li>
+                    src="/res/img/content/backtoschool/manila/calendar_unselected_03.jpg" alt="3 weeks" title=""/></a></li>
                 <li><a href="#" onmouseover="hoverIn('week2');" onmouseout="hoverOut('week2');"
                     onclick="return changeWeek('week2');"><img id="week2-img"
-                    src="/res/img/content/backtoschool/manila/calendar_upstate_02.jpg" alt="2 weeks" title=""/></a></li>
+                    src="/res/img/content/backtoschool/manila/calendar_unselected_02.jpg" alt="2 weeks" title=""/></a></li>
                 <li><a href="#" onmouseover="hoverIn('week1');" onmouseout="hoverOut('week1');"
                     onclick="return changeWeek('week1');"><img id="week1-img"
-                    src="/res/img/content/backtoschool/manila/calendar_upstate_01.jpg" alt="1 week" title=""/></a>
+                    src="/res/img/content/backtoschool/manila/calendar_unselected_01.jpg" alt="1 week" title=""/></a>
                 </li>
             </ul>
 
@@ -204,14 +203,14 @@
 
         function imgSetup() {
             // Manila hovers; preloading function
-            img['week1'] = newImg('/res/img/content/backtoschool/manila/calendar_upstate_01.jpg');
-            img['week1-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_rollover_01.jpg');
-            img['week2'] = newImg('/res/img/content/backtoschool/manila/calendar_upstate_02.jpg');
-            img['week2-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_rollover_02.jpg');
-            img['week3'] = newImg('/res/img/content/backtoschool/manila/calendar_upstate_03.jpg');
-            img['week3-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_rollover_03.jpg');
-            img['week4'] = newImg('/res/img/content/backtoschool/manila/calendar_upstate_04.jpg');
-            img['week4-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_rollover_04.jpg');
+            img['week1'] = newImg('/res/img/content/backtoschool/manila/calendar_unselected_01.jpg');
+            img['week1-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_selected_01.jpg');
+            img['week2'] = newImg('/res/img/content/backtoschool/manila/calendar_unselected_02.jpg');
+            img['week2-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_selected_02.jpg');
+            img['week3'] = newImg('/res/img/content/backtoschool/manila/calendar_unselected_03.jpg');
+            img['week3-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_selected_03.jpg');
+            img['week4'] = newImg('/res/img/content/backtoschool/manila/calendar_unselected_04.jpg');
+            img['week4-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_selected_04.jpg');
         }
 
         function hoverIn(root) {
