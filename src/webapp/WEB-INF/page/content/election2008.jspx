@@ -29,16 +29,50 @@
     <meta name="Description" content="GreatSchools.net: Education In 2008"/>
     <title>GreatSchools.net: Education In 2008</title>
     <pageHelper:externalCss file="/res/css/content/election2008.css"/>
+    <script type="text/javascript">
+        <![CDATA[
+        // <!--
+        var defaultEmailValue = 'Enter Email Address';
+        var defaultZipValue = 'Zip Code';
+
+        function validateForm() {
+            if (document.forms['edin08Form'].email.value.length == 0 ||
+                document.forms['edin08Form'].email.value == defaultEmailValue) {
+                alert("Please enter a valid email address.");
+                return false;
+            } else if (document.forms['edin08Form'].zip.value.length < 5 ||
+                document.forms['edin08Form'].zip.value == defaultZipValue) {
+                alert("Please enter a valid 5-digit zip code.");
+                return false;
+            }
+            return true;
+        }
+
+        function textSwap(textField, checkValue, changeValue) {
+            if (textField.value == checkValue) {
+                textField.value = changeValue;
+            }
+        }
+        // -->
+        ]]>
+    </script>
 </head>
 <c:set var="pageName" value="Education 2008"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_EDin08"/>
 <gsml:body adPageName="content/election2008" pageLayout="election2008" startAdHierarchyAtPage="true">
 
+<![CDATA[
 <!--[if IE]>
-    <style type="text/css" media="screen">
+    <style type="text/css">
         .cleared { height: 1%; }
+        form p.parentAdvisor input {
+            position: relative;
+            left: -3px;
+            margin-right: -2px;
+        }
     </style>
 <![endif]-->
+]]>
 
     <div id="contentTop">
         <img src="/res/img/content/election2008/Edin08_header.jpg"
@@ -51,7 +85,7 @@
             <div class="moduleBox">
                 <div class="wrapper-outer">
                     <div class="wrapper-inner">
-                        <h3><img src="/res/img/content/election2008/startling_stat_head.gif"
+                        <h3><img src="/res/img/content/election2008/stat_subhead.jpg"
                                  alt="Startling Stat"/></h3>
 
                         <img class="leadoff" src="/res/img/content/election2008/flag.jpg"
@@ -75,23 +109,62 @@
                 </div>
             </div>
 
-            <div class="moduleBox flush">
+            <div class="moduleBox">
                 <div class="wrapper-outer">
                     <div class="wrapper-inner">
-                        <h3><img src="/res/img/content/election2008/signup_head.gif"
-                                 alt="Sign Up &amp;amp; Take Action"/></h3>
+                        <h3><img src="/res/img/content/election2008/takeaction_subhead.jpg"
+                                 alt="Take Action"/></h3>
 
-                        <p>
-                            Get email updates from Strong American
-                            Schools. Take action by spreading the word to
+                        <img class="leadoff" src="/res/img/content/election2008/edin08_children.jpg"
+                             alt="Children"/>
+                        
+                        <p class="flush">
+                            Take action by spreading the word to
                             improve your local schools.
                         </p>
 
                         <p class="alignright">
                             <a href="http://www.edin08.com/Participate.aspx" target="_blank"><img
-                                    src="/res/img/content/election2008/getinvolved_btn.gif"
-                                    alt="Get Involved"/></a>
+                                    src="/res/img/content/election2008/participate_btn.gif"
+                                    alt="Participate"/></a>
                         </p>
+
+                        <img class="left-corner"
+                             src="/res/img/content/election2008/shadow_left-corner.png" alt=""/>
+                        <img class="right-corner"
+                             src="/res/img/content/election2008/shadow_right-corner.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="moduleBox flush">
+                <div class="wrapper-outer">
+                    <div class="wrapper-inner">
+                        <h3><img src="/res/img/content/election2008/signup_subhead.jpg"
+                                 alt="Sign Up"/></h3>
+
+                        <p>
+                            Get email updates from Strong American Schools
+                        </p>
+
+                        <form action="/content/election2008.page" method="post" onsubmit="return validateForm();" name="edin08Form">
+                            <p><input type="text" name="email" class="emailField" value="Enter Email Address"
+                                      onfocus="textSwap(this, defaultEmailValue, '');"
+                                      onblur="textSwap(this, '', defaultEmailValue);"/></p>
+                            <p><input type="text" name="zip" maxlength="5" class="zipField" value="Zip Code"
+                                      onfocus="textSwap(this, defaultZipValue, '');"
+                                      onblur="textSwap(this, '', defaultZipValue);"/></p>
+                            <p class="parentAdvisor"><input type="checkbox" name="parentAdvisor"
+                                      id="parentAdvisorCheckBox"/>
+                                <label for="parentAdvisorCheckBox">Also sign me up for bi-monthly
+                                    advice from GreatSchools to
+                                    support my child's education.</label></p>
+
+                            <p class="alignright">
+                                <input type="image" src="/res/img/content/election2008/signup_btn.gif"
+                                       alt="Sign Up"/>
+                            </p>
+                        </form>
 
                         <img class="left-corner"
                              src="/res/img/content/election2008/shadow_left-corner.png" alt=""/>
@@ -145,11 +218,18 @@
         <div class="moduleBox large">
             <div class="wrapper-outer">
                 <div class="wrapper-inner">
-                    <h3><img src="/res/img/content/election2008/crisis_head.gif"
-                             alt="Education isn't an issue. It's a crisis."/></h3>
+                    <h3><img src="/res/img/content/election2008/crisis_subhead.jpg"
+                             alt="Education isn't an issue. It's a crisis." width="320"/></h3>
 
                     <div class="video">
-                        <ad:YouTube_381x311/>
+                        <!--<ad:YouTube_381x311/>-->
+                        <object width="300" height="211">
+                            <param name="movie"
+                                   value="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"/>
+                            <embed src="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"
+                                   type="application/x-shockwave-flash"
+                                   width="300" height="251"/>
+                        </object>
                     </div>
 
                     <img class="left-corner"
@@ -163,7 +243,7 @@
             <div class="toolkits">
                 <img src="/res/img/content/election2008/kids_strongschools.jpg"
                      alt="Strong American Schools Toolkits"
-                     class="img_edin08" width="317" height="62"/>
+                     class="img_edin08"/>
                 <ul>
                     <li>
                         <a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Parents.pdf"

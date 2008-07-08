@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="COUNTDOWN_COLLEGE"/>
+<pageHelper:hideFooterAd/>
+<pageHelper:hideLeaderboard/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="Description" content="GreatSchools.net: Education In 2008"/>
+    <title>GreatSchools.net: Education In 2008</title>
+    <pageHelper:externalCss file="/res/css/content/election2008Confirm.css"/>    
+</head>
+<c:set var="pageName" value="Education 2008"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_EDin08"/>
+<gsml:body adPageName="content/election2008Confirm" pageLayout="election2008Confirm"
+           startAdHierarchyAtPage="true">
+
+    <div id="contentTop">
+        <img src="/res/img/content/election2008/blah.jpg"
+             alt="One Nation Left Behind"
+             width="952" height="125"/>
+    </div>
+
+    <div id="contentMiddle">
+        <c:if test="${edin08Cmd.success eq true}">
+            <div class="success">Success!</div>
+        </c:if>
+        <form method="post" id="mailForm" name="mailForm" action="/content/election2008Confirm.page"
+                 onsubmit="challenge.value = Recaptcha.$('recaptcha_challenge_field').value;response.value = Recaptcha.$('recaptcha_response_field').value;">
+            <fieldset>
+                <legend>Tell your Friends and Family</legend>
+
+                <spring:bind path="edin08Cmd.friendEmail">
+                    <label for="${status.expression}">Friend's Email : </label>
+                    <input name="${status.expression}" id="${status.expression}" type="text" tabindex="1"
+                           value="${status.value}"/>
+                </spring:bind>
+                <br/>
+
+                <spring:bind path="edin08Cmd.userEmail">
+                    <label for="${status.expression}">Your email : </label>
+                    <input name="${status.expression}" id="${status.expression}" type="text" tabindex="2"
+                           value="${status.value}"/>
+                </spring:bind>
+
+
+                <spring:bind path="edin08Cmd.challenge">
+                    <input name="${status.expression}" id="${status.expression}" type="hidden"
+                           value="${status.value}"/>
+                </spring:bind>
+
+
+                <spring:bind path="edin08Cmd.response">
+                    <input name="${status.expression}" id="${status.expression}" type="hidden"
+                           value="${status.value}"/>
+                </spring:bind>
+
+                <spring:hasBindErrors name="edin08Cmd">
+                    <ul class="error">
+                        <c:forEach var="error" items="${errors.allErrors}">
+                            <li>${error.defaultMessage}</li>
+                        </c:forEach>
+                    </ul>
+                </spring:hasBindErrors>
+
+                <p>The e-mail address(es) that you supply to use this service will only be used to send the requested
+                    email. <link:privacyPolicy target="_blank">GreatSchools Privacy Policy</link:privacyPolicy></p>
+
+                <spring:bind path="edin08Cmd.subject">
+                    <label for="${status.expression}">Subject line : </label>
+                    <input name="${status.expression}" id="${status.expression}" type="text" tabindex="3"
+                           value="${status.value}"/>
+                </spring:bind>
+
+                <p class="large">Text of email (use our message or write your own note):</p>
+                <spring:bind path="edin08Cmd.message">
+                    <![CDATA[
+                  <textarea name="${status.expression}" rows="8" cols="60" warp="soft" tabindex="4">${status.value}</textarea>
+                  ]]>
+                </spring:bind>
+
+                <div class="captcha">
+                    <script type="text/javascript">
+                        var RecaptchaOptions = {theme:'white', tabindex: 0};
+                    </script>
+                    <script type="text/javascript"
+                            src="http://api.recaptcha.net/challenge?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR">
+                       /* this comment keeps the tag from collapsing */
+                    </script>
+
+                    <![CDATA[
+                    <noscript>
+                       <iframe src="http://api.recaptcha.net/noscript?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR"
+                           height="300" width="500" frameborder="0"></iframe><br/>
+                       <textarea name="recaptcha_challenge_field"
+                                 rows="3" cols="40" style="height: 60px;">
+                       </textarea>
+                       <input type="hidden" name="recaptcha_response_field"
+                           value="manual_challenge"/>
+                    </noscript>
+                    ]]>
+                </div>
+
+                <p><input type="submit" name="Submit" value="Send" class="submit"/></p>
+            </fieldset>
+        </form>
+
+        <div class="contentMiddleModule strongAmericanSchools">
+            <div class="header">About <a href="http://www.edin08.com/Participate.aspx"
+                                         target="_blank">Strong American Schools</a></div>
+            <div class="body">
+                Strong American Schools is a nonpartisan public awareness
+                and advocacy effort aimed at elevating discussion amongst
+                America's leaders about the need for education reform.
+                <br/>
+                <a href="http://www.edin08.com/Participate.aspx" target="_blank">Learn more &gt;</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="contentRight">
+        <div class="contentMiddleModule gray">
+            <div class="wrapper">
+                <div class="hot_topics">
+                    <img src="/res/img/content/election2008/hot_topics.gif"
+                         alt="Hot Topics" width="154" height="28"
+                         class="hot_topics"/>
+                    <div class="header">
+                        <span class="red">Topic of the Week: </span>
+                        <a href="http://community.greatschools.net/q-and-a/206794/What-should-our-schools-do-to-make-sure-our-students-can-compete-in-the-global-marketplace">What should our schools do to
+                            make sure our students can compete in the global marketplace?</a>
+                    </div>
+                    <ul>
+                        <li><a href="http://community.greatschools.net/q-and-a/206868/How-does-education-help-us-contribute-to-society-more-broadly">How does education help us contribute to society more broadly?</a></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206840/Besides-being-able-to-afford-it-what-is-keeping-todays-students-from-succeeding-in-college-">Besides being able to afford it, what is keeping today's students from succeeding in college?</a></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206884/How-would-an-improved-education-system-affect-our-economy">How would an improved education system affect our economy?</a></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206886/How-has-education-helped-change-your-life">How has education helped change your life?</a></li>
+                        <li><a href="http://community.greatschools.net/q-and-a/206893/Whats-worked-in-your-community-to-get-strong-school-board-candidates">What's worked in your community to get strong school board candidates?</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="toolkitsWrapper">-->
+            <!--<div class="toolkits">-->
+                <!--<img src="/res/img/content/election2008/kids_strongschools.jpg"-->
+                     <!--alt="Strong American Schools Toolkits"-->
+                     <!--class="img_edin08" width="317" height="62"/>-->
+                <!--<ul>-->
+                    <!--<li>-->
+                        <!--<a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Parents.pdf"-->
+                           <!--target="_blank">-->
+                            <!--<gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>-->
+                            <!--Tools for parents-->
+                        <!--</a>-->
+                        <!--<span>Concrete steps you can take to help shape your child's education-->
+                        <!--&amp;#8212; and his or her future.</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Communities.pdf"-->
+                           <!--target="_blank">-->
+                            <!--<gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>-->
+                            <!--Tools for communities-->
+                        <!--</a>-->
+                        <!--<span>Demand and protect a child's right to a high-quality-->
+                        <!--public education.</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Educators.pdf"-->
+                           <!--target="_blank">-->
+                            <!--<gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>-->
+                            <!--Tools for educators-->
+                        <!--</a>-->
+                        <!--<span>Ask your students' families to play a role in setting a-->
+                        <!--high benchmark for their child's education.</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+    <content:micrositeFooter crossPromo="backToSchool"/>
+
+    <div style="display:none;">
+    <mod:tracking pageName="${pageName}"
+                  hier1="Article,Education 2008 Confirm"/>
+    </div>
+</gsml:body>
+
+</html>
+</jsp:root>

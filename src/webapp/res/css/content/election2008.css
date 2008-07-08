@@ -48,7 +48,7 @@
 
 #contentMiddle {
     float: left;
-    width: 548px;
+    width: 625px;
 }
 
 #contentRight {
@@ -65,8 +65,12 @@
 .moduleBox {
     background: transparent url(/res/img/content/election2008/shadow_bottom.png) repeat-x scroll left bottom;
     float: left;
-    margin: 0 7px 0 0;
+    margin: 0 8px 0 0;
     padding: 0 0 9px;
+}
+
+#contentRight .moduleBox {
+    margin-right: 7px;
 }
 
 .moduleBox .wrapper-outer {
@@ -80,7 +84,7 @@
     height: 230px;    
     padding-bottom: 1px;
     position: relative;
-    width: 270px;
+    width: 203px;
 }
 
 .moduleBox .left-corner {
@@ -105,10 +109,6 @@
     left: -12px;
 }
 
-#emailField {
-    width: 100%;
-}
-
 .flush {
     margin: 0;
 }
@@ -122,13 +122,33 @@
 }
 
 .moduleBox form {
-    margin: 15px 0 0;
-    padding: 1px 0 0;
+    margin: 0;
+    padding: 0;
+}
+
+form .emailField {
+    width: 100%;
+}
+
+form .zipField {
+    width: 50%;
+}
+
+.moduleBox p.parentAdvisor {
+    margin-right: 6px;
+}
+
+form p.parentAdvisor input {
+    margin: 0 4px 0 0;
+}
+
+form p.parentAdvisor label {
+    font-size: 12px;
 }
 
 .moduleBox p {
     color: #666666;
-    margin: 10px 20px;
+    margin: 10px;
 }
 
 .moduleBox p.flush {
@@ -147,7 +167,7 @@
 }
 
 .moduleBox.large .wrapper-inner {
-    width: 398px;
+    width: 320px;
 }
 
 .cleared:after {
@@ -159,7 +179,7 @@
 }
 
 div.video {
-    margin: 8px 0 0 0;
+    margin: 8px 0 0 8px;
 }
 
 div.hot_topics {
@@ -228,7 +248,7 @@ div.hot_topics {
 
 /** Toolkits */
 div.toolkitsWrapper {
-    width: 397px;
+    width: 320px;
     height: 318px;
     background-color: #3B6BAB;
     float: left;
@@ -238,7 +258,7 @@ div.toolkitsWrapper {
 
 div.toolkits {
     background-color: #FFFFFF;
-    width: 373px;
+    width: 296px;
     height: 294px;
     position: relative;
     top: 12px;
@@ -253,7 +273,7 @@ div.toolkits {
 
 div.toolkits ul {
     position: relative;
-    top: 102px;
+    top: 82px;
     margin: 0 20px 10px 20px;
 }
 

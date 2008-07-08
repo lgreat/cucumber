@@ -757,9 +757,23 @@
     </bean>
 
     <bean name="/content/election2008.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.content.Election2008Controller"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/content/election2008"/>
+        <property name="formView" value="/content/election2008"/>
+        <property name="commandName" value="edin08Cmd"/>
+        <property name="commandClass" value="gs.web.content.Election2008Command"/>
+    </bean>
+
+    <bean name="/content/election2008Confirm.page"
+          class="gs.web.content.Election2008EmailConfirmController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="formView" value="/content/election2008Confirm"/>
+        <property name="successView" value="/content/election2008Confirm"/>
+        <property name="commandName" value="edin08Cmd"/>
+        <property name="commandClass" value="gs.web.content.Election2008EmailCommand"/>
+        <property name="mailSender" ref="mailSender"/>
+
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"

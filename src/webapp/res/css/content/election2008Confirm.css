@@ -1,0 +1,263 @@
+
+#pageGS {
+    width: 976px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666666;
+    line-height: 16px;
+}
+
+#adLeaderboard {
+    width: 976px;
+}
+
+#topnav table#nav {
+    width: 952px;
+}
+
+#contentGS {
+    width: 962px;
+    position: relative;
+    margin: 0 0 25px 12px;
+}
+
+#contentGS a {
+    color: #3399AA;
+}
+
+.hr.dotted {
+    border-bottom: 2px dotted #CCCCCC;
+    margin-right: 10px;
+    height: 10px;
+}
+
+.hr hr {
+    display: none;
+}
+
+#contentTop {
+    width: 952px;
+    height: 125px;
+    padding-top: 15px;
+    position: relative;
+}
+
+#contentMiddle {
+    float: left;
+    width: 550px;
+}
+
+#contentRight {
+    float: right;
+    margin-right: 3px;
+    width: 400px;
+}
+
+/** Hot Topics */
+.contentMiddleModule {
+    margin: 0;
+}
+
+.gray .wrapper {
+    background: transparent url(/res/img/content/election2008/third-tier_bg.png) no-repeat scroll left top;
+    height: 271px;
+    padding: 16px;
+}
+
+div.hot_topics {
+    padding: 68px 15px 15px 30px;
+    position: relative;
+}
+
+.hot_topics img.hot_topics {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.hot_topics .header {
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+.red {
+    color: #ED1B24;
+    font-weight: bold;
+}
+
+.hot_topics ul li {
+    background: transparent url(/res/img/content/backtoschool/modules/orange_bullet.jpg) no-repeat scroll left 7px;
+    line-height: 18px;
+    padding-left: 10px;
+    font-size: 13px;
+}
+
+.hot_topics .source {
+    color: #999999;
+    padding-left: 2px;
+}
+
+
+/** Toolkits */
+/*div.toolkitsWrapper {*/
+    /*width: 400px;*/
+    /*height: 318px;*/
+    /*background-color: #3B6BAB;*/
+    /*float: left;*/
+    /*clear: left;*/
+    /*margin-top: 8px;*/
+/*}*/
+
+/*div.toolkits {*/
+    /*background-color: #FFFFFF;*/
+    /*width: 376px;*/
+    /*height: 294px;*/
+    /*position: relative;*/
+    /*top: 12px;*/
+    /*left: 12px;*/
+/*}*/
+
+/*.img_edin08 {*/
+    /*position: absolute;*/
+    /*top: 20px;*/
+    /*left: 20px;*/
+/*}*/
+
+/*div.toolkits ul {*/
+    /*position: relative;*/
+    /*top: 102px;*/
+    /*margin: 0 20px 10px 20px;*/
+/*}*/
+
+/*div.toolkits ul li {*/
+    /*margin: 0 0 10px 0;*/
+    /*position: relative;*/
+    /*padding: 0 0 0 25px;*/
+/*}*/
+
+/*div.toolkits ul li img {*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*top: 1px;*/
+/*}*/
+
+/*div.toolkits ul li a {*/
+    /*font-size: 14px;*/
+/*}*/
+
+/*div.toolkits ul li span {*/
+    /*font-size: 12px;*/
+    /*display: block;*/
+/*}*/
+
+/** Form */
+/* inspired by sabine brings - www.brings-online.com - a form with style - www.cssplay.co.uk */
+form#mailForm {
+    font-size: 1.4em;
+    width: 580px;
+    padding: 0 10px 10px 10px;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form#mailForm fieldset {
+    width: 450px;
+    display: block;
+    padding: 0 5px 5px 5px;
+    line-height: 1.5em;
+    border: none;
+    margin: 15px 0 0 5px;
+}
+
+form#mailForm legend {
+    color: #3399AA;
+    font-size: 18px;
+    font-style: normal;
+    margin-bottom: 14px;
+    width: 254px;
+    margin-left: 125px;
+}
+
+form#mailForm label {
+    clear: left;
+    display: block;
+    float: left;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+    margin-bottom: 0.5em;
+    font-size: 16px;
+    line-height: 1.5em;
+    font-style: normal;
+}
+
+form#mailForm input {
+    padding: 0;
+    margin-bottom: 0.8em;
+    margin-top: 3px;
+    width:260px;
+    color: #666666;
+}
+
+form#mailForm p {
+    clear: left;
+    font-size: 12px;
+    line-height: 14px;
+    margin: 15px 25px 10px 25px;
+}
+
+form#mailForm p.large {
+    font-size: 16px;
+    /*margin-top: 25px;*/
+}
+
+form#mailForm input.submit {
+    width: 150px;
+    color: #000;
+}
+
+form#mailForm textarea {
+    width: 425px;
+    height: 10em;
+    border: 1px solid #e1e1e1;
+    padding: 5px;
+    overflow: auto;
+    margin: 0 0 0 25px;
+}
+
+form#mailForm div.captcha {
+    margin: 15px 0 15px 22px
+}
+
+form#mailForm div.captcha input {
+    left: 0;
+}
+
+#marginGS ul.error {
+    font-size:small;
+    border: 1px solid red;
+    padding:5px;
+}
+
+#marginGS ul.error li {
+    margin-left:10px;
+}
+
+
+/** Strong American Schools */
+.strongAmericanSchools {
+    margin-top: 5px;
+    position: relative;
+    background-color: #FFFFFF;
+    padding-right: 20px;
+}
+
+.strongAmericanSchools .header {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.strongAmericanSchools .body {
+    font-size: 12px;
+    line-height: 16px;
+}
+
