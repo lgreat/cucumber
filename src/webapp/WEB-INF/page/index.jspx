@@ -281,7 +281,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
     <div class="moduleBox">
 		<div class="wrapper-outer">
 			<div class="wrapper-inner">
-				<div class="wrapper-content" style="width: 579px; height: 215px; position: relative;">
+				<div class="wrapper-content" style="width: 574px; height: 215px; position: relative;">
                     <div class="blue"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
 
 						<img class="heading" src="/res/img/home/blue_module/parent_to_parent.png" alt="Parent to Parent" title="" />
