@@ -7,6 +7,7 @@ h1#specialNeedsText {
     border-bottom:0px dotted #CCCCCC;
     padding-bottom: 0px;
     margin-bottom: 5px;
+    color: #3399AA;
 }
 
 #contentGS div.welcome div.bottom {
@@ -18,23 +19,33 @@ h1#specialNeedsText {
 }
 
 #contentGS div.welcome div#schwabOnly{
+
     padding-top:10px;
     padding-bottom: 0px;
     border-bottom: 0px;
+
 }
-#contentGS div.welcome li {
+div#schwabOnly a {
+    color:#3399AA;
+}
+div#schwabOnly:hover{
+    color:#3399AA;
+    text-decoration:underline;
+}
+
+#contentGS div.welcome p {
     font-size: 16px;
     color:#3399AA;
     text-align: center;
     height: 16px;
     padding: 0 16px 6px  0px;
 }
-#contentGS div.welcome p#msg li{
-
+#contentGS div.welcome p#msg{
+    
     font-weight: bold;
 }
 
-#contentGS div.welcome li#from{
+#contentGS div.welcome p#from{
     font-weight: normal;
 }
 

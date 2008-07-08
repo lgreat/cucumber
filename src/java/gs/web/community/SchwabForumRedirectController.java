@@ -24,7 +24,7 @@ public class SchwabForumRedirectController implements Controller {
         String forumArchiveHostname = "http://schwablearningforumarchive" + hostInfix + ".greatschools.net";
 
         // default to /content/specialNeeds.page
-        String redirectURL = wwwSiteHostname + "/content/specialNeeds.page";
+        String redirectURL = wwwSiteHostname + "/content/specialNeeds.page?fromSchwab=1";
 
         try {
             int articleIdAsInt = Integer.parseInt(threadId);

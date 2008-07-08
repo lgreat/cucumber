@@ -18,14 +18,14 @@ public class SchwabForumRedirectControllerTest extends BaseControllerTestCase {
     public void testShouldRedirectToLDMicrositeIfNoID() throws Exception {
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Expected permanent redirect so crawlers will follow link", HttpServletResponse.SC_MOVED_PERMANENTLY, _response.getStatus());
-        assertEquals("Unexpected default redirect URL", "http://www.greatschools.net/content/specialNeeds.page", _response.getHeader("Location"));
+        assertEquals("Unexpected default redirect URL", "http://www.greatschools.net/content/specialNeeds.page?fromSchwab=1", _response.getHeader("Location"));
     }
 
     public void testShouldRedirectToLDMicrositeOnNonNumericId() throws Exception {
         _request.addParameter("thread", "blah");
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Expected permanent redirect so crawlers will follow link", HttpServletResponse.SC_MOVED_PERMANENTLY, _response.getStatus());
-        assertEquals("Unexpected default redirect URL", "http://www.greatschools.net/content/specialNeeds.page", _response.getHeader("Location"));
+        assertEquals("Unexpected default redirect URL", "http://www.greatschools.net/content/specialNeeds.page?fromSchwab=1", _response.getHeader("Location"));
     }
 
     public void testShouldRedirectToCorrectEnvironment() throws Exception {
@@ -52,22 +52,22 @@ public class SchwabForumRedirectControllerTest extends BaseControllerTestCase {
         _sessionContext.setHostName("schwablearning.dev.greatschools.net");
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected redirect URL schwablearning.dev.greatschools.net",
-                "http://dev.greatschools.net/content/specialNeeds.page", _response.getHeader("Location"));
+                "http://dev.greatschools.net/content/specialNeeds.page?fromSchwab=1", _response.getHeader("Location"));
 
         _sessionContext.setHostName("schwablearning.staging.greatschools.net");
         modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected redirect URL for schwablearning.staging.greatschools.net",
-                "http://staging.greatschools.net/content/specialNeeds.page", _response.getHeader("Location"));
+                "http://staging.greatschools.net/content/specialNeeds.page?fromSchwab=1", _response.getHeader("Location"));
 
         _sessionContext.setHostName("schwablearning.greatschools.net");
         modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected redirect URL for schwablearning.greatschools.net",
-                "http://www.greatschools.net/content/specialNeeds.page", _response.getHeader("Location"));
+                "http://www.greatschools.net/content/specialNeeds.page?fromSchwab=1", _response.getHeader("Location"));
 
         _sessionContext.setHostName("www.schwablearning.org");
         modelAndView = _controller.handleRequest(_request, _response);
         assertEquals("Unexpected redirect URL for www.schwablearning.org",
-                "http://www.greatschools.net/content/specialNeeds.page", _response.getHeader("Location"));
+                "http://www.greatschools.net/content/specialNeeds.page?fromSchwab=1", _response.getHeader("Location"));
 
     }
 

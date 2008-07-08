@@ -46,10 +46,10 @@
 
                 <c:if test="${param.fromSchwab == '1'}">
                     <div id="schwabOnly">
-                        <ul class="plain">
-                            <li id="msg"><gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">Welcome to SchwabLearning Parents</gsml:a></li>
-                            <li id="from"><gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">from Bill Jackson, Founder and President</gsml:a></li>
-                        </ul>
+                         <gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">
+                             <p id="msg">Welcome to SchwabLearning Parents </p>
+                             <p id="from">from Bill Jackson, Founder and President</p>
+                         </gsml:a>
                     </div>
                 </c:if>
                <div class="bottom">

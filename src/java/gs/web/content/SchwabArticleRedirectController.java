@@ -36,7 +36,7 @@ public class SchwabArticleRedirectController implements Controller {
         String wwwSiteHostname = "http://" + hostPrefix + ".greatschools.net";
 
         // default to /content/specialNeeds.page
-        String redirectURL = wwwSiteHostname + "/content/specialNeeds.page";
+        String redirectURL = wwwSiteHostname + "/content/specialNeeds.page?fromSchwab=1";
 
         Integer staticArticleId = staticRedirects.get(articleId);
         if (staticArticleId != null) {
