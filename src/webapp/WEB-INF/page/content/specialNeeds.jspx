@@ -27,6 +27,7 @@
 
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
     <pageHelper:externalCss file="/res/css/content/specialNeeds.css"/>
+
 </head>
 <c:set var="pageName" value="Special Needs"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Special_Needs"/>
@@ -41,11 +42,15 @@
             <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg"
                       alt="Male teacher and boy reading together"/>
 
+            <c:set var="fromSchwab" value="${param.fromSchwab}"/>
 
-            <div class="welcome">
-                <p id="msg">Welcome to SchwabLearning Parents</p>
-                <p id="from">from Bill Jackson, Founder and President</p>
+           <div class="welcome">
+                <c:if test="${param.fromSchwab == '1'}">
+                    <p id="msg"><gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">Welcome to SchwabLearning Parents</gsml:a></p>
+                    <p id="from">from Bill Jackson, Founder and President</p>
+                </c:if>
             </div>
+
 
             <div>
             <h2 id="Identifying-a-Learning-Difficulty">Identifying a Learning Difficulty</h2>
