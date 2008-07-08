@@ -46,8 +46,10 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         CookieGenerator stateGen = new CookieGenerator();
         stateGen.setCookieName("STATE3");
         _sessionContextUtil.setStateCookieGenerator(stateGen);
-
-
+        _sessionContextUtil.setTempMsgCookieGenerator(new CookieGenerator());
+        CookieGenerator _cityIdCookieGenerator = new CookieGenerator();
+        _cityIdCookieGenerator.setCookieName("CITYID");
+        _sessionContextUtil.setCityIdCookieGenerator(_cityIdCookieGenerator);
         _sessionContextUtil.setStateManager(new StateManager());
     }
 
@@ -257,5 +259,20 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         verify(ac);
         assertEquals("Expected to find orginal URI in request", "/some/path", _sessionContext.getOriginalRequestURI());
         reset(ac);
+    }
+
+    public void testCityIdCookie() throws Exception {
+        Cookie cityCookie = new Cookie("CITYID", "133917");
+        Cookie newCityCookie = new Cookie("CITYID", "12345");
+
+        assertNull(_sessionContext.getCityId());
+
+        _request.setCookies(new Cookie[] {cityCookie});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Value not read from CITYID cookie", new Integer(133917), _sessionContext.getCityId());
+
+        _request.setCookies(new Cookie[] {newCityCookie});
+        _sessionContextUtil.readCookies(_request, _sessionContext);
+        assertEquals("Correct value not read from CITYID cookie", new Integer(12345), _sessionContext.getCityId());        
     }
 }

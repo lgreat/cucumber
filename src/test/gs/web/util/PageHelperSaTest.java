@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.42 2008/07/03 20:54:48 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.43 2008/07/08 02:06:11 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -8,6 +8,7 @@ package gs.web.util;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.state.State;
+import gs.data.geo.City;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.ads.AdPosition;
 import gs.web.community.ClientSideSessionCache;
@@ -426,6 +427,14 @@ public class PageHelperSaTest extends TestCase {
         assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
     }
 
+    public void testSetCityCookie() throws Exception {
+        City city = new City("Anchorage", State.AK);
+        city.setId(54321);
+        PageHelper.setCityIdCookie(_request, _response, city);
+        Cookie cityIdCookie = _response.getCookie(SessionContextUtil.CITY_ID_COOKIE);
+        assertEquals("54321", cityIdCookie.getValue());
+    }
+
     public void testSetMemberAuthorized() throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(123);
@@ -659,6 +668,10 @@ public class PageHelperSaTest extends TestCase {
         final CookieGenerator communityCookieGenerator = new CookieGenerator();
         communityCookieGenerator.setCookieName("community_dev");
         sessionContextUtil.setCommunityCookieGenerator(communityCookieGenerator);
+
+        final CookieGenerator cityIdCookieGenerator = new CookieGenerator();
+        cityIdCookieGenerator.setCookieName("CITYID");
+        sessionContextUtil.setCityIdCookieGenerator(cityIdCookieGenerator);        
 
         _sessionContext = new MockSessionContext();
         _sessionContext.setSessionContextUtil(sessionContextUtil);

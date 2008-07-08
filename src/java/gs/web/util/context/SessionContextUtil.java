@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.39 2008/06/21 00:20:08 cpickslay Exp $
+ * $Id: SessionContextUtil.java,v 1.40 2008/07/08 02:06:11 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -9,6 +9,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.geo.City;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.PageHelper;
@@ -76,6 +77,9 @@ public class SessionContextUtil implements ApplicationContextAware {
      */
     public static final String COBRAND_COOKIE = "COBRAND";
 
+    // City ID cookie - id is based on us_geo.city.id
+    public static final String CITY_ID_COOKIE = "CITYID";
+
     /* Browsing state session cookies */
     // STATE, PATHWAY
 
@@ -98,6 +102,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _sessionCacheCookieGenerator;
     private CookieGenerator _communityCookieGenerator;
     private CookieGenerator _tempMsgCookieGenerator;
+    private CookieGenerator _cityIdCookieGenerator;
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.net";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.net";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.net";
@@ -154,6 +159,12 @@ public class SessionContextUtil implements ApplicationContextAware {
                     }
                 } else if (StringUtils.equals(_sessionCacheCookieGenerator.getCookieName(), thisCookie.getName())) {
                     cache = ClientSideSessionCache.createClientSideSessionCache(thisCookie.getValue());
+                } else if (StringUtils.equals(_cityIdCookieGenerator.getCookieName(), thisCookie.getName())) {
+                    try {
+                        context.setCityId(Integer.parseInt(thisCookie.getValue()));
+                    } catch (NumberFormatException e) {
+                        _log.warn("Invalid CityID: " + thisCookie.getValue());
+                    }
                 } else if (StringUtils.equals("STATE", thisCookie.getName())) {
                     // Check for this value in case new state cookie isn't present.
                     // This allows old users to retain their state cookie.
@@ -405,6 +416,14 @@ public class SessionContextUtil implements ApplicationContextAware {
         _tempMsgCookieGenerator = tempMsgCookieGenerator;
     }
 
+    public CookieGenerator getCityIdCookieGenerator() {
+        return _cityIdCookieGenerator;
+    }
+
+    public void setCityIdCookieGenerator(CookieGenerator cityIdCookieGenerator) {
+        _cityIdCookieGenerator = cityIdCookieGenerator;
+    }
+
     /**
      * Attempt to interpret a state= parameter and save it in the given context and to a cookie.
      * If it can't recognize the state, it just uses what was there before, if anything.
@@ -608,5 +627,10 @@ public class SessionContextUtil implements ApplicationContextAware {
             return COMMUNITY_DEV_HOSTNAME;
         }
         return COMMUNITY_LIVE_HOSTNAME;
+    }
+
+    public void changeCity(SessionContext context, HttpServletResponse response, City city) {
+        context.setCityId(city.getId());
+        _cityIdCookieGenerator.addCookie(response, city.getId().toString());
     }
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.20 2008/06/21 00:20:08 cpickslay Exp $
+ * $Id: SessionContext.java,v 1.21 2008/07/08 02:06:11 chriskimm Exp $
  */
 package gs.web.util.context;
 
@@ -61,6 +61,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private String _nickname;
     private int _mslCount;
     private int _mssCount;
+    private Integer _cityId; // greatschools city id from us_geo.city
     /**
      * Current US state
      */
@@ -412,5 +413,13 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setOriginalRequestURI(String requestURI) {
         _originalRequestURI = requestURI;
+    }
+
+    public Integer getCityId() {
+        return _cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this._cityId = cityId;
     }
 }

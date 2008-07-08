@@ -95,6 +95,11 @@
                 <property name="cookieName" value="TMP_MSG"/>
             </bean>
         </property>
+        <property name="cityIdCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="CITYID"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"

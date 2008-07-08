@@ -29,6 +29,7 @@
     City city = (City)request.getAttribute("cityObject");
     if (city != null) {
         PageHelper.setYahooRealEstateCity(request, city.getName());
+        PageHelper.setCityIdCookie(request, response, city);
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (null != pageHelper) {
             pageHelper.addAdKeyword("city", city.getName());
