@@ -306,9 +306,9 @@
             </div>
 
             <div id="belowAdWrapper">
-                <c:if test="${school.levelCode != 'p'}">
-                    <jsp:include page="/promo/articleCommunityWidget.module"/>
-                </c:if>
+                <gsml:a href="/content/btsQuiz.page">
+                    <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo.jpg" alt="Are you smarter than a fourth grader?" />
+                </gsml:a>
 
                 <c:if test="${empty param.hideMap}">
                     <school:nearbySchools school="${school}"/>

@@ -22,7 +22,6 @@
 <pageHelper:setPathway pathway="HOME"/>
 
 <jsp:scriptlet>
-        PageHelper.hideLeaderboard(request);
         PageHelper.hideFooterAd(request);
 </jsp:scriptlet>
 
@@ -93,7 +92,7 @@
             ]]>
         </div>
         <div id="quizSponsor">
-            <ad:Badge_99x40 position="PageSponsor_99x40"/>
+            <ad:adTag position="PageSponsor_122x45"/>
         </div>        
     </div>
 
@@ -136,7 +135,7 @@
 
 <div style="display: none;">
     <mod:tracking pageName="${pageName}"
-                  hier1="Article,Back to School"
+                  hier1="Article,Back to School,Back to School Quiz"
                   microsite="${pageName}"/>
 </div>
 
