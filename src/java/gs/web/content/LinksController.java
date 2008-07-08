@@ -19,7 +19,7 @@ import java.util.List;
  * This class fetches links from a Google Spreadsheet for rendering in a list to be shown on a microsite page.
  * @author <a href="yfan@greatschools.net">Young Fan</a>
  */
-public class MicrositePromoController extends AbstractController {
+public class LinksController extends AbstractController {
     public static final String BEAN_ID = "/content/micrositePromo.module";
     protected final Log _log = LogFactory.getLog(getClass());
 

@@ -289,7 +289,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 						<div class="white-box">
 							<h3 class="bubble">Parent Discussions</h3>
 
-                            <jsp:include page="/content/micrositePromo.module?page=home&amp;type=all"/>
+                            <jsp:include page="/content/links.module?page=home&amp;type=all"/>
 
                             <p class="more">
                                 <a href="http://${communityHost}/q-and-a"><img src="/res/img/home/blue_module/question_button.png" alt="Ask a Question" title="" border="0" /></a>

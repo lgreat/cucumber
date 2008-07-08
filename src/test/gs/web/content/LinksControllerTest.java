@@ -1,7 +1,7 @@
 package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.content.MicrositePromoController;
+import gs.web.content.LinksController;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.Anchor;
@@ -23,14 +23,14 @@ import java.util.ArrayList;
 /**
  * @author <a href="yfan@greatschools.net">Young Fan</a>
  */
-public class MicrositePromoControllerTest extends BaseControllerTestCase {
+public class LinksControllerTest extends BaseControllerTestCase {
 
-    private MicrositePromoController _controller;
+    private LinksController _controller;
     private ITableDao _tableDao;
 
     protected void setUp() throws Exception {
         super.setUp();
-        _controller = (MicrositePromoController) getApplicationContext().getBean(MicrositePromoController.BEAN_ID);
+        _controller = (LinksController) getApplicationContext().getBean(LinksController.BEAN_ID);
         _tableDao = createMock(GoogleSpreadsheetDao.class);
         _controller.setTableDao(_tableDao);
     }
@@ -41,32 +41,32 @@ public class MicrositePromoControllerTest extends BaseControllerTestCase {
 
     public void testHandleRequestInternalBasic() throws Exception {
         // all required parameters not specified
-        getRequest().removeParameter(MicrositePromoController.PARAM_PAGE);
-        getRequest().removeParameter(MicrositePromoController.PARAM_TYPE);
+        getRequest().removeParameter(LinksController.PARAM_PAGE);
+        getRequest().removeParameter(LinksController.PARAM_TYPE);
         ModelAndView modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
         assertNull("Returned ModelAndView was not null when PARAM_PAGE and PARAM_TYPE not parameters in request", modelAndView);
 
         // one of required parameters not specified
-        getRequest().setParameter(MicrositePromoController.PARAM_PAGE, "backtoschool");
-        getRequest().removeParameter(MicrositePromoController.PARAM_TYPE);
+        getRequest().setParameter(LinksController.PARAM_PAGE, "backtoschool");
+        getRequest().removeParameter(LinksController.PARAM_TYPE);
         modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
         assertNull("Returned ModelAndView was not null when PARAM_TYPE not parameter in request", modelAndView);
 
-        getRequest().removeParameter(MicrositePromoController.PARAM_PAGE);
-        getRequest().setParameter(MicrositePromoController.PARAM_TYPE, MicrositePromoController.VALUE_ALL);
+        getRequest().removeParameter(LinksController.PARAM_PAGE);
+        getRequest().setParameter(LinksController.PARAM_TYPE, LinksController.VALUE_ALL);
         modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
         assertNull("Returned ModelAndView was not null when PARAM_PAGE not parameter in request", modelAndView);
 
         // all required parameters present but PARAM_TYPE invalid
-        getRequest().setParameter(MicrositePromoController.PARAM_PAGE, "backtoschool");
-        getRequest().setParameter(MicrositePromoController.PARAM_TYPE, "");
+        getRequest().setParameter(LinksController.PARAM_PAGE, "backtoschool");
+        getRequest().setParameter(LinksController.PARAM_TYPE, "");
         modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
         assertNull("Returned ModelAndView was not null when required parameters present but PARAM_TYPE invalid", modelAndView);
     }
 
     public void testHandleRequestInternalTypeRandom() throws Exception {
-        getRequest().setParameter(MicrositePromoController.PARAM_PAGE, "backtoschool");
-        getRequest().setParameter(MicrositePromoController.PARAM_TYPE, MicrositePromoController.VALUE_RANDOM);
+        getRequest().setParameter(LinksController.PARAM_PAGE, "backtoschool");
+        getRequest().setParameter(LinksController.PARAM_TYPE, LinksController.VALUE_RANDOM);
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
@@ -74,22 +74,22 @@ public class MicrositePromoControllerTest extends BaseControllerTestCase {
         dao.setWorksheetUrl("google/od6");
 
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
-        hashMapTableRow.addCell(MicrositePromoController.SPREADSHEET_TEXT, "GreatSchools.net");
-        hashMapTableRow.addCell(MicrositePromoController.SPREADSHEET_URL, "http://www.greatschools.net");
-        expect(dao.getRandomRowByKey(MicrositePromoController.SPREADSHEET_PAGE,
-            getRequest().getParameter(MicrositePromoController.PARAM_PAGE))).andReturn(hashMapTableRow);
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
+        expect(dao.getRandomRowByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(hashMapTableRow);
         replay(dao);
 
         ModelAndView modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
 
-        assertEquals("View name did not match " + MicrositePromoController.VIEW_NAME,
-            MicrositePromoController.VIEW_NAME, modelAndView.getViewName());
+        assertEquals("View name did not match " + LinksController.VIEW_NAME,
+            LinksController.VIEW_NAME, modelAndView.getViewName());
         assertTrue("Model did not contain anchor",
-            modelAndView.getModel().containsKey(MicrositePromoController.MODEL_ANCHOR));
+            modelAndView.getModel().containsKey(LinksController.MODEL_ANCHOR));
         assertTrue("Model anchor was not Anchor object",
-            modelAndView.getModel().get(MicrositePromoController.MODEL_ANCHOR) instanceof Anchor);
+            modelAndView.getModel().get(LinksController.MODEL_ANCHOR) instanceof Anchor);
 
-        Anchor anchor = (Anchor) modelAndView.getModel().get(MicrositePromoController.MODEL_ANCHOR);
+        Anchor anchor = (Anchor) modelAndView.getModel().get(LinksController.MODEL_ANCHOR);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", anchor.getContents());
         assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", anchor.getHref());
 
@@ -97,8 +97,8 @@ public class MicrositePromoControllerTest extends BaseControllerTestCase {
     }
 
     public void testHandleRequestInternalTypeAll() throws Exception {
-        getRequest().setParameter(MicrositePromoController.PARAM_PAGE, "backtoschool");
-        getRequest().setParameter(MicrositePromoController.PARAM_TYPE, MicrositePromoController.VALUE_ALL);
+        getRequest().setParameter(LinksController.PARAM_PAGE, "backtoschool");
+        getRequest().setParameter(LinksController.PARAM_TYPE, LinksController.VALUE_ALL);
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
@@ -107,24 +107,24 @@ public class MicrositePromoControllerTest extends BaseControllerTestCase {
 
         List<ITableRow> tableRowList = new ArrayList<ITableRow>();
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
-        hashMapTableRow.addCell(MicrositePromoController.SPREADSHEET_TEXT, "GreatSchools.net");
-        hashMapTableRow.addCell(MicrositePromoController.SPREADSHEET_URL, "http://www.greatschools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
         tableRowList.add(hashMapTableRow);
-        expect(dao.getRowsByKey(MicrositePromoController.SPREADSHEET_PAGE,
-            getRequest().getParameter(MicrositePromoController.PARAM_PAGE))).andReturn(tableRowList);
+        expect(dao.getRowsByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(tableRowList);
         replay(dao);
 
         ModelAndView modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
 
-        assertEquals("View name did not match " + MicrositePromoController.VIEW_NAME,
-            MicrositePromoController.VIEW_NAME, modelAndView.getViewName());
+        assertEquals("View name did not match " + LinksController.VIEW_NAME,
+            LinksController.VIEW_NAME, modelAndView.getViewName());
         assertTrue("Model did not contain anchor list key",
-            modelAndView.getModel().containsKey(MicrositePromoController.MODEL_ANCHOR_LIST));
+            modelAndView.getModel().containsKey(LinksController.MODEL_ANCHOR_LIST));
         assertTrue("Model anchor list was not AnchorListModel object",
-            modelAndView.getModel().get(MicrositePromoController.MODEL_ANCHOR_LIST) instanceof AnchorListModel);
+            modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST) instanceof AnchorListModel);
 
         AnchorListModel anchorListModel =
-            (AnchorListModel) modelAndView.getModel().get(MicrositePromoController.MODEL_ANCHOR_LIST);
+            (AnchorListModel) modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST);
         Anchor firstAnchor = (Anchor) anchorListModel.getResults().get(0);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", firstAnchor.getContents());
         assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", firstAnchor.getHref());
