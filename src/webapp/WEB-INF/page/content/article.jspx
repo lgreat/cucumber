@@ -7,6 +7,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
@@ -46,6 +47,7 @@
                 }
             }
         </jsp:scriptlet>
+        <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
     </head>
     <body>
 
@@ -78,8 +80,10 @@
                             </div>
                         </div>
                         <div id="squareadvert">
-                            <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
                             <ad:AboveFold_300x250/>
+                        </div>
+                        <div id="seasonalPromo">
+                            <gsweb:adTagGenerator position="House_Ad_300x137"/>
                         </div>
                     </div>
                     <!-- Article -->
