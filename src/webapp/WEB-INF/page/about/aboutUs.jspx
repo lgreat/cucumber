@@ -123,8 +123,7 @@
    <li><gsml:a href="/about/sponsors.page?state=$STATE">Sponsors and
    Partners</gsml:a></li>
 
-   <li><gsml:a href="/cgi-bin/static/whoweare.inc/$STATE">Board of
-   Directors and Staff</gsml:a></li>
+   <li><gsml:a href="/cgi-bin/static/whoweare.inc/$STATE">Board of Directors and Management Team</gsml:a></li>
 
    <li><link:webbyAwardThanks>Our Awards</link:webbyAwardThanks></li>
 
