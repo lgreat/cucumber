@@ -20,7 +20,7 @@ import java.util.List;
  * @author <a href="yfan@greatschools.net">Young Fan</a>
  */
 public class LinksController extends AbstractController {
-    public static final String BEAN_ID = "/content/micrositePromo.module";
+    public static final String BEAN_ID = "/content/links.module";
     protected final Log _log = LogFactory.getLog(getClass());
 
     private ITableDao _tableDao;
@@ -29,7 +29,7 @@ public class LinksController extends AbstractController {
     private String stagingWorksheetName;
     private String productionWorksheetName;
 
-    public static final String VIEW_NAME = "/content/micrositePromo";
+    public static final String VIEW_NAME = "/content/links";
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_TYPE = "type";
     public static final String VALUE_ALL = "all";
