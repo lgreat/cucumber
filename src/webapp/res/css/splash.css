@@ -133,6 +133,7 @@ div#footer { padding-top:2px; }
 #contentBottom {
     clear: both;
     width: 880px;
+    height: 235px;
     margin-left: 3px;
     margin-top: 0;
 }
@@ -150,6 +151,12 @@ div#footer { padding-top:2px; }
     right: 10px;
 }
 
+.findMore {
+    position: absolute;
+    bottom: 10px;
+    right: 65px;
+}
+
 #rightSchoolDiv {
     float: left;
     width: 164px;
@@ -163,12 +170,11 @@ div#footer { padding-top:2px; }
 
 .adBox .wrapper-content {
     width: 303px;
-    height: 265px;
+    height: 264px;
 }
 
 .sponsor_ad {
-    width: 185px;
-    height: 28px;
-    margin-left: 10px;
-    background-color: red;
+    position: absolute;
+    bottom: 28px;
+    left: 25px;
 }

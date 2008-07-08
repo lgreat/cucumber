@@ -306,7 +306,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 								<li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
 							</ul>
 
-                            <p class="more right">
+                            <p class="findMore">
                                 <a href="http://${communityHost}/groups">Find more &gt;</a>
                             </p>
                         </div>
