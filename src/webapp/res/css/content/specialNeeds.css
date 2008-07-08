@@ -10,19 +10,22 @@ h1#specialNeedsText {
     margin-bottom: 5px;
     background:transparent url(../../img/content/countdownToCollege/red_dot.gif) repeat-x scroll center bottom;
 }
-#contentGS div.welcome p {
+#contentGS div.welcome li {
     font-size: 16px;
     color:#3399AA;
     text-align: center;
-    padding-right: 16px;
+
+    height: 16px;
+    padding: 0 16px 6px  0px;
+    
 
 }
-#contentGS div.welcome p#msg a{
+#contentGS div.welcome p#msg li{
 
     font-weight: bold;
 }
 
-#contentGS div.welcome p#from{
+#contentGS div.welcome li#from{
     font-weight: normal;
 }
 
