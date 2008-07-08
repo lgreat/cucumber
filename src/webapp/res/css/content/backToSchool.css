@@ -44,10 +44,8 @@ ul.bulleted {
 
 #contentTop {
     margin: 0 0 4px 0;
-    _margin: 0 0 11px 0;
     position: relative;
     top: 0px;
-    _top: 8px;
 }
 
 #contentTop .sponsor {
@@ -178,6 +176,7 @@ ul.bulleted {
     min-height: 281px;
     height: auto !important;
     height: 281px;
+    position: relative;
 }
 
 .moduleBox h3 img {
@@ -212,19 +211,17 @@ ul.bulleted {
     color: #666;
 }
 
-.moduleBox .ad {
-	text-align: left;
-	padding: 0 0 0 10px;
-}
-
-.wrapper {
-    position: relative;
-}
-
-.wrapper .ad {
+.wrapper .adDiv {
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
+    left: 20px;
 }
+
+/*#google_ads_div_Library_Microsite_Back_to_School_ModuleBoxLeft_166x45 {
+    border: 1px solid;
+    width: 166px;
+    height: 45px;
+}*/
 
 #AboveFold_300x250 {
     border: 0;

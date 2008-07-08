@@ -44,9 +44,6 @@
        margin: 0 0 11px 0;
     }
 
-    p.question {
-        background: url(/res/img/content/backtoschool/q.png) no-repeat left 2px;
-    }
     </style>
     <![endif]-->
     ]]>
@@ -292,7 +289,7 @@
                         wrappingElement="li">10 Tips for Smart Shopping</gsweb:articlelink>
                 </ul>
 
-                <div class="ad">
+                <div class="adDiv">
                     <ad:Badge_166x45 position="ModuleBoxLeft_166x45"/>
                 </div>
             </div>
@@ -335,7 +332,7 @@
                 </select>
                 </p>
 
-                <div class="ad">
+                <div class="adDiv">
                     <ad:Badge_166x45 position="ModuleBoxRight_166x45"/>
                 </div>
             </div>

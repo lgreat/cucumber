@@ -57,7 +57,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                 <p class="question">My kindergartner has separation anxiety. What can I do?<br/>
                     <gsweb:articlelink articleId="1072">Read the answer &gt;</gsweb:articlelink></p>
 
-                <div class="ad">
+                <div class="adDiv">
                     <ad:Badge_166x45 position="BoxRight_166x45"/>
                 </div>
             </div>
