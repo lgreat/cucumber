@@ -115,19 +115,6 @@ public class CommunityQuestionPromoController extends AbstractController {
     }
 
     /**
-     * Returns a random row out of a list of rows.
-     *
-     * @param rows list of rows
-     * @return a random row contained in rows
-     */
-    protected ITableRow getRandomRow(List<ITableRow> rows) {
-        int count = rows.size();
-        Random ran = new Random();
-        int randomIndex = ran.nextInt(count);
-        return rows.get(randomIndex);
-    }
-
-    /**
      * Allows the worksheet to be overridden by the request. If not, it returns od6 (first worksheet)
      * for dev and developer boxes, oda for staging, and od4 for production and all else
      */
