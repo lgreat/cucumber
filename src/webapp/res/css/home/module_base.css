@@ -81,7 +81,7 @@ To use:
 	margin-bottom: 5px;
 }
 
-.moduleBox .bulleted li {
+.moduleBox ul li {
 	background: url(/res/img/home/module/bullet.png) no-repeat left 6px;
 }
 

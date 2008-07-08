@@ -32,10 +32,16 @@ public class LinksController extends AbstractController {
     public static final String VIEW_NAME = "/content/links";
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_TYPE = "type";
-    public static final String VALUE_ALL = "all";
-    public static final String VALUE_RANDOM = "random";
+    public static final String PARAM_LAYOUT = "layout";
+    public static final String TYPE_ALL = "all";
+    public static final String TYPE_RANDOM = "random";
+    public static final String TYPE_FIRST = "first";
+    public static final String LAYOUT_BASIC = "basic";
+    public static final String LAYOUT_Q_AND_A = "q_and_a";
+    public static final String LAYOUT_LIST = "list";
     public static final String MODEL_ANCHOR = "modelAnchor";
     public static final String MODEL_ANCHOR_LIST = "modelAnchorList";
+    public static final String MODEL_LAYOUT = "modelLayout";
     public static final String SPREADSHEET_PAGE = "page";
     public static final String SPREADSHEET_TEXT = "text";
     public static final String SPREADSHEET_URL = "url";
@@ -101,15 +107,35 @@ public class LinksController extends AbstractController {
         return worksheetName;
     }
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
-                                                 HttpServletResponse response) throws Exception {
+    protected boolean isValidRequest(HttpServletRequest request) {
         String page = request.getParameter(PARAM_PAGE);
         String type = request.getParameter(PARAM_TYPE);
+        String layout = request.getParameter(PARAM_LAYOUT);
 
-        if (page == null || type == null ||
-            (!VALUE_ALL.equals(type) && !VALUE_RANDOM.equals(type))) {
+        if (page == null || type == null || layout == null) {
+            return false;
+        }
+
+        if (!TYPE_FIRST.equals(type) && !TYPE_ALL.equals(type) && !TYPE_RANDOM.equals(type)) {
+            return false;
+        }
+
+        if (!LAYOUT_BASIC.equals(layout) && !LAYOUT_Q_AND_A.equals(layout) && !LAYOUT_LIST.equals(layout)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+                                                 HttpServletResponse response) throws Exception {
+        if (!isValidRequest(request)) {
             return null;
         }
+
+        String page = request.getParameter(PARAM_PAGE);
+        String type = request.getParameter(PARAM_TYPE);
+        String layout = request.getParameter(PARAM_LAYOUT);
 
         injectWorksheetName(request);
 
@@ -117,12 +143,17 @@ public class LinksController extends AbstractController {
 
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
 
-        if (VALUE_RANDOM.equals(type)) {
+        if (TYPE_FIRST.equals(type)) {
+            ITableRow row = _tableDao.getFirstRowByKey(SPREADSHEET_PAGE, page);
+            Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
+            modelAndView.addObject(MODEL_ANCHOR, anchor);
+        }
+        else if (TYPE_RANDOM.equals(type)) {
             ITableRow row = _tableDao.getRandomRowByKey(SPREADSHEET_PAGE, page);
             Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
             modelAndView.addObject(MODEL_ANCHOR, anchor);
         }
-        else if (VALUE_ALL.equals(type)) {
+        else if (TYPE_ALL.equals(type)) {
             List<ITableRow> rows = _tableDao.getRowsByKey(SPREADSHEET_PAGE, page);
             AnchorListModel anchorListModel = new AnchorListModel();
             for (ITableRow row : rows) {
@@ -131,6 +162,8 @@ public class LinksController extends AbstractController {
             }
             modelAndView.addObject(MODEL_ANCHOR_LIST, anchorListModel);
         }
+
+        modelAndView.addObject(MODEL_LAYOUT, layout);
 
         return modelAndView;
     }

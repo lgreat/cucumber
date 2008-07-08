@@ -185,9 +185,11 @@
                          class="hot_topics"/>
                     <div class="header">
                         <span class="red">Topic of the Week: </span>
+                        <!--jsp:include page="/content/links.module?page=edin08_topicoftheweek&amp;type=first&amp;layout=basic"/-->
                         <a href="http://community.greatschools.net/q-and-a/206794/What-should-our-schools-do-to-make-sure-our-students-can-compete-in-the-global-marketplace">What should our schools do to
                             make sure our students can compete in the global marketplace?</a>
                     </div>
+                    <!--jsp:include page="/content/links.module?page=edin08&amp;type=all&amp;layout=list"/-->
                     <ul>
                         <li><a href="http://community.greatschools.net/q-and-a/206868/How-does-education-help-us-contribute-to-society-more-broadly">How does education help us contribute to society more broadly?</a></li>
                         <li><a href="http://community.greatschools.net/q-and-a/206840/Besides-being-able-to-afford-it-what-is-keeping-todays-students-from-succeeding-in-college-">Besides being able to afford it, what is keeping today's students from succeeding in college?</a></li>

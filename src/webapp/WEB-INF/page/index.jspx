@@ -262,7 +262,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                     <img class="leadoff left" src="/res/img/home/pencil_apple.jpg" alt="Pencil and apple" />
                     </div>
                     <div id="rightSchoolDiv">
-                    <ul id="rightSchoolLinksDiv" class="bulleted">
+                    <ul id="rightSchoolLinksDiv">
                         <gsweb:articlelink articleId="96" wrappingElement="li">Where do I even start?</gsweb:articlelink>
                         <gsweb:articlelink articleId="197" wrappingElement="li">Private vs. Public: How to decide?</gsweb:articlelink>
                         <gsweb:articlelink articleId="87" wrappingElement="li">Tips for selecting the right school</gsweb:articlelink>
@@ -289,7 +289,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 						<div class="white-box">
 							<h3 class="bubble">Parent Discussions</h3>
 
-                            <jsp:include page="/content/links.module?page=home&amp;type=all"/>
+                            <jsp:include page="/content/links.module?page=home&amp;type=all&amp;layout=list"/>
 
                             <p class="more">
                                 <a href="http://${communityHost}/q-and-a"><img src="/res/img/home/blue_module/question_button.png" alt="Ask a Question" title="" border="0" /></a>
@@ -299,7 +299,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 						<div class="transparent-box">
 							<h3>Find Parents Like Me</h3>
 
-							<ul class="bulleted">                                
+							<ul>                                
                                 <li><a href="http://${communityHost}/groups/11534">Parents of preschoolers</a></li>
 								<li><a href="http://${communityHost}/groups/11527">Elementary School Parents</a></li>
 								<li><a href="http://${communityHost}/groups/11528">Middle School Parents</a></li>
