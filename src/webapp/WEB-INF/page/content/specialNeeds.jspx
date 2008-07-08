@@ -42,8 +42,6 @@
             <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg"
                       alt="Male teacher and boy reading together"/>
 
-            <c:set var="fromSchwab" value="${param.fromSchwab}"/>
-
            <div class="welcome">
                 <c:if test="${param.fromSchwab == '1'}">
                     <p id="msg"><gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">Welcome to SchwabLearning Parents</gsml:a></p>
