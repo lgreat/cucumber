@@ -4,21 +4,30 @@ h1#specialNeedsText {
 
 
 #contentGS div.welcome {
-    padding-top:10px;
     border-bottom:0px dotted #CCCCCC;
-    padding-bottom: 18px;
+    padding-bottom: 0px;
     margin-bottom: 5px;
+}
+
+#contentGS div.welcome div.bottom {
     background:transparent url(../../img/content/countdownToCollege/red_dot.gif) repeat-x scroll center bottom;
+    height: 18px;
+    border-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#contentGS div.welcome div#schwabOnly{
+    padding-top:10px;
+    padding-bottom: 0px;
+    border-bottom: 0px;
 }
 #contentGS div.welcome li {
     font-size: 16px;
     color:#3399AA;
     text-align: center;
-
     height: 16px;
     padding: 0 16px 6px  0px;
-    
-
 }
 #contentGS div.welcome p#msg li{
 

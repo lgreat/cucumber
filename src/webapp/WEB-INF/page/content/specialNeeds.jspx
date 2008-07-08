@@ -43,12 +43,18 @@
                       alt="Male teacher and boy reading together"/>
 
            <div class="welcome">
+
                 <c:if test="${param.fromSchwab == '1'}">
-                    <ul class="plain">
-                        <li id="msg"><gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">Welcome to SchwabLearning Parents</gsml:a></li>
-                        <li id="from"><gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">from Bill Jackson, Founder and President</gsml:a></li>
-                    </ul>
+                    <div id="schwabOnly">
+                        <ul class="plain">
+                            <li id="msg"><gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">Welcome to SchwabLearning Parents</gsml:a></li>
+                            <li id="from"><gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">from Bill Jackson, Founder and President</gsml:a></li>
+                        </ul>
+                    </div>
                 </c:if>
+               <div class="bottom">
+                   <!-- comment -->
+               </div>
             </div>
 
             <div>
