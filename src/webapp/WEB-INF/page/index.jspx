@@ -244,9 +244,23 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 	</div>
 
     <div id="contentMiddleRight">
-        <c:if test="${showAd}">
+        <c:choose>
+            <c:when test="${showAd}">
                 <ad:Homepage_300x250/>
-        </c:if>
+            </c:when>
+            <c:otherwise>
+                <div class="adBox">
+                    <div class="wrapper-outer">
+                        <div class="wrapper-inner">
+                            <div class="wrapper-content">
+                                <img id="adFreeHouseAd" src="/res/img/home/GS_boxad_healthy2.jpg"
+                                     alt="Healthy Kids: No more couch potatoes!"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 
