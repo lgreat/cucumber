@@ -253,8 +253,8 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                     <div class="wrapper-outer">
                         <div class="wrapper-inner">
                             <div class="wrapper-content">
-                                <img id="adFreeHouseAd" src="/res/img/home/GS_boxad_healthy2.jpg"
-                                     alt="Healthy Kids: No more couch potatoes!"/>
+                                <a href="/content/healthyKids.page"><img id="adFreeHouseAd" src="/res/img/home/GS_boxad_healthy2.jpg"
+                                     alt="Healthy Kids: No more couch potatoes!"/></a>
                             </div>
                         </div>
                     </div>
