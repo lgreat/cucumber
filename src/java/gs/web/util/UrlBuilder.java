@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.105 2008/06/18 17:12:53 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.106 2008/07/09 01:38:40 yfan Exp $
  */
 
 package gs.web.util;
@@ -197,6 +197,7 @@ public class UrlBuilder {
     public static final VPage STATE_STANDARDS = new VPage("vpage:stateStandards");
     public static final VPage SUMMER_PLANNING = new VPage("vpage:summerPlanning");
     public static final VPage SUMMER_READING = new VPage("vpage:summerReading");
+    public static final VPage BACK_TO_SCHOOL = new VPage("vpage:backToSchool");
     public static final VPage TUTORING = new VPage("vpage:tutoring");
     public static final VPage TRAVEL = new VPage("vpage:travel");
 
@@ -461,6 +462,8 @@ public class UrlBuilder {
             _path = "/content/summerPlanning.page";
         }else if (SUMMER_READING.equals(page)) {
             _path = "/content/summerReading.page";
+        }else if (BACK_TO_SCHOOL.equals(page)) {
+            _path = "/content/backToSchool.page";
         }else if (TUTORING.equals(page)) {
             _path = "/content/tutoring_Homework_Help.page";
         }else if (TRAVEL.equals(page)) {
