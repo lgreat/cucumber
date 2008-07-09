@@ -45,7 +45,7 @@
             <div class="success"><img src="/res/img/community/registration/check.gif" alt="Check"/>Thank you! You're signed up.</div>
             <div class="hr dotted topDivider"><hr/></div>            
         </c:if>
-        <form method="post" id="mailForm" name="mailForm" action="/content/election2008Confirm.page"
+        <form method="post" id="mailForm" name="mailForm" action="/content/actionForEducationEmail.page"
                  onsubmit="challenge.value = Recaptcha.$('recaptcha_challenge_field').value;response.value = Recaptcha.$('recaptcha_response_field').value;">
             <fieldset>
                 <legend>Tell your Friends and Family</legend>

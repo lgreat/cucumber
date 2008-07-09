@@ -146,7 +146,7 @@
                             Get email updates from Strong American Schools
                         </p>
 
-                        <form action="/content/election2008.page" method="post" onsubmit="return validateForm();" name="edin08Form">
+                        <form action="/content/actionForEducation.page" method="post" onsubmit="return validateForm();" name="edin08Form">
                             <p><input type="text" name="email" class="emailField" value="Enter Email Address"
                                       onfocus="textSwap(this, defaultEmailValue, '');"
                                       onblur="textSwap(this, '', defaultEmailValue);"/></p>
