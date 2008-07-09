@@ -35,14 +35,15 @@
            startAdHierarchyAtPage="true">
 
     <div id="contentTop">
-        <img src="/res/img/content/election2008/blah.jpg"
+        <img src="/res/img/content/election2008/emailConfirm_header.jpg"
              alt="One Nation Left Behind"
-             width="952" height="125"/>
+             width="952" height="124"/>
     </div>
 
     <div id="contentMiddle">
         <c:if test="${edin08Cmd.success eq true}">
-            <div class="success">Success!</div>
+            <div class="success"><img src="/res/img/community/registration/check.gif" alt="Check"/>Thank you! You're signed up.</div>
+            <div class="hr dotted topDivider"><hr/></div>            
         </c:if>
         <form method="post" id="mailForm" name="mailForm" action="/content/election2008Confirm.page"
                  onsubmit="challenge.value = Recaptcha.$('recaptcha_challenge_field').value;response.value = Recaptcha.$('recaptcha_response_field').value;">
@@ -146,56 +147,12 @@
                          class="hot_topics"/>
                     <div class="header">
                         <span class="red">Topic of the Week: </span>
-                        <a href="http://community.greatschools.net/q-and-a/206794/What-should-our-schools-do-to-make-sure-our-students-can-compete-in-the-global-marketplace">What should our schools do to
-                            make sure our students can compete in the global marketplace?</a>
+                        <jsp:include page="/content/links.module?page=edin08_topicoftheweek&amp;type=first&amp;layout=basic"/>
                     </div>
-                    <ul>
-                        <li><a href="http://community.greatschools.net/q-and-a/206868/How-does-education-help-us-contribute-to-society-more-broadly">How does education help us contribute to society more broadly?</a></li>
-                        <li><a href="http://community.greatschools.net/q-and-a/206840/Besides-being-able-to-afford-it-what-is-keeping-todays-students-from-succeeding-in-college-">Besides being able to afford it, what is keeping today's students from succeeding in college?</a></li>
-                        <li><a href="http://community.greatschools.net/q-and-a/206884/How-would-an-improved-education-system-affect-our-economy">How would an improved education system affect our economy?</a></li>
-                        <li><a href="http://community.greatschools.net/q-and-a/206886/How-has-education-helped-change-your-life">How has education helped change your life?</a></li>
-                        <li><a href="http://community.greatschools.net/q-and-a/206893/Whats-worked-in-your-community-to-get-strong-school-board-candidates">What's worked in your community to get strong school board candidates?</a></li>
-                    </ul>
+                    <jsp:include page="/content/links.module?page=edin08&amp;type=all&amp;layout=list"/>
                 </div>
             </div>
         </div>
-
-        <!--<div class="toolkitsWrapper">-->
-            <!--<div class="toolkits">-->
-                <!--<img src="/res/img/content/election2008/kids_strongschools.jpg"-->
-                     <!--alt="Strong American Schools Toolkits"-->
-                     <!--class="img_edin08" width="317" height="62"/>-->
-                <!--<ul>-->
-                    <!--<li>-->
-                        <!--<a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Parents.pdf"-->
-                           <!--target="_blank">-->
-                            <!--<gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>-->
-                            <!--Tools for parents-->
-                        <!--</a>-->
-                        <!--<span>Concrete steps you can take to help shape your child's education-->
-                        <!--&amp;#8212; and his or her future.</span>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Communities.pdf"-->
-                           <!--target="_blank">-->
-                            <!--<gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>-->
-                            <!--Tools for communities-->
-                        <!--</a>-->
-                        <!--<span>Demand and protect a child's right to a high-quality-->
-                        <!--public education.</span>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="http://www.edin08.com/uploadedFiles/Participate/SAS_Tools%20for%20Educators.pdf"-->
-                           <!--target="_blank">-->
-                            <!--<gsml:img src="/res/img/adobe/pdficon_small.gif" alt="PDF"/>-->
-                            <!--Tools for educators-->
-                        <!--</a>-->
-                        <!--<span>Ask your students' families to play a role in setting a-->
-                        <!--high benchmark for their child's education.</span>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
 
     <content:micrositeFooter crossPromo="backToSchool"/>

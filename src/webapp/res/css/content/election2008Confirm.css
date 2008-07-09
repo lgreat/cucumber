@@ -39,6 +39,7 @@
     height: 125px;
     padding-top: 15px;
     position: relative;
+    margin-bottom: 15px;
 }
 
 #contentMiddle {
@@ -50,6 +51,18 @@
     float: right;
     margin-right: 3px;
     width: 400px;
+}
+
+div.success {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+div.success img {
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
 }
 
 /** Hot Topics */
@@ -95,59 +108,6 @@ div.hot_topics {
     color: #999999;
     padding-left: 2px;
 }
-
-
-/** Toolkits */
-/*div.toolkitsWrapper {*/
-    /*width: 400px;*/
-    /*height: 318px;*/
-    /*background-color: #3B6BAB;*/
-    /*float: left;*/
-    /*clear: left;*/
-    /*margin-top: 8px;*/
-/*}*/
-
-/*div.toolkits {*/
-    /*background-color: #FFFFFF;*/
-    /*width: 376px;*/
-    /*height: 294px;*/
-    /*position: relative;*/
-    /*top: 12px;*/
-    /*left: 12px;*/
-/*}*/
-
-/*.img_edin08 {*/
-    /*position: absolute;*/
-    /*top: 20px;*/
-    /*left: 20px;*/
-/*}*/
-
-/*div.toolkits ul {*/
-    /*position: relative;*/
-    /*top: 102px;*/
-    /*margin: 0 20px 10px 20px;*/
-/*}*/
-
-/*div.toolkits ul li {*/
-    /*margin: 0 0 10px 0;*/
-    /*position: relative;*/
-    /*padding: 0 0 0 25px;*/
-/*}*/
-
-/*div.toolkits ul li img {*/
-    /*position: absolute;*/
-    /*left: 0;*/
-    /*top: 1px;*/
-/*}*/
-
-/*div.toolkits ul li a {*/
-    /*font-size: 14px;*/
-/*}*/
-
-/*div.toolkits ul li span {*/
-    /*font-size: 12px;*/
-    /*display: block;*/
-/*}*/
 
 /** Form */
 /* inspired by sabine brings - www.brings-online.com - a form with style - www.cssplay.co.uk */
