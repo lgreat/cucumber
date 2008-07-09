@@ -6,7 +6,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.Map;
-import java.util.Arrays;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -33,7 +32,7 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
         assertNotNull(mandv.getModel().get("edin08Cmd"));
         Election2008EmailCommand com2 = (Election2008EmailCommand) mandv.getModel().get("edin08Cmd");
         assertEquals(_command.getEmail(), com2.getUserEmail());
-        assertTrue(com2.isSuccess());
+        assertNotNull(com2.getAlert());
     }
 
     public void testSyncInfoWithConstantContactEuccess() {

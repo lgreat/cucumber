@@ -41,99 +41,107 @@
     </div>
 
     <div id="contentMiddle">
-        <c:if test="${edin08Cmd.success eq true}">
+        <c:if test="${edin08Cmd.alert ne ''}">
             <div class="success"><img src="/res/img/community/registration/check.gif" alt="Check"/>Thank you! You're signed up.</div>
             <div class="hr dotted topDivider"><hr/></div>            
         </c:if>
-        <form method="post" id="mailForm" name="mailForm" action="/content/actionForEducationEmail.page"
-                 onsubmit="challenge.value = Recaptcha.$('recaptcha_challenge_field').value;response.value = Recaptcha.$('recaptcha_response_field').value;">
-            <fieldset>
-                <legend>Tell your Friends and Family</legend>
+        <c:choose>
+            <c:when test="${not edin08Cmd.hideForm}">
+                <form method="post" id="mailForm" name="mailForm" action="/content/actionForEducationEmail.page"
+                         onsubmit="challenge.value = Recaptcha.$('recaptcha_challenge_field').value;response.value = Recaptcha.$('recaptcha_response_field').value;">
+                    <fieldset>
+                        <legend>Tell your Friends and Family</legend>
 
-                <spring:bind path="edin08Cmd.friendEmail">
-                    <label for="${status.expression}">Friend's Email : </label>
-                    <input name="${status.expression}" id="${status.expression}" type="text" tabindex="1"
-                           value="${status.value}"/>
-                </spring:bind>
-                <br/>
+                        <spring:bind path="edin08Cmd.friendEmail">
+                            <label for="${status.expression}">Friend's email : </label>
+                            <input name="${status.expression}" id="${status.expression}" type="text" tabindex="1"
+                                   value="${status.value}"/>
+                        </spring:bind>
+                        <br/>
 
-                <spring:bind path="edin08Cmd.userEmail">
-                    <label for="${status.expression}">Your email : </label>
-                    <input name="${status.expression}" id="${status.expression}" type="text" tabindex="2"
-                           value="${status.value}"/>
-                </spring:bind>
-
-
-                <spring:bind path="edin08Cmd.challenge">
-                    <input name="${status.expression}" id="${status.expression}" type="hidden"
-                           value="${status.value}"/>
-                </spring:bind>
+                        <spring:bind path="edin08Cmd.userEmail">
+                            <label for="${status.expression}">Your email : </label>
+                            <input name="${status.expression}" id="${status.expression}" type="text" tabindex="2"
+                                   value="${status.value}"/>
+                        </spring:bind>
 
 
-                <spring:bind path="edin08Cmd.response">
-                    <input name="${status.expression}" id="${status.expression}" type="hidden"
-                           value="${status.value}"/>
-                </spring:bind>
+                        <spring:bind path="edin08Cmd.challenge">
+                            <input name="${status.expression}" id="${status.expression}" type="hidden"
+                                   value="${status.value}"/>
+                        </spring:bind>
 
-                <spring:hasBindErrors name="edin08Cmd">
-                    <ul class="error">
-                        <c:forEach var="error" items="${errors.allErrors}">
-                            <li>${error.defaultMessage}</li>
-                        </c:forEach>
-                    </ul>
-                </spring:hasBindErrors>
 
-                <p>The e-mail address(es) that you supply to use this service will only be used to send the requested
-                    email. <link:privacyPolicy target="_blank">GreatSchools Privacy Policy</link:privacyPolicy></p>
+                        <spring:bind path="edin08Cmd.response">
+                            <input name="${status.expression}" id="${status.expression}" type="hidden"
+                                   value="${status.value}"/>
+                        </spring:bind>
 
-                <spring:bind path="edin08Cmd.subject">
-                    <label for="${status.expression}">Subject line : </label>
-                    <input name="${status.expression}" id="${status.expression}" type="text" tabindex="3"
-                           value="${status.value}"/>
-                </spring:bind>
+                        <spring:hasBindErrors name="edin08Cmd">
+                            <ul class="error">
+                                <c:forEach var="error" items="${errors.allErrors}">
+                                    <li>${error.defaultMessage}</li>
+                                </c:forEach>
+                            </ul>
+                        </spring:hasBindErrors>
 
-                <p class="large">Text of email (use our message or write your own note):</p>
-                <spring:bind path="edin08Cmd.message">
-                    <![CDATA[
-                  <textarea name="${status.expression}" rows="8" cols="60" warp="soft" tabindex="4">${status.value}</textarea>
-                  ]]>
-                </spring:bind>
+                        <p>The e-mail address(es) that you supply to use this service will only be used to send the requested
+                            email. <link:privacyPolicy target="_blank">GreatSchools Privacy Policy</link:privacyPolicy></p>
 
-                <div class="captcha">
-                    <script type="text/javascript">
-                        var RecaptchaOptions = {theme:'white', tabindex: 0};
-                    </script>
-                    <script type="text/javascript"
-                            src="http://api.recaptcha.net/challenge?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR">
-                       /* this comment keeps the tag from collapsing */
-                    </script>
+                        <spring:bind path="edin08Cmd.subject">
+                            <label for="${status.expression}">Subject line : </label>
+                            <input name="${status.expression}" id="${status.expression}" type="text" tabindex="3"
+                                   value="${status.value}"/>
+                        </spring:bind>
 
-                    <![CDATA[
-                    <noscript>
-                       <iframe src="http://api.recaptcha.net/noscript?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR"
-                           height="300" width="500" frameborder="0"></iframe><br/>
-                       <textarea name="recaptcha_challenge_field"
-                                 rows="3" cols="40" style="height: 60px;">
-                       </textarea>
-                       <input type="hidden" name="recaptcha_response_field"
-                           value="manual_challenge"/>
-                    </noscript>
-                    ]]>
-                </div>
+                        <p class="large">Text of email (use our message or write your own note):</p>
+                        <spring:bind path="edin08Cmd.message">
+                            <![CDATA[
+                          <textarea name="${status.expression}" rows="8" cols="60" warp="soft" tabindex="4">${status.value}</textarea>
+                          ]]>
+                        </spring:bind>
 
-                <p><input type="submit" name="Submit" value="Send" class="submit"/></p>
-            </fieldset>
-        </form>
+                        <div class="captcha">
+                            <script type="text/javascript">
+                                var RecaptchaOptions = {theme:'white', tabindex: 0};
+                            </script>
+                            <script type="text/javascript"
+                                    src="http://api.recaptcha.net/challenge?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR">
+                               /* this comment keeps the tag from collapsing */
+                            </script>
+
+                            <![CDATA[
+                            <noscript>
+                               <iframe src="http://api.recaptcha.net/noscript?k=6LfZWAEAAAAAAPfIO2ES9Xr027O-Et-fMcSHkZeR"
+                                   height="300" width="500" frameborder="0"></iframe><br/>
+                               <textarea name="recaptcha_challenge_field"
+                                         rows="3" cols="40" style="height: 60px;">
+                               </textarea>
+                               <input type="hidden" name="recaptcha_response_field"
+                                   value="manual_challenge"/>
+                            </noscript>
+                            ]]>
+                        </div>
+
+                        <p><input type="submit" name="Submit" value="Send" class="submit"/></p>
+                    </fieldset>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <p class="participate">Participate link goes here.</p>
+            </c:otherwise>
+        </c:choose>
 
         <div class="contentMiddleModule strongAmericanSchools">
-            <div class="header">About <a href="http://www.edin08.com/Participate.aspx"
-                                         target="_blank">Strong American Schools</a></div>
+            <div class="header">About Strong American Schools</div>
             <div class="body">
-                Strong American Schools is a nonpartisan public awareness
-                and advocacy effort aimed at elevating discussion amongst
-                America's leaders about the need for education reform.
-                <br/>
-                <a href="http://www.edin08.com/Participate.aspx" target="_blank">Learn more &gt;</a>
+                Strong American Schools is a nonpartisan public awareness and advocacy effort
+                aimed at elevating discussion amongst America's leaders about the need for
+                education reform. The campaign, a project of Rockefeller Philanthropy Advisors,
+                is supported by The Eli and Edythe Broad Foundation and the Bill &amp;amp; Melinda
+                Gates Foundation promoting sound education policies for all Americans. SAS
+                does not support or oppose any candidate for public office and does not take
+                positions on legislation.
             </div>
         </div>
     </div>

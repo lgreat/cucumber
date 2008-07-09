@@ -6,13 +6,25 @@ import gs.web.community.ICaptchaCommand;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class Election2008EmailCommand implements ICaptchaCommand {
-    private String _userEmail = "";
-    private String _friendEmail = "";
-    private String _subject = "";
-    private String _message = "";
-    private String _challenge = "";
-    private String _response = "";
-    private boolean _success = false;
+    private String _userEmail;
+    private String _friendEmail;
+    private String _subject = "Our schools are failing - Act now";
+    private String _message =
+            "Did you know that 24 countries outscore U.S. schools in math, and 20 outscore the U.S. in science?\n" +
+                    " \n" +
+                    "Our schools are failing. While the rest of the developed world is preparing their " +
+                    "children for the new century, our system continues to lag behind.\n" +
+                    " \n" +
+                    "The countries with the best schools attract the best jobs. If jobs move to other " +
+                    "countries, our children’s opportunities dry up. And so does our economy.\n" +
+                    " \n" +
+                    "Join the national debate.  Act now and visit www.strongamericanschools.org " +
+                    "to improve education before more American students lose out, hurting our " +
+                    "economy and impacting every one of us.";
+    private String _challenge;
+    private String _response;
+    private String _alert;
+    private boolean _hideForm = false;
 
     public String getUserEmail() {
         return _userEmail;
@@ -62,11 +74,19 @@ public class Election2008EmailCommand implements ICaptchaCommand {
         _response = v;
     }
 
-    public boolean isSuccess() {
-        return _success;
+    public String getAlert() {
+        return _alert;
     }
 
-    public void setSuccess(boolean success) {
-        _success = success;
+    public void setAlert(String alert) {
+        _alert = alert;
+    }
+
+    public boolean isHideForm() {
+        return _hideForm;
+    }
+
+    public void setHideForm(boolean hideForm) {
+        this._hideForm = hideForm;
     }
 }

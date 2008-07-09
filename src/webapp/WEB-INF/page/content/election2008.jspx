@@ -37,10 +37,12 @@
 
         function validateForm() {
             if (document.forms['edin08Form'].email.value.length == 0 ||
-                document.forms['edin08Form'].email.value == defaultEmailValue) {
+                document.forms['edin08Form'].email.value == defaultEmailValue ||
+                document.forms['edin08Form'].email.value.indexOf('@') == -1 ||
+                document.forms['edin08Form'].email.value.indexOf('.') == -1) {
                 alert("Please enter a valid email address.");
                 return false;
-            } else if (document.forms['edin08Form'].zip.value.length < 5 ||
+            } else if (document.forms['edin08Form'].zip.value.length != 5 ||
                 document.forms['edin08Form'].zip.value == defaultZipValue) {
                 alert("Please enter a valid 5-digit zip code.");
                 return false;
@@ -146,11 +148,12 @@
                             Get email updates from Strong American Schools
                         </p>
 
-                        <form action="/content/actionForEducation.page" method="post" onsubmit="return validateForm();" name="edin08Form">
+                        <form action="/content/actionForEducation.page" method="post"
+                              onsubmit="return validateForm();" name="edin08Form">
                             <p><input type="text" name="email" class="emailField" value="Enter Email Address"
                                       onfocus="textSwap(this, defaultEmailValue, '');"
                                       onblur="textSwap(this, '', defaultEmailValue);"/></p>
-                            <p><input type="text" name="zip" maxlength="5" class="zipField" value="Zip Code"
+                            <p><input type="text" name="zip" class="zipField" value="Zip Code"
                                       onfocus="textSwap(this, defaultZipValue, '');"
                                       onblur="textSwap(this, '', defaultZipValue);"/></p>
                             <p class="parentAdvisor"><input type="checkbox" name="parentAdvisor"
@@ -215,14 +218,7 @@
                              alt="Education isn't an issue. It's a crisis." width="320"/></h3>
 
                     <div class="video">
-                        <!--<ad:YouTube_381x311/>-->
-                        <!--<object width="300" height="211">-->
-                            <!--<param name="movie"-->
-                                   <!--value="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"/>-->
-                            <!--<embed src="http://www.youtube.com/v/kLBZqrzZvk8&amp;hl=en&amp;rel=0"-->
-                                   <!--type="application/x-shockwave-flash"-->
-                                   <!--width="300" height="251"/>-->
-                        <!--</object>-->
+                        <ad:YouTube_304x211/>
                     </div>
 
                     <img class="left-corner"

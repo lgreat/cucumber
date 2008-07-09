@@ -70,10 +70,14 @@ div.success img {
     margin: 0;
 }
 
-.gray .wrapper {
-    background: transparent url(/res/img/content/election2008/third-tier_bg.png) no-repeat scroll left top;
-    height: 271px;
+.gray {
+    background-color: #C1BFBF;
     padding: 16px;
+    margin-right: 7px;
+}
+
+.gray .wrapper {
+    background-color: #FFFFFF;
 }
 
 div.hot_topics {
@@ -167,7 +171,6 @@ form#mailForm p {
 
 form#mailForm p.large {
     font-size: 16px;
-    /*margin-top: 25px;*/
 }
 
 form#mailForm input.submit {
@@ -209,6 +212,7 @@ form#mailForm div.captcha input {
     position: relative;
     background-color: #FFFFFF;
     padding-right: 20px;
+    margin-bottom: 20px;
 }
 
 .strongAmericanSchools .header {

@@ -13,10 +13,11 @@ import org.apache.commons.validator.EmailValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
-import gs.web.community.ICaptchaCommand;
-import gs.web.community.MailToFriendCommand;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
+
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -33,12 +34,16 @@ public class Election2008EmailConfirmController extends SimpleFormController {
 
         EmailValidator emv = EmailValidator.getInstance();
 
-        if (!emv.isValid(command.getUserEmail())) {
+        if (StringUtils.isEmpty(command.getUserEmail())) {
+            errors.rejectValue("userEmail", null, "Please enter your email address.");
+        } else if (!emv.isValid(command.getUserEmail())) {
             errors.rejectValue("userEmail", null, "Please enter a valid email address.");
         }
 
-        if (!emv.isValid(command.getFriendEmail())) {
+        if (StringUtils.isEmpty(command.getFriendEmail())) {
             errors.rejectValue("friendEmail", null, "Please enter your friend's email address.");
+        } else if (!emv.isValid(command.getFriendEmail())) {
+            errors.rejectValue("friendEmail", null, "Please enter a valid email address for your friend.");
         }
 
         if (StringUtils.isEmpty(command.getSubject())) {
@@ -49,12 +54,11 @@ public class Election2008EmailConfirmController extends SimpleFormController {
             errors.rejectValue("message", null, "Sorry, the message cannot be empty.");
         }
 
-        ICaptchaCommand captchaCommand = (ICaptchaCommand) objCommand;
         if (errors.getErrorCount() == 0 ) {
             // Validate the captcha request/response pair
             String remoteAddr = request.getRemoteAddr();
-            String challenge =  captchaCommand.getChallenge();
-            String response = captchaCommand.getResponse();
+            String challenge =  command.getChallenge();
+            String response = command.getResponse();
 
             ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
             reCaptcha.setPrivateKey("6LfZWAEAAAAAAKt3EpAJngyabjFSywONdA7xqI2C");
@@ -67,7 +71,7 @@ public class Election2008EmailConfirmController extends SimpleFormController {
         }
     }
 
-    protected void sendEmail(Election2008EmailCommand command) {
+    protected boolean sendEmail(Election2008EmailCommand command) {
         SimpleMailMessage smm = new SimpleMailMessage();
         smm.setText(command.getMessage());
         smm.setTo(command.getFriendEmail());
@@ -77,15 +81,28 @@ public class Election2008EmailConfirmController extends SimpleFormController {
         try {
             _mailSender.send(smm);
         } catch (MailException ex) {
-            _log.info(ex.getMessage());
+            _log.error(ex.getMessage());
+            return false;
         }
+        return true;
     }
 
     protected ModelAndView onSubmit(Object objCommand) {
         Election2008EmailCommand command = (Election2008EmailCommand) objCommand;
-        sendEmail(command);
+        Election2008EmailCommand emailCommand = new Election2008EmailCommand();
+        Map<String, Object> model = new HashMap<String, Object>();
+        if (sendEmail(command)) {
+            emailCommand.setUserEmail(command.getUserEmail());
+            emailCommand.setAlert("Thank you! You're signed up.");
+            emailCommand.setHideForm(true);
+            
+            model.put("edin08Cmd", emailCommand);
+        } else {
+            command.setAlert("Email send failed. Please try again soon.");
+            model.put("edin08Cmd", command);
+        }
 
-        return new ModelAndView(getSuccessView());
+        return new ModelAndView(getSuccessView(), model);
     }
 
 

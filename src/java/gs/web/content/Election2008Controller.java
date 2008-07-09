@@ -61,14 +61,15 @@ public class Election2008Controller extends SimpleFormController {
                                     Object objCommand, BindException errors) {
         Election2008Command command = (Election2008Command) objCommand;
 
-        // TODO: utilize SiteVisitor API to sync email
-        //syncInfoWithConstantContact(command);
+        syncInfoWithConstantContact(command);
+
+        // TODO: sign up user to Parent Advisor if check box is checked
 
         // since I'm forwarding to another FormController, I need to pass it info
         // in the language it understands ... namely it's command
         Election2008EmailCommand emailCommand = new Election2008EmailCommand();
         emailCommand.setUserEmail(command.getEmail());
-        emailCommand.setSuccess(true);
+        emailCommand.setAlert("Thank you! You're signed up.");
 
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("edin08Cmd", emailCommand);
@@ -85,7 +86,6 @@ public class Election2008Controller extends SimpleFormController {
             url += "&Postal_Code=" + command.getZip();
             URL urlAddress = new URL(url);
 
-            _log.warn(urlAddress);
             HttpURLConnection connection = (HttpURLConnection) urlAddress.openConnection();
             // Some websites don't like unknown user agents so we put Mozilla in there to appease them
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; Greatschoolsbot/1.1; +http://www.greatschools.net/cgi-bin/feedback/CA)");
