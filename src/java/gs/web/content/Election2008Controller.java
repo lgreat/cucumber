@@ -16,6 +16,8 @@ import java.net.URLEncoder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import gs.data.community.ISubscriptionDao;
+
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -26,6 +28,8 @@ public class Election2008Controller extends SimpleFormController {
                     "&loginPassword=EDin@8&ic=Great%20Schools";
     protected final Log _log = LogFactory.getLog(getClass());
     protected static List<String> stats;
+
+    private ISubscriptionDao _subscriptionDao;
 
     static {
         stats = new ArrayList<String>();
@@ -64,6 +68,14 @@ public class Election2008Controller extends SimpleFormController {
         syncInfoWithConstantContact(command);
 
         // TODO: sign up user to Parent Advisor if check box is checked
+        if (request.getParameter("parentAdvisor") != null) {
+            // retrieve user by email address
+            // if user does not exist, create user, set "how" field to "edin08", and insert
+            // create a new subscription, set user on it, set product to parent_advisor,
+            //   set state to whatever is in sessioncontext
+            // create a list of subscriptions and add this one to it
+            // call _subscriptionDao.addNewsletterSubscriptions(user, list);
+        }
 
         // since I'm forwarding to another FormController, I need to pass it info
         // in the language it understands ... namely it's command
@@ -108,5 +120,13 @@ public class Election2008Controller extends SimpleFormController {
             _log.error("Error syncing info with constant contact", e);
         }
         return false;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }
