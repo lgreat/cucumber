@@ -22,6 +22,9 @@
 <jsp:directive.tag import="java.util.List"/>
 <jsp:directive.tag import="java.util.Iterator"/>
 <jsp:directive.tag import="gs.data.test.ITestDataSetDao"/>
+<jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+<jsp:directive.tag import="gs.data.geo.IGeoDao"/>
+<jsp:directive.tag import="gs.data.geo.City"/>
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
@@ -97,6 +100,14 @@
             pageHelper.addAdKeyword("city", city);
             pageHelper.addAdKeyword("school_id", school.getId().toString());
             pageHelper.addAdKeyword("zipcode", school.getZipcode());
+        }
+
+        if (StringUtils.isNotBlank(city)) {
+            IGeoDao _geoDao = (IGeoDao)ac.getBean(IGeoDao.BEAN_ID);
+            City c = _geoDao.findCity(school.getDatabaseState(), city);
+            if (c != null) {
+                PageHelper.setCityIdCookie(request, response, c);
+            }
         }
     } catch (Exception e) {
     }
