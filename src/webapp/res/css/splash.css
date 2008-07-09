@@ -22,7 +22,6 @@
 
 #findAndCompareWrapper {
     width: 273px;
-    height: 251px;
     float: left;
 }
 
@@ -31,7 +30,7 @@
     padding: 40px 8px 10px 9px;
     margin: 0;
     width: 249px;
-    height: 235px;
+    height: 234px;
 }
 
 #findAndCompare h3 {
