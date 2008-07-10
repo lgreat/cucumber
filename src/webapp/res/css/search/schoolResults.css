@@ -182,7 +182,7 @@ City and district rollups
     padding-bottom: 5px;
 }
 
-.arrowed_results{
+.arrowed_results, .rollup ul.arrowed_results{
     padding-left: 10px;
     _padding-left: 10px;
 }
