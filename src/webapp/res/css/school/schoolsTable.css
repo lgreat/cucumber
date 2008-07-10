@@ -1,9 +1,10 @@
 #resultsheader {
-    padding: 10px 20px 10px 20px;
+    padding: 10px 0px 20px 0px;
     background: none;
 }
 #resultsheader #rh_col_left{
     height:25px;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 .query {
@@ -57,7 +58,6 @@
 #searchResultsHeader {
     width: 542px;
     margin-top:5px;
-    color: #5bc;
     margin-bottom: 0px;
     background: url(/res/img/search/tab_off_bg.gif) repeat;
     line-height:22px;
@@ -128,7 +128,7 @@
 
 /* used on "Show all" and "View district profile" links on schoolresults */
 .minilink {
-    font-size: 11px;
+    font-size: small;
     font-weight:normal;
     padding-left: 0;
 }

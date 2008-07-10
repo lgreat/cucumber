@@ -273,6 +273,7 @@
                 </div>
             </c:if>
         </div>
+        <img style="padding-right: 5px;" alt="pinkarrow" src="/res/img/bullet/pinkarrow.gif"/>
         <c:choose>
             <c:when test="${not empty param.city}">
                 <link:city
