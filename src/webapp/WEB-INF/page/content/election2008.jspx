@@ -270,8 +270,18 @@
 
     <div style="display:none;">
         <mod:tracking pageName="${pageName}"
-                      hier1="Article,Education 2008"
-                      microsite="${pageName}"/>
+                      hier1="Partner Campaigns,SAS"/>
+
+        <div>
+        <script type="text/javascript" language="JavaScript1.1">
+        <!--
+        LOTCC_rnd = new String(Math.random()).substring(2,11);
+        LOTCC_placement=236;
+        LOTCC_client=25;
+        document.write('<scr'+'ipt LANGUAGE="JavaScript1.1" SRC="http://coop.crwdcntrl.net/4/to=y|c=' + LOTCC_client + '|p=' + LOTCC_placement + '|rand=' + LOTCC_rnd + '"></scr' + 'ipt>');
+        //-->
+        </script>
+        </div>
     </div>
 </gsml:body>
 

@@ -6,6 +6,12 @@ import gs.web.community.ICaptchaCommand;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class Election2008EmailCommand implements ICaptchaCommand {
+    final public static String SUFFIX_SIGN_UP_CONFIRM = "Sign Up Confirm";
+    final public static String SUFFIX_TELL_A_FRIEND_CONFIRM = "Tell a Friend Confirm";
+    final public static String SUFFIX_TELL_A_FRIEND_EMAIL_ERROR = "Tell a Friend Email Error";
+    final public static String SUFFIX_TELL_A_FRIEND_VALIDATION = "Tell a Friend Validation";
+    final public static String SUFFIX_CONFIRM_ENTRY = "Confirm Entry";
+
     private String _userEmail;
     private String _friendEmail;
     private String _subject = "Our schools are failing - Act now";
@@ -25,6 +31,23 @@ public class Election2008EmailCommand implements ICaptchaCommand {
     private String _response;
     private String _alert;
     private boolean _hideForm = false;
+    private String _pageNameSuffix = SUFFIX_CONFIRM_ENTRY;
+
+    public String getPageNameSuffix() {
+        return _pageNameSuffix;
+    }
+
+    public void setPageNameSuffix(String pageNameSuffix) {
+        _pageNameSuffix = pageNameSuffix;
+    }
+
+    public boolean isSignUpConfirm() {
+        return SUFFIX_SIGN_UP_CONFIRM.equals(getPageNameSuffix());
+    }
+
+    public boolean isTellAFriendConfirm() {
+        return SUFFIX_TELL_A_FRIEND_CONFIRM.equals(getPageNameSuffix());
+    }
 
     public String getUserEmail() {
         return _userEmail;

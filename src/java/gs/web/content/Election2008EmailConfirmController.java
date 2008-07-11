@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -69,6 +70,10 @@ public class Election2008EmailConfirmController extends SimpleFormController {
                 errors.rejectValue("response", null, "The Captcha response you entered is invalid. Please try again.");
             }
         }
+
+        if (errors.getErrorCount() > 0) {
+            command.setPageNameSuffix(Election2008EmailCommand.SUFFIX_TELL_A_FRIEND_VALIDATION);
+        }
     }
 
     protected boolean sendEmail(Election2008EmailCommand command) {
@@ -93,18 +98,20 @@ public class Election2008EmailConfirmController extends SimpleFormController {
         Map<String, Object> model = new HashMap<String, Object>();
         if (sendEmail(command)) {
             emailCommand.setUserEmail(command.getUserEmail());
-            emailCommand.setAlert("Thank you! You're signed up.");
+            emailCommand.setAlert("Thank you! Your email has been sent.");
             emailCommand.setHideForm(true);
-            
+            emailCommand.setPageNameSuffix(Election2008EmailCommand.SUFFIX_TELL_A_FRIEND_CONFIRM);
+
             model.put("edin08Cmd", emailCommand);
         } else {
             command.setAlert("Email send failed. Please try again soon.");
+            command.setPageNameSuffix(Election2008EmailCommand.SUFFIX_TELL_A_FRIEND_EMAIL_ERROR);
+
             model.put("edin08Cmd", command);
         }
 
         return new ModelAndView(getSuccessView(), model);
     }
-
 
     public JavaMailSender getMailSender() {
         return _mailSender;

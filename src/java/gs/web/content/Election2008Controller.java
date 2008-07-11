@@ -37,7 +37,7 @@ public class Election2008Controller extends SimpleFormController {
         stats.add("24 countries outscore U.S. schools in math.");
         stats.add("20 countries outscore U.S. schools in science.");
         stats.add("93% of U.S. middle school science teachers have little or no training in science.");
-        stats.add("America’s high school graduation rate ranks 21st internationally.");
+        stats.add("America's high school graduation rate ranks 21st internationally.");
         stats.add("America had 0% increase in number of bachelor’s and master’s degrees awarded.");
     }
 
@@ -82,6 +82,7 @@ public class Election2008Controller extends SimpleFormController {
         Election2008EmailCommand emailCommand = new Election2008EmailCommand();
         emailCommand.setUserEmail(command.getEmail());
         emailCommand.setAlert("Thank you! You're signed up.");
+        emailCommand.setPageNameSuffix(Election2008EmailCommand.SUFFIX_SIGN_UP_CONFIRM);
 
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("edin08Cmd", emailCommand);
