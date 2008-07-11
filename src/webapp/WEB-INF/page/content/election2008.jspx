@@ -100,7 +100,7 @@
                         <img class="leadoff" src="/res/img/content/election2008/flag.jpg"
                              alt="American flag"/>
 
-                        <p class="flush">
+                        <p class="flush" id="startlingStat">
                             ${startlingStat}
                         </p>
                         <!--<p class="alignright">-->

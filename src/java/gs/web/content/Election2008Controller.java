@@ -37,12 +37,12 @@ public class Election2008Controller extends SimpleFormController implements Read
 
     static {
         stats = new ArrayList<String>();
-        stats.add("70% of American 8th-graders can’t read at 8th-grade levels.");
+        stats.add("70% of American 8th-graders can't read at 8th-grade levels.");
         stats.add("24 countries outscore U.S. schools in math.");
         stats.add("20 countries outscore U.S. schools in science.");
         stats.add("93% of U.S. middle school science teachers have little or no training in science.");
         stats.add("America's high school graduation rate ranks 21st internationally.");
-        stats.add("America had 0% increase in number of bachelor’s and master’s degrees awarded.");
+        stats.add("America had 0% increase in number of bachelor's and master's degrees awarded.");
     }
 
     protected Map referenceData(HttpServletRequest request) {
