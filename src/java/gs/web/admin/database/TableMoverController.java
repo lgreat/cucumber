@@ -35,7 +35,8 @@ public class TableMoverController extends SimpleFormController {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        if (!new UrlUtil().isDevEnvironment(sessionContext.getHostName())) {
+        UrlUtil urlUtil = new UrlUtil();
+        if (!urlUtil.isDevEnvironment(sessionContext.getHostName()) || urlUtil.isStagingServer(sessionContext.getHostName())) {
             // Only allowed to access from dev, otherwise, this error
             return new ModelAndView(_errorView);
         } else {
