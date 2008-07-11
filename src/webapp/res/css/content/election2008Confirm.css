@@ -74,10 +74,38 @@ div.success img {
     background-color: #C1BFBF;
     padding: 16px;
     margin-right: 7px;
+    margin-top: 16px;
 }
 
 .gray .wrapper {
     background-color: #FFFFFF;
+}
+
+.blue {
+    background-color: #3D69A8;
+    padding: 16px;
+    margin-right: 7px;
+}
+
+.blue .wrapper {
+    background-color: #FFFFFF;
+}
+
+div.petition {
+    padding: 80px 15px 55px 15px;
+    position: relative;
+}
+
+.petition img.petition {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.petition #signPetitionButton {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
 }
 
 div.hot_topics {

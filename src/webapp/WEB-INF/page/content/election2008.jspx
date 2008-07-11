@@ -35,15 +35,22 @@
         var defaultEmailValue = 'Enter Email Address';
         var defaultZipValue = 'Zip Code';
 
+        // http://www.zparacha.com/validate-email-address-using-javascript-regular-expression/
+        function validateEmail(elementValue) {
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return emailPattern.test(elementValue);
+        }
+
+        function validateZipCode(zip) {
+            var zipPattern = /^[0-9]{5}$/;
+            return zipPattern.test(zip);
+        }
+
         function validateForm() {
-            if (document.forms['edin08Form'].email.value.length == 0 ||
-                document.forms['edin08Form'].email.value == defaultEmailValue ||
-                document.forms['edin08Form'].email.value.indexOf('@') == -1 ||
-                document.forms['edin08Form'].email.value.indexOf('.') == -1) {
+            if (!validateEmail(document.forms['edin08Form'].email.value)) {
                 alert("Please enter a valid email address.");
                 return false;
-            } else if (document.forms['edin08Form'].zip.value.length != 5 ||
-                document.forms['edin08Form'].zip.value == defaultZipValue) {
+            } else if (!validateZipCode(document.forms['edin08Form'].zip.value)) {
                 alert("Please enter a valid 5-digit zip code.");
                 return false;
             }
