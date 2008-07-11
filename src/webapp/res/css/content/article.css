@@ -126,7 +126,7 @@ div.captcha {
 
 /* P R I N T   S T Y L E S */
 @media print {
-    .search, #adLeaderboard, #footer, .noprint, #topnav, #promoContent  {
+    .search, #adLeaderboard, #footer, .noprint, #promoContent  {
         display:none;
     }
     .articlecopy {
