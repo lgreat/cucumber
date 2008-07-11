@@ -16,12 +16,15 @@ import java.net.URLEncoder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import gs.data.community.ISubscriptionDao;
+import gs.data.community.*;
+import gs.data.state.State;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.ReadWriteController;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class Election2008Controller extends SimpleFormController {
+public class Election2008Controller extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/content/election2008.page";
     public static final String ADD_SITE_VISITOR_URL =
             "http://api.constantcontact.com/0.1/API_AddSiteVisitor.jsp?loginName=edin08" +
@@ -29,6 +32,7 @@ public class Election2008Controller extends SimpleFormController {
     protected final Log _log = LogFactory.getLog(getClass());
     protected static List<String> stats;
 
+    private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
 
     static {
@@ -61,20 +65,42 @@ public class Election2008Controller extends SimpleFormController {
         return stats.get(randomIndex);
     }
 
+    protected void subscribeUserToParentAdvisor(HttpServletRequest request, Election2008Command command) {
+        // retrieve user by email address
+        User user = _userDao.findUserFromEmailIfExists(command.getEmail());
+
+        // if user does not exist, create user, set "how" field to "edin08", and insert
+        if (user == null) {
+            user = new User();
+            user.setHow("edin08");
+            user.setEmail(command.getEmail());
+            _userDao.saveUser(user);
+        }
+
+        // create a list of subscriptions and add this one to it
+        List<Subscription> subs = new ArrayList<Subscription>();
+
+        // create a new subscription, set user on it, set product to parent_advisor,
+        // set state to whatever is in sessioncontext
+        State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+        Subscription subscription = new Subscription();
+        subscription.setUser(user);
+        subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+        subscription.setState(state);
+        subs.add(subscription);
+
+        // subscribe the user to the newsletter
+        _subscriptionDao.addNewsletterSubscriptions(user, subs);
+    }
+
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object objCommand, BindException errors) {
         Election2008Command command = (Election2008Command) objCommand;
 
         syncInfoWithConstantContact(command);
 
-        // TODO: sign up user to Parent Advisor if check box is checked
         if (request.getParameter("parentAdvisor") != null) {
-            // retrieve user by email address
-            // if user does not exist, create user, set "how" field to "edin08", and insert
-            // create a new subscription, set user on it, set product to parent_advisor,
-            //   set state to whatever is in sessioncontext
-            // create a list of subscriptions and add this one to it
-            // call _subscriptionDao.addNewsletterSubscriptions(user, list);
+            subscribeUserToParentAdvisor(request, command);
         }
 
         // since I'm forwarding to another FormController, I need to pass it info
@@ -129,5 +155,13 @@ public class Election2008Controller extends SimpleFormController {
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
     }
 }
