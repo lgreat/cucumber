@@ -305,7 +305,13 @@
                 <ad:AboveFold_300x250 position="${position300x250}"/>
             </div>
 
-            <div id="belowAdWrapper">
+            <c:if test="${requestScope.pageHelper.devEnvironment and not requestScope.pageHelper.stagingServer}">
+                <div class="belowAdWrapper">
+                    <ad:sponsor_leapfrog/>                    
+                </div>
+            </c:if>
+
+            <div class="belowAdWrapper">
                 <gsml:a href="/content/btsQuiz.page">
                     <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo.jpg" alt="Are you smarter than a fourth grader?" />
                 </gsml:a>

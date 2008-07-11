@@ -981,7 +981,7 @@ div#communityQuestionPromo.overviewBorder div.avatar {
     width: 342px;
 }
 
-div#col_right div#belowAdWrapper {
+div#col_right div.belowAdWrapper {
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid #ccc;
