@@ -314,7 +314,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 							<h3><img class="heading" src="/res/img/home/blue_module/find_parents.png" alt="Find Parents Like Me" title="" /></h3>
 
 							<ul>                                
-                                <li><a href="http://${communityHost}/groups/11534">Parents of preschoolers</a></li>
+                                <li><a href="http://${communityHost}/groups/11534">Parents of Preschoolers</a></li>
 								<li><a href="http://${communityHost}/groups/11527">Elementary School Parents</a></li>
 								<li><a href="http://${communityHost}/groups/11528">Middle School Parents</a></li>
 								<li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
