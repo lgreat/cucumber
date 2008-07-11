@@ -112,6 +112,17 @@ public class LinksControllerTest extends BaseControllerTestCase {
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", anchor.getContents());
         assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", anchor.getHref());
 
+        reset(dao);
+
+        expect(dao.getWorksheetUrl()).andReturn("google/");
+        dao.setWorksheetUrl("google/od6");
+        expect(dao.getFirstRowByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
+        replay(dao);
+
+        modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
+        assertNull("Expected null anchor", modelAndView.getModel().get(LinksController.MODEL_ANCHOR));
+
         verify(dao);
     }
 
@@ -146,6 +157,17 @@ public class LinksControllerTest extends BaseControllerTestCase {
         Anchor anchor = (Anchor) modelAndView.getModel().get(LinksController.MODEL_ANCHOR);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", anchor.getContents());
         assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", anchor.getHref());
+
+        reset(dao);
+
+        expect(dao.getWorksheetUrl()).andReturn("google/");
+        dao.setWorksheetUrl("google/od6");
+        expect(dao.getRandomRowByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
+        replay(dao);
+
+        modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
+        assertNull("Expected null anchor", modelAndView.getModel().get(LinksController.MODEL_ANCHOR));
 
         verify(dao);
     }
@@ -185,6 +207,17 @@ public class LinksControllerTest extends BaseControllerTestCase {
         Anchor firstAnchor = (Anchor) anchorListModel.getResults().get(0);
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", firstAnchor.getContents());
         assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", firstAnchor.getHref());
+
+        reset(dao);
+
+        expect(dao.getWorksheetUrl()).andReturn("google/");
+        dao.setWorksheetUrl("google/od6");
+        expect(dao.getRowsByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
+        replay(dao);
+
+        modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
+        assertNull("Expected null anchor list", modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST));
 
         verify(dao);
     }

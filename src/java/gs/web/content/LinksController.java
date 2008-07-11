@@ -145,22 +145,28 @@ public class LinksController extends AbstractController {
 
         if (TYPE_FIRST.equals(type)) {
             ITableRow row = _tableDao.getFirstRowByKey(SPREADSHEET_PAGE, page);
-            Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
-            modelAndView.addObject(MODEL_ANCHOR, anchor);
+            if (row != null) {
+                Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
+                modelAndView.addObject(MODEL_ANCHOR, anchor);
+            }
         }
         else if (TYPE_RANDOM.equals(type)) {
             ITableRow row = _tableDao.getRandomRowByKey(SPREADSHEET_PAGE, page);
-            Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
-            modelAndView.addObject(MODEL_ANCHOR, anchor);
+            if (row != null) {
+                Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
+                modelAndView.addObject(MODEL_ANCHOR, anchor);
+            }
         }
         else if (TYPE_ALL.equals(type)) {
             List<ITableRow> rows = _tableDao.getRowsByKey(SPREADSHEET_PAGE, page);
-            AnchorListModel anchorListModel = new AnchorListModel();
-            for (ITableRow row : rows) {
-                Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
-                anchorListModel.add(anchor);
+            if (rows != null) {
+                AnchorListModel anchorListModel = new AnchorListModel();
+                for (ITableRow row : rows) {
+                    Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
+                        anchorListModel.add(anchor);
+                }
+                modelAndView.addObject(MODEL_ANCHOR_LIST, anchorListModel);
             }
-            modelAndView.addObject(MODEL_ANCHOR_LIST, anchorListModel);
         }
 
         modelAndView.addObject(MODEL_LAYOUT, layout);

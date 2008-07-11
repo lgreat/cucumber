@@ -9,7 +9,9 @@
 
     <c:choose>
         <c:when test="${requestScope.modelLayout eq 'basic'}">
-            <a href="${requestScope.modelAnchor.href}">${requestScope.modelAnchor.contents}</a>
+            <c:if test="${!empty requestScope.modelAnchor}">
+                <a href="${requestScope.modelAnchor.href}">${requestScope.modelAnchor.contents}</a>
+            </c:if>
         </c:when>
         <c:when test="${requestScope.modelLayout eq 'q_and_a'}">
             <c:if test="${!empty requestScope.modelAnchor}">
