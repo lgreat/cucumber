@@ -125,7 +125,7 @@
                         </p>
 
                         <p class="alignright">
-                            <a href="http://www.edin08.com/Participate.aspx" target="_blank"><img
+                            <a href="http://bb.crwdcntrl.net/ti.php?trackerid=88&amp;amp;maxdest=http://www.edin08.com/Participate.aspx" target="_blank"><img
                                     src="/res/img/content/election2008/participate_btn.gif"
                                     alt="Participate"/></a>
                         </p>
@@ -157,7 +157,7 @@
                                       onfocus="textSwap(this, defaultZipValue, '');"
                                       onblur="textSwap(this, '', defaultZipValue);"/></p>
                             <p class="parentAdvisor"><input type="checkbox" name="parentAdvisor"
-                                      id="parentAdvisorCheckBox"/>
+                                      id="parentAdvisorCheckBox" checked="checked"/>
                                 <label for="parentAdvisorCheckBox">Also sign me up for bi-monthly
                                     advice from GreatSchools to
                                     support my child's education.</label></p>
