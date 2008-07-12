@@ -41,6 +41,23 @@
                 </tr>
                 <tr>
                     <th>
+                        Median home price
+                    </th>
+                    <td class="${bpCensus.houseMedianValue gt stateCensus.houseMedianValue ? 'better' : 'worse'}">
+                        $<fmt:formatNumber value="${bpCensus.houseMedianValue}" maxFractionDigits="0"/>
+                    </td>
+                    <c:if test="${showStateInfo}">
+                    <td>
+                        $<fmt:formatNumber value="${stateCensus.houseMedianValue}"
+                                           maxFractionDigits="0"/>
+                    </td>
+                    </c:if>
+                    <td>
+                        $<fmt:formatNumber value="${usCensus.houseMedianValue}" maxFractionDigits="0"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
                         Cost of living <span style="font-size:xx-small">(% of national avg)</span>
                     </th>
                     <td class="${bpCensus.costOfLiving lt usCensus.costOfLiving ? 'better' : 'worse'}">
