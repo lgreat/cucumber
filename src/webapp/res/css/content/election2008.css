@@ -55,6 +55,7 @@
     float: right;
     padding-top: 10px;
     margin-right: 3px;
+    _margin-right: 1px;
 }
 
 .contentMiddleModule {
@@ -97,6 +98,13 @@
 	position: absolute;
 	bottom: -9px;
 	right: 0;
+    _right: -1px;
+}
+
+.moduleBox .right-corner2 {
+	position: absolute;
+	bottom: -9px;
+	right: 0;
 }
 
 .moduleBox input {
@@ -127,15 +135,36 @@
 }
 
 form .emailField {
-    width: 100%;
+    width: 165px;
 }
 
 form .zipField {
-    width: 50%;
+    width: 80px;
 }
 
 .moduleBox p.parentAdvisor {
     margin-right: 6px;
+}
+
+#parentAdvisorTextFields {
+    position: relative;
+    height: 45px;
+}
+
+#emailField {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+}
+
+#zipField {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+}
+
+form p.parentAdvisorTextFields input {
+    margin: 0 0 5px 0;
 }
 
 form p.parentAdvisor input {
@@ -188,7 +217,7 @@ div.video {
 }
 
 div.hot_topics {
-    padding: 68px 15px 15px 30px;
+    padding: 60px 15px 15px 30px;
     position: relative;
 }
 
@@ -286,6 +315,7 @@ div.toolkits ul li {
     margin: 0 0 10px 0;
     position: relative;
     padding: 0 0 0 25px;
+    width: 235px;
 }
 
 div.toolkits ul li img {

@@ -157,12 +157,14 @@
 
                         <form action="/content/actionForEducation.page" method="post"
                               onsubmit="return validateForm();" name="edin08Form">
-                            <p><input type="text" name="email" class="emailField" value="Enter Email Address"
+                            <div id="parentAdvisorTextFields">
+                                <input id="emailField" type="text" name="email" class="emailField" value="Enter Email Address"
                                       onfocus="textSwap(this, defaultEmailValue, '');"
-                                      onblur="textSwap(this, '', defaultEmailValue);"/></p>
-                            <p><input type="text" name="zip" class="zipField" value="Zip Code"
+                                      onblur="textSwap(this, '', defaultEmailValue);"/>
+                                 <input id="zipField" type="text" name="zip" class="zipField" value="Zip Code"
                                       onfocus="textSwap(this, defaultZipValue, '');"
-                                      onblur="textSwap(this, '', defaultZipValue);"/></p>
+                                      onblur="textSwap(this, '', defaultZipValue);"/>
+                            </div>
                             <p class="parentAdvisor"><input type="checkbox" name="parentAdvisor"
                                       id="parentAdvisorCheckBox" checked="checked"/>
                                 <label for="parentAdvisorCheckBox">Also sign me up for bi-monthly
@@ -230,7 +232,7 @@
 
                     <img class="left-corner"
                          src="/res/img/content/election2008/shadow_left-corner.png" alt="" />
-                    <img class="right-corner"
+                    <img class="right-corner2"
                          src="/res/img/content/election2008/shadow_right-corner.png" alt="" />
                 </div>
             </div>
