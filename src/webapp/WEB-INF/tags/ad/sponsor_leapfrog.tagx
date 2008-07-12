@@ -11,7 +11,7 @@
 <c:if test="${!requestScope.context.crawler}">
 <form name="age_based_content" action="#">
 <select id="abc_grade" onchange="abc_select_content(this);"
-        style="position:absolute;top:101px;width:233px">
+        style="position:absolute;top:101px;width:240px;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="-1">Select Age level</option>
     <option value="0">Kindergarten</option>
     <option value="1">First-Grade</option>
@@ -25,11 +25,11 @@
 </select>
 
 <div id="abc_content" style="position:absolute;top:131px;">
-<select id="abc_content_-1" style="width:233px">
+<select id="abc_content_-1" style="width:240px;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select GreatSchools content about...</option>
 </select>
 
-<select id="abc_content_0" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_0" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/416">﻿Kindergarten: Ready or Not?</option>
     <option value="/cgi-bin/showarticle/331">Jinx the Kindergarten Jitters</option>
@@ -42,7 +42,7 @@
     <option value="/cgi-bin/showarticle/439">Your Kindergartner and Social Studies</option>
 </select>
 
-<select id="abc_content_1" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_1" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/658">Language Arts in a First-Grade Classroom</option>
     <option value="/cgi-bin/showarticle/663">First-Grade Learning Games and Activities</option>
@@ -55,7 +55,7 @@
     <option value="/cgi-bin/showarticle/493">Your First-Grader and Writing</option>
 </select>
 
-<select id="abc_content_2" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_2" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/665">Second-Grade Learning Games and Activities</option>
     <option value="/cgi-bin/showarticle/624">Favorite Books for Second-Graders</option>
@@ -67,7 +67,7 @@
     <option value="/cgi-bin/showarticle/376">Your Second-Grader and Language Arts</option>
 </select>
 
-<select id="abc_content_3" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_3" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/668">Third-Grade Learning Games and Activities</option>
     <option value="/cgi-bin/showarticle/625">Favorite Books for Third-Graders</option>
@@ -79,7 +79,7 @@
     <option value="/cgi-bin/showarticle/341">Your Third-Grader and Language Arts</option>
 </select>
 
-<select id="abc_content_4" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_4" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/1019">Fourth and Fifth Grade: Tips and Activities</option>
     <option value="/cgi-bin/showarticle/677">Favorite Books for Fourth-Graders</option>
@@ -90,7 +90,7 @@
     <option value="/cgi-bin/showarticle/784">Your Fourth-Grader and Science</option>
 </select>
 
-<select id="abc_content_5" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_5" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/1019">Fourth and Fifth Grade: Tips and Activities</option>
     <option value="/cgi-bin/showarticle/678">Favorite Books for Fifth-Graders</option>
@@ -101,7 +101,7 @@
     <option value="/cgi-bin/showarticle/786">Your Fifth-Grader and Science</option>
 </select>
 
-<select id="abc_content_6" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_6" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/1032">Getting Ready for Middle School</option>
     <option value="/cgi-bin/showarticle/1215">Seven Steps to Succeeding in Middle School</option>
@@ -110,7 +110,7 @@
     <option value="/cgi-bin/showarticle/966">Is Your Middle-Schooler Bored?</option>
 </select>
 
-<select id="abc_content_7" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_7" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/701/">How To Take Great Notes</option>
     <option value="/cgi-bin/showarticle/700/">Study Skills for Middle School and Beyond</option>
@@ -119,7 +119,7 @@
     <option value="/cgi-bin/showarticle/943">Don't Know Much About History: Middle School and Social Studies</option>
 </select>
 
-<select id="abc_content_8" onchange="abc_select_article(this);" style="width:233px;display:none">
+<select id="abc_content_8" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/752">Why Is Algebra a Big Deal?</option>
     <option value="/cgi-bin/showarticle/2722">Improving Older Kids' Reading Speed and Comprehension</option>
@@ -147,7 +147,7 @@
     }
 </script>
 </c:if>
-<a style="position:absolute;top:195px;text-decoration:none;font-size:13px;font-family:Trebuchet MS,Arial,sans-serif;"
+<a style="position:absolute;top:195px;text-decoration:none;font-weight:bold;font-size:13px;font-family:Trebuchet MS,Arial,sans-serif;"
    target="_blank" href="http://www.leapfrog.com">Visit our sponsor LeapFrog &amp;gt;</a>
 </div>
 </div>
