@@ -147,7 +147,7 @@
     }
 </script>
 </c:if>
-<a style="position:absolute;top:195px;text-decoration:none;font-weight:bold;font-size:13px;font-family:Trebuchet MS,Arial,sans-serif;"
+<a style="position:absolute;left:2px;top:195px;text-decoration:none;font-weight:bold;font-size:13px;font-family:Trebuchet MS,Arial,sans-serif;"
    target="_blank" href="http://www.leapfrog.com">Visit our sponsor LeapFrog &amp;gt;</a>
 </div>
 </div>
