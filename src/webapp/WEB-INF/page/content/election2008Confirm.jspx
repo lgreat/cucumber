@@ -128,7 +128,7 @@
                 </form>
             </c:when>
             <c:otherwise>
-                <p class="participate">Participate link goes here.</p>
+                <p class="participate"><a href="http://bb.crwdcntrl.net/ti.php?trackerid=88&amp;amp;maxdest=http://www.edin08.com/Participate.aspx" target="_blank">See more ways you can participate &gt;</a></p>
             </c:otherwise>
         </c:choose>
 
