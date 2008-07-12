@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.64 2008/07/12 21:43:01 thuss Exp $
+ * $Id: UrlUtil.java,v 1.65 2008/07/12 21:44:12 thuss Exp $
  */
 
 package gs.web.util;
