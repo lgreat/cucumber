@@ -4,7 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib">
 <jsp:directive.tag body-content="empty"/>
-<!-- styles were inlined to make it easier to remove this module later -->
+<!-- styles were grossly inlined to make it easier to remove this module in the future -->
 <div style="background: url(/res/img/ad/sponsor_leapfrog.gif) no-repeat;width:300px;height:234px;">
 <div style="position:relative;left:24px">
 <!-- no point in showing the form to crawlers -->
@@ -25,7 +25,7 @@
 </select>
 
 <div id="abc_content" style="position:absolute;top:131px;">
-<select id="abc_content_-1" style="width:240px;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
+<select id="abc_content_-1" disabled="true" style="width:240px;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select GreatSchools content about...</option>
 </select>
 
