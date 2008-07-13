@@ -41,6 +41,7 @@ public class TableMoverController extends SimpleFormController {
             return new ModelAndView(_errorView);
         } else {
             request.setAttribute("allTableSets", getAllTableSets());
+            request.setAttribute("allTables", getAllTables());
             request.setAttribute("allStates", _stateManager.getListByAbbreviations());
             return super.handleRequest(request, response);
         }
@@ -152,11 +153,11 @@ public class TableMoverController extends SimpleFormController {
         tableSets.put("gs_schooldb.configuration,TestDataSet,TestDataSchoolValue", "School ratings");
         tableSets.put("city_rating", "City ratings");
         tableSets.put("district_rating", "District ratings");
-        tableSets.put("school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer", "Public Directory (with census)");
+        tableSets.put("school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer", "Public Directory (w/ census)");
         tableSets.put("school,district,pq,pq_volunteer", "Public Directory (no census)");
-        tableSets.put("school,census_data_set,census_data_school_value,pq,pq_volunteer", "Private Directory: Schools only (with census)");
+        tableSets.put("school,census_data_set,census_data_school_value,pq,pq_volunteer", "Private Directory: Schools only (w/ census)");
         tableSets.put("school,pq,pq_volunteer", "Private Directory: Schools only (no census)");
-        tableSets.put("gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby", "Directory Copy Up (with census)");
+        tableSets.put("gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby", "Directory Copy Up (w/ census)");
         tableSets.put("gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby", "Directory Copy Up (no census)");
         tableSets.put("school,pq,pq_volunteer", "Schools and ESP");
         tableSets.put("nearby", "Nearby");
@@ -170,6 +171,19 @@ public class TableMoverController extends SimpleFormController {
         tableSets.put("gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad", "Census Copy Up");
         tableSets.put("gs_schooldb.test", "Table for testing this tool");
         return tableSets;
+    }
+
+    private Map<String, String> getAllTables() {
+        // Tables without a database prefix are assumed to be state specific.
+        Map<String, String> allTableSets = getAllTableSets();
+        Map<String, String> allTables = new TreeMap<String, String>();
+        for (String tables : allTableSets.keySet())
+            for (String table : tables.split(","))
+                allTables.put(table, (table.contains(".")) ? table : "state." + table);
+        // Add any custom tables here e.g. allTables.put("us_geo.foo", "us_geo.foo");        
+        Map<String, String> allTablesSorted = new TreeMap<String, String>(new StringValueComparer(allTables));
+        allTablesSorted.putAll(allTables);
+        return allTablesSorted;
     }
 
     public void setErrorView(String errorView) {
@@ -191,4 +205,21 @@ public class TableMoverController extends SimpleFormController {
     public void setTableCopyService(TableCopyServiceImpl tableCopyService) {
         _tableCopyService = tableCopyService;
     }
+
+    private static class StringValueComparer implements Comparator<String> {
+        private Map<String, String> _data = null;
+
+        public StringValueComparer(Map<String, String> data) {
+            super();
+            _data = data;
+        }
+
+        public int compare(String o1, String o2) {
+            String e1 = _data.get(o1);
+            String e2 = _data.get(o2);
+            return e1.compareTo(e2);
+        }
+    }
+
+
 }

@@ -129,6 +129,7 @@
             <c:forEach var="tableset" items="${tableMoverCmd.tablesets}">
                 <input type="hidden" name="tablesets" value="${tableset}"/>
             </c:forEach>
+            <input id="tabindex" type="hidden" name="tab" value="${param.tab}"/>
             <input id="mode" type="hidden" name="mode" value="move"/>
         </div>
     </div>
