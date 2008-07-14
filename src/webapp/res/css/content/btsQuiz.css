@@ -119,3 +119,21 @@ div#quizSponsor {
    right:14px;
    bottom:14px;
 }
+
+span#quizAttribution {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:small;
+    color:#777777;
+}
+
+#footer {
+    padding-top:5px;
+}
+
+#footerGS {
+    margin-top:0;
+}
+
+#contentBottom {
+    margin-bottom:20px;
+}

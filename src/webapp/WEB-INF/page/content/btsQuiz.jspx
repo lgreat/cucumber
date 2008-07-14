@@ -133,6 +133,8 @@
 
 <content:micrositeFooter crossPromo="election2008"/>
 
+<span id="quizAttribution">*Quiz questions are from the National Assessment of Educational Progress.</span>
+
 <div style="display: none;">
     <mod:tracking pageName="${pageName}"
                   hier1="Article,Back to School,Back to School Quiz"
