@@ -61,13 +61,13 @@ var subModalInterceptor = {
         return x < this.interceptPercent;
     },
     init: function(){
-        this.interceptPercent = 20;
+        this.interceptPercent = 50;
         this.hoverName = 'hoverNewsMss';
-        this.hoverUrl = '';
+        this.hoverUrl = '/promo/surveyPromoHover.page';
         this.hoverHeight = 0;
         this.hoverWidth = 0;
         this.newHoverName = 'suveryHover';
-        this.cookieName = 'surveyHover';
+        this.cookieName = 'surveyHoverPromo';
         this.cookieProperty = 'GS-6660';
         this.evaluateFrequencyRule = GSType.submodal.interceptor.evaluateFrequencyRule;
         this.getComparisonNumber = GSType.submodal.interceptor.getComparisonNumber;
@@ -76,7 +76,7 @@ var subModalInterceptor = {
 
     },
     setPresentedToUser: function(){
-        subCookie.setObjectProperty(this.cookieName, this.cookieProperty, new Date().toDateString());
+        subCookie.setObjectProperty(this.cookieName, this.cookieProperty, new Date().toDateString(),1000);
     },
     evaluateFrequencyRule: function(cookieName, propertyName){return false;},
     getComparisonNumber: function(){return 0;},
@@ -394,13 +394,12 @@ function showPopWinOnExit(url, width, height, returnFunc, hoverName, forceShow) 
                 gRedirectAnchor = this;
                 if (forceShow || showHover()) {
                     if (subModalInterceptor.evaluate(hoverName)){
+                        url = subModalInterceptor.hoverUrl;
                         /*
                         hoverName = subModalInterceptor.newHoverName;
-                        url = subModalInterceptor.hoverUrl;
                         height = subModalInterceptor.height;
                         width = subModalInterceptor.width;
-
-                        alert("subModalInterceptor");
+                        alert("showPopWinOnExit - subModalInterceptor");
                         */
                     }
                     showPopWin(url, width, height, returnFunc, hoverName);
@@ -415,6 +414,15 @@ function showPopWinOnExit(url, width, height, returnFunc, hoverName, forceShow) 
 
 function showPopWinOnLoad(url, width, height, returnFunc, hoverName, forceShow) {
     if (forceShow || showHover()) {
+        if (subModalInterceptor.evaluate(hoverName)){
+            url = subModalInterceptor.hoverUrl;
+            /*
+            hoverName = subModalInterceptor.newHoverName;
+            height = subModalInterceptor.height;
+            width = subModalInterceptor.width;
+            alert("showPopWinOnLoad - subModalInterceptor");
+            */
+        }
         showPopWin(url, width, height, returnFunc, hoverName);
     }
 }
