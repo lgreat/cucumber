@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.40 2008/07/08 02:06:11 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.41 2008/07/14 19:23:32 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -77,7 +77,7 @@ public class SessionContextUtil implements ApplicationContextAware {
      */
     public static final String COBRAND_COOKIE = "COBRAND";
 
-    // City ID cookie - id is based on us_geo.city.id
+    // City ID cookie - id is based on us_geo.city.id  - Domain is ".greatschools.net".
     public static final String CITY_ID_COOKIE = "CITYID";
 
     /* Browsing state session cookies */
@@ -629,8 +629,11 @@ public class SessionContextUtil implements ApplicationContextAware {
         return COMMUNITY_LIVE_HOSTNAME;
     }
 
-    public void changeCity(SessionContext context, HttpServletResponse response, City city) {
+    public void changeCity(SessionContext context, HttpServletRequest req, HttpServletResponse res, City city) {
         context.setCityId(city.getId());
-        _cityIdCookieGenerator.addCookie(response, city.getId().toString());
+        if (!UrlUtil.isDeveloperWorkstation(req.getServerName())) {
+            _cityIdCookieGenerator.setCookieDomain(".greatschools.net");
+        }
+        _cityIdCookieGenerator.addCookie(res, city.getId().toString());
     }
 }

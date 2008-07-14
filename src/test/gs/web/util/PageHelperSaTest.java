@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.43 2008/07/08 02:06:11 chriskimm Exp $
+ * $Id: PageHelperSaTest.java,v 1.44 2008/07/14 19:23:32 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -428,11 +428,17 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testSetCityCookie() throws Exception {
+        String temp = _request.getServerName();
+        _request.setServerName("dev.greatschools.net");
+        
         City city = new City("Anchorage", State.AK);
         city.setId(54321);
         PageHelper.setCityIdCookie(_request, _response, city);
         Cookie cityIdCookie = _response.getCookie(SessionContextUtil.CITY_ID_COOKIE);
         assertEquals("54321", cityIdCookie.getValue());
+        assertEquals(".greatschools.net", cityIdCookie.getDomain());
+
+        _request.setServerName(temp);
     }
 
     public void testSetMemberAuthorized() throws NoSuchAlgorithmException {
