@@ -1,3 +1,89 @@
+if (GSType == undefined)
+    var GSType = {};
+if (GSType.submodal == undefined)
+    GSType.submodal = {};
+
+GSType.submodal.interceptor = {};
+GSType.submodal.interceptor.evaluateFrequencyRule = function(cookieName, propertyName){
+    //todo: implement a cookie based solution such that the user only sees the survey once in a lifetime.
+    var dataObject = subCookie.getObject(cookieName);
+    //alert(dataObject != undefined ? dataObject[propertyName]: "dataObject is undefined");
+    if (dataObject == undefined) {
+        return true;
+    }
+    if (dataObject[propertyName] == undefined){
+        return true;
+    }
+    return  false;
+};
+
+GSType.submodal.interceptor.getComparisonNumber = function(){
+    // returns a psuedo random (based on time in ms) number between 0 and 99
+    var now = new Date();
+    var ms = now.getTime();
+    return ms % 100 ;
+};
+
+GSType.submodal.interceptor.userIsLoggedIn = function(cookieName){
+    // if cookie MEMID exists, the user is logged in
+    var value = readCookie(cookieName);
+
+    if (value != undefined  && value.length > 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+var subModalInterceptor = {
+    interceptPercent: 0,
+    hoverName: '',
+    hoverUrl: '',
+    hoverHeight: 0,
+    hoverWidth: 0,
+    newHoverName: '',
+    cookieName: '',
+    cookieProperty: '',
+    userLoggedInCookieName: '',
+    evaluate: function(hoverName) {
+        if (this.hoverName != hoverName){
+            return false;
+        }
+        if (this.userIsLoggedIn(this.userLoggedInCookieName)){
+            return false;
+        }
+        if (this.evaluateFrequencyRule != undefined) {
+            if (!this.evaluateFrequencyRule()){
+                return false;
+            }
+        }
+        var x = this.getComparisonNumber();
+        return x < this.interceptPercent;
+    },
+    init: function(){
+        this.interceptPercent = 20;
+        this.hoverName = 'hoverNewsMss';
+        this.hoverUrl = '';
+        this.hoverHeight = 0;
+        this.hoverWidth = 0;
+        this.newHoverName = 'suveryHover';
+        this.cookieName = 'surveyHover';
+        this.cookieProperty = 'GS-6660';
+        this.evaluateFrequencyRule = GSType.submodal.interceptor.evaluateFrequencyRule;
+        this.getComparisonNumber = GSType.submodal.interceptor.getComparisonNumber;
+        this.userIsLoggedIn = GSType.submodal.interceptor.userIsLoggedIn;
+        this.userLoggedInCookieName = 'MEMID';
+
+    },
+    setPresentedToUser: function(){
+        subCookie.setObjectProperty(this.cookieName, this.cookieProperty, new Date().toDateString());
+    },
+    evaluateFrequencyRule: function(cookieName, propertyName){return false;},
+    getComparisonNumber: function(){return 0;},
+    userIsLoggedIn: function(cookieName){return false}};
+
+subModalInterceptor.init();
+
 var gPopupMask = null;
 var gPopupContainer = null;
 var gPopFrame = null;
@@ -307,6 +393,16 @@ function showPopWinOnExit(url, width, height, returnFunc, hoverName, forceShow) 
             arr[i].onclick = function () {
                 gRedirectAnchor = this;
                 if (forceShow || showHover()) {
+                    if (subModalInterceptor.evaluate(hoverName)){
+                        /*
+                        hoverName = subModalInterceptor.newHoverName;
+                        url = subModalInterceptor.hoverUrl;
+                        height = subModalInterceptor.height;
+                        width = subModalInterceptor.width;
+
+                        alert("subModalInterceptor");
+                        */
+                    }
                     showPopWin(url, width, height, returnFunc, hoverName);
                     return false;
                 } else {
