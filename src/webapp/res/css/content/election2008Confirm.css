@@ -68,6 +68,7 @@ div.success img {
 /** Hot Topics */
 .contentMiddleModule {
     margin: 0;
+    height: 100%;
 }
 
 .gray {
