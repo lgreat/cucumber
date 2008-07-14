@@ -154,16 +154,19 @@
                 <div class="petition">
                     <img src="/res/img/content/election2008/sign_petition_subhed.gif"
                          alt="Sign the Petition in Support of Strong Schools" width="339" height="48"
-                         class="petition"/>
+                         class="petition" id="petitionHead"/>
                     <p>
                         Demand that the candidates for president of the United States of America
                         &amp;mdash; Republican, Democrat, and Independent &amp;mdash; provide a
                         specific and detailed plan to provide every child the opportunity to
                         attend a strong American school.
                     </p>
+                    <br/>
+                    <p class="petitionButton">
                     <a href="http://www.congressweb.com/cweb4/index.cfm?orgcode=ed08" target="_blank"><img id="signPetitionButton"
                          src="/res/img/content/election2008/sign_petition_btn.gif" alt="Sign the Petition"
                          width="145" height="20"/></a>
+                    </p>
                 </div>
             </div>
         </div>
