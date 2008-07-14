@@ -34,8 +34,8 @@
 </head>
 
 <c:set var="pageName" value="Back to School Quiz"/>
+<c:set var="showAd" value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
-<!-- FIXME -->
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School_Quiz"/>
 
 <gsml:body adPageName="content/btsQuiz" pageLayout="btsQuiz" startAdHierarchyAtPage="true">

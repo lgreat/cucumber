@@ -36,6 +36,7 @@
 <c:set var="gs_rating" value="${gs_rating}"/>
 <c:set var="parent_ratings" value="${parent_ratings}"/>
 <c:set var="preschoolOnly" value="${preschoolOnly}"/>
+<c:set var="showAd" value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
 <jsp:scriptlet>
     SessionContext context = SessionContextUtil.getSessionContext(request);
@@ -312,9 +313,18 @@
             </c:if>
 
             <div class="belowAdWrapper">
-                <gsml:a href="/content/btsQuiz.page">
-                    <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo.jpg" alt="Are you as smart as a fourth grader?" />
-                </gsml:a>
+                <c:choose>
+                    <c:when test="${showAd}">
+                        <gsml:a href="/content/btsQuiz.page">
+                            <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo.jpg" alt="Are you as smart as a fourth grader?" />
+                        </gsml:a>
+                    </c:when>
+                    <c:otherwise>
+                        <gsml:a href="/content/btsQuiz.page">
+                            <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo_no_ad" alt="Are you as smart as a fourth grader?" />
+                        </gsml:a>
+                    </c:otherwise>
+                </c:choose>
 
                 <c:if test="${empty param.hideMap}">
                     <school:nearbySchools school="${school}"/>
