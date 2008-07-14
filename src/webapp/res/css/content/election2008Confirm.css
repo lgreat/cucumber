@@ -253,3 +253,9 @@ form#mailForm div.captcha input {
     line-height: 16px;
 }
 
+/** Participate */
+.participate {
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+}
