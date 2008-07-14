@@ -217,18 +217,14 @@ div.video {
 }
 
 div.hot_topics {
-    padding: 60px 15px 15px 30px;
+    padding: 20px 10px 15px 15px;
     position: relative;
 }
 
-.hot_topics img.hot_topics {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-}
-
 .hot_topics .header {
+    margin-top: 20px;
     margin-bottom: 7px;
+    margin-left: 15px;
     font-size: 14px;
 }
 
@@ -237,11 +233,15 @@ div.hot_topics {
     font-weight: bold;
 }
 
+.hot_topics ul {
+    margin-left: 15px;
+}
+
 .hot_topics ul li {
     background: transparent url(/res/img/content/backtoschool/modules/orange_bullet.jpg) no-repeat scroll left 7px;
     line-height: 18px;
     padding-left: 10px;
-    font-size: 13px;    
+    font-size: 13px;
 }
 
 .hot_topics .source {
@@ -281,6 +281,7 @@ div.hot_topics {
 }
 
 /** Toolkits */
+
 div.toolkitsWrapper {
     width: 320px;
     height: 318px;
@@ -315,7 +316,7 @@ div.toolkits ul li {
     margin: 0 0 10px 0;
     position: relative;
     padding: 0 0 0 25px;
-    width: 235px;
+    width: 230px;
 }
 
 div.toolkits ul li img {
