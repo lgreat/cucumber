@@ -81,8 +81,6 @@
                                 'wmode', 'transparent',
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
                                 'movie', backToSchoolResource);
-                    } else {
-                        document.write('<img class="flash" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>');
                     }
                     -->
                 </script>

@@ -44,7 +44,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                 <jsp:include page="/content/links.module?page=backtoschool&amp;type=random&amp;layout=q_and_a"/>
 
                 <p id="seeOtherStories">
-                    <a href="http://${communityHost}/category/walmart/">See other stories &gt;</a>
+                    <a href="http://${communityHost}/category/backtoschoolstories/">See other stories &gt;</a>
                 </p>
             </div>
 
