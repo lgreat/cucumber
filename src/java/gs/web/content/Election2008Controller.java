@@ -77,6 +77,13 @@ public class Election2008Controller extends SimpleFormController implements Read
             _userDao.saveUser(user);
         }
 
+        List<Subscription> subs = createSubscriptionList(user, request);
+
+        // subscribe the user to the newsletter
+        _subscriptionDao.addNewsletterSubscriptions(user, subs);
+    }
+
+    protected List<Subscription> createSubscriptionList(User user, HttpServletRequest request) {
         // create a list of subscriptions and add this one to it
         List<Subscription> subs = new ArrayList<Subscription>();
 
@@ -89,8 +96,7 @@ public class Election2008Controller extends SimpleFormController implements Read
         subscription.setState(state);
         subs.add(subscription);
 
-        // subscribe the user to the newsletter
-        _subscriptionDao.addNewsletterSubscriptions(user, subs);
+        return subs;
     }
 
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
