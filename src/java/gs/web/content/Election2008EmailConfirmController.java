@@ -24,7 +24,7 @@ import java.util.HashMap;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class Election2008EmailConfirmController extends SimpleFormController {
-    public static final String BEAN_ID = "/content/election2008Confirm.page";
+    public static final String BEAN_ID = "/content/actionForEducationEmail.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
     private JavaMailSender _mailSender;

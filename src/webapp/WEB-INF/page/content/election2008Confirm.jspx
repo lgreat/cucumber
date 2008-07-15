@@ -43,7 +43,7 @@
     <div id="contentMiddle">
 
     <div id="contentLeft">
-        <c:if test="${edin08Cmd.alert ne ''}">
+        <c:if test="${!empty edin08Cmd.alert}">
             <div class="success"><img src="/res/img/community/registration/check.gif" alt="Check"/>${edin08Cmd.alert}</div>
             <div class="hr dotted topDivider"><hr/></div>            
         </c:if>
