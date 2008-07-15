@@ -41,6 +41,8 @@
     </div>
 
     <div id="contentMiddle">
+
+    <div id="contentLeft">
         <c:if test="${edin08Cmd.alert ne ''}">
             <div class="success"><img src="/res/img/community/registration/check.gif" alt="Check"/>${edin08Cmd.alert}</div>
             <div class="hr dotted topDivider"><hr/></div>            
@@ -97,7 +99,7 @@
                         <p class="large">Text of email (use our message or write your own note):</p>
                         <spring:bind path="edin08Cmd.message">
                             <![CDATA[
-                          <textarea name="${status.expression}" rows="8" cols="60" warp="soft" tabindex="4">${status.value}</textarea>
+                          <textarea name="${status.expression}" rows="8" cols="60" wrap="soft" tabindex="4">${status.value}</textarea>
                           ]]>
                         </spring:bind>
 
@@ -129,23 +131,10 @@
             </c:when>
             <c:otherwise>
                 <div class="participate">
-                  <p><a href="http://bb.crwdcntrl.net/ti.php?trackerid=88&amp;amp;maxdest=http://www.edin08.com/Participate.aspx" target="_blank">See more ways you can participate &gt;</a></p>
+                  <a href="http://bb.crwdcntrl.net/ti.php?trackerid=88&amp;amp;maxdest=http://www.edin08.com/Participate.aspx" target="_blank">See more ways you can participate &gt;</a>
                 </div>
             </c:otherwise>
         </c:choose>
-
-        <div class="contentMiddleModule strongAmericanSchools">
-            <div class="header">About Strong American Schools</div>
-            <div class="body">
-                Strong American Schools is a nonpartisan public awareness and advocacy effort
-                aimed at elevating discussion amongst America's leaders about the need for
-                education reform. The campaign, a project of Rockefeller Philanthropy Advisors,
-                is supported by The Eli and Edythe Broad Foundation and the Bill &amp;amp; Melinda
-                Gates Foundation promoting sound education policies for all Americans. SAS
-                does not support or oppose any candidate for public office and does not take
-                positions on legislation.
-            </div>
-        </div>
     </div>
 
     <div id="contentRight">
@@ -156,10 +145,10 @@
                          alt="Sign the Petition in Support of Strong Schools" width="339" height="48"
                          class="petition" id="petitionHead"/>
                     <p>
-                        Demand that the candidates for president of the United States of America
-                        &amp;mdash; Republican, Democrat, and Independent &amp;mdash; provide a
-                        specific and detailed plan to provide every child the opportunity to
-                        attend a strong American school.
+                        Tell your representatives you want a change for stronger schools.
+                        Demand a plan to provide every child the opportunity to attend a
+                        strong American school. This crisis can and must be solved. America
+                        is only as strong as her schools.
                     </p>
                     <br/>
                     <p class="petitionButton">
@@ -183,6 +172,23 @@
                     </div>
                     <jsp:include page="/content/links.module?page=edin08&amp;type=all&amp;layout=list"/>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="contentAbout">
+       <div class="strongAmericanSchools">
+            <div class="header">About Strong American Schools</div>
+            <div class="body">
+                Strong American Schools is a nonpartisan public awareness and advocacy effort
+                aimed at elevating discussion amongst America's leaders about the need for
+                education reform. The campaign, a project of Rockefeller Philanthropy Advisors,
+                is supported by The Eli and Edythe Broad Foundation and the Bill &amp;amp; Melinda
+                Gates Foundation promoting sound education policies for all Americans. SAS
+                does not support or oppose any candidate for public office and does not take
+                positions on legislation.
             </div>
         </div>
     </div>

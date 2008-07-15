@@ -48,7 +48,8 @@
 
 #contentMiddle {
     float: left;
-    width: 625px;
+    width: 530px;
+    position: relative;
 }
 
 #contentRight {
@@ -56,6 +57,11 @@
     padding-top: 10px;
     margin-right: 3px;
     _margin-right: 1px;
+}
+
+#contentAbout {
+    /*float: left;*/
+    /*clear: both;*/
 }
 
 .contentMiddleModule {
@@ -188,6 +194,7 @@ form p.parentAdvisor label {
 #startlingStat {
     color: #3B6BAB;
     margin: 20px;
+    font-size: 15px;
 }
 
 .alignright {

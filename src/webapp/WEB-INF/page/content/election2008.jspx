@@ -167,9 +167,8 @@
                             </div>
                             <p class="parentAdvisor"><input type="checkbox" name="parentAdvisor"
                                       id="parentAdvisorCheckBox" checked="checked"/>
-                                <label for="parentAdvisorCheckBox">Also sign me up for bi-monthly
-                                    advice from GreatSchools to
-                                    support my child's education.</label></p>
+                                <label for="parentAdvisorCheckBox">Send me the GreatSchools Newsletter:
+                                    Tips and tools to support my child's education.</label></p>
 
                             <p class="alignright">
                                 <input type="image" src="/res/img/content/election2008/signup_btn.gif"

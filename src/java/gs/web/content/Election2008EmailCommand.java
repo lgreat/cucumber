@@ -22,7 +22,7 @@ public class Election2008EmailCommand implements ICaptchaCommand {
                     "children for the new century, our system continues to lag behind.\n" +
                     " \n" +
                     "The countries with the best schools attract the best jobs. If jobs move to other " +
-                    "countries, our children’s opportunities dry up. And so does our economy.\n" +
+                    "countries, our children's opportunities dry up. And so does our economy.\n" +
                     " \n" +
                     "Join the national debate.  Act now and visit www.strongamericanschools.org " +
                     "to improve education before more American students lose out, hurting our " +
