@@ -211,6 +211,10 @@
                         document.write('<scr'+'ipt LANGUAGE="JavaScript1.1" SRC="http://coop.crwdcntrl.net/4/to=y|c=' + LOTCC_client + '|p=' + LOTCC_placement + '|rand=' + LOTCC_rnd + '"></scr' + 'ipt>');
                     //-->
                     </script>
+
+                    <!-- begin AdBrite, Sign-ups tracking -->
+                    <img border="0" hspace="0" vspace="0" width="1" height="1" src="http://stats.adbrite.com/stats/stats.gif?_uid=506939&amp;amp;_pid=1" alt="" />
+                    <!-- end AdBrite, Sign-ups tracking -->
                 </div>
             </c:when>
             <c:when test="${edin08Cmd.tellAFriendConfirm}">
@@ -223,6 +227,10 @@
                         document.write('<scr'+'ipt LANGUAGE="JavaScript1.1" SRC="http://coop.crwdcntrl.net/4/to=y|c=' + LOTCC_client + '|p=' + LOTCC_placement + '|rand=' + LOTCC_rnd + '"></scr' + 'ipt>');
                     //-->
                    </script>
+
+                    <!-- begin AdBrite, family and friends tracking -->
+                    <img border="0" hspace="0" vspace="0" width="1" height="1" src="http://stats.adbrite.com/stats/stats.gif?_uid=506939&amp;amp;_pid=6164" alt="" />
+                    <!-- end AdBrite, family and friends tracking -->
                 </div>
             </c:when>
         </c:choose>
