@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.43 2008/06/10 21:48:04 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.44 2008/07/15 16:26:21 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -273,6 +273,13 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/about/privacyStatement.page?state=CA", builder.asSiteRelative(null));
+    }
+
+    public void testPressRoom() {
+        PressRoomTagHandler tagHandler = new PressRoomTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/about/pressRoom.page", builder.asSiteRelative(null));
     }
 
     public void testContactUs() {
