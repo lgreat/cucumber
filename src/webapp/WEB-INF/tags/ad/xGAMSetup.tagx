@@ -9,8 +9,6 @@
     <jsp:directive.tag import="gs.web.ads.AdPosition"/>
     <jsp:directive.tag import="gs.web.ads.AdTagHandler"/>
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag import="org.apache.log4j.Logger"/>
     <jsp:directive.tag import="java.util.ArrayList"/>
@@ -73,11 +71,6 @@
 
             We can also use the exclusive feature to rig share of voice, as "1" ought
             to appear approximately 25% of the time.
-
-            The reason we needed to have the range of values increased from 1-4 to
-            1-100 is so we can appropriately set the percentage. With 1-4 every
-            campaign (when set to exclusive) could only be rigged as 25%, 50%, 75% or
-            100%. With 1-100 we can set it to any percentage.
             */
         </jsp:scriptlet>
         <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
@@ -93,7 +86,7 @@
                     GA_googleAddAttr('${keywordEntry.key}','${keywordValue}');
                 </c:forEach>
             </c:forEach>
-            GA_googleAddAttr('compfilter','${gsweb:randomNumber(100)+1}');
+            GA_googleAddAttr('compfilter','${gsweb:randomNumber(4)+1}');
             <c:forEach var="slotName" items="${GAMadNames}">
                 GA_googleAddSlot("ca-pub-9662012843341888", '${slotName}');</c:forEach>
             <![CDATA[
