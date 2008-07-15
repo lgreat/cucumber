@@ -8,6 +8,8 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
         >
@@ -17,129 +19,108 @@
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
-     <pageHelper:setPathway pathway="ABOUT_US"/>
-     <pageHelper:hideFooterAd/>
+    <pageHelper:setPathway pathway="HOME"/>
+    <pageHelper:hideFooterAd/>
+    <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>About Us</title>
-    </head>
+    <gsml:body adPageName="aboutUs" pageLayout="aboutUs">
 
-    <gsml:body adPageName="aboutUs" pageLayout="singleTextOnlyColumnLayout">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+            <meta name="Description" content="About Us"/>
+            <title>About Us</title>
+            <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
+        </head>
 
-    <ad:setSlotPrefix slotPrefix="AboutUs"/>
+        <div class="pageTitle">
+            <h2>About GreatSchools</h2>
+        </div>
 
-    <mod:tracking pageName="aboutUs" hier1="Home,Corporate,AboutUs,AboutUsOverview"/>
+        <div class="contentTop">
+            <div class="contentTopLeft">
+                <img src="/res/img/about/aboutus_hero.jpg" alt="Our Mission: To improve K-12 education by inspiring parents to get involved."/>
+            </div>
+            <div class="contentTopRight">
 
-   <h3>Our Story</h3>
+                <h3>Who We Are</h3>
+                <div class="whoWeAre">
+                    <ul id="people" class="bulleted">
+                        <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#mngmt">Senior Management</gsml:a></li>
+                        <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#board">Board and Advisors</gsml:a></li>
+                    </ul>
+                    <ul id="other" class="bulleted">
+                        <li><gsml:a href="/promo/webbyAwardWinner.page">Our Awards</gsml:a></li>
+                    </ul>
+                </div>
 
-   <p>A former teacher, Bill Jackson founded GreatSchools in 1998 to
-   catalyze a force that he believed was vital to the process of
-   achieving excellence in education - <b><i>parent involvement</i></b>.
-</p>
-   <p>Bill launched GreatSchools.net because he believed that:</p>
+                <div class="contentTopRightDivider">
+                    <hr/>
+                </div>
 
-    <ul>
-   <li>When parents make <strong><em>informed choices</em></strong>,
-   students and schools benefit</li>
+                <div id="billsBlog"><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
+                    <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50"
+                                      top="50"><gsml:img src="/res/img/about/billsblog.gif"
+                                                         alt="Bill's Blog On School Improvement"/></gsml:popupWindow>
 
-   <li>Students are more successful when <strong><em>parents are
-   actively involved</em></strong> in their education</li>
+                    <div class="rss">
+                        <cache:cache scope="application" name="blog" key="bill3">
+                            <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
+                                              defaultTitle="Bill's thoughts on education"
+                                              defaultUrl="http://billsblog.greatschools.net"/>
+                        </cache:cache>
 
-   <li>Schools improve when <strong><em>parents advocate</em></strong>
-   for high-quality teaching and learning</li>
-   </ul>
+                        <gsml:url var="read" value="/res/img/button/read.gif"/>
+                        <div id="readBillsBlog">
+                            <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50"
+                                          top="50"><img
+                                src="${read}"
+                                alt="Read Bill's Blog"
+                                style="margin: 5px 0 4px -2px"/></gsml:popupWindow>
+                        </div>
+                    </div>
+                </div>
 
-   <p>Since then, GreatSchools has evolved into a national,
-   independent nonprofit organization committed to helping parents
-   like you <b><i>choose</i></b> schools, <b><i>support</i></b> your
-   children's education and <b><i>improve</i></b> schools in your
-   community. More than 25 million users visited GreatSchools.net in
-   2005. Our content powers the Internet's leading media organizations
-   including AOL, Yahoo!, Knight Ridder, the Los Angeles Times and
-   more than 85 top Web sites nationwide.</p>
+            </div>
+        </div>
 
-   <p><b><i>Our Mission:</i></b> To improve K-12 education by
-   inspiring parents to get involved.</p>
+        <div class="contentBottom">
+            <div class="moduleBox first">
+                <h3>Media Center</h3>
 
-   <h3>We Help Parents Like You...</h3>
+                <jsp:include page="/content/links.module?page=aboutUsMediaCenter&amp;type=all&amp;layout=list"/>
 
+                <div class="right">
+                    <link:pressRoom>Learn more &gt;</link:pressRoom>
+                </div>
+            </div>
+            <div class="moduleBox">
+                <h3>Join Our Team!</h3>
+                Interested in joining the GreatSchools team?
+                <br/>
+                Check out our opportunities!
+                <br/><br/>
+                <div class="right">
+                    <gsml:a href="/cgi-bin/static/jobs.inc/${state}">View open positions &amp;gt;</gsml:a>
+                </div>
+            </div>
+            <div class="moduleBox last">
+                <h3>Contact Us</h3>
+                Want to learn more about GreatSchools?<br/>
+                <a href="/about/gsFaq.page?state=${state}">Check out our FAQ &amp;gt;</a>
+                <br/><br/>
+                Other questions? Feedback?
+                <br/>
+                <div class="right">
+                    <link:contactUs>Contact Us &amp;gt;</link:contactUs>
+                </div>
+            </div>
+        </div>
 
-   <h4>Choose the best school for your child</h4>
-   <p>GreatSchools helps parents choose the best school by providing
-   comprehensive profiles for more than 120,000 schools nationwide.
-   Other parent-friendly features include exclusive ratings, parent
-   reviews, powerful search and compare tools, and helpful advice.
-</p>
-   <p>See a <gsml:a href="/school/sampleSchoolRedirect.page?state=$STATE">sample school
-   profile</gsml:a><br />
-   Review answers to <gsml:a href=
-   "/about/gsFaq.page?state=$STATE">Frequently Asked Questions</gsml:a></p>
+        <div style="display: none;">
+            <ad:setSlotPrefix slotPrefix="AboutUs"/>
+            <mod:tracking pageName="aboutUs" hier1="Home,Corporate,AboutUs,AboutUsOverview"/>
+        </div>
 
-   <h4>Support your child's education</h4>
-   <p>As you guide your child from kindergarten through high school,
-   you'll face unexpected challenges and hurdles. Some may be unique
-   to you and your child, others are faced by virtually every parent.
-   Either way, you don't have to go it alone - GreatSchools has
-   resources that can help.</p>
-
-   <p>Our personalized email newsletters provide school updates,
-   grade-by-grade learning tools and seasonal advice on education
-   topics. <link:newsletterCenter>Learn more</link:newsletterCenter></p>
-
-   <p>GreatSchools' online library features hundreds of articles that
-   help parents navigate the K-12 process, including advice from
-   experts and real parents. <link:articleLibrary>Visit our library</link:articleLibrary></p>
-
-   <p>Read our <gsml:a href="/about/editorialPolicy.page?state=$STATE">editorial and advertising policy</gsml:a></p>
-
-   <h4>Improve schools in your community</h4>
-   <p>GreatSchools is currently conducting pilot programs to organize and
-   support parents advocating for education excellence in their
-   communities. In <b>San Francisco</b>, GreatSchools is helping
-   parents in five schools to better support their own children's
-   education and to advocate for quality teaching and learning for all
-   children. In <b>Dayton, Ohio</b>, GreatSchools is helping
-   low-income parents make better-informed school choices in order to
-   drive local demand for high-quality schools.</p>
-
-   <p>Learn more about the <gsml:a href=
-   "/about/gsNetwork.page?state=$STATE">GreatSchools Network</gsml:a></p>
-
-
-
-
-   <h3>More About GreatSchools</h3>
-
-
-   <p>GreatSchools would not be possible without the support of
-   foundations and corporations that understand the importance of
-   parent involvement in a child's education. Major funders include
-   the Bill and Melinda Gates Foundation, the William and Flora
-   Hewlett Foundation, the Pisces Foundation, the Robertson Foundation
-   and the Walton Family Foundation.</p>
-
-   <ul>
-   <li><gsml:a href="/about/sponsors.page?state=$STATE">Sponsors and
-   Partners</gsml:a></li>
-
-   <li><gsml:a href="/cgi-bin/static/whoweare.inc/$STATE">Board of Directors and Management Team</gsml:a></li>
-
-   <li><link:webbyAwardThanks>Our Awards</link:webbyAwardThanks></li>
-
-   <li><gsml:a href="/about/pressRoom.page?state=$STATE">Press Room</gsml:a></li>
-
-   <li><gsml:a href="/cgi-bin/static/jobs.inc/$STATE">Employment
-   Opportunities</gsml:a></li>
-
-   <li><gsml:a href="/cgi-bin/feedback/$STATE">Contact Us</gsml:a></li>
-   </ul>
-
-   <p>GreatSchools.net<br />
-   301 Howard Street, Suite 1440<br />
-   San Francisco, CA 94105<br />
-   Fax: (415) 977-0704<br />
-   </p>
     </gsml:body>
     </html>
 </jsp:root>
