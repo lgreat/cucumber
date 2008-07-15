@@ -48,8 +48,7 @@
 
 #contentMiddle {
     float: left;
-    width: 530px;
-    position: relative;
+    width: 625px;
 }
 
 #contentRight {
@@ -57,11 +56,6 @@
     padding-top: 10px;
     margin-right: 3px;
     _margin-right: 1px;
-}
-
-#contentAbout {
-    /*float: left;*/
-    /*clear: both;*/
 }
 
 .contentMiddleModule {
