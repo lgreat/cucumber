@@ -33,20 +33,21 @@ div#schwabOnly:hover{
     text-decoration:underline;
 }
 
-#contentGS div.welcome p {
+#contentGS div.welcome span {
     font-size: 16px;
     color:#3399AA;
     text-align: center;
     height: 16px;
     padding: 0 16px 6px  0px;
 }
-#contentGS div.welcome p#msg{
-    
+#contentGS div.welcome span#msg{
+    display: block;
     font-weight: bold;
 }
 
-#contentGS div.welcome p#from{
+#contentGS div.welcome span#from{
     font-weight: normal;
+    display: block;
 }
 
 h2#Identifying-a-Learning-Difficulty {

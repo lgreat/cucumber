@@ -47,8 +47,8 @@
                 <c:if test="${param.fromSchwab == '1'}">
                     <div id="schwabOnly">
                          <gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">
-                             <p id="msg">Welcome to SchwabLearning Parents </p>
-                             <p id="from">from Bill Jackson, Founder and President</p>
+                             <span id="msg">Welcome to SchwabLearning Parents </span>
+                             <span id="from">from Bill Jackson, Founder and President</span>
                          </gsml:a>
                     </div>
                 </c:if>
