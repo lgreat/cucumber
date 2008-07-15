@@ -205,6 +205,13 @@ form p.parentAdvisor label {
     width: 320px;
 }
 
+.dataSources {
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    font-size: 12px;
+}
+
 .cleared:after {
     content: ".";
     display: block;
