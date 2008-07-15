@@ -321,7 +321,7 @@
                     </c:when>
                     <c:otherwise>
                         <gsml:a href="/content/btsQuiz.page">
-                            <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo_no_ad" alt="Are you as smart as a fourth grader?" />
+                            <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo_no_ad.jpg" alt="Are you as smart as a fourth grader?" />
                         </gsml:a>
                     </c:otherwise>
                 </c:choose>
