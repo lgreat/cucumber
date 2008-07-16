@@ -23,14 +23,14 @@
     <pageHelper:hideFooterAd/>
     <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
-    <gsml:body adPageName="aboutUs" pageLayout="aboutUs">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <meta name="Description" content="About Us"/>
+        <title>About Us</title>
+        <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
+    </head>
 
-        <head>
-            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-            <meta name="Description" content="About Us"/>
-            <title>About Us</title>
-            <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
-        </head>
+    <gsml:body adPageName="aboutUs" pageLayout="aboutUs">
 
         <div class="pageTitle">
             <h2>About GreatSchools</h2>
