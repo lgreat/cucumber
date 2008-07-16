@@ -10,6 +10,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:content="urn:www.greatschools.net/taglib/content"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
         >
@@ -83,38 +84,7 @@
             </div>
         </div>
 
-        <div class="contentBottom">
-            <div class="moduleBox first">
-                <h3>Media Center</h3>
-
-                <jsp:include page="/content/links.module?page=aboutUsMediaCenter&amp;type=all&amp;layout=list"/>
-
-                <div class="right">
-                    <link:pressRoom>Learn more &gt;</link:pressRoom>
-                </div>
-            </div>
-            <div class="moduleBox">
-                <h3>Join Our Team!</h3>
-                Interested in joining the GreatSchools team?
-                <br/>
-                Check out our opportunities!
-                <br/><br/>
-                <div class="right">
-                    <gsml:a href="/cgi-bin/static/jobs.inc/${state}">View open positions &amp;gt;</gsml:a>
-                </div>
-            </div>
-            <div class="moduleBox last">
-                <h3>Contact Us</h3>
-                Want to learn more about GreatSchools?<br/>
-                <a href="/about/gsFaq.page?state=${state}">Check out our FAQ &amp;gt;</a>
-                <br/><br/>
-                Other questions? Feedback?
-                <br/>
-                <div class="right">
-                    <link:contactUs>Contact Us &amp;gt;</link:contactUs>
-                </div>
-            </div>
-        </div>
+        <about:footer showTopBorder="false" firstBoxContent="mediaCenter"/>
 
         <div style="display: none;">
             <ad:setSlotPrefix slotPrefix="AboutUs"/>
