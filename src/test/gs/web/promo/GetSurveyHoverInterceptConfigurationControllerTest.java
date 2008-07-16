@@ -28,7 +28,7 @@ public class GetSurveyHoverInterceptConfigurationControllerTest extends BaseCont
     }
 
     public void testHandleRequest() throws Exception {
-        expect(_propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("32");
+        expect(_propertyDao.getProperty(IPropertyDao.SURVEY_HOVER_INTERCEPT_CONFIGURATION)).andReturn("32");
         replay(_propertyDao);
         _controller.handleRequest(getRequest(), _response);
         verify(_propertyDao);
@@ -38,7 +38,7 @@ public class GetSurveyHoverInterceptConfigurationControllerTest extends BaseCont
     }
 
     public void testHandleRequestProblem() throws Exception {
-        expect(_propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn(null);
+        expect(_propertyDao.getProperty(IPropertyDao.SURVEY_HOVER_INTERCEPT_CONFIGURATION)).andReturn(null);
         replay(_propertyDao);
         _controller.handleRequest(getRequest(), _response);
         verify(_propertyDao);
