@@ -68,6 +68,7 @@
                 <entry key="/util/articleCacheController.page" value="articleCacheController"/>
                 <entry key="/util/getVariantConfiguration.page" value="getVariantConfigurationController"/>
                 <entry key="/content/box/v1/*/*.page" value="contentBoxController"/>
+                <entry key="/promo/getSurveyHoverInterceptConfiguration.page" value="getSurveyHoverInterceptConfigurationController"/>
             </map>
         </property>
     </bean>
@@ -1409,6 +1410,10 @@
 
     <bean name="getVariantConfigurationController"
           class="gs.web.util.GetVariantConfigurationController"
+          autowire="byName" lazy-init="true"/>
+
+    <bean name="getSurveyHoverInterceptConfigurationController"
+          class="gs.web.promo.GetSurveyHoverInterceptConfigurationController"
           autowire="byName" lazy-init="true"/>
 
     <bean name="surveyController"
