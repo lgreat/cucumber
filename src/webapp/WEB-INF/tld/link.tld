@@ -2354,5 +2354,37 @@
             <description>CSS class name(s)</description>
         </attribute>
     </tag>
+    <tag>
+        <name>pressReleases</name>
+        <tag-class>gs.web.jsp.link.PressReleasesTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>pressReleases</display-name>
+        <description>
+            <![CDATA[Link to our press releases page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>pressClippings</name>
+        <tag-class>gs.web.jsp.link.PressClippingsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>pressClippings</display-name>
+        <description>
+            <![CDATA[Link to our press clippings page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
 </taglib>
 

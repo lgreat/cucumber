@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.107 2008/07/15 16:26:20 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.108 2008/07/16 23:40:53 yfan Exp $
  */
 
 package gs.web.util;
@@ -160,6 +160,8 @@ public class UrlBuilder {
 
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
     public static final VPage PRESS_ROOM = new VPage("vpage:pressRoom");
+    public static final VPage PRESS_RELEASES = new VPage("vpage:pressReleases");
+    public static final VPage PRESS_CLIPPINGS = new VPage("vpage:pressClippings");
 
     public static final VPage BETA_SIGNUP = new VPage("vpage:betaSignup");
     public static final VPage BETA_UNSUBSCRIBE = new VPage("vpage:betaUnsubscribe");
@@ -607,6 +609,12 @@ public class UrlBuilder {
         } else if (PRESS_ROOM.equals(page)) {
             _perlPage = false;
             _path = "/about/pressRoom.page";
+        } else if (PRESS_RELEASES.equals(page)) {
+            _perlPage = false;
+            _path = "/about/pressRoom/pressReleases.page";
+        } else if (PRESS_CLIPPINGS.equals(page)) {
+            _perlPage = false;
+            _path = "/about/pressRoom/pressClippings.page";
         } else if (SIGN_IN.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/msl_login/" + state.getAbbreviationLowerCase();

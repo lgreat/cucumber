@@ -8,6 +8,8 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
         >
 <html lang="en">
@@ -16,342 +18,103 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="HOME"/>
 <pageHelper:hideFooterAd/>
+<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="Description" content="GreatSchools Press Room"/>
     <title>GreatSchools Press Room</title>
+    <pageHelper:externalCss file="/res/css/about/pressRoom.css"/>
 </head>
 
-<gsml:body adPageName="pressRoom" pageLayout="singleTextOnlyColumnLayout">
+<gsml:body adPageName="pressRoom" pageLayout="pressRoom">
+
+    <div class="pageTitle">
+        <h2>Pressroom</h2>
+    </div>
+
+    <div class="contentLeft">
+        <div class="content">
+            <h2>Recent Press Releases <img src="/res/img/about/pressroom/pressrelease_rule.jpg" alt=""/></h2>
+            <ul>
+            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
+            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
+            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
+            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
+            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
+            </ul>
+            <div class="right"><link:pressReleases>View more &amp;gt;</link:pressReleases></div>
+        </div>
+        <div class="content">
+            <h2>GreatSchools in the News <img src="/res/img/about/pressroom/news1_rule.jpg" alt=""/></h2>
+            <ul>
+            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
+            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
+            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
+            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
+            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
+            </ul>
+            <div class="right"><link:pressClippings>View more &amp;gt;</link:pressClippings></div>
+        </div>
+        <div class="content">
+            <h2>GreatSchools Downloadable Logos <img src="/res/img/about/pressroom/logo_rule.jpg" alt=""/></h2>
+            <div class="description">
+                Please contact us if you need a logo or other material not available below.<br/>
+                Logo options: small (201 X 38), medium (233 X 46) or larger (304 X 58)
+            </div>
+            
+            <table class="logoTable">
+                <tr>
+                    <td><img src="/res/img/logo/logo_GS_201x38.gif" alt=""/></td>
+                    <td>Download: <a href="/about/downloadLogo.page?size=small">.gif</a></td>
+                </tr>
+                <tr>
+                    <td><img src="/res/img/logo/logo_GS_233x46.gif" alt=""/></td>
+                    <td>Download: <a href="/about/downloadLogo.page?size=medium">.gif</a></td>
+                </tr>
+                <tr>
+                    <td><img src="/res/img/logo/logo_GS_304x58.gif" alt=""/></td>
+                    <td>Download: <a href="/about/downloadLogo.page?size=large">.gif</a></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="contentRight">
+        <div class="media">
+            <h2>Media Inquiries?</h2>
+
+            <!-- change this to singleSpacedList? -->
+
+            Contact our team:<br/>
+            <br/>
+            David Steer<br/>
+            415.977.0700 x 123<br/>
+            <a href="mailto:pr@greatschools.net">pr@greatschools.net</a>
+
+        </div>
+        <div class="awards">
+            <h2>Recent Awards</h2>
+
+            <img id="webbyImage" src="/res/img/promo/webby/footer.gif"
+                 alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Award"/>
+
+            <div class="seeAllAwards">
+                <link:webbyAwardThanks>See all awards &amp;gt;</link:webbyAwardThanks>
+            </div>
+        </div>
+    </div>
+
+    <about:footer showTopBorder="true" firstBoxContent="aboutUs"/>
+
+
+    <div style="display: none;">
+        <mod:tracking pageName="pressRoom" hier1="Home,Corporate,AboutUs,PressRoom"/>        
+    </div>
 
-<mod:tracking pageName="pressRoom" hier1="Home,Corporate,AboutUs,PressRoom"/>
-
-<h3>GreatSchools Press Room</h3>
-<ul class="singleSpacedList">
-    <li>  <a href="#news">GreatSchools in the News</a></li>
-
-    <li>  <a href="#blogs">GreatSchools in the Blogs</a></li>
-
-    <li><a href="#press">Press Releases</a></li>
-
-    <li><a href="#kit">Press Kit</a></li>
-
-    <li><a href="#contact">Contact GreatSchools</a></li>
-</ul>
-
-<![CDATA[ <a name="news"></a> ]]>
-<h3>GreatSchools in the News</h3>
-
-<p>
-    GreatSchools has received coverage in major national, state and local newspapers, as well as radio and
-    television broadcasts. Below are some highlights. Click on any title for the complete story. Note that you may
-    have to register for online news stories.</p>
-<ul class="singleSpacedList">
-
-<li>MSNBC/Today Show, 04/24/2008</li>
-<li><a href="http://www.msnbc.msn.com/id/24278704/" target="_blank">15 TOUGH QUESTIONS TO ASK YOUR REAL ESTATE BROKER</a></li>
-<p></p>
-
-<li>KATU, 02/22/2008</li>
-<li><a href="http://www.katu.com/news/15897627.html" target="_blank">THINKING OF BUYING A HOME? BE WARY OF TALL TALES</a></li>
-<p></p>
-<li>Dayton Daily News, 02/05/2008</li>
-<li><a href="http://www.daytondailynews.com/n/content/oh/story/news/local/2008/02/04/ddn020508chooser.html" target="_blank">GUIDE TO LOCAL SCHOOLS WILL PROVIDE QUALITY RATINGS</a></li>
-<p></p>
-<li>The Milwaukee Journal Sentinel, 01/18/2008</li>
-<li><a href="http://www.jsonline.com/story/index.aspx?id=708969" target="_blank">PARENTES HAVE NEW TOOL TO HELP CHOOSE AMONG MPS SCHOOLS</a></li>
-<p></p>
-<li>The Wall Street Journal, 12/11/2007</li>
-<li><a href="http://online.wsj.com/article_email/SB119717616760618494-lMyQjAxMDE3OTE3MTExNzE2Wj.html" target="_blank">DOING YOUR HOMEWORK</a></li>
-<p></p>
-<li>CNNMoney.com, 12/08/2007</li>
-<li><a href="http://money.cnn.com/2007/11/29/pf/bestweb_home.moneymag/" target="_blank">KNOW YOUR HOME'S FUTURE</a></li>
-<p></p>
-<li>LA Times, 12/03/2007</li>
-<li><a href="http://www.latimes.com/news/education/la-me-magnetiep3dec3,1,3321914.story?coll=la-news-learning&amp;ctrack=3&amp;cset=true" target="_blank">CHECKING OUT THE NEIGHBORHOOD SCHOOL</a></li>
-<p></p>
-<li>Instructify by LEARN NC, 10/08/2007</li>
-<li><a href="http://instructify.com/2007/10/08/get-the-skinny-on-schools-with-yahoo/" target="_blank">GET THE SKINNY ON SCHOOLS WITH YAHOO</a></li>
-<p></p>
-<li>The Orange County Register, 08/07/2007</li>
-<li><a href="http://www.ocregister.com/news/schools-children-home-1800402-web-child" target="_blank">ASK THE TEACHER: FIRST-HAND EXPERIENCE BEST WHEN COVERING SCHOOLS</a></li>
-<p></p>
-<li>The Heritage Foundation, 06/27/2007</li>
-<li><a href="http://www.heritage.org/Research/Education/bg2047.cfm" target="_blank">REAUTHORIZATION OF NO CHILD LEFT BEHIND: FEDERAL MANAGEMENT OR CITIZEN OWNERSHIP OF K-12 EDUCATION</a></li>
-<p></p>
-<li>Southern California Public Radio, 06/11/2007</li>
-<li><a href="http://www.scpr.org/news/stories/2007/06/11/08_the_loh_life_parents.html" target="_blank">MEET THE PARENTS, PART THREE</a></li>
-<p></p>
-<li>Keloland TV, 05/22/2007</li>
-<li><a href="http://www.keloland.com/News/EyeonKELOLAND/NewsDetail6403.cfm?Id=0,57276" target="_blank">THE RANKING DEBATE</a></li>
-<p></p>
-<li>Arizona Republic, 05/03/2007</li>
-<li><a href="http://www.azcentral.com/arizonarepublic/arizonaliving/articles/0503shopping0503.html" target="_blank">ARIZONA KIDS CAN GO PUBLIC, CHARTER OR PROVIATE - BUT FINDING THE RIGHT ONE ISN'T EASY</a></li>
-<p></p>
-<li>Dayton Daily News, 02/26/2007</li>
-<li><a href="http://www.daytondailynews.com/search/content/oh/story/news/local/2007/02/26/ddn022607workshops.html" target="_blank">WORKSHOPS HELP AREA FAMILIES CHOOSE RIGHT SCHOOL</a></li>
-<p></p>
-<li>New York Times, 02/11/2007</li>
-<li><a href="http://www.nytimes.com/2007/02/11/realestate/11webb.html?_r=1&amp;oref=slogin" target="_blank">FORGET GIMMICKS: BUYERS WANT NUMBERS</a></li>
-<p></p>
-<li>Dayton Daily News, 02/08/2007</li>
-<li><a href="http://www.daytondailynews.com/n/content/oh/story/news/local/2007/02/07/ddn020807chooser.html" target="_blank">DAYTON FAMILIES TO RECEIVE GUIDE THAT WILL HELP THEM CHOOSE THE RIGHT SCHOOL</a></li>
-<p></p>
-<li>Examiner, 11/27/2006</li>
-<li><a href="http://www.examiner.com/a-421733~Parents_using_Net_more_and_more.html" target="_blank">PARENTS USING NET MORE AND MORE TO PICK SCHOOL</a></li>
-<p></p>
-
-<li>Sacramento Bee, 12/01/05</li>
-<li><a href="http://www.sacbee.com/content/business/tech/story/13923881p-14760911c.html" target="_blank">LINKS TO LEARNING</a></li>
-<p></p>
-<li>Daily Dayton News, 11/16/05</li>
-
-<li><a href="http://www.daytondailynews.com/opinion/content/opinion/daily/1116great.html" target="_blank">PARENTS NEED GOOD INFO TO
-    CHOOSE WELL</a>
-</li>
-<p></p>
-
-<li>
-    Daily Dayton News, 11/07/05</li>
-
-<li><a href="http://www.daytondailynews.com/localnews/content/localnews/daily/1107schoolrate.html" target="_blank">NEW SITE TO HELP
-    PARENTS WEIGH SCHOOL OPTIONS</a>
-</li>
-<p></p>
-
-<li>
-    The San Francisco Examiner, 11/01/05</li>
-
-<li><a href="http://www.sfexaminer.com/articles/2005/11/01/news/20051101_ne08_conf.txt" target="_blank">CONFERENCES KEY TO
-    EDUCATION</a>
-</li>
-<p></p>
-
-<li>
-    The Charlotte Observer, 10/24/05</li>
-
-<li>
-    <a href="http://www.charlotte.com/mld/observer/news/opinion/12981787.htm" target="_blank">LARRY BUMGARNER</a>
-</li>
-<p></p>
-<li>
-    The Paly Voice, 10/07/05</li>
-
-<li><a href="http://voice.paly.net/view_story.php?id=3328" target="_blank">PAUSD CONTINUES KATRINA RELIEF</a>
-</li>
-<p></p>
-
-<li>
-    CNN Money, 8/30/04</li>
-
-<li>
-    <a href="http://money.cnn.com/2004/08/27/real_estate/buying_selling/schools/" target="_blank">SCHOOL, WHAT IS IT GOOD FOR?</a>
-</li>
-<p></p>
-
-<li>
-    Napa Valley Register, 07/11/04</li>
-
-<li>
-    <a href="http://www.napanews.com/templates/index.cfm?template=story_full&amp;id=B91F1D39-CCEE-4197-A24F-52FD7FF92FE3" target="_blank">SCHOOLS
-        DON'T TIE DOWN NEW HOME OWNERS IN NAPA COUNTY</a>
-
-</li>
-<p></p>
-
-<li>
-    Ocala Star-Banner, 06/21/04</li>
-
-<li>
-    <a href="http://www.starbanner.com/apps/pbcs.dll/artikkel?SearchID=73175649913051&amp;Avis=OS&amp;Dato=20040621&amp;Kategori=NEWS&amp;Lopenr=206210357&amp;Ref=AR" target="_blank">PARENTS
-        FACE TOUGH DECISIONS ON SCHOOLS</a>
-</li>
-<p></p>
-
-<li>
-    The Washington Post, 05/25/04</li>
-
-<li><a href="http://www.washingtonpost.com/wp-dyn/articles/A54305-2004May25.html" target="_blank">LEARNING THE BASIS FOR ADVANCED
-    PLACEMENT COURSES</a>
-</li>
-<p></p>
-
-<li>
-    CUTigers, 04/22/04</li>
-
-<li><a href="http://clemson.theinsiders.com/2/253551.html" target="_blank">COURT DECISION WILL IMPACT THREE SC HIGH SCHOOLS</a>
-</li>
-<p></p>
-
-<li>
-    District Administration, 04/07/04</li>
-
-<li>
-    <a href="http://www.districtadministration.com/page.cfm?p=504" target="_blank">THE ONLINE EDGE: FIXING DISTRICT REPORT CARDS</a>
-</li>
-<p></p>
-
-<li>
-    Business Wire, 02/26/04</li>
-
-<li><a href="http://articles.findarticles.com/p/articles/mi_m0EIN/is_2004_Feb_26/ai_113638653" target="_blank">PACE OF EDUCATION
-    IMPROVEMENT HELD STEADY IN 2003 IN NINE-COUNTY REGION, NEW BAY AREA COUNCIL STUDY FINDS</a>
-</li>
-<p></p>
-
-<li>
-    The Detroit News, 02/17/04</li>
-
-<li><a href="http://www.detnews.com/2004/techcolumns/0402/16/techcol-64900.htm" target="_blank">NET RIFE WITH SITES FOR FINDING A
-    HOME</a>
-</li>
-</ul>
-<![CDATA[ <a name="blogs"></a> ]]>
-<h3>GreatSchools in the Blogs</h3>
-<p>The GreatSchools Web site is frequently referred to and talked about in blogs on the Web. Below are some highlights. Click on any link to read the complete story.
-</p>
-
-<ul class="singleSpacedList">
-
-    <li>Parents as Partners, 04/01/2008</li>
-    <li><a href="http://www.ourschool.ca/great-schoolsnet-parent-resource.html" target="_blank">GREATSCHOOLS.NET - PARENT RESOURCE</a></li>
-    <p></p>
-    <li>Gather, 02/06/2008</li>
-    <li><a href="http://www.gather.com/viewArticle.jsp?articleId=281474977250826" target="_blank">HERE IS A GREAT RESOURCE FOR FUTURE TEACHERS, TEACHERS AND PARENTS OF SPECIAL NEEDS CHILDREN</a></li>
-    <p></p>
-    <li>Dayton Daily News, 02/05/2008</li>
-    <li><a href="http://www.daytondailynews.com/blogs/content/shared-gen/blogs/dayton/education/entries/2008/02/05/they_wont_like.html" target="_blank">THEY WON'T LIKE THIS AT STIVERS</a></li>
-    <p></p>
-    <li>ADHD and LD Resource, 01/28/2008</li>
-    <li><a href="http://adhdguide.blogspot.com/2008/01/great-schools-acquires-schwab-learning.html" target="_blank">GREAT SCHOOLS ACQUIRES SCHWAB LEARNING CONTENT</a></li>
-    <p></p>
-    <li>PlaytimePlanIt, 01/19/2008</li>
-    <li><a href="http://playtimeplanit.com/great-schools/512/" target="_blank">GREAT SCHOOLS WEBSITE</a></li>
-    <p></p>
-    <li>BerwynCARES, 01/11/2008</li>
-    <li><a href="http://berwyncares-blog.blogspot.com/2008/01/decision-2008_11.html" target="_blank">DECISION 2008</a></li>
-    <p></p>
-    <li>Townhall.com, 01/10/2008</li>
-    <li><a href="http://www.townhall.com/columnists/DrMatthewLadner/2008/01/10/charting_the_course_for_reform" target="_blank">CHARTING THE COURSE FOR REFORM</a></li>
-    <p></p>
-    <li>RealdiaBlog, 12/09/2007</li>
-    <li><a href="http://realdiablog.typepad.com/loudounstats/2007/12/information-abo.html" target="_blank">INFORMATION ON LOUDOUN COUNTY SCHOOLS</a></li>
-    <p></p>
-    <li>The Hive, 09/16/2007</li>
-    <li><a href="http://thehive.modbee.com/?q=node/5294" target="_blank">IT'S NEVER TOO EARLY TO FREAK OUT OVER KINDERGARTEN</a></li>
-    <p></p>
-    <li>Redfin, Los Angeles, 09/10/2007</li>
-    <li><a href="http://blog.redfin.com/losangeles/2007/09/get_the_scoop_on_local_schools.html" target="_blank">GET THE SCOOP ON LOCAL SCHOOLS</a></li>
-    <p></p>
-    <li>Redfin, San Francisco, 09/08/2007</li>
-    <li><a href="http://blog.redfin.com/sfbay/2007/09/berkeley_mining_information_on_schools.html" target="_blank">MINING INFORMATION ON LOCAL SCHOOLS</a></li>
-    <p></p>
-    <li>Redfin, San Francisco   , 08/27/2007</li>
-    <li><a href="http://blog.redfin.com/sfbay/2007/08/sf_and_daly_city_spotlight_on_westmoor_high_school.html" target="_blank">SPOTLIGHT ON WESTMOOR HIGHSCHOOL</a></li>
-    <p></p>
-    <li>PS161 Parent Teacher Association, 08/27/2007</li>
-    <li><a href="http://ps161pta.blogspot.com/2007/08/its-most-wonderful-time-of-year.html" target="_blank">IT'S THE MOST WONDERFUL TIME OF THE YEAR</a></li>
-    <p></p>
-    <li>Leader Talk, 07/23/2007</li>
-    <li><a href="http://www.leadertalk.org/2007/07/ses-independent.html" target="_blank">SES-INDEPENDENT INDICATORS OF SCHOOL QUALITY</a></li>
-    <p></p>
-    <li>BlogTalkRadio, 07/16/2007</li>
-    <li><a href="http://www.blogtalkradio.com/hostpage.aspx?show_id=37569" target="_blank">INTERVIEW WITH LISA ROSENTHAL</a></li>
-    <p></p>
-    <li>Regina Lewis, 07/5/2007</li>
-    <li><a href="http://www.reginalewis.com/2007/07/05/great-schools/" target="_blank">GREAT SCHOOLS</a></li>
-    <p></p>
-    <li>Education Week, 05/01/2007</li>
-    <li><a href="http://blogs.edweek.org/edweek/thisweekineducation/2007/05/i_rarely_look_at_individual.html" target="_blank">WHO'S GOT THE BEST SCHOOL &amp;  DISTRICT DATA?</a></li>
-    <p></p>
-    <li>Betty's Blog, 02/05/2007</li>
-    <li><a href="http://teacherlingo.com/blogs/bettyb/archive/2007/02/05/how-do-you-feel-about-homework.aspx" target="_blank">HOW DO YOU FEEL ABOUT HOMEWORK</a></li>
-    <p></p>
-
-
-</ul>
-
-
-<![CDATA[ <a name="press"></a> ]]>
-<h3>Press Releases</h3>
-<ul class="singleSpacedList">
-    <p><b>4/17/08:</b> Great Schools Receives Official Honoree Distinction in the 12th Annual Webby Awards Competition
-     <gsml:a href="/cgi-bin/static/press20080417.txt/$STATE">more...</gsml:a></p>
-    <p><b>12/12/07:</b> GreatSchools expands its offerings for parents of children with learning and attention
-        problems by acquiring SchwabLearning.org <gsml:a href="/cgi-bin/static/press20071212.txt/$STATE">more...</gsml:a></p>
-
-    <p><b>7/19/07:</b> GreatSchools Launches an Influential Push to Put Education on the 2008 Election Agenda <gsml:a href="/cgi-bin/static/press20070719.txt/$STATE">more...</gsml:a></p>
-
-    <p><b>5/25/07:</b> GreatSchools Recognized for its K-12 School Ratings <gsml:a href="/cgi-bin/static/press20070525.txt/$STATE">more...</gsml:a></p>
-
-    <p><b>5/1/07:</b> Parents Vote GreatSchools the Best Family / Parenting Web Site <gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">more...</gsml:a></p>
-
-    <p><b>4/4/07:</b> GreatSchools, the nation's premier provider of K-12 school information to parents,
-        today announced <gsml:a href="/cgi-bin/static/press20060404.txt/$STATE">more...</gsml:a></p>
-
-    <p><b>11/28/05:</b> Prudential California Reality, Alan Pinel Realtors, Real Advisor Reality and VREO Choose
-        GreatSchools.net <gsml:a href="/cgi-bin/static/press11.28.05/$STATE">more...</gsml:a></p>
-
-    <p><b>08/10/05:</b> GreatSchools.net Teams Up With Sperling's Best Places <gsml:a
-            href="/cgi-bin/static/GS_BP_Press_Release_05_08_10.htm/$STATE">more...</gsml:a></p>
-
-    <p><b>8/20/04:</b> GreatSchools.net Provides Parents with Vital Information About NCLB School Choice and Tutoring
-        Options <gsml:a href="/cgi-bin/static/press7.26.04_nclb.html/$STATE">more...</gsml:a></p>
-
-    <p><b>8/28/02:</b> GreatSchools.net Posts STAR Scores <gsml:a href="/cgi-bin/static/press8.28.02_ca.html/$STATE">
-        more...</gsml:a></p>
-
-    <p><b>7/29/02:</b> GreatSchools.net Posts TAAS Scores and School Rankings <gsml:a
-            href="/cgi-bin/static/press7.29.02_tx.html/$STATE">more...</gsml:a></p>
-
-    <p><b>5/31/02:</b> GreatSchools.net Launches Parent-Friendly Online Guide to Florida Schools <gsml:a
-            href="/cgi-bin/static/press5.31.02_fl.html/$STATE">more...</gsml:a></p>
-
-    <p><b>5/13/02:</b> GreatSchools.net Helps Florida Parents Understand School Data <gsml:a
-            href="/cgi-bin/static/press5.13.02_fl.html/$STATE">more...</gsml:a></p>
-
-    <p><b>4/24/02:</b> GreatSchools Helps Parents Understand School Options <gsml:a
-            href="/cgi-bin/static/press4.24.02.html/$STATE">more...</gsml:a></p>
-
-    <p><b>1/16/02:</b> GreatSchools Takes Mystery Out of Test Scores <gsml:a
-            href="/cgi-bin/static/press1.16.02_api.html/$STATE">more...</gsml:a></p>
-
-    <p><b>1/8/02:</b> GreatSchools.net to Help Parents Get the Most Out of ESEA <gsml:a
-            href="/cgi-bin/static/press1.8.02_esea.html/$STATE"> more...</gsml:a></p>
-
-    <p><b>10/15/01:</b> GreatSchools.net Offers Test Scores For Public Schools Across the USA<gsml:a
-            href="/cgi-bin/static/press10.15.01_national_data.html/$STATE"> more...</gsml:a></p>
-
-    <p><b>3/27/01:</b> GreatSchools.net Launches Free Online National School Directory<gsml:a
-            href="/cgi-bin/static/press3.27.01.html/$STATE"> more...</gsml:a></p>
-
-    <p><b>3/15/01:</b> Nonprofit Publishes First Comprehensive Guide to Phoenix Schools<gsml:a
-            href="/cgi-bin/static/press3.15.01.html/$STATE"> more...</gsml:a></p>
-
-    <p><b>1/30/01:</b> Tutor.com and GreatSchools.net Partner to Create GreatSchools.net Tutoring Network<gsml:a
-            href="/cgi-bin/static/press1.30.01.html/$STATE"> more...</gsml:a></p>
-</ul>
-<![CDATA[ <a name="kit"></a> ]]>
-
-<h3>Press Kit</h3>
-
-<p>Visit the GreatSchools Press Kit for facts, logos, sample school profiles, executive bios, archived news stories
-    and reader testimonials.</p>
-<p><gsml:a href="/about/pressKit.page?state=$STATE">GreatSchools Press Kit</gsml:a>   </p>
-
-<![CDATA[ <a name="contact"></a> ]]>
-
-<h3>Contact GreatSchools</h3>
-<ul class="singleSpacedList">
-    <li>GreatSchools.net</li>
-    <li>301 Howard Street, Suite 1440</li>
-    <li>San Francisco, CA 94105</li>
-    <li>415.977.0700 phone</li>
-
-    <li>415.977.0704 fax</li>
-    <li><a href="mailto:pr@greatschools.net">pr@greatschools.net</a></li>
-</ul>
 </gsml:body>
 </html>
 </jsp:root>

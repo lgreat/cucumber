@@ -402,6 +402,10 @@
         </property>
     </bean>
 
+    <bean name="/about/downloadLogo.page"
+          class="gs.web.about.DownloadLogoController" lazy-init="true">
+    </bean>
+
     <bean name="/about/pressKit.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
