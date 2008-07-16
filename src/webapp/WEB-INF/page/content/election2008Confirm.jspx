@@ -99,7 +99,7 @@
                         <p class="large">Text of email (use our message or write your own note):</p>
                         <spring:bind path="edin08Cmd.message">
                             <![CDATA[
-                          <textarea name="${status.expression}" rows="8" cols="60" wrap="soft" tabindex="4">${status.value}</textarea>
+                          <textarea name="${status.expression}" rows="8" cols="60" tabindex="4">${status.value}</textarea>
                           ]]>
                         </spring:bind>
 
