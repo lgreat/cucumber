@@ -48,8 +48,8 @@
     margin-bottom: 10px;
 }
 
-.contentLeft div {
-    margin-bottom: 18px;
+.contentLeft .content {
+    margin-bottom: 10px;
 }
 
 .contentLeft .content .description {
@@ -73,7 +73,10 @@
 
 .contentLeft .content .right {
     text-align: right;
-    margin-right: 50px;
+    margin-right: 150px;
+}
+
+.contentLeft .content .right a {
     font-size: 12px;
 }
 
