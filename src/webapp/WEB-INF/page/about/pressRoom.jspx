@@ -39,24 +39,16 @@
     <div class="contentLeft">
         <div class="content">
             <h2>Recent Press Releases <img src="/res/img/about/pressroom/pressrelease_rule.jpg" alt=""/></h2>
-            <ul>
-            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
-            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
-            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
-            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
-            <li>4/17/2008: <a href="">lorem ipsum asdf asdf as as asf asdf asdf asd asdf asdf asdf</a></li>
-            </ul>
+
+            <jsp:include page="/about/pressReleases.module"/>
+
             <div class="right"><link:pressReleases>View more &amp;gt;</link:pressReleases></div>
         </div>
         <div class="content">
             <h2>GreatSchools in the News <img src="/res/img/about/pressroom/news1_rule.jpg" alt=""/></h2>
-            <ul>
-            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
-            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
-            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
-            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
-            <li><a href="">lorem ipsumasdf  sadf asdf a sdf asdf</a> MSNBC/Today Show, 4/24/2008</li>
-            </ul>
+
+            <jsp:include page="/about/pressClippings.module"/>
+
             <div class="right"><link:pressClippings>View more &amp;gt;</link:pressClippings></div>
         </div>
         <div class="content">
