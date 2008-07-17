@@ -38,7 +38,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
             <!-- The difference in white boxes is necessary thanks to IE 6's craptastic handling of margins/widths -->
             <div class="box first">
-                <h3 id="boxFirstHeader"><img src="/res/img/content/backtoschool/parent_to_parent.gif"
+                <h3 id="boxFirstHeader"><img src="/res/img/content/backtoschool/parent_to_parent.jpg"
                      alt="Parent to Parent Stories" title=""/></h3>
 
                 <jsp:include page="/content/links.module?page=backtoschool&amp;type=random&amp;layout=q_and_a"/>
