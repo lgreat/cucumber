@@ -44,8 +44,8 @@
 .contentTopRight {
     float: right;
     width: 265px; /* 312 - 23 - 24 = 265 */
-    height: 295px; /* 335 - 20 - 20 = 295 */
-    padding: 20px 23px 20px 24px;
+    height: 315px; /* 335 - 20 - 0 = 295 */
+    padding: 20px 23px 0 24px;
     background: url(/res/img/about/blue_gradation_1px.jpg) repeat-x;
 }
 
