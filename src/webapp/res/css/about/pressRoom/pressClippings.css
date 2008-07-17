@@ -2,27 +2,41 @@
     font-size: 19px;
     color: #55BBCC;
     margin-top: 13px;
-    margin-bottom: 11px;
 }
 
 .description {
+    margin-top: 11px;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.content {
+    width: 952px;
+}
+
+.content ul {
+    /* to handle IE6 bug: http://www.webmasterworld.com/forum83/9077.htm */
+    position: relative;
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+.content li {
+    background: url(/res/img/content/article/greenarrow.gif) no-repeat left 5px;
+    padding-left: 10px;
+	margin-bottom: 2px;
+    line-height: 20px;
     font-size: 12px;
 }
 
 .contact h3 {
     font-size: 17px;
+    color: #55BBCC;
+    margin-bottom: 11px;
 }
 
 .contact {
+    margin-top: 40px;
     font-size: 12px;
+    line-height: 16px;
 }
-
-/*
-Design notes for both pages:
-1. Header: Trebuchet MS, 55BBCC, 19 px
-2. Subheader: Trebuchet MS, 666666, 17 px
-3. Body text: Trebuchet MS, 666666, 12 px
-4. Linked text: Trebuchet MS, 3399AA, 12 px w/underline on rollover
-5. Space between paragraphs: 25 px
-6. Bullets: Green arrow from "More on" area in articles, 10 px padding between bullets
-*/

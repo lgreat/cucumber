@@ -29,7 +29,7 @@
     <pageHelper:externalCss file="/res/css/about/pressRoom/pressClippings.css"/>
 </head>
 
-<gsml:body adPageName="pressRoom" pageLayout="pressRoom">
+<gsml:body adPageName="pressClippings" pageLayout="pressClippings">
 
     <div class="pageTitle">
         <h2>GreatSchools in the News</h2>
@@ -39,6 +39,10 @@
         GreatSchools has received coverage in major national, state and local newspapers, as well as radio
         and television broadcasts. Below are some highlights. Click on any title for the complete story.
         Note that you may have to register for online news stories.
+    </div>
+
+    <div class="content">
+        <jsp:include page="/about/pressClippings.module"/>
     </div>
 
     <div class="contact">

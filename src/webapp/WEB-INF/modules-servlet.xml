@@ -69,6 +69,38 @@
         <property name="productionWorksheetName" value="od7"/>
     </bean>
 
+    <bean id="pressClippingsFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pHIaC-TrslBgQGIlLNGtLQw"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+    </bean>
+
+    <bean name="/about/pressClippings.module"
+          class="gs.web.about.PressClippingsController" autowire="byName" lazy-init="true">
+        <property name="tableDao">
+            <bean factory-bean="pressClippingsFactory" factory-method="getTableDao"/>
+        </property>
+        <property name="internalWorksheetName" value="od6"/>
+        <property name="productionWorksheetName" value="od7"/>
+    </bean>
+
+    <bean id="pressReleasesFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pHIaC-TrslBggoZaQ0BWuQw"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+    </bean>
+
+    <bean name="/about/pressReleases.module"
+          class="gs.web.about.PressReleasesController" autowire="byName" lazy-init="true">
+        <property name="tableDao">
+            <bean factory-bean="pressReleasesFactory" factory-method="getTableDao"/>
+        </property>
+        <property name="internalWorksheetName" value="od6"/>
+        <property name="productionWorksheetName" value="od7"/>
+    </bean>
+
     <bean name="/promo/articleCommunityWidget.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

@@ -1,0 +1,18 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+
+    <c:if test="${!empty requestScope.modelPressReleases}">
+        <ul>
+        <c:forEach var="release" items="${requestScope.modelPressReleases}">
+            <li><span class="date">${release.date}:</span>&amp;nbsp;<a href="${release.url}">${release.text}</a></li>
+        </c:forEach>
+        </ul>
+    </c:if>
+
+</jsp:root>
