@@ -402,6 +402,22 @@
         </property>
     </bean>
 
+    <bean name="/about/pressRoom/pressReleases.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/pressRoom/pressReleases</value>
+        </property>
+    </bean>
+
+    <bean name="/about/pressRoom/pressClippings.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/pressRoom/pressClippings</value>
+        </property>
+    </bean>
+
     <bean name="/about/downloadLogo.page"
           class="gs.web.about.DownloadLogoController" lazy-init="true">
     </bean>

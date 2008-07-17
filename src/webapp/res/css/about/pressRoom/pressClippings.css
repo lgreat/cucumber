@@ -1,0 +1,28 @@
+.pageTitle h2 {
+    font-size: 19px;
+    color: #55BBCC;
+    margin-top: 13px;
+    margin-bottom: 11px;
+}
+
+.description {
+    font-size: 12px;
+}
+
+.contact h3 {
+    font-size: 17px;
+}
+
+.contact {
+    font-size: 12px;
+}
+
+/*
+Design notes for both pages:
+1. Header: Trebuchet MS, 55BBCC, 19 px
+2. Subheader: Trebuchet MS, 666666, 17 px
+3. Body text: Trebuchet MS, 666666, 12 px
+4. Linked text: Trebuchet MS, 3399AA, 12 px w/underline on rollover
+5. Space between paragraphs: 25 px
+6. Bullets: Green arrow from "More on" area in articles, 10 px padding between bullets
+*/
