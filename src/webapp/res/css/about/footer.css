@@ -8,8 +8,6 @@
     float: left;
     padding-top: 10px;
     width: 952px;
-    /* special handling for IE6 to prevent extra 10px gap between contentTop and contentBottom */
-    _margin-top: -10px;
 }
 
 .moduleBox {

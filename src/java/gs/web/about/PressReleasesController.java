@@ -23,6 +23,7 @@ public class PressReleasesController extends AbstractController {
 
     public static final String VIEW_NAME = "/about/pressReleases";
     public static final String MODEL_PRESS_RELEASES = "modelPressReleases";
+    public static final String PARAM_FIRST = "first";
     public static final String SPREADSHEET_TEXT = "text";
     public static final String SPREADSHEET_URL = "url";
     public static final String SPREADSHEET_DATE = "date";
@@ -35,18 +36,30 @@ public class PressReleasesController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
         injectWorksheetName(request);
 
+        boolean includeAll = true;
+        int numToInclude = 0;
+        if (request.getParameter(PARAM_FIRST) != null) {
+            numToInclude = Integer.parseInt(request.getParameter(PARAM_FIRST));
+            includeAll = false;
+        }
+
         // Note: GoogleSpreadsheetDao returns an empty list of ITableRow if no results found.
 
         List<PressRelease> releases = new ArrayList<PressRelease>();
 
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
         List<ITableRow> rows = _tableDao.getAllRows();
+        int count = 0;
         for (ITableRow row : rows) {
-            PressRelease release = new PressRelease();
-            release.setText(row.getString(SPREADSHEET_TEXT));
-            release.setUrl(row.getString(SPREADSHEET_URL));
-            release.setDate(row.getString(SPREADSHEET_DATE));
-            releases.add(release);
+            count++;
+
+            if (includeAll || count <= numToInclude) {
+                PressRelease release = new PressRelease();
+                release.setText(row.getString(SPREADSHEET_TEXT));
+                release.setUrl(row.getString(SPREADSHEET_URL));
+                release.setDate(row.getString(SPREADSHEET_DATE));
+                releases.add(release);
+            }
         }
         modelAndView.addObject(MODEL_PRESS_RELEASES, releases);
 

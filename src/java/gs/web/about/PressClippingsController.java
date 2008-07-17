@@ -23,6 +23,7 @@ public class PressClippingsController extends AbstractController {
 
     public static final String VIEW_NAME = "/about/pressClippings";
     public static final String MODEL_PRESS_CLIPPINGS = "modelPressClippings";
+    public static final String PARAM_FIRST = "first";
     public static final String SPREADSHEET_TEXT = "text";
     public static final String SPREADSHEET_URL = "url";
     public static final String SPREADSHEET_SOURCE = "source";
@@ -36,19 +37,31 @@ public class PressClippingsController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
         injectWorksheetName(request);
 
+        boolean includeAll = true;
+        int numToInclude = 0;
+        if (request.getParameter(PARAM_FIRST) != null) {
+            numToInclude = Integer.parseInt(request.getParameter(PARAM_FIRST));
+            includeAll = false;
+        }
+
         // Note: GoogleSpreadsheetDao returns an empty list of ITableRow if no results found.
 
         List<PressClipping> clippings = new ArrayList<PressClipping>();
 
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
         List<ITableRow> rows = _tableDao.getAllRows();
+        int count = 0;
         for (ITableRow row : rows) {
-            PressClipping clipping = new PressClipping();
-            clipping.setText(row.getString(SPREADSHEET_TEXT));
-            clipping.setUrl(row.getString(SPREADSHEET_URL));
-            clipping.setSource(row.getString(SPREADSHEET_SOURCE));
-            clipping.setDate(row.getString(SPREADSHEET_DATE));
-            clippings.add(clipping);
+            count++;
+
+            if (includeAll || count <= numToInclude) {
+                PressClipping clipping = new PressClipping();
+                clipping.setText(row.getString(SPREADSHEET_TEXT));
+                clipping.setUrl(row.getString(SPREADSHEET_URL));
+                clipping.setSource(row.getString(SPREADSHEET_SOURCE));
+                clipping.setDate(row.getString(SPREADSHEET_DATE));
+                clippings.add(clipping);
+            }
         }
         modelAndView.addObject(MODEL_PRESS_CLIPPINGS, clippings);
 

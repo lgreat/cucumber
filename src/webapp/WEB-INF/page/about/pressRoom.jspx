@@ -40,14 +40,14 @@
         <div class="content">
             <h2>Recent Press Releases <img src="/res/img/about/pressroom/pressrelease_rule.jpg" alt=""/></h2>
 
-            <jsp:include page="/about/pressReleases.module"/>
+            <jsp:include page="/about/pressReleases.module?first=5"/>
 
             <div class="right"><link:pressReleases>View more &amp;gt;</link:pressReleases></div>
         </div>
         <div class="content">
             <h2>GreatSchools in the News <img src="/res/img/about/pressroom/news1_rule.jpg" alt=""/></h2>
 
-            <jsp:include page="/about/pressClippings.module"/>
+            <jsp:include page="/about/pressClippings.module?first=5"/>
 
             <div class="right"><link:pressClippings>View more &amp;gt;</link:pressClippings></div>
         </div>
