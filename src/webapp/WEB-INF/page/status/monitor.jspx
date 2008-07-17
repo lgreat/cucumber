@@ -100,11 +100,6 @@
         <td class="statuserror"></td>
     </tr>
     <tr>
-        <td class="statustitle">HTTP_X_CLUSTER_CLIENT_IP header</td>
-        <td class="statusvalue">${x_cluster_client_ip_header}</td>
-        <td class="statuserror"></td>
-    </tr>
-    <tr>
         <td class="statustitle">HTTP_X_CLUSTER_CLIENT_IP attribute</td>
         <td class="statusvalue">${x_cluster_client_ip_attr}</td>
         <td class="statuserror"></td>
