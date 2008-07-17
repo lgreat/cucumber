@@ -24,6 +24,7 @@ GSType.submodal.interceptor.getComparisonNumber = function(){
     return ms % 100 ;
 };
 
+
 GSType.submodal.interceptor.userIsLoggedIn = function(cookieName){
     // if cookie MEMID exists, the user is logged in
     var value = readCookie(cookieName);
@@ -45,6 +46,7 @@ var subModalInterceptor = {
     cookieName: '',
     cookieProperty: '',
     userLoggedInCookieName: '',
+    ajaxRequest: null,
     evaluate: function(hoverName) {
         if (this.hoverName != hoverName){
             return false;
@@ -61,7 +63,7 @@ var subModalInterceptor = {
         return x < this.interceptPercent;
     },
     init: function(){
-        this.interceptPercent = 50;
+        this.interceptPercent = 0;
         this.hoverName = 'hoverNewsMss';
         this.hoverUrl = '/promo/surveyPromoHover.page';
         this.hoverHeight = 0;
@@ -73,16 +75,36 @@ var subModalInterceptor = {
         this.getComparisonNumber = GSType.submodal.interceptor.getComparisonNumber;
         this.userIsLoggedIn = GSType.submodal.interceptor.userIsLoggedIn;
         this.userLoggedInCookieName = 'MEMID';
-
     },
     setPresentedToUser: function(){
         subCookie.setObjectProperty(this.cookieName, this.cookieProperty, new Date().toDateString(),1000);
     },
     evaluateFrequencyRule: function(cookieName, propertyName){return false;},
     getComparisonNumber: function(){return 0;},
-    userIsLoggedIn: function(cookieName){return false}};
+    userIsLoggedIn: function(cookieName){return false},
+    getSurveyHoverInterceptConfiguration: function(){
+        this.getInterceptPercentAjaxRequest(this.getInterceptPercentAjaxResponse);
+    },
+    getInterceptPercentAjaxRequest: function(callBack){
+        this.ajaxRequest = new XMLHttpRequest();
+        this.ajaxRequest.open('GET', '/promo/getSurveyHoverInterceptConfiguration.page', false);
+        this.ajaxRequest.onreadystatechange = callBack;
+        this.ajaxRequest.send(null);
+    },
+    getInterceptPercentAjaxResponse: function(){
+        subModalInterceptor.interceptPercent = 0;
+
+        if( subModalInterceptor.ajaxRequest.readyState == 4 && subModalInterceptor.ajaxRequest.status == 200 ) {
+            var percent = parseInt(subModalInterceptor.ajaxRequest.responseText);
+            if (percent != undefined && percent != NaN && percent >= 0 && percent <= 100) {
+                subModalInterceptor.interceptPercent = percent;
+            }
+        }
+    }
+};
 
 subModalInterceptor.init();
+subModalInterceptor.getSurveyHoverInterceptConfiguration();
 
 var gPopupMask = null;
 var gPopupContainer = null;
