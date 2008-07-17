@@ -1,0 +1,22 @@
+#pageGS {
+    width: 976px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666666;
+}
+
+#adLeaderboard {
+    width: 976px;
+}
+
+#topnav table#nav {
+    width: 952px;
+}
+
+#contentGS {
+    width: 952px;
+    margin: 0 12px 25px;
+}
+
+#contentGS a {
+    color: #3399AA;
+}

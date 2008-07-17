@@ -28,6 +28,7 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="Description" content="About Us"/>
         <title>About Us</title>
+        <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
     </head>
 
