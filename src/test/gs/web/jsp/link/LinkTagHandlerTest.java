@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.44 2008/07/15 16:26:21 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.45 2008/07/17 18:30:02 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -571,5 +571,19 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertNotNull(results);
         assertTrue(results.indexOf("<option value=\"10\" selected=\"selected\">10</option>") > -1);
         assertTrue(results.indexOf("<option value=\"KG\">K</option>") > -1);
+    }
+
+    public void testParentRatingsExplainedTagHandler() throws IOException {
+        ParentRatingsExplainedTagHandler handler = new ParentRatingsExplainedTagHandler();
+        handler.setPageContext(new MockPageContext());
+
+        UrlBuilder builder = handler.createUrlBuilder();
+        assertEquals("/definitions/parent_rating_categories.html",
+                builder.asSiteRelative(null));
+
+        handler.setPreschool(true);
+        builder = handler.createUrlBuilder();
+        assertEquals("/definitions/preschool_rating_categories.html",
+                builder.asSiteRelative(null));
     }
 }

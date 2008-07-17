@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.108 2008/07/16 23:40:53 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.109 2008/07/17 18:30:00 aroy Exp $
  */
 
 package gs.web.util;
@@ -188,6 +188,7 @@ public class UrlBuilder {
     public static final VPage PARENT_REVIEW_GUIDELINES = new VPage("vpage:parentReviewGuidelines");
     public static final VPage PARENT_REVIEW_LEARN_MORE = new VPage("vpage:parentReviewLearnMore");
     public static final VPage PARENT_RATING_EXPLAINED = new VPage("vpage:parentRatingExplained");
+    public static final VPage PARENT_RATING_PRESCHOOL_EXPLAINED = new VPage("vpage:parentRatingPreschoolExplained");
 
     /** Editorial Microsites */
     public static final VPage SCHOOL_CHOICE_CENTER = new VPage("vpage:schoolChoiceCenter");
@@ -736,7 +737,10 @@ public class UrlBuilder {
             _path = "/cgi-bin/static/parentcomments.html/" + state.getAbbreviationLowerCase() +"/";
         } else if (PARENT_RATING_EXPLAINED.equals(page)) {
             _perlPage = true;
-            _path = "/cgi-bin/static/what_ratings_mean.html/" + state.getAbbreviationLowerCase() +"/";
+            _path = "/definitions/parent_rating_categories.html";
+        } else if (PARENT_RATING_PRESCHOOL_EXPLAINED.equals(page)) {
+            _perlPage = true;
+            _path = "/definitions/preschool_rating_categories.html";
         } else if (PARENT_REVIEW_GUIDELINES.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/static/guidelines.html/" + state.getAbbreviationLowerCase() + "/";

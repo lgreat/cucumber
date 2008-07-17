@@ -2278,6 +2278,13 @@
             <![CDATA[Link to parent ratings explanation page.]]>
         </description>
         <attribute>
+            <name>preschool</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>True if these are preschool ratings, defaults to false</description>
+        </attribute>
+        <attribute>
             <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -2290,6 +2297,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>JavaScript onclick attribute</description>
         </attribute>
     </tag>
     <tag>

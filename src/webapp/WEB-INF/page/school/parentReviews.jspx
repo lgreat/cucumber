@@ -94,7 +94,8 @@
                                             <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
                                         </c:if>
                                     </ul>
-                                    <p class="categoriesMore"><a href="#">More about these categories &#62;</a></p>
+                                    <p class="categoriesMore"><link:parentRatingsExplained preschool="true" target="_blank"
+                                                                                           onclick="window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=544,height=480,left=50,top=50'); return false;">More about these categories &#62;</link:parentRatingsExplained></p>
                                 </c:when>
                                 <c:when test="${cmd.ratings.gradeschool}">
                                     <ul>
@@ -114,7 +115,8 @@
                                             <li>Safety and Discipline<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgSafety}.gif" alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
                                         </c:if>
                                     </ul>
-                                    <p class="categoriesMore"><link:parentRatingsExplained>More about these categories &#62;</link:parentRatingsExplained></p>
+                                    <p class="categoriesMore"><link:parentRatingsExplained target="_blank"
+                                                                                           onclick="window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=544,height=480,left=50,top=50'); return false;">More about these categories &#62;</link:parentRatingsExplained></p>
                                 </c:when>
                             </c:choose>
                         </div><!-- end: showParentRatings -->
