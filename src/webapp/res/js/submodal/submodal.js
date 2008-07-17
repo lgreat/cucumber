@@ -59,6 +59,7 @@ var subModalInterceptor = {
                 return false;
             }
         }
+        this.getSurveyHoverInterceptConfiguration();
         var x = this.getComparisonNumber();
         return x < this.interceptPercent;
     },
@@ -104,7 +105,7 @@ var subModalInterceptor = {
 };
 
 subModalInterceptor.init();
-subModalInterceptor.getSurveyHoverInterceptConfiguration();
+
 
 var gPopupMask = null;
 var gPopupContainer = null;
