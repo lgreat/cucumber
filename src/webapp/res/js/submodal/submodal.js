@@ -87,7 +87,18 @@ var subModalInterceptor = {
         this.getInterceptPercentAjaxRequest(this.getInterceptPercentAjaxResponse);
     },
     getInterceptPercentAjaxRequest: function(callBack){
-        this.ajaxRequest = new XMLHttpRequest();
+
+        if (window.XMLHttpRequest)
+        {
+            this.ajaxRequest = new XMLHttpRequest();
+        }
+        else if(window.ActiveXObject)
+        {
+            this.ajaxRequest =  new ActiveXObject("Microsoft.XMLHTTP");
+        } else {
+            return;
+        }
+
         this.ajaxRequest.open('GET', '/promo/getSurveyHoverInterceptConfiguration.page', false);
         this.ajaxRequest.onreadystatechange = callBack;
         this.ajaxRequest.send(null);
