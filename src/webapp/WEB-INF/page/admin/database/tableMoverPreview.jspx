@@ -85,12 +85,17 @@
         </div>
     </div>
 
-    <div class="yui-u">
+    <div class="yui-u" style="position:relative">
         <h2>Tables To Move</h2>
+        <span style="position:absolute;top:18px;left:140px">(Click <gsml:img src="/res/img/admin/delete_bw.gif"
+                                                                             alt="delete help"
+                                                                             style="vertical-align:middle;"/> to exclude a table)</span>
 
         <div style="height:307px;overflow:auto;border:1px solid">
             <c:forEach var="table" items="${tableMoverCmd.tables}">
-                ${table}<br/>
+                <span><gsml:img src="/res/img/admin/delete_bw.gif" rollover="/res/img/admin/delete_red.gif"
+                                styleClass="deleteButton" alt="${table}"
+                                style="vertical-align:middle;"/> ${table}<br/></span>
             </c:forEach>
         </div>
     </div>
@@ -122,9 +127,11 @@
                 <input type="hidden" name="states" value="${state}"/>
             </c:forEach>
 
-            <c:forEach var="table" items="${tableMoverCmd.tables}">
-                <input type="hidden" name="tables" value="${table}"/>
-            </c:forEach>
+            <div id="tables">
+                <c:forEach var="table" items="${tableMoverCmd.tables}">
+                    <input type="hidden" name="tables" value="${table}"/>
+                </c:forEach>
+            </div>
 
             <c:forEach var="tableset" items="${tableMoverCmd.tablesets}">
                 <input type="hidden" name="tablesets" value="${tableset}"/>
@@ -140,28 +147,34 @@
     <script type="text/javascript">
         $("#moveButton").click(
                 function() {
-                    $('#warnings').hide();
-                    $('#working').show();
-                    $('#previewForm').hide();
-                    $.post("/admin/database/tableMover.page",
-                            $('#previewForm').serialize(),
-                            function(response) {
-                                $('#wiki').html(response);
-                                $('#working').hide();
-                                $('#completed').show('slow');
-                                return false;
-                            }
-                            );
+                    if ($('input[name=tables]').length > 0) {
+                        $('#warnings').hide();
+                        $('#working').show();
+                        $('#previewForm').hide();
+                        $.post("/admin/database/tableMover.page",
+                                $('#previewForm').serialize(),
+                                function(response) {
+                                    $('#wiki').html(response);
+                                    $('#working').hide();
+                                    $('#completed').show('slow');
+                                    return false;
+                                }
+                                );
+                    } else {
+                        alert("Sorry, there are no tables left to move!")
+                    }
                     return false;
-                }
-                );
+                });
         $("#backButton").click(
                 function() {
-                    // $('#previewForm').attr('method', 'get');
                     $('#mode').attr('value', 'edit');
                     return true;
-                }
-                );
+                });
+        $(".deleteButton").click(
+                function() {
+                    $('input[name=tables][value=' + $(this).attr('alt') + ']').remove();
+                    $(this).parent().fadeOut('slow');
+                });
     </script>
 </div>
 </form:form>
