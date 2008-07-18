@@ -19,9 +19,9 @@
     <option value="3">Third grade</option>
     <option value="4">Fourth grade</option>
     <option value="5">Fifth grade</option>
-    <option value="6">Grade 6</option>
-    <option value="7">Grade 7</option>
-    <option value="8">Grade 8</option>
+    <option value="6">Sixth grade</option>
+    <option value="7">Seventh grade</option>
+    <option value="8">Eighth grade</option>
 </select>
 
 <div id="abc_content" style="position:absolute;top:131px;">
