@@ -11,17 +11,24 @@
     <body>
     <script language="JavaScript">
 
-        var positiveFrequencyRule = function(cookieName, propertyName){return true;};
-        var negativeFrequencyRule = function(cookieName, propertyName){return false;};
-        var positiveComparisonNumber = function(){return subModalInterceptor.interceptPercent -1};
-        var negativeComparisonNumber = function(){return subModalInterceptor.interceptPercent +1};
-        var positiveUserIsNotLoggedIn = function(){ return false; };
-        var negativeUserIsLoggedIn = function(){return true;};
+        var userShouldSeeAlternateHover_ALWAYS_TRUE = function(cookieName, propertyName){return true;};
+        var userShouldSeeAlternateHover_ALWAYS_FALSE = function(cookieName, propertyName){return false;};
+
+        var generateRandomNumber_THAT_IS_LESS_THAN_INTERCEPT_PERCENT = function(){return subModalInterceptor.interceptPercent -1};
+        var generateRandomNumber_THAT_IS_GREATER_THAN_INTERCEPT_PERCENT = function(){return subModalInterceptor.interceptPercent +1};
+
+        var userLoggedInCookieName = 'TestUserLoggedIn';
+        var userNotLoggedInCookieName = 'TestUserNotLoggedIn';
+
+        var isUserLoggedIn_ALWAYS_FALSE = function(){ return false; };
+        var isUserLoggedIn_ALWAYS_TRUE = function(){return true;};
+
+
         var cookieExistsPropertyDoesNot = 'TestCookie6660A';
         var cookieExistsPropertyExists = 'TestCookie6660B';
         var cookieDoesNotExist = 'jiberishCookeThatDoesNotExist';
-        var userLoggedInCookieName = 'TestUserLoggedIn';
-        var userNotLoggedInCookieName = 'TestUserNotLoggedIn';
+
+
         var getSurveyHoverInterceptConfiguration = function(){};
 
         var getInterceptPercentAjaxRequest = function(callBack){
@@ -30,6 +37,7 @@
                 subModalInterceptor.ajaxRequest.open('GET', 'HTTP://localhost:8080/promo/getSurveyHoverInterceptConfiguration.page', false);
                 subModalInterceptor.ajaxRequest.onreadystatechange = callBack;
                 subModalInterceptor.ajaxRequest.send(null);
+                info("subModalInterceptor.interceptPercent: " + subModalInterceptor.interceptPercent);
             }catch(e){
                 info("getInterceptPercentAjaxRequest - had a problem: " + e);
             }
@@ -43,12 +51,12 @@
 
             subCookie.setObjectProperty(cookieExistsPropertyDoesNot, 'junk', '');
             var cookieObject = subCookie.getObject(cookieExistsPropertyDoesNot);
-            assertNotUndefined("Expect cookieExistsPropertyDoesNot to exist", cookieObject);
+            assertNotUndefined("Expect cookieExistsPropertyDoesNot that was just created to exist", cookieObject);
 
             subCookie.setObjectProperty(cookieExistsPropertyExists, subModalInterceptor.cookieProperty, 'Exists') ;
             cookieObject = subCookie.getObject(cookieExistsPropertyExists);
-            assertNotUndefined("Expect cookieExistsPropertyExists to exist", cookieObject);
-            assertEquals("Expect cookieObject[subModalInterceptor.cookieProperty] to be", 'Exists',
+            assertNotUndefined("Expect cookieExistsPropertyExists that was just created to exist", cookieObject);
+            assertEquals("Expect cookieObject[subModalInterceptor.cookieProperty] that was just set to be", 'Exists',
                     cookieObject[subModalInterceptor.cookieProperty] );
 
             createCookie(userLoggedInCookieName, '12345');
@@ -56,106 +64,107 @@
 
         }
 
-        function testSubmodalInterceptorEvaluate(){
-            subModalInterceptor.getInterceptPercentAjaxRequest = getInterceptPercentAjaxRequest;
+        function testSubmodalInterceptorShouldIntercept(){
+            subModalInterceptor.getInterceptConfigurationAjaxRequest = getInterceptPercentAjaxRequest;
 
             //Test 1: positive
-            //      comparison number
-            //      frequency rule
-            //      hover name match
-            //      user not logged in
-            subModalInterceptor.getComparisonNumber = positiveComparisonNumber;
-            subModalInterceptor.evaluateFrequencyRule = positiveFrequencyRule;
-            subModalInterceptor.userIsLoggedIn = positiveUserIsNotLoggedIn;
+            //      random number less than intercept percent - true
+            //      user should see alternate hover - true
+            //      hover name match - true
+            //      user logged in - false
+            subModalInterceptor.generateRandomNumber = generateRandomNumber_THAT_IS_LESS_THAN_INTERCEPT_PERCENT;
+            subModalInterceptor.userShouldSeeAlternateHover = userShouldSeeAlternateHover_ALWAYS_TRUE;
+            subModalInterceptor.userIsLoggedIn = isUserLoggedIn_ALWAYS_FALSE;
 
             var hoverName = subModalInterceptor.hoverName;
 
-            var evaluateResult = subModalInterceptor.evaluate(hoverName);
-            assertNotUndefined("Test 1: Expect a boolean value result from evaluate()", evaluateResult);
-            assertEquals("Test 1: Expect evaluateResult to be", true, evaluateResult);
+            var evaluateResult = subModalInterceptor.shouldIntercept(hoverName);
+            assertNotUndefined("Test 1: subModalInterceptor.shouldIntercept() should always return a boolean value result", evaluateResult);
+            assertEquals("Test 1: subModalInterceptor.shouldIntercept() should be ture when all of the conditions have been met", true, evaluateResult);
 
             //Test 2: negative
-            //      positive comparison number
-            //      positive frequency rule
-            //      negative hover name match
-            //      user not logged in
+            //      random number less than intercept percent - true
+            //      user should see alternate hover - true
+            //      hover name match - FALSE
+            //      user logged in - false
+
             hoverName = "The wrong one";
 
-            evaluateResult = subModalInterceptor.evaluate(hoverName);
-            assertNotUndefined("Test 2: Expect a boolean value result from evaluate()", evaluateResult);
-            assertEquals("Test 2: Expect evaluateResult to be", false, evaluateResult);
+            evaluateResult = subModalInterceptor.shouldIntercept(hoverName);
+            assertNotUndefined("Test 2: subModalInterceptor.shouldIntercept() should always return a boolean value result", evaluateResult);
+            assertEquals("Test 2:subModalInterceptor.shouldIntercept() should be false when the hoverName does not match", false, evaluateResult);
 
             //Test 3: negative
-            //      positive comparison number
-            //      negative frequency rule
-            //      positive hover name match
-            //      user not logged in
-            subModalInterceptor.evaluateFrequencyRule = negativeFrequencyRule;
+            //      random number less than intercept percent - true
+            //      user should see alternate hover - false
+            //      hover name match - true
+            //      user logged in - false
+            subModalInterceptor.userShouldSeeAlternateHover = userShouldSeeAlternateHover_ALWAYS_FALSE;
             hoverName = subModalInterceptor.hoverName;
 
-            evaluateResult = subModalInterceptor.evaluate(hoverName);
-            assertNotUndefined("Test 3: Expect a boolean value result from evaluate()", evaluateResult);
-            assertEquals("Test 3: Expect evaluateResult to be", false, evaluateResult);
+            evaluateResult = subModalInterceptor.shouldIntercept(hoverName);
+            assertNotUndefined("Test 3: subModalInterceptor.shouldIntercept() should always return a boolean value result", evaluateResult);
+            assertEquals("Test 3:subModalInterceptor.shouldIntercept() should be false when the user should see alternate hover is false", false, evaluateResult);
 
             //Test 4: negative
-            //      negative comparison number
-            //      positive frequency rule
-            //      positive hover name match
-            //      user not logged in
-            subModalInterceptor.getComparisonNumber = negativeComparisonNumber;
-            subModalInterceptor.evaluateFrequencyRule = positiveFrequencyRule;
+            //      random number less than intercept percent - false
+            //      user should see alternate hover - true
+            //      hover name match - true
+            //      user logged in - false
+            subModalInterceptor.generateRandomNumber = generateRandomNumber_THAT_IS_GREATER_THAN_INTERCEPT_PERCENT;
+            subModalInterceptor.userShouldSeeAlternateHover = userShouldSeeAlternateHover_ALWAYS_TRUE;
             hoverName = subModalInterceptor.hoverName;
 
-            evaluateResult = subModalInterceptor.evaluate(hoverName);
-            assertNotUndefined("Test 4: Expect a boolean value result from evaluate()", evaluateResult);
-            assertEquals("Test 4: Expect evaluateResult to be", false, evaluateResult);
+            evaluateResult = subModalInterceptor.shouldIntercept(hoverName);
+            assertNotUndefined("Test 4: subModalInterceptor.shouldIntercept() should always return a boolean value result", evaluateResult);
+            assertEquals("Test 4:subModalInterceptor.shouldIntercept() should be false when the random number is not less than the intercept percent", false, evaluateResult);
 
             //Test 5: negative
-            //      positve comparison number
-            //      positive frequency rule
-            //      positive hover name match
-            //      user is logged in
-            subModalInterceptor.getComparisonNumber = positiveComparisonNumber;
-            subModalInterceptor.evaluateFrequencyRule = positiveFrequencyRule;
+            //      random number less than intercept percent - true
+            //      user should see alternate hover - true
+            //      hover name match - true
+            //      user logged in - true
+            subModalInterceptor.generateRandomNumber = generateRandomNumber_THAT_IS_LESS_THAN_INTERCEPT_PERCENT;
+            subModalInterceptor.userShouldSeeAlternateHover = userShouldSeeAlternateHover_ALWAYS_TRUE;
             hoverName = subModalInterceptor.hoverName;
-            subModalInterceptor.userIsLoggedIn = negativeUserIsLoggedIn;
+            subModalInterceptor.userIsLoggedIn = isUserLoggedIn_ALWAYS_TRUE;
 
-            evaluateResult = subModalInterceptor.evaluate(hoverName);
-            assertNotUndefined("Test 5: Expect a boolean value result from evaluate()", evaluateResult);
-            assertEquals("Test 5: Expect evaluateResult to be", false, evaluateResult);            
+            evaluateResult = subModalInterceptor.shouldIntercept(hoverName);
+            assertNotUndefined("Test 5: subModalInterceptor.shouldIntercept() should always return a boolean value result", evaluateResult);
+            assertEquals("Test 5:subModalInterceptor.shouldIntercept() should be false when the user is logged in", false, evaluateResult);
         }
 
-        function testEvaluateFrequencyRule(){
+        function testUserShouldSeeAlternateHover(){
             var cookieName = cookieDoesNotExist;
             var property = subModalInterceptor.cookieProperty;
             // Test 1: positive - cookie does not exist
-            var evaluateFrequencyRuleResult = subModalInterceptor.evaluateFrequencyRule(cookieName,property);
-            assertNotUndefined("Test 1: Expect a boolean result for subModalInterceptor.evaluateFrequencyRule()",
+            var evaluateFrequencyRuleResult = subModalInterceptor.userShouldSeeAlternateHover(cookieName,property);
+            assertNotUndefined("Test 1: Expect a boolean result for subModalInterceptor.userShouldSeeAlternateHover()",
                     evaluateFrequencyRuleResult);
-            assertEquals("Test 1: Expect evaluateFrequencyRuleResult to be", true, evaluateFrequencyRuleResult);
+            assertEquals("Test 1: userShouldSeeAlternateHover() should be true when the cookie that indicates it shouldn't been seen does not exist", true, evaluateFrequencyRuleResult);
 
             // Test 2: positive - cookie does exist, but property does not
             cookieName = cookieExistsPropertyDoesNot;
 
-            evaluateFrequencyRuleResult = subModalInterceptor.evaluateFrequencyRule(cookieName,property);
+            evaluateFrequencyRuleResult = subModalInterceptor.userShouldSeeAlternateHover(cookieName,property);
             assertNotUndefined("Test 2: Expect a boolean result for subModalInterceptor.evaluateFrequencyRule()",
                     evaluateFrequencyRuleResult);
-            assertEquals("Test 2: Expect evaluateFrequencyRuleResult to be", true, evaluateFrequencyRuleResult);
+            assertEquals("Test 2: userShouldSeeAlternateHover() should be true when the subcookie property on the cookie that indicates it shouldn't been seen does not exist", true, evaluateFrequencyRuleResult);
 
             // Test 3: negative - cookie does exist and property exists
             cookieName = cookieExistsPropertyExists;
 
-            evaluateFrequencyRuleResult = subModalInterceptor.evaluateFrequencyRule(cookieName,property);
+            evaluateFrequencyRuleResult = subModalInterceptor.userShouldSeeAlternateHover(cookieName,property);
             assertNotUndefined("Test 3: Expect a boolean result for subModalInterceptor.evaluateFrequencyRule()",
                     evaluateFrequencyRuleResult);
-            assertEquals("Test 3: Expect evaluateFrequencyRuleResult to be", false, evaluateFrequencyRuleResult);
+            assertEquals("Test 3: userShouldSeeAlternateHover() should be false subcookie property that indicates the it shouldn't be seen has been set to any value", false, evaluateFrequencyRuleResult);
         }
 
-        function testGetComparisonNumber(){
+        function testGenerateRandomNumber(){
             var counter = 0;
             subModalInterceptor.interceptPercent = 39;
             for(var i=0; i<10000; i++){
-                var result = subModalInterceptor.getComparisonNumber();
+                var result = subModalInterceptor.generateRandomNumber();
                 assertNotUndefined("Expect result to be a number", result);
                 assertEquals("Expect result to be >= 0", true, result >= 0);
 
@@ -172,7 +181,7 @@
             counter = 0;
             subModalInterceptor.interceptPercent = 0;
             for(var i=0; i<10000; i++){
-                var result = subModalInterceptor.getComparisonNumber();
+                var result = subModalInterceptor.generateRandomNumber();
                 assertNotUndefined("Expect result to be a number", result);
                 assertEquals("Expect result to be >= 0", true, result >= 0);
 
@@ -192,7 +201,7 @@
             
             var result = subModalInterceptor.userIsLoggedIn(cookieName);
             debug(result);
-            assertEquals("Test 1: Expect result to be", true, result);
+            assertEquals("Test 1: Expect  subModalInterceptor.userIsLoggedIn() to be true when cookie has a value", true, result);
 
 
             //Test 2: user is not logged in
@@ -200,7 +209,7 @@
             
             result = subModalInterceptor.userIsLoggedIn(cookieName);
             debug(result);
-            assertEquals("Test 2: Expect result to be", false, result);
+            assertEquals("Test 2: Expect  subModalInterceptor.userIsLoggedIn() to be false when cookie does not not exist", false, result);
 
         }
 

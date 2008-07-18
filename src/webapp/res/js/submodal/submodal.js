@@ -4,8 +4,7 @@ if (GSType.submodal == undefined)
     GSType.submodal = {};
 
 GSType.submodal.interceptor = {};
-GSType.submodal.interceptor.evaluateFrequencyRule = function(cookieName, propertyName){
-    //todo: implement a cookie based solution such that the user only sees the survey once in a lifetime.
+GSType.submodal.interceptor.userShouldSeeAlternateHover = function(cookieName, propertyName){
     var dataObject = subCookie.getObject(cookieName);
     //alert(dataObject != undefined ? dataObject[propertyName]: "dataObject is undefined");
     if (dataObject == undefined) {
@@ -17,7 +16,7 @@ GSType.submodal.interceptor.evaluateFrequencyRule = function(cookieName, propert
     return  false;
 };
 
-GSType.submodal.interceptor.getComparisonNumber = function(){
+GSType.submodal.interceptor.generateRandomNumber = function(){
     // returns a psuedo random (based on time in ms) number between 0 and 99
     var now = new Date();
     var ms = now.getTime();
@@ -47,20 +46,20 @@ var subModalInterceptor = {
     cookieProperty: '',
     userLoggedInCookieName: '',
     ajaxRequest: null,
-    evaluate: function(hoverName) {
+    shouldIntercept: function(hoverName) {
         if (this.hoverName != hoverName){
             return false;
         }
         if (this.userIsLoggedIn(this.userLoggedInCookieName)){
             return false;
         }
-        if (this.evaluateFrequencyRule != undefined) {
-            if (!this.evaluateFrequencyRule()){
+        if (this.userShouldSeeAlternateHover != undefined) {
+            if (!this.userShouldSeeAlternateHover()){
                 return false;
             }
         }
-        this.getSurveyHoverInterceptConfiguration();
-        var x = this.getComparisonNumber();
+        this.getInterceptConfiguration();
+        var x = this.generateRandomNumber();
         return x < this.interceptPercent;
     },
     init: function(){
@@ -72,21 +71,21 @@ var subModalInterceptor = {
         this.newHoverName = 'suveryHover';
         this.cookieName = 'surveyHoverPromo';
         this.cookieProperty = 'GS-6660';
-        this.evaluateFrequencyRule = GSType.submodal.interceptor.evaluateFrequencyRule;
-        this.getComparisonNumber = GSType.submodal.interceptor.getComparisonNumber;
+        this.userShouldSeeAlternateHover = GSType.submodal.interceptor.userShouldSeeAlternateHover;
+        this.generateRandomNumber = GSType.submodal.interceptor.generateRandomNumber;
         this.userIsLoggedIn = GSType.submodal.interceptor.userIsLoggedIn;
         this.userLoggedInCookieName = 'MEMID';
     },
     setPresentedToUser: function(){
         subCookie.setObjectProperty(this.cookieName, this.cookieProperty, new Date().toDateString(),1000);
     },
-    evaluateFrequencyRule: function(cookieName, propertyName){return false;},
-    getComparisonNumber: function(){return 0;},
+    userShouldSeeAlternateHover: function(cookieName, propertyName){return false;},
+    generateRandomNumber: function(){return 0;},
     userIsLoggedIn: function(cookieName){return false},
-    getSurveyHoverInterceptConfiguration: function(){
-        this.getInterceptPercentAjaxRequest(this.getInterceptPercentAjaxResponse);
+    getInterceptConfiguration: function(){
+        this.getInterceptConfigurationAjaxRequest(this.getInterceptConfigurationAjaxResponse);
     },
-    getInterceptPercentAjaxRequest: function(callBack){
+    getInterceptConfigurationAjaxRequest: function(callBack){
 
         if (window.XMLHttpRequest)
         {
@@ -98,12 +97,12 @@ var subModalInterceptor = {
         } else {
             return;
         }
-
+        // request should be synchronous
         this.ajaxRequest.open('GET', '/promo/getSurveyHoverInterceptConfiguration.page', false);
         this.ajaxRequest.onreadystatechange = callBack;
         this.ajaxRequest.send(null);
     },
-    getInterceptPercentAjaxResponse: function(){
+    getInterceptConfigurationAjaxResponse: function(){
         subModalInterceptor.interceptPercent = 0;
 
         if( subModalInterceptor.ajaxRequest.readyState == 4 && subModalInterceptor.ajaxRequest.status == 200 ) {
@@ -427,14 +426,8 @@ function showPopWinOnExit(url, width, height, returnFunc, hoverName, forceShow) 
             arr[i].onclick = function () {
                 gRedirectAnchor = this;
                 if (forceShow || showHover()) {
-                    if (subModalInterceptor.evaluate(hoverName)){
+                    if (subModalInterceptor.shouldIntercept(hoverName)){
                         url = subModalInterceptor.hoverUrl;
-                        /*
-                        hoverName = subModalInterceptor.newHoverName;
-                        height = subModalInterceptor.height;
-                        width = subModalInterceptor.width;
-                        alert("showPopWinOnExit - subModalInterceptor");
-                        */
                     }
                     showPopWin(url, width, height, returnFunc, hoverName);
                     return false;
@@ -448,14 +441,8 @@ function showPopWinOnExit(url, width, height, returnFunc, hoverName, forceShow) 
 
 function showPopWinOnLoad(url, width, height, returnFunc, hoverName, forceShow) {
     if (forceShow || showHover()) {
-        if (subModalInterceptor.evaluate(hoverName)){
+        if (subModalInterceptor.shouldIntercept(hoverName)){
             url = subModalInterceptor.hoverUrl;
-            /*
-            hoverName = subModalInterceptor.newHoverName;
-            height = subModalInterceptor.height;
-            width = subModalInterceptor.width;
-            alert("showPopWinOnLoad - subModalInterceptor");
-            */
         }
         showPopWin(url, width, height, returnFunc, hoverName);
     }
