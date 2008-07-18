@@ -12,13 +12,13 @@
 <form name="age_based_content" action="#">
 <select id="abc_grade" onchange="abc_select_content(this);"
         style="position:absolute;top:101px;width:240px;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
-    <option value="-1">Select Age level</option>
+    <option value="-1">Select a grade level</option>
     <option value="0">Kindergarten</option>
-    <option value="1">First-Grade</option>
-    <option value="2">Second-Grade</option>
-    <option value="3">Third-Grade</option>
-    <option value="4">Fourth-grade</option>
-    <option value="5">Fifth-Grade</option>
+    <option value="1">First grade</option>
+    <option value="2">Second grade</option>
+    <option value="3">Third grade</option>
+    <option value="4">Fourth grade</option>
+    <option value="5">Fifth grade</option>
     <option value="6">Grade 6</option>
     <option value="7">Grade 7</option>
     <option value="8">Grade 8</option>
@@ -26,7 +26,7 @@
 
 <div id="abc_content" style="position:absolute;top:131px;">
 <select id="abc_content_-1" disabled="true" style="width:240px;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
-    <option value="">Select GreatSchools content about...</option>
+    <option value="">Select an article</option>
 </select>
 
 <select id="abc_content_0" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
