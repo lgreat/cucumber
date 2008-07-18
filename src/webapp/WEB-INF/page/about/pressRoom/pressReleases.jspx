@@ -48,6 +48,10 @@
         <a href="mailto:pr@greatschools.net">pr@greatschools.net</a>
     </div>
 
+    <div class="backLink">
+        <link:pressRoom>Return to Media Center &amp;gt;</link:pressRoom>
+    </div>
+
     <div style="display: none;">
         <mod:tracking pageName="Press Releases" hier1="Home,Corporate,AboutUs,PressRoom,PressReleases"/>
     </div>
