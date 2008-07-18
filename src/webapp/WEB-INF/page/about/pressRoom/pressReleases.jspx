@@ -29,6 +29,8 @@
     <pageHelper:externalCss file="/res/css/about/pressRoom/pressReleases.css"/>
 </head>
 
+<ad:setSlotPrefix slotPrefix="Press_Releases"/>
+
 <gsml:body adPageName="pressReleases" pageLayout="pressReleases">
 
     <div class="pageTitle">

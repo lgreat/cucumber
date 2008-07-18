@@ -19,12 +19,12 @@
 
     <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
-    <div class="contentBottom ${showTopBorder ? 'showTopBorder' : ''}">
+    <div id="contentBottom" class="contentBottom ${showTopBorder ? 'showTopBorder' : ''}">
         <div class="moduleBox first">
 
             <c:choose>
                 <c:when test="${firstBoxContent eq 'mediaCenter'}">
-                    <h3>Media Center</h3>
+                    <h3><link:pressRoom>Media Center</link:pressRoom></h3>
 
                     <jsp:include page="/content/links.module?page=aboutUsMediaCenter&amp;type=all&amp;layout=list"/>
 
@@ -34,20 +34,24 @@
                     </div>
                 </c:when>
                 <c:when test="${firstBoxContent eq 'aboutUs'}">
-                    <h3>About Us</h3>
+                    <h3><gsml:a href="/about/aboutUs.page">About Us</gsml:a></h3>
 
-                    <ul>
+                    <div class="aboutUs">
+                    <ul id="left">
                         <li><gsml:a href="/about/aboutUs.page">Overview</gsml:a></li>
                         <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#mngmt">Senior Management</gsml:a></li>
+                    </ul>
+                    <ul id="right">
                         <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#board">Board and Advisors</gsml:a></li>
                         <li><gsml:a href="/promo/webbyAwardWinner.page">Our Awards</gsml:a></li>
                     </ul>
+                    </div>
                 </c:when>
             </c:choose>
 
         </div>
         <div class="moduleBox">
-            <h3>Join Our Team!</h3>
+            <h3><gsml:a href="/cgi-bin/static/jobs.inc/${state}">Join Our Team!</gsml:a></h3>
             Interested in joining the GreatSchools team?
             <br/>
             Check out our opportunities!
@@ -58,7 +62,7 @@
             </div>
         </div>
         <div class="moduleBox last">
-            <h3>Contact Us</h3>
+            <h3><link:contactUs>Contact Us</link:contactUs></h3>
             Want to learn more about GreatSchools?<br/>
             <a href="/about/gsFaq.page?state=${state}">Check out our FAQ &amp;gt;</a>
             <br/><br/>

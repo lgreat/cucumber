@@ -9,20 +9,21 @@
 
 .contentLeft {
     float: left;
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 20px;
-    margin-left: 12px;
+    margin-left: 8px;
 }
 
 .contentLeft h2 {
-    font-size: 14px;
+    font-size: 13px;
     color: #666666;
     text-transform: uppercase;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .contentLeft .content {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     width: 605px;
 }
 
@@ -40,18 +41,22 @@
 .contentLeft .content li {
     background: url(/res/img/bullet/yellow_bullet_onwhite.gif) no-repeat left 5px;
     padding-left: 10px;
-	margin-bottom: 2px;
-    line-height: 20px;
-    font-size: 12px;
+    padding-bottom: 8px;
+    margin-bottom: 2px;
+    line-height: 15px;
+    font-size: 13px;
 }
 
 .contentLeft .content .right {
     text-align: right;
-    margin-right: 150px;
 }
 
 .contentLeft .content .right a {
-    font-size: 12px;
+    font-size: 13px;
+}
+
+.logoTable tr td {
+    padding-bottom: 15px;
 }
 
 /* contentRight */
@@ -97,5 +102,5 @@
 .awards .seeAllAwards {
     text-align: right;
     width: 250px;
-    font-size: 12px;
+    font-size: 13px;
 }

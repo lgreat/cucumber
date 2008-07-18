@@ -30,6 +30,8 @@
     <pageHelper:externalCss file="/res/css/about/pressRoom.css"/>
 </head>
 
+<ad:setSlotPrefix slotPrefix="Press_Room"/>
+
 <gsml:body adPageName="pressRoom" pageLayout="pressRoom">
 
     <div class="pageTitle">

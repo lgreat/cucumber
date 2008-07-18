@@ -6,8 +6,8 @@
 
 .description {
     margin-top: 11px;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 13px;
+    line-height: 18px;
 }
 
 .content {
@@ -24,9 +24,10 @@
 .content li {
     background: url(/res/img/content/article/greenarrow.gif) no-repeat left 5px;
     padding-left: 10px;
-	margin-bottom: 2px;
+    padding-bottom: 15px;
+    margin-bottom: 2px;
     line-height: 20px;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .contact h3 {

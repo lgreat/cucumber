@@ -17,13 +17,14 @@
     border-right: 2px dotted #CCCCCC;
     margin-left: 15px;
     padding-right: 20px;
-    font-size: 12px;
-    line-height: 17px;
+    font-size: 13px;
+    line-height: 20px;
 }
 
 .moduleBox.first {
-    margin-left: 0;
-    width: 291px;
+    width: 276px;
+    margin-left: 0px;
+    padding-left: 15px;
 }
 
 .moduleBox.last {
@@ -39,6 +40,14 @@
     margin-bottom: 13px;
 }
 
+#contentBottom .moduleBox h3 a {
+    color: #55BBCC;
+}
+
+#contentBottom .moduleBox h3 a:hover {
+    text-decoration: none;
+}
+
 .moduleBox ul {
     /* to handle IE6 bug: http://www.webmasterworld.com/forum83/9077.htm */
     position: relative;
@@ -49,9 +58,30 @@
     padding-left: 10px;
 	margin-bottom: 2px;
     line-height: 20px;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .moduleBox .right {
     text-align: right;
+}
+
+.aboutUs {
+    height: 50px;
+}
+
+.aboutUs ul li {
+    background: url(/res/img/bullet/yellow_bullet_onwhite.gif) no-repeat left 5px;
+    padding-left: 10px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+#left {
+    float: left;
+    width: 140px;
+}
+
+#right {
+    float: right;
+    width: 130px;
 }

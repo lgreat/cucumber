@@ -29,6 +29,8 @@
     <pageHelper:externalCss file="/res/css/about/pressRoom/pressClippings.css"/>
 </head>
 
+<ad:setSlotPrefix slotPrefix="Press_Clippings"/>
+
 <gsml:body adPageName="pressClippings" pageLayout="pressClippings">
 
     <div class="pageTitle">
