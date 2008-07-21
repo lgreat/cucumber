@@ -1,0 +1,24 @@
+#msl_header div#msl_header_top {
+    border-bottom: 1px solid;
+    position:relative;
+}
+
+#msl_header div#msl_header_top div#dashboard_link {
+    position:absolute;
+    right:0;
+    top:0;
+}
+
+#msl_header div#msl_header_bottom {
+    position:relative;
+}
+#msl_header div#msl_header_bottom div#page_status {
+    position:absolute;
+    right:0;
+    top:0;
+}
+
+#msl_header div#msl_title {
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    color:#CC5566;
+}

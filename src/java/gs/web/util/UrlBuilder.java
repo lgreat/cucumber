@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.109 2008/07/17 18:30:00 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.110 2008/07/21 21:38:54 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -104,6 +104,8 @@ public class UrlBuilder {
      * Allows a user to edit and create school lits.
      */
     public static final VPage MY_SCHOOL_LIST = new VPage("vpage:mySchoolList");
+    public static final VPage MY_SCHOOL_LIST_LOGIN = new VPage("vpage:mySchoolListLogin");
+
     /**
      * Information about newsletters.
      */
@@ -452,26 +454,28 @@ public class UrlBuilder {
             _path = "/content/healthyKids.page";
         } else if (SPECIAL_NEEDS.equals(page)) {
             _path = "/content/specialNeeds.page";
-        }else if (MEDIA_CHOICES.equals(page)) {
+        } else if (MEDIA_CHOICES.equals(page)) {
             _path = "/content/mediaChoices.page";
-        }else if (MOVING_WITH_KIDS.equals(page)) {
+        } else if (MOVING_WITH_KIDS.equals(page)) {
             _path = "/content/movingWithKids.page";
-        }else if (COUNTDOWN_TO_COLLEGE.equals(page)) {
+        } else if (COUNTDOWN_TO_COLLEGE.equals(page)) {
             _path = "/content/countdownToCollege.page";
-        }else if (HOLIDAY_LEARNING.equals(page)) {
+        } else if (HOLIDAY_LEARNING.equals(page)) {
             _path = "/content/holidayLearning.page";
-        }else if (STATE_STANDARDS.equals(page)) {
+        } else if (STATE_STANDARDS.equals(page)) {
             _path = "/content/stateStandards.page";
-        }else if (SUMMER_PLANNING.equals(page)) {
+        } else if (SUMMER_PLANNING.equals(page)) {
             _path = "/content/summerPlanning.page";
-        }else if (SUMMER_READING.equals(page)) {
+        } else if (SUMMER_READING.equals(page)) {
             _path = "/content/summerReading.page";
-        }else if (BACK_TO_SCHOOL.equals(page)) {
+        } else if (BACK_TO_SCHOOL.equals(page)) {
             _path = "/content/backToSchool.page";
-        }else if (TUTORING.equals(page)) {
+        } else if (TUTORING.equals(page)) {
             _path = "/content/tutoring_Homework_Help.page";
-        }else if (TRAVEL.equals(page)) {
+        } else if (TRAVEL.equals(page)) {
             _path = "/content/travel.page";
+        } else if (MY_SCHOOL_LIST_LOGIN.equals(page)) {
+            _path = "/community/mySchoolListLogin.page";            
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

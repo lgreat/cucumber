@@ -1480,6 +1480,14 @@
         </property>
     </bean>
 
+    <bean name="/community/mySchoolListLogin.page"
+          class="gs.web.community.MySchoolListLoginController" autowire="byName" lazy-init="true">
+        <property name="commandName" value="loginCmd"/>
+        <property name="commandClass" value="gs.web.community.LoginCommand"/>
+        <property name="formView" value="/community/mySchoolListLogin"/>
+        <property name="successView" value="redirect:/community/mySchoolList.page"/>
+    </bean>
+
     <!-- XML feed related web services -->
     <bean name="/util/feed/city.page" class="gs.web.util.feed.CityFeedController" autowire="byName" lazy-init="true"/>
 

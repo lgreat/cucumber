@@ -1,18 +1,97 @@
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml"
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           version="2.0">
 
 <html lang="en">
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-    <jsp:directive.page contentType="text/html"/>
-    <head>
-        <title>My School List</title>
-        <pageHelper:externalCss file="/res/css/community/mySchoolList.css"/>
-    </head>
-    <body>
-        Hello world
-    </body>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <title>My School List</title>
+    <ad:setSlotPrefix slotPrefix="My_School_List"/>
+    <pageHelper:externalCss file="/res/css/community/mySchoolList.css"/>
+    <pageHelper:externalCss file="/res/css/search/schoolResults.css"/>
+    <pageHelper:externalCss file="/res/css/brand.css"/>
+    <pageHelper:externalCss file="/res/css/school/schoolsTable.css"/>    
+</head>
+<body>
+
+<gsml:equalizeColumns ids="'col_left','col_right'"/>
+<c:set var="email" value="${requestScope.context.user.email}" />
+<div id="col_left">
+
+    <div id="msl_header">
+        <div id="msl_header_top">
+            <div id="msl_title">My School List</div>
+            <div id="dashboard_link"><link:accountInfo>Go to my dashboard &gt;</link:accountInfo></div>
+        </div>
+        <div id="msl_header_bottom">
+            <div id="msl_welcome">Welcome ${email} (not ${email}?)</div>
+            <div id="page_status">Page links</div>
+        </div>
+    </div>
+
+    <c:if test="${not empty schools}">
+        <school:schoolsTable schools="${schools}" />
+    </c:if>
+
+    <!--<search:schoolsPagination currentPage="${(empty param.p) ? 1 : param.p}" resultCount="${results.total}" pageSize="${pageSize}"/>-->
+    <!-- typeOverride used in searchControl.tagx and/or mod:browseState -->
+    <c:set var="typeOverride" value="school" scope="request"/>
+    <div id="searchFooter" class="cleared">
+        <c:choose>
+            <c:when test="${not empty param.city}"><c:set var="queryText" value="${param.city}"/></c:when>
+            <c:otherwise><c:set var="queryText" value="${requestScope.distname}"/></c:otherwise>
+        </c:choose>
+        <search:searchControl rememberQuery="true"
+                              showStates="true"
+                              showLinks="true"
+                              fieldLength="30"
+                              queryOverride="${queryText}"/>
+    </div>
+</div>
+
+<div id="col_right">
+    <c:choose>
+        <c:when test="${true}">
+            <ad:House_Ad_300x137 referredBy="MSL Logged In"/>
+        </c:when>
+        <c:otherwise>
+            <school:compareInCity city="${cityName}" state="${state}"
+                                  levelCode="${requestScope.allLevelCodes}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+        <c:if test="${results.total gt 0}">
+            <div id="mapContainer">
+                <![CDATA[
+                <script type="text/javascript">
+                    <!--
+                    document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>');
+                    -->
+                </script>
+                ]]>
+                <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
+            </div>
+            <map:schools id="map" bubbles="true" schools="${schools}"/>
+        </c:if>
+    </c:if>
+
+    <ad:AboveFold_300x250 />
+
+    <ad:Top_300x137/>
+
+</div>
+</body>
 </html>
 </jsp:root>

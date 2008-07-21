@@ -205,7 +205,22 @@
             <description>anchor name on destination page ('#' is optional)</description>
         </attribute>
     </tag>
-
+    <tag>
+        <name>mySchoolListLogin</name>
+        <tag-class>gs.web.jsp.link.MySchoolListLoginTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>My School List Login Page</display-name>
+        <description>
+            <![CDATA[Link to the My School List login page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
     <tag>
         <name>schools</name>
         <tag-class>gs.web.jsp.link.SchoolsTagHandler</tag-class>

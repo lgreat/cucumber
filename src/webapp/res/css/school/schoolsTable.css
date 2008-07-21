@@ -233,3 +233,16 @@ div#col_right div#compareInCity input.submit {
     top: 2px;
 }
 
+#schoolsTable {
+    border-top:dotted #E2E3CB;
+}
+
+#schoolsTable .school {
+    margin:15px 0 15px 0;
+    padding:0 0 15px 0;
+    border-bottom:1px solid #E2E3CB;
+}
+
+#schoolsTable .last {
+   border-bottom:none;
+}

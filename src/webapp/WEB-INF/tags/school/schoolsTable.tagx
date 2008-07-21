@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
+    <!--<jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>-->
+    <!--<jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>-->
+    <!--<pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>-->
+
+    <div id="searchResults">
+    <div id="schoolsTable">
+        <c:forEach var="school" items="${schools}" varStatus="loopStatus">
+            <div class="school ${loopStatus.last ? 'last' : ''}">
+                <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
+                    <c:out value="${school.name}" escapeXml="false"/>
+                </link:schoolProfileOverview></h3>
+                <div class="about">
+                    <span class="st">${school.type.schoolTypeName}</span>
+                    <c:if test="${not empty school.gradeLevels.rangeString}">
+                        &#183; <span class="gl">${school.gradeLevels.rangeString}</span>
+                    </c:if>
+                    <c:if test="${not empty school.enrollmentOrCapacity}">
+                        &#183; <span class="enrollment">${school.enrollmentOrCapacity} student${(school.enrollmentOrCapacity eq 1) ? '' : 's'}</span>
+                    </c:if>
+                </div>
+
+                <address>${school.physicalAddress.street}<c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if></address>
+                <address>${school.physicalAddress.cityStateZip}</address>
+                <div class="phone">${school.phone}</div>
+                <c:if test="${not empty school.district}">
+                    <div class="district">
+                        District: ${school.district.name}
+                    </div>
+                </c:if>
+                <div class="resultcontrols">
+                    <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
+                    <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
+                        <br />
+                        <div class="compare_schools_row">
+                            <gsml:checkbox
+                                    name="sc"
+                                    value="${requestScope.context.stateOrDefault.abbreviation}${school.id}"
+                                    styleClass="compare_checkbox"
+                                    styleId="compare_schools_${school.id}"
+                                    onclick="evaluateCheckboxes();"/>
+                            <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
+                            <label class="compare_label"
+                                   id="compare_schools_label_${school.id}"><gsml:img
+                                    src="/res/img/button/button_check_to_compare.gif"
+                                    alt="Check to compare"
+                                    onclick="document.getElementById('compare_schools_${school.id}').click();"/></label>
+                            <label class="compare_error"
+                                   id="compare_schools_error_${school.id}"
+                                   style="display: none;"><gsml:img
+                                    src="/res/img/button/button_check_two_more.gif"
+                                    alt="Check two or more"
+                                    onclick="document.getElementById('compare_schools_${school.id}').click();"/></label>
+                            <span class="compare_submit"
+                                  id="compare_schools_submit_${school.id}"
+                                  style="display: none;"><input type="image"
+                                                                name="compare"
+                                                                src="/res/img/button/button_compare_now.gif"
+                                                                alt="Compare now"/></span>
+                        </div>
+                    </c:if>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+    </div>
+</jsp:root>

@@ -7,17 +7,18 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContext;
 
 import static org.easymock.EasyMock.*;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
- * test class for LoginController
- *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * Test class for MySchoolListController
  */
 public class MySchoolListControllerTest extends BaseControllerTestCase {
     private MySchoolListController _controller;
@@ -47,6 +48,66 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         assertSame(_schoolDao, _controller.getSchoolDao());
         assertSame(_userDao, _controller.getUserDao());
         assertEquals("view", _controller.getViewName());
+    }
+
+    public void testRequestFromUnknownUserNoSchoolsAdded() throws Exception {
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        assertEquals("User should see MSL Intro page", MySchoolListController.INTRO_VIEW_NAME, mAndV.getViewName());
+    }
+
+    public void testRequestFromUnknownUserSchoolsAdded() throws Exception {
+        getRequest().setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "123,456");
+        getRequest().setParameter("state", "CA");
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        RedirectView v = (RedirectView)mAndV.getView();
+        assertEquals("User should see MSL Login page",
+                "/community/mySchoolListLogin.page?state=CA&ids=123,456", 
+                v.getUrl());
+    }
+
+    public void testRequestFromKnownUserNoSchoolsAdded() throws Exception {
+        SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
+        sc.setMemberId(1);
+        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(new School()).times(4);
+        replay(_schoolDao);
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verify(_schoolDao);
+        assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
+    }
+
+    public void testRequestFromKnownUserSchoolsAdded() throws Exception {
+        SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
+        sc.setMemberId(1);
+        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(new School()).times(4);
+        replay(_schoolDao);
+        getRequest().setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "12,3456");
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verify(_schoolDao);
+        assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
+    }
+
+    public void testBuildModel() throws Exception {
+        User user = new User();
+        user.setEmail("eford@greatschools.net");
+        user.setId(1);
+        Set<FavoriteSchool> favs = new HashSet<FavoriteSchool>();
+        FavoriteSchool fs1 = new FavoriteSchool();
+        fs1.setSchoolId(1);
+        fs1.setState(State.CA);
+        favs.add(fs1);
+        FavoriteSchool fs2 = new FavoriteSchool();
+        fs2.setSchoolId(32);
+        fs2.setState(State.AK);
+        favs.add(fs2);
+        user.setFavoriteSchools(favs);
+        expect(_schoolDao.getSchoolById(State.AK, 32)).andReturn(new School());
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(new School());
+        replay(_schoolDao);
+        Map<String, Object> model = _controller.buildModel(user);
+        verify(_schoolDao);
+        List schools = (List)model.get("schools");
+        assertEquals("Expected 2 msl schools", 2, schools.size());
+
     }
 
     public void testConvertFavoriteSchoolsToSchoolsNull() {

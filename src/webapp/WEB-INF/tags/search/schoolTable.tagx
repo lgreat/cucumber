@@ -8,11 +8,9 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
-    <jsp:directive.attribute name="schools" required="true"
-                             type="java.util.Collection"/>
+    <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
     <jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>
-
 
     <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
 
