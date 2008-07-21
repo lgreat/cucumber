@@ -38,13 +38,15 @@ public class CrawlerTest extends TestCase {
         crawler.crawl("http://www.greatschools.com", 5);
         assertEquals(5, tv.visitedCount);
     }
-}
 
-class TestVisitor implements IPageVisitor {
+    class TestVisitor implements IPageVisitor {
 
-    int visitedCount = 0;
-    public void visit(Page page) {
-        visitedCount++;
-        System.out.println ("visiting" + page.getUrl());
+        int visitedCount = 0;
+
+        public void visit(Page page) {
+            visitedCount++;
+            System.out.println("visiting" + page.getUrl());
+        }
     }
 }
+
