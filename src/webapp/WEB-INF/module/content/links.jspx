@@ -15,9 +15,16 @@
         </c:when>
         <c:when test="${requestScope.modelLayout eq 'q_and_a'}">
             <c:if test="${!empty requestScope.modelAnchor}">
-                <p id="promoPrompt">
-                    ${requestScope.modelAnchor.contents}
-                </p>
+            <p id="promoPrompt">
+                <c:choose>
+                    <c:when test="${requestScope.page eq 'backtoschool'}">
+                        <a href="${requestScope.modelAnchor.href}">${requestScope.modelAnchor.contents}</a>
+                    </c:when>
+                    <c:otherwise>
+                        ${requestScope.modelAnchor.contents}
+                    </c:otherwise>
+                </c:choose>
+            </p>
 
                 <p id="promoResponseButton">
                     <a href="${requestScope.modelAnchor.href}"><img src="/res/img/button/btn_answer.gif" alt="Answer"/></a>

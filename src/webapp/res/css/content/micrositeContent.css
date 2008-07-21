@@ -74,6 +74,11 @@ p.question {
     padding: 25px 5px 15px 20px;
 }
 
+#promoPrompt a, #promoPrompt a:hover, #promoPrompt a:active, #promoPrompt a:visited, #promoPrompt a:focus {
+    text-decoration: none;
+    color: #666;
+}
+
 #promoResponseButton {
     text-align: right;
     padding: 0 10px 15px 15px;

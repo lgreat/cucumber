@@ -143,6 +143,8 @@ public class LinksController extends AbstractController {
 
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
 
+        modelAndView.addObject("page", page);
+
         if (TYPE_FIRST.equals(type)) {
             ITableRow row = _tableDao.getFirstRowByKey(SPREADSHEET_PAGE, page);
             if (row != null) {
