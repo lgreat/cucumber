@@ -203,6 +203,7 @@
         <c:choose>
             <c:when test="${edin08Cmd.signUpConfirm}">
                 <div id="a">
+                    <![CDATA[
                     <script type="text/javascript" language="JavaScript1.1">
                     <!--
                         LOTCC_rnd = new String(Math.random()).substring(2,11);
@@ -211,6 +212,7 @@
                         document.write('<scr'+'ipt LANGUAGE="JavaScript1.1" SRC="http://coop.crwdcntrl.net/4/to=y|c=' + LOTCC_client + '|p=' + LOTCC_placement + '|rand=' + LOTCC_rnd + '"></scr' + 'ipt>');
                     //-->
                     </script>
+                    ]]>
 
                     <!-- begin AdBrite, Sign-ups tracking -->
                     <img border="0" hspace="0" vspace="0" width="1" height="1" src="http://stats.adbrite.com/stats/stats.gif?_uid=506939&amp;amp;_pid=1" alt="" />
@@ -219,6 +221,7 @@
             </c:when>
             <c:when test="${edin08Cmd.tellAFriendConfirm}">
                 <div id="b">
+                    <![CDATA[
                     <script type="text/javascript" language="JavaScript1.1">
                     <!--
                         LOTCC_rnd = new String(Math.random()).substring(2,11);
@@ -227,6 +230,7 @@
                         document.write('<scr'+'ipt LANGUAGE="JavaScript1.1" SRC="http://coop.crwdcntrl.net/4/to=y|c=' + LOTCC_client + '|p=' + LOTCC_placement + '|rand=' + LOTCC_rnd + '"></scr' + 'ipt>');
                     //-->
                    </script>
+                   ]]>
 
                     <!-- begin AdBrite, family and friends tracking -->
                     <img border="0" hspace="0" vspace="0" width="1" height="1" src="http://stats.adbrite.com/stats/stats.gif?_uid=506939&amp;amp;_pid=6164" alt="" />
