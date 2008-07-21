@@ -18,550 +18,569 @@
 
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:hideFooterAd/>
+<pageHelper:externalCss file="/res/css/widelayout.css"/>
 <pageHelper:externalCss file="/res/css/about/gsFaq.css"/>
 
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>GreatSchools Frequently Asked Questions</title>
+    <meta name="Description" content="GreatSchools Frequently Asked Questions"/>
 
 </head>
 
-<gsml:body adPageName="gsFaq" pageLayout="singleTextOnlyColumnLayout">
-
-<mod:tracking pageName="gsFaq" hier1="Home,ContactUs,FAQ"/>
-
-
-<h3>Frequently Asked Questions About GreatSchools</h3>
-<ul class="singleSpacedList">
-    <li><a href="#pubdata">School Data: Public &amp; Charter Schools</a></li>
-    <li><a href="#pvtdata">School Data: Private Schools</a></li>
-    <li><a href="#esps">Enhanced School Profiles</a></li>
-    <li><a href="#ratings">GreatSchools Ratings</a></li>
-    <li><a href="#compare">Comparing Schools</a></li>
-    <li><a href="#newsletters">GreatSchools Newsletters</a></li>
-    <li><a href="#schwabLearningTransition">SchwabLearning Transition</a></li>
-    <li><a href="#other">Other Questions About GreatSchools</a></li>
-</ul>
-
-<![CDATA[ <a name="pubdata"></a> ]]>
-
-<h3>School Data: Public &amp; Charter Schools</h3>
-<h4>What kinds of schools are included on GreatSchools.net?</h4>
-
-<p>GreatSchools.net includes profiles of more than 90,000 public elementary, middle and high schools in the United
-    States. Charter schools, magnet schools, year-round schools, and some continuation and alternative schools are
-    included. Certain types of public school programs--such as regional occupational schools, adult schools or
-    independent study schools, and schools that have been in operation for less than two years--may not be included
-    because not enough information is available to create complete GreatSchools.net profiles. </p>
-
-<p>
-    GreatSchools.net also includes basic information on more than 25,000 private schools. This information is
-    limited because private schools do not have to follow the same state and federal laws as public schools. For
-    example, public schools are required to administer standardized exams and publicize the results, but private
-    schools are not required to give these tests or report results. As a result, there is not enough performance
-    information for comparison.
-</p>
-
-
-<h4>What information does a school profile include?</h4>
-
-<p>Public school profiles in every state include most or all of the following information:</p>
-<ul>
-    <li>Phone number, address, district name, location map</li>
-    <li>Grade levels served, school type, enrollment</li>
-    <li>Detailed academic performance data, including state-mandated standardized test results</li>
-    <li>Student-teacher ratio, student ethnicity breakdown and other important teacher/student stats</li>
-    <li>Clear explanations for all data presented</li>
-    <li>GreatSchools Ratings</li>
-</ul>
-
-<p>
-    In addition, all schools have the option of "upgrading"--at no cost--to an Enhanced School Profile, which allows
-    principals to add a great deal of additional information about curriculum, programs, activities, school vision and
-    leadership. Get more information in our <a href="#esps">FAQ about ESPs</a>.</p>
-
-<![CDATA[ <a name="data_where"></a> ]]>
-<h4>Where does GreatSchools acquire school data?</h4>
-
-<p>
-    Test scores for most states come from the state Department of Education. School contact information and
-    teacher/student stats are obtained either from the state Department of Education or from the National Center for
-    Education Statistics (NCES). All test scores and teacher/student data on GreatSchools.net are accompanied by a
-    note indicating the source and school year of the data.
-</p>
-<![CDATA[ <a name="states"></a> ]]>
-
-<h4>Why does GreatSchools have more data for some states than others?</h4>
-
-<p> We publish school data for all 50 states and the District of Columbia; however, you will see more in-depth school
-    profiles in some states than others. State Departments of Education vary widely in the amount and type of data they
-    release, so the specific data points we are able to acquire may be somewhat different from state to state.
-    Additionally, being a small nonprofit, we must allocate our resources wisely, which means putting the most resources
-    into larger states where we can reach the most parents.
-
-</p>
-
-<![CDATA[ <a name="data_sources"></a> ]]>
-<![CDATA[ <a name="data_when"></a> ]]>
-<h4>How often is the school information updated?</h4>
-
-<p> Different types of data are updated at different times throughout the year. Our goal is to update all data at least
-    once a year in every state, using the most recent available information from either the state Department of Education 
-    or the National Center for Education Statistics (NCES). All test scores and teacher/student data on GreatSchools.net
-    are accompanied by a note indicating the source and school year of the data.
-</p>
-<p>
-    Information on Enhanced School Profiles (ESPs) is updated as often as principals choose to edit their information.
-    Each ESP shows the date the last updates were made.
-</p>
-
-
-<![CDATA[ <a name="data_incorrect"></a> ]]>
-<h4>What if I see an incorrect address or phone number on your site?</h4>
-
-<p> We strive to keep our school contact information up to date, but we realize there may be changes that are not
-    reflected in our data. If you see any school contact information that you know to be incorrect, please take the
-    following steps, so that we can provide our users with the best possible information:
-</p>
-<ol>
-    <li>We rely on state Departments of Education and the National Center for Education Statistics (NCES) for our school
-        contact information. Please notify the appropriate state Department of Education to correct the school's
-        information.</li>
-
-    <li>Let the school's principal know that they can sign up for an <gsml:a href="/cgi-bin/static/ed_extra.inc/$STATE">
-        Enhanced
-        School Profile</gsml:a>, which will allow them to directly edit the school's contact information, as well as
-        contribute additional information about their school.</li>
-    <li><gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=profile">Contact us</gsml:a> about the incorrect data and we
-        will fix it.
-        However, please note that our manual corrections will be overwritten by the state or national data source the
-        next time we import their data, so step 1 above is very important.</li>
-</ol>
-
-<![CDATA[ <a name="add"></a> ]]>
-<h4>What if I know of a public or charter school that is not listed on GreatSchools.net?</h4>
-
-<p>
-    We rely on state Departments of Education and the National Center for Education Statistics (NCES) for our school
-    directory and are unable to add public or charter schools individually to our Web site. If a public or charter
-    school is missing from our site, it is usually because these data sources failed to provide the information. If
-    you know of a public or charter school that is not listed, we recommend that you contact the appropriate state
-    Department of Education and <a href="http://www.nces.ed.gov/help/webmail/">NCES</a> and ask both entities to
-    list the school. We are working to expand our capabilities so that our school listings are always completely
-    current.
-</p>
-
-
-<h4>Where can I find information about job opportunities, a particular school's teachers, students or events, or get
-    copies of my transcripts?</h4>
-
-<p> GreatSchools is not directly connected to any particular school and cannot relay your questions or comments to
-    school officials. We do not have information about current or former students or staff at any school or
-    employment with a particular school or district. Contact the school directly for this type of information.
-</p>
-
-
-<h4>How can I request a custom report based on the data shown on GreatSchools.net?</h4>
-
-<p> All requests for custom reports based on our data should be directed to <a
-        href="mailto:businessdevelopment@greatschools.net">businessdevelopment@greatschools.net</a>. Be sure to let
-    us know if you are a nonprofit or for-profit entity and how you intend to utilize our data. Please note, a fee
-    may be charged to cover our processing costs.
-</p>
-
-
-<h4>Where can I get a map of district boundaries?</h4>
-
-<p> Some districts publish maps that show the district boundaries. Call your local district to see if a map is
-    available. But keep in mind that in many districts, enrollment is only partly based on location and, during the
-    open enrollment period, parents can choose from other schools in the district that have space.
-</p>
-
-<div style="text-align: right;"><p>
-    <i>Didn't find the answer you're looking for? <gsml:a
-            href="/cgi-bin/feedback_faq/$STATE?fbtype=profile">Contact us about our school information.</gsml:a></i></p>
-</div>
-
-<![CDATA[ <a name="pvtdata"></a> ]]>
-
-<h3>School Data: Private Schools</h3>
-<h4>Why does GreatSchools have less information about private schools than public schools?</h4>
-
-<p>
-
-    Public schools are funded with tax dollars and, therefore, are required to report detailed data, including test
-    scores, class size, attendance and student demographics. Private schools, which are not funded with public
-    money, do not have to report data about their schools or make it available to the public. We continuously strive
-    to acquire additional private school data whenever it is available. </p>
-<![CDATA[ <a name="states"></a> ]]>
-<h4>Where does GreatSchools get its private school information?</h4>
-
-<p> Our private school information comes from the National Center for Education Statistics (NCES) and some state
-    Departments of Education. The most recent NCES data is for the 2003-2004 school year, while state-supplied data is
-    much more current.
-</p>
-
-
-<h4>What if I know of a private school that is not listed on GreatSchools.net?</h4>
-
-<p>If a private school is missing from our site, it is usually because the source of our data failed to provide the
-    information--either the state Department of Education or the National Center for Education Statistics (NCES). If you
-    know of a private school that is not listed, please <gsml:a href="/cgi-bin/feedback_private/$STATE">submit the
-    school's information to us</gsml:a>. Note: We can add private schools individually, but do not have the resources to
-    add public or charter schools individually.
-</p>
-
-
-<h4>Can the principal send you information that isn't otherwise available?</h4>
-
-<p>
-    Once a private school is listed on our site, the school's principal may provide additional information, free
-    of charge, through our Enhanced School Profile feature. Get more information in our <a href="#esps">FAQ
-    about ESPs</a>.
-
-</p>
-
-
-<h4>Where can I find additional data about private schools, such as test scores, student demographics and teacher
-    experience?</h4>
-
-<p>
-    Contact the schools individually. You can find contact information for private schools on our school
-    profiles.
-</p>
-
-<div style="text-align: right;"><p>
-    <i>Didn't find the answer you're looking for? <gsml:a
-            href="/cgi-bin/feedback_faq/$STATE?fbtype=profile">Contact us about our school information.</gsml:a></i>
-</p></div>
-<![CDATA[ <a name="esps"></a> ]]>
-<h3>Enhanced School Profiles</h3>
-
-
-<h4>What is an Enhanced School Profile?</h4>
-
-<p> An Enhanced School Profile allows the principal or other school official to add the following information about the
-    school directly to their GreatSchools.net profile: </p>
-<ul>
-    <li>Mission
-    </li><li>Schedule and calendar
-</li><li>Detailed descriptions of curriculum and enrichment activities (music, sports, etc.)
-</li><li>In-depth information on staff, safety, student support, community involvement and much more
-</li></ul>
-
-<p> As an added bonus, the Enhanced School Profile also lets the principal or other school official edit the school's
-    contact information directly, in the event that the school's address or phone number has changed since we last
-    updated it.
-</p>
-
-<h4>Is an Enhanced School Profile free?</h4>
-
-<p> Yes, absolutely free, and school principals or school officials can update it anytime they like.
-</p>
-
-
-<h4>Why would I want an Enhanced School Profile for my school?</h4>
-
-<p> GreatSchools.net is the most visited K-12 education Web site in the country, attracting thousands of people
-    every day. Parents, community leaders, potential volunteers, funders, teachers and people looking for education
-    jobs will have access to information that you provide about your school. You can use your profile to draw
-    attention to your school's successes and unique qualities, and even point your school community straight to your
-    GreatSchools profile to gather important information. It's a great way to spread the word about your school to a
-    broader audience, even if you already have a school Web site.
-</p>
-
-
-<h4>How can my school create an Enhanced School Profile?</h4>
-
-<p> Creating an Enhanced School Profile is simple! Principals and school officials,
-    <gsml:a href="/cgi-bin/pq_start.cgi/$STATE">get started on your Enhanced School Profile</gsml:a> using our secure,
-    online questionnaire. Or <gsml:a href="/cgi-bin/static/ed_extra.inc/$STATE">read more about Enhanced School
-    Profiles</gsml:a>.
-</p>
-
-<div style="text-align: right;">
-    <p>
-        <i>Didn't find the answer you're looking for? <a
-                href="mailto:esphelp@greatschools.net">Contact us about Enhanced School Profiles.</a></i></p></div>
-
-<![CDATA[ <a name="ratings"></a> ]]>
-
-
-<h3>GreatSchools Ratings</h3>
-
-<h4>How are the GreatSchools Test Score Ratings calculated?</h4>
-
-<p> GreatSchools analyzes each school's performance on state standardized tests and provides a one through ten rating
-    for the school's performance relative to other schools in the state. Our ratings also allow you to compare the
-    performance of particular grade levels and groups of students to comparable groups in other schools in the state.
-    A rating of "10" means that the group's test scores are in the top 10% compared to scores for the same group across
-    all schools in the state. In other words, that group's test score performance is as good as, or better than, 90% of
-    the scores for that group in the state. A rating of "1" means that the group is in the bottom 10% compared to scores
-    for that group across all schools in the state.
-</p>
-<p> GreatSchools' Overall Ratings are calculated by averaging the ratings for each grade and subject. A Test Score
-    Rating is not given if fewer than 50 schools have data for a particular group. The different student groups
-    (category, ethnicity and gender) are identified by the state Department of Education; if there is a small number of
-    students in a particular group in a school, data is not reported for that group.
-</p>
-<p> Please keep in mind that it's important to factor in information other than Test Score Ratings, including the
-    quality of each school's teachers, the school culture and special programs, when evaluating a school. Also note that
-    GreatSchools Ratings are not linked to any performance ratings given by the state Department of Education.
-</p>
-
-<div style="text-align: right;">
-    <p>
-        <i>Didn't find the answer you're looking for? <gsml:a
-                href="/cgi-bin/feedback_faq/$STATE?fbtype=profile">Contact us about our ratings.</gsml:a></i>
-    </p></div>
-<![CDATA[ <a name="compare"></a> ]]>
-<h3>Comparing Schools</h3>
-
-<h4>How do I compare schools?</h4>
-
-<p> You can compare schools that are near an address, or within a specific district, county or state. Just click on the
-    "Compare Schools" link at the top of any school profile or
-    visit the tab 'Research &amp; Compare' to get started.
-    It's possible to compare schools in different counties by saving schools to <b>My School List</b>, then comparing
-    those schools.
-</p>
-<h4>What is My School List?</h4>
-
-<p><link:mySchoolList>My School List</link:mySchoolList> is a tool that lets you compile a list of schools,
-    save and
-    compare them. To build a list, go to any school profile on GreatSchools.net and click on the link, "Add this
-    school to My School List," next to the name of the school. Once you have a list of schools, you can easily
-    compare the schools in your list.
-</p>
-
-
-<h4>Can I compare schools in different states?</h4>
-
-<p>
-    Unfortunately, it isn't possible to compare student achievement across states because different states
-    administer different standardized tests.
-</p>
-
-
-<h4>Can I compare public and private schools?</h4>
-
-<p> It isn't possible to compare public and private schools because many private schools do not take the same
-    state-required tests as public schools, and private schools are not required by law to publish the same
-    information as public schools.
-</p>
-
-<div style="text-align: right;">
-    <p>
-        <i>Didn't find the answer you're looking for? <gsml:a
-                href="/cgi-bin/feedback_faq/$STATE?fbtype=profile">Contact us about comparing schools.</gsml:a></i></p>
-</div>
-
-
-<![CDATA[ <a name="newsletters"></a> ]]>
-
-<h3>GreatSchools Newsletters</h3>
-
-<h4>What newsletters does GreatSchools provide?</h4>
-
-<p>We have a family of free email newsletters to help your child succeed in school.
-    Choose newsletters for your child’s school, your child’s grade, or get timely tips and advice.</p>
-<ul>
-    <li><span class="teaser">Parent Advisor</span> is a monthly newsletter that provides timely tips on helping your
-        child succeed in school.</li>
-    <li><span class="teaser">My School Stats</span> is a periodic newsletter, currently available in many of our
-        in-depth states that provides the latest updates about test scores, teacher quality, funding and more at your
-        child's school, and shows you how your school compares to others in your state.</li>
-
-    <li>Keep your child on track in the classroom: Get expert advice, ideas for learning activities, book
-        recommendations
-        and more. For parents of children in kindergarten through fifth grade.
-        Sign up for <span class="teaser">My Kindergartner</span>, <span class="teaser">My First-Grader</span>,
-        <span class="teaser">My Second-Grader</span>, <span class="teaser">My Third-Grader</span>,
-        <span class="teaser">My-Fourth Grader</span> or <span class="teaser">My Fifth-Grader</span>.</li>
-
-    <li>
-        Get your child ready for high school and college: Find expert tips and advice focused on academics, behavior
-        issues, financial planning and college preparation. For parents of middle and high school students.
-        Sign up for
-        <span class="teaser">Middle School Matters</span> and <span class="teaser">Countdown to College</span>.
-    </li>
-</ul>
-
-
-<h4>How do I sign up for free GreatSchools newsletters?</h4>
-
-<p>To see samples and sign up for any of our newsletters, <link:newsletterCenter>click here</link:newsletterCenter>.
-
-</p>
-
-
-<h4>How can I change my newsletter preferences or unsubscribe?</h4>
-
-<p> You can manage your GreatSchools newsletter subscriptions <link:newsletterCenter>here</link:newsletterCenter>.
-</p>
-
-<h4>What if my email address has changed?</h4>
-
-<p> No problem. Go to the <gsml:a href="/cgi-bin/newsletters/$STATE">subscription management page</gsml:a>, enter the email
-    address to which we have been sending your newsletters and click "Continue." On the following page you'll have the
-    option to update your email address.
-</p>
-
-
-<div style="text-align: right;">
-    <p>
-        <i>Didn't find the answer you're looking for? <gsml:a
-                href="/cgi-bin/feedback_faq/$STATE?fbtype=newsletter">Contact us about our newsletters.</gsml:a></i></p>
-</div>
-<![CDATA[ <a name="schwabLearningTransition"></a> ]]>
-
-<h3>SchwabLearning.org Transition</h3>
-
-<p>
-    We're pleased to announce that GreatSchools is the new host for the valuable articles and resources developed by
-    SchwabLearning.org to provide information and inspiration to parents of children with learning and attention difficulties.
-</p>
-<p>
-    GreatSchools acquired and began hosting SchwabLearning.org in January, 2008, and we recently transferred most of the
-    Schwab Learning content to the GreatSchools Web site. Below are answers to questions you may have about the transition of
-    the Web site and how it affects you.     
-</p>
-<h4>
-    Can I still access SchwabLearning.org?
-</h4>
-<p>
-    No. Now that the core content has been transitioned to GreatSchools.net the SchwabLearning.org site is not available. From
-    now on, anyone who visits SchwabLearning.org will be automatically redirected to the new
-    <gsml:a href="/content/specialNeeds.page">Learning Difficulties section</gsml:a> on GreatSchools.net.
-</p>
-<h4>
-    Will GreatSchools develop the same kind of articles that SchwabLearning.org provided?
-</h4>
-<p>
-    Yes. We understand the value of the type of articles and other content created by SchwabLearning.org. GreatSchools will
-    continue to develop new content that is relevant to parents whose children have learning and attention difficulties — and
-    we’ll keep the existing content up-to-date.
-</p>
-<p>
-    To ensure the accuracy and timeliness of our content, we’ve recruited several experts in the field of learning difficulties
-    to serve as consultants to our editorial team.
-</p>
-<h4>
-    Can I access the articles that were on SchwabLearning.org?
-</h4>
-<p>
-    Most of the articles that existed on SchwabLearning.org are now available on GreatSchools.net. This includes articles in
-    English and Spanish, and the Assistive Technology Tools database.
-</p>
-<h4>
-    What about my SchwabLearning.org newsletter?
-</h4>
-<p>
-    If you previously subscribed to the SchwabLearning.org weekly email newsletter, your subscription should have automatically
-    transferred to GreatSchools, as we now send our <em>Helping Kids with Learning Difficulties</em> newsletter once a month. Each
-    issue of our newsletter features new or updated articles. If for some reason you have not received this newsletter in 2008,
-    please <gsml:a href="/cgi-bin/newsletters/">subscribe here.</gsml:a>
-</p>
-<p>
-    <b>Note:</b> GreatSchools has a number of other <gsml:a href="/cgi-bin/newsletters/">free email newsletters for parents.</gsml:a>
-</p>
-<h4>
-    Does GreatSchools host a message board for parents of kids with learning difficulties?
-</h4>
-<p>
-    Yes. We invite former Schwab Learning message board members to continue the discussion on the GreatSchools Parent Community.
-    Be sure to check out two of our most active online parent groups: 
-</p>
-
-<ul class="linkList">
-    <li><gsml:a href="http://community.greatschools.net/groups/11554">Learning and Attention Difficulties</gsml:a></li>
-    <li><gsml:a href="http://community.greatschools.net/groups/12143">Schwabbies</gsml:a> (former SchwabLearning.org members)</li>
-</ul>
-
-<p>
-    To learn more about the GreatSchools Parent Community,
-    <gsml:a href="http://community.greatschools.net/tour/index.html">take a tour of the community</gsml:a>
-    or <gsml:a href="http://community.greatschools.net/faq">read the GreatSchools Parent Community FAQ</gsml:a>.
-    Any questions about the GreatSchools Parent Community can be sent to communitysupport@greatschools.net.
-</p>
-<h4>
-    Can I still access the SchwabLearning.org message board archive?
-</h4>
-<p>
-    Yes. The SchwabLearning.org <gsml:a href="http://www.schwablearning.org/message_boards">message board archive</gsml:a> (a read-only board)
-    is still available and searchable to allow you to refer back to previous discussions.
-</p>
-<h4>
-    My child loves SparkTop.org – how can I access it?
-</h4>
-<p>
-    The  <gsml:a href="http://www.SparkTop.org">SparkTop.org</gsml:a> site is now owned by
-    the <gsml:a href="http://www.ProfessorGarfield.com">Professor Garfield Foundation</gsml:a> but your child will still
-    be able to access www.SparkTop.org to
-    enjoy its features and activities. Please visit the Professor Garfield Foundation site for more information about this feature.
-</p>
-<h4>
-    I've saved bookmarks to several articles on SchwabLearning.org. Now that SchwabLearning.org is shut down,
-    will those bookmarks link to the corresponding articles on GreatSchools.net?
-</h4>
-<p>
-    Yes, your saved bookmarks will still work, and you will be automatically redirected to the corresponding
-    article on GreatSchools.net.
-</p>
-<h4>
-    Can I refer back to the SchwabLearning.org message board?
-</h4>
-<p>
-    The SchwabLearning.org message board archive is now available and searchable to allow you to refer back to previous
-    discussions. The message board archive can be accessed via
-    the <gsml:a href="http://community.greatschools.net/groups/12143">"Schwabbies"</gsml:a> group on our community.  Any links you
-    have bookmarked to discussions on the SchwabLearning.org Message Board should redirect you to the new archive page.
-</p>
-
-
-<![CDATA[ <a name="other"></a> ]]>
-
-<h3>Other Questions About GreatSchools</h3>
-
-<h4>Is GreatSchools affiliated with any school district or state Department of Education?</h4>
-
-<p>
-    No, GreatSchools is an independent nonprofit corporation; we do not advocate a particular ideology, political view,
-    educational philosophy or other agenda. While we work to develop relationships with state Departments of Education
-    in order to obtain education data, we have no formal affiliation with these institutions. </p>
-
-<h4>If GreatSchools is a nonprofit, why are there ads on some pages?</h4>
-
-<p> While GreatSchools is a nonprofit, some of our financial support comes from corporate sponsorships and
-    advertising.
-</p>
-
-
-<h4>Do I need to have cookies turned on to use GreatSchools.net?</h4>
-
-<p> If you are logging in or using the site as a member, your browser should be set to accept cookies. Otherwise,
-    you can use the site without enabling cookies. The information we store in the cookie can never be read by any
-    Web site other than ours. For more information read our <link:privacyPolicy>Privacy
-    Policy</link:privacyPolicy>.
-</p>
-
-
-<h4>How can I become a GreatSchools sponsor?</h4>
-
-<p> Thanks for asking! Sponsoring a GreatSchools profile or section of the site is a great way to let your community
-    know that you care about education. GreatSchools relies partly on local, regional and state sponsorships for
-    funding to allow us to continue providing our extensive information and tools at no cost. Contact us at <a
-        href="mailto:sponsorshipinfo@greatschools.net">sponsorshipinfo@greatschools.net</a> if you would like more
-    information.
-</p>
-
-<div style="text-align: right;">
-    <p>
-        <i>Didn't find the answer you're looking for? <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=gen">Contact us
-            with a general question or comment.</gsml:a></i>
-    </p>
-</div>
+<gsml:body adPageName="gsFaq" pageLayout="gsFaq">
+
+		<div id="contentFAQ" class="contentFAQ">
+			<h1>Frequently Asked Questions about GreatSchools</h1>
+
+			<ul class="pageNav">
+				<li><a href="#faq-101">GreatSchools 101</a></li>
+				<li><a href="#faq-rightschool">Find the right school and GreatSchools data</a></li>
+				<li><a href="#faq-parents">Connect with Other Parents</a></li>
+				<li><a href="#faq-advice">Expert Advice and Newsletters</a></li>
+				<li><a href="#faq-schwabtransition">SchwabLearning.org Transition</a></li>
+			</ul>
+
+			<h2 id="faq-101">GreatSchools 101</h2>
+
+			<ol class="questions">
+				<li>
+					<p class="question">What is the purpose of GreatSchools?</p>
+					<p>To improve K-12 education by inspiring parents to get involved.</p>
+				</li>
+
+				<li>
+					<p class="question">When was GreatSchools founded?</p>
+					<p>Bill Jackson, a former teacher, founded GreatSchools in 1998 to catalyze <strong><em>parent involvement</em></strong> -- a force that he believed was vital to the process of achieving excellence in education.</p>
+				</li>
+
+				<li>
+					<p class="question">Where does GreatSchools get its funding?</p>
+					<p>IDK</p>
+				</li>
+
+				<li>
+					<p class="question">Can GreatSchools help my family if we move?</p>
+					<p>We
+sure can. You can look up the best schools in the area you are moving
+to by both the Zip Code and school district or simply ask questions in
+the <a href="http://community.greatschools.net/">GreatSchools Parent Community</a> about where you're going for other parents to answer.</p>
+				</li>
+
+				<li>
+					<p class="question">Why should I join GreatSchools?</p>
+					<p>While
+all visitors can access school data, expert advice, articles, and our
+community content, we invite users to register with us so they can
+publish, post, and connect with members of our online parent community.
+This makes for a truly interactive and rewarding experience. Join
+GreatSchools and become a parent ambassador to represent your
+children's schools on the GreatSchools Web site for the benefit of
+other interested parents by becoming a parent ambassador.</p>
+				</li>
+
+				<li>
+					<p class="question">How can I join GreatSchools?</p>
+					<p><a href="http://www.greatschools.net/community/registration.page">Registration</a>
+is easy – and free. When you register, you have the chance to tell
+GreatSchools a bit about you and your family, which in turn helps us
+put you in touch with resources that can help you navigate your child's
+education.</p>
+				</li>
+			</ol>
+
+			<h2 id="faq-rightschool">Find GreatSchools data and the right school</h2>
+
+			<ul class="sectionNav">
+				<li><a href="#faq-datapublic">School Data – Public &amp; Charter schools</a></li>
+				<li><a href="#faq-dataprivate">School Data – Private Schools</a></li>
+				<li><a href="#faq-datacity">City and District Data</a></li>
+				<li><a href="#faq-enhancedprofiles">Enhanced School Profiles</a></li>
+				<li><a href="#faq-ratings">GreatSchools Ratings</a></li>
+				<li><a href="#faq-surveyinfo">Parent Survey Information</a></li>
+				<li><a href="#faq-comparingschools">Comparing Schools</a></li>
+				<li><a href="#faq-schoollist">My School List</a></li>
+			</ul>
+
+			<h3 id="faq-datapublic">School Data – Public &amp; Charter Schools</h3>
+
+			<ol class="questions">
+				<li>
+					<p class="question">What types of schools does GreatSchools.net provide profiles for?</p>
+					<p>GreatSchools.net
+profiles more than 90,000 public elementary, middle and high schools in
+the United States. Charter schools, magnet schools, year-round schools,
+and some continuation and alternative schools are included as well. </p>
+					<p>In addition, GreatSchools.net includes basic information on more than 30,000 <a href="#faq-dataprivate">private schools</a>. This information is limited because private schools are not required to give tests or report results. </p>
+				</li>
+
+				<li>
+					<p class="question">Exactly what does a school profile include?</p>
+					<p>Public school profiles in every state include most or all of the following information:</p>
+					<ul>
+						<li>Phone number, address, district name, location map</li>
+						<li>Grade levels served, school type, enrollment</li>
+						<li>Detailed academic performance data, including state-mandated standardized test results</li>
+						<li>Student-teacher ratio, student ethnicity breakdown and other important statistics about teachers and students.</li>
+						<li>Clear explanations for all data presented </li>
+						<li><a href="#faq-ratings">GreatSchools Ratings</a></li>
+					</ul>
+					<p>In
+addition, all schools have the option of "upgrading"--at no cost--to an
+Enhanced School Profile, which allows school principals to add
+information about curriculum, programs, activities, school vision and
+leadership. Get more information in our <a href="#faq-enhancedprofiles">FAQ about ESPs</a>.</p>
+				</li>
+
+				<li>
+					<p class="question">Where does GreatSchools get its data?</p>
+					<p>Public
+school test scores for most states come from the state Department of
+Education. School contact information and teacher/student statistics
+are obtained from both the state Department of Education and the
+National Center for Education Statistics (NCES).</p>
+				</li>
+
+				<li>
+					<p class="question">Why do some states have more school information than others?</p>
+					<p>We
+publish school data for all 50 states and the District of Columbia.
+However, State Departments of Education vary widely in the amount and
+type of data they release, so the specific data points we are able to
+acquire may be somewhat different from state to state.</p>
+				</li>
+
+				<li>
+					<p class="question">How often is school information updated?</p>
+					<p>Our
+goal is to update all data at least once a year in every state, using
+the most recent available information from either the state Department
+of Education or the National Center for Education Statistics (NCES).</p>
+					<p>Information on Enhanced School Profiles (ESPs) is updated as often as school principals choose to edit their information.</p>
+				</li>
+
+				<li>
+					<p class="question">What should I do if I see incorrect information on your site?</p>
+					<p>We
+strive to keep our school information up to date, but we realize there
+may be changes that are not reflected in our data. If you see any
+school information, such as contact information, that you know to be
+incorrect, please take the following steps, so that we can provide our
+users with the best possible information:</p>
+					<ol>
+						<li>We
+rely on state Departments of Education and the National Center for
+Education Statistics (NCES) for our school contact information. Please
+notify the appropriate state Department of Education to correct the
+school's information.</li>
+						<li>Let the school's principal know that he can sign up for an <a href="http://www.greatschools.net/cgi-bin/static/ed_extra.inc/WI">Enhanced School Profile</a>, which will allow him to directly edit the school's information, as well as contribute additional information about the school.</li>
+						<li><a href="http://www.greatschools.net/cgi-bin/feedback_faq/WI?fbtype=profile">Contact us</a>
+about the incorrect data and we will fix it. However, please note that
+our manual corrections will be overwritten by the state or national
+data source the next time we import their data, so step 1 above is very
+important.</li>
+					</ol>
+				</li>
+
+				<li>
+					<p class="question">What if I know of a public or charter school that is not listed on GreatSchools.net?</p>
+					<p>We
+rely on state Departments of Education and the National Center for
+Education Statistics (NCES) for our school directory and are unable to
+add public or charter schools individually to our Web site. If a public
+or charter school is missing from our site, it is usually because these
+data sources failed to provide the information. If you know of a public
+or charter school that is not listed, we recommend that you contact the
+appropriate state Department of Education to ask them to list the
+school. We are working to expand our capabilities so that our school
+listings are always completely current.</p>
+				</li>
+
+				<li>
+					<p class="question">Where
+can I find information about teachers, students, school events, and job
+opportunities at a certain school, or get copies of transcripts?</p>
+					<p>GreatSchools
+is not directly connected to any particular school and cannot relay
+your questions or comments to school officials. We do not have
+information about current or former students or staff at any school or
+employment with a particular school or district. Contact the school
+directly for this type of information.</p>
+				</li>
+
+				<li>
+					<p class="question">How can I get a custom report based on the data shown on GreatSchools.net?</p>
+					<p>All requests for custom reports based on our data should be directed to <a href="mailto:businessdevelopment@greatschools.net">businessdevelopment@greatschools.net</a>.
+Be sure to let us know if you are a nonprofit or for-profit
+organization and how you intend to utilize our data. Please note, a fee
+may be charged to cover our processing costs.</p>
+				</li>
+			</ol>
+
+			<h3 id="faq-dataprivate">School Data – Private Schools</h3>
+
+			<ol class="questions">
+				<li>
+					<p class="question">Why does GreatSchools have less information about private schools than public schools?</p>
+					<p>Unlike
+Public schools, private schools are not funded with public money, so
+they do not have to report data about their schools or make it
+available to the public. We continuously strive to acquire additional
+private school data whenever available.</p>
+				</li>
+
+				<li>
+					<p class="question">Where does GreatSchools get its private school information?</p>
+					<p>Our
+private school information comes from the National Center for Education
+Statistics (NCES) and some state Departments of Education.</p>
+				</li>
+
+				<li>
+					<p class="question">What if I know of a private school that is not listed on GreatSchools.net?</p>
+					<p>If you know of a private school that is not listed, please <a href="http://www.greatschools.net/cgi-bin/feedback_private/WI">submit the school's information to us</a>. Note: We can add private schools individually, but do not have the resources to add public or charter schools individually.</p>
+				</li>
+
+				<li>
+					<p class="question">Can the school principal send GreatSchools new information that isn't otherwise available?</p>
+					<p>Once
+a private school is listed on our site, the school's principal may
+provide additional information, free of charge, through our Enhanced
+School Profile feature. Get more information in our <a href="#faq-enhancedprofiles">FAQ about ESPs</a>.</p>
+				</li>
+
+				<li>
+					<p class="question">Where can I find additional data, such as test scores and teacher experience, about private schools?</p>
+					<p>Contact the schools directly. You will find contact information for private schools on our school profiles.</p>
+				</li>
+			</ol>
+
+			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="http://www.greatschools.net/cgi-bin/feedback_faq/WI?fbtype=profile">Contact us about our school information</a>.</p>
+
+			<h3 id="faq-datacity">City and School District Data</h3>
+
+			<ol class="questions">
+				<li>
+					<p class="question">What type of city information does GreatSchools offer?</p>
+					<p>GreatSchools includes most or all of the following information for cities:</p>
+					<ul>
+						<li><a href="http://www.greatschools.net/cgi-bin/showarticle/1023#13">GreatSchools City Ratings</a></li>
+						<li>Recent parent reviews for schools in the city</li>
+						<li>Links to several top-rated schools in the city</li>
+						<li>Links to school districts in the city</li>
+						<li>List of nearby cities</li>
+						<li>Population,
+median household income, cost of living index, unemployment rate,
+Violent Crime index, climate statistics and median home price</li>
+					</ul>
+				</li>
+
+				<li>
+					<p class="question">What does a school district profile include?</p>
+					<p>School district profiles in every state include most or all of the following information:</p>
+					<ul>
+						<li><a href="http://www.greatschools.net/cgi-bin/showarticle/1023#13">GreatSchools District Ratings</a></li>
+						<li>Phone number, address, location map</li>
+						<li>Grade levels served, enrollment, number of schools</li>
+						<li>Detailed academic performance data, including state-mandated standardized test results</li>
+						<li>Student-teacher ratio, student ethnicity breakdown and other important teacher/student stats</li>
+						<li>Clear explanations for all data presented</li>
+					</ul>
+				</li>
+			</ol>
+
+			<h3 id="faq-enhancedprofiles">Enhanced School Profiles</h3>
+
+			<ol class="questions">
+				<li>
+					<p class="question">What is an Enhanced School Profile and is it free?</p>
+					<p>An
+Enhanced School Profile is absolutely free. It allows the principal or
+other school official to add the following information about the school
+directly to their GreatSchools.net profile:</p>
+					<ul>
+						<li>Mission</li>
+						<li>Schedule and calendar</li>
+						<li>Detailed descriptions of curriculum and enrichment activities (music, sports, etc.)</li>
+						<li>In-depth information on staff, safety, student support, community involvement and much more</li>
+					</ul>
+					<p>As
+an added bonus, the Enhanced School Profile also lets the principal or
+other school official edit the school's contact information directly,
+in the event that the school's address or phone number has changed
+since we last updated it.</p>
+				</li>
+
+				<li>
+					<p class="question">Why do I need an Enhanced School Profile for my school?</p>
+					<p>GreatSchools.net
+is the most visited K-12 education Web site in the country, attracting
+thousands of people every day. Parents, community leaders, potential
+volunteers, funders, teachers and people looking for education jobs
+will have access to information that you provide about your school. You
+can use your profile to draw attention to your school's successes and
+unique qualities, and even point your school community straight to your
+GreatSchools profile to gather important information. It's a great way
+to spread the word about your school to a broader audience, even if you
+already have a school Web site.</p>
+				</li>
+
+				<li>
+					<p class="question">How do you create an Enhanced School Profile?</p>
+					<p>Creating an Enhanced School Profile is simple! Principals and school officials, <a href="http://www.greatschools.net/cgi-bin/pq_start.cgi/WI">get started on your Enhanced School Profile</a> using our secure, online questionnaire. Or <a href="http://www.greatschools.net/cgi-bin/static/ed_extra.inc/WI">read more about Enhanced School Profiles</a>.</p>
+				</li>
+			</ol>
+
+			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="mailto:esphelp@greatschools.net">Contact us about Enhanced School Profiles</a>.</p>
+
+			<h3 id="faq-ratings">GreatSchools Ratings</h3>
+
+			<ol class="questions">
+				<li>
+					<p class="question">How are the GreatSchools Ratings calculated?</p>
+					<p>GreatSchools
+analyzes each school's performance on state standardized tests and
+provides a one-through-ten rating for the school's performance relative
+to other schools in the state. Our ratings also allow you to compare
+the performance of particular grade levels and groups of students to
+comparable groups in other schools in the state. A rating of "10" means
+that the group's test scores are in the top 10% compared to scores for
+the same group across all schools in the state. In other words, that
+group's test score performance is as good as, or better than, 90% of
+the scores for that group in the state. A rating of "1" means that the
+group is in the bottom 10% compared to scores for that group across all
+schools in the state. Learn more about <a href="http://www.greatschools.net/cgi-bin/showarticle/1023">GreatSchools Ratings</a>.</p>
+					<p>GreatSchools'
+Overall Ratings are calculated by averaging the ratings for each grade
+and subject. A Test Score Rating is not given if fewer than 50 schools
+have data for a particular group. The different student groups
+(category, ethnicity and gender) are identified by the state Department
+of Education; if there is a small number of students in a particular
+group in a school, data is not reported for that group.</p>
+					<p>Please
+keep in mind that it's important to factor in information other than
+Test Score Ratings, including the quality of each school's teachers,
+the school culture and special programs, when evaluating a school. Also
+note that GreatSchools Ratings are not linked to any performance
+ratings given by the state Department of Education.</p>
+				</li>
+			</ol>
+
+			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="http://www.greatschools.net/cgi-bin/feedback_faq/WI?fbtype=profile">Contact us about our ratings</a>.</p>
+
+			<h3 id="faq-surveyinfo">Parent Survey Information</h3>
+
+			<ol class="questions">
+				<li>
+					<p class="question">What exactly is a Parent Survey?</p>
+					<p>The survey allows parents to add the following information directly to their school's GreatSchools profile:</p>
+					<ul>
+						<li>Arts and Sports programs</li>
+						<li>Curriculum information</li>
+						<li>Student resources for special education, English Language learner and gifted students</li>
+						<li>Details about the school culture </li>
+						<li>Level of parent involvement and much more</li>
+					</ul>
+				</li>
+			</ol>
+
+			<h3 id="faq-comparingschools">Comparing Schools</h3>
+
+			<ol class="questions">
+				<li>
+					<p class="question">How do I compare schools?</p>
+					<p>You
+can compare schools that are near a certain address, or within a
+specific district, county or state. Just click on the "Compare Schools"
+link at the top of any school profile or visit the tab '<a href="http://www.greatschools.net/modperl/go/CA">Research &amp; Compare</a>' to get started. It's possible to compare schools in different counties by saving schools to <a href="http://www.greatschools.net/cgi-bin/msl_confirm/CA">My School List</a>, then comparing those schools.</p>
+				</li>
+
+				<li>
+					<p class="question">Can I compare schools in different states?</p>
+					<p>Unfortunately,
+it isn't possible to compare student achievement across states because
+different states administer different standardized tests.</p>
+				</li>
+
+				<li>
+					<p class="question">Why are private schools missing so much data?</p>
+					<p>Private schools are not required by law to publish the same information as public schools.</p>
+				</li>
+			</ol>
+
+			<h3 id="faq-schoollist">My School List</h3>
+
+			<ol class="questions">
+				<li>
+					<p><a href="http://www.greatschools.net/cgi-bin/msl_confirm/CA">My School List</a>
+is a tool that lets you compile a list of schools, save and compare
+them. To build a list, go to any school profile on GreatSchools.net and
+click on the link, "Add this school to My School List," next to the
+name of the school. Once you have a list of schools, you can easily
+compare the schools in your list.</p>
+				</li>
+			</ol>
+
+			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="http://www.greatschools.net/cgi-bin/feedback_faq/WI?fbtype=profile">Contact us about comparing schools</a>.</p>
+
+			<h2 id="faq-parents">Connect with Other Parents</h2>
+
+			<ol class="questions">
+				<li>
+					<p>The
+GreatSchools Parent Community is a safe, supportive online community
+where you can connect with like-minded parents and share success
+stories about your child’s education. You can use the community to find
+answers to your questions about school choice, dealing with bullies and
+<a href="http://community.greatschools.net/">more</a>.</p>
+				</li>
+			</ol>
+
+			<h2 id="faq-advice">Expert Advice and Newsletters</h2>
+
+			<ol class="questions">
+				<li>
+					<p class="question">What type of content can I find on your site?</p>
+					<p>GreatSchools
+has more than 1,000 articles on a range of topics relevant to parents
+of preschoolers to high school students. Written by our expert staff
+and consultants, the articles explain in parent-friendly terms such
+timely topics as how to choose a school, and understand test scores and
+report cards; how to work with your child's teacher, what your child's
+curriculum should be grade by grade, and what to do if your child is
+the victim of bullying.</p>
+				</li>
+
+				<li>
+					<p class="question">What newsletters does GreatSchools provide?</p>
+					<p>We
+have a family of free email newsletters to help you help your child
+succeed in school. You can subscribe to newsletters for your child's
+school and/or grade level, and get timely tips and advice.</p>
+					<ul>
+						<li><strong>Parent Advisor</strong> is a bi-monthly newsletter that provides timely tips on helping your child succeed throughout the school year. </li>
+						<li><strong>My School Stats</strong>
+is a periodic newsletter that provides the latest updates about test
+scores, teacher quality, class size and more at your child's school,
+and shows you how your school compares to others in your state. </li>
+						<li><strong>Keep your child on track in the classroom</strong>:
+Get expert advice, ideas for learning activities, book recommendations
+and more. For parents of children in preschool through high school.
+Sign up for My Preschooler, My Kindergartner, My First-Grader, My
+Second-Grader, My Third-Grader, My-Fourth Grader, My Fifth-Grader,
+Middle School Matters and Countdown to College. </li>
+						<li><strong>Helping Kids with Learning Difficulties</strong>:
+Does your child have a learning disability, difficulty or attention
+problem? Our monthly guide offers support, strategies and resources.</li>
+					</ul>
+				</li>
+			</ol>
+
+			<h2 id="faq-schwabtransition">SchwabLearning.org Transition</h2>
+
+			<p>We're
+pleased to announce that GreatSchools is the new host for the valuable
+articles and resources developed by SchwabLearning.org to provide
+information and inspiration to parents of children with learning and
+attention difficulties.</p>
+
+			<p>GreatSchools acquired and began
+hosting SchwabLearning.org in January, 2008, and we recently
+transferred most of the Schwab Learning content to the GreatSchools Web
+site. Below are answers to questions you may have about the transition
+of the Web site and how it affects you.</p>
+
+			<ol class="questions">
+				<li>
+					<p class="question">Can I still access SchwabLearning.org?</p>
+					<p>No.
+Now that the core content has been transitioned to GreatSchools.net the
+SchwabLearning.org site is not available. From now on, anyone who
+visits SchwabLearning.org will be automatically redirected to the new <a href="http://www.greatschools.net/content/specialNeeds.page">Learning Difficulties section</a> on GreatSchools.net.</p>
+				</li>
+
+				<li>
+					<p class="question">Will GreatSchools develop the same kind of articles that SchwabLearning.org provided?</p>
+					<p>Yes.
+We understand the value of the type of articles and other content
+created by SchwabLearning.org. GreatSchools will continue to develop
+new content that is relevant to parents whose children have learning
+and attention difficulties — and we'll keep the existing content
+up-to-date.</p>
+					<p>To ensure the accuracy and timeliness of our
+content, we've recruited several experts in the field of learning
+difficulties to serve as consultants to our editorial team.</p>
+				</li>
+
+				<li>
+					<p class="question">Can I access the articles that were on SchwabLearning.org?</p>
+					<p>Most
+of the articles that existed on SchwabLearning.org are now available on
+GreatSchools.net. This includes articles in English and Spanish, and
+the Assistive Technology Tools database.</p>
+				</li>
+
+				<li>
+					<p class="question">What about my SchwabLearning.org newsletter?</p>
+					<p>If
+you previously subscribed to the SchwabLearning.org weekly email
+newsletter, your subscription should have automatically transferred to
+GreatSchools, as we now send our Helping Kids with Learning
+Difficulties newsletter once a month. Each issue of our newsletter
+features new or updated articles. If for some reason you have not
+received this newsletter in 2008, please <a href="http://www.greatschools.net/cgi-bin/newsletters/">subscribe here</a>.</p>
+				</li>
+
+				<li>
+					<p class="question">Does GreatSchools host a message board for parents of kids with learning difficulties?</p>
+					<p>Yes.
+We invite former Schwab Learning message board members to continue the
+discussion on the GreatSchools Parent Community. Be sure to check out
+two of our most active online parent groups:</p>
+					<ul>
+						<li><a href="http://community.greatschools.net/groups/11554">Learning and Attention Difficulties</a></li>
+						<li><a href="http://community.greatschools.net/groups/12143">Schwabbies</a> (former SchwabLearning.org members)</li>
+					</ul>
+					<p>To learn more about the GreatSchools Parent Community, take a <a href="http://community.greatschools.net/tour/index.html">tour of the community</a> or <a href="http://community.greatschools.net/faq">read the GreatSchools Parent Community FAQ</a>. Any questions about the GreatSchools Parent Community can be sent to <a href="mailto:communitysupport@greatschools.net">communitysupport@greatschools.net</a>.</p>
+				</li>
+
+				<li>
+					<p class="question">Can I still access the SchwabLearning.org message board archive?</p>
+					<p>Yes. The SchwabLearning.org <a href="http://www.schwablearning.org/message%5Fboards/">message board archive</a>
+(a read-only board) is still available and searchable to allow you to
+refer back to previous discussions. The message board archive can be
+accessed via the "<a href="http://community.greatschools.net/groups/12143">Schwabbies</a>"
+group on our community. Any links you have bookmarked to discussions on
+the SchwabLearning.org Message Board should redirect you to the new
+archive page.</p>
+				</li>
+
+				<li>
+					<p class="question">I've
+saved bookmarks to several articles on SchwabLearning.org. Now that
+SchwabLearning.org is shut down, will those bookmarks link to the
+corresponding articles on GreatSchools.net?</p>
+					<p>Yes, your saved
+bookmarks will still work, and you will be automatically redirected to
+the corresponding article on GreatSchools.net.</p>
+				</li>
+
+				<li>
+					<p class="question">My child loves SparkTop.org – how can I access it?</p>
+					<p>The <a href="http://www.sparktop.org/">SparkTop.org</a> site is now owned by the <a href="http://www.professorgarfield.com/">Professor Garfield Foundation</a>
+but your child will still be able to access www.SparkTop.org to enjoy
+its features and activities. Please visit the Professor Garfield
+Foundation site for more information about this feature.</p>
+				</li>
+			</ol>
+		</div>
+
+        <div style="display: none;">
+            <!-- FIXME -->
+            <ad:setSlotPrefix slotPrefix="FAQ"/>
+            <mod:tracking pageName="gsFaq" hier1="Home,ContactUs,FAQ"/>
+        </div>
 
 </gsml:body>
 </html>

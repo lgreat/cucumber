@@ -1,4 +1,88 @@
-.singleTextOnlyColumnLayout .contentGS ul.linkList li {
-    background: none;
-    margin-left:50px;
+.contentFAQ {
+	text-align: left;
+	padding: 10px 25px;
+	line-height: 22px;
+}
+
+/* Typography sizing, etc. */
+
+.contentFAQ h1 {
+	color: #5bc;
+	font-size: 19px;
+	margin: 0 0 15px;
+}
+
+.contentFAQ h2 {
+	font-size: 17px;
+	margin: 0 0 15px;
+}
+
+.contentFAQ h3 {
+	font-size: 15px;
+	margin: 0 0 15px;
+}
+
+.contentFAQ p, .contentFAQ ol, .contentFAQ ul {
+	font-size: 12px;
+	margin: 0 0 15px;
+}
+
+.contentFAQ ol, .contentFAQ ul {
+	padding: 0 0 0 25px;
+}
+
+/* Questions formatting */
+
+.questions li {
+	margin: 0 0 25px;
+}
+
+.questions li li {
+	margin: 0;
+}
+
+.contentFAQ .questions li ol li {
+	list-style-type: decimal;
+    font-size: 12px;
+}
+
+.contentFAQ .questions li ul li {
+	list-style-type: disc;
+    font-size: 12px;
+}
+
+.contentFAQ .questions {
+	padding: 0;
+	list-style-type: none;
+}
+
+.contentFAQ .question {
+	margin: 0;
+	font-weight: bold;
+}
+
+.contentFAQ .emphasis-right {
+	text-align: right;
+	font-style: italic;
+}
+
+/* Navigation styling */
+
+.contentFAQ .pageNav {
+	padding-left: 10px;
+	list-style-type: none;
+}
+
+.contentFAQ .pageNav li {
+	padding-left: 15px;
+	background: url(/res/img/content/article/greenarrow.gif) no-repeat left 6px;
+}
+
+.contentFAQ .sectionNav {
+	color: #39a;
+}
+
+.contentFAQ .sectionNav li {
+	list-style-type: disc;
+    font-size: 12px;
 }
