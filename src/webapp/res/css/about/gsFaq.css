@@ -23,7 +23,7 @@
 }
 
 .contentFAQ p, .contentFAQ ol, .contentFAQ ul {
-	font-size: 12px;
+	font-size: 13px;
 	margin: 0 0 15px;
 }
 
@@ -43,12 +43,12 @@
 
 .contentFAQ .questions li ol li {
 	list-style-type: decimal;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .contentFAQ .questions li ul li {
 	list-style-type: disc;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .contentFAQ .questions {
@@ -84,5 +84,5 @@
 
 .contentFAQ .sectionNav li {
 	list-style-type: disc;
-    font-size: 12px;
+    font-size: 13px;
 }
