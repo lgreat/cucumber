@@ -1018,14 +1018,3 @@ div#col_right div#nearbySchools {
     font-size: 12px;
     font-weight: normal;
 }
-
-ul.compareSchoolB {
-    padding-top: 4px;
-    padding-bottom: 6px;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-}
-
-.compareSchoolB li {
-    line-height: 22px;
-    margin-left: 20px;
-}
