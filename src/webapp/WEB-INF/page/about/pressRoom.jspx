@@ -24,8 +24,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <meta name="Description" content="GreatSchools Media Center"/>
-    <title>GreatSchools Media Center</title>
+    <meta name="Description" content="GreatSchools Media Room"/>
+    <title>GreatSchools Media Room</title>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/about/pressRoom.css"/>
 </head>
@@ -35,7 +35,7 @@
 <gsml:body adPageName="pressRoom" pageLayout="pressRoom">
 
     <div class="pageTitle">
-        <h2>Media Center</h2>
+        <h2>Media Room</h2>
     </div>
 
     <div class="contentLeft">
@@ -86,9 +86,13 @@
 
             Contact our team:<br/>
             <br/>
-            David Steer<br/>
+            Dave Steer<br/>
             415.977.0700 x 123<br/>
-            <a href="mailto:pr@greatschools.net">pr@greatschools.net</a>
+            <a href="mailto:pr@greatschools.net">pr@greatschools.net</a><br/>
+            <br/>
+            Deborah Schneider<br/>
+            415.277.6973<br/>
+            <a href="mailto:dschneider@prandcompany.com">dschneider@prandcompany.com</a>
 
         </div>
         <div class="awards">

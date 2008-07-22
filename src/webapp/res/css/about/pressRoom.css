@@ -75,11 +75,11 @@
 .media {
     font-size: 13px;
     width: 298px; /* 318 - 20 = 298 */
-    height: 120px; /* 140 - 20 = 120 */
+    height: 206px; /* 226 - 20 = 206 */
     background: url(/res/img/about/pressroom/pressroom_sidebar_gradation_1px.jpg) repeat-x;
     padding-top: 15px;
     padding-left: 20px;
-    line-height: 16px;
+    line-height: 17px;
 }
 
 .awards h2 {
