@@ -23,8 +23,8 @@
         <div class="moduleBox first">
 
             <c:choose>
-                <c:when test="${firstBoxContent eq 'mediaCenter'}">
-                    <h3><link:pressRoom>Media Center</link:pressRoom></h3>
+                <c:when test="${firstBoxContent eq 'mediaRoom'}">
+                    <h3><link:pressRoom>Media Room</link:pressRoom></h3>
 
                     <jsp:include page="/content/links.module?page=aboutUsMediaCenter&amp;type=all&amp;layout=list"/>
 

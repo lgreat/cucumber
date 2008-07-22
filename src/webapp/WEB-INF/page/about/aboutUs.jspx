@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <about:footer showTopBorder="false" firstBoxContent="mediaCenter"/>
+        <about:footer showTopBorder="false" firstBoxContent="mediaRoom"/>
 
         <div style="display: none;">
             <ad:setSlotPrefix slotPrefix="AboutUs"/>
