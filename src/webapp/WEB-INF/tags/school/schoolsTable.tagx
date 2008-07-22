@@ -9,12 +9,14 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
-    <!--<jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>-->
-    <!--<jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>-->
-    <!--<pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>-->
+
+    <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
 
     <div id="searchResults">
     <div id="schoolsTable">
+        <form method="get" action="/compareSchools.page">
+        <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
         <c:forEach var="school" items="${schools}" varStatus="loopStatus">
             <div class="school ${loopStatus.last ? 'last' : ''}">
                 <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
@@ -78,6 +80,7 @@
                 </div>
             </div>
         </c:forEach>
+        </form>
     </div>
     </div>
 </jsp:root>

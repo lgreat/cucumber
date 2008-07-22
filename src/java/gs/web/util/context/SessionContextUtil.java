@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.42 2008/07/22 19:54:08 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.43 2008/07/22 21:08:01 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -532,10 +532,9 @@ public class SessionContextUtil implements ApplicationContextAware {
         return context;
     }
 
-    private void saveCookies(HttpServletResponse response, SessionContext context) {
-
+    public void saveCookies(HttpServletResponse response, SessionContext context) {
         // Stash away member's information so we don't look it up every time.
-        if (context.getMemberId() != null && !context.isReadFromClient()) {
+        if (context.getMemberId() != null) {
             User user = context.getUser();
             if (user != null) {
                 ClientSideSessionCache sessionCache = new ClientSideSessionCache(user);

@@ -70,6 +70,11 @@
                 -->
             </bean>
         </property>
+        <property name="memberCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="MEMBER"/>
+            </bean>
+        </property>
         <property name="memberIdCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="MEMID"/>

@@ -53,7 +53,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
     public static final String MODEL_SCHOOLS = "schools";
 
     /** Used to sort schools by name */
-    private Comparator _schoolNameComparator;
+    private Comparator<School> _schoolNameComparator;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -73,6 +73,8 @@ public class MySchoolListController extends AbstractController implements ReadWr
         } else {
             if (user != null) {
                 processCommand(command, request, user);
+                SessionContextUtil util = sessionContext.getSessionContextUtil();
+                util.saveCookies(response, sessionContext);
                 view = LIST_VIEW_NAME;
                 model = buildModel(user);
             } else {
