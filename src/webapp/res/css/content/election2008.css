@@ -347,3 +347,9 @@ div.toolkits ul li span {
 #contentGS #contentBottomHeader {
     padding-top: 0;
 }
+
+
+div.startlingStat {
+    float: left;
+    margin-right: 8px;
+}
