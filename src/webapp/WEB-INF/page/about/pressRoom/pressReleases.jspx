@@ -43,13 +43,20 @@
 
     <div class="contact">
         <h3>Contact GreatSchools</h3>
-        David Steer<br/>
-        415.977.0700 x 123<br/>
-        <a href="mailto:pr@greatschools.net">pr@greatschools.net</a>
+        <div class="contactInfo">
+            Dave Steer<br/>
+            415.977.0700 x 123<br/>
+            <a href="mailto:pr@greatschools.net">pr@greatschools.net</a>
+        </div>
+        <div class="contactInfo">
+            Deborah Schneider<br/>
+            415.277.6973<br/>
+            <a href="mailto:dschneider@prandcompany.com">dschneider@prandcompany.com</a>
+        </div>
     </div>
 
     <div class="backLink">
-        <link:pressRoom>Return to Media Center &amp;gt;</link:pressRoom>
+        <link:pressRoom>Return to Media Room &amp;gt;</link:pressRoom>
     </div>
 
     <div style="display: none;">

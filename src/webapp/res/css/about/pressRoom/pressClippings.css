@@ -40,6 +40,12 @@
     margin-top: 40px;
     font-size: 13px;
     line-height: 16px;
+    height: 80px;
+}
+
+.contactInfo {
+    float: left;
+    width: 180px;
 }
 
 .backLink {
