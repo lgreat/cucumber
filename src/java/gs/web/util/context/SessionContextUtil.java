@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.41 2008/07/14 19:23:32 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.42 2008/07/22 19:54:08 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -97,6 +97,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     private CookieGenerator _omnitureSubCookieGenerator;
     private CookieGenerator _stateCookieGenerator;
+    private CookieGenerator _memberCookieGenerator;    
     private CookieGenerator _memberIdCookieGenerator;
     private CookieGenerator _hasSearchedCookieGenerator;
     private CookieGenerator _sessionCacheCookieGenerator;
@@ -388,6 +389,10 @@ public class SessionContextUtil implements ApplicationContextAware {
         _stateCookieGenerator = stateCookieGenerator;
     }
 
+    public void setMemberCookieGenerator(CookieGenerator memberCookieGenerator) {
+        _memberCookieGenerator = memberCookieGenerator;
+    }
+
     public void setMemberIdCookieGenerator(CookieGenerator memberIdCookieGenerator) {
         _memberIdCookieGenerator = memberIdCookieGenerator;
     }
@@ -635,5 +640,16 @@ public class SessionContextUtil implements ApplicationContextAware {
             _cityIdCookieGenerator.setCookieDomain(".greatschools.net");
         }
         _cityIdCookieGenerator.addCookie(res, city.getId().toString());
+    }
+
+    public void clearUserCookies(HttpServletResponse response) {
+        _memberIdCookieGenerator.removeCookie(response);
+        _sessionCacheCookieGenerator.removeCookie(response);
+        _memberCookieGenerator.removeCookie(response);
+        // Before a user logs into community, the name of the community cookie is blank. Thus, we
+        // do this check in order to avoid a NPE.
+        if(!StringUtils.isBlank(_communityCookieGenerator.getCookieName())) {
+            _communityCookieGenerator.removeCookie(response);
+        }
     }
 }

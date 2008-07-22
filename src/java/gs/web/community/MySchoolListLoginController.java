@@ -12,8 +12,9 @@ import gs.data.community.User;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.ReadWriteController;
 
-public class MySchoolListLoginController extends SimpleFormController {
+public class MySchoolListLoginController extends SimpleFormController implements ReadWriteController {
 
     public static final String BEAN_NAME = "/community/mySchoolListLogin.page";
     public IUserDao _userDao;

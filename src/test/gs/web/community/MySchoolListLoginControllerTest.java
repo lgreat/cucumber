@@ -37,8 +37,6 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
         // for now, known users will not be redirected to the msl - instead, they will be
         // allowed to change identity on the login page.
         assertEquals("Expected msl login form view", "/community/mySchoolListLogin", mAndV.getViewName());
-//        assertEquals("Should redirect to msl page",
-//                MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
     public void testRequestWithUnknownUser() throws Exception {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.45 2008/07/17 18:30:02 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.46 2008/07/22 19:54:07 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -47,7 +47,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doAfterBody();
         handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a target=\"theTarget\" onclick=\"return false;\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+        assertEquals("<a target=\"theTarget\" onclick=\"return false;\" href=\"/community/mySchoolList.page?command=add&amp;state=WY\"></a>",
                 out.getOutputBuffer().toString());
         handler.setTarget(null);
 
@@ -61,7 +61,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doAfterBody();
         handler.doEndTag();
         out = (MockJspWriter) pc.getOut();
-        assertEquals("<a class=\"theStyle\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+        assertEquals("<a class=\"theStyle\" href=\"/community/mySchoolList.page?command=add&amp;state=WY\"></a>",
                 out.getOutputBuffer().toString());
     }
 
@@ -83,7 +83,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doAfterBody();
         handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a onmouseover=\"mouseover();\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+        assertEquals("<a onmouseover=\"mouseover();\" href=\"/community/mySchoolList.page?command=add&amp;state=WY\"></a>",
                 out.getOutputBuffer().toString());
         handler.setOnMouseOver(null); // clear
 
@@ -96,7 +96,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doAfterBody();
         handler.doEndTag();
         out = (MockJspWriter) pc.getOut();
-        assertEquals("<a onmouseout=\"mouseout();\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+        assertEquals("<a onmouseout=\"mouseout();\" href=\"/community/mySchoolList.page?command=add&amp;state=WY\"></a>",
                 out.getOutputBuffer().toString());
         handler.setOnMouseOut(null); // clear
 
@@ -110,7 +110,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doAfterBody();
         handler.doEndTag();
         out = (MockJspWriter) pc.getOut();
-        assertEquals("<a onmouseover=\"mouseover();\" onmouseout=\"mouseout();\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
+        assertEquals("<a onmouseover=\"mouseover();\" onmouseout=\"mouseout();\" href=\"/community/mySchoolList.page?command=add&amp;state=WY\"></a>",
                 out.getOutputBuffer().toString());
     }
 
@@ -235,7 +235,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         MySchoolListTagHandler tagHandler = new MySchoolListTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/msl_confirm/ca/", builder.asSiteRelative(null));
+        assertEquals("/community/mySchoolList.page", builder.asSiteRelative(null));
 
         School s = new School();
         s.setId(new Integer(234));
@@ -243,7 +243,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
 
         tagHandler.setSchool(s);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/msl_confirm/ak/?add_ids=234", builder.asSiteRelative(null));
+        assertEquals("/community/mySchoolList.page?command=add&ids=234&state=AK", builder.asSiteRelative(null));
     }
 
     public void testNewsletterCenter() {

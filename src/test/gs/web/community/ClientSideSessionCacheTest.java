@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCacheTest.java,v 1.7 2007/09/10 17:43:02 dlee Exp $
+ * $Id: ClientSideSessionCacheTest.java,v 1.8 2008/07/22 19:54:08 chriskimm Exp $
  */
 
 package gs.web.community;
@@ -81,11 +81,13 @@ public class ClientSideSessionCacheTest extends TestCase {
         FavoriteSchool school = new FavoriteSchool();
         school.setState(State.CA);
         school.setSchoolId(new Integer(1));
+        school.setUser(user);
         favoriteSchools.add(school);
 
         FavoriteSchool school2 = new FavoriteSchool();
         school2.setState(State.CA);
         school2.setSchoolId(new Integer(5));
+        school2.setUser(user);
         favoriteSchools.add(school2);
 
         user.setFavoriteSchools(favoriteSchools);

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListTagHandler.java,v 1.2 2007/04/09 20:35:17 dlee Exp $
+ * $Id: MySchoolListTagHandler.java,v 1.3 2008/07/22 19:54:08 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -10,19 +10,24 @@ import gs.web.util.UrlBuilder;
 
 /**
  * Generates My School List tag.
- *
- * @author Andrew Peterson <mailto:apeterson@greatschools.net>
  */
 public class MySchoolListTagHandler extends LinkTagHandler {
 
     private School _school;
+    private School _remove;
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder;
         if (null == getSchool()) {
-            builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, getState());
+            builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST);
         } else {
             builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, getSchool().getDatabaseState(), getSchool().getId().toString());
+        }
+
+        if(_remove != null) {
+            builder.addParameter("command", "remove");
+            builder.addParameter("state", _remove.getDatabaseState().getAbbreviation());
+            builder.addParameter("ids", String.valueOf(_remove.getId()));
         }
         return builder;
     }
@@ -37,5 +42,13 @@ public class MySchoolListTagHandler extends LinkTagHandler {
 
     public void setSchool(School school) {
         _school = school;
+    }
+
+    public School getRemove() {
+        return _remove;
+    }
+
+    public void setRemove(School remove) {
+        _remove = remove;
     }
 }

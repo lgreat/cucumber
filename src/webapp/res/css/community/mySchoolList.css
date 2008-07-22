@@ -1,5 +1,12 @@
+#msl_header{
+    margin:5px 0 10px 0;
+    font-size:small;
+    font-weight:normal;
+}
+
 #msl_header div#msl_header_top {
-    border-bottom: 1px solid;
+    padding-bottom:7px;
+    border-bottom: 1px solid #CCCCCC;
     position:relative;
 }
 
@@ -10,6 +17,7 @@
 }
 
 #msl_header div#msl_header_bottom {
+    margin-top:7px;
     position:relative;
 }
 #msl_header div#msl_header_bottom div#page_status {
@@ -21,4 +29,10 @@
 #msl_header div#msl_title {
     font-family:"Trebuchet MS",Arial,sans-serif;
     color:#CC5566;
+    font-size:medium;
+    font-weight:700;
+}
+
+.addToMsl {
+    display:none;
 }

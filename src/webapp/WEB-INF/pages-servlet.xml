@@ -1488,6 +1488,10 @@
         <property name="successView" value="redirect:/community/mySchoolList.page"/>
     </bean>
 
+    <bean name="/community/logout.page"
+          class="gs.web.community.LogoutController" autowire="byName" lazy-init="true">
+    </bean>
+
     <!-- XML feed related web services -->
     <bean name="/util/feed/city.page" class="gs.web.util.feed.CityFeedController" autowire="byName" lazy-init="true"/>
 

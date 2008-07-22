@@ -246,3 +246,18 @@ div#col_right div#compareInCity input.submit {
 #schoolsTable .last {
    border-bottom:none;
 }
+
+div.school {
+    position:relative;
+}
+
+div.school div.mslRemove {
+    position:absolute;
+    right:0;
+    bottom:17px;
+    font-size:13px;
+}
+
+div.school div.mslRemove img {
+    margin:0 5px 0 0;
+}

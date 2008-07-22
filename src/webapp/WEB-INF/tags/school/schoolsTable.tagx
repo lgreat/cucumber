@@ -39,9 +39,10 @@
                     </div>
                 </c:if>
                 <div class="resultcontrols">
-                    <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
+                    <div class="addToMsl">
+                        <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
+                    </div>
                     <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
-                        <br />
                         <div class="compare_schools_row">
                             <gsml:checkbox
                                     name="sc"
@@ -69,6 +70,11 @@
                                                                 alt="Compare now"/></span>
                         </div>
                     </c:if>
+                </div>
+                
+                <div class="mslRemove">
+                    <img src="/res/img/x_11x8.gif" alt="yellow x"/>
+                    <link:mySchoolList remove="${school}">Remove from list &gt;</link:mySchoolList>
                 </div>
             </div>
         </c:forEach>

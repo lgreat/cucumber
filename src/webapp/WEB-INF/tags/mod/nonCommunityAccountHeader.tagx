@@ -14,11 +14,11 @@
         </span>
         <span class="headerMsl">
             <c:choose>
-                <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">My School List (${requestScope.context.mslCount})</gsml:a>
+                <c:when test="${not empty requestScope.context.mslCount}">
+                    <link:mySchoolList>My School List (${requestScope.context.mslCount})</link:mySchoolList>
                 </c:when>
                 <c:otherwise>
-                    <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
+                    <link:mySchoolListLogin>My School List (0)</link:mySchoolListLogin>
                 </c:otherwise>
             </c:choose>
         </span>

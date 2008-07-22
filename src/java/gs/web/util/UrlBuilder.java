@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.110 2008/07/21 21:38:54 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.111 2008/07/22 19:54:07 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -474,6 +474,8 @@ public class UrlBuilder {
             _path = "/content/tutoring_Homework_Help.page";
         } else if (TRAVEL.equals(page)) {
             _path = "/content/travel.page";
+        } else if (MY_SCHOOL_LIST.equals(page)) {
+            _path = "/community/mySchoolList.page";            
         } else if (MY_SCHOOL_LIST_LOGIN.equals(page)) {
             _path = "/community/mySchoolListLogin.page";            
         } else {
@@ -564,11 +566,11 @@ public class UrlBuilder {
             _path = "/schools/cities/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
         } else if (MY_SCHOOL_LIST.equals(page)) {
             _perlPage = true;
-            _path = "/cgi-bin/msl_confirm/" +
-                    state.getAbbreviationLowerCase() +
-                    "/";
+            _path = "/community/mySchoolList.page";
+            setParameter("command", "add");
+            setParameter("state", state.getAbbreviation());
             if (null != param0) {
-                setParameter("add_ids",param0);
+                setParameter("ids",param0);
             }
         } else if (ARTICLE_LIBRARY.equals(page)) {
             _perlPage = false;

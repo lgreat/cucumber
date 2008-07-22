@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.61 2008/07/14 19:23:32 chriskimm Exp $
+ * $Id: PageHelper.java,v 1.62 2008/07/22 19:54:07 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -749,4 +749,10 @@ public class PageHelper {
         _versionProperties = versionProperties;
     }
 
+    public static void logout(HttpServletRequest request, HttpServletResponse response) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.clearUserCookies(response);
+        context.setUser(null);
+    }
 }

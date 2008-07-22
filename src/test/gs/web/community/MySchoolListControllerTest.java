@@ -6,6 +6,7 @@ import gs.data.community.FavoriteSchool;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
@@ -37,6 +38,8 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         _controller.setSchoolDao(_schoolDao);
         _controller.setUserDao(_userDao);
 
+        _controller.setStateManager(new StateManager());
+        
         _user = new User();
         _user.setId(1);
         _user.setEmail("aroy@greatschools.net");
@@ -56,12 +59,14 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
     }
 
     public void testRequestFromUnknownUserSchoolsAdded() throws Exception {
+//        getRequest().setQueryString("command=add&ids=123,456&state=ca");
+        getRequest().setParameter(MySchoolListController.PARAM_COMMAND, "add");
         getRequest().setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "123,456");
-        getRequest().setParameter("state", "CA");
+        getRequest().setParameter(MySchoolListController.PARAM_STATE, "CA");
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         RedirectView v = (RedirectView)mAndV.getView();
         assertEquals("User should see MSL Login page",
-                "/community/mySchoolListLogin.page?state=CA&ids=123,456", 
+                "/community/mySchoolListLogin.page?command=add&ids=123,456&state=CA",
                 v.getUrl());
     }
 
@@ -86,6 +91,28 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
+    public void xtestRemoveSchool() throws Exception {
+
+        getRequest().setParameter("command", "remove");
+        getRequest().setParameter("ids", "1");
+        getRequest().setParameter("state", "ca");
+
+        SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
+        sc.setMemberId(1);
+
+        _userDao.updateUser(sc.getUser());
+        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(new School()).times(3);
+        replay(_schoolDao);
+
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verify(_schoolDao);
+        assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());        
+    }
+
+    public void testAddSchools() {
+
+    }
+
     public void testBuildModel() throws Exception {
         User user = new User();
         user.setEmail("eford@greatschools.net");
@@ -94,10 +121,12 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         FavoriteSchool fs1 = new FavoriteSchool();
         fs1.setSchoolId(1);
         fs1.setState(State.CA);
+        fs1.setUser(user);
         favs.add(fs1);
         FavoriteSchool fs2 = new FavoriteSchool();
         fs2.setSchoolId(32);
         fs2.setState(State.AK);
+        fs2.setUser(user);
         favs.add(fs2);
         user.setFavoriteSchools(favs);
         expect(_schoolDao.getSchoolById(State.AK, 32)).andReturn(new School());
