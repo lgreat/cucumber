@@ -36,3 +36,26 @@
 .addToMsl {
     display:none;
 }
+
+div#msl_compare {
+    border:2px solid #EEEEEE;
+    padding:2px 2px 10px 2px;
+    position:relative;
+}
+
+div#msl_compare div#headWrap {
+   border:solid red;
+}
+
+div#msl_compare div#head {
+    background:#66CCCC none repeat scroll 0 0;
+    clear:both;
+    margin-bottom:10px;
+    padding:5px 0 5px 15px;
+}
+
+div#msl_compare div#headWrap img {
+    position:absolute;
+    bottom:0;
+    right:0;
+}

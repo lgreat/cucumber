@@ -64,12 +64,25 @@
 
 <div id="col_right">
     <c:choose>
-        <c:when test="${true}">
+        <c:when test="${preschoolOnly eq 'true'}">
             <ad:House_Ad_300x137 referredBy="MSL Logged In"/>
         </c:when>
         <c:otherwise>
-            <school:compareInCity city="${cityName}" state="${state}"
-                                  levelCode="${requestScope.allLevelCodes}"/>
+            <!--
+            <div id="msl_compare">
+
+                <div id="headWrap">
+                    <div id="head">
+                        <div id="headText">Compare Schools on My List</div>
+                    </div>
+                    <img src="/res/img/compare.gif" alt="magnifying glass" />
+                </div>
+                <div id="compare_controls">
+                     ..
+                </div>
+                <input src="/res/img/school/overview/submit_compare.gif" alt="Compare" class="submit" onclick="goCompare();" tabindex="0" type="image" />
+            </div>
+            -->
         </c:otherwise>
     </c:choose>
 

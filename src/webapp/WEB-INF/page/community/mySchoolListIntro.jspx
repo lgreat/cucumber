@@ -15,7 +15,6 @@
     <body>
         <div id="mslLogin">
             <link:mySchoolListLogin>If you already have a school list, click here.</link:mySchoolListLogin>
-            <input type="text" size="23">foo</input>
         </div>
     </body>
 </html>

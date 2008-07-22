@@ -2,6 +2,7 @@ package gs.web.community;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.LevelCode;
 import gs.data.community.IUserDao;
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
@@ -51,6 +52,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
 
     /** model keys */
     public static final String MODEL_SCHOOLS = "schools";
+    public static final String MODEL_PRESCHOOL_ONLY = "preschoolOnly";
 
     /** Used to sort schools by name */
     private Comparator<School> _schoolNameComparator;
@@ -98,13 +100,23 @@ public class MySchoolListController extends AbstractController implements ReadWr
         List<School> schools = convertFavoriteSchoolsToSchools(new ArrayList<FavoriteSchool>(favs));
         Collections.sort(schools, getSchoolNameComparator());
         model.put(MODEL_SCHOOLS, schools);
+
+        String preschoolOnly = "true";
+        for (School school : schools) {
+            if(!LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                preschoolOnly = "false";
+                break;
+            }
+        }
+        
+        model.put(MODEL_PRESCHOOL_ONLY, preschoolOnly);
+
         return model;
     }
 
     private Comparator<School> getSchoolNameComparator() {
         if (_schoolNameComparator == null) {
             _schoolNameComparator = new Comparator<School>() {
-
                 public int compare(School s1, School s2) {
                     // Non-null names are > null names
                     if (s1.getName() != null) {
