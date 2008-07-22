@@ -313,18 +313,8 @@
             </c:if>
 
             <div class="belowAdWrapper">
-                <c:choose>
-                    <c:when test="${showAd}">
-                        <gsml:a href="/content/btsQuiz.page">
-                            <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo.jpg" alt="Are you as smart as a fourth grader?" />
-                        </gsml:a>
-                    </c:when>
-                    <c:otherwise>
-                        <gsml:a href="/content/btsQuiz.page">
-                            <gsml:img src="/res/img/content/backtoschool/bts_quiz_promo_no_ad.jpg" alt="Are you as smart as a fourth grader?" />
-                        </gsml:a>
-                    </c:otherwise>
-                </c:choose>
+
+                <ad:adTag position="BTS_Quiz_Promo_300x316"/>
 
                 <c:if test="${empty param.hideMap}">
                     <school:nearbySchools school="${school}"/>

@@ -350,16 +350,7 @@
     <ad:AboveFold_300x250/>
 
     <div id="btsQuizPromo">
-        <c:choose>
-            <c:when test="${showAd}">
-                <a href="/content/btsQuiz.page"><img src="/res/img/content/backtoschool/bts_quiz_promo.jpg"
-                                                     alt="Back-to-School Quiz"/></a>
-            </c:when>
-            <c:otherwise>
-                <a href="/content/btsQuiz.page"><img src="/res/img/content/backtoschool/bts_quiz_promo_no_ad.jpg"
-                                                     alt="Back-to-School Quiz"/></a>
-            </c:otherwise>
-        </c:choose>
+        <ad:adTag position="BTS_Quiz_Promo_300x316"/>
     </div>
 </div>
 

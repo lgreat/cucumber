@@ -983,14 +983,13 @@ div#communityQuestionPromo.overviewBorder div.avatar {
 
 div#col_right div.belowAdWrapper {
     margin-top: 20px;
-    padding-top: 15px;
     border-top: 1px solid #ccc;
 }
 
 div#col_right div#nearbyWrapper {
     border: none;
     padding: 0;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 div#col_right div#nearbySchools {
@@ -1017,4 +1016,15 @@ div#col_right div#nearbySchools {
     padding: 0;
     font-size: 12px;
     font-weight: normal;
+}
+
+ul.compareSchoolB {
+    padding-top: 4px;
+    padding-bottom: 6px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.compareSchoolB li {
+    line-height: 22px;
+    margin-left: 20px;
 }
