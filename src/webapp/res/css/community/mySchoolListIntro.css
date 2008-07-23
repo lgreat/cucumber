@@ -1,0 +1,74 @@
+#pageGS {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666666;
+}
+
+#contentGS a {
+    color: #3399AA;
+}
+
+.pageTitle h2 {
+    font-size: 19px;
+    color: #55BBCC;
+}
+
+.description {
+    margin-top: 11px;
+    font-size: 13px;
+    line-height: 18px;
+    position: relative;
+}
+
+.header {
+    font-weight: bold;
+}
+
+.contentGS p {
+    margin: 0em 0 1.2em 0;
+    line-height: 15px;
+}
+
+.findSchools {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.secondaryInfo {
+    margin-top: 30px;
+}
+
+.secondaryInfo h3 {
+    font-size: 17px;
+    color: #666666;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.content {
+    float: right;
+    width: 678px;
+    margin-top: 15px;
+}
+
+.msl {
+    font-weight: bold;
+}
+
+.mslLogin {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.contentGS .mslLogin a {
+    text-decoration: underline;
+}
+
+#adAboveFold_Right_120x600 {
+    margin-top: 5px;
+    float: left;
+    margin-bottom: 25px;
+    padding-right: 12px;
+    border-right: 1px solid #CCCCCC;
+    margin-right: 12px;
+}
