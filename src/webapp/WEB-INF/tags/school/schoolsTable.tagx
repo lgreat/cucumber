@@ -12,12 +12,18 @@
 
     <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
 
+    <c:set var="showPreschoolNote" value="false" />
+
     <div id="searchResults">
     <div id="schoolsTable">
         <form method="get" action="/compareSchools.page">
         <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
         <c:forEach var="school" items="${schools}" varStatus="loopStatus">
+            <c:if test="${school.levelCode eq 'p'}">
+                <c:set var="showPreschoolNote" value="true" />
+            </c:if>
+
             <div class="school ${loopStatus.last ? 'last' : ''}">
                 <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <c:out value="${school.name}" escapeXml="false"/>
@@ -83,9 +89,11 @@
             </div>
         </c:forEach>
         </form>
-        <div class="note">
-            Note: Preschools cannot be compared due to limited data
-        </div>
+        <c:if test="${showPreschoolNote}">
+            <div class="note">
+                Note: Preschools cannot be compared due to limited data
+            </div>
+        </c:if>
     </div>
     </div>
 </jsp:root>
