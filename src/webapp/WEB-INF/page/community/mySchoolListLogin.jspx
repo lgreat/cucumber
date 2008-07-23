@@ -13,10 +13,28 @@
         <pageHelper:externalCss file="/res/css/community/mySchoolList.css"/>
     </head>
     <body>
-        <form:form commandName="loginCmd">
-            <form:input path="email"  />
-            <input type="submit" value="Login" />
-        </form:form>
+    <div id="msl_header">
+        <div id="msl_header_top">
+            <div id="msl_title">My School List</div>
+        </div>
+    </div>
+
+    <div id="login_welcome">Welcome to My School List!</div>
+    <div id="login_intro">
+        In order for us to be sure we remember you next time you come back to GreatSchools.net,
+        please provide your email address in the box below.
+    </div>
+    <form:form commandName="loginCmd">
+        <form:input path="email"  />
+        <input type="submit" value="Login" />
+        <br/>
+        <input type="checkbox" id="pa" name="pa" />
+        <label for="pa">Please send me tips and advice in the bi-monthly Parent Advisor newsletter from GreatSchools.</label>
+    </form:form>
+    <div id="login_note">
+        Note: Your email address is required to identify the list of schools you have saved and is 
+        strictly confidential. Your personal information will not be shared with any outside organizations.
+    </div>
     </body>
 </html>
 </jsp:root>
