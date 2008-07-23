@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.community.FavoriteSchool;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.LevelCode;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
@@ -73,17 +74,25 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
     public void testRequestFromKnownUserNoSchoolsAdded() throws Exception {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setMemberId(1);
-        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(new School()).times(4);
+        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool()).times(4);
         replay(_schoolDao);
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_schoolDao);
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
+    private School createStubSchool() {
+        School school = new School();
+        school.setName("East Beirut High");
+        school.setDatabaseState(State.NJ);
+        school.setLevelCode(LevelCode.ELEMENTARY_MIDDLE);
+        return school;
+    }
+
     public void testRequestFromKnownUserSchoolsAdded() throws Exception {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setMemberId(1);
-        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(new School()).times(4);
+        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool()).times(4);
         replay(_schoolDao);
         getRequest().setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "12,3456");
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
@@ -129,8 +138,8 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         fs2.setUser(user);
         favs.add(fs2);
         user.setFavoriteSchools(favs);
-        expect(_schoolDao.getSchoolById(State.AK, 32)).andReturn(new School());
-        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(new School());
+        expect(_schoolDao.getSchoolById(State.AK, 32)).andReturn(createStubSchool());
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(createStubSchool());
         replay(_schoolDao);
         Map<String, Object> model = _controller.buildModel(user);
         verify(_schoolDao);

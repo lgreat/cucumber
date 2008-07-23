@@ -52,6 +52,8 @@ public class MySchoolListController extends AbstractController implements ReadWr
 
     /** model keys */
     public static final String MODEL_SCHOOLS = "schools";
+    public static final String MODEL_COMPARE_STATES = "compareStates";
+    public static final String MODEL_COMPARE_LEVELS = "compareLevels";
     public static final String MODEL_PRESCHOOL_ONLY = "preschoolOnly";
 
     /** Used to sort schools by name */
@@ -102,13 +104,21 @@ public class MySchoolListController extends AbstractController implements ReadWr
         model.put(MODEL_SCHOOLS, schools);
 
         String preschoolOnly = "true";
+
+        SortedSet<State> stateSet = new TreeSet<State>();
+        SortedSet<LevelCode.Level> levelSet = new TreeSet<LevelCode.Level>();
+
         for (School school : schools) {
+            stateSet.add(school.getDatabaseState());
+            LevelCode lc = school.getLevelCode();
+            levelSet.addAll(lc.getIndividualLevelCodes());
             if(!LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                 preschoolOnly = "false";
-                break;
             }
         }
-        
+
+        model.put(MODEL_COMPARE_STATES, new ArrayList<State>(stateSet));
+        model.put(MODEL_COMPARE_LEVELS, new ArrayList<LevelCode.Level>(levelSet));
         model.put(MODEL_PRESCHOOL_ONLY, preschoolOnly);
 
         return model;
@@ -134,6 +144,12 @@ public class MySchoolListController extends AbstractController implements ReadWr
         return _schoolNameComparator;
     }
 
+    /**
+     * A dispatch method - collects params and forwards to command-processing methods
+     * @param command - A string command - see static commands above
+     * @param request - Used to extract query parameters
+     * @param user - User on whose data commands are performed  
+     */
     protected void processCommand(String command, HttpServletRequest request, User user) {
         String stateString = request.getParameter(PARAM_STATE);
         State state = getStateManager().getState(stateString);

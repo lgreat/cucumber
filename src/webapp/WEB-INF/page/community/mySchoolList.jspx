@@ -64,35 +64,66 @@
 
 <div id="col_right">
     <c:choose>
-        <c:when test="${preschoolOnly eq 'true'}">
+        <c:when test="${(preschoolOnly eq 'true') or (fn:length(schools) lt 2)}">
             <ad:House_Ad_300x137 referredBy="MSL Logged In"/>
         </c:when>
         <c:otherwise>
-            <!--
             <div id="msl_compare">
-
                 <div id="headWrap">
                     <div id="head">
                         <div id="headText">Compare Schools on My List</div>
                     </div>
-                    <img src="/res/img/compare.gif" alt="magnifying glass" />
+                    <img src="/res/img/compare2.gif" alt="magnifying glass" />
                 </div>
-                <div id="compare_controls">
-                     ..
+                <div id="msl_compare_controls">
+                    <div id="level_control">
+                        <c:choose>
+                            <c:when test="${fn:length(compareLevels) > 1}">
+                                <select>
+                                    <c:forEach var="level" items="${compareLevels}">
+                                        <option>${level.longName} schools</option>
+                                    </c:forEach>
+                                </select>
+                            </c:when>
+                            <c:otherwise>
+                                ${compareLevels[0].longName} schools
+                            </c:otherwise>
+                        </c:choose>
+                        in
+                    </div>
+                    <div id="state_control">
+                        <c:choose>
+                            <c:when test="${fn:length(compareStates) > 1}">
+                                <select>
+                                    <c:forEach var="state" items="${compareStates}">
+                                        <option>${state.longName}</option>
+                                    </c:forEach>
+                                </select>
+                            </c:when>
+                            <c:otherwise>
+                                ${compareStates[0].longName}
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
-                <input src="/res/img/school/overview/submit_compare.gif" alt="Compare" class="submit" onclick="goCompare();" tabindex="0" type="image" />
+                <input id="go_msl_compare" class="button" type="image" src="/res/img/splash/go.gif" alt="GO"
+                       style="width: 41px; height: 26px;"
+                       onmouseover="this.src='/res/img/splash/goOver.gif';"
+                       onmouseout="this.src='/res/img/splash/go.gif';"/>
+                <div id="msl_note">
+                    Note: Preschools cannot be compared due to limited data
+                </div>
             </div>
-            -->
         </c:otherwise>
     </c:choose>
 
     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-        <c:if test="${results.total gt 0}">
+        <c:if test="${not empty schools}">
             <div id="mapContainer">
                 <![CDATA[
                 <script type="text/javascript">
                     <!--
-                    document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>');
+                    document.write('<div id="map" style="height: 300px; width: 100%">&#160;</div>');
                     -->
                 </script>
                 ]]>
