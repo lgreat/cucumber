@@ -95,10 +95,12 @@
         </table>
             <c:choose>
                 <c:when test="${school.levelCode eq 'p'}">
-                    <a href="#" class="learnMore" target="_blank">Learn more about these categories &gt;</a>
+                    <link:parentRatingsExplained preschool="true" target="_blank" styleClass="learnMore"
+                                                 onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">Learn more about these categories &gt;</link:parentRatingsExplained>
                 </c:when>
                 <c:otherwise>
-                    <link:parentRatingsExplained target="_blank" styleClass="learnMore">Learn more about these categories &gt;</link:parentRatingsExplained>
+                    <link:parentRatingsExplained target="_blank" styleClass="learnMore"
+                                                 onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">Learn more about these categories &gt;</link:parentRatingsExplained>
                 </c:otherwise>
             </c:choose>
 
