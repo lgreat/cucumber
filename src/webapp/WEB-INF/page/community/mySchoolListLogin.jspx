@@ -47,7 +47,7 @@
                             <input id="formGoButton" type="image" src="/res/img/button/go.gif" alt="Go"/>
                         </div>
                         <div class="formLine2">
-                            <input type="checkbox" id="pa" name="pa"/>
+                            <input type="checkbox" id="pa" name="pa" checked="checked"/>
                         <span id="paLabel">
                             <label for="pa">Please send me tips and advice in the bi-monthly Parent Advisor newsletter from GreatSchools.</label>
                         </span>
