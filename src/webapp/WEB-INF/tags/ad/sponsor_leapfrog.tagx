@@ -31,6 +31,7 @@
 
 <select id="abc_content_0" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
+    <option value="#">0123456789012345678901234567890123456789</option>
     <option value="/cgi-bin/showarticle/416">﻿Kindergarten: Ready or Not?</option>
     <option value="/cgi-bin/showarticle/331">Jinx the Kindergarten Jitters</option>
     <option value="/cgi-bin/showarticle/660">Kindergarten Learning Games and Activities</option>
