@@ -76,7 +76,7 @@
             </c:if>
         </div>
         <div id="msl_header_bottom">
-            <div id="msl_welcome">Welcome ${username} (<a href="/community/logout.page">not ${username}?</a>)</div>
+            <div id="msl_welcome">Welcome ${username} (<a href="/community/logout.page?redirect=/community/mySchoolListLogin.page">not ${username}?</a>)</div>
         </div>
     </div>
 
