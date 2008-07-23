@@ -10,12 +10,33 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           version="2.0">
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
+
+<jsp:scriptlet>
+    boolean hasSeenMSL = false;
+    for(Cookie c : request.getCookies()) {
+        if ("has_seen_msl".equals(c.getName())) {
+            hasSeenMSL = true;
+        }
+    }
+    if (!hasSeenMSL) {
+        Cookie hasSeenMslCookie = new Cookie("has_seen_msl", "viewed");
+        hasSeenMslCookie.setMaxAge(60 * 60 * 24 * 30); // expires in 30 days
+        hasSeenMslCookie.setPath("/");
+        hasSeenMslCookie.setDomain(".greatschools.net");
+        response.addCookie(hasSeenMslCookie);
+    }
+    request.setAttribute("hasSeenMsl", hasSeenMSL);
+</jsp:scriptlet>
+
 <head>
     <title>My School List</title>
     <ad:setSlotPrefix slotPrefix="My_School_List"/>
@@ -24,6 +45,16 @@
     <pageHelper:externalCss file="/res/css/brand.css"/>
     <pageHelper:externalCss file="/res/css/school/schoolsTable.css"/>
     <pageHelper:externalJavascript file="/res/js/schoolsCompare.js"/>
+    <pageHelper:externalJavascript file="/res/js/mslCompare.js"/>    
+    <script type="text/javascript">
+        // aliases
+        var goCompare = GSWeb.MSL.goCompare;
+    </script>
+    <jsp:scriptlet>
+        request.setAttribute("communityAuth", Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+    </jsp:scriptlet>
 </head>
 <body>
 
@@ -31,14 +62,20 @@
 <c:set var="username" value="${fn:substringBefore(requestScope.context.user.email, '@')}" />
 <div id="col_left">
 
+    <c:if test="${!hasSeenMsl}">
+        <img src="/res/img/msl_alert.gif" alt="" id="msl_alert"/>
+    </c:if>
     <div id="msl_header">
         <div id="msl_header_top">
             <div id="msl_title">My School List</div>
-            <!--<div id="dashboard_link"><link:accountInfo>Go to my dashboard &gt;</link:accountInfo></div>-->
+            <c:if test="${communityAuth eq true}">
+                <div id="dashboard_link">
+                    <gsml:a href="http://${communityHost}/dashboard">Go to my dashboard &gt;</gsml:a>
+                </div>
+            </c:if>
         </div>
         <div id="msl_header_bottom">
             <div id="msl_welcome">Welcome ${username} (<a href="/community/logout.page">not ${username}?</a>)</div>
-            <!--<div id="page_status">Page links</div>-->
         </div>
     </div>
 
@@ -46,26 +83,23 @@
         <school:schoolsTable schools="${schools}" />
     </c:if>
 
-    <!--<search:schoolsPagination currentPage="${(empty param.p) ? 1 : param.p}" resultCount="${results.total}" pageSize="${pageSize}"/>-->
     <!-- typeOverride used in searchControl.tagx and/or mod:browseState -->
     <c:set var="typeOverride" value="school" scope="request"/>
     <div id="searchFooter" class="cleared">
-        <c:choose>
-            <c:when test="${not empty param.city}"><c:set var="queryText" value="${param.city}"/></c:when>
-            <c:otherwise><c:set var="queryText" value="${requestScope.distname}"/></c:otherwise>
-        </c:choose>
         <search:searchControl rememberQuery="true"
                               showStates="true"
                               showLinks="true"
-                              fieldLength="30"
-                              queryOverride="${queryText}"/>
+                              fieldLength="30" />
     </div>
 </div>
 
 <div id="col_right">
+    <!--
     <c:choose>
         <c:when test="${(preschoolOnly eq 'true') or (fn:length(schools) lt 2)}">
+        -->
             <ad:House_Ad_300x137 referredBy="MSL Logged In"/>
+        <!--
         </c:when>
         <c:otherwise>
             <div id="msl_compare">
@@ -78,8 +112,8 @@
                 <div id="msl_compare_controls">
                     <div id="level_control">
                         <c:choose>
-                            <c:when test="${fn:length(compareLevels) > 1}">
-                                <select>
+                            <c:when test="${fn:length(compareLevels) gt 1}">
+                                <select id="msl_compare_level">
                                     <c:forEach var="level" items="${compareLevels}">
                                         <option>${level.longName} schools</option>
                                     </c:forEach>
@@ -89,12 +123,17 @@
                                 ${compareLevels[0].longName} schools
                             </c:otherwise>
                         </c:choose>
-                        in
+                        <c:if test="${!((fn:length(compareLevels) gt 1) and (fn:length(compareStates) gt 1))}">
+                            in
+                        </c:if>
                     </div>
                     <div id="state_control">
+                        <c:if test="${((fn:length(compareLevels) gt 1) and (fn:length(compareStates) gt 1))}">
+                            in
+                        </c:if>
                         <c:choose>
-                            <c:when test="${fn:length(compareStates) > 1}">
-                                <select>
+                            <c:when test="${fn:length(compareStates) gt 1}">
+                                <select id="msl_compare_state">
                                     <c:forEach var="state" items="${compareStates}">
                                         <option>${state.longName}</option>
                                     </c:forEach>
@@ -109,14 +148,14 @@
                 <input id="go_msl_compare" class="button" type="image" src="/res/img/splash/go.gif" alt="GO"
                        style="width: 41px; height: 26px;"
                        onmouseover="this.src='/res/img/splash/goOver.gif';"
-                       onmouseout="this.src='/res/img/splash/go.gif';"/>
-                <div id="msl_note">
+                       onmouseout="this.src='/res/img/splash/go.gif';" onclick="goCompare();"/>
+                <div id="msl_note" class="note">
                     Note: Preschools cannot be compared due to limited data
                 </div>
             </div>
         </c:otherwise>
     </c:choose>
-
+-->
     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
         <c:if test="${not empty schools}">
             <div id="mapContainer">

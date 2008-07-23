@@ -76,8 +76,6 @@ div#msl_compare div#msl_note {
     position:absolute;
     bottom:3px;
     left:5px;
-    color:#888888;
-    font-size:11px;
 }
 
 div#msl_compare div#msl_compare_controls {
@@ -93,4 +91,13 @@ div#msl_compare input {
     position:absolute;
     left:200px;
     bottom:25px;
+}
+
+.note {
+    color:#888888;
+    font-size:11px;    
+}
+
+#msl_alert {
+     margin-bottom:15px;
 }

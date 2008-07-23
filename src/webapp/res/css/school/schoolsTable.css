@@ -261,3 +261,21 @@ div.school div.mslRemove {
 div.school div.mslRemove img {
     margin:0 5px 0 0;
 }
+
+.phone {
+   float:left;
+}
+
+a.mapSchoolImage:hover {
+    text-decoration:none;
+}
+
+a.mapSchoolImage img {
+    padding:0 4px 0 4px;
+}
+
+#contentGS a.mapSchoolText {
+    text-decoration:underline;
+    vertical-align:top;
+    font-size:11px;
+}
