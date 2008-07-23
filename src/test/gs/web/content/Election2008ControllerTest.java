@@ -44,6 +44,9 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
     public void testOnSubmitNoParentAdvisor() {
         _command.setEmail("aroy@greatschools.net");
 
+        replay(_userDao);
+        replay(_subscriptionDao);
+
         BindException errors = new BindException(_command, "");
         ModelAndView mandv = _controller.onSubmit(getRequest(), getResponse(), _command, errors);
 
@@ -51,6 +54,9 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
         Election2008EmailCommand com2 = (Election2008EmailCommand) mandv.getModel().get("edin08Cmd");
         assertEquals(_command.getEmail(), com2.getUserEmail());
         assertNotNull(com2.getAlert());
+
+        verify(_userDao);
+        verify(_subscriptionDao);
     }
 
     public void testOnSubmitWithParentAdvisor() {
