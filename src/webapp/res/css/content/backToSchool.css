@@ -234,5 +234,6 @@ ul.bulleted {
     margin-top: 10px;
     padding-top: 10px;
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
+    left: 0;
 }
