@@ -56,6 +56,12 @@
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
     </jsp:scriptlet>
+    <c:if test="${param.showNewsletterHover eq 'true'}">
+        <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+        <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+        <pageHelper:addOnLoadHandler handler="showPopWin('/community/newsletters/popup/newsletter.page?referrer=My+School+List',480,550,null,'hoverNewsGn')"/>
+    </c:if>
 </head>
 <body>
 

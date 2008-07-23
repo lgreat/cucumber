@@ -16,6 +16,8 @@ import gs.web.util.ReadWriteController;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MySchoolListLoginController extends SimpleFormController implements ReadWriteController {
 
@@ -40,7 +42,10 @@ public class MySchoolListLoginController extends SimpleFormController implements
         }
 
         PageHelper.setMemberCookie(request, response, user);
-        return new ModelAndView(getSuccessView());
+
+        Map model = new HashMap<String,Boolean>();
+        model.put("showNewsletterHover", true);
+        return new ModelAndView(getSuccessView(), model);
     }
 
     protected List<Subscription> createSubscriptionList(User user, HttpServletRequest request) {
