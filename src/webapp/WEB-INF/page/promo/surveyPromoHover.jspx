@@ -32,7 +32,7 @@
 <gsml:body adPageName="surveyHover" pageLayout="newsPop">
 
     <div>
-        <a href="http://disney.com" target="_blank"
+        <a href="http://www.zoomerang.com/Survey/?p=WEB2283GNHUMYJ" target="_blank"
            onclick="subModalInterceptor.setPresentedToUser();window.top.hidePopWin(false);">
             <gsml:img src="/res/img/GS_SV_hover_version2.jpg" alt="" />
         </a>
