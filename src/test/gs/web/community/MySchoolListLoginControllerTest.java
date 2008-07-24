@@ -6,6 +6,8 @@ import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
 import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import static org.easymock.EasyMock.*;
 import static org.easymock.classextension.EasyMock.createMock;
 
@@ -111,6 +113,47 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
 
         assertEquals("Expected the MSL page", _controller.getSuccessView(), mAndV.getViewName());
         assertEquals("Member cookie should now be in response", "1", getResponse().getCookie("MEMID").getValue());
+    }
 
+    public void testOnBindAndValidate() throws Exception {
+        LoginCommand command = new LoginCommand();
+        BindException errors = new BindException(command, "");
+
+        command.setEmail(null);
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        assertEquals("Expected one error", 1, errors.getErrorCount());
+        FieldError error = (FieldError)errors.getAllErrors().get(0);
+        assertEquals("Expected field: " + MySchoolListLoginController.EMAIL_FIELD_CODE,
+            MySchoolListLoginController.EMAIL_FIELD_CODE, error.getField());
+        assertEquals("Expected error message to be: " + MySchoolListLoginController.ERROR_EMPTY_EMAIL_ADDRESS,
+            MySchoolListLoginController.ERROR_EMPTY_EMAIL_ADDRESS, error.getDefaultMessage());
+
+        errors = new BindException(command, "");
+
+        command.setEmail("");
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        assertEquals("Expected one error", 1, errors.getErrorCount());
+        error = (FieldError)errors.getAllErrors().get(0);
+        assertEquals("Expected field: " + MySchoolListLoginController.EMAIL_FIELD_CODE,
+            MySchoolListLoginController.EMAIL_FIELD_CODE, error.getField());
+        assertEquals("Expected error message to be: " + MySchoolListLoginController.ERROR_EMPTY_EMAIL_ADDRESS,
+            MySchoolListLoginController.ERROR_EMPTY_EMAIL_ADDRESS, error.getDefaultMessage());
+
+        errors = new BindException(command, "");
+
+        command.setEmail("foo");
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        assertEquals("Expected one error", 1, errors.getErrorCount());
+        error = (FieldError)errors.getAllErrors().get(0);
+        assertEquals("Expected field: " + MySchoolListLoginController.EMAIL_FIELD_CODE,
+            MySchoolListLoginController.EMAIL_FIELD_CODE, error.getField());
+        assertEquals("Expected error message to be: " + MySchoolListLoginController.ERROR_INVALID_EMAIL_ADDRESS,
+            MySchoolListLoginController.ERROR_INVALID_EMAIL_ADDRESS, error.getDefaultMessage());
+
+        errors = new BindException(command, "");
+
+        command.setEmail("foo@foo.com");
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        assertEquals("Expected no errors", 0, errors.getErrorCount());
     }
 }

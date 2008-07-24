@@ -27,6 +27,10 @@ public class MySchoolListLoginController extends SimpleFormController implements
     public IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
 
+    final public static String EMAIL_FIELD_CODE = "email";
+    final public static String ERROR_EMPTY_EMAIL_ADDRESS = "Please enter your email address.";
+    final public static String ERROR_INVALID_EMAIL_ADDRESS = "Please enter a valid email address.";
+
     protected void onBindAndValidate(HttpServletRequest request, java.lang.Object objCommand,
                                      BindException errors) {
         LoginCommand command = (LoginCommand)objCommand;
@@ -34,9 +38,9 @@ public class MySchoolListLoginController extends SimpleFormController implements
         EmailValidator emv = EmailValidator.getInstance();
 
         if (StringUtils.isEmpty(command.getEmail())) {
-            errors.rejectValue("email", null, "Please enter your email address.");
+            errors.rejectValue(EMAIL_FIELD_CODE, null, ERROR_EMPTY_EMAIL_ADDRESS);
         } else if (!emv.isValid(command.getEmail())) {
-            errors.rejectValue("email", null, "Please enter a valid email address.");
+            errors.rejectValue(EMAIL_FIELD_CODE, null, ERROR_INVALID_EMAIL_ADDRESS);
         }
     }
 
