@@ -32,7 +32,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 <gsml:url var="stateWidgetUrl" value="/miniSelectAState.page"/>
 
 <head>
-    <title>GreatSchools.net</title>
+    <title>GreatSchools - Public and Private School Ratings, Reviews and Community for Parents</title>
 
     <meta name="description"
           content="Elementary, middle and high school information for public, private and charter schools nationwide. Search and compare schools; view test scores and class sizes; and find advice about going back to school, college prep, No Child Left Behind, summer reading lists and more."/>
