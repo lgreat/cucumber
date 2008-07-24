@@ -21,18 +21,18 @@
     ]]>
     <c:forEach var="school" items="${schools}">
         <c:forEach var="level" items="${school.levelCode.individualLevelCodes}">
-            stringMap['${school.databaseState.abbreviationLowerCase}'] = '${school.databaseState.longName}';
-            stringMap['${level.name}'] = '${level.longName}';
-            <c:set var="dataKey" value="${school.databaseState.abbreviationLowerCase}:${level.name}" />
-            if ('${dataKey}' in data) {
-                data['${dataKey}'].push(',${school.id}');
-            } else {
-                data['${dataKey}'] = ['${school.id}'];
-            }
+        stringMap['${school.databaseState.abbreviationLowerCase}'] = '${school.databaseState.longName}';
+        stringMap['${level.name}'] = '${level.longName}';
+        <c:set var="dataKey" value="${school.databaseState.abbreviationLowerCase}:${level.name}" />
+        if ('${dataKey}' in data) {
+            data['${dataKey}'].push(',${school.id}');
+        } else {
+           data['${dataKey}'] = ['${school.id}'];
+        }
         </c:forEach>
     </c:forEach>
     <![CDATA[
-        function goMslCompare(check) {
+        function goMslCompare() {
             // Get the selected level
             var level_select = document.getElementById('msl_compare_level');
             if (level_select) {
@@ -114,7 +114,7 @@
         <input id="go_msl_compare" class="button" type="image" src="/res/img/splash/go.gif" alt="GO"
                style="width: 41px; height: 26px;"
                onmouseover="this.src='/res/img/splash/goOver.gif';"
-               onmouseout="this.src='/res/img/splash/go.gif';" onclick="goMslCompare('${fn:length(compareStates) gt 1}');"/>
+               onmouseout="this.src='/res/img/splash/go.gif';" onclick="goMslCompare();"/>
         <div id="msl_note" class="note">
             Note: Preschools cannot be compared due to limited data
         </div>
