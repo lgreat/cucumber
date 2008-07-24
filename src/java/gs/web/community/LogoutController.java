@@ -11,12 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import gs.web.util.PageHelper;
 
 /**
- * This controller logs a user out by clearing all login-related cookies and removing the user
- * from the SessionContext.
+ * This controller logs a user out by clearing all login-related cookies and
+ * removing the user from the SessionContext.  If an optional redirect
+ * query parameter is provided, then the value of that parameter is used
+ * as the redirect target. Otherwise a default ("/") redirect target is used.
  */
 public class LogoutController extends AbstractController {
 
     public static final String DEFAULT_VIEW = "/";
+
+    /** optional parameter for the redirect target */
+    public static final String PARAM_REDIRECT = "redirect";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PageHelper.logout(request, response);
@@ -24,7 +29,7 @@ public class LogoutController extends AbstractController {
     }
 
     protected RedirectView getRedirectView(HttpServletRequest request) {
-        String redirect = request.getParameter("redirect");
+        String redirect = request.getParameter(PARAM_REDIRECT);
         RedirectView rView;
         if (StringUtils.isNotBlank(redirect)) {
             rView = new RedirectView(redirect);
