@@ -3,6 +3,8 @@ package gs.web.community;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
+import org.apache.commons.validator.EmailValidator;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +26,19 @@ public class MySchoolListLoginController extends SimpleFormController implements
     public static final String BEAN_NAME = "/community/mySchoolListLogin.page";
     public IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+
+    protected void onBindAndValidate(HttpServletRequest request, java.lang.Object objCommand,
+                                     BindException errors) {
+        LoginCommand command = (LoginCommand)objCommand;
+
+        EmailValidator emv = EmailValidator.getInstance();
+
+        if (StringUtils.isEmpty(command.getEmail())) {
+            errors.rejectValue("email", null, "Please enter your email address.");
+        } else if (!emv.isValid(command.getEmail())) {
+            errors.rejectValue("email", null, "Please enter a valid email address.");
+        }
+    }
 
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object o, BindException e) throws Exception {

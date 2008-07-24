@@ -76,5 +76,9 @@
 
 .privacyNote {
     margin-top: 20px;
-    background-color: red;
+}
+
+#marginGS ul.error {
+    border: 1px solid red;
+    padding: 5px;
 }
