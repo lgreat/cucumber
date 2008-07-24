@@ -116,7 +116,7 @@
                 ]]>
                 <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
             </div>
-            <map:schools id="map" bubbles="true" schools="${schools}"/>
+            <map:schools id="map" bubbles="true" schools="${schools}" minZoom="1"/>
         </c:if>
     </c:if>
 
