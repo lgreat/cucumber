@@ -128,6 +128,7 @@ function initMap() {
     var i = 0;
     var tooltip = null;
     var map = new GMap2(document.getElementById("${id}"));
+    document.getElementById("${id}").style.overflow = "hidden";
     var marker;
 
     map.addControl(new GSmallMapControl());

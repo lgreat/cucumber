@@ -116,7 +116,7 @@
     <c:if test="${requestScope.context.cobrand ne 'yahooed' and not empty cityObject and not empty cityObject.lon and not empty cityObject.lat and not empty schools}">
         <td style="width:230px; vertical-align: top">
             <div id="mapContainer">
-                <div id="map" style="overflow:hidden;">&#160;<noscript>JavaScript is required in order to view a map of the city and its
+                <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
                     schools.</noscript></div>
             </div>
 
