@@ -78,7 +78,10 @@
     margin-top: 20px;
 }
 
-#marginGS ul.error {
-    border: 1px solid red;
-    padding: 5px;
+.warning li {
+   color: #cc5566;
+}
+
+.warning img {
+    padding-right: 3px;
 }

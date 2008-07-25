@@ -42,13 +42,7 @@
                     please provide your email address in the box below.
                 </p>
 
-                <spring:hasBindErrors name="loginCmd">
-                    <ul class="error">
-                        <c:forEach var="error" items="${errors.allErrors}">
-                            <li>${error.defaultMessage}</li>
-                        </c:forEach>
-                    </ul>
-                </spring:hasBindErrors>
+                <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
 
                 <div class="mslFormDiv">
                     <form:form commandName="loginCmd" id="mslForm">
