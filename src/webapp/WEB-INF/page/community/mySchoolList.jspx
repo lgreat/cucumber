@@ -106,22 +106,6 @@
         </c:otherwise>
     </c:choose>
 
-    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-        <c:if test="${not empty schools}">
-            <div id="mapContainer">
-                <![CDATA[
-                <script type="text/javascript">
-                    <!--
-                    document.write('<div id="map" style="height: 300px; width: 100%">&#160;</div>');
-                    -->
-                </script>
-                ]]>
-                <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
-            </div>
-            <map:schools id="map" bubbles="true" schools="${schools}" minZoom="1"/>
-        </c:if>
-    </c:if>
-
     <ad:AboveFold_300x250 />
 
     <ad:Top_300x137/>

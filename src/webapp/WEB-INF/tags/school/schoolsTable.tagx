@@ -41,7 +41,7 @@
 
                 <address>${school.physicalAddress.street}<c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if></address>
                 <address>${school.physicalAddress.cityStateZip}</address>
-                <div class="phone">${school.phone} | </div>
+                <div class="phone">${school.phone}<span>|</span></div>
                 <link:mapSchool school="${school}" styleClass="mapSchoolImage"><img src="/res/img/map_22x15.gif" alt="little map"/></link:mapSchool>
                 <link:mapSchool school="${school}" styleClass="mapSchoolText">Map it</link:mapSchool>
                 <c:if test="${not empty school.district}">

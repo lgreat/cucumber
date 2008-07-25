@@ -45,3 +45,12 @@
 #msl_alert {
      margin-bottom:15px;
 }
+
+#House_Ad_300x137 {
+    padding-top:10px;
+    border-top:1px solid #CCCCCC;
+}
+
+div.phone span {
+    padding:0 4px 0 6px;
+}
