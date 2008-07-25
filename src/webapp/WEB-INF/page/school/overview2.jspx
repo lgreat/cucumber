@@ -186,14 +186,13 @@
             </c:if>
 
 
-            <c:if test="${school.levelCode != 'p'}">
-                <div id="surveyTeaser_wrapper">
-                    <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview"
-                            id="GS_ParentSurvey.surveyTeaser">
-                        <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="What is the scoop on ${school.name}?" />
-                    </link:schoolStartSurvey>
-                </div>
-            </c:if>
+        <div id="surveyTeaser_wrapper">
+            <link:schoolStartSurvey school="${school}" cpn="OnPage_Parentsurvey_Overview"
+                                    id="GS_ParentSurvey.surveyTeaser">
+                <gsml:img styleClass="surveyTeaser" src="/res/img/survey/promo/survey_overview.gif" alt="What is the scoop on ${school.name}?" />
+            </link:schoolStartSurvey>
+        </div>
+        
         <c:set var="styleIdSuffix" value=""/>
         <c:if test="${school.levelCode != 'p' or (hasStudentData or hasTeacherData)}">
             <div id="learnSchool">
