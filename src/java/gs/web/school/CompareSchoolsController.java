@@ -3,7 +3,6 @@ package gs.web.school;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.SessionContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Enumeration;
 
 /**
  * This controller handles requests for "compare checked schools" and
@@ -56,7 +54,6 @@ public class CompareSchoolsController extends AbstractController {
         }
 
         if (sc != null) {
-
             State currentState = sc.getStateOrDefault();
             urlBuffer.append(currentState.getAbbreviationLowerCase());
         } else {
@@ -81,9 +78,9 @@ public class CompareSchoolsController extends AbstractController {
 
         //add the omniture cpn parameter to the url
         String cpnValue = request.getParameter("cpn");
-    
-        if (cpnValue != null && cpnValue.length()>0) {
-            urlBuffer.append("&cpn=" + cpnValue);
+        if (cpnValue != null && cpnValue.length() > 0) {
+            urlBuffer.append("&cpn=");
+            urlBuffer.append(cpnValue);
         }
 
         View redirectView = new RedirectView(urlBuffer.toString());

@@ -65,6 +65,9 @@
     </script>
     ]]>
 
+    <!-- Note: this module will not work if there are only preschools in a users MSL -->
+    <!-- A check for this condition should be done *before* displaying this module.  -->
+
     <div id="msl_compare">
         <div id="headWrap">
             <div id="head">
@@ -77,24 +80,22 @@
                 <c:when test="${fn:length(compareLevels) gt 1}">
                     <select id="msl_compare_level">
                         <c:forEach var="level" items="${compareLevels}">
-                            <option value="${level.name}">${level.longName} schools</option>
+                            <c:if test="${level.name ne 'p'}">
+                                <option value="${level.name}">${level.longName} schools</option>
+                            </c:if>
                         </c:forEach>
                     </select>
+                    <div id="msl_level_row">in</div>
                 </c:when>
                 <c:otherwise>
-                    ${compareLevels[0].longName} schools
+                    <div id="level_text">${compareLevels[0].longName} schools in</div> 
                     <input type="hidden" id="msl_level_field" value="${compareLevels[0].name}" />
                 </c:otherwise>
             </c:choose>
 
-            <c:choose>
-                <c:when test="${!((fn:length(compareLevels) gt 1) and (fn:length(compareStates) gt 1))}">
-                    <div id="msl_level_row">in</div>
-                </c:when>
-                <c:otherwise>
-                    <div id="msl_state_row">in</div>
-                </c:otherwise>
-            </c:choose>
+            <c:if test="${(fn:length(compareLevels) gt 1) and (fn:length(compareStates) gt 1)}">
+                <div id="msl_state_row">in</div>
+            </c:if>
 
             <c:choose>
                 <c:when test="${fn:length(compareStates) gt 1}">
@@ -105,7 +106,7 @@
                     </select>
                 </c:when>
                 <c:otherwise>
-                    ${compareStates[0].longName}
+                    <div id="state_text">${compareStates[0].longName}</div>
                     <input type="hidden" id="msl_state_field" value="${compareStates[0].abbreviationLowerCase}" />
                 </c:otherwise>
             </c:choose>

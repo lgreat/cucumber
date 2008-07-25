@@ -46,7 +46,6 @@
     <pageHelper:externalCss file="/res/css/search/schoolResults.css"/>
     <pageHelper:externalCss file="/res/css/brand.css"/>
     <pageHelper:externalCss file="/res/css/school/schoolsTable.css"/>
-    <pageHelper:externalJavascript file="/res/js/schoolsCompare.js"/>
     <jsp:scriptlet>
         request.setAttribute("communityAuth", PageHelper.isCommunityCookieSet(request));
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);

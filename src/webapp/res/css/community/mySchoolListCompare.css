@@ -77,3 +77,16 @@ div#msl_compare div#msl_level_row {
     left:185px;
     top:55px;
 }
+
+div#msl_compare div#state_text {
+    position:absolute;
+    left: 42px;
+    top: 87px;
+}
+
+
+div#msl_compare div#level_text {
+    position:absolute;
+    left: 40px;
+    top: 57px;
+}

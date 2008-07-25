@@ -10,6 +10,7 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
 
+    <pageHelper:externalJavascript file="/res/js/schoolsCompare.js"/>
     <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
 
     <c:set var="showPreschoolNote" value="false" />
@@ -56,28 +57,22 @@
                         <div class="compare_schools_row">
                             <gsml:checkbox
                                     name="sc"
-                                    value="${requestScope.context.stateOrDefault.abbreviation}${school.id}"
+                                    value="${school.databaseState.abbreviation}${school.id}"
                                     styleClass="compare_checkbox"
                                     styleId="compare_schools_${school.id}"
                                     onclick="evaluateCheckboxes();"/>
                             <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
-                            <label class="compare_label"
-                                   id="compare_schools_label_${school.id}"><gsml:img
-                                    src="/res/img/button/button_check_to_compare.gif"
-                                    alt="Check to compare"
-                                    onclick="document.getElementById('compare_schools_${school.id}').click();"/></label>
-                            <label class="compare_error"
-                                   id="compare_schools_error_${school.id}"
-                                   style="display: none;"><gsml:img
-                                    src="/res/img/button/button_check_two_more.gif"
-                                    alt="Check two or more"
-                                    onclick="document.getElementById('compare_schools_${school.id}').click();"/></label>
-                            <span class="compare_submit"
-                                  id="compare_schools_submit_${school.id}"
-                                  style="display: none;"><input type="image"
-                                                                name="compare"
-                                                                src="/res/img/button/button_compare_now.gif"
-                                                                alt="Compare now"/></span>
+                            <label class="compare_label" id="compare_schools_label_${school.id}">
+                                <gsml:img src="/res/img/button/button_check_to_compare.gif" alt="Check to compare"
+                                    onclick="document.getElementById('compare_schools_${school.id}').click();"/>
+                            </label>
+                            <label class="compare_error" id="compare_schools_error_${school.id}" style="display: none;">
+                                <gsml:img src="/res/img/button/button_check_two_more.gif" alt="Check two or more"
+                                    onclick="document.getElementById('compare_schools_${school.id}').click();"/>
+                            </label>
+                            <span class="compare_submit" id="compare_schools_submit_${school.id}" style="display: none;">
+                                <input type="image" name="compare" src="/res/img/button/button_compare_now.gif" alt="Compare now"/>
+                            </span>
                         </div>
                     </c:if>
                 </div>

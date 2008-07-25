@@ -21,22 +21,22 @@ public class CompareSchoolController extends AbstractController {
 
         StringBuffer urlBuffer = new StringBuffer();
         urlBuffer.append("/cgi-bin/cs_compare/");
-        urlBuffer.append((String)request.getParameter("state")).append("?compare_type=");
-        urlBuffer.append((String)request.getParameter("type")).append("&city=");
-        urlBuffer.append((String)request.getParameter("city")).append("&school_selected=");
-        urlBuffer.append((String)request.getParameter("id")).append("&level=");
-        String levels = (String)request.getParameter("level");
+        urlBuffer.append(request.getParameter("state")).append("?compare_type=");
+        urlBuffer.append(request.getParameter("type")).append("&city=");
+        urlBuffer.append(request.getParameter("city")).append("&school_selected=");
+        urlBuffer.append(request.getParameter("id")).append("&level=");
+        String levels = request.getParameter("level");
         if (levels != null) {
             urlBuffer.append(levels.substring(0, 1));  // use only the first level
         }
 
-
         //add the omniture cpn parameter to the url
         String cpnValue = request.getParameter("cpn");
 
-        if (cpnValue != null && cpnValue.length()>0) {
-            urlBuffer.append("&cpn=" + cpnValue);
-        }else{
+        if (cpnValue != null && cpnValue.length() > 0) {
+            urlBuffer.append("&cpn=");
+            urlBuffer.append(cpnValue);
+        } else {
             urlBuffer.append("&from=form");
         }
 
