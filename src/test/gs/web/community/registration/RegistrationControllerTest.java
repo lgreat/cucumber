@@ -281,6 +281,17 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
                 _controller.getErrorView(), mAndV.getViewName());
     }
 
+    public void testIPAddressBlockingWithAttributeUndefined() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        setupRegistrationTest(userCommand);
+        getRequest().setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "Undefined");
+        getRequest().setRemoteAddr("1.2.3.4");
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+        assertEquals("Error view should be returned when the request is from a blocked IP.",
+                _controller.getErrorView(), mAndV.getViewName());
+    }
+
     public void testIPAddressBlockingWithRequestIPOnly() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");

@@ -356,7 +356,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     protected void notifyCommunity(Integer userId, String screenName, String email, String password,
                                    Date dateCreated, HttpServletRequest request) throws SoapRequestException {
         String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP)) {
+        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
             requestIP = request.getRemoteAddr();
         }
         CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean

@@ -123,7 +123,7 @@ public class RegistrationController extends SimpleFormController implements Read
         // First, check to see if the request is from a blocked IP address. If so,
         // then, log the attempt and show the error view.
         String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP)) {
+        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
             requestIP = request.getRemoteAddr();
         }
         try {
@@ -311,7 +311,7 @@ public class RegistrationController extends SimpleFormController implements Read
                                    Date dateCreated,
                                    HttpServletRequest request) throws SoapRequestException {
         String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP)) {
+        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
             requestIP = request.getRemoteAddr();
         }        
         CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
