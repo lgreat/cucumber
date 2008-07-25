@@ -37,7 +37,7 @@
                 <p>
                     Welcome to <span class="msl">My School List</span>, your personalized guide to schools!
                     <span class="mslLogin">
-                        <link:mySchoolListLogin>If you already have a school list, click here.</link:mySchoolListLogin>
+                        <link:mySchoolListLogin>If you already have a school list, click here &amp;gt;</link:mySchoolListLogin>
                     </span>
                 </p>
 
@@ -54,25 +54,6 @@
 
                 <p>
                     <link:research state="${requestScope.context.state}">Start finding schools &amp;gt;</link:research>
-                </p>
-            </div>
-
-            <div class="secondaryInfo">
-                <h3>Use My School List to:</h3>
-
-                <p><span class="header">Get Informed:</span>
-                    Browse school profiles to learn about test scores, teacher experience, and more.
-                </p>
-
-                <p><span class="header">Compare Results:</span>
-                    View schools side by side to see how they stack up.</p>
-
-                <p><span class="header">Stay Informed:</span>
-                    Get customized updates about the performance of your schools!
-                </p>
-
-                <p><span class="header">Locate Schools:</span>
-                    Map your schools, showing where each school is within a particular geographic area.
                 </p>
             </div>
 

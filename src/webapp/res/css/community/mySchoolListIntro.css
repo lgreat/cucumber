@@ -13,7 +13,7 @@
 }
 
 .description {
-    margin-top: 11px;
+    margin-top: 15px;
     font-size: 13px;
     line-height: 18px;
     position: relative;
@@ -31,17 +31,6 @@
 .findSchools {
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-.secondaryInfo {
-    margin-top: 30px;
-}
-
-.secondaryInfo h3 {
-    font-size: 17px;
-    color: #666666;
-    margin-top: 15px;
-    margin-bottom: 15px;
 }
 
 .content {
