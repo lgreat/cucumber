@@ -87,7 +87,7 @@
                     jspContext.setAttribute("locale", school.getCounty());
                 }
 
-                StringBuffer buffer = new StringBuffer(30);
+                StringBuffer buffer = new StringBuffer(40);
                 Iterator iter = school.getLevelCode().getIterator();
                 while (iter.hasNext()) {
                     buffer.append(((LevelCode.Level) iter.next()).getLongName());
