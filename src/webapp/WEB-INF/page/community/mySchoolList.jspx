@@ -51,6 +51,7 @@
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
     </jsp:scriptlet>
+    <gsml:equalizeColumns ids="'col_left','col_right'"/>
     <c:if test="${param.showNewsletterHover eq 'true'}">
         <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
         <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
@@ -60,7 +61,6 @@
 </head>
 <body>
 
-<gsml:equalizeColumns ids="'col_left','col_right'"/>
 <c:set var="username" value="${fn:substringBefore(requestScope.context.user.email, '@')}" />
 <div id="col_left">
 
