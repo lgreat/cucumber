@@ -88,6 +88,9 @@
         <img src="/res/img/content/election2008/Edin08_header.jpg"
              alt="One Nation Left Behind"
              width="952" height="271"/>
+        <gsml:a href="/content/actionForEducationQuiz.page"><img src="/res/img/content/election2008/edin08_quiz_promo.jpg"
+             alt="Take Test" id="edin08QuizPromoImage"
+             width="321" height="127"/></gsml:a>
     </div>
     <div class="hr dotted topDivider"><hr/></div>
     <div id="contentMiddle">

@@ -799,6 +799,12 @@
 
     </bean>
 
+    <bean name="/content/actionForEducationQuiz.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/election2008Quiz"/>
+    </bean>
+
     <bean name="/geo/landing/dayton_ohio.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

@@ -46,6 +46,12 @@
     position: relative;
 }
 
+#edin08QuizPromoImage {
+    position: absolute;
+    bottom: -5px;
+    right: 20px;
+}
+
 #contentMiddle {
     float: left;
     width: 625px;
