@@ -19,8 +19,6 @@
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
-<jsp:directive.tag import="java.util.List"/>
-<jsp:directive.tag import="java.util.Iterator"/>
 <jsp:directive.tag import="gs.data.test.ITestDataSetDao"/>
 <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
 <jsp:directive.tag import="gs.data.geo.IGeoDao"/>
