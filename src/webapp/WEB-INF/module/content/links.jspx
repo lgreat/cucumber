@@ -55,13 +55,11 @@
                             <c:out value="${anchor.contents}" escapeXml="true"/>
                         </c:set>
                         <li>
-                            <c:if test="${not empty anchor.before}">
-                                <c:out value="${anchor.before}" escapeXml="true"/>
-                            </c:if>
+                            <!-- purposefully not using escapeXml on before/after text because
+                                 on index.jspx, explicit space character sequences are used --> 
+                            <c:if test="${not empty anchor.before}">${anchor.before}</c:if>
                             <a href="${url}">${text}</a>
-                            <c:if test="${not empty anchor.after}">
-                                <c:out value="${anchor.after}" escapeXml="true"/>
-                            </c:if>
+                            <c:if test="${not empty anchor.after}">${anchor.after}</c:if>
                         </li>
                     </c:forEach>
                 </ul>
