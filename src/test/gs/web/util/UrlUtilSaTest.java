@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.51 2008/07/01 13:56:13 cpickslay Exp $
+ * $Id: UrlUtilSaTest.java,v 1.52 2008/07/28 23:31:06 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -140,6 +140,8 @@ public class UrlUtilSaTest extends TestCase {
         assertNull(_urlUtil.cobrandFromUrl("127.0.0.1"));
         assertNull(_urlUtil.cobrandFromUrl("aroy.office.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("aroy.dev.greatschools.net"));
+
+        assertNull("editorial.dev should not be treated as a cobrand", _urlUtil.cobrandFromUrl("editorial.dev.greatschools.net"));
 
         // This doesn't work, but it's not a realistic case at this time.
         //assertNull(_urlUtil.cobrandFromUrl("greatschools.net"));

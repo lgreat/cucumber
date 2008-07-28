@@ -203,6 +203,12 @@ public class SessionContextTest extends BaseTestCase {
         assertTrue(!_sessionContext.isYahooCobrand());
     }
 
+    public void testEditorialDevShouldNotBeCobranded() {
+        _request.setServerName("editorial.dev.greatschools.net");
+        _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
+        assertTrue("editorial.dev should not be a cobrand",!_sessionContext.isCobranded());
+    }
+
     public void testDomainWideCookie() {
         SessionContextUtil util = new SessionContextUtil();
         util.setStateManager(new StateManager());
