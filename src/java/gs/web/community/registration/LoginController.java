@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.33 2008/06/17 17:05:14 aroy Exp $
+ * $Id: LoginController.java,v 1.34 2008/07/28 17:16:10 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -174,7 +174,7 @@ public class LoginController extends SimpleFormController {
                     "/soap/user");
         }
         String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP)) {
+        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
             requestIP = request.getRemoteAddr();
         }
         soapRequest.reportLoginRequest(user, requestIP);

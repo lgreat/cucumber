@@ -110,6 +110,36 @@ public class LoginControllerTest extends BaseControllerTestCase {
                 mAndV.getViewName());
     }
 
+    public void testOnSubmitWithIPAttributeUndefined() throws NoSuchAlgorithmException, SoapRequestException {
+        _user.setPlaintextPassword("foobar");
+        expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
+        expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
+        replay(_mockUserDao);
+
+        _command.setPassword("foobar");
+
+        getRequest().setServerName("dev.greatschools.net");
+
+        _controller.onBindOnNewForm(getRequest(), _command, _errors);
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        assertFalse("Controller has errors on validate", _errors.hasErrors());
+
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _request.setAttribute("HTTP_X_CLUSTER_CLIENT_IP", "undefined");
+        _request.setRemoteAddr("192.168.0.101");
+        // expect it to fall back to remote when attribute is undefined
+        _soapRequest.reportLoginRequest(_user, "192.168.0.101");
+        replay(_soapRequest);
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verify(_mockUserDao);
+        verify(_soapRequest);
+        assertFalse("Controller has errors on submit", _errors.hasErrors());
+
+        assertEquals("redirect:http://community.dev.greatschools.net/",
+                mAndV.getViewName());
+    }
+
     public void testOnSubmitNoRedirect() throws NoSuchAlgorithmException, SoapRequestException {
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
