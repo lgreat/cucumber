@@ -88,7 +88,8 @@
                 }
 
                 StringBuffer buffer = new StringBuffer(40);
-                Iterator iter = school.getLevelCode().getIterator();
+                <!-- get the sorted list -->
+                Iterator iter = school.getLevelCode().getIndividualLevelCodes().iterator();
                 while (iter.hasNext()) {
                     buffer.append(((LevelCode.Level) iter.next()).getLongName());
                     if (iter.hasNext()) {
