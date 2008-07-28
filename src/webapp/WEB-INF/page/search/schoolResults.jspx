@@ -176,7 +176,7 @@
                     </li>
                     <!-- To activate Preschool tab for all states, remove the following set and
                          the if statement and closing tag -->
-                    <c:set var="stateAbbr" value="${state.abbreviation}"/>
+                    <c:set var="stateAbbr" value="${requestScope.context.stateOrDefault.abbreviation}"/>
                     <c:if test="${stateAbbr eq 'AK' or
                                 stateAbbr eq 'ND' or
                                 stateAbbr eq 'SD' or
