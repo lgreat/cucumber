@@ -10,7 +10,16 @@
     <c:if test="${!empty requestScope.modelPressReleases}">
         <ul>
         <c:forEach var="release" items="${requestScope.modelPressReleases}">
-            <li><span class="date">${release.date}:</span>&amp;nbsp;<a href="${release.url}">${release.text}</a></li>
+            <c:set var="date">
+                <c:out value="${release.date}" escapeXml="true"/>
+            </c:set>
+            <c:set var="url">
+                <c:out value="${release.url}" escapeXml="true"/>
+            </c:set>
+            <c:set var="text">
+                <c:out value="${release.text}" escapeXml="true"/>
+            </c:set>
+            <li><span class="date">${date}:</span>&amp;nbsp;<a href="${url}">${text}</a></li>
         </c:forEach>
         </ul>
     </c:if>

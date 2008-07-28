@@ -10,7 +10,19 @@
     <c:if test="${!empty requestScope.modelPressClippings}">
         <ul>
         <c:forEach var="clipping" items="${requestScope.modelPressClippings}">
-            <li><a href="${clipping.url}" target="_blank">${clipping.text}</a> ${clipping.source}, ${clipping.date}</li>
+            <c:set var="url">
+                <c:out value="${clipping.url}" escapeXml="true"/>
+            </c:set>
+            <c:set var="text">
+                <c:out value="${clipping.text}" escapeXml="true"/>
+            </c:set>
+            <c:set var="source">
+                <c:out value="${clipping.source}" escapeXml="true"/>
+            </c:set>
+            <c:set var="date">
+                <c:out value="${clipping.date}" escapeXml="true"/>
+            </c:set>
+            <li><a href="${url}" target="_blank">${text}</a> ${source}, ${date}</li>
         </c:forEach>
         </ul>
     </c:if>

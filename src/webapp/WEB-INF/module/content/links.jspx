@@ -10,24 +10,37 @@
     <c:choose>
         <c:when test="${requestScope.modelLayout eq 'basic'}">
             <c:if test="${!empty requestScope.modelAnchor}">
-                <a href="${requestScope.modelAnchor.href}">${requestScope.modelAnchor.contents}</a>
+                <c:set var="url">
+                    <c:out value="${requestScope.modelAnchor.href}" escapeXml="true"/>
+                </c:set>
+                <c:set var="text">
+                    <c:out value="${requestScope.modelAnchor.contents}" escapeXml="true"/>
+                </c:set>
+                <a href="${url}">${text}</a>
             </c:if>
         </c:when>
         <c:when test="${requestScope.modelLayout eq 'q_and_a'}">
             <c:if test="${!empty requestScope.modelAnchor}">
-            <p id="promoPrompt">
-                <c:choose>
-                    <c:when test="${requestScope.page eq 'backtoschool'}">
-                        <a href="${requestScope.modelAnchor.href}">${requestScope.modelAnchor.contents}</a>
-                    </c:when>
-                    <c:otherwise>
-                        ${requestScope.modelAnchor.contents}
-                    </c:otherwise>
-                </c:choose>
-            </p>
+                <c:set var="url">
+                    <c:out value="${requestScope.modelAnchor.href}" escapeXml="true"/>
+                </c:set>
+                <c:set var="text">
+                    <c:out value="${requestScope.modelAnchor.contents}" escapeXml="true"/>
+                </c:set>
+
+                <p id="promoPrompt">
+                    <c:choose>
+                        <c:when test="${requestScope.page eq 'backtoschool'}">
+                            <a href="${url}">${text}</a>
+                        </c:when>
+                        <c:otherwise>
+                            ${text}
+                        </c:otherwise>
+                    </c:choose>
+                </p>
 
                 <p id="promoResponseButton">
-                    <a href="${requestScope.modelAnchor.href}"><img src="/res/img/button/btn_answer.gif" alt="Answer"/></a>
+                    <a href="${url}"><img src="/res/img/button/btn_answer.gif" alt="Answer"/></a>
                 </p>
             </c:if>
         </c:when>
@@ -35,10 +48,20 @@
             <c:if test="${!empty requestScope.modelAnchorList}">
                 <ul>
                     <c:forEach var="anchor" items="${requestScope.modelAnchorList.results}">
+                        <c:set var="url">
+                            <c:out value="${anchor.href}" escapeXml="true"/>
+                        </c:set>
+                        <c:set var="text">
+                            <c:out value="${anchor.contents}" escapeXml="true"/>
+                        </c:set>
                         <li>
-                            <c:if test="${not empty anchor.before}">${anchor.before}</c:if>
-                            <a href="${anchor.href}">${anchor.contents}</a>
-                            <c:if test="${not empty anchor.after}">${anchor.after}</c:if>
+                            <c:if test="${not empty anchor.before}">
+                                <c:out value="${anchor.before}" escapeXml="true"/>
+                            </c:if>
+                            <a href="${url}">${text}</a>
+                            <c:if test="${not empty anchor.after}">
+                                <c:out value="${anchor.after}" escapeXml="true"/>
+                            </c:if>
                         </li>
                     </c:forEach>
                 </ul>
@@ -47,4 +70,3 @@
     </c:choose>
 
 </jsp:root>
-        
