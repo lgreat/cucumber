@@ -321,15 +321,21 @@
                                       styleClass="noInterstitial"
                                       showAll="${not empty param.showall}">All Schools</link:schools>
                     </li>
-                    <!-- Commenting out preschool tab until preschools are live.
-                         Uncommenting this block should be all that is required -->
-                    <!--<li class="${pTabClass}">-->
-                        <!--<link:schools cityName="${cityName}"-->
-                                      <!--districtId="${district}"-->
-                                      <!--levelCode="p"-->
-                                      <!--styleClass="noInterstitial"-->
-                                      <!--showAll="${not empty param.showall}">Preschool</link:schools>-->
-                    <!--</li>-->
+                    <!-- To activate Preschool tab for all states, remove the following set and
+                         the if statement and closing tag -->
+                    <c:set var="stateAbbr" value="${state.abbreviation}"/>
+                    <c:if test="${stateAbbr eq 'AK' or
+                                stateAbbr eq 'ND' or
+                                stateAbbr eq 'SD' or
+                                stateAbbr eq 'WY'}">
+                        <li class="${pTabClass}">
+                            <link:schools cityName="${cityName}"
+                                          districtId="${district}"
+                                          levelCode="p"
+                                          styleClass="noInterstitial"
+                                          showAll="${not empty param.showall}">Preschool</link:schools>
+                        </li>
+                    </c:if>
                     <li class="${eTabClass}">
                         <link:schools cityName="${cityName}"
                                       districtId="${district}"

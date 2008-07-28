@@ -147,10 +147,14 @@
             <div id="resultstabs" class="cleared">
                 <!-- Figure out which tab is selected -->
                 <c:set var="allTabClass" value=""/>
+                <c:set var="pTabClass" value=""/>
                 <c:set var="eTabClass" value=""/>
                 <c:set var="mTabClass" value=""/>
                 <c:set var="hTabClass" value=""/>
                 <c:choose>
+                    <c:when test="${param.lc eq 'p'}">
+                        <c:set var="pTabClass" value="tabactive"/>
+                    </c:when>
                     <c:when test="${param.lc eq 'e'}">
                         <c:set var="eTabClass" value="tabactive"/>
                     </c:when>
@@ -170,6 +174,20 @@
                                            schoolType="${stOmniture}"
                                            styleClass="noInterstitial">All Schools</link:schoolSearch>
                     </li>
+                    <!-- To activate Preschool tab for all states, remove the following set and
+                         the if statement and closing tag -->
+                    <c:set var="stateAbbr" value="${state.abbreviation}"/>
+                    <c:if test="${stateAbbr eq 'AK' or
+                                stateAbbr eq 'ND' or
+                                stateAbbr eq 'SD' or
+                                stateAbbr eq 'WY'}">
+                        <li class="${pTabClass}">
+                            <link:schoolSearch query="${param.q}"
+                                               schoolType="${stOmniture}"
+                                               levelCode="p"
+                                               styleClass="noInterstitial">Preschool</link:schoolSearch>
+                        </li>                        
+                    </c:if>
                     <li class="${eTabClass}">
                         <link:schoolSearch query="${param.q}"
                                            schoolType="${stOmniture}"
