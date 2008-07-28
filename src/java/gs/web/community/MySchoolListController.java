@@ -30,7 +30,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
     protected static final Log _log = LogFactory.getLog(MySchoolListController.class);
 
     /** Spring bean id */
-    public static final String BEAN_ID = "/community/mySchoolList.page";
+    public static final String BEAN_ID = "/mySchoolList.page";
     
     private String _viewName;
     private ISchoolDao _schoolDao;
@@ -83,7 +83,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
                 model = buildModel(user);
             } else {
                 StringBuilder sb = new StringBuilder();
-                sb.append("/community/mySchoolListLogin.page?command=");
+                sb.append("/mySchoolListLogin.page?command=");
                 sb.append(command);
                 sb.append("&ids=");
                 sb.append(request.getParameter(PARAM_SCHOOL_IDS));

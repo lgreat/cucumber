@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.84 2008/07/22 19:54:07 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.85 2008/07/28 19:06:15 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -349,13 +349,13 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/content/allArticles.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST);
-        assertEquals("/community/mySchoolList.page", builder.asSiteRelative(request));
+        assertEquals("/mySchoolList.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, State.WY, "234");
-        assertEquals("/community/mySchoolList.page?command=add&ids=234&state=WY", builder.asSiteRelative(request));
+        assertEquals("/mySchoolList.page?command=add&ids=234&state=WY", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST_LOGIN);
-        assertEquals("/community/mySchoolListLogin.page", builder.asSiteRelative(request));
+        assertEquals("/mySchoolListLogin.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.NEWSLETTER_CENTER, State.WY);
         assertEquals("/cgi-bin/newsletters/WY/", builder.asSiteRelative(request));

@@ -1479,19 +1479,19 @@
     <bean name="/school/ajaxFindSchoolAndCity.page"
           class="gs.web.school.FindSchoolController" autowire="byName" lazy-init="true"/>
 
-    <bean name="/community/mySchoolList.page"
+    <bean name="/mySchoolList.page"
           class="gs.web.community.MySchoolListController" autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>community/mySchoolList</value>
         </property>
     </bean>
 
-    <bean name="/community/mySchoolListLogin.page"
+    <bean name="/mySchoolListLogin.page"
           class="gs.web.community.MySchoolListLoginController" autowire="byName" lazy-init="true">
         <property name="commandName" value="loginCmd"/>
         <property name="commandClass" value="gs.web.community.LoginCommand"/>
         <property name="formView" value="/community/mySchoolListLogin"/>
-        <property name="successView" value="redirect:/community/mySchoolList.page"/>
+        <property name="successView" value="redirect:/mySchoolList.page"/>
     </bean>
 
     <bean name="/community/logout.page"

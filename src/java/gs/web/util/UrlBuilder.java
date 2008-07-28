@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.111 2008/07/22 19:54:07 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.112 2008/07/28 19:06:15 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -475,9 +475,9 @@ public class UrlBuilder {
         } else if (TRAVEL.equals(page)) {
             _path = "/content/travel.page";
         } else if (MY_SCHOOL_LIST.equals(page)) {
-            _path = "/community/mySchoolList.page";            
+            _path = "/mySchoolList.page";
         } else if (MY_SCHOOL_LIST_LOGIN.equals(page)) {
-            _path = "/community/mySchoolListLogin.page";            
+            _path = "/mySchoolListLogin.page";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -566,7 +566,7 @@ public class UrlBuilder {
             _path = "/schools/cities/" + state.getLongName().replace(" ", "_") + "/" + state.getAbbreviation();
         } else if (MY_SCHOOL_LIST.equals(page)) {
             _perlPage = true;
-            _path = "/community/mySchoolList.page";
+            _path = "/mySchoolList.page";
             setParameter("command", "add");
             setParameter("state", state.getAbbreviation());
             if (null != param0) {

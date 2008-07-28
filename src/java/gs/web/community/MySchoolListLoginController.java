@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class MySchoolListLoginController extends SimpleFormController implements ReadWriteController {
 
-    public static final String BEAN_NAME = "/community/mySchoolListLogin.page";
+    public static final String BEAN_NAME = "/mySchoolListLogin.page";
     public IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
 

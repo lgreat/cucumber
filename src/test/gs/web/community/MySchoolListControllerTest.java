@@ -67,7 +67,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         RedirectView v = (RedirectView)mAndV.getView();
         assertEquals("User should see MSL Login page",
-                "/community/mySchoolListLogin.page?command=add&ids=123,456&state=CA",
+                "/mySchoolListLogin.page?command=add&ids=123,456&state=CA",
                 v.getUrl());
     }
 
