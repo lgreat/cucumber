@@ -5,7 +5,7 @@
           xmlns:gsweb="gstaglib">
 <jsp:directive.tag body-content="empty"/>
 <!-- styles were grossly inlined to make it easier to remove this module in the future -->
-<div style="background: url(/res/img/ad/sponsor_leapfrog.gif) no-repeat;width:300px;height:234px;">
+<div style="background: url(/res/img/ad/sponsor_leapfrog.gif) no-repeat;width:300px;height:249px;position: relative; top: 15px;">
 <div style="position:relative;left:24px">
 <!-- no point in showing the form to crawlers -->
 <c:if test="${!requestScope.context.crawler}">
@@ -34,7 +34,7 @@
     <option value="#">0123456789012345678901234567890123456789</option>
     <option value="/cgi-bin/showarticle/416">﻿Kindergarten: Ready or Not?</option>
     <option value="/cgi-bin/showarticle/331">Jinx the Kindergarten Jitters</option>
-    <option value="/cgi-bin/showarticle/660">Kindergarten Learning Games and Activities</option>
+    <option value="/cgi-bin/showarticle/660">Learning Games and Activities</option>
     <option value="/cgi-bin/showarticle/622">Favorite Books for Kindergartners</option>
     <option value="/cgi-bin/showarticle/377">Your Kindergartner and Language Arts</option>
     <option value="/cgi-bin/showarticle/492">Your Kindergartner and Writing</option>
@@ -46,7 +46,7 @@
 <select id="abc_content_1" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/658">Language Arts in a First-Grade Classroom</option>
-    <option value="/cgi-bin/showarticle/663">First-Grade Learning Games and Activities</option>
+    <option value="/cgi-bin/showarticle/663">Learning Games and Activities</option>
     <option value="/cgi-bin/showarticle/623">Favorite Books for First-Graders</option>
     <option value="/cgi-bin/showarticle/418">Your First-Grader and Science</option>
     <option value="/cgi-bin/showarticle/394">Your First-Grader and Math</option>
@@ -58,7 +58,7 @@
 
 <select id="abc_content_2" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
-    <option value="/cgi-bin/showarticle/665">Second-Grade Learning Games and Activities</option>
+    <option value="/cgi-bin/showarticle/665">Learning Games and Activities</option>
     <option value="/cgi-bin/showarticle/624">Favorite Books for Second-Graders</option>
     <option value="/cgi-bin/showarticle/420">Your Second-Grader and Science</option>
     <option value="/cgi-bin/showarticle/440">Your Second-Grader and Social Studies</option>
@@ -70,7 +70,7 @@
 
 <select id="abc_content_3" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
-    <option value="/cgi-bin/showarticle/668">Third-Grade Learning Games and Activities</option>
+    <option value="/cgi-bin/showarticle/668">Learning Games and Activities</option>
     <option value="/cgi-bin/showarticle/625">Favorite Books for Third-Graders</option>
     <option value="/cgi-bin/showarticle/496">Your Third-Grader and Writing</option>
     <option value="/cgi-bin/showarticle/421">Your Third-Grader and Science</option>
@@ -107,7 +107,7 @@
     <option value="/cgi-bin/showarticle/1032">Getting Ready for Middle School</option>
     <option value="/cgi-bin/showarticle/1215">Seven Steps to Succeeding in Middle School</option>
     <option value="/cgi-bin/showarticle/325">How to Stay Involved in Middle and High School</option>
-    <option value="/cgi-bin/showarticle/761/">Ask the Experts About Your Middle-Schooler</option>
+    <option value="/cgi-bin/showarticle/761/">Ask the Experts: Your Middle-Schooler</option>
     <option value="/cgi-bin/showarticle/966">Is Your Middle-Schooler Bored?</option>
 </select>
 
@@ -115,18 +115,18 @@
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/701/">How To Take Great Notes</option>
     <option value="/cgi-bin/showarticle/700/">Study Skills for Middle School and Beyond</option>
-    <option value="/cgi-bin/showarticle/716">Get Ready for Middle and High School Reading</option>
+    <option value="/cgi-bin/showarticle/716">Middle and High School Reading</option>
     <option value="/cgi-bin/showarticle/815">Analyzing Middle School Science</option>
-    <option value="/cgi-bin/showarticle/943">Don't Know Much About History: Middle School and Social Studies</option>
+    <option value="/cgi-bin/showarticle/943">Middle School Social Studies</option>
 </select>
 
 <select id="abc_content_8" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/752">Why Is Algebra a Big Deal?</option>
-    <option value="/cgi-bin/showarticle/2722">Improving Older Kids' Reading Speed and Comprehension</option>
-    <option value="/cgi-bin/showarticle/2719">Reading Problems in Middle School and High School Students</option>
-    <option value="/cgi-bin/showarticle/1099">A Middle School Parent's College Prep Guide</option>
-    <option value="/cgi-bin/showarticle/3108">Helping Your Middle-School Child Make the Transition to High School</option>
+    <option value="/cgi-bin/showarticle/2722">Improving Reading Speed and Comprehension</option>
+    <option value="/cgi-bin/showarticle/2719">Middle and High School Reading Problems</option>
+    <option value="/cgi-bin/showarticle/1099">A Parent's College Prep Guide</option>
+    <option value="/cgi-bin/showarticle/3108">Transitioning to High School</option>
 </select>
 </div>
 </form>
