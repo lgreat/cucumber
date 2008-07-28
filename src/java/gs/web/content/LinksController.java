@@ -45,6 +45,8 @@ public class LinksController extends AbstractController {
     public static final String SPREADSHEET_PAGE = "page";
     public static final String SPREADSHEET_TEXT = "text";
     public static final String SPREADSHEET_URL = "url";
+    public static final String SPREADSHEET_BEFORE = "before";
+    public static final String SPREADSHEET_AFTER = "after";
 
     public ITableDao getTableDao() {
         return _tableDao;
@@ -149,6 +151,8 @@ public class LinksController extends AbstractController {
             ITableRow row = _tableDao.getFirstRowByKey(SPREADSHEET_PAGE, page);
             if (row != null) {
                 Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
+                anchor.setBefore(row.getString(SPREADSHEET_BEFORE));
+                anchor.setAfter(row.getString(SPREADSHEET_AFTER));
                 modelAndView.addObject(MODEL_ANCHOR, anchor);
             }
         }
@@ -156,6 +160,8 @@ public class LinksController extends AbstractController {
             ITableRow row = _tableDao.getRandomRowByKey(SPREADSHEET_PAGE, page);
             if (row != null) {
                 Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
+                anchor.setBefore(row.getString(SPREADSHEET_BEFORE));
+                anchor.setAfter(row.getString(SPREADSHEET_AFTER));
                 modelAndView.addObject(MODEL_ANCHOR, anchor);
             }
         }
@@ -165,7 +171,9 @@ public class LinksController extends AbstractController {
                 AnchorListModel anchorListModel = new AnchorListModel();
                 for (ITableRow row : rows) {
                     Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
-                        anchorListModel.add(anchor);
+                    anchor.setBefore(row.getString(SPREADSHEET_BEFORE));
+                    anchor.setAfter(row.getString(SPREADSHEET_AFTER));
+                    anchorListModel.add(anchor);
                 }
                 modelAndView.addObject(MODEL_ANCHOR_LIST, anchorListModel);
             }

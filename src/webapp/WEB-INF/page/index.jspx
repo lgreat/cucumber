@@ -219,11 +219,16 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 					<!-- Define width (and alternatively height) on .wrapper-content -->
                     <img class="heading" src="/res/img/home/tools_header.gif" alt="The Latest Tools and Advice" title="" />
                     <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter" />
-					<ul class="arrows">
+                    <div class="arrows">
+                        <jsp:include page="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list"/>
+                    </div>
+                    <!--
+                    <ul class="arrows">
                         <li>Stay on track for <a href="/content/backToSchool.page">Back to School</a>.</li>
-						<li>Get the edge. Start a <a href="/content/countdownToCollege.page">Countdown to College</a>.</li>
+                        <li>Get the edge. Start a <a href="/content/countdownToCollege.page">Countdown to College</a>.</li>
 						<li>Are you smarter than your fourth-<br/>grader? <a href="/content/btsQuiz.page">See if you make the grade</a>.</li>
 					</ul>
+                    -->
                     <div class="sponsor_ad"><ad:Homepage_185x28/></div>
                 </div>
 			</div>

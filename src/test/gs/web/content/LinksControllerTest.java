@@ -208,6 +208,9 @@ public class LinksControllerTest extends BaseControllerTestCase {
         assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", firstAnchor.getContents());
         assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", firstAnchor.getHref());
 
+        assertNull("Before text should be null", firstAnchor.getBefore());
+        assertNull("After text should be null", firstAnchor.getAfter());
+        
         reset(dao);
 
         expect(dao.getWorksheetUrl()).andReturn("google/");
@@ -275,5 +278,60 @@ public class LinksControllerTest extends BaseControllerTestCase {
         getRequest().setServerName("www.greatschools.net");
         assertEquals("Worksheet name was not production worksheet name for production server name",
             _controller.getProductionWorksheetName(), _controller.getWorksheet(getRequest()));
+    }
+
+    public void testBeforeAndAfterText () throws Exception {
+        getRequest().setParameter(LinksController.PARAM_PAGE, "latest_tools");
+        getRequest().setParameter(LinksController.PARAM_TYPE, LinksController.TYPE_ALL);
+        getRequest().setParameter(LinksController.PARAM_LAYOUT, LinksController.LAYOUT_BASIC);
+
+        GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
+        getRequest().setServerName("dev.greatschools.net");
+        expect(dao.getWorksheetUrl()).andReturn("google/");
+        dao.setWorksheetUrl("google/od6");
+
+        List<ITableRow> tableRowList = new ArrayList<ITableRow>();
+        HashMapTableRow hashMapTableRow = new HashMapTableRow();
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_BEFORE, "before");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_AFTER, "after");
+        tableRowList.add(hashMapTableRow);
+        expect(dao.getRowsByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(tableRowList);
+        replay(dao);
+
+        ModelAndView modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
+
+        assertEquals("View name did not match " + LinksController.VIEW_NAME,
+            LinksController.VIEW_NAME, modelAndView.getViewName());
+        assertEquals("Layout did not match " + LinksController.LAYOUT_BASIC,
+            LinksController.LAYOUT_BASIC, modelAndView.getModel().get(LinksController.MODEL_LAYOUT));
+        assertTrue("Model did not contain anchor list key",
+            modelAndView.getModel().containsKey(LinksController.MODEL_ANCHOR_LIST));
+        assertTrue("Model anchor list was not AnchorListModel object",
+            modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST) instanceof AnchorListModel);
+
+        AnchorListModel anchorListModel =
+            (AnchorListModel) modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST);
+        Anchor firstAnchor = (Anchor) anchorListModel.getResults().get(0);
+        assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", firstAnchor.getContents());
+        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", firstAnchor.getHref());
+
+        assertEquals("Before text should be \"before\"", "before", firstAnchor.getBefore());
+        assertEquals("After text should be \"after\"", "after", firstAnchor.getAfter());
+
+        reset(dao);
+                                                                                        
+        expect(dao.getWorksheetUrl()).andReturn("google/");
+        dao.setWorksheetUrl("google/od6");
+        expect(dao.getRowsByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
+        replay(dao);
+
+        modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
+        assertNull("Expected null anchor list", modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST));
+
+        verify(dao);
     }
 }

@@ -69,6 +69,23 @@
         <property name="productionWorksheetName" value="od7"/>
     </bean>
 
+    <bean id="splashLinksFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pHIaC-TrslBggU-ztR9LgTw"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+    </bean>
+
+    <bean name="/content/splashLinks.module"
+          class="gs.web.content.LinksController" lazy-init="true">
+        <property name="tableDao">
+            <bean factory-bean="splashLinksFactory" factory-method="getTableDao"/>
+        </property>
+        <property name="devWorksheetName" value="od6"/>
+        <property name="stagingWorksheetName" value="od4"/>
+        <property name="productionWorksheetName" value="od7"/>
+    </bean>
+
     <bean id="pressClippingsFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBgQGIlLNGtLQw"/>
