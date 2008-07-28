@@ -222,13 +222,6 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                     <div class="arrows">
                         <jsp:include page="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list"/>
                     </div>
-                    <!--
-                    <ul class="arrows">
-                        <li>Stay on track for <a href="/content/backToSchool.page">Back to School</a>.</li>
-                        <li>Get the edge. Start a <a href="/content/countdownToCollege.page">Countdown to College</a>.</li>
-						<li>Are you smarter than your fourth-<br/>grader? <a href="/content/btsQuiz.page">See if you make the grade</a>.</li>
-					</ul>
-                    -->
                     <div class="sponsor_ad"><ad:Homepage_185x28/></div>
                 </div>
 			</div>
