@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.8 2008/07/04 00:09:59 thuss Exp $
+ * $Id: AnchorListModelFactory.java,v 1.9 2008/07/28 22:11:45 droy Exp $
  */
 
 package gs.web.util.list;
@@ -92,6 +92,7 @@ public class AnchorListModelFactory {
     /**
      * Summarizes the schools in a city. It creates an item for each of the following, if there are any:
      * <ul>
+     * <li>preschools
      * <li>elementary schools
      * <li>middle schools
      * <li>high schools
@@ -116,6 +117,14 @@ public class AnchorListModelFactory {
         //schoolBreakdownAnchorList.addResult(a);
 
         UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName);
+
+        sc = _schoolDao.countSchools(state, null, LevelCode.PRESCHOOL, cityName);
+        if (sc > 0) {
+            builder.setParameter("lc", "p");
+            final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Preschools");
+            anchor.setAfter(" (" + sc + ")");
+            schoolBreakdownAnchorList.add(anchor);
+        }
 
         sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityName);
         if (sc > 0) {
