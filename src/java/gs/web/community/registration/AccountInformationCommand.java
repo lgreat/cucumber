@@ -1,0 +1,142 @@
+package gs.web.community.registration;
+
+import gs.data.community.User;
+import gs.data.community.Student;
+import gs.data.state.State;
+import gs.data.geo.City;
+import gs.data.school.School;
+
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
+ */
+public class AccountInformationCommand {
+    private User _user;
+    private State _state;
+    private String _parentAmbassador = "yes";
+
+    private List<Student> _students;
+    private List<String> _schoolNames;
+    private List<String> _cityNames;
+    private List<List<City>> _cityList;
+    private List<List<School>> _schools;
+    private List<City> _profileCityList;
+
+    public AccountInformationCommand() {
+        _students = new ArrayList<Student>();
+        _schoolNames = new ArrayList<String>();
+        _schools = new ArrayList<List<School>>();
+        _cityList = new ArrayList<List<City>>();
+        _cityNames = new ArrayList<String>();
+    }
+
+    public User getUser() {
+        return _user;
+    }
+
+    public void setUser(User user) {
+        _user = user;
+    }
+
+    public State getState() {
+        return _state;
+    }
+
+    public void setState(State state) {
+        _state = state;
+    }
+
+    public List<List<City>> getCityList() {
+        return _cityList;
+    }
+
+    public void setCityList(List<List<City>> cityList) {
+        _cityList = cityList;
+    }
+
+    public void addCityList(List<City> list) {
+        getCityList().add(list);
+    }
+
+    public String getParentAmbassador() {
+        return _parentAmbassador;
+    }
+
+    public void setParentAmbassador(String parentAmbassador) {
+        _parentAmbassador = parentAmbassador;
+    }
+
+    public List<Student> getStudents() {
+        return _students;
+    }
+
+    public void setStudents(List<Student> students) {
+        _students = students;
+    }
+
+    public void addStudent(Student student) {
+        getStudents().add(student);
+    }
+    
+    public int getNumStudents() {
+        return getStudents().size();
+    }
+
+    public void setNumStudents(int num) {
+        // ignore -- this is so JSTL treats this as a bean property
+    }
+
+    public List<String> getSchoolNames() {
+        return _schoolNames;
+    }
+
+    public void setSchoolNames(List<String> schoolNames) {
+        _schoolNames = schoolNames;
+    }
+
+    public void addSchoolName(String name) {
+        getSchoolNames().add(name);
+    }
+
+    public List<String> getCityNames() {
+        return _cityNames;
+    }
+
+    public void setCityNames(List<String> cityNames) {
+        _cityNames = cityNames;
+    }
+
+    public void addCityName(String cityName) {
+        _cityNames.add(cityName);
+    }
+
+    public List<List<School>> getSchools() {
+        return _schools;
+    }
+
+    public void setSchools(List<List<School>> schools) {
+        _schools = schools;
+    }
+
+    public void addSchools(List<School> schools) {
+        _schools.add(schools);
+    }
+
+    public String getGender() {
+        return getUser().getGender();
+    }
+
+    public void setGender(String gender) {
+        getUser().setGender(gender);
+    }
+
+    public List<City> getProfileCityList() {
+        return _profileCityList;
+    }
+
+    public void setProfileCityList(List<City> profileCityList) {
+        _profileCityList = profileCityList;
+    }
+}

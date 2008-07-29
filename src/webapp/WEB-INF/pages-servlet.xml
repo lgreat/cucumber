@@ -1201,6 +1201,15 @@
     </bean>
     <!--End Registration pages -->
 
+    <bean name="/accountInformation.page"
+          class="gs.web.community.registration.AccountInformationController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="command"/>
+        <property name="commandClass" value="gs.web.community.registration.AccountInformationCommand"/>
+        <property name="formView" value="/community/registration/accountInformation"/>
+    </bean>
+
     <bean name="/community/getUserProfile.page"
           class="gs.web.community.registration.GetUserProfileController"
           autowire="byName" lazy-init="true">
