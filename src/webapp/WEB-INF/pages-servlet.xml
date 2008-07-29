@@ -38,6 +38,7 @@
             <map>
                 <entry key="/city/**" value="/city.page"/>
                 <entry key="/schools/**" value="/schools/allInState.page"/>
+                <entry key="/preschools/**" value="/preschools/index.page"/>
             </map>
         </property>
     </bean>
@@ -803,6 +804,12 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/election2008Quiz"/>
+    </bean>
+
+    <bean name="/preschools/index.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/preschools/index"/>
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"

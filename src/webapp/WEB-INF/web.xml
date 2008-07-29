@@ -75,6 +75,11 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/preschools/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/robots.txt</url-pattern>
     </servlet-mapping>
 
@@ -187,6 +192,14 @@
 
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
+        <url-pattern>/preschools/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
         <url-pattern>/articles/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
@@ -208,6 +221,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/schools/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/preschools/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>

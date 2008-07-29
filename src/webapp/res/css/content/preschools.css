@@ -1,0 +1,9 @@
+h1#preschoolText {
+    text-indent: -5000px;
+    background: url( "/res/img/GS_Preschool_headertext.gif" ) no-repeat;
+    width: 155px;
+    height: 192px;
+    float: left;
+    margin:0;
+    padding:0;
+}
