@@ -44,7 +44,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
 			<ul class="pageNav">
 				<li><a href="#faq-101">GreatSchools 101</a></li>
-				<li><a href="#faq-rightschool">Find the right school and GreatSchools data</a></li>
+				<li><a href="#faq-rightschool">Find the Right School Using GreatSchools Data</a></li>
 				<li><a href="#faq-parents">Connect with Other Parents</a></li>
 				<li><a href="#faq-advice">Expert Advice and Newsletters</a></li>
 				<li><a href="#faq-schwabtransition">SchwabLearning.org Transition</a></li>
@@ -103,11 +103,11 @@ education.</p>
 				</li>
 			</ol>
 
-			<h2 id="faq-rightschool">Find GreatSchools data and the right school</h2>
+			<h2 id="faq-rightschool">Find the Right School Using GreatSchools Data</h2>
 
 			<ul class="sectionNav">
 				<li><a href="#faq-datapublic">School Data – Public &amp; Charter schools</a></li>
-				<li><a href="#faq-dataprivate">School Data – Private Schools</a></li>
+				<li><a href="#pvtdata">School Data – Private Schools</a></li>
 				<li><a href="#faq-datacity">City and District Data</a></li>
 				<li><a href="#faq-enhancedprofiles">Enhanced School Profiles</a></li>
 				<li><a href="#faq-ratings">GreatSchools Ratings</a></li>
@@ -126,7 +126,7 @@ profiles more than 90,000 public elementary, middle and high schools in
 the United States. Charter schools, magnet schools, year-round schools,
 and some continuation and alternative schools are included as well. </p>
 					<p>In addition, GreatSchools.net includes basic information on more than 30,000
-                        <a href="#faq-dataprivate">private schools</a>. This information is limited because
+                        <a href="#pvtdata">private schools</a>. This information is limited because
                         private schools are not required to give tests or report results. </p>
 				</li>
 
@@ -149,7 +149,7 @@ leadership. Get more information in our <a href="#faq-enhancedprofiles">FAQ abou
 				</li>
 
 				<li>
-					<p class="question">Where does GreatSchools get its data?</p>
+					<p class="question" id="data_where">Where does GreatSchools get its data?</p>
 					<p>Public
 school test scores for most states come from the state Department of
 Education. School contact information and teacher/student statistics
@@ -167,7 +167,7 @@ acquire may be somewhat different from state to state.</p>
 				</li>
 
 				<li>
-					<p class="question">How often is school information updated?</p>
+					<p class="question" id="data_when">How often is school information updated?</p>
 					<p>Our
 goal is to update all data at least once a year in every state, using
 the most recent available information from either the state Department
@@ -176,7 +176,7 @@ of Education or the National Center for Education Statistics (NCES).</p>
 				</li>
 
 				<li>
-					<p class="question">What should I do if I see incorrect information on your site?</p>
+					<p class="question" id="data_incorrect">What should I do if I see incorrect information on your site?</p>
 					<p>We
 strive to keep our school information up to date, but we realize there
 may be changes that are not reflected in our data. If you see any
@@ -237,7 +237,7 @@ may be charged to cover our processing costs.</p>
 				</li>
 			</ol>
 
-			<h3 id="faq-dataprivate">School Data – Private Schools</h3>
+			<h3 id="pvtdata">School Data – Private Schools</h3>
 
 			<ol class="questions">
 				<li>

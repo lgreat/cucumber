@@ -19,7 +19,8 @@
 
 .contentFAQ h3 {
 	font-size: 15px;
-	margin: 0 0 15px;
+    font-weight: bold;
+    margin: 0 0 15px;
 }
 
 .contentFAQ p, .contentFAQ ol, .contentFAQ ul {
