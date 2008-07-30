@@ -2,18 +2,26 @@
     margin:5px 0 10px 0;
     font-size:small;
     font-weight:normal;
+    position:relative;
+    clear:both;
 }
 
-#msl_header div#msl_header_top {
+div#msl_header_top {
     padding-bottom:7px;
+    background:#FFF;
     border-bottom: 1px solid #CCCCCC;
     position:relative;
+    clear:both;
 }
 
-#msl_header div#msl_header_top div#dashboard_link {
+div#dashboard_link {
     position:absolute;
+    clear:both;
     right:0;
+    _right:10px;
     top:0;
+    _top:6px;
+
 }
 
 #msl_header div#msl_header_bottom {
@@ -58,4 +66,9 @@ div.phone {
 
 div.phone span {
     padding:0 4px 0 6px;
+}
+
+.spacer {
+    clear: both;
+    height: 1px;
 }

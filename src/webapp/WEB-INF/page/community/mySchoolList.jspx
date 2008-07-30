@@ -111,6 +111,9 @@
     <ad:Top_300x137/>
 
 </div>
+<div class="spacer">
+    <!-- don't collapse -->
+</div>
 <mod:tracking pageName="MSL Logged In"
               hier1="MySchoolList,MSLloggedin"/>
 </body>
