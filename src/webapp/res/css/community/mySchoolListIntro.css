@@ -60,3 +60,9 @@
     border-right: 1px solid #CCCCCC;
     margin-right: 12px;
 }
+
+.spacer {
+    clear: both;
+    width: 678px;
+    height: 1px;
+}

@@ -59,6 +59,10 @@
 
         </div>
 
+        <div class="spacer">
+            <!-- don't collapse -->
+        </div>
+
         <mod:tracking pageName="My School List" hier1="MySchoolList,MSLnewuser"/>
 
     </gsml:body>
