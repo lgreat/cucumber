@@ -67,6 +67,10 @@
 
         </div>
 
+        <div class="spacer">
+            <!-- don't collapse -->
+        </div>
+
         <!-- The perl page had pageName set to "+cgi-bin+msl_login" even though it's "My School List"
              on the intro page. Keeping the same for consistency. -->
         <mod:tracking pageName="+cgi-bin+msl_login" hier1="MySchoolList,MSLlogin"/>

@@ -85,3 +85,9 @@
 .warning img {
     padding-right: 3px;
 }
+
+.spacer {
+    clear: both;
+    width: 678px;
+    height: 1px;
+}
