@@ -277,7 +277,7 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
         assertEquals("Expected state of NY", State.NY, _sessionContext.getState());        
 
-        _request.setRequestURI("/schools.page?district=717&state=CA/");
+        _request.setRequestURI("/schools.page?district=717&state=CA");
         _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
         assertEquals("Expected state of NY", State.NY, _sessionContext.getState());
     }
