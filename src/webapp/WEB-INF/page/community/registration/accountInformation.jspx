@@ -7,14 +7,12 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib">
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.page import="gs.data.state.StateManager"/>
     <jsp:directive.page import="gs.data.school.Grades"/>
     <jsp:directive.page import="gs.data.school.Grade"/>
-    <jsp:directive.page import="java.util.Iterator"/>
-    <jsp:directive.page import="java.util.List"/>
-    <jsp:directive.page import="java.util.ArrayList"/>
     <jsp:directive.page contentType="text/html"/>
 <html>
   <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
@@ -27,19 +25,15 @@
                   SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
           String dashboardUrl = "http://" + comHost + "/dashboard";
           request.setAttribute("dashboardUrl", dashboardUrl);
-
-          StateManager stateManager = new StateManager();
-          request.setAttribute("stateList", stateManager.getListByAbbreviations());
-
-          Grades grades = Grades.createGrades(Grade.KINDERGARTEN, Grade.G_12); // limit to K-12?
-          request.setAttribute("gradeList", grades.asList());
           ]]>
       </jsp:scriptlet>
+      <ad:setSlotPrefix slotPrefix="Community"/>
   </head>
   <gsml:body adPageName="accountInformation">
       <div id="outline"><!-- creates darker blue outer outline -->
           <h2><span>Update My Account</span><a href="${dashboardUrl}">Go to my dashboard &gt;</a></h2>
           <form:form>
+              <form:errors path="*" cssClass="errorBox" />
               <ul>
                   <li class="header">
                       <label>About Me</label>
@@ -57,9 +51,9 @@
                   
                   <li id="locationLine">
                       <label class="state">State</label>
-                      <form:select path="user.userProfile.state" items="${stateList}" cssClass="state"/>
+                      <form:select path="state" items="${command.stateList}" cssClass="state"/>
                       <label class="city">City</label>
-                      <form:select path="user.userProfile.city" cssClass="city">
+                      <form:select path="city" cssClass="city">
                           <form:option value="My city is not listed" label="My city is not listed"/>
                           <form:options items="${command.profileCityList}" itemLabel="name" itemValue="name"/>
                       </form:select>
@@ -70,17 +64,17 @@
                       <a class="addChild" href="#" onclick="return false;"><span class="strong">+</span> Add another child</a>
                   </li>
 
-                  <!-- Default to always show one row -->
+                  <!-- Default to always show one row TODO: ?? -->
                   <c:forEach var="child" items="${command.students}" varStatus="loopStatus">
                       <c:set var="childNum" value="${loopStatus.index+1}"/>
                       <li class="child">
                           <label>Child #${childNum}:</label>
                           <label id="location${childNum}" class="childCity">
-                              <span id="cityText${childNum}">${command.cityNames[childNum-1]}</span>,
+                              <span id="cityText${childNum}">${child.city}</span>,
                               <span id="stateText${childNum}">${child.state}</span>
                               <input id="state${childNum}" type="hidden" name="state${childNum}"
                                      value="${child.state}"/>
-                              <input id="city${childNum}" type="hidden" name="city${childNum}" value="${command.cityNames[childNum-1]}"/>
+                              <input id="city${childNum}" type="hidden" name="city${childNum}" value="${child.city}"/>
                           </label>
                           <span class="changeLinks">
                               <a href="#" onclick="return false;">Change city</a> |
@@ -90,7 +84,7 @@
                           <label class="grade secondLine">Grade</label>
                           <form:select path="students[${childNum-1}].grade" cssClass="grade secondLine">
                               <form:option value="--" label="--"/>
-                              <form:options items="${gradeList}" itemLabel="name" itemValue="name"/>
+                              <form:options items="${command.gradeList}" itemLabel="name" itemValue="name"/>
                           </form:select>
 
                           <label class="school secondLine">School</label>
@@ -112,7 +106,7 @@
 
                   <li id="buttonLine">
                       <a href="${dashboardUrl}" class="cancel"><img src="/res/img/community/registration/cancel.gif" alt="Cancel"/></a>
-                      <input class="save" type="image" src="/res/img/community/registration/savebutton.gif" alt="Save" onclick="return false;"/>
+                      <input class="save" type="image" src="/res/img/community/registration/savebutton.gif" alt="Save"/>
                   </li>
 
               </ul>

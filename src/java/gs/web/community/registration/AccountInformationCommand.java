@@ -1,10 +1,11 @@
 package gs.web.community.registration;
 
-import gs.data.community.User;
-import gs.data.community.Student;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.data.geo.City;
 import gs.data.school.School;
+import gs.data.school.Grade;
+import gs.data.school.Grades;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -13,31 +14,41 @@ import java.util.ArrayList;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class AccountInformationCommand {
-    private User _user;
+    private int _memberId;
+    private String _gender;
     private State _state;
+    private String _city;
     private String _parentAmbassador = "yes";
 
-    private List<Student> _students;
+    private List<StudentCommand> _students;
     private List<String> _schoolNames;
-    private List<String> _cityNames;
+//    private List<String> _cityNames;
     private List<List<City>> _cityList;
     private List<List<School>> _schools;
     private List<City> _profileCityList;
 
     public AccountInformationCommand() {
-        _students = new ArrayList<Student>();
+        _students = new ArrayList<StudentCommand>();
         _schoolNames = new ArrayList<String>();
         _schools = new ArrayList<List<School>>();
         _cityList = new ArrayList<List<City>>();
-        _cityNames = new ArrayList<String>();
+//        _cityNames = new ArrayList<String>();
     }
 
-    public User getUser() {
-        return _user;
+    public int getMemberId() {
+        return _memberId;
     }
 
-    public void setUser(User user) {
-        _user = user;
+    public void setMemberId(int memberId) {
+        _memberId = memberId;
+    }
+
+    public String getGender() {
+        return _gender;
+    }
+
+    public void setGender(String gender) {
+        _gender = gender;
     }
 
     public State getState() {
@@ -46,6 +57,14 @@ public class AccountInformationCommand {
 
     public void setState(State state) {
         _state = state;
+    }
+
+    public String getCity() {
+        return _city;
+    }
+
+    public void setCity(String city) {
+        _city = city;
     }
 
     public List<List<City>> getCityList() {
@@ -68,15 +87,15 @@ public class AccountInformationCommand {
         _parentAmbassador = parentAmbassador;
     }
 
-    public List<Student> getStudents() {
+    public List<StudentCommand> getStudents() {
         return _students;
     }
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(List<StudentCommand> students) {
         _students = students;
     }
 
-    public void addStudent(Student student) {
+    public void addStudentCommand(StudentCommand student) {
         getStudents().add(student);
     }
     
@@ -100,17 +119,17 @@ public class AccountInformationCommand {
         getSchoolNames().add(name);
     }
 
-    public List<String> getCityNames() {
-        return _cityNames;
-    }
-
-    public void setCityNames(List<String> cityNames) {
-        _cityNames = cityNames;
-    }
-
-    public void addCityName(String cityName) {
-        _cityNames.add(cityName);
-    }
+//    public List<String> getCityNames() {
+//        return _cityNames;
+//    }
+//
+//    public void setCityNames(List<String> cityNames) {
+//        _cityNames = cityNames;
+//    }
+//
+//    public void addCityName(String cityName) {
+//        _cityNames.add(cityName);
+//    }
 
     public List<List<School>> getSchools() {
         return _schools;
@@ -124,19 +143,67 @@ public class AccountInformationCommand {
         _schools.add(schools);
     }
 
-    public String getGender() {
-        return getUser().getGender();
-    }
-
-    public void setGender(String gender) {
-        getUser().setGender(gender);
-    }
-
     public List<City> getProfileCityList() {
         return _profileCityList;
     }
 
     public void setProfileCityList(List<City> profileCityList) {
         _profileCityList = profileCityList;
+    }
+
+    public List<State> getStateList() {
+        StateManager stateManager = new StateManager();
+        return stateManager.getListByAbbreviations();
+    }
+
+    public void setStateList(List<State> stateList) {
+        // ignore -- this is so JSTL treats this as a bean property
+    }
+
+    public List<Grade> getGradeList() {
+        return Grades.createGrades(Grade.KINDERGARTEN, Grade.G_12).asList();
+    }
+
+    public void setGradeList(List<Grade> gradeList) {
+        // ignore -- this is so JSTL treats this as a bean property
+    }
+
+    protected static class StudentCommand {
+        private int _schoolId;
+        private Grade _grade;
+        private State _state;
+        private String _city;
+
+        public int getSchoolId() {
+            return _schoolId;
+        }
+
+        public void setSchoolId(int schoolId) {
+            _schoolId = schoolId;
+        }
+
+        public Grade getGrade() {
+            return _grade;
+        }
+
+        public void setGrade(Grade grade) {
+            _grade = grade;
+        }
+
+        public State getState() {
+            return _state;
+        }
+
+        public void setState(State state) {
+            _state = state;
+        }
+
+        public String getCity() {
+            return _city;
+        }
+
+        public void setCity(String city) {
+            _city = city;
+        }
     }
 }
