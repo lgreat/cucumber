@@ -64,7 +64,7 @@
                     if (MM_FlashCanPlay) {
                         // c.swf does flash detection
                         // TODO GS-6805: Replace href, img src
-                        var backToSchoolResource = '/res/swf/c?path=/res/swf/edin08_sstats.swf';
+                        var backToSchoolResource = '/res/swf/c?path=/res/swf/edin08_sasquiz.swf';
 
                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
