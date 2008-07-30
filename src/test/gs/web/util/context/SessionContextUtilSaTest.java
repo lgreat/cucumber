@@ -261,6 +261,27 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         reset(ac);
     }
 
+    public void testUpdateStateFromRequestURI() {
+        // this only tests whether or not the session context state is properly set,
+        // as updateStateHelper functionality should be tested separately
+        _sessionContext.setState(State.OH);
+        _request.setRequestURI("/california/san-francisco/schools/");
+        _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
+        assertEquals("Expected state of CA", State.CA, _sessionContext.getState());
+
+        _request.setRequestURI("/california/los-angeles/schools/");
+        _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
+        assertEquals("Expected state of CA", State.CA, _sessionContext.getState());
+
+        _request.setRequestURI("/new-york/ithaca/schools/");
+        _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
+        assertEquals("Expected state of NY", State.NY, _sessionContext.getState());        
+
+        _request.setRequestURI("/schools.page?district=717&state=CA/");
+        _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
+        assertEquals("Expected state of NY", State.NY, _sessionContext.getState());
+    }
+
     public void testCityIdCookie() throws Exception {
         Cookie cityCookie = new Cookie("CITYID", "133917");
         Cookie newCityCookie = new Cookie("CITYID", "12345");

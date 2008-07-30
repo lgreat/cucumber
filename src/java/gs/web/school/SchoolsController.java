@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.51 2008/06/27 07:36:51 jnorton Exp $
+ * $Id: SchoolsController.java,v 1.52 2008/07/30 19:17:40 yfan Exp $
  */
 
 package gs.web.school;
@@ -8,6 +8,7 @@ package gs.web.school;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.ISchoolDao;
+import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchCommand;
@@ -15,6 +16,7 @@ import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.search.SchoolComparatorFactory;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.data.util.Address;
 import gs.web.search.ResultsPager;
 import gs.web.util.context.SessionContext;
@@ -27,13 +29,14 @@ import org.apache.lucene.search.SortField;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Comparator;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Provides...
@@ -127,6 +130,341 @@ public class SchoolsController extends AbstractController {
 
     public static final String MODEL_ALL_LEVEL_CODES = "allLevelCodes";
 
+    public static boolean isDistrictBrowseRequest(HttpServletRequest request) {
+        if (request.getRequestURI() == null) {
+            throw new IllegalArgumentException("Request must have request URI");
+        }
+        if (!request.getRequestURI().contains("/schools.page")) {
+            return false;
+        }
+        if (request.getParameter(PARAM_DISTRICT) == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isRequestURIWithTrailingSlash(HttpServletRequest request) {
+        if (request.getRequestURI() == null) {
+            throw new IllegalArgumentException("Request must have request URI");
+        }
+        return request.getRequestURI().endsWith("/");
+    }
+
+    public static boolean isRequestURIWithTrailingSchoolsLabel(HttpServletRequest request) {
+        if (request.getRequestURI() == null) {
+            throw new IllegalArgumentException("Request must have request URI");
+        }
+        String uri = request.getRequestURI();
+        return uri.endsWith("/schools/") || uri.endsWith("/preschools/") ||
+               uri.endsWith("/elementary-schools/") || uri.endsWith("/middle-schools/") ||
+               uri.endsWith("/high-schools/");
+    }
+
+    public static String createURIWithTrailingSlash(HttpServletRequest request) {
+        if (request.getRequestURI() == null) {
+            throw new IllegalArgumentException("Request must have request URI");
+        }
+        return
+            request.getRequestURI() +
+            (SchoolsController.isRequestURIWithTrailingSlash(request) ? "" : "/");
+    }
+
+    public static String createURIWithTrailingSchoolsLabel(HttpServletRequest request) {
+        if (request.getRequestURI() == null) {
+            throw new IllegalArgumentException("Request must have request URI");
+        }
+        return
+            request.getRequestURI() +
+            (SchoolsController.isRequestURIWithTrailingSlash(request) ? "" : "/") +
+            (SchoolsController.isRequestURIWithTrailingSchoolsLabel(request) ? "" : "schools/");
+    }
+
+    public static boolean isOldStyleCityBrowseRequest(HttpServletRequest request) {
+        if (request.getRequestURI() == null) {
+            throw new IllegalArgumentException("Request must have request URI");
+        }
+
+        // state is in SessionContext already
+        return (!isDistrictBrowseRequest(request) &&
+            request.getRequestURI().contains("/schools.page") &&
+            request.getParameter(PARAM_CITY) != null);
+    }
+
+    static class CityBrowseFields {
+        private String _cityName = null;
+        private LevelCode _levelCode = null;
+        private String[] _schoolType = null;
+
+        public String getCityName() {
+            return _cityName;
+        }
+
+        public void setCityName(String cityName) {
+            _cityName = cityName;
+        }
+
+        public LevelCode getLevelCode() {
+            return _levelCode;
+        }
+
+        public void setLevelCode(LevelCode levelCode) {
+            _levelCode = levelCode;
+        }
+
+        public String[] getSchoolType() {
+            return _schoolType;
+        }
+
+        public void setSchoolType(String[] schoolType) {
+            _schoolType = schoolType;
+        }
+    }
+
+    public static CityBrowseFields getFieldsFromNewStyleCityBrowseRequest(HttpServletRequest request) {
+        if (!SchoolsController.isValidNewStyleCityBrowseRequest(request)) {
+            throw new IllegalArgumentException("Request uri must be valid new-style city browse request");
+        }
+
+        CityBrowseFields fields = new CityBrowseFields();
+
+        Pattern basicStructurePattern = Pattern.compile("/(.*?)/(.*?)/(.*?)/(.*)");
+        Matcher basicStructureMatcher = basicStructurePattern.matcher(request.getRequestURI());
+        boolean basicStructureMatched = basicStructureMatcher.find();
+        boolean filteredBySchoolType = true;
+        String city = null;
+        String schoolType = null;
+        String level = null;
+
+        if (basicStructureMatched) {
+            city = basicStructureMatcher.group(2);
+            if (basicStructureMatcher.group(4).length() == 0) {
+                filteredBySchoolType = false;
+                level = basicStructureMatcher.group(3);
+            } else {
+                schoolType = basicStructureMatcher.group(3);
+                level = basicStructureMatcher.group(4).replaceAll("/","");
+            }
+        }
+
+
+        // school type
+        String[] paramSchoolType = null;
+        if (filteredBySchoolType) {
+            List<String> schoolTypes = new ArrayList<String>();
+            if (schoolType.contains(SchoolType.PUBLIC.getSchoolTypeName())) {
+                schoolTypes.add(SchoolType.PUBLIC.getSchoolTypeName());
+            }
+            if (schoolType.contains(SchoolType.PRIVATE.getSchoolTypeName())) {
+                schoolTypes.add(SchoolType.PRIVATE.getSchoolTypeName());
+            }
+            if (schoolType.contains(SchoolType.CHARTER.getSchoolTypeName())) {
+                schoolTypes.add(SchoolType.CHARTER.getSchoolTypeName());
+            }
+
+            if (schoolTypes.size() > 0) {
+                paramSchoolType = schoolTypes.toArray(new String[0]);
+            }
+        }
+
+        LevelCode levelCode = null;
+        if ("preschools".equals(level)) {
+            levelCode = LevelCode.PRESCHOOL;
+        } else if ("elementary-schools".equals(level)) {
+            levelCode = LevelCode.ELEMENTARY;
+        } else if ("middle-schools".equals(level)) {
+            levelCode = LevelCode.MIDDLE;
+        } else if ("high-schools".equals(level)) {
+            levelCode = LevelCode.HIGH;
+        }
+
+        fields.setCityName(city.replaceAll("-"," ").replaceAll("_","-"));
+        fields.setSchoolType(paramSchoolType);
+        fields.setLevelCode(levelCode);
+
+        return fields;
+    }
+
+    /**
+     * This does not validate existence of city or state, but check whether or not the
+     * url is structured to contain those fields and those fields are non-blank
+     * @param request
+     * @return
+     */
+    public static boolean isValidNewStyleCityBrowseRequest(HttpServletRequest request) {
+        if (request.getRequestURI() == null) {
+            throw new IllegalArgumentException("Request must have request URI");
+        }
+
+        Pattern basicStructurePattern = Pattern.compile("/(.*?)/(.*?)/(.*?)/(.*)");
+        Matcher basicStructureMatcher = basicStructurePattern.matcher(request.getRequestURI());
+        boolean basicStructureMatched = basicStructureMatcher.find();
+        boolean filteredBySchoolType = true;
+        String state = null;
+        String city = null;
+        String schoolType = null;
+        String level = null;
+
+        if (basicStructureMatched) {
+            state = basicStructureMatcher.group(1);
+            city = basicStructureMatcher.group(2);
+            if (basicStructureMatcher.group(4).length() == 0) {
+                filteredBySchoolType = false;
+                level = basicStructureMatcher.group(3);
+            } else {
+                schoolType = basicStructureMatcher.group(3);
+                level = basicStructureMatcher.group(4);
+            }
+        }
+
+        // empty fields
+        if (StringUtils.isBlank(state) || StringUtils.isBlank(city) || StringUtils.isBlank(level)) {
+            return false;
+        }
+
+        // level
+        StringBuilder levelPatternSB = new StringBuilder("(schools|preschools|elementary-schools|middle-schools|high-schools)");
+        if (filteredBySchoolType) {
+            levelPatternSB.append("/");
+        }
+        Pattern levelPattern = Pattern.compile(levelPatternSB.toString());
+        Matcher levelMatcher = levelPattern.matcher(level);
+        boolean levelMatched = levelMatcher.find();
+        if (!levelMatched) {
+            return false;
+        }
+
+        // school type
+        if (filteredBySchoolType) {
+            Pattern schoolTypePattern = Pattern.compile("(public|private|charter|public-private|public-charter|private-charter)");
+            Matcher schoolTypeMatcher = schoolTypePattern.matcher(schoolType);
+            boolean schoolTypeMatched = schoolTypeMatcher.find();
+            return schoolTypeMatched;
+        }
+        
+        return true;
+    }
+
+    public static String createNewCityBrowseURI(HttpServletRequest request) {
+        boolean levelCodeFilters = false;
+
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        State state = context.getState();
+        String stateNameForUrl = state.getLongName().toLowerCase().replaceAll(" ", "-");
+        String cityNameForUrl = "";
+
+        if (request.getParameter(PARAM_CITY) != null) {
+            String city = request.getParameter(PARAM_CITY);
+            // make city name lowercase, replace hyphens with underscores, replace spaces with hyphens 
+            cityNameForUrl = city.toLowerCase().replaceAll("-", "_").replaceAll(" ", "-");
+        }
+
+        // city and state
+        StringBuilder url = new StringBuilder("/" + stateNameForUrl + "/" + cityNameForUrl + "/");
+
+        // school type(s)
+        final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
+        if (paramSchoolType != null) {
+            boolean publicSchoolType = false;
+            boolean privateSchoolType = false;
+            boolean charterSchoolType = false;
+
+            for (String schoolType : paramSchoolType) {
+                if (SchoolType.PUBLIC.getSchoolTypeName().equals(schoolType)) {
+                    publicSchoolType = true;
+                } else if (SchoolType.PRIVATE.getSchoolTypeName().equals(schoolType)) {
+                    privateSchoolType = true;
+                } else if (SchoolType.CHARTER.getSchoolTypeName().equals(schoolType)) {
+                    charterSchoolType = true;
+                }
+            }
+
+            if (!(publicSchoolType && privateSchoolType && charterSchoolType) &&
+                (publicSchoolType || privateSchoolType || charterSchoolType)) {
+                SchoolType firstType = (publicSchoolType ? SchoolType.PUBLIC :
+                    privateSchoolType ? SchoolType.PRIVATE :
+                    charterSchoolType ? SchoolType.CHARTER : null);
+                SchoolType secondType = (charterSchoolType ? SchoolType.CHARTER :
+                    privateSchoolType ? SchoolType.PRIVATE :
+                    publicSchoolType ? SchoolType.PUBLIC : null);
+                if (firstType == null || secondType == null) {
+                    // this should never happen due to the outer condition
+                } else if (firstType.equals(secondType)) {
+                   // one school type specified
+                    url.append(firstType.getSchoolTypeName() + "/");
+                } else {
+                    // two school types specified
+                    url.append(firstType.getSchoolTypeName() + "-");
+                    url.append(secondType.getSchoolTypeName() + "/");
+                }
+            }
+        }
+
+        // level code
+        final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
+        if (paramLevelCode != null) {
+            levelCodeFilters = true;
+            LevelCode levelCode = LevelCode.createLevelCode(paramLevelCode);
+            if (LevelCode.PRESCHOOL.equals(levelCode)) {
+                url.append("preschools/");
+            } else if (LevelCode.ELEMENTARY.equals(levelCode)) {
+                url.append("elementary-schools/");
+            } else if (LevelCode.MIDDLE.equals(levelCode)) {
+                url.append("middle-schools/");
+            } else if (LevelCode.HIGH.equals(levelCode)) {
+                url.append("high-schools/");
+            } else {
+                levelCodeFilters = false;
+            }
+            // all others not supported
+        }
+
+        if (!levelCodeFilters) {
+            url.append("schools/");
+        }
+
+        return url.toString();
+    }
+
+    public static String createNewCityBrowseQueryString(HttpServletRequest request) {
+        StringBuilder queryString = new StringBuilder();
+        String page = request.getParameter(PARAM_PAGE);
+        String resultsPerPage = request.getParameter(PARAM_RESULTS_PER_PAGE);
+        String showAll = request.getParameter(PARAM_SHOW_ALL);
+        String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
+        String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
+
+        if (page != null) {
+            queryString.append(PARAM_PAGE + "=" + page);
+        }
+        if (resultsPerPage != null) {
+            if (queryString.length() > 0) {
+                queryString.append("&");
+            }
+            queryString.append(PARAM_RESULTS_PER_PAGE + "=" + resultsPerPage);
+        }
+        if (showAll != null) {
+            if (queryString.length() > 0) {
+                queryString.append("&");
+            }
+            queryString.append(PARAM_SHOW_ALL + "=" + showAll);
+        }
+        if (sortColumn != null) {
+            if (queryString.length() > 0) {
+                queryString.append("&");
+            }
+            queryString.append(PARAM_SORT_COLUMN + "=" + sortColumn);
+        }
+        if (sortDirection != null) {
+            if (queryString.length() > 0) {
+                queryString.append("&");
+            }
+            queryString.append(PARAM_SORT_DIRECTION + "=" + sortDirection);
+        }
+
+        return queryString.toString();
+    }
+
     /**
      * Though this method throws <code>Exception</code>, it should swallow most
      * (all?) searching errors while just logging appropriately and returning
@@ -140,20 +478,67 @@ public class SchoolsController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response)
             throws Exception {
-
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
-
         Map<String, Object> model = new HashMap<String, Object>();
 
-        final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
+        CityBrowseFields cityBrowseFields = null;
+
+        boolean isDistrictBrowse = SchoolsController.isDistrictBrowseRequest(request);
+
+        if (!isDistrictBrowse) {
+            if (SchoolsController.isOldStyleCityBrowseRequest(request)) {
+                String uri = SchoolsController.createNewCityBrowseURI(request);
+                String queryString = SchoolsController.createNewCityBrowseQueryString(request);
+                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
+                return new ModelAndView(new RedirectView(redirectUrl));
+            }
+
+            if (!SchoolsController.isRequestURIWithTrailingSlash(request)) {
+                String uri = SchoolsController.createURIWithTrailingSlash(request);
+                String queryString = request.getQueryString();
+                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
+                return new ModelAndView(new RedirectView(redirectUrl));
+            }
+
+            if (!SchoolsController.isRequestURIWithTrailingSchoolsLabel(request)) {
+                String uri = SchoolsController.createURIWithTrailingSchoolsLabel(request);
+                String queryString = request.getQueryString();
+                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
+                return new ModelAndView(new RedirectView(redirectUrl));
+            }
+
+            if (!SchoolsController.isValidNewStyleCityBrowseRequest(request)) {
+                _log.warn("Malformed city browse url: " + request.getRequestURI());
+                model.put("showSearchControl", Boolean.TRUE);
+                model.put("title", "City not found");
+
+                return new ModelAndView("status/error", model);
+            }
+
+            cityBrowseFields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
+        }
+
         LevelCode levelCode = null;
-        if (paramLevelCode != null) {
-            levelCode = LevelCode.createLevelCode(paramLevelCode);
+        if (isDistrictBrowse) {
+            final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
+            if (paramLevelCode != null) {
+                levelCode = LevelCode.createLevelCode(paramLevelCode);
+            }
+        } else {
+            levelCode = cityBrowseFields.getLevelCode();
+        }
+
+        if (levelCode != null) {
             model.put(MODEL_LEVEL_CODE, levelCode);
         }
 
-        final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
+        String[] paramSchoolType = null;
+        if (isDistrictBrowse) {
+            paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
+        } else {
+            paramSchoolType = cityBrowseFields.getSchoolType();
+        }
 
         if (paramSchoolType != null) {
             model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
@@ -172,7 +557,7 @@ public class SchoolsController extends AbstractController {
 
         int pageSize = 10;
         try{
-            Integer paramPageSize = new Integer(request.getParameter("pageSize"));
+            Integer paramPageSize = new Integer(request.getParameter(PARAM_RESULTS_PER_PAGE));
             if (paramPageSize > 1){
                 pageSize = paramPageSize;
             }
@@ -194,7 +579,12 @@ public class SchoolsController extends AbstractController {
         }
         searchCommand.setSt(paramSchoolType);
 
-        String cityName = StringUtils.capitalize(request.getParameter(PARAM_CITY));
+        String cityName = null;
+        if (isDistrictBrowse) {
+            cityName = StringUtils.capitalize(request.getParameter(PARAM_CITY));
+        } else {
+            cityName = StringUtils.capitalize(cityBrowseFields.getCityName());
+        }
         if (cityName != null) {
             String displayName = cityName;
             if (displayName.equals("New York")) {

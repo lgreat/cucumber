@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.43 2008/07/22 21:08:01 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.44 2008/07/30 19:17:40 yfan Exp $
  */
 
 package gs.web.util.context;
@@ -26,6 +26,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Provides...
@@ -271,14 +272,14 @@ public class SessionContextUtil implements ApplicationContextAware {
         }
     }
 
-
     /**
      * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
      * @param request
      * @param sessionContext
      */
-    public void updateFromRequestURI(HttpServletRequest request, SessionContext sessionContext) {
+    public void updateFromRequestURI(HttpServletRequest request, HttpServletResponse response, SessionContext sessionContext) {
         sessionContext.setOriginalRequestURI(request.getRequestURI());
+        updateStateFromRequestURI(request, response, sessionContext);
     }
 
     private void updateHostnameCobrandFromParams(HttpServletRequest request, SessionContext context) {
@@ -430,6 +431,28 @@ public class SessionContextUtil implements ApplicationContextAware {
     }
 
     /**
+     * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
+     * @param request
+     * @param response
+     * @param context
+     */
+    public void updateStateFromRequestURI(HttpServletRequest request, HttpServletResponse response,
+                                          SessionContext context) {
+        String statePattern = "/(.*?)/.*";
+        Pattern pattern = Pattern.compile(statePattern);
+        Matcher matcher = pattern.matcher(request.getRequestURI());
+        boolean matchFound = matcher.find();
+
+        if (matchFound) {
+            State state = _stateManager.getStateByLongName(matcher.group(1).replaceAll("-", " "));
+            if (state != null) {
+                final State currState = context.getState();
+                updateStateHelper(context, request, response, currState, state);
+            }
+        }
+    }
+
+    /**
      * Attempt to interpret a state= parameter and save it in the given context and to a cookie.
      * If it can't recognize the state, it just uses what was there before, if anything.
      * #readCookies() already called at this point so state variable in sessionContext
@@ -451,24 +474,31 @@ public class SessionContextUtil implements ApplicationContextAware {
             final State currState = context.getState();
             State state = _stateManager.getState(paramStateStr.substring(0, 2));
 
-            if (currState == null && state == null) {
-                _log.debug("No existing state in session and bogus, non-empty state through url param.");
+            updateStateHelper(context, httpServletRequest, httpServletResponse, currState, state);
+        }
+    }
+
+    private void updateStateHelper(SessionContext context,
+                                     HttpServletRequest httpServletRequest,
+                                     HttpServletResponse httpServletResponse,
+                                     State currState, State newState) {
+        if (currState == null && newState == null) {
+            _log.debug("No existing state in session and bogus, non-empty state through url param.");
+        }
+
+        if (newState != null) {
+            context.setState(newState);
+            //_stateCookieGenerator.setCookieDomain();
+            if (_urlUtil.isDeveloperWorkstation(httpServletRequest.getServerName())) {
+                // don't set domain for developer workstations
+                // so they can still access the cookie!!
+                _stateCookieGenerator.setCookieDomain(null);
+            } else {
+                _stateCookieGenerator.setCookieDomain(".greatschools.net");
             }
 
-            if (state != null) {
-                context.setState(state);
-                //_stateCookieGenerator.setCookieDomain();
-                if (_urlUtil.isDeveloperWorkstation(httpServletRequest.getServerName())) {
-                    // don't set domain for developer workstations
-                    // so they can still access the cookie!!
-                    _stateCookieGenerator.setCookieDomain(null);
-                } else {
-                    _stateCookieGenerator.setCookieDomain(".greatschools.net");
-                }
-
-                _stateCookieGenerator.addCookie(httpServletResponse, state.getAbbreviation());
-                _log.debug("switching user's state: " + state);
-            }
+            _stateCookieGenerator.addCookie(httpServletResponse, newState.getAbbreviation());
+            _log.debug("switching user's state: " + newState);
         }
     }
 
@@ -525,7 +555,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         */
         SessionContext context = guaranteeSessionContext(request);
         readCookies(request, context);
-        updateFromRequestURI(request, context);
+        updateFromRequestURI(request, response, context);
         updateFromRequestAttributes(request, context);
         updateFromParams(request, response, context);
         saveCookies(response, context);

@@ -31,6 +31,11 @@
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
+    <!-- TODO: GS-6659 -->
+    <bean name="cityBrowseHandlerMapping" parent="defaultHandlerMapping"
+          class="gs.web.school.CityBrowseUrlHandlerMapping" lazy-init="true">
+    </bean>    
+
     <bean name="seoHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
         <!-- bean mappings for special SEO pages -->
