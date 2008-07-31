@@ -22,7 +22,6 @@ public class AccountInformationCommand {
 
     private List<StudentCommand> _students;
     private List<String> _schoolNames;
-//    private List<String> _cityNames;
     private List<List<City>> _cityList;
     private List<List<School>> _schools;
     private List<City> _profileCityList;
@@ -32,7 +31,6 @@ public class AccountInformationCommand {
         _schoolNames = new ArrayList<String>();
         _schools = new ArrayList<List<School>>();
         _cityList = new ArrayList<List<City>>();
-//        _cityNames = new ArrayList<String>();
     }
 
     public int getMemberId() {
@@ -118,18 +116,6 @@ public class AccountInformationCommand {
     public void addSchoolName(String name) {
         getSchoolNames().add(name);
     }
-
-//    public List<String> getCityNames() {
-//        return _cityNames;
-//    }
-//
-//    public void setCityNames(List<String> cityNames) {
-//        _cityNames = cityNames;
-//    }
-//
-//    public void addCityName(String cityName) {
-//        _cityNames.add(cityName);
-//    }
 
     public List<List<School>> getSchools() {
         return _schools;

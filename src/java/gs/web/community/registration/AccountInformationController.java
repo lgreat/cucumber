@@ -54,11 +54,17 @@ public class AccountInformationController extends SimpleFormController implement
             Collections.sort(students, new StudentComparator());
             for (Student student: students) {
                 AccountInformationCommand.StudentCommand studentCommand = new AccountInformationCommand.StudentCommand();
-                School school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
-                studentCommand.setCity(school.getCity());
-                studentCommand.setGrade(student.getGrade());
-                studentCommand.setSchoolId(student.getSchoolId());
                 studentCommand.setState(student.getState());
+                studentCommand.setGrade(student.getGrade());
+                if (student.getSchoolId() != null) {
+                    School school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
+                    studentCommand.setCity(school.getCity());
+                    studentCommand.setSchoolId(student.getSchoolId());
+                } else {
+                    // if no school with child, use city/state from user
+                    studentCommand.setCity(command.getCity());
+                    studentCommand.setState(command.getState());
+                }
                 command.addStudentCommand(studentCommand);
             }
 
@@ -192,13 +198,14 @@ public class AccountInformationController extends SimpleFormController implement
         if (user.getStudents() != null) {
             user.getStudents().clear();
         }
+
+        deleteSubscriptionsForProduct(user, SubscriptionProduct.PARENT_CONTACT);
         if (command.getNumStudents() > 0) {
+            if (StringUtils.equals("yes", command.getParentAmbassador())) {
+                addParentAmbassadorSubscriptions(command.getStudents(), user);
+            }
             int counter=1;
             for (AccountInformationCommand.StudentCommand studentCommand: command.getStudents()) {
-                if (StringUtils.equals("yes", command.getParentAmbassador())) {
-                    // TODO: add PA sub for child
-                    //addContactSubscriptionFromStudent(student, user);
-                }
                 Student student = new Student();
                 student.setGrade(studentCommand.getGrade());
                 student.setState(studentCommand.getState());
@@ -213,15 +220,44 @@ public class AccountInformationController extends SimpleFormController implement
             }
         }
 
-        // saves gender, state, city
+        // saves gender, state, city, students
         _userDao.saveUser(user);
-
-        if (StringUtils.equalsIgnoreCase("yes", command.getParentAmbassador())) {
-            _log.error("Parent Ambassador");
-        }
 
         //return new ModelAndView(getSuccessView());
         return new ModelAndView("redirect:accountInformation.page");
+    }
+
+    protected void addParentAmbassadorSubscriptions(List<AccountInformationCommand.StudentCommand> students, User user) {
+        Set<String> uniqSubs = new HashSet<String>();
+        for (AccountInformationCommand.StudentCommand student: students) {
+            if (student.getSchoolId() > -1) {
+                String uniqueString = student.getState().getAbbreviation() + student.getSchoolId();
+                if (!uniqSubs.contains(uniqueString)) {
+                    _log.info("Saving subscription: " + user + ";" + student.getSchoolId() + ";" + student.getState());
+                    Subscription sub = new Subscription();
+                    sub.setUser(user);
+                    sub.setProduct(SubscriptionProduct.PARENT_CONTACT);
+                    sub.setSchoolId(student.getSchoolId());
+                    sub.setState(student.getState());
+                    _subscriptionDao.saveSubscription(sub);
+                    uniqSubs.add(uniqueString);
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets all subscriptions of a particular product for this user and deletes them
+     * @param user User in question
+     * @param product Product to delete all subscriptions from
+     */
+    protected void deleteSubscriptionsForProduct(User user, SubscriptionProduct product) {
+        List<Subscription> oldSubs = _subscriptionDao.getUserSubscriptions(user, product);
+        if (oldSubs != null) {
+            for (Subscription oldSub : oldSubs) {
+                _subscriptionDao.removeSubscription(oldSub.getId());
+            }
+        }
     }
 
     public IUserDao getUserDao() {
