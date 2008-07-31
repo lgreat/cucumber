@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.52 2008/07/30 19:17:40 yfan Exp $
+ * $Id: SchoolsController.java,v 1.53 2008/07/31 00:16:55 yfan Exp $
  */
 
 package gs.web.school;
@@ -345,6 +345,74 @@ public class SchoolsController extends AbstractController {
         return true;
     }
 
+    public static String createNewCityBrowseURI(State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode) {
+        if (state == null || cityName == null || (schoolTypes != null && schoolTypes.size() > 3)) {
+            throw new IllegalArgumentException("Must specify state, city, level code, and a set of no more than 3 school types");
+        }
+        String stateNameForUrl = state.getLongName().toLowerCase().replaceAll(" ", "-");
+        String cityNameForUrl = cityName.toLowerCase().replaceAll("-", "_").replaceAll(" ", "-");
+
+        StringBuilder url = new StringBuilder("/" + stateNameForUrl + "/" + cityNameForUrl + "/");
+
+        SchoolType firstType = null;
+        SchoolType secondType = null;
+        if (schoolTypes.size() == 1) {
+            firstType = schoolTypes.toArray(new SchoolType[0])[0];
+        } else if (schoolTypes.size() == 2) {
+            if (schoolTypes.contains(SchoolType.PUBLIC)) {
+                firstType = SchoolType.PUBLIC;
+            } else if (schoolTypes.contains(SchoolType.PRIVATE)) {
+                firstType = SchoolType.PRIVATE;
+            } else if (schoolTypes.contains(SchoolType.CHARTER)) {
+                firstType = SchoolType.CHARTER;
+            }
+
+            Set otherSchoolTypes = new HashSet<SchoolType>(schoolTypes);
+            otherSchoolTypes.remove(firstType);
+
+            if (otherSchoolTypes.contains(SchoolType.PUBLIC)) {
+                // this should never happen
+                secondType = SchoolType.PUBLIC;
+            } else if (otherSchoolTypes.contains(SchoolType.PRIVATE)) {
+                secondType = SchoolType.PRIVATE;
+            } else if (otherSchoolTypes.contains(SchoolType.CHARTER)) {
+                secondType = SchoolType.CHARTER;
+            }
+        }
+
+        if (firstType != null) {
+            url.append(firstType.getSchoolTypeName());
+        }
+        if (secondType != null) {
+            url.append("-");
+            url.append(secondType.getSchoolTypeName());
+        }
+
+        if (firstType != null || secondType != null) {
+            url.append("/");            
+        }
+
+        boolean levelCodeFilters = true;
+        if (LevelCode.PRESCHOOL.equals(levelCode)) {
+            url.append("preschools/");
+        } else if (LevelCode.ELEMENTARY.equals(levelCode)) {
+            url.append("elementary-schools/");
+        } else if (LevelCode.MIDDLE.equals(levelCode)) {
+            url.append("middle-schools/");
+        } else if (LevelCode.HIGH.equals(levelCode)) {
+            url.append("high-schools/");
+        } else {
+            // all others not supported
+            levelCodeFilters = false;
+        }
+
+        if (!levelCodeFilters) {
+            url.append("schools/");
+        }
+
+        return url.toString();
+    }
+
     public static String createNewCityBrowseURI(HttpServletRequest request) {
         boolean levelCodeFilters = false;
 
@@ -363,67 +431,30 @@ public class SchoolsController extends AbstractController {
         StringBuilder url = new StringBuilder("/" + stateNameForUrl + "/" + cityNameForUrl + "/");
 
         // school type(s)
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
         final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
         if (paramSchoolType != null) {
-            boolean publicSchoolType = false;
-            boolean privateSchoolType = false;
-            boolean charterSchoolType = false;
-
             for (String schoolType : paramSchoolType) {
                 if (SchoolType.PUBLIC.getSchoolTypeName().equals(schoolType)) {
-                    publicSchoolType = true;
+                    schoolTypes.add(SchoolType.PUBLIC);
                 } else if (SchoolType.PRIVATE.getSchoolTypeName().equals(schoolType)) {
-                    privateSchoolType = true;
+                    schoolTypes.add(SchoolType.PRIVATE);
                 } else if (SchoolType.CHARTER.getSchoolTypeName().equals(schoolType)) {
-                    charterSchoolType = true;
-                }
-            }
-
-            if (!(publicSchoolType && privateSchoolType && charterSchoolType) &&
-                (publicSchoolType || privateSchoolType || charterSchoolType)) {
-                SchoolType firstType = (publicSchoolType ? SchoolType.PUBLIC :
-                    privateSchoolType ? SchoolType.PRIVATE :
-                    charterSchoolType ? SchoolType.CHARTER : null);
-                SchoolType secondType = (charterSchoolType ? SchoolType.CHARTER :
-                    privateSchoolType ? SchoolType.PRIVATE :
-                    publicSchoolType ? SchoolType.PUBLIC : null);
-                if (firstType == null || secondType == null) {
-                    // this should never happen due to the outer condition
-                } else if (firstType.equals(secondType)) {
-                   // one school type specified
-                    url.append(firstType.getSchoolTypeName() + "/");
-                } else {
-                    // two school types specified
-                    url.append(firstType.getSchoolTypeName() + "-");
-                    url.append(secondType.getSchoolTypeName() + "/");
+                    schoolTypes.add(SchoolType.CHARTER);
                 }
             }
         }
 
         // level code
+        LevelCode levelCode = null;
         final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
         if (paramLevelCode != null) {
-            levelCodeFilters = true;
-            LevelCode levelCode = LevelCode.createLevelCode(paramLevelCode);
-            if (LevelCode.PRESCHOOL.equals(levelCode)) {
-                url.append("preschools/");
-            } else if (LevelCode.ELEMENTARY.equals(levelCode)) {
-                url.append("elementary-schools/");
-            } else if (LevelCode.MIDDLE.equals(levelCode)) {
-                url.append("middle-schools/");
-            } else if (LevelCode.HIGH.equals(levelCode)) {
-                url.append("high-schools/");
-            } else {
-                levelCodeFilters = false;
-            }
-            // all others not supported
+            levelCode = LevelCode.createLevelCode(paramLevelCode);
         }
 
-        if (!levelCodeFilters) {
-            url.append("schools/");
-        }
-
-        return url.toString();
+        //return url.toString();
+        return createNewCityBrowseURI(SessionContextUtil.getSessionContext(request).getState(),
+            request.getParameter(PARAM_CITY), schoolTypes, levelCode);
     }
 
     public static String createNewCityBrowseQueryString(HttpServletRequest request) {

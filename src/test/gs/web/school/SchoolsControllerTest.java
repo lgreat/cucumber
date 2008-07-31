@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.29 2008/07/30 19:17:41 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.30 2008/07/31 00:16:55 yfan Exp $
  */
 
 package gs.web.school;
@@ -21,10 +21,7 @@ import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Tests SchoolsController.
@@ -313,6 +310,102 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
     }
 
     public void testCreateNewCityBrowseURI() throws Exception {
+        State state = State.CA;
+        String cityName = "San Francisco";
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+        LevelCode levelCode = null;
+
+        // no filters
+
+        String expectedRedirectURI = "/california/san-francisco/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        // type filters
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PUBLIC);
+        expectedRedirectURI = "/california/san-francisco/public/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PRIVATE);
+        expectedRedirectURI = "/california/san-francisco/private/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.CHARTER);
+        expectedRedirectURI = "/california/san-francisco/charter/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.CHARTER);
+        schoolTypes.add(SchoolType.PUBLIC);
+        expectedRedirectURI = "/california/san-francisco/public-charter/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PRIVATE);
+        schoolTypes.add(SchoolType.CHARTER);        
+        expectedRedirectURI = "/california/san-francisco/private-charter/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.PRIVATE);
+        expectedRedirectURI = "/california/san-francisco/public-private/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.PRIVATE);
+        schoolTypes.add(SchoolType.CHARTER);
+        expectedRedirectURI = "/california/san-francisco/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        // level filters
+
+        schoolTypes.clear();
+
+        levelCode = LevelCode.PRESCHOOL;
+        expectedRedirectURI = "/california/san-francisco/preschools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        levelCode = LevelCode.ELEMENTARY;
+        expectedRedirectURI = "/california/san-francisco/elementary-schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        levelCode = LevelCode.MIDDLE;
+        expectedRedirectURI = "/california/san-francisco/middle-schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        levelCode = LevelCode.HIGH;
+        expectedRedirectURI = "/california/san-francisco/high-schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        // combined filters
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.CHARTER);
+        schoolTypes.add(SchoolType.PUBLIC);
+        levelCode = LevelCode.ELEMENTARY;
+        expectedRedirectURI = "/california/san-francisco/public-charter/elementary-schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.CHARTER);
+        levelCode = LevelCode.MIDDLE;
+        expectedRedirectURI = "/california/san-francisco/charter/middle-schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+
+        // hyphenated city
+        schoolTypes.clear();
+        levelCode = null;
+        cityName = "Cardiff-By-The-Sea";
+        expectedRedirectURI = "/california/cardiff_by_the_sea/schools/";
+        assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
+    }
+
+    public void testCreateNewCityBrowseURIFromRequest() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         getSessionContext().setState(State.CA);
         request.setParameter(SchoolsController.PARAM_CITY, "San Francisco");
