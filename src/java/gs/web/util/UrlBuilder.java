@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.113 2008/07/31 02:33:58 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.114 2008/07/31 02:42:40 yfan Exp $
  */
 
 package gs.web.util;
@@ -157,6 +157,7 @@ public class UrlBuilder {
     public static final VPage COMPARE_SCHOOL = new VPage("vpage:compareSchool");
 
     public static final VPage SCHOOLS_IN_CITY = new VPage("vpage:schoolsInCity");
+    public static final VPage SCHOOLS_IN_CITY_NEW_STYLE = new VPage("vpage:schoolsInCityNewStyle");
     public static final VPage SCHOOLS_IN_DISTRICT = new VPage("vpage:schoolsInDistrict");
     public static final VPage SCHOOLS_IN_STATE = new VPage("vpage:schoolsInState");
 
@@ -478,7 +479,7 @@ public class UrlBuilder {
             _path = "/mySchoolList.page";
         } else if (MY_SCHOOL_LIST_LOGIN.equals(page)) {
             _path = "/mySchoolListLogin.page";
-        } else if (SCHOOLS_IN_CITY.equals(page)) {
+        } else if (SCHOOLS_IN_CITY_NEW_STYLE.equals(page)) {
             _path = "";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
@@ -582,6 +583,11 @@ public class UrlBuilder {
             _path = "/cgi-bin/newsletters/" +
                     state.getAbbreviation() +
                     "/";
+        } else if (SCHOOLS_IN_CITY.equals(page)) {
+            _perlPage = false;
+            _path = "/schools.page";
+            setParameter("city", param0);
+            setParameter("state", state.getAbbreviation());
         } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
             _perlPage = false;
             _path = "/schools.page";

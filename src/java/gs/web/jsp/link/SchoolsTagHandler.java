@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.7 2008/07/31 02:33:58 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.8 2008/07/31 02:42:40 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -38,7 +38,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder;
         if (StringUtils.isNotEmpty(_cityName)) {
-            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY);
+            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
             Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
             LevelCode levelCode = null;
 
