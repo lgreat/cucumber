@@ -85,7 +85,9 @@
                             </c:if>
                         </c:forEach>
                     </select>
-                    <div id="msl_level_row">in</div>
+                    <c:if test="${!((fn:length(compareLevels) gt 1) and (fn:length(compareStates) gt 1))}">
+                        <div id="msl_level_row">in</div>
+                    </c:if>
                 </c:when>
                 <c:otherwise>
                     <div id="level_text">${compareLevels[0].longName} schools in</div> 
