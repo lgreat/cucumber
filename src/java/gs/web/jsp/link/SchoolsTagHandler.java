@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.8 2008/07/31 02:42:40 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.9 2008/07/31 16:27:02 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -55,7 +55,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
 
             urlBuilder.setPath(SchoolsController.createNewCityBrowseURI(getState(), _cityName, schoolTypes, levelCode));
         } else {
-            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT);
+            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT, getState(), "");
             urlBuilder.setParameter(SchoolsController.PARAM_DISTRICT, String.valueOf(_districtId));
             urlBuilder.removeParameter(SchoolsController.PARAM_CITY);
 
@@ -89,6 +89,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
         return urlBuilder;
 
         /*
+        
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, getState(), "");
         if (null != _page) {
             urlBuilder.setParameter(SchoolsController.PARAM_PAGE, String.valueOf(_page));

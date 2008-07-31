@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.54 2008/07/31 02:33:58 yfan Exp $
+ * $Id: SchoolsController.java,v 1.55 2008/07/31 16:27:02 yfan Exp $
  */
 
 package gs.web.school;
@@ -132,6 +132,7 @@ public class SchoolsController extends AbstractController {
 
     public static final String MODEL_CITY_BROWSE_URI_ROOT = "cityBrowseUriRoot";
     public static final String MODEL_CITY_BROWSE_URI_LEVEL_LABEL = "cityBrowseUriLevelLabel";
+    public static final String MODEL_CITY_BROWSE_URI = "cityBrowseUri";
 
     public static boolean isDistrictBrowseRequest(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
@@ -198,6 +199,7 @@ public class SchoolsController extends AbstractController {
         private String _cityName = null;
         private LevelCode _levelCode = null;
         private String[] _schoolType = null;
+        private Set<SchoolType> _schoolTypeSet = null;
 
         public String getCityName() {
             return _cityName;
@@ -221,6 +223,14 @@ public class SchoolsController extends AbstractController {
 
         public void setSchoolType(String[] schoolType) {
             _schoolType = schoolType;
+        }
+
+        public Set<SchoolType> getSchoolTypeSet() {
+            return _schoolTypeSet;
+        }
+
+        public void setSchoolTypeSet(Set<SchoolType> schoolTypeSet) {
+            _schoolTypeSet = schoolTypeSet;
         }
     }
 
@@ -253,16 +263,20 @@ public class SchoolsController extends AbstractController {
 
         // school type
         String[] paramSchoolType = null;
+        Set<SchoolType> schoolTypeSet = new HashSet<SchoolType>();
         if (filteredBySchoolType) {
             List<String> schoolTypes = new ArrayList<String>();
             if (schoolType.contains(SchoolType.PUBLIC.getSchoolTypeName())) {
                 schoolTypes.add(SchoolType.PUBLIC.getSchoolTypeName());
+                schoolTypeSet.add(SchoolType.PUBLIC);
             }
             if (schoolType.contains(SchoolType.PRIVATE.getSchoolTypeName())) {
                 schoolTypes.add(SchoolType.PRIVATE.getSchoolTypeName());
+                schoolTypeSet.add(SchoolType.PRIVATE);
             }
             if (schoolType.contains(SchoolType.CHARTER.getSchoolTypeName())) {
                 schoolTypes.add(SchoolType.CHARTER.getSchoolTypeName());
+                schoolTypeSet.add(SchoolType.CHARTER);
             }
 
             if (schoolTypes.size() > 0) {
@@ -283,6 +297,7 @@ public class SchoolsController extends AbstractController {
 
         fields.setCityName(city.replaceAll("-"," ").replaceAll("_","-"));
         fields.setSchoolType(paramSchoolType);
+        fields.setSchoolTypeSet(schoolTypeSet);
         fields.setLevelCode(levelCode);
 
         return fields;
@@ -358,12 +373,12 @@ public class SchoolsController extends AbstractController {
         return "/" + stateNameForUrl + "/" + cityNameForUrl + "/";        
     }
 
-    public static String createNewCityBrowseURI(State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode) {
-        if (state == null || StringUtils.isBlank(cityName) || (schoolTypes != null && schoolTypes.size() > 3)) {
-            throw new IllegalArgumentException("Must specify state, city, level code, and a set of no more than 3 school types");
+    public static String createNewCityBrowseURISchoolTypeLabel(Set<SchoolType> schoolTypes) {
+        if (schoolTypes == null || (schoolTypes != null && schoolTypes.size() > 3)) {
+            throw new IllegalArgumentException("Must specify a set of no more than 3 school types");
         }
 
-        StringBuilder url = new StringBuilder(createNewCityBrowseURIRoot(state, cityName));
+        StringBuilder label = new StringBuilder();
 
         SchoolType firstType = null;
         SchoolType secondType = null;
@@ -392,15 +407,27 @@ public class SchoolsController extends AbstractController {
         }
 
         if (firstType != null) {
-            url.append(firstType.getSchoolTypeName());
+            label.append(firstType.getSchoolTypeName());
         }
         if (secondType != null) {
-            url.append("-");
-            url.append(secondType.getSchoolTypeName());
+            label.append("-");
+            label.append(secondType.getSchoolTypeName());
         }
 
-        if (firstType != null || secondType != null) {
-            url.append("/");            
+        return label.toString();
+    }
+
+    public static String createNewCityBrowseURI(State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode) {
+        if (state == null || StringUtils.isBlank(cityName) || (schoolTypes != null && schoolTypes.size() > 3)) {
+            throw new IllegalArgumentException("Must specify state, city, level code, and a set of no more than 3 school types");
+        }
+
+        StringBuilder url = new StringBuilder(createNewCityBrowseURIRoot(state, cityName));
+
+        String schoolTypeLabel = createNewCityBrowseURISchoolTypeLabel(schoolTypes);
+        if (!StringUtils.isBlank(schoolTypeLabel)) {
+            url.append(schoolTypeLabel);
+            url.append("/");
         }
 
         url.append(createNewCityBrowseURILevelLabel(levelCode));
@@ -425,22 +452,6 @@ public class SchoolsController extends AbstractController {
     }
 
     public static String createNewCityBrowseURI(HttpServletRequest request) {
-        boolean levelCodeFilters = false;
-
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        State state = context.getState();
-        String stateNameForUrl = state.getLongName().toLowerCase().replaceAll(" ", "-");
-        String cityNameForUrl = "";
-
-        if (request.getParameter(PARAM_CITY) != null) {
-            String city = request.getParameter(PARAM_CITY);
-            // make city name lowercase, replace hyphens with underscores, replace spaces with hyphens 
-            cityNameForUrl = city.toLowerCase().replaceAll("-", "_").replaceAll(" ", "-");
-        }
-
-        // city and state
-        StringBuilder url = new StringBuilder("/" + stateNameForUrl + "/" + cityNameForUrl + "/");
-
         // school type(s)
         Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
         final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
@@ -463,7 +474,6 @@ public class SchoolsController extends AbstractController {
             levelCode = LevelCode.createLevelCode(paramLevelCode);
         }
 
-        //return url.toString();
         return createNewCityBrowseURI(SessionContextUtil.getSessionContext(request).getState(),
             request.getParameter(PARAM_CITY), schoolTypes, levelCode);
     }
@@ -637,6 +647,7 @@ public class SchoolsController extends AbstractController {
             }
             model.put(MODEL_CITY_BROWSE_URI_ROOT, createNewCityBrowseURIRoot(state, cityName));
             model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, createNewCityBrowseURILevelLabel(levelCode));
+            model.put(MODEL_CITY_BROWSE_URI, createNewCityBrowseURI(state, cityName, cityBrowseFields.getSchoolTypeSet(), levelCode));
             model.put(MODEL_CITY_NAME, cityName);
             model.put(MODEL_CITY_DISPLAY_NAME, displayName);
             model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));

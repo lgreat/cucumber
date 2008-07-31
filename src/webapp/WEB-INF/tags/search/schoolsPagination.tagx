@@ -5,6 +5,7 @@
           xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
           xmlns:gsweb="gstaglib">
+    <jsp:directive.attribute name="uri" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer"/>
     <jsp:directive.attribute name="currentPage" required="true" type="java.lang.Integer"/>
     <jsp:directive.attribute name="resultCount" required="true" type="java.lang.Integer"/>
@@ -23,22 +24,22 @@
         <c:when test="${resultCount gt pageSize}">
             <div id="pagination">
                 <c:if test="${currentPage gt 1}">
-                    <link:schools styleClass="page" page="${currentPage - 1}">&lt; Previous</link:schools><span class="divider">|</span>
+                    <link:schools uri="${uri}" styleClass="page" page="${currentPage - 1}">&lt; Previous</link:schools><span class="divider">|</span>
                 </c:if>
-                <link:schools styleClass="page showAll noInterstitial" showAll="1">Show all ></link:schools>
+                <link:schools uri="${uri}" styleClass="page showAll noInterstitial" showAll="1">Show all ></link:schools>
                 <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
                     <c:choose>
                         <c:when test="${count eq currentPage}">
                             <span class="page"><c:out value="${count}"/></span>
                         </c:when>
                         <c:otherwise>
-                            <link:schools styleClass="page" page="${count}"><c:out value="${count}"/></link:schools>
+                            <link:schools uri="${uri}" styleClass="page" page="${count}"><c:out value="${count}"/></link:schools>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
 
                 <c:if test="${currentPage lt end}">
-                    <span class="divider">|</span><link:schools styleClass="page" page="${currentPage + 1}">Next &gt;</link:schools>
+                    <span class="divider">|</span><link:schools uri="${uri}" styleClass="page" page="${currentPage + 1}">Next &gt;</link:schools>
                 </c:if>
             </div>
         </c:when>

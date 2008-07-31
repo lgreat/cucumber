@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.31 2008/07/31 02:33:58 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.32 2008/07/31 16:27:02 yfan Exp $
  */
 
 package gs.web.school;
@@ -266,24 +266,33 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         }
         assertTrue("Expected IllegalArgumentException when request URI invalid", foundException);
 
+        Set<SchoolType> schoolTypeSet = new HashSet<SchoolType>();
+
         request.setRequestURI("/california/san-francisco/schools/");
         SchoolsController.CityBrowseFields fields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
         assertEquals("Expected city name 'san francisco'", "san francisco", fields.getCityName());
         assertNull("Expected school type null", fields.getSchoolType());
+        schoolTypeSet.clear();
+        assertEquals("Expected school type set to be empty", schoolTypeSet, fields.getSchoolTypeSet());
         assertNull("Expected level code null", fields.getLevelCode());
 
         request.setRequestURI("/california/cardiff_by_the_sea/schools/");
         fields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
         assertEquals("Expected city name 'cardiff-by-the-sea'", "cardiff-by-the-sea", fields.getCityName());
         assertNull("Expected school type null", fields.getSchoolType());
+        schoolTypeSet.clear();
+        assertEquals("Expected school type set to be empty", schoolTypeSet, fields.getSchoolTypeSet());
         assertNull("Expected level code null", fields.getLevelCode());
 
         request.setRequestURI("/california/san-francisco/public/schools/");
         fields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
         assertEquals("Expected city name 'san francisco'", "san francisco", fields.getCityName());
-        assertTrue("Expected school type to contain public",
+        assertTrue("Expected school type array to contain public",
             Arrays.deepEquals(new String[] { SchoolType.PUBLIC.getSchoolTypeName() },
             fields.getSchoolType()));
+        schoolTypeSet.clear();
+        schoolTypeSet.add(SchoolType.PUBLIC);
+        assertEquals("Expected school type set to contain public", schoolTypeSet, fields.getSchoolTypeSet());
         assertNull("Expected level code null", fields.getLevelCode());
 
         request.setRequestURI("/california/san-francisco/public-private/schools/");
@@ -292,6 +301,10 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertTrue("Expected school type array to contain public and private",
             Arrays.deepEquals(new String[] { SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName() },
             fields.getSchoolType()));
+        schoolTypeSet.clear();
+        schoolTypeSet.add(SchoolType.PUBLIC);
+        schoolTypeSet.add(SchoolType.PRIVATE);
+        assertEquals("Expected school type set to contain public and private", schoolTypeSet, fields.getSchoolTypeSet());
         assertNull("Expected level code null", fields.getLevelCode());
 
         request.setRequestURI("/california/san-francisco/private-charter/elementary-schools/");
@@ -300,12 +313,18 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertTrue("Expected school type array to contain private and charter",
             Arrays.deepEquals(new String[] { SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName() },
             fields.getSchoolType()));
+        schoolTypeSet.clear();
+        schoolTypeSet.add(SchoolType.PRIVATE);
+        schoolTypeSet.add(SchoolType.CHARTER);
+        assertEquals("Expected school type set to contain private and charter", schoolTypeSet, fields.getSchoolTypeSet());
         assertEquals("Expected level code elementary", LevelCode.ELEMENTARY, fields.getLevelCode());
 
         request.setRequestURI("/california/san-francisco/preschools/");
         fields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
         assertEquals("Expected city name 'san francisco'", "san francisco", fields.getCityName());
         assertNull("Expected school type null", fields.getSchoolType());
+        schoolTypeSet.clear();
+        assertEquals("Expected school type set to be empty", schoolTypeSet, fields.getSchoolTypeSet());
         assertEquals("Expected level code preschools", LevelCode.PRESCHOOL, fields.getLevelCode());
     }
 
@@ -528,6 +547,53 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("/california/cardiff_by_the_sea/", SchoolsController.createNewCityBrowseURIRoot(State.CA, "Cardiff-By-The-Sea"));
     }
 
+    public void testCreateNewCityBrowseURISchoolTypeLabel() throws Exception {
+        boolean foundException = false;
+        try {
+            SchoolsController.createNewCityBrowseURISchoolTypeLabel(null);
+        } catch (IllegalArgumentException e) {
+            foundException = true;
+        }
+        assertTrue("Expected IllegalArgumentException when null set of school types", foundException);
+
+        // no need to test set has <= 3 school types because only 3 exist right now: public, private, charter
+        
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+        assertEquals("", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
+
+        schoolTypes.add(SchoolType.PUBLIC);
+        assertEquals("public", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PRIVATE);
+        assertEquals("private", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.CHARTER);
+        assertEquals("charter", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.PRIVATE);
+        assertEquals("public-private", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.CHARTER);
+        assertEquals("public-charter", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PRIVATE);
+        schoolTypes.add(SchoolType.CHARTER);
+        assertEquals("private-charter", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
+
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.PRIVATE);
+        schoolTypes.add(SchoolType.CHARTER);
+        assertEquals("", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
+    }
+
     public void testCreateNewCityBrowseURILevelLabel() throws Exception {
         assertEquals("schools", SchoolsController.createNewCityBrowseURILevelLabel(null));
         assertEquals("preschools", SchoolsController.createNewCityBrowseURILevelLabel(LevelCode.PRESCHOOL));
@@ -547,6 +613,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         Map model = mav.getModel();
         assertNotNull("Expected uri root", model.get(SchoolsController.MODEL_CITY_BROWSE_URI_ROOT));
         assertNotNull("Expected uri level label", model.get(SchoolsController.MODEL_CITY_BROWSE_URI_LEVEL_LABEL));
+        assertNotNull("Expected uri", model.get(SchoolsController.MODEL_CITY_BROWSE_URI));        
     }
 
     public void testCreateNewCityBrowseQueryString() throws Exception {

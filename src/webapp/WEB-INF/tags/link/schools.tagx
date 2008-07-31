@@ -3,13 +3,21 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+    <jsp:directive.attribute name="uri" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="styleClass" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="page" required="false" type="java.lang.Integer"/>
     <jsp:directive.attribute name="showAll" required="false" type="java.lang.Integer"/>
     <jsp:scriptlet>
         <![CDATA[
-            UrlBuilder builder = new UrlBuilder(request, "/schools.page");
-            builder.addParametersFromRequest(request);
+            UrlBuilder builder;
+            if (!StringUtils.isBlank(uri)) {
+                builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
+                builder.setPath(uri);
+            } else {
+                builder = new UrlBuilder(request, "/schools.page");
+                builder.addParametersFromRequest(request);
+            }
             if (page != null ){
                 builder.setParameter("p", String.valueOf(page));
             }
