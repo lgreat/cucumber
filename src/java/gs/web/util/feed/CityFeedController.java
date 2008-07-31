@@ -5,7 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.apache.commons.lang.StringUtils;
+import static org.apache.commons.lang.StringUtils.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,35 +50,40 @@ public class CityFeedController implements Controller {
                                       HttpServletResponse response) throws Exception {
         Document doc;
         String error = null;
-
-        // Validate the state
-        State state = null;
-        String stateName = request.getParameter("state");
-        if (StringUtils.isEmpty(stateName)) {
-            error = "state is a required parameter";
-        } else {
-            state = _stateManager.getState(stateName);
-            if (state == null) {
-                error = stateName + " is an invalid state abbreviation";
-            }
-        }
-
-        // Validate the city
         City city = null;
         CityRating cityRating = null;
+
+        String idString = request.getParameter("id");
+        String stateName = request.getParameter("state");
         String cityName = request.getParameter("name");
-        if (StringUtils.isEmpty(cityName) && state != null) {
-            error = "city is a required parameter";
-        } else if (state != null) {
-            city = _geoDao.findCity(state, cityName, true);
-            if (city == null) {
-                error = cityName + " is an unknown city";
+
+        if (isNotEmpty(idString)) {
+            try {
+                city = _geoDao.findCityById(new Integer(idString));
+                if (city == null) error = "Could not find city with id " + idString;
+            } catch (NumberFormatException e) {
+                error = idString + " is an invalid city id";
+            }
+        } else if (isNotEmpty(cityName) && isNotEmpty(stateName)) {
+            // Validate the state
+            State state = _stateManager.getState(stateName);
+            if (state == null) {
+                error = stateName + " is an invalid state abbreviation";
             } else {
-                try {
-                    cityRating = _cityRatingDao.getCityRatingByCity(state, cityName);
-                } catch (Exception e) {
-                    // Do nothing
-                }
+                // Validate the city
+                city = _geoDao.findCity(state, cityName, true);
+                if (city == null) error = cityName + " is an unknown city";
+            }
+        } else {
+            error = "You must either specify a state and city name or an id";
+        }
+
+        // Get the city rating
+        if (city != null) {
+            try {
+                cityRating = _cityRatingDao.getCityRatingByCity(city.getState(), city.getName());
+            } catch (Exception e) {
+                // Do nothing
             }
         }
 
@@ -89,7 +94,7 @@ public class CityFeedController implements Controller {
             appendElement(doc, "name", city.getDisplayName());
             appendElement(doc, "state", city.getState().getAbbreviation());
             appendElement(doc, "rating", (cityRating == null) ? null : cityRating.getRating().toString());
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, city.getName());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, city.getState(), city.getName());
             appendElement(doc, "url", city.isActive() ? builder.asFullUrl(request) : null);
             appendElement(doc, "lat", String.valueOf(city.getLat()));
             appendElement(doc, "lon", String.valueOf(city.getLon()));

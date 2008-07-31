@@ -22,10 +22,11 @@ public class CityFeedControllerTest extends BaseControllerTestCase {
     public void testNoParameters() throws Exception {
         _cityFeedController.handleRequest(_request, _response);
         assertEquals("application/xml", _response.getContentType());
-        _xml.assertXMLEqual("<error>state is a required parameter</error>", _response.getContentAsString());
+        _xml.assertXMLEqual("<error>You must either specify a state and city name or an id</error>", _response.getContentAsString());
     }
 
     public void testInvalidState() throws Exception {
+        _request.setParameter("name", "foo");
         _request.setParameter("state", "XX");
         _cityFeedController.handleRequest(_request, _response);
         _xml.assertXMLEqual("<error>XX is an invalid state abbreviation</error>", _response.getContentAsString());
@@ -34,7 +35,7 @@ public class CityFeedControllerTest extends BaseControllerTestCase {
     public void testMissingCityParameter() throws Exception {
         _request.setParameter("state", "CA");
         _cityFeedController.handleRequest(_request, _response);
-        _xml.assertXMLEqual("<error>city is a required parameter</error>", _response.getContentAsString());
+        _xml.assertXMLEqual("<error>You must either specify a state and city name or an id</error>", _response.getContentAsString());
     }
 
     public void testInvalidCity() throws Exception {
@@ -44,9 +45,38 @@ public class CityFeedControllerTest extends BaseControllerTestCase {
         _xml.assertXMLEqual("<error>Xyz is an unknown city</error>", _response.getContentAsString());
     }
 
+    public void testUnknownId() throws Exception {
+        _request.setParameter("id", "123");
+        _cityFeedController.handleRequest(_request, _response);
+        _xml.assertXMLEqual("<error>Could not find city with id 123</error>", _response.getContentAsString());
+    }
+
+    public void testInvalidId() throws Exception {
+        _request.setParameter("id", "XYZ");
+        _cityFeedController.handleRequest(_request, _response);
+        _xml.assertXMLEqual("<error>XYZ is an invalid city id</error>", _response.getContentAsString());
+    }
+
     public void testActiveCityWithRating() throws Exception {
         _request.setParameter("name", "Alameda");
         _request.setParameter("state", "CA");
+        _cityFeedController.handleRequest(_request, _response);
+        _xml.assertXMLEqual(
+                "<city>\n" +
+                        "<id>135457</id>\n" +
+                        "<name>Alameda</name>\n" +
+                        "<state>CA</state>\n" +
+                        "<rating>8</rating>\n" +
+                        "<url>http://www.greatschools.net/city/Alameda/CA</url>\n" +
+                        "<lat>37.764</lat>\n" +
+                        "<lon>-122.257</lon>\n" +
+                        "<active>1</active>\n" +
+                        "</city>",
+                _response.getContentAsString());
+    }
+
+    public void testCallingCityById() throws Exception {
+        _request.setParameter("id", "135457");
         _cityFeedController.handleRequest(_request, _response);
         _xml.assertXMLEqual(
                 "<city>\n" +
