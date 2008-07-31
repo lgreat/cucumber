@@ -114,31 +114,6 @@
             </plugin>
 
             <plugin>
-                <!-- http://code.google.com/p/gwt-maven/ -->
-                <groupId>com.totsp.gwt</groupId>
-                <artifactId>maven-googlewebtoolkit2-plugin</artifactId>
-                <version>2.0-betaGS-1</version>
-                <configuration>
-                    <extraJvmArgs>-Xmx256m -Djava.awt.headless=true</extraJvmArgs>
-                    <gwtVersion>1.5.0-rc1</gwtVersion>
-                    <logLevel>ERROR</logLevel>
-                    <compileTargets>
-                        <compileTarget>gs.web.admin.gwt.TableCopyGWTPanel</compileTarget>
-                    </compileTargets>
-                    <runTarget>gs.web.admin.gwt.TableCopyGWTPanel/TableCopy.html</runTarget>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>setup</goal>
-                            <goal>extractGwt</goal>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -159,60 +134,6 @@
                                            type="string"
                                            default="${gs.version}"/>
                                 </propertyfile>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <!-- relocate generated GWT code to the proper location, except when using clover -->
-                    <execution>
-                        <id>relocate compiled gwt files</id>
-                        <phase>process-classes</phase>
-                        <configuration>
-                            <tasks>
-                                <!-- ant contrib provides if/then tasks -->
-                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
-                                <if>
-                                    <available file="target/clover" type="dir"/>
-                                    <else>
-                                        <mkdir dir="src/webapp/res/gwt"/>
-                                        <move todir="src/webapp/res/gwt">
-                                            <fileset
-                                                    dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"
-                                                    includes="**/*"/>
-                                        </move>
-                                        <delete dir="target/${artifactId}-${version}/gs.web.admin.gwt.TableCopyGWTPanel"/>
-                                    </else>
-                                </if>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <!-- clover requires some working around with GWT -->
-                    <execution>
-                        <id>relocate files for clover if necessary</id>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <tasks>
-                                <!-- ant contrib provides if/then tasks -->
-                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
-                                <if>
-                                    <available file="target/clover" type="dir"/>
-                                    <then>
-                                        <copy todir="target/clover/classes">
-                                            <fileset dir="src/webapp/WEB-INF/classes"
-                                                     includes="version.properties"/>
-                                        </copy>
-                                        <mkdir dir="src/webapp/WEB-INF/gwtBin"/>
-                                        <copy todir="src/webapp/WEB-INF/gwtBin">
-                                            <fileset dir="target/clover/gwtBin"
-                                                     includes="**/*"/>
-                                        </copy>
-                                    </then>
-                                </if>
                             </tasks>
                         </configuration>
                         <goals>
@@ -309,12 +230,6 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>1.4.60</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>1.4.60</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jfree</groupId>
