@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCenterTagHandler.java,v 1.2 2006/05/23 17:18:02 apeterson Exp $
+ * $Id: NewsletterCenterTagHandler.java,v 1.3 2008/07/31 18:17:26 thuss Exp $
  */
 
 package gs.web.jsp.link;
@@ -17,6 +17,10 @@ public class NewsletterCenterTagHandler extends LinkTagHandler {
 
     private String _email;
 
+    public NewsletterCenterTagHandler() {
+        super();
+        setRel("nofollow");
+    }
 
     protected UrlBuilder createUrlBuilder() {
 

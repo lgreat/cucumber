@@ -15,6 +15,11 @@ public class LoginOrRegisterTagHandler extends LinkTagHandler {
     private String _redirect;
     private String _email;
 
+    public LoginOrRegisterTagHandler() {
+        super();
+        setRel("nofollow");
+    }
+
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
         if (StringUtils.isNotEmpty(_redirect)) {

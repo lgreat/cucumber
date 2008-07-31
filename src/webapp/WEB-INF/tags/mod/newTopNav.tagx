@@ -64,7 +64,7 @@
                     <link:loginOrRegister>Sign In</link:loginOrRegister>
                 </span>
                 <span class="headerMsl">
-                    <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
+                    <gsml:a rel="nofollow" href="/cgi-bin/msl_confirm/$STATE">My School List (0)</gsml:a>
                 </span>
             </div>
         </c:when>

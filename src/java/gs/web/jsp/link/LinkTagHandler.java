@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.15 2008/03/19 23:01:25 chriskimm Exp $
+ * $Id: LinkTagHandler.java,v 1.16 2008/07/31 18:17:26 thuss Exp $
  */
 
 package gs.web.jsp.link;
@@ -35,6 +35,7 @@ import java.io.IOException;
 public abstract class LinkTagHandler extends TagSupport {
     protected final Logger _log = Logger.getLogger(this.getClass());
     private String _styleClass;
+    private String _rel;
     private String _target;
     private String _anchor;
     private String _title;
@@ -87,6 +88,12 @@ public abstract class LinkTagHandler extends TagSupport {
     protected void printATagStart(UrlBuilder builder) throws IOException {
         pageContext.getOut().print("<a");
 
+        if (StringUtils.isNotEmpty(_rel)) {
+            pageContext.getOut().print(" rel=\"");
+            pageContext.getOut().print(_rel);
+            pageContext.getOut().print("\"");
+        }
+
         if (StringUtils.isNotEmpty(_styleId)) {
             pageContext.getOut().print(" id=\"");
             pageContext.getOut().print(_styleId);
@@ -94,7 +101,7 @@ public abstract class LinkTagHandler extends TagSupport {
         }
 
         if (StringUtils.isNotEmpty(_styleClass)) {
-            pageContext.getOut().print(" class=\"");            
+            pageContext.getOut().print(" class=\"");
             pageContext.getOut().print(_styleClass);
             pageContext.getOut().print("\"");
         }
@@ -126,7 +133,7 @@ public abstract class LinkTagHandler extends TagSupport {
         if (StringUtils.isNotEmpty(_onclick)) {
             pageContext.getOut().print(" onclick=\"");
             pageContext.getOut().print(_onclick);
-            pageContext.getOut().print("\"");            
+            pageContext.getOut().print("\"");
         }
 
         String href;
@@ -197,13 +204,17 @@ public abstract class LinkTagHandler extends TagSupport {
      * Some example anchors:
      * somelink.html#anchor
      * somelink.html?a=1&b=2#anchor
-     *
+     * <p/>
      * If any anchor is already specified in the href, this anchor is ignored.
      *
      * @param anchor
      */
     public void setAnchor(String anchor) {
         _anchor = anchor;
+    }
+
+    public void setRel(String rel) {
+        _rel = rel;
     }
 
     public void setTitle(String title) {

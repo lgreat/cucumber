@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.48 2008/07/31 02:50:16 yfan Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.49 2008/07/31 18:17:26 thuss Exp $
  */
 
 package gs.web.jsp.link;
@@ -41,13 +41,14 @@ public class LinkTagHandlerTest extends BaseTestCase {
         MockPageContext pc = new MockPageContext();
         handler.setPageContext(pc);
         handler.setTarget("theTarget");
+        handler.setRel("nofollow");
         handler.setOnclick("return false;");
 
         handler.doStartTag();
         handler.doAfterBody();
         handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a target=\"theTarget\" onclick=\"return false;\" href=\"/mySchoolList.page?command=add&amp;state=WY\"></a>",
+        assertEquals("<a rel=\"nofollow\" target=\"theTarget\" onclick=\"return false;\" href=\"/mySchoolList.page?command=add&amp;state=WY\"></a>",
                 out.getOutputBuffer().toString());
         handler.setTarget(null);
 
@@ -61,7 +62,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doAfterBody();
         handler.doEndTag();
         out = (MockJspWriter) pc.getOut();
-        assertEquals("<a class=\"theStyle\" href=\"/mySchoolList.page?command=add&amp;state=WY\"></a>",
+        assertEquals("<a rel=\"nofollow\" class=\"theStyle\" href=\"/mySchoolList.page?command=add&amp;state=WY\"></a>",
                 out.getOutputBuffer().toString());
     }
 

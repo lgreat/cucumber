@@ -7,6 +7,12 @@ import gs.web.util.UrlBuilder;
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
 public class WebbyAwardThanksTagHandler extends LinkTagHandler {
+
+    public WebbyAwardThanksTagHandler() {
+        super();
+        setRel("nofollow");
+    }
+
     protected UrlBuilder createUrlBuilder() {
         return new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, getState());
     }

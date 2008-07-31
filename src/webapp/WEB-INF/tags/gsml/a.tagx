@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="state" required="false"
                              description="Optional state to override session facade value"/>
     <jsp:directive.attribute name="href" required="true" description="context-relative URL, not Xml encoded"/>
+    <jsp:directive.attribute name="rel" required="false" description="rel attribute"/>
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="target" required="false" description="name of new window this link opens in"/>
     <jsp:directive.attribute name="title" required="false" description="title attribute (tooltip)"/>
@@ -24,6 +25,10 @@
 
         StringBuffer buffer = new StringBuffer();
         buffer.append("<a");
+
+        if (StringUtils.isNotBlank(rel)) {
+            buffer.append(" rel=\"").append(Util.escapeXml(rel)).append('"');
+        }
 
         if (StringUtils.isNotBlank(href)) {
             buffer.append(" href=\"").append(Util.escapeXml(href)).append('"');

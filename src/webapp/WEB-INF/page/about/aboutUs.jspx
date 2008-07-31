@@ -51,7 +51,7 @@
                         <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#board">Board and Advisors</gsml:a></li>
                     </ul>
                     <ul id="other" class="bulleted">
-                        <li><gsml:a href="/promo/webbyAwardWinner.page">Our Awards</gsml:a></li>
+                        <li><gsml:a rel="nofollow" href="/promo/webbyAwardWinner.page">Our Awards</gsml:a></li>
                     </ul>
                 </div>
 
