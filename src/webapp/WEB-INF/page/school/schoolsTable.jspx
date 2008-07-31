@@ -62,7 +62,7 @@
                     String title = SchoolsController.calcCitySchoolsTitle(
                             (String) request.getAttribute("cityDisplayName"),
                             (LevelCode) request.getAttribute("lc"),
-                            request.getParameterValues("st"));
+                            (String[]) request.getAttribute("st"));
                     out.print(title);
                 </jsp:scriptlet>
             </c:when>
@@ -80,10 +80,10 @@
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         <!--
-        var city = '${param.city}';
-        var district = '${param.district}';
+        var city = '${cityName}';
+        var district = '${district}';
         var state = '${requestScope.context.stateOrDefault.abbreviation}';
-        var levelCode = '${param.lc}';
+        var levelCode = '${lc}';
         function reloadPageWithFilters(sortColId) {
             var charterBox = document.getElementById('type_schools_charter');
             var publicBox = document.getElementById('type_schools_public');
@@ -94,25 +94,86 @@
             var rppOption50 = document.getElementById('rppOption50');
             var rppOptionAll = document.getElementById('rppOptionAll');
 
-            var reloadUrl = '/schools.page';
-            if (city != '') {
-                reloadUrl += '?city=' + city;
-            } else {
-                reloadUrl += '?district=' + district;
-            }
+            var reloadUrl;
+            /*
             reloadUrl += '&state=' + state;
             if (levelCode.length > 0) {
                 reloadUrl += '&lc=' + levelCode;
             }
+            */
+            if (city != '') {
+                reloadUrl = '${cityBrowseUriRoot}';
 
-            if (publicBox.checked) {
-                reloadUrl += '&st=public';
-            }
-            if (charterBox.checked) {
-                reloadUrl += '&st=charter';
-            }
-            if (privateBox.checked) {
-                reloadUrl += '&st=private';
+                var allTypes = false;
+                var noTypes = false;
+                if (publicBox.checked && privateBox.checked && charterBox.checked) {
+                    allTypes = true;
+                }
+                if (!publicBox.checked && !privateBox.checked && !charterBox.checked) {
+                    noTypes = true;
+                }
+
+                if (!allTypes && !noTypes) {
+                    var firstType = null;
+                    var secondType = null;
+
+                    if (publicBox.checked) {
+                        firstType = publicBox;
+                    } else if (privateBox.checked) {
+                        firstType = privateBox;
+                    } else if (charterBox.checked) {
+                        firstType = charterBox;
+                    }
+
+                    if (charterBox.checked) {
+                        secondType = charterBox;
+                    } else if (privateBox.checked) {
+                        secondType = privateBox;
+                    } else if (publicBox.checked) {
+                        secondType = publicBox;
+                    }
+
+                    if (firstType == publicBox) {
+                        reloadUrl += 'public';
+                    } else if (firstType == privateBox) {
+                        reloadUrl += 'private';
+                    } else if (firstType == charterBox) {
+                        reloadUrl += 'charter';
+                    }
+
+                    if (secondType != firstType) {
+                        reloadUrl += "-";
+                        if (secondType == publicBox) {
+                            reloadUrl += 'public';
+                        } else if (secondType == privateBox) {
+                            reloadUrl += 'private';
+                        } else if (secondType == charterBox) {
+                            reloadUrl += 'charter';
+                        }
+                    }
+
+                    reloadUrl += '/';
+                }
+
+                reloadUrl += '${cityBrowseUriLevelLabel}/';
+                reloadUrl += '?';
+            } else {
+                reloadUrl = '/schools.page';
+                reloadUrl += '?district=' + district;
+                reloadUrl += '&state=' + state;
+                if (levelCode.length > 0) {
+                    reloadUrl += '&lc=' + levelCode;
+                }
+
+                if (publicBox.checked) {
+                    reloadUrl += '&st=public';
+                }
+                if (charterBox.checked) {
+                    reloadUrl += '&st=charter';
+                }
+                if (privateBox.checked) {
+                    reloadUrl += '&st=private';
+                }
             }
 
 
@@ -151,6 +212,8 @@
 
 
             reloadUrl += "&p=1";
+
+            reloadUrl = reloadUrl.replace(/\?&/, "?");
            
             document.location = reloadUrl;
         }
@@ -203,7 +266,7 @@
     </c:if>
 
     <jsp:scriptlet>
-        String[] sts = request.getParameterValues("st");
+        String[] sts = (String[])request.getAttribute("st");
         String stOmniture = "";
         String pubCheckbox = "";
         String chaCheckbox = "";
@@ -287,7 +350,7 @@
             </c:otherwise>
         </c:choose>
     </div>
-    <c:if test="${not empty results.schools or not empty param.lc or not empty param.st}">
+    <c:if test="${not empty results.schools or not empty lc or not empty st}">
         <div id="resultsfilters">
             <div id="resultstabs" class="cleared">
                 <!-- Figure out which tab is selected -->
@@ -297,16 +360,16 @@
                 <c:set var="mTabClass" value=""/>
                 <c:set var="hTabClass" value=""/>
                 <c:choose>
-                    <c:when test="${param.lc eq 'p'}">
+                    <c:when test="${lc eq 'p'}">
                         <c:set var="pTabClass" value="tabactive"/>
                     </c:when>
-                    <c:when test="${param.lc eq 'e'}">
+                    <c:when test="${lc eq 'e'}">
                         <c:set var="eTabClass" value="tabactive"/>
                     </c:when>
-                    <c:when test="${param.lc eq 'm'}">
+                    <c:when test="${lc eq 'm'}">
                         <c:set var="mTabClass" value="tabactive"/>
                     </c:when>
-                    <c:when test="${param.lc eq 'h'}">
+                    <c:when test="${lc eq 'h'}">
                         <c:set var="hTabClass" value="tabactive"/>
                     </c:when>
                     <c:otherwise>
@@ -362,7 +425,7 @@
                     </li>
                 </ul>
             </div>
-            <c:if test="${param.lc ne 'p'}">
+            <c:if test="${lc ne 'p'}">
                 <form id="searchfilterform" style="display:inline" action="" method="get">
                     <div class="formContainer">
                     <div class="checkboxes">
@@ -374,7 +437,7 @@
                                 cityName="${cityName}"
                                 districtId="${district}"
                                 schoolType="${pubCheckbox}"
-                                levelCode="${param.lc}"
+                                levelCode="${lc}"
                                 showAll="${not empty param.showall}"
                                 styleClass="noInterstitial"> Public</link:schools></label>
                         <label><gsml:checkbox name="type_schools[]"
@@ -384,7 +447,7 @@
                                 cityName="${cityName}"
                                 districtId="${district}"
                                 schoolType="${chaCheckbox}"
-                                levelCode="${param.lc}"
+                                levelCode="${lc}"
                                 showAll="${not empty param.showall}"
                                 styleClass="noInterstitial"> Charter</link:schools></label>
                         <label><gsml:checkbox name="type_schools[]"
@@ -394,7 +457,7 @@
                                 cityName="${cityName}"
                                 districtId="${district}"
                                 schoolType="${priCheckbox}"
-                                levelCode="${param.lc}"
+                                levelCode="${lc}"
                                 showAll="${not empty param.showall}"
                                 styleClass="noInterstitial"> Private</link:schools></label>
                     </div>
@@ -420,7 +483,7 @@
         <c:if test="${not empty results.schools}">
             <search:schoolTable schools="${results.schools}" sortColumn="${results.sortColumn}" sortDirection="${results.sortDirection ne null ? results.sortDirection : 'asc'}"/>
         </c:if>
-        <c:if test="${empty results.schools and (not empty param.lc or not empty param.st)}">
+        <c:if test="${empty results.schools and (not empty lc or not empty st)}">
             <div class="noResults">No filtered results in
                 <c:choose>
                     <c:when test="${not empty param.city}">${param.city}</c:when>

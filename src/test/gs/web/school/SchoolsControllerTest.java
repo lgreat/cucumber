@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.30 2008/07/31 00:16:55 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.31 2008/07/31 02:33:58 yfan Exp $
  */
 
 package gs.web.school;
@@ -497,6 +497,56 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setParameter(SchoolsController.PARAM_CITY, "Cardiff-By-The-Sea");
         expectedRedirectURI = "/california/cardiff_by_the_sea/schools/";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
+    }
+
+    public void testCreateNewCityBrowseURIRoot() {
+        boolean foundException = false;
+        try {
+            SchoolsController.createNewCityBrowseURIRoot(null, "city name");
+        } catch (IllegalArgumentException e) {
+            foundException = true;
+        }
+        assertTrue("Expected IllegalArgumentException when null state", foundException);
+
+        foundException = false;
+        try {
+            SchoolsController.createNewCityBrowseURIRoot(State.CA, null);
+        } catch (IllegalArgumentException e) {
+            foundException = true;
+        }
+        assertTrue("Expected IllegalArgumentException when null city name", foundException);
+
+        foundException = false;
+        try {
+            SchoolsController.createNewCityBrowseURIRoot(State.CA, "");
+        } catch (IllegalArgumentException e) {
+            foundException = true;
+        }
+        assertTrue("Expected IllegalArgumentException when blank city name", foundException);
+
+        assertEquals("/california/san-francisco/", SchoolsController.createNewCityBrowseURIRoot(State.CA, "San Francisco"));
+        assertEquals("/california/cardiff_by_the_sea/", SchoolsController.createNewCityBrowseURIRoot(State.CA, "Cardiff-By-The-Sea"));
+    }
+
+    public void testCreateNewCityBrowseURILevelLabel() throws Exception {
+        assertEquals("schools", SchoolsController.createNewCityBrowseURILevelLabel(null));
+        assertEquals("preschools", SchoolsController.createNewCityBrowseURILevelLabel(LevelCode.PRESCHOOL));
+        assertEquals("elementary-schools", SchoolsController.createNewCityBrowseURILevelLabel(LevelCode.ELEMENTARY));
+        assertEquals("middle-schools", SchoolsController.createNewCityBrowseURILevelLabel(LevelCode.MIDDLE));
+        assertEquals("high-schools", SchoolsController.createNewCityBrowseURILevelLabel(LevelCode.HIGH));
+        assertEquals("schools", SchoolsController.createNewCityBrowseURILevelLabel(LevelCode.ELEMENTARY_MIDDLE_HIGH));
+    }
+
+    public void testCityBrowseModel() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setRequestURI("/alaska/anchorage/public/schools/");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        Map model = mav.getModel();
+        assertNotNull("Expected uri root", model.get(SchoolsController.MODEL_CITY_BROWSE_URI_ROOT));
+        assertNotNull("Expected uri level label", model.get(SchoolsController.MODEL_CITY_BROWSE_URI_LEVEL_LABEL));
     }
 
     public void testCreateNewCityBrowseQueryString() throws Exception {

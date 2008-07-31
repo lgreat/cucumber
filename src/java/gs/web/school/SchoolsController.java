@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.53 2008/07/31 00:16:55 yfan Exp $
+ * $Id: SchoolsController.java,v 1.54 2008/07/31 02:33:58 yfan Exp $
  */
 
 package gs.web.school;
@@ -129,6 +129,9 @@ public class SchoolsController extends AbstractController {
     public static final String MODEL_PAGE_SIZE = "pageSize";
 
     public static final String MODEL_ALL_LEVEL_CODES = "allLevelCodes";
+
+    public static final String MODEL_CITY_BROWSE_URI_ROOT = "cityBrowseUriRoot";
+    public static final String MODEL_CITY_BROWSE_URI_LEVEL_LABEL = "cityBrowseUriLevelLabel";
 
     public static boolean isDistrictBrowseRequest(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
@@ -345,14 +348,22 @@ public class SchoolsController extends AbstractController {
         return true;
     }
 
-    public static String createNewCityBrowseURI(State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode) {
-        if (state == null || cityName == null || (schoolTypes != null && schoolTypes.size() > 3)) {
-            throw new IllegalArgumentException("Must specify state, city, level code, and a set of no more than 3 school types");
+    public static String createNewCityBrowseURIRoot(State state, String cityName) {
+        if (state == null || StringUtils.isBlank(cityName)) {
+            throw new IllegalArgumentException("Must specify state and city");
         }
         String stateNameForUrl = state.getLongName().toLowerCase().replaceAll(" ", "-");
         String cityNameForUrl = cityName.toLowerCase().replaceAll("-", "_").replaceAll(" ", "-");
 
-        StringBuilder url = new StringBuilder("/" + stateNameForUrl + "/" + cityNameForUrl + "/");
+        return "/" + stateNameForUrl + "/" + cityNameForUrl + "/";        
+    }
+
+    public static String createNewCityBrowseURI(State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode) {
+        if (state == null || StringUtils.isBlank(cityName) || (schoolTypes != null && schoolTypes.size() > 3)) {
+            throw new IllegalArgumentException("Must specify state, city, level code, and a set of no more than 3 school types");
+        }
+
+        StringBuilder url = new StringBuilder(createNewCityBrowseURIRoot(state, cityName));
 
         SchoolType firstType = null;
         SchoolType secondType = null;
@@ -392,25 +403,25 @@ public class SchoolsController extends AbstractController {
             url.append("/");            
         }
 
-        boolean levelCodeFilters = true;
-        if (LevelCode.PRESCHOOL.equals(levelCode)) {
-            url.append("preschools/");
-        } else if (LevelCode.ELEMENTARY.equals(levelCode)) {
-            url.append("elementary-schools/");
-        } else if (LevelCode.MIDDLE.equals(levelCode)) {
-            url.append("middle-schools/");
-        } else if (LevelCode.HIGH.equals(levelCode)) {
-            url.append("high-schools/");
-        } else {
-            // all others not supported
-            levelCodeFilters = false;
-        }
-
-        if (!levelCodeFilters) {
-            url.append("schools/");
-        }
+        url.append(createNewCityBrowseURILevelLabel(levelCode));
+        url.append("/");
 
         return url.toString();
+    }
+
+    public static String createNewCityBrowseURILevelLabel(LevelCode levelCode) {
+        if (LevelCode.PRESCHOOL.equals(levelCode)) {
+            return "preschools";
+        } else if (LevelCode.ELEMENTARY.equals(levelCode)) {
+            return "elementary-schools";
+        } else if (LevelCode.MIDDLE.equals(levelCode)) {
+            return "middle-schools";
+        } else if (LevelCode.HIGH.equals(levelCode)) {
+            return "high-schools";
+        } else {
+            // all others not supported
+            return "schools";
+        }
     }
 
     public static String createNewCityBrowseURI(HttpServletRequest request) {
@@ -624,6 +635,8 @@ public class SchoolsController extends AbstractController {
                     displayName.equals("Washington")) {
                 displayName += ", DC";
             }
+            model.put(MODEL_CITY_BROWSE_URI_ROOT, createNewCityBrowseURIRoot(state, cityName));
+            model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, createNewCityBrowseURILevelLabel(levelCode));
             model.put(MODEL_CITY_NAME, cityName);
             model.put(MODEL_CITY_DISPLAY_NAME, displayName);
             model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
