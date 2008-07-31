@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.48 2008/06/16 22:32:29 eddie Exp $
+ * $Id: CityController.java,v 1.49 2008/07/31 19:44:58 yfan Exp $
  */
 
 package gs.web.geo;
@@ -9,6 +9,7 @@ import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
+import gs.data.school.SchoolType;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -18,6 +19,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
+import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -109,9 +111,9 @@ public class CityController extends AbstractController {
         ICity city = _geoDao.findCity(state, cityNameParam);
         if (city == null) {
             // If we don't have census data on the city take the user to browse city
-            _log.error("No city record found for '" + cityNameParam + ", " + state + "'. Redirecting to schools.page");
-            View redirectView = new RedirectView("/schools.page?state=" + state.getAbbreviation() +
-                    "&city=" + URLEncoder.encode(cityNameParam, "UTF-8"));
+            _log.error("No city record found for '" + cityNameParam + ", " + state + "'. Redirecting to city browse page");
+            View redirectView = new RedirectView(
+                SchoolsController.createNewCityBrowseURI(state, cityNameParam, new HashSet<SchoolType>(), null));
             return new ModelAndView(redirectView);
         }
 

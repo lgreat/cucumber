@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.9 2008/07/28 22:11:45 droy Exp $
+ * $Id: AnchorListModelFactory.java,v 1.10 2008/07/31 19:44:58 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -19,6 +19,7 @@ import gs.web.geo.NearbyCitiesController;
 import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import gs.web.school.SchoolsController;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.lucene.document.Document;
@@ -28,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Generates AnchorListModel objects from all sorts of input. Created to reduce
@@ -117,35 +120,36 @@ public class AnchorListModelFactory {
         //schoolBreakdownAnchorList.addResult(a);
 
         UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName);
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
 
         sc = _schoolDao.countSchools(state, null, LevelCode.PRESCHOOL, cityName);
         if (sc > 0) {
-            builder.setParameter("lc", "p");
-            final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Preschools");
+            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.PRESCHOOL);
+            final Anchor anchor = new Anchor(href, cityDisplayName + " Preschools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
 
         sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityName);
         if (sc > 0) {
-            builder.setParameter("lc", "e");
-            final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Elementary Schools");
+            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.ELEMENTARY);
+            final Anchor anchor = new Anchor(href, cityDisplayName + " Elementary Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
 
         sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityName);
         if (sc > 0) {
-            builder.setParameter("lc", "m");
-            final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Middle Schools");
+            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.MIDDLE);
+            final Anchor anchor = new Anchor(href, cityDisplayName + " Middle Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
 
         sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityName);
         if (sc > 0) {
-            builder.setParameter("lc", "h");
-            final Anchor anchor = builder.asAnchor(request, cityDisplayName + " High Schools");
+            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.HIGH);
+            final Anchor anchor = new Anchor(href, cityDisplayName + " High Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
@@ -154,9 +158,11 @@ public class AnchorListModelFactory {
         sc = _schoolDao.countSchools(state, SchoolType.PUBLIC, null, cityName) +
                 _schoolDao.countSchools(state, SchoolType.CHARTER, null, cityName);
         if (sc > 0) {
-            builder.addParameter("st", "public");
-            builder.addParameter("st", "charter");
-            final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Public Schools");
+            schoolTypes.clear();
+            schoolTypes.add(SchoolType.PUBLIC);
+            schoolTypes.add(SchoolType.CHARTER);
+            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, null);
+            final Anchor anchor = new Anchor(href, cityDisplayName + " Public Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
             builder.removeParameter("st");
@@ -164,8 +170,10 @@ public class AnchorListModelFactory {
 
         sc = _schoolDao.countSchools(state, SchoolType.PRIVATE, null, cityName);
         if (sc > 0) {
-            builder.addParameter("st", "private");
-            final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Private Schools");
+            schoolTypes.clear();
+            schoolTypes.add(SchoolType.PRIVATE);
+            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, null);
+            final Anchor anchor = new Anchor(href, cityDisplayName + " Private Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
@@ -207,9 +215,9 @@ public class AnchorListModelFactory {
                 String cityName = cityDoc.get("city");
                 String s = cityDoc.get("state");
                 State stateOfCity = _stateManager.getState(s);
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
-                        stateOfCity,
-                        cityName);
+
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
+                builder.setPath(SchoolsController.createNewCityBrowseURI(stateOfCity, cityName, new HashSet<SchoolType>(), null));
                 cityName += ", " + stateOfCity;
                 anchorListModel.add(builder.asAnchor(request, cityName));
             }

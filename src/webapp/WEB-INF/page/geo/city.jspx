@@ -21,6 +21,11 @@
         >
 <jsp:directive.page import="gs.data.geo.City"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.school.SchoolsController"/>
+<jsp:directive.page import="gs.data.school.SchoolType"/>
+<jsp:directive.page import="java.util.HashSet"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -50,6 +55,14 @@
         <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
         <pageHelper:addOnLoadHandler handler="doInterstitial('city')"/>
     </c:if>
+    <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+                <![CDATA[
+        String cityBrowseUri =
+            SchoolsController.createNewCityBrowseURI(sessionContext.getState(), city.getName(), new HashSet<SchoolType>(), null);
+                ]]>
+        request.setAttribute("cityBrowseUri", cityBrowseUri);
+    </jsp:scriptlet>
 </head>
 
 <gsml:body adPageName="city" pageLayout="cityPage">
@@ -125,7 +138,7 @@
                     <tr><td style="font-weight: normal">Showing 1-${fn:length(schools)} of ${schoolCount}
                         school${schoolCount > 1 ? 's':''}</td><td
                             style="font-weight: bold;text-align: right"><gsml:a
-                            href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger
+                            href="${cityBrowseUri}?map=1">View Larger
                         Map</gsml:a>
                     </td>
                     </tr>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.18 2008/02/06 00:00:56 eddie Exp $
+ * $Id: CityControllerTest.java,v 1.19 2008/07/31 19:44:58 yfan Exp $
  */
 
 package gs.web.geo;
@@ -8,12 +8,15 @@ package gs.web.geo;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.ICityRatingDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.school.SchoolsController;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
@@ -22,9 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Tests CityController.
@@ -65,17 +66,27 @@ public class CityControllerTest extends BaseControllerTestCase {
         List list = anchorListModel.getResults();
         assertEquals(5, list.size());
 
-        assertEquals("/schools.page?city=Anchorage&lc=e&state=AK", ((Anchor) list.get(0)).getHref());
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+        LevelCode levelCode = LevelCode.ELEMENTARY;
+
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, levelCode), ((Anchor) list.get(0)).getHref());
         assertEquals("Anchorage Elementary Schools", ((Anchor) list.get(0)).getContents());
         assertEquals(" (77)", ((Anchor) list.get(0)).getAfter());
 
-        assertEquals("/schools.page?city=Anchorage&lc=m&state=AK", ((Anchor) list.get(1)).getHref());
+        levelCode = LevelCode.MIDDLE;
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, levelCode), ((Anchor) list.get(1)).getHref());
 
         assertEquals("Anchorage High Schools", ((Anchor) list.get(2)).getContents());
         assertEquals(" (30)", ((Anchor) list.get(2)).getAfter());
 
-        assertEquals("/schools.page?city=Anchorage&st=public&st=charter&state=AK", ((Anchor) list.get(3)).getHref());
-        assertEquals("/schools.page?city=Anchorage&st=private&state=AK", ((Anchor) list.get(4)).getHref());
+        levelCode = null;
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.CHARTER);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, levelCode), ((Anchor) list.get(3)).getHref());
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PRIVATE);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, levelCode), ((Anchor) list.get(4)).getHref());
     }
 
 
