@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.47 2008/07/28 19:06:15 chriskimm Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.48 2008/07/31 02:50:16 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -371,11 +371,11 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
 
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/schools.page?city=Alameda&lc=e&p=2&showall=1&st=private&state=CA", builder.asSiteRelative(null));
+        assertEquals("/california/alameda/private/elementary-schools/?p=2&showall=1", builder.asSiteRelative(null));
 
         tagHandler.setSchoolType("public,charter");
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/schools.page?city=Alameda&lc=e&p=2&showall=1&st=public&st=charter&state=CA", builder.asSiteRelative(null));
+        assertEquals("/california/alameda/public-charter/elementary-schools/?p=2&showall=1", builder.asSiteRelative(null));
     }
 
     public void testBetaTags() {
