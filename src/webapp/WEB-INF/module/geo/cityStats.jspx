@@ -27,7 +27,7 @@
         Median household income
     </th>
     <c:choose>
-        <c:when test="">
+        <c:when test="${bpCensus.householdMedianIncome > 0}">
             <td class="${bpCensus.householdMedianIncome gt stateCensus.householdMedianIncome ? 'better' : 'worse'}">
                 $<fmt:formatNumber value="${bpCensus.householdMedianIncome}" maxFractionDigits="0"/>
             </td>
