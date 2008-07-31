@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.3 2008/07/04 00:09:59 thuss Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.4 2008/07/31 20:08:08 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -10,14 +10,19 @@ import gs.data.geo.ICity;
 import gs.data.state.State;
 import gs.data.school.district.IDistrictDao;
 import gs.data.school.district.District;
+import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.school.SchoolsController;
 
 import static org.easymock.EasyMock.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Tests AnchorListModelFactory.
@@ -45,17 +50,24 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         List list = anchorListModel.getResults();
         assertEquals(5, list.size());
 
-        assertEquals("/schools.page?city=Anchorage&lc=e&state=AK", ((Anchor) list.get(0)).getHref());
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, LevelCode.ELEMENTARY), ((Anchor) list.get(0)).getHref());
         assertEquals("Anchorage Elementary Schools", ((Anchor) list.get(0)).getContents());
         assertEquals(" (77)", ((Anchor) list.get(0)).getAfter());
 
-        assertEquals("/schools.page?city=Anchorage&lc=m&state=AK", ((Anchor) list.get(1)).getHref());
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, LevelCode.MIDDLE), ((Anchor) list.get(1)).getHref());
 
         assertEquals("Anchorage High Schools", ((Anchor) list.get(2)).getContents());
         assertEquals(" (30)", ((Anchor) list.get(2)).getAfter());
 
-        assertEquals("/schools.page?city=Anchorage&st=public&st=charter&state=AK", ((Anchor) list.get(3)).getHref());
-        assertEquals("/schools.page?city=Anchorage&st=private&state=AK", ((Anchor) list.get(4)).getHref());
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.CHARTER);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, null), ((Anchor) list.get(3)).getHref());
+        schoolTypes.clear();
+        schoolTypes.add(SchoolType.PRIVATE);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, null), ((Anchor) list.get(4)).getHref());
     }
 
     public void testFindDistricts() throws Exception {
