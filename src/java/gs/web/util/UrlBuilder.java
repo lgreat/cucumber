@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.114 2008/07/31 02:42:40 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.115 2008/08/01 18:21:10 yfan Exp $
  */
 
 package gs.web.util;
@@ -400,38 +400,6 @@ public class UrlBuilder {
             _path = "/cities.page";
             this.setParameter("city", city.getName());
             this.setParameter("state", city.getState().getAbbreviation());
-        } else if (SCHOOLS_IN_CITY.equals(page)) {
-            _perlPage = false;
-            _path = "/schools.page";
-            this.setParameter("city", city.getName());
-            this.setParameter("state", city.getState().getAbbreviation());
-
-        } else {
-            throw new IllegalArgumentException("VPage unknown" + page);
-        }
-    }
-
-    /**
-     * @param levelCode  can be null
-     * @param schoolType can be null, can also be a comma-separated list
-     */
-    public UrlBuilder(ICity city, VPage page, LevelCode levelCode, String schoolType) {
-        this(city, page); // use existing method to set city/state
-        if (SCHOOLS_IN_CITY.equals(page)) {
-            if (levelCode != null && StringUtils.isNotEmpty(levelCode.getCommaSeparatedString())) {
-                String[] lcs = StringUtils.split(levelCode.getCommaSeparatedString(), ",");
-                for (int i = 0; i < lcs.length; i++) {
-                    addParameter(SchoolsController.PARAM_LEVEL_CODE, lcs[i]);
-                }
-            }
-            if (schoolType != null) {
-                if (StringUtils.isNotEmpty(schoolType)) {
-                    String[] sts = StringUtils.split(schoolType, ",");
-                    for (int i = 0; i < sts.length; i++) {
-                        addParameter(SchoolsController.PARAM_SCHOOL_TYPE, sts[i]);
-                    }
-                }
-            }
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -490,14 +458,6 @@ public class UrlBuilder {
         init(page, state, param0);
     }
 
-    /**
-     * @param levelCode  can be null
-     * @param schoolType can be null, can also be a comma-separated list
-     */
-    public UrlBuilder(VPage page, State state, String city, LevelCode levelCode, String schoolType) {
-        init(page, state, city, levelCode, schoolType);
-    }
-
     public UrlBuilder(VPage page, State state, Integer schoolId, Integer agentId) {
         // GS-3044
         if (GET_BIREG.equals(page)) {
@@ -505,36 +465,6 @@ public class UrlBuilder {
             _path = "/cgi-bin/getBIReg/" + state.getAbbreviation() + "/" + schoolId + "/" + agentId;
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
-        }
-    }
-
-    /**
-     * @param levelCode  can be null
-     * @param schoolType can be null, can also be a comma-separated list
-     */
-    private void init(VPage page, State state, String city, LevelCode levelCode, String schoolType) {
-        _vPage = page;
-
-        // use existing code to set state/city
-        init(page, state, city);
-
-        if (SCHOOLS_IN_CITY.equals(page)) {
-            if (levelCode != null && StringUtils.isNotEmpty(levelCode.getCommaSeparatedString())) {
-                String[] lcs = StringUtils.split(levelCode.getCommaSeparatedString(), ",");
-                for (int i = 0; i < lcs.length; i++) {
-                    addParameter(SchoolsController.PARAM_LEVEL_CODE, lcs[i]);
-                }
-            }
-            if (schoolType != null) {
-                if (StringUtils.isNotEmpty(schoolType)) {
-                    String[] sts = StringUtils.split(schoolType, ",");
-                    for (int i = 0; i < sts.length; i++) {
-                        addParameter(SchoolsController.PARAM_SCHOOL_TYPE, sts[i]);
-                    }
-                }
-            }
-        } else {
-            throw new IllegalArgumentException("VPage unknown " + page);
         }
     }
 

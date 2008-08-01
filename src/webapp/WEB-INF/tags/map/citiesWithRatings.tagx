@@ -9,6 +9,9 @@
     <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
     <jsp:directive.tag import="java.text.NumberFormat"/>
     <jsp:directive.tag import="gs.data.geo.bestplaces.BpCity"/>
+    <jsp:directive.tag import="gs.web.school.SchoolsController"/>
+    <jsp:directive.tag import="java.util.HashSet"/>
+    <jsp:directive.tag import="gs.data.school.SchoolType"/>
     <jsp:directive.tag body-content="empty" description="Draw a map of cities." />
     <jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
     <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
@@ -155,7 +158,10 @@ function ${functionName}() {
                      gs.data.geo.ICity c = (gs.data.geo.ICity)request.getAttribute("city");
                      UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, c.getState(), c.getName());
                      request.setAttribute("cityPageUrl", urlBuilder.asSiteRelative(request));
-                     urlBuilder = new UrlBuilder(c, UrlBuilder.SCHOOLS_IN_CITY);
+                     urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
+                     <![CDATA[
+                     urlBuilder.setPath(SchoolsController.createNewCityBrowseURI(c.getState(), c.getName(), new HashSet <SchoolType>(), null));
+                     ]]>
                      request.setAttribute("schoolsPageUrl", urlBuilder.asSiteRelative(request));
                      String medianHomePrice = "0";
                      if (c instanceof BpCity) {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.28 2006/12/28 20:35:29 thuss Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.29 2008/08/01 18:21:10 yfan Exp $
  */
 
 package gs.web.school.performance;
@@ -10,9 +10,11 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.LatLon;
 import gs.data.state.State;
 import gs.data.util.SpringUtil;
+import gs.data.school.SchoolType;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.list.Anchor;
+import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -172,7 +174,8 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
             _highSchoolsCount = highSchoolsCount;
             UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.CA, _cityName);
             _cityPageHref = builder.asSiteRelativeXml(null);
-            builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.CA, _cityName);
+            builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
+            builder.setPath(SchoolsController.createNewCityBrowseURI(State.CA, _cityName, new HashSet<SchoolType>(), null));
             _schoolsPageUrl = builder.asSiteRelativeXml(null);
 
             // set _city

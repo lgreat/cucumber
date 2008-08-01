@@ -488,12 +488,6 @@
         <property name="viewName" value="school/schoolsTable"/>
     </bean>
 
-    <bean name="/schools2.page"
-          class="gs.web.school.SchoolsController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="school/schoolsTable2"/>
-    </bean>
-
     <bean name="/school/sampleSchoolRedirect.page" class="gs.web.school.RedirectToSampleSchoolController"
           autowire="byName" lazy-init="true"/>
 
@@ -557,7 +551,7 @@
     <bean name="/community/conversion/popup/compareSchools.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
-            <value>community/conversion/popup/compareSchools</value>
+            <value>community/conversion/popup/compareSchools</value>                                         a
         </property>
     </bean>
     <!-- End Conversion pages -->
@@ -606,7 +600,7 @@
     <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName" lazy-init="true"/>
 
     <bean name="/school/performance/bestValuesMap.page"
-          class="gs.web.school.performance.BestPublicSchoolValuesController"
+          class="gs.web.school.performance.hValuesController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/school/performance/bestPublicSchoolValuesMap</value>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.10 2008/07/31 19:44:58 yfan Exp $
+ * $Id: AnchorListModelFactory.java,v 1.11 2008/08/01 18:21:10 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -115,11 +115,6 @@ public class AnchorListModelFactory {
         schoolBreakdownAnchorList = new AnchorListModel();
 
         int sc;
-        //Anchor a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam,
-        //        "All " + cityNameParam + " schools (" + sc + ")");
-        //schoolBreakdownAnchorList.addResult(a);
-
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName);
         Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
 
         sc = _schoolDao.countSchools(state, null, LevelCode.PRESCHOOL, cityName);
@@ -153,7 +148,6 @@ public class AnchorListModelFactory {
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
-        builder.removeParameter("lc");
 
         sc = _schoolDao.countSchools(state, SchoolType.PUBLIC, null, cityName) +
                 _schoolDao.countSchools(state, SchoolType.CHARTER, null, cityName);
@@ -165,7 +159,6 @@ public class AnchorListModelFactory {
             final Anchor anchor = new Anchor(href, cityDisplayName + " Public Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
-            builder.removeParameter("st");
         }
 
         sc = _schoolDao.countSchools(state, SchoolType.PRIVATE, null, cityName);
@@ -205,9 +198,7 @@ public class AnchorListModelFactory {
                                                  SchoolType schoolType,
                                                  int maxCities,
                                                  boolean showMore) throws IOException {
-        AnchorListModel anchorListModel = new AnchorListModel("" +
-                (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
-                " in the city of: ");
+        AnchorListModel anchorListModel = new AnchorListModel("Schools in the city of: ");
 
         for (int i = 0; i < maxCities; i++) {
             if (cityHits != null && cityHits.length() > i) {
@@ -251,9 +242,7 @@ public class AnchorListModelFactory {
                                                     SchoolType schoolType,
                                                     int maxDistricts,
                                                     boolean showMore) throws IOException {
-        AnchorListModel anchorListModel = new AnchorListModel("" +
-                (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
-                " in the district of:");
+        AnchorListModel anchorListModel = new AnchorListModel("Schools in the district of:");
 
         for (int j = 0; j < maxDistricts; j++) {
             if (districtHits != null && districtHits.length() > j) {
