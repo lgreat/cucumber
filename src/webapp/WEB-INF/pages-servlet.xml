@@ -600,7 +600,7 @@
     <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName" lazy-init="true"/>
 
     <bean name="/school/performance/bestValuesMap.page"
-          class="gs.web.school.performance.hValuesController"
+          class="gs.web.school.performance.BestPublicSchoolValuesController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/school/performance/bestPublicSchoolValuesMap</value>
