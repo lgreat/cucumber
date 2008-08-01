@@ -14,8 +14,6 @@
         </property>
     </bean>
 
-    <bean id="schoolTableTagHandler" class="gs.web.search.SchoolTableTagHandler"/>
-
     <bean id="tableCopyService" class="gs.web.admin.gwt.server.TableCopyServiceImpl"/>
 
     <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"/>
