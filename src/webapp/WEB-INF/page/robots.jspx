@@ -84,7 +84,7 @@ Disallow: /school/addComments.page
 Disallow: /school/mapSchool
 Disallow: /school/thankYouHover.page
 Disallow: /school/updateRatings.page
-Disallow: /schools.page?*map=*
+Disallow: /*/*/*schools/?*
 Disallow: /search/feedback.page
 Disallow: /support_code/
 Disallow: /templates/
