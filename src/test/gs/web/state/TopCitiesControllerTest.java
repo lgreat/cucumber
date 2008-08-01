@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesControllerTest.java,v 1.10 2007/08/16 20:00:52 chriskimm Exp $
+ * $Id: TopCitiesControllerTest.java,v 1.11 2008/08/01 19:23:26 yfan Exp $
  */
 
 package gs.web.state;
@@ -51,7 +51,7 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertEquals("View all California cities", veryLast.getContents());
 
         // Special case DC
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
+        SessionContext context = SessionContextUtil.getSessionContext(getRequest());
         context.setState(State.DC);
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         results = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
@@ -59,7 +59,7 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertEquals(2, results.size());
         la = (Anchor) results.get(0);
         assertEquals("View all schools", la.getContents());
-        assertEquals("/schools.page?city=Washington&state=DC", la.getHref());
+        assertEquals("/washington-dc/washington/schools/", la.getHref());
         la = (Anchor) results.get(1);
         assertEquals("View city information", la.getContents());
         assertEquals("/city/Washington/DC", la.getHref());
