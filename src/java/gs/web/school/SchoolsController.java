@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.55 2008/07/31 16:27:02 yfan Exp $
+ * $Id: SchoolsController.java,v 1.56 2008/08/01 18:35:43 yfan Exp $
  */
 
 package gs.web.school;
@@ -134,6 +134,12 @@ public class SchoolsController extends AbstractController {
     public static final String MODEL_CITY_BROWSE_URI_LEVEL_LABEL = "cityBrowseUriLevelLabel";
     public static final String MODEL_CITY_BROWSE_URI = "cityBrowseUri";
 
+    public static final String LEVEL_LABEL_PRESCHOOLS = "preschools";
+    public static final String LEVEL_LABEL_ELEMENTARY_SCHOOLS = "elementary-schools";
+    public static final String LEVEL_LABEL_MIDDLE_SCHOOLS = "middle-schools";
+    public static final String LEVEL_LABEL_HIGH_SCHOOLS = "high-schools";
+    public static final String LEVEL_LABEL_SCHOOLS = "schools";
+
     public static boolean isDistrictBrowseRequest(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
             throw new IllegalArgumentException("Request must have request URI");
@@ -160,9 +166,11 @@ public class SchoolsController extends AbstractController {
             throw new IllegalArgumentException("Request must have request URI");
         }
         String uri = request.getRequestURI();
-        return uri.endsWith("/schools/") || uri.endsWith("/preschools/") ||
-               uri.endsWith("/elementary-schools/") || uri.endsWith("/middle-schools/") ||
-               uri.endsWith("/high-schools/");
+        return uri.endsWith("/" + LEVEL_LABEL_SCHOOLS + "/") ||
+               uri.endsWith("/" + LEVEL_LABEL_PRESCHOOLS + "/") ||
+               uri.endsWith("/" + LEVEL_LABEL_ELEMENTARY_SCHOOLS + "/") ||
+               uri.endsWith("/" + LEVEL_LABEL_MIDDLE_SCHOOLS + "/") ||
+               uri.endsWith("/" + LEVEL_LABEL_HIGH_SCHOOLS + "/");
     }
 
     public static String createURIWithTrailingSlash(HttpServletRequest request) {
@@ -285,13 +293,13 @@ public class SchoolsController extends AbstractController {
         }
 
         LevelCode levelCode = null;
-        if ("preschools".equals(level)) {
+        if (LEVEL_LABEL_PRESCHOOLS.equals(level)) {
             levelCode = LevelCode.PRESCHOOL;
-        } else if ("elementary-schools".equals(level)) {
+        } else if (LEVEL_LABEL_ELEMENTARY_SCHOOLS.equals(level)) {
             levelCode = LevelCode.ELEMENTARY;
-        } else if ("middle-schools".equals(level)) {
+        } else if (LEVEL_LABEL_MIDDLE_SCHOOLS.equals(level)) {
             levelCode = LevelCode.MIDDLE;
-        } else if ("high-schools".equals(level)) {
+        } else if (LEVEL_LABEL_HIGH_SCHOOLS.equals(level)) {
             levelCode = LevelCode.HIGH;
         }
 
@@ -341,7 +349,9 @@ public class SchoolsController extends AbstractController {
         }
 
         // level
-        StringBuilder levelPatternSB = new StringBuilder("(schools|preschools|elementary-schools|middle-schools|high-schools)");
+        StringBuilder levelPatternSB = new StringBuilder(
+            "(" + LEVEL_LABEL_SCHOOLS + "|" + LEVEL_LABEL_PRESCHOOLS + "|" + LEVEL_LABEL_ELEMENTARY_SCHOOLS +
+            "|" + LEVEL_LABEL_MIDDLE_SCHOOLS + "|" + LEVEL_LABEL_HIGH_SCHOOLS + ")");
         if (filteredBySchoolType) {
             levelPatternSB.append("/");
         }
@@ -438,16 +448,16 @@ public class SchoolsController extends AbstractController {
 
     public static String createNewCityBrowseURILevelLabel(LevelCode levelCode) {
         if (LevelCode.PRESCHOOL.equals(levelCode)) {
-            return "preschools";
+            return LEVEL_LABEL_PRESCHOOLS;
         } else if (LevelCode.ELEMENTARY.equals(levelCode)) {
-            return "elementary-schools";
+            return LEVEL_LABEL_ELEMENTARY_SCHOOLS;
         } else if (LevelCode.MIDDLE.equals(levelCode)) {
-            return "middle-schools";
+            return LEVEL_LABEL_MIDDLE_SCHOOLS;
         } else if (LevelCode.HIGH.equals(levelCode)) {
-            return "high-schools";
+            return LEVEL_LABEL_HIGH_SCHOOLS;
         } else {
             // all others not supported
-            return "schools";
+            return LEVEL_LABEL_SCHOOLS;
         }
     }
 
