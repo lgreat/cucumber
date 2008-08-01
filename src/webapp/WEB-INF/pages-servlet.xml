@@ -551,7 +551,7 @@
     <bean name="/community/conversion/popup/compareSchools.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
-            <value>community/conversion/popup/compareSchools</value>                                         a
+            <value>community/conversion/popup/compareSchools</value>
         </property>
     </bean>
     <!-- End Conversion pages -->
