@@ -6,11 +6,13 @@ import org.springframework.validation.BindException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gs.web.util.ReadWriteController;
+import gs.web.util.NewSubscriberDetector;
 import gs.data.community.*;
 import gs.data.school.*;
 import gs.data.util.DigestUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
@@ -168,10 +170,12 @@ public class RegistrationNewsletterController extends SimpleFormController imple
         subscriptions.add(sub);
     }
 
-    protected ModelAndView onSubmit(Object objCommand) {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object objCommand, BindException errors) {
         NewsletterCommand command = (NewsletterCommand) objCommand;
+        
 
         if (command.getSubscriptions() != null && command.getSubscriptions().size() > 0) {
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(command.getUser(), request, response);
             _subscriptionDao.addNewsletterSubscriptions(command.getUser(), command.getSubscriptions());
         }
 

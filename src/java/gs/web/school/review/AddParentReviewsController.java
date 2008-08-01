@@ -10,6 +10,7 @@ import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
+import gs.web.util.NewSubscriberDetector;
 import gs.web.util.context.SubCookie;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -91,6 +92,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
         if (rc.isWantMssNL() && !user.hasReachedMaximumMssSubscriptions()) {
             Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school.getDatabaseState());
             sub.setSchoolId(school.getId());
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
 

@@ -79,7 +79,7 @@ public class AuthorizersController extends AbstractController {
             try {
                 School school = _schoolDao.getSchoolById(sessionContext.getState(),
                                                          Integer.valueOf(schoolId));
-                // Don't worry about a null school.  The DAO will throw an
+                // Don't worry about a null school.  The dao will throw an
                 // Exception if it can't find a school.
                 ICharterSchoolInfo info = _charterSchoolInfoDao.getInfo(school);
                 mAndV.getModel().put("school", school);

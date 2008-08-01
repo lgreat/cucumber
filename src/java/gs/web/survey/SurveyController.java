@@ -14,10 +14,7 @@ import gs.data.survey.UserResponse;
 import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
-import gs.web.util.PageHelper;
-import gs.web.util.ReadWriteController;
-import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
+import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SubCookie;
@@ -382,6 +379,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             } else {
                 sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);
             }
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
 

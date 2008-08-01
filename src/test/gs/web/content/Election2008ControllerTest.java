@@ -169,7 +169,7 @@ public class Election2008ControllerTest extends BaseControllerTestCase {
         replay(_userDao);
         replay(_subscriptionDao);
 
-        _controller.subscribeUserToParentAdvisor(getRequest(), _command);
+        _controller.subscribeUserToParentAdvisor(getRequest(), getResponse(), _command);
 
         verify(_userDao);
         verify(_subscriptionDao);

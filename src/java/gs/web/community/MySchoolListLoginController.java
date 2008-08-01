@@ -15,6 +15,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
+import gs.web.util.NewSubscriberDetector;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class MySchoolListLoginController extends SimpleFormController implements
         }
 
         if (request.getParameter("pa") != null) {
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
             _subscriptionDao.addNewsletterSubscriptions(user, createSubscriptionList(user, request));
         }
 

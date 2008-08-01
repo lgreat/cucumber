@@ -16,6 +16,7 @@ import gs.data.util.DigestUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlUtil;
+import gs.web.util.NewSubscriberDetector;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -321,7 +322,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
 
-        saveSubscriptionsForUser(fupCommand, user);
+
+        saveSubscriptionsForUser(fupCommand, user, request, response);
         // save
         if (user.isEmailProvisional()) {
             user.setEmailValidated();
@@ -370,7 +372,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         soapRequest.createOrUpdateUserRequest(bean);
     }
 
-    private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user) {
+    private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user, HttpServletRequest request, HttpServletResponse response) {
         List<Subscription> newsSubs = new ArrayList<Subscription>();
         for (Subscription sub: fupCommand.getSubscriptions()) {
             sub.setUser(user);
@@ -384,6 +386,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
         if (!newsSubs.isEmpty()) {
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
             _subscriptionDao.addNewsletterSubscriptions(user, newsSubs);
         }
     }

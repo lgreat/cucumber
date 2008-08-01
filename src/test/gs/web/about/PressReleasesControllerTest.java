@@ -55,7 +55,7 @@ public class PressReleasesControllerTest extends BaseControllerTestCase {
     }
 
     public void testBasics() {
-        assertSame("Table DAO was not the same object", _tableDao, _controller.getTableDao());
+        assertSame("Table dao was not the same object", _tableDao, _controller.getTableDao());
     }
 
 

@@ -20,6 +20,7 @@ import gs.data.community.*;
 import gs.data.state.State;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
+import gs.web.util.NewSubscriberDetector;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -65,7 +66,7 @@ public class Election2008Controller extends SimpleFormController implements Read
         return stats.get(randomIndex);
     }
 
-    protected void subscribeUserToParentAdvisor(HttpServletRequest request, Election2008Command command) {
+    protected void subscribeUserToParentAdvisor(HttpServletRequest request, HttpServletResponse response, Election2008Command command) {
         // retrieve user by email address
         User user = _userDao.findUserFromEmailIfExists(command.getEmail());
 
@@ -80,6 +81,7 @@ public class Election2008Controller extends SimpleFormController implements Read
         List<Subscription> subs = createSubscriptionList(user, request);
 
         // subscribe the user to the newsletter
+        NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
         _subscriptionDao.addNewsletterSubscriptions(user, subs);
     }
 
@@ -106,7 +108,7 @@ public class Election2008Controller extends SimpleFormController implements Read
         syncInfoWithConstantContact(command);
 
         if (request.getParameter("parentAdvisor") != null) {
-            subscribeUserToParentAdvisor(request, command);
+            subscribeUserToParentAdvisor(request, response, command);
         }
 
         // since I'm forwarding to another FormController, I need to pass it info

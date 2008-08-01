@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.22 2007/05/02 03:13:18 chriskimm Exp $
+ * $Id: MssPaController.java,v 1.23 2008/08/01 22:33:58 jnorton Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -13,7 +13,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
-import gs.web.util.context.SessionContext;
+import gs.web.util.NewSubscriberDetector;
 import gs.web.util.validator.MaximumMssValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -133,7 +133,7 @@ public class MssPaController extends SimpleFormController implements ReadWriteCo
             sub.setState(state);
             subscriptions.add(sub);
         }
-
+        NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
         getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
 
 

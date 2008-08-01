@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.23 2008/05/22 00:33:47 chriskimm Exp $
+ * $Id: NthGraderController.java,v 1.24 2008/08/01 22:33:58 jnorton Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -10,6 +10,7 @@ import gs.data.state.State;
 import gs.data.admin.IPropertyDao;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
+import gs.web.util.NewSubscriberDetector;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -129,6 +130,7 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         if (nc.isGn()) { addSub(user, state, SubscriptionProduct.PARENT_ADVISOR, subscriptions); }
         if (nc.isSponsor()) { addSub(user, state, SubscriptionProduct.SPONSOR_OPT_IN, subscriptions); }
 
+        NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
         getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
 
         mAndV.setViewName(getSuccessView());

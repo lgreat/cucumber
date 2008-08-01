@@ -12,6 +12,7 @@ import gs.data.soap.CreateOrUpdateUserRequest;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
+import gs.web.util.NewSubscriberDetector;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -256,6 +257,7 @@ public class RegistrationController extends SimpleFormController implements Read
                 communityNewsletterSubscription.setState(userCommand.getState());
                 subs.add(communityNewsletterSubscription);
 
+                NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
                 _subscriptionDao.addNewsletterSubscriptions(user, subs);
             }
             if (userCommand.isBeta()) {

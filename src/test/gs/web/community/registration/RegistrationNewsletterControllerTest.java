@@ -505,7 +505,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         _mockSubscriptionDao.addNewsletterSubscriptions(user, subs);
         _subscriptionControl.replay();
 
-        ModelAndView mAndV = _controller.onSubmit(command);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, null);
         _subscriptionControl.verify();
         assertNotNull(mAndV);
         assertEquals(_controller.getSuccessView(), mAndV.getViewName());
