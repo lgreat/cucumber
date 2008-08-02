@@ -62,7 +62,7 @@
     <ad:xGAMSetup/>
 </head>
 
-<body onload="${!requestScope.context.crawler?requestScope.pageHelper.onload:''}" onunload="${!requestScope.context.crawler?requestScope.pageHelper.onunload:''}" class="${bodyClass}">
+<body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}" onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
 <cobrand:framebuster/>
 <div id="marginGS" class="marginGS">
     <cobrand:header/>
