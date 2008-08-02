@@ -59,7 +59,7 @@
                 <configuration>
                     <jdkLevel>1.5</jdkLevel>
                     <deploymentDescriptorFile>src/webapp/WEB-INF/web.xml</deploymentDescriptorFile>
-                    <exclude>.gwt-cache,src/webapp/WEB-INF/gwtBin</exclude>
+                    <exclude>src/webapp/WEB-INF/lib,src/webapp/META-INF</exclude>
                 </configuration>
             </plugin>
 
@@ -92,11 +92,15 @@
                 <configuration>
                     <filesets>
                         <fileset>
+                            <directory>src/webapp/META-INF</directory>
+                        </fileset>
+                        <fileset>
                             <directory>src/webapp/WEB-INF/lib</directory>
                         </fileset>
                         <fileset>
                             <directory>src/webapp/WEB-INF/classes</directory>
                         </fileset>
+                        <!-- TH Note: These can be removed anytime anytime after 8/15 -->
                         <fileset>
                             <directory>src/webapp/WEB-INF/gwtBin</directory>
                         </fileset>
@@ -104,11 +108,9 @@
                             <directory>src/webapp/res/gwt</directory>
                         </fileset>
                         <fileset>
-                            <directory>src/webapp/META-INF</directory>
-                        </fileset>
-                        <fileset>
                             <directory>.gwt-cache</directory>
                         </fileset>
+                        <!-- End TH Note -->
                     </filesets>
                 </configuration>
             </plugin>
