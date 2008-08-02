@@ -29,6 +29,9 @@
                 div#footerGS {
                     display: none;
                 }
+                div#footer {
+                    margin-bottom:0px;
+                }
             </style>
             ${footer}
         </c:if>
