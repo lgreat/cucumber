@@ -68,9 +68,6 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <warSourceDirectory>${basedir}/src/webapp</warSourceDirectory>
-                    <warSourceExcludes>
-                        **/gwtBin/**
-                    </warSourceExcludes>
                 </configuration>
             </plugin>
 
