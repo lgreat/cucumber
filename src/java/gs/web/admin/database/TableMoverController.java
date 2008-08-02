@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlUtil;
-import gs.web.admin.gwt.server.TableCopyServiceImpl;
-import gs.web.admin.gwt.client.ServiceException;
 import gs.data.state.StateManager;
 
 import java.util.*;
@@ -31,7 +29,7 @@ public class TableMoverController extends SimpleFormController {
     protected String _previewView;
     protected String _errorView;
     protected StateManager _stateManager;
-    protected TableCopyServiceImpl _tableCopyService;
+    protected TableMoverService _tableMoverService;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -79,13 +77,13 @@ public class TableMoverController extends SimpleFormController {
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
-                                 BindException errors) throws IOException, ServiceException {
+                                 BindException errors) throws IOException {
         TableMoverCommand cmd = (TableMoverCommand) command;
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(getCommandName(), cmd);
         if ("move".equals(cmd.getMode())) {
             try {
-                model.put("wikiText", _tableCopyService.copyTables(cmd.getDirection(), cmd.getTables(),
+                model.put("wikiText", _tableMoverService.copyTables(cmd.getDirection(), cmd.getTables(),
                         true, cmd.getInitials(), cmd.getJira(), cmd.getNotes()));
             } catch (Exception e) {
                 Writer result = new StringWriter();
@@ -94,7 +92,7 @@ public class TableMoverController extends SimpleFormController {
             }
             return new ModelAndView(getSuccessView(), model);
         } else {
-            model.put("warnings", _tableCopyService.checkWikiForSelectedTables(cmd.getDirection(), Arrays.asList(cmd.getTables())));
+            model.put("warnings", _tableMoverService.checkWikiForSelectedTables(cmd.getDirection(), Arrays.asList(cmd.getTables())));
             return new ModelAndView(getPreviewView(), model);
         }
     }
@@ -132,7 +130,7 @@ public class TableMoverController extends SimpleFormController {
                 tables.remove(table);
             }
         }
-        cmd.setTables(_tableCopyService.filter(cmd.getDirection(), tables.toArray(new String[tables.size()]), tablesFilteredOut));
+        cmd.setTables(_tableMoverService.filter(cmd.getDirection(), tables.toArray(new String[tables.size()]), tablesFilteredOut));
         cmd.setTablesFilteredOut(tablesFilteredOut.toArray(new String[tablesFilteredOut.size()]));
 
         return stateSpecificTables;
@@ -202,8 +200,8 @@ public class TableMoverController extends SimpleFormController {
         _stateManager = stateManager;
     }
 
-    public void setTableCopyService(TableCopyServiceImpl tableCopyService) {
-        _tableCopyService = tableCopyService;
+    public void setTableMoverService(TableMoverService tableMoverService) {
+        _tableMoverService = tableMoverService;
     }
 
     private static class StringValueComparer implements Comparator<String> {

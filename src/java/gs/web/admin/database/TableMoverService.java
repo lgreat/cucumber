@@ -1,11 +1,7 @@
-package gs.web.admin.gwt.server;
+package gs.web.admin.database;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
 import gs.data.state.StateManager;
-import gs.web.admin.gwt.client.ServiceException;
-import gs.web.admin.gwt.client.TableCopyService;
-import gs.web.admin.gwt.client.TableData;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
@@ -24,14 +20,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
-    transient private static final Log _log = LogFactory.getLog(TableCopyServiceImpl.class);
-    transient private JdbcOperations _jdbcContext;
-    transient private SessionFactory _sessionFactory;
-    transient private StateManager _stateManager;
-    transient private HttpClient _httpClient = new HttpClient();
-    transient private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
-
+public class TableMoverService {
+    public static final String LINE_BREAK = "<br />\n";
+    public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.net/bin/view/Greatschools/TableToMove";
+    public static final String TABLES_TO_MOVE_LINK = "<a href=\"" + TABLES_TO_MOVE_URL + "\" target=\"_blank\">" + TABLES_TO_MOVE_URL + "</a>";
+    public static final String TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR = "The following tables have already been copied." + LINE_BREAK +
+        "Please check " + TABLES_TO_MOVE_LINK + " before proceeding" + LINE_BREAK;
+    public static final String TABLES_NOT_YET_MOVED_ERROR = "The following tables have not yet been copied from live -> dev." + LINE_BREAK +
+                "Please check " + TABLES_TO_MOVE_LINK + " before proceeding" + LINE_BREAK;
     public static final String DATABASE_COLUMN = "table_schema";
     public static final String TABLE_COLUMN = "table_name";
     public static final String TABLE_LIST_QUERY = "select " + DATABASE_COLUMN + ", " + TABLE_COLUMN + " from information_schema.tables " +
@@ -40,6 +36,13 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
     public static final String OUTDIR_FLAG_FOR_BACKUP_COMMAND = "--outdir /var/gsbackups/tablecopy";
     public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
+        
+    private static final Log _log = LogFactory.getLog(TableMoverService.class);
+    private JdbcOperations _jdbcContext;
+    private SessionFactory _sessionFactory;
+    private StateManager _stateManager;
+    private HttpClient _httpClient = new HttpClient();
+    private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
 
     transient public static final List<String> PRODUCTION_TO_DEV_BLACKLIST = new ArrayList<String>() {
         {
@@ -75,10 +78,10 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         }
     };
 
-    public TableData getTables(TableData.DatabaseDirection direction) {
+    public TableMoverServiceData getTables(TableMoverServiceData.DatabaseDirection direction) {
         _log.info("Retrieving tables");
         long start = System.currentTimeMillis();
-        TableData databases = new TableData();
+        TableMoverServiceData databases = new TableMoverServiceData();
         databases.setDirection(direction);
         JdbcOperations jdbcOperations = getJdbcContext();
 
@@ -104,11 +107,11 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return databases;
     }
 
-    public String copyTables(TableData.DatabaseDirection direction, String[] tableList, boolean overrideWarnings) throws ServiceException {
+    public String copyTables(TableMoverServiceData.DatabaseDirection direction, String[] tableList, boolean overrideWarnings) {
         return copyTables(direction, tableList, overrideWarnings, null, null, null);
     }
 
-    public String copyTables(TableData.DatabaseDirection direction, String[] tableList, boolean overrideWarnings, String initials, String jira, String notes) throws ServiceException {
+    public String copyTables(TableMoverServiceData.DatabaseDirection direction, String[] tableList, boolean overrideWarnings, String initials, String jira, String notes) throws RuntimeException {
         _log.info("Copying tables");
         long start = System.currentTimeMillis();
 
@@ -118,11 +121,11 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 _log.debug("Checking wiki");
                 String copyStatus = checkWikiForSelectedTables(direction, Arrays.asList(tableList));
                 if (copyStatus != null) {
-                    throw new ServiceException(copyStatus);
+                    throw new RuntimeException(copyStatus);
                 }
             } catch (IOException e) {
                 _log.error("Error getting wiki status", e);
-                throw new ServiceException("Error getting wiki status: " + e.getMessage());
+                throw new RuntimeException("Error getting wiki status: " + e.getMessage());
             }
         } else {
             _log.info("Overriding warnings");
@@ -137,7 +140,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             String errorText = parseCommandOutput(backupOutput);
             if (errorText != null) {
                 _log.error("Error backing up tables with dumpcopy: " + errorText);
-                throw new ServiceException("Error backing up tables: " + errorText);
+                throw new RuntimeException("Error backing up tables: " + errorText);
             }
 
             String copyOutput = executeCommand(copyCommand);
@@ -145,11 +148,11 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             errorText = parseCommandOutput(backupOutput);
             if (errorText != null) {
                 _log.error("Error copying tables with dumpcopy: " + errorText);
-                throw new ServiceException("Error copying tables: " + errorText);
+                throw new RuntimeException("Error copying tables: " + errorText);
             }
         } catch (IOException e) {
             _log.error("Error executing dumpcopy", e);
-            throw new ServiceException("Error copying tables: " + e.getMessage());
+            throw new RuntimeException("Error copying tables: " + e.getMessage());
         }
 
         long stop = System.currentTimeMillis();
@@ -180,7 +183,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         }
     }
 
-    public String generateCopyCommand(TableData.DatabaseDirection direction, List<String> tables) {
+    public String generateCopyCommand(TableMoverServiceData.DatabaseDirection direction, List<String> tables) {
         StringBuffer command = new StringBuffer();
         command.append(COPY_TABLES_COMMAND);
         command.append(" --fromhost ").append(direction.getSource()).append(" ");
@@ -198,7 +201,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return command.toString();
     }
 
-    public String generateBackupCommand(TableData.DatabaseDirection direction, List<String> tables) {
+    public String generateBackupCommand(TableMoverServiceData.DatabaseDirection direction, List<String> tables) {
         StringBuffer command = new StringBuffer();
         command.append(COPY_TABLES_COMMAND);
         command.append(" --fromhost ").append(direction.getTarget()).append(" ");
@@ -216,7 +219,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return command.toString();
     }
 
-    public String generateWikiText(TableData.DatabaseDirection direction, List<String> databasesAndTables, String initials, String jira, String notes) {
+    public String generateWikiText(TableMoverServiceData.DatabaseDirection direction, List<String> databasesAndTables, String initials, String jira, String notes) {
         if (StringUtils.isEmpty(initials)) initials = "??";
         if (StringUtils.isEmpty(jira)) jira = "GS-????";
         if (StringUtils.isEmpty(notes)) notes = "";
@@ -230,7 +233,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             wikiText.append(" | ");
             wikiText.append("done");
             wikiText.append(" | ");
-            if (direction.equals(TableData.DEV_TO_STAGING)) {
+            if (direction.equals(TableMoverServiceData.DEV_TO_STAGING)) {
                 wikiText.append("done");
             }
             wikiText.append(" | ");
@@ -339,11 +342,11 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return notFound;
     }
 
-    public String checkWikiForSelectedTables(TableData.DatabaseDirection direction, List<String> selectedTables) throws IOException {
-        if (TableData.PRODUCTION_TO_DEV.equals(direction)) {
+    public String checkWikiForSelectedTables(TableMoverServiceData.DatabaseDirection direction, List<String> selectedTables) throws IOException {
+        if (TableMoverServiceData.PRODUCTION_TO_DEV.equals(direction)) {
             List<String> tablesAlreadyMoved = tablesFoundInTablesToMove(selectedTables);
             return generateWarningOutput(tablesAlreadyMoved, TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR);
-        } else if (TableData.DEV_TO_STAGING.equals(direction)) {
+        } else if (TableMoverServiceData.DEV_TO_STAGING.equals(direction)) {
             List<String> tablesNotYetMoved = tablesNotYetCopiedToDev(selectedTables);
             return generateWarningOutput(tablesNotYetMoved, TABLES_NOT_YET_MOVED_ERROR);
         }
@@ -356,10 +359,10 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
      * @param databases
      * @return
      */
-    public void filterDatabases(TableData databases) {
-        if (TableData.PRODUCTION_TO_DEV.equals(databases.getDirection())) {
+    public void filterDatabases(TableMoverServiceData databases) {
+        if (TableMoverServiceData.PRODUCTION_TO_DEV.equals(databases.getDirection())) {
             databases.filterDatabases(PRODUCTION_TO_DEV_BLACKLIST);
-        } else if (TableData.DEV_TO_STAGING.equals(databases.getDirection())) {
+        } else if (TableMoverServiceData.DEV_TO_STAGING.equals(databases.getDirection())) {
             databases.filterTables(DEV_TO_STAGING_WHITELIST);
         }
     }
@@ -372,10 +375,10 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
      * @param tablesFilteredOut is a list where filtered tables will be put
      * @return Filtered table list
      */
-    public String[] filter(TableData.DatabaseDirection direction, String[] tables, List<String> tablesFilteredOut) {
+    public String[] filter(TableMoverServiceData.DatabaseDirection direction, String[] tables, List<String> tablesFilteredOut) {
         ArrayList<String> tablesToKeep = new ArrayList<String>();
         for (String table : tables) {
-            if (TableData.PRODUCTION_TO_DEV.equals(direction)) {
+            if (TableMoverServiceData.PRODUCTION_TO_DEV.equals(direction)) {
                 boolean match = false;
                 for (String database : PRODUCTION_TO_DEV_BLACKLIST) {
                     if (table.startsWith(database)) match = true;
@@ -385,7 +388,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 } else {
                     tablesFilteredOut.add(table);
                 }
-            } else if (TableData.DEV_TO_STAGING.equals(direction)) {
+            } else if (TableMoverServiceData.DEV_TO_STAGING.equals(direction)) {
                 String database = table.split("\\.")[0];
                 String tableSuffix = table.split("\\.")[1];
                 Set<String> tableOKSet = DEV_TO_STAGING_WHITELIST.get(database);

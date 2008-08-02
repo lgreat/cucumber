@@ -1,9 +1,6 @@
 package gs.web.admin.database;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.admin.gwt.server.TableCopyServiceImpl;
-import gs.web.admin.gwt.client.ServiceException;
-import gs.web.admin.gwt.client.TableData;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
@@ -17,18 +14,18 @@ import org.apache.commons.lang.ArrayUtils;
 public class TableMoverControllerTest extends BaseControllerTestCase {
     private TableMoverController _controller;
 
-    private TableCopyServiceImpl _tableCopyServiceBackup;
+    private TableMoverService _tableMoverServiceBackup;
 
     protected void setUp() throws Exception {
         super.setUp();
         _request.setMethod("GET");
         _controller = (TableMoverController) getApplicationContext().getBean(TableMoverController.BEAN_ID);
         // We back this up because it will often be mocked
-        _tableCopyServiceBackup = _controller._tableCopyService;
+        _tableMoverServiceBackup = _controller._tableMoverService;
     }
 
     protected void tearDown() throws Exception {
-        _controller.setTableCopyService(_tableCopyServiceBackup);
+        _controller.setTableMoverService(_tableMoverServiceBackup);
     }
 
     public void testRequestToDevSucceeds() throws Exception {
@@ -116,12 +113,12 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(cmd, "");
 
         // Override checkWikiForSelectedTables so the test doesn't actually go out to the wiki
-        TableCopyServiceImpl tcs = new TableCopyServiceImpl() {
-            public String checkWikiForSelectedTables(TableData.DatabaseDirection direction, List<String> selectedTables) throws IOException {
+        TableMoverService tcs = new TableMoverService() {
+            public String checkWikiForSelectedTables(TableMoverServiceData.DatabaseDirection direction, List<String> selectedTables) throws IOException {
                 return "SomeWarningText";
             }
         };
-        _controller.setTableCopyService(tcs);
+        _controller.setTableMoverService(tcs);
 
         // Test duplicate tables with the database specified
         cmd.setMode("preview");
@@ -196,11 +193,11 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(cmd, "");
         cmd.setMode("move");
         cmd.setTables(new String[]{"us_geo.city", "gs_schooldb.test"});
-        TableCopyServiceImpl tcs = createMock(TableCopyServiceImpl.class);
+        TableMoverService tcs = createMock(TableMoverService.class);
         expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andReturn("ABC");
-        expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andThrow(new ServiceException("XYZ"));
+        expect(tcs.copyTables(cmd.getDirection(), cmd.getTables(), true, cmd.getInitials(), cmd.getJira(), cmd.getNotes())).andThrow(new RuntimeException("XYZ"));
         replay(tcs);
-        _controller.setTableCopyService(tcs);
+        _controller.setTableMoverService(tcs);
 
         // Check normal operation
         ModelAndView mv = _controller.onSubmit(_request, _response, cmd, errors);
@@ -232,9 +229,9 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         cmd.setJira("ABC");
         cmd.setNotes("123");
         cmd.setTarget("dev");
-        assertEquals(TableData.PRODUCTION_TO_DEV, cmd.getDirection());
+        assertEquals(TableMoverServiceData.PRODUCTION_TO_DEV, cmd.getDirection());
         cmd.setTarget("staging");
-        assertEquals(TableData.DEV_TO_STAGING, cmd.getDirection());
+        assertEquals(TableMoverServiceData.DEV_TO_STAGING, cmd.getDirection());
         assertEquals("TH", cmd.getInitials());
         assertEquals("ABC", cmd.getJira());
         assertEquals("123", cmd.getNotes());

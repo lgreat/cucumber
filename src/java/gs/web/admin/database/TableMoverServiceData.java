@@ -1,28 +1,24 @@
-package gs.web.admin.gwt.client;
-
-import com.google.gwt.user.client.rpc.IsSerializable;
+package gs.web.admin.database;
 
 import java.util.*;
 
-public class TableData extends Object implements IsSerializable {
+public class TableMoverServiceData {
     public static final DatabaseDirection DEV_TO_STAGING = new DatabaseDirection("dev -> staging", "dev", "gsnet-stgdb");
     public static final DatabaseDirection PRODUCTION_TO_DEV = new DatabaseDirection("production -> dev", "ditto", "dev");
     private DatabaseDirection direction;
 
-    /**
-     * @gwt.typeArgs <gs.web.admin.gwt.client.TableData.DatabaseTables>
-     */
-    private List _databasesAndTables = new ArrayList();
+    private List<DatabaseTables> _databasesAndTables = new ArrayList<DatabaseTables>();
 
-    private Map _databases = new HashMap();
+    private Map<String, DatabaseTables> _databases = new HashMap<String, DatabaseTables>();
 
-    public TableData() {}
+    public TableMoverServiceData() {
+    }
 
-    public TableData(DatabaseDirection direction) {
+    public TableMoverServiceData(DatabaseDirection direction) {
         this.direction = direction;
     }
 
-    public void addDatabase(String databaseName, List tableList) {
+    public void addDatabase(String databaseName, List<String> tableList) {
         DatabaseTables databaseAndTables = new DatabaseTables(databaseName, tableList);
         _databasesAndTables.add(databaseAndTables);
         _databases.put(databaseName, databaseAndTables);
@@ -36,33 +32,32 @@ public class TableData extends Object implements IsSerializable {
         this.direction = direction;
     }
 
-    public List getDatabasesAndTables() {
+    public List<DatabaseTables> getDatabasesAndTables() {
         return _databasesAndTables;
     }
 
-    public void setDatabasesAndTables(List databasesAndTables) {
+    public void setDatabasesAndTables(List<DatabaseTables> databasesAndTables) {
         this._databasesAndTables = databasesAndTables;
     }
 
     public void addDatabaseAndTable(String database, String table) {
-        DatabaseTables databaseAndTables = (DatabaseTables) _databases.get(database);
+        DatabaseTables databaseAndTables = _databases.get(database);
         if (databaseAndTables == null) {
-            addDatabase(database, new ArrayList());
-            databaseAndTables = (DatabaseTables) _databases.get(database);
+            addDatabase(database, new ArrayList<String>());
+            databaseAndTables = _databases.get(database);
         }
         databaseAndTables.getTables().add(table);
     }
 
     public DatabaseTables getDatabase(String databaseName) {
-        return (DatabaseTables) _databases.get(databaseName);
+        return _databases.get(databaseName);
     }
 
-    public void filterDatabases(List databasesToRemove) {
-        for (Iterator iterator = databasesToRemove.iterator(); iterator.hasNext();) {
-            String database = (String) iterator.next();
+    public void filterDatabases(List<String> databasesToRemove) {
+        for (String database : databasesToRemove) {
             _databases.remove(database);
-            for (Iterator databaseTablesList = _databasesAndTables.iterator(); databaseTablesList.hasNext();) {
-                DatabaseTables databaseAndTables = (DatabaseTables) databaseTablesList.next();
+            for (Iterator<DatabaseTables> databaseTablesList = _databasesAndTables.iterator(); databaseTablesList.hasNext();) {
+                DatabaseTables databaseAndTables = databaseTablesList.next();
                 if (database.equals(databaseAndTables.getDatabaseName())) {
                     databaseTablesList.remove();
                 }
@@ -71,21 +66,22 @@ public class TableData extends Object implements IsSerializable {
     }
 
     public void filterTables(Map tablesToKeep) {
-        for (Iterator iterator = tablesToKeep.keySet().iterator(); iterator.hasNext();) {
-            String databaseName = (String) iterator.next();
-            DatabaseTables databaseTables = (DatabaseTables) _databases.get(databaseName);
+        for (Object o : tablesToKeep.keySet()) {
+            String databaseName = (String) o;
+            DatabaseTables databaseTables = _databases.get(databaseName);
             if (databaseTables != null) {
                 databaseTables.getTables().retainAll((Collection) tablesToKeep.get(databaseName));
             }
         }
     }
 
-    public static class DatabaseDirection implements IsSerializable {
+    public static class DatabaseDirection {
         public String source;
         public String label;
         public String target;
 
-        public DatabaseDirection() {}
+        public DatabaseDirection() {
+        }
 
         public DatabaseDirection(String display, String source, String target) {
             this.source = source;
@@ -118,30 +114,26 @@ public class TableData extends Object implements IsSerializable {
             this.target = target;
         }
 
-
         public boolean equals(Object object) {
+            if (!(object instanceof DatabaseDirection)) return false;                
             DatabaseDirection other = (DatabaseDirection) object;
 
-            if (source == null || target == null || label == null) {
-                return false;
-            }
-
-            return source.equals(other.source) && target.equals(other.target) && label.equals(other.label);
+            return !(source == null || target == null || label == null) &&
+                    source.equals(other.source) && target.equals(other.target) &&
+                    label.equals(other.label);
         }
     }
 
-    public static class DatabaseTables implements IsSerializable {
+    public static class DatabaseTables {
         public String databaseName;
 
-        /**
-         * @gwt.typeArgs <java.lang.String>
-         */
-        public List tables;
+        public List<String> tables;
 
 
-        public DatabaseTables() {}
+        public DatabaseTables() {
+        }
 
-        public DatabaseTables(String databaseName, List tableList) {
+        public DatabaseTables(String databaseName, List<String> tableList) {
             this.databaseName = databaseName;
             this.tables = tableList;
         }
@@ -155,11 +147,11 @@ public class TableData extends Object implements IsSerializable {
             this.databaseName = databaseName;
         }
 
-        public List getTables() {
+        public List<String> getTables() {
             return tables;
         }
 
-        public void setTables(List tables) {
+        public void setTables(List<String> tables) {
             this.tables = tables;
         }
     }

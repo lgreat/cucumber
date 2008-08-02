@@ -14,7 +14,7 @@
         </property>
     </bean>
 
-    <bean id="tableCopyService" class="gs.web.admin.gwt.server.TableCopyServiceImpl"/>
+    <bean id="tableMoverService" class="gs.web.admin.database.TableMoverService"/>
 
     <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"/>
 

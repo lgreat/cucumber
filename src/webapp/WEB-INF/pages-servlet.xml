@@ -895,16 +895,7 @@
             <!--</list>-->
         <!--</property>-->
     </bean>
-
-    <bean name="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/copyTables.page"
-          class="gs.web.admin.LimitToDevController" lazy-init="true">
-        <property name="viewName">
-            <value>admin/database/copyTables</value>
-        </property>
-        <property name="errorViewName">
-            <value>admin/noProductionAccess</value>
-        </property>
-    </bean>
+    
     <!--
         "v1" is here so that we can easily update to newer versions
         of this.
