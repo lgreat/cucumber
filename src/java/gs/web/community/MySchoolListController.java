@@ -223,7 +223,6 @@ public class MySchoolListController extends AbstractController implements ReadWr
             } catch (ObjectRetrievalFailureException orfe) {
                 _log.error("School in user's MSL doesn't exist in school table. User " +
                         fave.getUser().getId() + ", School " + fave.getState() + ":" + fave.getSchoolId());
-                return new ArrayList<School>();
             }
         }
         return schools;

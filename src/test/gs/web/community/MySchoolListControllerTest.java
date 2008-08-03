@@ -60,7 +60,6 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
     }
 
     public void testRequestFromUnknownUserSchoolsAdded() throws Exception {
-//        getRequest().setQueryString("command=add&ids=123,456&state=ca");
         getRequest().setParameter(MySchoolListController.PARAM_COMMAND, "add");
         getRequest().setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "123,456");
         getRequest().setParameter(MySchoolListController.PARAM_STATE, "CA");
@@ -81,13 +80,33 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
-    private School createStubSchool() {
+    School createStubSchool() {
         School school = new School();
         school.setName("East Beirut High");
         school.setDatabaseState(State.NJ);
-        school.setLevelCode(LevelCode.ELEMENTARY_MIDDLE);
+        school.setLevelCode(LevelCode.PRESCHOOL);
         return school;
     }
+
+    School createStubSchool2() {
+        School school = new School();
+        school.setName("Alameda High Schoo");
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        school.setLevelCode(LevelCode.HIGH);
+        return school;
+    }
+
+    FavoriteSchool createStubFavoriteSchool(int id, User user) {
+        FavoriteSchool fs = new FavoriteSchool();
+        fs.setId(id);
+        fs.setSchoolId(id);
+        fs.setLevelCode(LevelCode.ALL_LEVELS);
+        fs.setState(State.CA);
+        fs.setUser(user);
+        return fs;
+    }
+
 
     public void testRequestFromKnownUserSchoolsAdded() throws Exception {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
@@ -100,17 +119,26 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
-    public void xtestRemoveSchool() throws Exception {
+    public void testRemoveSchool() throws Exception {
 
         getRequest().setParameter("command", "remove");
         getRequest().setParameter("ids", "1");
         getRequest().setParameter("state", "ca");
 
-        SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
-        sc.setMemberId(1);
+        User user = new User();
+        user.setId(1);
+        user.setEmail("eford@greatschools.net");
+        Set<FavoriteSchool> favorites = new HashSet<FavoriteSchool>();
+        favorites.add(createStubFavoriteSchool(1, user));
+        favorites.add(createStubFavoriteSchool(2, user));
+        favorites.add(createStubFavoriteSchool(3, user));
+        favorites.add(createStubFavoriteSchool(4, user));
+        user.setFavoriteSchools(favorites);
 
-        _userDao.updateUser(sc.getUser());
-        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(new School()).times(3);
+        getSessionContext().setUser(user);
+
+        _userDao.updateUser(user);
+        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool2()).times(3);
         replay(_schoolDao);
 
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
@@ -118,8 +146,31 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());        
     }
 
-    public void testAddSchools() {
+    public void testAddSchools() throws Exception {
+        getRequest().setParameter("command", "add");
+        getRequest().setParameter("ids", "9,10");
+        getRequest().setParameter("state", "ca");
 
+        User user = new User();
+        user.setId(1);
+        user.setEmail("eford@greatschools.net");
+        Set<FavoriteSchool> favorites = new HashSet<FavoriteSchool>();
+        favorites.add(createStubFavoriteSchool(1, user));
+        favorites.add(createStubFavoriteSchool(2, user));
+        favorites.add(createStubFavoriteSchool(3, user));
+        favorites.add(createStubFavoriteSchool(4, user));
+        user.setFavoriteSchools(favorites);
+
+        getSessionContext().setUser(user);
+
+        _userDao.updateUser(user);
+
+        expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool2()).anyTimes();
+        replay(_schoolDao);
+
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verify(_schoolDao);
+        assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
     public void testBuildModel() throws Exception {
