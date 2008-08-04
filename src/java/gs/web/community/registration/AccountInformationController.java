@@ -120,15 +120,17 @@ public class AccountInformationController extends SimpleFormController implement
         AccountInformationCommand command = (AccountInformationCommand) commandObj;
 
         int counter = 0;
+
+        if (StringUtils.isBlank(command.getCity())) {
+            errors.rejectValue("city", null, "Please select your city.");
+        }
         for (AccountInformationCommand.StudentCommand student: command.getStudents()) {
             Grade grade = student.getGrade();
-            State state = student.getState();
             int schoolId = student.getSchoolId();
-            if (schoolId > 0) {
-                School school = _schoolDao.getSchoolById(state, schoolId);
-                if (!school.getGradeLevels().contains(grade)) {
-                    errors.rejectValue("students[" + counter + "].schoolId", null, "Selected school does not have that grade");
-                }
+            if (StringUtils.isBlank(student.getCity())) {
+                errors.rejectValue("students[" + counter + "]", null, "Please select your child's city.");
+            } else if (grade == null || schoolId == -2) {
+                errors.rejectValue("students[" + counter + "]", null, "Please select your child's grade and school.");
             }
             counter++;
         }
@@ -141,35 +143,13 @@ public class AccountInformationController extends SimpleFormController implement
         ModelAndView mAndV = super.showForm(request, response, errors);
 
         AccountInformationCommand command = (AccountInformationCommand) mAndV.getModel().get(getCommandName());
-        if (command == null || command.getGender() == null) {
+        if (command == null || command.getMemberId() < 1) {
             State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, state, BEAN_ID);
             mAndV.setViewName("redirect:" + urlBuilder.asSiteRelative(request));
         }
         return mAndV;
     }
-
-//    protected void parseStudent(HttpServletRequest request, AccountInformationCommand command, int childNum) {
-//        String sGrade = request.getParameter("grade" + childNum);
-//        State state = _stateManager.getState(request.getParameter("state" + childNum));
-//        String sSchoolId = request.getParameter("school" + childNum);
-//        String city = request.getParameter("city" + childNum);
-//
-//        Student student = new Student();
-//
-//        if (!StringUtils.isEmpty(sGrade)) {
-//            student.setGrade(Grade.getGradeLevel(sGrade));
-//        }
-//        if (!StringUtils.isEmpty(sSchoolId)) {
-//            student.setSchoolId(new Integer(sSchoolId));
-//        }
-//        student.setState(state);
-//        student.setOrder(childNum);
-//
-//        command.addStudent(student);
-//        command.addCityName(city);
-//        loadSchoolList(student, city, command);
-//    }
 
     /**
      * Register a custom editor for Grade
@@ -233,7 +213,6 @@ public class AccountInformationController extends SimpleFormController implement
             if (student.getSchoolId() > -1) {
                 String uniqueString = student.getState().getAbbreviation() + student.getSchoolId();
                 if (!uniqSubs.contains(uniqueString)) {
-                    _log.info("Saving subscription: " + user + ";" + student.getSchoolId() + ";" + student.getState());
                     Subscription sub = new Subscription();
                     sub.setUser(user);
                     sub.setProduct(SubscriptionProduct.PARENT_CONTACT);
@@ -306,7 +285,11 @@ public class AccountInformationController extends SimpleFormController implement
     protected class GradePropertyEditor extends PropertyEditorSupport {
         private Grade _grade;
         public void setAsText(String text) {
-            _grade = Grade.getGradeLevel(text);
+            if (!StringUtils.isEmpty(text) && !StringUtils.equals("--", text)) {
+                _grade = Grade.getGradeLevel(text);
+            } else {
+                _grade = null;
+            }
         }
         public String getAsText() {
             if (_grade != null) {

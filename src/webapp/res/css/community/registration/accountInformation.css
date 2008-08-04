@@ -100,6 +100,10 @@ li.header a .strong {
     margin-right: 5px;
 }
 
+#locationLine div#cityDiv {
+    display: inline;
+}
+
 #outline ul li.child {
     height: 60px;
     padding-bottom: 15px;
@@ -132,8 +136,13 @@ li.header a .strong {
 }
 
 #outline ul li.child select.school {
-    left: 383px;
     width: 192px;
+}
+
+#outline ul li.child div.school {
+    position: absolute;
+    top: 35px;
+    left: 383px;
 }
 
 #outline ul li#parentAmbassadorLine {
@@ -171,4 +180,26 @@ li.header a .strong {
 #buttonLine .cancel {
     position: absolute;
     right: 75px;
+}
+
+#outline ul li div.error {
+    position: absolute;
+    top: 10px;
+    left: 580px;
+    width: 240px;
+}
+
+/*#outline ul li div.error img {*/
+    /*margin-right: 3px;*/
+    /*position: relative;*/
+    /*top: 1px;*/
+/*}*/
+
+#outline ul li div.error span {
+    color: #cc5566;
+    font-size: 11px;
+    line-height: 12px;
+    position: absolute;
+    left: 15px;
+    width: 225px;
 }

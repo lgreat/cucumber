@@ -10,14 +10,12 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib">
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-    <jsp:directive.page import="gs.data.state.StateManager"/>
-    <jsp:directive.page import="gs.data.school.Grades"/>
-    <jsp:directive.page import="gs.data.school.Grade"/>
     <jsp:directive.page contentType="text/html"/>
 <html>
   <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
   <head>
       <title>Update My Account - GreatSchools</title>
+      <pageHelper:externalJavascript file="/res/js/prototype-1.6.0.2.js"/>
       <pageHelper:externalCss file="/res/css/community/registration/accountInformation.css"/>
       <jsp:scriptlet>
           <![CDATA[
@@ -28,6 +26,106 @@
           ]]>
       </jsp:scriptlet>
       <ad:setSlotPrefix slotPrefix="Community"/>
+      <script type="text/javascript">
+          <![CDATA[
+          // <!--
+
+          function profileStateChange(stateSelect) {
+              var url = 'accountInformationAjax.page';
+              var pars = 'state=' + stateSelect.value;
+              var cityDiv = $('cityDiv');
+              var citySelect = $('city');
+
+              Element.remove(citySelect);
+              cityDiv.update("<span>Loading ...</span>");
+              new Ajax.Updater (
+                      'city',
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars,
+                          onComplete: updateElementContents('cityDiv', citySelect)
+                      });
+          }
+
+          function updateElementContents(elemIdToUpdate, elemToAdd) {
+              $(elemIdToUpdate).update(elemToAdd);
+              elemToAdd.show();
+          }
+
+          function childGradeChange(gradeSelect, childNum) {
+              if (gradeSelect.value == '') {
+                  $('childSchool' + childNum).update('<option value="-2">--</option>');
+                  return false;
+              }
+
+              var childSchoolSelect = $('childSchool' + childNum);
+              var childSchoolDiv = $('childSchoolDiv' + childNum);
+              var url = 'accountInformationAjax.page';
+              var pars = 'state=' + $('childState' + childNum).value;
+              pars += '&city=' + $('childCity' + childNum).value;
+              pars += '&grade=' + gradeSelect.value;
+              Element.remove(childSchoolSelect);
+              childSchoolDiv.update("<span>Loading ...</span>");
+              new Ajax.Updater (
+                      'childSchool' + childNum,
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars,
+                          onComplete: updateElementContents('childSchoolDiv' + childNum, childSchoolSelect)
+                      });
+              return true;
+          }
+
+          function childCityChange(citySelect, childNum) {
+              resetGradeSchool(childNum);
+              $('cityText' + childNum).innerHTML = citySelect.value;
+//              $('city' + childNum).value = citySelect.value;
+          }
+
+          function childStateChange(stateSelect, childNum) {
+              resetGradeSchool(childNum);
+
+              $('cityText' + childNum).update('--');
+//              $('city' + childNum).value = '--';
+              $('stateText' + childNum).update(stateSelect.value);
+//              $('state' + childNum).value = stateSelect.value;
+
+              var url = 'accountInformationAjax.page';
+              var pars = 'state=' + stateSelect.value;
+              pars += '&childNum=' + childNum;
+
+              var childCitySelect = $('childCity' + childNum);
+              $('citySelectDiv' + childNum).update("<span>Loading ...</span>");
+              new Ajax.Updater (
+                      'childCity' + childNum,
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars,
+                          onComplete: updateElementContents('citySelectDiv' + childNum, childCitySelect)
+                      });
+          }
+
+          function resetGradeSchool(childNum) {
+              $('grade' + childNum).value='';
+              childGradeChange($('grade' + childNum), childNum);
+          }
+
+          function changeLocationToggle(childNum) {
+              $('location' + childNum).toggle();
+              $('chooseLocation' + childNum).toggle();
+              if ($('chooseLocation' + childNum).visible()) {
+                  $('changeLocationToggle' + childNum).innerHTML = 'Done';
+              } else {
+                  $('changeLocationToggle' + childNum).innerHTML = 'Change city';
+              }
+          }
+
+          // -->
+          ]]>
+      </script>
   </head>
   <gsml:body adPageName="accountInformation">
       <div id="outline"><!-- creates darker blue outer outline -->
@@ -51,12 +149,22 @@
                   
                   <li id="locationLine">
                       <label class="state">State</label>
-                      <form:select path="state" items="${command.stateList}" cssClass="state"/>
+                      <form:select path="state" items="${command.stateList}" cssClass="state" onchange="profileStateChange(this);"/>
                       <label class="city">City</label>
-                      <form:select path="city" cssClass="city">
-                          <form:option value="My city is not listed" label="My city is not listed"/>
-                          <form:options items="${command.profileCityList}" itemLabel="name" itemValue="name"/>
-                      </form:select>
+                      <div id="cityDiv">
+                          <form:select path="city" cssClass="city">
+                              <form:option value="" label="Choose city"/>
+                              <form:option value="My city is not listed" label="My city is not listed"/>
+                              <form:options items="${command.profileCityList}" itemLabel="name" itemValue="name"/>
+                          </form:select>
+                      </div>
+                      <form:errors path="city">
+                          <div class="error">
+                              <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
+                                        alt="Error"/>
+                              <form:errors path="city" element="span"/>
+                          </div>
+                      </form:errors>
                   </li>
 
                   <li class="header">
@@ -72,26 +180,50 @@
                           <label id="location${childNum}" class="childCity">
                               <span id="cityText${childNum}">${child.city}</span>,
                               <span id="stateText${childNum}">${child.state}</span>
-                              <input id="state${childNum}" type="hidden" name="state${childNum}"
-                                     value="${child.state}"/>
-                              <input id="city${childNum}" type="hidden" name="city${childNum}" value="${child.city}"/>
+                              <!--<input id="state${childNum}" type="hidden" name="state${childNum}"-->
+                                     <!--value="${child.state}"/>-->
+                              <!--<input id="city${childNum}" type="hidden" name="city${childNum}" value="${child.city}"/>-->
                           </label>
+                          <span id="chooseLocation${childNum}" style="display: none;">
+                              <span id="citySelectDiv${childNum}">
+                                  <form:select path="students[${childNum-1}].city" cssClass="city"
+                                               id="childCity${childNum}" onchange="childCityChange(this, ${childNum});">
+                                      <form:option value="" label="Choose city"/>
+                                      <form:options items="${command.cityList[childNum-1]}" itemLabel="name"
+                                                    itemValue="name"/>
+                                  </form:select>
+                              </span>
+                              <form:select path="students[${childNum-1}].state" items="${command.stateList}"
+                                           cssClass="state" id="childState${childNum}"
+                                           onchange="childStateChange(this, ${childNum});"/>
+                          </span>
                           <span class="changeLinks">
-                              <a href="#" onclick="return false;">Change city</a> |
+                              <a id="changeLocationToggle${childNum}" href="#" onclick="changeLocationToggle(${childNum}); return false;">Change city</a> |
                               <a href="#" onclick="return false;">Remove child's information</a>
                           </span>
                           
                           <label class="grade secondLine">Grade</label>
-                          <form:select path="students[${childNum-1}].grade" cssClass="grade secondLine">
-                              <form:option value="--" label="--"/>
+                          <form:select path="students[${childNum-1}].grade" cssClass="grade secondLine" onchange="return childGradeChange(this, ${childNum});" id="grade${childNum}">
+                              <form:option value="" label="--"/>
                               <form:options items="${command.gradeList}" itemLabel="name" itemValue="name"/>
                           </form:select>
 
                           <label class="school secondLine">School</label>
-                          <form:select path="students[${childNum-1}].schoolId" cssClass="school secondLine">
-                              <form:option value="-1" label="My child's school is not listed"/>
-                              <form:options items="${command.schools[childNum-1]}" itemLabel="name" itemValue="id"/>
-                          </form:select>
+                          <div id="childSchoolDiv${childNum}" class="school">
+                              <form:select path="students[${childNum-1}].schoolId" cssClass="school" id="childSchool${childNum}">
+                                  <form:option value="-2" label="--"/>
+                                  <form:option value="-1" label="My child's school is not listed"/>
+                                  <form:options items="${command.schools[childNum-1]}" itemLabel="name" itemValue="id"/>
+                              </form:select>
+                          </div>
+                          <form:errors path="students[${childNum-1}]">
+                              <div class="error">
+                                  <gsml:img src="/res/img/bullet/icon_warning_12x12.gif"
+                                            alt="Error"/>
+                                  <form:errors path="students[${childNum-1}]" element="span"/>
+                              </div>
+                          </form:errors>
+
                       </li>
                   </c:forEach>
 

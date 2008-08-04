@@ -23,6 +23,7 @@ public class AccountInformationCommand {
     private List<StudentCommand> _students;
     private List<String> _schoolNames;
     private List<List<City>> _cityList;
+    private List<String> _childCity;
     private List<List<School>> _schools;
     private List<City> _profileCityList;
 
@@ -31,6 +32,7 @@ public class AccountInformationCommand {
         _schoolNames = new ArrayList<String>();
         _schools = new ArrayList<List<School>>();
         _cityList = new ArrayList<List<City>>();
+        _childCity = new ArrayList<String>();
     }
 
     public int getMemberId() {
@@ -152,6 +154,14 @@ public class AccountInformationCommand {
 
     public void setGradeList(List<Grade> gradeList) {
         // ignore -- this is so JSTL treats this as a bean property
+    }
+
+    public List<String> getChildCity() {
+        return _childCity;
+    }
+
+    public void setChildCity(List<String> childCity) {
+        _childCity = childCity;
     }
 
     protected static class StudentCommand {

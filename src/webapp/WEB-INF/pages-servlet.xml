@@ -1200,6 +1200,10 @@
         <property name="formView" value="/community/registration/accountInformation"/>
     </bean>
 
+    <bean name="/accountInformationAjax.page"
+          class="gs.web.community.registration.AccountInformationAjaxController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/community/getUserProfile.page"
           class="gs.web.community.registration.GetUserProfileController"
           autowire="byName" lazy-init="true">
