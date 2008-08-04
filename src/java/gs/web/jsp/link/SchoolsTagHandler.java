@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.9 2008/07/31 16:27:02 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.10 2008/08/04 17:58:22 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -87,43 +87,6 @@ public class SchoolsTagHandler extends LinkTagHandler {
             urlBuilder.setParameter(SchoolsController.PARAM_SORT_DIRECTION, _sortDirection);
         }
         return urlBuilder;
-
-        /*
-        
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, getState(), "");
-        if (null != _page) {
-            urlBuilder.setParameter(SchoolsController.PARAM_PAGE, String.valueOf(_page));
-        }
-        if (StringUtils.isNotBlank(_levelCode)) {
-            urlBuilder.setParameter(SchoolsController.PARAM_LEVEL_CODE, _levelCode);
-        }
-        if (StringUtils.isNotBlank(_schoolType)) {
-            StringTokenizer tok = new StringTokenizer(_schoolType, ",");
-            while (tok.hasMoreTokens()) {
-                String token = tok.nextToken();
-                urlBuilder.addParameter(SchoolsController.PARAM_SCHOOL_TYPE, token);
-            }
-        }
-        if (StringUtils.isNotEmpty(_cityName)) {
-            urlBuilder.setParameter(SchoolsController.PARAM_CITY, _cityName);
-        } else {
-            urlBuilder.setParameter(SchoolsController.PARAM_DISTRICT, String.valueOf(_districtId));
-            urlBuilder.removeParameter(SchoolsController.PARAM_CITY);
-        }
-        if (_showAll) {
-            urlBuilder.setParameter(SchoolsController.PARAM_SHOW_ALL, "1");
-        }
-        if (null != _resultsPerPage) {
-            urlBuilder.setParameter(SchoolsController.PARAM_RESULTS_PER_PAGE, _resultsPerPage.toString());
-        }
-        if (null != _sortColumn) {
-            urlBuilder.setParameter(SchoolsController.PARAM_SORT_COLUMN, _sortColumn);
-        }
-        if (null != _sortDirection) {
-            urlBuilder.setParameter(SchoolsController.PARAM_SORT_DIRECTION, _sortDirection);
-        }
-        return urlBuilder;
-        */
     }
 
     public String getSchoolType() {

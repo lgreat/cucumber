@@ -85,7 +85,6 @@ public class SearchController extends AbstractFormController {
 
     public static final String MODEL_CITIES = "cities";
     public static final String MODEL_DISTRICTS = "districts";
-    public static final String MODEL_FILTERED_CITIES = "filteredCities"; // AnchorListModel
     public static final String MODEL_SHOW_SUGGESTIONS = "showSuggestions"; // Boolean
     public static final String MODEL_SHOW_QUERY_AGAIN = "showQueryAgain"; // Boolean
     private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser"; // Boolean
@@ -288,32 +287,6 @@ public class SearchController extends AbstractFormController {
                     }
                 }
 
-
-                if (cityHits != null && cityHits.length() > 0) {
-
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, "");
-                    String lowerCaseQuery = queryString.toLowerCase();
-                    StringBuffer filtersBuffer = new StringBuffer("All <span id=\"rollupfilters\">");
-                    String st = determineSchoolType(lowerCaseQuery, filtersBuffer, urlBuilder);
-                    String gl = determineGradeLevel(lowerCaseQuery, filtersBuffer, urlBuilder);
-
-                    filtersBuffer.append("</span> schools in the city of:");
-                    model.put("filters", filtersBuffer.toString());
-                    model.put("filterparams", urlBuilder.toString());
-
-
-                    if (gl != null || st != null) {
-
-                        AnchorListModel anchorListModel = createFilteredCitiesListModel(filtersBuffer, cityHits, st, gl, filteredListSize, urlBuilder, state, request);
-
-                        if (anchorListModel.getResults().size() > 0) {
-                            model.put(MODEL_FILTERED_CITIES, anchorListModel);
-                            resultsToShow = true;
-                        }
-                    }
-                }
-
-
                 Hits districtHits = searchForDistricts(baseQuery);
                 SchoolType filteredST = null;
                 if (request.getParameterValues(PARAM_SCHOOL_TYPE) != null &&
@@ -472,47 +445,6 @@ public class SearchController extends AbstractFormController {
         }
         return anchorListModel;
     }
-
-    private String determineSchoolType(String lowerCaseQuery, StringBuffer filtersBuffer, UrlBuilder urlBuilder) {
-        String st = null;
-        if (lowerCaseQuery.indexOf("public") != -1) {
-            st = "public";
-        } else if (lowerCaseQuery.indexOf("private") != -1) {
-            st = "private";
-        } else if (lowerCaseQuery.indexOf("charter") != -1) {
-            st = "charter";
-        }
-        if (StringUtils.isNotEmpty(st)) {
-            filtersBuffer.append(" ");
-            filtersBuffer.append(st);
-            urlBuilder.setParameter(PARAM_SCHOOL_TYPE, st);
-        }
-
-        return st;
-    }
-
-    private static String determineGradeLevel(String lowerCaseQuery, StringBuffer filtersBuffer, UrlBuilder urlBuilder) {
-        String gl = null;
-        if (lowerCaseQuery.indexOf("elementary") != -1 ||
-                lowerCaseQuery.indexOf("primary") != -1) {
-            filtersBuffer.append(" elementary");
-            urlBuilder.setParameter("lc", "e");
-            gl = "elementary";
-        } else if (lowerCaseQuery.indexOf("middle") != -1 ||
-                lowerCaseQuery.indexOf("junior") != -1 ||
-                lowerCaseQuery.indexOf("jr") != -1) {
-            filtersBuffer.append(" middle");
-            urlBuilder.setParameter("lc", "m");
-            gl = "middle";
-        } else if (lowerCaseQuery.indexOf("high") != -1 ||
-                lowerCaseQuery.indexOf("senior") != -1) {
-            filtersBuffer.append(" high");
-            urlBuilder.setParameter("lc", "h");
-            gl = "high";
-        }
-        return gl;
-    }
-
 
     protected Hits searchForDistricts(BooleanQuery baseQuery) {
         BooleanQuery districtQuery = new BooleanQuery();

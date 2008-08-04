@@ -320,68 +320,6 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertEquals(kindergartenHits, results.size());
     }
 
-    /**
-     * Regression test for GS-2028
-     *
-     * @throws IOException
-     */
-    public void testPrivateRollup() throws IOException {
-        final GsMockHttpServletRequest request = getRequest();
-        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
-        final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
-
-
-        SearchCommand searchCommand = new SearchCommand();
-        searchCommand.setQ("private anchorage");
-        searchCommand.setState(State.AK);
-
-        expect(_schoolDao.countSchools(State.AK, SchoolType.PRIVATE, null, "Anchorage")).andReturn(1);
-        replay(_schoolDao);
-
-        Map map = _controller.createModel(request, searchCommand, sessionContext, false);
-
-        verify(_schoolDao);
-
-        assertNotNull(map);
-        AnchorListModel filteredAnchorListModel = (AnchorListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
-        assertNotNull(filteredAnchorListModel);
-        assertNotNull(filteredAnchorListModel.getResults());
-        assertTrue(filteredAnchorListModel.getResults().size() >= 1);
-        Anchor anchorage = (Anchor) filteredAnchorListModel.getResults().get(0);
-        assertEquals("/schools.page?city=Anchorage&st=private&state=AK", anchorage.getHref());
-    }
-
-    /**
-     * Regression test for GS-1935
-     *
-     * @throws IOException
-     */
-    public void testShouldntCrashOnMiddleSchoolQuery() throws IOException {
-        final GsMockHttpServletRequest request = getRequest();
-        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
-        final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
-
-
-        SearchCommand searchCommand = new SearchCommand();
-        searchCommand.setQ("middle anchorage");
-        searchCommand.setState(State.AK);
-
-        expect(_schoolDao.countSchools(State.AK, null, LevelCode.MIDDLE, "Anchorage")).andReturn(1);
-        replay(_schoolDao);
-
-        Map map = _controller.createModel(request, searchCommand, sessionContext, false);
-
-        verify(_schoolDao);
-
-        assertNotNull(map);
-        AnchorListModel filteredAnchorListModel = (AnchorListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
-        assertNotNull(filteredAnchorListModel);
-        assertNotNull(filteredAnchorListModel.getResults());
-        assertTrue(filteredAnchorListModel.getResults().size() >= 1);
-        Anchor anchorage = (Anchor) filteredAnchorListModel.getResults().get(0);
-        assertEquals("/schools.page?city=Anchorage&lc=m&state=AK", anchorage.getHref());
-    }
-
     public void testSendEmptyTopicQueriesToAllArticles() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setMethod("GET");

@@ -62,12 +62,6 @@
             </c:if>
         </div>
     </div>
-    <c:if test="${not empty filteredCities and not empty filteredCities.results}">
-        <c:set var="hasCityResults" value="true"/>
-        <div id="filtered" class="rollup">
-            <gsml:list model="${filteredCities}" between="&#160;|&#160;"/>
-        </div>
-    </c:if>
 
     <c:if test="${not empty cities and not empty cities.results}">
         <c:set var="hasCityResults" value="true"/>
