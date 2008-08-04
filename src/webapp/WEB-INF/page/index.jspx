@@ -218,9 +218,9 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 					<!-- Define width (and alternatively height) on .wrapper-content -->
                     <img class="heading" src="/res/img/home/tools_header.gif" alt="The Latest Tools and Advice" title="" />
                     <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter" />
-                    <div class="arrows">
-                        <jsp:include page="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list"/>
-                    </div>
+
+                    <c:import url="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list&amp;style=arrows" />
+
                     <div class="sponsor_ad"><ad:Homepage_185x28/></div>
                 </div>
 			</div>

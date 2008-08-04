@@ -46,7 +46,7 @@
         </c:when>
         <c:when test="${requestScope.modelLayout eq 'list'}">
             <c:if test="${!empty requestScope.modelAnchorList}">
-                <ul>
+                <ul class="${(not empty param.style) ? param.style : ''}">
                     <c:forEach var="anchor" items="${requestScope.modelAnchorList.results}">
                         <c:set var="url">
                             <c:out value="${anchor.href}" escapeXml="true"/>
