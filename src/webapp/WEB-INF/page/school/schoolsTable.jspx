@@ -341,12 +341,12 @@
             <c:when test="${not empty cityName}">
                 <link:city
                         city="${cityName}"
-                        state="${state}"><span class="minilink">View city information &gt;</span></link:city>
+                        state="${state}" styleClass="minilink">View city information &gt;</link:city>
             </c:when>
             <c:otherwise>
                 <link:districtProfile
                         districtId="${param.district}"
-                        state="${state}"><span class="minilink">View district information &gt;</span></link:districtProfile>
+                        state="${state}" styleClass="minilink">View district information &gt;</link:districtProfile>
             </c:otherwise>
         </c:choose>
     </div>

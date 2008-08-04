@@ -133,10 +133,6 @@
     padding-left: 0;
 }
 
-.minilink:hover {
-    text-decoration: underline;
-}
-
 .showAll {
     margin-left: 10px;
 }
