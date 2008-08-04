@@ -43,7 +43,7 @@
             <map>
                 <entry key="/city/**" value="/city.page"/>
                 <entry key="/schools/**" value="/schools/allInState.page"/>
-                <entry key="/preschools/**" value="/preschools/index.page"/>
+                <entry key="/preschool/**" value="/preschool/index.page"/>
             </map>
         </property>
     </bean>
@@ -805,10 +805,10 @@
         <property name="viewName" value="/content/election2008Quiz"/>
     </bean>
 
-    <bean name="/preschools/index.page"
+    <bean name="/preschool/index.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/preschools/index"/>
+        <property name="viewName" value="/preschool/index"/>
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"

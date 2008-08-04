@@ -41,31 +41,56 @@
     </div>
 
     <div>
-        <h2 id="fitnessRoutine">Making Fitness Part of Your Routine</h2>
+        <h2 id="choosingAPreschool">Choosing a Preschool</h2>
         <ul class="plain">
-            <gsweb:articlelink articleId="472" wrappingElement="li"/>
-            <gsweb:articlelink articleId="651" wrappingElement="li"/>
+            <gsweb:articlelink articleId="3596" wrappingElement="li"/>
+            <gsweb:articlelink articleId="3573" wrappingElement="li"/>
+            <gsweb:articlelink articleId="3594" wrappingElement="li"/>
+            <gsweb:articlelink articleId="3582" wrappingElement="li"/>
+        </ul>
+        <ul class="pdf">
+            <li><gsml:a href="/pdf/choosing_imagine.pdf">Preschool Interview Checklist</gsml:a></li>
+        </ul>
+        <ul>
+            <gsweb:articlelink articleId="3595" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div>
+        <h2 id="preschoolerAndLearning">Your Preschooler and Learning</h2>
+        <ul class="plain">
+            <gsweb:articlelink articleId="2324" wrappingElement="li"/>
+            <gsweb:articlelink articleId="3580" wrappingElement="li"/>
+            <gsweb:articlelink articleId="3581" wrappingElement="li"/>
+            <gsweb:articlelink articleId="2343" wrappingElement="li"/>
+            <gsweb:articlelink articleId="2456" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div>
+        <h2 id="funActivities">Fun Activities for Your Preschooler</h2>
+        <ul class="plain">
+            <gsweb:articlelink articleId="3575" wrappingElement="li"/>
+            <gsweb:articlelink articleId="582" wrappingElement="li"/>
+            <gsweb:articlelink articleId="1078" wrappingElement="li"/>
+            <gsweb:articlelink articleId="787" wrappingElement="li"/>
         </ul>
     </div>
 
     <div id="lower">
-        <h2 id="healthyEating">Healthy Eating Made Easy</h2>
+        <h2 id="gettingReady">Getting Ready for Kindergarten</h2>
         <ul class="plain">
-            <gsweb:articlelink articleId="552" wrappingElement="li"/>
-            <gsweb:articlelink articleId="330" wrappingElement="li"/>
-            <gsweb:articlelink articleId="721" wrappingElement="li"/>
-            <gsweb:articlelink articleId="339" wrappingElement="li"/>
-            <gsweb:articlelink articleId="693" wrappingElement="li"/>
-            <gsweb:articlelink articleId="517" wrappingElement="li"/>
-            <gsweb:articlelink articleId="723" wrappingElement="li"/>
-            <gsweb:articlelink articleId="750" wrappingElement="li"/>
+            <gsweb:articlelink articleId="416" wrappingElement="li"/>
+            <gsweb:articlelink articleId="1014" wrappingElement="li"/>
+            <gsweb:articlelink articleId="331" wrappingElement="li"/>
+            <gsweb:articlelink articleId="60" wrappingElement="li"/>
         </ul>
     </div>
 
     <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="askTheExperts">Ask an Expert</h3>
-        <p>Q: How Can I Help My Child With Homework?
-            <gsweb:articlelink articleId="403">Read the answer</gsweb:articlelink>
+        <p>Q: How Can I Help My Jealous Preschooler?
+            <gsweb:articlelink articleId="3586">Read the answer</gsweb:articlelink>
             </p>
     </div>
 
