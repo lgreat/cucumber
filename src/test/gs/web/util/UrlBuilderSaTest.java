@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.86 2008/08/01 18:21:11 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.87 2008/08/04 18:38:53 yfan Exp $
  */
 
 package gs.web.util;
@@ -20,6 +20,8 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Tests UrlBuilder.
@@ -519,5 +521,14 @@ public class UrlBuilderSaTest extends TestCase {
         String glossaryId = "123";
         UrlBuilder builder = new UrlBuilder(UrlBuilder.GLOSSARY_TERM, state, glossaryId);
         assertEquals("Unexpected URL for glossary term", "/cgi-bin/glossary_single/AZ/?id=123", builder.asSiteRelative(request));
+    }
+
+    public void testCityBrowseUrlBuilder() {
+        GsMockHttpServletRequest request = getMockRequest();
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.CHARTER);
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", schoolTypes, LevelCode.ELEMENTARY);
+        assertEquals("Unexpected URL", "/alaska/anchorage/public-charter/elementary-schools/", builder.asSiteRelative(request));        
     }
 }

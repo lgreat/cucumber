@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.30 2008/08/04 18:00:56 yfan Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.31 2008/08/04 18:38:53 yfan Exp $
  */
 
 package gs.web.school.performance;
@@ -174,8 +174,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
             _highSchoolsCount = highSchoolsCount;
             UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.CA, _cityName);
             _cityPageHref = builder.asSiteRelativeXml(null);
-            builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY);
-            builder.setPath(SchoolsController.createNewCityBrowseURI(State.CA, _cityName, new HashSet<SchoolType>(), null));
+            builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.CA, _cityName, new HashSet<SchoolType>(), null);
             _schoolsPageUrl = builder.asSiteRelativeXml(null);
 
             // set _city

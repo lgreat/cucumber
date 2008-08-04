@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.117 2008/08/04 18:00:56 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.118 2008/08/04 18:38:53 yfan Exp $
  */
 
 package gs.web.util;
@@ -9,11 +9,13 @@ import gs.data.content.Article;
 import gs.data.geo.ICity;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.web.util.list.Anchor;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
+import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -446,6 +448,17 @@ public class UrlBuilder {
             _path = "/mySchoolListLogin.page";
         } else if (SCHOOLS_IN_CITY.equals(page)) {
             _path = "";
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
+    public UrlBuilder(VPage page, State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode) {
+        _vPage = page;
+        _perlPage = false;
+
+        if (SCHOOLS_IN_CITY.equals(page)) {
+            _path = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

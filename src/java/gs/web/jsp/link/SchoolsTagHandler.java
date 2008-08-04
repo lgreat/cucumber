@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.11 2008/08/04 18:00:56 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.12 2008/08/04 18:38:53 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -37,13 +37,12 @@ public class SchoolsTagHandler extends LinkTagHandler {
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder;
         if (StringUtils.isNotEmpty(_cityName)) {
-            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY);
-            Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
             LevelCode levelCode = null;
-
             if (StringUtils.isNotBlank(_levelCode)) {
                 levelCode = LevelCode.createLevelCode(_levelCode);
             }
+
+            Set<SchoolType> schoolTypes = new HashSet<SchoolType>();            
             if (StringUtils.isNotBlank(_schoolType)) {
                 StringTokenizer tok = new StringTokenizer(_schoolType, ",");
                 while (tok.hasMoreTokens()) {
@@ -52,7 +51,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
                 }
             }
 
-            urlBuilder.setPath(SchoolsController.createNewCityBrowseURI(getState(), _cityName, schoolTypes, levelCode));
+            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, getState(), _cityName, schoolTypes, levelCode);
         } else {
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT, getState(), "");
             urlBuilder.setParameter(SchoolsController.PARAM_DISTRICT, String.valueOf(_districtId));
