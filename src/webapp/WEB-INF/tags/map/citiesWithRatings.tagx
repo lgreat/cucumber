@@ -158,7 +158,7 @@ function ${functionName}() {
                      gs.data.geo.ICity c = (gs.data.geo.ICity)request.getAttribute("city");
                      UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, c.getState(), c.getName());
                      request.setAttribute("cityPageUrl", urlBuilder.asSiteRelative(request));
-                     urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
+                     urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY);
                      <![CDATA[
                      urlBuilder.setPath(SchoolsController.createNewCityBrowseURI(c.getState(), c.getName(), new HashSet <SchoolType>(), null));
                      ]]>

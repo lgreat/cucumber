@@ -1,12 +1,11 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.10 2008/08/04 17:58:22 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.11 2008/08/04 18:00:56 yfan Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.geo.ICity;
-import gs.data.state.State;
 import gs.data.school.SchoolType;
 import gs.data.school.LevelCode;
 import gs.web.util.UrlBuilder;
@@ -38,7 +37,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder;
         if (StringUtils.isNotEmpty(_cityName)) {
-            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
+            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY);
             Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
             LevelCode levelCode = null;
 

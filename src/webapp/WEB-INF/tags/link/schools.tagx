@@ -12,7 +12,7 @@
         <![CDATA[
             UrlBuilder builder;
             if (!StringUtils.isBlank(uri)) {
-                builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
+                builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY);
                 builder.setPath(uri);
             } else {
                 builder = new UrlBuilder(request, "/schools.page");

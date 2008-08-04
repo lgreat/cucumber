@@ -1,18 +1,16 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.116 2008/08/04 17:58:21 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.117 2008/08/04 18:00:56 yfan Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
 import gs.data.geo.ICity;
-import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.state.State;
-import gs.web.school.SchoolsController;
 import gs.web.util.list.Anchor;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
@@ -156,7 +154,7 @@ public class UrlBuilder {
 
     public static final VPage COMPARE_SCHOOL = new VPage("vpage:compareSchool");
 
-    public static final VPage SCHOOLS_IN_CITY_NEW_STYLE = new VPage("vpage:schoolsInCityNewStyle");
+    public static final VPage SCHOOLS_IN_CITY = new VPage("vpage:schoolsInCity");
     public static final VPage SCHOOLS_IN_DISTRICT = new VPage("vpage:schoolsInDistrict");
     public static final VPage SCHOOLS_IN_STATE = new VPage("vpage:schoolsInState");
 
@@ -446,7 +444,7 @@ public class UrlBuilder {
             _path = "/mySchoolList.page";
         } else if (MY_SCHOOL_LIST_LOGIN.equals(page)) {
             _path = "/mySchoolListLogin.page";
-        } else if (SCHOOLS_IN_CITY_NEW_STYLE.equals(page)) {
+        } else if (SCHOOLS_IN_CITY.equals(page)) {
             _path = "";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);

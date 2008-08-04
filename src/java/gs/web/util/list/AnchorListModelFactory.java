@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.11 2008/08/01 18:21:10 yfan Exp $
+ * $Id: AnchorListModelFactory.java,v 1.12 2008/08/04 18:00:56 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -207,7 +207,7 @@ public class AnchorListModelFactory {
                 String s = cityDoc.get("state");
                 State stateOfCity = _stateManager.getState(s);
 
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY_NEW_STYLE);
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY);
                 builder.setPath(SchoolsController.createNewCityBrowseURI(stateOfCity, cityName, new HashSet<SchoolType>(), null));
                 cityName += ", " + stateOfCity;
                 anchorListModel.add(builder.asAnchor(request, cityName));
