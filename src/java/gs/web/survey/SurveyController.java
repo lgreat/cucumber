@@ -394,12 +394,26 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
         String redirectURL;
         if (curPageIndex >= survey.getPages().size()) {
-            UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SURVEY_RESULTS);
-            StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
-            buffer.append("&level=");
-            buffer.append(level);
-            buffer.append("&thanks=true");
-            redirectURL = buffer.toString();
+            // Temporarily hard-coded for preschool surveys because the Survey Results page is
+            // not done. Redirect preschool survey takers to the school profile overview page.
+            if (survey.getId() == 10) {
+                SessionContext context = SessionContextUtil.getSessionContext(request);
+                SessionContextUtil util = context.getSessionContextUtil();
+                StringBuffer tmpMsgCookieBuffer = new StringBuffer();
+                tmpMsgCookieBuffer.append(TMP_MSG_COOKIE_PREFIX);
+                tmpMsgCookieBuffer.append(school.getDatabaseState().getAbbreviation());
+                tmpMsgCookieBuffer.append(String.valueOf(school.getId()));
+                util.setTempMsg(response, tmpMsgCookieBuffer.toString());
+                UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_PROFILE);
+                redirectURL = builder.asFullUrl(request);
+            } else {
+                UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SURVEY_RESULTS);
+                StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));
+                buffer.append("&level=");
+                buffer.append(level);
+                buffer.append("&thanks=true");
+                redirectURL = buffer.toString();
+            }
         } else {
             UrlBuilder builder = new UrlBuilder(urc.getSchool(), UrlBuilder.SCHOOL_TAKE_SURVEY);
             StringBuffer buffer = new StringBuffer(builder.asFullUrl(request));

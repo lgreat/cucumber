@@ -372,6 +372,32 @@ public class SurveyControllerTest extends BaseControllerTestCase {
                 mAndV.getViewName());
     }
 
+    public void testPreschoolOnSubmit() throws Exception {
+        UserResponseCommand urc = new UserResponseCommand();
+        urc.setUser(createUser(false));
+        School school = createSchool();
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        urc.setSchool(school);
+        Survey survey = createSurvey(3);
+        survey.setId(10);
+        urc.setSurvey(survey);
+        urc.setPage(survey.getPages().get(2));
+        BindException errors = new BindException(urc, "");
+        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
+        replay(_surveyDao);
+
+        getRequest().setParameter("level", "p");
+        getRequest().setParameter("p", "3");
+        ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+
+        assertNotNull("temp survey message cookie should be in response",
+                getResponse().getCookie("TMP_MSG"));
+        assertEquals("redirect:http://www.greatschools.net/modperl/browse_school/wy/123",
+                mAndV.getViewName());
+    }
+
     public void testOnSubmitMultiPage() throws Exception {
         UserResponseCommand urc = new UserResponseCommand();
         urc.setUser(createUser(false));

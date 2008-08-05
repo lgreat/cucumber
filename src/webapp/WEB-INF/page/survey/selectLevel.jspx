@@ -54,7 +54,12 @@
                             <c:forEach var="level" items="${school.levelCode.individualLevelCodes}" varStatus="count">
                                 <li class="answer-list-item">
                                     <form:radiobutton path="level" value="${level.name}" id="r${level.name}" cssStyle="radio"/>
-                                    <label for="r${level.name}">${level.longName} School</label>
+                                    <label for="r${level.name}">
+                                        ${level.longName}
+                                        <c:if test="${level.name ne 'p'}">
+                                            School
+                                        </c:if>
+                                    </label>
                                     <c:if test="${count.index == 0}"><form:errors path="level" cssClass="error"/></c:if>
                                 </li>
                             </c:forEach>
