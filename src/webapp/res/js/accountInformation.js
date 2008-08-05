@@ -1,3 +1,21 @@
+function determinePageState() {
+    var elements;
+    var i;
+    if ($('other').checked || $('numStudents').value == 0) {
+        $('parentAmbassadorLine').hide();
+        elements = document.getElementsByClassName("childSchools");
+        for (i=0; i < elements.size(); i++) {
+            Element.extend(elements[i]).hide();
+        }
+    } else {
+        $('parentAmbassadorLine').show();
+        elements = document.getElementsByClassName("childSchools");
+        for (i=0; i < elements.size(); i++) {
+            Element.extend(elements[i]).show();
+        }
+    }
+}
+
 function profileStateChange(stateSelect) {
     var url = 'accountInformationAjax.page';
     var pars = 'state=' + stateSelect.value;

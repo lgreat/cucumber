@@ -115,7 +115,8 @@ li.header a .strong {
 
 #outline ul li.child span.changeLinks {
     position: absolute;
-    right: 0;
+    /*right: 0;*/
+    left: 332px;
 }
 
 #outline ul li.child .secondLine {

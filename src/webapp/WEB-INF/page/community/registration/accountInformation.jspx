@@ -27,12 +27,13 @@
           ]]>
       </jsp:scriptlet>
       <ad:setSlotPrefix slotPrefix="Community"/>
+      <pageHelper:addOnLoadHandler handler="determinePageState()"/>      
   </head>
   <gsml:body adPageName="accountInformation">
       <div id="outline"><!-- creates darker blue outer outline -->
           <h2><span>Update My Account</span><a href="${dashboardUrl}">Go to my dashboard &gt;</a></h2>
           <form:form>
-              <form:errors path="*" cssClass="errorBox" />
+              <input type="hidden" name="numStudents" id="numStudents" value="${command.numStudents}"/>
               <ul>
                   <li class="header">
                       <label>About Me</label>
@@ -68,22 +69,19 @@
                       </form:errors>
                   </li>
 
-                  <li class="header">
+                  <li class="header childSchools">
                       <label>My Children's Schools</label>
-                      <a class="addChild" href="#" onclick="return false;"><span class="strong">+</span> Add another child</a>
+                      <!--<a class="addChild" href="#" onclick="return false;"><span class="strong">+</span> Add another child</a>-->
                   </li>
 
                   <!-- Default to always show one row TODO: ?? -->
                   <c:forEach var="child" items="${command.students}" varStatus="loopStatus">
                       <c:set var="childNum" value="${loopStatus.index+1}"/>
-                      <li class="child">
+                      <li class="child childSchools">
                           <label>Child #${childNum}:</label>
                           <label id="location${childNum}" class="childCity">
                               <span id="cityText${childNum}">${child.city}</span>,
                               <span id="stateText${childNum}">${child.state}</span>
-                              <!--<input id="state${childNum}" type="hidden" name="state${childNum}"-->
-                                     <!--value="${child.state}"/>-->
-                              <!--<input id="city${childNum}" type="hidden" name="city${childNum}" value="${child.city}"/>-->
                           </label>
                           <span id="chooseLocation${childNum}" style="display: none;">
                               <span id="citySelectDiv${childNum}">
@@ -99,8 +97,8 @@
                                            onchange="childStateChange(this, ${childNum});"/>
                           </span>
                           <span class="changeLinks">
-                              <a id="changeLocationToggle${childNum}" href="#" onclick="changeLocationToggle(${childNum}); return false;">Change city</a> |
-                              <a href="#" onclick="return false;">Remove child's information</a>
+                              <a id="changeLocationToggle${childNum}" href="#" onclick="changeLocationToggle(${childNum}); return false;">Change city</a>
+                              <!--| <a href="#" onclick="return false;">Remove child's information</a>-->
                           </span>
                           
                           <label class="grade secondLine">Grade</label>
@@ -124,7 +122,6 @@
                                   <form:errors path="students[${childNum-1}]" element="span"/>
                               </div>
                           </form:errors>
-
                       </li>
                   </c:forEach>
 

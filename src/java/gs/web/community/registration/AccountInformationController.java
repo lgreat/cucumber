@@ -163,7 +163,7 @@ public class AccountInformationController extends SimpleFormController implement
         if (StringUtils.isEmpty(getSuccessView())) {
             String redirectUrl = "redirect:http://" +
                 SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                "/dashboard";
+                "/dashboard?msg=B5B3-2863-F4CD-6C77";
             setSuccessView(redirectUrl);
         }
 
@@ -203,8 +203,8 @@ public class AccountInformationController extends SimpleFormController implement
         // saves gender, state, city, students
         _userDao.saveUser(user);
 
-        //return new ModelAndView(getSuccessView());
-        return new ModelAndView("redirect:accountInformation.page");
+        return new ModelAndView(getSuccessView());
+//        return new ModelAndView("redirect:accountInformation.page");
     }
 
     protected void addParentAmbassadorSubscriptions(List<AccountInformationCommand.StudentCommand> students, User user) {
