@@ -328,7 +328,10 @@
         <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
         <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
         <div id="YahooRealEstateLink">
-            <b>Are you relocating?</b> Learn about <link:movingWithKids>Moving With Kids</link:movingWithKids> | Read our <link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter> | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
+            <b>Are you relocating?</b> Learn about <link:movingWithKids>Moving With Kids</link:movingWithKids> | Read our <link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter>
+            <c:if test="${school.levelCode ne 'p'}">
+                | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
+            </c:if>
         </div>
     </c:if>
 
