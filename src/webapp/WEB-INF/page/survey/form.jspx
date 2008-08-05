@@ -364,9 +364,14 @@
                 </div>
             </div>
 
-            <c:if test="${userResponseCommand.NLPromoShown and (school.type.name eq 'public')}">
+            <c:if test="${userResponseCommand.NLPromoShown and (school.type.name eq 'public') and (param.level ne 'p')}">
                 <form:checkbox path="NLSignUpChecked" /> Yes, please send my monthly stats and updates about ${school.name}<br/>
             </c:if>
+
+            <c:if test="${userResponseCommand.NLPromoShown and (param.level eq 'p')}">
+                <form:checkbox path="NLSignUpChecked" /> Yes, please sign me up for the Parent Advisor newsletter<br/>
+            </c:if>
+
             <form:checkbox path="terms" cssClass="terms" /> I accept the <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">GreatSchools Terms of Use</link:termsOfUse>
             <form:errors path="terms" >
                 <span class="error">Please accept our terms of use.</span>

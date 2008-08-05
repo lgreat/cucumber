@@ -374,7 +374,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         //does this user want an email newsletter?
         if (urc.isNLSignUpChecked()) {
             Subscription sub;
-            if (SchoolType.PRIVATE.equals(school.getType())) {
+            if (SchoolType.PRIVATE.equals(school.getType()) || LevelCode.Level.PRESCHOOL_LEVEL.equals(urc.getLevel())) {
                 sub = new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, school.getDatabaseState());
             } else {
                 sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);

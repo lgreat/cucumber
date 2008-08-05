@@ -142,7 +142,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
         if (null == _user) {
             return true;
         } else {
-            if (SchoolType.PRIVATE.equals(_school.getType())) {
+            if (SchoolType.PRIVATE.equals(_school.getType()) || LevelCode.PRESCHOOL.equals(getLevel())) {
                 Subscription sub = _user.findSubscription(SubscriptionProduct.PARENT_ADVISOR);
                 return sub == null;
             } else {
