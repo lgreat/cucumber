@@ -1,7 +1,7 @@
 function determinePageState() {
     var elements;
     var i;
-    if ($('other').checked || $('numStudents').value == 0) {
+    if ($('numStudents').value == 0) {
         $('parentAmbassadorLine').hide();
         elements = document.getElementsByClassName("childSchools");
         for (i=0; i < elements.size(); i++) {
