@@ -2123,6 +2123,23 @@
             <description>CSS class name(s)</description>
         </attribute>
     </tag>
+
+    <tag>
+        <name>preschool</name>
+        <tag-class>gs.web.jsp.link.microsite.PreschoolTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Preschool Microsite Page</display-name>
+        <description>
+            <![CDATA[Link to Preschool microsite page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
     <tag>
         <name>stateStandards</name>
         <tag-class>gs.web.jsp.link.microsite.StateStandardsTagHandler</tag-class>

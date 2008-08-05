@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.87 2008/08/04 18:38:53 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.88 2008/08/05 18:13:38 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -15,8 +15,6 @@ import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -29,7 +27,6 @@ import java.util.Set;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class UrlBuilderSaTest extends TestCase {
-    private static final Log _log = LogFactory.getLog(UrlBuilderSaTest.class);
 
     private GsMockHttpServletRequest getMockRequest() {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
@@ -490,6 +487,9 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.STATE_STANDARDS);
         assertEquals("/content/stateStandards.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.PRESCHOOL);
+        assertEquals("/preschool/", builder.asSiteRelative(request));        
     }
 
     public void testAdminPages() {

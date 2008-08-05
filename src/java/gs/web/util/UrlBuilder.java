@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.118 2008/08/04 18:38:53 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.119 2008/08/05 18:13:38 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -206,6 +206,7 @@ public class UrlBuilder {
     public static final VPage BACK_TO_SCHOOL = new VPage("vpage:backToSchool");
     public static final VPage TUTORING = new VPage("vpage:tutoring");
     public static final VPage TRAVEL = new VPage("vpage:travel");
+    public static final VPage PRESCHOOL = new VPage("vpage:preschool");
 
     /** test score landing page */
     public static final VPage TEST_SCORE_LANDING = new VPage("vpage:testScoreLanding");
@@ -448,6 +449,8 @@ public class UrlBuilder {
             _path = "/mySchoolListLogin.page";
         } else if (SCHOOLS_IN_CITY.equals(page)) {
             _path = "";
+        } else if (PRESCHOOL.equals(page)) {
+            _path = "/preschool/";            
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
