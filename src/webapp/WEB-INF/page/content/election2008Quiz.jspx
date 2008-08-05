@@ -62,29 +62,44 @@
                     }
 
                     if (MM_FlashCanPlay) {
-                        // c.swf does flash detection
-                        // TODO GS-6805: Replace href, img src
-                        var backToSchoolResource = '/res/swf/c?path=/res/swf/edin08_sasquiz.swf';
+                        var resource = 'http://www.edin08.com/flash/sasquiz';
 
-                        AC_FL_RunContent(
+                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
                                 'width', '540',
                                 'height', '335',
-                                'src', backToSchoolResource,
+                                'src', resource,
                                 'quality', 'high',
                                 'wmode', 'transparent',
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
-                                'movie', backToSchoolResource);
+                                'id', 'sasquiz',
+                                'name', 'sasquiz',
+                                'flashvars', 'VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf',
+                                'movie', resource);
                     } else {
-                        document.write('<a href="http://www.edin08.com/uploadedFiles/FAQs/SAS_DataSources.pdf"><img src="/res/img/content/election2008/startling_stat_standin.jpg" alt="Startling Stat"/></a>');
+                        document.write('<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="540" height="335">');
+                        document.write('<param name="movie" value="http://www.edin08.com/flash/sasquiz.swf"/>');
+                        document.write('<param name="quality" value="high"/>');
+                        document.write('<param name="bgcolor" value="#ffffff"/>');
+                        document.write('<param name="flashvars" value="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf"/>');
+                        document.write('<embed type="application/x-shockwave-flash" src="http://www.edin08.com/flash/sasquiz.swf" id="sasquiz" name="sasquiz" bgcolor="#ffffff" quality="high" wmode="transparent"');
+                        document.write('flashvars="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf" height="335" width="540"></embed>');
+                        document.write('</object>');
                     }
                     -->
                 </script>
                 <noscript>
-                    <!-- TODO GS-6805: Replace href, img src -->
-                    <a href="http://www.edin08.com/uploadedFiles/FAQs/SAS_DataSources.pdf">
-                        <img src="/res/img/content/election2008/startling_stat_standin.jpg" alt="Startling Stat"/>
-                    </a>
+                  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="540" height="335">
+                    <param name="movie" value="http://www.edin08.com/flash/sasquiz.swf">
+                    <param name="quality" value="high">
+                    <param name="bgcolor" value="#ffffff">
+                    <param name="flashvars" value="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf">
+                    <embed type="application/x-shockwave-flash"
+                      src="http://www.edin08.com/flash/sasquiz.swf" id="sasquiz"
+                      name="sasquiz" bgcolor="#ffffff" quality="high" wmode="transparent"
+                      flashvars="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf" height="335" width="540"></embed>
+                  </object>
                 </noscript>
                 ]]>
         </div>
