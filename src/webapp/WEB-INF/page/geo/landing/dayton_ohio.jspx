@@ -32,15 +32,15 @@
     </jsp:scriptlet>
     <script type="text/javascript" language="JavaScript">
         function gotoDaytonCityPage() {
-            window.location.href = 'http://www.greatschools.net/city/Dayton/OH';
+            window.location.href = '/city/Dayton/OH';
         }
         function gotoDaytonSchoolsPage() {
             var level = document.getElementById('findAllLevel').value;
-            var url = "http://www.greatschools.net/ohio/dayton/" + level + "/";
+            var url = "/ohio/dayton/" + level + "/";
             window.location.href = decodeURIComponent(url);
         }
         function gotoComparePage() {
-            var url = "http://www.greatschools.net/cgi-bin/cs_compare/oh/?sortby=distance%26tab=over%26area=m%26zip=";
+            var url = "/cgi-bin/cs_compare/oh/?sortby=distance%26tab=over%26area=m%26zip=";
             url += document.getElementById('zip').value;
             url += "%26miles=";
             url += document.getElementById('miles').value;

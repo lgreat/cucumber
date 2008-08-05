@@ -32,15 +32,15 @@
     </jsp:scriptlet>
     <script type="text/javascript">
         function gotoMilwaukeeCityPage() {
-            window.location.href = 'http://www.greatschools.net/city/Milwaukee/WI';
+            window.location.href = '/city/Milwaukee/WI';
         }
         function gotoMilwaukeeSchoolsPage() {
             var level = document.getElementById('findAllLevel').value;
-            var url = "http://www.greatschools.net/wisconsin/milwaukee/" + level + "/";
+            var url = "/wisconsin/milwaukee/" + level + "/";
             window.location.href = decodeURIComponent(url);
         }
         function gotoComparePage() {
-            var url = "http://www.greatschools.net/cgi-bin/cs_compare/wi/?sortby=distance%26tab=over%26area=m%26zip=";
+            var url = "/cgi-bin/cs_compare/wi/?sortby=distance%26tab=over%26area=m%26zip=";
             url += document.getElementById('zip').value;
             url += "%26miles=";
             url += document.getElementById('miles').value;
