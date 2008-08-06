@@ -95,12 +95,6 @@
             var rppOptionAll = document.getElementById('rppOptionAll');
 
             var reloadUrl;
-            /*
-            reloadUrl += '&state=' + state;
-            if (levelCode.length > 0) {
-                reloadUrl += '&lc=' + levelCode;
-            }
-            */
             if (city != '') {
                 reloadUrl = '${cityBrowseUriRoot}';
 
