@@ -50,7 +50,7 @@ ClickCapture.prototype.getData = function (){
  */
 ClickCapture.prototype.clearData = function (){
     //alert("clearData()");
-    subCookie.setObject(this.cookieName, new Array()) ;
+    subCookie.setObject(this.cookieName) ;
 };
 
 

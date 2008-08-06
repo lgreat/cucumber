@@ -29,7 +29,8 @@ var subCookie = {
         }
 
         var pairs =  cookieValue.split(subCookie.subcookieSeparator);
-        var result = new Array();
+        //var result = new Array();  // fails with prototype lib loaded
+        var result = {};
 
         //var debug = "";
         for (var i = 0; i < pairs.length; i++ )    {
@@ -51,11 +52,12 @@ var subCookie = {
         var cookieValue = '';
         for (var property in subcookieObj)
         {
-			cookieValue += property + subCookie.nameValueSeparator;
-			cookieValue += subcookieObj[property];
-            cookieValue += subCookie.subcookieSeparator;
+            if (cookieValue.length > 0){
+                cookieValue += subCookie.subcookieSeparator;
+            }
+            cookieValue += property + subCookie.nameValueSeparator;
+			cookieValue += subcookieObj[property];            
 		}
-		cookieValue = cookieValue.substring(0,cookieValue.length-subCookie.subcookieSeparator.length);
 		createCookie(cookieName,cookieValue,days);
 	},
 
