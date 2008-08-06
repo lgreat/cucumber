@@ -110,6 +110,11 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
             School schoolNotListed = getSurveyDao().getSchoolNotListed();
 
+            if (LevelCode.Level.PRESCHOOL_LEVEL.equals(surveyLevel)) {
+                nextSchools = buildSchoolList(urc, LevelCode.Level.ELEMENTARY_LEVEL, true);
+                nextLevel = LevelCode.Level.ELEMENTARY_LEVEL;
+            }
+
             if (LevelCode.Level.ELEMENTARY_LEVEL.equals(surveyLevel)) {
                 previousSchools.add(getSurveyDao().getDefaultNextPrevSchool());
                 previousSchools.addAll(getSurveyDao().getBeforeESOptions());
