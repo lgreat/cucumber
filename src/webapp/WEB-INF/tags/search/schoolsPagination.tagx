@@ -23,10 +23,10 @@
     <c:choose>
         <c:when test="${resultCount gt pageSize}">
             <div id="pagination">
+                <link:schools uri="${uri}" styleClass="page showAll noInterstitial" showAll="1">Show all &amp;gt;</link:schools>
                 <c:if test="${currentPage gt 1}">
-                    <link:schools uri="${uri}" styleClass="page" page="${currentPage - 1}">&lt; Previous</link:schools><span class="divider">|</span>
+                    <link:schools uri="${uri}" styleClass="page" page="${currentPage - 1}">&amp;lt; Previous</link:schools><span class="divider">|</span>
                 </c:if>
-                <link:schools uri="${uri}" styleClass="page showAll noInterstitial" showAll="1">Show all ></link:schools>
                 <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
                     <c:choose>
                         <c:when test="${count eq currentPage}">
@@ -39,7 +39,7 @@
                 </c:forEach>
 
                 <c:if test="${currentPage lt end}">
-                    <span class="divider">|</span><link:schools uri="${uri}" styleClass="page" page="${currentPage + 1}">Next &gt;</link:schools>
+                    <span class="divider">|</span><link:schools uri="${uri}" styleClass="page" page="${currentPage + 1}">Next &amp;gt;</link:schools>
                 </c:if>
             </div>
         </c:when>
