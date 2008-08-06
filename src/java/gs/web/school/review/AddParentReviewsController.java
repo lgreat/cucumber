@@ -11,7 +11,7 @@ import gs.data.util.email.EmailHelperFactory;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
-import gs.web.util.context.SubCookie;
+import gs.web.tracking.OmnitureSuccessEvent;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -69,6 +69,8 @@ public class AddParentReviewsController extends SimpleFormController implements 
                                  Object command,
                                  BindException errors) throws Exception {
 
+        OmnitureSuccessEvent omnitureSuccessEvent = new OmnitureSuccessEvent(request, response);
+
         ReviewCommand rc = (ReviewCommand) command;
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
         User user = getUserDao().findUserFromEmailIfExists(rc.getEmail());
@@ -92,7 +94,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
         if (rc.isWantMssNL() && !user.hasReachedMaximumMssSubscriptions()) {
             Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school.getDatabaseState());
             sub.setSchoolId(school.getId());
-            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureSuccessEvent);
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
 
@@ -124,24 +126,14 @@ public class AddParentReviewsController extends SimpleFormController implements 
         }
 
 
-        String omnitureEvents = "";
         //trigger the success events
-        if (CategoryRating.DECLINE_TO_STATE.equals(rc.getOverall()) || null == rc.getOverall()) {
-            // no joy
-        } else {
-            // set the parent rating success event!
-            omnitureEvents += "event8;";
+        if (userRatedOneOrMoreCategories(rc)){
+            omnitureSuccessEvent.add(OmnitureSuccessEvent.SuccessEvent.ParentRating);
         }
 
         if (StringUtils.isNotBlank(rc.getComments())) {
-            omnitureEvents += "event9;";
-
+            omnitureSuccessEvent.add(OmnitureSuccessEvent.SuccessEvent.ParentReview);
         }
-        if (omnitureEvents.length() > 0)    {
-            SubCookie subCookie = new SubCookie(request, response);
-            subCookie.setProperty("events",omnitureEvents);
-        }
-
 
         if (isAjaxPage()) {
             successJSON(response);
@@ -151,6 +143,24 @@ public class AddParentReviewsController extends SimpleFormController implements 
             mAndV.setViewName(getSuccessView());
             return mAndV;
         }
+    }
+
+    protected static boolean userRatedOneOrMoreCategories(ReviewCommand rc){
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getActivities()) && null != rc.getActivities()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getOverall()) && null != rc.getOverall()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getParent()) && null != rc.getParent()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPrincipal()) && null != rc.getPrincipal()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getSafety()) && null != rc.getSafety()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getTeacher()) && null != rc.getTeacher()) return true;
+
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPProgram()) && null != rc.getPProgram()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPOverall()) && null != rc.getPOverall()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPParents()) && null != rc.getPParents()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPTeachers()) && null != rc.getPTeachers()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPSafety()) && null != rc.getPSafety()) return true;
+        if (!CategoryRating.DECLINE_TO_STATE.equals(rc.getPFacilities()) && null != rc.getPFacilities()) return true;
+       
+        return false;
     }
 
     protected Review createOrUpdateReview(final User user, final School school,

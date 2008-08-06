@@ -17,7 +17,7 @@ import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.SubCookie;
+import gs.web.tracking.OmnitureSuccessEvent;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -333,6 +333,8 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command,
                                     BindException errors) throws Exception {
         UserResponseCommand urc = (UserResponseCommand) command;
+        _log.info("onSubmit()");
+        OmnitureSuccessEvent omnitureSuccessEvent = new OmnitureSuccessEvent(request, response);
 
         User user = urc.getUser();
         boolean isExistingUser = true;
@@ -354,15 +356,6 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         //user needs to have been populated before call to getResponses
         List<UserResponse> responses = urc.getResponses();
 
-        /**
-         * Omniture Success Event10
-         * When the user successuflly completes the first page and answers on question
-         * set the events with Event10.
-         */
-        if (getPageIndexFromRequest(request) == 1 && responses.size() > 3 ){
-            SubCookie subCookie = new SubCookie(request, response);
-            subCookie.setProperty("events","event10;");
-        }
 
         if (isExistingUser) {
             if (!_surveyDao.hasTakenASurvey(user, school)) {
@@ -384,7 +377,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             } else {
                 sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);
             }
-            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureSuccessEvent);
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
 
@@ -392,7 +385,14 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
         SurveyPage sp = urc.getPage();
 
         int curPageIndex = sp.getIndex();
-
+        /**
+         * Omniture Success Event10
+         * When the user successuflly completes the first page and answers on question
+         * set the events with Event10.
+         */
+        if (curPageIndex == 1 && responses.size() > 3 ){
+            omnitureSuccessEvent.add(OmnitureSuccessEvent.SuccessEvent.ParentSurvey);
+        }
 
         String level = request.getParameter("level");
         checkSubmitCount(school, level, sp.getId(), request);

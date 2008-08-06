@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.io.UnsupportedEncodingException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,6 +37,7 @@ public class SubCookie {
 
 
     public SubCookie(HttpServletRequest request, HttpServletResponse response){
+        _log.info("SubCookie");
         this.request = request;
         this.response = response;
         readCookie();
@@ -91,9 +93,8 @@ public class SubCookie {
         } else {
             generator.setCookieDomain(".greatschools.net");
         }
-        
-        generator.addCookie(response,cookieValue);
         _log.info("setting omniture cookie: " + cookieValue + ", " + generator.getCookieName() + ", " + generator.getCookieDomain());
+        generator.addCookie(response,cookieValue);
     }
 
     protected static String encodeProperties(Map<String, String> props) {
@@ -113,22 +114,46 @@ public class SubCookie {
     }
 
     protected static Map<String, String> decodeProperties(Cookie cookie) {
-         _log.info("SubCookie.decodeProperties: " + cookie.getValue());
-      
-        Map<String, String> decodedProperties = new HashMap<String, String>();
         String value = cookie.getValue();
+        Map<String, String> decodedProperties = new HashMap<String, String>();
+
+        _log.info("SubCookie.decodeProperties: " + value);
+
+
+        try {
+            value = URLDecoder.decode(value, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            _log.warn("Unable to decode cookie");
+        }
+
+        _log.debug("URLDecoded value: " + value);
+
+        if (value == null || value.equals("")){
+            _log.debug("early departure, cookie value is: " + value);
+            return decodedProperties;    
+        }
+
         String[] keyValuePairs = value.split(subcookieSeparatorRegEx);
 
-        if (keyValuePairs == null || value.equals("")){
+        if (keyValuePairs == null ){
+            _log.debug("early departure, keyValuePairs is: null");
             return decodedProperties;
         }
 
         for(String keyValuePair: keyValuePairs){
             String[] pair = keyValuePair.split(nameValueSeparatorRegEx);
+
             if( pair.length == 2) {
+                _log.debug(pair[0] + ", " + pair[1]);
                 decodedProperties.put(pair[0], pair[1]);
-            } // otherwise throw an exception?
+            }else{
+                _log.error("Didn't expect an non pair: length = " + pair.length );
+                for (String s : pair){
+                    _log.error(s);
+                }
+            }
         }
+        _log.debug("normal exit");
         return decodedProperties;
     }
 }
