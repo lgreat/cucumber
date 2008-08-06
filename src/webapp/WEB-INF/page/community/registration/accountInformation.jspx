@@ -27,12 +27,12 @@
           ]]>
       </jsp:scriptlet>
       <ad:setSlotPrefix slotPrefix="Community"/>
-      <pageHelper:addOnLoadHandler handler="determinePageState()"/>      
+      <pageHelper:addOnLoadHandler handler="determinePageState()"/>
   </head>
   <gsml:body adPageName="accountInformation">
       <div id="outline"><!-- creates darker blue outer outline -->
           <h2><span>Update My Account</span><a href="${dashboardUrl}">Go to my dashboard &gt;</a></h2>
-          <form:form>
+          <form:form name="accountForm">
               <input type="hidden" name="numStudents" id="numStudents" value="${command.numStudents}"/>
               <ul>
                   <li class="header">
@@ -40,9 +40,9 @@
                   </li>
                   <li id="genderLine">
                       <label>I'm a</label>
-                      <form:radiobutton path="gender" value="f" id="mom" cssClass="radio"/><label for="mom">Mom</label>
-                      <form:radiobutton path="gender" value="m" id="dad" cssClass="radio"/><label for="dad">Dad</label>
-                      <form:radiobutton path="gender" value="u" id="other" cssClass="radio"/><label for="other">Other</label>
+                      <form:radiobutton path="gender" value="f" id="mom" cssClass="radio" onclick="determinePageState()"/><label for="mom">Mom</label>
+                      <form:radiobutton path="gender" value="m" id="dad" cssClass="radio" onclick="determinePageState()"/><label for="dad">Dad</label>
+                      <form:radiobutton path="gender" value="u" id="other" cssClass="radio" onclick="determinePageState()"/><label for="other">Other</label>
                   </li>
 
                   <li class="header">
@@ -70,13 +70,18 @@
                   </li>
 
                   <c:set var="childStyle" value="display:inherit"/>
+                  <c:set var="childHeaderStyle" value="display:inherit"/>
                   <c:if test="${command.numStudents eq 0}">
                       <c:set var="childStyle" value="display:none"/>
+                      <c:if test="${command.gender eq 'u'}">
+                          <c:set var="childHeaderStyle" value="display:none"/>
+                      </c:if>
                   </c:if>
 
-                  <li class="header childSchools" style="${childStyle}">
+                  <li class="header" id="childSchoolHeaderRow" style="${childHeaderStyle}">
                       <label>My Children's Schools</label>
-                      <!--<a class="addChild" href="#" onclick="return false;"><span class="strong">+</span> Add another child</a>-->
+                      <a class="addChild" href="#" onclick="addChild(); return false;"><span class="strong">+</span> Add another child</a>
+                      <input type="submit" name="addChild" id="addChildSubmitButton" style="display:none"/>
                   </li>
 
                   <!-- Default to always show one row TODO: ?? -->
@@ -102,8 +107,11 @@
                                            onchange="childStateChange(this, ${childNum});"/>
                           </span>
                           <span class="changeLinks">
-                              <a id="changeLocationToggle${childNum}" href="#" onclick="changeLocationToggle(${childNum}); return false;">Change city</a>
-                              <!--| <a href="#" onclick="return false;">Remove child's information</a>-->
+                              <a id="changeLocationToggle${childNum}" href="#"
+                                 onclick="changeLocationToggle(${childNum}); return false;">Change city</a>
+                              | <a href="#" onclick="deleteChild(${childNum}); return false;">Remove child's information</a>
+                              <input type="submit" name="removeChild" value="${childNum}"
+                                     id="removeChildSubmitButton${childNum}" style="display:none"/>
                           </span>
                           
                           <label class="grade secondLine">Grade</label>

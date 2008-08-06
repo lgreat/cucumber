@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class AccountInformationCommand {
+    private StateManager _stateManager;
+
     private int _memberId;
     private String _gender;
     private State _state;
@@ -21,18 +23,16 @@ public class AccountInformationCommand {
     private String _parentAmbassador = "yes";
 
     private List<StudentCommand> _students;
-    private List<String> _schoolNames;
     private List<List<City>> _cityList;
-    private List<String> _childCity;
     private List<List<School>> _schools;
     private List<City> _profileCityList;
 
     public AccountInformationCommand() {
         _students = new ArrayList<StudentCommand>();
-        _schoolNames = new ArrayList<String>();
         _schools = new ArrayList<List<School>>();
         _cityList = new ArrayList<List<City>>();
-        _childCity = new ArrayList<String>();
+
+        _stateManager = new StateManager();
     }
 
     public int getMemberId() {
@@ -103,22 +103,6 @@ public class AccountInformationCommand {
         return getStudents().size();
     }
 
-    public void setNumStudents(int num) {
-        // ignore -- this is so JSTL treats this as a bean property
-    }
-
-    public List<String> getSchoolNames() {
-        return _schoolNames;
-    }
-
-    public void setSchoolNames(List<String> schoolNames) {
-        _schoolNames = schoolNames;
-    }
-
-    public void addSchoolName(String name) {
-        getSchoolNames().add(name);
-    }
-
     public List<List<School>> getSchools() {
         return _schools;
     }
@@ -140,28 +124,11 @@ public class AccountInformationCommand {
     }
 
     public List<State> getStateList() {
-        StateManager stateManager = new StateManager();
-        return stateManager.getListByAbbreviations();
-    }
-
-    public void setStateList(List<State> stateList) {
-        // ignore -- this is so JSTL treats this as a bean property
+        return _stateManager.getListByAbbreviations();
     }
 
     public List<Grade> getGradeList() {
         return Grades.createGrades(Grade.KINDERGARTEN, Grade.G_12).asList();
-    }
-
-    public void setGradeList(List<Grade> gradeList) {
-        // ignore -- this is so JSTL treats this as a bean property
-    }
-
-    public List<String> getChildCity() {
-        return _childCity;
-    }
-
-    public void setChildCity(List<String> childCity) {
-        _childCity = childCity;
     }
 
     protected static class StudentCommand {

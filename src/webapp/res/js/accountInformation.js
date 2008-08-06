@@ -7,6 +7,11 @@ function determinePageState() {
         for (i=0; i < elements.size(); i++) {
             Element.extend(elements[i]).hide();
         }
+        if ($('other').checked) {
+            $('childSchoolHeaderRow').hide();
+        } else {
+            $('childSchoolHeaderRow').show();
+        }
     } else {
         $('parentAmbassadorLine').show();
         elements = document.getElementsByClassName("childSchools");
@@ -104,4 +109,12 @@ function changeLocationToggle(childNum) {
     } else {
         $('changeLocationToggle' + childNum).innerHTML = 'Change city';
     }
+}
+
+function addChild() {
+    $('addChildSubmitButton').click();
+}
+
+function deleteChild(childNum) {
+    $('removeChildSubmitButton' + childNum).click();
 }

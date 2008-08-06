@@ -50,25 +50,38 @@ public class AccountInformationController extends SimpleFormController implement
             command.setState(user.getUserProfile().getState());
             command.setCity(user.getUserProfile().getCity());
 
-            List<Student> students = new ArrayList<Student>(user.getStudents());
-            Collections.sort(students, new StudentComparator());
-            for (Student student: students) {
-                AccountInformationCommand.StudentCommand studentCommand = new AccountInformationCommand.StudentCommand();
-                studentCommand.setState(student.getState());
-                studentCommand.setGrade(student.getGrade());
-                if (student.getSchoolId() != null) {
-                    School school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
-                    studentCommand.setCity(school.getCity());
-                    studentCommand.setSchoolId(student.getSchoolId());
-                } else {
-                    // if no school with child, use city/state from user
-                    studentCommand.setCity(command.getCity());
-                    studentCommand.setState(command.getState());
+            // when it's not a form submission, then load the student info from the database
+            if (!isFormSubmission(request)) {
+                List<Student> students = new ArrayList<Student>(user.getStudents());
+                Collections.sort(students, new StudentComparator());
+                for (Student student: students) {
+                    AccountInformationCommand.StudentCommand studentCommand =
+                            new AccountInformationCommand.StudentCommand();
+                    studentCommand.setState(student.getState());
+                    studentCommand.setGrade(student.getGrade());
+                    if (student.getSchoolId() != null) {
+                        School school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
+                        studentCommand.setCity(school.getCity());
+                        studentCommand.setSchoolId(student.getSchoolId());
+                    } else {
+                        // if no school with child, use city/state from user
+                        studentCommand.setCity(command.getCity());
+                        studentCommand.setState(command.getState());
+                    }
+                    command.addStudentCommand(studentCommand);
                 }
-                command.addStudentCommand(studentCommand);
+            } else {
+                // when it is a form submission, just let the binding pull the student info from the request
+                if (request.getParameter("numStudents") != null) {
+                    int numStudents = Integer.valueOf(request.getParameter("numStudents"));
+                    for (int x=0; x < numStudents; x++) {
+                        command.addStudentCommand(new AccountInformationCommand.StudentCommand());
+                    }
+                }
             }
 
-            List<Subscription> parentAmbassadorSubs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PARENT_CONTACT);
+            List<Subscription> parentAmbassadorSubs = _subscriptionDao.getUserSubscriptions
+                    (user, SubscriptionProduct.PARENT_CONTACT);
             if (parentAmbassadorSubs != null && parentAmbassadorSubs.size() > 0) {
                 command.setParentAmbassador("yes");
             } else {
@@ -116,23 +129,23 @@ public class AccountInformationController extends SimpleFormController implement
      */
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
         super.onBindAndValidate(request, commandObj, errors);
-
         AccountInformationCommand command = (AccountInformationCommand) commandObj;
 
-        int counter = 0;
-
-        if (StringUtils.isBlank(command.getCity())) {
-            errors.rejectValue("city", null, "Please select your city.");
-        }
-        for (AccountInformationCommand.StudentCommand student: command.getStudents()) {
-            Grade grade = student.getGrade();
-            int schoolId = student.getSchoolId();
-            if (StringUtils.isBlank(student.getCity())) {
-                errors.rejectValue("students[" + counter + "]", null, "Please select your child's city.");
-            } else if (grade == null || schoolId == -2) {
-                errors.rejectValue("students[" + counter + "]", null, "Please select your child's grade and school.");
+        if (!suppressValidation(request, commandObj, errors)) {
+            if (StringUtils.isBlank(command.getCity())) {
+                errors.rejectValue("city", null, "Please select your city.");
             }
-            counter++;
+            int counter = 0;
+            for (AccountInformationCommand.StudentCommand student: command.getStudents()) {
+                Grade grade = student.getGrade();
+                int schoolId = student.getSchoolId();
+                if (StringUtils.isBlank(student.getCity())) {
+                    errors.rejectValue("students[" + counter + "]", null, "Please select your child's city.");
+                } else if (grade == null || schoolId == -2) {
+                    errors.rejectValue("students[" + counter + "]", null, "Please select your child's grade and school.");
+                }
+                counter++;
+            }
         }
     }
 
@@ -149,6 +162,29 @@ public class AccountInformationController extends SimpleFormController implement
             mAndV.setViewName("redirect:" + urlBuilder.asSiteRelative(request));
         }
         return mAndV;
+    }
+
+    protected boolean isFormChangeRequest(HttpServletRequest request) {
+        return request.getParameter("addChild") != null ||
+                request.getParameter("removeChild") != null ||
+                super.isFormChangeRequest(request);
+    }
+
+    protected void onFormChange(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
+        super.onFormChange(request, response, commandObj, errors);
+        AccountInformationCommand command = (AccountInformationCommand) commandObj;
+        if (request.getParameter("addChild") != null) {
+            AccountInformationCommand.StudentCommand studentCommand = new AccountInformationCommand.StudentCommand();
+            studentCommand.setState(command.getState());
+            studentCommand.setCity(command.getCity());
+            command.addStudentCommand(studentCommand);
+            command.addCityList(_geoDao.findCitiesByState(command.getState()));            
+        } else if (request.getParameter("removeChild") != null) {
+            // page gives it to us 1-indexed
+            int childNum = Integer.valueOf(request.getParameter("removeChild")) - 1;
+            command.getStudents().remove(childNum);
+            command.getCityList().remove(childNum);
+        }
     }
 
     /**
@@ -308,11 +344,6 @@ public class AccountInformationController extends SimpleFormController implement
     protected class StudentComparator implements Comparator<Student> {
         public int compare(Student s1, Student s2) {
             return s1.getOrder().compareTo(s2.getOrder());
-//            int gradeCompare = s1.getGrade().compareTo(s2.getGrade());
-//            if (gradeCompare != 0) {
-//                return gradeCompare;
-//            }
-//            return s1.getSchoolId().compareTo(s2.getSchoolId());
         }
     }
 }
