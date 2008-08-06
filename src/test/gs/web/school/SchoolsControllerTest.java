@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.32 2008/07/31 16:27:02 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.33 2008/08/06 22:04:38 yfan Exp $
  */
 
 package gs.web.school;
@@ -20,6 +20,7 @@ import gs.web.util.context.SessionContextUtil;
 import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.*;
 
@@ -43,6 +44,43 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _controller.setSearcher((Searcher) getApplicationContext().getBean(Searcher.BEAN_ID));
 
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
+    }
+
+    public void testHandleRequestInternalRedirects() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+
+        // old-style to new-style city browse urls
+        request.setRequestURI("/schools.page");
+        request.setParameter(SchoolsController.PARAM_CITY, "Anchorage");
+        request.setParameter("state", "AK");
+        request.setQueryString("city=Anchorage&state=AK");
+        _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
+        ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView);
+        assertEquals("/alaska/anchorage/schools/", ((RedirectView)mAndV.getView()).getUrl());
+
+        // adding trailing slash
+        request.removeAllParameters();
+        request.setQueryString(null);
+        request.setRequestURI("/alaska/anchorage");
+        mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView);
+        assertEquals("/alaska/anchorage/", ((RedirectView)mAndV.getView()).getUrl());
+
+        // adding trailing schools label
+        request.removeAllParameters();
+        request.setQueryString(null);
+        request.setRequestURI("/alaska/anchorage/");
+        mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView);
+        assertEquals("/alaska/anchorage/schools/", ((RedirectView)mAndV.getView()).getUrl());
+
+        // invalid new-style city browse request
+        request.removeAllParameters();
+        request.setQueryString(null);
+        request.setRequestURI("/alaska/anchorage/elementary/private-charter/schools/");
+        mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertEquals("status/error", mAndV.getViewName());
     }
 
     public void testIsDistrictBrowseRequest() throws Exception {
