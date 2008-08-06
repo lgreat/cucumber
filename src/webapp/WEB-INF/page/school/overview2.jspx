@@ -324,14 +324,11 @@
         </div>
     </div><!-- end: schoolOverview -->
 
-    <c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
+    <c:if test="${school.levelCode ne 'p' and not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
         <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
         <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
         <div id="YahooRealEstateLink">
-            <b>Are you relocating?</b> Learn about <link:movingWithKids>Moving With Kids</link:movingWithKids> | Read our <link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter>
-            <c:if test="${school.levelCode ne 'p'}">
-                | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
-            </c:if>
+            <b>Are you relocating?</b> Learn about <link:movingWithKids>Moving With Kids</link:movingWithKids> | Read our <link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter> | Find <gsml:a href="${yahooRealEstateURL}" target="_blank">${yahooRealEstateCity} Real Estate</gsml:a>
         </div>
     </c:if>
 
