@@ -112,7 +112,11 @@ function changeLocationToggle(childNum) {
 }
 
 function addChild() {
-    $('addChildSubmitButton').click();
+    if ($('numStudents').value < 9) {
+        $('addChildSubmitButton').click();
+    } else {
+        alert("Sorry! We can't store more than 9 children.");
+    }
 }
 
 function deleteChild(childNum) {
