@@ -184,6 +184,7 @@ public class AccountInformationController extends SimpleFormController implement
             int childNum = Integer.valueOf(request.getParameter("removeChild")) - 1;
             command.getStudents().remove(childNum);
             command.getCityList().remove(childNum);
+            command.getSchools().remove(childNum);
         }
     }
 
