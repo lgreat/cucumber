@@ -52,7 +52,6 @@
                 </div>
             </div>
 
-            codes: ${}
             <div class="question-group ${(fn:length(school.levelCode.individualLevelCodes) eq 4) ? 'question-group-pad' : ''}">
                 <h2 class="question-group-heading">${introText}</h2>
                 <form:form commandName="schoolLevelCommand">
