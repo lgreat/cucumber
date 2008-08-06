@@ -14,7 +14,7 @@
     <build>
         <directory>target</directory>
         <outputDirectory>src/webapp/WEB-INF/classes</outputDirectory>
-        <finalName>${artifactId}-${version}</finalName>
+        <finalName>${artifactId}</finalName>
         <testOutputDirectory>target/test-classes</testOutputDirectory>
         <sourceDirectory>src/java</sourceDirectory>
         <testSourceDirectory>src/test</testSourceDirectory>
