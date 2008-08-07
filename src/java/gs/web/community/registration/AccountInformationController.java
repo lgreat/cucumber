@@ -178,7 +178,8 @@ public class AccountInformationController extends SimpleFormController implement
             studentCommand.setState(command.getState());
             studentCommand.setCity(command.getCity());
             command.addStudentCommand(studentCommand);
-            command.addCityList(_geoDao.findCitiesByState(command.getState()));            
+            command.addCityList(_geoDao.findCitiesByState(command.getState()));
+            command.addSchools(new ArrayList<School>());
         } else if (request.getParameter("removeChild") != null) {
             // page gives it to us 1-indexed
             int childNum = Integer.valueOf(request.getParameter("removeChild")) - 1;
@@ -241,7 +242,6 @@ public class AccountInformationController extends SimpleFormController implement
         _userDao.saveUser(user);
 
         return new ModelAndView(getSuccessView());
-//        return new ModelAndView("redirect:accountInformation.page");
     }
 
     protected void addParentAmbassadorSubscriptions(List<AccountInformationCommand.StudentCommand> students, User user) {
@@ -340,6 +340,11 @@ public class AccountInformationController extends SimpleFormController implement
         public void setValue(Object value) {
             _grade = (Grade) value;
         }
+    }
+
+    // for unit tests
+    protected GradePropertyEditor getGradePropertyEditor() {
+        return new GradePropertyEditor();
     }
 
     protected class StudentComparator implements Comparator<Student> {
