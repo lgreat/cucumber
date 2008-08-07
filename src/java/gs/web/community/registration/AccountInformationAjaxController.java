@@ -36,16 +36,8 @@ public class AccountInformationAjaxController implements Controller {
         String city = request.getParameter("city");
         State state = _stateManager.getState(request.getParameter("state"));
         String grade = request.getParameter("grade");
-        if (grade != null) {
-            try {
-                if (city != null) {
-                    outputSchoolSelect(state, city, grade, out);
-                } else {
-                    outputCitySelect(state, out);
-                }
-            } catch (Exception e) {
-                out.print("Error retrieving results");
-            }
+        if (grade != null && city != null) {
+            outputSchoolSelect(state, city, grade, out);
         } else {
             outputCitySelect(state, out);
         }
@@ -89,6 +81,7 @@ public class AccountInformationAjaxController implements Controller {
         out.print(name);
         out.print("</option>");
     }
+    
     public IGeoDao getGeoDao() {
         return _geoDao;
     }
