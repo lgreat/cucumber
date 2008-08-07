@@ -49,7 +49,7 @@
             <gsweb:articlelink articleId="3582" wrappingElement="li"/>
         </ul>
         <ul class="pdf">
-            <li><gsml:a href="/pdf/choosing_imagine.pdf">Preschool Interview Checklist</gsml:a></li>
+            <li><gsml:a href="/pdfs/Preschool-Interview-Checklist.pdf">Preschool Interview Checklist</gsml:a></li>
         </ul>
         <ul>
             <gsweb:articlelink articleId="3595" wrappingElement="li"/>
