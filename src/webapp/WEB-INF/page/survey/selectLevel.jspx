@@ -23,18 +23,29 @@
             div#left-col {
                 height:580px;
             }
+
             div.question-group {
                 height:150px;
                 border-bottom:3px #E2E3CB dotted;
+                position:relative;
+                clear:both;
             }
 
             div#left-col div.question-group-pad {
                 height:170px;
             }
 
+            input#submitButton {
+                clear:both;
+                position:absolute;
+                bottom:20px;
+                right:0;
+            }
+
             div.question-group h2.question-group-heading {
                 border:none;
             }
+
             li.answer-list-item label {
                 margin:0 0 0 8px;
             }
