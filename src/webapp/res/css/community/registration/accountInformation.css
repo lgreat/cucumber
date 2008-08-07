@@ -22,7 +22,6 @@
     font-size: 20px;
     border-bottom: 1px solid #CACC9E;
     padding-bottom: 3px;
-    margin-bottom: 25px;
     position: relative;
 }
 
@@ -38,8 +37,15 @@
     right: 0;
 }
 
+.contentGS #outline form {
+    padding: 0;
+    margin: 0;
+}
+
 .contentGS #outline ul {
     width: 575px;
+    margin: 0;
+    padding: 0;
 }
 
 #outline ul li {
@@ -79,6 +85,10 @@ li.header a .strong {
     font-weight: bold;
 }
 
+#outline ul li label.radioLabel {
+    font-weight: normal;
+}
+
 #outline #genderLine input {
     margin-left: 23px;
 }
@@ -110,13 +120,21 @@ li.header a .strong {
 }
 
 #outline ul li.child label.childCity {
-    margin-left: 50px;
+    margin-left: 25px;
 }
 
 #outline ul li.child span.changeLinks {
     position: absolute;
-    /*right: 0;*/
-    left: 332px;
+    right: 0;
+}
+
+#outline ul li.child select.city {
+    margin-left: 23px;
+    width: 175px;
+}
+
+#outline ul li.child select.state {
+    margin-left: 6px;
 }
 
 #outline ul li.child .secondLine {
@@ -125,25 +143,25 @@ li.header a .strong {
 }
 
 #outline ul li.child label.grade {
-    left: 111px;
+    left: 86px;
 }
 
 #outline ul li.child select.grade {
-    left: 155px;
+    left: 130px;
 }
 
 #outline ul li.child label.school {
-    left: 333px;
+    left: 316px;
 }
 
 #outline ul li.child select.school {
-    width: 192px;
+    width: 212px;
 }
 
 #outline ul li.child div.school {
     position: absolute;
     top: 35px;
-    left: 383px;
+    left: 363px;
 }
 
 #outline ul li#parentAmbassadorLine {

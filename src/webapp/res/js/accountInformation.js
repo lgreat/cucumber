@@ -7,11 +7,6 @@ function determinePageState() {
         for (i=0; i < elements.size(); i++) {
             Element.extend(elements[i]).hide();
         }
-        if ($('other').checked) {
-            $('childSchoolHeaderRow').hide();
-        } else {
-            $('childSchoolHeaderRow').show();
-        }
     } else {
         $('parentAmbassadorLine').show();
         elements = document.getElementsByClassName("childSchools");
@@ -102,16 +97,12 @@ function resetGradeSchool(childNum) {
 }
 
 function changeLocationToggle(childNum) {
-    $('location' + childNum).toggle();
-    $('chooseLocation' + childNum).toggle();
-    if ($('chooseLocation' + childNum).visible()) {
-        $('changeLocationToggle' + childNum).innerHTML = 'Done';
-    } else {
-        $('changeLocationToggle' + childNum).innerHTML = 'Change city';
-    }
+    $('location' + childNum).hide();
+    $('chooseLocation' + childNum).show();
+    $('changeLocationToggle' + childNum).remove();
 }
 
-function addChild() {
+function addChildToPage() {
     if ($('numStudents').value < 9) {
         $('addChildSubmitButton').click();
     } else {
@@ -119,6 +110,8 @@ function addChild() {
     }
 }
 
-function deleteChild(childNum) {
-    $('removeChildSubmitButton' + childNum).click();
+function deleteChildFromPage(childNum) {
+    if (confirm("Are you sure you want to remove this child?")) {
+        $('removeChildSubmitButton' + childNum).click();
+    }
 }

@@ -40,9 +40,12 @@
                   </li>
                   <li id="genderLine">
                       <label>I'm a</label>
-                      <form:radiobutton path="gender" value="f" id="mom" cssClass="radio" onclick="determinePageState()"/><label for="mom">Mom</label>
-                      <form:radiobutton path="gender" value="m" id="dad" cssClass="radio" onclick="determinePageState()"/><label for="dad">Dad</label>
-                      <form:radiobutton path="gender" value="u" id="other" cssClass="radio" onclick="determinePageState()"/><label for="other">Other</label>
+                      <form:radiobutton path="gender" value="f" id="mom" cssClass="radio" onclick="determinePageState()"/>
+                      <label for="mom" class="radioLabel">Mom</label>
+                      <form:radiobutton path="gender" value="m" id="dad" cssClass="radio" onclick="determinePageState()"/>
+                      <label for="dad" class="radioLabel">Dad</label>
+                      <form:radiobutton path="gender" value="u" id="other" cssClass="radio" onclick="determinePageState()"/>
+                      <label for="other" class="radioLabel">Other</label>
                   </li>
 
                   <li class="header">
@@ -70,21 +73,16 @@
                   </li>
 
                   <c:set var="childStyle" value="display:inherit"/>
-                  <c:set var="childHeaderStyle" value="display:inherit"/>
                   <c:if test="${command.numStudents eq 0}">
                       <c:set var="childStyle" value="display:none"/>
-                      <c:if test="${command.gender eq 'u'}">
-                          <c:set var="childHeaderStyle" value="display:none"/>
-                      </c:if>
                   </c:if>
 
-                  <li class="header" id="childSchoolHeaderRow" style="${childHeaderStyle}">
+                  <li class="header" id="childSchoolHeaderRow">
                       <label>My Children's Schools</label>
-                      <a class="addChild" href="#" onclick="addChild(); return false;"><span class="strong">+</span> Add another child</a>
+                      <a class="addChild" href="#" onclick="addChildToPage(); return false;"><span class="strong">+</span> Add another child</a>
                       <input type="submit" name="addChild" id="addChildSubmitButton" style="display:none"/>
                   </li>
 
-                  <!-- Default to always show one row TODO: ?? -->
                   <c:forEach var="child" items="${command.students}" varStatus="loopStatus">
                       <c:set var="childNum" value="${loopStatus.index+1}"/>
                       <li class="child childSchools" style="${childStyle}">
@@ -107,9 +105,9 @@
                                            onchange="childStateChange(this, ${childNum});"/>
                           </span>
                           <span class="changeLinks">
-                              <a id="changeLocationToggle${childNum}" href="#"
-                                 onclick="changeLocationToggle(${childNum}); return false;">Change city</a>
-                              | <a href="#" onclick="deleteChild(${childNum}); return false;">Remove child's information</a>
+                              <span id="changeLocationToggle${childNum}"><a href="#" onclick="changeLocationToggle(${childNum}); return false;">Change city</a>
+                              | </span>
+                              <a href="#" onclick="deleteChildFromPage(${childNum}); return false;">Remove child's information</a>
                               <input type="submit" name="removeChild" value="${childNum}"
                                      id="removeChildSubmitButton${childNum}" style="display:none"/>
                           </span>
@@ -143,8 +141,10 @@
                           I want to be a Parent Ambassador for the schools my children attend.
                           I want to represent my children's schools on the GreatSchools Web site
                           for other interested parents.</label>
-                      <form:radiobutton path="parentAmbassador" value="yes" id="paYes"/><label for="paYes">Yes</label>
-                      <form:radiobutton path="parentAmbassador" value="no" id="paNo"/><label for="paNo">No</label>
+                      <form:radiobutton path="parentAmbassador" value="yes" id="paYes"/>
+                      <label for="paYes" class="radioLabel">Yes</label>
+                      <form:radiobutton path="parentAmbassador" value="no" id="paNo"/>
+                      <label for="paNo" class="radioLabel">No</label>
                   </li>
 
                   <li id="buttonLine">
