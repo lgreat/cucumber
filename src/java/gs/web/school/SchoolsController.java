@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.57 2008/08/04 23:20:52 yfan Exp $
+ * $Id: SchoolsController.java,v 1.58 2008/08/07 19:27:04 yfan Exp $
  */
 
 package gs.web.school;
@@ -21,6 +21,7 @@ import gs.data.util.Address;
 import gs.web.search.ResultsPager;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.RedirectView301;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -554,7 +555,7 @@ public class SchoolsController extends AbstractController {
                 String uri = SchoolsController.createNewCityBrowseURI(request);
                 String queryString = SchoolsController.createNewCityBrowseQueryString(request);
                 String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
-                return new ModelAndView(new RedirectView(redirectUrl));
+                return new ModelAndView(new RedirectView301(redirectUrl));
             }
 
             if (!SchoolsController.isRequestURIWithTrailingSlash(request)) {
