@@ -31,7 +31,6 @@
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
-    <!-- TODO: GS-6659 -->
     <bean name="cityBrowseHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.school.CityBrowseUrlHandlerMapping" lazy-init="true">
     </bean>    
