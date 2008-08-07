@@ -89,7 +89,6 @@
         <property name="urlMap">
             <map>
                 <entry key="/community/changeEmail.page" value="changeEmailController"/>
-                <entry key="/community/accountInfo.page" value="accountInfoController"/>
             </map>
         </property>
     </bean>
@@ -1091,7 +1090,7 @@
         <property name="commandName" value="followUpCmd"/>
         <property name="commandClass" value="gs.web.community.registration.FollowUpCommand"/>
         <property name="formView" value="/community/registration/registration2"/>
-        <property name="successView" value="redirect:/community/accountInfo.page"/>
+        <property name="successView" value="redirect:/community/loginOrRegister.page"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
     </bean>
 
@@ -1167,7 +1166,7 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="emailCmd"/>
         <property name="formView" value="/community/registration/changeEmail"/>
-        <property name="successView" value="redirect:/community/accountInfo.page"/>
+        <property name="successView" value="redirect:/community/loginOrRegister.page"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
@@ -1219,12 +1218,6 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/local/localCommunity"/>
-    </bean>
-
-    <bean name="accountInfoController"
-          class="gs.web.community.registration.AccountInfoController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/community/registration/accountInfo"/>
     </bean>
 
     <bean name="/community/deactivateUser.page"
