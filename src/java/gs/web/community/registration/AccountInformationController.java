@@ -4,6 +4,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.lang.StringUtils;
@@ -42,16 +43,16 @@ public class AccountInformationController extends SimpleFormController implement
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
         AccountInformationCommand command = new AccountInformationCommand();
 
-        // pull user from session / database
-        User user = SessionContextUtil.getSessionContext(request).getUser();
-        if (user != null && user.isEmailValidated()) {
-            command.setMemberId(user.getId());
-            command.setGender(user.getGender());
-            command.setState(user.getUserProfile().getState());
-            command.setCity(user.getUserProfile().getCity());
+        // when it's not a form submission, then load the student info from the database
+        if (!isFormSubmission(request)) {
+            // pull user from session / database
+            User user = SessionContextUtil.getSessionContext(request).getUser();
+            if (user != null && user.isEmailValidated()) {
+                command.setMemberId(user.getId());
+                command.setGender(user.getGender());
+                command.setState(user.getUserProfile().getState());
+                command.setCity(user.getUserProfile().getCity());
 
-            // when it's not a form submission, then load the student info from the database
-            if (!isFormSubmission(request)) {
                 List<Student> students = new ArrayList<Student>(user.getStudents());
                 Collections.sort(students, new StudentComparator());
                 for (Student student: students) {
@@ -70,42 +71,31 @@ public class AccountInformationController extends SimpleFormController implement
                     }
                     command.addStudentCommand(studentCommand);
                 }
-            } else {
-                // when it is a form submission, just let the binding pull the student info from the request
-                if (request.getParameter("numStudents") != null) {
-                    int numStudents = Integer.valueOf(request.getParameter("numStudents"));
-                    for (int x=0; x < numStudents; x++) {
-                        command.addStudentCommand(new AccountInformationCommand.StudentCommand());
-                    }
+
+                List<Subscription> parentAmbassadorSubs = _subscriptionDao.getUserSubscriptions
+                        (user, SubscriptionProduct.PARENT_CONTACT);
+                if (parentAmbassadorSubs != null && parentAmbassadorSubs.size() > 0) {
+                    command.setParentAmbassador("yes");
+                } else {
+                    command.setParentAmbassador("no");
                 }
             }
-
-            List<Subscription> parentAmbassadorSubs = _subscriptionDao.getUserSubscriptions
-                    (user, SubscriptionProduct.PARENT_CONTACT);
-            if (parentAmbassadorSubs != null && parentAmbassadorSubs.size() > 0) {
-                command.setParentAmbassador("yes");
-            } else {
-                command.setParentAmbassador("no");
+        } else {
+            // when it is a form submission, just let the binding pull the student info from the request
+            if (request.getParameter("numStudents") != null) {
+                int numStudents = Integer.valueOf(request.getParameter("numStudents"));
+                for (int x=0; x < numStudents; x++) {
+                    command.addStudentCommand(new AccountInformationCommand.StudentCommand());
+                }
             }
         }
 
         return command;
     }
 
-    /**
-     * Even if no bind is occurring, populate the various drop downs
-     */
-    protected void onBindOnNewForm(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
-        super.onBindOnNewForm(request, commandObj, errors);
+    protected Map referenceData(HttpServletRequest request, Object commandObj, Errors errors) throws Exception {
         populateDropdowns((AccountInformationCommand) commandObj);
-    }
-
-    /**
-     * After bind has occurred, populate the various drop downs
-     */
-    protected void onBind(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
-        super.onBind(request, commandObj, errors);
-        populateDropdowns((AccountInformationCommand) commandObj);
+        return super.referenceData(request, commandObj, errors);
     }
 
     protected void populateDropdowns(AccountInformationCommand command) {
@@ -178,14 +168,10 @@ public class AccountInformationController extends SimpleFormController implement
             studentCommand.setState(command.getState());
             studentCommand.setCity(command.getCity());
             command.addStudentCommand(studentCommand);
-            command.addCityList(_geoDao.findCitiesByState(command.getState()));
-            command.addSchools(new ArrayList<School>());
         } else if (request.getParameter("removeChild") != null) {
             // page gives it to us 1-indexed
             int childNum = Integer.valueOf(request.getParameter("removeChild")) - 1;
             command.getStudents().remove(childNum);
-            command.getCityList().remove(childNum);
-            command.getSchools().remove(childNum);
         }
     }
 

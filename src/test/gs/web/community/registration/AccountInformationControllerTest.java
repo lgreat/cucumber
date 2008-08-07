@@ -256,9 +256,6 @@ public class AccountInformationControllerTest extends BaseControllerTestCase {
         students.add(createStudent(State.CA, Grade.G_3, 1));
         _user.setStudents(students);
 
-        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT)).
-                andReturn(new ArrayList<Subscription>());
-
         getRequest().setParameter("numStudents", "1");
         getRequest().setMethod("POST");
         defaultReplay();
@@ -323,7 +320,7 @@ public class AccountInformationControllerTest extends BaseControllerTestCase {
      * ON BINDS AND VALIDATION *
      ***************************/
 
-    public void testOnBindOnNewForm() throws Exception {
+    public void testReferenceData() throws Exception {
         // verify that the dropdowns are populated when the form first loads
         List<City> cities = new ArrayList<City>();
         _command.setState(State.CA);
@@ -331,21 +328,7 @@ public class AccountInformationControllerTest extends BaseControllerTestCase {
         expect(_geoDao.findCitiesByState(_command.getState())).andReturn(cities);
 
         defaultReplay();
-        _controller.onBindOnNewForm(getRequest(), _command, _errors);
-        defaultVerify();
-
-        assertSame(cities, _command.getProfileCityList());
-    }
-
-    public void testOnBind() throws Exception {
-        // verify that the dropdowns are populated after a bind
-        List<City> cities = new ArrayList<City>();
-        _command.setState(State.CA);
-
-        expect(_geoDao.findCitiesByState(_command.getState())).andReturn(cities);
-
-        defaultReplay();
-        _controller.onBind(getRequest(), _command, _errors);
+        _controller.referenceData(getRequest(), _command, _errors);
         defaultVerify();
 
         assertSame(cities, _command.getProfileCityList());
@@ -438,22 +421,13 @@ public class AccountInformationControllerTest extends BaseControllerTestCase {
         _command.setState(State.CA);
         _command.setCity("San Diego");
 
-        List<City> cities = new ArrayList<City>();
-
-        expect(_geoDao.findCitiesByState(State.CA)).andReturn(cities);
-
         assertEquals("Expect no students by default", 0, _command.getNumStudents());
-        assertEquals("Expect no student city lists by default", 0, _command.getCityList().size());
-        assertEquals("Expect no student school lists by default", 0, _command.getSchools().size());
         defaultReplay();
         _controller.onFormChange(getRequest(), getResponse(), _command, _errors);
         defaultVerify();
         assertEquals("Expect one student to have been added", 1, _command.getNumStudents());
         assertEquals("Expect student to inherit parent's state", State.CA, _command.getStudents().get(0).getState());
         assertEquals("Expect student to inherit parent's city", "San Diego", _command.getStudents().get(0).getCity());
-        assertEquals("Expect a city list for the student to have been added", 1, _command.getCityList().size());
-        assertSame(cities, _command.getCityList().get(0));
-        assertEquals("Expect a school list for the student to have been added", 1, _command.getSchools().size());
     }
 
     public void testOnFormChangeRemoveChild() throws Exception {
@@ -461,18 +435,12 @@ public class AccountInformationControllerTest extends BaseControllerTestCase {
         getRequest().addParameter("removeChild", "1"); // 1-based from page
 
         _command.addStudentCommand(createStudentCommand(State.CA, "San Diego", Grade.G_9, 1));
-        _command.addSchools(new ArrayList<School>());
-        _command.addCityList(new ArrayList<City>());
 
         assertEquals("Expect one student", 1, _command.getNumStudents());
-        assertEquals("Expect one student city list", 1, _command.getCityList().size());
-        assertEquals("Expect one student school list", 1, _command.getSchools().size());
         defaultReplay();
         _controller.onFormChange(getRequest(), getResponse(), _command, _errors);
         defaultVerify();
         assertEquals("Expect one student to have been removed", 0, _command.getNumStudents());
-        assertEquals("Expect a city list for the student to have been removed", 0, _command.getCityList().size());
-        assertEquals("Expect a school list for the student to have been removed", 0, _command.getSchools().size());        
     }
 
     /*****************
@@ -481,6 +449,11 @@ public class AccountInformationControllerTest extends BaseControllerTestCase {
 
     public void testShowForm() throws Exception {
         // verify this redirects to login when no command is in the request
+        List<City> cities = new ArrayList<City>();
+        _command.setState(State.CA);
+
+        expect(_geoDao.findCitiesByState(_command.getState())).andReturn(cities);
+
         defaultReplay();
         ModelAndView mAndV = _controller.showForm(getRequest(), getResponse(), _errors);
         defaultVerify();

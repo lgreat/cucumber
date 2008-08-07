@@ -34,6 +34,7 @@
           <h2><span>Update My Account</span><a href="${dashboardUrl}">Go to my dashboard &gt;</a></h2>
           <form:form name="accountForm">
               <input type="hidden" name="numStudents" id="numStudents" value="${command.numStudents}"/>
+              <input type="hidden" name="memberId" value="${command.memberId}"/>
               <ul>
                   <li class="header">
                       <label>About Me</label>
