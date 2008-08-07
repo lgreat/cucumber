@@ -306,7 +306,7 @@
             </div>
 
             <c:set var="showingLeapfrog" value="false"/>
-            <c:if test="${hasElementaryLevelCode and not requestScope.pageHelper.adFree}">
+            <c:if test="${hasElementaryLevelCode and not (requestScope.pageHelper.adFree or requestScope.pageHelper.adServedByCobrand)}">
                 <div class="belowAdWrapper">
                     <ad:sponsor_leapfrog/>                    
                 </div>
