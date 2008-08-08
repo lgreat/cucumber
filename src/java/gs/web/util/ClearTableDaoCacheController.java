@@ -55,8 +55,7 @@ public class ClearTableDaoCacheController implements Controller {
                 out.print("Error dumping cache contents of type " +
                         e.getClass().getName() + ": " + e.getMessage());
             }
-        }
-        if (request.getParameter("debug") == null) {
+        } else {
             out.print("\n\n\nClearing cache ...");
             dao.clearCache();
             out.print(" done!");

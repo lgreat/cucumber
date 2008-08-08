@@ -82,8 +82,8 @@
             <bean factory-bean="splashLinksFactory" factory-method="getTableDao"/>
         </property>
         <property name="devWorksheetName" value="od6"/>
-        <property name="stagingWorksheetName" value="od4"/>
-        <property name="productionWorksheetName" value="od7"/>
+        <property name="stagingWorksheetName" value="od7"/>
+        <property name="productionWorksheetName" value="od4"/>
     </bean>
 
     <bean id="pressClippingsFactory"
