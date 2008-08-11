@@ -392,14 +392,7 @@ function reloadPageWithFilters(sortColId) {
                           styleClass="noInterstitial"
                           showAll="${not empty param.showall}">All Schools</link:schools>
         </li>
-        <!-- To activate Preschool tab for all states, remove the following set and
-  the if statement and closing tag -->
-        <c:set var="stateAbbr" value="${state.abbreviation}"/>
-        <c:if test="${empty districtObject and (
-                                stateAbbr eq 'AK' or
-                                stateAbbr eq 'ND' or
-                                stateAbbr eq 'SD' or
-                                stateAbbr eq 'WY')}">
+        <c:if test="${empty districtObject}">
             <li class="${pTabClass}">
                 <link:schools cityName="${cityName}"
                               districtId="${district}"

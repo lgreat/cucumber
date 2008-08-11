@@ -183,20 +183,12 @@
                                        schoolType="${stOmniture}"
                                        styleClass="noInterstitial">All Schools</link:schoolSearch>
                 </li>
-                <!-- To activate Preschool tab for all states, remove the following set and
-          the if statement and closing tag -->
-                <c:set var="stateAbbr" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-                <c:if test="${stateAbbr eq 'AK' or
-                                stateAbbr eq 'ND' or
-                                stateAbbr eq 'SD' or
-                                stateAbbr eq 'WY'}">
-                    <li class="${pTabClass}">
-                        <link:schoolSearch query="${param.q}"
-                                           schoolType="${stOmniture}"
-                                           levelCode="p"
-                                           styleClass="noInterstitial">Preschool</link:schoolSearch>
-                    </li>
-                </c:if>
+                <li class="${pTabClass}">
+                    <link:schoolSearch query="${param.q}"
+                                       schoolType="${stOmniture}"
+                                       levelCode="p"
+                                       styleClass="noInterstitial">Preschool</link:schoolSearch>
+                </li>
                 <li class="${eTabClass}">
                     <link:schoolSearch query="${param.q}"
                                        schoolType="${stOmniture}"
