@@ -74,16 +74,15 @@
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
                                 'id', 'sasquiz',
                                 'name', 'sasquiz',
-                                'flashvars', 'VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf',
+                                'flashvars', 'VpathToXML=http://www.edin08.com/flash/sasquiz.xml&amp;VpathToMap=http://www.edin08.com/flash/edin08map.swf',
                                 'movie', resource);
                     } else {
                         document.write('<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="540" height="335">');
                         document.write('<param name="movie" value="http://www.edin08.com/flash/sasquiz.swf"/>');
                         document.write('<param name="quality" value="high"/>');
                         document.write('<param name="bgcolor" value="#ffffff"/>');
-                        document.write('<param name="flashvars" value="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf"/>');
-                        document.write('<embed type="application/x-shockwave-flash" src="http://www.edin08.com/flash/sasquiz.swf" id="sasquiz" name="sasquiz" bgcolor="#ffffff" quality="high" wmode="transparent"');
-                        document.write('flashvars="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf" height="335" width="540"></embed>');
+                        document.write('<param name="flashvars" value="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&amp;VpathToMap=http://www.edin08.com/flash/edin08map.swf"/>');
+                        document.write('<embed type="application/x-shockwave-flash" src="http://www.edin08.com/flash/sasquiz.swf" id="sasquiz" name="sasquiz" bgcolor="#ffffff" quality="high" wmode="transparent" flashvars="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf" height="335" width="540"></embed>');
                         document.write('</object>');
                     }
                     -->
@@ -91,14 +90,14 @@
                 <noscript>
                   <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                   codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="540" height="335">
-                    <param name="movie" value="http://www.edin08.com/flash/sasquiz.swf">
-                    <param name="quality" value="high">
-                    <param name="bgcolor" value="#ffffff">
-                    <param name="flashvars" value="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf">
+                    <param name="movie" value="http://www.edin08.com/flash/sasquiz.swf"/>
+                    <param name="quality" value="high"/>
+                    <param name="bgcolor" value="#ffffff"/>
+                    <param name="flashvars" value="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&amp;VpathToMap=http://www.edin08.com/flash/edin08map.swf"/>
                     <embed type="application/x-shockwave-flash"
                       src="http://www.edin08.com/flash/sasquiz.swf" id="sasquiz"
                       name="sasquiz" bgcolor="#ffffff" quality="high" wmode="transparent"
-                      flashvars="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&VpathToMap=http://www.edin08.com/flash/edin08map.swf" height="335" width="540"></embed>
+                      flashvars="VpathToXML=http://www.edin08.com/flash/sasquiz.xml&amp;VpathToMap=http://www.edin08.com/flash/edin08map.swf" height="335" width="540"></embed>
                   </object>
                 </noscript>
                 ]]>
