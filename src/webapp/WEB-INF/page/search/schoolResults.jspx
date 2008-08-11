@@ -14,6 +14,8 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.data.school.LevelCode"/>
 
 <html lang="en">
 <!-- Allow interstitials for this page.
@@ -71,21 +73,25 @@
         String[] sts = request.getParameterValues("st");
         String stOmniture = "";
         if (sts != null &amp;&amp; sts.length > 0) {
-            for (String st: sts) {
+            for (String st : sts) {
                 if ("public".equals(st)) {
                     request.setAttribute("publicChecked", "true");
-                    stOmniture += ((stOmniture.length() > 0)?",":"") + "public";
+                    stOmniture += ((stOmniture.length() > 0) ? "," : "") + "public";
                 } else if ("charter".equals(st)) {
                     request.setAttribute("charterChecked", "true");
-                    stOmniture += ((stOmniture.length() > 0)?",":"") + "charter";
+                    stOmniture += ((stOmniture.length() > 0) ? "," : "") + "charter";
                 } else if ("private".equals(st)) {
                     request.setAttribute("privateChecked", "true");
-                    stOmniture += ((stOmniture.length() > 0)?",":"") + "private";
+                    stOmniture += ((stOmniture.length() > 0) ? "," : "") + "private";
                 }
             }
         }
         request.setAttribute("stOmniture", stOmniture);
-    </jsp:scriptlet>    
+        gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        LevelCode levelCode = (LevelCode) request.getAttribute("levelCode");
+        if (levelCode != null) for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
+            pageHelper.addAdKeywordMulti("level", level.getName());
+    </jsp:scriptlet>
 </head>
 
 <gsml:body adPageName="search">
@@ -95,170 +101,175 @@
 <c:set var="hasCityResults" value="false"/>
 <c:set var="hasDistrictResults" value="false"/>
 <gsml:equalizeColumns ids="'col_left','col_right'"/>
+
 <div id="col_left">
-    <div id="resultsheaderwhite">
-        <div id="rh_col_left">
-            ${heading1}
-        </div>
-        <!-- TODO: what the heck is this block? -->
-
-        <c:if test="${not empty cities and not empty cities.results}">
-            <c:set var="hasCityResults" value="true"/>
-            <div class="rollup city">
-                <gsml:img src="/res/img/bullet/pinkarrow.gif"
-                          alt="pinkarrow"
-                          style="padding-right:5px;"/>
-
-                <gsml:list model="${cities}" between="&#160;|&#160;"/>
-            </div>
-        </c:if>
-        <c:if test="${not empty districts and not empty districts.results}">
-            <c:set var="hasDistrictResults" value="true"/>
-            <div class="rollup district">
-                <gsml:img src="/res/img/bullet/pinkarrow.gif"
-                          alt="pinkarrow"
-                          style="padding-right:5px;"/>                
-                <gsml:list model="${districts}" between="&#160;|&#160;"/>
-            </div>
-        </c:if>
-        <c:if test="${empty mainResults and empty param.st and empty param.lc}">
-            <c:if test="${not empty noResultsExplanation}">
-                <div class="noResultsExplanation">
-                    <h4>${noResultsExplanation}</h4>
-                </div>
-            </c:if>
-            <c:if test="${showSuggestions}">
-                <div id="suggestions">
-                    <h4>Suggestions:</h4>
-                    <ul>
-                        <li>Make sure all words are spelled correctly.</li>
-                        <li>Try different or fewer key words.</li>
-                        <li>Try more general key words.</li>
-                        <c:if test="${not empty param.lc or not empty param.st}">
-                            <li>Try a different filter.</li>
-                        </c:if>
-                    </ul>
-                </div>
-            </c:if>
-        </c:if>
+<div id="resultsheaderwhite">
+    <div id="rh_col_left">
+        ${heading1}
     </div>
-    <c:if test="${not empty mainResults or not empty param.lc or not empty param.st}">
-        <div id="resultsfilters">
-            <div id="resultstabs" class="cleared">
-                <!-- Figure out which tab is selected -->
-                <c:set var="allTabClass" value=""/>
-                <c:set var="pTabClass" value=""/>
-                <c:set var="eTabClass" value=""/>
-                <c:set var="mTabClass" value=""/>
-                <c:set var="hTabClass" value=""/>
-                <c:choose>
-                    <c:when test="${param.lc eq 'p'}">
-                        <c:set var="pTabClass" value="tabactive"/>
-                    </c:when>
-                    <c:when test="${param.lc eq 'e'}">
-                        <c:set var="eTabClass" value="tabactive"/>
-                    </c:when>
-                    <c:when test="${param.lc eq 'm'}">
-                        <c:set var="mTabClass" value="tabactive"/>
-                    </c:when>
-                    <c:when test="${param.lc eq 'h'}">
-                        <c:set var="hTabClass" value="tabactive"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="allTabClass" value="tabactive"/>
-                    </c:otherwise>
-                </c:choose>
+    <!-- TODO: what the heck is this block? -->
+
+    <c:if test="${not empty cities and not empty cities.results}">
+        <c:set var="hasCityResults" value="true"/>
+
+        <div class="rollup city">
+            <gsml:img src="/res/img/bullet/pinkarrow.gif"
+                      alt="pinkarrow"
+                      style="padding-right:5px;"/>
+
+            <gsml:list model="${cities}" between="&#160;|&#160;"/>
+        </div>
+    </c:if>
+    <c:if test="${not empty districts and not empty districts.results}">
+        <c:set var="hasDistrictResults" value="true"/>
+
+        <div class="rollup district">
+            <gsml:img src="/res/img/bullet/pinkarrow.gif"
+                      alt="pinkarrow"
+                      style="padding-right:5px;"/>
+            <gsml:list model="${districts}" between="&#160;|&#160;"/>
+        </div>
+    </c:if>
+    <c:if test="${empty mainResults and empty param.st and empty param.lc}">
+        <c:if test="${not empty noResultsExplanation}">
+            <div class="noResultsExplanation">
+                <h4>${noResultsExplanation}</h4>
+            </div>
+        </c:if>
+        <c:if test="${showSuggestions}">
+            <div id="suggestions">
+                <h4>Suggestions:</h4>
                 <ul>
-                    <li class="tableft ${allTabClass}">
-                        <link:schoolSearch query="${param.q}" 
-                                           schoolType="${stOmniture}"
-                                           styleClass="noInterstitial">All Schools</link:schoolSearch>
-                    </li>
-                    <!-- To activate Preschool tab for all states, remove the following set and
-                         the if statement and closing tag -->
-                    <c:set var="stateAbbr" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-                    <c:if test="${stateAbbr eq 'AK' or
+                    <li>Make sure all words are spelled correctly.</li>
+                    <li>Try different or fewer key words.</li>
+                    <li>Try more general key words.</li>
+                    <c:if test="${not empty param.lc or not empty param.st}">
+                        <li>Try a different filter.</li>
+                    </c:if>
+                </ul>
+            </div>
+        </c:if>
+    </c:if>
+</div>
+<c:if test="${not empty mainResults or not empty param.lc or not empty param.st}">
+    <div id="resultsfilters">
+        <div id="resultstabs" class="cleared">
+            <!-- Figure out which tab is selected -->
+            <c:set var="allTabClass" value=""/>
+            <c:set var="pTabClass" value=""/>
+            <c:set var="eTabClass" value=""/>
+            <c:set var="mTabClass" value=""/>
+            <c:set var="hTabClass" value=""/>
+            <c:choose>
+                <c:when test="${param.lc eq 'p'}">
+                    <c:set var="pTabClass" value="tabactive"/>
+                </c:when>
+                <c:when test="${param.lc eq 'e'}">
+                    <c:set var="eTabClass" value="tabactive"/>
+                </c:when>
+                <c:when test="${param.lc eq 'm'}">
+                    <c:set var="mTabClass" value="tabactive"/>
+                </c:when>
+                <c:when test="${param.lc eq 'h'}">
+                    <c:set var="hTabClass" value="tabactive"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="allTabClass" value="tabactive"/>
+                </c:otherwise>
+            </c:choose>
+            <ul>
+                <li class="tableft ${allTabClass}">
+                    <link:schoolSearch query="${param.q}"
+                                       schoolType="${stOmniture}"
+                                       styleClass="noInterstitial">All Schools</link:schoolSearch>
+                </li>
+                <!-- To activate Preschool tab for all states, remove the following set and
+          the if statement and closing tag -->
+                <c:set var="stateAbbr" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+                <c:if test="${stateAbbr eq 'AK' or
                                 stateAbbr eq 'ND' or
                                 stateAbbr eq 'SD' or
                                 stateAbbr eq 'WY'}">
-                        <li class="${pTabClass}">
-                            <link:schoolSearch query="${param.q}"
-                                               schoolType="${stOmniture}"
-                                               levelCode="p"
-                                               styleClass="noInterstitial">Preschool</link:schoolSearch>
-                        </li>                        
-                    </c:if>
-                    <li class="${eTabClass}">
+                    <li class="${pTabClass}">
                         <link:schoolSearch query="${param.q}"
                                            schoolType="${stOmniture}"
-                                           levelCode="e"
-                                           styleClass="noInterstitial">Elementary</link:schoolSearch>
+                                           levelCode="p"
+                                           styleClass="noInterstitial">Preschool</link:schoolSearch>
                     </li>
-                    <li class="${mTabClass}">
-                        <link:schoolSearch query="${param.q}"
-                                           schoolType="${stOmniture}"
-                                           levelCode="m"
-                                           styleClass="noInterstitial">Middle</link:schoolSearch>
-                    </li>
-                    <li class="tabright ${hTabClass}">
-                        <link:schoolSearch query="${param.q}"
-                                           schoolType="${stOmniture}"
-                                           levelCode="h"
-                                           styleClass="noInterstitial">High</link:schoolSearch>
-                    </li>
-                </ul>
-            </div>
-            <form id="searchfilterform" action="" method="get">
-                <div class="filterWrapper">
-                    <strong>Show me:</strong>
-                    <label><gsml:checkbox name="type_schools[]"
-                                          checked="${publicChecked}"
-                                          styleId="type_schools_public"
-                                          onclick="reloadPageWithFilters();"/> Public</label>
-                    <label><gsml:checkbox name="type_schools[]"
-                                          checked="${charterChecked}"
-                                          styleId="type_schools_charter"
-                                          onclick="reloadPageWithFilters();"/> Charter</label>
-                    <label><gsml:checkbox name="type_schools[]"
-                                          checked="${privateChecked}"
-                                          styleId="type_schools_private"
-                                          onclick="reloadPageWithFilters();"/> Private</label>
-                    <c:if test="${total gt 0}">
-                        <div id="resultspagination">
-                            <div id="paginationAlignRight">
-                                <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
-                                <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
-                                <c:set var="px" value="${(page * pageSize)}"/>
-                                <strong>${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)}</strong>
-                                of <strong>${total}</strong>
-                            </div>
-                        </div>
-                    </c:if>
-                </div>
-            </form>
-        </div>
-    </c:if>
-    <div id="searchResults">
-        <c:if test="${not empty mainResults}">
-            <search:schoolResults results="${mainResults}"/>
-        </c:if>
-        <c:if test="${empty mainResults and (not empty param.lc or not empty param.st)}">
-            <div class="noResults">No filtered results for "<span class="query">${param.q}</span>"</div>
-        </c:if>
-
-        <search:newPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>
-        <div id="searchFooter" class="cleared">
-            <c:if test="${showQueryAgain}">
-                <c:if test="${showWhatStateTheySearchedIn}">
-                    <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
                 </c:if>
-                <search:searchControl rememberQuery="true"
-                                      showStates="${showQueryAgain}"
-                                      showLinks="true"
-                                      fieldLength="30"/>
-            </c:if>
+                <li class="${eTabClass}">
+                    <link:schoolSearch query="${param.q}"
+                                       schoolType="${stOmniture}"
+                                       levelCode="e"
+                                       styleClass="noInterstitial">Elementary</link:schoolSearch>
+                </li>
+                <li class="${mTabClass}">
+                    <link:schoolSearch query="${param.q}"
+                                       schoolType="${stOmniture}"
+                                       levelCode="m"
+                                       styleClass="noInterstitial">Middle</link:schoolSearch>
+                </li>
+                <li class="tabright ${hTabClass}">
+                    <link:schoolSearch query="${param.q}"
+                                       schoolType="${stOmniture}"
+                                       levelCode="h"
+                                       styleClass="noInterstitial">High</link:schoolSearch>
+                </li>
+            </ul>
         </div>
+        <form id="searchfilterform" action="" method="get">
+            <div class="filterWrapper">
+                <strong>Show me:</strong>
+                <label><gsml:checkbox name="type_schools[]"
+                                      checked="${publicChecked}"
+                                      styleId="type_schools_public"
+                                      onclick="reloadPageWithFilters();"/> Public</label>
+                <label><gsml:checkbox name="type_schools[]"
+                                      checked="${charterChecked}"
+                                      styleId="type_schools_charter"
+                                      onclick="reloadPageWithFilters();"/> Charter</label>
+                <label><gsml:checkbox name="type_schools[]"
+                                      checked="${privateChecked}"
+                                      styleId="type_schools_private"
+                                      onclick="reloadPageWithFilters();"/> Private</label>
+                <c:if test="${total gt 0}">
+                    <div id="resultspagination">
+                        <div id="paginationAlignRight">
+                            <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                            <c:set var="pageSize" value="${ (pageSize > 0) ? (pageSize) : 10}"/>
+                            <c:set var="px" value="${(page * pageSize)}"/>
+                            <strong>${px + 1} - ${(total lt px + pageSize) ? (total) : (px + pageSize)}</strong>
+                            of <strong>${total}</strong>
+                        </div>
+                    </div>
+                </c:if>
+            </div>
+        </form>
     </div>
+</c:if>
+
+<div id="searchResults">
+    <c:if test="${not empty mainResults}">
+        <search:schoolResults results="${mainResults}"/>
+    </c:if>
+    <c:if test="${empty mainResults and (not empty param.lc or not empty param.st)}">
+        <div class="noResults">No filtered results for "<span class="query">${param.q}</span>"</div>
+    </c:if>
+
+    <search:newPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>
+
+    <div id="searchFooter" class="cleared">
+        <c:if test="${showQueryAgain}">
+            <c:if test="${showWhatStateTheySearchedIn}">
+                <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
+            </c:if>
+            <search:searchControl rememberQuery="true"
+                                  showStates="${showQueryAgain}"
+                                  showLinks="true"
+                                  fieldLength="30"/>
+        </c:if>
+    </div>
+</div>
 </div>
 
 <div id="col_right">
