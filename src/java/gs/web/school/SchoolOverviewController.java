@@ -115,7 +115,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 }
             }
             model.put("preschoolOnly", school.getLevelCode().equals(LevelCode.PRESCHOOL));
-            model.put("latestReviewsModel", createLatestReviewsModel(school, request));
+            model.put("latestReviewsModel", createLatestReviewsModel(school));
             model.put("hasPrincipalView", getSchoolDao().hasPrincipalView(school));
             model.put("hasAPExams", hasAPExams(school));
             model.put("hasTestData", Boolean.TRUE);
@@ -164,8 +164,8 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
     boolean hasTestData(School s) {
         List values = _testDataSetDao.findValues(s);
-        for (Iterator iter = values.iterator(); iter.hasNext();) {
-            SchoolTestValue value = (SchoolTestValue) iter.next();
+        for (Object value1 : values) {
+            SchoolTestValue value = (SchoolTestValue) value1;
             if (value.getDataSet().isActive()) {
                 return true;
             }
@@ -200,27 +200,17 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * @return a Map containing the fields to display or null if one of the
      *         user story conditions for display is not met. See GS-3204.
      */
-    Map createLatestReviewsModel(School school, HttpServletRequest request) {
-
+    Map<String, Object> createLatestReviewsModel(School school) {
         Map<String, Object> latestReviewsModel = new HashMap<String, Object>();
-
-        // Do the random Rating
         Ratings ratings = getReviewDao().findRatingsBySchool(school);
-
         if (ratings != null) {
             NameValuePair<Ratings.Category, Integer> randomRating = ratings.getRandomCategory();
-
             doRandomRating(randomRating, latestReviewsModel);
-
         }
 
-        List reviews = getReviewDao().getPublishedReviewsBySchool(school);
+        List<Review> reviews = getReviewDao().getPublishedReviewsBySchool(school);
         if (reviews != null && reviews.size() != 0) {
-
-            if (school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
-                    school.getType().equals(SchoolType.PRIVATE)
-                    ) {
-
+            if (school.getType().equals(SchoolType.PRIVATE) && !school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
                 doMultiParentReviews(reviews, latestReviewsModel);
                 if ((latestReviewsModel.get("randomRating") == null) &&
                         (latestReviewsModel.get("schoolReviews") == null)) {
@@ -229,13 +219,11 @@ public class SchoolOverviewController extends AbstractSchoolController {
             } else {
                 doSingleParentReview(reviews, latestReviewsModel);
 
-                if ((latestReviewsModel.get("randomRating") == null) ||
-                        (latestReviewsModel.get("latestRating") == null)) {
+                if ((latestReviewsModel.get("randomRating") == null) || (latestReviewsModel.get("latestRating") == null)) {
                     latestReviewsModel = null;
                 }
             }
         }
-
         return latestReviewsModel;
     }
 
@@ -260,7 +248,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
             return;
         }
 
-        List<Map> schoolReviews = null;
+        List<Map<String, String>> schoolReviews = null;
 
         for (Review aReview : reviews) {
             boolean hasRating;
@@ -276,7 +264,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 if (schoolReviews != null && schoolReviews.size() > 2) {
                     break;
                 } else {
-                    if (schoolReviews == null) schoolReviews = new ArrayList<Map>();
+                    if (schoolReviews == null) schoolReviews = new ArrayList<Map<String, String>>();
                     Map<String, String> schoolData = new HashMap<String, String>();
                     schoolData.put("psRating", theRating);
                     schoolData.put("psComment", Util.abbreviateAtWhitespace(aReview.getComments(), REVIEW_LENGTH));
@@ -306,7 +294,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * @param reviews            - a list of reviews for the schoold
      * @param latestReviewsModel - the Map to store the results
      */
-    static void doSingleParentReview(List reviews, Map<String, Object> latestReviewsModel) {
+    static void doSingleParentReview(List<Review> reviews, Map<String, Object> latestReviewsModel) {
         if (reviews == null) {
             return;
         }
