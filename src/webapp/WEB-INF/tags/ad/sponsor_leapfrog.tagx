@@ -25,7 +25,7 @@
 </select>
 
 <div id="abc_content" style="position:absolute;top:131px;">
-<select id="abc_content_-1" disabled="true" style="width:240px;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
+<select id="abc_content_-1" disabled="disabled" style="width:240px;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
 </select>
 
@@ -104,8 +104,8 @@
 <select id="abc_content_6" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/1032">Getting Ready for Middle School</option>
-    <option value="/cgi-bin/showarticle/1215">Seven Steps to Succeeding in Middle School</option>
-    <option value="/cgi-bin/showarticle/325">How to Stay Involved in Middle and High School</option>
+    <option value="/cgi-bin/showarticle/1215">Seven Steps to Succeeding</option>
+    <option value="/cgi-bin/showarticle/325">How to Stay Involved</option>
     <option value="/cgi-bin/showarticle/761/">Ask the Experts: Your Middle-Schooler</option>
     <option value="/cgi-bin/showarticle/966">Is Your Middle-Schooler Bored?</option>
 </select>
