@@ -143,7 +143,10 @@
     }
     function abc_select_article(s) {
         var val = s.options[s.options.selectedIndex].value;
-        if (val != '') document.location.href = val;
+        if (val != ''){
+            clickCapture.capture("eVar5","LeapFrog Widget");
+            document.location.href = val;
+        }
     }
 </script>
 </c:if>
