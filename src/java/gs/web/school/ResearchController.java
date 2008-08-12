@@ -3,8 +3,12 @@ package gs.web.school;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.validation.Errors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ArrayUtils;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.DateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +17,12 @@ import java.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.data.state.State;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableRow;
 
 /**
  * Controls the research and compare page.  Currently we're letting the Perl pages
@@ -44,6 +51,9 @@ public class ResearchController extends AbstractController {
     /** Used to collect the Zip-code  */
     private final static String ZIP_PARAM = "zip";
 
+    /** Used to clear cache of alerts about test data */
+    private final static String CLEAR_PARAM = "clear";
+
     /** The # of cities to display in the top cities list */
     private final static int CITY_LIST_SIZE = 5;
 
@@ -53,12 +63,22 @@ public class ResearchController extends AbstractController {
     /** Used to determine State from zip code */
     private IGeoDao _geoDao;
 
+    /** Google Spreadsheet for newly-released test scores alert */
+    private ITableDao _tableDao;
+
+    /** Stores alerts about test data */
+    static Map<String, Map> _cache;
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
 
         ModelAndView mAndV = new ModelAndView (getViewName());
+
+        if (StringUtils.isNotBlank(request.getParameter(CLEAR_PARAM))) {
+            _cache = null;
+        }
 
         String form = request.getParameter(FORM_PARAM);
         if (StringUtils.isNotBlank (form)) {
@@ -117,7 +137,50 @@ public class ResearchController extends AbstractController {
         }
 
         mAndV.getModel().put("cities", getCitiesForState (state));
+        Map<String, String> alertData = getTestAlertData(state.getAbbreviation());
+        if (alertData != null) {
+            mAndV.getModel().putAll(alertData);
+        }
         return mAndV;
+    }
+
+    protected Map<String, String> getTestAlertData(String key) {
+        if (_cache == null || _cache.isEmpty()) {
+             _cache = new HashMap<String, Map>();
+            loadCache(_cache);
+        }
+        return _cache.get(key);
+    }
+
+    public void loadCache(Map<String, Map> cache) {
+        GoogleSpreadsheetDao spreadsheetDao = (GoogleSpreadsheetDao) getTableDao();
+        List<ITableRow> rows = spreadsheetDao.getAllRows();
+        for (ITableRow row : rows) {
+            String state = row.getString("state");
+            Map<String, Object> values = new HashMap<String, Object>();
+
+            String date = row.getString("alertexpire");
+            String alert = row.getString("alert");
+            String tid = row.getString("tid");
+            System.out.println("===== TODO-6865 ====== alertexpire: " + date);
+            if (StringUtils.isNotBlank(date) && StringUtils.isNotBlank(alert) && StringUtils.isNotBlank(tid)) {
+                DateTimeFormatter fmt = DateTimeFormat.forPattern("MM/dd/yyyy");
+                DateTime dt = fmt.parseDateTime(date);
+                if (!dt.isBeforeNow()) {
+                    // not expired
+                    Map<String, Object> existingValues = cache.get(state);
+                    // state doesn't have a non-expired alert cached, or the current one expires later
+                    // (in which case we want to replace the existing one with the current one)
+                    if (existingValues == null ||
+                        (existingValues.get("alertexpireDT") != null && dt.isAfter((DateTime)existingValues.get("alertexpireDT")))) {
+                        values.put("alert", alert);
+                        values.put("alertexpireDT", dt);
+                        values.put("alertlink", "/test/landing.page?state=" + state + "&amp;tid=" + tid);
+                        cache.put(state, values);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -189,5 +252,13 @@ public class ResearchController extends AbstractController {
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public ITableDao getTableDao() {
+        return _tableDao;
+    }
+
+    public void setTableDao(ITableDao tableDao) {
+        _tableDao = tableDao;
     }
 }
