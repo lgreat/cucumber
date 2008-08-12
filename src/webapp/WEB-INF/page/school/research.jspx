@@ -96,6 +96,26 @@
     <td colspan="3"><gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
     </td>
 </tr>
+
+<variant:b>
+<c:if test="${not empty alert}">
+    <tr>
+        <td colspan="3">
+            <div id="alert" onclick="window.location.href = document.getElementById('alertLink').href;"
+                 onmouseover="document.getElementById('alertLink').style.textDecoration='underline';"
+                 onmouseout="document.getElementById('alertLink').style.textDecoration='none';">
+                <gsml:img src="/res/img/test/exclamation_icon.gif" alt="exclamation icon"/>
+
+                <div>
+                    ${alert}
+                    <a href="${alertlink}" id="alertLink">Find your school &amp;gt;</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</c:if>
+</variant:b>
+
 <tr>
 <!-- Compare Box -->
 <td valign="top">

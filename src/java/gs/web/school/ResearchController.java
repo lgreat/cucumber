@@ -162,7 +162,6 @@ public class ResearchController extends AbstractController {
             String date = row.getString("alertexpire");
             String alert = row.getString("alert");
             String tid = row.getString("tid");
-            System.out.println("===== TODO-6865 ====== alertexpire: " + date);
             if (StringUtils.isNotBlank(date) && StringUtils.isNotBlank(alert) && StringUtils.isNotBlank(tid)) {
                 DateTimeFormatter fmt = DateTimeFormat.forPattern("MM/dd/yyyy");
                 DateTime dt = fmt.parseDateTime(date);

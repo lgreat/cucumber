@@ -680,6 +680,9 @@
     <bean name="/school/research.page"
           class="gs.web.school.ResearchController"
           autowire="byName" lazy-init="true">
+        <property name="tableDao">
+            <bean factory-bean="testScoreLandingPageTableFactory" factory-method="getTableDao"/>
+        </property>
         <property name="viewName">
             <value>/school/research</value>
         </property>
