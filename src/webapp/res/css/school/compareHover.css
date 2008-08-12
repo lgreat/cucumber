@@ -23,6 +23,11 @@
     border-right: 4px solid #DDEEEE;
     padding: 12px;
     font-size: 14px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 15em;
+    max-height: 25em;
+    height: auto;
 }
 
     #dialogBody h2 {
@@ -63,10 +68,13 @@
 
     #dialogBody .logo {
         margin-top: 25px;
+        float: left;
     }
 
     #dialogBody .closeWindow {
-        position: absolute;
-        right: 15px;
-        bottom: 15px;
+        float: right;
+        margin-top: 25px;
+        /*position: absolute;*/
+        /*right: 15px;*/
+        /*bottom: 15px;*/
     }

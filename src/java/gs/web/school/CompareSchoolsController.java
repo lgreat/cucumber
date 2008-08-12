@@ -39,13 +39,14 @@ public class CompareSchoolsController extends AbstractController {
         String idString = "/?ids=";
         String idDelimiter = ",";
 
+        boolean hoverCompare = (request.getParameter("hover_compare") != null)
+                || (request.getParameter("hover_compare.x") != null);
+
         String p1 = request.getParameter("compare.x");
 
-        if (p1 == null) {
-            p1 = request.getParameter("hover_compare");
-        }
-
-        if (p1 != null) {
+        if (hoverCompare) {
+            urlBuffer.append("/cgi-bin/cs_compare/");
+        } else if (p1 != null) {
             urlBuffer.append("/modperl/msl_compare/");
         } else {
             urlBuffer.append("/cgi-bin/msl_confirm/");
@@ -65,7 +66,7 @@ public class CompareSchoolsController extends AbstractController {
         String[] schoolIds = request.getParameterValues("sc");
         if (schoolIds != null) {
             for (int i = 0; i < schoolIds.length; i++) {
-                if (p1 != null) {
+                if (p1 != null || hoverCompare) {
                     urlBuffer.append(schoolIds[i]);
                 } else {
                     urlBuffer.append(schoolIds[i].substring(2));
@@ -74,6 +75,11 @@ public class CompareSchoolsController extends AbstractController {
                     urlBuffer.append(idDelimiter);
                 }
             }
+        }
+
+        if (hoverCompare) {
+            urlBuffer.append("&level=").append(request.getParameter("levelCode"));
+            urlBuffer.append("&area=s&msl=1&tab=over");
         }
 
         //add the omniture cpn parameter to the url

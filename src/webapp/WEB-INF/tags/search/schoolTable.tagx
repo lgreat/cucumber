@@ -6,17 +6,13 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
     <jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>
 
-    <pageHelper:externalCss file="/res/css/school/compareHover.css"/>    
-    <pageHelper:externalCss file="/res/css/school/compareHover-container.css"/>
-    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
-    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
-    
     <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
 
     <c:set var="results" value="${schools}"/>
@@ -74,125 +70,7 @@
         ]]>
     </script>
 
-    <div >
-        <div id="myDialog" style="display: none;">
-            <div id="dialogHeader">
-                <div class="dialogClose">
-                    <gsml:img src="/res/img/submodal/close.gif" alt="Close window" onclick="myDialog.cancel();"/>
-                </div>
-            </div>
-            <div id="dialogBody">
-                <h2>Comparing schools</h2>
-                <div class="intro">
-                    You have selected schools that span multiple levels.
-                    Which did you want to compare?
-                </div>
-                <c:forEach var="curLevel" items="e,m,h">
-                    <gsweb:form method="get" action="/compareSchools.page">
-                        <input type="hidden" name="state"
-                               value="${requestScope.context.stateOrDefault.abbreviation}"/>
-                        <input type="hidden" name="hover_compare" value="true"/>
-                        <div id="dialog_${curLevel}" class="dialog_lc" style="display:none;">
-                            <div class="dialog_lc_title">
-                                <span>
-                                    <c:choose>
-                                        <c:when test="${curLevel eq 'e'}">Elementary Schools:</c:when>
-                                        <c:when test="${curLevel eq 'm'}">Middle Schools:</c:when>
-                                        <c:when test="${curLevel eq 'h'}">High Schools:</c:when>
-                                    </c:choose>
-                                </span>
-                                <input type="image"
-                                       name="compare"
-                                       src="/res/img/school/compare/compare.gif" alt="Compare"/>
-                            </div>
-                            <c:forEach var="schoolResult" items="${results}" >
-                                <c:set var="school" value="${schoolResult.school}"/>
-                                <c:if test="${fn:startsWith(school.levelCode, curLevel)}">
-                                    <input type="hidden"
-                                           id="dialog_school_input_${school.id}"
-                                           name="sc"
-                                           disabled="disabled"
-                                           value="${requestScope.context.stateOrDefault.abbreviation}${school.id}"/>
-                                    <div id="dialog_school_div_${school.id}" class="dialog_lc_schoolName"
-                                         style="display:none">${school.name}</div>
-                                </c:if>
-                            </c:forEach>
-                        </div>
-                    </gsweb:form>
-                </c:forEach>
-                <img src="/res/img/logo/logo_GS_125x24.gif" alt="GreatSchools" class="logo"/>
-                <input type="image" src="/res/img/button/btn_closeWindow.gif" alt="Close window"
-                       class="closeWindow"  onclick="myDialog.cancel();"/>
-            </div>
-        </div>
-    </div>
-
-    <script language="JavaScript" type="text/javascript">
-        <![CDATA[
-        //<!--
-        var handleCancel = function() {
-            this.cancel();
-        }
-        var myDialog = new YAHOO.widget.Dialog("myDialog",
-        {
-            postmethod: "form",
-            width: "40em",
-            fixedcenter: true,
-            visible: false,
-            constraintoviewport: true,
-            draggable: false,
-            modal: true,
-            close: false
-        });
-        myDialog.render();
-
-        function evaluateSchoolsForCompare() {
-            try {
-            var inputs = document.getElementsByTagName("input");
-            var levelCodeMap = new Object;
-            for (var i=0; i < inputs.length; i++) {
-                var currentElem = inputs[i];
-                if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
-                    if (currentElem.checked) {
-                        var schoolId = currentElem.id.substring(ID_PREFIX.length);
-                        var levelCode = document.getElementById("school_lc_" + schoolId).value;
-                        var splitResult = levelCode.split(",");
-                        if (splitResult && splitResult.length > 0) {
-                            levelCode = splitResult[0];
-                        }
-                        if (!levelCodeMap[levelCode]) {
-                            levelCodeMap[levelCode] = new Array();
-                        }
-                        levelCodeMap[levelCode].push(schoolId);
-                        document.getElementById("dialog_school_div_" + schoolId).style.display="block";
-                        document.getElementById("dialog_school_input_" + schoolId).disabled = false;
-                    }
-                }
-            }
-            var numLevelCodes = 0;
-            for (levelCode in levelCodeMap) {
-                numLevelCodes++;
-                document.getElementById("dialog_" + levelCode).style.display="block";
-            }
-
-            if (numLevelCodes == 1) {
-                // send to regular compare
-                return true;
-            }
-
-            document.getElementById("myDialog").style.display="block";
-
-            myDialog.render();
-            myDialog.show();
-            return false;
-            } catch (e) {
-                alert(e);
-                return false;
-            }
-        }
-        //-->
-        ]]>
-    </script>    
+    <school:compareHover schoolSearchResults="${results}"/>
 
     <div id="searchResultsHeader" class="cleared">
          <div class="firstspace">
