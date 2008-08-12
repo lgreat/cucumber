@@ -319,6 +319,14 @@
         document.write('<scr'+'ipt LANGUAGE="JavaScript1.1" SRC="http://coop.crwdcntrl.net/4/to=y|c=' + LOTCC_client + '|p=' + LOTCC_placement + '|rand=' + LOTCC_rnd + '"></scr' + 'ipt>');
         //-->
         </script>
+
+        <script type="text/javascript">
+        document.write('<s'+'cript type="text/javascript" language="JavaScript" src="http://switch.atdmt.com/jaction/k01ed8_LandingPage_1"></s'+'cript>');
+        </script>
+        <noscript>
+            <iframe src="http://switch.atdmt.com/iaction/k01ed8_LandingPage_1" width="1" height="1" frameborder="0"
+                    scrolling="No" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0"></iframe>
+        </noscript>
         ]]>
         </div>
     </div>
