@@ -57,7 +57,7 @@
     position:relative;
 }
 
-#nearbySchools ul li div.gradeRange {
+#nearbySchools ul li div.numStudents {
     position:absolute;
     text-align:center;
     right:23px;
