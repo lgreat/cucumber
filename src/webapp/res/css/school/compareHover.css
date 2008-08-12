@@ -1,0 +1,72 @@
+#myDialog {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+#dialogHeader {
+    background-color: #8BCBCB;
+    height: 26px;
+    position: relative;
+}
+
+    #dialogHeader .dialogClose {
+        position: absolute;
+        right: 8px;
+        top: 5px;
+        cursor: pointer;
+    }
+
+#dialogBody {
+    position: relative;
+    background-color: #FFFFFF;
+    border-left: 4px solid #DDEEEE;
+    border-bottom: 4px solid #DDEEEE;
+    border-right: 4px solid #DDEEEE;
+    padding: 12px;
+    font-size: 14px;
+}
+
+    #dialogBody h2 {
+        color: #3399AA;
+        font-size: 23px;
+        font-weight: normal;
+        line-height: 26px;
+        margin-bottom: 10px;
+    }
+
+    #dialogBody .intro {
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    #dialogBody .dialog_lc {
+        margin: 15px 0 0 20px;
+    }
+
+    #dialogBody .dialog_lc_title {
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+        #dialogBody .dialog_lc_title span {
+            font-weight: bold;
+        }
+
+        #dialogBody .dialog_lc_title input {
+            position: absolute;
+            left: 150px;
+            top: -5px;
+        }
+
+    #dialogBody .dialog_lc_schoolName {
+        font-weight: normal;
+    }
+
+    #dialogBody .logo {
+        margin-top: 25px;
+    }
+
+    #dialogBody .closeWindow {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+    }
