@@ -24,13 +24,13 @@
 
 .editorialFooterBox {
     float: left;
-    width: 158px;
+    width: 168px;
     height: 160px;
     line-height: 18px;
     font-size: 7px;
     color: #888888;
     border-right: 1px solid #DDDDDD;
-    padding: 2px 15px 0 15px;
+    padding: 2px 5px 0 15px;
     margin: 0;
 }
 

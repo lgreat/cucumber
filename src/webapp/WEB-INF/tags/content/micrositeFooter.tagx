@@ -7,14 +7,21 @@
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 
-<jsp:directive.attribute name="crossPromo" type="java.lang.String"
+    <jsp:directive.attribute name="crossPromo" type="java.lang.String"
                          description="Key for content in final box" required="true"/>
 
 <pageHelper:externalCss file="/res/css/content/micrositeFooter.css"/>
 <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
 <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
+
+<jsp:scriptlet>
+SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
 
     <div id="contentBottomHeader">
         <h2><img src="/res/img/content/micrositeFooter/moretools_subhed.gif"
@@ -41,7 +48,7 @@
                 <li><a href="/content/schoolChoiceCenter.page">School Choice Tips</a></li>
                 <li><a href="/content/healthyKids.page">Healthy Kids</a></li>
                 <li><a href="/content/specialNeeds.page">Learning Difficulties</a></li>
-                <li><a href="/content/summerReading.page">Summer Reading</a></li>
+                <li><a href="/content/tutoring_Homework_Help.page">Homework Help</a></li>
             </ul>
         </div>
         <div class="editorialFooterBox">
@@ -56,12 +63,13 @@
             </p>
         </div>
         <div class="editorialFooterBox">
-            <h3>Connect With Others</h3>
-            <p>
-                Join the GreatSchools Community and connect with parents
-                who are passionate about education.<br/>
-                <a href="/community/registration.page" style="float: right;">Join now &gt;</a>
-            </p>
+            <h3>Find Parents Like Me</h3>
+            <ul class="bulleted">
+                <li><a href="http://${communityHost}/groups/11534">Parents of Preschoolers</a></li>
+                <li><a href="http://${communityHost}/groups/11527">Elementary School Parents</a></li>
+                <li><a href="http://${communityHost}/groups/11528">Middle School Parents</a></li>
+                <li><a href="http://${communityHost}/groups/11529">High School Parents</a></li>
+            </ul>
         </div>
         <div class="editorialFooterBox right">
             <c:choose>

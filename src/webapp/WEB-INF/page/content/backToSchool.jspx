@@ -48,6 +48,14 @@
     <![endif]-->
     ]]>
     <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
+
+    <script type="text/javascript">
+        function showPopularArticles() {
+            if (document.getElementById('adBTS_Quiz_Promo_300x316') == null) {
+                document.getElementById('popularArticles').style.display = 'block';
+            }
+        }
+    </script>
 </head>
 <c:set var="pageName" value="Back to School"/>
 
@@ -55,7 +63,7 @@
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
-<pageHelper:addOnLoadHandler handler="imgSetup();initWeek();"/>
+<pageHelper:addOnLoadHandler handler="imgSetup();initWeek();showPopularArticles();"/>
 <gsml:body adPageName="content/backToSchool" pageLayout="backToSchool" startAdHierarchyAtPage="true">
 
 <div id="contentTop">
@@ -179,12 +187,12 @@
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
                                 'movie', backToSchoolResource);
                     } else {
-                        document.write('<img class="flash" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>');
+                        document.write('<img class="flashImage" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>');
                     }
                     -->
                 </script>
                 <noscript>
-                    <img class="flash" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>
+                    <img class="flashImage" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>
                 </noscript>
                 ]]>
         </div>
@@ -309,8 +317,8 @@
                         wrappingElement="li">Get Excited About Math</gsweb:articlelink>
                     <gsweb:articlelink articleId="60"
                         wrappingElement="li">Adjusting to a New School</gsweb:articlelink>
-                    <gsweb:articlelink articleId="232"
-                        wrappingElement="li">Summer Reading Tips</gsweb:articlelink>
+                    <gsweb:articlelink articleId="730"
+                        wrappingElement="li">Back to School Night Basics</gsweb:articlelink>
                     <gsweb:articlelink articleId="634"
                         wrappingElement="li">Find the Reading Sweet Spot</gsweb:articlelink>
                 </ul>
@@ -350,6 +358,34 @@
     <ad:AboveFold_300x250/>
 
     <ad:adTag position="BTS_Quiz_Promo_300x316"/>
+
+    <div id="popularArticles" class="greenBoxWrapper">
+        <div id="greenBox" class="greenBox">
+            <h3><img id="popularArticlesImg" src="/res/img/content/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
+            <ul class="greenArrow">
+                <gsweb:articlelink articleId="233"
+                                   wrappingElement="li">Practically Free Summer Activities</gsweb:articlelink>
+                <gsweb:articlelink articleId="314"
+                                   wrappingElement="li">Build Math Skills This Summer</gsweb:articlelink>
+                <gsweb:articlelink articleId="650"
+                                   wrappingElement="li">Managing Screen Time</gsweb:articlelink>
+                <gsweb:articlelink articleId="1073"
+                                   wrappingElement="li">Should Kids Hang Out at Club Penguin?</gsweb:articlelink>
+                <gsweb:articlelink articleId="902"
+                                   wrappingElement="li">Book Picks for Grades K-5</gsweb:articlelink>
+                <gsweb:articlelink articleId="903"
+                                   wrappingElement="li">Reading Tips for Grades 6-12</gsweb:articlelink>
+                <gsweb:articlelink articleId="3557"
+                                   wrappingElement="li">Tween Beach Reads</gsweb:articlelink>
+                <gsweb:articlelink articleId="3558"
+                                   wrappingElement="li">Teen Beach Reads</gsweb:articlelink>
+                <gsweb:articlelink articleId="34"
+                                   wrappingElement="li">What Makes a Great Parent?</gsweb:articlelink>
+                <gsweb:articlelink articleId="259"
+                                   wrappingElement="li">What Makes a Great Teacher?</gsweb:articlelink>
+            </ul>
+        </div>
+    </div>
 
 </div>
 
