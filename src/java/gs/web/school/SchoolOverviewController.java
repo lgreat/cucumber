@@ -340,12 +340,11 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 put(Category.Principal, "principal leadership is");
                 put(Category.Safety, "safety and discipline are");
                 put(Category.Teachers, "teacher quality is");
-                // Not used since we currently never show this on preschools
-                // put(Category.P_Program, "program and curriculum are");
-                // put(Category.P_Facilities, "facilities and equipment are");
-                // put(Category.P_Safety, "health and safety are");
-                // put(Category.P_Teachers, "teacher quality is");
-                // put(Category.P_Parents, "parent involvement is");
+                put(Category.P_Program, "the program and curriculum are");
+                put(Category.P_Facilities, "the facilities and equipment are");
+                put(Category.P_Safety, "health and safety are");
+                put(Category.P_Teachers, "teacher quality is");
+                put(Category.P_Parents, "parent involvement is");
             }
         };
 
