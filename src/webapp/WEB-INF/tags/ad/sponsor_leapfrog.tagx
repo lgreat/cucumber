@@ -122,7 +122,7 @@
 <select id="abc_content_8" onchange="abc_select_article(this);" style="width:240px;display:none;color:#666666;font-family:Trebuchet MS,sans-serif;font-size:12px;">
     <option value="">Select an article</option>
     <option value="/cgi-bin/showarticle/752">Why Is Algebra a Big Deal?</option>
-    <option value="/cgi-bin/showarticle/2722">Improving Reading Speed and Comprehension</option>
+    <option value="/cgi-bin/showarticle/2722">Improve Reading Speed and Comprehension</option>
     <option value="/cgi-bin/showarticle/2719">Middle and High School Reading Problems</option>
     <option value="/cgi-bin/showarticle/1099">A Parent's College Prep Guide</option>
     <option value="/cgi-bin/showarticle/3108">Transitioning to High School</option>
