@@ -210,7 +210,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
         List<Review> reviews = getReviewDao().getPublishedReviewsBySchool(school);
         if (reviews != null && reviews.size() != 0) {
-            if (school.getType().equals(SchoolType.PRIVATE) && !school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
+            if (school.getLevelCode().equals(LevelCode.PRESCHOOL) || school.getType().equals(SchoolType.PRIVATE)) {
                 doMultiParentReviews(reviews, latestReviewsModel);
                 if ((latestReviewsModel.get("randomRating") == null) &&
                         (latestReviewsModel.get("schoolReviews") == null)) {
@@ -340,11 +340,12 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 put(Category.Principal, "principal leadership is");
                 put(Category.Safety, "safety and discipline are");
                 put(Category.Teachers, "teacher quality is");
-                put(Category.P_Program, "program and curriculum are");
-                put(Category.P_Facilities, "facilities and equipment are");
-                put(Category.P_Safety, "health and safety are");
-                put(Category.P_Teachers, "teacher quality is");
-                put(Category.P_Parents, "parent involvement is");
+                // Not used since we currently never show this on preschools
+                // put(Category.P_Program, "program and curriculum are");
+                // put(Category.P_Facilities, "facilities and equipment are");
+                // put(Category.P_Safety, "health and safety are");
+                // put(Category.P_Teachers, "teacher quality is");
+                // put(Category.P_Parents, "parent involvement is");
             }
         };
 
