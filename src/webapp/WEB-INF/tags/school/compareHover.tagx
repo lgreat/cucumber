@@ -18,6 +18,20 @@
                          description="List of SchoolSearchResults. Only provide one."
                          type="java.util.List"/>
 
+<!--
+    REQUIREMENTS:
+
+    1) Owning page must import schoolsCompare.js or define ID_PREFIX
+    2) Owning page must have inputs with ids that start with ID_PREFIX and end with the school id
+    3) Owning page must have hidden (or other) inputs with ids that match "school_lc_[schoolId]" containing
+        the level code
+    4) Owning page must pass in to this tag either a list of schools as "schools" or a list of
+        SchoolSearchResults as "schoolSearchResults"
+    5) Owning page must attach a JS event to call evaluateSchoolsForCompare(), usually in a button onclick.
+        That function returns true if all schools are in the same level code (allowing the page to send
+        the user directly to compare) or false if they are not (and shows the compare hover)
+-->
+
     <pageHelper:externalCss file="/res/css/school/compareHover.css"/>
     <pageHelper:externalCss file="/res/css/school/compareHover-container.css"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
@@ -127,7 +141,6 @@
     YAHOO.util.Event.onDOMReady(compareHoverInit());
 
     function evaluateSchoolsForCompare() {
-        try {
         var inputs = document.getElementsByTagName("input");
         var levelCodeMap = new Object;
         for (var i=0; i < inputs.length; i++) {
@@ -172,10 +185,6 @@
 
         compareDialog.show();
         return false;
-        } catch (e) {
-            alert(e);
-            return false;
-        }
     }
     //-->
     ]]>

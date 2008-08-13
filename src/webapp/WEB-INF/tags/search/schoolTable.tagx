@@ -136,7 +136,6 @@
                 <div class="result cleared${(loopStatus.count == 1 ? ' first' : '')}">
                 <div class="school">
                     <input type="hidden" id="school_lc_${school.id}" value="${school.levelCode}"/>
-                    <input type="hidden" id="school_name_${school.id}" value="${school.name}"/>                    
                     <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <c:out value="${school.name}" escapeXml="false"/>
                     </link:schoolProfileOverview></h3>
