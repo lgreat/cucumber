@@ -6,6 +6,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
@@ -14,6 +15,8 @@
     <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
 
     <c:set var="showPreschoolNote" value="false" />
+
+    <school:compareHover schools="${schools}"/>
 
     <div id="searchResults">
     <div id="schoolsTable">
@@ -26,6 +29,7 @@
             </c:if>
 
             <div class="school ${loopStatus.last ? 'last' : ''}">
+                <input type="hidden" id="school_lc_${school.id}" value="${school.levelCode}"/>
                 <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <c:out value="${school.name}" escapeXml="false"/>
                 </link:schoolProfileOverview></h3>
@@ -71,7 +75,8 @@
                                     onclick="document.getElementById('compare_schools_${school.id}').click();"/>
                             </label>
                             <span class="compare_submit" id="compare_schools_submit_${school.id}" style="display: none;">
-                                <input type="image" name="compare" src="/res/img/button/button_compare_now.gif" alt="Compare now"/>
+                                <input type="image" name="compare" src="/res/img/button/button_compare_now.gif"
+                                       alt="Compare now" onclick="return evaluateSchoolsForCompare();"/>
                             </span>
                         </div>
                     </c:if>
