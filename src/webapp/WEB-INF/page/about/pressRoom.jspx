@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:spring="http://www.springframework.org/tags"
@@ -57,12 +57,12 @@
             <h2>GreatSchools Downloadable Logos <img src="/res/img/about/pressroom/logo_rule.jpg" alt=""/></h2>
             <div class="description">
                 Please contact us if you need a logo or other material not available below.<br/>
-                Logo options: small (201 X 38), medium (233 X 46) or large (304 X 58)
+                Logo options: small (200 X 50), medium (233 X 46) or large (304 X 58)
             </div>
             
             <table class="logoTable">
                 <tr>
-                    <td><img src="/res/img/logo/logo_GS_201x38.gif" alt=""/></td>
+                    <td><img src="/res/img/logo/logo_GS_200x50.gif" alt=""/></td>
                     <td>Download: <a href="/about/downloadLogo.page?size=small">.gif</a></td>
                 </tr>
                 <tr>

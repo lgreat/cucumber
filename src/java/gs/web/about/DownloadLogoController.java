@@ -23,7 +23,7 @@ public class DownloadLogoController implements Controller {
     final static String PARAM_VAL_MEDIUM = "medium";
     final static String PARAM_VAL_LARGE = "large";
     final static String IMAGE_PATH = "/res/img/logo/";
-    final static String SMALL_FILE_NAME = "logo_GS_201x38.gif";
+    final static String SMALL_FILE_NAME = "logo_GS_200x50.gif";
     final static String MEDIUM_FILE_NAME = "logo_GS_233x46.gif";
     final static String LARGE_FILE_NAME = "logo_GS_304x58.gif";
 
