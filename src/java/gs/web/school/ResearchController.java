@@ -137,9 +137,11 @@ public class ResearchController extends AbstractController {
         }
 
         mAndV.getModel().put("cities", getCitiesForState (state));
-        Map<String, String> alertData = getTestAlertData(state.getAbbreviation());
-        if (alertData != null) {
-            mAndV.getModel().putAll(alertData);
+        if (state != null) {
+            Map<String, String> alertData = getTestAlertData(state.getAbbreviation());
+            if (alertData != null) {
+                mAndV.getModel().putAll(alertData);
+            }
         }
         return mAndV;
     }
