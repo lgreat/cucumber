@@ -19,12 +19,11 @@ public class SubmitSchoolCommand {
     private String _zipCode;
     private String _county;
 
-    private int _numStudentsEnrolled;
+    private Integer _numStudentsEnrolled;
     private String _phoneNumber;
     private String _faxNumber;
     private String _schoolWebSite;
 
-    private String _gender;
     private String _religion;
     private String _associationMemberships;
 
@@ -108,11 +107,11 @@ public class SubmitSchoolCommand {
         _county = county;
     }
 
-    public int getNumStudentsEnrolled() {
+    public Integer getNumStudentsEnrolled() {
         return _numStudentsEnrolled;
     }
 
-    public void setNumStudentsEnrolled(int numStudentsEnrolled) {
+    public void setNumStudentsEnrolled(Integer numStudentsEnrolled) {
         _numStudentsEnrolled = numStudentsEnrolled;
     }
 
@@ -138,14 +137,6 @@ public class SubmitSchoolCommand {
 
     public void setSchoolWebSite(String schoolWebSite) {
         _schoolWebSite = schoolWebSite;
-    }
-
-    public String getGender() {
-        return _gender;
-    }
-
-    public void setGender(String gender) {
-        _gender = gender;
     }
 
     public String getReligion() {

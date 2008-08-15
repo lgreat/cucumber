@@ -101,6 +101,8 @@
                         <spring:bind path="submitSchoolCommand.submitterName">
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
+                    </div>
+                    <div class="fieldNote">
                         <gsml:errorMessage command="submitSchoolCommand" field="submitterName" useImage="true" styleClass="warning"/>
                     </div>
                 </div>
@@ -112,6 +114,9 @@
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
                     </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="submitterEmail" useImage="true" styleClass="warning"/>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -121,6 +126,9 @@
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
                     </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="submitterEmailConfirm" useImage="true" styleClass="warning"/>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -129,6 +137,9 @@
                         <spring:bind path="submitSchoolCommand.submitterConnectionToSchool">
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
+                    </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="submitterConnectionToSchool" useImage="true" styleClass="warning"/>
                     </div>
                 </div>
 
@@ -146,6 +157,9 @@
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
                     </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="schoolName" useImage="true" styleClass="warning"/>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -154,6 +168,9 @@
                         <spring:bind path="submitSchoolCommand.streetAddress">
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
+                    </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="streetAddress" useImage="true" styleClass="warning"/>
                     </div>
                 </div>
 
@@ -164,6 +181,9 @@
                             <gsweb:stateSelector name="${status.expression}" state="${status.value}"/>
                         </spring:bind>
                     </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="state" useImage="true" styleClass="warning"/>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -173,14 +193,20 @@
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
                     </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="city" useImage="true" styleClass="warning"/>
+                    </div>
                 </div>
 
                 <div class="field">
                     <div class="fieldLabel">Zip code <span class="required">*</span></div>
                     <div class="fieldInput">
-                        <spring:bind path="submitSchoolCommand.city">
+                        <spring:bind path="submitSchoolCommand.zipCode">
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
+                    </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="zipCode" useImage="true" styleClass="warning"/>
                     </div>
                 </div>
 
@@ -191,6 +217,9 @@
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
                     </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="county" useImage="true" styleClass="warning"/>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -199,6 +228,9 @@
                         <spring:bind path="submitSchoolCommand.numStudentsEnrolled">
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
+                    </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="numStudentsEnrolled" useImage="true" styleClass="warning"/>
                     </div>
                 </div>
 
@@ -209,7 +241,25 @@
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
                     </div>
-                    <div class="fieldNote">Ex.: (555) 555-5555</div>
+                    <div class="fieldNote">
+                        <c:set var="hasError" value="${false}"/>
+                        <spring:hasBindErrors name="submitSchoolCommand">
+                            <spring:bind path="submitSchoolCommand.phoneNumber">
+                                <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                    <c:set var="hasError" value="${true}"/>
+                                </c:if>
+                            </spring:bind>
+                        </spring:hasBindErrors>
+
+                        <c:choose>
+                            <c:when test="${hasError}">
+                                <gsml:errorMessage command="submitSchoolCommand" field="phoneNumber" useImage="true" styleClass="warning"/>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="fieldNoteText">Ex.: (555) 555-5555</div>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -219,15 +269,37 @@
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
                     </div>
-                    <div class="fieldNote">Ex.: (555) 555-5555</div>
+                    <div class="fieldNote">
+                        <c:set var="hasError" value="${false}"/>
+                        <spring:hasBindErrors name="submitSchoolCommand">
+                            <spring:bind path="submitSchoolCommand.faxNumber">
+                                <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                                    <c:set var="hasError" value="${true}"/>
+                                </c:if>
+                            </spring:bind>
+                        </spring:hasBindErrors>
+
+                        <c:choose>
+                            <c:when test="${hasError}">
+                                <gsml:errorMessage command="submitSchoolCommand" field="faxNumber" useImage="true" styleClass="warning"/>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="fieldNoteText">Ex.: (555) 555-5555</div>
+                            </c:otherwise>
+                        </c:choose>
+
+                    </div>
                 </div>
 
                 <div class="field">
                     <div class="fieldLabel">School web site</div>
                     <div class="fieldInput">
-                        <spring:bind path="submitSchoolCommand.faxNumber">
+                        <spring:bind path="submitSchoolCommand.schoolWebSite">
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
+                    </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="schoolWebSite" useImage="true" styleClass="warning"/>
                     </div>
                 </div>
 

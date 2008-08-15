@@ -161,6 +161,12 @@
           autowire="byName" lazy-init="true"/>
     <bean id="userValidator" class="gs.web.util.validator.UserCommandValidator"
           autowire="byName" lazy-init="true"/>
+    <bean id="submitSchoolCommandValidator" class="gs.web.util.validator.SubmitSchoolCommandValidator"
+          autowire="byName" lazy-init="true"/>
+    <bean id="submitPreschoolCommandValidator" class="gs.web.util.validator.SubmitPreschoolCommandValidator"
+          autowire="byName" lazy-init="true"/>
+    <bean id="submitPrivateSchoolCommandValidator" class="gs.web.util.validator.SubmitPrivateSchoolCommandValidator"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/index.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
@@ -1531,6 +1537,7 @@
         <property name="commandClass" value="gs.web.about.feedback.SubmitPreschoolCommand"/>
         <property name="formView" value="/about/feedback/submitSchool"/>
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
+        <property name="mailSender" ref="mailSender"/>
         <property name="type" value="preschool"/>
     </bean>
 
@@ -1542,6 +1549,7 @@
         <property name="commandClass" value="gs.web.about.feedback.SubmitPrivateSchoolCommand"/>
         <property name="formView" value="/about/feedback/submitSchool"/>
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
+        <property name="mailSender" ref="mailSender"/>
         <property name="type" value="private school"/>
     </bean>
 

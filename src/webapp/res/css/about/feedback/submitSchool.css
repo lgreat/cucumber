@@ -58,6 +58,30 @@
 
 .fieldNote {
     font-size: 11px;
+    position: relative;
+}
+
+.fieldNoteText {
+    position: absolute;
+    top: 5px;
+    left: 515px;
+}
+
+
+img.errorIcon {
+    position: absolute;
+    top: 5px;
+    left: 515px;
+}
+
+#contentGS p.warning {
+    position: absolute;
+    top: 5px;
+    left: 534px;
+    color: #cc5566;
+    font-size: 11px;
+    line-height: 12px;
+    margin: 0;
 }
 
 .textInput {
