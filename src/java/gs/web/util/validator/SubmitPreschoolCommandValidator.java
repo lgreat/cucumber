@@ -7,7 +7,6 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-import gs.web.about.feedback.SubmitSchoolCommand;
 import gs.web.about.feedback.SubmitPreschoolCommand;
 
 public class SubmitPreschoolCommandValidator extends SubmitSchoolCommandValidator {
