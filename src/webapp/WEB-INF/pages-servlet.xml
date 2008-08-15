@@ -1523,6 +1523,27 @@
           class="gs.web.community.SchwabForumRedirectController"
           autowire="byName" lazy-init="true"/>
 
+    <bean name="/about/feedback/submitPreschool.page"
+          class="gs.web.about.feedback.SubmitSchoolController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="submitSchoolCommand"/>
+        <property name="commandClass" value="gs.web.about.feedback.SubmitPreschoolCommand"/>
+        <property name="formView" value="/about/feedback/submitSchool"/>
+        <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
+        <property name="type" value="preschool"/>
+    </bean>
+
+    <bean name="/about/feedback/submitPrivateSchool.page"
+          class="gs.web.about.feedback.SubmitSchoolController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="submitSchoolCommand"/>
+        <property name="commandClass" value="gs.web.about.feedback.SubmitPrivateSchoolCommand"/>
+        <property name="formView" value="/about/feedback/submitSchool"/>
+        <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
+        <property name="type" value="private school"/>
+    </bean>
 
     <!-- WEB PAGE DEFINITIONS END -->
 

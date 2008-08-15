@@ -209,6 +209,20 @@
         </property>
     </bean>
 
+    <bean name="/about/feedback/submitPreschoolInfoSubset.module"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/about/feedback/submitPreschoolInfoSubset</value>
+        </property>
+    </bean>
+
+    <bean name="/about/feedback/submitPrivateSchoolInfoSubset.module"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/about/feedback/submitPrivateSchoolInfoSubset</value>
+        </property>
+    </bean>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>

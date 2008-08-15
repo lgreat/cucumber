@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+          xmlns:gsweb="gstaglib">
+    <div class="field">
+        <div class="fieldLabel">Lowest age served <span class="required">*</span></div>
+        <div class="fieldInput">
+            <spring:bind path="submitSchoolCommand.lowestGrade">
+                <gsweb:gradeSelector name="${status.expression}" grade="${status.value}" useAlternateNames="true"
+                                     noGradeLabel="Select low grade" useNoGrade="true" useUngraded="true"/>
+            </spring:bind>
+        </div>
+        <div class="fieldNote">If ungraded, enter "ungraded" as lowest and highest grade.</div>
+    </div>
+
+    <div class="field">
+        <div class="fieldLabel">Highest grade served <span class="required">*</span></div>
+        <div class="fieldInput">
+            <spring:bind path="submitSchoolCommand.highestGrade">
+                <gsweb:gradeSelector name="${status.expression}" grade="${status.value}" useAlternateNames="true"
+                                     noGradeLabel="Select high grade" useNoGrade="true" useUngraded="true"/>
+            </spring:bind>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="fieldLabel">Gender(s)</div>
+        <div class="fieldInput">
+            <spring:bind path="submitSchoolCommand.gender">
+                <gsweb:genderSelector name="${status.expression}" selectedValue="${status.value}"/>
+            </spring:bind>
+        </div>
+    </div>
+
+</jsp:root>

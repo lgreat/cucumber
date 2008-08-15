@@ -1,0 +1,88 @@
+#pageGS {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666666;
+    font-size: 13px;
+}
+
+.content {
+    padding: 10px;
+}
+
+#contentGS a {
+    color: #3399AA;
+}
+
+.pageTitle h2 {
+    font-size: 16px;
+    color: #55BBCC;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+#contentGS p {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    line-height: 18px;
+}
+
+#contentGS .alternateSubmissionLink {
+    color: #CC5566;
+    font-style: italic;
+}
+
+.separator {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
+.separator hr {
+    display: none;
+}
+
+.field {
+    clear: both;
+    padding-top: 10px;
+}
+
+.fieldLabel {
+    float: left;
+    width: 250px;
+}
+
+.fieldInput {
+    float: left;
+    width: 270px;
+}
+
+.fieldNote {
+    font-size: 11px;
+}
+
+.textInput {
+    width: 250px;
+}
+
+hr {
+    
+}
+
+.personalInfoMessage {
+    padding-top: 25px;
+    padding-bottom: 15px;
+    clear: both;
+    font-style: italic;
+    line-height: 18px;
+}
+
+.submissionNote {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    clear: both;
+    line-height: 18px;
+}
+
+.required {
+    color: #CC5566;
+}

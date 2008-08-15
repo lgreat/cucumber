@@ -25,6 +25,8 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
     private String _noGradeLabel = "--"; // default
     private String _name = "grade"; // default
     private boolean _useAlternateNames = false;
+    private boolean _useUngraded = false;
+    private String _ungradedLabel = "ungraded"; // default
 
     public void setUseAlternateNames(boolean useAlternateNames) {
         _useAlternateNames = useAlternateNames;
@@ -97,6 +99,24 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
         _grade = grade;
     }
 
+    /**
+     * The label for the ungraded option. Ignored if {@link #setUseUngraded(boolean)} not called.
+     * @param ungradedLabel
+     */
+    public void setUngradedLabel(String ungradedLabel) {
+        _ungradedLabel = ungradedLabel;
+    }
+
+    /**
+     * When set to true, the selector will show "ungraded" as the last option.
+     * When set to false, then the "ungraded" is not shown.
+     *
+     * @param useUngraded - defaults to false;
+     */
+    public void setUseUngraded(boolean useUngraded) {
+        _useUngraded = useUngraded;
+    }
+
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
@@ -137,6 +157,12 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
                 out.println("</option>");
             }
         }
+
+        if (_useUngraded) {
+            out.print("<option value=\"\"");
+            out.println(">" + _ungradedLabel +"</option>");
+        }
+
         out.println("</select>");
     }
 }
