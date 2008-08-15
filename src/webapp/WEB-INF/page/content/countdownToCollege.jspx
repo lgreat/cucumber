@@ -81,11 +81,7 @@
     <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="2976" wrappingElement="li"/>
-
-        <li >
-            <a href="http://www.schwablearning.org/articles.aspx?r=720">How Parents Can Help Older Kids with Reading Problems</a>
-        </li>
-
+        <gsweb:articlelink articleId="2380" wrappingElement="li"/>
         <gsweb:articlelink articleId="688" wrappingElement="li"/>
         <gsweb:articlelink articleId="752" wrappingElement="li"/>
         <gsweb:articlelink articleId="1076" wrappingElement="li"/>
@@ -101,7 +97,7 @@
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="675" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1147" wrappingElement="li"/>
+        <gsweb:articlelink articleId="3591" wrappingElement="li"/>
         <gsweb:articlelink articleId="1146" wrappingElement="li"/>
     </ul>
 
@@ -167,18 +163,18 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="2999" styleClass="noHover">
-            When Your Teenager's Peers Are Headed to College, but He Is Not
+        <gsweb:articlelink articleId="3609" styleClass="noHover">
+            Get and Stay Organized
         </gsweb:articlelink>
     </div>
     <div class="module">
-        If your high school grad isn’t heading off to college this fall, it may be awkward for him to attend
-        farewell parties for friends who are campus-bound. He might feel uncomfortable fielding questions from
-        well-meaning friends and relatives. Help him find ways to explain his non-traditional plans to
-        others &#8212; and to feel strong in his decision.
+        Organization is the key to academic success, and it's never too early or too late to get started. The most
+        successful students manage their time well, while staying on top of their school work. The good news is
+        your child can be taught these skills. Encourage your child to adopt good time-management habits. Guide
+        him in developing a plan for keeping track of papers, assignments and notes. 
         <br/>
         <div align="right">
-            <gsweb:articlelink articleId="2999" styleClass="seeFullArticle">
+            <gsweb:articlelink articleId="3609" styleClass="seeFullArticle">
                 Learn more &gt;
             </gsweb:articlelink>
         </div>
@@ -201,18 +197,17 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <a href="http://www.collegeboard.com/parents/apply/college-applications/21381.html" class="noHover"
-           target="_blank">Off-to-College Checklist</a>
+        <a href="http://www.collegeboard.com/parents/plan/hs-steps/21287.html" class="noHover"
+           target="_blank">Your Child’s High School Counselor</a>
     </div>
 
     <div class="module">
-        The reality of your child going away to college really hits when you start shopping &#8212; and packing &#8212; for
-        her first dorm room. Use this handy checklist to decide exactly what she’ll need as she
-        launches into life on campus.
+        From start to finish, your teenager's high school counselor can be one of her most important
+        allies and advisors. Learn how to maximize this relationship and reap big benefits.
     </div>
     <div align="right">
-        <a href="http://www.collegeboard.com/parents/apply/college-applications/21381.html" class="seeFullArticle"
-           target="_blank">Check out the checklist &gt;</a>
+        <a href="http://www.collegeboard.com/parents/plan/hs-steps/21287.html" class="seeFullArticle"
+           target="_blank">Learn more &gt;</a>
     </div>
 
     <div class="midDashLine">
@@ -229,17 +224,21 @@
                 <td valign="top">
                     <ul class="quickFindLinks">
                         <li>
-                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21382.html"
-                               target="_blank">Preparing for Your Child's Move to College</a>
+                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21357.html"
+                               target="_blank">College Applications Calendar</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21383.html"
-                               target="_blank">Shopping and Packing Tips</a>
+                            <a href="http://www.collegeboard.com/parents/csearch/find-right-college/21165.html"
+                               target="_blank">Easy Ways to Start the College Search</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21384.html"
-                               target="_blank">Travel Tips – To and From Campus</a>
+                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21353.html"
+                               target="_blank">Application Requirements</a>
                         </li>
+                        <li>
+                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21360.html"
+                               target="_blank">Letters of Recommendation</a>
+                        </li>                        
                     </ul>
                 </td>
             </tr>
@@ -302,7 +301,8 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Start planning for college by creating a calendar with important dates and deadlines.
+                               Meet with your <a href="http://www.collegeboard.com/student/plan/starting-points/114.html" target="_blank">counselor</a> to discuss your college plans. Review
+                               your schedule with him or her to make sure you're enrolled in <a href="http://www.collegeboard.com/student/plan/high-school/33.html" target="_blank"> challenging classes</a> that will help you prepare for college.
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan &gt;</a>
                 </td>
@@ -310,8 +310,8 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Use <a href="http://collegesearch.collegeboard.com/search/index.jsp" target="_blank">College Search</a> to find out the required
-                               courses and tests of colleges that you might be interested in attending.
+                               Use <a href="http://collegesearch.collegeboard.com/search/index.jsp" target="_blank">College Search</a> to find out the
+                               required courses and tests of colleges that you might be interested in attending.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan &gt;</a></td>
             </tr>
@@ -321,14 +321,14 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Make lists of your abilities, preferences, and personal qualities. List things you may want to study and do in college.                               
-                           </span><!-- GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
+                               Jumpstart your college planning by <a href="http://www.collegeboard.com/student/csearch/majors_careers/" target="_blank" >reading about majors and careers</a>.                                
+                           </span><br/><!-- GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan &gt;</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Make a college application <a href="http://www.collegeboard.com/student/apply/the-application/23626.html" target="_blank">calendar</a> and
-                               note test dates and fees, as well ad deadlines for college applications, financial aid applications, etc.                               
+                               Make a master <a href="http://www.collegeboard.com/student/apply/the-application/23626.html" target="_blank" >calendar</a> and note
+                               dates and deadlines for tests, college applications, financial aid applications, etc.                              
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan &gt;</a></td>
             </tr>
