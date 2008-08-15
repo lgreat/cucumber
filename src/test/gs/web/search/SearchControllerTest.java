@@ -1,11 +1,7 @@
 package gs.web.search;
 
 import gs.data.content.Article;
-import gs.data.content.IArticleDao;
 import gs.data.school.ISchoolDao;
-import gs.data.school.SchoolType;
-import gs.data.school.LevelCode;
-import gs.data.school.School;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.*;
 import gs.data.state.State;
@@ -13,7 +9,6 @@ import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.search.BooleanQuery;
@@ -77,10 +72,6 @@ public class SearchControllerTest extends BaseControllerTestCase {
         article.setStatesAsString("ak^ca");
         article.setId(191);
         articles.add(article);
-//        articles.add(_articleDao.getArticleFromId(246));
-//        articles.add(_articleDao.getArticleFromId(377));
-//        articles.add(_articleDao.getArticleFromId(355));
-//        articles.add(_articleDao.getArticleFromId(191));
         indexer.indexArticles(articles, writer);
         writer.close();
 
@@ -92,13 +83,13 @@ public class SearchControllerTest extends BaseControllerTestCase {
 
     }
 
-    public void testCreateModelSortDirection() throws Exception{
+    public void testCreateModelSortDirection() throws Exception {
         _controller = (SearchController) getApplicationContext().getBean(SearchController.BEAN_ID);
 
         final GsMockHttpServletRequest request = getRequest();
         request.setParameter("q", "Alameda");
         request.setParameter("state", "CA");
-        request.setParameter("sortDirection","desc") ;
+        request.setParameter("sortDirection", "desc");
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
 
@@ -107,133 +98,21 @@ public class SearchControllerTest extends BaseControllerTestCase {
         command.setState(State.CA);
         command.setC("school");
         //BindException errors = new BindException(command, null);
-        Map model = _controller.createModel(request,  command,  sessionContext, true);
+        Map model = _controller.createModel(request, command, sessionContext, true);
         assertNotNull(model);
     }
-    private List<String> alamedaSchoolsAscendingOrder(){
-         List<String> schools = new ArrayList<String>();
 
-         schools.add("Alameda High School");
-         schools.add("Bay Farm Elementary School");
-         schools.add("Chipman Middle School");
-         schools.add("Earhart (Amelia) Elementary School");
-         schools.add("Edison Elementary School");
-         schools.add("Encinal High School");
-         schools.add("Franklin Elementary School");
-         schools.add("Haight Elementary School");
-         schools.add("Island High (Continuation)");
-         schools.add("Lincoln Middle School");
+    public void verifySame(List<String> expected, List<String> actual) {
+        assertNotNull(expected);
+        assertNotNull(actual);
 
-         return schools;
-     }
+        assertEquals("The size of the lists should be identical", expected.size(), actual.size());
 
-     private List<String> alamedaSchoolsDescendingOrder(){
-         List<String> result = new ArrayList<String>();
-         List<String> inOrder = alamedaSchoolsAscendingOrder();
-         int size = inOrder.size();
+        for (int i = 0; i < expected.size(); i++) {
+            assertEquals("The elements are expected to be the same", expected.get(i), actual.get(i));
 
-         for( int i = size -1; i >= 0; i-- )  {
-             result.add(inOrder.get(i));
-         }
-         return result;
-     }
-
-     public void verifySame(List<String> expected, List<String> actual)  {
-         assertNotNull(expected);
-         assertNotNull(actual);
-
-         assertEquals("The size of the lists should be identical", expected.size(), actual.size());
-
-         for (int i = 0; i < expected.size(); i++){
-             assertEquals("The elements are expected to be the same", expected.get(i), actual.get(i));
-
-         }
-     }
-
-    public void testGetSortedResults() throws Exception {
-        Searcher searcher;
-
-        Indexer indexer = (Indexer) getApplicationContext().getBean(Indexer.BEAN_ID);
-        ISchoolDao schoolDao = (ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID);
-        //IArticleDao articleDao = (IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID);
-        //IDistrictDao districtDao = (IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID);
-        RAMDirectory dir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(dir, new GSAnalyzer(), true);
-
-        //indexer.indexSchools(schoolDao.getActiveSchools(State.WY), writer);
-        indexer.indexSchools(schoolDao.getActiveSchools(State.CA), writer);
-        //indexer.indexSchools(schoolDao.getActiveSchools(State.NY), writer);
-        //indexer.indexArticles(articleDao.getAllArticles(), writer);
-        //indexer.indexDistricts(districtDao.getDistricts(State.CA, true), writer);
-
-        //indexer.indexCities(State.AK, writer);
-        indexer.indexCities(State.CA, writer);
-        //indexer.indexCities(State.NY, writer);
-
-        writer.close();
-
-        searcher = new Searcher(new IndexDir(dir, new RAMDirectory()));
-        
-
-        _controller = (SearchController) getApplicationContext().getBean(SearchController.BEAN_ID);
-        _controller.setSearcher((searcher));
-
-
-
-        getRequest().setMethod("GET");
-
-        testSchoolResults(null,null);
-        testSchoolResults(null,"schoolName");
-        testSchoolResults(null,"anotherName");
-        testSchoolResults("desc",null);
-        testSchoolResults("desc","schoolName");
-        testSchoolResults("desc","anotherName");
-        testSchoolResults("somethingElse",null);
-        testSchoolResults("somethingElse","schoolName");
-        testSchoolResults("somethingElse","anotherName");
-
-    }
-
-    public void testSchoolResults(String sortDirection, String sortColumn) throws Exception{
-        /*
-        // test starts here
-        getRequest().setParameter("q", "Alameda");
-        getRequest().setParameter("state", "CA");
-        getRequest().setParameter("type", "school");
-        getRequest().setParameter("sortDirection", sortDirection);
-        getRequest().setParameter("sortColumn", sortColumn);
-
-
-
-        ModelAndView mAndV = _controller.handleRequest(getRequest(),getResponse());
-        Map model = mAndV.getModel();
-        assertNotNull(model);
-        assertNotNull(model.get("mainResults"));
-
-        List<SchoolSearchResult> schoolResults = (List<SchoolSearchResult>) model.get("mainResults") ;
-        assertNotNull(schoolResults);
-
-
-
-        System.out.println("Results type: " + schoolResults.get(0).getClass());
-
-
-        List<String> results = new ArrayList<String>();
-        for (int i = 0; i < schoolResults.size(); i++){
-            results.add(schoolResults.get(i).getName());
         }
-        if(sortDirection == "desc" && (sortColumn == null || sortColumn == "schoolName" )){
-            verifySame(alamedaSchoolsDescendingOrder(), results);
-        } else {
-            verifySame(this.alamedaSchoolsAscendingOrder(),results);
-        }
-
-        */
-
     }
-
-
-
 
     public void testCities() throws Exception {
 
@@ -251,6 +130,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         AnchorListModel cities = (AnchorListModel) mv.getModel().get(SearchController.MODEL_CITIES);
         assertNotNull(cities);
     }
+
 
     public void testNoResultsQuery() throws Exception {
 

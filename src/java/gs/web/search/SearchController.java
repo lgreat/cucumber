@@ -8,12 +8,10 @@ import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.state.State;
-import gs.data.state.StateManager;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
@@ -31,7 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Iterator;
 
 /**
  * This controller handles all search requests.
@@ -75,8 +72,6 @@ public class SearchController extends AbstractFormController {
 
     private static final String MODEL_QUERY = "q";
     private static final String MODEL_PAGE = "p";
-    /*private static final String MODEL_CITY = "city";
-    private static final String MODEL_DISTRICT = "district";*/
     private static final String MODEL_TITLE = "title";
     private static final String MODEL_HEADING1 = "heading1";
 
@@ -98,7 +93,6 @@ public class SearchController extends AbstractFormController {
             Logger.getLogger(SearchController.class);
 
 
-    private StateManager _stateManager;
     private GSQueryParser _queryParser;
     private ISchoolDao _schoolDao;
     private AnchorListModelFactory _anchorListModelFactory;
@@ -131,27 +125,15 @@ public class SearchController extends AbstractFormController {
     public ModelAndView processFormSubmission(
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
             throws Exception {
-        _log.warn("processFormSubmission");
-
-        _log.info(request.getQueryString());
-
         // Validate inputs
-        if (command == null) {
-            throw new IllegalArgumentException("no command");
-        }
-
-        if (!(command instanceof SearchCommand)) {
-            throw new IllegalArgumentException("command of wrong type");
-        }
-
+        if (command == null) throw new IllegalArgumentException("no command");
+        if (!(command instanceof SearchCommand)) throw new IllegalArgumentException("command of wrong type");
 
         final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         SearchCommand searchCommand = (SearchCommand) command;
 
         boolean debug = false;
-        if (request.getParameter(PARAM_DEBUG) != null) {
-            debug = true;
-        }
+        if (request.getParameter(PARAM_DEBUG) != null) debug = true;
 
         // Blank query string takes the user to browse pages
         if (StringUtils.isBlank(searchCommand.getQueryString())) {
@@ -167,11 +149,8 @@ public class SearchController extends AbstractFormController {
         }
 
         // ok, this seems like a valid search, set the "hasSearched" cookie
-        if (!searchCommand.isTopicsOnly()) {
-            PageHelper.setHasSearchedCookie(request, response);
-        }
-
-        Map model = createModel(request, searchCommand, sessionContext, debug);
+        if (!searchCommand.isTopicsOnly()) PageHelper.setHasSearchedCookie(request, response);
+        Map<String, Object> model = createModel(request, searchCommand, sessionContext, debug);
 
         // Set the pathway: it's Research & Compare unless it's an article search.
         String viewname;
@@ -184,7 +163,7 @@ public class SearchController extends AbstractFormController {
         return new ModelAndView(viewname, model);
     }
 
-    protected Map createModel(HttpServletRequest request, SearchCommand searchCommand, SessionContext sessionContext, boolean debug) throws IOException {
+    protected Map<String, Object> createModel(HttpServletRequest request, SearchCommand searchCommand, SessionContext sessionContext, boolean debug) throws IOException {
         Map<String, Object> model = new HashMap<String, Object>();
         final String queryString = searchCommand.getQueryString();
         model.put(MODEL_QUERY, queryString);
@@ -213,33 +192,21 @@ public class SearchController extends AbstractFormController {
             searchCommand.setSt(paramSchoolType);
             model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
         }
-        
+
 
         int pageSize = 10;
-        try{
+        try {
             Integer paramPageSize = new Integer(request.getParameter("pageSize"));
-            if (paramPageSize > 1){
+            if (paramPageSize > 1) {
                 pageSize = paramPageSize;
             }
-        }catch (Exception ex){}
+        } catch (Exception ex) {
+            _log.warn("pageSize parameter should be an integer, ignoring: " + request.getParameter("pageSize"));
+        }
 
         boolean resultsToShow = false;
-        Sort sort = createSort(request, searchCommand);
-        //searchCommand.setSort(sort);
-
-        _log.warn("sort: " + ((sort != null) ?  sort.toString(): "null"));
-        _log.warn("searchCommand: \n" + searchCommand.toString());
 
         Hits hits = _searcher.search(searchCommand);
-        _log.warn("hits: " + hits.length());
-        
-        /* debug block */
-        for(Iterator<Hit> iter = hits.iterator(); iter.hasNext(); ) {
-            Hit h = iter.next();
-            _log.warn("\t" + h.getDocument().get(Indexer.SCHOOL_NAME));
-        }
-        /* end of debug block */
-
         ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
         model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
         if (hits != null && hits.length() > 0) {
@@ -253,18 +220,9 @@ public class SearchController extends AbstractFormController {
         }
 
         model.put(MODEL_TITLE, "Greatschools.net Search: " + queryString);
-
-        // Parse parameters
-        int filteredListSize =
-                StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_FILTERED)) ?
-                        EXTENDED_LIST_SIZE : LIST_SIZE;
-
-
         State state = sessionContext.getStateOrDefault();
         if (StringUtils.isNotEmpty(queryString)) {
-
             BooleanQuery baseQuery = createBaseQuery(sessionContext, state, queryString);
-
             if (!searchCommand.isTopicsOnly()) {
                 Hits cityHits = _searcher.searchForCities(queryString, state);
                 if (cityHits != null && cityHits.length() != 0) {
@@ -331,7 +289,7 @@ public class SearchController extends AbstractFormController {
 
             }
         } else {
-            String type="";
+            String type = "";
             if (searchCommand.isTopicsOnly()) {
                 type = "topic";
             } else if (searchCommand.isSchoolsOnly()) {
@@ -354,33 +312,21 @@ public class SearchController extends AbstractFormController {
         return model;
     }
 
-    protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand){
-
-        _log.warn("SearchController.createSort");
-
-        if(!searchCommand.isSchoolsOnly()){
+    protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand) {
+        if (!searchCommand.isSchoolsOnly()) {
             return null;
         }
-
 
         String sortColumn = request.getParameter("sortColumn");
         String sortDirection = request.getParameter("sortDirection");
         Sort result = null;
-
-       _log.warn("createSort: sortColumn: " + sortColumn);
-       _log.warn("createSort: sortDirection: " + sortDirection);
-
-        if ( sortColumn == null || sortColumn.equals("schoolName")){
+        if (sortColumn == null || sortColumn.equals("schoolName")) {
             boolean descending = false;  // default is ascending order
-            if (sortDirection != null && sortDirection.equals("desc")){
+            if (sortDirection != null && sortDirection.equals("desc")) {
                 descending = true;
             }
-            result = new Sort( new SortField(Indexer.SORTABLE_NAME, SortField.STRING, descending));
-
-            _log.warn("createSort: SortField: " + Indexer.SORTABLE_NAME + ", " + SortField.STRING + ", " + descending);
+            result = new Sort(new SortField(Indexer.SORTABLE_NAME, SortField.STRING, descending));
         }
-       // default is School, ascending
-
         return result;
     }
 
@@ -406,56 +352,12 @@ public class SearchController extends AbstractFormController {
         return baseQuery;
     }
 
-    private AnchorListModel createFilteredCitiesListModel(StringBuffer filtersBuffer, Hits cityHits, String st, String gl, int filteredListSize, UrlBuilder urlBuilder, State state, HttpServletRequest request) throws IOException {
-        AnchorListModel anchorListModel = new AnchorListModel(filtersBuffer.toString());
-
-        boolean needMore = false;
-        int displayed = 0;
-        for (int ii = 0; ii < cityHits.length(); ii++) {
-            if (displayed < filteredListSize) {
-                String cityName = cityHits.doc(ii).get("city");
-                State stateOfCity = _stateManager.getState(cityHits.doc(ii).get("state"));
-                int count = _schoolDao.countSchools(stateOfCity,
-                        (st != null ? SchoolType.getSchoolType(st) : null),
-                        (gl != null ? LevelCode.createLevelCode(gl.substring(0, 1)) : null),
-                        cityName);
-                if (count > 0) {
-                    urlBuilder.setParameter("city", cityName);
-                    urlBuilder.setParameter("state", stateOfCity.getAbbreviation());
-                    cityName += ", " + stateOfCity.getAbbreviation();
-                    anchorListModel.add(urlBuilder.asAnchor(request, cityName));
-                    displayed++;
-                }
-            } else {
-                needMore = true;
-            }
-        }
-        if (needMore) {
-            UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
-            builder.addParametersFromRequest(request);
-            builder.setParameter(PARAM_MORE_FILTERED, "true");
-            anchorListModel.add(builder.asAnchor(request, "more..."));
-        }
-        if (anchorListModel.getResults().size() > 0) {
-            Anchor a = (Anchor) anchorListModel.getResults().get(anchorListModel.getResults().size() - 1);
-            a.setStyleClass("last");
-
-            a = (Anchor) anchorListModel.getResults().get(0);
-            a.appendStyleClass("first");
-        }
-        return anchorListModel;
-    }
-
     protected Hits searchForDistricts(BooleanQuery baseQuery) {
         BooleanQuery districtQuery = new BooleanQuery();
         districtQuery.add(new TermQuery(new Term("type", "district")),
                 BooleanClause.Occur.MUST);
         districtQuery.add(baseQuery, BooleanClause.Occur.MUST);
         return _searcher.search(districtQuery, null, null, null);
-    }
-
-    public void setStateManager(StateManager stateManager) {
-        _stateManager = stateManager;
     }
 
     public void setSearcher(Searcher searcher) {
