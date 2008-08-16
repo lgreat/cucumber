@@ -128,7 +128,7 @@
 </c:choose>
 <div id="schoolProfile">
     <div class="printSchoolProfileHeader">
-        <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"/></div>
+        <div><gsml:img src="/res/img/logo/logo_GS_201x38notag.gif" alt="GreatSchools: Involved Parents. Successful Kids"/></div>
         <br></br><div class="printName">${school.name}</div>
         <p><img src="/res/img/pixel.gif" alt=" "/></p>
     </div>

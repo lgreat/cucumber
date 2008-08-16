@@ -36,7 +36,7 @@
 <tr>
 <td style="padding-left: 40px">
     <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif"
-                               alt="GreatSchools: The Parents' Guide to K-12 Success"
+                               alt="GreatSchools: Involved Parents. Successful Kids"
             /></gsml:a>
 </td>
 <jsp:scriptlet>
