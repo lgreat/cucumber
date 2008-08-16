@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.58 2008/08/07 19:27:04 yfan Exp $
+ * $Id: SchoolsController.java,v 1.59 2008/08/16 00:54:34 yfan Exp $
  */
 
 package gs.web.school;
@@ -737,12 +737,12 @@ public class SchoolsController extends AbstractController {
 
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
-            Comparator hitComparator = getComparator(sortColumn, sortDirection);
+            Comparator comparator = SchoolComparatorFactory.createComparator(sortColumn, sortDirection);
 
             ResultsPager _resultsPager;
-            if (hitComparator != null){
-                // sort the hits using the hitComparator
-                _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school,hitComparator);
+            if (comparator != null){
+                // sort the hits using the comparator
+                _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school,comparator);
             } else {
                 _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
             }
@@ -761,25 +761,6 @@ public class SchoolsController extends AbstractController {
         }
 
         return new ModelAndView(getViewName(), model);
-    }
-
-    protected Comparator getComparator(String sortColumn, String sortDirection) {
-        if ( sortColumn == null || sortDirection == null){
-            return null;
-        }        
-        if (sortColumn.equals("ratingsHeader") && sortDirection.equals("desc")) {
-            return SchoolComparatorFactory.getByGsRatingDescending();
-        }
-        if (sortColumn.equals("ratingsHeader")) {
-            return SchoolComparatorFactory.getByGsRating();
-        }
-        if (sortColumn.equals("reviewsHeader") && sortDirection.equals("desc")) {
-            return SchoolComparatorFactory.getByParentOverallRatingDescending();
-        }
-        if (sortColumn.equals("reviewsHeader")) {
-            return SchoolComparatorFactory.getByParentOverallRating();
-        }
-        return null;
     }
 
     protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand, String sortColumn, String sortDirection){

@@ -108,11 +108,11 @@ public class ResultsPagerTest extends TestCase {
     }
 
 
-    public void testSortedGSRatingDescendingResults() {
+    public void testSortedGSRatingDescendingResults() throws Exception {
 
         _hits = null;
         getSortedHits();
-        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school, SchoolComparatorFactory.getByGsRatingDescending());
+        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school, SchoolComparatorFactory.createComparator("ratingsHeader", "asc"));
         // Since schoolDao is static, backup and restore to avoid side effects in other tests
         ISchoolDao oldSchoolDao = pager.getSchoolDao();
         pager.setSchoolDao(_schoolDao);

@@ -33,7 +33,7 @@ public class ResultsPager {
     private ResultType _type;
     private Searcher _searcher;
     private Query _explanationQuery;
-    private List<Hit> _hitList;
+    private List<Document> _docList;
 
     static {
         _stateManager = (StateManager) SpringUtil.getApplicationContext().getBean(StateManager.BEAN_ID);
@@ -64,17 +64,17 @@ public class ResultsPager {
         _type = type;
     }
 
-    public ResultsPager(Hits hits, ResultType type, Comparator comparator) throws ClassCastException{
+    public ResultsPager(Hits hits, ResultType type, Comparator comparator) throws ClassCastException, IOException {
         this(hits, type);
 
         if (_hits != null){
-         _hitList = new ArrayList<Hit>();
+            _docList = new ArrayList<Document>();
 
             for(Iterator<Hit> iter = _hits.iterator(); iter.hasNext(); ) {
                 Hit h = iter.next();
-                _hitList.add(h);
+                _docList.add(h.getDocument());
             }
-            Collections.sort(_hitList, comparator);           
+            Collections.sort(_docList, comparator);
         }
     }
 
@@ -91,7 +91,7 @@ public class ResultsPager {
         _explanationQuery = q;
     }
 
-    /**
+    /**                                                         c
      * Returns page of hits encapsulated as a <code>List</code> of
      * <code>SearchResult</code> objects
      *
@@ -121,12 +121,10 @@ public class ResultsPager {
 
                 for (int i = startIndex; i < endIndex; i++){
                     Document d;
-                    Hit hit = null;
 
-                    // if the _hitList, the results aren't specially sorted.  So acceess _hits to get the document
-                    if (_hitList != null){
-                        hit = _hitList.get(i);
-                        d = hit.getDocument();
+                    // if the _docList, the results aren't specially sorted.  So acceess _hits to get the document
+                    if (_docList != null){
+                        d = _docList.get(i);
                     } else {
                         d = _hits.doc(i);
                     }
@@ -150,17 +148,7 @@ public class ResultsPager {
                             }
                         }
                     } else {
-                        SearchResult sr = new SearchResult(d);
-                        if (_searcher != null) {
-
-                            // if hit is null, then the list is not specially sorted and should get the explaination using _hits...
-                            if (hit != null){
-                                sr.setExplanation(_searcher.explain(_explanationQuery, hit.getId()));
-                            } else {
-                                sr.setExplanation(_searcher.explain(_explanationQuery, _hits.id(i)));
-                            }
-                        }
-                        searchResults.add(sr);
+                        _log.error("Type not supported " + _type);
                     }
 
                 }
