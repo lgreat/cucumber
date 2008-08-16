@@ -8,6 +8,7 @@ import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -210,6 +211,11 @@ public class SearchController extends AbstractFormController {
         ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
         model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
         if (hits != null && hits.length() > 0) {
+//            TH: If I forget to delete this after 10.8 launches please go ahead and delete            
+//            State srState = new StateManager().getState(hits.doc(0).get("state"));
+//            if (srState != null && !sessionContext.getStateOrDefault().equals(srState)) {
+//                sessionContext.setState(srState);
+//            }
             if (debug) {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
             }
