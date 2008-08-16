@@ -148,7 +148,9 @@ public class ResultsPager {
                             }
                         }
                     } else {
-                        _log.error("Type not supported " + _type);
+                        // article topics use this
+                        SearchResult sr = new SearchResult(d);
+                        searchResults.add(sr);
                     }
 
                 }
