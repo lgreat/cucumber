@@ -58,6 +58,12 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         assertFalse("School should have no test data.", _controller.hasTestData(_school));
     }
 
+    public void testHasProgramData() throws Exception {
+        ISchoolDao _schoolDao = (ISchoolDao)getApplicationContext().getBean(ISchoolDao.BEAN_ID);
+        School _school = _schoolDao.getSchoolById(State.CA, new Integer(1));
+        assertFalse("School should not have program data.", _controller.hasProgramData(_school));
+    }
+
     public void testCameFromSurveyPage() throws Exception {
         getRequest().setMethod("GET");
         getRequest().setAttribute("state", State.CA);
@@ -74,18 +80,6 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         mAndV = _controller.handleRequest(getRequest(), getResponse());
         assertNull(mAndV.getModel().get("fromSurveyPage"));
         assertEquals("", getResponse().getCookie("TMP_MSG").getValue());
-    }
-
-    public void testHasTeacherData() throws Exception {
-        // todo
-    }
-
-    public void testHasStudentData() throws Exception {
-        // todo
-    }
-
-    public void testHasFinanceData() throws Exception {
-        // todo
     }
 
     public void testHasAPExams() throws Exception {
@@ -412,5 +406,6 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
            SchoolOverviewController.doSingleParentReview(reviewList, reviewMap);
            assertEquals("Expect reviewMap.size to be 0", 0, reviewMap.size());
     }
+
 
 }

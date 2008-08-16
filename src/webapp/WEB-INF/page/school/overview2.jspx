@@ -196,7 +196,7 @@
         </div>
 
         <c:set var="styleIdSuffix" value=""/>
-        <c:if test="${school.levelCode != 'p' or (hasStudentData or hasTeacherData)}">
+        <c:if test="${school.levelCode != 'p' or (hasStudentData or hasTeacherData or hasProgramData)}">
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
@@ -206,6 +206,21 @@
                 <c:set var="hasFinanceData" value="${hasFinanceData}" />
 
                 <h2>Learn About ${school.name}</h2>
+
+                <c:if test="${hasProgramData}">
+                    <link:schoolProfileCensus school="${school}"
+                                              anchor="programs"
+                                              styleClass="GS_CI9_"
+                                              styleId="LearnMore_Module_Programs1${styleIdSuffix}">
+                        <gsml:img src="/res/img/school/overview/learn_Programs.gif" alt="abc and programs" />
+                    </link:schoolProfileCensus>
+                    <p>
+                        <link:schoolProfileCensus school="${school}" anchor="programs"
+                                                  styleClass="GS_CI9_"
+                                                  styleId="LearnMore_Module_Programs2${styleIdSuffix}">${school.name} program stats</link:schoolProfileCensus>
+                    </p>
+                </c:if>
+
                 <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
                     <link:schoolProfileTestscore school="${school}"
                                                  styleClass="GS_CI9_" styleId="LearnMore_Module_TestScores1${styleIdSuffix}">

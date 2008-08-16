@@ -120,6 +120,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("hasAPExams", hasAPExams(school));
             model.put("hasTestData", Boolean.TRUE);
             model.put("hasElementaryLevelCode", school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL));
+            model.put("hasProgramData", hasProgramData(school));
 
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
                 model.put("hasTeacherData", _groupDataTypeDao.hasTeacherData(school));
@@ -160,6 +161,30 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    boolean hasProgramData(School s) {
+
+        ICensusInfo ci = s.getCensusInfo();
+
+        SchoolCensusValue value =
+                ci.getLatestValue(s, CensusDataType.BILINGUAL_INTRUCTION_OFFERED);
+        if (value != null && value.getBooleanValue()) {
+            return true;
+        }
+        
+        value = ci.getLatestValue(s, CensusDataType.SPECIAL_ED_OFFERED);
+        if (value != null && value.getBooleanValue()) {
+            return true;
+        }
+
+        value = ci.getLatestValue(s, CensusDataType.COMPUTERS_AVAILABLE);
+        if (value != null && value.getBooleanValue()) {
+            return true;
+        }
+
+        value = ci.getLatestValue(s, CensusDataType.BEFORE_AFTER_SUPERVISION);
+        return value != null && value.getBooleanValue();
     }
 
     boolean hasTestData(School s) {
