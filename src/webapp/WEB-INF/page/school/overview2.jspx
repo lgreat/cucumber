@@ -214,7 +214,7 @@
                                               styleId="LearnMore_Module_Programs1${styleIdSuffix}">
                         <gsml:img src="/res/img/school/overview/learn_Programs.gif" alt="abc and programs" />
                     </link:schoolProfileCensus>
-                    <p>
+                    <p class="${(hasStudentData or hasTeacherData or hasTestData) ? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="programs"
                                                   styleClass="GS_CI9_"
                                                   styleId="LearnMore_Module_Programs2${styleIdSuffix}">${school.name} program stats</link:schoolProfileCensus>
