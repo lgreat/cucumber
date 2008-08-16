@@ -18,6 +18,7 @@ import org.apache.lucene.store.RAMDirectory;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,22 +36,20 @@ public class SearchControllerTest extends BaseControllerTestCase {
     private SessionContextUtil _sessionContextUtil;
     private ISchoolDao _schoolDao;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        _controller = (SearchController) getApplicationContext().getBean(SearchController.BEAN_ID);
-
+    public SearchControllerTest() throws Exception {
+        ApplicationContext ctx = getApplicationContext();
         _schoolDao = createMock(ISchoolDao.class);
-
+        _controller = (SearchController) ctx.getBean(SearchController.BEAN_ID);
         _controller.setSchoolDao(_schoolDao);
-        IDistrictDao districtDao = (IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID);
-
-        Indexer indexer = (Indexer) getApplicationContext().getBean(Indexer.BEAN_ID);
-
+        IDistrictDao districtDao = (IDistrictDao) ctx.getBean(IDistrictDao.BEAN_ID);
+        _controller = (SearchController) ctx.getBean(SearchController.BEAN_ID);
+        Indexer indexer = (Indexer) ctx.getBean(Indexer.BEAN_ID);
         Directory directory = new RAMDirectory();
         IndexWriter writer = new IndexWriter(directory, new GSAnalyzer(), true);
         indexer.indexCities(State.AK, writer);
         indexer.indexCities(State.CA, writer);
+        ISchoolDao realSchoolDao = (ISchoolDao) ctx.getBean(ISchoolDao.BEAN_ID);
+        indexer.indexSchools(realSchoolDao.findSchoolsInCity(State.CA, "Alameda", 100), writer);
         indexer.indexCities(State.NY, writer);
         indexer.indexDistricts(districtDao.getDistricts(State.AK, true), writer);
 
@@ -77,10 +76,12 @@ public class SearchControllerTest extends BaseControllerTestCase {
 
         Searcher searcher = new Searcher(new IndexDir(directory, new RAMDirectory()));
         _controller.setSearcher(searcher);
+    }
 
+    protected void setUp() throws Exception {
+        super.setUp();
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
-
     }
 
     public void testCreateModelSortDirection() throws Exception {
@@ -149,6 +150,28 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertNull(cities);
     }
 
+
+    /**
+     * Search for schools in Alameda by zipcode, make sure state is ignored, extra whitespace is ignored,
+     * and the state is switched to the new state of the results zipcode
+     *
+     * @throws Exception
+     */
+    public void testZipCodeAndStateSwitch() throws Exception {
+        final GsMockHttpServletRequest request = getRequest();
+        request.setParameter("q", "94501");
+        request.setParameter("state", "AK");
+        SessionContext sessionContext = _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        SearchCommand command = new SearchCommand();
+        command.setQ("94501");
+        command.setState(State.AK);
+        BindException errors = new BindException(command, null);
+        ModelAndView mv = _controller.processFormSubmission(request, getResponse(), command, errors);
+        List results = (List) mv.getModel().get(SearchController.MODEL_RESULTS);
+        assertNotNull(results);
+        assertTrue(results.size() > 5);
+        assertEquals("The expected state switch didn't happen", State.CA, sessionContext.getStateOrDefault());
+    }
 
     public void testDistrictsRollup() {
         final GsMockHttpServletRequest request = getRequest();

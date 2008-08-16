@@ -96,6 +96,7 @@ public class SearchController extends AbstractFormController {
 
     private GSQueryParser _queryParser;
     private ISchoolDao _schoolDao;
+    private StateManager _stateManager;
     private AnchorListModelFactory _anchorListModelFactory;
 
     public SearchController(Searcher searcher) {
@@ -211,11 +212,11 @@ public class SearchController extends AbstractFormController {
         ResultsPager _resultsPager = new ResultsPager(hits, ResultsPager.ResultType.valueOf(searchCommand.getType()));
         model.put(MODEL_SEARCH_TYPE, _resultsPager.getType());
         if (hits != null && hits.length() > 0) {
-//            TH: If I forget to delete this after 10.8 launches please go ahead and delete            
-//            State srState = new StateManager().getState(hits.doc(0).get("state"));
-//            if (srState != null && !sessionContext.getStateOrDefault().equals(srState)) {
-//                sessionContext.setState(srState);
-//            }
+            // GS-6867 zip code searches can force a state switch to occur, so switch states if necessary
+            State srState = _stateManager.getState(hits.doc(0).get("state"));
+            if (srState != null && !sessionContext.getStateOrDefault().equals(srState)) {
+                sessionContext.setState(srState);
+            }
             if (debug) {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
             }
@@ -384,5 +385,9 @@ public class SearchController extends AbstractFormController {
 
     public void setAnchorListModelFactory(AnchorListModelFactory anchorListModelFactory) {
         _anchorListModelFactory = anchorListModelFactory;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
     }
 }
