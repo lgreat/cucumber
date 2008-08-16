@@ -112,7 +112,8 @@ public class ResultsPagerTest extends TestCase {
 
         _hits = null;
         getSortedHits();
-        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school, SchoolComparatorFactory.createComparator("ratingsHeader", "asc"));
+        ResultsPager pager = new ResultsPager(_hits, ResultsPager.ResultType.school,
+            SchoolComparatorFactory.createComparator("ratingsHeader", "desc"));
         // Since schoolDao is static, backup and restore to avoid side effects in other tests
         ISchoolDao oldSchoolDao = pager.getSchoolDao();
         pager.setSchoolDao(_schoolDao);
