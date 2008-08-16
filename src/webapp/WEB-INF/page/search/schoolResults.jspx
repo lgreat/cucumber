@@ -89,7 +89,8 @@
         request.setAttribute("stOmniture", stOmniture);
         gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         LevelCode levelCode = (LevelCode) request.getAttribute("levelCode");
-        if (levelCode != null) for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
+        if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
+        for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
             pageHelper.addAdKeywordMulti("level", level.getName());
     </jsp:scriptlet>
 </head>

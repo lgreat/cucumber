@@ -52,7 +52,8 @@
             pageHelper.addAdKeyword("city", city);
         }
         LevelCode levelCode = (LevelCode) request.getAttribute("lc");
-        if (levelCode != null) for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
+        if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
+        for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
             pageHelper.addAdKeywordMulti("level", level.getName());
     }
 </jsp:scriptlet>
