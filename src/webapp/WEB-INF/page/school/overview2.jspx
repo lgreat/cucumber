@@ -88,10 +88,10 @@
     <!-- being left column -->
     <div id="col_left">
         <school:quickFacts school="${school}"/>
-        <ad:adTag position="School_Profile_Page_Overview_Survey_179x151"/>
+        <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
+        <ad:adTag position="Survey_179x151"/>
         <school:bigPicture school="${school}" divider="true"/>
         <div id="leftcolAd">
-            <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
             <c:set var="positionAF160x600" value="AboveFold_Left_160x600"/>
             <ad:AboveFold_Left_160x600 position="${positionAF160x600}"/>
         </div>
