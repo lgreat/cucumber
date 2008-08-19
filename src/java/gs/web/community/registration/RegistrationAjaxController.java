@@ -76,7 +76,7 @@ public class RegistrationAjaxController implements Controller {
         State state = _stateManager.getState(request.getParameter("state"));
         List<ICounty> counties = _geoDao.findCounties(state);
         if (counties.size() > 0) {
-            out.print("<select id=\"countySelect\" name=\"county\" class=\"selectCounty\" tabindex=\"10\">");
+            out.print("<select id=\"countySelect\" name=\"county\" class=\"selectCounty\">");
             outputOption(out, "", "Choose county", true);
             for (ICounty county : counties) {
                 outputOption(out, county.getName(), county.getName());

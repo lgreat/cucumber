@@ -238,7 +238,7 @@
                         </spring:bind>
                         -->
                         <span id="county">
-                            <select name="county" tabindex="10">
+                            <select name="county">
                             <option value="">Choose county</option>
                             <c:forEach var="countyOption" items="${countyList}">
                                 <![CDATA[<option ]]>
