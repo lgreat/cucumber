@@ -45,7 +45,7 @@ public class SubmitSchoolController extends SimpleFormController {
         "\n" +
         "The GreatSchools Staff";
     public static String PRIVATE_SCHOOL_THANK_YOU_EMAIL_TEXT =
-        "Thank you for submitting information about a private school to GreatSchools.net. " +
+        "Thank you for submitting information about a private school to GreatSchools. " +
         "We will post all verified information as soon as possible.\n" +
         "\n" +
         "PLEASE NOTE:\n" +
