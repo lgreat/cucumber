@@ -181,20 +181,34 @@ public class SubmitSchoolController extends SimpleFormController {
         sb.append("<name>").append(command.getSchoolName()).append("</name>\n");
         sb.append("<type>private</type>\n");
 
-        if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
-            sb.append("<subtypes><subtype>").append(((SubmitPrivateSchoolCommand)command).getGender()).append("</subtype></subtypes>\n");
+        if (TYPE_PRESCHOOL.equals(_type)) {
+            SubmitPreschoolCommand cmd = (SubmitPreschoolCommand)command;
+            sb.append("<subtypes><subtype>").append(cmd.getPreschoolSubtype()).append("</subtype></subtypes>\n");
+        } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
+            SubmitPrivateSchoolCommand cmd = (SubmitPrivateSchoolCommand)command;
+            sb.append("<subtypes><subtype>").append(cmd.getGender()).append("</subtype></subtypes>\n");
         }
 
         sb.append("<contact contactType=\"").append(command.getSubmitterConnectionToSchool()).append("\">\n");
         sb.append("    <name>").append(command.getSubmitterName()).append("</name>\n");
         sb.append("    <email>").append(command.getSubmitterEmail()).append("</email>\n");
         sb.append("</contact>\n");
-        sb.append("<url>").append(command.getSchoolWebSite()).append("</url>\n");
+        if (!StringUtils.isBlank(command.getSchoolWebSite())) {
+            sb.append("<url>").append(command.getSchoolWebSite()).append("</url>\n");
+        }
         sb.append("<phoneNumber>").append(command.getPhoneNumber()).append("</phoneNumber>\n");
-        sb.append("<faxNumber>").append(command.getFaxNumber()).append("</faxNumber>\n");
+
+        if (!StringUtils.isBlank(command.getFaxNumber())) {
+            sb.append("<faxNumber>").append(command.getFaxNumber()).append("</faxNumber>\n");
+        }
         sb.append("<affiliations>").append(command.getReligion()).append("</affiliations>\n");
         sb.append("<associations>").append(command.getAssociationMemberships()).append("</associations>\n");
-        sb.append("<fipsCountyCode>").append("</fipsCountyCode>\n");
+
+        ICounty county = _geoDao.findCountyByName(command.getCounty(), command.getState());
+        if (county != null) {
+            sb.append("<fipsCountyCode>").append(county.getCountyFips()).append("</fipsCountyCode>\n");
+        }
+
         sb.append("<countyName>").append(command.getCounty()).append("</countyName>\n");
         sb.append("<address type=\"LOC\">\n");
         sb.append("    <line1>").append(command.getStreetAddress()).append("</line1>\n");
@@ -203,17 +217,34 @@ public class SubmitSchoolController extends SimpleFormController {
         sb.append("    <zipCode>").append(command.getZipCode()).append("</zipCode>\n");
         sb.append("</address>\n");
 
-        if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
+        if (TYPE_PRESCHOOL.equals(_type)) {
+            SubmitPreschoolCommand cmd = (SubmitPreschoolCommand)command;
+            if (!StringUtils.isBlank(cmd.getBilingualEd())) {
+                sb.append("<pk_bilingual>").append(cmd.getBilingualEd().substring(0,1).toUpperCase()).append("</pk_bilingual>\n");
+            }
+            if (!StringUtils.isBlank(cmd.getSpecialEd())) {
+                sb.append("<pk_specialEd>").append(cmd.getSpecialEd().substring(0,1).toUpperCase()).append("</pk_specialEd>\n");
+            }
+            if (!StringUtils.isBlank(cmd.getComputersPresent())) {
+                sb.append("<pk_computers>").append(cmd.getComputersPresent().substring(0,1).toUpperCase()).append("</pk_computers>\n");
+            }
+            if (!StringUtils.isBlank(cmd.getExtendedCare())) {
+                sb.append("<pk_beforeAfterCare>").append(cmd.getExtendedCare().substring(0,1).toUpperCase()).append("</pk_beforeAfterCare>\n");
+            }
+            sb.append("<pk_lowAge>").append(cmd.getLowestAge().toUpperCase()).append("</pk_lowAge>\n");
+            sb.append("<pk_highAge>").append(cmd.getHighestAge().toUpperCase()).append("</pk_highAge>\n");
+            sb.append("<pk_capacity>").append(command.getNumStudentsEnrolled()).append("</pk_capacity>\n");
+        } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
+            SubmitPrivateSchoolCommand cmd = (SubmitPrivateSchoolCommand)command;
             sb.append("<grades>\n");
-            // TODO-6868 FIXME
-            sb.append("    <grade>").append(((SubmitPrivateSchoolCommand)command).getLowestGrade()).append("</grade>\n");
-            sb.append("    <grade>").append(((SubmitPrivateSchoolCommand)command).getHighestGrade()).append("</grade>\n");
+            sb.append("    <grade>").append(cmd.getLowestGrade()).append("</grade>\n");
+            sb.append("    <grade>").append(cmd.getHighestGrade()).append("</grade>\n");
             sb.append("</grades>\n");
+            sb.append("<membership>\n");
+            sb.append("<amount>").append(command.getNumStudentsEnrolled()).append("</amount>\n");
+            sb.append("</membership>\n");
         }
 
-        sb.append("<membership>\n");
-        sb.append("<amount>").append(command.getNumStudentsEnrolled()).append("</amount>\n");
-        sb.append("</membership>\n");
         sb.append("</agency>\n");
 
         return sb.toString();
