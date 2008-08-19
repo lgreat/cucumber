@@ -326,6 +326,9 @@
             <c:if test="${hasElementaryLevelCode and not (requestScope.pageHelper.adFree or requestScope.pageHelper.adServedByCobrand)}">
                 <div class="belowAdWrapper">
                     <ad:sponsor_leapfrog/>
+                    <a href="http://ad.doubleclick.net/jump/N3340.greatschool.net/B2928661.16;sz=1x1;ord=[timestamp]?"><img
+                       src="http://ad.doubleclick.net/ad/N3340.greatschool.net/B2928661.16;sz=1x1;ord=[timestamp]?"
+                       border="0" width="1" height="1" alt="Click Here"/></a> 
                 </div>
             </c:if>
 
