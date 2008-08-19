@@ -74,11 +74,11 @@
             <c:choose>
                 <c:when test="${type eq 'preschool'}">
                     private elementary, middle, or high school?
-                    <gsml:a href="/cgi-bin/feedback_private/${state}">Add it here &amp;gt;</gsml:a>
+                    <link:submitPrivateSchool>Add it here &amp;gt;</link:submitPrivateSchool>
                 </c:when>
                 <c:when test="${type eq 'private school'}">
                     preschool?
-                    <gsml:a href="/about/feedback/submitPrivateSchool.page">Add it here &amp;gt;</gsml:a>
+                    <link:submitPreschool>Add it here &amp;gt;</link:submitPreschool>
                 </c:when>
            </c:choose>
         </p>

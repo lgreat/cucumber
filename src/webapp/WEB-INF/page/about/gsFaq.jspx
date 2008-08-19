@@ -259,7 +259,7 @@ Statistics (NCES) and some state Departments of Education.</p>
 				<li>
 					<p class="question">What if I know of a private school that is not listed on GreatSchools.net?</p>
 					<p>If you know of a private school that is not listed, please
-                        <gsml:a href="/cgi-bin/feedback_private/${state}">submit the school's information to us</gsml:a>.
+                        <link:submitPrivateSchool>submit the school's information to us</link>.
                         Note: We can add private schools individually, but do not have the resources to add
                         public or charter schools individually.</p>
 				</li>

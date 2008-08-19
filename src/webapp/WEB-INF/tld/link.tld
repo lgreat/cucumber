@@ -2439,5 +2439,37 @@
             <description>CSS class name(s)</description>
         </attribute>
     </tag>
+    <tag>
+        <name>submitPreschool</name>
+        <tag-class>gs.web.jsp.link.SubmitPreschoolTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>submitPreschool</display-name>
+        <description>
+            <![CDATA[Link to our Submit Preschool page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>submitPrivateSchool</name>
+        <tag-class>gs.web.jsp.link.SubmitPrivateSchoolTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>submitPrivateSchool</display-name>
+        <description>
+            <![CDATA[Link to our Submit Private School page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
 </taglib>
 
