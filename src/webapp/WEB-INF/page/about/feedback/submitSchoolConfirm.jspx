@@ -27,7 +27,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="Description" content="TBD"/>
-        <title>Add your preschool to the GreatSchools web site</title>
+        <title>Add your ${type} to the GreatSchools web site</title>
         <pageHelper:externalCss file="/res/css/about/feedback/submitSchool.css"/>
     </head>
 
@@ -40,13 +40,13 @@
             </div>
 
             <p>
-                Thank you for submitting information about a private school. We will verify your information
+                Thank you for submitting information about a ${type}. We will verify your information
                 and post it within approximately two weeks. If we need to follow up with you on your
                 submission, we will contact you directly.
             </p>
 
             <p>
-                We appreciate your interest in GreatSchools.net!
+                We appreciate your interest in GreatSchools!
             </p>
 
         </div>

@@ -2,7 +2,6 @@ package gs.web.util.validator;
 
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.community.registration.UserCommand;
 import gs.web.about.feedback.SubmitSchoolCommand;
 import gs.data.state.State;
 import org.springframework.validation.Errors;
@@ -41,8 +40,7 @@ public class SubmitSchoolCommandValidatorTest extends BaseTestCase {
         _request = new GsMockHttpServletRequest();
     }
 
-    private SubmitSchoolCommand setupCommand() {
-        SubmitSchoolCommand command = new SubmitSchoolCommand();
+    protected SubmitSchoolCommand setupCommand(SubmitSchoolCommand command) {
         command.setSubmitterName(GOOD_SUBMITTER_NAME);
         command.setSubmitterEmail(GOOD_SUBMITTER_EMAIL);
         command.setSubmitterEmailConfirm(GOOD_SUBMITTER_EMAIL_CONFIRM);
@@ -60,6 +58,11 @@ public class SubmitSchoolCommandValidatorTest extends BaseTestCase {
         command.setReligion(GOOD_RELIGION);
         command.setAssociationMemberships(GOOD_ASSOCIATION);
         return command;
+    }
+
+    protected SubmitSchoolCommand setupCommand() {
+        SubmitSchoolCommand command = new SubmitSchoolCommand();
+        return setupCommand(command);
     }
 
     public void testSuccess() {

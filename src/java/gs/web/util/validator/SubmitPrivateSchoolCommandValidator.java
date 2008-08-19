@@ -13,9 +13,9 @@ public class SubmitPrivateSchoolCommandValidator extends SubmitSchoolCommandVali
     public static final String BEAN_ID = "submitPrivateSchoolCommandValidator";
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private static final String ERROR_LOWEST_GRADE_SERVED_MISSING =
+    static final String ERROR_LOWEST_GRADE_OFFERED_MISSING =
         "Please select the lowest grade offered.";
-    private static final String ERROR_HIGHEST_GRADE_SERVED_MISSING =
+    static final String ERROR_HIGHEST_GRADE_OFFERED_MISSING =
         "Please select the highest grade offered.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
@@ -24,11 +24,11 @@ public class SubmitPrivateSchoolCommandValidator extends SubmitSchoolCommandVali
         SubmitPrivateSchoolCommand command = (SubmitPrivateSchoolCommand)object;
 
         if (StringUtils.isBlank(command.getLowestGrade())) {
-            errors.rejectValue("lowestGrade", null, ERROR_LOWEST_GRADE_SERVED_MISSING);
+            errors.rejectValue("lowestGrade", null, ERROR_LOWEST_GRADE_OFFERED_MISSING);
         }
 
         if (StringUtils.isBlank(command.getHighestGrade())) {
-            errors.rejectValue("highestGrade", null, ERROR_HIGHEST_GRADE_SERVED_MISSING);
+            errors.rejectValue("highestGrade", null, ERROR_HIGHEST_GRADE_OFFERED_MISSING);
         }
     }
 }

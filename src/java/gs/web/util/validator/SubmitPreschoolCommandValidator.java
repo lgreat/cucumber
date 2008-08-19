@@ -13,9 +13,9 @@ public class SubmitPreschoolCommandValidator extends SubmitSchoolCommandValidato
     public static final String BEAN_ID = "submitPreschoolCommandValidator";
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private static final String ERROR_LOWEST_AGE_SERVED_MISSING =
+    static final String ERROR_LOWEST_AGE_SERVED_MISSING =
         "Please select the lowest age served.";
-    private static final String ERROR_HIGHEST_AGE_SERVED_MISSING =
+    static final String ERROR_HIGHEST_AGE_SERVED_MISSING =
         "Please select the highest age served.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
