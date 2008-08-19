@@ -34,8 +34,15 @@ public class SubmitSchoolController extends SimpleFormController {
     public static String TYPE_PRIVATE_SCHOOL = "private school";
     public static String TYPE_PRESCHOOL = "preschool";
 
-    // TODO-6868 need preschool email confirmation text
-    public static String PRESCHOOL_THANK_YOU_EMAIL_TEXT = "";
+    public static String PRESCHOOL_THANK_YOU_EMAIL_TEXT =
+        "Thank you for submitting information about a preschool to GreatSchools. We will post all verified " +
+        "information as soon as possible.\n" +
+        "\n" +
+        "To learn more about where we get our data, please read our Frequently Asked Questions.\n" +
+        "\n" +
+        "Best regards,\n" +
+        "\n" +
+        "The GreatSchools Staff";
     public static String PRIVATE_SCHOOL_THANK_YOU_EMAIL_TEXT =
         "Thank you for submitting information about a private school to GreatSchools.net. " +
         "We will post all verified information as soon as possible.\n" +
@@ -92,9 +99,9 @@ public class SubmitSchoolController extends SimpleFormController {
 
         String thankYouEmailText = null;
         if (TYPE_PRESCHOOL.equals(_type)) {
-            thankYouEmailText = PRIVATE_SCHOOL_THANK_YOU_EMAIL_TEXT;
-        } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
             thankYouEmailText = PRESCHOOL_THANK_YOU_EMAIL_TEXT;
+        } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
+            thankYouEmailText = PRIVATE_SCHOOL_THANK_YOU_EMAIL_TEXT;
         }
 
         // send submission to data team queue
