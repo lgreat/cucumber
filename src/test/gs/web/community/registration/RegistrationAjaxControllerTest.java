@@ -6,6 +6,9 @@ package gs.web.community.registration;
 import gs.web.BaseControllerTestCase;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
+import gs.data.geo.ICounty;
+import gs.data.geo.ICity;
+import gs.data.geo.bestplaces.BpCounty;
 import gs.data.state.StateManager;
 import gs.data.state.State;
 import org.easymock.MockControl;
@@ -87,5 +90,61 @@ public class RegistrationAjaxControllerTest extends BaseControllerTestCase {
                 sw.getBuffer().indexOf("Oakland") > -1);
         assertTrue("Output does not contain expected city name Fremont",
                 sw.getBuffer().indexOf("Fremont") > -1);
+    }
+
+    public void testOutputCountySelect() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+
+        // set up data
+        getRequest().addParameter("state", "CA");
+        _geoDao.findCounties(State.CA);
+        List<ICounty> counties = new ArrayList<ICounty>();
+        BpCounty county1 = new BpCounty();
+        county1.setName("San Diego");
+        counties.add(county1);
+        BpCounty county2 = new BpCounty();
+        county2.setName("San Francisco");
+        counties.add(county2);
+        _geoControl.setReturnValue(counties);
+        _geoControl.replay();
+
+        _controller.outputCountySelect(getRequest(), pw);
+        _geoControl.verify();
+
+        // I don't do a character-by-character comparison because I feel that would
+        // be too brittle. Instead, I just verify the data is making it through.
+        assertNotNull("Output null", sw.getBuffer());
+        assertTrue("Output empty", sw.getBuffer().length() > 0);
+        assertTrue("Output does not contain expected county name San Diego",
+                sw.getBuffer().indexOf("San Diego") > -1);
+        assertTrue("Output does not contain expected county name San Francisco",
+                sw.getBuffer().indexOf("San Francisco") > -1);
+    }
+
+    public void testHandleRequest() throws Exception {
+        getRequest().addParameter("state", "CA");
+        getRequest().addParameter("type", "city");
+
+        _geoDao.findCitiesByState(State.CA);
+        List<ICity> cities = new ArrayList<ICity>();
+        _geoControl.setReturnValue(cities);
+        _geoControl.replay();
+
+        _controller.handleRequest(getRequest(), getResponse());
+        _geoControl.verify();
+
+        _geoControl.reset();
+
+        getRequest().removeParameter("type");
+        getRequest().addParameter("type", "county");
+
+        _geoDao.findCounties(State.CA);
+        List<ICounty> counties = new ArrayList<ICounty>();
+        _geoControl.setReturnValue(counties);
+        _geoControl.replay();
+
+        _controller.handleRequest(getRequest(), getResponse());
+        _geoControl.verify();
     }
 }

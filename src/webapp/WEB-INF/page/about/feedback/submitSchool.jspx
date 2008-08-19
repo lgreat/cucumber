@@ -27,6 +27,26 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="Description" content="Add your ${type} to the GreatSchools web site"/>
         <title>Add your ${type} to the GreatSchools web site</title>
+        <pageHelper:externalJavascript file="/res/js/prototype.js"/>
+          <script type="text/javascript">
+          <![CDATA[
+          <!--
+          function stateChange(stateSelect) {
+              var url = '/community/registrationAjax.page';
+              var pars = 'state=' + stateSelect.value + "&type=county";
+              $('county').innerHTML = '<select name="county" class="selectCounty"><option value="">Loading ...</option></select>';
+              var myAjax = new Ajax.Updater (
+                      'county',
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars
+                      });
+          }
+          -->
+          ]]>
+          </script>
+
         <pageHelper:externalCss file="/res/css/about/feedback/submitSchool.css"/>
     </head>
 
@@ -174,18 +194,6 @@
                 </div>
 
                 <div class="field">
-                    <div class="fieldLabel">State <span class="required">*</span></div>
-                    <div class="fieldInput">
-                        <spring:bind path="submitSchoolCommand.state">
-                            <gsweb:stateSelector name="${status.expression}" state="${status.value}"/>
-                        </spring:bind>
-                    </div>
-                    <div class="fieldNote">
-                        <gsml:errorMessage command="submitSchoolCommand" field="state" useImage="true" styleClass="warning"/>
-                    </div>
-                </div>
-
-                <div class="field">
                     <div class="fieldLabel">City <span class="required">*</span></div>
                     <div class="fieldInput">
                         <spring:bind path="submitSchoolCommand.city">
@@ -194,6 +202,18 @@
                     </div>
                     <div class="fieldNote">
                         <gsml:errorMessage command="submitSchoolCommand" field="city" useImage="true" styleClass="warning"/>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="fieldLabel">State <span class="required">*</span></div>
+                    <div class="fieldInput">
+                        <spring:bind path="submitSchoolCommand.state">
+                            <gsweb:stateSelector name="${status.expression}" state="${status.value}" onChange="stateChange(this);"/>
+                        </spring:bind>
+                    </div>
+                    <div class="fieldNote">
+                        <gsml:errorMessage command="submitSchoolCommand" field="state" useImage="true" styleClass="warning"/>
                     </div>
                 </div>
 
@@ -212,9 +232,23 @@
                 <div class="field">
                     <div class="fieldLabel">County <span class="required">*</span></div>
                     <div class="fieldInput">
+                        <!--
                         <spring:bind path="submitSchoolCommand.county">
                             <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
                         </spring:bind>
+                        -->
+                        <span id="county">
+                            <select name="county" tabindex="10">
+                            <option value="">Choose county</option>
+                            <c:forEach var="countyOption" items="${countyList}">
+                                <![CDATA[<option ]]>
+                                <c:if test="${submitSchoolCommand.county eq countyOption.name}">
+                                    selected="selected"
+                                </c:if>
+                                <![CDATA[ value="${countyOption.name}">${countyOption.name}</option>]]>
+                            </c:forEach>
+                            </select>
+                        </span>
                     </div>
                     <div class="fieldNote">
                         <gsml:errorMessage command="submitSchoolCommand" field="county" useImage="true" styleClass="warning"/>

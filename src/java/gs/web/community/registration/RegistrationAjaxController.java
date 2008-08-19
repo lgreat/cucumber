@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.io.PrintWriter;
 
-import gs.data.geo.IGeoDao;
-import gs.data.geo.ICity;
-import gs.data.geo.City;
+import gs.data.geo.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 
@@ -25,6 +23,10 @@ public class RegistrationAjaxController implements Controller {
 
     private IGeoDao _geoDao;
     private StateManager _stateManager;
+
+    final public static String TYPE_PARAM = "type";
+    final public static String CITY_TYPE = "city";
+    final public static String COUNTY_TYPE = "county";
 
     public IGeoDao getGeoDao() {
         return _geoDao;
@@ -44,7 +46,12 @@ public class RegistrationAjaxController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
-        outputCitySelect(request, out);
+        String type = request.getParameter(TYPE_PARAM);
+        if (CITY_TYPE.equals(type)) {
+            outputCitySelect(request, out);
+        } else if (COUNTY_TYPE.equals(type)) {
+            outputCountySelect(request,out);
+        }
         return null;
     }
 
@@ -60,6 +67,19 @@ public class RegistrationAjaxController implements Controller {
             for (int x=0; x < cities.size(); x++) {
                 ICity city = (ICity) cities.get(x);
                 outputOption(out, city.getName(), city.getName());
+            }
+            out.print("</select>");
+        }
+    }
+
+    protected void outputCountySelect(HttpServletRequest request, PrintWriter out) {
+        State state = _stateManager.getState(request.getParameter("state"));
+        List<ICounty> counties = _geoDao.findCounties(state);
+        if (counties.size() > 0) {
+            out.print("<select id=\"countySelect\" name=\"county\" class=\"selectCounty\" tabindex=\"10\">");
+            outputOption(out, "", "Choose county", true);
+            for (ICounty county : counties) {
+                outputOption(out, county.getName(), county.getName());
             }
             out.print("</select>");
         }

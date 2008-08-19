@@ -15,9 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 import gs.web.util.validator.SubmitPreschoolCommandValidator;
 import gs.web.util.validator.SubmitPrivateSchoolCommandValidator;
+import gs.web.util.context.SessionContextUtil;
+import gs.data.state.State;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.ICounty;
 
 /**
  * @author Young Fan 
@@ -59,6 +64,7 @@ public class SubmitSchoolController extends SimpleFormController {
         "The GreatSchools Staff";
     public static String THANK_YOU_EMAIL_SUBJECT = "Thanks for your feedback";
 
+    private IGeoDao _geoDao;
     private JavaMailSender _mailSender;
     private String _type;
     private String _fromEmail;
@@ -107,7 +113,16 @@ public class SubmitSchoolController extends SimpleFormController {
     protected Map referenceData(HttpServletRequest request, Object o, Errors errors) throws Exception {
         SubmitSchoolCommand command = (SubmitSchoolCommand)o;
         Map<String,Object> map = new HashMap<String,Object>();
+
         map.put("type", _type);
+
+        State state = command.getState();
+        if (state == null) {
+            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+        }
+        List<ICounty> counties = _geoDao.findCounties(state);
+        map.put("countyList", counties);
+
         return map;
     }
 
@@ -232,5 +247,9 @@ public class SubmitSchoolController extends SimpleFormController {
 
     public void setMailSender(JavaMailSender mailSender) {
         _mailSender = mailSender;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }
