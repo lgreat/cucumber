@@ -29,7 +29,6 @@ import gs.data.geo.ICounty;
  * @author Young Fan 
  */
 public class SubmitSchoolController extends SimpleFormController {
-    // TODO-6868 What BEAN_ID since reused by two different beans
     protected final Log _log = LogFactory.getLog(getClass());
 
     public static String TYPE_PRIVATE_SCHOOL = "private school";
