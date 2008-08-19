@@ -176,9 +176,9 @@ public class TableMoverControllerTest extends BaseControllerTestCase {
         assertTrue(tables.contains("gs_schooldb.configuration"));
         assertTrue(ArrayUtils.contains(cmd.getTablesFilteredOut(), "gs_schooldb.foo"));
 
-        // Test table filtering, us_geo.city is blacklisted for live to dev
+        // Test table filtering, gs_schooldb.* is blacklisted for live to dev
         cmd.setTarget("dev");
-        cmd.setTablesets(new String[]{"us_geo.city", "_ca.test"});
+        cmd.setTablesets(new String[]{"gs_schooldb.foo", "_ca.test"});
         cmd.setStates(new String[0]);
         _controller.onBindAndValidate(_request, cmd, errors);
         _controller.onSubmit(_request, _response, cmd, errors);

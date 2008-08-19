@@ -1,8 +1,6 @@
 package gs.web.admin.database;
 
 import gs.web.BaseTestCase;
-import gs.web.admin.database.TableMoverServiceData;
-import gs.web.admin.database.TableMoverService;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -336,11 +334,11 @@ public class TableMoverServiceSaTest extends BaseTestCase {
 
         _tableMoverService.filterDatabases(databases);
         List databasesAndTables = databases.getDatabasesAndTables();
-        assertEquals("Unexpected number of databases in filtered list", 2, databasesAndTables.size());
+        assertEquals("Unexpected number of databases in filtered list", 3, databasesAndTables.size());
         assertNotNull("Expected test database to be in results", databases.getDatabase("test"));
         assertNotNull("Expected test2 database to be in results", databases.getDatabase("test2"));
+        assertNotNull("Expected us_geo database to be in results", databases.getDatabase("us_geo"));
         assertNull("Expected gs_schooldb database to be filtered from results", databases.getDatabase("gs_schooldb"));
-        assertNull("Expected us_geo database to be filtered from results", databases.getDatabase("us_geo"));
     }
 
     public void testFilterDatabaseListForDevToStaging() {
@@ -380,7 +378,7 @@ public class TableMoverServiceSaTest extends BaseTestCase {
 
     public void testDatabaseFiltering() {
         String[] tables = {};
-        List<String> tablesFilteredOut = new ArrayList();
+        List<String> tablesFilteredOut = new ArrayList<String>();
         String[] resultTables = _tableMoverService.filter(TableMoverServiceData.DEV_TO_STAGING, tables, tablesFilteredOut);
         assertEquals(0, resultTables.length);
         assertEquals(0, tablesFilteredOut.size());

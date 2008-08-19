@@ -47,7 +47,6 @@ public class TableMoverService {
     transient public static final List<String> PRODUCTION_TO_DEV_BLACKLIST = new ArrayList<String>() {
         {
             add("gs_schooldb");
-            add("us_geo");
         }
     };
     transient public static final Map<String, HashSet<String>> DEV_TO_STAGING_WHITELIST = new HashMap<String, HashSet<String>>() {
