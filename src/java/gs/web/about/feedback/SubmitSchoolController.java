@@ -38,7 +38,8 @@ public class SubmitSchoolController extends SimpleFormController {
         "Thank you for submitting information about a preschool to GreatSchools. We will post all verified " +
         "information as soon as possible.\n" +
         "\n" +
-        "To learn more about where we get our data, please read our Frequently Asked Questions.\n" +
+        "To learn more about where we get our data, please read our Frequently Asked Questions:\n" +
+        "http://www.greatschools.net/about/gsFaq.page\n" +
         "\n" +
         "Best regards,\n" +
         "\n" +
@@ -64,7 +65,7 @@ public class SubmitSchoolController extends SimpleFormController {
         "  http://nces.ed.gov/ccd/ccseas.asp\n" +
         "\n" +
         "To learn more about where we get our data, please read our Frequently Asked Questions:\n" +
-        "http://www.greatschools.net/cgi-bin/static/faq.inc/\n" +
+        "http://www.greatschools.net/about/gsFaq.page\n" +
         "\n" +
         "Best regards,\n" +
         "\n" +
