@@ -15,6 +15,7 @@
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.UrlBuilder"/>
 
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -51,6 +52,12 @@
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
     </jsp:scriptlet>
+    <jsp:scriptlet>
+            UrlBuilder builder;
+            SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+            builder = new UrlBuilder(UrlBuilder.DESIGN_FEEDBACK, context.getStateOrDefault());
+            request.setAttribute("design_feedback_url", builder.asSiteRelativeXml(request));
+    </jsp:scriptlet>
     <gsml:equalizeColumns ids="'col_left','col_right'"/>
     <c:if test="${param.showNewsletterHover eq 'true'}">
         <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -66,7 +73,7 @@
 
     <c:if test="${!hasSeenMsl}">
         <img src="/res/img/msl_alert.gif" alt="" id="msl_alert"/>
-        <div id="feedback_link_over_image"><link:feedback topicOption="MSL" >Tell us what you think &gt;</link:feedback></div>
+        <div id="feedback_link_over_image"><a href="${design_feedback_url}">Tell us what you think &gt;</a></div>
     </c:if>
     <div id="msl_header">
         <div id="msl_header_top">
