@@ -1538,6 +1538,7 @@
         <property name="formView" value="/about/feedback/submitSchool"/>
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
         <property name="mailSender" ref="mailSender"/>
+        <property name="fromEmail" value="preschools@greatschools.net"/>
         <property name="type" value="preschool"/>
     </bean>
 
@@ -1550,6 +1551,7 @@
         <property name="formView" value="/about/feedback/submitSchool"/>
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
         <property name="mailSender" ref="mailSender"/>
+        <property name="fromEmail" value="pvtschools@greatschools.net"/>
         <property name="type" value="private school"/>
     </bean>
 
