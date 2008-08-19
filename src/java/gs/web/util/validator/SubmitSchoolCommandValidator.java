@@ -104,8 +104,22 @@ public class SubmitSchoolCommandValidator implements IRequestAwareValidator {
         }
 
 
-        if (command.getNumStudentsEnrolled() == null) {
+        if (StringUtils.isBlank(command.getNumStudentsEnrolled())) {
             errors.rejectValue("numStudentsEnrolled", null, ERROR_NUM_STUDENTS_ENROLLED_MISSING);
+        } else {
+            boolean valid = true;
+            try {
+                int num = Integer.parseInt(command.getNumStudentsEnrolled());
+                if (num <= 0) {
+                    valid = false;
+                }
+            } catch (NumberFormatException e) {
+                valid = false;
+            }
+
+            if (!valid) {
+                errors.rejectValue("numStudentsEnrolled", null, ERROR_NUM_STUDENTS_ENROLLED_MISSING);
+            }
         }
 
         if (StringUtils.isBlank(command.getPhoneNumber())) {

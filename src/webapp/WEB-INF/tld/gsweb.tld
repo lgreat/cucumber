@@ -255,6 +255,24 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>useGradeName</name>
+            <description>Set to true if using a grade name instead of a Grade object.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>usePreK</name>
+            <description>Set to true if using Pre-K should be selectable.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>gradeName</name>
+            <description>The name of the selected grade, if any.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>noGradeLabel</name>
             <description>The label to use for the first menu item, representing no or all grades.</description>
             <required>false</required>

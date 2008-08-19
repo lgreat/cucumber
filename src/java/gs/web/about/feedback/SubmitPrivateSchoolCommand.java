@@ -3,23 +3,23 @@ package gs.web.about.feedback;
 import gs.data.school.Grade;
 
 public class SubmitPrivateSchoolCommand extends SubmitSchoolCommand {
-    private Grade _lowestGrade;
-    private Grade _highestGrade;
+    private String _lowestGrade;
+    private String _highestGrade;
     private String _gender;
 
-    public Grade getLowestGrade() {
+    public String getLowestGrade() {
         return _lowestGrade;
     }
 
-    public void setLowestGrade(Grade lowestGrade) {
+    public void setLowestGrade(String lowestGrade) {
         _lowestGrade = lowestGrade;
     }
 
-    public Grade getHighestGrade() {
+    public String getHighestGrade() {
         return _highestGrade;
     }
 
-    public void setHighestGrade(Grade highestGrade) {
+    public void setHighestGrade(String highestGrade) {
         _highestGrade = highestGrade;
     }
 

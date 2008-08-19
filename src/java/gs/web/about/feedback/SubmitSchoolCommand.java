@@ -19,7 +19,7 @@ public class SubmitSchoolCommand {
     private String _zipCode;
     private String _county;
 
-    private Integer _numStudentsEnrolled;
+    private String _numStudentsEnrolled;
     private String _phoneNumber;
     private String _faxNumber;
     private String _schoolWebSite;
@@ -107,11 +107,11 @@ public class SubmitSchoolCommand {
         _county = county;
     }
 
-    public Integer getNumStudentsEnrolled() {
+    public String getNumStudentsEnrolled() {
         return _numStudentsEnrolled;
     }
 
-    public void setNumStudentsEnrolled(Integer numStudentsEnrolled) {
+    public void setNumStudentsEnrolled(String numStudentsEnrolled) {
         _numStudentsEnrolled = numStudentsEnrolled;
     }
 

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * This tag handler produces a drop-down &lt;select&gt; element for a child's grade
@@ -22,6 +23,9 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
     private String _styleId = "gradeSelector"; // default
     private String _onChange = null;
     private Grade _grade;
+    private boolean _useGradeName = false;
+    private boolean _usePreK = false;
+    private String _gradeName = null;
     private String _noGradeLabel = "--"; // default
     private String _name = "grade"; // default
     private boolean _useAlternateNames = false;
@@ -107,6 +111,30 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
         _ungradedLabel = ungradedLabel;
     }
 
+    public boolean isUseGradeName() {
+        return _useGradeName;
+    }
+
+    public void setUseGradeName(boolean useGradeName) {
+        _useGradeName = useGradeName;
+    }
+
+    public String getGradeName() {
+        return _gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        _gradeName = gradeName;
+    }
+
+    public boolean isUsePreK() {
+        return _usePreK;
+    }
+
+    public void setUsePreK(boolean usePreK) {
+        _usePreK = usePreK;
+    }
+
     /**
      * When set to true, the selector will show "ungraded" as the last option.
      * When set to false, then the "ungraded" is not shown.
@@ -117,7 +145,13 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
         _useUngraded = useUngraded;
     }
 
+
+
     public void doTag() throws IOException {
+
+        if (_useGradeName && !StringUtils.isBlank(_gradeName)) {
+            _grade = Grade.getGradeLevel(_gradeName);
+        }
 
         JspWriter out = getJspContext().getOut();
         out.print("<select id=\"");
@@ -136,7 +170,12 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
             out.println(">" + _noGradeLabel +"</option>");
         }
 
-        Grades grades = Grades.createGrades(Grade.KINDERGARTEN, Grade.G_12); // limit to K-12?
+        Grade lowestGrade = Grade.KINDERGARTEN;
+        if (_usePreK) {
+            lowestGrade = Grade.PRESCHOOL;
+        }
+
+        Grades grades = Grades.createGrades(lowestGrade, Grade.G_12); // limit to K-12?
         for (Iterator iter = Grade.iterator(); iter.hasNext();) {
             Grade grade = (Grade) iter.next();
             if (grades.contains(grade)) {
@@ -154,14 +193,29 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
                 } else {
                     out.print(grade.getName());
                 }
+
                 out.println("</option>");
             }
         }
 
         if (_useUngraded) {
-            out.print("<option value=\"\"");
-            out.println(">" + _ungradedLabel +"</option>");
+            out.print("<option value=\"");
+            out.print(Grade.UNGRADED.getName());
+            out.print("\"");
+
+            if (ObjectUtils.equals(_grade, Grade.UNGRADED)) {
+                out.print(" selected=\"selected\"");
+            }
+            out.print(">");
+
+            if (!StringUtils.isBlank(_ungradedLabel)) {
+                out.print(_ungradedLabel);
+            } else {
+                out.print(Grade.UNGRADED.getName());
+            }
+            out.println("</option>");
         }
+
 
         out.println("</select>");
     }

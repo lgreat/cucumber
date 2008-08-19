@@ -9,8 +9,8 @@
         <div class="fieldLabel">Lowest grade offered <span class="required">*</span></div>
         <div class="fieldInput">
             <spring:bind path="submitSchoolCommand.lowestGrade">
-                <gsweb:gradeSelector name="${status.expression}" grade="${status.value}" useAlternateNames="true"
-                                     noGradeLabel="Select low grade" useNoGrade="true" useUngraded="true"/>
+                <gsweb:gradeSelector name="${status.expression}" gradeName="${status.value}" useGradeName="true" useAlternateNames="true"
+                       styleId="lowestGrade" noGradeLabel="Select low grade" useNoGrade="true" useUngraded="true" usePreK="true"/>
             </spring:bind>
         </div>
         <div class="fieldNote">
@@ -38,8 +38,8 @@
         <div class="fieldLabel">Highest grade offered <span class="required">*</span></div>
         <div class="fieldInput">
             <spring:bind path="submitSchoolCommand.highestGrade">
-                <gsweb:gradeSelector name="${status.expression}" grade="${status.value}" useAlternateNames="true"
-                                     noGradeLabel="Select high grade" useNoGrade="true" useUngraded="true"/>
+                <gsweb:gradeSelector name="${status.expression}" gradeName="${status.value}" useGradeName="true" useAlternateNames="true"
+                       styleId="highestGrade" noGradeLabel="Select high grade" useNoGrade="true" useUngraded="true" usePreK="true"/>
             </spring:bind>
         </div>
         <div class="fieldNote">

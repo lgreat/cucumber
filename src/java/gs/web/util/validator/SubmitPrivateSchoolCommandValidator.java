@@ -23,11 +23,11 @@ public class SubmitPrivateSchoolCommandValidator extends SubmitSchoolCommandVali
 
         SubmitPrivateSchoolCommand command = (SubmitPrivateSchoolCommand)object;
 
-        if (command.getLowestGrade() == null) {
+        if (StringUtils.isBlank(command.getLowestGrade())) {
             errors.rejectValue("lowestGrade", null, ERROR_LOWEST_GRADE_SERVED_MISSING);
         }
 
-        if (command.getHighestGrade() == null) {
+        if (StringUtils.isBlank(command.getHighestGrade())) {
             errors.rejectValue("highestGrade", null, ERROR_HIGHEST_GRADE_SERVED_MISSING);
         }
     }

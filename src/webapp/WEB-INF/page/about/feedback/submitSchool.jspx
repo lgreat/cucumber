@@ -20,14 +20,13 @@
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
-    <pageHelper:setPathway pathway="HOME"/>
     <pageHelper:hideFooterAd/>
     <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <meta name="Description" content="TBD"/>
-        <title>Add your preschool to the GreatSchools web site</title>
+        <meta name="Description" content="Add your ${type} to the GreatSchools web site"/>
+        <title>Add your ${type} to the GreatSchools web site</title>
         <pageHelper:externalCss file="/res/css/about/feedback/submitSchool.css"/>
     </head>
 
