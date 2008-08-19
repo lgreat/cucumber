@@ -15,41 +15,41 @@ public class SubmitSchoolCommandValidator implements IRequestAwareValidator {
     public static final String BEAN_ID = "submitSchoolCommandValidator";
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private static final String ERROR_SUBMITTER_NAME_MISSING =
+    static final String ERROR_SUBMITTER_NAME_MISSING =
         "Please enter your name.";
-    private static final String ERROR_SUBMITTER_EMAIL_MISSING =
+    static final String ERROR_SUBMITTER_EMAIL_MISSING =
         "Please enter your email address.";
-    private static final String ERROR_SUBMITTER_EMAIL_INVALID =
+    static final String ERROR_SUBMITTER_EMAIL_INVALID =
         "Please enter a valid email address.";
-    private static final String ERROR_SUBMITTER_EMAIL_UNMATCHED =
+    static final String ERROR_SUBMITTER_EMAIL_UNMATCHED =
         "Please re-enter your email address so it matches the first address.";
-    private static final String ERROR_SUBMITTER_CONNECTION_TO_SCHOOL_MISSING =
+    static final String ERROR_SUBMITTER_CONNECTION_TO_SCHOOL_MISSING =
         "Please enter your connection to the school.";
 
-    private static final String ERROR_SCHOOL_NAME_MISSING =
+    static final String ERROR_SCHOOL_NAME_MISSING =
         "Please enter the school name.";
-    private static final String ERROR_STREET_ADDRESS_MISSING =
+    static final String ERROR_STREET_ADDRESS_MISSING =
         "Please enter the physical street address.";
-    private static final String ERROR_CITY_MISSING =
+    static final String ERROR_CITY_MISSING =
         "Please enter the city.";
-    private static final String ERROR_STATE_MISSING =
+    static final String ERROR_STATE_MISSING =
         "Please enter the state.";
-    private static final String ERROR_ZIP_CODE_MISSING =
+    static final String ERROR_ZIP_CODE_MISSING =
         "Please enter the zip code.";
-    private static final String ERROR_ZIP_CODE_INVALID =
+    static final String ERROR_ZIP_CODE_INVALID =
         "Please enter a valid zip code.";
-    private static final String ERROR_COUNTY_MISSING =
+    static final String ERROR_COUNTY_MISSING =
         "Please enter the county.";
 
-    private static final String ERROR_NUM_STUDENTS_ENROLLED_MISSING =
+    static final String ERROR_NUM_STUDENTS_ENROLLED_MISSING =
         "Please enter the number of students enrolled.";
-    private static final String ERROR_PHONE_NUMBER_MISSING =
+    static final String ERROR_PHONE_NUMBER_MISSING =
         "Please enter the phone number.";
-    private static final String ERROR_PHONE_NUMBER_INVALID =
+    static final String ERROR_PHONE_NUMBER_INVALID =
         "Please enter a valid phone number.";
-    private static final String ERROR_FAX_NUMBER_INVALID =
+    static final String ERROR_FAX_NUMBER_INVALID =
         "Please enter a valid fax number.";
-    private static final String ERROR_SCHOOL_WEB_SITE_INVALID =
+    static final String ERROR_SCHOOL_WEB_SITE_INVALID =
         "Please enter a valid school web site.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {

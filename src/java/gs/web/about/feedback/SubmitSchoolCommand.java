@@ -4,7 +4,7 @@ import gs.data.state.State;
 import gs.data.school.Grade;
 
 /**
- * @author
+ * @author Young Fan
  */
 public class SubmitSchoolCommand {
     private String _submitterName;
