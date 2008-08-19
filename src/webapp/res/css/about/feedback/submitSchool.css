@@ -53,7 +53,7 @@
 
 .fieldInput {
     float: left;
-    width: 270px;
+    width: 280px;
 }
 
 .fieldNote {
@@ -64,20 +64,20 @@
 .fieldNoteText {
     position: absolute;
     top: 5px;
-    left: 515px;
+    left: 545px;
 }
 
 
 img.errorIcon {
     position: absolute;
     top: 5px;
-    left: 515px;
+    left: 545px;
 }
 
 #contentGS p.warning {
     position: absolute;
     top: 5px;
-    left: 534px;
+    left: 564px;
     color: #cc5566;
     font-size: 11px;
     line-height: 12px;
@@ -85,7 +85,7 @@ img.errorIcon {
 }
 
 .textInput {
-    width: 250px;
+    width: 280px;
 }
 
 hr {

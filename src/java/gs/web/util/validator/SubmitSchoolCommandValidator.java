@@ -10,10 +10,6 @@ import org.apache.commons.validator.EmailValidator;
 import javax.servlet.http.HttpServletRequest;
 
 import gs.web.about.feedback.SubmitSchoolCommand;
-import gs.data.state.State;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class SubmitSchoolCommandValidator implements IRequestAwareValidator {
     public static final String BEAN_ID = "submitSchoolCommandValidator";
@@ -40,6 +36,8 @@ public class SubmitSchoolCommandValidator implements IRequestAwareValidator {
         "Please enter the state.";
     private static final String ERROR_ZIP_CODE_MISSING =
         "Please enter the zip code.";
+    private static final String ERROR_ZIP_CODE_INVALID =
+        "Please enter a valid zip code.";
     private static final String ERROR_COUNTY_MISSING =
         "Please enter the county.";
 
@@ -97,6 +95,8 @@ public class SubmitSchoolCommandValidator implements IRequestAwareValidator {
 
         if (StringUtils.isBlank(command.getZipCode())) {
             errors.rejectValue("zipCode", null, ERROR_ZIP_CODE_MISSING);
+        } else if (!command.getZipCode().matches("^[0-9]{5}(-[0-9]{4})?$")) {
+            errors.rejectValue("zipCode", null, ERROR_ZIP_CODE_INVALID);
         }
 
         if (StringUtils.isBlank(command.getCounty())) {
