@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
@@ -140,8 +141,8 @@ public class SubmitSchoolController extends SimpleFormController {
         sb.append("\n");
         sb.append("<b>School name</b>: ").append(command.getSchoolName()).append("\n");
         sb.append("<b>Physical street address</b>: ").append(command.getStreetAddress()).append("\n");
-        sb.append("<b>State</b>: ").append(command.getState().getAbbreviation()).append("\n");
         sb.append("<b>City</b>: ").append(command.getCity()).append("\n");
+        sb.append("<b>State</b>: ").append(command.getState().getAbbreviation()).append("\n");
         sb.append("<b>Zip code</b>: ").append(command.getZipCode()).append("\n");
         sb.append("<b>County</b>: ").append(command.getCounty()).append("\n");
         sb.append("<b>Number of students enrolled</b>: ").append(command.getNumStudentsEnrolled()).append("\n");
@@ -178,7 +179,7 @@ public class SubmitSchoolController extends SimpleFormController {
         sb.append("\n");
 
         sb.append("<agency stateAbbrev=\"").append(command.getState().getAbbreviation()).append("\">\n");
-        sb.append("<name>").append(command.getSchoolName()).append("</name>\n");
+        sb.append("<name>").append(StringEscapeUtils.escapeXml(command.getSchoolName())).append("</name>\n");
         sb.append("<type>private</type>\n");
 
         if (TYPE_PRESCHOOL.equals(_type)) {
@@ -189,30 +190,30 @@ public class SubmitSchoolController extends SimpleFormController {
             sb.append("<subtypes><subtype>").append(cmd.getGender()).append("</subtype></subtypes>\n");
         }
 
-        sb.append("<contact contactType=\"").append(command.getSubmitterConnectionToSchool()).append("\">\n");
-        sb.append("    <name>").append(command.getSubmitterName()).append("</name>\n");
-        sb.append("    <email>").append(command.getSubmitterEmail()).append("</email>\n");
+        sb.append("<contact contactType=\"").append(StringEscapeUtils.escapeXml(command.getSubmitterConnectionToSchool())).append("\">\n");
+        sb.append("    <name>").append(StringEscapeUtils.escapeXml(command.getSubmitterName())).append("</name>\n");
+        sb.append("    <email>").append(StringEscapeUtils.escapeXml(command.getSubmitterEmail())).append("</email>\n");
         sb.append("</contact>\n");
         if (!StringUtils.isBlank(command.getSchoolWebSite())) {
-            sb.append("<url>").append(command.getSchoolWebSite()).append("</url>\n");
+            sb.append("<url>").append(StringEscapeUtils.escapeXml(command.getSchoolWebSite())).append("</url>\n");
         }
         sb.append("<phoneNumber>").append(command.getPhoneNumber()).append("</phoneNumber>\n");
 
         if (!StringUtils.isBlank(command.getFaxNumber())) {
             sb.append("<faxNumber>").append(command.getFaxNumber()).append("</faxNumber>\n");
         }
-        sb.append("<affiliations>").append(command.getReligion()).append("</affiliations>\n");
-        sb.append("<associations>").append(command.getAssociationMemberships()).append("</associations>\n");
+        sb.append("<affiliations>").append(StringEscapeUtils.escapeXml(command.getReligion())).append("</affiliations>\n");
+        sb.append("<associations>").append(StringEscapeUtils.escapeXml(command.getAssociationMemberships())).append("</associations>\n");
 
         ICounty county = _geoDao.findCountyByName(command.getCounty(), command.getState());
         if (county != null) {
             sb.append("<fipsCountyCode>").append(county.getCountyFips()).append("</fipsCountyCode>\n");
         }
 
-        sb.append("<countyName>").append(command.getCounty()).append("</countyName>\n");
+        sb.append("<countyName>").append(StringEscapeUtils.escapeXml(command.getCounty())).append("</countyName>\n");
         sb.append("<address type=\"LOC\">\n");
-        sb.append("    <line1>").append(command.getStreetAddress()).append("</line1>\n");
-        sb.append("    <city>").append(command.getCity()).append("</city>\n");
+        sb.append("    <line1>").append(StringEscapeUtils.escapeXml(command.getStreetAddress())).append("</line1>\n");
+        sb.append("    <city>").append(StringEscapeUtils.escapeXml(command.getCity())).append("</city>\n");
         sb.append("    <stateAbbrev>").append(command.getState().getAbbreviation()).append("</stateAbbrev>\n");
         sb.append("    <zipCode>").append(command.getZipCode()).append("</zipCode>\n");
         sb.append("</address>\n");
