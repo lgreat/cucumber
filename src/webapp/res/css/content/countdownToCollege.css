@@ -4,6 +4,12 @@
     font-family: "Trebuchet MS", Arial, sans-serif;
 }
 
+/* GS-6949 Workaround for black page background in FF3 */
+#fap-raw-content {
+    margin-right: auto;
+    text-indent: -100000px;
+}
+
 #pageGS #contentGS  a:hover {
     text-decoration:underline;
 }
