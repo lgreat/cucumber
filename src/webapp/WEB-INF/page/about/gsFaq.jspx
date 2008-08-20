@@ -106,7 +106,7 @@ education.</p>
 			<h2 id="faq-rightschool">Find the Right School Using GreatSchools Data</h2>
 
 			<ul class="sectionNav">
-				<li><a href="#faq-datapublic">School Data – Public &amp; Charter schools</a></li>
+				<li><a href="#faq-datapublic">School Data – Public &amp;amp; Charter schools</a></li>
 				<li><a href="#pvtdata">School Data – Private Schools</a></li>
                 <li><a href="#preschools">School Data - Preschools</a></li>
 				<li><a href="#faq-datacity">City and District Data</a></li>
@@ -117,7 +117,7 @@ education.</p>
 				<li><a href="#faq-schoollist">My School List</a></li>
 			</ul>
 
-			<h3 id="faq-datapublic">School Data – Public &amp; Charter Schools</h3>
+			<h3 id="faq-datapublic">School Data – Public &amp;amp; Charter Schools</h3>
 
 			<ol class="questions">
 				<li>
@@ -451,7 +451,7 @@ ratings given by the state Department of Education.</p>
 					<p>You
 can compare schools that are near a certain address, or within a
 specific district, county or state. Just click on the "Compare Schools"
-link at the top of any school profile or visit the tab '<link:research>Research &amp; Compare</link:research>'
+link at the top of any school profile or visit the tab '<link:research>Research &amp;amp; Compare</link:research>'
                         to get started. It's possible to compare schools in different counties by saving schools to
                         <link:mySchoolList>My School List</link:mySchoolList>, then comparing those schools.</p>
 				</li>
