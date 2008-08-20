@@ -169,22 +169,22 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
         SchoolCensusValue value =
                 ci.getLatestValue(s, CensusDataType.BILINGUAL_INTRUCTION_OFFERED);
-        if (value != null && value.getBooleanValue()) {
+        if (value != null && StringUtils.isNotBlank(value.getValueText())) {
             return true;
         }
         
         value = ci.getLatestValue(s, CensusDataType.SPECIAL_ED_OFFERED);
-        if (value != null && value.getBooleanValue()) {
+        if (value != null && StringUtils.isNotBlank(value.getValueText())) {
             return true;
         }
 
         value = ci.getLatestValue(s, CensusDataType.COMPUTERS_AVAILABLE);
-        if (value != null && value.getBooleanValue()) {
+        if (value != null && StringUtils.isNotBlank(value.getValueText())) {
             return true;
         }
 
         value = ci.getLatestValue(s, CensusDataType.BEFORE_AFTER_SUPERVISION);
-        return value != null && value.getBooleanValue();
+        return value != null && StringUtils.isNotBlank(value.getValueText());
     }
 
     boolean hasTestData(School s) {

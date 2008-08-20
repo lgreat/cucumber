@@ -220,6 +220,10 @@ div.resultSchool {
     margin:0 0 5px 0;
 }
 
+.previousnextwrap a img.pre {
+    margin:0 0 2px 0;
+}
+
 #toc ul li {
     padding: 0px 12px 7px 16px;
 }

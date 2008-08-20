@@ -81,7 +81,7 @@
                 </c:forEach>
             </ul>
         </div>
-        <c:if test="${(userResponseCommand.previousResponseCount > 0) and (param.level ne 'p')}">
+        <c:if test="${userResponseCommand.previousResponseCount > 0}">
             <div id="intro-results-link"><link:startSurveyResults school="${school}">View Survey Results &gt;</link:startSurveyResults></div>
         </c:if>
     </div>

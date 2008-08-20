@@ -132,7 +132,6 @@
     </div>
 
     <c:set var="page" value="${results.pages[pIndex]}" />
-
     <c:choose>
         <c:when test="${page.numResponses gt 0}">
             <div class="page-header">${fn:replace(page.headerName, "$SCHOOLNAME", school.name)}</div>
@@ -391,14 +390,29 @@
                     <div class="previous">
                         <gsml:img src="/res/img/survey/previousarrows.gif" alt="Previous arrows" />
                         <link:surveyResults school="${school}" level="${param.level}" page="${pIndex-1}">
-                            <gsml:img src="/res/img/survey/p_${pIndex}.gif" alt="Previous Page" />
+                            <c:choose>
+                                <c:when test="${param.level eq 'p'}">
+                                    <gsml:img src="/res/img/survey/previous.gif" styleClass="pre" alt="Previous Page" />
+                                </c:when>
+                                <c:otherwise>
+                                    <gsml:img src="/res/img/survey/p_${pIndex}.gif" alt="Previous Page" />
+                                </c:otherwise>
+                            </c:choose>
                         </link:surveyResults>
                     </div>
                 </c:if>
                 <c:if test="${pIndex lt 3}">
                     <div class="next">
                         <link:surveyResults school="${school}" level="${param.level}" page="${pIndex+1}">
-                            <gsml:img src="/res/img/survey/n_${pIndex}.gif" alt="Next Page" />
+                            <c:choose>
+                                <c:when test="${param.level eq 'p'}">
+                                    <gsml:img src="/res/img/survey/next.gif" styleClass="pre" alt="Next Page" />
+                                </c:when>
+                                <c:otherwise>
+                                    <gsml:img src="/res/img/survey/n_${pIndex}.gif" alt="Next Page" />
+                                </c:otherwise>
+                            </c:choose>
+
                         </link:surveyResults>
                         <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
                     </div>
