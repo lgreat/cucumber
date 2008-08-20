@@ -75,8 +75,8 @@ div.phone span {
 
 #feedback_link_over_image {
     position: relative;
-    top: -45px;
-    .top: -44px;  /* IE 6 & IE7 */
+    top: -44px;
+    .top: -43px;  /* IE 6 & IE7 */
     left: 170px;
-    font-size: 15px;
+    font-size: 14px;
 }
