@@ -397,8 +397,6 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         assertEquals("redirect:http://www.greatschools.net/survey/results.page?id=123&state=WY&level=p&thanks=true",
                 mAndV.getViewName());
-//        assertEquals("redirect:http://www.greatschools.net/modperl/browse_school/wy/123",
-//                mAndV.getViewName());
     }
 
     public void testOnSubmitMultiPage() throws Exception {
