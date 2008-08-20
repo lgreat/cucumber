@@ -80,7 +80,11 @@
 
                   <li class="header" id="childSchoolHeaderRow">
                       <label>My Children's Schools</label>
-                      <a class="addChild" href="#" onclick="addChildToPage(); return false;"><span class="strong">+</span> Add another child</a>
+                      <c:set var="addText" value=" Add another child"/>
+                      <c:if test="${command.numStudents eq 0}">
+                          <c:set var="addText" value=" Add a child"/>
+                      </c:if>
+                      <a class="addChild" href="#" onclick="addChildToPage(); return false;"><span class="strong">+</span>${addText}</a>
                       <input type="submit" name="addChild" id="addChildSubmitButton" style="display:none"/>
                   </li>
 
