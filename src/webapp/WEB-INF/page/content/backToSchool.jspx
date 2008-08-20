@@ -365,10 +365,10 @@
         <div id="greenBox" class="greenBox">
             <h3><img id="popularArticlesImg" src="/res/img/content/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
             <ul class="greenArrow">
-                <gsweb:articlelink articleId="233"
-                                   wrappingElement="li">Practically Free Summer Activities</gsweb:articlelink>
-                <gsweb:articlelink articleId="314"
-                                   wrappingElement="li">Build Math Skills This Summer</gsweb:articlelink>
+                <gsweb:articlelink articleId="765"
+                                   wrappingElement="li">Parent Involvement Primer</gsweb:articlelink>
+                <gsweb:articlelink articleId="703"
+                                   wrappingElement="li">School Improvement Starts at Home</gsweb:articlelink>
                 <gsweb:articlelink articleId="650"
                                    wrappingElement="li">Managing Screen Time</gsweb:articlelink>
                 <gsweb:articlelink articleId="1073"
@@ -377,10 +377,10 @@
                                    wrappingElement="li">Book Picks for Grades K-5</gsweb:articlelink>
                 <gsweb:articlelink articleId="903"
                                    wrappingElement="li">Reading Tips for Grades 6-12</gsweb:articlelink>
-                <gsweb:articlelink articleId="3557"
-                                   wrappingElement="li">Tween Beach Reads</gsweb:articlelink>
-                <gsweb:articlelink articleId="3558"
-                                   wrappingElement="li">Teen Beach Reads</gsweb:articlelink>
+                <gsweb:articlelink articleId="320"
+                                   wrappingElement="li">Tips For Reluctant Readers</gsweb:articlelink>
+                <gsweb:articlelink articleId="1145"
+                                   wrappingElement="li">Sleep: Secret Weapon for School Success</gsweb:articlelink>
                 <gsweb:articlelink articleId="34"
                                    wrappingElement="li">What Makes a Great Parent?</gsweb:articlelink>
                 <gsweb:articlelink articleId="259"
