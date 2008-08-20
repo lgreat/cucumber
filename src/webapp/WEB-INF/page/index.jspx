@@ -26,6 +26,7 @@
 <jsp:scriptlet>
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
     request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+    request.setAttribute("showExtendedFooter", true);
 </jsp:scriptlet>
 
 <gsml:url var="stateWidgetUrl" value="/miniSelectAState.page"/>

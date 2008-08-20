@@ -77,6 +77,12 @@
     padding-bottom: 10px;
 }
 
+#footerGS #footerExtended {
+    margin-bottom: 20px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
 #footerImg {
     float:left;
 }
