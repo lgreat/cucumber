@@ -108,6 +108,7 @@ education.</p>
 			<ul class="sectionNav">
 				<li><a href="#faq-datapublic">School Data – Public &amp; Charter schools</a></li>
 				<li><a href="#pvtdata">School Data – Private Schools</a></li>
+                <li><a href="#preschools">School Data - Preschools</a></li>
 				<li><a href="#faq-datacity">City and District Data</a></li>
 				<li><a href="#faq-enhancedprofiles">Enhanced School Profiles</a></li>
 				<li><a href="#faq-ratings">GreatSchools Ratings</a></li>
@@ -275,6 +276,35 @@ School Profile feature. Get more information in our <a href="#faq-enhancedprofil
 				<li>
 					<p class="question">Where can I find additional data, such as test scores and teacher experience, about private schools?</p>
 					<p>Contact the schools directly. You will find contact information for private schools on our school profiles.</p>
+				</li>
+			</ol>
+
+			<p class="emphasis-right">Didn't find the answer you're looking for?
+                <gsml:a href="/cgi-bin/feedback_faq/${state}?fbtype=profile">Contact us about our school information</gsml:a>.</p>
+
+            <h3 id="preschools">School Data – Preschools</h3>
+
+			<ol class="questions">
+				<li>
+					<p class="question">Where does GreatSchools get its preschool information?</p>
+					<p>Our preschool information comes from Market Data Retrieval (MDR), the National Center for Education Statistics (NCES)
+                       and some state Departments of Education.</p>
+				</li>
+
+				<li>
+					<p class="question">Why does GreatSchools have less information about preschools than K-12 schools?</p>
+					<p>Unlike K-12 schools, preschools are not regulated or tracked by any state or national data provider. We continuously
+                       strive to acquire additional preschool data whenever available.</p>
+				</li>
+
+				<li>
+					<p class="question">What if I know of a preschool that is not listed on GreatSchools?</p>
+					<p>If you know of a preschool that is not listed, please <a  href="/about/feedback/submitPreschool.page?state=${state}">submit the school's information to us</a>.</p>
+				</li>
+
+                <li>
+					<p class="question">Where can I find additional data about preschools?</p>
+					<p>Contact the preschools directly. You will find contact information for preschools on our school profiles.</p>
 				</li>
 			</ol>
 
