@@ -5,7 +5,7 @@
 }
 
 /* GS-6949 Workaround for black page background in FF3 */
-#fap-raw-content {
+#pageGS #fap-raw-content {
     margin-right: auto;
     text-indent: -100000px;
 }
