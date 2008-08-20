@@ -39,7 +39,7 @@ public class SubmitSchoolController extends SimpleFormController {
         "information as soon as possible.\n" +
         "\n" +
         "To learn more about where we get our data, please read our Frequently Asked Questions:\n" +
-        "http://www.greatschools.net/about/gsFaq.page\n" +
+        "http://www.greatschools.net/about/gsFaq.page#preschools\n" +
         "\n" +
         "Best regards,\n" +
         "\n" +
@@ -52,7 +52,7 @@ public class SubmitSchoolController extends SimpleFormController {
         "\n" +
         "We receive updates to our private school information from the National Center for Education " +
         "Statistics (NCES) and from some state Departments of Education. To ensure that the school you " +
-        "submitted stays on GreatSchools.net, please make sure it is listed with both of these entities; " +
+        "submitted stays on GreatSchools, please make sure it is listed with both of these entities; " +
         "otherwise, the school's profile will become inactive the next time we import private school data.\n" +
         "\n" +
         "  Find out if your school is listed with NCES:\n" +
@@ -65,7 +65,7 @@ public class SubmitSchoolController extends SimpleFormController {
         "  http://nces.ed.gov/ccd/ccseas.asp\n" +
         "\n" +
         "To learn more about where we get our data, please read our Frequently Asked Questions:\n" +
-        "http://www.greatschools.net/about/gsFaq.page\n" +
+        "http://www.greatschools.net/about/gsFaq.page#pvtdata\n" +
         "\n" +
         "Best regards,\n" +
         "\n" +
