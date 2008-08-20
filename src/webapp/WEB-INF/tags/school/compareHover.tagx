@@ -82,8 +82,10 @@
             </div>
             <c:forEach var="curLevel" items="e,m,h">
                 <gsweb:form method="get" action="/compareSchools.page">
-                    <input type="hidden" name="state"
+                    <!-- this is the default state, but it gets overridden by JS below -->
+                    <input type="hidden" name="state" id="dialog_${curLevel}_state"
                            value="${requestScope.context.stateOrDefault.abbreviation}"/>
+                    <!-- Let compareSchools.page know this is coming from the hover -->
                     <input type="hidden" name="hover_compare" value="true"/>
                     <input type="hidden" name="levelCode" value="${curLevel}"/>
                     <div id="dialog_${curLevel}" class="dialog_lc" style="display:none;">
@@ -143,22 +145,34 @@
     function evaluateSchoolsForCompare() {
         var inputs = document.getElementsByTagName("input");
         var levelCodeMap = new Object;
+        // for each input on the page
         for (var i=0; i < inputs.length; i++) {
             var currentElem = inputs[i];
+            // if the id is of the correct form
             if (currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
+                // grab the school id, level code, and state
                 var schoolId = currentElem.id.substring(ID_PREFIX.length);
+                var schoolState = currentElem.value.substring(0, 2);
                 var levelCode = document.getElementById("school_lc_" + schoolId).value;
                 var splitResult = levelCode.split(",");
+                // if there is at least one level code
                 if (splitResult && splitResult.length > 0) {
+                    // for each level code
                     for (var x=0; x < splitResult.length; x++) {
                         levelCode = splitResult[x];
+                        // if the input is checked, add this school to the appropriate level code's list
                         if (currentElem.checked) {
                             if (!levelCodeMap[levelCode]) {
                                 levelCodeMap[levelCode] = new Array();
                             }
+                            // this is so we know which levelCode's are represented
                             levelCodeMap[levelCode].push(schoolId);
+                            // enable and display school
                             document.getElementById("dialog_school_div_" + levelCode + "_" + schoolId).style.display="block";
                             document.getElementById("dialog_school_input_" + levelCode + "_" + schoolId).disabled = false;
+                            // also set the state
+                            document.getElementById("dialog_" + levelCode + "_state").value = schoolState;
+                        // if the input is unchecked, remove this school from the appropriate level code's list
                         } else {
                             document.getElementById("dialog_school_div_" + levelCode + "_" + schoolId).style.display="none";
                             document.getElementById("dialog_school_input_" + levelCode + "_" + schoolId).disabled = true;
@@ -167,23 +181,26 @@
                 }
             }
         }
+        // by default no level codes are displayed
         document.getElementById("dialog_e").style.display="none";
         document.getElementById("dialog_m").style.display="none";
         document.getElementById("dialog_h").style.display="none";
+        // for each level code that has a visible school, make sure that list is displayed
         var numLevelCodes = 0;
         for (levelCode in levelCodeMap) {
             numLevelCodes++;
             document.getElementById("dialog_" + levelCode).style.display="block";
         }
 
+        // if there is only one level code, then just forward to compare
         if (numLevelCodes == 1) {
             // send to regular compare
             return true;
         }
-
+        // otherwise display the dialog
         document.getElementById("myDialog").style.display="block";
-
         compareDialog.show();
+        // (and don't forward to regular compare)
         return false;
     }
     //-->
