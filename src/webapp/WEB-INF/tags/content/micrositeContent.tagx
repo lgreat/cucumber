@@ -42,10 +42,6 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                      alt="Join the Discussion" title=""/></h3>
 
                 <jsp:include page="/content/links.module?page=backtoschool&amp;type=all&amp;layout=list&amp;style=bulleted"/>
-
-                <p id="seeOtherStories">
-                    <a href="http://${communityHost}/category/backtoschoolstories/">See other stories &gt;</a>
-                </p>
             </div>
 
             <div class="box">
