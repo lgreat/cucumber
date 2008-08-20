@@ -66,7 +66,14 @@
 
         <p>
             To learn more about where we get our data, please read our
-            <gsml:a href="/about/gsFaq.page?state=${state}#faq-rightschool" target="_blank">Frequently Asked Questions</gsml:a>.
+            <c:choose>
+                <c:when test="${type eq 'preschool'}">
+                    <gsml:a href="/about/gsFaq.page?state=${state}#preschools" target="_blank">Frequently Asked Questions</gsml:a>.
+                </c:when>
+                <c:when test="${type eq 'private school'}">
+                    <gsml:a href="/about/gsFaq.page?state=${state}#pvtdata" target="_blank">Frequently Asked Questions</gsml:a>.
+                </c:when>
+           </c:choose>
         </p>
 
         <p class="alternateSubmissionLink">
