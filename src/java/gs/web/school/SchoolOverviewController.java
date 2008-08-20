@@ -12,6 +12,7 @@ import gs.data.school.review.Ratings.Category;
 import gs.data.test.ITestDataSetDao;
 import gs.data.test.SchoolTestValue;
 import gs.data.util.NameValuePair;
+import gs.data.survey.SurveyDao;
 import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -47,6 +48,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
     private IReviewDao _reviewDao;
     private ITestDataSetDao _testDataSetDao;
     private IGroupDataTypeDao _groupDataTypeDao;
+    private SurveyDao _surveyDao;
 
     /**
      * This method must be called using the standard Spring Controller workflow, that
@@ -121,6 +123,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("hasTestData", Boolean.TRUE);
             model.put("hasElementaryLevelCode", school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL));
             model.put("hasProgramData", hasProgramData(school));
+            model.put("hasSurveyData", _surveyDao.hasSurveyData(school));
 
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
                 model.put("hasTeacherData", _groupDataTypeDao.hasTeacherData(school));
@@ -392,6 +395,14 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
     public void setGroupDataTypeDao(IGroupDataTypeDao groupDataTypeDao) {
         _groupDataTypeDao = groupDataTypeDao;
+    }
+
+    public SurveyDao getSurveyDao() {
+        return _surveyDao;
+    }
+
+    public void setSurveyDao(SurveyDao surveyDao) {
+        _surveyDao = surveyDao;
     }
 }
 

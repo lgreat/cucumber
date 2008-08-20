@@ -205,6 +205,7 @@
                 <c:set var="hasTeacherData" value="${hasTeacherData}"/>
                 <c:set var="finance" value="hide" />
                 <c:set var="hasFinanceData" value="${hasFinanceData}" />
+                <c:set var="hasSurveyData" value="${hasSurveyData}" />
 
                 <h2>Learn About ${school.name}</h2>
 
@@ -280,9 +281,20 @@
                                               styleId="LearnMore_Module_SchoolFinance1${styleIdSuffix}" styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
                     </link:schoolProfileCensus>
-                    <p class="${(hasPrincipalView) ? 'dashed' : 'last'}">
+                    <p class="${(hasPrincipalView or hasSurveyData) ? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="finance"
                                                   styleId="LearnMore_Module_SchoolFinance2${styleIdSuffix}" styleClass="GS_CI9_">${school.name} spending per pupil</link:schoolProfileCensus>
+                    </p>
+                </c:if>
+
+                <c:if test="${hasSurveyData}">
+                    <link:startSurveyResults school="${school}"
+                                             styleClass="GS_CI9_">
+                        <gsml:img src="/res/img/school/overview/learn_extracurricular.gif" alt="Learn Extracurricular" />
+                    </link:startSurveyResults>
+                    <p class="${(hasPrincipalView) ? 'dashed' : 'last'}">
+                        <link:startSurveyResults school="${school}"
+                                                 styleClass="GS_CI9_">${school.name} extracurriculars</link:startSurveyResults>
                     </p>
                 </c:if>
 
