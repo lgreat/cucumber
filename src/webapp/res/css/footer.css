@@ -78,7 +78,7 @@
 }
 
 #footerGS #footerExtended {
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 11px;
 }
