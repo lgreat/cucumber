@@ -51,7 +51,9 @@
 
     <script type="text/javascript">
         function showPopularArticles() {
-            if (document.getElementById('adBTS_Quiz_Promo_300x316') == null) {
+            if (document.getElementById('adBTS_Quiz_Promo_300x316') == null ||
+                document.getElementById('google_ads_div_Library_Microsite_Back_to_School_BTS_Quiz_Promo_300x316') == null ||
+                document.getElementById('imgBTS_Quiz_Promo_300x316') == null) {
                 document.getElementById('popularArticles').style.display = 'block';
             }
         }
