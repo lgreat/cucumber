@@ -641,7 +641,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         Map model = _controller.referenceData(getRequest(), urc, errors);
 
-        assertEquals(null, model.get("prevLevel"));
+        assertEquals(LevelCode.Level.PRESCHOOL_LEVEL, model.get("prevLevel"));
         assertEquals(LevelCode.Level.MIDDLE_LEVEL, model.get("nextLevel"));
 
         assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
