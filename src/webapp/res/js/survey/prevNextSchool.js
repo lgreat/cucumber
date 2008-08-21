@@ -6,7 +6,12 @@ function updateSchool(level, city, sltSchoolId, sltStateId, schoolNotListedId) {
             var jsonResponse = o.responseText.parseJSON();
             var schools = jsonResponse.schools;
             sltSchool.options.length = 0;
-            for (var i = 0; i < schools.length; i++) {
+            var i = 0;
+            if (level == 'p') {
+                sltSchool[0] = new Option("Not in school", -8889);
+                i++;
+            }
+            for (; i < schools.length; i++) {
                 var option = document.createElement("OPTION");
                 sltSchool[i] = new Option(schools[i].name, schools[i].id);
             }

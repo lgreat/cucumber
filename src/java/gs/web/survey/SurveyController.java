@@ -116,10 +116,10 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             }
 
             if (LevelCode.Level.ELEMENTARY_LEVEL.equals(surveyLevel)) {
-                previousSchools.add(getSurveyDao().getDefaultNextPrevSchool());
-                previousSchools.addAll(getSurveyDao().getBeforeESOptions());
+                previousSchools.addAll(buildSchoolList(urc, LevelCode.Level.PRESCHOOL_LEVEL, false));
+                previousSchools.addAll(1, getSurveyDao().getBeforeESOptions());
                 nextSchools = buildSchoolList(urc, LevelCode.Level.MIDDLE_LEVEL, true);
-                prevLevel = null;
+                prevLevel = LevelCode.Level.PRESCHOOL_LEVEL;
                 nextLevel = LevelCode.Level.MIDDLE_LEVEL;
             }
 

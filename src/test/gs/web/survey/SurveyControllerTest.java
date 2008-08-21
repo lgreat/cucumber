@@ -628,13 +628,15 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         expect(_geoDao.findCitiesByState(urc.getNextState())).andStubReturn(Collections.EMPTY_LIST);
         replay(_geoDao);
 
+
+        expect(_schoolDao.findSchoolsInCity(urc.getPrevState(), urc.getPrevCity(), false)).andStubReturn(Collections.EMPTY_LIST);
         expect(_schoolDao.findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false)).andStubReturn(Collections.EMPTY_LIST);
         replay(_schoolDao);
 
         School schoolNotListed = createSchool();
-        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed).times(2);
-        expect(_surveyDao.getBeforeESOptions()).andReturn(Collections.<School>emptyList());
+        expect(_surveyDao.getSchoolNotListed()).andReturn(schoolNotListed).anyTimes();
         expect(_surveyDao.getDefaultNextPrevSchool()).andStubReturn(new School());
+        expect(_surveyDao.getBeforeESOptions()).andReturn(Arrays.asList(new School()));
         replay(_surveyDao);
 
         Map model = _controller.referenceData(getRequest(), urc, errors);
