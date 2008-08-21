@@ -140,7 +140,7 @@ div.more-about li a {
 
 div#more-about li a:hover
 div.more-about li a:hover {
-    text-decoration:underline;                       
+    text-decoration:underline;
 }
 
 div.blueModule {
@@ -404,7 +404,7 @@ li, .contentGS li {
 }
 
 ul, .contentGS ul, ol, .contentGS ol{
-    padding-left: 20px;
+    padding-left: 30px;
     margin-left: 0;
 }
 
