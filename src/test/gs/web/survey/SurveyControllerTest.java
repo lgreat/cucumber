@@ -645,7 +645,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(LevelCode.Level.MIDDLE_LEVEL, model.get("nextLevel"));
 
         assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
-        assertEquals(1, ((List)model.get("prevSchools")).size());
+        assertEquals(3, ((List)model.get("prevSchools")).size());
 
         assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
         assertEquals(2, ((List)model.get("nextSchools")).size());
