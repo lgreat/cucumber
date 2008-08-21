@@ -103,10 +103,12 @@ function reloadPageWithFilters(sortColId) {
 
         var allTypes = false;
         var noTypes = false;
-        if (publicBox.checked && privateBox.checked && charterBox.checked) {
+        if (charterBox == null || publicBox == null || privateBox == null) {
+            // no public/private/charter filters for preschools
+            noTypes = true;
+        } else if (publicBox.checked && privateBox.checked && charterBox.checked) {
             allTypes = true;
-        }
-        if (!publicBox.checked && !privateBox.checked && !charterBox.checked) {
+        } else if (!publicBox.checked && !privateBox.checked && !charterBox.checked) {
             noTypes = true;
         }
 
