@@ -270,7 +270,7 @@
                                               styleId="LearnMore_Module_StudentStats1${styleIdSuffix}" styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
                     </link:schoolProfileCensus>
-                    <p class="${(hasPrincipalView or ((finance eq 'show') and hasFinanceData))? 'dashed' : 'last'}">
+                    <p class="${(hasPrincipalView or ((finance eq 'show') and hasFinanceData) or hasSurveyData)? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="students"
                                                   styleId="LearnMore_Module_StudentStats2${styleIdSuffix}" styleClass="GS_CI9_">${school.name} students</link:schoolProfileCensus>
                     </p>
