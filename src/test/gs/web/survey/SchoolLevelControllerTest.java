@@ -8,6 +8,8 @@ import gs.web.school.SchoolPageInterceptor;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 public class SchoolLevelControllerTest extends BaseControllerTestCase {
     private SchoolLevelController _controller = new SchoolLevelController();
 
@@ -69,5 +71,4 @@ public class SchoolLevelControllerTest extends BaseControllerTestCase {
         school.setLevelCode(level);
         return school;
     }
-
 }

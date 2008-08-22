@@ -2,6 +2,7 @@ package gs.web.survey;
 
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.survey.ISurveyDao;
 import gs.web.school.SchoolPageInterceptor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
@@ -16,25 +17,40 @@ import java.util.Set;
 
 public class SchoolLevelController extends SimpleFormController {
 
+    private ISurveyDao _surveyDao;
+
     protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException bindException) throws Exception {
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
         Set<LevelCode.Level> levelCodes = school.getLevelCode().getIndividualLevelCodes();
 
-        if (levelCodes.size() < 2) {
+        boolean oneLevel = false;
+        LevelCode.Level lev = null;
+        Map<String, Object> data = null;
+
+        if (levelCodes.size() == 1) {
+            oneLevel = true;
+            lev = (LevelCode.Level)levelCodes.toArray()[0];
+        } else {
+            String successView = getSuccessView();
+            if (successView != null && successView.indexOf("results") != -1) {
+                data = getResultsPageAttributes(school, levelCodes);
+                int numLevelsWithSurveys = (Integer)data.get("numLevelsWithSurveys");
+                if (numLevelsWithSurveys == 1) {
+                    oneLevel = true;
+                    lev = (LevelCode.Level)data.get("lastLevelWithSurveys");
+                }
+            } else {
+                data = getFormPageAttributes();
+            }
+        }
+
+        if (oneLevel) {
             ModelAndView modelAndView = new ModelAndView(getSuccessView());
-            LevelCode.Level lev = (LevelCode.Level )levelCodes.toArray()[0];
-            modelAndView.getModel().put("level", lev.getName()); 
+            modelAndView.getModel().put("level", lev.getName());
             modelAndView.getModel().put("id", school.getId());
             modelAndView.getModel().put("state", school.getStateAbbreviation().getAbbreviation());
             return modelAndView;
         } else {
-            Map<String, String> data = null;
-            String successView = getSuccessView();
-            if (successView != null && successView.indexOf("results") != -1) {
-                data = getResultsPageAttributes();
-            } else {
-                data = getFormPageAttributes();
-            }
             return super.showForm(request, response, bindException, data);
         }
     }
@@ -65,21 +81,45 @@ public class SchoolLevelController extends SimpleFormController {
         }
     }
 
-    private Map<String, String> getResultsPageAttributes() {
-        Map<String, String> data = new HashMap<String,String>();
+    private Map<String, Object> getResultsPageAttributes(School school, Set<LevelCode.Level> levelCodes) {
+        Map<String, Object> data = new HashMap<String,Object>();
         data.put("pagename", "Parent Survey Display: Multilevel select");
         data.put("titleText", "Survey Results for");
         data.put("headerText", "Read what parents shared about their experiences at this school.");
-        data.put("introText", "Please select the school level that interests you.");
+        data.put("introText", "Surveys have been completed for the following grade levels at this school. Please select the school level that interests you.");
+
+        int numLevelsWithSurveys = 0;
+        LevelCode.Level lastLevelWithSurveys = null;
+        Map<LevelCode.Level,Integer> map = new HashMap<LevelCode.Level,Integer>();
+        for (LevelCode.Level level : levelCodes) {
+            int numSurveysForLevel = getSurveyDao().getNumSurveysTaken(school, level, null);
+            map.put(level, numSurveysForLevel);
+            if (numSurveysForLevel > 0) {
+                numLevelsWithSurveys++;
+                lastLevelWithSurveys = level;
+            }
+        }
+        data.put("numSurveysPerLevel", map);
+        data.put("numLevelsWithSurveys", numLevelsWithSurveys);
+        data.put("lastLevelWithSurveys", lastLevelWithSurveys);
+
         return data;
     }
 
-    private Map<String, String> getFormPageAttributes() {
-        Map<String, String> data = new HashMap<String,String>();
+    private Map<String, Object> getFormPageAttributes() {
+        Map<String, Object> data = new HashMap<String,Object>();
         data.put("pagename", "Parent Survey: School Level Select Page");
         data.put("titleText", "Complete a Parent Survey for");
         data.put("headerText", "Spread the word about your school's special characteristics by filling out this survey.");
         data.put("introText", "Please select the highest level your child attended at this school so we can provide you with the appropriate survey questions:");
         return data;
+    }
+
+    public ISurveyDao getSurveyDao() {
+        return _surveyDao;
+    }
+
+    public void setSurveyDao(ISurveyDao surveyDao) {
+        _surveyDao = surveyDao;
     }
 }

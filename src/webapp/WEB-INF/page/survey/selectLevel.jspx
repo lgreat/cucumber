@@ -67,20 +67,53 @@
                 <h2 class="question-group-heading">${introText}</h2>
                 <form:form commandName="schoolLevelCommand">
                     <div class="question">
-                        <ul class="answer-list">
-                            <c:forEach var="level" items="${school.levelCode.individualLevelCodes}" varStatus="count">
-                                <li class="answer-list-item">
-                                    <form:radiobutton path="level" value="${level.name}" id="r${level.name}" cssStyle="radio"/>
-                                    <label for="r${level.name}">
-                                        ${level.longName}
-                                        <c:if test="${level.name ne 'p'}">
-                                            School
+                        <c:choose>
+                            <c:when test="${empty numSurveysPerLevel}">
+                                <ul class="answer-list">
+                                    <c:forEach var="level" items="${school.levelCode.individualLevelCodes}"
+                                               varStatus="count">
+                                        <li class="answer-list-item">
+                                            <form:radiobutton path="level" value="${level.name}" id="r${level.name}"
+                                                              cssStyle="radio"/>
+                                            <label for="r${level.name}">
+                                                ${level.longName}
+                                                <c:if test="${level.name ne 'p'}">
+                                                    School
+                                                </c:if>
+                                            </label>
+                                            <c:if test="${count.index == 0}">
+                                                <form:errors path="level" cssClass="error"/>
+                                            </c:if>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </c:when>
+                            <c:otherwise>
+                                <ul class="answer-list">
+                                    <c:set var="shownFirstLevel" value="${false}"/>
+                                    <c:forEach var="level" items="${school.levelCode.individualLevelCodes}"
+                                               varStatus="count">
+                                        <c:if test="${numSurveysPerLevel[level] > 0}">
+                                            <li class="answer-list-item">
+                                                <form:radiobutton path="level" value="${level.name}"
+                                                                  id="r${level.name}"
+                                                                  cssStyle="radio"/>
+                                                <label for="r${level.name}">
+                                                    ${level.longName}
+                                                    <c:if test="${level.name ne 'p'}">
+                                                        School
+                                                    </c:if>
+                                                </label>
+                                                <c:if test="${!shownFirstLevel}">
+                                                    <form:errors path="level" cssClass="error"/>
+                                                </c:if>
+                                            </li>
+                                            <c:set var="shownFirstLevel" value="${true}"/>
                                         </c:if>
-                                    </label>
-                                    <c:if test="${count.index == 0}"><form:errors path="level" cssClass="error"/></c:if>
-                                </li>
-                            </c:forEach>
-                        </ul>
+                                    </c:forEach>
+                                </ul>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <gsml:inputImage src="/res/img/button/go_wide.gif" alt="Go" styleClass="submit"
                                      name="submit" id="submitButton"/>

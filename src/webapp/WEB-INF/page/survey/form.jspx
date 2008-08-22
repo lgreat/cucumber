@@ -82,7 +82,7 @@
             </ul>
         </div>
         <c:if test="${userResponseCommand.previousResponseCount > 0}">
-            <div id="intro-results-link"><link:startSurveyResults school="${school}">View Survey Results &gt;</link:startSurveyResults></div>
+            <div id="intro-results-link"><link:surveyResults school="${school}" level="${param.level}">View Survey Results &gt;</link:surveyResults></div>
         </c:if>
     </div>
 
