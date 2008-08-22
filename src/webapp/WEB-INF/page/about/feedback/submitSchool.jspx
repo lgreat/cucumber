@@ -386,7 +386,19 @@
             </gsweb:form>
         </div>
 
-      </div> 
+      </div>
+      
+      <c:choose>
+          <c:when test="${type eq 'preschool'}">
+              <c:set var="pageName" value="AddPreschool"/>
+          </c:when>
+          <c:when test="${type eq 'private school'}">
+              <c:set var="pageName" value="AddPrivateSchool"/>
+          </c:when>
+      </c:choose>
+
+      <mod:tracking pageName="${pageName}"
+                    hier1="Home,ContactUs,${pageName}"/>    
 
     </gsml:body>
     </html>
