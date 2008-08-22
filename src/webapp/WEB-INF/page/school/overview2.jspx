@@ -270,7 +270,7 @@
                                               styleId="LearnMore_Module_StudentStats1${styleIdSuffix}" styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
                     </link:schoolProfileCensus>
-                    <p class="${(hasPrincipalView or ((finance eq 'show') and hasFinanceData) or hasSurveyData)? 'dashed' : 'last'}">
+                    <p class="${(hasPrincipalView or ((finance eq 'show') and hasFinanceData) or (hasSurveyData and school.levelCode != 'p'))? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="students"
                                                   styleId="LearnMore_Module_StudentStats2${styleIdSuffix}" styleClass="GS_CI9_">${school.name} students</link:schoolProfileCensus>
                     </p>
@@ -281,13 +281,13 @@
                                               styleId="LearnMore_Module_SchoolFinance1${styleIdSuffix}" styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
                     </link:schoolProfileCensus>
-                    <p class="${(hasPrincipalView or hasSurveyData) ? 'dashed' : 'last'}">
+                    <p class="${(hasPrincipalView or (hasSurveyData and school.levelCode != 'p')) ? 'dashed' : 'last'}">
                         <link:schoolProfileCensus school="${school}" anchor="finance"
                                                   styleId="LearnMore_Module_SchoolFinance2${styleIdSuffix}" styleClass="GS_CI9_">${school.name} spending per pupil</link:schoolProfileCensus>
                     </p>
                 </c:if>
 
-                <c:if test="${hasSurveyData}">
+                <c:if test="${hasSurveyData and school.levelCode != 'p'}">
                     <link:startSurveyResults school="${school}"
                                              styleClass="GS_CI9_">
                         <gsml:img src="/res/img/school/overview/learn_extracurricular.gif" alt="Learn Extracurricular" />
