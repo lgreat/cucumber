@@ -22,7 +22,7 @@ public class SubmitSchoolCommandValidator implements IRequestAwareValidator {
     static final String ERROR_SUBMITTER_EMAIL_INVALID =
         "Please enter a valid email address.";
     static final String ERROR_SUBMITTER_EMAIL_UNMATCHED =
-        "Please re-enter your email address so it matches the first address.";
+        "Please re-enter your email address.";
     static final String ERROR_SUBMITTER_CONNECTION_TO_SCHOOL_MISSING =
         "Please enter your connection to the school.";
 
