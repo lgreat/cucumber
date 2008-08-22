@@ -150,6 +150,9 @@ Tabs and filters
     background: none;
 }
 
+.filterHeightSet{
+    height: 15px;
+}
 .filterWrapper{
     background-color:green;
     position: relative;
