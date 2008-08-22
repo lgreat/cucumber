@@ -300,7 +300,6 @@
                                                 <gsml:img src="/res/img/bullet/pinkcheck_onwhite.gif" alt="${school.name} ${entry.key}"/>
                                             </c:if>
                                             ${entry.key}
-                                            <!--: tot: ${total}, val: ${entry.value}, calc: ${entry.value/ total}, t/f: ${(entry.value/ total) gt 0.32}-->
                                         </div>
                                     </c:forEach>
                                 </div>
@@ -324,6 +323,15 @@
                                 </div>
                             </c:if>
                         </c:when>
+
+                        <c:when test="${result_question.displayType eq 'SINGLE'}">
+                            <c:if test="${result_question.numResponses > 0}">
+                                <div class="group-header">
+                                    ${result_question.answer}
+                                </div>
+                            </c:if>
+                        </c:when>
+
                         <c:when test="${result_question.displayType eq 'SCHOOLS'}">
                             <c:if test="${result_question.numResponses > 0}">
                                 <div class="resultSchool">

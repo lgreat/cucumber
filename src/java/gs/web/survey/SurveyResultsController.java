@@ -37,8 +37,6 @@ public class SurveyResultsController extends AbstractController {
         // This controller is configured to be school-aware in pages-servlet.xml
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
 
-        System.out.println ("survey results controller...");
-
         String level = request.getParameter(LEVEL_PARAM);
         SurveyResults results = getSurveyDao().getSurveyResultsForSchool(level, school);
         ModelAndView mAndV = new ModelAndView(VIEW_NAME);
