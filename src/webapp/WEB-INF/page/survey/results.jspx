@@ -32,8 +32,8 @@
                 <c:when test="${param.level eq 'p'}">
                     <c:set var="surveyPageName" value="Curriculum and Teaching Approach" />
                     <c:set var="promoImageName" value="curriculum"/>
-                    <meta name="Description" content=""/>
-                    <meta name="keywords" content="" />
+                    <meta name="Description" content="See parent survey results about the curriculum and teaching approach at ${school.name}, including focus on play versus academics, activities, teacher communication and more - n${location}"/>
+                    <meta name="keywords" content="${school.name}, preschool parent survey, ${school.name} curriculum, ${school.name} teaching" />
                 </c:when>
                 <c:otherwise>
                     <c:set var="surveyPageName" value="Extracurricular Activities" />
@@ -48,8 +48,8 @@
                 <c:when test="${param.level eq 'p'}">
                     <c:set var="surveyPageName" value="Child Development and Discipline" />
                     <c:set var="promoImageName" value="childDev"/>
-                    <meta name="Description" content=""/>
-                    <meta name="keywords" content="" />
+                    <meta name="Description" content="See parent survey results about child development and the ways in which discipline is handled at ${school.name} - ${location}"/>
+                    <meta name="keywords" content="${school.name}, preschool parent survey, ${school.name} development, ${school.name} discipline" />
                 </c:when>
                 <c:otherwise>
                     <c:set var="surveyPageName" value="Student Resources" />
@@ -70,8 +70,8 @@
                 <c:when test="${param.level eq 'p'}">
                     <c:set var="surveyPageName" value="Schedule, Policies and Facilities" />
                     <c:set var="promoImageName" value="policy"/>
-                    <meta name="Description" content=""/>
-                    <meta name="keywords" content="" />
+                    <meta name="Description" content="See parent survey results about the condition of the facility and equipment, schedule, and policies at ${school.name} - ${location}"/>
+                    <meta name="keywords" content="${school.name}, preschool parent survey,  ${school.name} facility, ${school.name}, ${school.name} policies" />
                 </c:when>
                 <c:otherwise>
                     <c:set var="surveyPageName" value="Academics" />
@@ -92,8 +92,8 @@
                 <c:when test="${param.level eq 'p'}">
                     <c:set var="surveyPageName" value="Admissions" />
                     <c:set var="promoImageName" value="admissions"/>
-                    <meta name="Description" content=""/>
-                    <meta name="keywords" content="" />
+                    <meta name="Description" content="See parent survey results about the admissions process, requirements, cost, and other considerations for getting into ${school.name} - ${location}"/>
+                    <meta name="keywords" content="${school.name}, preschool parent survey, ${school.name} admissions, preschool cost" />
                 </c:when>
                 <c:otherwise>
                     <c:set var="surveyPageName" value="School Culture" />
@@ -104,7 +104,6 @@
             </c:choose>
         </c:when>
     </c:choose>
-
 
     <title>Parent survey results for ${school.name} ${surveyPageName} - ${location}</title>
     
