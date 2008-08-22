@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.BindException;
 
 /**
+ * Tests the add school command validator
  * @author Young Fan
  */
 public class SubmitSchoolCommandValidatorTest extends BaseTestCase {

@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.BindException;
 
 /**
+ * Tests the add preschool command validator
  * @author Young Fan
  */
 public class SubmitPreschoolCommandValidatorTest extends SubmitSchoolCommandValidatorTest {
