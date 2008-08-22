@@ -36,6 +36,7 @@
     <pageHelper:externalCss file="/res/css/school/compareHover-container.css"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
+    <pageHelper:addOnLoadHandler handler="compareHoverInit()"/>
 
 <![CDATA[
   <!--[if IE]>
@@ -139,8 +140,6 @@
         });
         compareDialog.render();
     }
-
-    YAHOO.util.Event.onDOMReady(compareHoverInit());
 
     function evaluateSchoolsForCompare() {
         var inputs = document.getElementsByTagName("input");
