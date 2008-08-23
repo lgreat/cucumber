@@ -89,3 +89,7 @@ To use:
 	background: url(/res/img/home/module/bullet_arrow.png) no-repeat left 4px;
     position:relative;
 }
+
+.moduleBox .arrows li.latestToolsLast {
+	display: none;
+}

@@ -64,6 +64,14 @@
                 showStateWidget('${stateWidgetUrl}', 250, 300);
             }
         }
+        function showLatestTools() {
+            if (document.getElementById('google_ads_div_Homepage_185x28') == null) {
+                var listItem = document.getElementById('latestToolsLast1');
+                if (listItem != null) {
+                    listItem.style.display = 'block';
+                }
+            }
+        }
     </script>
 
     <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
@@ -78,7 +86,7 @@
 <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
 <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
-<pageHelper:addOnLoadHandler handler="hoverHome()"/>
+<pageHelper:addOnLoadHandler handler="hoverHome();showLatestTools();"/>
 <pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
 <c:set var="showAd"
@@ -223,8 +231,12 @@
                          title=""/>
                     <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter"/>
 
+                    <ul class="arrows">
                     <c:import
-                            url="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list&amp;style=arrows"/>
+                            url="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list&amp;&amp;omitUl=true"/>
+                    <c:import
+                            url="/content/splashLinks.module?page=latest_tools_last&amp;type=all&amp;layout=list&amp;omitUl=true&amp;liStyle=latestToolsLast&amp;idPrefix=latestToolsLast"/>
+                    </ul>
 
                     <div class="sponsor_ad"><ad:Homepage_185x28/></div>
                 </div>

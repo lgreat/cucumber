@@ -46,15 +46,22 @@
         </c:when>
         <c:when test="${requestScope.modelLayout eq 'list'}">
             <c:if test="${!empty requestScope.modelAnchorList}">
-                <ul class="${(not empty param.style) ? param.style : ''}">
-                    <c:forEach var="anchor" items="${requestScope.modelAnchorList.results}">
+                <c:if test="${empty param.omitUl or param.omitUl ne 'true'}">
+                    <![CDATA[
+                    <ul class="${(not empty param.style) ? param.style : ''}">
+                    ]]>
+                </c:if>
+                    <c:forEach var="anchor" items="${requestScope.modelAnchorList.results}" varStatus="status">
                         <c:set var="url">
                             <c:out value="${anchor.href}" escapeXml="true"/>
                         </c:set>
                         <c:set var="text">
                             <c:out value="${anchor.contents}" escapeXml="true"/>
                         </c:set>
-                        <li>
+                        <c:if test="${not empty param.idPrefix}">
+                            <c:set var="id" value="${param.idPrefix}${status.count}"/>
+                        </c:if>
+                        <li class="${(not empty param.liStyle) ? param.liStyle : ''}" id="${not empty id ? id : ''}">
                             <!-- purposefully not using escapeXml on before/after text because
                                  on index.jspx, explicit space character sequences are used --> 
                             <c:if test="${not empty anchor.before}">${anchor.before}</c:if>
@@ -62,7 +69,11 @@
                             <c:if test="${not empty anchor.after}">${anchor.after}</c:if>
                         </li>
                     </c:forEach>
-                </ul>
+                <c:if test="${empty param.omitUl or param.omitUl ne 'true'}">
+                    <![CDATA[
+                    </ul>
+                    ]]>
+                </c:if>
             </c:if>
         </c:when>
     </c:choose>
