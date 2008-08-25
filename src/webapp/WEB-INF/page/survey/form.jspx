@@ -365,7 +365,7 @@
             </div>
 
             <c:if test="${userResponseCommand.NLPromoShown and (school.type.name eq 'public') and (param.level ne 'p')}">
-                <form:checkbox path="NLSignUpChecked" /> Yes, please send my monthly stats and updates about ${school.name}<br/>
+                <form:checkbox path="NLSignUpChecked" /> Yes, please send me monthly stats and updates about ${school.name}<br/>
             </c:if>
 
             <c:if test="${userResponseCommand.NLPromoShown and (param.level eq 'p')}">
