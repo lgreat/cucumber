@@ -159,6 +159,10 @@
                     // for each level code
                     for (var x=0; x < splitResult.length; x++) {
                         levelCode = splitResult[x];
+                        // hard-code: preschools are not considered in compare
+                        if (levelCode != 'e' && levelCode != 'm' && levelCode != 'h') {
+                            continue;
+                        }
                         // if the input is checked, add this school to the appropriate level code's list
                         if (currentElem.checked) {
                             if (!levelCodeMap[levelCode]) {
