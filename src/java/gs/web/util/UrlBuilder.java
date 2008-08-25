@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.121 2008/08/19 22:44:19 droy Exp $
+ * $Id: UrlBuilder.java,v 1.122 2008/08/25 19:28:17 yfan Exp $
  */
 
 package gs.web.util;
@@ -452,8 +452,6 @@ public class UrlBuilder {
             _path = "/mySchoolList.page";
         } else if (MY_SCHOOL_LIST_LOGIN.equals(page)) {
             _path = "/mySchoolListLogin.page";
-        } else if (SCHOOLS_IN_CITY.equals(page)) {
-            _path = "";
         } else if (PRESCHOOL.equals(page)) {
             _path = "/preschool/";            
         } else {

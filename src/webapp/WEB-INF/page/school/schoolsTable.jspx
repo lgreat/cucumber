@@ -503,8 +503,9 @@ function reloadPageWithFilters(sortColId) {
         </div>
     </c:if>
 
-    <search:schoolsPagination uri="${cityBrowseUri}" currentPage="${(empty param.p) ? 1 : param.p}"
-                              resultCount="${results.total}" pageSize="${pageSize}"/>
+    <search:schoolsPagination currentPage="${(empty param.p) ? 1 : param.p}"
+                              resultCount="${results.total}" pageSize="${pageSize}"
+            schoolTypes="${st}" levelCode="${lc}" districtId="${district}" cityName="${cityName}" />
 
     <!-- typeOverride used in searchControl.tagx and/or mod:browseState -->
     <c:set var="typeOverride" value="school" scope="request"/>
