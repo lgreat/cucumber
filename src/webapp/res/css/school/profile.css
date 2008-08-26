@@ -186,31 +186,31 @@ a:hover.parent_rating {
 
 /* Parent Ratings rollovers */
 .parent_0 { /* displays the "no star" parent rating */
-	background: url(../../img/school/ratings/ratings_parent_head_no.gif) no-repeat;
+	background: url(/res/img/school/ratings/ratings_parent_head_no.gif) no-repeat;
 }
 
 a:hover.parent_0 { /* displays the "no star" rollover */
-	background: url(../../img/school/ratings/ratings_parent_head_no_roll.gif) no-repeat;
+	background: url(/res/img/school/ratings/ratings_parent_head_no_roll.gif) no-repeat;
 }
 
 .parent_1 { /* displays the 1 star parent rating */
-	background: url(../../img/school/ratings/ratings_parent_head_1.gif) no-repeat;
+	background: url(/res/img/school/ratings/ratings_parent_head_1.gif) no-repeat;
 }
 
 .parent_2 { /* displays the 2 star parent rating */
-	background: url(../../img/school/ratings/ratings_parent_head_2.gif) no-repeat;
+	background: url(/res/img/school/ratings/ratings_parent_head_2.gif) no-repeat;
 }
 
 .parent_3 { /* displays the 3 star parent rating */
-	background: url(../../img/school/ratings/ratings_parent_head_3.gif) no-repeat;
+	background: url(/res/img/school/ratings/ratings_parent_head_3.gif) no-repeat;
 }
 
 .parent_4 { /* displays the 4 star parent rating */
-	background: url(../../img/school/ratings/ratings_parent_head_4.gif) no-repeat;
+	background: url(/res/img/school/ratings/ratings_parent_head_4.gif) no-repeat;
 }
 
 .parent_5 { /* displays the 5 star parent rating */
-	background: url(../../img/school/ratings/ratings_parent_head_5.gif) no-repeat;
+	background: url(/res/img/school/ratings/ratings_parent_head_5.gif) no-repeat;
 }
 
 /* main navigation */
@@ -228,7 +228,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     color: #fff;
 	text-decoration: none;
 	text-align: center;
-	background: url(../../img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
+	background: url(/res/img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
 }
 
 #navigation td a { /* Has IE 7 equivalent */
@@ -243,7 +243,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 #navigation td a:hover {
 	color: #5bc;
 	text-decoration: none;
-    background: #dee url(../../img/school/border_dotted.gif) repeat-y right;
+    background: #dee url(/res/img/school/border_dotted.gif) repeat-y right;
 }
 
 /* Do not add dotted border on right of last cell, even during hover */
@@ -257,7 +257,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #navigation .on { /* sets the "on" state for the tabs */
 	color: #5bc;
-    background: #dee url(../../img/school/border_dotted.gif) repeat-y right;
+    background: #dee url(/res/img/school/border_dotted.gif) repeat-y right;
 }
 
 
