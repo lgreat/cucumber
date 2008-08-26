@@ -18,7 +18,7 @@
     <jsp:directive.page contentType="text/html"/>
     <c:set var="pageName" value="article" scope="request"/>
     <head>
-        <title>${requestScope.articleTitle} - ${requestScope.context.stateOrDefault.longName} - GreatSchools.net</title>
+        <title>${requestScope.articleTitle} - GreatSchools.net</title>
         <pageHelper:setPathway pathway="LIBRARY"/>
         <pageHelper:externalCss file="/res/css/content/article.css"/>
         <c:choose>
