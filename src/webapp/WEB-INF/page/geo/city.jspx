@@ -11,6 +11,8 @@
         xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+        xmlns:content2="urn:www.greatschools.net/taglib/content"
+        xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
@@ -250,14 +252,40 @@
 <td style="height: 100%;vertical-align: top;" class="cleanLineLeftBox">
     <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
 </td>
-<td width="33%" style="vertical-align:top">
-    <table>
+<td width="300" style="vertical-align:top"><!--
+    --><table border="0" cellpadding="0" cellspacing="0" width="300">
         <tr>
-            <td class="recentParentReviews">
-                <jsp:include
-                        page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
+            <c:choose>
+                <c:when test="${cityObject.name eq 'San Francisco' and cityObject.state.abbreviation eq 'CA'}">
+                    <td class="gsBlog">
+                        <div class="header">The GreatSchools Blogs: San Francisco</div>
+                        <div class="blogInfo">
+                            <div class="photo">
+                                <gsml:popupWindow href="http://tbd" width="800" height="600" left="50"
+                                                  top="50"><gsml:img
+                                        src="/res/img/content/blogs/amygraff.png"
+                                        alt=""/></gsml:popupWindow>
+                            </div>
+                            <div class="subheader">San Francisco mom Amy Graff's search for the right kindergarten.</div>
+                        </div>
+                        <div class="post">
+                            <cache:cache scope="application" name="blog" key="amyGraff">
+                                <content2:blogFeed atomUrl="http://greatschools.typepad.com/blogrebrand/atom.xml"
+                                              defaultTitle="Amy Graff's search for the right kindergarten"
+                                              defaultUrl="http://greatschools.typepad.com"
+                                              type="gsBlog"/>
+                            </cache:cache>
+                        </div>
+                    </td>
+                </c:when>
+                <c:otherwise>
+                    <td class="recentParentReviews">
+                        <jsp:include
+                                page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
 
-            </td>
+                    </td>
+                </c:otherwise>
+            </c:choose>
         </tr>
         <tr>
             <td>                

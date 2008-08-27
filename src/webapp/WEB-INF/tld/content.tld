@@ -53,6 +53,14 @@
             <description>Link to the blog, used only if the feed doesn't return a link to the most recent entry.
             </description>
         </attribute>
+        <attribute>
+            <name>type</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Determines how to display the blog content; valid values are currently 'billsBlog' and 'gsBlog'.
+            </description>
+        </attribute>
     </tag>
 
     <tag>

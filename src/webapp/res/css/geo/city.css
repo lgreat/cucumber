@@ -373,3 +373,59 @@ a#nearbyCityLink, #cityrating a#nearbyCityLink, a.callToAction {
 a#nearbyCityLink:hover, #cityrating a#nearbyCityLink:hover, a.callToAction:hover{
     text-decoration: underline;
 }
+
+td.gsBlog {
+    padding: 5px;
+    border: 1px solid #DDEEEE;
+}
+
+.gsBlog .header {
+    color: #55BBCC;
+    font-size: medium;
+}
+
+.gsBlog .blogInfo {
+    margin-top: 5px;
+    height: 70px;
+}
+
+.gsBlog .blogInfo .photo {
+    float: left;
+    width: 55px;
+    height: 58px;
+}
+
+.gsBlog .blogInfo .subheader {
+    color: #666666;
+    font-size: 15px;
+    float: right;
+    width: 220px;
+}
+
+.gsBlog .title {
+    color: #99CC67;
+    font-size: small;
+    font-weight: bold;
+}
+
+.gsBlog .body {
+    color: #666666;
+    font-size: small;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.gsBlog#readMore {
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.contentGS .gsBlog a {
+    color: #3399AA;
+    font-size: small;
+    font-weight: normal;
+}
+
+.contentGS .gsBlog a:hover {
+    text-decoration: underline;
+}

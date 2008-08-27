@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.8 2008/01/24 08:44:49 eddie Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.9 2008/08/27 23:53:01 yfan Exp $
  */
 
 package gs.web.content;
@@ -27,9 +27,12 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
 
 
     private static final Log _log = LogFactory.getLog(BlogFeedTagHandler.class);
+    private static final String TYPE_BILLS_BLOG = "billsBlog";
+    private static final String TYPE_GS_BLOG = "gsBlog";
     private String _defaultTitle;
     private String _atomUrl;
     private String _defaultUrl;
+    private String _type;
 
     public void doTag() throws JspException, IOException {
         super.doTag();
@@ -54,17 +57,38 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             // ignore inability to get feed download
         }
 
-        JspWriter out = getJspContext().getOut();
-        out.print(text);
-        out.print("<div style='padding-top: 9px;padding-bottom: 9px;'> ");
-        out.print("<a onclick=\"Popup=window.open('" +
-                link +
-                "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;\"\n" +
-                " href=\"" +
-                link +
-                "\">Read more about \"" + title + "\" &gt;</a>");
-        out.print("</div> ");
+        display(title, link, text);
+    }
 
+    private void display(String title, String link, String text) throws IOException {
+        JspWriter out = getJspContext().getOut();
+
+        if (TYPE_BILLS_BLOG.equals(_type)) {
+            out.print(text);
+            out.print("<div style='padding-top: 9px;padding-bottom: 9px;'> ");
+            out.print("<a onclick=\"Popup=window.open('" +
+                    link +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;\"\n" +
+                    " href=\"" +
+                    link +
+                    "\">Read more about \"" + title + "\" &gt;</a>");
+            out.print("</div> ");
+        } else if (TYPE_GS_BLOG.equals(_type)) {
+            out.print("<div class=\"title\">");
+            out.print(title);
+            out.print("</div>");
+            out.print("<div class=\"body\">");
+            out.print(text);
+            out.print("</div>");
+            out.print("<div class=\"readMore\">");
+            out.print("<a onclick=\"Popup=window.open('" +
+                    link +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;\"\n" +
+                    " href=\"" +
+                    link +
+                    "\">Read more about \"" + title + "\" &gt;</a>");
+            out.print("</div> ");
+        }
     }
 
     public void setDefaultTitle(String defaultTitle) {
@@ -77,5 +101,9 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
 
     public void setDefaultUrl(String defaultUrl) {
         _defaultUrl = defaultUrl;
+    }
+
+    public void setType(String type) {
+        _type = type;
     }
 }
