@@ -65,15 +65,10 @@ public class UpdateRatingsController extends SimpleFormController implements Rea
         review.setSafety(rc.getSafety());
         
         review.setPParents(rc.getPParents());
-        _log.error("setPParents=" + rc.getPParents());
         review.setPProgram(rc.getPProgram());
-        _log.error("setPProgram=" + rc.getPProgram());
         review.setPSafety(rc.getPSafety());
-        _log.error("setPSafety=" + rc.getPSafety());
         review.setPTeachers(rc.getPTeachers());
-        _log.error("setPTeachers=" + rc.getPTeachers());
         review.setPFacilities(rc.getPFacilities());
-        _log.error("setPFacilities=" + rc.getPFacilities());
 
         return review;
     }
