@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 
 <taglib>
 
@@ -41,17 +42,42 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Title to be used if the atom feed does not deliver a title for the most recent entry.</description>
+            <description>Title to be used if the atom feed does not deliver a title for the most recent entry.
+            </description>
         </attribute>
         <attribute>
             <name>defaultUrl</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Link to the blog, used only if the feed doesn't return a link to the most recent entry.</description>
+            <description>Link to the blog, used only if the feed doesn't return a link to the most recent entry.
+            </description>
         </attribute>
     </tag>
 
+    <tag>
+        <name>feed</name>
+        <tag-class>gs.web.content.FeedTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <display-name>Syndicate RSS/Atom content.</display-name>
+        <description>
+            <![CDATA[Creates an HTML unordered list of feed entries.]]>
+        </description>
+        <attribute>
+            <name>feedUrl</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Url to an RSS/Atom fed</description>
+        </attribute>
+        <attribute>
+            <name>numberOfEntriesToShow</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Number of feed entries to display</description>
+        </attribute>
+    </tag>
 
     <tag>
         <name>newsItem</name>

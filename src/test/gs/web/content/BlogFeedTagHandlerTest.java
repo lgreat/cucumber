@@ -50,13 +50,6 @@ public class BlogFeedTagHandlerTest extends TestCase {
         assertTrue(output.indexOf("onclick") > -1);
         assertTrue(output.indexOf("http://billsblog.greatschools.net") > -1);
     }
-
-    public void testDoTimeoutTest() throws Exception {
-        _tag.setDefaultTitle("test timeout");
-        _tag.setDefaultUrl("http://dlee.dev.greatschools.net/cgi-bin/david/timeout.cgi");
-        _tag.setAtomUrl("http://dlee.dev.greatschools.net/cgi-bin/david/timeout.cgi");
-        _tag.doTag();        
-    }
     */
 
     /**

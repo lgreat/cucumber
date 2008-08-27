@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.59 2008/08/16 00:54:34 yfan Exp $
+ * $Id: SchoolsController.java,v 1.60 2008/08/27 05:35:08 thuss Exp $
  */
 
 package gs.web.school;
 
 import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 import gs.data.school.LevelCode;
 import gs.data.school.ISchoolDao;
 import gs.data.school.SchoolType;
@@ -16,7 +17,6 @@ import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.search.SchoolComparatorFactory;
 import gs.data.state.State;
-import gs.data.state.StateManager;
 import gs.data.util.Address;
 import gs.web.search.ResultsPager;
 import gs.web.util.context.SessionContext;
@@ -86,7 +86,14 @@ public class SchoolsController extends AbstractController {
     public static final String MODEL_CITY_NAME = "cityName";
     public static final String MODEL_CITY_DISPLAY_NAME = "cityDisplayName";
 
-    /** Page heading */
+    /**
+     * The city id from the us_geo.city table for fetching feeds from community
+     */
+    public static final String MODEL_CITY_ID = "cityId";
+
+    /**
+     * Page heading
+     */
     public static final String MODEL_HEADING1 = "heading1";
 
     /**
@@ -142,18 +149,251 @@ public class SchoolsController extends AbstractController {
     public static final String LEVEL_LABEL_HIGH_SCHOOLS = "high-schools";
     public static final String LEVEL_LABEL_SCHOOLS = "schools";
 
+    /**
+     * Though this method throws <code>Exception</code>, it should swallow most
+     * (all?) searching errors while just logging appropriately and returning
+     * no results to the user.  Search/Query/Parsing errors are meaningless to
+     * most users and should be handled internally.
+     *
+     * @return a <code>ModelAndView</code> which contains Map containting
+     *         search results and attendant parameters as the model.
+     * @throws Exception
+     */
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+                                                 HttpServletResponse response)
+            throws Exception {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        State state = context.getState();
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        CityBrowseFields cityBrowseFields = null;
+
+        boolean isDistrictBrowse = SchoolsController.isDistrictBrowseRequest(request);
+
+        if (!isDistrictBrowse) {
+            if (SchoolsController.isOldStyleCityBrowseRequest(request)) {
+                String uri = SchoolsController.createNewCityBrowseURI(request);
+                String queryString = SchoolsController.createNewCityBrowseQueryString(request);
+                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
+                return new ModelAndView(new RedirectView301(redirectUrl));
+            }
+
+            if (!SchoolsController.isRequestURIWithTrailingSlash(request)) {
+                String uri = SchoolsController.createURIWithTrailingSlash(request);
+                String queryString = request.getQueryString();
+                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
+                return new ModelAndView(new RedirectView(redirectUrl));
+            }
+
+            if (!SchoolsController.isRequestURIWithTrailingSchoolsLabel(request)) {
+                String uri = SchoolsController.createURIWithTrailingSchoolsLabel(request);
+                String queryString = request.getQueryString();
+                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
+                return new ModelAndView(new RedirectView(redirectUrl));
+            }
+
+            if (!SchoolsController.isValidNewStyleCityBrowseRequest(request)) {
+                _log.warn("Malformed city browse url: " + request.getRequestURI());
+                model.put("showSearchControl", Boolean.TRUE);
+                model.put("title", "City not found");
+
+                return new ModelAndView("status/error", model);
+            }
+
+            cityBrowseFields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
+        }
+
+        LevelCode levelCode = null;
+        if (isDistrictBrowse) {
+            final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
+            if (paramLevelCode != null) {
+                levelCode = LevelCode.createLevelCode(paramLevelCode);
+            }
+        } else {
+            levelCode = cityBrowseFields.getLevelCode();
+        }
+
+        if (levelCode != null) {
+            model.put(MODEL_LEVEL_CODE, levelCode);
+        }
+
+        String[] paramSchoolType;
+        if (isDistrictBrowse) {
+            paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
+        } else {
+            paramSchoolType = cityBrowseFields.getSchoolType();
+        }
+
+        if (paramSchoolType != null) {
+            model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
+        }
+
+        int page = 1;
+        String p = request.getParameter(PARAM_PAGE);
+        if (p != null) {
+            try {
+                page = Integer.parseInt(p);
+            } catch (Exception e) {
+                // ignore this and just assume the page is 1.
+            }
+        }
+        model.put(MODEL_PAGE, Integer.toString(page));
+
+        int pageSize = 10;
+        try {
+            Integer paramPageSize = new Integer(request.getParameter(PARAM_RESULTS_PER_PAGE));
+            if (paramPageSize > 1) {
+                pageSize = paramPageSize;
+            }
+        } catch (Exception ex) {
+            // do nothing
+        }
+
+        String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
+        if (context.isCrawler()) {
+            pageSize = 100;
+        } else if (StringUtils.equals(paramShowAll, "1") ||
+                StringUtils.equals(paramShowAll, "true")) {
+            pageSize = -1;
+        }
+
+        SearchCommand searchCommand = new SearchCommand();
+        searchCommand.setC("school");
+        searchCommand.setState(state);
+        if (levelCode != null) {
+            searchCommand.setLevelCode(levelCode);
+        }
+        searchCommand.setSt(paramSchoolType);
+
+        String cityName;
+        if (isDistrictBrowse) {
+            cityName = request.getParameter(PARAM_CITY);
+        } else {
+            cityName = cityBrowseFields.getCityName();
+        }
+
+        if (cityName != null) {
+            cityName = WordUtils.capitalize(cityName);
+            cityName = WordUtils.capitalize(cityName, new char[]{'-'});
+            String displayName = cityName;
+            if (displayName.equals("New York")) {
+                displayName += " City";
+            } else if (State.DC.equals(state) &&
+                    displayName.equals("Washington")) {
+                displayName += ", DC";
+            }
+            model.put(MODEL_CITY_BROWSE_URI_ROOT, createNewCityBrowseURIRoot(state, cityName));
+            model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, createNewCityBrowseURILevelLabel(levelCode));
+            model.put(MODEL_CITY_BROWSE_URI, createNewCityBrowseURI(state, cityName, cityBrowseFields.getSchoolTypeSet(), levelCode));
+            model.put(MODEL_CITY_NAME, cityName);
+            model.put(MODEL_CITY_DISPLAY_NAME, displayName);
+            model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
+            searchCommand.setCity(cityName);
+            searchCommand.setQ(cityName);
+
+            model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));
+        } else {
+            String districtParam = request.getParameter(PARAM_DISTRICT);
+            if (districtParam != null) {
+
+                // Look up the district name
+                String districtIdStr = request.getParameter(PARAM_DISTRICT);
+                model.put(MODEL_DISTRICT, districtIdStr);
+                int districtId = Integer.parseInt(districtIdStr);
+                District district;
+                try {
+                    district = _districtDao.findDistrictById(state, districtId);
+                    model.put(MODEL_DISTNAME, district.getName());
+
+                    model.put(MODEL_HEADING1, "Schools in " + district.getName());
+
+                    Address districtAddress = district.getPhysicalAddress();
+                    if (districtAddress != null) {
+                        cityName = districtAddress.getCity();
+                        if (cityName != null) {
+                            model.put(MODEL_DIST_CITY_NAME, cityName);
+                        } else {
+                            model.put(MODEL_DIST_CITY_NAME, "");
+                        }
+                    } else {
+                        model.put(MODEL_DIST_CITY_NAME, "");
+                    }
+                    model.put(MODEL_DISTRICT_OBJECT, district);
+                    model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInDistrict(districtId, state));
+                    searchCommand.setDistrict(districtIdStr);
+                } catch (ObjectRetrievalFailureException e) {
+                    _log.warn(state + ": District Id " + districtId + " not found.");
+                    BindException errors = new BindException(searchCommand, "searchCommand");
+                    errors.reject("error_no_district", "District was not found.");
+
+                    model.put("errors", errors);
+                    model.put("showSearchControl", Boolean.TRUE);
+                    model.put("title", "District not found");
+
+                    return new ModelAndView("status/error", model);
+                }
+            }
+        }
+
+        // Get the city id from us_geo.city for pulling feeds from communit
+        City city = null;
+        if (cityName != null) city = _geoDao.findCity(state, cityName);
+        model.put(MODEL_CITY_ID, (city != null) ? city.getId() : null);
+
+        // Build the results and the model
+
+        String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
+        String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
+        if (sortColumn == null) {
+            sortColumn = "schoolResultsHeader";
+            sortDirection = "asc";
+        }
+        if (sortDirection == null) {
+            if (sortColumn.equals("schoolResultsHeader")) {
+                sortDirection = "asc";
+            } else {
+                sortDirection = "desc";
+            }
+        }
+
+        Sort sort = createSort(searchCommand, sortColumn, sortDirection);
+        searchCommand.setSort(sort);
+
+        Hits hts = _searcher.search(searchCommand);
+        if (hts != null) {
+            Comparator comparator = SchoolComparatorFactory.createComparator(sortColumn, sortDirection);
+
+            ResultsPager _resultsPager;
+            if (comparator != null) {
+                // sort the hits using the comparator
+                _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school, comparator);
+            } else {
+                _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
+            }
+
+            Map<String, Object> resultsModel = new HashMap<String, Object>();
+            resultsModel.put(MODEL_SCHOOLS_TOTAL, hts.length());
+            resultsModel.put(MODEL_SCHOOLS, _resultsPager.getResults(page, pageSize));
+            resultsModel.put(MODEL_PAGE_SIZE, pageSize);
+            resultsModel.put(MODEL_TOTAL, hts.length());
+            resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
+            resultsModel.put(PARAM_SORT_COLUMN, sortColumn);
+            resultsModel.put(PARAM_SORT_DIRECTION, sortDirection);
+            model.put("results", resultsModel);
+        } else {
+            _log.warn("Hits object is null for SearchCommand: " + searchCommand);
+        }
+
+        return new ModelAndView(getViewName(), model);
+    }
+
+
     public static boolean isDistrictBrowseRequest(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
             throw new IllegalArgumentException("Request must have request URI");
         }
-        if (!request.getRequestURI().contains("/schools.page")) {
-            return false;
-        }
-        if (request.getParameter(PARAM_DISTRICT) == null) {
-            return false;
-        }
+        return request.getRequestURI().contains("/schools.page") && request.getParameter(PARAM_DISTRICT) != null;
 
-        return true;
     }
 
     public static boolean isRequestURIWithTrailingSlash(HttpServletRequest request) {
@@ -169,10 +409,10 @@ public class SchoolsController extends AbstractController {
         }
         String uri = request.getRequestURI();
         return uri.endsWith("/" + LEVEL_LABEL_SCHOOLS + "/") ||
-               uri.endsWith("/" + LEVEL_LABEL_PRESCHOOLS + "/") ||
-               uri.endsWith("/" + LEVEL_LABEL_ELEMENTARY_SCHOOLS + "/") ||
-               uri.endsWith("/" + LEVEL_LABEL_MIDDLE_SCHOOLS + "/") ||
-               uri.endsWith("/" + LEVEL_LABEL_HIGH_SCHOOLS + "/");
+                uri.endsWith("/" + LEVEL_LABEL_PRESCHOOLS + "/") ||
+                uri.endsWith("/" + LEVEL_LABEL_ELEMENTARY_SCHOOLS + "/") ||
+                uri.endsWith("/" + LEVEL_LABEL_MIDDLE_SCHOOLS + "/") ||
+                uri.endsWith("/" + LEVEL_LABEL_HIGH_SCHOOLS + "/");
     }
 
     public static String createURIWithTrailingSlash(HttpServletRequest request) {
@@ -180,8 +420,8 @@ public class SchoolsController extends AbstractController {
             throw new IllegalArgumentException("Request must have request URI");
         }
         return
-            request.getRequestURI() +
-            (SchoolsController.isRequestURIWithTrailingSlash(request) ? "" : "/");
+                request.getRequestURI() +
+                        (SchoolsController.isRequestURIWithTrailingSlash(request) ? "" : "/");
     }
 
     public static String createURIWithTrailingSchoolsLabel(HttpServletRequest request) {
@@ -189,9 +429,9 @@ public class SchoolsController extends AbstractController {
             throw new IllegalArgumentException("Request must have request URI");
         }
         return
-            request.getRequestURI() +
-            (SchoolsController.isRequestURIWithTrailingSlash(request) ? "" : "/") +
-            (SchoolsController.isRequestURIWithTrailingSchoolsLabel(request) ? "" : "schools/");
+                request.getRequestURI() +
+                        (SchoolsController.isRequestURIWithTrailingSlash(request) ? "" : "/") +
+                        (SchoolsController.isRequestURIWithTrailingSchoolsLabel(request) ? "" : "schools/");
     }
 
     public static boolean isOldStyleCityBrowseRequest(HttpServletRequest request) {
@@ -201,8 +441,8 @@ public class SchoolsController extends AbstractController {
 
         // state is in SessionContext already
         return (!isDistrictBrowseRequest(request) &&
-            request.getRequestURI().contains("/schools.page") &&
-            request.getParameter(PARAM_CITY) != null);
+                request.getRequestURI().contains("/schools.page") &&
+                request.getParameter(PARAM_CITY) != null);
     }
 
     static class CityBrowseFields {
@@ -266,10 +506,9 @@ public class SchoolsController extends AbstractController {
                 level = basicStructureMatcher.group(3);
             } else {
                 schoolType = basicStructureMatcher.group(3);
-                level = basicStructureMatcher.group(4).replaceAll("/","");
+                level = basicStructureMatcher.group(4).replaceAll("/", "");
             }
         }
-
 
         // school type
         String[] paramSchoolType = null;
@@ -290,7 +529,7 @@ public class SchoolsController extends AbstractController {
             }
 
             if (schoolTypes.size() > 0) {
-                paramSchoolType = schoolTypes.toArray(new String[0]);
+                paramSchoolType = schoolTypes.toArray(new String[schoolTypes.size()]);
             }
         }
 
@@ -305,7 +544,7 @@ public class SchoolsController extends AbstractController {
             levelCode = LevelCode.HIGH;
         }
 
-        fields.setCityName(city.replaceAll("-"," ").replaceAll("_","-"));
+        fields.setCityName(city.replaceAll("-", " ").replaceAll("_", "-"));
         fields.setSchoolType(paramSchoolType);
         fields.setSchoolTypeSet(schoolTypeSet);
         fields.setLevelCode(levelCode);
@@ -316,6 +555,7 @@ public class SchoolsController extends AbstractController {
     /**
      * This does not validate existence of city or state, but check whether or not the
      * url is structured to contain those fields and those fields are non-blank
+     *
      * @param request
      * @return
      */
@@ -352,8 +592,8 @@ public class SchoolsController extends AbstractController {
 
         // level
         StringBuilder levelPatternSB = new StringBuilder(
-            "(" + LEVEL_LABEL_SCHOOLS + "|" + LEVEL_LABEL_PRESCHOOLS + "|" + LEVEL_LABEL_ELEMENTARY_SCHOOLS +
-            "|" + LEVEL_LABEL_MIDDLE_SCHOOLS + "|" + LEVEL_LABEL_HIGH_SCHOOLS + ")");
+                "(" + LEVEL_LABEL_SCHOOLS + "|" + LEVEL_LABEL_PRESCHOOLS + "|" + LEVEL_LABEL_ELEMENTARY_SCHOOLS +
+                        "|" + LEVEL_LABEL_MIDDLE_SCHOOLS + "|" + LEVEL_LABEL_HIGH_SCHOOLS + ")");
         if (filteredBySchoolType) {
             levelPatternSB.append("/");
         }
@@ -368,10 +608,9 @@ public class SchoolsController extends AbstractController {
         if (filteredBySchoolType) {
             Pattern schoolTypePattern = Pattern.compile("(public|private|charter|public-private|public-charter|private-charter)");
             Matcher schoolTypeMatcher = schoolTypePattern.matcher(schoolType);
-            boolean schoolTypeMatched = schoolTypeMatcher.find();
-            return schoolTypeMatched;
+            return schoolTypeMatcher.find();
         }
-        
+
         return true;
     }
 
@@ -382,11 +621,11 @@ public class SchoolsController extends AbstractController {
         String stateNameForUrl = state.getLongName().toLowerCase().replaceAll(" ", "-");
         String cityNameForUrl = cityName.toLowerCase().replaceAll("-", "_").replaceAll(" ", "-");
 
-        return "/" + stateNameForUrl + "/" + cityNameForUrl + "/";        
+        return "/" + stateNameForUrl + "/" + cityNameForUrl + "/";
     }
 
     public static String createNewCityBrowseURISchoolTypeLabel(Set<SchoolType> schoolTypes) {
-        if (schoolTypes == null || (schoolTypes != null && schoolTypes.size() > 3)) {
+        if (schoolTypes == null || (schoolTypes.size() > 3)) {
             throw new IllegalArgumentException("Must specify a set of no more than 3 school types");
         }
 
@@ -395,7 +634,7 @@ public class SchoolsController extends AbstractController {
         SchoolType firstType = null;
         SchoolType secondType = null;
         if (schoolTypes.size() == 1) {
-            firstType = schoolTypes.toArray(new SchoolType[0])[0];
+            firstType = schoolTypes.toArray(new SchoolType[schoolTypes.size()])[0];
         } else if (schoolTypes.size() == 2) {
             if (schoolTypes.contains(SchoolType.PUBLIC)) {
                 firstType = SchoolType.PUBLIC;
@@ -487,7 +726,7 @@ public class SchoolsController extends AbstractController {
         }
 
         return createNewCityBrowseURI(SessionContextUtil.getSessionContext(request).getState(),
-            request.getParameter(PARAM_CITY), schoolTypes, levelCode);
+                request.getParameter(PARAM_CITY), schoolTypes, levelCode);
     }
 
     public static String createNewCityBrowseQueryString(HttpServletRequest request) {
@@ -499,293 +738,59 @@ public class SchoolsController extends AbstractController {
         String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
 
         if (page != null) {
-            queryString.append(PARAM_PAGE + "=" + page);
+            queryString.append(PARAM_PAGE + "=").append(page);
         }
         if (resultsPerPage != null) {
             if (queryString.length() > 0) {
                 queryString.append("&");
             }
-            queryString.append(PARAM_RESULTS_PER_PAGE + "=" + resultsPerPage);
+            queryString.append(PARAM_RESULTS_PER_PAGE + "=").append(resultsPerPage);
         }
         if (showAll != null) {
             if (queryString.length() > 0) {
                 queryString.append("&");
             }
-            queryString.append(PARAM_SHOW_ALL + "=" + showAll);
+            queryString.append(PARAM_SHOW_ALL + "=").append(showAll);
         }
         if (sortColumn != null) {
             if (queryString.length() > 0) {
                 queryString.append("&");
             }
-            queryString.append(PARAM_SORT_COLUMN + "=" + sortColumn);
+            queryString.append(PARAM_SORT_COLUMN + "=").append(sortColumn);
         }
         if (sortDirection != null) {
             if (queryString.length() > 0) {
                 queryString.append("&");
             }
-            queryString.append(PARAM_SORT_DIRECTION + "=" + sortDirection);
+            queryString.append(PARAM_SORT_DIRECTION + "=").append(sortDirection);
         }
 
         return queryString.toString();
     }
 
-    /**
-     * Though this method throws <code>Exception</code>, it should swallow most
-     * (all?) searching errors while just logging appropriately and returning
-     * no results to the user.  Search/Query/Parsing errors are meaningless to
-     * most users and should be handled internally.
-     *
-     * @return a <code>ModelAndView</code> which contains Map containting
-     *         search results and attendant parameters as the model.
-     * @throws Exception
-     */
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
-                                                 HttpServletResponse response)
-            throws Exception {
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        State state = context.getState();
-        Map<String, Object> model = new HashMap<String, Object>();
-
-        CityBrowseFields cityBrowseFields = null;
-
-        boolean isDistrictBrowse = SchoolsController.isDistrictBrowseRequest(request);
-
-        if (!isDistrictBrowse) {
-            if (SchoolsController.isOldStyleCityBrowseRequest(request)) {
-                String uri = SchoolsController.createNewCityBrowseURI(request);
-                String queryString = SchoolsController.createNewCityBrowseQueryString(request);
-                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
-                return new ModelAndView(new RedirectView301(redirectUrl));
-            }
-
-            if (!SchoolsController.isRequestURIWithTrailingSlash(request)) {
-                String uri = SchoolsController.createURIWithTrailingSlash(request);
-                String queryString = request.getQueryString();
-                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
-                return new ModelAndView(new RedirectView(redirectUrl));
-            }
-
-            if (!SchoolsController.isRequestURIWithTrailingSchoolsLabel(request)) {
-                String uri = SchoolsController.createURIWithTrailingSchoolsLabel(request);
-                String queryString = request.getQueryString();
-                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
-                return new ModelAndView(new RedirectView(redirectUrl));
-            }
-
-            if (!SchoolsController.isValidNewStyleCityBrowseRequest(request)) {
-                _log.warn("Malformed city browse url: " + request.getRequestURI());
-                model.put("showSearchControl", Boolean.TRUE);
-                model.put("title", "City not found");
-
-                return new ModelAndView("status/error", model);
-            }
-
-            cityBrowseFields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
-        }
-
-        LevelCode levelCode = null;
-        if (isDistrictBrowse) {
-            final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
-            if (paramLevelCode != null) {
-                levelCode = LevelCode.createLevelCode(paramLevelCode);
-            }
-        } else {
-            levelCode = cityBrowseFields.getLevelCode();
-        }
-
-        if (levelCode != null) {
-            model.put(MODEL_LEVEL_CODE, levelCode);
-        }
-
-        String[] paramSchoolType = null;
-        if (isDistrictBrowse) {
-            paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
-        } else {
-            paramSchoolType = cityBrowseFields.getSchoolType();
-        }
-
-        if (paramSchoolType != null) {
-            model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
-        }
-
-        int page = 1;
-        String p = request.getParameter(PARAM_PAGE);
-        if (p != null) {
-            try {
-                page = Integer.parseInt(p);
-            } catch (Exception e) {
-                // ignore this and just assume the page is 1.
-            }
-        }
-        model.put(MODEL_PAGE, Integer.toString(page));
-
-        int pageSize = 10;
-        try{
-            Integer paramPageSize = new Integer(request.getParameter(PARAM_RESULTS_PER_PAGE));
-            if (paramPageSize > 1){
-                pageSize = paramPageSize;
-            }
-        }catch (Exception ex){}
-
-        String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
-        if (context.isCrawler()) {
-            pageSize = 100;
-        } else if (StringUtils.equals(paramShowAll, "1") ||
-                StringUtils.equals(paramShowAll, "true")) {
-            pageSize = -1;
-        }
-
-        SearchCommand searchCommand = new SearchCommand();
-        searchCommand.setC("school");
-        searchCommand.setState(state);
-        if (levelCode != null) {
-            searchCommand.setLevelCode(levelCode);
-        }
-        searchCommand.setSt(paramSchoolType);
-
-        String cityName = null;
-        if (isDistrictBrowse) {
-            cityName = request.getParameter(PARAM_CITY);
-        } else {
-            cityName = cityBrowseFields.getCityName();
-        }
-        if (cityName != null) {
-            cityName = WordUtils.capitalize(cityName);
-            cityName = WordUtils.capitalize(cityName, new char[]{'-'});
-            String displayName = cityName;
-            if (displayName.equals("New York")) {
-                displayName += " City";
-            } else if (State.DC.equals(state) &&
-                    displayName.equals("Washington")) {
-                displayName += ", DC";
-            }
-            model.put(MODEL_CITY_BROWSE_URI_ROOT, createNewCityBrowseURIRoot(state, cityName));
-            model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, createNewCityBrowseURILevelLabel(levelCode));
-            model.put(MODEL_CITY_BROWSE_URI, createNewCityBrowseURI(state, cityName, cityBrowseFields.getSchoolTypeSet(), levelCode));
-            model.put(MODEL_CITY_NAME, cityName);
-            model.put(MODEL_CITY_DISPLAY_NAME, displayName);
-            model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
-            searchCommand.setCity(cityName);
-            searchCommand.setQ(cityName);
-
-            model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));
-        } else {
-            String districtParam = request.getParameter(PARAM_DISTRICT);
-            if (districtParam != null) {
-
-                // Look up the district name
-                String districtIdStr = request.getParameter(PARAM_DISTRICT);
-                model.put(MODEL_DISTRICT, districtIdStr);
-                int districtId = Integer.parseInt(districtIdStr);
-                District district;
-                try {
-                    district = _districtDao.findDistrictById(state, districtId);
-                    model.put(MODEL_DISTNAME, district.getName());
-
-                    model.put(MODEL_HEADING1, "Schools in " + district.getName());
-
-                    Address districtAddress = district.getPhysicalAddress();
-                    if (districtAddress != null) {
-                        String city = districtAddress.getCity();
-                        if (city != null) {
-                            model.put(MODEL_DIST_CITY_NAME, city);
-                        } else {
-                            model.put(MODEL_DIST_CITY_NAME, "");
-                        }
-                    } else {
-                        model.put(MODEL_DIST_CITY_NAME, "");                        
-                    }
-
-                    model.put(MODEL_DISTRICT_OBJECT, district);
-                    model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInDistrict(districtId, state));
-
-                    searchCommand.setDistrict(districtIdStr);
-                    // the following is not needed and breaks sometimes. See SearcherTest.
-                    // searchCommand.setQ(district.getName());
-                } catch (ObjectRetrievalFailureException e) {
-                    _log.warn(state + ": District Id " + districtId + " not found.");
-                    BindException errors = new BindException(searchCommand, "searchCommand");
-                    errors.reject("error_no_district", "District was not found.");
-
-                    model.put("errors", errors);
-                    model.put("showSearchControl", Boolean.TRUE);
-                    model.put("title", "District not found");
-
-                    return new ModelAndView("status/error", model);
-                }
-            }
-        }
-
-        // Build the results and the model
-
-        String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
-        String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
-        if (sortColumn == null){
-            sortColumn = "schoolResultsHeader";
-            sortDirection = "asc";
-        }
-        if (sortDirection == null){
-            if (sortColumn.equals("schoolResultsHeader")) {
-                sortDirection = "asc";
-            }else{
-                sortDirection = "desc";
-            }
-        }
-
-        Sort sort = createSort(request, searchCommand, sortColumn, sortDirection);
-        searchCommand.setSort(sort);
-
-        Hits hts = _searcher.search(searchCommand);
-        if (hts != null) {
-            Comparator comparator = SchoolComparatorFactory.createComparator(sortColumn, sortDirection);
-
-            ResultsPager _resultsPager;
-            if (comparator != null){
-                // sort the hits using the comparator
-                _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school,comparator);
-            } else {
-                _resultsPager = new ResultsPager(hts, ResultsPager.ResultType.school);
-            }
-
-            Map<String, Object> resultsModel = new HashMap<String, Object>();
-            resultsModel.put(MODEL_SCHOOLS_TOTAL, hts.length());
-            resultsModel.put(MODEL_SCHOOLS, _resultsPager.getResults(page, pageSize));
-            resultsModel.put(MODEL_PAGE_SIZE, pageSize);
-            resultsModel.put(MODEL_TOTAL, hts.length());
-            resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
-            resultsModel.put(PARAM_SORT_COLUMN, sortColumn);
-            resultsModel.put(PARAM_SORT_DIRECTION, sortDirection);
-            model.put("results", resultsModel);
-        } else {
-            _log.warn("Hits object is null for SearchCommand: " + searchCommand);
-        }
-
-        return new ModelAndView(getViewName(), model);
-    }
-
-    protected Sort createSort(HttpServletRequest request, SearchCommand searchCommand, String sortColumn, String sortDirection){
+    protected Sort createSort(SearchCommand searchCommand, String sortColumn, String sortDirection) {
 
         _log.debug("SearchController.createSort");
 
-        if(!searchCommand.isSchoolsOnly()){
+        if (!searchCommand.isSchoolsOnly()) {
             return null;
         }
 
         Sort result = null;
 
-       _log.debug("createSort: sortColumn: " + sortColumn);
-       _log.debug("createSort: sortDirection: " + sortDirection);
+        _log.debug("createSort: sortColumn: " + sortColumn);
+        _log.debug("createSort: sortDirection: " + sortDirection);
 
-        if ( sortColumn == null || sortColumn.equals("schoolResultsHeader")){
+        if (sortColumn == null || sortColumn.equals("schoolResultsHeader")) {
             boolean descending = false;  // default is ascending order
-            if (sortDirection != null && sortDirection.equals("desc")){
+            if (sortDirection != null && sortDirection.equals("desc")) {
                 descending = true;
             }
-            result = new Sort( new SortField(Indexer.SORTABLE_NAME, SortField.STRING, descending));
+            result = new Sort(new SortField(Indexer.SORTABLE_NAME, SortField.STRING, descending));
 
             _log.debug("createSort: SortField: " + Indexer.SORTABLE_NAME + ", " + SortField.STRING + ", " + descending);
         }
-       // default is School, ascending
+        // default is School, ascending
 
         return result;
     }
@@ -866,7 +871,7 @@ public class SchoolsController extends AbstractController {
 
         }
 
-         if (levelCode != null &&
+        if (levelCode != null &&
                 levelCode.getCommaSeparatedString().length() == 1) {
             if (levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
                 modifier.append("preschool");
@@ -877,10 +882,9 @@ public class SchoolsController extends AbstractController {
             } else if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
                 modifier.append("high");
             }
-             modifier.append(" ");
+            modifier.append(" ");
 
         }
-
 
 
         if (districtDisplayName == null) {
@@ -888,13 +892,12 @@ public class SchoolsController extends AbstractController {
             sb.append("View and map all ").append(cityWithModifier).
                     append("schools. Plus, compare or save ").
                     append(modifier).append("schools.");
-        }
-         else {
+        } else {
             sb.append("View and map all ").append(modifier).
-                     append("schools in the ").append(districtDisplayName).
-                     append(". Plus, compare or save ").append(modifier).
-                     append("schools in this district.");
-         }
+                    append("schools in the ").append(districtDisplayName).
+                    append(". Plus, compare or save ").append(modifier).
+                    append("schools in this district.");
+        }
 
         return sb.toString();
     }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.33 2008/08/06 22:04:38 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.34 2008/08/27 05:35:08 thuss Exp $
  */
 
 package gs.web.school;
@@ -13,6 +13,7 @@ import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.Searcher;
 import gs.data.state.State;
+import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.search.SchoolSearchResult;
@@ -42,6 +43,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _controller.setDistrictDao((IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID));
         _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _controller.setSearcher((Searcher) getApplicationContext().getBean(Searcher.BEAN_ID));
+        _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
 
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
     }
@@ -651,7 +653,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         Map model = mav.getModel();
         assertNotNull("Expected uri root", model.get(SchoolsController.MODEL_CITY_BROWSE_URI_ROOT));
         assertNotNull("Expected uri level label", model.get(SchoolsController.MODEL_CITY_BROWSE_URI_LEVEL_LABEL));
-        assertNotNull("Expected uri", model.get(SchoolsController.MODEL_CITY_BROWSE_URI));        
+        assertNotNull("Expected uri", model.get(SchoolsController.MODEL_CITY_BROWSE_URI));
+        assertEquals("Expected city id", "133917", model.get(SchoolsController.MODEL_CITY_ID).toString());
     }
 
     public void testCreateNewCityBrowseQueryString() throws Exception {
@@ -761,6 +764,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         // Check for other important stuff
         assertEquals("1", model.get(SchoolsController.MODEL_PAGE));
         assertEquals("Alameda", model.get(SchoolsController.MODEL_CITY_NAME));
+        assertEquals("135457", model.get(SchoolsController.MODEL_CITY_ID).toString());
         assertEquals(null, model.get(SchoolsController.MODEL_LEVEL_CODE));
         assertEquals(null, model.get(SchoolsController.MODEL_SCHOOL_TYPE));
     }
@@ -817,6 +821,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         // Check for other important stuff
         assertEquals("1", model.get(SchoolsController.MODEL_PAGE));
         assertEquals("Alameda City Unified", model.get(SchoolsController.MODEL_DISTNAME));
+        assertEquals("135457", model.get(SchoolsController.MODEL_CITY_ID).toString());
         assertEquals(null, model.get(SchoolsController.MODEL_LEVEL_CODE));
         assertEquals(null, model.get(SchoolsController.MODEL_SCHOOL_TYPE));
     }
