@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.2 2008/08/28 20:12:28 thuss Exp $
+ * $Id: FeedTagHandler.java,v 1.3 2008/08/28 20:22:11 thuss Exp $
  */
 
 package gs.web.content;
@@ -59,7 +59,7 @@ public class FeedTagHandler extends SimpleTagSupport {
             out.append("</ol>");
             getJspContext().getOut().print(out);
         } else {
-            getJspBody().invoke(getJspContext().getOut());
+            if (getJspBody() != null) getJspBody().invoke(getJspContext().getOut());
         }
     }
 
