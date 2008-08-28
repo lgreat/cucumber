@@ -1,0 +1,52 @@
+div#col_right div#localQuestionsContainer {
+    border-top:1px solid #CCCCCC;
+    padding-top:15px;
+}
+
+div#col_right div#localQuestions {
+    height: 273px;
+    background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll -7px -7px;
+    font-family: Trebuchet MS, sans-serif;
+    padding: 23px 23px 50px 23px;
+    position: relative;
+}
+
+div#col_right .localQuestionsLogo {
+    color: #666666;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+div#col_right .localQuestionsLogo img {
+    margin-bottom: -2px;
+}
+
+div#col_right div#localQuestions h2 {
+    color: #666666;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    margin-bottom: 25px;
+}
+
+div#col_right div#localQuestions li {
+    background: url( ../../../img/community/local/localChat.gif ) no-repeat;
+    margin-bottom: 15px;
+}
+
+div#col_right div#localQuestions li a {
+    margin-left: 30px;
+    display: block;
+}
+
+div#col_right .localQuestionsMore {
+    position: absolute;
+    right: 18px;
+    bottom: 50px;
+}
+
+div#col_right .localQuestionsAsk {
+    position: absolute;
+    right: 18px;
+    bottom: 25px;
+}

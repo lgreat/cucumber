@@ -66,7 +66,7 @@
     <tag>
         <name>feed</name>
         <tag-class>gs.web.content.FeedTagHandler</tag-class>
-        <body-content>empty</body-content>
+        <body-content>scriptless</body-content>
         <display-name>Syndicate RSS/Atom content.</display-name>
         <description>
             <![CDATA[Creates an HTML unordered list of feed entries.]]>

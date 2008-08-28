@@ -13,6 +13,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
@@ -190,20 +191,18 @@ function reloadPageWithFilters(sortColId) {
     }
 
 
-
-    if ( sortColId != undefined ) {
+    if (sortColId != undefined) {
         reloadUrl += "&sortColumn=" + sortColId;
     } else {
         reloadUrl += "&sortColumn=" + "${results.sortColumn}";
     }
 
 
-
-    if (sortColId == "${results.sortColumn}"){
+    if (sortColId == "${results.sortColumn}") {
         reloadUrl += "&sortDirection=${(results.sortDirection eq 'desc' ? 'asc' : 'desc')}";
-    } else  if (sortColId == "schoolResultsHeader"){
+    } else  if (sortColId == "schoolResultsHeader") {
         reloadUrl += "&sortDirection=asc";
-    } else if (sortColId != null ){
+    } else if (sortColId != null) {
         reloadUrl += "&sortDirection=desc";
     } else {
         reloadUrl += "&sortDirection=${results.sortDirection}";
@@ -505,7 +504,7 @@ function reloadPageWithFilters(sortColId) {
 
     <search:schoolsPagination currentPage="${(empty param.p) ? 1 : param.p}"
                               resultCount="${results.total}" pageSize="${pageSize}"
-            schoolTypes="${st}" levelCode="${lc}" districtId="${district}" cityName="${cityName}" />
+                              schoolTypes="${st}" levelCode="${lc}" districtId="${district}" cityName="${cityName}"/>
 
     <!-- typeOverride used in searchControl.tagx and/or mod:browseState -->
     <c:set var="typeOverride" value="school" scope="request"/>
@@ -564,6 +563,8 @@ function reloadPageWithFilters(sortColId) {
     </c:if>
 
     <ad:multiTextAd blurb="Advertiser Links"/>
+
+    <community:localQuestions cityId="${cityId}" cityDisplayName="${cityDisplayName}"/>
 </div>
 
 <br clear="left"/>

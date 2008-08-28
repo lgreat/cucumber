@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.1 2008/08/27 05:35:08 thuss Exp $
+ * $Id: FeedTagHandler.java,v 1.2 2008/08/28 20:12:28 thuss Exp $
  */
 
 package gs.web.content;
@@ -57,8 +57,10 @@ public class FeedTagHandler extends SimpleTagSupport {
                         append(entry.getTitle()).append("</a>").append("</li>");
             }
             out.append("</ol>");
+            getJspContext().getOut().print(out);
+        } else {
+            getJspBody().invoke(getJspContext().getOut());
         }
-        getJspContext().getOut().print(out);
     }
 
     protected List<SyndEntry> getFeedEntries(String feedUrl) {
@@ -72,7 +74,8 @@ public class FeedTagHandler extends SimpleTagSupport {
                 System.setProperty("sun.net.client.defaultReadTimeout", "5000");
                 entries = getFeedEntriesFromSource(feedUrl);
                 if (_numberOfEntriesToShow == null) _numberOfEntriesToShow = entries.size();
-                entries = entries.subList(0, _numberOfEntriesToShow); // Shorten the list for caching
+                if (_numberOfEntriesToShow < entries.size())
+                    entries = entries.subList(0, _numberOfEntriesToShow); // Shorten the list for caching
                 _cache.put(new Element(feedUrl, entries));
             }
         } catch (Exception e) {

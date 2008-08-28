@@ -25,8 +25,8 @@ public class FeedTagHandlerTest extends TestCase {
         resetJspContext();
     }
 
-    public void testNumberOfEntriesToShowAndCaching() throws Exception {
-        _tag.setFeedUrl("http://testNumberOfEntriesToShowAndCaching"); // cache key
+    public void testGettingFeedEntriesAndCaching() throws Exception {
+        _tag.setFeedUrl("http://testEntriesToShowAndCaching"); // cache key
         _tag.setNumberOfEntriesToShow(2);
         _tag.setFeedEntriesFromSource(generateFeedEntries(5));
         _tag.doTag();
@@ -36,12 +36,27 @@ public class FeedTagHandlerTest extends TestCase {
 
         // Now do it again and verify a cache hit
         resetJspContext();
-        _tag.setFeedEntriesFromSource(null); // This will tell us if it gets it from cache
+        _tag.setFeedEntriesFromSource(null); // Only a cache hit would return entries now
         _tag.doTag();
         output = getJspContextOutput();
         assertTrue(output.indexOf("http://post2") > -1);
         assertFalse(output.indexOf("http://post3") > -1);
+    }
 
+    public void testGettingNoFeedEntriesAndCaching() throws Exception {
+        _tag.setFeedUrl("http://testNoEntriesToShowAndCaching"); // cache key
+        _tag.setNumberOfEntriesToShow(2);
+        _tag.setFeedEntriesFromSource(generateFeedEntries(0));
+        _tag.doTag();
+        String output = getJspContextOutput();
+        assertEquals(output, "");
+
+        // Now do it again and verify a cache hit
+        resetJspContext();
+        _tag.setFeedEntriesFromSource(generateFeedEntries(5)); // Cached version should still be empty
+        _tag.doTag();
+        output = getJspContextOutput();
+        assertEquals(output, "");    
     }
 
     /**
