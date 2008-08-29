@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.60 2008/08/27 05:35:08 thuss Exp $
+ * $Id: SchoolsController.java,v 1.61 2008/08/29 03:36:38 thuss Exp $
  */
 
 package gs.web.school;
@@ -22,6 +22,7 @@ import gs.web.search.ResultsPager;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.RedirectView301;
+import gs.web.util.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -337,11 +338,15 @@ public class SchoolsController extends AbstractController {
 
         // Get the city id from us_geo.city for pulling feeds from communit
         City city = null;
-        if (cityName != null) city = _geoDao.findCity(state, cityName);
-        model.put(MODEL_CITY_ID, (city != null) ? city.getId() : null);
+        if (cityName != null) {
+            city = _geoDao.findCity(state, cityName);
+            if (city != null) {
+                model.put(MODEL_CITY_ID, city.getId());
+                PageHelper.setCityIdCookie(request, response, city);
+            }
+        }
 
         // Build the results and the model
-
         String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
         String sortDirection = request.getParameter(PARAM_SORT_DIRECTION);
         if (sortColumn == null) {

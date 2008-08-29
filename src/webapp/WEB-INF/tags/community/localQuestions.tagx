@@ -6,6 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
+    <jsp:directive.tag body-content="empty"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 
@@ -14,15 +15,17 @@
     <jsp:directive.attribute name="cityDisplayName" required="true" description="Name of the city"
                              type="java.lang.String"/>
 
-    <c:if test="${cityId > 0}">
+    <c:if test="${cityId > 0 and not requestScope.context.crawler}">
         <jsp:scriptlet>
             Integer numberOfEntriesToShow = 3;
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            String url = "http://" + sessionContext.getSessionContextUtil().getCommunityHost(request) +
+            String communityHost = sessionContext.getSessionContextUtil().getCommunityHost(request);
+            String url = "http://" + communityHost +
                     "/category/feed/?category=all,none&amp;type=question&amp;loc_id=" + cityId + "&amp;limit=" +
                     numberOfEntriesToShow;
-            // url = "http://" + sessionContext.getSessionContextUtil().getCommunityHost(request) + "/category/feed/?category=all,none&amp;type=question&amp;loc_id=433097&amp;limit=" + numberOfEntriesToShow;
+            url = "http://" + communityHost + "/category/feed/?category=all,none&amp;type=question&amp;loc_id=433097&amp;limit=" + numberOfEntriesToShow;
 
+            request.setAttribute("communityHost", communityHost);
             request.setAttribute("communityFeedUrl", url);
             request.setAttribute("numberOfEntriesToShow", numberOfEntriesToShow);
         </jsp:scriptlet>
@@ -49,8 +52,8 @@
                     <!-- If no RSS content is found hide this module -->
                     <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
                 </content:feed>
-                <a class="localQuestionsMore" href=""><gsml:img src="/res/img/community/local/more.gif" alt="More"/></a>
-                <a class="localQuestionsAsk" href="">Ask a question about ${cityDisplayName} &amp;gt;</a>
+                <a class="localQuestionsMore" href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img src="/res/img/community/local/more.gif" alt="More"/></a>
+                <a class="localQuestionsAsk" href="http://${communityHost}/q-and-a">Ask a question about ${cityDisplayName} &amp;gt;</a>
             </div>
         </div>
     </c:if>
