@@ -147,6 +147,15 @@
     left: 212px;
 }
 
+#outline li#numChildren {
+    padding-left: 10px;
+}
+
+#outline #numChildren label span.required {
+    position: absolute;
+    left: 0;
+}
+
 #outline ul li select#numSchoolChildren {
     width: 40px;
     left: 332px;
