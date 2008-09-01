@@ -150,6 +150,7 @@
 #outline ul li select#numSchoolChildren {
     width: 40px;
     left: 332px;
+    top: 10px;
 }
 
 #outline li#newsletter, #outline li#betaGroup, #outline li#terms {

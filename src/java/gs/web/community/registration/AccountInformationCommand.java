@@ -128,7 +128,7 @@ public class AccountInformationCommand {
     }
 
     public List<Grade> getGradeList() {
-        return Grades.createGrades(Grade.KINDERGARTEN, Grade.G_12).asList();
+        return Grades.createGrades(Grade.PRESCHOOL, Grade.G_12).asList();
     }
 
     protected static class StudentCommand {

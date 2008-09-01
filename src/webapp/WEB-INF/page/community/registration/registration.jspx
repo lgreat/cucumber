@@ -212,7 +212,8 @@
                 </li>
 
                 <li id="numChildren" style="${childrenStyle}">
-                    <label><span class="required">*</span>How many children do you have in K-12 schools?</label>
+                    <label><span class="required">*</span>How many children do you have in preschool,<br/>
+                        elementary, middle or high school?</label>
                     <spring:bind path="userCmd.numSchoolChildren">
                         <select name="${status.expression}" id="numSchoolChildren"
                                 onchange="determinePageState();" tabindex="11">

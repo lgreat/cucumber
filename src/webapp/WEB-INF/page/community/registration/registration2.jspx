@@ -190,7 +190,7 @@
           <label for="grade${child}" class="childGradeLabel"><span class="required">*</span>Grade</label>
           <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                styleClass="selectChildGrade" grade="${gradeVal}"
-                               useNoGrade="true" useAlternateNames="true"
+                               useNoGrade="true" useAlternateNames="true" usePreK="true"
                                onChange="gradeChange(this, ${child});"/>
 
           <label for="school${child}" class="childSchoolLabel"><span class="required">*</span>School</label>
