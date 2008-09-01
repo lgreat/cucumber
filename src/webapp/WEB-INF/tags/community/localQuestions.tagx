@@ -23,7 +23,7 @@
             String url = "http://" + communityHost +
                     "/category/feed/?category=all,none&amp;type=question&amp;loc_id=" + cityId + "&amp;limit=" +
                     numberOfEntriesToShow;
-            url = "http://" + communityHost + "/category/feed/?category=all,none&amp;type=question&amp;loc_id=433097&amp;limit=" + numberOfEntriesToShow;
+            // url = "http://" + communityHost + "/category/feed/?category=all,none&amp;type=question&amp;loc_id=433097&amp;limit=" + numberOfEntriesToShow;
 
             request.setAttribute("communityHost", communityHost);
             request.setAttribute("communityFeedUrl", url);
@@ -45,15 +45,18 @@
                 <variant:b>
                     <span class="localQuestionsLogo"><gsml:img src="/res/img/community/local/localLogo.gif"
                                                                alt="Local"/> Q&amp;amp;A</span>
-
                     <h2>${cityDisplayName}, ${requestScope.context.stateOrDefault.abbreviation}</h2>
                 </variant:b>
-                <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}">
+                <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}"
+                              numberOfCharactersPerEntryToShow="90">
                     <!-- If no RSS content is found hide this module -->
                     <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
                 </content:feed>
-                <a class="localQuestionsMore" href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img src="/res/img/community/local/more.gif" alt="More"/></a>
-                <a class="localQuestionsAsk" href="http://${communityHost}/q-and-a">Ask a question about ${cityDisplayName} &amp;gt;</a>
+                <a class="localQuestionsMore"
+                   href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
+                        src="/res/img/community/local/more.gif" alt="More"/></a>
+                <a class="localQuestionsAsk"
+                   href="http://${communityHost}/q-and-a">Ask a question about ${cityDisplayName} &amp;gt;</a>
             </div>
         </div>
     </c:if>

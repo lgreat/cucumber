@@ -11,7 +11,6 @@ import com.sun.syndication.feed.synd.SyndEntryImpl;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * @author thuss
@@ -56,7 +55,34 @@ public class FeedTagHandlerTest extends TestCase {
         _tag.setFeedEntriesFromSource(generateFeedEntries(5)); // Cached version should still be empty
         _tag.doTag();
         output = getJspContextOutput();
-        assertEquals(output, "");    
+        assertEquals("", output);
+    }
+
+    public void testAbbreviatingLongFeedEntries() throws Exception {
+        // First test for no abbreviation
+        _tag.setFeedUrl("http://testEntryAbbreviation"); // cache key
+        _tag.setNumberOfEntriesToShow(1);
+        _tag.setFeedEntriesFromSource(new ArrayList<SyndEntry>() {
+            {
+                add(new SyndEntryImpl() {{
+                    setTitle("Very Long Title That Should Be Abbreviated");
+                    setLink("http://post");
+                }});
+            }});
+        _tag.doTag();
+        String output = getJspContextOutput();
+        assertEquals("No Abbreviation Expected",
+                "<ol><li><a href=\"http://post\">Very Long Title That Should Be Abbreviated</a></li></ol>",
+                output);
+
+        // Now abbreviate it
+        resetJspContext();
+        _tag.setNumberOfCharactersPerEntryToShow(12);
+        _tag.doTag();
+        output = getJspContextOutput();
+        assertEquals("Abbreviation Expected",
+                "<ol><li><a href=\"http://post\">Very Long...</a></li></ol>",
+                output);
     }
 
     /**

@@ -58,7 +58,8 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Determines how to display the blog content; valid values are currently 'billsBlog' and 'gsBlog'.
+            <description>Determines how to display the blog content; valid values are currently 'billsBlog' and
+                'gsBlog'.
             </description>
         </attribute>
     </tag>
@@ -84,6 +85,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.Integer</type>
             <description>Number of feed entries to display</description>
+        </attribute>
+        <attribute>
+            <name>numberOfCharactersPerEntryToShow</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Number of characters per entry to display</description>
         </attribute>
     </tag>
 

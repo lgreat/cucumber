@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.3 2008/08/28 20:22:11 thuss Exp $
+ * $Id: FeedTagHandler.java,v 1.4 2008/09/01 01:06:28 thuss Exp $
  */
 
 package gs.web.content;
@@ -20,9 +20,16 @@ import java.util.*;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
+import gs.web.jsp.Util;
 
 /**
  * A generic rss/atom feed handler with time based cache expiry, uses ehcache
+ * to cache the feed based on the URL.
+ * <p/>
+ * If numberOfEntries is not set it displays all entries in the feed.
+ * <p/>
+ * If numberOfCharactersPerEntry is not set it displays all characters in the
+ * title entry, otherwise it truncates on the word boundry and adds ... to the end
  *
  * @author thuss
  */
@@ -38,6 +45,7 @@ public class FeedTagHandler extends SimpleTagSupport {
 
     private String _feedUrl;
     private Integer _numberOfEntriesToShow;
+    private Integer _numberOfCharactersPerEntryToShow;
 
     static {
         CacheManager manager = CacheManager.create();
@@ -53,8 +61,11 @@ public class FeedTagHandler extends SimpleTagSupport {
             out.append("<ol>");
             for (int i = 0; i < _numberOfEntriesToShow && i < entries.size(); i++) {
                 SyndEntry entry = entries.get(i);
+                String title = (_numberOfCharactersPerEntryToShow != null) ?
+                        Util.abbreviateAtWhitespace(entry.getTitle(), _numberOfCharactersPerEntryToShow) :
+                        entry.getTitle();
                 out.append("<li><a href=\"").append(entry.getLink()).append("\">").
-                        append(entry.getTitle()).append("</a>").append("</li>");
+                        append(title).append("</a>").append("</li>");
             }
             out.append("</ol>");
             getJspContext().getOut().print(out);
@@ -94,5 +105,9 @@ public class FeedTagHandler extends SimpleTagSupport {
 
     public void setNumberOfEntriesToShow(Integer numberOfEntriesToShow) {
         _numberOfEntriesToShow = numberOfEntriesToShow;
+    }
+
+    public void setNumberOfCharactersPerEntryToShow(Integer numberOfCharactersPerEntryToShow) {
+        _numberOfCharactersPerEntryToShow = numberOfCharactersPerEntryToShow;
     }
 }

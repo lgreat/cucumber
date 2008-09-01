@@ -1,13 +1,13 @@
 div#col_right div#localQuestionsContainer {
-    border-top:1px solid #CCCCCC;
-    padding-top:15px;
+    border-top: 1px solid #CCCCCC;
+    padding-top: 15px;
 }
 
 div#col_right div#localQuestions {
-    height: 273px;
-    background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll -7px -7px;
+    height: 285px;
+    background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll 2px;
     font-family: Trebuchet MS, sans-serif;
-    padding: 23px 23px 50px 23px;
+    padding: 30px 30px 60px 30px;
     position: relative;
 }
 
@@ -25,13 +25,14 @@ div#col_right div#localQuestions h2 {
     color: #666666;
     font-size: 16px;
     font-weight: bold;
-    padding-top: 20px;
-    margin-bottom: 25px;
+    padding-top: 18px;
+    margin-bottom: 20px;
 }
 
 div#col_right div#localQuestions li {
-    background: url( ../../../img/community/local/localChat.gif ) no-repeat;
+    position: relative;
     margin-bottom: 15px;
+    background: transparent url( ../../../img/community/local/localChat.gif ) no-repeat scroll left top;
 }
 
 div#col_right div#localQuestions li a {
@@ -41,12 +42,12 @@ div#col_right div#localQuestions li a {
 
 div#col_right .localQuestionsMore {
     position: absolute;
-    right: 18px;
-    bottom: 50px;
+    right: 25px;
+    bottom: 60px;
 }
 
 div#col_right .localQuestionsAsk {
     position: absolute;
-    right: 18px;
-    bottom: 25px;
+    right: 25px;
+    bottom: 35px;
 }
