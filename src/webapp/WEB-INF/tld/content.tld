@@ -80,6 +80,13 @@
             <description>Url to an RSS/Atom fed</description>
         </attribute>
         <attribute>
+            <name>onClick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional onclick handler</description>
+        </attribute>
+        <attribute>
             <name>numberOfEntriesToShow</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

@@ -48,7 +48,7 @@ public class FeedTagHandlerTest extends TestCase {
         _tag.setFeedEntriesFromSource(generateFeedEntries(0));
         _tag.doTag();
         String output = getJspContextOutput();
-        assertEquals(output, "");
+        assertEquals("", output);
 
         // Now do it again and verify a cache hit
         resetJspContext();
@@ -56,6 +56,16 @@ public class FeedTagHandlerTest extends TestCase {
         _tag.doTag();
         output = getJspContextOutput();
         assertEquals("", output);
+    }
+
+    public void testOnClick() throws Exception {
+        _tag.setFeedUrl("http://testOnClick"); // cache key
+        _tag.setNumberOfEntriesToShow(1);
+        _tag.setFeedEntriesFromSource(generateFeedEntries(1));
+        _tag.setOnClick("foo(); return true;");
+        _tag.doTag();
+        String output = getJspContextOutput();
+        assertEquals("<ol><li><a onclick=\"foo(); return true;\" href=\"http://post1\">Post 1</a></li></ol>", output);
     }
 
     public void testAbbreviatingLongFeedEntries() throws Exception {

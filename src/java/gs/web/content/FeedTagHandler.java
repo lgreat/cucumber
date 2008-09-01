@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.4 2008/09/01 01:06:28 thuss Exp $
+ * $Id: FeedTagHandler.java,v 1.5 2008/09/01 03:42:40 thuss Exp $
  */
 
 package gs.web.content;
@@ -46,6 +46,7 @@ public class FeedTagHandler extends SimpleTagSupport {
     private String _feedUrl;
     private Integer _numberOfEntriesToShow;
     private Integer _numberOfCharactersPerEntryToShow;
+    private String _onClick;
 
     static {
         CacheManager manager = CacheManager.create();
@@ -61,11 +62,17 @@ public class FeedTagHandler extends SimpleTagSupport {
             out.append("<ol>");
             for (int i = 0; i < _numberOfEntriesToShow && i < entries.size(); i++) {
                 SyndEntry entry = entries.get(i);
+
                 String title = (_numberOfCharactersPerEntryToShow != null) ?
                         Util.abbreviateAtWhitespace(entry.getTitle(), _numberOfCharactersPerEntryToShow) :
                         entry.getTitle();
-                out.append("<li><a href=\"").append(entry.getLink()).append("\">").
-                        append(title).append("</a>").append("</li>");
+
+                // Write out the HTML
+                out.append("<li><a ");
+                if (_onClick != null) out.append("onclick=\"").append(_onClick).append("\" ");
+                out.append("href=\"").append(entry.getLink()).append("\">");
+                out.append(title);
+                out.append("</a>").append("</li>");
             }
             out.append("</ol>");
             getJspContext().getOut().print(out);
@@ -109,5 +116,9 @@ public class FeedTagHandler extends SimpleTagSupport {
 
     public void setNumberOfCharactersPerEntryToShow(Integer numberOfCharactersPerEntryToShow) {
         _numberOfCharactersPerEntryToShow = numberOfCharactersPerEntryToShow;
+    }
+
+    public void setOnClick(String onClick) {
+        _onClick = onClick;
     }
 }
