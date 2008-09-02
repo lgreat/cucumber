@@ -16,6 +16,8 @@
                              description="Show the ad in the footer or not."/>
     <jsp:directive.attribute name="showSeoFooter" required="false" type="java.lang.Boolean"
                              description="Show the SEO links in the footer or not."/>
+    <jsp:directive.attribute name="showOnlyCopyright" required="false" type="java.lang.Boolean"
+                             description="Show only the copyright footer."/>
 
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -40,7 +42,7 @@
                     </div>
                 </c:set>
                 <c:choose>
-                    <c:when test="${requestScope.context.customCobrandedFooter}">
+                    <c:when test="${showOnlyCopyright or requestScope.context.customCobrandedFooter}">
                         ${footerCopyright}
                     </c:when>
                     <c:otherwise>
