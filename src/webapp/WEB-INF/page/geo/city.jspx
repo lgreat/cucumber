@@ -261,18 +261,18 @@
                         <div class="header">The GreatSchools Blogs: San Francisco</div>
                         <div class="blogInfo">
                             <div class="photo">
-                                <gsml:popupWindow href="http://tbd" width="800" height="600" left="50"
+                                <gsml:popupWindow href="http://tbd" width="917" height="600" left="50"
                                                   top="50"><gsml:img
-                                        src="/res/img/content/blogs/amygraff.png"
+                                        src="/res/img/content/blogs/amygraff.jpg"
                                         alt=""/></gsml:popupWindow>
                             </div>
                             <div class="subheader">San Francisco mom Amy Graff's search for the right kindergarten.</div>
                         </div>
                         <div class="post">
                             <cache:cache scope="application" name="blog" key="amyGraff">
-                                <content2:blogFeed atomUrl="http://greatschools.typepad.com/blogrebrand/atom.xml"
+                                <content2:blogFeed atomUrl="http://blogs.greatschools.net/sanfrancisco/atom.xml"
                                               defaultTitle="Amy Graff's search for the right kindergarten"
-                                              defaultUrl="http://greatschools.typepad.com"
+                                              defaultUrl="http://blogs.greatschools.net/sanfrancisco/"
                                               type="gsBlog"/>
                             </cache:cache>
                         </div>
