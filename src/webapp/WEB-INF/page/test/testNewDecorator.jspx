@@ -100,7 +100,8 @@
                         <cache:cache scope="application" name="blog" key="community">
                             <content:blogFeed atomUrl="http://communityblog.greatschools.net/atom.xml"
                                               defaultTitle="GreatSchools Community Blog"
-                                              defaultUrl="http://communityblog.greatschools.net"/>
+                                              defaultUrl="http://communityblog.greatschools.net"
+                                              type="billsBlog"/>
                         </cache:cache>
                         <br/>
                         <gsml:url var="read" value="/res/img/community/registration/read.gif"/>

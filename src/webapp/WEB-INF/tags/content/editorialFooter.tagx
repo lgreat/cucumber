@@ -170,7 +170,8 @@
                         <cache:cache scope="application" name="blog" key="bill3">
                             <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
                                               defaultTitle="Bill's thoughts on education"
-                                              defaultUrl="http://billsblog.greatschools.net"/>
+                                              defaultUrl="http://billsblog.greatschools.net"
+                                              type="billsBlog"/>
                         </cache:cache>
                     </div></td>
                 <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"
