@@ -23,7 +23,7 @@
             String url = "http://" + communityHost +
                     "/category/feed/?category=all,none&amp;type=question&amp;loc_id=" + cityId + "&amp;limit=" +
                     numberOfEntriesToShow;
-            url = "http://" + communityHost + "/category/feed/?category=all,none&amp;type=question&amp;loc_id=433097&amp;limit=" + numberOfEntriesToShow;
+            // url = "http://" + communityHost + "/category/feed/?category=all,none&amp;type=question&amp;loc_id=433097&amp;limit=" + numberOfEntriesToShow;
 
             request.setAttribute("communityHost", communityHost);
             request.setAttribute("communityFeedUrl", url);
