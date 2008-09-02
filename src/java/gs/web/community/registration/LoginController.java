@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.34 2008/07/28 17:16:10 aroy Exp $
+ * $Id: LoginController.java,v 1.35 2008/09/02 18:50:06 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -17,12 +17,15 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Lets user sign in.
@@ -64,6 +67,18 @@ public class LoginController extends SimpleFormController {
                 loginCommand.setEmail(sessionContext.getEmail());
             } else {
                 loginCommand.setEmail("");
+            }
+        }
+        UrlUtil urlUtil = new UrlUtil();
+        String url = loginCommand.getRedirect();
+        if (urlUtil.isCommunityContentLink(url)) {
+
+            if (StringUtils.contains(url, "/q-and-a")) {
+                request.setAttribute("alertMessageType", "Question");
+            } else if (StringUtils.contains(url, "/advice")) {
+                request.setAttribute("alertMessageType", "Advice");
+            } else if (StringUtils.contains(url, "/groups")) {
+                request.setAttribute("alertMessageType", "Group");
             }
         }
     }

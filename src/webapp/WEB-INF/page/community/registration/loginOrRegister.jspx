@@ -51,7 +51,27 @@
     <![endif]-->
     ]]>
 
+    <c:set var="alertMessageType" value="${requestScope.alertMessageType}"/>
     <div id="outline"><!-- creates darker blue outer outline -->
+        <c:if test="${alertMessageType ne null and alertMessageType ne ''}">
+            <p class="infoMessage">
+                <gsml:img src="/res/img/bullet/icon_warning_12x12.gif" alt="Exclamation point"/>
+                <span>Please login or register to
+                    <c:choose>
+                        <c:when test="${alertMessageType eq 'Question'}">
+                            post your question.
+                        </c:when>
+                        <c:when test="${alertMessageType eq 'Group'}">
+                            create your group.
+                        </c:when>
+                        <c:when test="${alertMessageType eq 'Advice'}">
+                            write advice.
+                        </c:when>
+                    </c:choose>
+                </span>
+            </p>
+        </c:if>
+        <div class="innerWrapper">
         <div id="newuser">
             <h2>New User?</h2>
             <h3><link:registration email="${loginCmd.email}" 
@@ -132,6 +152,7 @@
                   alt="Vertical dot divider"
                   id="verticalDots"/>
         <!-- end: returninguser -->
+        </div>
     </div>
     <!-- end: outline -->
 
