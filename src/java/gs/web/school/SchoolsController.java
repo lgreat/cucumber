@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.61 2008/08/29 03:36:38 thuss Exp $
+ * $Id: SchoolsController.java,v 1.62 2008/09/02 03:42:32 thuss Exp $
  */
 
 package gs.web.school;
@@ -273,25 +273,14 @@ public class SchoolsController extends AbstractController {
             cityName = cityBrowseFields.getCityName();
         }
 
+        boolean cityBrowse = false;
         if (cityName != null) {
-            cityName = WordUtils.capitalize(cityName);
-            cityName = WordUtils.capitalize(cityName, new char[]{'-'});
-            String displayName = cityName;
-            if (displayName.equals("New York")) {
-                displayName += " City";
-            } else if (State.DC.equals(state) &&
-                    displayName.equals("Washington")) {
-                displayName += ", DC";
-            }
+            cityBrowse = true;
             model.put(MODEL_CITY_BROWSE_URI_ROOT, createNewCityBrowseURIRoot(state, cityName));
             model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, createNewCityBrowseURILevelLabel(levelCode));
             model.put(MODEL_CITY_BROWSE_URI, createNewCityBrowseURI(state, cityName, cityBrowseFields.getSchoolTypeSet(), levelCode));
-            model.put(MODEL_CITY_NAME, cityName);
-            model.put(MODEL_CITY_DISPLAY_NAME, displayName);
-            model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
             searchCommand.setCity(cityName);
             searchCommand.setQ(cityName);
-
             model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));
         } else {
             String districtParam = request.getParameter(PARAM_DISTRICT);
@@ -336,13 +325,24 @@ public class SchoolsController extends AbstractController {
             }
         }
 
-        // Get the city id from us_geo.city for pulling feeds from communit
-        City city = null;
+        // Get the city from us_geo.city
         if (cityName != null) {
-            city = _geoDao.findCity(state, cityName);
+            City city = _geoDao.findCity(state, cityName);
             if (city != null) {
                 model.put(MODEL_CITY_ID, city.getId());
                 PageHelper.setCityIdCookie(request, response, city);
+                cityName = WordUtils.capitalize(city.getDisplayName());
+                cityName = WordUtils.capitalize(cityName, new char[]{'-'});
+                String displayName = cityName;
+                if (displayName.equals("New York")) {
+                    displayName += " City";
+                } else if (State.DC.equals(state) &&
+                        displayName.equals("Washington")) {
+                    displayName += ", DC";
+                }
+                model.put(MODEL_CITY_NAME, cityName);
+                model.put(MODEL_CITY_DISPLAY_NAME, displayName);
+                if (cityBrowse) model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));                    
             }
         }
 

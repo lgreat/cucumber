@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.34 2008/08/27 05:35:08 thuss Exp $
+ * $Id: SchoolsControllerTest.java,v 1.35 2008/09/02 03:42:32 thuss Exp $
  */
 
 package gs.web.school;
@@ -59,7 +59,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
         assertTrue(mAndV.getView() instanceof RedirectView);
-        assertEquals("/alaska/anchorage/schools/", ((RedirectView)mAndV.getView()).getUrl());
+        assertEquals("/alaska/anchorage/schools/", ((RedirectView) mAndV.getView()).getUrl());
 
         // adding trailing slash
         request.removeAllParameters();
@@ -67,7 +67,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setRequestURI("/alaska/anchorage");
         mAndV = _controller.handleRequestInternal(request, getResponse());
         assertTrue(mAndV.getView() instanceof RedirectView);
-        assertEquals("/alaska/anchorage/", ((RedirectView)mAndV.getView()).getUrl());
+        assertEquals("/alaska/anchorage/", ((RedirectView) mAndV.getView()).getUrl());
 
         // adding trailing schools label
         request.removeAllParameters();
@@ -75,7 +75,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setRequestURI("/alaska/anchorage/");
         mAndV = _controller.handleRequestInternal(request, getResponse());
         assertTrue(mAndV.getView() instanceof RedirectView);
-        assertEquals("/alaska/anchorage/schools/", ((RedirectView)mAndV.getView()).getUrl());
+        assertEquals("/alaska/anchorage/schools/", ((RedirectView) mAndV.getView()).getUrl());
 
         // invalid new-style city browse request
         request.removeAllParameters();
@@ -328,8 +328,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         fields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
         assertEquals("Expected city name 'san francisco'", "san francisco", fields.getCityName());
         assertTrue("Expected school type array to contain public",
-            Arrays.deepEquals(new String[] { SchoolType.PUBLIC.getSchoolTypeName() },
-            fields.getSchoolType()));
+                Arrays.deepEquals(new String[]{SchoolType.PUBLIC.getSchoolTypeName()},
+                        fields.getSchoolType()));
         schoolTypeSet.clear();
         schoolTypeSet.add(SchoolType.PUBLIC);
         assertEquals("Expected school type set to contain public", schoolTypeSet, fields.getSchoolTypeSet());
@@ -339,8 +339,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         fields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
         assertEquals("Expected city name 'san francisco'", "san francisco", fields.getCityName());
         assertTrue("Expected school type array to contain public and private",
-            Arrays.deepEquals(new String[] { SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName() },
-            fields.getSchoolType()));
+                Arrays.deepEquals(new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName()},
+                        fields.getSchoolType()));
         schoolTypeSet.clear();
         schoolTypeSet.add(SchoolType.PUBLIC);
         schoolTypeSet.add(SchoolType.PRIVATE);
@@ -351,8 +351,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         fields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
         assertEquals("Expected city name 'san francisco'", "san francisco", fields.getCityName());
         assertTrue("Expected school type array to contain private and charter",
-            Arrays.deepEquals(new String[] { SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName() },
-            fields.getSchoolType()));
+                Arrays.deepEquals(new String[]{SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()},
+                        fields.getSchoolType()));
         schoolTypeSet.clear();
         schoolTypeSet.add(SchoolType.PRIVATE);
         schoolTypeSet.add(SchoolType.CHARTER);
@@ -404,7 +404,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         schoolTypes.clear();
         schoolTypes.add(SchoolType.PRIVATE);
-        schoolTypes.add(SchoolType.CHARTER);        
+        schoolTypes.add(SchoolType.CHARTER);
         expectedRedirectURI = "/california/san-francisco/private-charter/schools/";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode));
 
@@ -489,22 +489,22 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
-            new String[] { SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName() } );
+                new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
         expectedRedirectURI = "/california/san-francisco/public-charter/schools/";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
-            new String[] { SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName() } );
+                new String[]{SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
         expectedRedirectURI = "/california/san-francisco/private-charter/schools/";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
-            new String[] { SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName() } );
+                new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName()});
         expectedRedirectURI = "/california/san-francisco/public-private/schools/";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
-            new String[] { SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName() } );
+                new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
         expectedRedirectURI = "/california/san-francisco/schools/";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
@@ -530,14 +530,14 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         // multiple level codes is interpreted as no level filter
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE,
-            new String[] { LevelCode.MIDDLE.getLowestLevel().getName(), LevelCode.HIGH.getLowestLevel().getName() } );
+                new String[]{LevelCode.MIDDLE.getLowestLevel().getName(), LevelCode.HIGH.getLowestLevel().getName()});
         expectedRedirectURI = "/california/san-francisco/schools/";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         // combined filters
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
-            new String[] { SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName() } );
+                new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
         request.removeParameter(SchoolsController.PARAM_LEVEL_CODE);
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE, LevelCode.ELEMENTARY.getLowestLevel().getName());
         expectedRedirectURI = "/california/san-francisco/public-charter/elementary-schools/";
@@ -597,7 +597,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertTrue("Expected IllegalArgumentException when null set of school types", foundException);
 
         // no need to test set has <= 3 school types because only 3 exist right now: public, private, charter
-        
+
         Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
         assertEquals("", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
 
@@ -657,6 +657,18 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("Expected city id", "133917", model.get(SchoolsController.MODEL_CITY_ID).toString());
     }
 
+    public void testDistrictBrowseModel() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setRequestURI("/schools.page");
+        request.setParameter(SchoolsController.PARAM_DISTRICT, "10");
+        request.setParameter("state", "ak");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+        Map model = mav.getModel();
+        assertEquals("Expected city id", "133981", model.get(SchoolsController.MODEL_CITY_ID).toString());
+        assertEquals("Expected city display name", "Tok", model.get(SchoolsController.MODEL_CITY_DISPLAY_NAME).toString());
+    }
+
     public void testCreateNewCityBrowseQueryString() throws Exception {
         GsMockHttpServletRequest request = getRequest();
 
@@ -704,10 +716,10 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setParameter(SchoolsController.PARAM_SORT_COLUMN, "schoolResultsHeader");
         request.setParameter(SchoolsController.PARAM_SORT_DIRECTION, "asc");
         expectedQueryString = SchoolsController.PARAM_PAGE + "=1" +
-            "&" + SchoolsController.PARAM_RESULTS_PER_PAGE + "=10" +
-            "&" + SchoolsController.PARAM_SHOW_ALL + "=true" +
-            "&" + SchoolsController.PARAM_SORT_COLUMN + "=schoolResultsHeader" +
-            "&" + SchoolsController.PARAM_SORT_DIRECTION + "=asc";
+                "&" + SchoolsController.PARAM_RESULTS_PER_PAGE + "=10" +
+                "&" + SchoolsController.PARAM_SHOW_ALL + "=true" +
+                "&" + SchoolsController.PARAM_SORT_COLUMN + "=schoolResultsHeader" +
+                "&" + SchoolsController.PARAM_SORT_DIRECTION + "=asc";
         assertEquals(expectedQueryString, SchoolsController.createNewCityBrowseQueryString(request));
 
     }
@@ -724,7 +736,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
 
         // Switch it back to paging
-        request.setParameter(SchoolsController.PARAM_SHOW_ALL, (String)null);
+        request.setParameter(SchoolsController.PARAM_SHOW_ALL, (String) null);
         mav = _controller.handleRequestInternal(request, getResponse());
         modelResults = (Map) mav.getModel().get("results");
         assertEquals(10, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
