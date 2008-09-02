@@ -39,7 +39,7 @@
 
     <c:if test="${!requestScope.pageHelper.adFree}">
         <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER"/>
-        <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>        
+        <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
     </c:if>
 
     <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
@@ -58,7 +58,7 @@
     ${requestScope.pageHelper.headElements}
 
     <decorator:head/>
-    
+
     <ad:xGAMSetup/>
 </head>
 
@@ -84,11 +84,11 @@
 
         <mod:footer showAd="true" showSeoFooter="true"/>
     </div>
-    <div id="deferredContent" style="display:none;">        
-        ${deferredContent}
-    </div>
 </div>
 <cobrand:footer/>
+<div id="deferredContent" style="display:none;">
+    ${deferredContent}
+</div>
 </body>
 </html>
 </jsp:root>

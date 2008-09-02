@@ -31,63 +31,67 @@
             </c:if>
 
             <div id="footerGS">
-                <c:if test="${showExtendedFooter eq true}">
-                    <div id="footerExtended">
-                        <b>What is GreatSchools?</b><br/>
-                        GreatSchools is an independent, non-profit organization that empowers and inspires parents to participate in their
-                        child's development and educational success. Parents choose GreatSchools to find the ideal school within their state,
-                        city, district or neighborhood. We feature hundreds of thousands of school ratings and reviews from parents about
-                        public, private and charter schools including <a href="/preschool/">preschool</a> and K-12 schools across the country.
-                        GreatSchools empowers its <a href="http://${communityHost}">parent community</a> with unparalleled expert advice about 
-                        education topics such as <a href="/content/schoolChoiceCenter.page">school choice</a>,
-                        <a href="/content/movingWithKids.page">moving with kids</a>, <a href="/content/countdownToCollege.page">preparing for college</a>,
-                        <a href="/content/specialNeeds.page">learning difficulties</a>, <a href="/articles/68/LD/Identifying-a-Learning-Difficulty/AD-HD-Basics">ADHD</a>
-                        and <a href="/content/tutoring_Homework_Help.page">tutoring</a>.
-                    </div>
-                </c:if>
-
-                <div id="footerImg">
-                    <link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/footer.gif"
-                                                     alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks>
-                </div>
-                <div id="footerContent">
-                    <div class="lowernavbar">
-
-                        <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-
-                        <a rel="nofollow" href="/about/aboutUs.page" style="padding-left:0;">About Us</a> &#124;
-
-                        <link:pressRoom>Media Room</link:pressRoom> &#124;
-
-                        <link:webbyAwardThanks>Our Awards</link:webbyAwardThanks> &#124;
-
-                        <gsml:a rel="nofollow" href="/about/supportUs.page">Support Us</gsml:a> &#124;
-
-                        <link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;
-
-                        <gsml:a rel="nofollow" href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
-
-                        <link:contactUs>Contact Us</link:contactUs>
-
-                        <div id="footerText">
-                            GreatSchools: Preschool, elementary, middle and high school information for public, private and
-                            charter
-                            schools
-                            nationwide.
-                        </div>
-                    </div>
-
-                    <c:if test="${showSeoFooter ne false}">
-                        <mod:seoFooter/>
-                    </c:if>
-
+                <c:set var="footerCopyright">
                     <div id="footerCopyright">
                         &amp;#169;1998-2008 GreatSchools Inc. All Rights Reserved.
                         <link:termsOfUse>Terms of Use</link:termsOfUse> &#124;
                         <gsml:a rel="nofollow" href="/about/privacyStatement.page">Privacy Policy</gsml:a>
                         <br/>GreatSchools is a 501(c)(3) not-for-profit organization
                     </div>
-                </div>
+                </c:set>
+                <c:choose>
+                    <c:when test="${requestScope.context.customCobrandedFooter}">
+                        ${footerCopyright}
+                    </c:when>
+                    <c:otherwise>
+                        <c:if test="${showExtendedFooter eq true}">
+                            <div id="footerExtended">
+                                <b>What is GreatSchools?</b><br/>
+                                GreatSchools is an independent, non-profit organization that empowers and inspires parents to participate in their
+                                child's development and educational success. Parents choose GreatSchools to find the ideal school within their state,
+                                city, district or neighborhood. We feature hundreds of thousands of school ratings and reviews from parents about
+                                public, private and charter schools including <a
+                                    href="/preschool/">preschool</a> and K-12 schools across the country.
+                                GreatSchools empowers its <a
+                                    href="http://${communityHost}">parent community</a> with unparalleled expert advice about
+                                education topics such as <a href="/content/schoolChoiceCenter.page">school choice</a>,
+                                <a href="/content/movingWithKids.page">moving with kids</a>, <a
+                                    href="/content/countdownToCollege.page">preparing for college</a>,
+                                <a href="/content/specialNeeds.page">learning difficulties</a>, <a
+                                    href="/articles/68/LD/Identifying-a-Learning-Difficulty/AD-HD-Basics">ADHD</a>
+                                and <a href="/content/tutoring_Homework_Help.page">tutoring</a>.
+                            </div>
+                        </c:if>
+
+                        <div id="footerImg">
+                            <link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/footer.gif"
+                                                             alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks>
+                        </div>
+
+                        <div id="footerContent">
+                            <div class="lowernavbar">
+                                <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+                                <a rel="nofollow" href="/about/aboutUs.page" style="padding-left:0;">About Us</a> &#124;
+                                <link:pressRoom>Media Room</link:pressRoom> &#124;
+                                <link:webbyAwardThanks>Our Awards</link:webbyAwardThanks> &#124;
+                                <gsml:a rel="nofollow" href="/about/supportUs.page">Support Us</gsml:a> &#124;
+                                <link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;
+                                <gsml:a rel="nofollow" href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
+                                <link:contactUs>Contact Us</link:contactUs>
+
+                                <div id="footerText">
+                                    GreatSchools: Preschool, elementary, middle and high school information for public, private and
+                                    charter schools nationwide.
+                                </div>
+                            </div>
+
+                            <c:if test="${showSeoFooter ne false}">
+                                <mod:seoFooter/>
+                            </c:if>
+                            ${footerCopyright}
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <br style="clear:both;"/>
         </div>

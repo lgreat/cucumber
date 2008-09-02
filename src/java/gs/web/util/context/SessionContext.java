@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.21 2008/07/08 02:06:11 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.22 2008/09/02 20:02:51 thuss Exp $
  */
 package gs.web.util.context;
 
@@ -11,14 +11,20 @@ import gs.data.state.State;
 import gs.data.util.DigestUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.HttpClient;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.io.Serializable;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
+
+import com.google.gdata.util.common.base.StringUtil;
 
 /**
  * The purpose is to hold common "global" properties for a user throughout their
@@ -46,6 +52,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      * The name of the cobrand (sfgate, azcentral, dps, etc...) or null
      */
     private String _cobrand;
+    private String _customCobrandFooter;
     private String _hostName;
     /**
      * Current user, if known. This does NOT guarantee that this is a subscribed
@@ -70,7 +77,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      * A pathway of "1", "2" or "3", or null for no pathway.
      */
     private String _pathway;
-    private String _remoteAddress;
     private String _abVersion = "a";
 
     private ApplicationContext _applicationContext;
@@ -114,10 +120,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
             }
         }
         return false;
-    }
-
-    public void setUserValid(boolean ignored) {
-        // ignored
     }
 
     public User getUser() {
@@ -166,8 +168,9 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         return _cobrand;
     }
 
-    public String getHostName() {
-        return _hostName;
+
+    public void setCobrand(final String cobrand) {
+        _cobrand = cobrand;
     }
 
     /**
@@ -177,22 +180,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     public boolean isCobranded() {
         return _cobrand != null;
-    }
-
-    /**
-     * We only turn advertising off when our ad serving company has an outage
-     *
-     * @return true if the ad server is working
-     */
-    public boolean isAdvertisingOnline() {
-        return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true"));
-    }
-
-    public boolean isInterstitialEnabled() {
-        boolean rval = !isCobranded() &&
-                !isCrawler() &&
-                "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false"));
-        return rval;
     }
 
     /**
@@ -217,6 +204,60 @@ public class SessionContext implements ApplicationContextAware, Serializable {
                 "family".equals(getCobrand());
     }
 
+    public String getHostName() {
+        return _hostName;
+    }
+
+    public boolean isCustomCobrandedFooter() {
+        return isCobranded() && getCustomCobrandFooter().length() > 0;
+    }
+
+    public void setCustomCobrandFooter(String customCobrandFooter) {
+        _customCobrandFooter = customCobrandFooter;
+    }
+
+    /**
+     * @return an empty string if no cobrand footer, otherwise the HTML for the footer
+     */
+    public String getCustomCobrandFooter() {
+        if (_customCobrandFooter == null) {
+            if (isCobranded())
+                try {
+                    _customCobrandFooter = fetchCustomCobrandFooter();
+                } catch (Exception e) {
+                    _customCobrandFooter = "";
+                }
+            else _customCobrandFooter = "";
+        }
+        return _customCobrandFooter;
+    }
+
+    protected String fetchCustomCobrandFooter() throws IOException {
+        String url = "http://" + getHostName() + "/templates/local/nav/bottomnav.insrt";
+        GetMethod get = new GetMethod(url);
+        try {
+            new HttpClient().executeMethod(get);
+            return StringUtils.trimToEmpty(get.getResponseBodyAsString());
+        } finally {
+            get.releaseConnection();
+        }
+    }
+
+    /**
+     * We only turn advertising off when our ad serving company has an outage
+     *
+     * @return true if the ad server is working
+     */
+    public boolean isAdvertisingOnline() {
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true"));
+    }
+
+    public boolean isInterstitialEnabled() {
+        return !isCobranded() &&
+                !isCrawler() &&
+                "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false"));
+    }
+
     /**
      * Determine if this site is a framed site, in other words, no ads and no nav
      *
@@ -231,10 +272,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         _hostName = hostName;
     }
 
-    public void setCobrand(final String cobrand) {
-        _cobrand = cobrand;
-    }
-
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         _applicationContext = applicationContext;
     }
@@ -246,18 +283,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setPathway(String pathway) {
         _pathway = pathway;
-    }
-
-    /**
-     * Currently this is only used for determining A/B for multivariate testing,
-     * therefore there is no accessor method.
-     *
-     * @param address ip address for A/B testing
-     */
-    public void setRemoteAddress(String address) {
-        if (address != null) {
-            _remoteAddress = address.trim();
-        }
     }
 
     public void setAbVersion(String s) {

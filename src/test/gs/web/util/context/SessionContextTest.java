@@ -15,6 +15,7 @@ import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
+import java.io.IOException;
 
 /**
  * Tests for the SessionContext object
@@ -75,7 +76,7 @@ public class SessionContextTest extends BaseTestCase {
         _sessionContextUtil.updateFromParams(request, _response, _sessionContext);
         assertFalse(_sessionContext.isCrawler());
 
-        request = new GsMockHttpServletRequest();        
+        request = new GsMockHttpServletRequest();
         request.addHeader("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
         _sessionContextUtil.updateFromParams(request, _response, _sessionContext);
         assertTrue(_sessionContext.isCrawler());
@@ -206,7 +207,26 @@ public class SessionContextTest extends BaseTestCase {
     public void testEditorialDevShouldNotBeCobranded() {
         _request.setServerName("editorial.dev.greatschools.net");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertTrue("editorial.dev should not be a cobrand",!_sessionContext.isCobranded());
+        assertTrue("editorial.dev should not be a cobrand", !_sessionContext.isCobranded());
+    }
+
+    public void testCustomCobrandFooter() {
+        // Test exception handling
+        SessionContext ctx = new SessionContext();
+        ctx.setHostName("@$#@$%#"); // Impossible hostname
+        ctx.setCobrand("test");
+        assertFalse(ctx.isCustomCobrandedFooter());
+        assertEquals("", ctx.getCustomCobrandFooter());
+
+        // Test footer handling but with a footer this time
+        ctx = new SessionContext() {
+            protected String fetchCustomCobrandFooter() throws IOException {
+                return "html footer";
+            }
+        };
+        ctx.setCobrand("test");
+        assertTrue(ctx.isCustomCobrandedFooter());
+        assertEquals("html footer", ctx.getCustomCobrandFooter());
     }
 
     public void testDomainWideCookie() {

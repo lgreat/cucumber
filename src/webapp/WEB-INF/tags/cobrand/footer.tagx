@@ -2,38 +2,31 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
     <!--
-    We check for ad free sites because number1expert, mcguire, and framed don't have cobrand footers
-
     This tag pulls in the static cobrand footer as follows. If we're on yahoo.greatschools.net it
     pulls http://yahoo.greatschools.net/templates/local/nav/bottomnav.insrt
 
     Cobrand footers will eventually need to be moved into a database so we don't have to create a separate
     http request just to fetch them.
     -->
-    <c:if test="${requestScope.context.cobranded and !requestScope.pageHelper.framed}">
-        <jsp:scriptlet>
-            try {
-        </jsp:scriptlet>
-        <c:import var="footer" url="http://${requestScope.context.hostName}/templates/local/nav/bottomnav.insrt"/>
-        <jsp:scriptlet>
-            } catch (Exception e) {
-                // Do nothing
+    <c:if test="${requestScope.context.cobranded and requestScope.context.customCobrandedFooter and !requestScope.pageHelper.framed}">
+        <style type="text/css">
+            div#footer {
+                margin:0;
+                padding:0;
             }
-        </jsp:scriptlet>
-        <c:if test="${fn:length(footer) gt 2}">
-            <style type="text/css">
-                div#footerGS {
-                    display: none;
-                }
-                div#footer {
-                    margin-bottom:0px;
-                }
-            </style>
-            ${footer}
-        </c:if>
+            div#footer div#footerAd {
+                margin-bottom:30px;
+            }
+            div#footerGS, div#footerGS div#footerCopyright {
+                border:none;
+                margin-top:0;
+                margin-bottom:0;
+                padding-top:0;
+                padding-bottom:0;
+            }
+        </style>
+        ${requestScope.context.customCobrandFooter}
     </c:if>
 </jsp:root>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.44 2008/07/30 19:17:40 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.45 2008/09/02 20:02:51 thuss Exp $
  */
 
 package gs.web.util.context;
@@ -259,7 +259,6 @@ public class SessionContextUtil implements ApplicationContextAware {
         if (s != null && s instanceof State) {
             context.setState((State) s);
         }
-        context.setRemoteAddress(httpServletRequest.getRemoteAddr());
 
         String uri = httpServletRequest.getRequestURI();
         if (uri != null && uri.contains("/content/")) {
