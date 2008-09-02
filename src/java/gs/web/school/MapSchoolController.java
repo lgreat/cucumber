@@ -40,7 +40,7 @@ public class MapSchoolController extends AbstractSchoolController {
         // convenience variable for page logic
         request.setAttribute("hasNearby", (nearbySchools.size() > 0));
         // convenience variable for page logic
-        request.setAttribute("levelLongName", school.getLevelCode().getLowestLevel().getLongName());
+        request.setAttribute("levelLongName", school.getLevelCode().getLowestNonPreSchoolLevel().getLongName());
 
         // if there are nearby schools, obtain parent rating information on them for the map
         if (nearbySchools.size() > 0) {

@@ -81,6 +81,32 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         assertEquals(_reviewDao, _controller.getReviewDao());
     }
 
+    public void testHandleRequestWithPreSchoolInLevelCode() throws Exception {
+        _request.setParameter("id", "1");
+        _request.setMethod("GET");
+
+        School school = new School();
+        school.setName("Alameda High School");
+        school.setId(1);
+        school.setLevelCode(LevelCode.ALL_LEVELS);
+        school.setActive(true);
+
+        // set expectations
+        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, 1), school);
+        List<NearbySchool> nearbySchools = new ArrayList<NearbySchool>();
+        _schoolControl.expectAndReturn(_schoolDao.findNearbySchools(school, 5), nearbySchools);
+        _schoolControl.replay();
+
+        // call controller
+        _controller.handleRequest(_request, getResponse());
+        // verify expectations
+        _schoolControl.verify();
+
+        // verify output
+        School school2 = (School)_request.getAttribute(MapSchoolController.SCHOOL_ATTRIBUTE);
+        assertEquals("Elementary", _request.getAttribute("levelLongName"));
+    }
+
     public void testLoadRatings() {
         School dadSchool = new School();
         dadSchool.setId(99);

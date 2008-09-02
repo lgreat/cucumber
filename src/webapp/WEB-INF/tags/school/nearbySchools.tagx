@@ -35,7 +35,7 @@
         request.setAttribute("mapSchools", mapSchools);
         request.setAttribute("nearbySchools", nearbySchools);
         request.setAttribute("hasNearby", Boolean.valueOf(nearbySchools.size() > 0));
-        request.setAttribute("levelLongName", school.getLevelCode().getLowestLevel().getLongName());
+        request.setAttribute("levelLongName", school.getLevelCode().getLowestNonPreSchoolLevel().getLongName());
 
         ]]></jsp:scriptlet>
 
