@@ -62,7 +62,7 @@
 <head>
 <c:set var="title">
     <c:choose>
-        <c:when test="${not empty cityDisplayName}">
+        <c:when test="${not empty cityDisplayName and empty districtObject}">
             <jsp:scriptlet>
                 String title = SchoolsController.calcCitySchoolsTitle(
                         (String) request.getAttribute("cityDisplayName"),

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.62 2008/09/02 03:42:32 thuss Exp $
+ * $Id: SchoolsController.java,v 1.63 2008/09/02 04:33:34 thuss Exp $
  */
 
 package gs.web.school;
@@ -285,7 +285,6 @@ public class SchoolsController extends AbstractController {
         } else {
             String districtParam = request.getParameter(PARAM_DISTRICT);
             if (districtParam != null) {
-
                 // Look up the district name
                 String districtIdStr = request.getParameter(PARAM_DISTRICT);
                 model.put(MODEL_DISTRICT, districtIdStr);
