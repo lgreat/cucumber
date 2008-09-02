@@ -54,10 +54,10 @@
                     <!-- If no RSS content is found hide this module -->
                     <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
                 </content:feed>
-                <a class="localQuestionsMore"
+                <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
                    href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
                         src="/res/img/community/local/more.gif" alt="More"/></a>
-                <a class="localQuestionsAsk"
+                <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
                    href="http://${communityHost}/q-and-a">Ask a question about ${cityDisplayName} &amp;gt;</a>
             </div>
         </div>
