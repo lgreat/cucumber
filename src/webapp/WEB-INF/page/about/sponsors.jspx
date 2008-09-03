@@ -121,13 +121,17 @@
 <ul class="singleSpacedList">
 
     <li>Adobe</li>
+    <li><a href="http://www.automatedqa.com/products/testcomplete/" target="_blank">AutomatedQA: TestComplete</a></li>
     <li><a href="http://www.atlassian.com/software/jira/" target="_blank">Atlassian: Jira</a></li>
-    <li><a href="http://www.cenqua.com/clover/" target="_blank">Cenqua: Clover</a></li>
+    <li><a href="http://www.atlassian.com/software/clover/" target="_blank">Atlassian: Clover</a></li>
+    <li><a href="http://www.atlassian.com/software/fisheye/" target="_blank">Atlassian: FishEye</a></li>
     <li>Covington <![CDATA[&amp;]]> Burling</li>
     <li><a href="http://www.jetbrains.com/idea/" target="_blank">Jetbrains: IntelliJ IDEA</a></li>
-    <li>Microsoft, Inc.</li>
+    <li>Microsoft</li>
     <li>Orrick, Herrington and Sutcliffe</li>
+    <li><a href="http://www.sixapart.com/products/#typepad" target="_blank">Six Apart: TypePad</a></li>
     <li>Symantec</li>
+    <li><a href="http://www.zeus.com/products/zxtm/" target="_blank">Zeus: ZXTM</a> (<a href="http://www.zeus.com/library/case_studies/greatschools.html">Case Study</a>)</li>
 </ul>
 
 <![CDATA[ <a name="realestate"></a> ]]>
