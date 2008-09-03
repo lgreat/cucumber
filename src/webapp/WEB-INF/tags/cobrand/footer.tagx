@@ -11,22 +11,6 @@
     http request just to fetch them.
     -->
     <c:if test="${requestScope.context.cobranded and requestScope.context.customCobrandedFooter and !requestScope.pageHelper.framed}">
-        <style type="text/css">
-            div#footer {
-                margin:0;
-                padding:0;
-            }
-            div#footer div#footerAd {
-                margin-bottom:30px;
-            }
-            div#footerGS, div#footerGS div#footerCopyright {
-                border:none;
-                margin-top:0;
-                margin-bottom:0;
-                padding-top:0;
-                padding-bottom:0;
-            }
-        </style>
         ${requestScope.context.customCobrandFooter}
     </c:if>
 </jsp:root>

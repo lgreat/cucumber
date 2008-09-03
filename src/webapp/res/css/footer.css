@@ -4,7 +4,7 @@
     width: 100%;
     text-align: left;
     background-color: #fff;
-    clear:both;
+    clear: both;
 }
 
 #footerAd {
@@ -21,16 +21,20 @@
     border-top: 1px solid #ccc;
     padding: 18px 0 18px 0;
 }
+
 #footerGS a {
     text-decoration: underline;
     color: #888;
 }
+
 #footerGS a:visited {
     color: #aaa;
 }
+
 #footerGS a:hover {
     color: #6cc;
 }
+
 #footerGS a.plaintextlink {
     text-decoration: none;
 }
@@ -64,7 +68,7 @@
 }
 
 #footerGS #footerSearch {
-     padding-top: 10px;
+    padding-top: 10px;
 }
 
 #footerGS #footerSearch span {
@@ -84,13 +88,13 @@
 }
 
 #footerImg {
-    float:left;
+    float: left;
 }
 
 #footerContent {
-    float:left;
-    padding-left:30px;
-    width:660px;
+    float: left;
+    padding-left: 30px;
+    width: 660px;
 }
 
 #footerSearchStates, #footerSearchCities, #footerSearchStateSpecific, #footerSearchDistricts {
@@ -101,4 +105,21 @@
     border: 0;
     padding: 0;
     margin: 0;
+}
+
+#footer.custom {
+    margin: 0;
+    padding: 0;
+}
+
+#footer.custom #footerAd {
+    margin-bottom: 30px;
+}
+
+#footer.custom #footerGS, #footer.custom #footerGS div#footerCopyright {
+    border: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }

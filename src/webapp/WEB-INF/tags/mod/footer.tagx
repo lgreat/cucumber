@@ -16,7 +16,7 @@
                              description="Show the ad in the footer or not."/>
     <jsp:directive.attribute name="showSeoFooter" required="false" type="java.lang.Boolean"
                              description="Show the SEO links in the footer or not."/>
-    <jsp:directive.attribute name="showOnlyCopyright" required="false" type="java.lang.Boolean"
+    <jsp:directive.attribute name="showOnlyCopyrightFooter" required="false" type="java.lang.Boolean"
                              description="Show only the copyright footer."/>
 
     <jsp:scriptlet>
@@ -25,7 +25,7 @@
     </jsp:scriptlet>
 
     <c:if test="${requestScope.pageHelper.showingFooter}">
-        <div id="footer">
+        <div id="footer" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'custom':''}">
             <c:if test="${showAd ne false}">
                 <div id="footerAd">
                     <ad:footerAd/>
@@ -42,7 +42,7 @@
                     </div>
                 </c:set>
                 <c:choose>
-                    <c:when test="${showOnlyCopyright or requestScope.context.customCobrandedFooter}">
+                    <c:when test="${showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter}">
                         ${footerCopyright}
                     </c:when>
                     <c:otherwise>
