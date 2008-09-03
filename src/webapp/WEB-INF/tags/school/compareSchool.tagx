@@ -20,10 +20,12 @@
         <c:set var="level" value="high"/>
         <gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="Magnifying Glass" />
         <c:choose>
-            <c:when test="${(school.levelCode eq 'e') or (school.levelCode eq 'e,m') or (school.levelCode eq 'e,m,h')}">
+            <c:when test="${(school.levelCode eq 'e') or (school.levelCode eq 'e,m') or (school.levelCode eq 'e,m,h') 
+			  or (school.levelCode eq 'p,e') or (school.levelCode eq 'p,e,m') or (school.levelCode eq 'p,e,m,h')}">
                 <c:set var="level" value="elementary"/>
             </c:when>
-            <c:when test="${(school.levelCode eq 'm') or (school.levelCode eq 'm,h')}">
+            <c:when test="${(school.levelCode eq 'm') or (school.levelCode eq 'm,h')
+			  or (school.levelCode eq 'p,m') or (school.levelCode eq 'p,m,h')}">
                 <c:set var="level" value="middle"/>
             </c:when>
         </c:choose>
