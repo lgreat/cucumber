@@ -55,7 +55,7 @@ public class CommunitySubscriptionController extends AbstractController implemen
             }
 
             Subscription subscription = new Subscription(user, SubscriptionProduct.COMMUNITY, sessionContext.getStateOrDefault());
-            if (newSubDetection != null && NewSubscriberDetector.userHasNewsLetterSubscriptions(user.getSubscriptions()))  {
+            if (newSubDetection != null && !NewSubscriberDetector.userHasNewsLetterSubscriptions(user.getSubscriptions()))  {
                 result += ",newSubscriber";
             }
             _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription[]{subscription}));
