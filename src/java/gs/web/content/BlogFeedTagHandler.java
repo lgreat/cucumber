@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.10 2008/09/02 21:52:06 yfan Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.11 2008/09/03 17:48:47 yfan Exp $
  */
 
 package gs.web.content;
@@ -11,6 +11,7 @@ import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -75,18 +76,27 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             out.print("</div> ");
         } else if (TYPE_GS_BLOG.equals(_type)) {
             out.print("<div class=\"title\">");
-            out.print(title);
+            out.print("<a onclick=\"Popup=window.open('" +
+                    link +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
+                    " href=\"" +
+                    link +
+                    "\">" +
+                    title +
+                    "</a>");
             out.print("</div>");
-            out.print("<div class=\"body\">");
-            out.print(text);
-            out.print("</div>");
+            if (!StringUtils.isBlank(text)) {
+                out.print("<div class=\"body\">");
+                out.print(text);
+                out.print("</div>");
+            }
             out.print("<div class=\"readMore\">");
             out.print("<a onclick=\"Popup=window.open('" +
                     link +
                     "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
                     " href=\"" +
                     link +
-                    "\">Read more about \"" + title + "\" &gt;</a>");
+                    "\">Read more &gt;</a>");
             out.print("</div> ");
         }
     }

@@ -381,7 +381,8 @@ td.gsBlog {
 
 .gsBlog .header {
     color: #55BBCC;
-    font-size: medium;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .gsBlog .blogInfo {
@@ -397,7 +398,7 @@ td.gsBlog {
 
 .gsBlog .blogInfo .subheader {
     color: #666666;
-    font-size: 15px;
+    font-size: 14px;
     float: right;
     width: 220px;
 }
@@ -408,6 +409,13 @@ td.gsBlog {
     font-weight: bold;
 }
 
+.contentGS .gsBlog .title a, .contentGS .gsBlog .title a:hover {
+    color: #99CC67;
+    font-size: small;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .gsBlog .body {
     color: #666666;
     font-size: small;
@@ -415,9 +423,9 @@ td.gsBlog {
     padding-bottom: 10px;
 }
 
-.gsBlog#readMore {
+.gsBlog .readMore {
     padding-top: 9px;
-    padding-bottom: 9px;
+    text-align: right;
 }
 
 .contentGS .gsBlog a {
