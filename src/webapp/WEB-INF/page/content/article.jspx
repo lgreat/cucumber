@@ -270,13 +270,13 @@
                     editorialTableList[t].style.width    = "390px"  ;
                     editorialTableList[t].style.marginLeft = "0";
                     editorialTableList[t].style.marginRight = "0";
-                }
 
-                /* If it the table top hasn't moved, revert back to the original version */
-                if (editorialTableList[t].offsetTop >=  oldTableTop)  {
-                    editorialTableList[t].style.width    = oldWidth  ;
-                    editorialTableList[t].style.marginLeft = oldMarginLeft;
-                    editorialTableList[t].style.marginRight = oldMarginRight;
+                     /* If it the table top hasn't moved, revert back to the original version */
+                    if (editorialTableList[t].offsetTop >  rightColLen)  {
+                        editorialTableList[t].style.width    = oldWidth  ;
+                        editorialTableList[t].style.marginLeft = oldMarginLeft;
+                        editorialTableList[t].style.marginRight = oldMarginRight;
+                    }
                 }
             }
         -->]]>
