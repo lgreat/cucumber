@@ -20,6 +20,7 @@ public class CommunitySubscriptionController extends AbstractController implemen
 
     public static final String EMAIL_PARAM = "email";
     public static final String ERROR = "error";
+    public static final String NEW_SUBSCRIPTION_DETECTION_PARAM = "newSubDetect";
 
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
@@ -30,10 +31,20 @@ public class CommunitySubscriptionController extends AbstractController implemen
         ModelAndView modelAndView = new ModelAndView(_viewName);
 
         String email = request.getParameter(EMAIL_PARAM);
+
+        /**
+         * GS-6914 for release 10.9
+         * the parameter NEW_SUBSCRIPTION_DETECTION_PARAM is for backwards compatibility in the somewhat likely event
+         * that gsweb is deployed prior to community.
+         * TODO: remove this once community has been deployed to handle the success event
+         */
+        String newSubDetection = request.getParameter(NEW_SUBSCRIPTION_DETECTION_PARAM);
         User user = _userDao.findUserFromEmailIfExists(email);
 
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
+
+        String result = "success";
 
         try {
             if (user == null) {
@@ -44,9 +55,11 @@ public class CommunitySubscriptionController extends AbstractController implemen
             }
 
             Subscription subscription = new Subscription(user, SubscriptionProduct.COMMUNITY, sessionContext.getStateOrDefault());
-            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
+            if (newSubDetection != null && NewSubscriberDetector.userHasNewsLetterSubscriptions(user.getSubscriptions()))  {
+                result += ",newSubscriber";
+            }
             _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription[]{subscription}));
-            out.print("success");
+            out.print(result);
         } catch (Exception e) {
             _log.error("Error trying to save user or subscription", e);
             out.print("failure");
