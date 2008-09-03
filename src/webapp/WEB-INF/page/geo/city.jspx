@@ -266,7 +266,7 @@
                                         src="/res/img/content/blogs/amygraff.jpg"
                                         alt=""/></gsml:popupWindow>
                             </div>
-                            <div class="subheader">Stories from a San Francisco mom about supporting her child through kindergarten.</div>
+                            <div class="subheader">Stories from a San Francisco mom about supporting her child in kindergarten.</div>
                         </div>
                         <div class="post">
                             <cache:cache scope="application" name="blog" key="amyGraff">
