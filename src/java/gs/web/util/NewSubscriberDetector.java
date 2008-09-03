@@ -34,7 +34,7 @@ public class NewSubscriberDetector {
         }
     }
 
-    static boolean userHasNewsLetterSubscriptions(Set<Subscription> subs) {
+    public static boolean userHasNewsLetterSubscriptions(Set<Subscription> subs) {
         boolean found = false;
         if (subs != null){
             for (Subscription subscription: subs){
