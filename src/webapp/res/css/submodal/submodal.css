@@ -35,7 +35,7 @@ body.hover {
 /* hide drop shadow from IE6 */
 [id=popupContainer] {
   float:left;
-  background: url(../../img/submodal/shadowAlpha.png) no-repeat bottom right;
+  background: url(/res/img/submodal/shadowAlpha.png) no-repeat bottom right;
   margin: 10px 0 0 10px !important;
   margin: 10px 0 0 5px;
 }
@@ -152,5 +152,5 @@ body.hover {
 	height: 16px;
 	width: 16px;
 	text-indent: -9999px;
-	background: url('../../img/submodal/closeblue.gif') no-repeat;
+	background: url('/res/img/submodal/closeblue.gif') no-repeat;
 }

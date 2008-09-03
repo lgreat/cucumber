@@ -65,7 +65,7 @@ District Overview
 	color: #39a;
 	padding: 0 0 0 12px;
 	margin: 2px 0 0 0;
-	background: url(../../img/school/li_red-triangle.gif) left center no-repeat;
+	background: url(/res/img/school/li_red-triangle.gif) left center no-repeat;
 }
 
 
@@ -169,7 +169,7 @@ District Overview
 #dd_col_center ul li {
 	font: 12px/15px Trebuchet MS, sans-serif;
 	color: #666;
-	background: url(../../img/school/overview/li_yellow-triangle.gif) no-repeat left 2px;
+	background: url(/res/img/school/overview/li_yellow-triangle.gif) no-repeat left 2px;
 	list-style: none;
 	margin: 0 0 4px 0;
 	padding: 0 0 0 10px;

@@ -74,7 +74,7 @@ Large Google Map
     color: #fff;
     font-size: 12px;
     text-decoration: underline;
-    background: url(../../../res/img/bullet/yellow_plus_transparent9x9.gif) no-repeat left;
+    background: url(/res/img/bullet/yellow_plus_transparent9x9.gif) no-repeat left;
     padding-left: 15px;
 }
 
@@ -107,7 +107,7 @@ Large Google Map
 }
 
 #nearbySchools .saveLink {
-	background: url(../../../res/img/bullet/yellow_plus9x9.gif) no-repeat left center;
+	background: url(/res/img/bullet/yellow_plus9x9.gif) no-repeat left center;
 	font-size: 11px;
 	line-height: 13px;
 	font-weight: normal;
@@ -158,7 +158,7 @@ ul#extraLinks li#nearMore a {
 }
 
 #learnMore li {
-    background: url(../../img/school/overview/li_yellow-triangle.gif) no-repeat left 2px;
+    background: url(/res/img/school/overview/li_yellow-triangle.gif) no-repeat left 2px;
     font: 12px/15px Trebuchet MS, sans-serif;
     padding-left: 10px;
     margin: 0 0 10px 0;
