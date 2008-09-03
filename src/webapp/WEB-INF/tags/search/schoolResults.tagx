@@ -39,13 +39,11 @@
                                 &#183; <span class="gl">${school.gradeLevels.rangeString}</span>
                             </c:if>
                         </c:set>
-                        <c:choose>
-                            <c:when test="${school.type.schoolTypeName eq 'private' and school.gradeLevels.rangeString eq 'PK'}">
-                                <c:set var="schoolTypeRangeString">
-                                    <span class="st">Preschool</span>
-                                </c:set>
-                            </c:when>
-                        </c:choose>
+                        <c:if test="${school.levelCode eq 'p'}">
+                            <c:set var="schoolTypeRangeString">
+                                <span class="st">Preschool</span>
+                            </c:set>
+                        </c:if>
                         ${schoolTypeRangeString}
 
                     </div>
