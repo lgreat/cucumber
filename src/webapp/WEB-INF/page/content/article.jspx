@@ -259,20 +259,23 @@
             */
             var rightColLen = document.getElementById('articletools').offsetHeight;
             var editorialTableList = document.getElementsByClassName('editorialTable');
-
+            /*    alert( "rightColLen: " + rightColLen );*/
             for (var t = 0; t < editorialTableList.length; t++){
+                /*   alert("tableTop: " + editorialTableList[t].offsetTop);*/
                 var oldTableTop = editorialTableList[t].offsetTop;
                 var oldWidth =  editorialTableList[t].style.width ;
                 var oldMarginLeft = editorialTableList[t].style.marginLeft;
                 var oldMarginRight = editorialTableList[t].style.marginRight;
 
                 if (editorialTableList[t].offsetTop < rightColLen + 100)  {
-                    editorialTableList[t].style.width    = "390px"  ;
+                    /*   alert("moving table");*/
+                    editorialTableList[t].style.width    = "389px"  ;
                     editorialTableList[t].style.marginLeft = "0";
                     editorialTableList[t].style.marginRight = "0";
 
                      /* If it the table top hasn't moved, revert back to the original version */
                     if (editorialTableList[t].offsetTop >  rightColLen)  {
+                        /*  alert("reverting table"); */
                         editorialTableList[t].style.width    = oldWidth  ;
                         editorialTableList[t].style.marginLeft = oldMarginLeft;
                         editorialTableList[t].style.marginRight = oldMarginRight;
