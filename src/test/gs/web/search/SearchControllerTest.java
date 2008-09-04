@@ -5,6 +5,8 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.*;
 import gs.data.state.State;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.MultipleMatchesException;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContext;
@@ -115,6 +117,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         }
     }
 
+    // GS-6866 - remove this test if redirect-to-city-browse is made for all users, not just B users
     public void testCities() throws Exception {
 
         final GsMockHttpServletRequest request = getRequest();
@@ -132,6 +135,52 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertNotNull(cities);
     }
 
+    // GS-6866 - remove line setting AB version if redirect-to-city-browse is made for all users, not just B users
+    public void testRedirectToCityBrowse() throws Exception {
+
+        final GsMockHttpServletRequest request = getRequest();
+        request.setParameter("q", "Alameda");
+        request.setParameter("state", "CA");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+
+        getSessionContext().setAbVersion("b");
+
+        SearchCommand command = new SearchCommand();
+        command.setQ("Alameda");
+        command.setState(State.CA);
+        BindException errors = new BindException(command, null);
+        ModelAndView mv = _controller.processFormSubmission(request, getResponse(), command, errors);
+        assertTrue("Expected redirectview", mv.getView() instanceof RedirectView);
+        assertEquals("Expected redirect url /california/alameda/schools/",
+                "/california/alameda/schools/", ((RedirectView)mv.getView()).getUrl());
+    }    
+
+    // GS-6866 - remove line setting AB version if redirect-to-city-browse is made for all users, not just B users
+    public void testMultipleCityMatchesContinuesToNormalSearchResults() throws Exception {
+
+        final GsMockHttpServletRequest request = getRequest();
+        request.setParameter("q", "Alameda");
+        request.setParameter("state", "CA");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+
+        getSessionContext().setAbVersion("b");
+
+        SearchCommand command = new SearchCommand();
+        command.setQ("Alameda");
+        command.setState(State.CA);
+        BindException errors = new BindException(command, null);
+
+        IGeoDao mockGeoDao = createMock(IGeoDao.class);
+        _controller.setGeoDao(mockGeoDao);
+        expect(mockGeoDao.findCity(State.CA, "Alameda", false, true)).andThrow(new MultipleMatchesException("message"));
+        replay(mockGeoDao);
+
+        ModelAndView mv = _controller.processFormSubmission(request, getResponse(), command, errors);
+
+        verify(mockGeoDao);
+
+        assertFalse("Expected non-redirect view", mv.getView() instanceof RedirectView);
+    }    
 
     public void testNoResultsQuery() throws Exception {
 

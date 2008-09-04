@@ -9,12 +9,16 @@ import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
+import gs.data.geo.MultipleMatchesException;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
+import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
@@ -30,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.HashSet;
 
 /**
  * This controller handles all search requests.
@@ -98,6 +103,7 @@ public class SearchController extends AbstractFormController {
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
     private AnchorListModelFactory _anchorListModelFactory;
+    private IGeoDao _geoDao;
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
@@ -148,6 +154,23 @@ public class SearchController extends AbstractFormController {
             final String url = builder.asSiteRelative(request);
             final RedirectView view = new RedirectView(url, false);
             return new ModelAndView(view);
+        }
+
+        // GS-6866
+        if ("b".equals(sessionContext.getABVersion())) {
+            // need to add a check for multiple cities by the same name because findCity() just logs an error if multiple
+            City city = null;
+            try {
+                city = getGeoDao().findCity(sessionContext.getState(), searchCommand.getQueryString(), false, true);
+            } catch (MultipleMatchesException e) {
+                // If there are two cities with the same name in a state they should be returned to normal search results
+                city = null;
+            }
+
+            if (city != null) {
+                return new ModelAndView(new RedirectView(
+                    SchoolsController.createNewCityBrowseURI(city.getState(), city.getName(), new HashSet<SchoolType>(), null)));
+            }
         }
 
         // ok, this seems like a valid search, set the "hasSearched" cookie
@@ -389,5 +412,13 @@ public class SearchController extends AbstractFormController {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }
