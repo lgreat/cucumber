@@ -263,13 +263,13 @@
                             <div class="photo">
                                 <gsml:popupWindow href="http://blogs.greatschools.net/sanfrancisco/" width="917" height="600" left="50"
                                                   top="50"><gsml:img
-                                        src="/res/img/content/blogs/amygraff.jpg"
-                                        alt="Amy Graff"/></gsml:popupWindow>
+                                        src="/res/img/content/blogs/katesf.jpg"
+                                        alt="GreatSchools Blogger Photo"/></gsml:popupWindow>
                             </div>
                             <div class="subheader">Stories from a San Francisco mom about supporting her child in kindergarten.</div>
                         </div>
                         <div class="post">
-                            <cache:cache scope="application" name="blog" key="amyGraff">
+                            <cache:cache scope="application" name="blog" key="katesf">
                                 <content2:blogFeed atomUrl="http://blogs.greatschools.net/sanfrancisco/atom.xml"
                                               defaultTitle="Surviving kindergarten: A supportive mother's perspective"
                                               defaultUrl="http://blogs.greatschools.net/sanfrancisco/"
