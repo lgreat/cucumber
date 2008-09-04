@@ -33,7 +33,7 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertNull("No model should be returned from controller", modelAndView);
-        assertEquals("Expect success", "success", _response.getContentAsString());
+        assertEquals("Expect success", "success,newSubscriber", _response.getContentAsString());
 
         verify(_userDao);
         verify(_subscriptionDao);
@@ -51,7 +51,7 @@ public class CommunitySubscriptionControllerTest extends BaseControllerTestCase 
 
         ModelAndView modelAndView = _controller.handleRequest(_request, _response);
         assertNull("No model should be returned from controller", modelAndView);
-        assertEquals("Expect success", "success", _response.getContentAsString());
+        assertEquals("Expect success", "success,newSubscriber", _response.getContentAsString());
 
         verify(_userDao);
         verify(_subscriptionDao);
