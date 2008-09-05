@@ -191,10 +191,14 @@
                 }
             }
         }
+        var dialogE = document.getElementById("dialog_e");
+        var dialogM = document.getElementById("dialog_m");
+        var dialogH = document.getElementById("dialog_h");
+
         // by default no level codes are displayed
-        document.getElementById("dialog_e").style.display="none";
-        document.getElementById("dialog_m").style.display="none";
-        document.getElementById("dialog_h").style.display="none";
+        dialogE.style.display="none";
+        dialogM.style.display="none";
+        dialogH.style.display="none";
         // for each level code that has a visible school, make sure that list is displayed
         var numLevelCodes = 0;
         for (levelCode in levelCodeMap) {
@@ -207,6 +211,18 @@
             // send to regular compare
             return true;
         }
+
+        dialogM.style.borderRight = "1px solid #E2E3CB";
+        dialogH.style.borderRight = "1px solid #E2E3CB";
+
+        var hasM = dialogM.style.display == "block";
+        var hasH = dialogH.style.display == "block";
+        if (hasH) {
+            dialogH.style.borderRight = "none";
+        } else if (hasM) {
+            dialogM.style.borderRight = "none";
+        }
+
         // otherwise display the dialog
         document.getElementById("myDialog").style.display="block";
         compareDialog.show();
