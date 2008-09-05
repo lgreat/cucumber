@@ -97,7 +97,6 @@
     </td>
 </tr>
 
-<variant:b>
 <c:if test="${not empty alert}">
     <tr>
         <td colspan="3">
@@ -114,7 +113,6 @@
         </td>
     </tr>
 </c:if>
-</variant:b>
 
 <tr>
 <!-- Compare Box -->
