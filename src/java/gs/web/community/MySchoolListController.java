@@ -153,7 +153,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
     protected void processCommand(String command, HttpServletRequest request, User user) {
         String stateString = request.getParameter(PARAM_STATE);
         State state = getStateManager().getState(stateString);
-        List<Integer> ids = parseIds(request.getParameter(PARAM_SCHOOL_IDS));
+        Set<Integer> ids = getSchoolIds(request);
         if (COMMAND_ADD.equals(command)) {
             addToMSL(state, ids, user);
         } else if (COMMAND_REMOVE.equals(command)) {
@@ -162,26 +162,35 @@ public class MySchoolListController extends AbstractController implements ReadWr
     }
 
     /**
-     * @param ids - a comma-delimited set if int ids.
-     * @return a List<Integer> with the parsed school ids. Returns an empty list if
-     * there are no valid ids.
+     * This method extracts ids from the request.  Ids may be in the form:
+     *    &ids=1,2,3,4
+     * or:
+     *    &ids=1&ids=2&ids=3&ids=4
+     *
+     * @param request an HttpServletRequest
+     * @return a Set<Integer> of ids
      */
-    protected List<Integer> parseIds(String ids) {
-        List<Integer> list = new ArrayList<Integer>();
-        if (StringUtils.isNotBlank(ids)) {
-            String[] sa = ids.split(",");
-            for (String s : sa) {
-                try {
-                    list.add(Integer.decode(s.trim()));
-                } catch (NumberFormatException nfe) {
-                    _log.error("Could not parse id: " + s);
+    Set<Integer> getSchoolIds(HttpServletRequest request) {
+        Set<Integer> idSet = new HashSet<Integer>();
+        String[] values = request.getParameterValues(PARAM_SCHOOL_IDS);
+        if (values != null) {
+            for (String value : values) {
+                if (StringUtils.isNotBlank(value)) {
+                    String[] sa = value.split(",");
+                    for (String s : sa) {
+                        try {
+                            idSet.add(Integer.decode(s.trim()));
+                        } catch (NumberFormatException nfe) {
+                            _log.error("Could not parse id: " + s);
+                        }
+                    }
                 }
             }
         }
-        return list;
+        return idSet;
     }
 
-    protected void addToMSL(State state, List<Integer> ids, User user) {
+    protected void addToMSL(State state, Set<Integer> ids, User user) {
         Set<FavoriteSchool> favs = user.getFavoriteSchools();
         for (Integer id : ids) {
             School school = _schoolDao.getSchoolById(state, id);
@@ -197,7 +206,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
         _userDao.updateUser(user);
     }
 
-    protected void removeFromMSL(State state, List<Integer> ids, User user) {
+    protected void removeFromMSL(State state, Set<Integer> ids, User user) {
         Set<FavoriteSchool> favs = user.getFavoriteSchools();
         FavoriteSchool toRemove = new FavoriteSchool();
         toRemove.setState(state);

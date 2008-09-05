@@ -16,6 +16,7 @@ import static org.easymock.EasyMock.*;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import java.util.*;
 
@@ -288,5 +289,30 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
         assertNotNull("Expect not null list out when exception thrown", schools);
         assertEquals("Expect empty list out when exception thrown", 0, schools.size());
+    }
+
+    public void testGetSchoolIds() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        Set<Integer> s_1 = new HashSet<Integer>() {{
+            add(1);
+            add(2);
+            add(3);
+            add(4);
+        }};
+
+        request.setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "1,2,3,4");
+        Set<Integer> ids = _controller.getSchoolIds(request);
+        assertEquals("Set should contain 1,2,3,4", s_1, ids);
+
+        request = new MockHttpServletRequest();
+        request.setParameter("ids", new String[]{"1","2","5"});
+        ids = _controller.getSchoolIds(request);
+        Set<Integer> s_2 = new HashSet<Integer>() {{
+            add(1);
+            add(2);
+            add(5);
+        }};
+        assertEquals("Set should contain 1,2,5", s_2, ids);
     }
 }
