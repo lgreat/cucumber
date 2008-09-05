@@ -13,12 +13,13 @@
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
     <jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="hideGSRating" required="false" type="java.lang.Boolean"/>
 
     <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
 
     <c:set var="results" value="${schools}"/>
     <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }" />
-    
+    <c:set var="hideRating" value="${!empty hideGSRating and hideGSRating ? true : false}"/>
     <![CDATA[
       <!--[if IE]>
         <style type="text/css">
@@ -67,9 +68,11 @@
                 }
             }
         }
-         -->
+        --> 
         ]]>
     </script>
+
+    
 
     <school:compareHover schoolSearchResults="${results}"/>
 
@@ -77,7 +80,7 @@
          <div class="firstspace">
             <!-- comment to keep the tag from collapsing -->
         </div>
-        <div class="${activeColumn eq 'schoolResultsHeader' ? 'active': ''}" id="schoolResultsHeader"
+        <div class="${activeColumn eq 'schoolResultsHeader' ? 'active': ''} ${hideRating ? 'wideSchoolResultsHeader' : ''}" id="schoolResultsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
              onclick="reloadPageWithFilters('schoolResultsHeader')">
@@ -94,7 +97,7 @@
         <div class="divider">
             <!-- comment to keep the tag from collapsing -->
         </div>
-        <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''}" id="ratingsHeader"
+        <div class="${activeColumn eq 'ratingsHeader' ? 'active': ''}  ${hideRating ? 'hidden' : ''}" id="ratingsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
              onclick="reloadPageWithFilters('ratingsHeader')">
@@ -107,10 +110,10 @@
                                     sortDirection ne 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
                                   alt="sort ${sortDirection}" />
         </div>
-        <div class="divider">
+        <div class="divider ${hideRating ? 'hidden' : ''}" >
             <!-- comment to keep the tag from collapsing -->
         </div>        
-        <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''}" id="reviewsHeader"
+        <div class="${activeColumn eq 'reviewsHeader' ? 'active': ''} " id="reviewsHeader"
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
              onclick="reloadPageWithFilters('reviewsHeader')">
@@ -124,6 +127,8 @@
                                   alt="sort ${sortDirection}" />            
         </div>
     </div>
+
+
     <form method="get" action="/compareSchools.page">
         <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <div id="searchResultsList">
@@ -135,7 +140,7 @@
             <c:set var="reviewMap" value="${schoolResult.reviewMap}" />
 
                 <div class="result cleared${(loopStatus.count == 1 ? ' first' : '')}">
-                <div class="school">
+                <div class="school ${hideRating ? 'wide' : ''}">
                     <input type="hidden" id="school_lc_${school.id}" value="${school.levelCode}"/>
                     <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <c:out value="${school.name}" escapeXml="false"/>
@@ -200,7 +205,7 @@
                         </c:if>
                     </div>
                 </div>
-                <div class="rating">
+                <div class="rating  ${hideRating ? 'hidden' : ''}">
                     <c:choose>
                         <c:when test="${empty rating}">
                             <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
@@ -213,7 +218,7 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                <div class="review">
+                <div class="review ">
                     <p class="stars">
                         <c:choose>
                             <c:when test="${empty parentRating}">
@@ -248,4 +253,5 @@
         </c:forEach>
     </div>
     </form>
+
 </jsp:root>
