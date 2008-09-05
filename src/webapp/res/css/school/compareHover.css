@@ -2,17 +2,33 @@
     font-family: "Trebuchet MS", Arial, sans-serif;
 }
 
-#dialogHeader {
+#dialogTopBar {
     background-color: #8BCBCB;
     height: 26px;
     position: relative;
 }
 
-    #dialogHeader .dialogClose {
+    #dialogTopBar .dialogClose {
         position: absolute;
         right: 8px;
         top: 5px;
         cursor: pointer;
+    }
+
+#dialogHeader {
+    background-color: #F3F3D8;
+    height: 55px;
+    position: relative;
+    font-weight: bold;
+    font-size: 16px;
+    padding-left: 16px;
+    padding-top: 9px;
+    border-left: 4px solid #DDEEEE;
+    border-right: 4px solid #DDEEEE;
+}
+
+    #dialogHeader .line {
+        margin-top: 3px;
     }
 
 #dialogBody {
@@ -21,60 +37,71 @@
     border-left: 4px solid #DDEEEE;
     border-bottom: 4px solid #DDEEEE;
     border-right: 4px solid #DDEEEE;
-    padding: 12px;
+    padding: 15px 0 15px 0;
     font-size: 14px;
     overflow-x: hidden;
     overflow-y: auto;
-    min-height: 15em;
-    max-height: 25em;
-    height: auto;
+    min-height: 237px;
+    max-height: 237px;
+    height: 237px;
 }
 
-    #dialogBody h2 {
-        color: #3399AA;
-        font-size: 23px;
-        font-weight: normal;
-        line-height: 26px;
-        margin-bottom: 10px;
-    }
-
-    #dialogBody .intro {
-        font-weight: bold;
-        margin-bottom: 0;
-    }
-
     #dialogBody .dialog_lc {
-        margin: 15px 0 0 20px;
+        float: left;
+        width: 166px;
+        min-height: 237px;
+        height: 50px;
+        padding-left: 12px;
+        padding-right: 12px;
+        border-right: 1px solid #E2E3CB;
+    }
+
+    #dialogBody .dialog_lc.last {
+        border-right: none;
+        line-height: 18px;
     }
 
     #dialogBody .dialog_lc_title {
         margin-bottom: 10px;
+        color: #3399AA;
         position: relative;
+        font-size: 18px;
     }
 
-        #dialogBody .dialog_lc_title span {
+        #dialogBody .dialog_lc_title .levelCode {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        #dialogBody .dialog_lc_title .compareButton {
             font-weight: bold;
         }
 
-        #dialogBody .dialog_lc_title input {
-            position: absolute;
-            left: 150px;
-            top: -1px;
-        }
-
     #dialogBody .dialog_lc_schoolName {
+        margin-top: 13px;
         font-weight: normal;
+        font-size: 13px;
+        line-height: 13px;
     }
 
-    #dialogBody .logo {
-        margin-top: 25px;
+#dialogFooter {
+    border-bottom: 4px solid #DDEEEE;
+    border-left: 4px solid #DDEEEE;
+    border-right: 4px solid #DDEEEE;
+    height: 38px;
+    position: relative;
+}
+
+    #dialogFooter .logo {
         float: left;
+        position: absolute;
+        top: 8px;
+        left: 12px;
     }
 
-    #dialogBody .closeWindow {
+    #dialogFooter .closeWindow {
         float: right;
-        margin-top: 25px;
-        /*position: absolute;*/
-        /*right: 15px;*/
-        /*bottom: 15px;*/
+        position: absolute;
+        top: 10px;
+        right: 12px;
     }

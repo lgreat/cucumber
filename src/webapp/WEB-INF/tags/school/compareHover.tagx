@@ -43,8 +43,8 @@
     <style type="text/css">
 
     #myDialog #dialogBody {
-        height: 25em;
-        min-height: 25em;
+        height: 237px;
+        min-height: 237px;
     }
     </style>
   <![endif]-->
@@ -70,17 +70,20 @@
     </jsp:scriptlet>
 
     <div id="myDialog" style="display: none;">
-        <div id="dialogHeader">
+        <div id="dialogTopBar">
             <div class="dialogClose">
                 <gsml:img src="/res/img/submodal/close.gif" alt="Close window" onclick="compareDialog.cancel();"/>
             </div>
         </div>
-        <div id="dialogBody">
-            <h2>Comparing schools</h2>
-            <div class="intro">
+        <div id="dialogHeader">
+            <div class="line">
                 You have selected schools that span multiple levels.
-                Which did you want to compare?
             </div>
+            <div class="line">
+                Which do you want to compare?
+            </div>
+        </div>
+        <div id="dialogBody">
             <c:forEach var="curLevel" items="e,m,h">
                 <gsweb:form method="get" action="/compareSchools.page">
                     <!-- this is the default state, but it gets overridden by JS below -->
@@ -91,16 +94,18 @@
                     <input type="hidden" name="levelCode" value="${curLevel}"/>
                     <div id="dialog_${curLevel}" class="dialog_lc" style="display:none;">
                         <div class="dialog_lc_title">
-                            <span>
+                            <div class="levelCode">
                                 <c:choose>
-                                    <c:when test="${curLevel eq 'e'}">Elementary Schools:</c:when>
-                                    <c:when test="${curLevel eq 'm'}">Middle Schools:</c:when>
-                                    <c:when test="${curLevel eq 'h'}">High Schools:</c:when>
-                                </c:choose>
-                            </span>
-                            <input type="image"
-                                   name="compare"
-                                   src="/res/img/school/compare/compare.gif" alt="Compare"/>
+                                    <c:when test="${curLevel eq 'e'}">Elementary school</c:when>
+                                    <c:when test="${curLevel eq 'm'}">Middle school</c:when>
+                                    <c:when test="${curLevel eq 'h'}">High school</c:when>
+                                </c:choose>    ${$status.count}
+                            </div>
+                            <div class="compareButton">
+                                <input type="image"
+                                       name="compare"
+                                       src="/res/img/school/overview/submit_compare.gif" alt="Compare"/>
+                            </div>
                         </div>
                         <c:forEach var="school" items="${schools}">
                             <c:if test="${fn:containsIgnoreCase(school.levelCode, curLevel)}">
@@ -116,6 +121,8 @@
                     </div>
                 </gsweb:form>
             </c:forEach>
+        </div>
+        <div id="dialogFooter">
             <img src="/res/img/logo/logo_GS_125x24.gif" alt="GreatSchools" class="logo"/>
             <input type="image" src="/res/img/button/btn_closeWindow.gif" alt="Close window"
                    class="closeWindow"  onclick="compareDialog.cancel();"/>
@@ -130,7 +137,7 @@
         compareDialog = new YAHOO.widget.Dialog("myDialog",
         {
             postmethod: "form",
-            width: "40em",
+            width: "600px",
             fixedcenter: true,
             visible: false,
             constraintoviewport: true,
