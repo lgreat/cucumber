@@ -225,7 +225,28 @@
 
         // otherwise display the dialog
         document.getElementById("myDialog").style.display="block";
+
+        // get max height
+        // minimum height taken from compareHover.css
+        var dialogHeight = 237;
+        for (levelCode in levelCodeMap) {
+            if (document.getElementById("dialog_" + levelCode).style.display == "block" &&
+                document.getElementById("dialog_" + levelCode).offsetHeight > dialogHeight) {
+                dialogHeight = document.getElementById("dialog_" + levelCode).offsetHeight;
+            }
+        }
+
+        dialogHeight = dialogHeight + "px";
+
+        // set same height for all level divs
+        for (levelCode in levelCodeMap) {
+            if (document.getElementById("dialog_" + levelCode).style.display == "block") {
+                document.getElementById("dialog_" + levelCode).style.height = dialogHeight;
+            }
+        }        
+
         compareDialog.show();
+
         // (and don't forward to regular compare)
         return false;
     }
