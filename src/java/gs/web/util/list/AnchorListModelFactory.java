@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.14 2008/09/06 00:08:00 cpickslay Exp $
+ * $Id: AnchorListModelFactory.java,v 1.15 2008/09/06 00:54:02 cpickslay Exp $
  */
 
 package gs.web.util.list;
@@ -421,6 +421,10 @@ public class AnchorListModelFactory {
     }
 
     public void setGeoDao(IGeoDao geoDao) {
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
     }
 
     public void setSchoolDao(ISchoolDao schoolDao) {

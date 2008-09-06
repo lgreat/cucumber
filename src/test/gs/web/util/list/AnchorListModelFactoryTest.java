@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.5 2008/09/06 00:08:00 cpickslay Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.6 2008/09/06 00:54:02 cpickslay Exp $
  */
 
 package gs.web.util.list;
@@ -44,6 +44,9 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
     }
 
     public void testSchoolBreakdown() throws Exception {
+        //avoid breaking downstream tests
+        ISchoolDao springSchoolDao = _anchorListModelFactory.getSchoolDao();
+
         ISchoolDao schoolDao = createMock(ISchoolDao.class);
         _anchorListModelFactory.setSchoolDao(schoolDao);
         expect(schoolDao.countSchools(State.AK, null, LevelCode.PRESCHOOL, "Anchorage")).andReturn(1);
@@ -84,6 +87,8 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
 
         Anchor privateAnchor = (Anchor) list.get(5);
         assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PRIVATE), null), privateAnchor.getHref());
+
+        _anchorListModelFactory.setSchoolDao(springSchoolDao);
     }
 
     public void testFindDistricts() throws Exception {
