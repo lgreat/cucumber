@@ -1,19 +1,19 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.35 2008/09/02 03:42:32 thuss Exp $
+ * $Id: SchoolsControllerTest.java,v 1.36 2008/09/06 00:34:43 cpickslay Exp $
  */
 
 package gs.web.school;
 
+import gs.data.geo.IGeoDao;
+import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
-import gs.data.school.ISchoolDao;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.Searcher;
 import gs.data.state.State;
-import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.search.SchoolSearchResult;
@@ -740,15 +740,6 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         mav = _controller.handleRequestInternal(request, getResponse());
         modelResults = (Map) mav.getModel().get("results");
         assertEquals(10, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
-
-        // Switch it to a crawler where it should disable paging
-        request.addHeader("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-        mav = _controller.handleRequestInternal(request, getResponse());
-        modelResults = (Map) mav.getModel().get("results");
-        assertEquals(100, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
     }

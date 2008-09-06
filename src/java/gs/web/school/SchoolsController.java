@@ -1,28 +1,28 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.63 2008/09/02 04:33:34 thuss Exp $
+ * $Id: SchoolsController.java,v 1.64 2008/09/06 00:34:49 cpickslay Exp $
  */
 
 package gs.web.school;
 
-import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
-import gs.data.school.LevelCode;
+import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
-import gs.data.search.SearchCommand;
-import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.search.SchoolComparatorFactory;
+import gs.data.search.SearchCommand;
+import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.search.ResultsPager;
+import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.RedirectView301;
-import gs.web.util.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -32,14 +32,14 @@ import org.apache.lucene.search.SortField;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Provides...
@@ -251,9 +251,7 @@ public class SchoolsController extends AbstractController {
         }
 
         String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
-        if (context.isCrawler()) {
-            pageSize = 100;
-        } else if (StringUtils.equals(paramShowAll, "1") ||
+        if (StringUtils.equals(paramShowAll, "1") ||
                 StringUtils.equals(paramShowAll, "true")) {
             pageSize = -1;
         }
