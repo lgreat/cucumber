@@ -205,21 +205,19 @@
                         </c:if>
                     </div>
                 </div>
-                <c:if test="${hideRating}">
-                    <div class="rating  ${hideRating ? 'hidden' : ''}">
-                        <c:choose>
-                            <c:when test="${empty rating}">
-                                <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
-                            </c:when>
-                            <c:otherwise>
-                                <link:schoolProfileRating school="${school}">
-                                    <gsml:img src="/res/img/school/ratings/${rating}.gif"
-                                              alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                                </link:schoolProfileRating>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </c:if>
+                <div class="rating  ${hideRating ? 'hidden' : ''}">
+                    <c:choose>
+                        <c:when test="${empty rating}">
+                            <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolProfileRating school="${school}">
+                                <gsml:img src="/res/img/school/ratings/${rating}.gif"
+                                          alt="GreatSchools Rating: ${rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                            </link:schoolProfileRating>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
                 <div class="review ">
                     <p class="stars">
                         <c:choose>
