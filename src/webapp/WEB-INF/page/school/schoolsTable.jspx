@@ -443,6 +443,7 @@ function reloadPageWithFilters(sortColId) {
                         schoolType="${pubCheckbox}"
                         levelCode="${lc}"
                         showAll="${not empty param.showall}"
+                        rel="nofollow"
                         styleClass="noInterstitial"> Public</link:schools></label>
                 <label><gsml:checkbox name="type_schools[]"
                                       checked="${charterChecked}"
@@ -453,6 +454,7 @@ function reloadPageWithFilters(sortColId) {
                         schoolType="${chaCheckbox}"
                         levelCode="${lc}"
                         showAll="${not empty param.showall}"
+                        rel="nofollow"
                         styleClass="noInterstitial"> Charter</link:schools></label>
                 <label><gsml:checkbox name="type_schools[]"
                                       checked="${privateChecked}"
@@ -463,6 +465,7 @@ function reloadPageWithFilters(sortColId) {
                         schoolType="${priCheckbox}"
                         levelCode="${lc}"
                         showAll="${not empty param.showall}"
+                        rel="nofollow"
                         styleClass="noInterstitial"> Private</link:schools></label>
             </div>
             <c:if test="${not empty results.schools}">
