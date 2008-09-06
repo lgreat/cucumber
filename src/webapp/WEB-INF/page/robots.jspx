@@ -85,6 +85,9 @@ Disallow: /school/mapSchool
 Disallow: /school/thankYouHover.page
 Disallow: /school/updateRatings.page
 Disallow: /*/*/*schools/?*
+Disallow: /*/private-charter/*
+Disallow: /*/public-charter/*
+Disallow: /*/public-private/*
 Disallow: /search/feedback.page
 Disallow: /support_code/
 Disallow: /templates/
