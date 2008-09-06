@@ -1,28 +1,28 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.4 2008/07/31 20:08:08 yfan Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.5 2008/09/06 00:08:00 cpickslay Exp $
  */
 
 package gs.web.util.list;
 
 import gs.data.geo.City;
 import gs.data.geo.ICity;
-import gs.data.state.State;
-import gs.data.school.district.IDistrictDao;
-import gs.data.school.district.District;
+import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
+import gs.data.school.district.District;
+import gs.data.school.district.IDistrictDao;
+import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.school.SchoolsController;
-
 import static org.easymock.EasyMock.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * Tests AnchorListModelFactory.
@@ -44,30 +44,46 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
     }
 
     public void testSchoolBreakdown() throws Exception {
+        ISchoolDao schoolDao = createMock(ISchoolDao.class);
+        _anchorListModelFactory.setSchoolDao(schoolDao);
+        expect(schoolDao.countSchools(State.AK, null, LevelCode.PRESCHOOL, "Anchorage")).andReturn(1);
+        expect(schoolDao.countSchools(State.AK, null, LevelCode.ELEMENTARY, "Anchorage")).andReturn(2);
+        expect(schoolDao.countSchools(State.AK, null, LevelCode.MIDDLE, "Anchorage")).andReturn(3);
+        expect(schoolDao.countSchools(State.AK, null, LevelCode.HIGH, "Anchorage")).andReturn(4);
+        expect(schoolDao.countSchools(State.AK, SchoolType.PUBLIC, null, "Anchorage")).andReturn(4);
+        expect(schoolDao.countSchools(State.AK, SchoolType.PRIVATE, null, "Anchorage")).andReturn(6);
+        replay(schoolDao);
 
         AnchorListModel anchorListModel = _anchorListModelFactory.createSchoolSummaryModel(State.AK, "Anchorage", "Anchorage", _request);
 
+        verify(schoolDao);
+
         List list = anchorListModel.getResults();
-        assertEquals(5, list.size());
+        assertEquals(6, list.size());
 
-        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+        Anchor preschoolAnchor = (Anchor) list.get(0);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.PRESCHOOL), preschoolAnchor.getHref());
+        assertEquals("Anchorage Preschools", preschoolAnchor.getContents());
+        assertEquals(" (1)", preschoolAnchor.getAfter());
 
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, LevelCode.ELEMENTARY), ((Anchor) list.get(0)).getHref());
-        assertEquals("Anchorage Elementary Schools", ((Anchor) list.get(0)).getContents());
-        assertEquals(" (77)", ((Anchor) list.get(0)).getAfter());
+        Anchor elementaryAnchor = (Anchor) list.get(1);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.ELEMENTARY), elementaryAnchor.getHref());
+        assertEquals("Anchorage Elementary Schools", elementaryAnchor.getContents());
+        assertEquals(" (2)", elementaryAnchor.getAfter());
 
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, LevelCode.MIDDLE), ((Anchor) list.get(1)).getHref());
+        Anchor middleAnchor = (Anchor) list.get(2);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.MIDDLE), middleAnchor.getHref());
+        assertEquals(" (3)", middleAnchor.getAfter());
 
-        assertEquals("Anchorage High Schools", ((Anchor) list.get(2)).getContents());
-        assertEquals(" (30)", ((Anchor) list.get(2)).getAfter());
+        Anchor highAnchor = (Anchor) list.get(3);
+        assertEquals("Anchorage High Schools", highAnchor.getContents());
+        assertEquals(" (4)", highAnchor.getAfter());
 
-        schoolTypes.clear();
-        schoolTypes.add(SchoolType.PUBLIC);
-        schoolTypes.add(SchoolType.CHARTER);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, null), ((Anchor) list.get(3)).getHref());
-        schoolTypes.clear();
-        schoolTypes.add(SchoolType.PRIVATE);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, null), ((Anchor) list.get(4)).getHref());
+        Anchor publicAnchor = (Anchor) list.get(4);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PUBLIC), null), publicAnchor.getHref());
+
+        Anchor privateAnchor = (Anchor) list.get(5);
+        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PRIVATE), null), privateAnchor.getHref());
     }
 
     public void testFindDistricts() throws Exception {
@@ -135,5 +151,13 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         } finally {
             anchorListModelFactory.setDistrictDao(backupDistrictDao);
         }
+    }
+
+    private Set<SchoolType> createSchoolTypeSet(SchoolType... types) {
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+        for (SchoolType type : types) {
+            schoolTypes.add(type);
+        }
+        return schoolTypes;
     }
 }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.13 2008/08/04 18:38:53 yfan Exp $
+ * $Id: AnchorListModelFactory.java,v 1.14 2008/09/06 00:08:00 cpickslay Exp $
  */
 
 package gs.web.util.list;
@@ -16,10 +16,10 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.CityRating;
 import gs.web.geo.NearbyCitiesController;
+import gs.web.school.SchoolsController;
 import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
-import gs.web.school.SchoolsController;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.lucene.document.Document;
@@ -27,10 +27,10 @@ import org.apache.lucene.search.Hits;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * Generates AnchorListModel objects from all sorts of input. Created to reduce
@@ -149,12 +149,10 @@ public class AnchorListModelFactory {
             schoolBreakdownAnchorList.add(anchor);
         }
 
-        sc = _schoolDao.countSchools(state, SchoolType.PUBLIC, null, cityName) +
-                _schoolDao.countSchools(state, SchoolType.CHARTER, null, cityName);
+        sc = _schoolDao.countSchools(state, SchoolType.PUBLIC, null, cityName);
         if (sc > 0) {
             schoolTypes.clear();
             schoolTypes.add(SchoolType.PUBLIC);
-            schoolTypes.add(SchoolType.CHARTER);
             String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, null);
             final Anchor anchor = new Anchor(href, cityDisplayName + " Public Schools");
             anchor.setAfter(" (" + sc + ")");
