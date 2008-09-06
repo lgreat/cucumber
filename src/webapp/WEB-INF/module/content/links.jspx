@@ -47,8 +47,11 @@
         <c:when test="${requestScope.modelLayout eq 'list'}">
             <c:if test="${!empty requestScope.modelAnchorList}">
                 <c:if test="${empty param.omitUl or param.omitUl ne 'true'}">
+                    <c:set var="ulAttr">
+                        <c:if test="${not empty param.style}">class=&quot;${param.style}&quot;</c:if>
+                    </c:set>
                     <![CDATA[
-                    <ul class="${(not empty param.style) ? param.style : ''}">
+                    <ul ${ulAttr}>
                     ]]>
                 </c:if>
                     <c:forEach var="anchor" items="${requestScope.modelAnchorList.results}" varStatus="status">
@@ -61,13 +64,23 @@
                         <c:if test="${not empty param.idPrefix}">
                             <c:set var="id" value="${param.idPrefix}${status.count}"/>
                         </c:if>
-                        <li class="${(not empty param.liStyle) ? param.liStyle : ''}" id="${not empty id ? id : ''}">
+
+                        <c:set var="liAttr">
+                            <c:if test="${not empty param.liStyle}">class=&quot;${param.liStyle}&quot;</c:if>
+                            <c:if test="${not empty id}">&#32;id=&quot;${id}&quot;</c:if>
+                        </c:set>
+
+                        <![CDATA[
+                        <li ${liAttr}>
+                        ]]>
                             <!-- purposefully not using escapeXml on before/after text because
                                  on index.jspx, explicit space character sequences are used --> 
                             <c:if test="${not empty anchor.before}">${anchor.before}</c:if>
                             <a href="${url}">${text}</a>
                             <c:if test="${not empty anchor.after}">${anchor.after}</c:if>
+                        <![CDATA[
                         </li>
+                        ]]>
                     </c:forEach>
                 <c:if test="${empty param.omitUl or param.omitUl ne 'true'}">
                     <![CDATA[
