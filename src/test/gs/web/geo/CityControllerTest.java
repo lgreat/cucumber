@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.19 2008/07/31 19:44:58 yfan Exp $
+ * $Id: CityControllerTest.java,v 1.20 2008/09/06 00:41:52 cpickslay Exp $
  */
 
 package gs.web.geo;
@@ -8,15 +8,12 @@ package gs.web.geo;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
-import gs.data.school.LevelCode;
-import gs.data.school.SchoolType;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.ICityRatingDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.school.SchoolsController;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
@@ -25,7 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Tests CityController.
@@ -51,43 +50,6 @@ public class CityControllerTest extends BaseControllerTestCase {
                 getBean(SessionContextUtil.BEAN_ID);
     }
 
-    public void testSchoolBreakdown() throws Exception {
-        GsMockHttpServletRequest request = getRequest();
-        request.setParameter("state", "AK");
-        request.setParameter("city", "Anchorage");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-
-        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
-
-        Map model = mav.getModel();
-
-        AnchorListModel anchorListModel = (AnchorListModel) model.get(CityController.MODEL_SCHOOL_BREAKDOWN);
-        assertNotNull(anchorListModel);
-        List list = anchorListModel.getResults();
-        assertEquals(5, list.size());
-
-        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
-        LevelCode levelCode = LevelCode.ELEMENTARY;
-
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, levelCode), ((Anchor) list.get(0)).getHref());
-        assertEquals("Anchorage Elementary Schools", ((Anchor) list.get(0)).getContents());
-        assertEquals(" (77)", ((Anchor) list.get(0)).getAfter());
-
-        levelCode = LevelCode.MIDDLE;
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, levelCode), ((Anchor) list.get(1)).getHref());
-
-        assertEquals("Anchorage High Schools", ((Anchor) list.get(2)).getContents());
-        assertEquals(" (30)", ((Anchor) list.get(2)).getAfter());
-
-        levelCode = null;
-        schoolTypes.clear();
-        schoolTypes.add(SchoolType.PUBLIC);
-        schoolTypes.add(SchoolType.CHARTER);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, levelCode), ((Anchor) list.get(3)).getHref());
-        schoolTypes.clear();
-        schoolTypes.add(SchoolType.PRIVATE);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", schoolTypes, levelCode), ((Anchor) list.get(4)).getHref());
-    }
 
 
     public void testFindDistricts() throws Exception {
