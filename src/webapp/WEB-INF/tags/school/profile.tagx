@@ -101,6 +101,13 @@
             pageHelper.addAdKeyword("city", city);
             pageHelper.addAdKeyword("school_id", school.getId().toString());
             pageHelper.addAdKeyword("zipcode", school.getZipcode());
+
+            StringBuilder adSenseHint = new StringBuilder();
+            adSenseHint.append(city.toLowerCase());
+            adSenseHint.append(" ");
+            adSenseHint.append(SessionContextUtil.getSessionContext(request).getStateOrDefault().getLongName().toLowerCase());
+            adSenseHint.append(" real estate house homes for sale");
+            pageHelper.addAdSenseHint(adSenseHint.toString());
         }
 
         if (StringUtils.isNotBlank(city)) {

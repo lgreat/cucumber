@@ -53,6 +53,7 @@
 
             request.setAttribute("GAMadNames", adNames);
             request.setAttribute("GAMadKeywords", pageHelper.getAdKeywords());
+            request.setAttribute("GAMadSenseHint", pageHelper.getAdSenseHint());
         }
         ]]></jsp:scriptlet>
         <jsp:scriptlet>
@@ -89,6 +90,11 @@
             GA_googleAddAttr('compfilter','${gsweb:randomNumber(4)+1}');
             <c:forEach var="slotName" items="${GAMadNames}">
                 GA_googleAddSlot("ca-pub-9662012843341888", '${slotName}');</c:forEach>
+            <c:if test="${not empty GAMadSenseHint}">
+                <c:forEach var="slotName" items="${GAMadNames}">
+                    GA_googleAddAdSenseSlotAttr('${slotName}','google_hints','${GAMadSenseHint}');
+                </c:forEach>
+            </c:if>            
             <![CDATA[
             -->
             </script>

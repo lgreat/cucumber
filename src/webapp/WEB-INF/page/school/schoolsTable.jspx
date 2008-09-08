@@ -20,6 +20,7 @@
 <jsp:directive.page import="gs.data.school.LevelCode"/>
 <jsp:directive.page import="gs.web.school.SchoolsController"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
 <html lang="en">
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
@@ -51,11 +52,19 @@
         String city = (String) request.getAttribute("cityName");
         if (city != null) {
             pageHelper.addAdKeyword("city", city);
+
+            StringBuilder adSenseHint = new StringBuilder();
+            adSenseHint.append(city.toLowerCase());
+            adSenseHint.append(" ");
+            adSenseHint.append(SessionContextUtil.getSessionContext(request).getStateOrDefault().getLongName().toLowerCase());
+            adSenseHint.append(" real estate house homes for sale");
+            pageHelper.addAdSenseHint(adSenseHint.toString());
         }
         LevelCode levelCode = (LevelCode) request.getAttribute("lc");
         if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
-        for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
+        for (LevelCode.Level level : levelCode.getIndividualLevelCodes()) {
             pageHelper.addAdKeywordMulti("level", level.getName());
+        }
     }
 </jsp:scriptlet>
 

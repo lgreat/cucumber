@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.44 2008/07/14 19:23:32 chriskimm Exp $
+ * $Id: PageHelperSaTest.java,v 1.45 2008/09/08 22:20:35 yfan Exp $
  */
 
 package gs.web.util;
@@ -572,6 +572,17 @@ public class PageHelperSaTest extends TestCase {
 
         pageHelper.addAdKeyword("county","Palm Beach");
         assertEquals("state keyword set", "county=PalmBeach&hello=there&state=ga", pageHelper.getOASKeywords());
+    }
+
+    public void testAdSenseHint() {
+        MockSessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        assertNull(pageHelper.getAdSenseHint());
+
+        pageHelper.addAdSenseHint("this is a hint");
+        assertEquals("this is a hint", pageHelper.getAdSenseHint());
     }
 
     public void testAdKeywords() {

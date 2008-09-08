@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.62 2008/07/22 19:54:07 chriskimm Exp $
+ * $Id: PageHelper.java,v 1.63 2008/09/08 22:18:12 yfan Exp $
  */
 
 package gs.web.util;
@@ -222,6 +222,11 @@ public class PageHelper {
     private MultiMap _adKeywords = new MultiHashMap();
 
     /**
+     * Hint for use with Google AdSense. Currently just one possible value; expand to support multiple entries if needed.
+     */
+    private String _adSenseHint = null;
+
+    /**
      * Add a keyword/value pair for current page to be passed on to ad server.  This method use Map semantics on
      * the underlying MultiMap -- that is it will overwrite an existing value.  These semantics were left intact
      * via this method because much client code was already expecting it this way.
@@ -261,6 +266,18 @@ public class PageHelper {
             _adKeywords.remove(name);
         }
         _adKeywords.put(name,value);
+    }
+
+    /**
+     * Add a hint for use by Google AdSense. Will be repeated on page for each ad position. See GS-7089.
+     * @param hint the hint string for Google
+     */
+    public void addAdSenseHint(String hint) {
+        _adSenseHint = hint;
+    }
+
+    public String getAdSenseHint() {
+        return _adSenseHint;
     }
 
     /**
