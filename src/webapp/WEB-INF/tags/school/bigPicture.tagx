@@ -11,7 +11,9 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
-<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="divider" required="false" description="Should a divider appear below the big picture?" type="java.lang.Boolean"/>
 <jsp:directive.attribute name="anchor" required="false" description="Anchor - typically used for #from... tracking anchors" type="java.lang.String"/>
 
@@ -19,6 +21,11 @@
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="stateName" value="${school.databaseState.longName}"/>
 <c:set var="bigPictureAnchor" value="${(not empty anchor) ? anchor : 'from..BigPicture'}"/>
+
+<jsp:scriptlet>
+    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
 
     <div id="bigPicture">
         <h2>Big Picture</h2>
@@ -31,5 +38,27 @@
         </c:if>
         <h3><link:city city="${city}" state="${state}" title="${city} schools" anchor="${bigPictureAnchor}">Top-rated ${city} schools&#160;&#62;</link:city></h3>
         <h3><link:nearbyCities city="${city}" state="${school.databaseState}" title="Cities near ${city}" anchor="${bigPictureAnchor}">Cities near ${city}&#160;&#62;</link:nearbyCities></h3>
+
+        <c:choose>
+            <c:when test="${school.levelCode eq 'p'}">
+                <c:set var="level" value="Preschool"/>
+                <c:set var="groupID" value="11534"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="level" value="${school.levelCode.lowestNonPreSchoolLevel.longName} School"/>
+                <c:choose>
+                    <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'e'}">
+                        <c:set var="groupID" value="11527"/>
+                    </c:when>
+                    <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'm'}">
+                        <c:set var="groupID" value="11528"/>
+                    </c:when>
+                    <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'h'}">
+                        <c:set var="groupID" value="11529"/>
+                    </c:when>
+                </c:choose>
+            </c:otherwise>
+        </c:choose>
+        <h3><gsml:a href="http://${communityHost}/groups/${groupID}">Talk to other ${level} parents &amp;gt;</gsml:a></h3>
     </div><!-- end: bigPicture -->
 </jsp:root>

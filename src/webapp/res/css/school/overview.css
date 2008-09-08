@@ -1034,3 +1034,8 @@ ul.compareSchoolB {
     padding-top: 15px;
     margin-bottom: 5px;
 }
+
+#col_right div.ad_bottom {
+    padding: 0;
+    margin-top: 20px;
+}

@@ -352,6 +352,10 @@
                     <school:nearbySchools school="${school}"/>
                 </c:if>
             </div>
+
+            <div class="ad_bottom">
+                <ad:adTag position="Bottom_300x137"/>
+            </div>
         </div>
     </div><!-- end: schoolOverview -->
 

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.33 2008/08/18 21:56:57 thuss Exp $
+ * $Id: AdPosition.java,v 1.34 2008/09/08 21:32:14 yfan Exp $
  */
 package gs.web.ads;
 
@@ -64,6 +64,7 @@ public class AdPosition extends Enum {
      * Google Ad Manager Position
      */
     public static final AdPosition Top_300x137 = new AdPosition("Top_300x137", true);
+    public static final AdPosition Bottom_300x137 = new AdPosition("Bottom_300x137", true);
     public static final AdPosition House_Ad_300x137 = new AdPosition("House_Ad_300x137", true);
     public static final AdPosition Header_728x90 = new AdPosition("Header_728x90", true);
     public static final AdPosition Header_728x90_A_Test = new AdPosition("Header_728x90_A_Test", true, Header_728x90);
