@@ -1,0 +1,90 @@
+div.wrapper {
+    border: 1px solid #CCC;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color: #666666;
+}
+
+div.wrapper form {
+    margin: 0;
+    padding: 0;
+}
+
+div.wrapper form input, div.wrapper form select {
+    color: #666666;
+}
+
+div.wrapper form input.searchSubmit, div.wrapper form input.testScoresSubmit {
+    color: #000;
+}
+
+div.wrapper a,
+    div.wrapper a:visited,
+    div.wrapper a:link,
+    div.wrapper a:active,
+    div.wrapper a:hover {
+	text-decoration: underline;
+    color: #3399AA;
+    font-size: 12px;
+}
+
+
+div.title {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 3px 5px 3px 5px;
+    border-bottom: 1px solid #CCC;
+}
+
+div.body {
+    padding: 10px;
+    line-height: 13px;
+}
+
+div.logo {
+    float: right;
+}
+
+div.featureText {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div.searchContent, div.searchTestScores {
+    margin: 10px 0 15px 0;
+}
+
+input.searchInput {
+    width: 196px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+select.searchDropdown {
+    margin-right: 20px;
+}
+
+div.text {
+    font-size: 12px;
+}
+
+div.articleFeature {
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+div.articleFeature b {
+    display: block;
+    margin-bottom: 5px;
+}
+
+div.articleFeature li {
+    font-size: 12px;
+}
+
+div.articleFeature h4 {
+    margin: 8px 0 8px 0;
+}
+
+div#featuredArticleContent {
+    margin-bottom: 8px;
+}

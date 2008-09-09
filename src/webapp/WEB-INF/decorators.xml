@@ -47,7 +47,8 @@
         <pattern>*/survey/edit.page*</pattern>
         <pattern>*/ads/tacoda/*</pattern>
         <pattern>*/sandbox/*</pattern>
-        <pattern>*/tableMover.page*</pattern>        
+        <pattern>*/tableMover.page*</pattern>
+        <pattern>*/widget/*</pattern>
     </excludes>
 
 </decorators>

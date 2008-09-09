@@ -218,6 +218,14 @@
         </property>
     </bean>
 
+    <bean name="/widget/editorialWidget.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          lazy-init="true">
+        <property name="viewName">
+            <value>widget/editorialWidget</value>
+        </property>
+    </bean>
+
     <bean name="/community/betaUnsubscribe.page" class="gs.web.community.BetaUnsubscribeController"
           autowire="byName" lazy-init="true">
         <property name="commandName">
