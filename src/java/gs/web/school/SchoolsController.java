@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.64 2008/09/06 00:34:49 cpickslay Exp $
+ * $Id: SchoolsController.java,v 1.65 2008/09/09 19:30:27 yfan Exp $
  */
 
 package gs.web.school;
@@ -143,6 +143,9 @@ public class SchoolsController extends AbstractController {
     public static final String MODEL_CITY_BROWSE_URI_ROOT = "cityBrowseUriRoot";
     public static final String MODEL_CITY_BROWSE_URI_LEVEL_LABEL = "cityBrowseUriLevelLabel";
     public static final String MODEL_CITY_BROWSE_URI = "cityBrowseUri";
+
+    public static final String MODEL_IS_CITY_BROWSE = "isCityBrowse";
+    public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
 
     public static final String LEVEL_LABEL_PRESCHOOLS = "preschools";
     public static final String LEVEL_LABEL_ELEMENTARY_SCHOOLS = "elementary-schools";
@@ -342,6 +345,9 @@ public class SchoolsController extends AbstractController {
                 if (cityBrowse) model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));                    
             }
         }
+
+        model.put(MODEL_IS_CITY_BROWSE, cityBrowse);
+        model.put(MODEL_IS_DISTRICT_BROWSE, !cityBrowse);
 
         // Build the results and the model
         String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
