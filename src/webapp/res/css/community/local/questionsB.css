@@ -4,6 +4,7 @@ div#col_right div#localQuestionsContainer {
 }
 
 div#col_right div#localQuestions {
+    text-align: left;
     height: 285px;
     background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll 2px;
     font-family: Trebuchet MS, sans-serif;
