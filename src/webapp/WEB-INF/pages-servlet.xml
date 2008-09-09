@@ -219,7 +219,7 @@
     </bean>
 
     <bean name="/widget/editorialWidget.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.util.CacheablePageParameterizableViewController"
           lazy-init="true">
         <property name="viewName">
             <value>widget/editorialWidget</value>
