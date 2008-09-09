@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.37 2008/09/09 19:30:27 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.38 2008/09/09 19:40:27 yfan Exp $
  */
 
 package gs.web.school;
@@ -758,8 +758,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_TOTAL));
-        assertTrue((Boolean)modelResults.get(SchoolsController.MODEL_IS_CITY_BROWSE));
-        assertFalse((Boolean)modelResults.get(SchoolsController.MODEL_IS_DISTRICT_BROWSE));
+        assertTrue((Boolean)model.get(SchoolsController.MODEL_IS_CITY_BROWSE));
+        assertFalse((Boolean)model.get(SchoolsController.MODEL_IS_DISTRICT_BROWSE));
         List<SchoolSearchResult> list = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : list) {
             School s = schoolResult.getSchool();
@@ -817,8 +817,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_TOTAL));
-        assertTrue((Boolean)modelResults.get(SchoolsController.MODEL_IS_DISTRICT_BROWSE));
-        assertFalse((Boolean)modelResults.get(SchoolsController.MODEL_IS_CITY_BROWSE));
+        assertTrue((Boolean)model.get(SchoolsController.MODEL_IS_DISTRICT_BROWSE));
+        assertFalse((Boolean)model.get(SchoolsController.MODEL_IS_CITY_BROWSE));
         List<SchoolSearchResult> list = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : list) {
             School s = schoolResult.getSchool();
