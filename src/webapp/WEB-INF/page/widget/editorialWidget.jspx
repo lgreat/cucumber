@@ -8,7 +8,7 @@
     <jsp:directive.page contentType="text/html"/>
 <html>
 <head>
-    <title>Test widget - GreatSchools</title>
+    <title>Editorial Widget - GreatSchools</title>
     <ad:setSlotPrefix slotPrefix="Community"/>
     <link type="text/css" rel="stylesheet" href="/res/css/widget/editorialWidget.css"/>
 
@@ -16,8 +16,6 @@
     <c:if test="${cobrandSite eq null or cobrandSite eq ''}">
         <c:set var="cobrandSite" value="www"/>
     </c:if>
-    <c:set var="worksheet" value="od7"/>
-    <c:set var="feature" value="feature01"/>
     <c:set var="state" value="${param.defaultState}"/>
 
     <script type="text/javascript" charset="utf-8">
@@ -35,42 +33,27 @@
             return true;
         }
     </script>
-    <gsml:url var="gspreadsheetJs" value="/res/js/gspreadsheet/gspreadsheet.js"/>
-    <![CDATA[<script type="text/javascript" src="${gspreadsheetJs}"></script>]]>
-    <script type="text/javascript">
-        window.onload = function() {
-            GSpreadsheet.load("pouqRkV5D_eZo2j7CmCj0OQ", { index: 'key', worksheet: '${worksheet}' }, function(gs) {
-                var row = gs.select("${feature}");
-                row.link = row.link.replace("$STATE", "${state}");
-                document.getElementById("featuredArticleTitle").innerHTML = row.title;
-                document.getElementById("featuredArticleTitle").setAttribute("href", row.link);
-                document.getElementById("featuredArticleContent").innerHTML = row.html;
-                document.getElementById("featuredArticleLink").setAttribute("href", row.link);
-                document.getElementById("featuredArticleLink").innerHTML = row.linktext;
-            });
-        }
-    </script>
     <base target="_blank"/>    
 </head>
 <body>
     <div class="wrapper">
-        <div class="title">School Information ${requestScope.context.cobrand}</div>
+        <div class="title">Find Local School Information</div>
 
         <div class="body">
             <div class="logo">
                 <a href="/"
                    target="_blank"><img border="0"
-                                        width="130"
-                                        height="20"
-                                        src="/res/img/logo/logo_GS_130x20.gif"
+                                        width="148"
+                                        height="27"
+                                        src="/res/img/logo/logo_GS_148x27notag.gif"
                                         alt="GreatSchools"/></a>
             </div>
             <form method="GET" target="_blank"
                   action="/search/search.page"
                   onsubmit="return checkForm(this);">
-                <div class="featureText">
-                    Find information about<br/>
-                    schools in your area.
+                <div class="text">
+                    Search for parent reviews, ratings and more<br/>
+                    for preschools and K-12 schools nationwide.
                 </div>
                 <div class="searchContent">
                     <input type="text" maxlength="75" name="q"
@@ -85,11 +68,14 @@
                     <input type="submit" value="Search" class="searchSubmit"/>
                 </div>
             </form>
+            <div class="hr">
+                <hr/>
+            </div>
             <form method="GET" target="_blank"
                   action="/search/search.page"
                   onsubmit="return checkForm(this);">
-                <div class="featureText">
-                    Find test scores in your state.
+                <div class="text">
+                    Find the most recent test scores for your state.
                 </div>
                 <div class="searchTestScores">
                     <gsweb:stateSelector styleClass="searchDropdown" name="state"
@@ -98,22 +84,7 @@
                     <input type="submit" value="Find test scores" class="testScoresSubmit"/>
                 </div>
             </form>
-            <div class="text">
-                Search for parent reviews, ratings and more on
-                over 80,000 preschools and 130,000 K-12 schools
-                nationwide.
-            </div>
-            <div class="articleFeature">
-                <div class="featureText">Featured Article</div>
-                <![CDATA[
-                    <h4><a href="#" id="featuredArticleTitle"></a></h4>
-                    <div id="featuredArticleContent"></div>
-                    <a href="#" id="featuredArticleLink"></a>
-                ]]>
-            </div>
-
         </div>
-
     </div>
 </body>
 </html>
