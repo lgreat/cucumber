@@ -66,6 +66,7 @@
                     <gsweb:stateSelector styleClass="searchDropdown" name="state"
                                          useNoState="${state eq null or state eq ''}"
                                          noStateLabel="--" state="${state}"/>
+                    <input type="hidden" name="cpn" value="TODO-7098"/>
                     <input type="submit" value="Search" class="searchSubmit"/>
                 </div>
             </form>
@@ -82,6 +83,7 @@
                     <gsweb:stateSelector styleClass="searchDropdown" name="state"
                                          useNoState="${state eq null or state eq ''}"
                                          noStateLabel="--" state="${state}"/>
+                    <input type="hidden" name="cpn" value="TODO-7098"/>
                     <input type="submit" value="Find test scores" class="testScoresSubmit"/>
                 </div>
             </form>
