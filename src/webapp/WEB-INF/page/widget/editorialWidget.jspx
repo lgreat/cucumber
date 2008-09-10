@@ -96,7 +96,7 @@
 
     <div style="display: none;">
         <mod:tracking pageName="School Information Widget"
-              hier1="Widgets,School Information,[TODO-7098: substitute domain here]"/>
+              hier1="Widgets,School Information,${cobrandSite}"/>
     </div>
 </body>
 </html>
