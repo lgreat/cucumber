@@ -19,6 +19,10 @@
     </c:if>
     <c:set var="state" value="${param.defaultState}"/>
 
+    <script type="text/javascript" src="/res/js/global.js">
+        /* this comment keeps the tag from collapsing */
+    </script>
+
     <script type="text/javascript" charset="utf-8">
         function textSwitch(el, target, replace) {
             if (el.value == replace) {
@@ -34,7 +38,7 @@
             return true;
         }
     </script>
-    <base target="_blank"/>    
+    <base href="http://${cobrandSite}.greatschools.net" target="_blank"/>
 </head>
 <body>
     <div class="wrapper">
