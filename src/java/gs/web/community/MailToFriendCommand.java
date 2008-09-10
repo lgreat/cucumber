@@ -1,7 +1,6 @@
 package gs.web.community;
 
 import org.apache.commons.lang.StringUtils;
-import gs.web.community.ICaptchaCommand;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>

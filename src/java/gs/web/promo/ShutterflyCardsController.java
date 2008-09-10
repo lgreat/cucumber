@@ -1,29 +1,13 @@
 package gs.web.promo;
 
 import gs.data.community.IUserDao;
-import gs.data.community.User;
 import gs.data.community.promo.IPromoDao;
-import gs.data.community.promo.Promo;
-import gs.data.community.promo.PromoCode;
 import gs.web.util.ReadWriteController;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.orm.ObjectRetrievalFailureException;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>

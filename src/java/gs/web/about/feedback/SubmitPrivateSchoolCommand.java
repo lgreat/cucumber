@@ -1,7 +1,5 @@
 package gs.web.about.feedback;
 
-import gs.data.school.Grade;
-
 public class SubmitPrivateSchoolCommand extends SubmitSchoolCommand {
     private String _lowestGrade;
     private String _highestGrade;

@@ -66,10 +66,8 @@ public class TableMoverController extends SimpleFormController {
             if (cmd.getStates().length == 0 && includesStateSpecificTables) {
                 errors.reject("states", "You must select at least one state.");
             }
-            if (!errors.hasErrors()) {
-                if (cmd.getTables().length == 0) {
+            if (!errors.hasErrors() && cmd.getTables().length == 0) {
                     errors.reject("tablesets", "No tables left to move after filtering tables against blacklist and whitelist.");
-                }
             }
         }
     }

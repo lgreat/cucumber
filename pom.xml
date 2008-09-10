@@ -168,6 +168,36 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <linkXref>true</linkXref>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <targetJdk>1.5</targetJdk>
+                    <rulesets>
+                        <ruleset>/rulesets/basic.xml</ruleset>
+                        <ruleset>/rulesets/imports.xml</ruleset>
+
+                        <!--
+                        <ruleset>/rulesets/controversial.xml</ruleset>
+                        <ruleset>/rulesets/coupling.xml</ruleset>
+                        <ruleset>/rulesets/design.xml</ruleset>
+                        <ruleset>/rulesets/unusedcode.xml</ruleset>
+                        -->
+                    </rulesets>
+                </configuration>
+                <!--
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                -->
+            </plugin>
         </plugins>
     </build>
 

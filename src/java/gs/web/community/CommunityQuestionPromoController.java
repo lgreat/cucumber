@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 
 import gs.web.util.UrlUtil;
 import gs.data.util.table.ITableRow;

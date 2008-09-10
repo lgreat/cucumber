@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TableMoverCommand.java,v 1.7 2008/08/02 22:43:06 thuss Exp $
+ * $Id: TableMoverCommand.java,v 1.8 2008/09/10 22:11:13 chriskimm Exp $
  */
 package gs.web.admin.database;
-
-import gs.web.admin.database.TableMoverServiceData;
 
 /**
  * Backing object for #TableMoverController

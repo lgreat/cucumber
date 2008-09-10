@@ -1,7 +1,6 @@
 package gs.web.about.feedback;
 
 import gs.data.state.State;
-import gs.data.school.Grade;
 
 /**
  * @author Young Fan

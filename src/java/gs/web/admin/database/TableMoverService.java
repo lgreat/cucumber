@@ -177,7 +177,7 @@ public class TableMoverService {
                     reader.close();
                 }
             } catch (IOException e) {
-                // Do nothing
+                _log.info(e);
             }
         }
     }
@@ -356,7 +356,7 @@ public class TableMoverService {
      * Filter the databases and tables, based on the logic in GS-3018
      *
      * @param databases
-     * @return
+     * @return ..
      */
     public void filterDatabases(TableMoverServiceData databases) {
         if (TableMoverServiceData.PRODUCTION_TO_DEV.equals(databases.getDirection())) {

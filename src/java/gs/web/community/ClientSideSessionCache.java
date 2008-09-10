@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.11 2007/08/20 18:41:58 aroy Exp $
+ * $Id: ClientSideSessionCache.java,v 1.12 2008/09/10 22:11:13 chriskimm Exp $
  */
 
 package gs.web.community;
@@ -96,7 +96,7 @@ public class ClientSideSessionCache {
         try {
             _userHash = AuthenticationManager.generateCookieValue(user);
         } catch (NoSuchAlgorithmException e) {
-            // ignore
+            _log.warn(e); // seems like an problem, so I'll log a warn.
         }
 
         // Count their subscriptions

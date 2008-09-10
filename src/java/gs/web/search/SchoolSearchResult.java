@@ -4,23 +4,10 @@ import gs.data.geo.ILocation;
 import gs.data.geo.LatLon;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
-import gs.data.school.SchoolType;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
-import gs.data.school.review.CategoryRating;
 import gs.data.search.Indexer;
-import gs.data.util.NameValuePair;
-import gs.web.jsp.Util;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.SessionContext;
 import org.apache.lucene.document.Document;
-import org.springframework.context.ApplicationContext;
-
 import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
 
 public class SchoolSearchResult extends SearchResult implements ILocation {
 
