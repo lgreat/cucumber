@@ -236,7 +236,7 @@
                     <c:import
                             url="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list&amp;&amp;omitUl=true"/>
                     <c:import
-                            url="/content/splashLinks.module?page=latest_tools_last&amp;type=all&amp;layout=list&amp;omitUl=true&amp;liStyle=latestToolsLast&amp;idPrefix=latestToolsLast"/>
+                            url="/content/splashLinks.module?page=latest_tools_last&amp;type=all&amp;layout=list&amp;omitUl=true&amp;liStyle=latestToolsLast&amp;idPrefix=latestToolsLast&amp;target=_blank"/>
                     </ul>
 
                     <div class="sponsor_ad"><ad:Homepage_185x28/></div>
