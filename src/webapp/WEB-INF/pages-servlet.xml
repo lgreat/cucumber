@@ -1320,6 +1320,15 @@
           class="gs.web.test.SchoolLevelsInCityAjaxController"
           autowire="byName" lazy-init="true"/>
 
+    <bean name="/test/firstTestScoreLanding.page"
+          class="gs.web.test.FirstTestScoreLandingController"
+          autowire="byName"
+          lazy-init="true">
+        <property name="tableDao">
+            <bean factory-bean="testScoreLandingPageTableFactory" factory-method="getTableDao"/>
+        </property>
+    </bean>
+
     <bean name="/school/error.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

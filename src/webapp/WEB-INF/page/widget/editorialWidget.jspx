@@ -9,7 +9,7 @@
     <jsp:directive.page contentType="text/html"/>
 <html>
 <head>
-    <title>Editorial Widget - GreatSchools</title>
+    <title>School Information Widget - GreatSchools</title>
     <ad:setSlotPrefix slotPrefix="Community"/>
     <link type="text/css" rel="stylesheet" href="/res/css/widget/editorialWidget.css"/>
 
@@ -78,7 +78,7 @@
                 <hr/>
             </div>
             <form method="GET" target="_blank"
-                  action="/search/search.page"
+                  action="/test/firstTestScoreLanding.page"
                   onsubmit="return checkForm(this);">
                 <div class="text">
                     Find the most recent test scores for your state.
