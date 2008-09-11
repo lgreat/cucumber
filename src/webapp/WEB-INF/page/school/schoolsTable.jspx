@@ -48,6 +48,22 @@
 <c:set var="heading1" value="${requestScope.heading1}"/>
 <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }"/>
 
+
+<c:choose>
+    <c:when test="${isCityBrowse}">
+        <c:set var="pageName" value="schools:city:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}" />
+        <c:set var="hier1" value="Search,Schools,City,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"/>
+    </c:when>
+    <c:when test="${isDistrictBrowse}">
+        <c:set var="pageName" value="schools:district:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}" />
+        <c:set var="hier1" value="Search,Schools,District,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="pageName" value="schools${param.map eq 1 ? ':map':''}" />
+        <c:set var="hier1" value="Search,Schools,Page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
+    </c:otherwise>
+</c:choose>
+
 <jsp:scriptlet>
     gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
     if (null != pageHelper) {
@@ -557,8 +573,16 @@ function reloadPageWithFilters(sortColId) {
     <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
     <c:choose>
         <c:when test="${isCityBrowse}">
-            <school:compareInCity city="${cityName}" state="${state}"
+            <c:choose>
+                <c:when test="${lc eq 'p' }">
+                    <!-- show ad -->
+                    <ad:House_Ad_300x137 referredBy="${pageName}"/>
+                </c:when>
+                <c:otherwise>
+                    <school:compareInCity city="${cityName}" state="${state}"
                                   levelCode="${requestScope.allLevelCodes}"/>
+                </c:otherwise>
+            </c:choose>
         </c:when>
         <c:otherwise>
             <school:compareInDistrict district="${district}" state="${state}"
@@ -598,29 +622,11 @@ function reloadPageWithFilters(sortColId) {
     <h1 id="sfooter" class="sfooter">${title}</h1>
 </c:if>
 
-<c:choose>
-    <c:when test="${isCityBrowse}">
-        <mod:tracking
-                pageName="schools:city:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}"
-                hier1="Search,Schools,City,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"
-                schoolType="${gsweb:toDelimitedString(st)}"
-                schoolLevel="${not empty lc ? lc.commaSeparatedString : ''}"/>
-    </c:when>
-    <c:when test="${isDistrictBrowse}">
-        <mod:tracking
-                pageName="schools:district:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}"
-                hier1="Search,Schools,District,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"
-                schoolType="${gsweb:toDelimitedString(st)}"
-                schoolLevel="${not empty lc ? lc.commaSeparatedString : ''}"/>
-    </c:when>
-    <c:otherwise>
-        <mod:tracking pageName="schools${param.map eq 1 ? ':map':''}"
-                      hier1="Search,Schools,Page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
-                      schoolType="${gsweb:toDelimitedString(st)}"
-                      schoolLevel="${not empty lc ? lc.commaSeparatedString : ''}"/>
-
-    </c:otherwise>
-</c:choose>
+<mod:tracking
+        pageName="${pageName}"
+        hier1="${hier1}"
+        schoolType="${gsweb:toDelimitedString(st)}"
+        schoolLevel="${not empty lc ? lc.commaSeparatedString : ''}"/>
 </gsml:body>
 </html>
 </jsp:root>
