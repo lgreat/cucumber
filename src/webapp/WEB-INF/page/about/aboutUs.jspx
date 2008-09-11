@@ -60,7 +60,7 @@
                 </div>
 
                 <div id="billsBlog">
-                    <gsml:popupWindow href="http://blogs.greatschools.net/billsblog/" width="800" height="600" left="50"
+                    <gsml:popupWindow href="http://blogs.greatschools.net/billsblog/" width="917" height="600" left="50"
                                       top="50"><gsml:img src="/res/img/about/billsblog.gif"
                                                          alt="Bill's Blog On School Improvement"/></gsml:popupWindow>
 
@@ -74,7 +74,7 @@
 
                         <gsml:url var="read" value="/res/img/button/read.gif"/>
                         <div id="readBillsBlog">
-                            <gsml:popupWindow href="http://blogs.greatschools.net/billsblog/" width="800" height="600" left="50"
+                            <gsml:popupWindow href="http://blogs.greatschools.net/billsblog/" width="917" height="600" left="50"
                                           top="50"><img
                                 src="${read}"
                                 alt="Read Bill's Blog"

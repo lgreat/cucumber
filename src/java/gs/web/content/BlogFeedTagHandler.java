@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.11 2008/09/03 17:48:47 yfan Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.12 2008/09/11 19:19:26 yfan Exp $
  */
 
 package gs.web.content;
@@ -69,7 +69,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             out.print("<div style='padding-top: 9px;padding-bottom: 9px;'> ");
             out.print("<a onclick=\"Popup=window.open('" +
                     link +
-                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;\"\n" +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
                     " href=\"" +
                     link +
                     "\">Read more about \"" + title + "\" &gt;</a>");
