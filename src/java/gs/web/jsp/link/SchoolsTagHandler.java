@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.14 2008/09/11 18:43:15 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.15 2008/09/11 21:18:15 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -35,8 +35,8 @@ public class SchoolsTagHandler extends LinkTagHandler {
     private String _sortDirection;
 
     protected UrlBuilder createUrlBuilder() {
-        UrlBuilder urlBuilder;
-        if (_districtId == null) {
+        UrlBuilder urlBuilder;        
+        if (_districtId == null || _districtId == 0) {
             LevelCode levelCode = null;
             if (StringUtils.isNotBlank(_levelCode)) {
                 levelCode = LevelCode.createLevelCode(_levelCode);
