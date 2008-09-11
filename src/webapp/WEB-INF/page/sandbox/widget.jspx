@@ -1,0 +1,27 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+    >
+    <jsp:directive.page contentType="text/html"/>
+<html>
+    <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
+    <head>
+        <title>Test widget - GreatSchools</title>
+        <ad:setSlotPrefix slotPrefix="Community"/>
+    </head>
+    <body>
+    <p>Content above</p>
+        <![CDATA[
+        <iframe src="/widget/editorialWidget.page"
+                width="318" height="235"
+                marginheight="0" marginwidth="0"
+                frameborder="0"></iframe>
+        ]]>
+    <p>Content below</p>
+        <!--<script type="text/javascript" src="http://widgets.clearspring.com/o/48c5d07a751dd2fd/48c5d1c0e791e01e/48c5d18afb0c1265/43d03474/widget.js">-->
+        <!--// blah-->
+        <!--</script>-->
+    </body>
+</html>
+</jsp:root>

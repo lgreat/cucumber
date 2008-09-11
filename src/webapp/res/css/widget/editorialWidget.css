@@ -1,7 +1,5 @@
 div.wrapper {
     border: 1px solid #7BAAD5;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    color: #777777;
 }
 
 div.wrapper form {
@@ -9,8 +7,10 @@ div.wrapper form {
     padding: 0;
 }
 
-div.wrapper form input, div.wrapper form select {
-    color: #777777;
+div.wrapper, div.wrapper form input, div.wrapper form select {
+    font-family: Verdana, Arial, sans-serif;
+    color: #333333;
+    font-size: 8.5pt;
 }
 
 div.wrapper form input.searchSubmit, div.wrapper form input.testScoresSubmit {
@@ -19,8 +19,7 @@ div.wrapper form input.searchSubmit, div.wrapper form input.testScoresSubmit {
 
 div.title {
     font-weight: bold;
-    font-size: 14px;
-    padding: 3px 5px 3px 5px;
+    padding: 4px 5px 4px 5px;
     border-bottom: 1px solid #7BAAD5;
 }
 
@@ -30,10 +29,7 @@ div.body {
 }
 
 div.logo {
-    margin-bottom: 15px;
-    position: relative;
-    left: -15px;
-    z-index: -1;
+    margin-bottom: 10px;
 }
 
 div.searchContent, div.searchTestScores {
@@ -48,10 +44,6 @@ input.searchInput {
 
 select.searchDropdown {
     margin-right: 10px;
-}
-
-div.text {
-    font-size: 12px;
 }
 
 div.hr {
