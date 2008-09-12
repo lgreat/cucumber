@@ -18,7 +18,8 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:setPathway pathway="LIBRARY"/>
+<!--pageHelper:setPathway pathway="LIBRARY"/-->
+<pageHelper:setPathway pathway="SEASONAL"/>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -37,25 +38,23 @@
         <jsp:include page="/content/leftNav.module" />
 
         <div class="middle">
-           
-            <h1 id="specialNeedsText" class="pageHeading">Special Needs</h1>
-            <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg"
-                      alt="Male teacher and boy reading together"/>
-
-           <div class="welcome">
-
-                <c:if test="${param.fromSchwab == '1'}">
+            <c:if test="${param.fromSchwab == '1'}">
+                <div class="welcome">
                     <div id="schwabOnly">
                         <gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">
                             <span id="msg">Welcome to SchwabLearning Parents</span>
                             <span id="from">from Bill Jackson, Founder and President</span>
                         </gsml:a>
                     </div>
-                </c:if>
-               <div class="bottom">
-                   <!-- comment -->
-               </div>
-            </div>
+                </div>
+            </c:if>
+            <h1 id="specialNeedsText" class="pageHeading">Special Needs</h1>
+            <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg"
+                      alt="Male teacher and boy reading together"/>
+
+           <div class="bottom">
+               <!-- comment -->
+           </div>
 
             <div>
             <h2 id="Identifying-a-Learning-Difficulty">Identifying a Learning Difficulty</h2>

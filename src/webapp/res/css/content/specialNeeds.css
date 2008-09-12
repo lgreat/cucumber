@@ -1,29 +1,16 @@
 h1#specialNeedsText {
     background: url( "../../img/content/specialNeeds/headertext.gif" ) no-repeat;
 }
-
-
 #contentGS div.welcome {
     border-bottom:0px dotted #CCCCCC;
     padding-bottom: 0px;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     color: #3399AA;
 }
-
-#contentGS div.welcome div.bottom {
-    background:transparent url(../../img/content/countdownToCollege/red_dot.gif) repeat-x scroll center bottom;
-    height: 18px;
-    border-bottom: 0px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-}
-
 #contentGS div.welcome div#schwabOnly{
-
-    padding-top:10px;
-    padding-bottom: 0px;
+    padding-top:6px;
+    padding-bottom: 6px;
     border-bottom: 0px;
-
 }
 div#schwabOnly a {
     color:#3399AA;
@@ -48,7 +35,13 @@ div#schwabOnly:hover{
     display: block;
     text-align: center;
 }
-
+#contentGS div.middle div.bottom {
+    background:transparent url(../../img/content/countdownToCollege/red_dot.gif) repeat-x scroll center bottom;
+    height: 18px;
+    border-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
 h2#Identifying-a-Learning-Difficulty {
     background: url( "../../img/content/specialNeeds/text_1.gif" ) no-repeat;
 

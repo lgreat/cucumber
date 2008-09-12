@@ -20,7 +20,8 @@
 <jsp:directive.page contentType="text/html"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-<pageHelper:setPathway pathway="SEASONAL"/>
+<!--pageHelper:setPathway pathway="SEASONAL"/-->
+<pageHelper:setPathway pathway="LIBRARY"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
 <head>
