@@ -76,12 +76,8 @@
             </div>
         </div>
         <div id="dialogHeader">
-            <div class="line">
-                You have selected schools that span multiple levels.
-            </div>
-            <div class="line">
-                Which do you want to compare?
-            </div>
+            You have selected schools that span multiple levels.<br/>
+            Which do you want to compare?
         </div>
         <div id="dialogBody">
             <c:forEach var="curLevel" items="e,m,h">
@@ -243,7 +239,7 @@
             if (document.getElementById("dialog_" + levelCode).style.display == "block") {
                 document.getElementById("dialog_" + levelCode).style.height = dialogHeight;
             }
-        }        
+        }
 
         compareDialog.show();
 
