@@ -3,13 +3,12 @@ package gs.web.community;
 import gs.web.BaseControllerTestCase;
 import gs.data.util.table.ITableDao;
 import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.web.util.google.GoogleSpreadsheetInfo;
 import gs.data.util.table.HashMapTableRow;
 import gs.data.util.table.ITableRow;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
 
 import static gs.web.community.CommunityQuestionPromoController.*;
 import static org.easymock.classextension.EasyMock.*;
@@ -25,7 +24,6 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
     public void setUp() throws Exception {
         super.setUp();
         _controller = new CommunityQuestionPromoController();
-
         _dao = createMock(GoogleSpreadsheetDao.class);
         _controller.setTableDao(_dao);
     }
@@ -77,8 +75,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _dao;
 
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getWorksheetUrl()).andReturn("google/");
-        dao.setWorksheetUrl("google/od6");
+        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         expect(dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
         replay(dao);
@@ -158,29 +155,30 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
     }
 
     public void testGetWorksheet() {
+        CommunityQuestionPromoController controller = (CommunityQuestionPromoController) getApplicationContext().getBean(CommunityQuestionPromoController.BEAN_ID);
         getRequest().setServerName("dev.greatschools.net");
-        assertEquals("od6", _controller.getWorksheet(getRequest()));
+        assertEquals("od6", controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("sfgate.dev.greatschools.net");
-        assertEquals("od6", _controller.getWorksheet(getRequest()));
+        assertEquals("od6", controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("aroy.dev.greatschools.net");
-        assertEquals("od6", _controller.getWorksheet(getRequest()));
+        assertEquals("od6", controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("www.greatschools.net");
-        assertEquals("od4", _controller.getWorksheet(getRequest()));
+        assertEquals("od4", controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("sfgate.greatschools.net");
-        assertEquals("od4", _controller.getWorksheet(getRequest()));
+        assertEquals("od4", controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("staging.greatschools.net");
-        assertEquals("oda", _controller.getWorksheet(getRequest()));
+        assertEquals("oda", controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("sfgate.staging.greatschools.net");
-        assertEquals("oda", _controller.getWorksheet(getRequest()));
+        assertEquals("oda", controller.getWorksheet(getRequest()));
 
         getRequest().setParameter("worksheet", "od5");
-        assertEquals("Expect parameter to override", "od5", _controller.getWorksheet(getRequest()));
+        assertEquals("Expect parameter to override", "od5", controller.getWorksheet(getRequest()));
     }
 
     public void testGetCode() {
@@ -191,23 +189,11 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
     }
 
     public void testInjectWorksheetName() {
-        GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _dao;
+        CommunityQuestionPromoController controller = (CommunityQuestionPromoController) getApplicationContext().getBean(CommunityQuestionPromoController.BEAN_ID);
+        GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) controller.getTableDao();
 
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getWorksheetUrl()).andReturn("google/");
-        dao.setWorksheetUrl("google/od6");
-        replay(dao);
-
-        _controller.injectWorksheetName(getRequest());
-        verify(dao);
-
-        reset(dao);
-
-        expect(dao.getWorksheetUrl()).andReturn("google/od6");
-        replay(dao);
-
-        _controller.injectWorksheetName(getRequest());
-        verify(dao);
-
+        controller.injectWorksheetName(getRequest());
+        assertEquals("od6", dao.getSpreadsheetUrl().getWorksheetName());
     }
 }

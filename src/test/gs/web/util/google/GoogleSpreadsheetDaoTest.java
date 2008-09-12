@@ -23,22 +23,32 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
 
     private GoogleSpreadsheetDao _dao;
     private static final String WORKSHEET_URL = "http://spreadsheets.google.com/feeds/worksheets/pmY-74KD4CbXrSKtrPdEnSg/public/values/od7";
+    private static final String GOOGLE_KEY = "pmY-74KD4CbXrSKtrPdEnSg";
+    private static final String VISIBILITY = "public";
+    private static final String PROJECTION = "values";
+    private static final String WORKSHEET_NAME = "od7";
+    private static final GoogleSpreadsheetInfo SPREADSHEET_INFO = new GoogleSpreadsheetInfo(GOOGLE_KEY, VISIBILITY, PROJECTION, WORKSHEET_NAME);
 
     public void setUp() throws Exception {
         super.setUp();
 
-        String worksheetUrl =
-                WORKSHEET_URL;
-        _dao = new GoogleSpreadsheetDao(worksheetUrl);
+        _dao = new GoogleSpreadsheetDao(new GoogleSpreadsheetInfo(GOOGLE_KEY, VISIBILITY, PROJECTION, WORKSHEET_NAME));
         _dao.clearCache();
     }
 
     public void testSetWorksheetUrl() {
-        _dao = new GoogleSpreadsheetDao(null);
+        _dao = new GoogleSpreadsheetDao(new GoogleSpreadsheetInfo(null,null,null,null));
 
-        assertNull(_dao.getWorksheetUrl());
+        boolean threwException = false;
+        try {
+            _dao.getWorksheetUrl();
+        } catch (IllegalStateException e) {
+            threwException = true;
+        }
 
-        _dao.setWorksheetUrl(WORKSHEET_URL);
+        assertTrue("Expected exception when spreadsheet url parameters not set", threwException);
+
+        _dao.setSpreadsheetUrl(SPREADSHEET_INFO);
         assertEquals(WORKSHEET_URL, _dao.getWorksheetUrl());
     }
 
@@ -142,7 +152,7 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
     }
 
     public void testGetListFeedWithCredentials() throws IOException, ServiceException, AbstractCachedTableDao.ExternalConnectionException {
-        _dao = new GoogleSpreadsheetDao(WORKSHEET_URL, "user", "pass");
+        _dao = new GoogleSpreadsheetDao(SPREADSHEET_INFO, "user", "pass");
 
         SpreadsheetService service = createMock(SpreadsheetService.class);
         WorksheetEntry dataWorksheet = createMock(WorksheetEntry.class);

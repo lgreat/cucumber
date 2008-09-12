@@ -33,21 +33,21 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
     /** For private/write access */
     private String _password;
     /** Url to retrieve spreadsheet from */
-    private String _worksheetUrl;
+    private GoogleSpreadsheetInfo _spreadsheetInfo;
 
     /**
      * Initialize this class with a URL pointing to the spreadsheet.
      */
-    public GoogleSpreadsheetDao(String worksheetUrl) {
-        this(worksheetUrl, null, null);
+    public GoogleSpreadsheetDao(GoogleSpreadsheetInfo spreadsheetInfo) {
+        this(spreadsheetInfo, null, null);
     }
 
     /**
      * Initialize this class with a URL pointing to the spreadsheet, and a username/password
      * for authentication.
      */
-    public GoogleSpreadsheetDao(String worksheetUrl, String username, String password) {
-        _worksheetUrl = worksheetUrl;
+    public GoogleSpreadsheetDao(GoogleSpreadsheetInfo spreadsheetInfo, String username, String password) {
+        _spreadsheetInfo = spreadsheetInfo;
         _username = username;
         _password = password;
     }
@@ -86,17 +86,17 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
             if (!StringUtils.isEmpty(_username) && !StringUtils.isEmpty(_password)) {
                 service.setUserCredentials(_username, _password);
             }
-            WorksheetEntry dataWorksheet = service.getEntry(new URL(_worksheetUrl), WorksheetEntry.class);
+            WorksheetEntry dataWorksheet = service.getEntry(new URL(_spreadsheetInfo.getWorksheetUrl()), WorksheetEntry.class);
             URL listFeedUrl = dataWorksheet.getListFeedUrl();
             lf = service.getFeed(listFeedUrl, ListFeed.class);
         } catch (MalformedURLException e) {
-            _log.warn("MalformedURLException: \"" + _worksheetUrl + "\"", e);
+            _log.warn("MalformedURLException: \"" + _spreadsheetInfo.getWorksheetUrl() + "\"", e);
             throw new ExternalConnectionException(e);
         } catch (IOException e) {
-            _log.warn("IOException: \"" + _worksheetUrl + "\"", e);
+            _log.warn("IOException: \"" + _spreadsheetInfo.getWorksheetUrl() + "\"", e);
             throw new ExternalConnectionException(e);
         } catch (ServiceException e) {
-            _log.warn("ServiceException: \"" + _worksheetUrl + "\"", e);
+            _log.warn("ServiceException: \"" + _spreadsheetInfo.getWorksheetUrl() + "\"", e);
             throw new ExternalConnectionException(e);
         }
         return lf;
@@ -106,7 +106,7 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
      * Uses the worksheetUrl as the cache namespace.
      */
     public String getCacheKey() {
-        return _worksheetUrl;
+        return _spreadsheetInfo.getWorksheetUrl();
     }
 
     protected void setSpreadsheetService(SpreadsheetService service) {
@@ -124,7 +124,7 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
     }
 
     public String getWorksheetUrl() {
-        return _worksheetUrl;
+        return _spreadsheetInfo.getWorksheetUrl();
     }
     
     public String getUsername() {
@@ -134,8 +134,13 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
     public String getPassword() {
         return _password;
     }
-    public void setWorksheetUrl(String worksheetUrl) {
-        _worksheetUrl = worksheetUrl;
+
+    public GoogleSpreadsheetInfo getSpreadsheetUrl() {
+        return _spreadsheetInfo;
+    }
+
+    public void setSpreadsheetUrl(GoogleSpreadsheetInfo spreadsheetInfo) {
+        _spreadsheetInfo = spreadsheetInfo;
     }
 
     /**

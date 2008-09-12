@@ -2,6 +2,7 @@ package gs.web.about;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.web.util.google.GoogleSpreadsheetInfo;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.data.util.table.HashMapTableRow;
@@ -52,7 +53,7 @@ public class PressClippingsControllerTest extends BaseControllerTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        _controller = (PressClippingsController) getApplicationContext().getBean(PressClippingsController.BEAN_ID);
+        _controller = new PressClippingsController();
         _tableDao = createMock(GoogleSpreadsheetDao.class);
         _controller.setTableDao(_tableDao);
     }
@@ -68,9 +69,7 @@ public class PressClippingsControllerTest extends BaseControllerTestCase {
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getWorksheetUrl()).andReturn("google/");
-        dao.setWorksheetUrl("google/od6");
-
+        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
         expect(dao.getAllRows()).andReturn(_tableRowList);
         replay(dao);
 
@@ -94,8 +93,7 @@ public class PressClippingsControllerTest extends BaseControllerTestCase {
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getWorksheetUrl()).andReturn("google/");
-        dao.setWorksheetUrl("google/od6");
+        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         expect(dao.getAllRows()).andReturn(_tableRowList);
         replay(dao);
@@ -129,57 +127,34 @@ public class PressClippingsControllerTest extends BaseControllerTestCase {
     }
 
     public void testInjectWorksheetName() {
-        GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
+        PressClippingsController controller = (PressClippingsController) getApplicationContext().getBean(PressClippingsController.BEAN_ID);
+        GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) controller.getTableDao();
 
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getWorksheetUrl()).andReturn("google/");
-        dao.setWorksheetUrl("google/" + _controller.getInternalWorksheetName());
-        replay(dao);
-
-        _controller.injectWorksheetName(getRequest());
-        verify(dao);
-
-        reset(dao);
+        controller.injectWorksheetName(getRequest());
+        assertEquals(controller.getInternalWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
 
         getRequest().setServerName("staging.greatschools.net");
-        expect(dao.getWorksheetUrl()).andReturn("google/");
-        dao.setWorksheetUrl("google/" + _controller.getInternalWorksheetName());
-        replay(dao);
-
-        _controller.injectWorksheetName(getRequest());
-        verify(dao);
-
-        reset(dao);
+        controller.injectWorksheetName(getRequest());
+        assertEquals(controller.getInternalWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
 
         getRequest().setServerName("www.greatschools.net");
-        expect(dao.getWorksheetUrl()).andReturn("google/");
-        dao.setWorksheetUrl("google/" + _controller.getProductionWorksheetName());
-        replay(dao);
-
-        _controller.injectWorksheetName(getRequest());
-        verify(dao);
-
-        reset(dao);
-
-        getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getWorksheetUrl()).andReturn("google/" + _controller.getInternalWorksheetName());
-        replay(dao);
-
-        _controller.injectWorksheetName(getRequest());
-        verify(dao);
+        controller.injectWorksheetName(getRequest());
+        assertEquals(controller.getProductionWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
     }
 
     public void testGetWorksheet() {
+        PressClippingsController controller = (PressClippingsController) getApplicationContext().getBean(PressClippingsController.BEAN_ID);
         getRequest().setServerName("dev.greatschools.net");
         assertEquals("Worksheet name was not internal worksheet name for dev server name",
-            _controller.getInternalWorksheetName(), _controller.getWorksheet(getRequest()));
+            controller.getInternalWorksheetName(), controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("staging.greatschools.net");
         assertEquals("Worksheet name was not internal worksheet name for staging server name",
-            _controller.getInternalWorksheetName(), _controller.getWorksheet(getRequest()));
+            controller.getInternalWorksheetName(), controller.getWorksheet(getRequest()));
 
         getRequest().setServerName("www.greatschools.net");
         assertEquals("Worksheet name was not production worksheet name for production server name",
-            _controller.getProductionWorksheetName(), _controller.getWorksheet(getRequest()));
+            controller.getProductionWorksheetName(), controller.getWorksheet(getRequest()));
     }
 }

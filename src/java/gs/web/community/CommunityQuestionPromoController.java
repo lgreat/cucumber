@@ -50,11 +50,7 @@ public class CommunityQuestionPromoController extends AbstractController {
      */
     protected void injectWorksheetName(HttpServletRequest request) {
         GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getTableDao();
-        String worksheetName = getWorksheet(request);
-        String worksheetUrl = castDao.getWorksheetUrl();
-        if (!worksheetUrl.endsWith(worksheetName)) {
-            castDao.setWorksheetUrl(worksheetUrl + worksheetName);
-        }
+        castDao.getSpreadsheetUrl().setWorksheetName(getWorksheet(request));
     }
 
     /**

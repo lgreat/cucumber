@@ -44,13 +44,15 @@ public class GoogleSpreadsheetDaoFactoryTest extends BaseTestCase {
 
     public void testGetTableDaoBasic() {
         _factory.setGoogleKey("1234");
+        _factory.setWorksheetName("abcd");
 
         ITableDao rval = _factory.getTableDao();
 
         assertEquals(GoogleSpreadsheetDao.class, rval.getClass());
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) rval;
         assertEquals(SPREADSHEET_PREFIX + "1234/" +
-                DEFAULT_VISIBILITY + "/" + DEFAULT_PROJECTION + "/",
+                DEFAULT_VISIBILITY + "/" + DEFAULT_PROJECTION + "/" +
+                "abcd",
                 dao.getWorksheetUrl());
 
         assertNull(dao.getUsername());
@@ -63,12 +65,13 @@ public class GoogleSpreadsheetDaoFactoryTest extends BaseTestCase {
         _factory.setProjection("proj");
         _factory.setUsername("user");
         _factory.setPassword("pass");
+        _factory.setWorksheetName("abcd");
 
         ITableDao rval = _factory.getTableDao();
 
         assertEquals(GoogleSpreadsheetDao.class, rval.getClass());
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) rval;
-        assertEquals(SPREADSHEET_PREFIX + "12345/vis/proj/",
+        assertEquals(SPREADSHEET_PREFIX + "12345/vis/proj/abcd",
                 dao.getWorksheetUrl());
 
         assertEquals("user", dao.getUsername());

@@ -40,18 +40,13 @@ public class GoogleSpreadsheetDaoFactory implements ITableDaoFactory {
         if (_googleKey == null) {
             throw new IllegalStateException("Cannot instantiate GoogleSpreadsheetDao without googleKey");
         }
-        String worksheetUrl = SPREADSHEET_PREFIX +
-                _googleKey + "/" +
-                _visibility + "/" +
-                _projection + "/";
-        if (!StringUtils.isEmpty(_worksheetName)) {
-                worksheetUrl += _worksheetName;
-        }
+        GoogleSpreadsheetInfo spreadsheetInfo =
+             new GoogleSpreadsheetInfo(_googleKey, _visibility, _projection, _worksheetName);
         GoogleSpreadsheetDao dao;
         if (!StringUtils.isEmpty(_username) && !StringUtils.isEmpty(_password)) {
-            dao = new GoogleSpreadsheetDao(worksheetUrl, _username, _password);
+            dao = new GoogleSpreadsheetDao(spreadsheetInfo, _username, _password);
         } else {
-            dao = new GoogleSpreadsheetDao(worksheetUrl);
+            dao = new GoogleSpreadsheetDao(spreadsheetInfo);
         }
         return dao;
     }
