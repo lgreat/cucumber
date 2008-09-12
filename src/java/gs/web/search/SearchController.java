@@ -218,15 +218,18 @@ public class SearchController extends AbstractFormController {
             model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
         }
 
-
         int pageSize = 10;
-        try {
-            Integer paramPageSize = new Integer(request.getParameter("pageSize"));
-            if (paramPageSize > 1) {
-                pageSize = paramPageSize;
+
+        String pageSizeParam = request.getParameter("pageSize");
+        if (StringUtils.isNotBlank(pageSizeParam)) {
+            try {
+                Integer paramPageSize = new Integer(pageSizeParam);
+                if (paramPageSize > 1) {
+                    pageSize = paramPageSize;
+                }
+            } catch (Exception ex) {
+                _log.warn("pageSize parameter should be an integer, ignoring: " + pageSizeParam);
             }
-        } catch (Exception ex) {
-            _log.warn("pageSize parameter should be an integer, ignoring: " + request.getParameter("pageSize"));
         }
 
         boolean resultsToShow = false;
