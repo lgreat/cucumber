@@ -5,23 +5,43 @@
     >
     <jsp:directive.page contentType="text/html"/>
 <html>
-    <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
     <head>
         <title>Test widget - GreatSchools</title>
-        <ad:setSlotPrefix slotPrefix="Community"/>
     </head>
     <body>
-    <p>Content above</p>
+        <p>Default version (297x232):</p>
         <![CDATA[
         <iframe src="/widget/editorialWidget.page"
-                width="318" height="235"
+                width="297" height="232"
                 marginheight="0" marginwidth="0"
-                frameborder="0"></iframe>
+                frameborder="0" scrolling="no"></iframe>
         ]]>
-    <p>Content below</p>
-        <!--<script type="text/javascript" src="http://widgets.clearspring.com/o/48c5d07a751dd2fd/48c5d1c0e791e01e/48c5d18afb0c1265/43d03474/widget.js">-->
-        <!--// blah-->
-        <!--</script>-->
+        <p>Cobrand: sfgate, default state: CA:</p>
+        <![CDATA[
+        <iframe src="/widget/editorialWidget.page?cobrand=sfgate&defaultState=CA"
+                width="297" height="232"
+                marginheight="0" marginwidth="0"
+                frameborder="0" scrolling="no"></iframe>
+        ]]>
+        <p>External css supplied that overrides background color:</p>
+        <![CDATA[
+        <iframe src="/widget/editorialWidget.page?externalCss=/res/css/widget/editorialWidgetOverrideTest.css"
+                width="297" height="232"
+                marginheight="0" marginwidth="0"
+                frameborder="0" scrolling="no"></iframe>
+        ]]>
+
+        <p>Wider version (350x232):</p>
+        <![CDATA[
+        <iframe src="/widget/editorialWidget.page"
+                width="350" height="232"
+                marginheight="0" marginwidth="0"
+                frameborder="0" scrolling="no"></iframe>
+        ]]>
+
+    <!--<script type="text/javascript" src="http://widgets.clearspring.com/o/48c9483c7b170885/48c9660140d9e36b/48c951981678be7e/b58874e7/widget.js">-->
+        <!-- /* keep tag from collapsing */ -->
+    <!--</script>-->
     </body>
 </html>
 </jsp:root>
