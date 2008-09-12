@@ -122,13 +122,13 @@
                         </li>
                     </c:if>
                     <li>
-                        <link:city city="${city}" state="${state}" title="${city} schools">
+                        <link:city city="${city}" state="${school.physicalAddress.state}" title="${city} schools">
                             Top-rated ${city} schools &gt;
                         </link:city>
                     </li>
                     <li>
                         <link:nearbyCities city="${city}"
-                                           state="${school.databaseState}"
+                                           state="${school.physicalAddress.state}"
                                            title="Cities near ${city}">
                             Cities near ${city} &gt;
                         </link:nearbyCities>
