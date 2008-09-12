@@ -203,7 +203,7 @@
 
     <div class="module">
         Searching for colleges can be a daunting process. Learn how to guide your teen in finding colleges
-        that match his strengths, interests and goals – as well as practical factors such as location and
+        that match his strengths, interests and goals -– as well as practical factors such as location and
         your budget. 
     </div>
     <div align="right">
@@ -234,7 +234,7 @@
                         </li>
                         <li>
                             <a href="http://www.collegeboard.com/parents/apply/college-applications/21347.html"
-                               target="_blank">Price Isn't the Only Consideration</a>
+                               target="_blank">Price Isn't <br/>the Only Consideration</a>
                         </li>
                         <li>
                             <a href="http://apps.collegeboard.com/search/index.jsp"
@@ -303,6 +303,7 @@
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                                Get more involved with your <a href="http://www.collegeboard.com/student/plan/high-school/113.html" target="_blank">extracurricular activities</a>.
+                               <br/>Find a sport, club, or activity you enjoy and sign on!
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan &gt;</a>
                 </td>
@@ -322,7 +323,7 @@
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                                At school, sign up early to take the PSAT/NMSQT® in October. Get <a href="http://www.collegeboard.com/student/testing/psat/prep.html" target="_blank" >PSAT/NMSQT tips and a free practice test</a>.
-                           </span><br/><!-- GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
+                           </span> <!-- <br/>GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan &gt;</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
