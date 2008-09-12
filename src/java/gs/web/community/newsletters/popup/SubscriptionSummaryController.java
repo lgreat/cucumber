@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.20 2008/05/22 00:33:47 chriskimm Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.21 2008/09/12 01:01:38 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -209,7 +209,6 @@ public class SubscriptionSummaryController extends SimpleFormController {
                 for (Subscription sub : subscriptions) {
                     SubscriptionProduct sp = sub.getProduct();
                     if (sp.isNewsletter()) {
-                        System.out.println ("sp: " + sp);
                         if (sp == SubscriptionProduct.MYSTAT) {
                             if (sub.getSchoolId() == nc.getSchoolId()
                                     && sub.getState() == state) {
@@ -245,9 +244,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
                     }
                 }
 
-                System.out.println ("before: " + setNthMsHs);
                 splitSet(setNthMsHs, model);
-                System.out.println ("after: " + setNthMsHs);
                 
                 model.put(MODEL_SET_NTH_MS_HS, setNthMsHs);
                 model.put(MODEL_EMAIL, email);
