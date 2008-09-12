@@ -111,6 +111,9 @@
 
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
     <pageHelper:externalCss file="/res/css/survey/surveyResults.css"/>
+    <c:if test="${param.level eq 'p'}">
+        <pageHelper:externalCss file="/res/css/survey/surveyResultsPreschool.css"/>        
+    </c:if>
 
 </head>
 <body>
@@ -312,12 +315,12 @@
                         <c:when test="${result_question.displayType eq 'SIMPLE'}">
                             <c:if test="${result_question.numResponses > 0}">
                                 <c:if test="${fn:length(result_question.strings['header']) gt 0}">
-                                    <div class="green-header">${result_question.strings['header']}</div>
+                                    <div class="green-header green-header-simple">${result_question.strings['header']}</div>
                                 </c:if>
                                 <c:if test="${fn:length(result_question.displayText) gt 0}">
                                     ${result_question.displayText}
                                 </c:if>
-                                <div class="resultBox">
+                                <div class="resultBox simple">
                                     <c:forEach items="${result_question.responseValuesAsList}" var="entry" varStatus="cell">
                                         <c:choose>
                                             <c:when test="${(cell.index % 2) != 0}">
