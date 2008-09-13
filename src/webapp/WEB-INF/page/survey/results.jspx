@@ -367,7 +367,7 @@
                         </c:when>
 
                         <c:when test="${result_question.displayType eq 'SINGLE'}">
-                            <c:if test="${result_question.numResponses > 0}">
+                            <c:if test="${not empty result_question.answer}">
                                 <div class="group-header">
                                     ${result_question.answer}
                                 </div>
