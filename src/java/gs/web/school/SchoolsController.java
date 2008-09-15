@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.65 2008/09/09 19:30:27 yfan Exp $
+ * $Id: SchoolsController.java,v 1.66 2008/09/15 20:39:02 yfan Exp $
  */
 
 package gs.web.school;
@@ -333,6 +333,11 @@ public class SchoolsController extends AbstractController {
                 PageHelper.setCityIdCookie(request, response, city);
                 cityName = WordUtils.capitalize(city.getDisplayName());
                 cityName = WordUtils.capitalize(cityName, new char[]{'-'});
+                if (cityName.equals("Washington, DC")) {
+                    // GS-7153 - unfortunately, City.getDisplayName() appends ", DC", which
+                    // causes problems on the city browse page
+                    cityName = "Washington";
+                }
                 String displayName = cityName;
                 if (displayName.equals("New York")) {
                     displayName += " City";

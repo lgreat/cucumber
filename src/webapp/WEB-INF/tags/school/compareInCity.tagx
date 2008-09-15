@@ -67,7 +67,14 @@
                 <div id="headText">
                     Compare Schools in
                     <br/>
-                    ${city}
+                    <c:choose>
+                        <c:when test="${city eq 'Washington' and state eq 'DC'}">
+                            Washington, DC
+                        </c:when>
+                        <c:otherwise>
+                            ${city}
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
             <gsml:img src="/res/img/compare.gif" alt="magnifying glass"/>
