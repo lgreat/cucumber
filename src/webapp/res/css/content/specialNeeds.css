@@ -37,10 +37,15 @@ div#schwabOnly:hover{
 }
 #contentGS div.middle div.bottom {
     background:transparent url(../../img/content/countdownToCollege/red_dot.gif) repeat-x scroll center bottom;
-    height: 18px;
+    @height: 18px;
     border-bottom: 0px;
-    padding-bottom: 0px;
+    padding-bottom: 16px;
+    padding-top: 6px;
     margin-bottom: 0px;
+    font-size: small;
+    color:#777777;
+
+
 }
 h2#Identifying-a-Learning-Difficulty {
     background: url( "../../img/content/specialNeeds/text_1.gif" ) no-repeat;
