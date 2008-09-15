@@ -356,9 +356,9 @@ function reloadPageWithFilters(sortColId) {
             <div id="resultspagination">
                 <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
                 <c:set var="pageSize"
-                       value="${ (results.showAll eq 1) ? results.total : ((results.pageSize > 0) ? (results.pageSize) : 10)}"/>
+                       value="${ (not empty results.showAll) ? results.total : ((results.pageSize > 0) ? (results.pageSize) : 10)}"/>
                 <c:choose>
-                    <c:when test="${results.showAll eq 1}">
+                    <c:when test="${not empty results.showAll}">
                         <strong>1 - ${results.total}</strong>
                         of <strong>${results.total}</strong>
                     </c:when>
