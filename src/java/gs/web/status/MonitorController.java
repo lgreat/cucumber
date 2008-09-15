@@ -7,8 +7,10 @@ import gs.data.dao.PartitionedDatabaseTestEntity;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.util.StackTraceUtil;
+import gs.data.admin.IPropertyDao;
 import gs.web.util.ReadWriteController;
 import gs.web.util.VariantConfiguration;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -47,6 +50,8 @@ public class MonitorController implements ReadWriteController {
      * The partition Dao to talk to the state databases
      */
     private IPartitionDao _partitionDao;
+
+    private IPropertyDao _propertyDao;
 
     /**
      * The version of GSWeb
@@ -120,11 +125,14 @@ public class MonitorController implements ReadWriteController {
             _log.error("Error reading and writing to the state database", e);
             mainError = StackTraceUtil.getStackTrace(e);
         }
-        model.put("mainReadWrite", Boolean.valueOf(mainReadWrite));
+        model.put("mainReadWrite", mainReadWrite);
         model.put("mainError", mainError);
-        model.put("stateReadWrite", Boolean.valueOf(stateReadWrite));
+        model.put("stateReadWrite", stateReadWrite);
         model.put("stateError", stateError);
         model.put("environment", getEnvironmentMap());
+        if (request.getParameter("increment") != null) {
+            incrementVersion(request, response);
+        }
         model.put("abConfiguration", VariantConfiguration.convertABConfigurationToString());
 
         // Test setting some values in the session to try session replication
@@ -137,9 +145,9 @@ public class MonitorController implements ReadWriteController {
 
         Integer hitcount = (Integer) session.getAttribute("hitcount");
         if (hitcount == null) {
-            hitcount = new Integer(1);
+            hitcount = 1;
         } else {
-            hitcount = new Integer(1 + hitcount.intValue());
+            hitcount++;
         }
         session.setAttribute("hitcount", hitcount);
 
@@ -149,6 +157,39 @@ public class MonitorController implements ReadWriteController {
         model.put("remote_addr", request.getRemoteAddr());
 
         return new ModelAndView(_viewName, model);
+    }
+
+    protected void incrementVersion(HttpServletRequest request, HttpServletResponse response) {
+        Cookie trackingNumber = findCookie(request, SessionContextUtil.TRACKING_NUMBER);
+        if (trackingNumber == null) {
+            return;
+        }
+        long secondsSinceEpoch;
+        String cookieValue = trackingNumber.getValue();
+        try {
+            // Extract the time from the tracking number cookie (e.g. 180654739)
+            secondsSinceEpoch = Long.valueOf(cookieValue);
+        } catch (Exception e) {
+            return;
+        }
+        long newValue = VariantConfiguration.getNumberForNextVariant(secondsSinceEpoch, _propertyDao);
+
+        String newVariant = VariantConfiguration.getVariant(newValue, _propertyDao);
+        trackingNumber.setValue(String.valueOf(newValue));
+        response.addCookie(trackingNumber);
+        SessionContextUtil.getSessionContext(request).setAbVersion(newVariant);
+    }
+
+    protected Cookie findCookie(HttpServletRequest request, String cookieName) {
+        Cookie cookies[] = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookieName.equals(cookie.getName())) {
+                    return cookie;
+                }
+            }
+        }
+        return null;
     }
 
     public void setPartitionDao(IPartitionDao partitionDao) {
@@ -180,7 +221,7 @@ public class MonitorController implements ReadWriteController {
     private Map getEnvironmentMap() {
 
         Properties props = System.getProperties();
-        Map env = new TreeMap();
+        Map<String, Object> env = new TreeMap<String, Object>();
         /*
         if (context != null) {
             Enumeration en = context.getAttributeNames();
@@ -203,9 +244,9 @@ public class MonitorController implements ReadWriteController {
         env.put("log4j.mailappender", mailappender);
 
         Runtime rt = Runtime.getRuntime();
-        env.put("memory - total", new Long(rt.totalMemory()));
-        env.put("memory - max", new Long(rt.maxMemory()));
-        env.put("memory - free", new Long(rt.freeMemory()));
+        env.put("memory - total", rt.totalMemory());
+        env.put("memory - max", rt.maxMemory());
+        env.put("memory - free", rt.freeMemory());
 
 
         return env;
@@ -214,5 +255,13 @@ public class MonitorController implements ReadWriteController {
 
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
+    }
+
+    public IPropertyDao getPropertyDao() {
+        return _propertyDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
     }
 }

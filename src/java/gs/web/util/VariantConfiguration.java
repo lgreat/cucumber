@@ -95,7 +95,7 @@ public class VariantConfiguration {
         }
     }
 
-    protected static String getVariant(long secondsSinceEpoch, IPropertyDao propertyDao) {
+    public static String getVariant(long secondsSinceEpoch, IPropertyDao propertyDao) {
         checkConfiguration(propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION));
         char abVersion = 'a';
         int runningTotal = 0;
@@ -119,6 +119,28 @@ public class VariantConfiguration {
         }
         // default to a if loop doesn't determine config for some reason
         return Character.toString('a');
+    }
+
+    /**
+     * Returns a secondsSinceEpoch value that has a different variant from the given value.
+     * For example, if you pass in 100 which equals A, and 101 would equal B, then this
+     * method returns 101. If this method can't find a value that gives a different variant,
+     * it returns the number passed in.
+     */
+    public static long getNumberForNextVariant(long currentSeconds, IPropertyDao propertyDao) {
+        long newSeconds;
+        // get the current variant
+        String currentVariant = getVariant(currentSeconds, propertyDao);
+        // increment cookie value by 1
+        for (newSeconds = currentSeconds+1; newSeconds < currentSeconds+101; newSeconds++) {
+            // get the variant of this new cookie vaule
+            String nextVariant = getVariant(newSeconds, propertyDao);
+            // if this variant differs from the current one, then return the new cookie value
+            if (!StringUtils.equals(nextVariant, currentVariant)) {
+                break;
+            }
+        }
+        return newSeconds;
     }
 
     protected static void checkConfiguration(String config) {

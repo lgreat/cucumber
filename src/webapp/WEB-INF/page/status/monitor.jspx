@@ -97,7 +97,11 @@
     <tr>
         <td class="statustitle">Your AB version</td>
         <td class="statusvalue">${requestScope.context.ABVersion}</td>
-        <td class="statuserror"></td>
+        <td class="statuserror">
+            <form action="/status/monitor.page" method="get">
+                 <input type="submit" name="increment" value="Increment version"/>
+            </form>
+        </td>
     </tr>
     <tr>
         <td class="statustitle">HTTP_X_CLUSTER_CLIENT_IP attribute</td>

@@ -1,14 +1,18 @@
 package gs.web.status;
 
-import gs.web.BaseTestCase;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.util.context.SessionContextUtil;
+import gs.data.admin.IPropertyDao;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.util.Map;
+
+import static org.easymock.EasyMock.*;
 
 /**
  * Tests the MonitorController
@@ -16,10 +20,13 @@ import java.util.Map;
 public class MonitorControllerTest extends BaseControllerTestCase {
 
     private MonitorController _controller;
+    private IPropertyDao _propertyDao;
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = (MonitorController) getApplicationContext().getBean(MonitorController.BEAN_ID);
+        _propertyDao = createStrictMock(IPropertyDao.class);
+        _controller.setPropertyDao(_propertyDao);
     }
 
     /**
@@ -33,11 +40,11 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         assertNotNull(model);
         assertTrue(((String) model.get("version")).length() > 0);
         assertTrue(((String) model.get("hostname")).length() > 0);
-        assertTrue(((Boolean) model.get("mainReadWrite")).booleanValue());
+        assertTrue((Boolean) model.get("mainReadWrite"));
         assertEquals(model.get("mainError"), "");
-        assertTrue(((Boolean) model.get("stateReadWrite")).booleanValue());
+        assertTrue((Boolean) model.get("stateReadWrite"));
         assertEquals(model.get("stateError"), "");
-        assertEquals(new Integer(1), getRequest().getSession(false).getAttribute("hitcount"));
+        assertEquals(1, getRequest().getSession(false).getAttribute("hitcount"));
         assertNotNull(getRequest().getSession(false).getAttribute("thishost"));
         assertNotNull(getRequest().getSession(false).getAttribute("lasthost"));
         assertTrue(((String) model.get("indexVersion")).length() > 0);
@@ -54,7 +61,60 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         mv = _controller.handleRequest(getRequest(), getResponse());
         assertNotNull(mv);
         HttpSession session = request.getSession(true);
-        assertEquals(new Integer(2), session.getAttribute("hitcount"));
+        assertEquals(2, session.getAttribute("hitcount"));
     }
 
+    public void testIncrementVersion() {
+        String cookieValue = "1";
+        Cookie cookie = new Cookie(SessionContextUtil.TRACKING_NUMBER, cookieValue);
+        cookie.setPath("/");
+        cookie.setMaxAge(-1);
+        getRequest().setCookies(new Cookie[] {cookie});
+
+        expect(_propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1").times(3);
+        replay(_propertyDao);
+        _controller.incrementVersion(getRequest(), getResponse());
+        verify(_propertyDao);
+
+        assertEquals("2", getResponse().getCookie(SessionContextUtil.TRACKING_NUMBER).getValue());
+    }
+
+    public void testIncrementVersion2() {
+        String cookieValue = "1";
+        Cookie cookie = new Cookie(SessionContextUtil.TRACKING_NUMBER, cookieValue);
+        cookie.setPath("/");
+        cookie.setMaxAge(-1);
+        getRequest().setCookies(new Cookie[] {cookie});
+
+        expect(_propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("5/1").times(6);
+        replay(_propertyDao);
+        _controller.incrementVersion(getRequest(), getResponse());
+        verify(_propertyDao);
+
+        assertEquals("5", getResponse().getCookie(SessionContextUtil.TRACKING_NUMBER).getValue());
+    }
+
+    public void testIncrementVersion3() {
+        replay(_propertyDao);
+        _controller.incrementVersion(getRequest(), getResponse());
+        verify(_propertyDao);
+
+        assertNull(getResponse().getCookie(SessionContextUtil.TRACKING_NUMBER));
+    }
+
+    public void testIncrementVersion4() {
+        String cookieValue = "1";
+        Cookie cookie = new Cookie(SessionContextUtil.TRACKING_NUMBER, cookieValue);
+        cookie.setPath("/");
+        cookie.setMaxAge(-1);
+        getRequest().setCookies(new Cookie[] {cookie});
+
+        expect(_propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1").times(102);
+        replay(_propertyDao);
+        _controller.incrementVersion(getRequest(), getResponse());
+        verify(_propertyDao);
+
+        assertEquals("Expect original value to be incremented 101 times",
+                "102", getResponse().getCookie(SessionContextUtil.TRACKING_NUMBER).getValue());
+    }
 }
