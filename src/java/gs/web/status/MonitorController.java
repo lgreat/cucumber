@@ -10,6 +10,7 @@ import gs.data.util.StackTraceUtil;
 import gs.data.admin.IPropertyDao;
 import gs.web.util.ReadWriteController;
 import gs.web.util.VariantConfiguration;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -176,6 +177,13 @@ public class MonitorController implements ReadWriteController {
 
         String newVariant = VariantConfiguration.getVariant(newValue, _propertyDao);
         trackingNumber.setValue(String.valueOf(newValue));
+        trackingNumber.setPath("/");
+        trackingNumber.setMaxAge(-1);
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            // don't set domain for developer workstations so they can still access the cookie!!
+            trackingNumber.setDomain(".greatschools.net");
+        }
+
         response.addCookie(trackingNumber);
         SessionContextUtil.getSessionContext(request).setAbVersion(newVariant);
     }
