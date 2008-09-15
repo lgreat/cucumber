@@ -73,6 +73,10 @@
             We can also use the exclusive feature to rig share of voice, as "1" ought
             to appear approximately 25% of the time.
             */
+            /*
+             Google Ad Manager Tagging Guide:
+             https://www.google.com/admanager/help/en_US/tips/tagging.html
+             */
         </jsp:scriptlet>
         <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
             <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
@@ -88,6 +92,12 @@
                 </c:forEach>
             </c:forEach>
             GA_googleAddAttr('compfilter','${gsweb:randomNumber(4)+1}');
+            <![CDATA[
+            -->
+            </script>
+            ]]>
+            <![CDATA[<script type="text/javascript">
+            <!--]]>
             <c:forEach var="slotName" items="${GAMadNames}">
                 GA_googleAddSlot("ca-pub-9662012843341888", '${slotName}');</c:forEach>
             <c:if test="${not empty GAMadSenseHint}">
