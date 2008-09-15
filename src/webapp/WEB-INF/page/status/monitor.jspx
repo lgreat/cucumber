@@ -99,7 +99,7 @@
         <td class="statusvalue">${requestScope.context.ABVersion}</td>
         <td class="statuserror">
             <form action="/status/monitor.page" method="get">
-                 <input type="submit" name="increment" value="Increment version"/>
+                 <input type="submit" name="increment" value="Next version"/>
             </form>
         </td>
     </tr>
