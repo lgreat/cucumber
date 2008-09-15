@@ -9,6 +9,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
@@ -41,11 +42,11 @@
 
         <c:choose>
             <c:when test="${school.levelCode eq 'p'}">
-                <c:set var="level" value="Preschool"/>
+                <c:set var="level" value="preschool"/>
                 <c:set var="groupID" value="11534"/>
             </c:when>
             <c:otherwise>
-                <c:set var="level" value="${school.levelCode.lowestNonPreSchoolLevel.longName} School"/>
+                <c:set var="level" value="${fn:toLowerCase(school.levelCode.lowestNonPreSchoolLevel.longName)} school"/>
                 <c:choose>
                     <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'e'}">
                         <c:set var="groupID" value="11527"/>
