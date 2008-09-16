@@ -121,7 +121,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
     protected boolean notifyCommunity(User user, HttpServletRequest request) {
         ChangeEmailRequest soapRequest = getSoapRequest();
         UrlUtil urlUtil = new UrlUtil();
-        if (urlUtil.isDevEnvironment(request.getServerName()) && !urlUtil.isDeveloperWorkstation(request.getServerName())) {
+        if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
             soapRequest.setTarget("http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/soap/user");

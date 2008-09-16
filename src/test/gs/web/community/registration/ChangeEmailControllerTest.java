@@ -171,6 +171,7 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
     }
 
     public void testNotifyCommunity() throws SoapRequestException {
+        _request.setServerName("localhost");
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
@@ -219,20 +220,22 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         verify(_soapRequest);
     }
 
-    // verify that the soap request is NOT given a target on live
+    // verify that the soap request is given a target on live
     public void testNotifyCommunityOnWww() throws SoapRequestException {
         _request.setServerName("www.greatschools.net");
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
         verify(_soapRequest);
     }
 
-    // verify that the soap request is NOT given a target on live
+    // verify that the soap request is given a target on live
     public void testNotifyCommunityOnWwwCobrand() throws SoapRequestException {
         _request.setServerName("sfgate.greatschools.net");
 
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.changeEmailRequest(_user);
         replay(_soapRequest);
         assertTrue(_controller.notifyCommunity(_user, _request));
