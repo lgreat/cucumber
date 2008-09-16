@@ -7,7 +7,6 @@
 /* GS-6949 Workaround for black page background in FF3 */
 #pageGS #fap-raw-content {
     margin-right: auto;
-    text-indent: -100000px;
 }
 
 #pageGS #contentGS  a:hover {
