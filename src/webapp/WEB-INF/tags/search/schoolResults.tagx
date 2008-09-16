@@ -11,12 +11,12 @@
     <jsp:directive.attribute name="hideGSRating" required="false" type="java.lang.Boolean"/>
 
     <c:set var="hideRating" value="${!empty hideGSRating and hideGSRating ? true : false}"/>
-
+    
     <div id="searchResultsHeader" class="cleared">
         <div id="schoolResultsHeader" class="${hideRating ? 'wideSchoolResultsHeader' : ''}">
             School Name
         </div>
-        <div id="ratingsHeader">
+        <div id="ratingsHeader" class="${hideRating ? 'hidden' : ''}">
             GreatSchools Rating
         </div>
         <div id="reviewsHeader">
@@ -32,7 +32,7 @@
             <c:set var="reviewMap" value="${schoolResult.reviewMap}" />
 
                 <div class="result cleared">
-                <div class="school">
+                <div class="school ${hideRating ? 'wide' : ''}">
                     <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
                     <c:out value="${school.name}" escapeXml="false"/>
                     </link:schoolProfileOverview></h3>
@@ -60,7 +60,7 @@
 
                     </div>
                 </div>
-                <div class="rating">
+                <div class="rating ${hideRating ? 'hidden' : ''}">
                     <c:choose>
                         <c:when test="${empty rating}">
                             <gsml:img src="/res/img/school/ratings/na.gif" alt="This school has not been rated because sufficient test score data is not available."/>

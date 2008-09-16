@@ -251,7 +251,7 @@
 
 <div id="searchResults">
     <c:if test="${not empty mainResults}">
-        <search:schoolResults results="${mainResults}"/>
+        <search:schoolResults results="${mainResults}" hideGSRating="${param.lc eq 'p'}"/>
     </c:if>
     <c:if test="${empty mainResults and (not empty param.lc or not empty param.st)}">
         <div class="noResults">No filtered results for "<span class="query">${param.q}</span>"</div>

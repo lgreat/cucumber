@@ -17,6 +17,18 @@
     width: 300px;
     float: right;
 }
+#searchResultsList .result .school.wide {
+    width: 360px;
+}
+#schoolResultsHeader.wideSchoolResultsHeader{
+    width: 371px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.hidden{
+    display: none;
+}
 
 #resultsheader {
     font-size: medium;
