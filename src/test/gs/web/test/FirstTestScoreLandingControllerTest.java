@@ -72,12 +72,12 @@ public class FirstTestScoreLandingControllerTest extends BaseControllerTestCase 
         assertEquals("/modperl/go/AK", rView.getUrl());
     }
 
-    public void testHandleRequestInternalWithCpn() throws Exception {
+    public void testHandleRequestInternalWithScid() throws Exception {
         State state = State.CA;
         String expectedId = "5";
         ITableRow row = createStrictMock(ITableRow.class);
         SessionContextUtil.getSessionContext(getRequest()).setState(state);
-        getRequest().setParameter("cpn", "foobar");
+        getRequest().setParameter("s_cid", "foobar");
 
         expect(_tableDao.getFirstRowByKey(FirstTestScoreLandingController.STATE_COLUMN,
                 state.getAbbreviation())).andReturn(row);
@@ -93,7 +93,7 @@ public class FirstTestScoreLandingControllerTest extends BaseControllerTestCase 
         assertNotNull(mAndV.getView());
         assertTrue(mAndV.getView() instanceof RedirectView);
         RedirectView rView = (RedirectView) mAndV.getView();
-        assertEquals("/test/landing.page?cpn=foobar&state=CA&tid=5", rView.getUrl());
+        assertEquals("/test/landing.page?s_cid=foobar&state=CA&tid=5", rView.getUrl());
     }
 
     public void testGetFirstTestIdForState() {
@@ -146,21 +146,21 @@ public class FirstTestScoreLandingControllerTest extends BaseControllerTestCase 
         assertEquals("/modperl/go/CA", url);
     }
 
-    public void testGetTestScoreLandingPagePathWithCpn() {
+    public void testGetTestScoreLandingPagePathWithScid() {
         State state = State.CA;
         String id = "5";
 
         String url = _controller.getTestScoreLandingPagePath(state, id, "foo");
 
-        assertEquals("/test/landing.page?cpn=foo&state=CA&tid=5", url);
+        assertEquals("/test/landing.page?s_cid=foo&state=CA&tid=5", url);
     }
 
-    public void testGetTestScoreLandingPagePathNullIdWithCpn() {
+    public void testGetTestScoreLandingPagePathNullIdWithScid() {
         State state = State.CA;
         String id = null;
 
         String url = _controller.getTestScoreLandingPagePath(state, id, "bar");
 
-        assertEquals("/modperl/go/CA?cpn=bar", url);
+        assertEquals("/modperl/go/CA?s_cid=bar", url);
     }
 }

@@ -54,7 +54,7 @@
 
         <div class="body">
             <div class="logo">
-                <a href="/"
+                <a href="/?s_cid=wsdyf29"
                    target="_blank"><img border="0"
                                         width="148"
                                         height="27"
@@ -79,7 +79,7 @@
                                          styleId="stateSelector1"
                                          useNoState="${state eq null or state eq ''}"
                                          noStateLabel="--" state="${state}"/>
-                    <input type="hidden" name="cpn" value="TODO-7098"/>
+                    <input type="hidden" name="s_cid" value="wsdyf29"/>
                     <input type="submit" value="Search" class="searchSubmit"/>
                 </div>
             </form>
@@ -97,7 +97,7 @@
                                          styleId="stateSelector2"
                                          useNoState="${state eq null or state eq ''}"
                                          noStateLabel="--" state="${state}"/>
-                    <input type="hidden" name="cpn" value="TODO-7098"/>
+                    <input type="hidden" name="s_cid" value="wsdyf29"/>
                     <input type="submit" value="Find test scores" class="testScoresSubmit"/>
                 </div>
             </form>

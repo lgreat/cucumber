@@ -241,6 +241,8 @@ s.usePlugins=true
 function s_doPlugins(s) {
 /* Add calls to plugins here */
 s.eVar3=s.getQueryParam('cpn');
+/* External Campaign Tracking */
+s.campaign=s.getQueryParam('s_cid');
 }
 s.doPlugins=s_doPlugins
 /* You may insert any plugins you wish to use here.                 */

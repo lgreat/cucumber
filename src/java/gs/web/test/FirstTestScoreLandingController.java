@@ -52,17 +52,17 @@ public class FirstTestScoreLandingController extends AbstractController {
     /**
      * If id is specified, returns a link to the specified test landing page.
      * If id is not specified, returns a link to the state's R&C page.
-     * In either case, if cpnParam is provided it is passed through as a param.
+     * In either case, if scidParam is provided it is passed through as a param.
      */
-    public String getTestScoreLandingPagePath(State state, String id, String cpnParam) {
+    public String getTestScoreLandingPagePath(State state, String id, String scidParam) {
         UrlBuilder urlBuilder;
         if (StringUtils.isNotBlank(id)) {
             urlBuilder = new UrlBuilder(UrlBuilder.TEST_SCORE_LANDING, state, id);
         } else {
             urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state);
         }
-        if (StringUtils.isNotBlank(cpnParam)) {
-            urlBuilder.addParameter("cpn", cpnParam);
+        if (StringUtils.isNotBlank(scidParam)) {
+            urlBuilder.addParameter("s_cid", scidParam);
         }
         return urlBuilder.asSiteRelative(null);
     }
