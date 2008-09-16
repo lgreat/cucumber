@@ -34,7 +34,7 @@
         <div style="background:url(http://www.greatschools.net/res/img/gadget/border_dot.png) repeat-x left bottom; padding: 0 0 16px 0;">
             <a id="logoLink" href="http://www.greatschools.net/"></a><br/>
             <img id="header" style="padding-top: 5px" alt="School Finder"
-                 src="http://staging.greatschools.net/res/img/gadget/school_search_preschool.gif"/>
+                 src="http://www.greatschools.net/res/img/gadget/school_search_preschool.gif"/>
         </div>
         <div style="padding: 16px 0 5px 0;">
             <form action="http://www.greatschools.net/search/search.page" name="" id="searchForm"
@@ -119,7 +119,7 @@
     var level = prefs.getString("level");
     _gel("lc").value = level;
     var headerNode = document.getElementById("header");
-    var urlPrefix = "http://staging.greatschools.net/res/img/gadget/school_search_";
+    var urlPrefix = "http://www.greatschools.net/res/img/gadget/school_search_";
     switch (level) { case "e": headerNode.src = urlPrefix + "elementary.gif"; break; case "m": headerNode.src = urlPrefix + "middle.gif"; break; case "h": headerNode.src = urlPrefix + "high.gif"; break; }
     var defaultCity = prefs.getString("city");
     if (defaultCity != null && defaultCity > '') {
