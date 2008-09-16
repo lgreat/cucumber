@@ -64,6 +64,11 @@
                                  tooltips="true"
                                  schools="${mapSchools}"
                                  centerSchool="${school}"/>
+                    <div id="largerMap">
+                        <link:mapSchool school="${school}">
+                            View larger map &gt;
+                        </link:mapSchool>
+                    </div>
                 </c:if>
 
                 <p class="head_top">${prefix}</p>

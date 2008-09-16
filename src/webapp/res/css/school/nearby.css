@@ -170,3 +170,12 @@ li#nearDistrict a, li#nearMore a {
 	background: url(../../../res/img/school/ratings/10.gif) no-repeat 228px center;
     _background-position: 230px center;
 }
+
+#nearbySchools #largerMap {
+    padding:5px 0 5px 0;
+    text-align:right;
+}
+
+#nearbySchools #largerMap a {
+    font-weight:normal;
+}
