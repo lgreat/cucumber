@@ -32,7 +32,7 @@ public class FirstTestScoreLandingController extends AbstractController {
         // get first test id from spreadsheet for state
         String testId = getFirstTestIdForState(state); // can be null which is OK
         // get link based on test id
-        String relativeUrl = getTestScoreLandingPagePath(state, testId, request.getParameter("cpn"));
+        String relativeUrl = getTestScoreLandingPagePath(state, testId, request.getParameter("s_cid"));
         // return redirect view to page
         return new ModelAndView(new RedirectView(relativeUrl));
     }
