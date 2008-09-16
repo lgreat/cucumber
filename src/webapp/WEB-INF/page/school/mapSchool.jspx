@@ -123,7 +123,14 @@
                     </c:if>
                     <li>
                         <link:city city="${city}" state="${school.physicalAddress.state}" title="${city} schools">
-                            Top-rated ${city} schools &gt;
+                            <c:choose>
+                                <c:when test="${school.levelCode == 'p'}">
+                                    ${city} Preschools &gt;
+                                </c:when>
+                                <c:otherwise>
+                                    Top-rated ${city} schools &gt;
+                                </c:otherwise>
+                            </c:choose>
                         </link:city>
                     </li>
                     <li>
