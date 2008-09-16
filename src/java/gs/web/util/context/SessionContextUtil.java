@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.47 2008/09/16 17:20:46 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.48 2008/09/16 20:50:43 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -196,10 +196,11 @@ public class SessionContextUtil implements ApplicationContextAware {
                             insiderId = AuthenticationManager.getUserIdFromCookieValue(thisCookie.getValue());
                         } catch (Exception e) {
                             _log.warn("Unable to parse member id out of community cookie: " + e);
-                            _log.warn("Cookie info {name:" + thisCookie.getName() + 
+                            _log.warn("Cookie info {name:" + thisCookie.getName() +
                                     "; value:" + thisCookie.getValue() +
                                     "; domain:" + thisCookie.getDomain() +
-                                    "; path:" + thisCookie.getPath() + "}");
+                                    "; path:" + thisCookie.getPath() +
+                                    "; version:" + thisCookie.getVersion() + "}");
                         }
                     }
                 } else if (StringUtils.equals(_tempMsgCookieGenerator.getCookieName(), thisCookie.getName())) {
