@@ -8,6 +8,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
@@ -122,16 +123,18 @@
                         </li>
                     </c:if>
                     <li>
-                        <link:city city="${city}" state="${school.physicalAddress.state}" title="${city} schools">
-                            <c:choose>
-                                <c:when test="${school.levelCode == 'p'}">
+                        <c:choose>
+                            <c:when test="${school.levelCode == 'p'}">
+                                <a href="/${fn:toLowerCase(stateName)}/${fn:toLowerCase(city)}/preschools/" title="${city} preschools">
                                     ${city} Preschools &gt;
-                                </c:when>
-                                <c:otherwise>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <link:city city="${city}" state="${school.physicalAddress.state}" title="${city} schools">
                                     Top-rated ${city} schools &gt;
-                                </c:otherwise>
-                            </c:choose>
-                        </link:city>
+                                </link:city>
+                            </c:otherwise>
+                        </c:choose>
                     </li>
                     <li>
                         <link:nearbyCities city="${city}"
