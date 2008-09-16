@@ -54,11 +54,12 @@
 
         <div class="body">
             <div class="logo">
+                <!-- Hard-code image src for QA, since logo is new to 11.0 and isn't on live yet -->
                 <a href="/?s_cid=wsdyf29"
                    target="_blank"><img border="0"
-                                        width="148"
-                                        height="27"
-                                        src="/res/img/logo/logo_GS_148x27notag.gif"
+                                        width="118"
+                                        height="24"
+                                        src="http://${requestScope.context.hostName}/res/img/logo/logo_GS_118x24_notag.gif"
                                         alt="GreatSchools"/></a>
             </div>
             <form method="get" target="_blank"

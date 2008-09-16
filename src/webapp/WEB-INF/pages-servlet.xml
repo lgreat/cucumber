@@ -226,6 +226,11 @@
         </property>
     </bean>
 
+    <bean name="/widget/customizeSchoolInfoWidget.page"
+          class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
+        <property name="viewName" value="widget/customizeSchoolInfoWidget"/>
+    </bean>
+
     <bean name="/community/betaUnsubscribe.page" class="gs.web.community.BetaUnsubscribeController"
           autowire="byName" lazy-init="true">
         <property name="commandName">
