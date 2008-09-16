@@ -8,8 +8,12 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
     <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
+    <jsp:directive.attribute name="hideGSRating" required="false" type="java.lang.Boolean"/>
+
+    <c:set var="hideRating" value="${!empty hideGSRating and hideGSRating ? true : false}"/>
+
     <div id="searchResultsHeader" class="cleared">
-        <div id="schoolResultsHeader">
+        <div id="schoolResultsHeader" class="${hideRating ? 'wideSchoolResultsHeader' : ''}">
             School Name
         </div>
         <div id="ratingsHeader">
