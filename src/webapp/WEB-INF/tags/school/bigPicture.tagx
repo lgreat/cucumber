@@ -37,7 +37,16 @@
         <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
             <h3><link:districtProfile districtId="${school.districtId}" state="${state}" anchor="${bigPictureAnchor}">This school district's performance&#160;&#62;</link:districtProfile></h3>
         </c:if>
-        <h3><link:city city="${city}" state="${school.physicalAddress.state}" title="${city} schools" anchor="${bigPictureAnchor}">Top-rated ${city} schools&#160;&#62;</link:city></h3>
+        <h3>
+            <c:choose>
+                <c:when test="${school.levelCode == 'p'}">
+                    <link:browsePreschools state="${school.databaseState}" city="${city}">${city} Preschools&#160;&#62;</link:browsePreschools>
+                </c:when>
+                <c:otherwise>
+                    <link:city city="${city}" state="${school.physicalAddress.state}" title="${city} schools" anchor="${bigPictureAnchor}">Top-rated ${city} schools&#160;&#62;</link:city>                    
+                </c:otherwise>
+            </c:choose>
+        </h3>
         <h3><link:nearbyCities city="${city}" state="${school.physicalAddress.state}" title="Cities near ${city}" anchor="${bigPictureAnchor}">Cities near ${city}&#160;&#62;</link:nearbyCities></h3>
 
         <c:choose>

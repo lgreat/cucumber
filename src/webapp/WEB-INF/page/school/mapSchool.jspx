@@ -125,9 +125,9 @@
                     <li>
                         <c:choose>
                             <c:when test="${school.levelCode == 'p'}">
-                                <a href="/${fn:toLowerCase(stateName)}/${fn:toLowerCase(city)}/preschools/" title="${city} preschools">
-                                    ${city} Preschools &gt;
-                                </a>
+                                <link:browsePreschools state="${school.databaseState}" city="${city}">
+                                    ${city} preschools&#160;&#62;
+                                </link:browsePreschools>
                             </c:when>
                             <c:otherwise>
                                 <link:city city="${city}" state="${school.physicalAddress.state}" title="${city} schools">

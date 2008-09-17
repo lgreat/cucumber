@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.88 2008/08/05 18:13:38 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.89 2008/09/17 22:18:30 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -460,6 +460,15 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/schools/cities/California/CA", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.CITIES, State.NC);
         assertEquals("/schools/cities/North_Carolina/NC", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.BROWSE_PRESCHOOLS, State.AK, "anaktuvik");
+        assertEquals("/alaska/anaktuvik/preschools/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.BROWSE_PRESCHOOLS, State.CA, "San Francisco");
+        assertEquals("/california/san-francisco/preschools/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.BROWSE_PRESCHOOLS, State.CA, "Bangle-Deshmir");
+        assertEquals("/california/bangle_deshmir/preschools/", builder.asSiteRelative(request));        
     }
 
     public void testMicroSitePages() {

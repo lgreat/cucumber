@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.122 2008/08/25 19:28:17 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.123 2008/09/17 22:18:30 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -216,6 +216,8 @@ public class UrlBuilder {
     public static final VPage SUBMIT_PRESCHOOL = new VPage("vpage:submitPreschool");
     public static final VPage SUBMIT_PRIVATE_SCHOOL = new VPage("vpage:submitPrivateSchool");
 
+    /** browse pages */
+    public static final VPage BROWSE_PRESCHOOLS = new VPage("vpage:browsePreschools");    
 
     /**
      * Create a builder to the given site page.
@@ -726,6 +728,20 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/about/feedback/submitPrivateSchool.page";
             setParameter("state", state.getAbbreviation());
+        } else if (BROWSE_PRESCHOOLS.equals(page)) {
+            _perlPage = false;
+            StringBuilder sb = new StringBuilder();
+            sb.append("/");
+            sb.append(state.getLongName().toLowerCase());
+            sb.append("/");
+            if (param0 != null) {
+                String city = param0.toLowerCase();
+                city = city.replace("-", "_");
+                city = city.replace(" ", "-");
+                sb.append(city);
+            }
+            sb.append("/preschools/");
+            _path = sb.toString();
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

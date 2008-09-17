@@ -197,7 +197,7 @@
         </div>
 
         <c:set var="styleIdSuffix" value=""/>
-        <c:if test="${school.levelCode != 'p' or (hasStudentData or hasTeacherData or hasProgramData)}">
+        <c:if test="${school.levelCode != 'p' or (hasStudentData or hasTeacherData or hasProgramData or hasSurveyData)}">
             <div id="learnSchool">
                 <c:set var="hasStudentData" value="${hasStudentData}" />
                 <c:set var="hasTestData" value="${hasTestData}"/>
@@ -288,15 +288,56 @@
                     </p>
                 </c:if>
 
-                <c:if test="${hasSurveyData and school.levelCode != 'p'}">
-                    <link:startSurveyResults school="${school}"
-                                             styleClass="GS_CI9_">
-                        <gsml:img src="/res/img/school/overview/learn_extracurricular.gif" alt="Learn Extracurricular" />
-                    </link:startSurveyResults>
-                    <p class="${(hasPrincipalView) ? 'dashed' : 'last'}">
-                        <link:startSurveyResults school="${school}"
-                                                 styleClass="GS_CI9_">${school.name} extracurriculars</link:startSurveyResults>
-                    </p>
+                <c:if test="${hasSurveyData}">
+                    <c:choose>
+                        <c:when test="${school.levelCode == 'p'}">
+                            <link:surveyResults school="${school}" level="p" styleClass="GS_CI9_">
+                                <gsml:img src="/res/img/school/overview/learn_more/teachingapproach.gif" alt="Teaching Approach" />
+                            </link:surveyResults>
+                            <p class="dashed">
+                                <link:surveyResults school="${school}" level="p" styleClass="GS_CI9_">
+                                    ${school.name} Teaching Approach
+                                </link:surveyResults>
+                            </p>
+
+                            <link:surveyResults school="${school}" level="p" page="1" styleClass="GS_CI9_">
+                                <gsml:img src="/res/img/school/overview/learn_more/socialdevelopment.gif" alt="Social Development" />
+                            </link:surveyResults>
+                            <p class="dashed">
+                                <link:surveyResults school="${school}" level="p" page="1" styleClass="GS_CI9_">
+                                    ${school.name} Social Development
+                                </link:surveyResults>
+                            </p>
+
+                            <link:surveyResults school="${school}" level="p" page="2" styleClass="GS_CI9_">
+                                <gsml:img src="/res/img/school/overview/learn_more/schedule_policies.gif" alt="Schedule and Policies" />
+                            </link:surveyResults>
+                            <p class="dashed">
+                                <link:surveyResults school="${school}" level="p" page="2" styleClass="GS_CI9_">
+                                    ${school.name} Schedule and Policies
+                                </link:surveyResults>
+                            </p>
+
+                            <link:surveyResults school="${school}" level="p" page="3" styleClass="GS_CI9_">
+                                <gsml:img src="/res/img/school/overview/learn_more/admissions.gif" alt="Admissions" />
+                            </link:surveyResults>
+                            <p class="last">
+                                <link:surveyResults school="${school}" level="p" page="3" styleClass="GS_CI9_">
+                                    ${school.name} Admissions
+                                </link:surveyResults>
+                            </p>
+                        </c:when>
+                        <c:otherwise>
+                            <link:startSurveyResults school="${school}" styleClass="GS_CI9_">
+                                <gsml:img src="/res/img/school/overview/learn_extracurricular.gif" alt="Learn Extracurricular" />
+                            </link:startSurveyResults>
+                            <p class="${(hasPrincipalView) ? 'dashed' : 'last'}">
+                                <link:startSurveyResults school="${school}" styleClass="GS_CI9_">
+                                    ${school.name} extracurriculars
+                                </link:startSurveyResults>
+                            </p>
+                        </c:otherwise>
+                    </c:choose>
                 </c:if>
 
                 <c:if test="${hasPrincipalView}">
