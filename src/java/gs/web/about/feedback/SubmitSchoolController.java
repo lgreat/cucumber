@@ -267,10 +267,6 @@ public class SubmitSchoolController extends SimpleFormController {
         _fromEmail = fromEmail;
     }
 
-    public void setMailSender(JavaMailSender mailSender) {
-        _mailSender = mailSender;
-    }
-
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
     }
