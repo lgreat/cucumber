@@ -8,7 +8,6 @@ import gs.data.util.DigestUtil;
 import gs.data.util.email.EmailHelper;
 import gs.web.util.AbstractSendEmailBean;
 import gs.web.util.UrlBuilder;
-import gs.web.about.Branding;
 import org.springframework.mail.MailException;
 
 import javax.mail.MessagingException;
@@ -51,8 +50,7 @@ public class ForgotPasswordEmail extends AbstractSendEmailBean {
         emailContent.append("You requested that we reset your password on GreatSchools. ");
         emailContent.append("Please click on the following link to select a new password: ");
         emailContent.append(builder.asFullUrl(request)).append("\n\n");
-        emailContent.append("Thanks!\n\nThe GreatSchools Team");
-        emailContent.append(Branding.EMAIL_FOOTER_PLAIN_TEXT);
+        emailContent.append("Thanks!\n\nThe GreatSchools Team\n");
         return emailContent.toString();
     }
 
@@ -67,9 +65,6 @@ public class ForgotPasswordEmail extends AbstractSendEmailBean {
         emailContent.append(builder.asAbsoluteAnchor(request, "click here to select a new password").asATag());
         emailContent.append(".</p>\n\n");
         emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
-        emailContent.append("<p>");
-        emailContent.append(Branding.EMAIL_FOOTER_HTML);
-        emailContent.append("</p>");
         return emailContent.toString();
     }
 

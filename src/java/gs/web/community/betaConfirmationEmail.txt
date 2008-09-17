@@ -29,14 +29,8 @@ community of parents who are passionate about education.</p>
 in innovative and meaningful ways!</p>
 
 <p>-The Team at GreatSchools</p>
-
-<p>
--- <br/>
-GreatSchools is an independent, nonprofit organization that empowers and inspires parents to participate in their children's development and educational success.<br/>
-Parents choose GreatSchools to find the ideal schools, get expert advice, share stories and find answers to their parenting and education questions.<br/>
-In the past year alone, more than 35 million people visited GreatSchools.
-</p>
-
+<br/>
+<br/>
 <p><a href="http://www.greatschools.net/community/betaUnsubscribe.page?cpn=betawelcome&state=$STATE&email=$EMAIL">
 Remove me from the GreatSchools Beta Group
 </a></p>
