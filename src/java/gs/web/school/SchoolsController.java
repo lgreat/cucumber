@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.66 2008/09/15 20:39:02 yfan Exp $
+ * $Id: SchoolsController.java,v 1.67 2008/09/17 02:19:08 yfan Exp $
  */
 
 package gs.web.school;
@@ -682,8 +682,30 @@ public class SchoolsController extends AbstractController {
     }
 
     public static String createNewCityBrowseURI(State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode) {
-        if (state == null || StringUtils.isBlank(cityName) || (schoolTypes != null && schoolTypes.size() > 3)) {
-            throw new IllegalArgumentException("Must specify state, city, level code, and a set of no more than 3 school types");
+        if (state == null || StringUtils.isBlank(cityName) || (schoolTypes == null || schoolTypes.size() > 3)) {
+            StringBuilder s = new StringBuilder("Must specify state, city, level code, and a set of no more than 3 school types. Provided: ");
+            s.append("state = ");
+            s.append(state != null ? state.getAbbreviation() : "null");
+            s.append(", city = " + cityName);
+            s.append(", schoolTypes = ");
+            if (schoolTypes == null) {
+                s.append("null");
+            } else {
+                s.append("{");
+                SchoolType[] types = schoolTypes.toArray(new SchoolType[]{});
+                for (int i = 0; i < types.length; i++) {
+                    if (i > 0) {
+                        s.append(",");
+                    }
+                    s.append(types[i].getSchoolTypeName());
+                }
+                s.append("}");
+            }
+
+            s.append(", levelCode = ");
+            s.append(levelCode != null ? levelCode.getCommaSeparatedString() : "null");
+
+            throw new IllegalArgumentException(s.toString());
         }
 
         StringBuilder url = new StringBuilder(createNewCityBrowseURIRoot(state, cityName));

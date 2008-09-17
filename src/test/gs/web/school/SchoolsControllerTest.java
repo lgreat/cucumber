@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.38 2008/09/09 19:40:27 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.39 2008/09/17 02:19:08 yfan Exp $
  */
 
 package gs.web.school;
@@ -585,6 +585,40 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         assertEquals("/california/san-francisco/", SchoolsController.createNewCityBrowseURIRoot(State.CA, "San Francisco"));
         assertEquals("/california/cardiff_by_the_sea/", SchoolsController.createNewCityBrowseURIRoot(State.CA, "Cardiff-By-The-Sea"));
+    }
+
+    public void testCreateNewCityBrowseURIIllegalArguments() throws Exception {
+        boolean foundException = false;
+        try {
+            SchoolsController.createNewCityBrowseURI(null, null, null, null);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            foundException = true;
+        }
+        assertTrue("Expected IllegalArgumentException", foundException);
+
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+        schoolTypes.add(SchoolType.PRIVATE);
+        schoolTypes.add(SchoolType.PUBLIC);
+        schoolTypes.add(SchoolType.CHARTER);
+
+        foundException = false;
+        try {
+            SchoolsController.createNewCityBrowseURI(null, "San Francisco", schoolTypes, LevelCode.ELEMENTARY_MIDDLE_HIGH);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            foundException = true;
+        }
+        assertTrue("Expected IllegalArgumentException", foundException);
+
+        foundException = false;
+        try {
+            SchoolsController.createNewCityBrowseURI(State.CA, "", schoolTypes, LevelCode.ELEMENTARY_MIDDLE_HIGH);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            foundException = true;
+        }
+        assertTrue("Expected IllegalArgumentException", foundException);
     }
 
     public void testCreateNewCityBrowseURISchoolTypeLabel() throws Exception {
