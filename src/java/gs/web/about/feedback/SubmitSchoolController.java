@@ -241,6 +241,11 @@ public class SubmitSchoolController extends SimpleFormController {
         emailHelper.setFromEmail(from);
         emailHelper.setToEmail(to);
 
+        // prevent "This message was sent to GreatSchools subscriber: [To email address]"
+        // from appearing by setting non-null empty string
+        // (must be called before readHtmlFromResource or setHtmlBody)
+        emailHelper.setSentToCustomMessage("");
+
         if (isResource) {
             if (isHtml) {
                 emailHelper.readHtmlFromResource(body);
