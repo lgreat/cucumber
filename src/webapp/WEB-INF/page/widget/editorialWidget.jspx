@@ -23,7 +23,7 @@
     <c:set var="state" value="${param.defaultState}"/>
     <c:set var="externalCss" value="${param.externalCss}"/>
 
-    <c:if test="${externalCss ne null or externalCss gt ''}">
+    <c:if test="${externalCss ne null and externalCss gt ''}">
          <link type="text/css" rel="stylesheet" href="${externalCss}"/>
     </c:if>
 
