@@ -4,8 +4,6 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,17 +12,20 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
+import javax.mail.MessagingException;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.io.IOException;
 
 import gs.web.util.validator.SubmitPreschoolCommandValidator;
 import gs.web.util.validator.SubmitPrivateSchoolCommandValidator;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.about.Branding;
 import gs.data.state.State;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.ICounty;
+import gs.data.util.email.EmailHelperFactory;
+import gs.data.util.email.EmailHelper;
 
 /**
  * @author Young Fan 
@@ -35,48 +36,15 @@ public class SubmitSchoolController extends SimpleFormController {
     public static String TYPE_PRIVATE_SCHOOL = "private school";
     public static String TYPE_PRESCHOOL = "preschool";
 
-    public static String PRESCHOOL_THANK_YOU_EMAIL_TEXT =
-        "Thank you for submitting information about a preschool to GreatSchools. We will post all verified " +
-        "information as soon as possible.\n" +
-        "\n" +
-        "To learn more about where we get our data, please read our Frequently Asked Questions:\n" +
-        "http://www.greatschools.net/about/gsFaq.page#preschools\n" +
-        "\n" +
-        "Best regards,\n" +
-        "\n" +
-        "The GreatSchools Staff";
-    public static String PRIVATE_SCHOOL_THANK_YOU_EMAIL_TEXT =
-        "Thank you for submitting information about a private school to GreatSchools. " +
-        "We will post all verified information as soon as possible.\n" +
-        "\n" +
-        "PLEASE NOTE:\n" +
-        "\n" +
-        "We receive updates to our private school information from the National Center for Education " +
-        "Statistics (NCES) and from some state Departments of Education. To ensure that the school you " +
-        "submitted stays on GreatSchools, please make sure it is listed with both of these entities; " +
-        "otherwise, the school's profile will become inactive the next time we import private school data.\n" +
-        "\n" +
-        "  Find out if your school is listed with NCES:\n" +
-        "  http://www.nces.ed.gov/surveys/pss/privateschoolsearch/\n" +
-        "\n" +
-        "  Submit your school to NCES:\n" +
-        "  http://www.nces.ed.gov/surveys/pss/privateschoolsearch/school_requestform.asp\n" +
-        "\n" +
-        "  Find the Web site for your state Department of Education:\n" +
-        "  http://nces.ed.gov/ccd/ccseas.asp\n" +
-        "\n" +
-        "To learn more about where we get our data, please read our Frequently Asked Questions:\n" +
-        "http://www.greatschools.net/about/gsFaq.page#pvtdata\n" +
-        "\n" +
-        "Best regards,\n" +
-        "\n" +
-        "The GreatSchools Staff";
+    public static String PRESCHOOL_THANK_YOU_EMAIL_PATH = "gs/web/about/feedback/preschoolConfirmationEmail.txt";
+    public static String PRIVATE_SCHOOL_THANK_YOU_EMAIL_PATH = "gs/web/about/feedback/privateSchoolConfirmationEmail.txt";
+
     public static String THANK_YOU_EMAIL_SUBJECT = "Thanks for your feedback";
 
     private IGeoDao _geoDao;
-    private JavaMailSender _mailSender;
     private String _type;
     private String _fromEmail;
+    private EmailHelperFactory _emailHelperFactory;
 
     // SPRING MVC METHODS
 
@@ -99,18 +67,26 @@ public class SubmitSchoolController extends SimpleFormController {
 
         String subject = command.getState().getAbbreviation() + " New " + _type;
 
-        String thankYouEmailText = null;
+        String thankYouEmailPath = null;
         if (TYPE_PRESCHOOL.equals(_type)) {
-            thankYouEmailText = PRESCHOOL_THANK_YOU_EMAIL_TEXT + Branding.EMAIL_FOOTER_PLAIN_TEXT;
+            thankYouEmailPath = PRESCHOOL_THANK_YOU_EMAIL_PATH;
         } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
-            thankYouEmailText = PRIVATE_SCHOOL_THANK_YOU_EMAIL_TEXT + Branding.EMAIL_FOOTER_PLAIN_TEXT;
+            thankYouEmailPath = PRIVATE_SCHOOL_THANK_YOU_EMAIL_PATH;
         }
 
-        // send submission to data team queue
-        sendEmail(_fromEmail, _fromEmail, subject, createSubmissionBodyText(command));
+        try {
 
-        // send thank you email to submitter
-        sendEmail(command.getSubmitterEmail(), _fromEmail, THANK_YOU_EMAIL_SUBJECT, thankYouEmailText);
+            // send submission to data team queue
+            sendEmail(_fromEmail, _fromEmail, subject, createSubmissionBodyText(command), false, false);
+
+            // send thank you email to submitter
+            sendEmail(command.getSubmitterEmail(), _fromEmail, THANK_YOU_EMAIL_SUBJECT, thankYouEmailPath, true, true);
+            
+        } catch (IOException e) {
+            throw new ServletException(e);
+        } catch (MessagingException e) {
+            throw new ServletException(e);
+        }
 
         Map<String,String> model = new HashMap<String,String>();
         model.put("type", _type);
@@ -259,20 +235,26 @@ public class SubmitSchoolController extends SimpleFormController {
         return sb.toString();
     }
 
-    protected boolean sendEmail(String to, String from, String subject, String text) {
-        SimpleMailMessage smm = new SimpleMailMessage();
-        smm.setText(text);
-        smm.setTo(to);
-        smm.setSubject(subject);
-        smm.setFrom(from);
+    protected void sendEmail(String to, String from, String subject, String body, boolean isHtml, boolean isResource) throws MessagingException, IOException {
+        EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+        emailHelper.setSubject(subject);
+        emailHelper.setFromEmail(from);
+        emailHelper.setToEmail(to);
 
-        try {
-            _mailSender.send(smm);
-        } catch (MailException ex) {
-            _log.error(ex.getMessage());
-            return false;
+        if (isResource) {
+            if (isHtml) {
+                emailHelper.readHtmlFromResource(body);
+            } else {
+                emailHelper.readPlainTextFromResource(body);
+            }
+        } else {
+            if (isHtml) {
+                emailHelper.setHtmlBody(body);
+            } else {
+                emailHelper.setTextBody(body);
+            }
         }
-        return true;
+        emailHelper.send();
     }
 
     // PROPERTIES FROM pages-servlet.xml
@@ -291,5 +273,13 @@ public class SubmitSchoolController extends SimpleFormController {
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public EmailHelperFactory getEmailHelperFactory() {
+        return _emailHelperFactory;
+    }
+
+    public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
+        _emailHelperFactory = emailHelperFactory;
     }
 }
