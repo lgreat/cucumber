@@ -259,6 +259,7 @@
                 </c:if>
 
                 <c:if test="${school.type.schoolTypeName ne 'private'
+                    and school.levelCode !='p'
                     and (state eq 'az' or state eq 'ca' or
                     state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
                     state eq 'oh' or state eq 'tx')}">
