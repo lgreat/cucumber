@@ -30,7 +30,7 @@ public class SchwabForumRedirectController implements Controller {
             int articleIdAsInt = Integer.parseInt(threadId);
             redirectURL = forumArchiveHostname + "/thread/" + threadId + ".html";
         } catch (NumberFormatException e) {
-            _log.error("Bad thread ID passed to SchwabForumRedirectController: " + threadId, e);
+            _log.warn("Bad thread ID passed to SchwabForumRedirectController: " + threadId, e);
         }
 
         response.setStatus(301);

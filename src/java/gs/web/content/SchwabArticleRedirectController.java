@@ -49,7 +49,7 @@ public class SchwabArticleRedirectController implements Controller {
                     redirectURL = wwwSiteHostname + "/cgi-bin/showarticle/" + newArticleId;
                 }
             } catch (NumberFormatException e) {
-                _log.error("Bad article ID passed to SchwabArticleRedirectController: " + articleId, e);
+                _log.warn("Bad article ID passed to SchwabArticleRedirectController: " + articleId, e);
             }
         }
 
