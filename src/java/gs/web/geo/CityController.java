@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.49 2008/07/31 19:44:58 yfan Exp $
+ * $Id: CityController.java,v 1.50 2008/09/17 01:51:09 yfan Exp $
  */
 
 package gs.web.geo;
@@ -97,13 +97,13 @@ public class CityController extends AbstractController {
 
         // Validate those inputs and give up if we can't build a reasonable page.
         if (state == null) {
-            _log.error("No state name found on city page. Redirecting to /");
+            // no state name found on city page, so redirect to /
             View redirectView = new RedirectView("/");
             return new ModelAndView(redirectView);
         }
 
         if (StringUtils.isEmpty(cityNameParam)) {
-            _log.error("No city name found in " + state + ". Redirecting to /modperl/go");
+            // no city name found, so redirect to /modperl/go/[state]
             View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviation());
             return new ModelAndView(redirectView);
         }
