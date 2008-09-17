@@ -125,11 +125,6 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("hasProgramData", hasProgramData(school));
             model.put("hasSurveyData", _surveyDao.hasSurveyData(school));
 
-            // GS-6874 - rolling back display of preschool survey results
-            if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
-                model.put("hasSurveyData", Boolean.FALSE);
-            }
-
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
                 model.put("hasTeacherData", _groupDataTypeDao.hasTeacherData(school));
                 model.put("hasStudentData", _groupDataTypeDao.hasStudentData(school));
