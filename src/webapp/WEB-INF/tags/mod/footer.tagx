@@ -78,7 +78,7 @@
                                 <link:webbyAwardThanks>Our Awards</link:webbyAwardThanks> &#124;
                                 <gsml:a rel="nofollow" href="/about/supportUs.page">Support Us</gsml:a> &#124;
                                 <!-- Replace newsletters with Blog per GS-7086 -->
-                                <gsml:a rel="nofollow" href="http://blogs.greatschools.net/BillsBlog">Blog</gsml:a> &#124;
+                                <gsml:a rel="nofollow" target="_blank" href="http://blogs.greatschools.net/BillsBlog">Blog</gsml:a> &#124;
                                 <!--<link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;-->
                                 <gsml:a rel="nofollow" href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
                                 <link:contactUs>Contact Us</link:contactUs>
