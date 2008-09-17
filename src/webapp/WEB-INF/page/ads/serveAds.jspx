@@ -67,6 +67,11 @@
                             <ad:Inline_460x94/>
                         </Inline_460x94>
                     </c:when>
+                    <c:when test="${curAd eq 'Promo_170x92'}">
+                        <Promo_170x92>
+                            <ad:Promo_170x92/>
+                        </Promo_170x92>
+                    </c:when>
                 </c:choose>
                 <jsp:scriptlet>
             }
