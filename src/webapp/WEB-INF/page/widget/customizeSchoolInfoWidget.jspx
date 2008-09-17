@@ -101,6 +101,8 @@
             var cobrandSite = customizeForm.cobrandSite.value;
             if (cobrandSite != 'www' && cobrandSite != '') {
                 params += '?cobrand=' + cobrandSite;
+            } else {
+                cobrandSite = 'www';
             }
             // default state
             var defaultState = customizeForm.defaultState.value;
@@ -131,7 +133,7 @@
                 '" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto"></iframe>';
             // output HTML code
             document.getElementById('htmlCode').value =
-                           '<iframe src="' + iframeUrl + '" width="' + width + '" height="' + height +
+                           '<iframe src="http://' + cobrandSite + '.greatschools.net' + iframeUrl + '" width="' + width + '" height="' + height +
                            '" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto"></iframe>';
         }
         // -->
@@ -188,7 +190,7 @@
                     ]]>
                 </div>
                 <h2>Widget HTML Code:</h2>
-                <textarea id="htmlCode" cols="50" rows="5" onfocus="select();">&amp;lt;iframe src="/widget/editorialWidget.page" width="297" height="242" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto">&amp;lt;/iframe></textarea>
+                <textarea id="htmlCode" cols="50" rows="5" onfocus="select();">&amp;lt;iframe src="http://www.greatschools.net/widget/editorialWidget.page" width="297" height="242" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto">&amp;lt;/iframe></textarea>
             </td>
         </tr>
     </table>
