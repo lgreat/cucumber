@@ -46,6 +46,10 @@
         PageHelper.hideFooterAd(request);
     </jsp:scriptlet>
 
+    <!-- The function showLatestTools() is for GS-6999. Only show the last list item (4th bullet) in
+         The Latest Tools module if no ad slot is targeted within that module. Do this by checking for
+         the presence of the element google_ads_div_Homepage_185x28 and only make the last list item
+         visible if it is not there. -->
     <script type="text/javascript" language="javascript">
         function hoverHome() {
             if (getState() != '') {
