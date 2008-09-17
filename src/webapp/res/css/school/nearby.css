@@ -23,7 +23,7 @@
 #nearbySchools .head_top {
 	font: 10px/11px Trebuchet MS, sans-serif;
 	color: #888;
-	margin: 18px 0 0 0;
+	margin: 14px 0 0 0;
 	float: left;
 	text-transform: uppercase;
 }
@@ -31,7 +31,7 @@
 #nearbySchools .head_rating {
 	font: 10px/11px Trebuchet MS, sans-serif;
 	color: #888;
-	margin: 12px 0 3px 200px;
+	margin: 8px 0 3px 200px;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -172,7 +172,7 @@ li#nearDistrict a, li#nearMore a {
 }
 
 #nearbySchools #largerMap {
-    padding:5px 0 5px 0;
+    padding:5px 0 0 0;
     text-align:right;
 }
 
