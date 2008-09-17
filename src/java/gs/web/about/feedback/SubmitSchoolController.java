@@ -21,6 +21,7 @@ import java.util.List;
 import gs.web.util.validator.SubmitPreschoolCommandValidator;
 import gs.web.util.validator.SubmitPrivateSchoolCommandValidator;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.about.Branding;
 import gs.data.state.State;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.ICounty;
@@ -100,9 +101,9 @@ public class SubmitSchoolController extends SimpleFormController {
 
         String thankYouEmailText = null;
         if (TYPE_PRESCHOOL.equals(_type)) {
-            thankYouEmailText = PRESCHOOL_THANK_YOU_EMAIL_TEXT;
+            thankYouEmailText = PRESCHOOL_THANK_YOU_EMAIL_TEXT + Branding.EMAIL_FOOTER_PLAIN_TEXT;
         } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
-            thankYouEmailText = PRIVATE_SCHOOL_THANK_YOU_EMAIL_TEXT;
+            thankYouEmailText = PRIVATE_SCHOOL_THANK_YOU_EMAIL_TEXT + Branding.EMAIL_FOOTER_PLAIN_TEXT;
         }
 
         // send submission to data team queue
