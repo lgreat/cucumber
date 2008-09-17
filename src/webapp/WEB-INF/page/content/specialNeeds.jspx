@@ -42,8 +42,8 @@
                 <div class="welcome">
                     <div id="schwabOnly">
                         <gsml:a href="/cgi-bin/static/schwablearning_welcome.txt">
-                            <span id="msg">Welcome to SchwabLearning Parents</span>
-                            <span id="from">from Bill Jackson, Founder and President</span>
+                            <span id="msg">Welcome Schwab Learning Parents</span>
+                        
                         </gsml:a>
                     </div>
                 </div>

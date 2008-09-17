@@ -8,8 +8,8 @@ h1#specialNeedsText {
     color: #3399AA;
 }
 #contentGS div.welcome div#schwabOnly{
-    padding-top:6px;
-    padding-bottom: 6px;
+    padding-top:2px;
+    padding-bottom: 2px;
     border-bottom: 0px;
 }
 div#schwabOnly a {
@@ -21,7 +21,7 @@ div#schwabOnly:hover{
 }
 
 #contentGS div.welcome a {
-    font-size: 16px;
+    font-size: 15px;
     color:#3399AA;
 }
 #contentGS div.welcome span#msg{
@@ -42,7 +42,7 @@ div#schwabOnly:hover{
     padding-bottom: 16px;
     padding-top: 6px;
     margin-bottom: 0px;
-    font-size: small;
+    font-size: 12px;
     color:#777777;
 
 
