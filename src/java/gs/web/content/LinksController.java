@@ -87,7 +87,7 @@ public class LinksController extends AbstractController {
      */
     protected void injectWorksheetName(HttpServletRequest request) {
         GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getTableDao();
-        castDao.getSpreadsheetUrl().setWorksheetName(getWorksheet(request));
+        castDao.getSpreadsheetInfo().setWorksheetName(getWorksheet(request));
     }
 
     protected String getWorksheet(HttpServletRequest request) {

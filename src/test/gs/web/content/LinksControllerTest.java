@@ -88,7 +88,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
         hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
@@ -114,7 +114,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         reset(dao);
 
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
         expect(dao.getFirstRowByKey(LinksController.SPREADSHEET_PAGE,
             getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
         replay(dao);
@@ -132,7 +132,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
         hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
@@ -158,7 +158,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         reset(dao);
 
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
         expect(dao.getRandomRowByKey(LinksController.SPREADSHEET_PAGE,
             getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
         replay(dao);
@@ -176,7 +176,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         List<ITableRow> tableRowList = new ArrayList<ITableRow>();
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
@@ -209,7 +209,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
         
         reset(dao);
 
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
         expect(dao.getRowsByKey(LinksController.SPREADSHEET_PAGE,
             getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
         replay(dao);
@@ -226,15 +226,15 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         getRequest().setServerName("dev.greatschools.net");
         controller.injectWorksheetName(getRequest());
-        assertEquals(controller.getDevWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
+        assertEquals(controller.getDevWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
 
         getRequest().setServerName("staging.greatschools.net");
         controller.injectWorksheetName(getRequest());
-        assertEquals(controller.getStagingWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
+        assertEquals(controller.getStagingWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
 
         getRequest().setServerName("www.greatschools.net");
         controller.injectWorksheetName(getRequest());
-        assertEquals(controller.getProductionWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
+        assertEquals(controller.getProductionWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
     }
 
     public void testGetWorksheet() {
@@ -259,7 +259,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         List<ITableRow> tableRowList = new ArrayList<ITableRow>();
         HashMapTableRow hashMapTableRow = new HashMapTableRow();
@@ -294,7 +294,7 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         reset(dao);
                                                                                         
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
         expect(dao.getRowsByKey(LinksController.SPREADSHEET_PAGE,
             getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
         replay(dao);

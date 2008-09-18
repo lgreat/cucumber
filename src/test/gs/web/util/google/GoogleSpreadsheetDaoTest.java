@@ -48,7 +48,7 @@ public class GoogleSpreadsheetDaoTest extends BaseTestCase {
 
         assertTrue("Expected exception when spreadsheet url parameters not set", threwException);
 
-        _dao.setSpreadsheetUrl(SPREADSHEET_INFO);
+        _dao.setSpreadsheetInfo(SPREADSHEET_INFO);
         assertEquals(WORKSHEET_URL, _dao.getWorksheetUrl());
     }
 

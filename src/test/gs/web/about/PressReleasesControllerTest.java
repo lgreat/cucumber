@@ -66,7 +66,7 @@ public class PressReleasesControllerTest extends BaseControllerTestCase {
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
         expect(dao.getAllRows()).andReturn(_tableRowList);
         replay(dao);
 
@@ -90,7 +90,7 @@ public class PressReleasesControllerTest extends BaseControllerTestCase {
 
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         expect(dao.getAllRows()).andReturn(_tableRowList);
         replay(dao);
@@ -129,15 +129,15 @@ public class PressReleasesControllerTest extends BaseControllerTestCase {
 
         getRequest().setServerName("dev.greatschools.net");
         controller.injectWorksheetName(getRequest());
-        assertEquals(controller.getInternalWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
+        assertEquals(controller.getInternalWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
 
         getRequest().setServerName("staging.greatschools.net");
         controller.injectWorksheetName(getRequest());
-        assertEquals(controller.getInternalWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
+        assertEquals(controller.getInternalWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
 
         getRequest().setServerName("www.greatschools.net");
         controller.injectWorksheetName(getRequest());
-        assertEquals(controller.getProductionWorksheetName(), dao.getSpreadsheetUrl().getWorksheetName());
+        assertEquals(controller.getProductionWorksheetName(), dao.getSpreadsheetInfo().getWorksheetName());
     }
 
     public void testGetWorksheet() {

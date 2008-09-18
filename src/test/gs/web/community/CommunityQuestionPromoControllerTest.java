@@ -75,7 +75,7 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _dao;
 
         getRequest().setServerName("dev.greatschools.net");
-        expect(dao.getSpreadsheetUrl()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
 
         expect(dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, DEFAULT_CODE)).andReturn(null);
         replay(dao);
@@ -194,6 +194,6 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         getRequest().setServerName("dev.greatschools.net");
         controller.injectWorksheetName(getRequest());
-        assertEquals("od6", dao.getSpreadsheetUrl().getWorksheetName());
+        assertEquals("od6", dao.getSpreadsheetInfo().getWorksheetName());
     }
 }

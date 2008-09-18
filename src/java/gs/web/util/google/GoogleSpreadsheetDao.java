@@ -135,11 +135,11 @@ public class GoogleSpreadsheetDao extends AbstractCachedTableDao {
         return _password;
     }
 
-    public GoogleSpreadsheetInfo getSpreadsheetUrl() {
+    public GoogleSpreadsheetInfo getSpreadsheetInfo() {
         return _spreadsheetInfo;
     }
 
-    public void setSpreadsheetUrl(GoogleSpreadsheetInfo spreadsheetInfo) {
+    public void setSpreadsheetInfo(GoogleSpreadsheetInfo spreadsheetInfo) {
         _spreadsheetInfo = spreadsheetInfo;
     }
 

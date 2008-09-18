@@ -88,7 +88,7 @@ public class PressClippingsController extends AbstractController {
      */
     protected void injectWorksheetName(HttpServletRequest request) {
         GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getTableDao();
-        castDao.getSpreadsheetUrl().setWorksheetName(getWorksheet(request));
+        castDao.getSpreadsheetInfo().setWorksheetName(getWorksheet(request));
     }
 
     public ITableDao getTableDao() {
