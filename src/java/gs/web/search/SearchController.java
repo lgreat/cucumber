@@ -177,7 +177,6 @@ public class SearchController extends AbstractFormController {
         if (!searchCommand.isTopicsOnly()) PageHelper.setHasSearchedCookie(request, response);
         Map<String, Object> model = createModel(request, searchCommand, sessionContext, debug);
 
-        // Set the pathway: it's Research & Compare unless it's an article search.
         String viewname;
         if (searchCommand.isTopicsOnly()) {
             viewname = "search/mixedResults";
