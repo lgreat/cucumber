@@ -277,6 +277,16 @@ public class SearchController extends AbstractFormController {
                     }
                 }
 
+                // special case for GS-7076
+                if (State.DC.equals(state) && "washington".equals(queryString.toLowerCase().trim())) {
+                    try {
+                        Query dcQuery = _queryParser.parse("district of columbia");
+                        baseQuery.add(dcQuery, BooleanClause.Occur.SHOULD);
+                    } catch (ParseException pe) {
+                        _log.warn(pe);
+                    }
+                }
+
                 Hits districtHits = searchForDistricts(baseQuery);
                 SchoolType filteredST = null;
                 if (request.getParameterValues(PARAM_SCHOOL_TYPE) != null &&
