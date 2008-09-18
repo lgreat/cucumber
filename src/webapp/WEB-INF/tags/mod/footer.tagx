@@ -97,7 +97,7 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-            <br style="clear:both;"/>
+            <div style="clear:both;" />
         </div>
     </c:if>
 </jsp:root>
