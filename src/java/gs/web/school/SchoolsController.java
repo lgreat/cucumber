@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.67 2008/09/17 02:19:08 yfan Exp $
+ * $Id: SchoolsController.java,v 1.68 2008/09/18 19:49:16 yfan Exp $
  */
 
 package gs.web.school;
@@ -21,6 +21,7 @@ import gs.data.util.Address;
 import gs.web.search.ResultsPager;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
+import gs.web.util.LogUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -166,9 +167,17 @@ public class SchoolsController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response)
             throws Exception {
+        Map<String, Object> model = new HashMap<String, Object>();
+
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
-        Map<String, Object> model = new HashMap<String, Object>();
+
+        if (state == null) {
+            LogUtil.log(_log, request, "Missing state in city/district browse request.");
+            model.put("showSearchControl", Boolean.TRUE);
+            model.put("title", "State not found");
+            return new ModelAndView("status/error", model);            
+        }
 
         CityBrowseFields cityBrowseFields = null;
 
@@ -197,7 +206,7 @@ public class SchoolsController extends AbstractController {
             }
 
             if (!SchoolsController.isValidNewStyleCityBrowseRequest(request)) {
-                _log.warn("Malformed city browse url: " + request.getRequestURI());
+                LogUtil.log(_log, request, "Malformed city browse url: " + request.getRequestURI());
                 model.put("showSearchControl", Boolean.TRUE);
                 model.put("title", "City not found");
 
@@ -267,23 +276,8 @@ public class SchoolsController extends AbstractController {
         }
         searchCommand.setSt(paramSchoolType);
 
-        String cityName;
+        String cityName = null;
         if (isDistrictBrowse) {
-            cityName = request.getParameter(PARAM_CITY);
-        } else {
-            cityName = cityBrowseFields.getCityName();
-        }
-
-        boolean cityBrowse = false;
-        if (cityName != null) {
-            cityBrowse = true;
-            model.put(MODEL_CITY_BROWSE_URI_ROOT, createNewCityBrowseURIRoot(state, cityName));
-            model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, createNewCityBrowseURILevelLabel(levelCode));
-            model.put(MODEL_CITY_BROWSE_URI, createNewCityBrowseURI(state, cityName, cityBrowseFields.getSchoolTypeSet(), levelCode));
-            searchCommand.setCity(cityName);
-            searchCommand.setQ(cityName);
-            model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));
-        } else {
             String districtParam = request.getParameter(PARAM_DISTRICT);
             if (districtParam != null) {
                 // Look up the district name
@@ -312,7 +306,7 @@ public class SchoolsController extends AbstractController {
                     model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInDistrict(districtId, state));
                     searchCommand.setDistrict(districtIdStr);
                 } catch (ObjectRetrievalFailureException e) {
-                    _log.warn(state + ": District Id " + districtId + " not found.");
+                    LogUtil.log(_log, request, state + ": District Id " + districtId + " not found.", e);
                     BindException errors = new BindException(searchCommand, "searchCommand");
                     errors.reject("error_no_district", "District was not found.");
 
@@ -323,6 +317,14 @@ public class SchoolsController extends AbstractController {
                     return new ModelAndView("status/error", model);
                 }
             }
+        } else {
+            cityName = cityBrowseFields.getCityName();
+            model.put(MODEL_CITY_BROWSE_URI_ROOT, createNewCityBrowseURIRoot(state, cityName));
+            model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, createNewCityBrowseURILevelLabel(levelCode));
+            model.put(MODEL_CITY_BROWSE_URI, createNewCityBrowseURI(state, cityName, cityBrowseFields.getSchoolTypeSet(), levelCode));
+            searchCommand.setCity(cityName);
+            searchCommand.setQ(cityName);
+            model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));        
         }
 
         // Get the city from us_geo.city
@@ -347,12 +349,19 @@ public class SchoolsController extends AbstractController {
                 }
                 model.put(MODEL_CITY_NAME, cityName);
                 model.put(MODEL_CITY_DISPLAY_NAME, displayName);
-                if (cityBrowse) model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));                    
+                if (!isDistrictBrowse) {
+                    model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
+                }
+            } else {
+                LogUtil.log(_log, request, "City not found in state in city/district browse request.");
+                model.put("showSearchControl", Boolean.TRUE);
+                model.put("title", "City not found in state");
+                return new ModelAndView("status/error", model);
             }
         }
 
-        model.put(MODEL_IS_CITY_BROWSE, cityBrowse);
-        model.put(MODEL_IS_DISTRICT_BROWSE, !cityBrowse);
+        model.put(MODEL_IS_CITY_BROWSE, !isDistrictBrowse);
+        model.put(MODEL_IS_DISTRICT_BROWSE, isDistrictBrowse);
 
         // Build the results and the model
         String sortColumn = request.getParameter(PARAM_SORT_COLUMN);
@@ -394,7 +403,7 @@ public class SchoolsController extends AbstractController {
             resultsModel.put(PARAM_SORT_DIRECTION, sortDirection);
             model.put("results", resultsModel);
         } else {
-            _log.warn("Hits object is null for SearchCommand: " + searchCommand);
+            LogUtil.log(_log, request, "Hits object is null for SearchCommand: " + searchCommand);
         }
 
         return new ModelAndView(getViewName(), model);
