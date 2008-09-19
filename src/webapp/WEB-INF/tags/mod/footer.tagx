@@ -32,6 +32,73 @@
                 </div>
             </c:if>
 
+            <div id="navFooter" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'hidden':''}">
+                <ul class="navColumns">
+                    <li class="first">
+                        <div>Find the Right Schools</div>
+                        <ul>
+                            <li><a href="#">Compare Schools</a></li>
+                            <li><a href="#">King and Queen Courthouse Schools</a></li>
+                            <li><a href="#">Advanced Search</a></li>
+                            <li><a href="#">School Choice Tips</a></li>
+                        </ul>
+                    </li>
+                    <li class="second">
+                        <div>Grade-by-Grade Support</div>
+                        <ul>
+                            <li><a href="#">Preschool</a></li>
+                            <li><a href="#">Kindergarten</a></li>
+                            <li><a href="#">First Grade</a></li>
+                            <li><a href="#">Second Grade</a></li>
+                            <li><a href="#">Third Grade</a></li>
+                            <li><a href="#">Fourth Grade</a></li>
+                            <li><a href="#">Fifth Grade</a></li>
+                            <li><a href="#">Middle School</a></li>
+                            <li><a href="#">High School</a></li>
+                        </ul>
+                    </li>
+                    <li class="third">
+                        <div>Education Topics</div>
+                        <ul>
+                            <li><a href="#">Math Tips</a></li>
+                            <li><a href="#">Reading Tips</a></li>
+                            <li><a href="#">Gifted and Talented</a></li>
+                            <li><a href="#">Tutoring</a></li>
+                            <li><a href="#">Learning Disabilities</a></li>
+                            <li><a href="#">Standardized Tests</a></li>
+                            <li><a href="#">College Prep</a></li>
+                            <li><a href="#">Healthy Kids</a></li>
+                            <li><a href="#">Bullying</a></li>
+                        </ul>
+                    </li>
+                    <li class="fourth">
+                        <div>Parent Community</div>
+                        <ul>
+                            <li><a href="#">Q&amp;amp;A</a></li>
+                            <li><a href="#">Groups</a></li>
+                            <li><a href="#">Advice</a></li>
+                            <li><a href="#">King and Queen Courthouse Local</a></li>
+                            <li><a href="#">Bill's Blog</a></li>
+                            <li><a href="#">Kingergarten Blog</a></li>
+                            <li><a href="#">Join!</a></li>
+                        </ul>
+                    </li>
+                    <li class="fifth">
+                        <div>Learn About GreatSchools</div>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Media Room</a></li>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Advertisers</a></li>
+                            <li><a href="#">License our content</a></li>
+                            <li><a href="#">Link to Greatschools</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Free Newsletters</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
             <div id="footerGS">
                 <c:set var="footerCopyright">
                     <div id="footerCopyright">
@@ -46,24 +113,6 @@
                         ${footerCopyright}
                     </c:when>
                     <c:otherwise>
-                        <c:if test="${showExtendedFooter eq true}">
-                            <div id="footerExtended">
-                                <b>What is GreatSchools?</b><br/>
-                                GreatSchools is an independent, non-profit organization that empowers and inspires parents to participate in their
-                                child's development and educational success. Parents choose GreatSchools to find the ideal school within their state,
-                                city, district or neighborhood. We feature hundreds of thousands of school ratings and reviews from parents about
-                                public, private and charter schools including <a
-                                    href="/preschool/">preschool</a> and K-12 schools across the country.
-                                GreatSchools empowers its <a
-                                    href="http://${communityHost}">parent community</a> with unparalleled expert advice about
-                                education topics such as <a href="/content/schoolChoiceCenter.page">school choice</a>,
-                                <a href="/content/movingWithKids.page">moving with kids</a>, <a
-                                    href="/content/countdownToCollege.page">preparing for college</a>,
-                                <a href="/content/specialNeeds.page">learning difficulties</a>, <a
-                                    href="/articles/68/LD/Identifying-a-Learning-Difficulty/AD-HD-Basics">ADHD</a>
-                                and <a href="/content/tutoring_Homework_Help.page">tutoring</a>.
-                            </div>
-                        </c:if>
 
                         <div id="footerImg">
                             <link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/footer.gif"
@@ -71,24 +120,12 @@
                         </div>
 
                         <div id="footerContent">
-                            <div class="lowernavbar">
-                                <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-                                <a rel="nofollow" href="/about/aboutUs.page" style="padding-left:0;">About Us</a> &#124;
-                                <link:pressRoom>Media Room</link:pressRoom> &#124;
-                                <link:webbyAwardThanks>Our Awards</link:webbyAwardThanks> &#124;
-                                <gsml:a rel="nofollow" href="/about/supportUs.page">Support Us</gsml:a> &#124;
-                                <!-- Replace newsletters with Blog per GS-7086 -->
-                                <gsml:a rel="nofollow" target="_blank" href="http://blogs.greatschools.net/BillsBlog">Blog</gsml:a> &#124;
-                                <!--<link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;-->
-                                <gsml:a rel="nofollow" href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
-                                <link:contactUs>Contact Us</link:contactUs>
-
+                            <c:if test="${showExtendedFooter eq true}">
                                 <div id="footerText">
-                                    GreatSchools: Preschool, elementary, middle and high school information for public, private and
-                                    charter schools nationwide.
+                                    GreatSchools empowers and inspires parents to get involved
+                                    in their children's development and educational success.
                                 </div>
-                            </div>
-
+                            </c:if>
                             <c:if test="${showSeoFooter ne false}">
                                 <mod:seoFooter/>
                             </c:if>

@@ -127,3 +127,70 @@
 #footer.custom #footerGSIframe {
     height:50px;
 }
+
+#navFooter {
+    background-color: #F8F6E9;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 11px;
+    position: relative;
+    height: 225px;
+    color: #444;
+    margin-top: 25px;
+}
+
+#navFooter.hidden {
+    display: none;
+}
+
+#navFooter ul.navColumns li ul li a {
+    text-decoration: none;
+    color: #777;
+}
+
+#navFooter ul.navColumns li ul li a:hover {
+    text-decoration: underline;
+}
+
+ul.navColumns, ul.navColumns li, ul.navColumns ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul.navColumns li {
+    list-style-type: none;
+}
+
+ul.navColumns > li {
+    position: absolute;
+    top: 30px;
+}
+
+ul.navColumns li.first {
+    left: 18px;
+}
+
+ul.navColumns li.second {
+    left: 198px;
+}
+
+ul.navColumns li.third {
+    left: 378px;
+}
+
+ul.navColumns li.fourth {
+    left: 558px;
+}
+
+ul.navColumns li.fifth {
+    left: 738px;
+}
+
+ul.navColumns li ul li {
+    margin-left: 15px;
+    text-indent: -15px;
+    width: 150px;
+}
+
+ul.navColumns div {
+    margin-bottom: 10px;
+}
