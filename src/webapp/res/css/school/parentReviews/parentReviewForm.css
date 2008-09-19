@@ -96,7 +96,7 @@ ul#frmErrors li {
     position:relative;
     clear:left;
     color: #cc5566;
-    background-image: url('/res/img/bullet/exclamation.gif');
+    background-image: url(/res/img/bullet/exclamation.gif);
     background-repeat: no-repeat;
     background-position: 0 0;
     padding: .1em 0 .5em 2em;

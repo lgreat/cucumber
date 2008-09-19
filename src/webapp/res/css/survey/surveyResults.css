@@ -135,7 +135,7 @@ table.complexResults td.value {
 
 div.page-header {
     position:relative;
-    background-image: url(../../img/splash/greyDot.gif);
+    background-image: url(/res/img/splash/greyDot.gif);
     background-position: center bottom;
     background-repeat: repeat-x;
     color: #55BBCC;

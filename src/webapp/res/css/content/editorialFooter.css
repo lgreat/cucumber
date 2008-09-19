@@ -22,7 +22,7 @@
     text-indent:-50em;
     padding: 0 0 0 0;
 	margin: 0 0 0 0;
-    background-image: url(../../img/content/research/grey_dash2.gif);
+    background-image: url(/res/img/content/research/grey_dash2.gif);
 	background-repeat: repeat-x;
 	height: 15px;
 }
@@ -131,7 +131,7 @@
 #editorialFooter .billsBlogImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(../../img/content/research/img_bills_blog.jpg);
+	background-image: url(/res/img/content/research/img_bills_blog.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -156,7 +156,7 @@
 #editorialFooter .healthyKidsImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(../../img/content/research/blueberries.jpg);
+	background-image: url(/res/img/content/research/blueberries.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -166,7 +166,7 @@
 #editorialFooter .tutoringImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(../../img/content/research/tutor_small.jpg);
+	background-image: url(/res/img/content/research/tutor_small.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -186,7 +186,7 @@
 #editorialFooter .editorsPickImg {
     text-indent:-150em;
     padding: 0px 0px 13px 0px;
-	background-image: url(../../img/content/research/mmyers.jpg);
+	background-image: url(/res/img/content/research/mmyers.jpg);
 	background-repeat: no-repeat;
 	margin: 0px 15px 0px auto;
 	width: 94px;

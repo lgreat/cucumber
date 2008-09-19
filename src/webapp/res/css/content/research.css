@@ -214,7 +214,7 @@ input.district {
 }
 
 .blueDot {
-    background-image: url(../../img/content/research/blue_dot.gif);
+    background-image: url(/res/img/content/research/blue_dot.gif);
 	background-repeat: repeat-x;
 }
 
@@ -232,7 +232,7 @@ input.district {
     text-indent:-50em;
     padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-    background-image: url(../../img/content/research/grey_dash2.gif);
+    background-image: url(/res/img/content/research/grey_dash2.gif);
 	background-repeat: repeat-x;
 	height: 15px;
 }
@@ -323,7 +323,7 @@ input.district {
 .billsBlogImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(../../img/content/research/img_bills_blog.jpg);
+	background-image: url(/res/img/content/research/img_bills_blog.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -343,7 +343,7 @@ div.healthyKids {
 .healthyKidsImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(../../img/content/research/blueberries.jpg);
+	background-image: url(/res/img/content/research/blueberries.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -363,7 +363,7 @@ div.healthyKids {
 .editorsPickImg {
     text-indent:-150em;
     padding: 0px 0px 18px 0px;
-	background-image: url(../../img/content/research/mmyers.jpg);
+	background-image: url(/res/img/content/research/mmyers.jpg);
 	background-repeat: no-repeat;
 	margin: 0px 15px 0px auto;
 	width: 94px;
@@ -407,7 +407,7 @@ div.healthyKids {
 
 #lisaSignature {
     text-indent:-50em;
-    background-image: url(../../img/content/research/lisa_signature.gif);
+    background-image: url(/res/img/content/research/lisa_signature.gif);
     background-repeat: no-repeat;
     margin:10px 0px 10px 0px;
     width: 147px;

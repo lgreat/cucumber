@@ -99,7 +99,7 @@ div#nearbyCities li a {
 }
 
 #nearbyCities .more {
-    background-image: url(../../img/bullet/pinkarrow.gif );
+    background-image: url(/res/img/bullet/pinkarrow.gif );
     background-repeat: no-repeat;
     background-position: center left;
     border:none;

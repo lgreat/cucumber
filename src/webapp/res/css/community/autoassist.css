@@ -24,7 +24,7 @@
 	color:#000000;
 }
 .aa_wait {
-	background:transparent url(../../img/community/indicator.gif);
+	background:transparent url(/res/img/community/indicator.gif);
 	background-repeat:no-repeat;
 	background-position:98% center;
 }

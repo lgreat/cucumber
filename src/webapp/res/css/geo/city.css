@@ -212,7 +212,7 @@ div.topRatedSchools {
 .recentParentReviews h5 {
     font-size: x-small;
     color: #999;
-    background-image: url(../../img/community/bell.gif);
+    background-image: url(/res/img/community/bell.gif);
     background-repeat: no-repeat;
     background-position: top left;
     padding-left: 17px;
@@ -261,7 +261,7 @@ div.topRatedSchools {
 
 .topRatedSchools h5,
 .districts li.viewall {
-    background-image: url(../../img/bullet/pinkarrow.gif );
+    background-image: url(/res/img/bullet/pinkarrow.gif );
     background-repeat: no-repeat;
     background-position: center left;
     padding-top: 2px;

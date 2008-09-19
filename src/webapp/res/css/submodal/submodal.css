@@ -152,5 +152,5 @@ body.hover {
 	height: 16px;
 	width: 16px;
 	text-indent: -9999px;
-	background: url('/res/img/submodal/closeblue.gif') no-repeat;
+	background: url(/res/img/submodal/closeblue.gif) no-repeat;
 }

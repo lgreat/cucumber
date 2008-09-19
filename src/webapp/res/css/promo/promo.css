@@ -35,7 +35,7 @@
 .bigDottedDivider {
     margin-top: 10px;
     text-align:center;
-    background-image: url(../../img/splash/greyDot.gif );
+    background-image: url(/res/img/splash/greyDot.gif );
     background-repeat:repeat-x;
     background-position:bottom;
     padding:3px 0 5px 9px;

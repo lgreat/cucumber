@@ -32,5 +32,5 @@ display: block;
 height: 20px;
 width: 96px;
 text-indent: -9999px;
-background: url('../../../img/button/btn_sign_up_now_b6d6f6.gif') left no-repeat;
+background: url(/res/img/button/btn_sign_up_now_b6d6f6.gif) left no-repeat;
 }

@@ -6,12 +6,12 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
-    <jsp:directive.page import="gs.web.util.context.SessionContext"/>
-    <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
-    <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.page import="gs.data.school.ISchoolDao"/>
-    <jsp:directive.page import="gs.data.state.State"/>
     <jsp:directive.page import="gs.data.school.School"/>
+    <jsp:directive.page import="gs.data.state.State"/>
+    <jsp:directive.page import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -72,7 +72,7 @@
         <li>Pages can also have their own stylesheet for styles specific to the page (e.g. <strong>res/css/community/registration/confirmation.css</strong>) but in general should get their styles from the group stylesheet (e.g. registration.css) or higher level global stylesheet.</li>
         <li>No sloppy HTML such as using 1 pixel images for positioning, unnecessary tables for layout, or using style attributes that really belong in CSS (e.g. width/height/border/align). Even our own header and footer contain some examples of what not to do and we're working on fixing those.</li>
         <li>All images MUST be reduced as much as possible to conserve bandwidth. In the above examples they would go in <strong>res/img/community/registration/someimage.gif</strong></li>
-        <li>References to images in the CSS should always be relative to the location of the stylesheet and not absolute! For example do this <strong>url(../../../img/community/registration/someimage.gif)</strong> but NOT this url(/res/img/community/registration/someimage.gif)</li>
+        <li>References to images in the CSS should always be absolute and not relative to the location of the stylesheet! For example do this <strong>url(/res/img/community/registration/someimage.gif)</strong> but NOT this url(../../../img/community/registration/someimage.gif)</li>
         <li>Images should almost never contain text, text should be text</li>
         <li>Pages should be tested to work properly with Internet Explorer 6 and 7 and Firefox 2</li>
         <li>Comments on these guidelines should go to thuss@greatschools.net</li>

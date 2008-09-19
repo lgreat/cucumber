@@ -7,7 +7,7 @@ http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
 .star-rating,
 .star-rating a:hover,
 .star-rating .current-rating{
-	background: url(../../img/starRating/star.gif) left -1000px repeat-x;
+	background: url(/res/img/starRating/star.gif) left -1000px repeat-x;
 }
 .star-rating{
 	position:relative;
@@ -78,7 +78,7 @@ http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
 .small-star,
 .small-star a:hover,
 .small-star .current-rating{
-	background-image: url(../../img/starRating/star_small.gif);
+	background-image: url(/res/img/starRating/star_small.gif);
 	line-height: 10px;
 	height: 10px;
 }
@@ -90,7 +90,7 @@ http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
 .med-star,
 .med-star a:hover,
 .med-star .current-rating{
-	background-image: url(../../img/starRating/star_med_transparent.gif);
+	background-image: url(/res/img/starRating/star_med_transparent.gif);
 	line-height: 18px;
 	height: 18px;
 }
@@ -102,7 +102,7 @@ http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux/
 .large-star,
 .large-star a:hover,
 .large-star .current-rating{
-	background-image: url(../../img/starRating/star_large.gif);
+	background-image: url(/res/img/starRating/star_large.gif);
 	line-height: 23px;
 	height: 23px;
 }

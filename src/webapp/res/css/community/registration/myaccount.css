@@ -85,7 +85,7 @@ h1 span {
     padding: 13px 30px 0 80px;
 	color: #fff;
 	font-size: 17px;
-	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
+	background: url(/res/img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
 }
 
 #myaccount_info .infomessageEmail {
@@ -96,7 +96,7 @@ h1 span {
     padding: 7px 30px 0 80px;
 	color: #fff;
 	font-size: 17px;
-	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
+	background: url(/res/img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
 }
 
 /* myaccount_info modules */

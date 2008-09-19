@@ -19,7 +19,7 @@
 
 #marianSignature {
     text-indent:-50em;
-    background-image: url(../../../img/community/registration/marian_signature.gif);
+    background-image: url(/res/img/community/registration/marian_signature.gif);
     background-repeat: no-repeat;
     margin:10px 0 10px 0;
     width: 135px;
@@ -54,7 +54,7 @@ a.link:link, a.link:visited, a.link:hover, a.link:active {
 
 .greyDot {
     border-bottom: 0;
-    background: url(../../../img/content/countdownToCollege/mid_dot_line.gif) bottom repeat-x;
+    background: url(/res/img/content/countdownToCollege/mid_dot_line.gif) bottom repeat-x;
     padding-bottom: 10px;
 }
 
@@ -118,7 +118,7 @@ h1.welcomeInfo {
     line-height: 17px;
     color: #ffffff;
     letter-spacing: 0;
-    background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 30px 13px no-repeat #66cccc;
+    background: url(/res/img/community/registration/icon_infomessage_27x27.gif) 30px 13px no-repeat #66cccc;
 }
 
 #marianPhotoName, #marianPhotoCaption {
