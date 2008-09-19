@@ -39,7 +39,7 @@
 }
 
 #newuser h2 {
-    background: url('/res/img/community/registration/newuser.gif') no-repeat left;
+    background: url(/res/img/community/registration/newuser.gif) no-repeat left;
     text-indent: -9999em;
     padding: 0 0 16px 0;
     border-bottom: 1px solid #CACC9E;
@@ -77,7 +77,7 @@
 }
 
 #returninguser h2 {
-    background: url('/res/img/community/registration/returninguser.gif') no-repeat left;
+    background: url(/res/img/community/registration/returninguser.gif) no-repeat left;
     text-indent: -9999em;
     padding: 0 0 12px 0;
     border-bottom: 1px solid #CACC9E;
