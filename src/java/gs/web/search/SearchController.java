@@ -159,7 +159,7 @@ public class SearchController extends AbstractFormController {
         // GS-6866
         if ("b".equals(sessionContext.getABVersion())) {
             // need to add a check for multiple cities by the same name because findCity() just logs an error if multiple
-            City city = null;
+            City city;
             try {
                 city = getGeoDao().findCity(sessionContext.getState(), searchCommand.getQueryString(), false, true);
             } catch (MultipleMatchesException e) {
@@ -278,7 +278,7 @@ public class SearchController extends AbstractFormController {
                 }
 
                 // special case for GS-7076
-                if (State.DC.equals(state) && "washington".equals(queryString.toLowerCase().trim())) {
+                if (State.DC.equals(state)) {
                     try {
                         Query dcQuery = _queryParser.parse("district of columbia");
                         baseQuery.add(dcQuery, BooleanClause.Occur.SHOULD);
@@ -377,6 +377,8 @@ public class SearchController extends AbstractFormController {
      *
      * @param sessionContext required
      * @param state          optional state
+     * @param queryString    a plain text query
+     * @return a BooleanQuery type
      */
     protected BooleanQuery createBaseQuery(SessionContext sessionContext, State state, String queryString) {
         BooleanQuery baseQuery = new BooleanQuery();
