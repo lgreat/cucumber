@@ -73,6 +73,13 @@
             <type>java.lang.String</type>
             <description>unique identifier for this link element</description>
         </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>        
     </tag>
 
 
@@ -454,6 +461,13 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>
     </tag>
     <tag>
         <name>feedback</name>
@@ -831,6 +845,13 @@
             <type>java.lang.String</type>
             <description>value of link title attribute, for tooltip</description>
         </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>        
     </tag>
     <tag>
         <name>schoolSearch</name>
@@ -940,6 +961,13 @@
             <type>java.lang.Integer</type>
             <description>Page number, defaults to 1</description>
         </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>        
     </tag>
     <tag>
         <name>addParentReviewSearch</name>
@@ -1118,6 +1146,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>Title attribute</description>
+        </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
         </attribute>
     </tag>
     <tag>
@@ -2335,6 +2370,13 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>        
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>
     </tag>
     <tag>
         <name>parentReviewGuidelines</name>
@@ -2456,6 +2498,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
         </attribute>
     </tag>
     <tag>

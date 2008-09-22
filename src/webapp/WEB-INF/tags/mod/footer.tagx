@@ -35,9 +35,11 @@
             <div id="navFooter" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'hidden':''}">
                 <ul class="navColumns">
                     <li class="first">
-                        <div><link:research state="${context.stateOrDefault}">Find the Right School</link:research></div>
+                        <div><link:research state="${context.stateOrDefault}"
+                                            rel="nofollow">Find the Right School</link:research></div>
                         <ul>
-                            <li><link:research state="${context.stateOrDefault}">Compare Schools</link:research></li>
+                            <li><link:research state="${context.stateOrDefault}"
+                                               rel="nofollow">Compare Schools</link:research></li>
                             <li>
                                 <c:if test="${context.city ne null}">
                                     <link:city city="${context.city.name}" state="${context.city.state}">${context.city.name} Schools</link:city>
@@ -48,7 +50,7 @@
                         </ul>
                     </li>
                     <li class="second">
-                        <div><link:articleLibrary>Grade-By-Grade Support</link:articleLibrary></div>
+                        <div><link:articleLibrary rel="nofollow">Grade-By-Grade Support</link:articleLibrary></div>
                         <ul>
                             <li><a href="#">Preschool</a></li>
                             <li><a href="#">Kindergarten</a></li>
@@ -66,9 +68,11 @@
                         <ul>
                             <li><link:tutoring>Homework</link:tutoring></li>
                             <li><link:tutoring>Tutoring</link:tutoring></li>
-                            <li><link:topicSearch query="bullying">Bullying</link:topicSearch></li>
+                            <li><link:topicSearch query="bullying"
+                                                  rel="nofollow">Bullying</link:topicSearch></li>
                             <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
-                            <li><link:topicSearch query="standardized tests">Standardized Testing</link:topicSearch></li>
+                            <li><link:topicSearch query="standardized tests"
+                                                  rel="nofollow">Standardized Testing</link:topicSearch></li>
                             <li><link:countdownToCollege>College Prep</link:countdownToCollege></li>
                             <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
                             <li><link:newsletterCenter>Free Newsletters</link:newsletterCenter></li>
@@ -87,21 +91,25 @@
                                 </c:if>
                                 <a href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;page=1&amp;amp;order=desc&amp;amp;tab=local">${linkText}</a>
                             </li>
-                            <li><link:loginOrRegister>Join!</link:loginOrRegister></li>
+                            <li><link:loginOrRegister rel="nofollow">Join!</link:loginOrRegister></li>
                         </ul>
                     </li>
                     <li class="fifth">
-                        <div><gsml:a href="/about/aboutUs.page">About GreatSchools</gsml:a></div>
+                        <div><gsml:a href="/about/aboutUs.page" rel="nofollow">About GreatSchools</gsml:a></div>
                         <ul>
-                            <li><gsml:a href="/about/aboutUs.page">About Us</gsml:a></li>
+                            <li><gsml:a href="/about/aboutUs.page" rel="nofollow">About Us</gsml:a></li>
                             <li><gsml:a href="http://blogs.greatschools.net/BillsBlog">Bills Blog</gsml:a></li>
-                            <li><link:pressRoom>Media Room</link:pressRoom></li>
-                            <li><link:webbyAwardThanks>Our Awards</link:webbyAwardThanks></li>
-                            <li><gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a></li>
-                            <li><gsml:a href="/about/partnerOpportunities.page">Advertisers</gsml:a></li>
-                            <li><gsml:a href="/about/partnerOpportunities.page">License our content</gsml:a></li>
-                            <li><gsml:a href="/cgi-bin/static/link_to_us.tmpl/${context.stateOrDefault}">Link to Greatschools</gsml:a></li>
-                            <li><link:contactUs>Contact Us</link:contactUs></li>
+                            <li><link:pressRoom rel="nofollow">Media Room</link:pressRoom></li>
+                            <li><link:webbyAwardThanks rel="nofollow">Our Awards</link:webbyAwardThanks></li>
+                            <li><gsml:a href="/cgi-bin/static/jobs.inc"
+                                        rel="nofollow">Jobs</gsml:a></li>
+                            <li><gsml:a href="/about/partnerOpportunities.page"
+                                        rel="nofollow">Advertisers</gsml:a></li>
+                            <li><gsml:a href="/about/partnerOpportunities.page"
+                                        rel="nofollow">License our content</gsml:a></li>
+                            <li><gsml:a href="/cgi-bin/static/link_to_us.tmpl/${context.stateOrDefault}"
+                                        rel="nofollow">Link to Greatschools</gsml:a></li>
+                            <li><link:contactUs rel="nofollow">Contact Us</link:contactUs></li>
                         </ul>
                     </li>
                 </ul>
