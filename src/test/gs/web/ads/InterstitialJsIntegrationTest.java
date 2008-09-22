@@ -1,11 +1,12 @@
 package gs.web.ads;
 
 import net.sf.jstester.JsTestCase;
+import gs.web.IntegrationTestCase;
 
 /**
  * @author thuss
  */
-public class InterstitialJsIntegrationTest extends JsTestCase {
+public class InterstitialJsIntegrationTest extends JsTestCase implements IntegrationTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -14,7 +15,7 @@ public class InterstitialJsIntegrationTest extends JsTestCase {
         // This is the script under test
         eval(loadScript("res/js/interstitial.js"));
         // Get our javascript a document to work this, this causes a real HTTP request
-        eval("window.location = 'http://localhost:9000/res/js/test/testPage.html';");
+        eval("window.location = '"+ INTEGRATION_HOST +"/res/js/test/testPage.html';");
     }
 
     protected void tearDown() throws Exception {
