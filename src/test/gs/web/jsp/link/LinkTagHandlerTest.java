@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.49 2008/07/31 18:17:26 thuss Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.50 2008/09/22 21:17:11 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -529,6 +529,16 @@ public class LinkTagHandlerTest extends BaseTestCase {
 
         UrlBuilder builder = handler.createUrlBuilder();
         assertEquals("/search/search.page?c=school&lc=m&q=alameda&search_type=0&st=public&st=charter&state=CA",
+                builder.asSiteRelative(null));
+    }
+
+    public void testArticleSearchTagHandler() throws IOException {
+        ArticleSearchTagHandler handler = new ArticleSearchTagHandler();
+        handler.setPageContext(new MockPageContext());
+        handler.setQuery("bullying");
+
+        UrlBuilder builder = handler.createUrlBuilder();
+        assertEquals("/search/search.page?c=topic&q=bullying&search_type=0",
                 builder.asSiteRelative(null));
     }
 
