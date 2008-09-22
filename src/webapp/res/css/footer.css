@@ -142,12 +142,16 @@
     display: none;
 }
 
-#navFooter ul.navColumns li ul li a {
+#navFooter ul.navColumns  a {
     text-decoration: none;
+    color: #444;
+}
+
+#navFooter ul.navColumns li ul li a {
     color: #777;
 }
 
-#navFooter ul.navColumns li ul li a:hover {
+#navFooter ul.navColumns a:hover {
     text-decoration: underline;
 }
 

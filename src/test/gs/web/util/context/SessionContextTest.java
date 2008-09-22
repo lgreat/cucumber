@@ -6,6 +6,7 @@ import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
+import gs.data.geo.IGeoDao;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import static org.easymock.EasyMock.*;
@@ -32,6 +33,7 @@ public class SessionContextTest extends BaseTestCase {
     private SessionContext _sessionContext;
     private static final String STATE_COOKIE = "state";
     private IPropertyDao _propertyDao;
+    private IGeoDao _geoDao;
 
     /**
      * @noinspection ProhibitedExceptionDeclared
@@ -55,6 +57,8 @@ public class SessionContextTest extends BaseTestCase {
 
         _propertyDao = createMock(IPropertyDao.class);
         _sessionContext.setPropertyDao(_propertyDao);
+        _geoDao = createStrictMock(IGeoDao.class);
+        _sessionContext.setGeoDao(_geoDao);
     }
 
     public void testIsUserValid() throws NoSuchAlgorithmException {
@@ -359,6 +363,16 @@ public class SessionContextTest extends BaseTestCase {
         _sessionContext.setMemberId(id);
         assertNull(_sessionContext.getUser());
         verify(userDao);
+    }
+
+    public void testBadCityId() {
+        final Integer id = -999;
+
+        expect(_geoDao.findCityById(-999)).andThrow(new ObjectRetrievalFailureException("Can't find it", id));
+        replay(_geoDao);
+        _sessionContext.setCityId(id);
+        assertNull(_sessionContext.getCity());
+        verify(_geoDao);
     }
 
     public void testIsInterstitialEnabled() {

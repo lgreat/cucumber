@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.22 2008/09/02 20:02:51 thuss Exp $
+ * $Id: SessionContext.java,v 1.23 2008/09/22 21:14:29 aroy Exp $
  */
 package gs.web.util.context;
 
@@ -9,6 +9,8 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.util.DigestUtil;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -23,8 +25,6 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
-
-import com.google.gdata.util.common.base.StringUtil;
 
 /**
  * The purpose is to hold common "global" properties for a user throughout their
@@ -69,6 +69,8 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private int _mslCount;
     private int _mssCount;
     private Integer _cityId; // greatschools city id from us_geo.city
+    private City _city;
+
     /**
      * Current US state
      */
@@ -84,6 +86,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     private SessionContextUtil _sessionContextUtil;
     private IUserDao _userDao;
+    private IGeoDao _geoDao;
     private boolean _readFromClient = false;
     private boolean _hasSearched = false;
     private boolean _crawler = false;
@@ -322,6 +325,14 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         _userDao = userDao;
     }
 
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
+    }
+
     public String getNickname() {
         return _nickname;
     }
@@ -442,6 +453,23 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public Integer getCityId() {
         return _cityId;
+    }
+
+    /**
+     * Try to mimic logic behind getUser
+     * @return City object defined by cityID, or null
+     */
+    public City getCity() {
+        if (_city == null) {
+            if (_cityId != null) {
+                try {
+                    _city = _geoDao.findCityById(_cityId);
+                } catch (ObjectRetrievalFailureException e) {
+                    _log.warn("Cookie pointed to non-existent city with id " + _cityId);
+                }
+            }
+        }
+        return _city;
     }
 
     public void setCityId(Integer cityId) {

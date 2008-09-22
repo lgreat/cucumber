@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.123 2008/09/17 22:18:30 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.124 2008/09/22 21:14:29 aroy Exp $
  */
 
 package gs.web.util;
@@ -93,6 +93,7 @@ public class UrlBuilder {
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
 
     public static final VPage SCHOOL_SEARCH = new VPage("vpage:schoolSearch");
+    public static final VPage ARTICLE_SEARCH = new VPage("vpage:articleSearch");
 
     /**
      * This page lists all districts in a state
@@ -714,6 +715,12 @@ public class UrlBuilder {
             this.setParameter("c", "school");
             this.setParameter("search_type", "0");
             this.setParameter("state", state.getAbbreviation());
+            this.setParameter("q", param0);
+        } else if (ARTICLE_SEARCH.equals(page)) {
+            _perlPage = false;
+            _path = "/search/search.page";
+            this.setParameter("c", "topic");
+            this.setParameter("search_type", "0");
             this.setParameter("q", param0);
         } else if (TEST_SCORE_LANDING.equals(page)) {
             _perlPage = false;

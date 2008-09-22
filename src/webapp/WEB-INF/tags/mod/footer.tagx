@@ -35,16 +35,20 @@
             <div id="navFooter" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'hidden':''}">
                 <ul class="navColumns">
                     <li class="first">
-                        <div>Find the Right Schools</div>
+                        <div><link:research state="${context.stateOrDefault}">Find the Right School</link:research></div>
                         <ul>
-                            <li><a href="#">Compare Schools</a></li>
-                            <li><a href="#">King and Queen Courthouse Schools</a></li>
-                            <li><a href="#">Advanced Search</a></li>
-                            <li><a href="#">School Choice Tips</a></li>
+                            <li><link:research state="${context.stateOrDefault}">Compare Schools</link:research></li>
+                            <li>
+                                <c:if test="${context.city ne null}">
+                                    <link:city city="${context.city.name}" state="${context.city.state}">${context.city.name} Schools</link:city>
+                                </c:if>
+                            </li>
+                            <li><link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter></li>
+                            <li><link:movingWithKids>Moving with Kids</link:movingWithKids></li>
                         </ul>
                     </li>
                     <li class="second">
-                        <div>Grade-by-Grade Support</div>
+                        <div><link:articleLibrary>Grade-By-Grade Support</link:articleLibrary></div>
                         <ul>
                             <li><a href="#">Preschool</a></li>
                             <li><a href="#">Kindergarten</a></li>
@@ -58,42 +62,46 @@
                         </ul>
                     </li>
                     <li class="third">
-                        <div>Education Topics</div>
+                        <div><link:articleLibrary>Education Topics</link:articleLibrary></div>
                         <ul>
-                            <li><a href="#">Math Tips</a></li>
-                            <li><a href="#">Reading Tips</a></li>
-                            <li><a href="#">Gifted and Talented</a></li>
-                            <li><a href="#">Tutoring</a></li>
-                            <li><a href="#">Learning Disabilities</a></li>
-                            <li><a href="#">Standardized Tests</a></li>
-                            <li><a href="#">College Prep</a></li>
-                            <li><a href="#">Healthy Kids</a></li>
-                            <li><a href="#">Bullying</a></li>
+                            <li><link:tutoring>Homework</link:tutoring></li>
+                            <li><link:tutoring>Tutoring</link:tutoring></li>
+                            <li><link:topicSearch query="bullying">Bullying</link:topicSearch></li>
+                            <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
+                            <li><link:topicSearch query="standardized tests">Standardized Testing</link:topicSearch></li>
+                            <li><link:countdownToCollege>College Prep</link:countdownToCollege></li>
+                            <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
+                            <li><link:newsletterCenter>Free Newsletters</link:newsletterCenter></li>
                         </ul>
                     </li>
                     <li class="fourth">
-                        <div>Parent Community</div>
+                        <div><gsml:a href="http://${communityHost}">Parent Community</gsml:a></div>
                         <ul>
-                            <li><a href="#">Q&amp;amp;A</a></li>
-                            <li><a href="#">Groups</a></li>
-                            <li><a href="#">Advice</a></li>
-                            <li><a href="#">King and Queen Courthouse Local</a></li>
-                            <li><a href="#">Bill's Blog</a></li>
-                            <li><a href="#">Kingergarten Blog</a></li>
-                            <li><a href="#">Join!</a></li>
+                            <li><a href="http://${communityHost}/q-and-a">Q&amp;amp;A</a></li>
+                            <li><a href="http://${communityHost}/groups">Groups</a></li>
+                            <li><a href="http://${communityHost}/advice">Advice</a></li>
+                            <li>
+                                <c:set var="linkText" value="My Local"/>
+                                <c:if test="${context.cityId gt 0}">
+                                    <c:set var="linkText" value="My ${context.city.name} Local"/>
+                                </c:if>
+                                <a href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;page=1&amp;amp;order=desc&amp;amp;tab=local">${linkText}</a>
+                            </li>
+                            <li><link:loginOrRegister>Join!</link:loginOrRegister></li>
                         </ul>
                     </li>
                     <li class="fifth">
-                        <div>Learn About GreatSchools</div>
+                        <div><gsml:a href="/about/aboutUs.page">About GreatSchools</gsml:a></div>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Media Room</a></li>
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">Advertisers</a></li>
-                            <li><a href="#">License our content</a></li>
-                            <li><a href="#">Link to Greatschools</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Free Newsletters</a></li>
+                            <li><gsml:a href="/about/aboutUs.page">About Us</gsml:a></li>
+                            <li><gsml:a href="http://blogs.greatschools.net/BillsBlog">Bills Blog</gsml:a></li>
+                            <li><link:pressRoom>Media Room</link:pressRoom></li>
+                            <li><link:webbyAwardThanks>Our Awards</link:webbyAwardThanks></li>
+                            <li><gsml:a href="/cgi-bin/static/jobs.inc">Jobs</gsml:a></li>
+                            <li><gsml:a href="/about/partnerOpportunities.page">Advertisers</gsml:a></li>
+                            <li><gsml:a href="/about/partnerOpportunities.page">License our content</gsml:a></li>
+                            <li><gsml:a href="/cgi-bin/static/link_to_us.tmpl/${context.stateOrDefault}">Link to Greatschools</gsml:a></li>
+                            <li><link:contactUs>Contact Us</link:contactUs></li>
                         </ul>
                     </li>
                 </ul>
