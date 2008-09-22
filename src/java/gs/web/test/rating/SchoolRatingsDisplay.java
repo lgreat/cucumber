@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.35 2008/06/09 17:03:52 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.36 2008/09/22 18:16:53 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -164,49 +164,49 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         }
 
 
-
+//KY, TN, OK, UT, DC, VT
         public String getLabel() {
             String label = _rowConfig.getLabel();
             State state = _ratingsConfig.getState();
             if(label.startsWith("Grade All")){
                 if(state.equals(State.AR)){
-                    label = "EOC";
+                    label = "EOC - All Grades";
                 }
                 else if(state.equals(State.DC)){
-                    label = "DC-CAS";
+                    label = "DC-CAS - All Grades";
                 }
                 else if(state.equals(State.KY)){
-                    label = "KCCT";
+                    label = "KCCT - All Grades";
                 }
                 else if(state.equals(State.MD)){
-                    label = "HSA";
+                    label = "HSA - All Grades";
                 }
                 else if(state.equals(State.MS)){
-                    label = "SATP";
+                    label = "SATP - All Grades";
                 }
                 else if(state.equals(State.NC)){
-                    label = "EOC";
+                    label = "EOC - All Grades";
                 }
                 else if(state.equals(State.NY)){
-                    label = "Regents Exams";
+                    label = "Regents Exams - All Grades";
                 }
                 else if(state.equals(State.OK)){
-                    label = "OCCT";
+                    label = "OCCT - All Grades";
                 }
                 else if(state.equals(State.SD)){
                     label = "Dakota STEP";
                 }
                 else if(state.equals(State.TN)){
-                    label = "Overall";
+                    label = "TCAP - All Grades";
                 }
                 else if(state.equals(State.UT)){
-                    label = "CRT";
+                    label = "CRT - All Grades";
                 }
                 else if(state.equals(State.VA)){
-                    label = "EOC";
+                    label = "EOC - All Grades";
                 }
                 else if(state.equals(State.VT)){
-                    label = "NECAP";
+                    label = "NECAP - All Grades";
                 }
             }
 
