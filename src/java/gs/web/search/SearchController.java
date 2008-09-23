@@ -71,6 +71,8 @@ public class SearchController extends AbstractFormController {
     public static final String PARAM_SCHOOL_TYPE = "st";
     public static final String PARAM_LEVEL_CODE = "lc";
 
+    public static final String PARAM_CPN = "cpn";
+
     private static final String MODEL_PAGE_SIZE = "pageSize";
     protected static final String MODEL_RESULTS = "mainResults";
     private static final String MODEL_TOTAL_HITS = "total";
@@ -158,18 +160,25 @@ public class SearchController extends AbstractFormController {
 
         // GS-6866
         if ("b".equals(sessionContext.getABVersion())) {
-            // need to add a check for multiple cities by the same name because findCity() just logs an error if multiple
-            City city;
-            try {
-                city = getGeoDao().findCity(sessionContext.getState(), searchCommand.getQueryString(), false, true);
-            } catch (MultipleMatchesException e) {
-                // If there are two cities with the same name in a state they should be returned to normal search results
-                city = null;
-            }
+            if (searchCommand.isSchoolsOnly()) {
+                // need to add a check for multiple cities by the same name because findCity() just logs an error if multiple
+                City city;
+                try {
+                    city = getGeoDao().findCity(sessionContext.getState(), searchCommand.getQueryString(), false, true);
+                } catch (MultipleMatchesException e) {
+                    // If there are two cities with the same name in a state they should be returned to normal search results
+                    city = null;
+                }
 
-            if (city != null) {
-                return new ModelAndView(new RedirectView(
-                    SchoolsController.createNewCityBrowseURI(city.getState(), city.getName(), new HashSet<SchoolType>(), null)));
+                String paramLevelCode = request.getParameter(PARAM_LEVEL_CODE);
+                String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
+                String cpn = request.getParameter(PARAM_CPN);
+
+                if (paramLevelCode == null && paramSchoolType == null && city != null) {
+                    return new ModelAndView(new RedirectView(
+                            SchoolsController.createNewCityBrowseURI(city.getState(), city.getName(), new HashSet<SchoolType>(), null) +
+                            (cpn != null ? "?cpn=" + cpn : "")));
+                }
             }
         }
 
