@@ -134,7 +134,7 @@ function ${functionName}() {
     if (GBrowserIsCompatible()) {
         var map = new GMap2(document.getElementById("${id}"));
         map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
-        map.setCenter(new GLatLng(${lat}, ${lon}), ${17-scale});
+        map.setCenter(new GLatLng(${lat}, ${lon}), ${scale});
 
         var cityLocation;
         var rating;

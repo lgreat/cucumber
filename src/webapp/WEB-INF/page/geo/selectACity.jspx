@@ -146,8 +146,8 @@
                             <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
                         </div>
                         <map:setup/>
-                        <c:set var="mapScale" value="7"/> <!-- default value -->
-                        <c:if test="${param.scale ne null and param.scale ge 0 and param.scale lt 17}">
+                        <c:set var="mapScale" value="10"/> <!-- default value -->
+                        <c:if test="${param.scale ne null and param.scale gt 0 and param.scale lt 20}">
                             <c:set var="mapScale" value="${param.scale}"/>
                         </c:if>
                         <map:citiesWithRatings functionName="createMap"
