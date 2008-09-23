@@ -1,4 +1,4 @@
-package gs.web.school;
+package gs.web.path;
 
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.beans.BeansException;
@@ -18,7 +18,7 @@ import gs.web.jsp.Util;
  * Time: 1:08:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CityBrowseUrlHandlerMapping extends SimpleUrlHandlerMapping {
+public class DirectoryStructureUrlHandlerMapping extends SimpleUrlHandlerMapping {
 
     private static Map<String,String> _map = new HashMap<String,String>();
 
@@ -26,9 +26,9 @@ public class CityBrowseUrlHandlerMapping extends SimpleUrlHandlerMapping {
         for (State state : StateManager.getList()) {
             String stateNameForUrl = state.getLongName().toLowerCase().replaceAll(" ", "-");
             String pattern = "/" + stateNameForUrl + "/**";
-            _map.put(pattern, "/schools.page");
+            _map.put(pattern, "/directoryStructureUrlRequest.page");
             pattern = "/" + Util.capitalize(stateNameForUrl) + "/**";
-            _map.put(pattern, "/schools.page");
+            _map.put(pattern, "/directoryStructureUrlRequest.page");
         }
     }
 

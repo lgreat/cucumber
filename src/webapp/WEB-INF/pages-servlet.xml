@@ -2,10 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
             http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+            http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
        default-autowire="byName" default-lazy-init="true">
 
     <context:component-scan base-package="gs.web">
@@ -31,8 +34,8 @@
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
-    <bean name="cityBrowseHandlerMapping" parent="defaultHandlerMapping"
-          class="gs.web.school.CityBrowseUrlHandlerMapping" lazy-init="true">
+    <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
+          class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
     </bean>    
 
     <bean name="seoHandlerMapping" parent="defaultHandlerMapping"
@@ -1573,6 +1576,22 @@
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
         <property name="fromEmail" value="pvtschools@greatschools.net"/>
         <property name="type" value="private school"/>
+    </bean>
+
+    <bean id="directoryStructureUrlControllerFactory"
+          class="gs.web.path.DirectoryStructureUrlControllerFactory" lazy-init="true" autowire="byType" scope="request">
+        <property name="schoolsController" ref="/schools.page"/>
+        <property name="schoolOverviewController" ref="/school/overview.page"/>
+        <aop:scoped-proxy/>        
+    </bean>    
+
+    <bean name="/directoryStructureUrlRequest.page"
+          class="gs.web.path.DirectoryStructureUrlRequestController"
+          autowire="byName" lazy-init="true">
+        <property name="controller">
+            <bean factory-bean="directoryStructureUrlControllerFactory" factory-method="getController"/>
+        </property>
+        <aop:scoped-proxy/>
     </bean>
 
     <!-- WEB PAGE DEFINITIONS END -->
