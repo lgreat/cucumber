@@ -8,7 +8,7 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
-
+    <jsp:directive.attribute name="slotPrefix" required="false" description="GAM typo fix - only needed on city browse page"/>
     <c:choose>
         <c:when test="${requestScope.context.cobranded}">
             <div id="Top_300x137">
@@ -16,7 +16,14 @@
             </div>
         </c:when>
         <c:otherwise>
-            <gsweb:adTagGenerator position="House_Ad_300x137"/>
+            <c:choose>
+                <c:when test="${not empty slotPrefix and slotPrefix eq 'Search_All_Cities'}">
+                    <gsweb:adTagGenerator position="House_ad_300x137"/>
+                </c:when>
+                <c:otherwise>
+                    <gsweb:adTagGenerator position="House_Ad_300x137"/>
+                </c:otherwise>
+            </c:choose>
         </c:otherwise>
     </c:choose>
 </jsp:root>

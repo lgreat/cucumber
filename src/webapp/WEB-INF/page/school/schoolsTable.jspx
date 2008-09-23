@@ -576,7 +576,7 @@ function reloadPageWithFilters(sortColId) {
             <c:choose>
                 <c:when test="${lc eq 'p' }">
                     <!-- show ad -->
-                    <ad:House_Ad_300x137 referredBy="${pageName}"/>
+                    <ad:House_Ad_300x137 referredBy="${pageName}" slotPrefix="${slotPrefix}"/>
                 </c:when>
                 <c:otherwise>
                     <school:compareInCity city="${cityName}" state="${state}"
