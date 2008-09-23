@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.53 2008/09/02 18:50:06 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.54 2008/09/23 17:42:19 aroy Exp $
  */
 
 package gs.web.util;
@@ -276,6 +276,21 @@ public class UrlUtilSaTest extends TestCase {
                 _urlUtil.isCommunityContentLink("http://community.greatschools.net/recommend-content?id=106495&type=5000"));
         assertTrue("Expected true for content-creation URL",
                 _urlUtil.isCommunityContentLink("http://community.greatschools.net/report/email-moderator"));
+
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/advice/write"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/groups/create"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/groups/2771/join"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/q-and-a/12345/blah-blah?comment=5100_106604"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/members/watchlist/watch?type=5000&id=106495"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/recommend-content?id=106495&type=5000"));
+        assertTrue("Expected true for content-creation URL",
+                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/report/email-moderator"));
 
         assertTrue("Expected true for content-creation URL",
                 _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/advice/write"));

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.67 2008/09/02 18:50:06 aroy Exp $
+ * $Id: UrlUtil.java,v 1.68 2008/09/23 17:42:19 aroy Exp $
  */
 
 package gs.web.util;
@@ -322,7 +322,9 @@ public final class UrlUtil {
         if (!StringUtils.isEmpty(url)) {
             // if it points to a community server
             if (StringUtils.contains(url, "community.greatschools.net") ||
-                    StringUtils.contains(url, "community.dev.greatschools.net") || 
+                    StringUtils.contains(url, "comgen1.greatschools.net") || 
+                    StringUtils.contains(url, "community.clone.greatschools.net") || 
+                    StringUtils.contains(url, "community.dev.greatschools.net") ||
                     StringUtils.contains(url, "community.staging.greatschools.net")) {
                 // if it smells like a content creation link
                 if (StringUtils.contains(url, "/advice/write")
