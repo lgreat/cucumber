@@ -7,6 +7,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.search.*;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.queryParser.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 import gs.data.content.IArticleCategoryDao;
 import gs.data.content.ArticleCategory;
 import gs.data.search.Searcher;
+import gs.data.search.Indexer;
+import gs.data.search.GSAnalyzer;
 import gs.web.search.ResultsPager;
 
 /**
@@ -43,6 +47,14 @@ public class ArticlesByCategoryController extends AbstractController {
     private IArticleCategoryDao _articleCategoryDao;
     /** Whether to look up the subcategory's parent categories */
     private boolean _getParents = false;
+
+    // GS-7210: Used to boost articles by relevance.
+    private QueryParser _titleParser;
+
+    public ArticlesByCategoryController() {
+        _titleParser = new QueryParser(Indexer.ARTICLE_TITLE, new GSAnalyzer());
+        _titleParser.setDefaultOperator(QueryParser.Operator.OR);
+    }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -82,9 +94,25 @@ public class ArticlesByCategoryController extends AbstractController {
      *
      * @param category Category to search for
      * @param model Model to place results
+     * @param page the page of results
      */
     protected void storeResultsForCategory(ArticleCategory category, Map<String, Object> model, int page) {
+        BooleanQuery bq = new BooleanQuery();
         TermQuery termQuery = new TermQuery(new Term("category", category.getType()));
+        bq.add(termQuery, BooleanClause.Occur.MUST);
+
+        // Beging: Experimental for GS-7210
+        String typeDisplay = category.getTypeDisplay();
+        if (StringUtils.isNotBlank(typeDisplay)) {
+            try {
+                Query titleQuery = _titleParser.parse(typeDisplay);
+                bq.add(titleQuery, BooleanClause.Occur.SHOULD);
+            } catch (ParseException pe) {
+                _log.warn("Couldn't parse article category.", pe);
+            }
+        }
+        // End: Experimental for GS-7210
+
         Filter typeFilter =
                 new CachingWrapperFilter(new QueryFilter(new TermQuery(new Term("type", "article"))));
 
