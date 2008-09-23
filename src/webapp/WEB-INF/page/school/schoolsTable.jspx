@@ -599,7 +599,7 @@ function reloadPageWithFilters(sortColId) {
                 <![CDATA[
                 <script type="text/javascript">
                     <!--
-                    document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>');
+                    document.write('<div id="map" style="height: 300px; width: 100%">&#160;</div>');
                     -->
                 </script>
                 ]]>
