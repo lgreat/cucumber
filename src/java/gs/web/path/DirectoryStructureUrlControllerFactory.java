@@ -11,7 +11,7 @@ import gs.web.school.SchoolOverviewController;
 /**
  * @author Young Fan
  */
-public class DirectoryStructureUrlControllerFactory {
+public class DirectoryStructureUrlControllerFactory implements IControllerFactory {
     private static Logger _log = Logger.getLogger(DirectoryStructureUrlControllerFactory.class);
 
     private HttpServletRequest _request;
