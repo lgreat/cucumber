@@ -81,6 +81,8 @@
                                          useNoState="${state eq null or state eq ''}"
                                          noStateLabel="--" state="${state}"/>
                     <input type="hidden" name="s_cid" value="wsdyf29"/>
+                    <input type="hidden" name="c" value="school"/>
+                    <input type="hidden" name="search_type" value="0"/>
                     <input type="submit" value="Search" class="searchSubmit"/>
                 </div>
             </form>
