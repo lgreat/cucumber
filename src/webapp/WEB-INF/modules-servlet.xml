@@ -35,6 +35,31 @@
         </property>
     </bean>
 
+    <!--<bean name="/school/donorsChoice.module"-->
+          <!--class="gs.web.school.DonorsChoiceController"-->
+          <!--autowire="byName" lazy-init="true">-->
+        <!--<property name="viewName" value="/school/donorsChoice"/>-->
+        <!--<property name="apiKey" value="DONORSCHOOSE"/>-->
+    <!--</bean>-->
+
+    <bean id="relatedCategoryPostsFeedDaoFactory"
+          class="gs.data.util.feed.CachedFeedDaoFactory" lazy-init="true">
+        <property name="cacheName" value="relatedCategoryPosts"/>
+        <property name="cacheSize" value="160"/>
+        <property name="cacheEntryTTLSeconds" value="3600"/>
+        <property name="cacheEntryIdleSeconds" value="3600"/>
+    </bean>
+
+    <bean name="/community/relatedPostsCategoryBrowse.module"
+          class="gs.web.community.RelatedCategoryPostsController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/relatedPostsCategoryBrowse"/>
+        <property name="numberOfEntriesToShow" value="5"/>
+        <property name="feedDao">
+            <bean factory-bean="relatedCategoryPostsFeedDaoFactory" factory-method="getFeedDao"/>
+        </property>
+    </bean>
+
     <bean id="testScoreLandingLinksTableFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
