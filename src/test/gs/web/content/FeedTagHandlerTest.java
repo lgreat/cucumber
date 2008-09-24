@@ -2,6 +2,7 @@ package gs.web.content;
 
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
+import gs.data.util.feed.IFeedDao;
 import junit.framework.TestCase;
 
 import javax.servlet.jsp.JspContext;
@@ -12,58 +13,54 @@ import com.sun.syndication.feed.synd.SyndEntryImpl;
 import java.util.List;
 import java.util.ArrayList;
 
+import static org.easymock.EasyMock.*;
+
 /**
  * @author thuss
  */
 public class FeedTagHandlerTest extends TestCase {
     private FeedTagHandlerTestCase _tag;
     private MockPageContext _jspContext;
+    private IFeedDao _feedDao;
 
     public void setUp() {
         _tag = new FeedTagHandlerTestCase();
         resetJspContext();
+        _feedDao = createStrictMock(IFeedDao.class);
+        _tag.setFeedDao(_feedDao);
     }
 
-    public void testGettingFeedEntriesAndCaching() throws Exception {
+    public void testGettingFeedEntries() throws Exception {
         _tag.setFeedUrl("http://testEntriesToShowAndCaching"); // cache key
         _tag.setNumberOfEntriesToShow(2);
-        _tag.setFeedEntriesFromSource(generateFeedEntries(5));
+        expect(_feedDao.getFeedEntries("http://testEntriesToShowAndCaching", 2)).andReturn(generateFeedEntries(5));
+        replay(_feedDao);
         _tag.doTag();
+        verify(_feedDao);
         String output = getJspContextOutput();
-        assertTrue(output.indexOf("http://post2") > -1);
-        assertFalse(output.indexOf("http://post3") > -1);
-
-        // Now do it again and verify a cache hit
-        resetJspContext();
-        _tag.setFeedEntriesFromSource(null); // Only a cache hit would return entries now
-        _tag.doTag();
-        output = getJspContextOutput();
         assertTrue(output.indexOf("http://post2") > -1);
         assertFalse(output.indexOf("http://post3") > -1);
     }
 
-    public void testGettingNoFeedEntriesAndCaching() throws Exception {
+    public void testGettingNoFeedEntries() throws Exception {
         _tag.setFeedUrl("http://testNoEntriesToShowAndCaching"); // cache key
         _tag.setNumberOfEntriesToShow(2);
-        _tag.setFeedEntriesFromSource(generateFeedEntries(0));
+        expect(_feedDao.getFeedEntries("http://testNoEntriesToShowAndCaching", 2)).andReturn(generateFeedEntries(0));
+        replay(_feedDao);
         _tag.doTag();
+        verify(_feedDao);
         String output = getJspContextOutput();
-        assertEquals("", output);
-
-        // Now do it again and verify a cache hit
-        resetJspContext();
-        _tag.setFeedEntriesFromSource(generateFeedEntries(5)); // Cached version should still be empty
-        _tag.doTag();
-        output = getJspContextOutput();
         assertEquals("", output);
     }
 
     public void testOnClick() throws Exception {
         _tag.setFeedUrl("http://testOnClick"); // cache key
         _tag.setNumberOfEntriesToShow(1);
-        _tag.setFeedEntriesFromSource(generateFeedEntries(1));
+        expect(_feedDao.getFeedEntries("http://testOnClick", 1)).andReturn(generateFeedEntries(1));
+        replay(_feedDao);
         _tag.setOnClick("foo(); return true;");
         _tag.doTag();
+        verify(_feedDao);
         String output = getJspContextOutput();
         assertEquals("<ol><li><a onclick=\"foo(); return true;\" href=\"http://post1\">Post 1</a></li></ol>", output);
     }
@@ -72,19 +69,34 @@ public class FeedTagHandlerTest extends TestCase {
         // First test for no abbreviation
         _tag.setFeedUrl("http://testEntryAbbreviation"); // cache key
         _tag.setNumberOfEntriesToShow(1);
-        _tag.setFeedEntriesFromSource(new ArrayList<SyndEntry>() {
-            {
-                add(new SyndEntryImpl() {{
-                    setTitle("Very Long Title That Should Be Abbreviated");
-                    setLink("http://post");
-                }});
-            }});
+        expect(_feedDao.getFeedEntries("http://testEntryAbbreviation", 1))
+                .andReturn(new ArrayList<SyndEntry>() { {
+                        add(new SyndEntryImpl() { {
+                                setTitle("Very Long Title That Should Be Abbreviated");
+                                setLink("http://post");
+                            }
+                        });
+                    }
+                });
+        replay(_feedDao);
         _tag.doTag();
+        verify(_feedDao);
         String output = getJspContextOutput();
         assertEquals("No Abbreviation Expected",
                 "<ol><li><a href=\"http://post\">Very Long Title That Should Be Abbreviated</a></li></ol>",
                 output);
 
+        reset(_feedDao);
+        expect(_feedDao.getFeedEntries("http://testEntryAbbreviation", 1))
+                .andReturn(new ArrayList<SyndEntry>() { {
+                        add(new SyndEntryImpl() { {
+                                setTitle("Very Long Title That Should Be Abbreviated");
+                                setLink("http://post");
+                            }
+                        });
+                    }
+                });
+        replay(_feedDao);
         // Now abbreviate it
         resetJspContext();
         _tag.setNumberOfCharactersPerEntryToShow(12);
@@ -101,7 +113,6 @@ public class FeedTagHandlerTest extends TestCase {
     public class FeedTagHandlerTestCase extends FeedTagHandler {
 
         private JspContext _jspContext;
-        private List<SyndEntry> _entries;
 
         public JspContext getJspContext() {
             return _jspContext;
@@ -109,14 +120,6 @@ public class FeedTagHandlerTest extends TestCase {
 
         public void setJspContext(JspContext jspContext) {
             _jspContext = jspContext;
-        }
-
-        protected List<SyndEntry> getFeedEntriesFromSource(String feedUrl) throws Exception {
-            return _entries;
-        }
-
-        public void setFeedEntriesFromSource(List<SyndEntry> entries) {
-            _entries = entries;
         }
     }
 
