@@ -25,7 +25,8 @@ import org.springframework.web.servlet.mvc.Controller;
  *
  * <aop:scoped-proxy proxy-target-class="false"/>
  *
- * @see <a href="http://static.springframework.org/spring/docs/2.5.x/reference/beans.html">3.4.4.5.1. Choosing the type of proxy created</a> 
+ * @see <a href="http://static.springframework.org/spring/docs/2.5.x/reference/beans.html">3.4.4.5.1. Choosing the type of proxy created</a>
+ * @see <a href="http://article.gmane.org/gmane.comp.java.springframework.devel/9396">Re: Cglib2AopProxy warnings...</a> 
  * @author Young Fan
  */
 public interface IControllerFactory {

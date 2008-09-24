@@ -1582,7 +1582,7 @@
           class="gs.web.path.DirectoryStructureUrlControllerFactory" lazy-init="true" autowire="byType" scope="request">
         <property name="schoolsController" ref="/schools.page"/>
         <property name="schoolOverviewController" ref="/school/overview.page"/>
-        <aop:scoped-proxy/>        
+        <aop:scoped-proxy proxy-target-class="false"/>        
     </bean>    
 
     <bean name="/directoryStructureUrlRequest.page"
@@ -1591,7 +1591,7 @@
         <property name="controller">
             <bean factory-bean="directoryStructureUrlControllerFactory" factory-method="getController"/>
         </property>
-        <aop:scoped-proxy/>
+        <aop:scoped-proxy proxy-target-class="false"/>
     </bean>
 
     <!-- WEB PAGE DEFINITIONS END -->
