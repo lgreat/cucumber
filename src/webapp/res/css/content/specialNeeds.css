@@ -8,13 +8,6 @@ h1#specialNeedsText {
     color: #3399AA;
 }
 
-#contentGS div.welcome div.bottom {
-    background:transparent url(/res/img/content/countdownToCollege/red_dot.gif) repeat-x scroll center bottom;
-    height: 18px;
-    border-bottom: 0px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-}
 
 #contentGS div.welcome div#schwabOnly{
     padding-top:2px;
@@ -46,15 +39,12 @@ div#schwabOnly:hover{
 }
 #contentGS div.middle div.bottom {
     background:transparent url(/res/img/content/countdownToCollege/red_dot.gif) repeat-x scroll center bottom;
-    @height: 18px;
     border-bottom: 0px;
     padding-bottom: 16px;
     padding-top: 6px;
     margin-bottom: 0px;
     font-size: 12px;
     color:#777777;
-
-
 }
 h2#Identifying-a-Learning-Difficulty {
     background: url( "/res/img/content/specialNeeds/text_1.gif" ) no-repeat;
