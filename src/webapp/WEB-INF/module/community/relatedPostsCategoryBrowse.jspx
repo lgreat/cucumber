@@ -32,7 +32,7 @@
                        href="${relatedPost.link}">${relatedPost.title}</a></li>
             </c:forEach>
         </ul>
-        <a class="relatedPosts"
+        <a class="relatedPosts GS_EV5_" id="RelatedPosts_BrowseCat__more"
            href="http://${communityHost}/category/${requestScope.communityCategoryName}">More related posts &amp;gt;</a>
     </div>
 </div>
