@@ -28,6 +28,7 @@
 <jsp:directive.page import="gs.web.school.SchoolsController"/>
 <jsp:directive.page import="gs.data.school.SchoolType"/>
 <jsp:directive.page import="java.util.HashSet"/>
+<jsp:directive.page import="gs.web.util.DirectoryStructureUrlFactory"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -68,7 +69,7 @@
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
                 <![CDATA[
         String cityBrowseUri =
-            SchoolsController.createNewCityBrowseURI(sessionContext.getState(), city.getName(), new HashSet<SchoolType>(), null);
+            DirectoryStructureUrlFactory.createNewCityBrowseURI(sessionContext.getState(), city.getName(), new HashSet<SchoolType>(), null);
                 ]]>
         request.setAttribute("cityBrowseUri", cityBrowseUri);
     </jsp:scriptlet>

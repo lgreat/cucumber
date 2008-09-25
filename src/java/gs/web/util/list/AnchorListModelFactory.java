@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.15 2008/09/06 00:54:02 cpickslay Exp $
+ * $Id: AnchorListModelFactory.java,v 1.16 2008/09/25 00:33:37 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -16,10 +16,10 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.test.rating.CityRating;
 import gs.web.geo.NearbyCitiesController;
-import gs.web.school.SchoolsController;
 import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import gs.web.util.DirectoryStructureUrlFactory;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.lucene.document.Document;
@@ -119,7 +119,7 @@ public class AnchorListModelFactory {
 
         sc = _schoolDao.countSchools(state, null, LevelCode.PRESCHOOL, cityName);
         if (sc > 0) {
-            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.PRESCHOOL);
+            String href = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.PRESCHOOL);
             final Anchor anchor = new Anchor(href, cityDisplayName + " Preschools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
@@ -127,7 +127,7 @@ public class AnchorListModelFactory {
 
         sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityName);
         if (sc > 0) {
-            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.ELEMENTARY);
+            String href = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.ELEMENTARY);
             final Anchor anchor = new Anchor(href, cityDisplayName + " Elementary Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
@@ -135,7 +135,7 @@ public class AnchorListModelFactory {
 
         sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityName);
         if (sc > 0) {
-            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.MIDDLE);
+            String href = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.MIDDLE);
             final Anchor anchor = new Anchor(href, cityDisplayName + " Middle Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
@@ -143,7 +143,7 @@ public class AnchorListModelFactory {
 
         sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityName);
         if (sc > 0) {
-            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.HIGH);
+            String href = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, schoolTypes, LevelCode.HIGH);
             final Anchor anchor = new Anchor(href, cityDisplayName + " High Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
@@ -153,7 +153,7 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             schoolTypes.clear();
             schoolTypes.add(SchoolType.PUBLIC);
-            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, null);
+            String href = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, schoolTypes, null);
             final Anchor anchor = new Anchor(href, cityDisplayName + " Public Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
@@ -163,7 +163,7 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             schoolTypes.clear();
             schoolTypes.add(SchoolType.PRIVATE);
-            String href = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, null);
+            String href = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, schoolTypes, null);
             final Anchor anchor = new Anchor(href, cityDisplayName + " Private Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);

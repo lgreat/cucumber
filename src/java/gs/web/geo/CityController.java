@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.50 2008/09/17 01:51:09 yfan Exp $
+ * $Id: CityController.java,v 1.51 2008/09/25 00:33:37 yfan Exp $
  */
 
 package gs.web.geo;
@@ -19,7 +19,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
-import gs.web.school.SchoolsController;
+import gs.web.util.DirectoryStructureUrlFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,7 +31,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -113,7 +112,7 @@ public class CityController extends AbstractController {
             // If we don't have census data on the city take the user to browse city
             _log.error("No city record found for '" + cityNameParam + ", " + state + "'. Redirecting to city browse page");
             View redirectView = new RedirectView(
-                SchoolsController.createNewCityBrowseURI(state, cityNameParam, new HashSet<SchoolType>(), null));
+                DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityNameParam, new HashSet<SchoolType>(), null));
             return new ModelAndView(redirectView);
         }
 

@@ -14,11 +14,11 @@ import gs.data.geo.City;
 import gs.data.geo.MultipleMatchesException;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
+import gs.web.util.DirectoryStructureUrlFactory;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
-import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
@@ -176,7 +176,7 @@ public class SearchController extends AbstractFormController {
 
                 if (paramLevelCode == null && paramSchoolType == null && city != null) {
                     return new ModelAndView(new RedirectView(
-                            SchoolsController.createNewCityBrowseURI(city.getState(), city.getName(), new HashSet<SchoolType>(), null) +
+                            DirectoryStructureUrlFactory.createNewCityBrowseURI(city.getState(), city.getName(), new HashSet<SchoolType>(), null) +
                             (cpn != null ? "?cpn=" + cpn : "")));
                 }
             }

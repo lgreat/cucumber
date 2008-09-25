@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.6 2008/09/06 00:54:02 cpickslay Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.7 2008/09/25 00:33:36 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -15,7 +15,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.school.SchoolsController;
+import gs.web.util.DirectoryStructureUrlFactory;
 import static org.easymock.EasyMock.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,17 +65,17 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals(6, list.size());
 
         Anchor preschoolAnchor = (Anchor) list.get(0);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.PRESCHOOL), preschoolAnchor.getHref());
+        assertEquals(DirectoryStructureUrlFactory.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.PRESCHOOL), preschoolAnchor.getHref());
         assertEquals("Anchorage Preschools", preschoolAnchor.getContents());
         assertEquals(" (1)", preschoolAnchor.getAfter());
 
         Anchor elementaryAnchor = (Anchor) list.get(1);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.ELEMENTARY), elementaryAnchor.getHref());
+        assertEquals(DirectoryStructureUrlFactory.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.ELEMENTARY), elementaryAnchor.getHref());
         assertEquals("Anchorage Elementary Schools", elementaryAnchor.getContents());
         assertEquals(" (2)", elementaryAnchor.getAfter());
 
         Anchor middleAnchor = (Anchor) list.get(2);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.MIDDLE), middleAnchor.getHref());
+        assertEquals(DirectoryStructureUrlFactory.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.MIDDLE), middleAnchor.getHref());
         assertEquals(" (3)", middleAnchor.getAfter());
 
         Anchor highAnchor = (Anchor) list.get(3);
@@ -83,10 +83,10 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals(" (4)", highAnchor.getAfter());
 
         Anchor publicAnchor = (Anchor) list.get(4);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PUBLIC), null), publicAnchor.getHref());
+        assertEquals(DirectoryStructureUrlFactory.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PUBLIC), null), publicAnchor.getHref());
 
         Anchor privateAnchor = (Anchor) list.get(5);
-        assertEquals(SchoolsController.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PRIVATE), null), privateAnchor.getHref());
+        assertEquals(DirectoryStructureUrlFactory.createNewCityBrowseURI(State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PRIVATE), null), privateAnchor.getHref());
 
         _anchorListModelFactory.setSchoolDao(springSchoolDao);
     }
