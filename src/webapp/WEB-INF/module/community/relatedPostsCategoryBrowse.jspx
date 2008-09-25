@@ -11,29 +11,27 @@
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
     
-<jsp:scriptlet>
-    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
-</jsp:scriptlet>
+<c:if test="${not empty requestScope.relatedPosts}">
+    <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+    </jsp:scriptlet>
 
-<pageHelper:externalCss file="/res/css/community/relatedPostsCategoryBrowse.css"/>
+    <pageHelper:externalCss file="/res/css/community/relatedPostsCategoryBrowse.css"/>
 
-<c:set var="topStyle" value="${(not empty requestScope.relatedPosts)?'':'display:none'}"/>
-
-<div class="relatedCategoryPosts" style="${topStyle}">
-    <div class="relatedHeader">
-        <h2>Related Community Posts</h2>
+    <div class="relatedCategoryPosts">
+        <div class="relatedHeader">
+            <h2>Related Community Posts</h2>
+        </div>
+        <div class="relatedBody">
+            <ul class="relatedPosts">
+                <c:forEach var="relatedPost" items="${requestScope.relatedPosts}" varStatus="loopStatus">
+                    <li class="${relatedPost.type}"><a class="GS_EV5_"
+                           id="RelatedPosts_BrowseCat__${loopStatus.index}"
+                           href="${relatedPost.link}">${relatedPost.title}</a></li>
+                </c:forEach>
+            </ul>
+        </div>
     </div>
-    <div class="relatedBody">
-        <ul class="relatedPosts">
-            <c:forEach var="relatedPost" items="${requestScope.relatedPosts}" varStatus="loopStatus">
-                <li class="${relatedPost.type}"><a class="GS_EV5_"
-                       id="RelatedPosts_BrowseCat__${loopStatus.index}"
-                       href="${relatedPost.link}">${relatedPost.title}</a></li>
-            </c:forEach>
-        </ul>
-        <a class="relatedPosts GS_EV5_" id="RelatedPosts_BrowseCat__more"
-           href="http://${communityHost}/category/${requestScope.communityCategoryName}">More related posts &amp;gt;</a>
-    </div>
-</div>
+</c:if>
 </jsp:root>

@@ -73,7 +73,7 @@
     <jsp:include page="/community/relatedPostsCategoryBrowse.module">
         <jsp:param name="category" value="${requestScope.subcategory.id}"/>
     </jsp:include>
-    <!--<ad:Top_300x137/>-->
+    <ad:Top_300x137/>
     <ad:AboveFold_300x600/>
     <ad:multiTextAd blurb="Advertiser Links"/>
 </div>

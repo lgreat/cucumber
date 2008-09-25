@@ -34,23 +34,24 @@ public class RelatedCategoryPostsController extends AbstractController {
     protected ModelAndView handleRequestInternal
             (HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
+        List<RelatedCommunityPost> relatedPosts = new ArrayList<RelatedCommunityPost>();
 
         // required parameter
         String[] categoryIds = request.getParameterValues("category");
 
-        // get ArticleCategory objects
-        List<ArticleCategory> articleCategories = getArticleCategoriesFromIds(categoryIds);
-        // get corresponding community categories
-        List<ArticleCategoryToCommunityMapping.CommunityCategory> communityCategories =
-                getCommunityCategoriesFromArticleCategories(articleCategories);
+        if (categoryIds != null) {
+            // get ArticleCategory objects
+            List<ArticleCategory> articleCategories = getArticleCategoriesFromIds(categoryIds);
+            // get search term for article categories
+            String searchTerm = getSearchTermFromArticleCategories(articleCategories);
 
-        // arbitrarily choose first one to generate "More related posts >" link to
-        model.put("communityCategoryName", communityCategories.get(0).getName());
-
-        // get feed entries for these categories, and extract related posts from them
-        List<RelatedCommunityPost> relatedPosts =
-                getRelatedPostsFromFeedEntries(_feedDao.getFeedEntries
-                        (getFeedURL(request, communityCategories), _numberOfEntriesToShow));
+            // get feed entries for these categories, and extract related posts from them
+            if (searchTerm != null) {
+                relatedPosts =
+                        getRelatedPostsFromFeedEntries(_feedDao.getFeedEntries
+                                (getFeedURL(request, searchTerm), _numberOfEntriesToShow));
+            }
+        }
         model.put("relatedPosts", relatedPosts);
 
         return new ModelAndView(_viewName, model);
@@ -81,15 +82,13 @@ public class RelatedCategoryPostsController extends AbstractController {
     /**
      * Returns the URL to the feed for the specified categories
      * @param request required to determine which community host to generate URL to.
-     * @param communityCategories list of categories to generate feed for
+     * @param searchTerm Search term to use in URL for feed
      */
-    protected String getFeedURL
-            (HttpServletRequest request,
-             List<ArticleCategoryToCommunityMapping.CommunityCategory> communityCategories) {
+    protected String getFeedURL(HttpServletRequest request, String searchTerm) {
         String communityHost = SessionContextUtil.
                 getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
         return "http://" + communityHost +
-               "/category/feed/?category=" + StringUtils.join(communityCategories, ',') + "&limit=" +
+               "/search/rss/?q=" + searchTerm + "&search_type=0&sort=relevance&limit=" +
                _numberOfEntriesToShow;
     }
 
@@ -100,26 +99,23 @@ public class RelatedCategoryPostsController extends AbstractController {
     protected List<ArticleCategory> getArticleCategoriesFromIds(String[] ids) {
         List<ArticleCategory> articleCategories = new ArrayList<ArticleCategory>();
         for (String categoryId: ids) {
-            ArticleCategory category = _articleCategoryDao.getArticleCategory(Integer.valueOf(categoryId));
-            articleCategories.add(category);
+            if (StringUtils.isNotBlank(categoryId) && StringUtils.isNumeric(categoryId)) {
+                ArticleCategory category = _articleCategoryDao.getArticleCategory(Integer.valueOf(categoryId));
+                articleCategories.add(category);
+            }
         }
         return articleCategories;
     }
 
     /**
-     * For each ArticleCategory, look up the corresponding community category
+     * Hard coded right now to only look up the term for the first category.
+     * TODO: How to concatenate multiple category terms together?
      */
-    protected List<ArticleCategoryToCommunityMapping.CommunityCategory>
-    getCommunityCategoriesFromArticleCategories(List<ArticleCategory> articleCategories) {
-        List<ArticleCategoryToCommunityMapping.CommunityCategory> communityCategories =
-                new ArrayList<ArticleCategoryToCommunityMapping.CommunityCategory>();
-        for (ArticleCategory articleCategory: articleCategories) {
-            ArticleCategoryToCommunityMapping.CommunityCategory communityCategory =
-                    ArticleCategoryToCommunityMapping.
-                            getCommunityCategoryForArticleCategory(articleCategory);
-            communityCategories.add(communityCategory);
+    protected String getSearchTermFromArticleCategories(List<ArticleCategory> articleCategories) {
+        if (articleCategories.size() > 0) {
+            return ArticleCategoryToCommunityMapping.getTermForArticleCategory(articleCategories.get(0));
         }
-        return communityCategories;
+        return null;
     }
 
     public String getViewName() {
