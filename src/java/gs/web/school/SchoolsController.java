@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.68 2008/09/18 19:49:16 yfan Exp $
+ * $Id: SchoolsController.java,v 1.69 2008/09/25 00:17:54 yfan Exp $
  */
 
 package gs.web.school;
@@ -24,6 +24,7 @@ import gs.web.util.RedirectView301;
 import gs.web.util.LogUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.path.IDirectoryStructureUrlController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -47,7 +48,8 @@ import java.util.regex.Pattern;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class SchoolsController extends AbstractController {
+public class SchoolsController extends AbstractController implements IDirectoryStructureUrlController {
+    public static final String BEAN_ID = "/schools.page";
 
     private static Logger _log = Logger.getLogger(SchoolsController.class);
 
@@ -154,6 +156,10 @@ public class SchoolsController extends AbstractController {
     public static final String LEVEL_LABEL_HIGH_SCHOOLS = "high-schools";
     public static final String LEVEL_LABEL_SCHOOLS = "schools";
 
+    public boolean isValidRequest(HttpServletRequest request) {
+        return isValidNewStyleCityBrowseRequest(request);
+    }
+
     /**
      * Though this method throws <code>Exception</code>, it should swallow most
      * (all?) searching errors while just logging appropriately and returning
@@ -191,26 +197,11 @@ public class SchoolsController extends AbstractController {
                 return new ModelAndView(new RedirectView301(redirectUrl));
             }
 
-            if (!SchoolsController.isRequestURIWithTrailingSlash(request)) {
-                String uri = SchoolsController.createURIWithTrailingSlash(request);
-                String queryString = request.getQueryString();
-                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
-                return new ModelAndView(new RedirectView(redirectUrl));
-            }
-
             if (!SchoolsController.isRequestURIWithTrailingSchoolsLabel(request)) {
                 String uri = SchoolsController.createURIWithTrailingSchoolsLabel(request);
                 String queryString = request.getQueryString();
                 String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
                 return new ModelAndView(new RedirectView(redirectUrl));
-            }
-
-            if (!SchoolsController.isValidNewStyleCityBrowseRequest(request)) {
-                LogUtil.log(_log, request, "Malformed city browse url: " + request.getRequestURI());
-                model.put("showSearchControl", Boolean.TRUE);
-                model.put("title", "City not found");
-
-                return new ModelAndView("status/error", model);
             }
 
             cityBrowseFields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
@@ -409,21 +400,52 @@ public class SchoolsController extends AbstractController {
         return new ModelAndView(getViewName(), model);
     }
 
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
 
     public static boolean isDistrictBrowseRequest(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
             throw new IllegalArgumentException("Request must have request URI");
         }
         return request.getRequestURI().contains("/schools.page") && request.getParameter(PARAM_DISTRICT) != null;
-
     }
 
-    public static boolean isRequestURIWithTrailingSlash(HttpServletRequest request) {
+    public static boolean isOldStyleCityBrowseRequest(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
             throw new IllegalArgumentException("Request must have request URI");
         }
-        return request.getRequestURI().endsWith("/");
+
+        // state is in SessionContext already
+        return (!isDistrictBrowseRequest(request) &&
+                request.getRequestURI().contains("/schools.page") &&
+                request.getParameter(PARAM_CITY) != null);
     }
+
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================    
 
     public static boolean isRequestURIWithTrailingSchoolsLabel(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
@@ -437,34 +459,13 @@ public class SchoolsController extends AbstractController {
                 uri.endsWith("/" + LEVEL_LABEL_HIGH_SCHOOLS + "/");
     }
 
-    public static String createURIWithTrailingSlash(HttpServletRequest request) {
-        if (request.getRequestURI() == null) {
-            throw new IllegalArgumentException("Request must have request URI");
-        }
-        return
-                request.getRequestURI() +
-                        (SchoolsController.isRequestURIWithTrailingSlash(request) ? "" : "/");
-    }
-
     public static String createURIWithTrailingSchoolsLabel(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
             throw new IllegalArgumentException("Request must have request URI");
         }
         return
                 request.getRequestURI() +
-                        (SchoolsController.isRequestURIWithTrailingSlash(request) ? "" : "/") +
                         (SchoolsController.isRequestURIWithTrailingSchoolsLabel(request) ? "" : "schools/");
-    }
-
-    public static boolean isOldStyleCityBrowseRequest(HttpServletRequest request) {
-        if (request.getRequestURI() == null) {
-            throw new IllegalArgumentException("Request must have request URI");
-        }
-
-        // state is in SessionContext already
-        return (!isDistrictBrowseRequest(request) &&
-                request.getRequestURI().contains("/schools.page") &&
-                request.getParameter(PARAM_CITY) != null);
     }
 
     static class CityBrowseFields {
@@ -811,6 +812,27 @@ public class SchoolsController extends AbstractController {
 
         return queryString.toString();
     }
+
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
 
     protected Sort createSort(SearchCommand searchCommand, String sortColumn, String sortDirection) {
 

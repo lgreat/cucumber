@@ -17,6 +17,7 @@ import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.path.IDirectoryStructureUrlController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,7 +31,7 @@ import java.util.*;
  * This controller handles requests for the School Profile Overview page:
  * http://www.greatschools.net/school/overview.page?state=tx&id=10683
  */
-public class SchoolOverviewController extends AbstractSchoolController {
+public class SchoolOverviewController extends AbstractSchoolController implements IDirectoryStructureUrlController {
 
     /**
      * Spring Bean id
@@ -49,6 +50,11 @@ public class SchoolOverviewController extends AbstractSchoolController {
     private ITestDataSetDao _testDataSetDao;
     private IGroupDataTypeDao _groupDataTypeDao;
     private SurveyDao _surveyDao;
+
+    public boolean isValidRequest(HttpServletRequest request) {
+        // TODO-7171
+        return false;
+    }
 
     /**
      * This method must be called using the standard Spring Controller workflow, that

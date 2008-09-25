@@ -29,6 +29,6 @@ import org.springframework.web.servlet.mvc.Controller;
  * @see <a href="http://article.gmane.org/gmane.comp.java.springframework.devel/9396">Re: Cglib2AopProxy warnings...</a> 
  * @author Young Fan
  */
-public interface IControllerFactory {
-    public Controller getController();
+public interface IDirectoryStructureUrlControllerFactory {
+    public IDirectoryStructureUrlController getController();
 }

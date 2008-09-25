@@ -1578,10 +1578,18 @@
         <property name="type" value="private school"/>
     </bean>
 
+    <!-- directory structure url beans - start -->
+    <!-- see also directoryStructureUrlHandlerMapping -->
+
     <bean id="directoryStructureUrlControllerFactory"
-          class="gs.web.path.DirectoryStructureUrlControllerFactory" lazy-init="true" autowire="byType" scope="request">
-        <property name="schoolsController" ref="/schools.page"/>
-        <property name="schoolOverviewController" ref="/school/overview.page"/>
+          class="gs.web.path.DirectoryStructureUrlControllerFactory"
+          autowire="byType" scope="request" lazy-init="true">
+        <property name="controllers">
+            <list>
+                <ref bean="/schools.page"/>
+                <ref bean="/school/overview.page"/>
+            </list>
+        </property>
         <aop:scoped-proxy proxy-target-class="false"/>        
     </bean>    
 
@@ -1593,6 +1601,8 @@
         </property>
         <aop:scoped-proxy proxy-target-class="false"/>
     </bean>
+
+    <!-- directory structure url beans - end -->
 
     <!-- WEB PAGE DEFINITIONS END -->
 

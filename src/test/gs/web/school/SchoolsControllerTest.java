@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.39 2008/09/17 02:19:08 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.40 2008/09/25 00:17:54 yfan Exp $
  */
 
 package gs.web.school;
@@ -48,6 +48,28 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
     }
 
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+
+
     public void testHandleRequestInternalRedirects() throws Exception {
         GsMockHttpServletRequest request = getRequest();
 
@@ -61,14 +83,6 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertTrue(mAndV.getView() instanceof RedirectView);
         assertEquals("/alaska/anchorage/schools/", ((RedirectView) mAndV.getView()).getUrl());
 
-        // adding trailing slash
-        request.removeAllParameters();
-        request.setQueryString(null);
-        request.setRequestURI("/alaska/anchorage");
-        mAndV = _controller.handleRequestInternal(request, getResponse());
-        assertTrue(mAndV.getView() instanceof RedirectView);
-        assertEquals("/alaska/anchorage/", ((RedirectView) mAndV.getView()).getUrl());
-
         // adding trailing schools label
         request.removeAllParameters();
         request.setQueryString(null);
@@ -76,13 +90,6 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         mAndV = _controller.handleRequestInternal(request, getResponse());
         assertTrue(mAndV.getView() instanceof RedirectView);
         assertEquals("/alaska/anchorage/schools/", ((RedirectView) mAndV.getView()).getUrl());
-
-        // invalid new-style city browse request
-        request.removeAllParameters();
-        request.setQueryString(null);
-        request.setRequestURI("/alaska/anchorage/elementary/private-charter/schools/");
-        mAndV = _controller.handleRequestInternal(request, getResponse());
-        assertEquals("status/error", mAndV.getViewName());
     }
 
     public void testIsDistrictBrowseRequest() throws Exception {
@@ -113,32 +120,13 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertFalse("Expected request to be identified not as district browse due to requestURI not containing /schools.page", isDistrictBrowse);
     }
 
-    public void testIsRequestURIWithTrailingSlash() throws Exception {
-        GsMockHttpServletRequest request = getRequest();
-
-        request.setRequestURI(null);
-        boolean foundException = false;
-        try {
-            SchoolsController.isRequestURIWithTrailingSlash(request);
-        } catch (IllegalArgumentException e) {
-            foundException = true;
-        }
-        assertTrue("Expected IllegalArgumentException when request URI null", foundException);
-
-        request.setRequestURI("/california/san-francisco");
-        assertFalse("Expected false return value", SchoolsController.isRequestURIWithTrailingSlash(request));
-
-        request.setRequestURI("/california/san-francisco/");
-        assertTrue("Expected true return value", SchoolsController.isRequestURIWithTrailingSlash(request));
-    }
-
     public void testIsRequestURIWithTrailingSchoolsLabel() throws Exception {
         GsMockHttpServletRequest request = getRequest();
 
         request.setRequestURI(null);
         boolean foundException = false;
         try {
-            SchoolsController.isRequestURIWithTrailingSlash(request);
+            SchoolsController.isRequestURIWithTrailingSchoolsLabel(request);
         } catch (IllegalArgumentException e) {
             foundException = true;
         }
@@ -157,42 +145,13 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertTrue("Expected true return value", SchoolsController.isRequestURIWithTrailingSchoolsLabel(request));
     }
 
-    public void testCreateURIWithTrailingSlash() throws Exception {
-        GsMockHttpServletRequest request = getRequest();
-
-        request.setRequestURI(null);
-        boolean foundException = false;
-        try {
-            SchoolsController.createURIWithTrailingSlash(request);
-        } catch (IllegalArgumentException e) {
-            foundException = true;
-        }
-        assertTrue("Expected IllegalArgumentException when request URI null", foundException);
-
-        request.setRequestURI("/california/san-francisco");
-        assertEquals("Expected appended trailing slash", "/california/san-francisco/", SchoolsController.createURIWithTrailingSlash(request));
-
-        request.setRequestURI("/california/san-francisco/");
-        assertEquals("Expected unmodified request url", "/california/san-francisco/", SchoolsController.createURIWithTrailingSlash(request));
-
-        request.setRequestURI("/california/san-francisco");
-        request.setQueryString(SchoolsController.PARAM_RESULTS_PER_PAGE + "=30");
-        request.setParameter(SchoolsController.PARAM_RESULTS_PER_PAGE, String.valueOf(30));
-        assertEquals("Expected appended trailing slash on request uri", "/california/san-francisco/", SchoolsController.createURIWithTrailingSlash(request));
-
-        request.setRequestURI("/california/san-francisco/");
-        request.setQueryString(SchoolsController.PARAM_RESULTS_PER_PAGE + "=30");
-        request.setParameter(SchoolsController.PARAM_RESULTS_PER_PAGE, String.valueOf(30));
-        assertEquals("Expected unmodified request uri", "/california/san-francisco/", SchoolsController.createURIWithTrailingSlash(request));
-    }
-
     public void testCreateRequestURIWithTrailingSchoolsLabel() throws Exception {
         GsMockHttpServletRequest request = getRequest();
 
         request.setRequestURI(null);
         boolean foundException = false;
         try {
-            SchoolsController.isRequestURIWithTrailingSlash(request);
+            SchoolsController.isRequestURIWithTrailingSchoolsLabel(request);
         } catch (IllegalArgumentException e) {
             foundException = true;
         }
@@ -642,7 +601,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         schoolTypes.add(SchoolType.PRIVATE);
         assertEquals("private", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
 
-        schoolTypes.clear();
+        schooltypes.clear();
         schoolTypes.add(SchoolType.CHARTER);
         assertEquals("charter", SchoolsController.createNewCityBrowseURISchoolTypeLabel(schoolTypes));
 
@@ -676,6 +635,28 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("high-schools", SchoolsController.createNewCityBrowseURILevelLabel(LevelCode.HIGH));
         assertEquals("schools", SchoolsController.createNewCityBrowseURILevelLabel(LevelCode.ELEMENTARY_MIDDLE_HIGH));
     }
+
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    // ===========================================================================================================
+    
 
     public void testCityBrowseModel() throws Exception {
         GsMockHttpServletRequest request = getRequest();

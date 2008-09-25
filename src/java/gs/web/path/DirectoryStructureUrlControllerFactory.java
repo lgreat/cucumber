@@ -1,6 +1,5 @@
 package gs.web.path;
 
-import org.springframework.web.servlet.mvc.Controller;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,38 +7,39 @@ import javax.servlet.http.HttpServletRequest;
 import gs.web.school.SchoolsController;
 import gs.web.school.SchoolOverviewController;
 
+import java.util.List;
+
 /**
  * @author Young Fan
  */
-public class DirectoryStructureUrlControllerFactory implements IControllerFactory {
+public class DirectoryStructureUrlControllerFactory implements IDirectoryStructureUrlControllerFactory {
     private static Logger _log = Logger.getLogger(DirectoryStructureUrlControllerFactory.class);
 
     private HttpServletRequest _request;
 
-    private SchoolsController _schoolsController;
-    private SchoolOverviewController _schoolOverviewController;
+    private List<IDirectoryStructureUrlController> _controllers;
 
-    public Controller getController() {
-        // TODO-7171
-        if (_request != null) {
-            _log.info("_request.getRequestURL(): " + _request.getRequestURL());
-            return _schoolsController;
-        } else {
-            _log.info("request was null");
-            return null;
+    public IDirectoryStructureUrlController getController() {
+        if (_request == null) {
+            throw new IllegalStateException("Request was null.");
         }
-        //return _schoolOverviewController;
+
+        for (IDirectoryStructureUrlController controller : _controllers) {
+            if (controller.isValidRequest(_request)) {
+                return controller;
+            }
+        }
+
+        return null;
     }
 
+    // auto-wired
     public void setRequest(HttpServletRequest request) {
         _request = request;
     }
 
-    public void setSchoolsController(SchoolsController schoolsController) {
-        _schoolsController = schoolsController;
-    }
-
-    public void setSchoolOverviewController(SchoolOverviewController schoolOverviewController) {
-        _schoolOverviewController = schoolOverviewController;
+    // explicitly set in spring config file
+    public void setControllers(List<IDirectoryStructureUrlController> controllers) {
+        _controllers = controllers;
     }
 }
