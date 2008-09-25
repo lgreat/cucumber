@@ -25,10 +25,9 @@
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.page import="gs.web.school.SchoolsController"/>
 <jsp:directive.page import="gs.data.school.SchoolType"/>
 <jsp:directive.page import="java.util.HashSet"/>
-<jsp:directive.page import="gs.web.util.DirectoryStructureUrlFactory"/>
+<jsp:directive.page import="gs.web.util.UrlBuilder"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -68,10 +67,9 @@
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
                 <![CDATA[
-        String cityBrowseUri =
-            DirectoryStructureUrlFactory.createNewCityBrowseURI(sessionContext.getState(), city.getName(), new HashSet<SchoolType>(), null);
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, sessionContext.getState(), city.getName(), new HashSet<SchoolType>(), null);
                 ]]>
-        request.setAttribute("cityBrowseUri", cityBrowseUri);
+        request.setAttribute("cityBrowseUri", urlBuilder.asSiteRelativeXml(request));
     </jsp:scriptlet>
 </head>
 

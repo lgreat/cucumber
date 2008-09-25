@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.124 2008/09/22 21:14:29 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.125 2008/09/25 00:56:05 yfan Exp $
  */
 
 package gs.web.util;
@@ -15,7 +15,6 @@ import gs.data.state.State;
 import gs.web.util.list.Anchor;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
-import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -281,6 +280,12 @@ public class UrlBuilder {
     public UrlBuilder(School school, VPage page) {
         if (SCHOOL_PROFILE.equals(page)) {
             _perlPage = true;
+            /*
+            // TODO-7171
+            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(), school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
+                    school.getName().toLowerCase().replaceAll("-","_").replaceAll(" ","-") + "/";
+            */
+
             if (school.getType().equals(SchoolType.PRIVATE)) {
                 _path = "/cgi-bin/" +
                         school.getDatabaseState().getAbbreviationLowerCase() +
@@ -467,7 +472,7 @@ public class UrlBuilder {
         _perlPage = false;
 
         if (SCHOOLS_IN_CITY.equals(page)) {
-            _path = SchoolsController.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode);
+            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

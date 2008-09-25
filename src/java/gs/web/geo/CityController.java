@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.51 2008/09/25 00:33:37 yfan Exp $
+ * $Id: CityController.java,v 1.52 2008/09/25 00:58:32 yfan Exp $
  */
 
 package gs.web.geo;
@@ -20,6 +20,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
 import gs.web.util.DirectoryStructureUrlFactory;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -111,8 +112,8 @@ public class CityController extends AbstractController {
         if (city == null) {
             // If we don't have census data on the city take the user to browse city
             _log.error("No city record found for '" + cityNameParam + ", " + state + "'. Redirecting to city browse page");
-            View redirectView = new RedirectView(
-                DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityNameParam, new HashSet<SchoolType>(), null));
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityNameParam, new HashSet<SchoolType>(), null); 
+            View redirectView = new RedirectView(urlBuilder.asSiteRelative(request));
             return new ModelAndView(redirectView);
         }
 
