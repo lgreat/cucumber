@@ -14,7 +14,6 @@ import gs.data.geo.City;
 import gs.data.geo.MultipleMatchesException;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
-import gs.web.util.DirectoryStructureUrlFactory;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
