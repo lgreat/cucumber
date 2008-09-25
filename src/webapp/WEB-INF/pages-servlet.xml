@@ -36,6 +36,7 @@
 
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
+        <property name="lazyInitHandlers" value="true"/>
     </bean>    
 
     <bean name="seoHandlerMapping" parent="defaultHandlerMapping"
