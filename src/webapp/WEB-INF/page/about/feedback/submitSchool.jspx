@@ -26,7 +26,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="Description" content="Add your ${type} to the GreatSchools web site"/>
-        <title>Add your ${type} to the GreatSchools web site</title>
+        <title>Add your ${type} to the GreatSchools Web site</title>
         <pageHelper:externalJavascript file="/res/js/prototype.js"/>
           <script type="text/javascript">
           <![CDATA[
@@ -55,7 +55,7 @@
       <div class="content">
 
         <div class="pageTitle">
-            <h2>Add your ${type} to the GreatSchools web site</h2>
+            <h2>Add your ${type} to the GreatSchools Web site</h2>
         </div>
 
         <p>
