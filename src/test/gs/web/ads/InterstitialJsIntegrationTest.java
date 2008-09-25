@@ -24,7 +24,7 @@ public class InterstitialJsIntegrationTest extends JsTestCase implements Integra
 
     public void testMakeInterstitialHref() {
         eval("var href = makeInterstitialHref('X','Y');");
-        assertEquals("http://localhost/ads/interstitial.page?adslot=Y&passThroughURI=X", eval("href"));
+        assertEquals("http://localhost.greatschools.net/ads/interstitial.page?adslot=Y&passThroughURI=X", eval("href"));
     }
 
 }

@@ -6,5 +6,6 @@ import junit.framework.TestCase;
  * author thuss
  */
 public interface IntegrationTestCase {
-    static final String INTEGRATION_HOST = "http://localhost:9000";
+    /** Use localhost on the greatschools domain so cookies will work */
+    static final String INTEGRATION_HOST = "http://localhost.greatschools.net:9000";
 }
