@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.70 2008/09/25 00:33:37 yfan Exp $
+ * $Id: SchoolsController.java,v 1.71 2008/09/25 16:18:12 yfan Exp $
  */
 
 package gs.web.school;
@@ -466,7 +466,8 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         }
         return
                 request.getRequestURI() +
-                        (SchoolsController.isRequestURIWithTrailingSchoolsLabel(request) ? "" : "schools/");
+                        (SchoolsController.isRequestURIWithTrailingSchoolsLabel(request) ? "" :
+                        (request.getRequestURI().endsWith("/") ? "" : "/") + "schools/");
     }
 
     static class CityBrowseFields {

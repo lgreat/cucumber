@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.42 2008/09/25 01:12:16 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.43 2008/09/25 16:18:13 yfan Exp $
  */
 
 package gs.web.school;
@@ -145,7 +145,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setRequestURI("/california/san-francisco/elementary-schools/");
         assertTrue("Expected true return value", SchoolsController.isRequestURIWithTrailingSchoolsLabel(request));
     }
-/*
+
     public void testCreateRequestURIWithTrailingSchoolsLabel() throws Exception {
         GsMockHttpServletRequest request = getRequest();
 
@@ -176,7 +176,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setRequestURI("/california/san-francisco/public/preschools/");
         assertEquals("Expected unmodified uri", "/california/san-francisco/public/preschools/", SchoolsController.createURIWithTrailingSchoolsLabel(request));
     }
-*/
+
     public void testIsOldStyleCityBrowseRequest() throws Exception {
         GsMockHttpServletRequest request = getRequest();
 
