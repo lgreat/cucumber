@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.52 2008/09/25 00:58:32 yfan Exp $
+ * $Id: CityController.java,v 1.53 2008/09/25 00:58:44 yfan Exp $
  */
 
 package gs.web.geo;
@@ -19,7 +19,6 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
-import gs.web.util.DirectoryStructureUrlFactory;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;

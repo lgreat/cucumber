@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.8 2008/09/25 00:47:32 yfan Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.9 2008/09/25 00:59:29 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -15,7 +15,6 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.util.DirectoryStructureUrlFactory;
 import gs.web.util.UrlBuilder;
 import static org.easymock.EasyMock.*;
 

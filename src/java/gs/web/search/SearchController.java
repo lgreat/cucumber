@@ -175,8 +175,8 @@ public class SearchController extends AbstractFormController {
                 String cpn = request.getParameter(PARAM_CPN);
 
                 if (paramLevelCode == null && paramSchoolType == null && city != null) {
-                    return new ModelAndView(new RedirectView(
-                            DirectoryStructureUrlFactory.createNewCityBrowseURI(city.getState(), city.getName(), new HashSet<SchoolType>(), null) +
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, city.getState(), city.getName(), new HashSet<SchoolType>(), null);
+                    return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request) +
                             (cpn != null ? "?cpn=" + cpn : "")));
                 }
             }

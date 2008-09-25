@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.17 2008/09/25 00:47:32 yfan Exp $
+ * $Id: AnchorListModelFactory.java,v 1.18 2008/09/25 00:59:29 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -19,7 +19,6 @@ import gs.web.geo.NearbyCitiesController;
 import gs.web.search.SearchController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
-import gs.web.util.DirectoryStructureUrlFactory;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.lucene.document.Document;
