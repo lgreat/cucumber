@@ -3,10 +3,10 @@ package gs.web.util.context;
 import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.geo.IGeoDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
-import gs.data.geo.IGeoDao;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import static org.easymock.EasyMock.*;
@@ -15,8 +15,8 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
-import java.security.NoSuchAlgorithmException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Tests for the SessionContext object
@@ -402,5 +402,10 @@ public class SessionContextTest extends BaseTestCase {
         assertTrue("Property is true, expect call to return true (3)", _sessionContext.isInterstitialEnabled());
         _sessionContext.setCobrand("cobrand");
         verify(_propertyDao);
+    }
+
+    public void testIsFramed() {
+        _sessionContext.setCobrand("test");
+        assertTrue("test.greatschools.net should be a framed cobrand", _sessionContext.isFramed());
     }
 }

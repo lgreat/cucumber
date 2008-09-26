@@ -1,28 +1,28 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.23 2008/09/22 21:14:29 aroy Exp $
+ * $Id: SessionContext.java,v 1.24 2008/09/26 21:18:55 cpickslay Exp $
  */
 package gs.web.util.context;
 
 import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import gs.data.state.State;
 import gs.data.util.DigestUtil;
-import gs.data.geo.IGeoDao;
-import gs.data.geo.City;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.HttpClient;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
-import java.io.Serializable;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 
@@ -268,7 +268,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     public boolean isFramed() {
         return _cobrand != null &&
-                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors");
+                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors|test");
     }
 
     public void setHostName(final String hostName) {
