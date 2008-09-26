@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 import gs.data.content.ArticleCategory;
 import gs.data.content.IArticleCategoryDao;
@@ -87,9 +89,16 @@ public class RelatedCategoryPostsController extends AbstractController {
     protected String getFeedURL(HttpServletRequest request, String searchTerm) {
         String communityHost = SessionContextUtil.
                 getSessionContext(request).getSessionContextUtil().getCommunityHost(request);
-        return "http://" + communityHost +
-               "/search/rss/?q=" + searchTerm + "&search_type=0&sort=relevance&limit=" +
-               _numberOfEntriesToShow;
+        String url = null;
+        try {
+            url = "http://" + communityHost +
+                            "/search/rss/?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&search_type=0&sort=relevance&limit=" +
+                            _numberOfEntriesToShow;
+        } catch (UnsupportedEncodingException e) {
+            // nothing
+        }
+        _log.info("Feed URL: " + url);
+        return url;
     }
 
     /**
