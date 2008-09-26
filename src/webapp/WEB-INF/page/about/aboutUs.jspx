@@ -89,7 +89,7 @@
 
         <about:footer showTopBorder="false" firstBoxContent="mediaRoom"/>
 
-        <div style="display: none;">
+        <div id="tracking">
             <ad:setSlotPrefix slotPrefix="AboutUs"/>
             <mod:tracking pageName="aboutUs" hier1="Home,Corporate,AboutUs,AboutUsOverview"/>
         </div>

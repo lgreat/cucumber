@@ -91,3 +91,7 @@
 #readBillsBlog {
     float: right;
 }
+
+div#tracking {
+    clear: both;
+}

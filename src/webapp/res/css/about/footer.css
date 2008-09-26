@@ -69,7 +69,7 @@
     height: 50px;
 }
 
-.aboutUs ul li {
+.aboutUs .pageGS ul li.bulleted {
     background: url(/res/img/bullet/yellow_bullet_onwhite.gif) no-repeat left 5px;
     padding-left: 10px;
     font-size: 13px;
