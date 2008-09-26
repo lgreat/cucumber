@@ -1535,6 +1535,22 @@
           class="gs.web.community.LogoutController" autowire="byName" lazy-init="true">
     </bean>
 
+    <bean name="/community/mssRedirect.page"
+          class="gs.web.community.MssLocalRedirectController" autowire="byName" lazy-init="true">
+        <property name="pageMap">
+            <map>
+                <entry key="1" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-does-public-school-enrollment-work-in-%CITY%"/>
+                <entry key="2" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-did-you-choose-a-preschool-in-%CITY%"/>
+                <entry key="3" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-do-public-and-private-schools-compare-in-%CITY%"/>
+                <entry key="4" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/What-preschool-do-you-think-is-great-in-%CITY%"/>
+                <entry key="5" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Whats-a-great-elementary-school-in-%CITY%"/>
+                <entry key="6" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Share-your-experiences-about-a-great-middle-school-in-%CITY%"/>
+                <entry key="7" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Talk-about-your-experiences-as-parent-of-a-high-schooler-in-%CITY%"/>
+                <entry key="8" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/What-school-districts-have-the-best-reputation-in-or-around-%CITY%"/>
+            </map>
+        </property>
+    </bean>
+
     <!-- XML feed related web services -->
     <bean name="/util/feed/city.page" class="gs.web.util.feed.CityFeedController" autowire="byName" lazy-init="true"/>
 
