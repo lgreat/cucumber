@@ -7,6 +7,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.nutrun.xhtml.validator.XhtmlValidator;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 /**
@@ -45,8 +48,19 @@ public class BaseHtmlUnitIntegrationTestCase extends TestCase implements Integra
         // page.asXML for some reason doesn't include the DOCTYPE declaration that's in the source
         source = source.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>",
                 "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+//        try {
+//            File outFile = new File("/tmp/out.html");
+//            FileWriter out = new FileWriter(outFile);
+//            out.write(source);
+//            out.close();
+//        } catch (Exception e) { /* Do nothing */ }
         XhtmlValidator validator = new XhtmlValidator();
-        boolean valid = validator.isValid(new ByteArrayInputStream(source.getBytes()));
+        boolean valid = false;
+        try {
+            valid = validator.isValid(new ByteArrayInputStream(source.getBytes("UTF-8")));
+        } catch (UnsupportedEncodingException e) {
+            fail(e.getMessage());
+        }
         assertTrue(url + " is not valid Xhtml, errors are: " + Arrays.deepToString(validator.getErrors()), valid);
     }
 }
