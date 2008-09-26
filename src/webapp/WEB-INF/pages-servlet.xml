@@ -1407,14 +1407,6 @@
         <property name="viewName" value="/school/parentReviews/thankYouHover"/>
     </bean>
 
-    <bean name="/school/overview2.page"
-          class="gs.web.school.SchoolOverviewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>school/overview2</value>
-        </property>
-    </bean>
-
     <bean name="/school/mapSchool.page"
           class="gs.web.school.MapSchoolController"
           autowire="byName" lazy-init="true">
