@@ -25,7 +25,7 @@ public class MssLocalRedirectController extends AbstractController {
 
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "id";
-    public static final String PARAM_PAGE = "PAGE";
+    public static final String PARAM_PAGE = "page";
 
     /** patterns used for city & state replacement in urls */
     public static final String CITY_PATTERN = "%CITY%";
