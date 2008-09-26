@@ -72,6 +72,7 @@ public class RelatedCategoryPostsController extends AbstractController {
             relatedPost.setTitle(entry.getTitle());
             relatedPost.setLink(entry.getLink());
             relatedPost.setType(entry.getLink());
+            relatedPost.setDescription(entry.getDescription() != null ? entry.getDescription().getValue(): "");
             relatedPosts.add(relatedPost);
             // fail-safe
             if (relatedPosts.size() >= _numberOfEntriesToShow) {
@@ -121,7 +122,7 @@ public class RelatedCategoryPostsController extends AbstractController {
      * TODO: How to concatenate multiple category terms together?
      */
     protected String getSearchTermFromArticleCategories(List<ArticleCategory> articleCategories) {
-        if (articleCategories.size() > 0) {
+        if (articleCategories != null && articleCategories.size() > 0) {
             return ArticleCategoryToCommunityMapping.getTermForArticleCategory(articleCategories.get(0));
         }
         return null;
@@ -163,6 +164,7 @@ public class RelatedCategoryPostsController extends AbstractController {
         private String _title;
         private String _link;
         private String _type;
+        private String _description;
 
         public String getTitle() {
             return _title;
@@ -182,6 +184,14 @@ public class RelatedCategoryPostsController extends AbstractController {
 
         public String getType() {
             return _type;
+        }
+
+        public String getDescription(){
+            return _description;
+        }
+
+        public void setDescription(String description){
+            _description = description;
         }
 
         public void setType(String url) {

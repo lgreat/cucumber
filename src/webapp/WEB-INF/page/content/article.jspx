@@ -101,6 +101,20 @@
                         </c:otherwise>
                     </c:choose>
 
+
+                    <c:if test="${articleStyle eq 'new'}">
+                        <div id="dynamicMoveFrom">
+                            <div id="articlesLabel">
+                                <h2>Articles</h2>
+                            </div>
+
+                            <div id="relatedParentPosts">
+                                    <jsp:include page="/community/relatedPostsArticle.module">
+                                        <jsp:param name="category" value="${70}"/>
+                                    </jsp:include>
+                            </div>
+                        </div>
+                    </c:if>
                     <div id="articleComments" class="noprint">
                         <div id="enterComment">
                             <script type="text/javascript">
@@ -249,6 +263,45 @@
              -->
             ]]>
         </script>
+
+        <script type="text/javascript" >
+            <![CDATA[
+            <!--
+
+
+            var moreOnElementNode = document.getElementById("more-about");
+
+            var relatedParentPostsNode = document.getElementById("relatedParentPosts");
+
+            var articlesLabelNode = document.getElementById("articlesLabel");
+
+            if (moreOnElementNode != null ){
+                var nodes = moreOnElementNode.getElementsByTagName("div") ; 
+
+
+                if (nodes != null ){
+                    var moreOnParagraphNode = nodes[0];
+                    moreOnParagraphNode.setAttribute("class", "paragraph moreOnParagraph");
+
+                    if (nodes.length > 1){
+                        moreOnElementNode.insertBefore(relatedParentPostsNode, nodes[1]);
+                    } else {
+                        moreOnElementNode.appendChild(relatedParentPostsNode);
+                    }
+
+                    var headlineNodes = moreOnParagraphNode.getElementsByClassName("headline");
+                    if (headlineNodes != null)  {
+                        headlineNodes[0].appendChild(articlesLabelNode) ;
+                    }
+                } 
+            }
+
+
+         --> ]]>
+        </script>
+
+   
+
     </c:if>
 
     <script type="text/javascript">

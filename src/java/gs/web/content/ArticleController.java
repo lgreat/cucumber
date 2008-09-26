@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
+import gs.data.content.IArticleCategoryDao;
+import gs.data.content.ArticleCategory;
 import gs.data.state.State;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -57,9 +57,15 @@ public class ArticleController extends AbstractController {
     public static final String MODEL_HIER1 = "articleHier1";
     /** Ad Attribute keyword */
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
+    /** ArticleCategory ids */
+    public static final String MODEL_ARTICLECATEGORY_IDS = "articleCategoryIds";
+
 
     /** Provides access to database articles */
     private IArticleDao _articleDao;
+
+    /** Provides access to article categories */
+    private IArticleCategoryDao _articleCategoryDao;
 
     /**
      * Regular expression for state-specific content.
@@ -88,10 +94,14 @@ public class ArticleController extends AbstractController {
                 model.put(MODEL_ARTICLE_META_KEYWORDS, article.getMetaKeywords());
 
                 PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+
                 List<String> categories = article.getCategoriesAsStringList();
                 for (String category : categories) {
                     pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category);
                 }
+
+                Set<ArticleCategory> articleCategories = _articleCategoryDao.getArticleCategoriesByArticle(article);
+                model.put(MODEL_ARTICLECATEGORY_IDS, articleCategories);
             }
         } else {
             _log.warn("Bad article id: " + request.getParameter(PARAM_AID));
@@ -198,6 +208,10 @@ public class ArticleController extends AbstractController {
 
     public void setArticleDao(IArticleDao articleDao) {
         _articleDao = articleDao;
+    }
+
+    public void setArticleCategoryDao(IArticleCategoryDao articleCategoryDao){
+        _articleCategoryDao = articleCategoryDao;
     }
 
     static {

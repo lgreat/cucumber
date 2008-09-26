@@ -60,6 +60,16 @@
         </property>
     </bean>
 
+    <bean name="/community/relatedPostsArticle.module"
+          class="gs.web.community.RelatedCategoryPostsController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/relatedPostsArticle"/>
+        <property name="numberOfEntriesToShow" value="2"/>
+        <property name="feedDao">
+            <bean factory-bean="relatedCategoryPostsFeedDaoFactory" factory-method="getFeedDao"/>
+        </property>
+    </bean> 
+
     <bean id="testScoreLandingLinksTableFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
