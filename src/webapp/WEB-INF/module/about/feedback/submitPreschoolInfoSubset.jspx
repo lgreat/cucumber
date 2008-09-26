@@ -69,7 +69,7 @@
         <div class="fieldLabel">Type of preschool</div>
         <div class="fieldInput">
             <spring:bind path="submitSchoolCommand.preschoolSubtype">
-                <gsweb:preschoolSubtypeSelector name="${status.expression}" selectedValue="${status.value}"/>
+                <gsweb:preschoolSubtypeSelector name="${status.expression}" selectedValue="${status.value}" useNoResponse="true"/>
             </spring:bind>
         </div>
     </div>

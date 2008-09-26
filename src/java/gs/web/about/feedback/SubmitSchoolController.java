@@ -147,6 +147,7 @@ public class SubmitSchoolController extends SimpleFormController {
             sb.append("<b>Special education programs offered</b>: ").append(cmd.getSpecialEd()).append("\n");
             sb.append("<b>Computers present in the classroom</b>: ").append(cmd.getComputersPresent()).append("\n");
             sb.append("<b>Extended care available</b>: ").append(cmd.getExtendedCare()).append("\n");
+            sb.append("<b>Type of preschool</b>: ").append(cmd.getPreschoolSubtype()).append("\n");
         } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
             SubmitPrivateSchoolCommand cmd = (SubmitPrivateSchoolCommand)command;
             sb.append("\n");
