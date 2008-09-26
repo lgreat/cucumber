@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
  * To change this template use File | Settings | File Templates.
  */
 public interface IDirectoryStructureUrlController {
+    final public static String FIELDS = "directoryStructureUrlFields";
+
     ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws java.lang.Exception;
 
-    boolean isValidRequest(HttpServletRequest request);
+    boolean shouldHandleRequest(DirectoryStructureUrlFields fields);
 }

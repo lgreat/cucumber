@@ -12,9 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.web.school.SchoolsController;
 import gs.web.util.LogUtil;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.data.state.State;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Delegates request with directory structure url to the appropriate controller.
@@ -36,6 +41,17 @@ public class DirectoryStructureUrlRequestController extends AbstractController {
             return new ModelAndView(new RedirectView(redirectUrl));
         }
 
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        State state = context.getState();
+
+        if (state == null) {
+            Map<String, Object> model = new HashMap<String, Object>();
+            LogUtil.log(_log, request, "Missing state in district-structure url request.");
+            model.put("showSearchControl", Boolean.TRUE);
+            model.put("title", "State not found");
+            return new ModelAndView("status/error", model);
+        }
+
         // no controller was found that could handle this request (injected by calling getController on the controller factory)
         if (_controller == null) {
             Map<String, Object> model = new HashMap<String, Object>();
@@ -47,6 +63,15 @@ public class DirectoryStructureUrlRequestController extends AbstractController {
         }
 
         return _controller.handleRequest(request, response);
+    }
+
+    public static boolean isRequestURIWithCityAndStateOnly(HttpServletRequest request) {
+        String requestUri = request.getRequestURI();
+        if (requestUri == null) {
+            throw new IllegalStateException("Cannot have null request uri");
+        }
+
+        return requestUri.matches("^/(.*?)/(.*?)/$");
     }
 
     public static boolean isRequestURIWithTrailingSlash(HttpServletRequest request) {
@@ -62,7 +87,7 @@ public class DirectoryStructureUrlRequestController extends AbstractController {
         }
         return request.getRequestURI() +
             (isRequestURIWithTrailingSlash(request) ? "" : "/");
-    }
+    } 
 
     public void setController(IDirectoryStructureUrlController controller) {
         _controller = controller;

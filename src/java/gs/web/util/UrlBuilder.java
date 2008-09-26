@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.125 2008/09/25 00:56:05 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.126 2008/09/26 03:13:11 yfan Exp $
  */
 
 package gs.web.util;
@@ -16,6 +16,7 @@ import gs.web.util.list.Anchor;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -280,11 +281,6 @@ public class UrlBuilder {
     public UrlBuilder(School school, VPage page) {
         if (SCHOOL_PROFILE.equals(page)) {
             _perlPage = true;
-            /*
-            // TODO-7171
-            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(), school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
-                    school.getName().toLowerCase().replaceAll("-","_").replaceAll(" ","-") + "/";
-            */
 
             if (school.getType().equals(SchoolType.PRIVATE)) {
                 _path = "/cgi-bin/" +
@@ -294,6 +290,12 @@ public class UrlBuilder {
                 _path = "/modperl/browse_school/" +
                         school.getDatabaseState().getAbbreviationLowerCase() +
                         "/" + school.getId();
+            }
+
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(),
+                    school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
+                    WordUtils.capitalize(school.getName(), new char[]{'-'}).replaceAll("-","_").replaceAll(" ","-") + "/";
             }
         } else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             _perlPage = false;

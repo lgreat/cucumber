@@ -24,8 +24,15 @@ public class DirectoryStructureUrlControllerFactory implements IDirectoryStructu
             throw new IllegalStateException("Request was null.");
         }
 
+        // extract request information from the request uri
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
+        // set the fields in the request instead of in the controller itself or else different requests would
+        // be using each others' fields!
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+
+        // pick the appropriate controller to handle the request
         for (IDirectoryStructureUrlController controller : _controllers) {
-            if (controller.isValidRequest(_request)) {
+            if (controller.shouldHandleRequest(fields)) {
                 return controller;
             }
         }

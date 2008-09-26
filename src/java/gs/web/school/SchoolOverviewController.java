@@ -51,11 +51,6 @@ public class SchoolOverviewController extends AbstractSchoolController implement
     private IGroupDataTypeDao _groupDataTypeDao;
     private SurveyDao _surveyDao;
 
-    public boolean isValidRequest(HttpServletRequest request) {
-        // TODO-7171
-        return false;
-    }
-
     /**
      * This method must be called using the standard Spring Controller workflow, that
      * is, it must be called by the superclass handleRequest() method in order to
@@ -71,6 +66,10 @@ public class SchoolOverviewController extends AbstractSchoolController implement
         Map<String, Object> model = new HashMap<String, Object>();
 
         String schoolIdStr = request.getParameter("id");
+
+        if (schoolIdStr == null) {
+            schoolIdStr = (String) request.getAttribute(AbstractSchoolController.SCHOOL_ID_ATTRIBUTE);
+        }
 
         // GS-3044 - number1expert cobrand specific code
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.71 2008/09/25 16:18:12 yfan Exp $
+ * $Id: SchoolsController.java,v 1.72 2008/09/26 03:13:11 yfan Exp $
  */
 
 package gs.web.school;
@@ -19,13 +19,11 @@ import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.search.ResultsPager;
-import gs.web.util.PageHelper;
-import gs.web.util.RedirectView301;
-import gs.web.util.LogUtil;
-import gs.web.util.DirectoryStructureUrlFactory;
+import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -36,13 +34,10 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Provides...
@@ -157,10 +152,6 @@ public class SchoolsController extends AbstractController implements IDirectoryS
     public static final String LEVEL_LABEL_HIGH_SCHOOLS = "high-schools";
     public static final String LEVEL_LABEL_SCHOOLS = "schools";
 
-    public boolean isValidRequest(HttpServletRequest request) {
-        return isValidNewStyleCityBrowseRequest(request);
-    }
-
     /**
      * Though this method throws <code>Exception</code>, it should swallow most
      * (all?) searching errors while just logging appropriately and returning
@@ -186,9 +177,8 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             return new ModelAndView("status/error", model);            
         }
 
-        CityBrowseFields cityBrowseFields = null;
-
         boolean isDistrictBrowse = SchoolsController.isDistrictBrowseRequest(request);
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
 
         if (!isDistrictBrowse) {
             if (SchoolsController.isOldStyleCityBrowseRequest(request)) {
@@ -196,16 +186,9 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                 String queryString = SchoolsController.createNewCityBrowseQueryString(request);
                 String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
                 return new ModelAndView(new RedirectView301(redirectUrl));
+            } else if (!shouldHandleRequest(fields)) {
+                throw new IllegalStateException("Should not be in SchoolsController for city browse if expected fields not populated.");
             }
-
-            if (!SchoolsController.isRequestURIWithTrailingSchoolsLabel(request)) {
-                String uri = SchoolsController.createURIWithTrailingSchoolsLabel(request);
-                String queryString = request.getQueryString();
-                String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
-                return new ModelAndView(new RedirectView(redirectUrl));
-            }
-
-            cityBrowseFields = SchoolsController.getFieldsFromNewStyleCityBrowseRequest(request);
         }
 
         LevelCode levelCode = null;
@@ -215,18 +198,18 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                 levelCode = LevelCode.createLevelCode(paramLevelCode);
             }
         } else {
-            levelCode = cityBrowseFields.getLevelCode();
+            levelCode = fields.getLevelCode();
         }
 
         if (levelCode != null) {
             model.put(MODEL_LEVEL_CODE, levelCode);
         }
 
-        String[] paramSchoolType;
+        String[] paramSchoolType = null;
         if (isDistrictBrowse) {
             paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
         } else {
-            paramSchoolType = cityBrowseFields.getSchoolType();
+            paramSchoolType = fields.getSchoolTypesParams();
         }
 
         if (paramSchoolType != null) {
@@ -310,10 +293,10 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                 }
             }
         } else {
-            cityName = cityBrowseFields.getCityName();
+            cityName = fields.getCityName();
             model.put(MODEL_CITY_BROWSE_URI_ROOT, DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, cityName));
             model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, DirectoryStructureUrlFactory.createNewCityBrowseURILevelLabel(levelCode));
-            model.put(MODEL_CITY_BROWSE_URI, DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, cityBrowseFields.getSchoolTypeSet(), levelCode));
+            model.put(MODEL_CITY_BROWSE_URI, DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, fields.getSchoolTypes(), levelCode));
             searchCommand.setCity(cityName);
             searchCommand.setQ(cityName);
             model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInCity(cityName, state));        
@@ -401,27 +384,6 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         return new ModelAndView(getViewName(), model);
     }
 
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-    // ===========================================================================================================
-
     public static boolean isDistrictBrowseRequest(HttpServletRequest request) {
         if (request.getRequestURI() == null) {
             throw new IllegalArgumentException("Request must have request URI");
@@ -448,197 +410,6 @@ public class SchoolsController extends AbstractController implements IDirectoryS
     // ===========================================================================================================
     // ===========================================================================================================    
 
-    public static boolean isRequestURIWithTrailingSchoolsLabel(HttpServletRequest request) {
-        if (request.getRequestURI() == null) {
-            throw new IllegalArgumentException("Request must have request URI");
-        }
-        String uri = request.getRequestURI();
-        return uri.endsWith("/" + LEVEL_LABEL_SCHOOLS + "/") ||
-                uri.endsWith("/" + LEVEL_LABEL_PRESCHOOLS + "/") ||
-                uri.endsWith("/" + LEVEL_LABEL_ELEMENTARY_SCHOOLS + "/") ||
-                uri.endsWith("/" + LEVEL_LABEL_MIDDLE_SCHOOLS + "/") ||
-                uri.endsWith("/" + LEVEL_LABEL_HIGH_SCHOOLS + "/");
-    }
-
-    public static String createURIWithTrailingSchoolsLabel(HttpServletRequest request) {
-        if (request.getRequestURI() == null) {
-            throw new IllegalArgumentException("Request must have request URI");
-        }
-        return
-                request.getRequestURI() +
-                        (SchoolsController.isRequestURIWithTrailingSchoolsLabel(request) ? "" :
-                        (request.getRequestURI().endsWith("/") ? "" : "/") + "schools/");
-    }
-
-    static class CityBrowseFields {
-        private String _cityName = null;
-        private LevelCode _levelCode = null;
-        private String[] _schoolType = null;
-        private Set<SchoolType> _schoolTypeSet = null;
-
-        public String getCityName() {
-            return _cityName;
-        }
-
-        public void setCityName(String cityName) {
-            _cityName = cityName;
-        }
-
-        public LevelCode getLevelCode() {
-            return _levelCode;
-        }
-
-        public void setLevelCode(LevelCode levelCode) {
-            _levelCode = levelCode;
-        }
-
-        public String[] getSchoolType() {
-            return _schoolType;
-        }
-
-        public void setSchoolType(String[] schoolType) {
-            _schoolType = schoolType;
-        }
-
-        public Set<SchoolType> getSchoolTypeSet() {
-            return _schoolTypeSet;
-        }
-
-        public void setSchoolTypeSet(Set<SchoolType> schoolTypeSet) {
-            _schoolTypeSet = schoolTypeSet;
-        }
-    }
-
-    public static CityBrowseFields getFieldsFromNewStyleCityBrowseRequest(HttpServletRequest request) {
-        if (!SchoolsController.isValidNewStyleCityBrowseRequest(request)) {
-            throw new IllegalArgumentException("Request uri must be valid new-style city browse request");
-        }
-
-        CityBrowseFields fields = new CityBrowseFields();
-
-        Pattern basicStructurePattern = Pattern.compile("/(.*?)/(.*?)/(.*?)/(.*)");
-        Matcher basicStructureMatcher = basicStructurePattern.matcher(request.getRequestURI());
-        boolean basicStructureMatched = basicStructureMatcher.find();
-        boolean filteredBySchoolType = true;
-        String city = null;
-        String schoolType = null;
-        String level = null;
-
-        if (basicStructureMatched) {
-            city = basicStructureMatcher.group(2);
-            if (basicStructureMatcher.group(4).length() == 0) {
-                filteredBySchoolType = false;
-                level = basicStructureMatcher.group(3);
-            } else {
-                schoolType = basicStructureMatcher.group(3);
-                level = basicStructureMatcher.group(4).replaceAll("/", "");
-            }
-        }
-
-        // school type
-        String[] paramSchoolType = null;
-        Set<SchoolType> schoolTypeSet = new HashSet<SchoolType>();
-        if (filteredBySchoolType) {
-            List<String> schoolTypes = new ArrayList<String>();
-            if (schoolType.contains(SchoolType.PUBLIC.getSchoolTypeName())) {
-                schoolTypes.add(SchoolType.PUBLIC.getSchoolTypeName());
-                schoolTypeSet.add(SchoolType.PUBLIC);
-            }
-            if (schoolType.contains(SchoolType.PRIVATE.getSchoolTypeName())) {
-                schoolTypes.add(SchoolType.PRIVATE.getSchoolTypeName());
-                schoolTypeSet.add(SchoolType.PRIVATE);
-            }
-            if (schoolType.contains(SchoolType.CHARTER.getSchoolTypeName())) {
-                schoolTypes.add(SchoolType.CHARTER.getSchoolTypeName());
-                schoolTypeSet.add(SchoolType.CHARTER);
-            }
-
-            if (schoolTypes.size() > 0) {
-                paramSchoolType = schoolTypes.toArray(new String[schoolTypes.size()]);
-            }
-        }
-
-        LevelCode levelCode = null;
-        if (LEVEL_LABEL_PRESCHOOLS.equals(level)) {
-            levelCode = LevelCode.PRESCHOOL;
-        } else if (LEVEL_LABEL_ELEMENTARY_SCHOOLS.equals(level)) {
-            levelCode = LevelCode.ELEMENTARY;
-        } else if (LEVEL_LABEL_MIDDLE_SCHOOLS.equals(level)) {
-            levelCode = LevelCode.MIDDLE;
-        } else if (LEVEL_LABEL_HIGH_SCHOOLS.equals(level)) {
-            levelCode = LevelCode.HIGH;
-        }
-
-        fields.setCityName(city.replaceAll("-", " ").replaceAll("_", "-"));
-        fields.setSchoolType(paramSchoolType);
-        fields.setSchoolTypeSet(schoolTypeSet);
-        fields.setLevelCode(levelCode);
-
-        return fields;
-    }
-
-    /**
-     * This does not validate existence of city or state, but check whether or not the
-     * url is structured to contain those fields and those fields are non-blank
-     *
-     * @param request
-     * @return
-     */
-    public static boolean isValidNewStyleCityBrowseRequest(HttpServletRequest request) {
-        if (request.getRequestURI() == null) {
-            throw new IllegalArgumentException("Request must have request URI");
-        }
-
-        Pattern basicStructurePattern = Pattern.compile("/(.*?)/(.*?)/(.*?)/(.*)");
-        Matcher basicStructureMatcher = basicStructurePattern.matcher(request.getRequestURI());
-        boolean basicStructureMatched = basicStructureMatcher.find();
-        boolean filteredBySchoolType = true;
-        String state = null;
-        String city = null;
-        String schoolType = null;
-        String level = null;
-
-        if (basicStructureMatched) {
-            state = basicStructureMatcher.group(1);
-            city = basicStructureMatcher.group(2);
-            if (basicStructureMatcher.group(4).length() == 0) {
-                filteredBySchoolType = false;
-                level = basicStructureMatcher.group(3);
-            } else {
-                schoolType = basicStructureMatcher.group(3);
-                level = basicStructureMatcher.group(4);
-            }
-        }
-
-        // empty fields
-        if (StringUtils.isBlank(state) || StringUtils.isBlank(city) || StringUtils.isBlank(level)) {
-            return false;
-        }
-
-        // level
-        StringBuilder levelPatternSB = new StringBuilder(
-                "(" + LEVEL_LABEL_SCHOOLS + "|" + LEVEL_LABEL_PRESCHOOLS + "|" + LEVEL_LABEL_ELEMENTARY_SCHOOLS +
-                        "|" + LEVEL_LABEL_MIDDLE_SCHOOLS + "|" + LEVEL_LABEL_HIGH_SCHOOLS + ")");
-        if (filteredBySchoolType) {
-            levelPatternSB.append("/");
-        }
-        Pattern levelPattern = Pattern.compile(levelPatternSB.toString());
-        Matcher levelMatcher = levelPattern.matcher(level);
-        boolean levelMatched = levelMatcher.find();
-        if (!levelMatched) {
-            return false;
-        }
-
-        // school type
-        if (filteredBySchoolType) {
-            Pattern schoolTypePattern = Pattern.compile("(public|private|charter|public-private|public-charter|private-charter)");
-            Matcher schoolTypeMatcher = schoolTypePattern.matcher(schoolType);
-            return schoolTypeMatcher.find();
-        }
-
-        return true;
-    }
-
     public static String createNewCityBrowseURI(HttpServletRequest request) {
         // school type(s)
         Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
@@ -662,8 +433,9 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             levelCode = LevelCode.createLevelCode(paramLevelCode);
         }
 
-        return DirectoryStructureUrlFactory.createNewCityBrowseURI(SessionContextUtil.getSessionContext(request).getState(),
-                request.getParameter(PARAM_CITY), schoolTypes, levelCode);
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+            SessionContextUtil.getSessionContext(request).getState(), request.getParameter(PARAM_CITY), schoolTypes, levelCode);
+        return urlBuilder.asSiteRelative(request);
     }
 
     public static String createNewCityBrowseQueryString(HttpServletRequest request) {
@@ -858,6 +630,15 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         }
 
         return sb.toString();
+    }
+
+    // required to implement IDirectoryStructureUrlController
+    public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
+        if (fields == null) {
+            return false;
+        }
+        // level code is optional
+        return fields.hasState() && fields.hasCityName() && fields.hasSchoolTypes() && fields.hasSchoolsLabel() && !fields.hasSchoolName();
     }
 
     public String getViewName() {

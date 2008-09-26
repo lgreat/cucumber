@@ -1598,11 +1598,16 @@
     <!-- directory structure url beans - start -->
     <!-- see also directoryStructureUrlHandlerMapping -->
 
+    <bean name="directoryStructureUrlNoSchoolTypesController"
+          class="gs.web.path.DirectoryStructureUrlNoSchoolsLabelController"
+          autowire="byName" lazy-init="true"/>
+
     <bean id="directoryStructureUrlControllerFactory"
           class="gs.web.path.DirectoryStructureUrlControllerFactory"
           autowire="byType" scope="request" lazy-init="true">
         <property name="controllers">
             <list>
+                <ref bean="directoryStructureUrlNoSchoolTypesController"/>
                 <ref bean="/schools.page"/>
                 <ref bean="/school/overview.page"/>
             </list>
@@ -1612,7 +1617,7 @@
 
     <bean name="/directoryStructureUrlRequest.page"
           class="gs.web.path.DirectoryStructureUrlRequestController"
-          autowire="byName" lazy-init="true">
+          autowire="byName" lazy-init="true" scope="request">
         <property name="controller">
             <bean factory-bean="directoryStructureUrlControllerFactory" factory-method="getController"/>
         </property>

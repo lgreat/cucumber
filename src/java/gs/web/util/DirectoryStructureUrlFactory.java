@@ -17,7 +17,6 @@ import java.util.HashSet;
  * To change this template use File | Settings | File Templates.
  */
 public class DirectoryStructureUrlFactory {
-    // TODO-7171
     public static String createNewCityBrowseURIRoot(State state, String cityName) {
         if (state == null || StringUtils.isBlank(cityName)) {
             throw new IllegalArgumentException("Must specify state and city");
