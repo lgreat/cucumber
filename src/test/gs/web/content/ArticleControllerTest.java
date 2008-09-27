@@ -3,10 +3,14 @@ package gs.web.content;
 import gs.web.BaseControllerTestCase;
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
+import gs.data.content.IArticleCategoryDao;
+import gs.data.content.ArticleCategory;
 import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.easymock.EasyMock.*;
+
+import java.util.HashSet;
 
 /**
  * Unit tests for ArticleController.
@@ -18,6 +22,7 @@ public class ArticleControllerTest extends BaseControllerTestCase {
 
     private ArticleController _controller;
     private IArticleDao _articleDao;
+    private IArticleCategoryDao _articleCategoryDao;
     private State _state;
 
     public void setUp() throws Exception {
@@ -25,7 +30,10 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         _controller = new ArticleController();
 
         _articleDao = createStrictMock(IArticleDao.class);
+        _articleCategoryDao = createStrictMock(IArticleCategoryDao.class);
+
         _controller.setArticleDao(_articleDao);
+        _controller.setArticleCategoryDao(_articleCategoryDao);
 
         _state = State.CA;
     }
@@ -37,6 +45,9 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         article.setArticleText("<div id=\"article-main\">Don't hit your child</div>");
         expect(_articleDao.getArticleFromId(78, true)).andReturn(article);
         replay(_articleDao);
+
+        expect(_articleCategoryDao.getArticleCategoriesByArticle(article)).andReturn(new HashSet<ArticleCategory>());
+        replay(_articleCategoryDao);
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_articleDao);
         assertEquals(Boolean.TRUE, mAndV.getModel().get(ArticleController.MODEL_NEW_ARTICLE));
