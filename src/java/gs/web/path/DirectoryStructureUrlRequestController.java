@@ -46,7 +46,7 @@ public class DirectoryStructureUrlRequestController extends AbstractController {
 
         if (state == null) {
             Map<String, Object> model = new HashMap<String, Object>();
-            LogUtil.log(_log, request, "Missing state in district-structure url request.");
+            LogUtil.log(_log, request, "Missing state in directory-structure url request.");
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "State not found");
             return new ModelAndView("status/error", model);
