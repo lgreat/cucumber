@@ -40,11 +40,11 @@
                         <ul>
                             <li><link:research state="${context.stateOrDefault}"
                                                rel="nofollow">Compare Schools</link:research></li>
-                            <li>
-                                <c:if test="${context.city ne null}">
+                            <c:if test="${context.city ne null}">
+                                <li>
                                     <link:city city="${context.city.name}" state="${context.city.state}">${context.city.name} Schools</link:city>
-                                </c:if>
-                            </li>
+                                </li>
+                            </c:if>
                             <li><link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter></li>
                             <li><link:movingWithKids>Moving with Kids</link:movingWithKids></li>
                         </ul>
@@ -52,15 +52,15 @@
                     <li class="second">
                         <div><link:articleLibrary rel="nofollow">Grade-By-Grade Support</link:articleLibrary></div>
                         <ul>
-                            <li><a href="#">Preschool</a></li>
-                            <li><a href="#">Kindergarten</a></li>
-                            <li><a href="#">First Grade</a></li>
-                            <li><a href="#">Second Grade</a></li>
-                            <li><a href="#">Third Grade</a></li>
-                            <li><a href="#">Fourth Grade</a></li>
-                            <li><a href="#">Fifth Grade</a></li>
-                            <li><a href="#">Middle School</a></li>
-                            <li><a href="#">High School</a></li>
+                            <li><link:article articleId="103">Preschool</link:article></li>
+                            <li><link:article articleId="33">Kindergarten</link:article></li>
+                            <li><link:article articleId="32">First Grade</link:article></li>
+                            <li><link:article articleId="34">Second Grade</link:article></li>
+                            <li><link:article articleId="35">Third Grade</link:article></li>
+                            <li><link:article articleId="52">Fourth Grade</link:article></li>
+                            <li><link:article articleId="53">Fifth Grade</link:article></li>
+                            <li><link:article articleId="54">Middle School</link:article></li>
+                            <li><link:article articleId="104">High School</link:article></li>
                         </ul>
                     </li>
                     <li class="third">
@@ -136,12 +136,15 @@
                         </div>
 
                         <div id="footerContent">
-                            <c:if test="${showExtendedFooter eq true}">
                                 <div id="footerText">
-                                    GreatSchools empowers and inspires parents to get involved
-                                    in their children's development and educational success.
+                                    <c:if test="${showExtendedFooter eq true}">
+                                        GreatSchools empowers and inspires parents to get involved
+                                        in their children's development and educational success.
+                                        <br/><br/>
+                                    </c:if>
+                                    GreatSchools: Preschool, elementary, middle and high school
+                                    information for public, private and charter schools nationwide.
                                 </div>
-                            </c:if>
                             <c:if test="${showSeoFooter ne false}">
                                 <mod:seoFooter/>
                             </c:if>

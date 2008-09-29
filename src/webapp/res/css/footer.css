@@ -64,7 +64,7 @@
 }
 
 #footerGS #footerText {
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 #footerGS #footerSearch {
@@ -174,19 +174,27 @@ ul.navColumns li.first {
 }
 
 ul.navColumns li.second {
-    left: 198px;
+    /*left: 198px;*/
+    left: 24%;
 }
 
 ul.navColumns li.third {
-    left: 378px;
+    /*left: 378px;*/
+    left: 47%;
 }
 
 ul.navColumns li.fourth {
-    left: 558px;
+    /*left: 558px;*/
+    right: 15%;
 }
 
 ul.navColumns li.fifth {
-    left: 738px;
+    /*left: 738px;*/
+    right: 10px;
+}
+
+ul.navColumns li.fifth ul li {
+    width: 100px;
 }
 
 ul.navColumns li ul li {
