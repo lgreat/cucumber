@@ -281,14 +281,26 @@
 
                 if (nodes != null ){
                     var moreOnParagraphNode = nodes[0];
-                    moreOnParagraphNode.setAttribute("class", "paragraph moreOnParagraph");
+
+                    moreOnParagraphNode.className = "paragraph moreOnParagraph" ;
 
                     if (nodes.length > 1){
                         moreOnElementNode.insertBefore(relatedParentPostsNode, nodes[1]);
                     } else {
                         moreOnElementNode.appendChild(relatedParentPostsNode);
                     }
-
+                    if (moreOnParagraphNode.getElementsByClassName == undefined){
+                        moreOnParagraphNode.getElementsByClassName = function(cl){
+                            var retnode = [];
+                            var myclass = new RegExp('\\b'+cl+'\\b');
+                            var elem = this.getElementsByTagName('*');
+                            for (var i = 0; i < elem.length; i++) {
+                                var classes = elem[i].className;
+                                if (myclass.test(classes)) retnode.push(elem[i]);
+                            }
+                            return retnode;
+                        }
+                    } 
                     var headlineNodes = moreOnParagraphNode.getElementsByClassName("headline");
                     if (headlineNodes != null)  {
                         headlineNodes[0].appendChild(articlesLabelNode) ;

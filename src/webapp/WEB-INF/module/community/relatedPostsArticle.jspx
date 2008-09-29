@@ -39,7 +39,7 @@
                     <li class="${relatedPost.type}"><a class="GS_EV5_"
                            id="RelatedPosts_Article__${loopStatus.index}"
                            href="${relatedPost.link}">${relatedPost.title}</a>
-                        <span id="description"><c:out value="${description}"/></span></li>
+                        <span class="description"><c:out value="${description}"/></span></li>
                 </c:forEach>
             </ul>
         </div>
