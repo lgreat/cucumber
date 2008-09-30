@@ -49,7 +49,7 @@
         <property name="cacheEntryTTLSeconds" value="7200"/>
         <property name="cacheEntryIdleSeconds" value="7200"/>
         <property name="failCacheName" value="relatedCategoryPostsFail"/>
-        <property name="failCacheSize" value="20"/>
+        <property name="failCacheSize" value="80"/>
         <property name="failCacheEntryTTLSeconds" value="60"/>
         <property name="failCacheEntryIdleSeconds" value="60"/>
     </bean>
