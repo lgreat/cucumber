@@ -226,6 +226,10 @@ div.greenHeader span {
     color:#6BA230;
 }
 
+div#articleComments{
+    float:left;
+}
+
 div#articleComments div#enterComment textarea {
     width:360px;
     height:17em;

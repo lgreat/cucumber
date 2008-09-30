@@ -108,9 +108,16 @@
                                 <h2>Articles</h2>
                             </div>
 
+                            <div id="moreOnParagraph" class="paragraph moreOnParagraph" >
+                                <!-- collapse free comment -->
+                            </div>
+                            <div id="normalParagraph" class="paragraph" >
+                                <!-- collapse free comment -->
+                            </div>
+
                             <div id="relatedParentPosts">
                                     <jsp:include page="/community/relatedPostsArticle.module">
-                                        <jsp:param name="category" value="${70}"/>
+                                        <jsp:param name="category" value="${not empty requestScope.communityDiscussionCategoryId ? requestScope.communityDiscussionCategoryId: 16 }"/>
                                     </jsp:include>
                             </div>
                         </div>
@@ -230,7 +237,6 @@
                         /* register handler directly for because of ie issues */
                         res = registerEventHandler(aNodes[i],"click", evar5ClickEventHandler);
                     }
-                    /* alert("setOmnitureTagging " + node.innerHTML); */
                 }
             }
             /* execute berore resetting the id and class of the more-about div */
@@ -268,29 +274,22 @@
             <![CDATA[
             <!--
 
+            var oMoreOn = {
+                displayRelatedTopics : function (){
+                    var moreOnElementNode = document.getElementById("more-about");
+                    if (moreOnElementNode == null) return;
 
-            var moreOnElementNode = document.getElementById("more-about");
+                    var headlineNode = this.getHeadlineNode(moreOnElementNode);
+                    if (headlineNode == null) return;
 
-            var relatedParentPostsNode = document.getElementById("relatedParentPosts");
+                    var relatedParentPostsNode = document.getElementById("relatedParentPosts");
+                    if (relatedParentPostsNode == null) return;
 
-            var articlesLabelNode = document.getElementById("articlesLabel");
+                    var articlesLabelNode = document.getElementById("articlesLabel");
+                    if (articlesLabelNode == null) return;
 
-            if (moreOnElementNode != null ){
-                var nodes = moreOnElementNode.getElementsByTagName("div") ; 
-
-
-                if (nodes != null ){
-                    var moreOnParagraphNode = nodes[0];
-
-                    moreOnParagraphNode.className = "paragraph moreOnParagraph" ;
-
-                    if (nodes.length > 1){
-                        moreOnElementNode.insertBefore(relatedParentPostsNode, nodes[1]);
-                    } else {
-                        moreOnElementNode.appendChild(relatedParentPostsNode);
-                    }
-                    if (moreOnParagraphNode.getElementsByClassName == undefined){
-                        moreOnParagraphNode.getElementsByClassName = function(cl){
+                    if (moreOnElementNode.getElementsByClassName == undefined){
+                        moreOnElementNode.getElementsByClassName = function(cl){
                             var retnode = [];
                             var myclass = new RegExp('\\b'+cl+'\\b');
                             var elem = this.getElementsByTagName('*');
@@ -300,14 +299,88 @@
                             }
                             return retnode;
                         }
-                    } 
-                    var headlineNodes = moreOnParagraphNode.getElementsByClassName("headline");
-                    if (headlineNodes != null)  {
-                        headlineNodes[0].appendChild(articlesLabelNode) ;
                     }
-                } 
-            }
+                    var nodes = moreOnElementNode.getElementsByClassName("paragraph") ;
 
+                    if (nodes != null && nodes.length > 0 ){
+                        var moreOnParagraphNode = nodes[0];
+                        moreOnParagraphNode.className = "paragraph moreOnParagraph" ;
+
+                        if (nodes.length > 1){
+                            moreOnElementNode.insertBefore(relatedParentPostsNode, nodes[1]);
+                        } else {
+                            moreOnElementNode.appendChild(relatedParentPostsNode);
+                        }
+                        if (moreOnParagraphNode.getElementsByClassName == undefined){
+                            moreOnParagraphNode.getElementsByClassName = function(cl){
+                                var retnode = [];
+                                var myclass = new RegExp('\\b'+cl+'\\b');
+                                var elem = this.getElementsByTagName('*');
+                                for (var i = 0; i < elem.length; i++) {
+                                    var classes = elem[i].className;
+                                    if (myclass.test(classes)) retnode.push(elem[i]);
+                                }
+                                return retnode;
+                            }
+                        }
+                        var headlineNodes = moreOnParagraphNode.getElementsByClassName("headline");
+                        if (headlineNodes != null)  {
+                            headlineNodes[0].appendChild(articlesLabelNode) ;
+                        }
+                    } else {
+                        this.rebuildNonDivedMoreAbout(moreOnElementNode);
+                    }
+                },
+                rebuildNonDivedMoreAbout : function(moreAboutElementNode){
+
+                    var headlineNode = this.getHeadlineNode(moreAboutElementNode);
+                    if (headlineNode == null) return;
+
+                    var moreOnParagraph = document.getElementById("moreOnParagraph");
+                    if (moreOnParagraph == null) return;
+
+                    var normalParagraph = document.getElementById("normalParagraph");
+                    if (normalParagraph == null) return;
+
+                    var relatedParentPostsNode = document.getElementById("relatedParentPosts");
+                    if (relatedParentPostsNode == null) return;
+
+                    var articlesLabelNode = document.getElementById("articlesLabel");
+                    if (articlesLabelNode == null) return;
+
+                    headlineNode.appendChild(articlesLabelNode) ;
+                    var children = moreAboutElementNode.childNodes;
+                    
+                    while (moreAboutElementNode.childNodes.length > 0){
+                        moreOnParagraph.appendChild(moreAboutElementNode.childNodes[0]) ;
+                    }
+                    moreAboutElementNode.appendChild(moreOnParagraph );
+                    moreAboutElementNode.appendChild(relatedParentPostsNode );
+
+                },
+                getHeadlineNode : function(moreAboutElementNode){
+                    if (moreAboutElementNode.getElementsByClassName == undefined){
+                        moreAboutElementNode.getElementsByClassName = function(cl){
+                            var retnode = [];
+                            var myclass = new RegExp('\\b'+cl+'\\b');
+                            var elem = this.getElementsByTagName('*');
+                            for (var i = 0; i < elem.length; i++) {
+                                var classes = elem[i].className;
+                                if (myclass.test(classes)) retnode.push(elem[i]);
+                            }
+                            return retnode;
+                        }
+                    }
+                    var nodes = moreAboutElementNode.getElementsByClassName("headline") ;
+                    if (nodes != null && nodes.length > 0){
+                        return nodes[0];
+                    } else {
+                        return null;
+                    }
+                }
+            } ;
+
+            oMoreOn.displayRelatedTopics();
 
          --> ]]>
         </script>

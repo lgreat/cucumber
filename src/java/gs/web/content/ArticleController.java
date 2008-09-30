@@ -58,7 +58,7 @@ public class ArticleController extends AbstractController {
     /** Ad Attribute keyword */
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
     /** ArticleCategory ids */
-    public static final String MODEL_ARTICLECATEGORY_IDS = "articleCategoryIds";
+    public static final String MODEL_COMMUNITY_DISCUSSION_CATEGORY_ID = "communityDiscussionCategoryId";
 
 
     /** Provides access to database articles */
@@ -100,8 +100,10 @@ public class ArticleController extends AbstractController {
                     pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category);
                 }
 
-                Set<ArticleCategory> articleCategories = _articleCategoryDao.getArticleCategoriesByArticle(article);
-                model.put(MODEL_ARTICLECATEGORY_IDS, articleCategories);
+                ArticleCategory articleCategory = getCategoryForRelatedParentPosts(article);
+                if (articleCategory != null){
+                    model.put(MODEL_COMMUNITY_DISCUSSION_CATEGORY_ID, articleCategory.getId());    
+                }
             }
         } else {
             _log.warn("Bad article id: " + request.getParameter(PARAM_AID));
@@ -213,6 +215,31 @@ public class ArticleController extends AbstractController {
     public void setArticleCategoryDao(IArticleCategoryDao articleCategoryDao){
         _articleCategoryDao = articleCategoryDao;
     }
+
+    protected ArticleCategory getCategoryForRelatedParentPosts(Article article) {
+        ArticleCategory result = null;
+        Integer[] trumphIds = { 32, 33, 34, 35, 52, 53, 54, 103, 104 };
+        Set trumphCategories = new HashSet<Integer>(Arrays.asList(trumphIds)); 
+
+        if (article == null){
+            return null;
+        }
+
+        Set<ArticleCategory> articleCategories = _articleCategoryDao.getArticleCategoriesByArticle(article);
+
+        for (ArticleCategory articleCategory : articleCategories){
+            if (result == null){
+                //grab the first articleCategory
+                result = articleCategory;
+            }
+            if (trumphCategories.contains(articleCategory.getId()) ){
+                result = articleCategory;
+                break;
+            }
+        }
+        return result;
+    }
+
 
     static {
         _achievementMap.put(State.CA, 866);
