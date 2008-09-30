@@ -98,7 +98,6 @@ public class RelatedCategoryPostsController extends AbstractController {
         } catch (UnsupportedEncodingException e) {
             // nothing
         }
-        _log.info("Feed URL: " + url);
         return url;
     }
 

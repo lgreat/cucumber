@@ -46,8 +46,12 @@
           class="gs.data.util.feed.CachedFeedDaoFactory" lazy-init="true">
         <property name="cacheName" value="relatedCategoryPosts"/>
         <property name="cacheSize" value="160"/>
-        <property name="cacheEntryTTLSeconds" value="3600"/>
-        <property name="cacheEntryIdleSeconds" value="3600"/>
+        <property name="cacheEntryTTLSeconds" value="7200"/>
+        <property name="cacheEntryIdleSeconds" value="7200"/>
+        <property name="failCacheName" value="relatedCategoryPostsFail"/>
+        <property name="failCacheSize" value="20"/>
+        <property name="failCacheEntryTTLSeconds" value="60"/>
+        <property name="failCacheEntryIdleSeconds" value="60"/>
     </bean>
 
     <bean name="/community/relatedPostsCategoryBrowse.module"
