@@ -60,6 +60,8 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         article.setArticleText("<div>Don't hit your child</div>");
         expect(_articleDao.getArticleFromId(78, true)).andReturn(article);
         replay(_articleDao);
+        expect(_articleCategoryDao.getArticleCategoriesByArticle(article)).andReturn(new HashSet<ArticleCategory>());
+        replay(_articleCategoryDao);        
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_articleDao);
         assertEquals(Boolean.FALSE, mAndV.getModel().get(ArticleController.MODEL_NEW_ARTICLE));
