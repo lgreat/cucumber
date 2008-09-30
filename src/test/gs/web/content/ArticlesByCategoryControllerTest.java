@@ -229,7 +229,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         assertEquals(1, cats.size());
         assertSame(category, cats.get(0));
     }
-/*
+
     public void testGetResultsForCategory() {
         ArticleCategory category = new ArticleCategory();
         category.setType("my_type");
@@ -252,11 +252,13 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         ArticleCategory category = new ArticleCategory();
         category.setType("adhd");
         TermQuery termQuery = new TermQuery(new Term("category", "adhd"));
+        BooleanQuery bq = new BooleanQuery();
+        bq.add(termQuery, BooleanClause.Occur.MUST);
 
         expect(_dao.getArticleCategory(15)).andReturn(category);
         replay(_dao);
 
-        expect(_searcher.search(eqTermQuery(termQuery), (Sort)isNull(),
+        expect(_searcher.search(eqBooleanQuery(bq), (Sort)isNull(),
                 (HitCollector)isNull(), isA(Filter.class))).andReturn(null);
         replay(_searcher);
 
@@ -300,11 +302,13 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         ArticleCategory category = new ArticleCategory();
         category.setType("adhd");
         TermQuery termQuery = new TermQuery(new Term("category", "adhd"));
+        BooleanQuery bq = new BooleanQuery();
+        bq.add(termQuery, BooleanClause.Occur.MUST);
 
         expect(_dao.getArticleCategory(15)).andReturn(category);
         replay(_dao);
 
-        expect(_searcher.search(eqTermQuery(termQuery), (Sort)isNull(),
+        expect(_searcher.search(eqBooleanQuery(bq), (Sort)isNull(),
                 (HitCollector)isNull(), isA(Filter.class))).andReturn(null);
         replay(_searcher);
 
@@ -328,11 +332,13 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         ArticleCategory category = new ArticleCategory();
         category.setType("adhd");
         TermQuery termQuery = new TermQuery(new Term("category", "adhd"));
+        BooleanQuery bq = new BooleanQuery();
+        bq.add(termQuery, BooleanClause.Occur.MUST);
 
         expect(_dao.getArticleCategory(15)).andReturn(category);
         replay(_dao);
 
-        expect(_searcher.search(eqTermQuery(termQuery), (Sort)isNull(),
+        expect(_searcher.search(eqBooleanQuery(bq), (Sort)isNull(),
                 (HitCollector)isNull(), isA(Filter.class))).andReturn(null);
         replay(_searcher);
 
@@ -357,11 +363,13 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         ArticleCategory category = new ArticleCategory();
         category.setType("adhd");
         TermQuery termQuery = new TermQuery(new Term("category", "adhd"));
+        BooleanQuery bq = new BooleanQuery();
+        bq.add(termQuery, BooleanClause.Occur.MUST);
 
         expect(_dao.getArticleCategory(15)).andReturn(category);
         replay(_dao);
 
-        expect(_searcher.search(eqTermQuery(termQuery), (Sort)isNull(),
+        expect(_searcher.search(eqBooleanQuery(bq), (Sort)isNull(),
                 (HitCollector)isNull(), isA(Filter.class))).andReturn(null);
         replay(_searcher);
 
@@ -378,7 +386,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_TOTAL_HITS));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_RESULTS));
     }
-*/
+
     public static BooleanQuery eqBooleanQuery(BooleanQuery in) {
         reportMatcher(new BooleanQueryEquals(in));
         return in;
@@ -392,12 +400,10 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         }
 
         public boolean matches(Object actualObj) {
-            if (!(actualObj instanceof TermQuery)) {
+            if (!(actualObj instanceof BooleanQuery)) {
                 return false;
             }
-            TermQuery actual = (TermQuery) actualObj;
-            System.err.println(actual.toString());
-            System.err.println(_expected.toString());
+            BooleanQuery actual = (BooleanQuery) actualObj;
             return (StringUtils.equals(actual.toString(), _expected.toString()));
         }
 
