@@ -357,6 +357,11 @@
                     moreAboutElementNode.appendChild(moreOnParagraph );
                     moreAboutElementNode.appendChild(relatedParentPostsNode );
 
+                    if ( relatedParentPostsNode.children.length < 1 ) {
+                        moreOnParagraph.className = "paragraph";
+                        articlesLabelNode.style.display = "none";
+                        relatedParentPostsNode.parentNode.removeChild(relatedParentPostsNode);
+                    }
                 },
                 getHeadlineNode : function(moreAboutElementNode){
                     if (moreAboutElementNode.getElementsByClassName == undefined){
