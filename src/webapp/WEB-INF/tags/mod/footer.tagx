@@ -103,9 +103,9 @@
                             <li><link:webbyAwardThanks rel="nofollow">Our Awards</link:webbyAwardThanks></li>
                             <li><gsml:a href="/cgi-bin/static/jobs.inc"
                                         rel="nofollow">Jobs</gsml:a></li>
-                            <li><gsml:a href="/about/partnerOpportunities.page"
+                            <li><gsml:a href="/about/partnerOpportunities.page#advertise"
                                         rel="nofollow">Advertisers</gsml:a></li>
-                            <li><gsml:a href="/about/partnerOpportunities.page"
+                            <li><gsml:a href="/about/partnerOpportunities.page#license"
                                         rel="nofollow">License Our Content</gsml:a></li>
                             <li><gsml:a href="/cgi-bin/static/link_to_us.tmpl/${context.stateOrDefault}"
                                         rel="nofollow">Link to Greatschools</gsml:a></li>
