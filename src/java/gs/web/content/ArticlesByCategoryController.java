@@ -101,7 +101,7 @@ public class ArticlesByCategoryController extends AbstractController {
         TermQuery termQuery = new TermQuery(new Term("category", category.getType()));
         bq.add(termQuery, BooleanClause.Occur.MUST);
 
-        // Beging: Experimental for GS-7210
+        // Begin: GS-7210
         String typeDisplay = category.getTypeDisplay();
         if (StringUtils.isNotBlank(typeDisplay)) {
             try {
@@ -111,12 +111,12 @@ public class ArticlesByCategoryController extends AbstractController {
                 _log.warn("Couldn't parse article category.", pe);
             }
         }
-        // End: Experimental for GS-7210
+        // End: GS-7210
 
         Filter typeFilter =
                 new CachingWrapperFilter(new QueryFilter(new TermQuery(new Term("type", "article"))));
 
-        Hits hits = _searcher.search(termQuery, null, null, typeFilter);
+        Hits hits = _searcher.search(bq, null, null, typeFilter);
 
         if (hits != null && hits.length() > 0) {
             model.put(MODEL_TOTAL_HITS, hits.length());
