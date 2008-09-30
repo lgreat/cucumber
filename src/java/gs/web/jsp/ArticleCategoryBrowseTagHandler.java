@@ -73,7 +73,9 @@ public class ArticleCategoryBrowseTagHandler extends BaseTagHandler {
         types.add(articleCategory.getType());
 
         parentType = articleCategory.getParentType();
-        while (StringUtils.isNotBlank(parentType) && !types.contains(parentType) && infiniteLoopCounter < 10) {
+        while (StringUtils.isNotBlank(parentType) &&
+                !types.contains(parentType) &&
+                infiniteLoopCounter < 10 && !StringUtils.equals("NEW CATEGORY", parentType)) {
             infiniteLoopCounter++;
             parentCat = _articleCategoryDao.getArticleCategoryByType(parentType);
             if (parentCat != null && types.add(parentCat.getType())) {
