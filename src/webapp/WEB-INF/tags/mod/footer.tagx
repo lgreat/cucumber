@@ -52,15 +52,15 @@
                     <li class="second">
                         <div><link:articleLibrary rel="nofollow">Grade-By-Grade Support</link:articleLibrary></div>
                         <ul>
-                            <li><link:article articleId="103">Preschool</link:article></li>
-                            <li><link:article articleId="33">Kindergarten</link:article></li>
-                            <li><link:article articleId="32">First Grade</link:article></li>
-                            <li><link:article articleId="34">Second Grade</link:article></li>
-                            <li><link:article articleId="35">Third Grade</link:article></li>
-                            <li><link:article articleId="52">Fourth Grade</link:article></li>
-                            <li><link:article articleId="53">Fifth Grade</link:article></li>
-                            <li><link:article articleId="54">Middle School</link:article></li>
-                            <li><link:article articleId="104">High School</link:article></li>
+                            <li><link:articleCategoryBrowse categoryId="103">Preschool</link:articleCategoryBrowse></li>
+                            <li><link:articleCategoryBrowse categoryId="33">Kindergarten</link:articleCategoryBrowse></li>
+                            <li><link:articleCategoryBrowse categoryId="32">First Grade</link:articleCategoryBrowse></li>
+                            <li><link:articleCategoryBrowse categoryId="34">Second Grade</link:articleCategoryBrowse></li>
+                            <li><link:articleCategoryBrowse categoryId="35">Third Grade</link:articleCategoryBrowse></li>
+                            <li><link:articleCategoryBrowse categoryId="52">Fourth Grade</link:articleCategoryBrowse></li>
+                            <li><link:articleCategoryBrowse categoryId="53">Fifth Grade</link:articleCategoryBrowse></li>
+                            <li><link:articleCategoryBrowse categoryId="54">Middle School</link:articleCategoryBrowse></li>
+                            <li><link:articleCategoryBrowse categoryId="104">High School</link:articleCategoryBrowse></li>
                         </ul>
                     </li>
                     <li class="third">
