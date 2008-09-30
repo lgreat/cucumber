@@ -144,7 +144,6 @@
 
 #navFooter ul.navColumns  a {
     text-decoration: none;
-    color: #444;
 }
 
 #navFooter ul.navColumns li ul li a {
@@ -170,27 +169,27 @@ ul.navColumns > li {
 }
 
 ul.navColumns li.first {
-    left: 18px;
+    left: 35px;
 }
 
 ul.navColumns li.second {
     /*left: 198px;*/
-    left: 24%;
+    left: 23%;
 }
 
 ul.navColumns li.third {
     /*left: 378px;*/
-    left: 47%;
+    left: 46%;
 }
 
 ul.navColumns li.fourth {
     /*left: 558px;*/
-    right: 15%;
+    right: 17%;
 }
 
 ul.navColumns li.fifth {
     /*left: 738px;*/
-    right: 10px;
+    right: 29px;
 }
 
 ul.navColumns li.fifth ul li {
@@ -205,4 +204,10 @@ ul.navColumns li ul li {
 
 ul.navColumns div {
     margin-bottom: 10px;
+    font-weight: bold;
 }
+
+#navFooter ul.navColumns li div a {
+    color: #666;
+}
+

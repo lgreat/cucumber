@@ -106,7 +106,7 @@
                             <li><gsml:a href="/about/partnerOpportunities.page"
                                         rel="nofollow">Advertisers</gsml:a></li>
                             <li><gsml:a href="/about/partnerOpportunities.page"
-                                        rel="nofollow">License our content</gsml:a></li>
+                                        rel="nofollow">License Our Content</gsml:a></li>
                             <li><gsml:a href="/cgi-bin/static/link_to_us.tmpl/${context.stateOrDefault}"
                                         rel="nofollow">Link to Greatschools</gsml:a></li>
                             <li><link:contactUs rel="nofollow">Contact Us</link:contactUs></li>
