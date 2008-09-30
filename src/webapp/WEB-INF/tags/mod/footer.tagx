@@ -137,12 +137,9 @@
 
                         <div id="footerContent">
                                 <div id="footerText">
-                                    <c:if test="${showExtendedFooter eq true}">
-                                        GreatSchools empowers and inspires parents to get involved
-                                        in their children's development and educational success.
-                                        <br/><br/>
-                                    </c:if>
-                                    GreatSchools: Preschool, elementary, middle and high school
+                                    GreatSchools empowers and inspires parents to get involved
+                                    in their children's development and educational success.<br/>
+                                    We offer preschool, elementary, middle and high school
                                     information for public, private and charter schools nationwide.
                                 </div>
                             <c:if test="${showSeoFooter ne false}">
