@@ -285,6 +285,11 @@
                     var relatedParentPostsNode = document.getElementById("relatedParentPosts");
                     if (relatedParentPostsNode == null) return;
 
+
+                    if ( relatedParentPostsNode.children.length < 1 ) {
+                        return;
+                    }
+
                     var articlesLabelNode = document.getElementById("articlesLabel");
                     if (articlesLabelNode == null) return;
 
