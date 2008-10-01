@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.63 2008/09/08 22:18:12 yfan Exp $
+ * $Id: PageHelper.java,v 1.64 2008/10/01 21:47:17 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -11,19 +11,19 @@ import gs.web.ads.AdPosition;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.collections.MultiHashMap;
+import org.apache.commons.collections.MultiMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.collections.MultiMap;
-import org.apache.commons.collections.MultiHashMap;
 import org.springframework.context.ApplicationContext;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
-import java.net.URLEncoder;
 
 /**
  * Helper class to render and decorate a JSP page correctly. Provides a place to encapsulate logic about our pages to
@@ -484,7 +484,7 @@ public class PageHelper {
 
     public boolean isAdServedByCobrand() {
         return _sessionContext.getCobrand() != null &&
-                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta|arkansasonline");
+                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta|arkansasonline|ocregister");
     }
     /**
      * A String of the onload script(s) to be included in the body tag.

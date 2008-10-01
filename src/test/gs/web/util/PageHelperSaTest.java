@@ -1,14 +1,14 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.45 2008/09/08 22:20:35 yfan Exp $
+ * $Id: PageHelperSaTest.java,v 1.46 2008/10/01 21:47:07 cpickslay Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.data.community.UserProfile;
-import gs.data.state.State;
 import gs.data.geo.City;
+import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.ads.AdPosition;
 import gs.web.community.ClientSideSessionCache;
@@ -22,8 +22,8 @@ import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 import java.util.Collection;
+import java.util.Properties;
 
 /**
  * Provides...
@@ -520,6 +520,14 @@ public class PageHelperSaTest extends TestCase {
         sessionContext.setCobrand("arkansasonline");
         pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
         assertEquals(true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("ocregister");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals("ocregister ads should be served by the cobrand", true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("sfgate");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals("sfgate ads should not be served by the cobrand", false, pageHelper.isAdServedByCobrand());
     }
 
     public void testSetPathwayCookie() {
