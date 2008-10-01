@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.16 2008/07/31 18:17:26 thuss Exp $
+ * $Id: LinkTagHandler.java,v 1.17 2008/10/01 22:48:09 yfan Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.state.State;
+import gs.data.util.XMLUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -114,7 +115,7 @@ public abstract class LinkTagHandler extends TagSupport {
 
         if (StringUtils.isNotEmpty(_title)) {
             pageContext.getOut().print(" title=\"");
-            pageContext.getOut().print(_title);
+            pageContext.getOut().print(XMLUtil.escape(_title));
             pageContext.getOut().print("\"");
         }
 

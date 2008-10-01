@@ -34,7 +34,7 @@
                 <div class="result cleared">
                 <div class="school ${hideRating ? 'wide' : ''}">
                     <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
-                    <c:out value="${school.name}" escapeXml="false"/>
+                    <c:out value="${school.name}"/>
                     </link:schoolProfileOverview></h3>
                     <div class="about">
                         <c:set var="schoolTypeRangeString">
@@ -94,7 +94,7 @@
                     </p>
 
                         <c:if test="${reviewMap.reviewCount > 0}">
-                            <p>${reviewMap.reviewBlurb}...
+                            <p><c:out value="${reviewMap.reviewBlurb}..."/>
                                 <br/><link:schoolProfileParentReview school="${school}" title="Read all reviews">
                                 <c:choose>
                                     <c:when test="${reviewMap.reviewCount eq 1}">Read the full review &#62;</c:when>

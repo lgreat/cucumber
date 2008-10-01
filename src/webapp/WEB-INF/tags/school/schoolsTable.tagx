@@ -32,7 +32,7 @@
             <div class="school ${loopStatus.last ? 'last' : ''}">
                 <input type="hidden" id="school_lc_${school.id}" value="${school.levelCode}"/>
                 <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
-                    <c:out value="${school.name}" escapeXml="false"/>
+                    <c:out value="${school.name}"/>
                 </link:schoolProfileOverview></h3>
                 <div class="about">
                     <c:set var="schoolTypeRangeString">
