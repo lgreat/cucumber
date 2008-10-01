@@ -108,7 +108,38 @@
         </ad>
     </cobrand>
 
-    <cobrand id="arkansasonline">
+    <cobrand id="ocregister">
+        <ad id="Footer_728x90">
+            <![CDATA[
+                <script language="JavaScript" type="text/javascript">
+                   FI_OAS_RICH('Top');
+                </script>
+            ]]>
+        </ad>
+        <ad id="AboveFold_300x250">
+            <![CDATA[
+                <script language="JavaScript" type="text/javascript">
+                   FI_OAS_RICH('Middle');
+                </script>
+            ]]>
+        </ad>
+        <ad id="BelowFold_300x250">
+            <![CDATA[
+                <script language="JavaScript" type="text/javascript">
+                   FI_OAS_RICH('Middle');
+                </script>
+            ]]>
+        </ad>
+        <ad id="AboveFold_300x600">
+            <![CDATA[
+                <script language="JavaScript" type="text/javascript">
+                   FI_OAS_RICH('Middle');
+                </script>
+            ]]>
+        </ad>
+    </cobrand>
+
+    <cobrand id="arksnsasonline">
         <ad id="Footer_728x90">
             <![CDATA[
                 <script type="text/javascript" src="http://oascentral.arkansasonline.com/RealMedia/ads/adstream_jx.ads/homesarkansas.net/1234/@Top"/>
