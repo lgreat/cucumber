@@ -65,8 +65,23 @@
                                 <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
                             </div><!-- end: rating_parent -->
 
+                            <c:set var="hasPreschoolCategoryRatings" value="${
+                                   not empty cmd.ratings.averageRatingMap[catProgram]
+                                or not empty cmd.ratings.averageRatingMap[catFacilities]
+                                or not empty cmd.ratings.averageRatingMap[catSafety]
+                                or not empty cmd.ratings.averageRatingMap[catTeachers]
+                                or not empty cmd.ratings.averageRatingMap[catParents]}"/>
+
+                            <c:set var="hasGradeschoolCategoryRatings" value="${
+                                   not empty cmd.ratings.avgPrincipal
+                                or not empty cmd.ratings.avgTeachers
+                                or not empty cmd.ratings.avgActivities
+                                or not empty cmd.ratings.avgParents
+                                or not empty cmd.ratings.avgSafety}"/>
+
                             <c:choose>
                                 <c:when test="${cmd.ratings.preschool}">
+                                    <c:if test="${hasPreschoolCategoryRatings}">
                                     <ul>
                                         <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catProgram]}"/>
                                         <c:set var="curCatName" value="Program &amp; Curriculum"/>
@@ -94,10 +109,12 @@
                                             <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif" alt="${curCatName}: ${curCatValue} out of 5 stars" styleClass="sm_stars" /></li>
                                         </c:if>
                                     </ul>
+                                    </c:if>
                                     <p class="categoriesMore"><link:parentRatingsExplained preschool="true" target="_blank"
                                                                                            onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained></p>
                                 </c:when>
                                 <c:when test="${cmd.ratings.gradeschool}">
+                                    <c:if test="${hasGradeschoolCategoryRatings}">
                                     <ul>
                                         <c:if test="${not empty cmd.ratings.avgPrincipal}">
                                             <li>Principal Leadership<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif" alt="Principal Leadership: ${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
@@ -115,6 +132,7 @@
                                             <li>Safety and Discipline<gsml:img src="/res/img/map/ratings_parent_city_${cmd.ratings.avgSafety}.gif" alt="Safety and Discipline: ${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
                                         </c:if>
                                     </ul>
+                                    </c:if>
                                     <p class="categoriesMore"><link:parentRatingsExplained target="_blank"
                                                                                            onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained></p>
                                 </c:when>
