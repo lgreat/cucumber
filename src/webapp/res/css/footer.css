@@ -177,22 +177,18 @@ ul.navColumns li.first {
 }
 
 ul.navColumns li.second {
-    /*left: 198px;*/
     left: 23%;
 }
 
 ul.navColumns li.third {
-    /*left: 378px;*/
     left: 46%;
 }
 
 ul.navColumns li.fourth {
-    /*left: 558px;*/
     right: 18%;
 }
 
 ul.navColumns li.fifth {
-    /*left: 738px;*/
     right: 29px;
 }
 
@@ -201,8 +197,6 @@ ul.navColumns li.fifth ul li {
 }
 
 ul.navColumns li ul li {
-    /*margin-left: 15px;*/
-    /*text-indent: -15px;*/
     width: 150px;
 }
 
