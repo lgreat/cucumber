@@ -1,7 +1,6 @@
 package gs.web.path;
 
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.apache.commons.lang.StringUtils;
@@ -10,16 +9,13 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gs.web.school.SchoolsController;
-import gs.web.util.LogUtil;
+import gs.web.util.BadRequestLogger;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.state.State;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 /**
  * Delegates request with directory structure url to the appropriate controller.
@@ -46,7 +42,7 @@ public class DirectoryStructureUrlRequestController extends AbstractController {
 
         if (state == null) {
             Map<String, Object> model = new HashMap<String, Object>();
-            LogUtil.log(_log, request, "Missing state in directory-structure url request.");
+            BadRequestLogger.logBadRequest(_log, request, "Missing state in directory-structure url request.");
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "State not found");
             return new ModelAndView("status/error", model);
@@ -55,7 +51,7 @@ public class DirectoryStructureUrlRequestController extends AbstractController {
         // no controller was found that could handle this request (injected by calling getController on the controller factory)
         if (_controller == null) {
             Map<String, Object> model = new HashMap<String, Object>();
-            LogUtil.log(_log, request, "Malformed directory-structure url request: " + request.getRequestURI());
+            BadRequestLogger.logBadRequest(_log, request, "Malformed directory-structure url request: " + request.getRequestURI());
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "Invalid request");
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  * Utility methods for logging
  * @author Young Fan
  */
-public class LogUtil {
+public class BadRequestLogger {
     public static boolean isGSReferrer(HttpServletRequest request) {
         String referrer = request.getHeader("Referer");
         if (referrer != null) {
@@ -36,8 +36,8 @@ public class LogUtil {
      * @param request
      * @param message
      */
-    public static void log(Logger log, HttpServletRequest request, String message) {
-        log(log, request, message, null, true, true, true);
+    public static void logBadRequest(Logger log, HttpServletRequest request, String message) {
+        logBadRequest(log, request, message, null, true, true, true);
     }
 
     /**
@@ -48,8 +48,8 @@ public class LogUtil {
      * @param message
      * @param e
      */
-    public static void log(Logger log, HttpServletRequest request, String message, Throwable e) {
-        log(log, request, message, e, true, true, true);
+    public static void logBadRequest(Logger log, HttpServletRequest request, String message, Throwable e) {
+        logBadRequest(log, request, message, e, true, true, true);
     }
 
     /**
@@ -75,7 +75,7 @@ public class LogUtil {
      * @param logReferrer
      * @param logUserAgent
      */
-    public static void log(Logger log, HttpServletRequest request, String message, Throwable e,
+    public static void logBadRequest(Logger log, HttpServletRequest request, String message, Throwable e,
                            boolean logRequestURL, boolean logReferrer, boolean logUserAgent) {
         if (message == null) {
             message = "";

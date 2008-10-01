@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.72 2008/09/26 03:13:11 yfan Exp $
+ * $Id: SchoolsController.java,v 1.73 2008/10/01 19:20:07 yfan Exp $
  */
 
 package gs.web.school;
@@ -171,7 +171,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         State state = context.getState();
 
         if (state == null) {
-            LogUtil.log(_log, request, "Missing state in city/district browse request.");
+            BadRequestLogger.logBadRequest(_log, request, "Missing state in city/district browse request.");
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "State not found");
             return new ModelAndView("status/error", model);            
@@ -281,7 +281,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                     model.put(MODEL_ALL_LEVEL_CODES, _schoolDao.getLevelCodeInDistrict(districtId, state));
                     searchCommand.setDistrict(districtIdStr);
                 } catch (ObjectRetrievalFailureException e) {
-                    LogUtil.log(_log, request, state + ": District Id " + districtId + " not found.", e);
+                    BadRequestLogger.logBadRequest(_log, request, state + ": District Id " + districtId + " not found.", e);
                     BindException errors = new BindException(searchCommand, "searchCommand");
                     errors.reject("error_no_district", "District was not found.");
 
@@ -328,7 +328,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                     model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
                 }
             } else {
-                LogUtil.log(_log, request, "City not found in state in city/district browse request.");
+                BadRequestLogger.logBadRequest(_log, request, "City not found in state in city/district browse request.");
                 model.put("showSearchControl", Boolean.TRUE);
                 model.put("title", "City not found in state");
                 return new ModelAndView("status/error", model);
@@ -378,7 +378,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             resultsModel.put(PARAM_SORT_DIRECTION, sortDirection);
             model.put("results", resultsModel);
         } else {
-            LogUtil.log(_log, request, "Hits object is null for SearchCommand: " + searchCommand);
+            BadRequestLogger.logBadRequest(_log, request, "Hits object is null for SearchCommand: " + searchCommand);
         }
 
         return new ModelAndView(getViewName(), model);
