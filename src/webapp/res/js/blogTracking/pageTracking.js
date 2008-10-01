@@ -17,7 +17,7 @@ var pageTracking = {
         if(s_code){
             document.write(s_code);
         }
-        alert("after send");
+        //alert("after send");
     },
     fill: function(){
          //alert("fill");
