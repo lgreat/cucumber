@@ -396,7 +396,14 @@
             </div>
 
             <div class="ad_bottom">
-                <ad:adTag position="Bottom_300x137"/>
+                <c:choose>
+                    <c:when test="${requestScope.context.cobranded}">
+                        <gsml:a href="/content/healthyKids.page"><gsml:img src="/res/img/content/healthyKids/healthyKids_300x137.jpg" alt="Healthy Kids"/></gsml:a>
+                    </c:when>
+                    <c:otherwise>
+                        <ad:adTag position="Bottom_300x137"/>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div><!-- end: schoolOverview -->
