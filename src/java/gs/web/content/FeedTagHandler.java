@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.6 2008/09/24 22:55:20 aroy Exp $
+ * $Id: FeedTagHandler.java,v 1.7 2008/10/01 23:26:12 yfan Exp $
  */
 
 package gs.web.content;
@@ -17,6 +17,7 @@ import java.util.*;
 import gs.web.jsp.Util;
 import gs.data.util.feed.IFeedDao;
 import gs.data.util.feed.CachedFeedDaoFactory;
+import gs.data.util.XMLUtil;
 
 /**
  * A generic rss/atom feed handler with time based cache expiry, uses ehcache
@@ -73,7 +74,7 @@ public class FeedTagHandler extends SimpleTagSupport {
                 out.append("<li><a ");
                 if (_onClick != null) out.append("onclick=\"").append(_onClick).append("\" ");
                 out.append("href=\"").append(entry.getLink()).append("\">");
-                out.append(title);
+                out.append(XMLUtil.escape(title));
                 out.append("</a>").append("</li>");
             }
             out.append("</ol>");
