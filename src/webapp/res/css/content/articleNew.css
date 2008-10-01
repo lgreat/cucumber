@@ -109,20 +109,6 @@ span.headline {
     color:#99CC66;
 }
 
-div#dynamicMoveFrom {
-    display:none;
-}
-
-div#relatedParentPosts {
-    float:left;
-    width:360px;
-}
-
-div.moreOnParagraph  {
-   width:375px;
-    float:left;
-}
-
 div#more-about, div.more-about {
     margin:0;
 }
@@ -194,16 +180,9 @@ div.blueModule div.content ol,{
 div.blueModule div.content li {
     font-size: 13px;
     line-height: 20px;
-
 }
 
 /** Comment Area **/
-
-div#articlesLabel h2 {
-    color:#444444;
-    font-size:16px;
-    font-weight:bold;
-}
 div#articleComments div#enterComment,
 div.greenModule {
     position:relative;
@@ -224,10 +203,6 @@ div.greenHeader span {
     line-height:24px;
     padding-left:15px;
     color:#6BA230;
-}
-
-div#articleComments{
-    float:left;
 }
 
 div#articleComments div#enterComment textarea {
