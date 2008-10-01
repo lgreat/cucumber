@@ -11,7 +11,7 @@ var pageTracking = {
     eVar: {} ,
 
     send: function(){
-        alert("before send");
+        //alert("before send");
         this.fill();
         var s_code=s.t();
         if(s_code){
@@ -20,7 +20,7 @@ var pageTracking = {
         alert("after send");
     },
     fill: function(){
-         alert("fill");
+         //alert("fill");
          s.pageName = this.pageName;
          s.server = this.server;
          s.channel = this.channel;

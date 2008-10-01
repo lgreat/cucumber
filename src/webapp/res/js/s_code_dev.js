@@ -257,7 +257,7 @@ for (var property in s){
         msg += "\n" + property + ": " + s[property];
     }
 }
-    alert("omniture info" + msg);
+    //alert("omniture info" + msg);
 }
 s.doPlugins=s_doPlugins
 /* You may insert any plugins you wish to use here.                 */
