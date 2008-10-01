@@ -12,6 +12,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Local Schools Widget</title>
     <style type="text/css">
+        iframe.greatschools {border: 1px solid #7BAAD5;}
         body {
             font-family: "Trebuchet MS", Arial, sans-serif;
         }
@@ -108,7 +109,7 @@
             var defaultState = customizeForm.defaultState.value;
             if (defaultState != '') {
                 if (params.length > 0) {
-                    params += '&';
+                    params += '&amp;';
                 } else {
                     params += '?';
                 }
@@ -118,7 +119,7 @@
             var customCss = customizeForm.externalCss.value;
             if (customCss != '') {
                 if (params.length > 0) {
-                    params += '&';
+                    params += '&amp;';
                 } else {
                     params += '?';
                 }
@@ -129,11 +130,12 @@
             var height = customizeForm.iframeHeight.value;
             // output preview
             iframeUrl += params;
-            document.getElementById('widget').innerHTML = '<iframe src="' + iframeUrl + '" width="' + width + '" height="' + height +
+            document.getElementById('widget').innerHTML = '<iframe class="greatschools" src="' + iframeUrl + '" width="' + width + '" height="' + height +
                 '" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto"></iframe>';
             // output HTML code
             document.getElementById('htmlCode').value =
-                           '<iframe src="http://' + cobrandSite + '.greatschools.net' + iframeUrl + '" width="' + width + '" height="' + height +
+                           '<style type="text/css">iframe.greatschools {border: 1px solid #7BAAD5;}</style>\n' +
+                           '<iframe class="greatschools" src="http://' + cobrandSite + '.greatschools.net' + iframeUrl + '" width="' + width + '" height="' + height +
                            '" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto"></iframe>';
         }
         // -->
@@ -184,13 +186,15 @@
                 <h2>Widget Preview:</h2>
                 <div id="widget">
                     <![CDATA[
-                    <iframe src="/widget/editorialWidget.page" width="297" height="242"
+                    <iframe class="greatschools" src="/widget/editorialWidget.page" 
+                            width="297" height="242"
                             marginheight="0" marginwidth="0"
                             frameborder="0" scrolling="auto"></iframe>
                     ]]>
                 </div>
                 <h2>Widget HTML Code:</h2>
-                <textarea id="htmlCode" cols="50" rows="5" onfocus="select();">&amp;lt;iframe src="http://www.greatschools.net/widget/editorialWidget.page" width="297" height="242" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto">&amp;lt;/iframe></textarea>
+                <textarea id="htmlCode" cols="50" rows="6" onfocus="select();">&amp;lt;style type="text/css">iframe.greatschools {border: 1px solid #7BAAD5;}&amp;lt;/style>
+&amp;lt;iframe class="greatschools" src="http://www.greatschools.net/widget/editorialWidget.page" width="297" height="242" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto">&amp;lt;/iframe></textarea>
             </td>
         </tr>
     </table>
