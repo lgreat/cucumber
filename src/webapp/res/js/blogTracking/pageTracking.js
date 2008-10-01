@@ -11,15 +11,16 @@ var pageTracking = {
     eVar: {} ,
 
     send: function(){
+        alert("before send");
         this.fill();
         var s_code=s.t();
         if(s_code){
             document.write(s_code);
         }
-
+        alert("after send");
     },
     fill: function(){
-
+         alert("fill");
          s.pageName = this.pageName;
          s.server = this.server;
          s.channel = this.channel;
@@ -61,7 +62,7 @@ var pageTracking = {
          s.eVar1 = clickCapture.getEVar(1);
          s.eVar2 = clickCapture.getEVar(2);
          s.eVar3 = clickCapture.getEVar(3);
-         s.eVar4 = clickCapture.getEvar(4);
+         s.eVar4 = clickCapture.getEVar(4);
          s.eVar5 = clickCapture.getEVar(5);
          s.eVar6 = clickCapture.getEVar(6);
          s.eVar7 = clickCapture.getEVar(7);
