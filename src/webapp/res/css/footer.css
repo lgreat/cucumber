@@ -163,7 +163,11 @@ ul.navColumns li {
     list-style-type: none;
 }
 
-ul.navColumns > li {
+ul.navColumns li.first,
+    ul.navColumns li.second,
+    ul.navColumns li.third,
+    ul.navColumns li.fourth,
+    ul.navColumns li.fifth {
     position: absolute;
     top: 30px;
 }
@@ -184,7 +188,7 @@ ul.navColumns li.third {
 
 ul.navColumns li.fourth {
     /*left: 558px;*/
-    right: 17%;
+    right: 18%;
 }
 
 ul.navColumns li.fifth {
@@ -193,12 +197,12 @@ ul.navColumns li.fifth {
 }
 
 ul.navColumns li.fifth ul li {
-    width: 100px;
+    width: 115px;
 }
 
 ul.navColumns li ul li {
-    margin-left: 15px;
-    text-indent: -15px;
+    /*margin-left: 15px;*/
+    /*text-indent: -15px;*/
     width: 150px;
 }
 
