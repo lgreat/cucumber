@@ -68,6 +68,7 @@ public class RelatedCategoryPostsController extends AbstractController {
     protected List<RelatedCommunityPost> getRelatedPostsFromFeedEntries(List<SyndEntry> feedEntries) {
         List<RelatedCommunityPost> relatedPosts = new ArrayList<RelatedCommunityPost>();
         for (SyndEntry entry: feedEntries) {
+            // TODO: Move this into constructor?
             RelatedCommunityPost relatedPost = new RelatedCommunityPost();
             relatedPost.setTitle(entry.getTitle());
             relatedPost.setLink(entry.getLink());
