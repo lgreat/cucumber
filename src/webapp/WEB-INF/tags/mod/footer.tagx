@@ -98,7 +98,7 @@
                         <div><gsml:a href="/about/aboutUs.page" rel="nofollow">About GreatSchools</gsml:a></div>
                         <ul>
                             <li><gsml:a href="/about/aboutUs.page" rel="nofollow">About Us</gsml:a></li>
-                            <li><gsml:a href="http://blogs.greatschools.net/BillsBlog">Bill's Blog</gsml:a></li>
+                            <li><gsml:a href="http://blogs.greatschools.net/BillsBlog" target="_blank">Bill's Blog</gsml:a></li>
                             <li><link:pressRoom rel="nofollow">Media Room</link:pressRoom></li>
                             <li><link:webbyAwardThanks rel="nofollow">Our Awards</link:webbyAwardThanks></li>
                             <li><gsml:a href="/cgi-bin/static/jobs.inc"
