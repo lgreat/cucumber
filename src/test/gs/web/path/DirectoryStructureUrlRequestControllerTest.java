@@ -3,6 +3,7 @@ package gs.web.path;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.RedirectView301;
 import gs.web.school.SchoolsController;
 import gs.web.school.SchoolOverviewController;
 import gs.data.school.district.IDistrictDao;
@@ -62,6 +63,16 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
         assertTrue(mAndV.getView() instanceof RedirectView);
         assertEquals("/alaska/anchorage/", ((RedirectView) mAndV.getView()).getUrl());
+
+        // redirect request url with capitalized state name to same url with lowercased state name
+        request.removeAllParameters();
+        request.setQueryString(null);
+        request.setRequestURI("/California/sonoma/private-charter/elementary-schools/");
+        _controllerFactory.setRequest(request);
+        _controller.setController(_controllerFactory.getController());
+        mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView301);
+        assertEquals("/california/sonoma/private-charter/elementary-schools/", ((RedirectView301) mAndV.getView()).getUrl());
 
         // valid new-style city browse request
         request.removeAllParameters();

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.web.util.BadRequestLogger;
+import gs.web.util.RedirectView301;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.state.State;
@@ -46,6 +47,19 @@ public class DirectoryStructureUrlRequestController extends AbstractController {
             model.put("showSearchControl", Boolean.TRUE);
             model.put("title", "State not found");
             return new ModelAndView("status/error", model);
+        } else {
+            // if state name in request uri was capitalized, 301-redirect to the same url with the state name in lowercase
+            String uri = request.getRequestURI();
+            String[] pathComponents = uri.split("/");
+            if (pathComponents.length > 1) {
+                String longStateName = pathComponents[1];               
+                if (!longStateName.equals(longStateName.toLowerCase())) {
+                    uri = uri.replaceFirst("/" + longStateName + "/", "/" + longStateName.toLowerCase() + "/");
+                    String queryString = request.getQueryString();
+                    String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
+                    return new ModelAndView(new RedirectView301(redirectUrl));
+                }
+            }
         }
 
         // no controller was found that could handle this request (injected by calling getController on the controller factory)
