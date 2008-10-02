@@ -126,7 +126,7 @@ function reloadPageWithFilters(sortColId) {
     var rppOptionAll = document.getElementById('rppOptionAll');
 
     var reloadUrl;
-    if (city != '') {
+    if (district == '') {
         reloadUrl = '${cityBrowseUriRoot}';
 
         var allTypes = false;
