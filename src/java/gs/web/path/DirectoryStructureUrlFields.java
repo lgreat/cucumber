@@ -99,7 +99,7 @@ public class DirectoryStructureUrlFields {
         }
 
         if (StringUtils.isNotBlank(_schoolName)) {
-            _schoolName = _schoolName.replaceAll("-", " ").replaceAll("_", "-");
+            _schoolName = _schoolName.replaceAll("-", " ").replaceAll("_", "-").replaceAll("=", "#").replaceAll("|", "/");
         }
     }
 
