@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.89 2008/09/17 22:18:30 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.90 2008/10/04 01:23:52 yfan Exp $
  */
 
 package gs.web.util;
@@ -207,6 +207,14 @@ public class UrlBuilderSaTest extends TestCase {
         school.setType(SchoolType.PRIVATE);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         assertEquals("/cgi-bin/wy/private/8", builder.asSiteRelativeXml(null));
+
+        School school2 = new School();
+        school2.setDatabaseState(State.CA);
+        school2.setCity("San Francisco");
+        school2.setName("A #-/C");
+        school2.setLevelCode(LevelCode.PRESCHOOL);
+        builder = new UrlBuilder(school2, UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("/california/san-francisco/preschools/A-=_|C/", builder.asSiteRelative(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_CENSUS);
         assertEquals("/cgi-bin/wy/other/8", builder.asSiteRelativeXml(null));
@@ -532,12 +540,12 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("Unexpected URL for glossary term", "/cgi-bin/glossary_single/AZ/?id=123", builder.asSiteRelative(request));
     }
 
-    public void testCityBrowseUrlBuilder() {
+    public void testDirectoryStructureUrlBuilder() {
         GsMockHttpServletRequest request = getMockRequest();
         Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
         schoolTypes.add(SchoolType.PUBLIC);
         schoolTypes.add(SchoolType.CHARTER);
         UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", schoolTypes, LevelCode.ELEMENTARY);
-        assertEquals("Unexpected URL", "/alaska/anchorage/public-charter/elementary-schools/", builder.asSiteRelative(request));        
+        assertEquals("Unexpected URL", "/alaska/anchorage/public-charter/elementary-schools/", builder.asSiteRelative(request));
     }
 }

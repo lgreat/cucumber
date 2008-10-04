@@ -79,5 +79,9 @@ public class DirectoryStructureUrlFieldsTest extends BaseControllerTestCase {
         schoolTypeSet.clear();
         assertEquals("Expected school type set to be empty", schoolTypeSet, fields.getSchoolTypes());
         assertEquals("Expected level code preschools", LevelCode.PRESCHOOL, fields.getLevelCode());
+
+        request.setRequestURI("/california/san-francisco/preschools/A-=_|C/");
+        fields = new DirectoryStructureUrlFields(request);
+        assertEquals("Expected school name 'A #-/C'", "A #-/C", fields.getSchoolName());
     }
 }
