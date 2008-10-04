@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.90 2008/10/04 01:23:52 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.91 2008/10/04 01:50:57 yfan Exp $
  */
 
 package gs.web.util;
@@ -214,7 +214,7 @@ public class UrlBuilderSaTest extends TestCase {
         school2.setName("A #-/C");
         school2.setLevelCode(LevelCode.PRESCHOOL);
         builder = new UrlBuilder(school2, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/california/san-francisco/preschools/A-=_|C/", builder.asSiteRelative(null));
+        assertEquals("/california/san-francisco/preschools/A-=_~C/", builder.asSiteRelative(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_CENSUS);
         assertEquals("/cgi-bin/wy/other/8", builder.asSiteRelativeXml(null));

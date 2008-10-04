@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.128 2008/10/04 00:01:55 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.129 2008/10/04 01:50:57 yfan Exp $
  */
 
 package gs.web.util;
@@ -286,7 +286,7 @@ public class UrlBuilder {
                 _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(),
                     school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
                     WordUtils.capitalize(school.getName(), new char[]{'-'}).replaceAll("-","_").replaceAll(" ","-").
-                            replaceAll("#", "=").replaceAll("/", "|") + "/";
+                            replaceAll("#", "=").replaceAll("/", "~") + "/";
             } else if (school.getType().equals(SchoolType.PRIVATE)) {
                 _path = "/cgi-bin/" +
                         school.getDatabaseState().getAbbreviationLowerCase() +
