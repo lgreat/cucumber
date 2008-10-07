@@ -100,6 +100,13 @@
             <type>java.lang.Integer</type>
             <description>Number of characters per entry to display</description>
         </attribute>
+        <attribute>
+            <name>showCommentCount</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>True to display comment count alongside description</description>
+        </attribute>
     </tag>
 
     <tag>

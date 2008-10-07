@@ -42,23 +42,32 @@
             <div id="localQuestions">
                 <variant:a>
                     <h2>${cityDisplayName} Local Q&amp;amp;A</h2>
+                    <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}"
+                                  numberOfCharactersPerEntryToShow="90" onClick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true">
+                        <!-- If no RSS content is found hide this module -->
+                        <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
+                    </content:feed>
+                    <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
+                       href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
+                            src="/res/img/community/local/more.gif" alt="More"/></a>
+                    <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
+                       href="http://${communityHost}/q-and-a">Ask a question about ${cityDisplayName} &amp;gt;</a>
                 </variant:a>
                 <variant:b>
-                    <span class="localQuestionsLogo"><gsml:img src="/res/img/community/local/localLogo.gif"
-                                                               alt="Local"/> Q&amp;amp;A</span>
-
-                    <h2>${cityDisplayName}, ${requestScope.context.stateOrDefault.abbreviation}</h2>
+                    <img class="localQuestionsLogo" src="/res/img/community/local/localLogo_vertical.gif" alt="Local"/>
+                    <h2>${cityDisplayName}</h2>
+                    <div class="caption">Talk to parents about local schools</div>
+                    <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}" showCommentCount="false"
+                                  numberOfCharactersPerEntryToShow="75" onClick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true">
+                        <!-- If no RSS content is found hide this module -->
+                        <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
+                    </content:feed>
+                    <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
+                       href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
+                            src="/res/img/community/local/askQuestionButton.gif" alt="Ask a question"/></a>
+                    <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
+                       href="http://${communityHost}/q-and-a">Read more local questions &amp;gt;</a>
                 </variant:b>
-                <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}"
-                              numberOfCharactersPerEntryToShow="90" onClick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true">
-                    <!-- If no RSS content is found hide this module -->
-                    <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
-                </content:feed>
-                <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
-                   href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
-                        src="/res/img/community/local/more.gif" alt="More"/></a>
-                <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
-                   href="http://${communityHost}/q-and-a">Ask a question about ${cityDisplayName} &amp;gt;</a>
             </div>
         </div>
     </c:if>

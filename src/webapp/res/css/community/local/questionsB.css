@@ -5,17 +5,17 @@ div#col_right div#localQuestionsContainer {
 
 div#col_right div#localQuestions {
     text-align: left;
-    height: 285px;
-    background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll 2px;
+    height: 310px;
+    background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll -3px;
     font-family: Trebuchet MS, sans-serif;
-    padding: 30px 30px 60px 30px;
+    padding: 0 15px 0 80px;
     position: relative;
 }
 
 div#col_right .localQuestionsLogo {
-    color: #666666;
-    font-size: 20px;
-    font-weight: bold;
+    position: absolute;
+    left: 25px;
+    top: 37px;
 }
 
 div#col_right .localQuestionsLogo img {
@@ -26,8 +26,12 @@ div#col_right div#localQuestions h2 {
     color: #666666;
     font-size: 16px;
     font-weight: bold;
-    padding-top: 18px;
-    margin-bottom: 20px;
+    padding-top: 38px;
+    margin-bottom: 3px;
+}
+
+div#col_right div#localQuestions div.caption {
+    margin-bottom: 17px;
 }
 
 div#col_right div#localQuestions li {
@@ -36,19 +40,23 @@ div#col_right div#localQuestions li {
     background: transparent url( ../../../img/community/local/localChat.gif ) no-repeat scroll left top;
 }
 
-div#col_right div#localQuestions li a {
-    margin-left: 30px;
+div#col_right div#localQuestions li div {
     display: block;
+    margin-left: 30px;
+}
+
+div#col_right div#localQuestions li div span {
+    margin-left: 5px;
 }
 
 div#col_right .localQuestionsMore {
     position: absolute;
-    right: 25px;
-    bottom: 60px;
+    right: 20px;
+    bottom: 45px;
 }
 
 div#col_right .localQuestionsAsk {
     position: absolute;
-    right: 25px;
-    bottom: 35px;
+    right: 20px;
+    bottom: 20px;
 }
