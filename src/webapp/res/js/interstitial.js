@@ -58,7 +58,11 @@ function doInterstitial(adSlot) {
             if (!isAdLink(link) && !isExcludedLink(link)) {
                 var linkContent = link.innerHTML; // GS-6538
                 link.href = makeInterstitialHref(link.href, adSlot);
-                link.innerHTML = linkContent;
+                try{// GS-7304 this masks the problem...
+                    link.innerHTML = linkContent;
+                }catch(e){
+                    //setting the innerHTML on IE7 can sometimes throw an exception
+                }
             }
         }
 
