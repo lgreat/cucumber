@@ -10,7 +10,7 @@
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 
-    <jsp:directive.attribute name="cityId" required="true" description="A list of School Objects"
+    <jsp:directive.attribute name="cityId" required="true" description="Id of the city"
                              type="java.lang.Integer"/>
     <jsp:directive.attribute name="cityDisplayName" required="true" description="Name of the city"
                              type="java.lang.String"/>

@@ -4,6 +4,7 @@ div#col_right div#localQuestionsContainer {
 }
 
 div#col_right div#localQuestions {
+    color: #444;
     text-align: left;
     height: 310px;
     background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll -3px;
@@ -23,7 +24,6 @@ div#col_right .localQuestionsLogo img {
 }
 
 div#col_right div#localQuestions h2 {
-    color: #666666;
     font-size: 16px;
     font-weight: bold;
     padding-top: 38px;
