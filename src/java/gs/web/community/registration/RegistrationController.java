@@ -15,6 +15,7 @@ import gs.web.util.UrlUtil;
 import gs.web.util.NewSubscriberDetector;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.tracking.OmnitureSuccessEvent;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -139,6 +140,8 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
 
+        OmnitureSuccessEvent ose = new OmnitureSuccessEvent(request, response);
+
         boolean userExists = false;
 
         if (user != null) {
@@ -210,6 +213,8 @@ public class RegistrationController extends SimpleFormController implements Read
 
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
+
+            ose.add(OmnitureSuccessEvent.SuccessEvent.CommunityRegistration);
         }
 
         if (userProfile.getNumSchoolChildren() == -1) {
@@ -257,7 +262,7 @@ public class RegistrationController extends SimpleFormController implements Read
                 communityNewsletterSubscription.setState(userCommand.getState());
                 subs.add(communityNewsletterSubscription);
 
-                NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, request, response);
+                NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ose);
                 _subscriptionDao.addNewsletterSubscriptions(user, subs);
             }
             if (userCommand.isBeta()) {
@@ -302,8 +307,7 @@ public class RegistrationController extends SimpleFormController implements Read
                     "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1"; 
                 userCommand.setRedirectUrl(redirectUrl);
             }
-            mAndV.setViewName("redirect:" +
-                   UrlUtil.addParameter(userCommand.getRedirectUrl(),"oSe=6"));
+            mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
         }
 
         return mAndV;

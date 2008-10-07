@@ -153,8 +153,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
 
         assertNotNull("Expect mAndV.getViewName() to have the redirect value", mAndV.getViewName());
-        String expectedResult = "redirect:" + testRedirectUrl + "?oSe=6";
-        assertEquals("Expect the redirect url to have ?oSe=6 appended to it", expectedResult, mAndV.getViewName());
+        String expectedResult = "redirect:" + testRedirectUrl;
+        assertEquals("Expect the redirect url", expectedResult, mAndV.getViewName());
     }
 
     /**
@@ -171,10 +171,10 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         setupRegistrationTest(userCommand);
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
-        String expectedResult = "redirect:" + testRedirectUrl + "&oSe=6";
+        String expectedResult = "redirect:" + testRedirectUrl;
 
         assertNotNull("Expect mAndV.getViewName() to have the redirect value", mAndV.getViewName());
-        assertEquals("Expect the redirect url to have &oSe=6 appended to it", expectedResult, mAndV.getViewName());
+        assertEquals("Expect the redirect url", expectedResult, mAndV.getViewName());
     }
 
 

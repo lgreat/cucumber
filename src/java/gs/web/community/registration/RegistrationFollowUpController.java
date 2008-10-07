@@ -349,8 +349,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
             fupCommand.setRedirect(redirectUrl);
         }
-        mAndV.setViewName("redirect:" +
-                   UrlUtil.addParameter(fupCommand.getRedirect(),"oSe=6"));
+        mAndV.setViewName("redirect:" + fupCommand.getRedirect());
 
         return mAndV;
     }
