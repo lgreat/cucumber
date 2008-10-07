@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.7 2008/10/01 23:26:12 yfan Exp $
+ * $Id: FeedTagHandler.java,v 1.8 2008/10/07 20:42:36 aroy Exp $
  */
 
 package gs.web.content;
 
 import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndContent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -43,6 +44,7 @@ public class FeedTagHandler extends SimpleTagSupport {
     private Integer _numberOfEntriesToShow;
     private Integer _numberOfCharactersPerEntryToShow;
     private String _onClick;
+    private boolean _showCommentCount;
     private IFeedDao _feedDao;
 
     protected void initializeFeedDao() {
@@ -60,6 +62,7 @@ public class FeedTagHandler extends SimpleTagSupport {
             initializeFeedDao();
         }
         StringBuffer out = new StringBuffer();
+        _log.info(_feedUrl);
         List<SyndEntry> entries = _feedDao.getFeedEntries(_feedUrl, _numberOfEntriesToShow);
         if (entries.size() > 0) {
             out.append("<ol>");
@@ -71,11 +74,21 @@ public class FeedTagHandler extends SimpleTagSupport {
                         entry.getTitle();
 
                 // Write out the HTML
-                out.append("<li><a ");
+                out.append("<li><div><a ");
                 if (_onClick != null) out.append("onclick=\"").append(_onClick).append("\" ");
                 out.append("href=\"").append(entry.getLink()).append("\">");
                 out.append(XMLUtil.escape(title));
-                out.append("</a>").append("</li>");
+                out.append("</a>");
+                if (_showCommentCount) {
+                    int commentCount = 0;
+                    // TODO: actually implement comment count
+                    out.append("<span>").append(commentCount).append(" answer");
+                    if (commentCount != 1) {
+                        out.append("s");
+                    }
+                    out.append("</span>");
+                }
+                out.append("</div></li>");
             }
             out.append("</ol>");
             getJspContext().getOut().print(out);
@@ -98,6 +111,14 @@ public class FeedTagHandler extends SimpleTagSupport {
 
     public void setOnClick(String onClick) {
         _onClick = onClick;
+    }
+
+    public boolean isShowCommentCount() {
+        return _showCommentCount;
+    }
+
+    public void setShowCommentCount(boolean showCommentCount) {
+        _showCommentCount = showCommentCount;
     }
 
     public IFeedDao getFeedDao() {

@@ -62,7 +62,7 @@ public class FeedTagHandlerTest extends TestCase {
         _tag.doTag();
         verify(_feedDao);
         String output = getJspContextOutput();
-        assertEquals("<ol><li><a onclick=\"foo(); return true;\" href=\"http://post1\">Post 1</a></li></ol>", output);
+        assertEquals("<ol><li><div><a onclick=\"foo(); return true;\" href=\"http://post1\">Post 1</a></div></li></ol>", output);
     }
 
     public void testAbbreviatingLongFeedEntries() throws Exception {
@@ -83,7 +83,7 @@ public class FeedTagHandlerTest extends TestCase {
         verify(_feedDao);
         String output = getJspContextOutput();
         assertEquals("No Abbreviation Expected",
-                "<ol><li><a href=\"http://post\">Very Long Title That Should Be Abbreviated</a></li></ol>",
+                "<ol><li><div><a href=\"http://post\">Very Long Title That Should Be Abbreviated</a></div></li></ol>",
                 output);
 
         reset(_feedDao);
@@ -103,7 +103,7 @@ public class FeedTagHandlerTest extends TestCase {
         _tag.doTag();
         output = getJspContextOutput();
         assertEquals("Abbreviation Expected",
-                "<ol><li><a href=\"http://post\">Very Long...</a></li></ol>",
+                "<ol><li><div><a href=\"http://post\">Very Long...</a></div></li></ol>",
                 output);
     }
 
