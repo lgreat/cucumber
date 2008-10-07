@@ -87,12 +87,6 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                         Integer id = new Integer(fields.getSchoolID());
                         School s = _schoolDao.getSchoolById(state, id);
                         if (s.isActive()) {
-                            // if it's a preschool, 301-redirect to the directory-structure url instead of the old-style url
-                            if (this instanceof SchoolOverviewController && LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
-                                UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
-                                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
-                            }
-
                             UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
                             // 301-redirect if discrepancy between expected url and actual url, e.g. due to uppercase/lowercase in school name or change in school name
                             if (!request.getRequestURI().equals(urlBuilder.asSiteRelative(request))) {
