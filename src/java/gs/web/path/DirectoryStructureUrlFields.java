@@ -30,6 +30,7 @@ public class DirectoryStructureUrlFields {
     private String[] _schoolTypesParams = null;
     private LevelCode _levelCode = null;
     private String _schoolName = null;
+    private String _schoolID = null; 
 
     private boolean _hasSchoolsLabel = false;
 
@@ -78,19 +79,24 @@ public class DirectoryStructureUrlFields {
                 populateLevelCodeFromLabel(pathComponents[3]);
             }
         } else if (pathComponents.length == 5) {
-            // /california/sonoma/public-charter/schools/ or /california/sonoma/preschools/Preschool-Name/
+            // /california/sonoma/public-charter/schools/
             _cityName = pathComponents[2];
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
-            Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
             if (schoolTypeMatcher.find()) {
                 populateSchoolTypesFromLabel(pathComponents[3]);
-                Matcher levelCodeMatcher2 = LEVEL_CODE_PATTERN.matcher(pathComponents[4]);
-                if (levelCodeMatcher2.find()) {
+                Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[4]);
+                if (levelCodeMatcher.find()) {
                     populateLevelCodeFromLabel(pathComponents[4]);
                 }
-            } else if (levelCodeMatcher.find()) {
+            }
+        } else if (pathComponents.length == 6) {
+            // /california/sonoma/preschools/Preschool-Name/123/
+            _cityName = pathComponents[2];
+            Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[3]);
+            if (levelCodeMatcher.find()) {
                 populateLevelCodeFromLabel(pathComponents[3]);
-                _schoolName = pathComponents[4]; 
+                _schoolName = pathComponents[4];
+                _schoolID = pathComponents[5];
             }
         }
 
@@ -99,7 +105,9 @@ public class DirectoryStructureUrlFields {
         }
 
         if (StringUtils.isNotBlank(_schoolName)) {
-            _schoolName = _schoolName.replaceAll("-", " ").replaceAll("_", "-").replaceAll("=", "#").replaceAll("~", "/");
+            // hyphens could have originally been space, hyphen, #, or / -- maybe other characters as needed,
+            // so this is not deterministic for a search by school name
+            _schoolName = _schoolName.replaceAll("-", " ");
         }
     }
 
@@ -198,11 +206,20 @@ public class DirectoryStructureUrlFields {
         return _hasSchoolsLabel;
     }
 
+    public String getSchoolID() {
+        return _schoolID;
+    }
+
+    public boolean hasSchoolID() {
+        return _schoolID != null;
+    }
+
     @Override
     public String toString() {
         return "hasState: " + hasState() + ", hasCityName: " + hasCityName() + ", hasSchoolTypes: " + hasSchoolTypes() +
                 ", hasLevelCode: " + hasLevelCode() + ", hasSchoolsLabel: " + hasSchoolsLabel() + ", hasSchoolName: " + hasSchoolName() +
-                ", schoolName: " + getSchoolName() + ", cityName: " + getCityName() + ", state: " + getState().getAbbreviation() +
+                ", hasSchoolID: " + hasSchoolID() + ", schoolName: " + getSchoolName() + ", schoolID: " + getSchoolID() +
+                ", cityName: " + getCityName() + ", state: " + getState().getAbbreviation() +
                 ", levelCode: " + getLevelCode() + ", schoolTypesParams: " + getSchoolTypesParams();
     }
 }

@@ -80,8 +80,13 @@ public class DirectoryStructureUrlFieldsTest extends BaseControllerTestCase {
         assertEquals("Expected school type set to be empty", schoolTypeSet, fields.getSchoolTypes());
         assertEquals("Expected level code preschools", LevelCode.PRESCHOOL, fields.getLevelCode());
 
-        request.setRequestURI("/california/san-francisco/preschools/A-=_~C/");
+        request.setRequestURI("/california/san-francisco/preschools/School-Name-123-45/123/");
         fields = new DirectoryStructureUrlFields(request);
-        assertEquals("Expected school name 'A #-/C'", "A #-/C", fields.getSchoolName());
+        assertTrue("Expected state set", fields.hasState());
+        assertTrue("Expected city name set", fields.hasCityName());
+        assertEquals("Expected preschool level code ", LevelCode.PRESCHOOL, fields.getLevelCode());
+        assertTrue("Expected school name set", fields.hasSchoolName());
+        assertEquals("Expected school name 'School Name 123 45'", "School Name 123 45", fields.getSchoolName());
+        assertEquals("Expected school ID '123'", "123", fields.getSchoolID());
     }
 }

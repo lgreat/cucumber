@@ -83,18 +83,29 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
             } else if (this instanceof SchoolOverviewController) {
                 DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
                 if (shouldHandleRequest(fields)) {
-                    List<School> schools = _schoolDao.findSchoolsInCityByName(fields.getState(), fields.getCityName(), fields.getSchoolName());
-                    if (schools != null && schools.size() == 1 && schools.get(0).isActive()) {
-                        request.setAttribute(SCHOOL_ATTRIBUTE, schools.get(0));
-                        request.setAttribute(SCHOOL_ID_ATTRIBUTE, String.valueOf(schools.get(0).getId()));
+                    try {
+                        Integer id = new Integer(fields.getSchoolID());
+                        School s = _schoolDao.getSchoolById(state, id);
+                        if (s.isActive()) {
+                            // if it's a preschool, 301-redirect to the directory-structure url instead of the old-style url
+                            if (this instanceof SchoolOverviewController && LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
+                                UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
+                                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
+                            }
 
-                        UrlBuilder urlBuilder = new UrlBuilder(schools.get(0), UrlBuilder.SCHOOL_PROFILE);
-                        // redirect if discrepancy between expected url and actual url, e.g. due to uppercase/lowercase in school name
-                        if (!request.getRequestURI().equals(urlBuilder.asSiteRelative(request))) {
-                            return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request)));
+                            UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
+                            // 301-redirect if discrepancy between expected url and actual url, e.g. due to uppercase/lowercase in school name or change in school name
+                            if (!request.getRequestURI().equals(urlBuilder.asSiteRelative(request))) {
+                                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
+                            }
+
+                            request.setAttribute(SCHOOL_ATTRIBUTE, s);
+                            request.setAttribute(SCHOOL_ID_ATTRIBUTE, fields.getSchoolID());
+                            return handleRequestInternal(request, response);
                         }
-
-                        return handleRequestInternal(request, response);
+                    } catch (Exception e) {
+                        _log.warn("Could not get a valid or active school: " +
+                                fields.getSchoolID() + " in state: " + state, e);
                     }
                 }
             }
@@ -114,7 +125,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
             fields.hasSchoolTypes() && fields.getSchoolTypes().isEmpty() &&
             // this line about level codes would have to be changed if non-preschools are to be supported
             fields.hasLevelCode() && fields.getLevelCode().equals(LevelCode.PRESCHOOL) &&
-            fields.hasSchoolName();
+            fields.hasSchoolName() && fields.hasSchoolID();
     }
 
     /**

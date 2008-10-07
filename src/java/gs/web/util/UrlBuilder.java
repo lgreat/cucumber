@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.129 2008/10/04 01:50:57 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.130 2008/10/07 20:34:21 yfan Exp $
  */
 
 package gs.web.util;
@@ -283,10 +283,12 @@ public class UrlBuilder {
             _perlPage = true;
 
             if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                // turn spaces and / into hyphens for readable and remove #
+                // yes, this does mean there is no way to deterministically get the school name back
                 _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(),
                     school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
-                    WordUtils.capitalize(school.getName(), new char[]{'-'}).replaceAll("-","_").replaceAll(" ","-").
-                            replaceAll("#", "=").replaceAll("/", "~") + "/";
+                    WordUtils.capitalize(school.getName().replaceAll(" ","-").replaceAll("/","-").replaceAll("#",""), new char[]{'-'}) +
+                    "/" + school.getId() + "/";
             } else if (school.getType().equals(SchoolType.PRIVATE)) {
                 _path = "/cgi-bin/" +
                         school.getDatabaseState().getAbbreviationLowerCase() +
