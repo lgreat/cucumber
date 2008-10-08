@@ -3,8 +3,8 @@
     background: none;
 }
 #resultsheader #rh_col_left{
-    height:25px;
     border-bottom: 1px solid #CCCCCC;
+    position: relative;
 }
 
 #resultsheader #rh_col_left span, #resultsheader #rh_col_left div {
@@ -13,8 +13,9 @@
 }
 
 .query {
-    margin: 10px 0 10px 0;
-    float: left;
+    margin: 10px 0 0 0;
+    display: block;
+    width: 475px;
 }
 
 #searchResults {
@@ -40,11 +41,13 @@
     margin-left:10px;
 }
 
-#resultspagination {
-    float: right;
+#resultsheader #rh_col_left #resultspagination {
     background: none;
-    padding-bottom:0;
-    margin-bottom:10px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 #pagination{
