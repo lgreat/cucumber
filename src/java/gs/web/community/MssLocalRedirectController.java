@@ -70,7 +70,15 @@ public class MssLocalRedirectController extends AbstractController {
         if (StringUtils.isNotBlank(urlPattern)) {
             String formattedCity = formatPlace(city);
             urlPattern = urlPattern.replace(CITY_PATTERN, formattedCity);
-            String formattedState = formatPlace(state.getLongName());
+            // Special case for DC because beans-states.xml mysteriously assigns DC a
+            // long name of "Washington DC" instead of "District of Columbia"
+            String stateName;
+            if (State.DC.equals(state)) {
+                stateName = "District of Columbia";
+            } else {
+                stateName = state.getLongName();
+            }
+            String formattedState = formatPlace(stateName);
             urlPattern = urlPattern.replace(STATE_PATTERN, formattedState);
         }
         return urlPattern;
