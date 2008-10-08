@@ -81,7 +81,7 @@
     <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="2976" wrappingElement="li"/>
-        <gsweb:articlelink articleId="2782" wrappingElement="li"/>
+        <gsweb:articlelink articleId="2524" wrappingElement="li"/>
         <gsweb:articlelink articleId="688" wrappingElement="li"/>
         <gsweb:articlelink articleId="752" wrappingElement="li"/>
         <gsweb:articlelink articleId="1076" wrappingElement="li"/>
@@ -97,7 +97,7 @@
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="675" wrappingElement="li"/>
-        <gsweb:articlelink articleId="3622" wrappingElement="li"/>
+        <gsweb:articlelink articleId="3643" wrappingElement="li"/>
         <gsweb:articlelink articleId="1146" wrappingElement="li"/>
     </ul>
 
@@ -163,18 +163,17 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="244" styleClass="noHover">
-            SAT or ACT: How to Help Your Child Get Ready
+        <gsweb:articlelink articleId="3649" styleClass="noHover">
+            Single-Sex Education: The Pros and Cons
         </gsweb:articlelink>
     </div>
     <div class="module">
-        There's no secret to getting a high score on the SAT or ACT, but there are many ways you can help
-        your teen prepare for the test(s).  By encouraging your teen to take challenging courses, get
-        familiar with the test formats, and research college requirements you'll increase her chances of 
-        scoring well when test time arrives.
+        If it's true that boys and girls are naturally wired to learn differently, does teaching them in
+        separate schools or classrooms enhance their academic success? As more public schools experiment
+        with this approach, the debate about its effectiveness heats up.
         <br/>
         <div align="right">
-            <gsweb:articlelink articleId="244" styleClass="seeFullArticle">
+            <gsweb:articlelink articleId="3649" styleClass="seeFullArticle">
                 Learn more &gt;
             </gsweb:articlelink>
         </div>
@@ -197,18 +196,18 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <a href="http://www.collegeboard.com/parents/csearch/find-right-college/21171.html" class="noHover"
-           target="_blank">The College Search: How You Can Help Your Child</a>
+        <a href="http://www.collegeboard.com/student/apply/the-application/151680.html" class="noHover"
+           target="_blank">Why 20 is Too Many: Understanding the Application Frenzy</a>
     </div>
 
     <div class="module">
-        Searching for colleges can be a daunting process. Learn how to guide your teen in finding colleges
-        that match his strengths, interests and goals -– as well as practical factors such as location and
-        your budget. 
+        In recent years, there's been a surge in the number of college applications from high school students
+        hoping to increase their odds of admission.  But applying to too many colleges can backfire; carefully
+        narrowing one's choices is a wiser course of action. 
     </div>
     <div align="right">
-        <a href="http://www.collegeboard.com/parents/csearch/find-right-college/21171.html" class="seeFullArticle"
-           target="_blank">Start searching &gt;</a>
+        <a href="http://www.collegeboard.com/student/apply/the-application/151680.html" class="seeFullArticle"
+           target="_blank">Learn more &gt;</a>
     </div>
 
     <div class="midDashLine">
@@ -302,8 +301,9 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Get more involved with your <a href="http://www.collegeboard.com/student/plan/high-school/113.html" target="_blank">extracurricular activities</a>.
-                               <br/>Find a sport, club, or activity you enjoy and sign on!
+                               Select <a href="http://www.collegeboard.com/parents/plan/hs-steps/21262.html" target="_blank">meaningful electives</a>, 
+                               <a href="http://www.collegeboard.com/parents/tests/meet-tests/21299.html" target="_blank">Advanced Placement Program®</a> courses
+                               (if appropriate) and other classes you're interested in.
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan &gt;</a>
                 </td>
@@ -311,8 +311,7 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Consider taking the  <a href="http://www.collegeboard.com/student/testing/psat/about.html" target="_blank">PSAT/NMSQT</a>, which is given in
-                               October. Ask your counselor when the test is given at your school. 
+                               Review your 4-year academic schedule with your school counselor. Make sure you're on track to meet college admissions requirements. 
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan &gt;</a></td>
             </tr>
@@ -322,13 +321,13 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               At school, sign up early to take the PSAT/NMSQT® in October. Get <a href="http://www.collegeboard.com/student/testing/psat/prep.html" target="_blank" >PSAT/NMSQT tips and a free practice test</a>.
-                           </span> <!-- <br/>GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
+                               Identify test requirements for your target colleges, including scores for the SAT, SAT Subject Tests™, ACT and others.
+                           </span> <br/><!-- GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan &gt;</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Narrow your <a href="http://www.collegeboard.com/student/apply/the-application/568.html" target="_blank" >list of colleges</a> to between 5 and 10 and review it with your counselor.                              
+                               Have your parents review the college and scholarship applications and essays you'rve completed. Remember: Many scholarship application deadlines are in December.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan &gt;</a></td>
             </tr>
