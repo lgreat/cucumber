@@ -125,6 +125,23 @@
         <property name="productionWorksheetName" value="od4"/>
     </bean>
 
+    <bean id="editorialLinksFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pHIaC-TrslBg00sVO5gBNGw"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+    </bean>
+
+    <bean name="/content/editorialLinks.module"
+          class="gs.web.content.LinksController" lazy-init="true">
+        <property name="tableDao">
+            <bean factory-bean="editorialLinksFactory" factory-method="getTableDao"/>
+        </property>
+        <property name="devWorksheetName" value="od6"/>
+        <property name="stagingWorksheetName" value="od4"/>
+        <property name="productionWorksheetName" value="od7"/>
+    </bean>
+
     <bean id="pressClippingsFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBgQGIlLNGtLQw"/>
