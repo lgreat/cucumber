@@ -28,6 +28,7 @@ public class MssLocalRedirectControllerTest extends BaseControllerTestCase {
         Map<String, String> pageMap = new HashMap<String, String>();
         pageMap.put("1", "foo/%STATE%/foo-%CITY%/foo");
         pageMap.put("2", "%STATE%-bar/%CITY%/bar-%CITY%");
+        pageMap.put("3", "%STATE%/%CITY%/test-text");
         _controller.setPageMap(pageMap);
     }
 
@@ -55,6 +56,20 @@ public class MssLocalRedirectControllerTest extends BaseControllerTestCase {
         assertEquals("California-bar/San-Francisco/bar-San-Francisco", view.getUrl());
         verify(_mockSchoolDao);
     }
+
+    public void testWashingtonDC() throws Exception {
+        getRequest().setMethod("GET");
+        getRequest().setParameter(MssLocalRedirectController.PARAM_STATE, "DC");
+        getRequest().setParameter(MssLocalRedirectController.PARAM_SCHOOL_ID, "1");
+        getRequest().setParameter(MssLocalRedirectController.PARAM_PAGE, "3");
+        expect(_mockSchoolDao.getSchoolById(State.DC, 1)).andReturn(makeSchool(State.DC, 1, "Washington"));
+        replay(_mockSchoolDao);
+        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        RedirectView view = (RedirectView)mAndV.getView();
+        assertEquals("District-of-Columbia/Washington/test-text", view.getUrl());
+        verify(_mockSchoolDao);
+    }
+
 
     private School makeSchool(State s, Integer id, String city) {
         School school = new School();
