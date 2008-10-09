@@ -111,7 +111,7 @@
                                        disabled="disabled"
                                        value="${school.id}"/>
                                 <div id="dialog_school_div_${curLevel}_${school.id}" class="dialog_lc_schoolName"
-                                     style="display:none">${school.name}</div>
+                                     style="display:none"><c:out value="${school.name}"/></div>
                             </c:if>
                         </c:forEach>
                     </div>
