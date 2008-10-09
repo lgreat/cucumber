@@ -7,45 +7,33 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
 
-    <c:if test="${empty reviews}">
-        <div class="featuredarticle">
-            <h2>What do you think?</h2>
-            <p>Other parents want to hear the "inside scoop" about your child's school from your firsthand experiences!</p>
+<c:if test="${not empty reviews}">
+    <h2>Recent Parent Reviews</h2>
+    <table cellpadding="0" cellspacing="0" width="100%">
 
-            <gsml:a href="/cgi-bin/static/sample_reviews.tmpl/$STATE">See a Sample Review</gsml:a>
-            <div style="float: right"><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
-                <gsml:img src="/res/img/community/btn_write_a_review.gif"
-                          alt="Rate your School"/>
-            </gsml:a>
-            </div>
-            </div>
-    </c:if>
-    <c:if test="${not empty reviews}">
-        <h2>Recent Parent Reviews</h2>
-        <table cellpadding="0" cellspacing="0" width="100%">
-
-        <c:forEach var="review" items="${reviews}">
+        <c:forEach var="review" items="${reviews}" varStatus="loopStatus">
             <tr>
-            <td>
-            <h4><link:schoolProfileParentReview school="${review.school}"><c:out value="${review.schoolName}" escapeXml="true"/></link:schoolProfileParentReview></h4>
-            </td>
-            <td class="stars">
-            <c:if test="${review.stars eq 1}">
-                <gsml:img src="/res/img/map/ratings_parent_city_1.gif" alt="1 out of 5 stars"/>
-            </c:if>
-            <c:if test="${review.stars eq 2}">
-                <gsml:img src="/res/img/map/ratings_parent_city_2.gif" alt="2 out of 5 stars"/>
-            </c:if>
-            <c:if test="${review.stars eq 3}">
-                <gsml:img src="/res/img/map/ratings_parent_city_3.gif" alt="3 out of 5 stars"/>
-            </c:if>
-            <c:if test="${review.stars eq 4}">
-                <gsml:img src="/res/img/map/ratings_parent_city_4.gif" alt="4 out of 5 stars"/>
-            </c:if>
-            <c:if test="${review.stars eq 5}">
-                <gsml:img src="/res/img/map/ratings_parent_city_5.gif" alt="5 out of 5 stars"/>
-            </c:if>
-        </td>
+                <td>
+                    <h4><link:schoolProfileParentReview school="${review.school}"><c:out
+                            value="${review.schoolName}" escapeXml="true"/></link:schoolProfileParentReview></h4>
+                </td>
+                <td class="stars">
+                    <c:if test="${review.stars eq 1}">
+                        <gsml:img src="/res/img/map/ratings_parent_city_1.gif" alt="1 out of 5 stars"/>
+                    </c:if>
+                    <c:if test="${review.stars eq 2}">
+                        <gsml:img src="/res/img/map/ratings_parent_city_2.gif" alt="2 out of 5 stars"/>
+                    </c:if>
+                    <c:if test="${review.stars eq 3}">
+                        <gsml:img src="/res/img/map/ratings_parent_city_3.gif" alt="3 out of 5 stars"/>
+                    </c:if>
+                    <c:if test="${review.stars eq 4}">
+                        <gsml:img src="/res/img/map/ratings_parent_city_4.gif" alt="4 out of 5 stars"/>
+                    </c:if>
+                    <c:if test="${review.stars eq 5}">
+                        <gsml:img src="/res/img/map/ratings_parent_city_5.gif" alt="5 out of 5 stars"/>
+                    </c:if>
+                </td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -53,21 +41,11 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="dottedLineBottomBox">
+                <td colspan="2" class="${(loopStatus.last)?'':'dottedLineBottomBox'}">
                     <p>${review.quip}</p>
                 </td>
             </tr>
         </c:forEach>
-        </table>
-
-        <div style="margin-top: 10px; float: right"><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
-            <gsml:img src="/res/img/community/btn_write_a_review.gif"
-                      alt="Rate your School"/>
-        </gsml:a>
-        </div>
-    </c:if>
-
-
-
-
+    </table>
+</c:if>
 </jsp:root>

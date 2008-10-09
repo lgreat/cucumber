@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.12 2008/09/11 19:19:26 yfan Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.13 2008/10/09 01:11:08 aroy Exp $
  */
 
 package gs.web.content;
@@ -18,6 +18,8 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Provides...
@@ -34,12 +36,15 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
     private String _atomUrl;
     private String _defaultUrl;
     private String _type;
+    private boolean _showDate;
+    private SimpleDateFormat _sdf = null;
 
     public void doTag() throws JspException, IOException {
         super.doTag();
         String link = _defaultUrl;
         String text = "";
         String title = _defaultTitle;
+        Date date = null;
         URL feedUrl = new URL(_atomUrl);
         try {
             System.setProperty("sun.net.client.defaultConnectTimeout", "5000");
@@ -51,17 +56,19 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             title = entry.getTitle();
             link = entry.getLink();
             text = entry.getDescription().getValue();
-
+            if (isShowDate()) {
+                date = entry.getPublishedDate();
+            }
 
         } catch (Exception e) {
             _log.error("Unable to access feed at " + feedUrl);
             // ignore inability to get feed download
         }
 
-        display(title, link, text);
+        display(title, link, text, date);
     }
 
-    private void display(String title, String link, String text) throws IOException {
+    private void display(String title, String link, String text, Date date) throws IOException {
         JspWriter out = getJspContext().getOut();
 
         if (TYPE_BILLS_BLOG.equals(_type)) {
@@ -75,6 +82,14 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                     "\">Read more about \"" + title + "\" &gt;</a>");
             out.print("</div> ");
         } else if (TYPE_GS_BLOG.equals(_type)) {
+            if (date != null) {
+                if (_sdf == null) {
+                    _sdf = new SimpleDateFormat("MMMMM d, yyyy");
+                }
+                out.print("<div class=\"date\">");
+                out.print(_sdf.format(date));
+                out.print("</div>");
+            }
             out.print("<div class=\"title\">");
             out.print("<a onclick=\"Popup=window.open('" +
                     link +
@@ -115,5 +130,13 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
 
     public void setType(String type) {
         _type = type;
+    }
+
+    public boolean isShowDate() {
+        return _showDate;
+    }
+
+    public void setShowDate(boolean showDate) {
+        _showDate = showDate;
     }
 }

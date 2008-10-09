@@ -62,6 +62,13 @@
                 'gsBlog'.
             </description>
         </attribute>
+        <attribute>
+            <name>showDate</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>True to display published date, supported by gsBlog type only.</description>
+        </attribute>
     </tag>
 
     <tag>

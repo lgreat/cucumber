@@ -12,6 +12,7 @@
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
         xmlns:content2="urn:www.greatschools.net/taglib/content"
+        xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
@@ -228,6 +229,44 @@
     </div>
 </c:if>
 
+<c:choose>
+    <c:when test="${cityObject.name eq 'San Francisco' and cityObject.state.abbreviation eq 'CA'}">
+        <div class="gsBlog">
+            <div class="header">The GreatSchools Blog: San Francisco</div>
+            <div class="blogInfo">
+                <div class="photo">
+                    <gsml:popupWindow href="http://blogs.greatschools.net/sanfrancisco/" width="917" height="600" left="50"
+                                      top="50"><gsml:img
+                            src="/res/img/content/blogs/katesf.jpg"
+                            alt="GreatSchools Blogger Photo"/></gsml:popupWindow>
+                </div>
+                <div class="caption">
+                    <div class="subheader">About This Blog</div>
+                    Stories from a San Francisco
+                    mom about supporting her
+                    child in kindergarten.
+                </div>
+            </div>
+            <div class="post">
+                <cache:cache scope="application" name="blog" key="katesf">
+                    <content2:blogFeed atomUrl="http://blogs.greatschools.net/sanfrancisco/atom.xml"
+                                  defaultTitle="Surviving kindergarten: A supportive mother's perspective"
+                                  defaultUrl="http://blogs.greatschools.net/sanfrancisco/"
+                                  showDate="true"
+                                  type="gsBlog"/>
+                </cache:cache>
+            </div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div class="recentParentReviews">
+            <jsp:include
+                    page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
+        </div>
+    </c:otherwise>
+</c:choose>
+
+
 <jsp:include page="/geo/cityStats.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
 
 <c:if test="${empty requestScope.topRatedSchools}">
@@ -261,37 +300,9 @@
 <td width="300" style="vertical-align:top"><!--
     --><table border="0" cellpadding="0" cellspacing="0" width="300">
         <tr>
-            <c:choose>
-                <c:when test="${cityObject.name eq 'San Francisco' and cityObject.state.abbreviation eq 'CA'}">
-                    <td class="gsBlog">
-                        <div class="header">The GreatSchools Blogs: San Francisco</div>
-                        <div class="blogInfo">
-                            <div class="photo">
-                                <gsml:popupWindow href="http://blogs.greatschools.net/sanfrancisco/" width="917" height="600" left="50"
-                                                  top="50"><gsml:img
-                                        src="/res/img/content/blogs/katesf.jpg"
-                                        alt="GreatSchools Blogger Photo"/></gsml:popupWindow>
-                            </div>
-                            <div class="subheader">Stories from a San Francisco mom about supporting her child in kindergarten.</div>
-                        </div>
-                        <div class="post">
-                            <cache:cache scope="application" name="blog" key="katesf">
-                                <content2:blogFeed atomUrl="http://blogs.greatschools.net/sanfrancisco/atom.xml"
-                                              defaultTitle="Surviving kindergarten: A supportive mother's perspective"
-                                              defaultUrl="http://blogs.greatschools.net/sanfrancisco/"
-                                              type="gsBlog"/>
-                            </cache:cache>
-                        </div>
-                    </td>
-                </c:when>
-                <c:otherwise>
-                    <td class="recentParentReviews">
-                        <jsp:include
-                                page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
-
-                    </td>
-                </c:otherwise>
-            </c:choose>
+            <td>
+                <community:localQuestions cityId="${cityObject.id}" cityDisplayName="${cityObject.name}"/>
+            </td>
         </tr>
         <tr>
             <td>                
