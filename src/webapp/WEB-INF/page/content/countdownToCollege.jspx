@@ -325,7 +325,7 @@
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
                                Have your parents review the college and scholarship applications and essays you'rve completed. Remember: Many scholarship application deadlines are in December.
-                           </span><br />
+                           </span><!--<br />-->
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan &gt;</a></td>
             </tr>
             <tr>
