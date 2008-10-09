@@ -41,7 +41,7 @@ document.observe("dom:loaded", function() {
 		el.observe('click', function(e) {
 			Event.stop(e);
 			Effect.toggle(this.next('.toggle'), 'blind', {
-				'duration': 1.0,
+				'duration': 0.5,
 				'afterFinish': toggleClosed.bind(this)
 			});
 		});

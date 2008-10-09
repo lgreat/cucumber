@@ -1,6 +1,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           version="2.0">
 <html>
 <jsp:output doctype-root-element="html"
@@ -10,11 +11,16 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>GreatSchools XHTML Designer Template</title>
+    <title>Education Resources - Articles, Tips and Advice for Parents - GreatSchools</title>
+    <meta content="Browse expert tips and articles about all things education, from an award-winning family and parenting site." name="description"/>
+    <meta content="education resources, education articles, education tips, parents tips, education topics, parents resources, education advice" name="keywords"/>
 
-    <link rel="stylesheet" type="text/css" href="/res/css/widelayout.css"/>
-    <link rel="stylesheet" href="/res/css/content/library.css" type="text/css" charset="utf-8"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css" />
+    <pageHelper:externalCss file="/res/css/content/library.css" />
 
+    <!--<link rel="stylesheet" type="text/css" href="/res/css/widelayout.css"/>-->
+    <!--<link rel="stylesheet" href="/res/css/content/library.css" type="text/css" charset="utf-8"/>-->
+    
     <!--[if IE]>
         <link rel="stylesheet" href="res/css/library/ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
     <![endif]-->
@@ -45,54 +51,12 @@
 </head>
 
 
-<body class="www  unframed" onunload="" onload="relocateDeferredContent();DisplayPopunder('ca','x06|x17')">
+<body class="www  unframed" onunload="" onload="relocateDeferredContent();">
 
 <div id="library" class="cleared">
-<div id="sidebar">
-    <div class="box">
-        <div class="inner">
-            <h3>Browse Tips</h3>
-            <ul id="browse-tips">
-                <li>
 
-                    <a href="#topic-tips">By Topics</a>
+<content:librarySidebar />
 
-                    <div class="toggle">
-                        <ul id="topic-tips">
-                            <li><a href="#">School Choice Tips</a></li>
-                            <li><a href="#">Learning Difficulties</a></li>
-                            <li><a href="#">Travel and Learning</a></li>
-                            <li><a href="#">Media and Your Child</a></li>
-
-                            <li><a href="#">Moving With Kids</a></li>
-                            <li class="last"><a href="#">Healthy Kids</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="last">
-                    <a href="#grade-tips">By Grade</a>
-
-                    <div class="toggle">
-                        <ul id="grade-tips">
-                            <li><a href="#">Preschool</a></li>
-                            <li><a href="#">Kindergarten</a></li>
-                            <li><a href="#">1st Grade</a></li>
-                            <li><a href="#">2nd Grade</a></li>
-                            <li><a href="#">3rd Grade</a></li>
-                            <li><a href="#">4th Grade</a></li>
-                            <li><a href="#">5th Grade</a></li>
-                            <li><a href="#">Middle</a></li>
-                            <li class="last"><a href="#">High</a></li>
-                        </ul>
-                    </div>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-
-    <!-- INSERT AD MARKUP HERE -->
-</div>
 <div id="main">
 <h1>Expert Tips to Help your Child Succeed in School</h1>
 
@@ -153,7 +117,7 @@
 
         <h2>Struggling at School?</h2>
 
-        <img class="left" src="/res/img/library/thinking_child.jpg" alt=""/>
+        <img class="left" src="/res/img/library/thinking_child.jpg" alt="Thinking Child"/>
 
         <div class="column">
             <p>Tips and tools to ensure your child succeeds in school.</p>
