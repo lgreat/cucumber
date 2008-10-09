@@ -1,0 +1,483 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0">
+<html>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>GreatSchools XHTML Designer Template</title>
+
+    <link rel="stylesheet" type="text/css" href="/res/css/widelayout.css"/>
+    <link rel="stylesheet" href="/res/css/content/library.css" type="text/css" charset="utf-8"/>
+
+    <!--[if IE]>
+        <link rel="stylesheet" href="res/css/library/ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
+    <![endif]-->
+
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
+    <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
+    <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
+
+    <script type="text/javascript">
+        //        GS_googleAddAdSenseService("ca-pub-9662012843341888");
+        //        GS_googleEnableAllServices();
+    </script>
+    <script type="text/javascript">
+        <!--
+        GA_googleAddAttr('compfilter','4');
+        -->
+    </script>
+    <script type="text/javascript">
+        //            GA_googleAddSlot("ca-pub-9662012843341888", 'Footer_728x90');
+        //            GA_googleAddSlot("ca-pub-9662012843341888", 'Header_728x90');
+    </script>
+
+    <script type="text/javascript">
+        //        GA_googleUseSyncSRARendering();
+        //        GA_googleFetchAds();
+    </script>
+</head>
+
+
+<body class="www  unframed" onunload="" onload="relocateDeferredContent();DisplayPopunder('ca','x06|x17')">
+
+<div id="library" class="cleared">
+<div id="sidebar">
+    <div class="box">
+        <div class="inner">
+            <h3>Browse Tips</h3>
+            <ul id="browse-tips">
+                <li>
+
+                    <a href="#topic-tips">By Topics</a>
+
+                    <div class="toggle">
+                        <ul id="topic-tips">
+                            <li><a href="#">School Choice Tips</a></li>
+                            <li><a href="#">Learning Difficulties</a></li>
+                            <li><a href="#">Travel and Learning</a></li>
+                            <li><a href="#">Media and Your Child</a></li>
+
+                            <li><a href="#">Moving With Kids</a></li>
+                            <li class="last"><a href="#">Healthy Kids</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="last">
+                    <a href="#grade-tips">By Grade</a>
+
+                    <div class="toggle">
+                        <ul id="grade-tips">
+                            <li><a href="#">Preschool</a></li>
+                            <li><a href="#">Kindergarten</a></li>
+                            <li><a href="#">1st Grade</a></li>
+                            <li><a href="#">2nd Grade</a></li>
+                            <li><a href="#">3rd Grade</a></li>
+                            <li><a href="#">4th Grade</a></li>
+                            <li><a href="#">5th Grade</a></li>
+                            <li><a href="#">Middle</a></li>
+                            <li class="last"><a href="#">High</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- INSERT AD MARKUP HERE -->
+</div>
+<div id="main">
+<h1>Expert Tips to Help your Child Succeed in School</h1>
+
+<div id="content">
+
+<div id="intro" class="box">
+    <div class="inner cleared">
+        <h2>Get School Ready!</h2>
+
+        <p class="description">What your child should know grade-by-grade.</p>
+
+        <ul class="column">
+            <li><a href="#">Preschool</a></li>
+            <li><a href="#">Kindergarten</a></li>
+
+            <li><a href="#">1st Grade</a></li>
+        </ul>
+
+        <ul class="column">
+            <li><a href="#">2nd Grade</a></li>
+            <li><a href="#">3rd Grade</a></li>
+            <li><a href="#">4th Grade</a></li>
+        </ul>
+
+
+        <ul class="column">
+            <li><a href="#">5th Grade</a></li>
+            <li><a href="#">Middle School</a></li>
+            <li><a href="#">High School</a></li>
+        </ul>
+
+        <p class="column">When you should start <a href="#">Countdown to College?</a></p>
+
+    </div>
+</div>
+<div id="main-copy" class="box">
+    <div class="inner cleared">
+        <h2>Find the Right School for Your Family</h2>
+
+        <img class="left" src="/res/img/library/child_and_tutor.jpg" alt=""/>
+
+        <div class="column">
+            <p>Get expert advice on choosing the best fit for your child.</p>
+
+
+            <ul>
+                <li><a href="#">Find the Right Preschool</a></li>
+                <li><a href="#">K-12 School Choice Tips</a></li>
+                <li><a href="#">Public vs. Private</a></li>
+                <li><a href="#">Moving with Kids</a></li>
+            </ul>
+        </div>
+
+
+        <div class="hr">
+            <hr/>
+        </div>
+
+        <h2>Struggling at School?</h2>
+
+        <img class="left" src="/res/img/library/thinking_child.jpg" alt=""/>
+
+        <div class="column">
+            <p>Tips and tools to ensure your child succeeds in school.</p>
+
+            <ul>
+                <li><a href="#">Learning Disabilities</a></li>
+
+                <li><a href="#">Tutoring and Homework Help</a></li>
+                <li><a href="#">Bullying</a></li>
+                <li><a href="#">Other?</a></li>
+            </ul>
+        </div>
+
+        <div class="hr">
+            <hr/>
+        </div>
+
+        <h2>Stay Involved!</h2>
+
+
+        <img class="left" src="/res/img/library/child_and_parent.jpg" alt=""/>
+
+        <div class="column">
+            <p>Parent support makes all the difference. See how you can support your child's school.</p>
+
+            <ul>
+                <li><a href="#">Fundraising</a></li>
+                <li><a href="#">Join the school site council</a></li>
+                <li><a href="#">Something else</a></li>
+
+                <li><a href="#">Other tips for getting involved</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="tabbed-info" class="box">
+<div class="inner cleared">
+<h2>Fun Activities that Support Learning</h2>
+
+
+<div class="wrapper">
+<h3><a id="preschool" class="active" href="#preschool-contents">Preschool</a></h3>
+
+<div id="preschool-contents" class="contents">
+    <div class="column">
+        <h4>Books</h4>
+
+        <p class="featured-book">
+            <img src="/res/img/library/cover-beedle.jpg" alt="The Tales of Beedle the Bard"/>
+
+            Recommended:<br/>
+            <a href="#">The Tales of Beedle the Bard</a> by J.K.Rowling
+        </p>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+
+        </ul>
+    </div>
+    <div class="column">
+        <h4>Activities</h4>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+
+        </ul>
+
+        <p><img src="/res/img/library/coloring_children.jpg" alt=""/></p>
+    </div>
+</div>
+
+<h3 class="bumped"><a id="kindergarten" href="#kindergarten-contents">Kindergarten</a></h3>
+
+<div id="kindergarten-contents" class="contents">
+    <div class="column">
+
+        <h4>Books (k)</h4>
+
+        <p class="featured-book">
+            <img src="/res/img/library/cover-beedle.jpg" alt="The Tales of Beedle the Bard"/>
+            Recommended:<br/>
+            <a href="#">The Tales of Beedle the Bard</a> by J.K.Rowling
+        </p>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+        </ul>
+    </div>
+    <div class="column">
+        <h4>Activities</h4>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+        </ul>
+
+        <p><img src="/res/img/library/coloring_children.jpg" alt=""/></p>
+    </div>
+</div>
+
+<h3><a id="firstgrade" href="#firstgrade-contents">1st Grade</a></h3>
+
+<div id="firstgrade-contents" class="contents">
+    <div class="column">
+        <h4>Books (1)</h4>
+
+        <p class="featured-book">
+            <img src="/res/img/library/cover-beedle.jpg" alt="The Tales of Beedle the Bard"/>
+            Recommended:<br/>
+            <a href="#">The Tales of Beedle the Bard</a> by J.K.Rowling
+        </p>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+        </ul>
+    </div>
+    <div class="column">
+        <h4>Activities</h4>
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+        </ul>
+        <p><img src="/res/img/library/coloring_children.jpg" alt=""/></p>
+    </div>
+</div>
+
+<h3><a id="secondgrade" href="#secondgrade-contents">2nd Grade</a></h3>
+
+<div id="secondgrade-contents" class="contents">
+    <div class="column">
+
+        <h4>Books (2)</h4>
+
+        <p class="featured-book">
+            <img src="/res/img/library/cover-beedle.jpg" alt="The Tales of Beedle the Bard"/>
+            Recommended:<br/>
+            <a href="#">The Tales of Beedle the Bard</a> by J.K.Rowling
+        </p>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+        </ul>
+    </div>
+    <div class="column">
+        <h4>Activities</h4>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+        </ul>
+
+        <p><img src="/res/img/library/coloring_children.jpg" alt=""/></p>
+    </div>
+</div>
+
+<h3><a id="thirdgrade" href="#thirdgrade-contents">3rd Grade</a></h3>
+
+<div id="thirdgrade-contents" class="contents">
+    <div class="column">
+        <h4>Books (3)</h4>
+
+        <p class="featured-book">
+            <img src="/res/img/library/cover-beedle.jpg" alt="The Tales of Beedle the Bard"/>
+
+            Recommended:<br/>
+            <a href="#">The Tales of Beedle the Bard</a> by J.K.Rowling
+        </p>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+
+        </ul>
+    </div>
+    <div class="column">
+        <h4>Activities</h4>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+
+        </ul>
+
+        <p><img src="/res/img/library/coloring_children.jpg" alt=""/></p>
+    </div>
+</div>
+
+<h3><a id="fourthgrade" href="#fourthgrade-contents">4th Grade</a></h3>
+
+<div id="fourthgrade-contents" class="contents">
+    <div class="column">
+
+        <h4>Books (4)</h4>
+
+        <p class="featured-book">
+            <img src="/res/img/library/cover-beedle.jpg" alt="The Tales of Beedle the Bard"/>
+            Recommended:<br/>
+            <a href="#">The Tales of Beedle the Bard</a> by J.K.Rowling
+        </p>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+        </ul>
+    </div>
+    <div class="column">
+        <h4>Activities</h4>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+        </ul>
+
+        <p><img src="/res/img/library/coloring_children.jpg" alt=""/></p>
+    </div>
+</div>
+
+<h3><a id="fifthgrade" href="#fifthgrade-contents">5th Grade</a></h3>
+
+<div id="fifthgrade-contents" class="contents">
+    <div class="column">
+        <h4>Books (5)</h4>
+
+        <p class="featured-book">
+            <img src="/res/img/library/cover-beedle.jpg" alt="The Tales of Beedle the Bard"/>
+
+            Recommended:<br/>
+            <a href="#">The Tales of Beedle the Bard</a> by J.K.Rowling
+        </p>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+
+        </ul>
+    </div>
+    <div class="column">
+        <h4>Activities</h4>
+
+        <ul>
+            <li><a href="#">Topic number one</a></li>
+            <li><a href="#">Topic number two</a></li>
+
+        </ul>
+
+        <p><img src="/res/img/library/coloring_children.jpg" alt=""/></p>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="supplement">
+    <div id="topics" class="box">
+        <div class="inner">
+            <h3>Hot Topics</h3>
+
+            <img class="right" src="/res/img/library/jackolantern.jpg" alt=""/>
+
+            <ul>
+                <li><a href="#">Holiday Activities for Home</a></li>
+
+                <li><a href="#">Halloween Learning Games</a></li>
+                <li><a href="#">Travel Games that Work</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- INSERT AD MARKUP HERE -->
+
+    <div id="more-info" class="box">
+        <div class="inner">
+
+            <h3 id="quotable">Find Parents Like You</h3>
+
+            <ul>
+                <li><a href="#">Parents of preschoolers</a></li>
+                <li><a href="#">Elementary School Parents</a></li>
+                <li><a href="#">Middle School Parents</a></li>
+                <li><a href="#">High School Parents</a></li>
+
+            </ul>
+
+            <p class="more"><a href="#">Find more &gt;</a></p>
+        </div>
+    </div>
+
+    <div id="searchbox" class="box">
+        <div class="inner">
+            <h3>Search by Topic</h3>
+
+            <form action="" method="get">
+
+                <input class="text" type="text" name="s" value=""/>
+                <input type="image" src="/res/img/library/go-button.png" alt="GO"/>
+            </form>
+        </div>
+    </div>
+
+    <div id="tagcloud" class="box">
+        <div class="inner">
+            <div class="wrapper">
+                <h3>Popular Topics</h3>
+
+                <div class="tags">
+                    <a class="size1" href="#">behavior</a>
+                    <a class="size3" href="#">speech</a>
+                    <a class="size2" href="#">fighting</a>
+                    <a class="size1" href="#">teachers</a>
+                    <a class="size3" href="#">math</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>
+</jsp:root>
