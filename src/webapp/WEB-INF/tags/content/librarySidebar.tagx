@@ -7,13 +7,22 @@
         >
     <jsp:directive.tag body-content="scriptless"/>
     <pageHelper:externalCss file="/res/css/content/librarySidebar.css" />
+
+    <jsp:directive.attribute name="collapseTopicTips" type="java.lang.Boolean"
+        description="Whether or not to collapse topic tips" required="false"/>
+    <jsp:directive.attribute name="collapseGradeTips" type="java.lang.Boolean"
+        description="Whether or not to collapse grade tips" required="false"/>
+
+    <c:set var="collapseTopicTips" value="${not empty collapseTopicTips ? collapseTopicTips : false}"/>
+    <c:set var="collapseGradeTips" value="${not empty collapseGradeTips ? collapseGradeTips : false}"/>
+
     <div id="sidebar">
         <div class="box">
             <div class="inner">
                 <h3>Browse Tips</h3>
                 <ul id="browse-tips">
                     <li>
-                        <a href="#topic-tips">By Topics</a>
+                        <a href="#topic-tips" id="topicTips">By Topics</a>
 
                         <div class="toggle">
                             <ul id="topic-tips">
@@ -28,7 +37,7 @@
                         </div>
                     </li>
                     <li class="last">
-                        <a href="#grade-tips">By Grade</a>
+                        <a href="#grade-tips" id="gradeTips">By Grade</a>
 
                         <div class="toggle">
                             <ul id="grade-tips">
@@ -49,4 +58,15 @@
             </div>
         </div>
     </div>
+
+    <c:if test="${collapseTopicTips}">
+        <script type="text/javascript">
+            document.getElementById('topicTips').className = 'closed';
+        </script>
+    </c:if>
+    <c:if test="${collapseGradeTips}">
+        <script type="text/javascript">
+            document.getElementById('gradeTips').className = 'closed';
+        </script>
+    </c:if>
 </jsp:root>
