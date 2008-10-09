@@ -1,10 +1,12 @@
-div#col_right div#localQuestionsContainer {
+div#localQuestionsContainer {
     border-top:1px solid #CCCCCC;
     padding-top:15px;
 }
 
-div#col_right div#localQuestions {
+div#localQuestions {
     font-family: Trebuchet MS, sans-serif;
+    font-size: 12px;
+    line-height: 15px;
     border: 2px solid #EEEEEE;
     padding: 18px 18px 70px 18px;
     position: relative;
@@ -13,7 +15,7 @@ div#col_right div#localQuestions {
     height: 150px; 
 }
 
-div#col_right div#localQuestions h2 {
+div#localQuestions h2 {
     color: #55BBCC;
     font-size: 17px;
     font-weight: normal;
@@ -22,28 +24,30 @@ div#col_right div#localQuestions h2 {
     margin-bottom: 15px;
 }
 
-div#col_right div#localQuestions a {
-    font-size: small;
+div#localQuestions a {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 15px;
 }
 
-div#col_right div#localQuestions li {
+div#localQuestions li {
     position: relative;
     background: url( ../../../img/community/local/ask_question.gif ) no-repeat;
     margin-bottom: 15px;
 }
 
-div#col_right div#localQuestions li a {
+div#localQuestions li a {
     margin-left: 30px;
     display:block;
 }
 
-div#col_right .localQuestionsMore {
+.localQuestionsMore {
     position:absolute;
     right:18px;
     bottom:45px;
 }
 
-div#col_right .localQuestionsAsk {
+.localQuestionsAsk {
     position:absolute;
     right:18px;
     bottom:20px;

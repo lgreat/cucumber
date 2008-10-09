@@ -1,61 +1,73 @@
-div#col_right div#localQuestionsContainer {
+div#localQuestionsContainer {
     border-top: 1px solid #CCCCCC;
     padding-top: 15px;
 }
 
-div#col_right div#localQuestions {
+div#localQuestions {
     color: #444;
     text-align: left;
     height: 310px;
     background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll -3px;
     font-family: Trebuchet MS, sans-serif;
+    font-size: 12px;
+    line-height: 15px;
     padding: 0 15px 0 80px;
     position: relative;
 }
 
-div#col_right .localQuestionsLogo {
+.localQuestionsLogo {
     position: absolute;
     left: 25px;
     top: 37px;
 }
 
-div#col_right .localQuestionsLogo img {
+.localQuestionsLogo img {
     margin-bottom: -2px;
 }
 
-div#col_right div#localQuestions h2 {
+div#localQuestions h2 {
     font-size: 16px;
     font-weight: bold;
     padding-top: 38px;
     margin-bottom: 3px;
+    color: #444;
 }
 
-div#col_right div#localQuestions div.caption {
+div#localQuestions div.caption {
     margin-bottom: 17px;
 }
 
-div#col_right div#localQuestions li {
+div#localQuestions li {
     position: relative;
     margin-bottom: 15px;
     background: transparent url( ../../../img/community/local/localChat.gif ) no-repeat scroll left top;
 }
 
-div#col_right div#localQuestions li div {
+div#localQuestions li div a {
+    font-size: 13px;
+}
+
+div#localQuestions a {
+    font-weight: normal;
+    line-height: 15px;
+}
+
+div#localQuestions li div {
     display: block;
     margin-left: 30px;
 }
 
-div#col_right div#localQuestions li div span {
+div#localQuestions li div span {
     margin-left: 5px;
 }
 
-div#col_right .localQuestionsMore {
+.localQuestionsMore {
     position: absolute;
     right: 20px;
     bottom: 45px;
 }
 
-div#col_right .localQuestionsAsk {
+.localQuestionsAsk {
     position: absolute;
     right: 20px;
     bottom: 20px;
