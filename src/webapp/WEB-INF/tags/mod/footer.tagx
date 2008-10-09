@@ -87,7 +87,7 @@
                             <li>
                                 <c:set var="linkText" value="My Local"/>
                                 <c:if test="${context.cityId gt 0}">
-                                    <c:set var="linkText" value="My ${context.city.name} Local"/>
+                                    <c:set var="linkText" value="${context.city.name} Local"/>
                                 </c:if>
                                 <a href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;page=1&amp;amp;order=desc&amp;amp;tab=local">${linkText}</a>
                             </li>
