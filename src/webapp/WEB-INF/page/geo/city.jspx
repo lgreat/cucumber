@@ -259,10 +259,8 @@
         </div>
     </c:when>
     <c:otherwise>
-        <div class="recentParentReviews">
-            <jsp:include
-                    page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
-        </div>
+        <jsp:include
+                page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
     </c:otherwise>
 </c:choose>
 
