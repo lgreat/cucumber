@@ -115,6 +115,8 @@
 
 #AboveFold_300x250 {
     border-top: none;
+    padding-top: 0;
+    margin-top: 0;
 }
 
 .cleanLineTopBox,
@@ -225,8 +227,18 @@ div.recentParentReviews {
     text-align: left;    
 }
 
+div.recentParentReviewsContent {
+    margin: 0;
+    padding: 0 5px;
+}
+
+div.recentParentReviews table tr td {
+    padding: 0 0 3px 0;
+}
+
 .recentParentReviews h5 {
-    font-size: x-small;
+    font-size: 11px;
+    font-style: italic;
     color: #999;
     background-image: url(/res/img/community/bell.gif);
     background-repeat: no-repeat;
@@ -236,6 +248,7 @@ div.recentParentReviews {
 
 .recentParentReviews .stars {
     white-space: nowrap;
+    text-align: right;
 }
 
 .recentParentReviews h4 {
@@ -391,7 +404,7 @@ a#nearbyCityLink:hover, #cityrating a#nearbyCityLink:hover, a.callToAction:hover
 }
 
 .gsBlog {
-    padding: 10px 0;
+    padding: 10px 5px;
     margin: 10px 0;
     border-top: 1px solid #DDD;
     font-family: "Trebuchet MS", Arial, sans-serif;
@@ -459,7 +472,7 @@ a#nearbyCityLink:hover, #cityrating a#nearbyCityLink:hover, a.callToAction:hover
 
 .gsBlog .readMore {
     text-align: right;
-    margin-right: 232px;
+    margin-right: 222px;
 }
 
 .contentGS .gsBlog a {
@@ -470,4 +483,8 @@ a#nearbyCityLink:hover, #cityrating a#nearbyCityLink:hover, a.callToAction:hover
 
 .contentGS .gsBlog a:hover {
     text-decoration: underline;
+}
+
+div#localQuestionsContainer {
+    padding-bottom: 15px;
 }

@@ -9,6 +9,7 @@
 
 <c:if test="${not empty reviews}">
     <h2>Recent Parent Reviews</h2>
+    <div class="recentParentReviewsContent">
     <table cellpadding="0" cellspacing="0" width="100%">
 
         <c:forEach var="review" items="${reviews}" varStatus="loopStatus">
@@ -37,15 +38,16 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <h5>${review.date}</h5>
+                    <p>${review.quip}</p>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" class="${(loopStatus.last)?'':'dottedLineBottomBox'}">
-                    <p>${review.quip}</p>
+                    <h5>${review.date}</h5>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    </div>
 </c:if>
 </jsp:root>
