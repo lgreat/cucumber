@@ -1659,4 +1659,12 @@
         </property>
     </bean>
 
+    <bean name="/content/modulePlacer.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>content/modulePlacer</value>
+        </property>
+    </bean>
+
 </beans>

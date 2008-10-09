@@ -613,7 +613,10 @@ function reloadPageWithFilters(sortColId) {
 
     <ad:multiTextAd blurb="Advertiser Links"/>
 
-    <community:localQuestions cityId="${cityId}" cityDisplayName="${cityDisplayName}"/>
+    <jsp:include page="/community/localQuestions.module">
+        <jsp:param name="cityId" value="${cityId}"/>
+        <jsp:param name="cityDisplayName" value="${cityDisplayName}"/>
+    </jsp:include>
 </div>
 
 <br clear="left"/>

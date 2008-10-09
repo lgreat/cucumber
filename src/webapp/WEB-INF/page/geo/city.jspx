@@ -299,7 +299,10 @@
     --><table border="0" cellpadding="0" cellspacing="0" width="300">
         <tr>
             <td>
-                <community:localQuestions cityId="${cityObject.id}" cityDisplayName="${cityObject.name}"/>
+                <jsp:include page="/community/localQuestions.module">
+                    <jsp:param name="cityId" value="${cityObject.id}"/>
+                    <jsp:param name="cityDisplayName" value="${cityObject.name}"/>
+                </jsp:include>
             </td>
         </tr>
         <tr>

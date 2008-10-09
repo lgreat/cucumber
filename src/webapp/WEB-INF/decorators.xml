@@ -9,6 +9,7 @@
         <pattern>/miniSelectAState.page*</pattern>
         <pattern>/community/mailToFriend.page*</pattern>
         <pattern>/promo/surveyPromoHover.page*</pattern>
+        <pattern>/content/modulePlacer.page*</pattern>
     </decorator>
     <!--!!!!!DEPReCATED!!!!!...try to use brandPopupDecorator-->
     

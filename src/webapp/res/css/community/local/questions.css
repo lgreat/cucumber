@@ -23,6 +23,8 @@ div#localQuestions a {
     font-size: 13px;
     font-weight: normal;
     line-height: 15px;
+    color: #3399AA;
+    text-decoration: none;
 }
 
 div#localQuestions li {

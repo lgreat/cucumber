@@ -42,6 +42,12 @@
         <!--<property name="apiKey" value="DONORSCHOOSE"/>-->
     <!--</bean>-->
 
+    <bean name="/community/localQuestions.module"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          lazy-init="true">
+        <property name="viewName" value="/community/localQuestions"/>
+    </bean>
+
     <bean id="relatedCategoryPostsFeedDaoFactory"
           class="gs.data.util.feed.CachedFeedDaoFactory" lazy-init="true">
         <property name="cacheName" value="relatedCategoryPosts"/>
