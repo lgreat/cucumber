@@ -2,6 +2,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0">
 <html>
 <jsp:output doctype-root-element="html"
@@ -18,9 +19,6 @@
     <pageHelper:externalCss file="/res/css/widelayout.css" />
     <pageHelper:externalCss file="/res/css/content/library.css" />
 
-    <!--<link rel="stylesheet" type="text/css" href="/res/css/widelayout.css"/>-->
-    <!--<link rel="stylesheet" href="/res/css/content/library.css" type="text/css" charset="utf-8"/>-->
-    
     <!--[if IE]>
         <link rel="stylesheet" href="res/css/library/ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
     <![endif]-->
@@ -65,31 +63,23 @@
 <div id="intro" class="box">
     <div class="inner cleared">
         <h2>Get School Ready!</h2>
-
         <p class="description">What your child should know grade-by-grade.</p>
-
         <ul class="column">
-            <li><a href="#">Preschool</a></li>
-            <li><a href="#">Kindergarten</a></li>
-
-            <li><a href="#">1st Grade</a></li>
+            <li><link:preschool>Preschool</link:preschool></li>
+            <li><link:articleCategoryBrowse categoryId="33">Kindergarten</link:articleCategoryBrowse></li>
+            <li><link:articleCategoryBrowse categoryId="32">1st Grade</link:articleCategoryBrowse></li>
         </ul>
-
         <ul class="column">
-            <li><a href="#">2nd Grade</a></li>
-            <li><a href="#">3rd Grade</a></li>
-            <li><a href="#">4th Grade</a></li>
+            <li><link:articleCategoryBrowse categoryId="34">2nd Grade</link:articleCategoryBrowse></li>
+            <li><link:articleCategoryBrowse categoryId="35">3rd Grade</link:articleCategoryBrowse></li>
+            <li><link:articleCategoryBrowse categoryId="52">4th Grade</link:articleCategoryBrowse></li>
         </ul>
-
-
         <ul class="column">
-            <li><a href="#">5th Grade</a></li>
-            <li><a href="#">Middle School</a></li>
-            <li><a href="#">High School</a></li>
+            <li><link:articleCategoryBrowse categoryId="53">5th Grade</link:articleCategoryBrowse></li>
+            <li><link:articleCategoryBrowse categoryId="54">Middle School</link:articleCategoryBrowse></li>
+            <li><link:articleCategoryBrowse categoryId="104">High School</link:articleCategoryBrowse></li>
         </ul>
-
-        <p class="column">When you should start <a href="#">Countdown to College?</a></p>
-
+        <p class="column">When you should start <link:countdownToCollege>Countdown to College?</link:countdownToCollege></p>
     </div>
 </div>
 <div id="main-copy" class="box">
@@ -121,10 +111,8 @@
 
         <div class="column">
             <p>Tips and tools to ensure your child succeeds in school.</p>
-
             <ul>
                 <li><a href="#">Learning Disabilities</a></li>
-
                 <li><a href="#">Tutoring and Homework Help</a></li>
                 <li><a href="#">Bullying</a></li>
                 <li><a href="#">Other?</a></li>
@@ -147,7 +135,6 @@
                 <li><a href="#">Fundraising</a></li>
                 <li><a href="#">Join the school site council</a></li>
                 <li><a href="#">Something else</a></li>
-
                 <li><a href="#">Other tips for getting involved</a></li>
             </ul>
         </div>
@@ -380,12 +367,9 @@
     <div id="topics" class="box">
         <div class="inner">
             <h3>Hot Topics</h3>
-
             <img class="right" src="/res/img/library/jackolantern.jpg" alt=""/>
-
             <ul>
                 <li><a href="#">Holiday Activities for Home</a></li>
-
                 <li><a href="#">Halloween Learning Games</a></li>
                 <li><a href="#">Travel Games that Work</a></li>
             </ul>
@@ -415,10 +399,10 @@
         <div class="inner">
             <h3>Search by Topic</h3>
 
-            <form action="" method="get">
-
-                <input class="text" type="text" name="s" value=""/>
+            <form accept-charset="UTF-8" action="/search/search.page" method="get">
+                <input class="text" type="text" name="q" />
                 <input type="image" src="/res/img/library/go-button.png" alt="GO"/>
+                <input type="hidden" value="topic" name="c" />
             </form>
         </div>
     </div>
