@@ -54,6 +54,7 @@
 
 <div id="contentLeft">
     <content:librarySidebar collapseTopicTips="true"/>
+    <ad:Promo_170x92/>
     <ad:AboveFold_Left_160x600/>
 </div>
 
@@ -243,6 +244,8 @@
                                     href="http://${communityHost}">Find more &amp;gt;</gsml:a></p>
         </div>
     </div>
+
+    <ad:House_Ad_300x137 referredBy="${pageName}"/>
 
 </div>
 </div>

@@ -73,7 +73,12 @@
 
 /* Ads */
 
-#AboveFold_Left_160x600 {
+#AboveFold_Left_160x600 {    
+    padding: 20px 0 0 10px;
+    clear: both;
+}
+
+#google_ads_div_Library_Microsite_Preschool_Promo_170x92 {
     padding: 20px 0 0 10px;
     clear: both;
 }
