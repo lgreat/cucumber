@@ -87,7 +87,7 @@
                         </c:if>
 
                         <c:set var="liAttr">
-                            <c:if test="${not empty param.liStyle}">class=&quot;${param.liStyle}&quot;</c:if>
+                            <c:if test="${not empty param.liStyle}">&#32;class=&quot;${param.liStyle}&quot;</c:if>
                             <c:if test="${not empty id}">&#32;id=&quot;${id}&quot;</c:if>
                         </c:set>
 
@@ -97,14 +97,17 @@
                             <!-- purposefully not using escapeXml on before/after text because
                                  on index.jspx, explicit space character sequences are used --> 
                             <c:if test="${not empty anchor.before}">${anchor.before}</c:if>
-                            <c:choose>
-                                <c:when test="${not empty param.target}">
-                                    <a href="${url}" target="${param.target}">${text}</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="${url}">${text}</a>
-                                </c:otherwise>
-                            </c:choose>
+
+                            <c:set var="aAttr">
+                                <c:if test="${not empty param.target}">&#32;target=&quot;${param.target}&quot;</c:if>
+                                <c:if test="${not empty param.linkIdPrefix}">&#32;id=&quot;${param.linkIdPrefix}${status.count}&quot;</c:if>
+                                <c:if test="${not empty param.linkStyle}">&#32;class=&quot;${param.linkStyle}&quot;</c:if>
+                            </c:set>
+
+                            <![CDATA[
+                            <a href="${url}" ${aAttr}>${text}</a>
+                            ]]>
+
                             <c:if test="${not empty anchor.after}">${anchor.after}</c:if>
                         <![CDATA[
                         </li>

@@ -154,10 +154,10 @@
 
         <div class="column">
             <c:import
-                    url="/content/editorialLinks.module?page=preschool_TopQuestions&amp;type=all&amp;layout=list&amp;style=bulleted"/>
+                    url="/content/editorialLinks.module?page=preschool_TopQuestions&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=PreschoolLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
 
             <p>
-                <gsml:a styleClass="GS_EV5_PreschoolLanding_CommDisc"
+                <gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__aMore"
                         href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a>
             </p>
         </div>
@@ -217,6 +217,12 @@
 
             <h2>Next: Kindergarten Readiness</h2>
 
+            <p>
+            <img src="/res/img/preschool/kindergarten_boy.jpg"
+                         alt="Kindergarten boy"/>
+                Better prepare your preschooler with tips and tools from our experts.
+            </p>
+
             <ul class="bulleted">
                 <gsweb:articlelink articleId="416" wrappingElement="li"/>
                 <gsweb:articlelink articleId="1014" wrappingElement="li"/>
@@ -231,9 +237,9 @@
             <h3 class="quotable">Top Discussions About Kindergarten</h3>
 
             <c:import
-                    url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=bulleted"/>
+                    url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=PreschoolLanding_CommDisc__b&amp;linkStyle=GS_EV5_"/>
 
-            <p class="more"><gsml:a styleClass="GS_EV5_PreschoolLanding_CommDisc"
+            <p class="more"><gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__bMore"
                                     href="http://${communityHost}">Find more &amp;gt;</gsml:a></p>
         </div>
     </div>
@@ -244,7 +250,7 @@
 </div>
 
 <!--  Top Questions from Other Parents-->
-<!-- a class="GS_EV5_PreschoolLanding_CommDisc"
+<!--
 class="GS_EV5_" id="CommunitySeasonalPromo"
 http://cvsweb.greatschools.net/browse/gsrepo/GSCommunity/template/browse_navigation.tpl?r1=1.5&r2=1.5.2.1
 GS-6816

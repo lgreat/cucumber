@@ -213,7 +213,7 @@
 }
 
 #tabbed-info .column.last {
-	padding: 5px 10px 5px 10px;
+	padding: 5px 10px 5px 11px;
     border-left: 1px solid #c4c4c4;
 }
 
@@ -282,6 +282,10 @@
 	background-image: url(/res/img/library/right-box2-top.png);
 }
 
+#more-info p img {
+    float: left;
+}
+
 h3.quotable {
 	background: url(/res/img/library/quote_bubble.png) no-repeat left top;
 	min-height: 18px;
@@ -289,7 +293,8 @@ h3.quotable {
 }
 
 #more-info ul {
-	margin-bottom: 0;
+    margin-bottom: 0;
+    clear: both;
 }
 
 #more-info li {
