@@ -844,6 +844,12 @@
         <property name="viewName" value="/preschool/index"/>
     </bean>
 
+    <bean name="/preschool/index2.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/preschool/index2"/>
+    </bean>
+
     <bean name="/geo/landing/dayton_ohio.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
