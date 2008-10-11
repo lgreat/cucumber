@@ -1,8 +1,5 @@
 package gs.web;
 
-import gs.web.BaseHtmlUnitIntegrationTestCase;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.CollectingAlertHandler;
 import com.gargoylesoftware.htmlunit.html.*;
 
