@@ -9,9 +9,6 @@ import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.geo.IGeoDao;
-import gs.data.geo.City;
-import gs.data.geo.MultipleMatchesException;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -33,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.HashSet;
 
 /**
  * This controller handles all search requests.
@@ -70,8 +66,6 @@ public class SearchController extends AbstractFormController {
     public static final String PARAM_SCHOOL_TYPE = "st";
     public static final String PARAM_LEVEL_CODE = "lc";
 
-    public static final String PARAM_CPN = "cpn";
-
     private static final String MODEL_PAGE_SIZE = "pageSize";
     protected static final String MODEL_RESULTS = "mainResults";
     private static final String MODEL_TOTAL_HITS = "total";
@@ -104,7 +98,6 @@ public class SearchController extends AbstractFormController {
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
     private AnchorListModelFactory _anchorListModelFactory;
-    private IGeoDao _geoDao;
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
@@ -155,30 +148,6 @@ public class SearchController extends AbstractFormController {
             final String url = builder.asSiteRelative(request);
             final RedirectView view = new RedirectView(url, false);
             return new ModelAndView(view);
-        }
-
-        // GS-6866
-        if ("b".equals(sessionContext.getABVersion())) {
-            if (searchCommand.isSchoolsOnly()) {
-                // need to add a check for multiple cities by the same name because findCity() just logs an error if multiple
-                City city;
-                try {
-                    city = getGeoDao().findCity(sessionContext.getState(), searchCommand.getQueryString(), false, true);
-                } catch (MultipleMatchesException e) {
-                    // If there are two cities with the same name in a state they should be returned to normal search results
-                    city = null;
-                }
-
-                String paramLevelCode = request.getParameter(PARAM_LEVEL_CODE);
-                String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
-                String cpn = request.getParameter(PARAM_CPN);
-
-                if (paramLevelCode == null && paramSchoolType == null && city != null) {
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, city.getState(), city.getName(), new HashSet<SchoolType>(), null);
-                    return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request) +
-                            (cpn != null ? "?cpn=" + cpn : "")));
-                }
-            }
         }
 
         // ok, this seems like a valid search, set the "hasSearched" cookie
@@ -434,13 +403,5 @@ public class SearchController extends AbstractFormController {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
-    }
-
-    public IGeoDao getGeoDao() {
-        return _geoDao;
-    }
-
-    public void setGeoDao(IGeoDao geoDao) {
-        _geoDao = geoDao;
     }
 }
