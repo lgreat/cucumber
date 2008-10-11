@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * @author thuss
@@ -44,10 +46,16 @@ public class BaseHtmlUnitIntegrationTestCase extends TestCase implements Integra
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        assertEquals(200, page.getWebResponse().getStatusCode());
         String source = page.asXml();
         // page.asXML for some reason doesn't include the DOCTYPE declaration that's in the source
         source = source.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>",
                 "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+        // Since we usually put article lists in a <ul> and the sample database only contains
+        // some articles, we often get empty ul's on the localhost so we fill in empty ul's
+        Pattern pattern = Pattern.compile("(<ul[^>]*)/>", Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(source);
+        source = matcher.replaceAll("$1><li>placeholder</li></ul>");
 //        try {
 //            File outFile = new File("/tmp/out.html");
 //            FileWriter out = new FileWriter(outFile);

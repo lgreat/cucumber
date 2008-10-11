@@ -79,49 +79,45 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
         assertValidXhtml(INTEGRATION_HOST + "/schools/districts/Hope/AK");
     }
 
-//    public void testStyleGuide() {
-//        assertValidXhtml(INTEGRATION_HOST + "/sandbox/articleStyleGuide.page");
-//    }
+    public void testStyleGuide() {
+        assertValidXhtml(INTEGRATION_HOST + "/sandbox/articleStyleGuide.page");
+    }
 
-//    public void testElection2008() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/election2008.page");
-//    }
+    public void testBackToSchool() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/backToSchool.page");
+    }
 
-//    public void testBackToSchool() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/backToSchool.page");
-//    }
+    public void testHolidayLearning() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/holidayLearning.page");
+    }
 
-//    public void testHolidayLearning() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/holidayLearning.page");
-//    }
+    public void testHealthyKidsPage() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/healthyKids.page");
+    }
 
-//    public void testHealthyKidsPage() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/healthyKids.page");
-//    }
+    public void testSchoolChoiceCenter() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/schoolChoiceCenter.page");
+    }
 
-//    public void testSchoolChoiceCenter() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/schoolChoiceCenter.page");
-//    }
+    public void testCountdownToCollege() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/countdownToCollege.page");
+    }
 
-//    public void testCountdownToCollege() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/countdownToCollege.page");
-//    }
+    public void testSummerReading() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/summerReading.page");
+    }
 
-//    public void testSummerReading() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/summerReading.page");
-//    }
+    public void testSummerPlanning() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/summerPlanning.page");
+    }
 
-//    public void testSummerPlanning() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/summerPlanning.page");
-//    }
+    public void testSpecialNeeds() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/specialNeeds.page");
+    }
 
-//    public void testSpecialNeeds() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/specialNeeds.page");
-//    }
-
-//    public void testMediaChoices() {
-//        assertValidXhtml(INTEGRATION_HOST + "/content/mediaChoices.page");
-//    }
+    public void testMediaChoices() {
+        assertValidXhtml(INTEGRATION_HOST + "/content/mediaChoices.page");
+    }
 
     public void testLoginOrRegister() {
         assertValidXhtml(INTEGRATION_HOST + "/community/loginOrRegister.page");
