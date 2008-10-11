@@ -22,10 +22,6 @@ public class HomePageIntegrationTest extends BaseHtmlUnitIntegrationTestCase {
         super.setUp();
     }
 
-    public void testHomePageIsValid() {
-        assertValidXhtml(PAGE_URL);
-    }
-
     public void testHomePageToSearchTransition() throws Exception {
         // We rarely want to turn on Javascript for testing since it has many side effects (such as
         // hitting Omniture, tacoda, etc... but below I'm testing the search form submission
