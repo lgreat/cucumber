@@ -25,9 +25,9 @@
     <title>Link To Great Schools</title>
 </head>
 
-<gsml:body adPageName="partnerOpportunities" pageLayout="gsFaq">
+<gsml:body adPageName="linkToUs" pageLayout="gsFaq">
 
-<mod:tracking pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
+<mod:tracking pageName="linkToUs" hier1="Home,Corporate,AboutUs,LinkToUs"/>
 
 <div id="contentFAQ" class="contentFAQ">
 <h1>Link to GreatSchools</h1>

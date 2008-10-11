@@ -491,6 +491,14 @@
         </property>
     </bean>
 
+    <bean name="/about/whoWeAre.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/whoWeAre</value>
+        </property>
+    </bean>
+
     <bean name="/about/privacyStatement.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

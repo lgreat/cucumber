@@ -80,11 +80,11 @@
             <h2>Related Information</h2>
 
             <p>
-                <gsml:a href="/about/sponsors.page?state=$STATE">View our current partners</gsml:a>
+                <gsml:a href="/about/sponsors.page">View our current partners</gsml:a>
 
                 <br/><gsml:a href="/about/linkToUs.page">Link to GreatSchools.net</gsml:a>
 
-                <br/><gsml:a href="/about/aboutUs.page?state=$STATE">About GreatSchools</gsml:a>
+                <br/><gsml:a href="/about/aboutUs.page">About GreatSchools</gsml:a>
             </p>
         </div>
     </gsml:body>

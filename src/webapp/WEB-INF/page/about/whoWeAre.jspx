@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:hideFooterAd/>
+<pageHelper:externalCss file="/res/css/widelayout.css"/>
+<pageHelper:externalCss file="/res/css/about/gsFaq.css"/>
+<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Who We Are</title>
+</head>
+
+<gsml:body adPageName="whoWeAre" pageLayout="gsFaq">
+
+<mod:tracking pageName="whoWeAre" hier1="Home,Corporate,AboutUs,WhoWeAre"/>
+
+<div id="contentFAQ" class="contentFAQ">
+<h1>Partner with GreatSchools</h1>
+<ul class="pageNav">
+    <li><a href="#board">Board of Directors</a></li>
+    <li><a href="#mngmt">Senior Management</a></li>
+    <li><a href="#learning">Learning Disabilities Consultant and Advisory Panel</a></li>
+</ul>
+
+<![CDATA[ <a name="board"></a> ]]>
+
+<h2>Board of Directors</h2>
+
+<p>
+    <strong>Anthony J. Col&amp;#243;n, Board Secretary</strong><br/>
+    Anthony recently joined Fight for Children as the senior manager of education investment strategies. Anthony will direct Fight For Children's education investments and related education initiatives. Before joining Fight for Children, Anthony was the vice president of the National Council of La Raza's Center for Community Educational Excellence. Anthony also served as the principal of the Oakland Charter Academy and a member of its board of directors. He has 30 years experience as a teacher and school administrator in public, private and parochial schools, and has served on the faculty of Lehman College at the City University of New York and at Fordham University's Department of Bilingual Services. He holds a master's degree and a professional diploma in educational administration from Fordham University in New York, as well as a bachelor's degree in sociology from St. Francis College in Brooklyn, New York.
+</p>
+
+<p>
+    <strong>Bill Jackson, Founder, President and CEO</strong><br/>
+    Bill Jackson was formerly project director at Smart Valley, Inc., where he developed SmartVoter.org, now a project of the League of Women Voters, and GovGuide.org, now a project of the
+    <i>San Jose Mercury News.</i> Previously, he was director of engineering at Tribe Computer Works and helped start Whistle Communications, a computer networking company. He has been a teacher in Washington, D.C., and Hunan, China. He holds a degree in mechanical engineering from Yale University and is a graduate of the San Francisco Coro Fellows Program. He serves as a board member of the California Voter Foundation.
+</p>
+
+<p>
+    <strong>Larry Kane, Director</strong><br/>
+    Larry Kane is a partner in the law firm of Orrick, Herrington &amp;amp; Sutcliffe. He
+    represents clients in several areas including capital financing, mergers and acquisitions, and private and public offerings of securities. For the past 12 years, Larry has also served as volunteer head coach of the wrestling team at Galileo Academy of Science, where he has led hundreds of wrestlers to both athletic and academic success. Larry also serves on the San Francisco Library Commission and ran for a seat on the San Francisco Board of Education in 2004. Larry earned his J.D. from the Columbia University School of Law and his B.A. from Columbia University.
+</p>
+
+<p>
+    <strong>Leanna Landsmann, Co-Chair</strong><br/>
+    Leanna Landsmann served until recently as President of Time For Kids, a magazine reaching more than 4.2 million students nationwide. Before joining Time, she was editor and publisher of Instructor, the nation&apos;s leading magazine for teachers. She was also the director of Harcourt Brace Children&apos;s Books. Prior to this, in 1989, she founded Leanna Landsmann Inc. (LLI), an educational services company created to help organizations publish instructional materials for schools. As a volunteer in 1994, she launched New York City's Principal for a Day initiative and was volunteer director for two years.
+</p>
+
+<p>
+    <strong>Pat Reilly, Director</strong><br/>
+    Pat Reilly is a communications strategist with more than 15 years of experience building, protecting and enhancing the public identity of people, issues, companies and products. In 1998, Pat founded PR &amp;amp; Company, where she has directed public relations and marketing efforts for more than 30 clients, ranging from Bertelsmann to Washington Mutual. Previously, Pat served as communications director for San Francisco Mayor Willie Brown and the National Women's Political Caucus. Pat has been interviewed and quoted by CBS Evening News, C-SPAN, National Public Radio, The New York Times and the San Francisco Chronicle, among many others.
+</p>
+
+<p>
+    <strong>Sean Ryan, Director</strong><br/>
+    Sean is the CEO of Donnerwood Media, a new start-up company in the digital media space. Sean recently served as vice president of music services at RealNetworks, where he managed the music division after selling Listen.com to Real in August, 2003. Previously as CEO of Listen.com, Sean was charged with overseeing day-to-day operations and was responsible for the overall direction of the company. In May of 2000, Sean was named president and in May 2001 he became the company's CEO. Prior to joining Listen.Com, Sean ran business development for online game company SegaSoft Networks, spent several years at the GAP helping launch the successful Old Navy clothing line, and worked at Chemical Bank. Sean holds an M.B.A. from UCLA's Anderson Graduate School of Management and a B.A. from Columbia University.
+</p>
+
+<p>
+    <strong>Michael Schmier, Board Treasurer</strong><br/>
+    Michael is Vice President of Media and Audience Products at Tippit, Inc., a leading innovator in online business-to-business marketing. Previously, Michael held a wide range of executive positions including Vice President of Products and Marketing at BabyCenter, the leading online destination for new and expectant parents, and Vice President of Product Marketing and Business Development at Merced Systems, a market leader in enterprise performance management and analytics systems. Michael has also served as Practice Manager at The Advisory Board Company, an industry research and consulting company. He has extensive experience in developing and marketing online products, as well as managing online commerce, media and SaaS business models. Michael received an M.B.A. from the Stanford Graduate School of Business and a B.A. from the University of North Carolina at Chapel Hill.
+</p>
+
+<p>
+    <strong>Amit Sevak, Director</strong><br/>
+    Amit is the national director of strategy and new business enrollment for DeVry University, where he is responsible for high-growth businesses, strategic initiatives, enrollment, and enrollment training and operations. Amit worked at Siebel Systems as a district sales manager and business development manager, and also at Bain &amp;amp; Company as a management consultant. He taught policy, business and foreign relations as a Henry Luce Scholar in Beijing, China. Amit is also the author of a book on conflict resolution and confidence building. He has an M.B.A. from Harvard Business School and a B.A. from the University of Chicago in economics and sociology.
+</p>
+
+<p>
+    <strong>Laurence Steinberg, Ph.D., Director</strong><br/>
+    Laurence Steinberg, Ph.D., is the Distinguished University Professor and Laura H. Carnell Professor of Psychology at Temple University. Dr. Steinberg taught previously at Cornell University, the University of California at Irvine, and the University of Wisconsin at Madison. He was educated at Vassar College, where he was elected to Phi Beta Kappa and graduated with honors and distinction in psychology; and at Cornell University, where he received his Ph.D. in human development and family studies. Dr. Steinberg is President of the Division of Developmental Psychology of the American Psychological Association, Past-President of the Society for Research on Adolescence, and a member of The National Academies&amp;apos; Board on Children, Youth, and Families. An internationally recognized expert on psychological development and family relations during adolescence, he is the author or co-author of more than 250 scholarly articles on growth and development during the teenage years, as well as the books
+    <i>Adolescence</i>, the leading college textbook on the subject, now in its eighth edition,
+    <i>When Teenagers Work: The Psychological and Social Costs of Adolescent Employment</i>,
+    <i>You and Your Adolescent: A Parent&amp;apos;s Guide for Ages 10 to 20</i>,
+    <i>Crossing Paths: How Your Child&amp;apos;s Adolescence Triggers Your Own Crisis</i>,
+    <i>Beyond the Classroom: Why School Reform Has Failed and What Parents Need to Do</i>, and
+    <i>The Ten Basic Principles of Good Parenting</i>, which has been translated into ten languages. He has been the recipient of numerous honors, including the John P. Hill Award for Outstanding Contributions to the Study of Adolescence, given by the Society for Research on Adolescence; the Society for Adolescent Medicine&amp;apos;s Gallagher Lectureship; the American Psychological Association&amp;apos;s Urie Bronfenbrenner Award for Lifetime Contribution to Developmental Psychology in the Service of Science and Society; and the American Psychological Association&amp;apos;s Distinguished Scientist Lectureship. Dr. Steinberg also has been recognized for excellence in research and teaching by the University of California, the University of Wisconsin, and Temple University, where he was honored as one of the university&amp;apos;s Great Teachers.
+</p>
+
+<p>
+    <strong>Alan Tripp, Director</strong><br/>
+    Alan Tripp is the CEO of Inside Track Learning and previously founded SCORE! Educational Centers (now a unit of The Washington Post Company). During eight years as CEO and general manager of SCORE!, he helped grow the company to nearly 100 centers with more than 1,500 employees. He is a graduate of Stanford Business School and has served as a faculty member there, having created a course on the education industry for graduate students in business and education. He was previously employed by H&amp;amp;Q Technology Partners, the Wall Street Journal and Boston Consulting Group.
+</p>
+
+<p>
+    <strong>Jerry Wartgow, Co-Chair</strong><br/>
+    Dr. Wartgow served as the Superintendent of the Denver Public Schools from June 2001 to June 2005. Dr. Wartgow is President Emeritus of the Colorado Community College &amp;amp; Occupational Education System and was also President and Chief Executive Officer for International Training &amp;amp; Education Alliance, Inc before coming to Denver Public Schools. Dr. Wartgow holds a Doctor of Philosophy degree from the University of Denver, a Master of Education degree from the University of Hawaii, a Bachelor of Science degree from the University of Wisconsin, and completed Postdoctoral work at the East-West Center in Honolulu and Harvard University. From 1973 to 1978 Dr. Wartgow served as the Deputy Executive Director and Acting Executive Director for the Colorado Commission on Higher Education.
+</p>
+
+
+<![CDATA[ <a name="mngmt"></a> ]]>
+<h2>Senior Management</h2>
+
+<p><strong>Bill Jackson, Founder, President and Chief Executive Officer</strong><br/>
+    Bill Jackson was formerly project director at Smart Valley, Inc., where he developed SmartVoter.org, now a project of the League of Women Voters, and GovGuide.org, now a project of the San Jose Mercury News.Previously, he was director of engineering at Tribe Computer Works and helped start Whistle Communications, a computer networking company. He has been a teacher in Washington, D.C., and Hunan, China. He holds a degree in mechanical engineering from Yale University and is a graduate of the San Francisco Coro Fellows Program. He serves as a board member of the California Voter Foundation.
+</p>
+
+<p>
+    <strong>Allen Brown, Executive Vice President, Sales and Business Development</strong><br/>
+    Allen Brown was previously vice president of business development at Metacode Technologies, Inc., a San Francisco software company. He has also served as vice president of science and technology content for The Dialog Corporation (formerly Knight Ridder Information), where he managed a $33 million business unit. He received a master's of science degree in engineering management from Stanford University and a B.S. from Cornell University.
+</p>
+
+<p>
+    <strong>Dana Meade and Paula Rivers, Co-Chief Operating Officers</strong><br/>
+    Dana Meade and Paula Rivers are the co-Chief Operating Officers, job sharing and running the day-to-day operations of Greatschools.net. Dana and Paula were formerly co-General Managers of Zoomerang.com, an online survey business that grew to over 1 million members. Prior to that, Dana and Paula were Directors of Product Management at Portera Systems, Inc. Dana also held positions at Arthur Andersen and Andersen Consulting. Paula previously held positions at Cambridge Technology Partners and worked as a consultant with the MBA Enterprise Corps in Krakow, Poland. Dana earned her B.S. in Mechanical Engineering from University of Illinois at Urbana-Champaign; her M.S. in Environmental Engineering and Science from Stanford University; and her M.B.A. from the University of California at Berkeley. She lives in San Francisco with her husband and three children. Paula earned her B.S. in Political Science from the University of Michigan and her M.B.A. from Columbia Business School. She lives in San Francisco with her husband and two children.
+</p>
+
+<![CDATA[ <a name="learning"></a> ]]>
+<h2>GreatSchools Learning Disabilities Consultant</h2>
+
+<p>
+    <strong>Marshall H. Raskind, Ph.D.</strong>
+    is a learning disability researcher. He is a frequent presenter at international learning disability conferences and is the author of numerous professional publications on learning disabilities. He is well-known for his research in assistive technology and longitudinal studies tracing LD across the lifespan.
+</p>
+
+<h2>GreatSchools Learning Disabilities Advisory Panel</h2>
+
+<p>
+    <strong>Candace Cortiella's</strong>
+    work as Director of the nonprofit The Advocacy Institute focuses on improving the lives of people with learning disabilities, through public policy and other initiatives. The mother of a young adult with learning disabilities, she lives in the Washington, D.C., area.
+</p>
+
+<p>
+    <strong>Guinevere Eden, Ph.D.</strong>
+    is an associate professor at Georgetown University and directs the Center for the Study of Learning. Supported by NIH and NSF, her research focuses on the brain-basis of dyslexia. Dr. Eden has published widely and is a frequent speaker. She is President-Elect of the International Dyslexia Association and serves on several editorial boards.
+</p>
+
+<p>
+    <strong>Dave L. Edyburn, Ph.D.</strong>
+    is a Professor in the Department of Exceptional Education at the University of Wisconsin-Milwaukee. His teaching and research interests focus on the use of technology to enhance teaching, learning, and performance. He has authored over 150 articles and book chapters on the use of technology in special education.
+</p>
+
+<p>
+    <strong>Sam Goldstein, Ph.D.</strong>
+    is a Clinical Professor of Psychiatry at the University of Utah, a Research Professor of Psychology at George Mason University and Director of the Neurology, Learning and Behavior Center in Salt Lake City, Utah. He is Editor-in-Chief of the
+    <em>Journal of Attention Disorders</em>, author, co-author or editor of 26 books and dozens of book chapters and peer reviewed research articles.
+</p>
+
+<p>
+    <strong>Sheldon H. Horowitz, Ed.D.</strong>
+    has served as the Director of Professional Services at the National Center for Learning Disabilities (NCLD) since 1996. Before that he directed hospital-based evaluation and treatment programs in psychiatry and developmental and behavioral pediatrics. He has taught at primary, middle-school, and college levels, and is widely published on topics relating to LD across the lifespan.
+</p>
+
+<p>
+    <strong>Arlyn Roffman, Ph.D.</strong>,
+    an expert on transition issues in special education, is a Professor at Lesley University, where she served as founding director of Threshold, a transition program for young adults with learning disabilities, from 1981 to 1996. She has served on the professional advisory boards of several national LD organizations and maintains a private practice in psychology.
+</p>
+
+<p align="right"><a href="/cgi-bin/feedback/${state}">Contact GreatSchools</a></p>
+</div>
+</gsml:body>
+</html>
+</jsp:root>
+

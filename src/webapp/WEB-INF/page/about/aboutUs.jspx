@@ -47,8 +47,8 @@
                 <h3>Who We Are</h3>
                 <div class="whoWeAre">
                     <ul id="people" class="bulleted">
-                        <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#mngmt">Senior Management</gsml:a></li>
-                        <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#board">Board and Advisors</gsml:a></li>
+                        <li><gsml:a href="/about/whoWeAre.page#mngmt">Senior Management</gsml:a></li>
+                        <li><gsml:a href="/about/whoWeAre.page#board">Board and Advisors</gsml:a></li>
                     </ul>
                     <ul id="other" class="bulleted">
                         <li><gsml:a rel="nofollow" href="/promo/webbyAwardWinner.page">Our Awards</gsml:a></li>

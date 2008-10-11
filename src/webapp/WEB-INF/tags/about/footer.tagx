@@ -39,10 +39,10 @@
                     <div class="aboutUs">
                     <ul id="left">
                         <li><gsml:a href="/about/aboutUs.page">Overview</gsml:a></li>
-                        <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#mngmt">Senior Management</gsml:a></li>
+                        <li><gsml:a href="/about/whoWeAre.page#mngmt">Senior Management</gsml:a></li>
                     </ul>
                     <ul id="right">
-                        <li><gsml:a href="/cgi-bin/static/whoweare.inc/${state}#board">Board and Advisors</gsml:a></li>
+                        <li><gsml:a href="/about/whoWeAre.page#board">Board and Advisors</gsml:a></li>
                         <li><gsml:a href="/promo/webbyAwardWinner.page">Our Awards</gsml:a></li>
                     </ul>
                     </div>
