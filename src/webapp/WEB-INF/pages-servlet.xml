@@ -37,7 +37,7 @@
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
         <property name="lazyInitHandlers" value="true"/>
-    </bean>    
+    </bean>
 
     <bean name="seoHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
@@ -78,7 +78,8 @@
                 <entry key="/util/articleCacheController.page" value="articleCacheController"/>
                 <entry key="/util/getVariantConfiguration.page" value="getVariantConfigurationController"/>
                 <entry key="/content/box/v1/*/*.page" value="contentBoxController"/>
-                <entry key="/promo/getSurveyHoverInterceptConfiguration.page" value="getSurveyHoverInterceptConfigurationController"/>
+                <entry key="/promo/getSurveyHoverInterceptConfiguration.page"
+                       value="getSurveyHoverInterceptConfigurationController"/>
             </map>
         </property>
     </bean>
@@ -479,6 +480,14 @@
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/partnerOpportunities</value>
+        </property>
+    </bean>
+
+    <bean name="/about/linkToUs.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/linkToUs</value>
         </property>
     </bean>
 
@@ -929,12 +938,12 @@
         <property name="commandName" value="tableMoverCmd"/>
         <property name="commandClass" value="gs.web.admin.database.TableMoverCommand"/>
         <!--<property name="validators">-->
-            <!--<list>-->
-                <!--<ref local="emailValidator"/>-->
-            <!--</list>-->
+        <!--<list>-->
+        <!--<ref local="emailValidator"/>-->
+        <!--</list>-->
         <!--</property>-->
     </bean>
-    
+
     <!--
         "v1" is here so that we can easily update to newer versions
         of this.
@@ -1016,7 +1025,7 @@
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/promo/surveyPromoHover"/>
     </bean>
-    
+
     <!--My School stats newsletter popups-->
     <bean name="/community/newsletters/popup/mss/page1.page"
           class="gs.web.community.newsletters.popup.MssPaController"
@@ -1538,14 +1547,22 @@
           class="gs.web.community.MssLocalRedirectController" autowire="byName" lazy-init="true">
         <property name="pageMap">
             <map>
-                <entry key="1" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-does-public-school-enrollment-work-in-%CITY%"/>
-                <entry key="2" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-did-you-choose-a-preschool-in-%CITY%"/>
-                <entry key="3" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-do-public-and-private-schools-compare-in-%CITY%"/>
-                <entry key="4" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/What-preschool-do-you-think-is-great-in-%CITY%"/>
-                <entry key="5" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Whats-a-great-elementary-school-in-%CITY%"/>
-                <entry key="6" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Share-your-experiences-about-a-great-middle-school-in-%CITY%"/>
-                <entry key="7" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Talk-about-your-experiences-as-parent-of-a-high-schooler-in-%CITY%"/>
-                <entry key="8" value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/What-school-districts-have-the-best-reputation-in-or-around-%CITY%"/>
+                <entry key="1"
+                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-does-public-school-enrollment-work-in-%CITY%"/>
+                <entry key="2"
+                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-did-you-choose-a-preschool-in-%CITY%"/>
+                <entry key="3"
+                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/How-do-public-and-private-schools-compare-in-%CITY%"/>
+                <entry key="4"
+                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/What-preschool-do-you-think-is-great-in-%CITY%"/>
+                <entry key="5"
+                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Whats-a-great-elementary-school-in-%CITY%"/>
+                <entry key="6"
+                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Share-your-experiences-about-a-great-middle-school-in-%CITY%"/>
+                <entry key="7"
+                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/Talk-about-your-experiences-as-parent-of-a-high-schooler-in-%CITY%"/>
+                <entry key="8"
+                       value="http://community.greatschools.net/q-and-a/location/%STATE%/%CITY%/What-school-districts-have-the-best-reputation-in-or-around-%CITY%"/>
             </map>
         </property>
     </bean>
@@ -1611,8 +1628,8 @@
                 <ref bean="/school/overview.page"/>
             </list>
         </property>
-        <aop:scoped-proxy proxy-target-class="false"/>        
-    </bean>    
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
 
     <bean name="/directoryStructureUrlRequest.page"
           class="gs.web.path.DirectoryStructureUrlRequestController"

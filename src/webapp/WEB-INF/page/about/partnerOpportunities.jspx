@@ -22,7 +22,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>GreatSchools Partner Opportunities</title>
+        <title>Great Schools Partner Opportunities</title>
     </head>
 
     <gsml:body adPageName="partnerOpportunities" pageLayout="gsFaq">
@@ -82,7 +82,7 @@
             <p>
                 <gsml:a href="/about/sponsors.page?state=$STATE">View our current partners</gsml:a>
 
-                <br/><gsml:a href="/cgi-bin/static/link_to_us.tmpl/$STATE">Link to GreatSchools.net</gsml:a>
+                <br/><gsml:a href="/about/linkToUs.page">Link to GreatSchools.net</gsml:a>
 
                 <br/><gsml:a href="/about/aboutUs.page?state=$STATE">About GreatSchools</gsml:a>
             </p>
