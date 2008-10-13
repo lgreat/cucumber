@@ -24,14 +24,10 @@
 
 #contentLeft {
     float: left;
-    width: 164px;
+    width: 174px;
 }
 
 /* Center Content */
-
-#pageWrapper #main {
-    padding-left: 10px;
-}
 
 #pageWrapper #main h1 {
 	background: url(/res/img/preschool/preschool_headerbg.jpg) no-repeat left top;
@@ -66,40 +62,26 @@
 }
 
 #intro .description {
-	margin-bottom: 5px;;
-}
-
-#tabbed-info {
-    clear: both;
+	margin-bottom: 5px;
 }
 
 #tabbed-info .wrapper {
-	/*position: relative;*/
+    height: 210px;
 }
 
-#tabbed-info .contentWrapper {
+#pageWrapper #tabbed-info .contents {
 	width: 450px;
     background: #fff url(/res/img/library/middle-box3-bg.png) repeat-x 0 bottom;
 	border-bottom: 1px solid #c4c4c4;
 	border-left: 1px solid #c4c4c4;
     border-right: 1px solid #c4c4c4;
-    min-height: 210px;
-	height: auto !important;
-	height: 210px;
-}
-
-#tabbed-info .contentWrapper p, #tabbed-info .contentWrapper li {
-	line-height: 16px;
-    clear: both;
 }
 
 #tabbed-info .column {
 	width: 204px;
-    /*height: 175px;*/
     padding: 5px 10px;
 	border-top: 1px solid #c4c4c4;
     height: 200px;
-    /*background: #fff url(/res/img/library/middle-box3-bg.png) repeat-x 0 bottom;*/
 }
 
 #tabbed-info .column.last {

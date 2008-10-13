@@ -59,20 +59,12 @@
 	border-bottom: 1px solid #c4c4c4;
 }
 
-#tabbed-info .wrapper {
-	position: relative;
-}
-
 #tabbed-info .contents {
 	width: 332px;
 	float: right;
 	background: #fff url(/res/img/library/middle-box3-bg.png) repeat-x 0 bottom;
 	border-bottom: 1px solid #c4c4c4;
 	border-left: 1px solid #c4c4c4;
-}
-
-#tabbed-info .contents p, #tabbed-info .contents li {
-	line-height: 16px;
 }
 
 #tabbed-info .column {

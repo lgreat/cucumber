@@ -176,8 +176,9 @@
     <div class="inner cleared">
         <h2>Fun Activities that Support Learning</h2>
 
+        <div class="wrapper">
 
-        <div class="contentWrapper">
+        <div class="contents">
             <div class="column">
                 <h4>Books</h4>
 
@@ -213,13 +214,13 @@
             </div>
         </div>
 
+        </div>
+
     </div>
 </div>
 </div>
 
 <div id="supplement">
-
-    <!-- INSERT AD MARKUP HERE -->
 
     <ad:AboveFold_300x250/>
 
@@ -264,13 +265,6 @@
 
 </div>
 
-<!--  Top Questions from Other Parents-->
-<!--
-class="GS_EV5_" id="CommunitySeasonalPromo"
-http://cvsweb.greatschools.net/browse/gsrepo/GSCommunity/template/browse_navigation.tpl?r1=1.5&r2=1.5.2.1
-GS-6816
-http://wiki.greatschools.net/bin/view/Greatschools/HowToImplementOmnitureEVarTracking
--->
 <div style="display: none;">
 <mod:tracking pageName="${pageName}"
               hier1="Article,Preschool Microsite"

@@ -122,6 +122,14 @@
 	background-color: transparent;
 }
 
+#tabbed-info .wrapper {
+	position: relative;
+}
+
+#tabbed-info .contents p, #tabbed-info .contents li {
+	line-height: 16px;
+}
+
 #pageWrapper #content #tabbed-info h2 {
 	padding: 2px 10px 5px;
 	background-color: #6cd;
