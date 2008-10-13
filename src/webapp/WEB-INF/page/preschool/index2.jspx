@@ -39,6 +39,10 @@
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/preschool.css"/>
 
+    <!--[if IE]>
+        <link rel="stylesheet" href="/res/css/library/ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
+    <![endif]-->
+
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
@@ -175,7 +179,7 @@
                 <h4>Books</h4>
 
                 <p class="featured-book">
-                    <img src="http://www.greatschools.net/images/articles/corneliuspmud.jpg"
+                    <img src="/res/img/preschool/AreYouReadyforBedv2.jpg"
                          alt="Are You Ready for Bed?"/>
 
                     Recommended:<br/>
@@ -259,10 +263,11 @@ http://cvsweb.greatschools.net/browse/gsrepo/GSCommunity/template/browse_navigat
 GS-6816
 http://wiki.greatschools.net/bin/view/Greatschools/HowToImplementOmnitureEVarTracking
 -->
-
+<div style="display: none;">
 <mod:tracking pageName="${pageName}"
               hier1="Article,Preschool Microsite"
               microsite="${pageName}"/>
+</div>
 </gsml:body>
 </html>
 </jsp:root>

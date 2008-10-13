@@ -20,7 +20,7 @@
     <pageHelper:externalCss file="/res/css/content/library.css" />
 
     <!--[if IE]>
-        <link rel="stylesheet" href="res/css/library/ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="/res/css/library/ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
     <![endif]-->
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
@@ -51,7 +51,7 @@
 
 <body class="www  unframed" onunload="" onload="relocateDeferredContent();">
 
-<div id="library" class="cleared">
+<div id="pageWrapper" class="cleared">
 
 <content:librarySidebar />
 

@@ -1,23 +1,23 @@
 /* Left Sidebar */
 
-#sidebar {
+#pageWrapper #sidebar {
 	width: 164px;
 	float: left;
 	margin-left: 10px;
 }
 
-#sidebar .box {
+#pageWrapper #sidebar .box {
 	background-image: url(/res/img/library/left-box-bottom.png);
 	margin: 12px 0 0;
 }
 
-#sidebar .inner {
+#pageWrapper #sidebar .inner {
 	background-image: url(/res/img/library/left-box-top.png);
 	padding-left: 0px;
 	padding-right: 0px;
 }
 
-#sidebar .box h3 {
+#pageWrapper #sidebar .box h3 {
 	padding: 2px 10px 5px;
 	background-color: #6cd;
 	color: #fff;
