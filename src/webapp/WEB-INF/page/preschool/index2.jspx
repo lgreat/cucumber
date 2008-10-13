@@ -70,14 +70,14 @@
 
 <div id="intro" class="box">
     <div class="inner cleared">
-    <div class="content">
+        <div class="image"><!-- don't collapse --></div>
+        <div class="content">
             <h2>The Path to Preschool Success</h2>
 
             <p class="description">Expert advice to build a foundation for school learning.</p>
             <c:import
                     url="/content/editorialLinks.module?page=preschool_PathToSuccess&amp;type=all&amp;layout=list&amp;style=bulleted"/>
         </div>
-        <div class="image"><!-- don't collapse --></div>
         <div class="contentBottom">
             <p>
                 Stay on top of your preschooler's development.
