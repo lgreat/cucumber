@@ -1,6 +1,8 @@
 div#localQuestions {
     color: #444;
     text-align: left;
+    min-height: 310px;
+    height: auto !important;
     height: 310px;
     background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll -3px;
     font-family: Trebuchet MS, sans-serif;

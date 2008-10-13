@@ -61,7 +61,7 @@
                     <h2>${cityDisplayName}</h2>
                     <div class="caption">Talk to parents about local schools</div>
                     <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}" showCommentCount="false"
-                                  numberOfCharactersPerEntryToShow="75" onClick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true">
+                                  numberOfCharactersPerEntryToShow="55" onClick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true">
                         <!-- If no RSS content is found hide this module -->
                         <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
                     </content:feed>
