@@ -17,35 +17,19 @@
     <meta content="education resources, education articles, education tips, parents tips, education topics, parents resources, education advice" name="keywords"/>
 
     <pageHelper:externalCss file="/res/css/widelayout.css" />
+    <pageHelper:externalCss file="/res/css/content/landingPageShared.css" />
     <pageHelper:externalCss file="/res/css/content/library.css" />
 
+    <![CDATA[
     <!--[if IE]>
-        <link rel="stylesheet" href="/res/css/library/ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="/res/css/content/landingPageShared_ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
     <![endif]-->
+    ]]>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
-
-    <script type="text/javascript">
-        //        GS_googleAddAdSenseService("ca-pub-9662012843341888");
-        //        GS_googleEnableAllServices();
-    </script>
-    <script type="text/javascript">
-        <!--
-        GA_googleAddAttr('compfilter','4');
-        -->
-    </script>
-    <script type="text/javascript">
-        //            GA_googleAddSlot("ca-pub-9662012843341888", 'Footer_728x90');
-        //            GA_googleAddSlot("ca-pub-9662012843341888", 'Header_728x90');
-    </script>
-
-    <script type="text/javascript">
-        //        GA_googleUseSyncSRARendering();
-        //        GA_googleFetchAds();
-    </script>
 </head>
 
 

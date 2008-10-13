@@ -1,0 +1,187 @@
+/* Generic Classes */
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.cleared:after {
+	content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.box {
+	margin: 10px 0 0;
+	padding-bottom: 5px;
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+
+.box .inner {
+	padding: 5px 15px 1px;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+.column {
+	float: left;
+}
+
+.hr hr {
+	display: none;
+}
+
+.hr {
+	height: 0;
+	clear: both;
+	margin: 15px 0;
+	border-bottom: 2px dotted #ccc;
+}
+
+#pageWrapper p, #pageWrapper ul {
+	margin-bottom: 10px;
+	font-size: 13px;
+}
+
+#pageWrapper li {
+	background: url(/res/img/content/backtoschool/modules/orange_bullet.jpg) no-repeat left 4px;
+	padding: 0 0 0 10px;
+	margin: 0 0 5px;
+}
+
+/* Specific Layout */
+
+#pageWrapper {
+	background: url(/res/img/library/page_bg.png) repeat-x 0 top;
+}
+
+/* Center Content */
+
+#pageWrapper #main {
+	float: left;
+	margin: 0 0 0 10px;
+	width: 761px;
+}
+
+#pageWrapper #main h1 {
+	background: url(/res/img/library/header.jpg) no-repeat left top;
+	height: 30px;
+	padding: 5px 10px 0;
+	font-size: 20px;
+	color: #fff;
+	margin: 12px 0 0;
+}
+
+#pageWrapper #content {
+	float: left;
+	width: 452px;
+}
+
+#pageWrapper #content h2 {
+	font-size: 18px;
+	color: #d66671;
+	margin: 10px 0;
+}
+
+#intro {
+	background-image: url(/res/img/library/middle-box-bottom.png);
+}
+
+#intro .inner {
+	background-image: url(/res/img/library/middle-box-top.png);
+}
+
+#main-copy {
+	background-image: url(/res/img/library/middle-box2-bottom.png);
+}
+
+#main-copy .inner {
+	background-image: url(/res/img/library/middle-box2-top.png);
+}
+
+#main-copy .column {
+	width: 262px;
+	margin: 0 0 5px 10px;
+}
+
+#tabbed-info .inner {
+	background-image: url(/res/img/library/middle-box3-top.png);
+    padding-left: 0;
+    padding-right: 0;
+	background-color: transparent;
+}
+
+#pageWrapper #content #tabbed-info h2 {
+	padding: 2px 10px 5px;
+	background-color: #6cd;
+	color: #fff;
+	margin: 0;
+}
+
+#supplement {
+	float: left;
+	width: 300px;
+	margin: 0 0 0 9px;
+}
+
+#supplement h3 {
+	color: #5bc;
+	font-size: 16px;
+	margin: 5px 0 10px;
+	font-weight: bold;
+}
+
+#topics {
+	background-image: url(/res/img/library/right-box-bottom.png);
+}
+
+#topics .inner {
+	padding-left: 0;
+	padding-right: 0;
+	background-image: url(/res/img/library/right-box-top.png);
+}
+
+#topics h3 {
+	padding: 2px 10px 5px;
+	background-color: #6cd;
+	color: #fff;
+	margin: 0 0 10px;
+	font-size: 14px;
+}
+
+#topics ul, #topics img {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#more-info {
+	background-image: url(/res/img/library/right-box2-bottom.png);
+}
+
+#more-info .inner {
+	background-image: url(/res/img/library/right-box2-top.png);
+}
+
+#more-info ul {
+    margin-bottom: 0;
+    clear: both;
+}
+
+#more-info li {
+	line-height: 15px;
+}
+
+#more-info .more {
+	text-align: right;
+}

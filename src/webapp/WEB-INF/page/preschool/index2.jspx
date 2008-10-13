@@ -37,11 +37,14 @@
           content="preschools, preschool, preschool activities, pre-school, pre-schools, preschoolers, pre-k, kindergarten, kindergarden, kindergarten readiness, kindergarden readiness"/>
 
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/content/landingPageShared.css" />
     <pageHelper:externalCss file="/res/css/content/preschool.css"/>
 
+    <![CDATA[
     <!--[if IE]>
-        <link rel="stylesheet" href="/res/css/library/ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="/res/css/content/landingPageShared_ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
     <![endif]-->
+    ]]>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
@@ -78,7 +81,7 @@
         <div class="contentBottom">
             <p>
                 Stay on top of your preschooler's development.
-                <gsml:a href="">Sign up for our preschool newsletter &amp;gt;</gsml:a>
+                <promo:nthGraderHover autocheck="mypk" referredBy="${pageName}" isForm="false">Sign up for our preschool newsletter &amp;gt;</promo:nthGraderHover>
             </p>
         </div>
     </div>
@@ -183,14 +186,17 @@
                          alt="Are You Ready for Bed?"/>
 
                     Recommended:<br/>
-                    <a href="#">Are You Ready for Bed?</a>
+                    Are You Ready for Bed?
                 </p>
 
                 <ul>
-                    <li><a href="#">My Friend Rabbit</a></li>
-                    <li><a href="#">The Hello, Goodbye Window</a></li>
-                    <li><a href="#">Escape of Marvin the Ape</a></li>
+                    <li>My Friend Rabbit</li>
+                    <li>The Hello, Goodbye Window</li>
+                    <li>Escape of Marvin the Ape</li>
                 </ul>
+
+                <p><gsweb:articlelink articleId="3607">Preschool Books &amp;gt;</gsweb:articlelink></p>
+
             </div>
             <div class="column last">
                 <h4>Activities</h4>
@@ -201,7 +207,7 @@
                     <gsweb:articlelink articleId="787" wrappingElement="li"/>
                 </ul>
 
-                <p><gsweb:articlelink articleId="3614">All Preschool Activities &amp;gt;</gsweb:articlelink></p>
+                <p><gsweb:articlelink articleId="3614">Preschool Activities &amp;gt;</gsweb:articlelink></p>
 
                 <p><img src="/res/img/library/coloring_children.jpg" alt="Children making drawing"/></p>
             </div>
@@ -222,13 +228,15 @@
 
             <h2>Next: Kindergarten Readiness</h2>
 
-            <p>
-            <img src="/res/img/preschool/kindergarten_boy.jpg"
+            <img class="left" src="/res/img/preschool/kindergarten_boy.jpg"
                          alt="Kindergarten boy"/>
+            <div class="column">
+                <p>
                 Better prepare your preschooler with tips and tools from our experts.
-            </p>
+                </p>
+            </div>
 
-            <ul class="bulleted">
+            <ul>
                 <gsweb:articlelink articleId="416" wrappingElement="li"/>
                 <gsweb:articlelink articleId="1014" wrappingElement="li"/>
                 <gsweb:articlelink articleId="331" wrappingElement="li"/>
