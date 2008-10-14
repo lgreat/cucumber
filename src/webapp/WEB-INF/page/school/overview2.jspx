@@ -415,6 +415,7 @@
             <jsp:param name="state" value="${stateAbbrev}"/>
             <jsp:param name="city" value="${city}"/>
             <jsp:param name="showCommunityPromo" value="true"/>
+            <jsp:param name="preschoolOnly" value="${school.levelCode eq 'p'}"/>
         </jsp:include>
     </variant:b>
 

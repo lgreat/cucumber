@@ -68,7 +68,8 @@ div.compareLocal {
 }
 
 div.editorialMoving a img,
-div.editorialChoosing a img {
+div.editorialChoosing a img,
+div img.leftPhoto {
     float:left;
     margin-right:12px;
 }
