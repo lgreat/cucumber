@@ -269,11 +269,11 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
     public void testFillModel(){
         Map<String, Object> model = new HashMap<String, Object>();
         String originalQuestionText = "Some Question with <city> and <state>";
-        String originalQuestionLink = "/<state>/<city>/more/and/more/";
+        String originalQuestionLink = "/<state>/<city>/more/and/more-of-the-<city>";
         String originalQuestionLinkText = "learn more about <city> and <state>";
 
         String expectedQuestionText = "Some Question with Cour d' Alene and Idaho";
-        String expectedQuestionLink = "/Idaho/Cour-d%27-Alene/more/and/more/";
+        String expectedQuestionLink = "/Idaho/Cour-d%27-Alene/more/and/more-of-the-Cour-d%27-Alene";
         String expectedQuestionLinkText = "learn more about Cour d' Alene and Idaho";
 
         HashMapTableRow row = new HashMapTableRow();

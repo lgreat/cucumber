@@ -43,7 +43,7 @@ public class CommunityTemplatedQuestionPromoController extends CommunityQuestion
                 model.put(MODEL_QUESTION_LINK_TEXT, replaceTargets((String)row.get("linktext"), false));
             }else{
                 model.put(MODEL_QUESTION_TEXT, row.get("text"));
-                model.put(MODEL_QUESTION_LINK, (String)row.get("link"));
+                model.put(MODEL_QUESTION_LINK, row.get("link"));
                 model.put(MODEL_QUESTION_LINK_TEXT, row.get("linktext"));
             }
 
