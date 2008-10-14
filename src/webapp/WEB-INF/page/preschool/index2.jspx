@@ -65,7 +65,7 @@
     <![endif]-->
     <!--[if IE7]>
         #more-info ul.topKDiscussions {
-        background-color: red;
+             margin-top: 70px;
         }
     <![endif]-->
     ]]>
@@ -283,7 +283,7 @@
                 <hr/>
             </div>
 
-            <h3 class="quotable" style="margin-bottom: 10px;">Top Discussions About Kindergarten</h3>
+            <h3 class="quotable topKDiscussions">Top Discussions About Kindergarten</h3>
 
             <c:import
                     url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=topKDiscussions&amp;linkIdPrefix=PreschoolLanding_CommDisc__b&amp;linkStyle=GS_EV5_"/>
