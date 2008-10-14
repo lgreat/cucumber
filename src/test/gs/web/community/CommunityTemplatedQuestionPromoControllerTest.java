@@ -2,13 +2,17 @@ package gs.web.community;
 
 
 import gs.data.util.table.ITableRow;
+import gs.data.util.table.HashMapTableRow;
 import gs.data.geo.City;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
+import static gs.web.community.CommunityQuestionPromoController.*;
 import static org.easymock.classextension.EasyMock.*;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -260,5 +264,39 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
         replay(row);
         assertFalse("Since none of the fields are templated, the row is not templated", _controller.isTemplated(row));
         verify(row);
+    }
+
+    public void testFillModel(){
+        Map<String, Object> model = new HashMap<String, Object>();
+        String originalQuestionText = "Some Question with <city> and <state>";
+        String originalQuestionLink = "/<state>/<city>/more/and/more/";
+        String originalQuestionLinkText = "learn more about <city> and <state>";
+
+        String expectedQuestionText = "Some Question with Cour d' Alene and Idaho";
+        String expectedQuestionLink = "/Idaho/Cour-d%27-Alene/more/and/more/";
+        String expectedQuestionLinkText = "learn more about Cour d' Alene and Idaho";
+
+        HashMapTableRow row = new HashMapTableRow();
+
+        row.addCell("text", originalQuestionText);
+        row.addCell("link", originalQuestionLink);
+        row.addCell("linktext", originalQuestionLinkText);
+
+        expect(_sessionContext.getState()).andReturn(State.ID);
+        expect(_sessionContext.getCity()).andReturn(new City("Cour d' Alene", State.ID));
+        replay(_sessionContext);
+
+        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _controller.getCityAndStateFromSession(_request);
+
+        _controller.fillModel(model, row);
+
+        assertEquals(expectedQuestionText, model.get(MODEL_QUESTION_TEXT));
+        assertEquals(expectedQuestionLink, model.get(MODEL_QUESTION_LINK));
+        assertEquals(expectedQuestionLinkText, model.get(MODEL_QUESTION_LINK_TEXT));
+
+        verify(_sessionContext);
+
     }
 }
