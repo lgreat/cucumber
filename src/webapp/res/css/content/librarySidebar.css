@@ -13,8 +13,8 @@
 
 #pageWrapper #sidebar .inner {
 	background-image: url(/res/img/library/left-box-top.png);
-	padding-left: 0px;
-	padding-right: 0px;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 #pageWrapper #sidebar .box h3 {

@@ -1,3 +1,10 @@
+/* Left Content */
+
+#contentLeft {
+    float: left;
+    width: 174px;
+}
+
 /* Center Content */
 
 #pageWrapper #main h1 {

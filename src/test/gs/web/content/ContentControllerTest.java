@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.20 2008/05/30 19:04:00 cpickslay Exp $
+ * $Id: ContentControllerTest.java,v 1.21 2008/10/14 22:21:52 chriskimm Exp $
  */
 package gs.web.content;
 
@@ -21,25 +21,6 @@ import java.util.Map;
  * @noinspection FeatureEnvy,ProhibitedExceptionDeclared,HardcodedFileSeparator
  */
 public class ContentControllerTest extends BaseControllerTestCase {
-
-    public void testGetCategories() throws Exception {
-        AllArticlesController c = new AllArticlesController();
-        c.setApplicationContext(getApplicationContext());
-        c.setArticleDao((IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID));
-        c.setArticleManager((ArticleManager) getApplicationContext().getBean(ArticleManager.BEAN_ID));
-
-        ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
-
-        Map catMap = (Map) modelAndView.getModel().get("categories");
-        assertTrue(catMap.size() > 0);
-        Map sccMap = (Map) modelAndView.getModel().get("scc_categories");
-        assertTrue(catMap.size() > 0);
-        String numberOfCatgegories = String.valueOf(catMap.size() + sccMap.size());
-        assertEquals(numberOfCatgegories, (String) modelAndView.getModel().get("num_categories"));
-        assertEquals(new Integer(0), modelAndView.getModel().get("index"));
-
-    }
-
 
     public void testFeaturedArticlesController() throws Exception {
         FeaturedArticlesController c = new FeaturedArticlesController();
