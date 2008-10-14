@@ -20,8 +20,8 @@
     <!-- pagename of calling page, for omniture eVar5 tracking -->
     <c:set var="callerPagename" value="${param.callerPagename}"/>
     <c:if test="${callerPagename eq null or callerPagename eq ''}">
-        <!-- Default to browse city -->
-        <c:set var="callerPagename" value="browsecity"/>
+        <!-- Default to some distinctive value -->
+        <c:set var="callerPagename" value="unspecified"/>
     </c:if>
 
     <c:if test="${cityId > 0 and not requestScope.context.crawler}">
