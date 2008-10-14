@@ -48,8 +48,14 @@
 }
 
 #supplement #quotable {
-	background-position: left 5px;
-	height: 20px;
+	background-position: left 8px;
+	height: 23px;
+	padding: 5px 0 0 30px;
+}
+
+.quotable {
+	background-position: left 8px;
+	height: 23px;
 	padding: 5px 0 0 30px;
 }
 

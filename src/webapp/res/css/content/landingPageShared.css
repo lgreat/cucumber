@@ -178,10 +178,6 @@
     clear: both;
 }
 
-#more-info li {
-	line-height: 15px;
-}
-
-#more-info .more {
+.more {
 	text-align: right;
 }

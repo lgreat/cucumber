@@ -104,8 +104,8 @@
 }
 
 #quotable {
-	background: url(/res/img/library/quote_bubble.png) no-repeat left top;
-	height: 18px;
+	background: url(/res/img/library/quote_bubble.png) no-repeat left 54px;
+	height: 22px;
 	padding: 2px 0 0 30px;
 }
 

@@ -43,7 +43,7 @@
 #pageWrapper #intro h2 {
     font-size: 26px;
 	color: #d66671;
-	margin: 10px 0;
+	margin: 5px 0;
 }
 
 #intro {
@@ -55,8 +55,15 @@
 }
 
 #intro .content {
+    height: 166px;
     margin-top: 10px;
-    float: right;
+    background: url(/res/img/preschool/HeroImage.gif) no-repeat left top;
+    position: relative;
+}
+
+#intro .text {
+    position: absolute;
+    left: 372px;
 }
 
 #intro .image {
@@ -68,12 +75,15 @@
 }
 
 #intro .contentBottom {
-    padding-top: 5px;
+    padding-top: 3px;
     clear: both;
 }
 
-#intro .description {
-	margin-bottom: 5px;
+#rightPreschoolDiv {
+    width: 300px;
+    height: 105px;
+    background-color: red;
+    clear: both;
 }
 
 #tabbed-info .wrapper {
@@ -140,8 +150,8 @@
 }
 
 h3.quotable {
-	background: url(/res/img/library/quote_bubble.png) no-repeat left top;
-	min-height: 18px;
+	background: url(/res/img/library/quote_bubble.png) no-repeat left 4px;
+	min-height: 22px;
 	padding: 2px 0 0 30px;
 }
 

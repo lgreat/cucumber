@@ -54,6 +54,13 @@
         #kindergartenLinks {
             padding: 5px 0 10px 0;
         }
+        #intro .content {
+            margin-top: 15px;
+        }
+        #intro .contentBottom {
+            padding-top: 3px;
+            clear: both;
+        }
         </style>
     <![endif]-->
     ]]>
@@ -82,13 +89,15 @@
 
 <div id="intro" class="box">
     <div class="inner cleared">
-        <div class="image"><!-- don't collapse --></div>
         <div class="content">
+            <!--div class="image"> don't collapse </div-->
+            <div class="text">
             <h2>The Path to Preschool Success</h2>
 
             <p class="description">Expert advice to build a foundation for school learning.</p>
             <c:import
                     url="/content/editorialLinks.module?page=preschool_PathToSuccess&amp;type=all&amp;layout=list&amp;style=bulleted"/>
+            </div>
         </div>
         <div class="contentBottom">
             <p>
@@ -104,6 +113,8 @@
 <div id="main-copy" class="box">
     <div class="inner cleared">
         <h2>Find the Right Preschool</h2>
+
+        <div id="rightPreschoolDiv">
 
         <img class="left" src="/res/img/library/child_and_tutor.jpg" alt="Child and tutor"/>
 
@@ -145,6 +156,8 @@
 
         </div>
 
+        </div>
+
 
         <div class="hr">
             <hr/>
@@ -176,7 +189,7 @@
             <c:import
                     url="/content/editorialLinks.module?page=preschool_TopQuestions&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=PreschoolLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
 
-            <p>
+            <p class="more">
                 <gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__aMore"
                         href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a>
             </p>
@@ -208,7 +221,7 @@
                     <li>Escape of Marvin the Ape</li>
                 </ul>
 
-                <p><gsweb:articlelink articleId="3607">Preschool Books &amp;gt;</gsweb:articlelink></p>
+                <p class="more"><gsweb:articlelink articleId="3607">Preschool Books &amp;gt;</gsweb:articlelink></p>
 
             </div>
             <div class="column last">
@@ -220,7 +233,7 @@
                     <gsweb:articlelink articleId="787" wrappingElement="li"/>
                 </ul>
 
-                <p><gsweb:articlelink articleId="3614">Preschool Activities &amp;gt;</gsweb:articlelink></p>
+                <p class="more"><gsweb:articlelink articleId="3614">Preschool Activities &amp;gt;</gsweb:articlelink></p>
 
                 <p><img src="/res/img/library/coloring_children.jpg" alt="Children making drawing"/></p>
             </div>
@@ -266,11 +279,13 @@
 
             <h3 class="quotable">Top Discussions About Kindergarten</h3>
 
+            <div>
             <c:import
                     url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=PreschoolLanding_CommDisc__b&amp;linkStyle=GS_EV5_"/>
+            </div>
 
             <p class="more"><gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__bMore"
-                                    href="http://${communityHost}">Find more &amp;gt;</gsml:a></p>
+                                    href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a></p>
         </div>
     </div>
 
