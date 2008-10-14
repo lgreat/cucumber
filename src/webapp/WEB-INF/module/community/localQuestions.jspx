@@ -23,15 +23,23 @@
         <!-- Default to some distinctive value -->
         <c:set var="callerPagename" value="unspecified"/>
     </c:if>
+    <!-- Max number of entries to show (populated in numberOfEntriesToShow) -->
+    <c:set var="maxEntries" value="${param.maxEntries}"/>
 
     <c:if test="${cityId > 0 and not requestScope.context.crawler}">
         <jsp:scriptlet>
-            Integer numberOfEntriesToShow = 3;
+            int numberOfEntriesToShow = 3;
+            if (request.getParameter("maxEntries") != null) {
+                numberOfEntriesToShow = Integer.valueOf(request.getParameter("maxEntries"));
+            }
+            if (numberOfEntriesToShow &lt; 1 || numberOfEntriesToShow > 5) {
+                numberOfEntriesToShow = 3;
+            }
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             String communityHost = sessionContext.getSessionContextUtil().getCommunityHost(request);
             String url = "http://" + communityHost +
-                    "/category/feed/?category=all,none&amp;type=question&amp;loc_id=" + request.getParameter("cityId") + "&amp;limit=" +
-                    numberOfEntriesToShow;
+                    "/category/feed/?category=all,none&amp;type=question&amp;loc_id=" + request.getParameter("cityId") +
+                    "&amp;limit=" + numberOfEntriesToShow;
 
             request.setAttribute("communityHost", communityHost);
             request.setAttribute("communityFeedUrl", url);

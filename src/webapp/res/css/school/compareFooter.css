@@ -58,6 +58,15 @@ div.compareVertical input {
     margin-top: 6px;
 }
 
+div.compareLocal {
+    float: left;
+    padding: 2px 0 0 0;
+    margin: 0;
+    border-right: 1px solid #DDDDDD;
+    height: 109px;
+    width: 285px;
+}
+
 div.editorialMoving a img,
 div.editorialChoosing a img {
     float:left;
