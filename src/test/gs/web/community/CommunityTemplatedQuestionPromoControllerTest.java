@@ -134,6 +134,28 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
     }
 
 
+    public void testReplaceTargets_WithValidCityWithAnApostroheTargetInALink(){
+
+        expect(_sessionContext.getState()).andReturn(State.ID);
+        expect(_sessionContext.getCity()).andReturn(new City("Cour d' Alene", State.ID));
+        replay(_sessionContext);
+
+        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _controller.getCityAndStateFromSession(_request);
+        String original = "/urlBase/<city>/something/else/";
+        String expected = "/urlBase/Cour-d%27-Alene/something/else/";
+        assertEquals("Target <city> should be replaced with 'Cour-d%27-Alene'",expected, _controller.replaceTargets(original, true));
+
+        verify(_sessionContext);
+    }
+
+    public void testUrlEncode(){
+        String original = "Cour-d'-Alene";
+        String expected = "Cour-d%27-Alene";
+        assertEquals("Target <city> should be replaced with 'Cour-d%27-Alene'",expected,_controller.urlEncode(original));
+    }
+
     private void setUpSessionContextWithValidCityAndState() {
         expect(_sessionContext.getState()).andReturn(State.NY);
         expect(_sessionContext.getCity()).andReturn(new City("New York City", State.NY));

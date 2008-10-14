@@ -5,7 +5,11 @@ import gs.web.util.context.SessionContext;
 
 import java.util.Map;
 import java.util.Set;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -16,7 +20,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 public class CommunityTemplatedQuestionPromoController extends CommunityQuestionPromoController{
-
+    private static final Log _log = LogFactory.getLog(CommunityTemplatedQuestionPromoController.class);
 
     public static final String CITY_TARGET = "<city>";
     public static final String STATE_TARGET = "<state>";
@@ -39,13 +43,24 @@ public class CommunityTemplatedQuestionPromoController extends CommunityQuestion
                 model.put(MODEL_QUESTION_LINK_TEXT, replaceTargets((String)row.get("linktext"), false));
             }else{
                 model.put(MODEL_QUESTION_TEXT, row.get("text"));
-                model.put(MODEL_QUESTION_LINK, row.get("link"));
+                model.put(MODEL_QUESTION_LINK, (String)row.get("link"));
                 model.put(MODEL_QUESTION_LINK_TEXT, row.get("linktext"));
             }
 
             model.put(MODEL_USERNAME, row.get("username"));
             model.put(MODEL_USER_ID, row.get("memberid"));
         }
+    }
+
+    protected String urlEncode(String s){
+        String result = "";
+        try {
+            result = URLEncoder.encode(s, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            _log.warn("Unable to urlEncode: " + s);
+        }
+
+        return result;
     }
 
 
@@ -55,7 +70,7 @@ public class CommunityTemplatedQuestionPromoController extends CommunityQuestion
             String stateAndCityReplaced = "";
 
             if(isLink)   {
-                cityReplaced = s.replace(CITY_TARGET, _city.getName().replaceAll("-", "_").replaceAll(" ", "-"));
+                cityReplaced = s.replace(CITY_TARGET, urlEncode(_city.getName().replaceAll("-", "_").replaceAll(" ", "-")));
                 stateAndCityReplaced = cityReplaced.replace(STATE_TARGET, _state.getLongName().replaceAll(" ", "-"));
             }else{
                 cityReplaced = s.replace(CITY_TARGET, _city.getName());
