@@ -370,6 +370,9 @@
     <bean name="/content/allArticles.page"
           class="gs.web.content.AllArticlesController"
           autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>301</value>
+        </property>
     </bean>
 
     <bean name="/content/library.page"
