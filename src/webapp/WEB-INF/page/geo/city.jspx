@@ -302,6 +302,7 @@
                 <jsp:include page="/community/localQuestions.module">
                     <jsp:param name="cityId" value="${cityObject.id}"/>
                     <jsp:param name="cityDisplayName" value="${cityObject.name}"/>
+                    <jsp:param name="callerPagename" value="cityprofile"/>
                 </jsp:include>
             </td>
         </tr>

@@ -12,8 +12,17 @@
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
+    <!-- Parameters -->
+    <!-- id for city location object -->
     <c:set var="cityId" value="${param.cityId}"/>
+    <!-- name for city location object -->
     <c:set var="cityDisplayName" value="${param.cityDisplayName}"/>
+    <!-- pagename of calling page, for omniture eVar5 tracking -->
+    <c:set var="callerPagename" value="${param.callerPagename}"/>
+    <c:if test="${callerPagename eq null or callerPagename eq ''}">
+        <!-- Default to browse city -->
+        <c:set var="callerPagename" value="browsecity"/>
+    </c:if>
 
     <c:if test="${cityId > 0 and not requestScope.context.crawler}">
         <jsp:scriptlet>
@@ -42,18 +51,18 @@
                 <variant:a>
                     <h2>${cityDisplayName} Local Q&amp;amp;A</h2>
                     <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}"
-                                  numberOfCharactersPerEntryToShow="90" onClick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true">
+                                  numberOfCharactersPerEntryToShow="90" onClick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true">
                         <!-- If no RSS content is found hide this module -->
                         <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
                     </content:feed>
-                    <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
+                    <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
                        href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
                             src="/res/img/community/local/more.gif" alt="More"/></a>
                     <c:set var="questionAskText" value="Ask a question about ${cityDisplayName} &amp;gt;"/>
                     <c:if test="${fn:length(cityDisplayName) gt 19}">
                         <c:set var="questionAskText" value="Ask about ${cityDisplayName} &amp;gt;"/>
                     </c:if>
-                    <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
+                    <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
                        href="http://${communityHost}/q-and-a">${questionAskText}</a>
                 </variant:a>
                 <variant:b>
@@ -61,14 +70,14 @@
                     <h2>${cityDisplayName}</h2>
                     <div class="caption">Talk to parents about local schools</div>
                     <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}" showCommentCount="false"
-                                  numberOfCharactersPerEntryToShow="55" onClick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true">
+                                  numberOfCharactersPerEntryToShow="55" onClick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true">
                         <!-- If no RSS content is found hide this module -->
                         <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
                     </content:feed>
-                    <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
+                    <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
                        href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
                             src="/res/img/community/local/askQuestionButton.gif" alt="Ask a question"/></a>
-                    <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCALbrowsecity${abVersion}'); return true"
+                    <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
                        href="http://${communityHost}/q-and-a">Read more local questions &amp;gt;</a>
                 </variant:b>
             </div>

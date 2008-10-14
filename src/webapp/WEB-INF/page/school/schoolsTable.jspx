@@ -613,9 +613,18 @@ function reloadPageWithFilters(sortColId) {
 
     <ad:multiTextAd blurb="Advertiser Links"/>
 
+    <c:choose>
+        <c:when test="${isDistrictBrowse}">
+            <c:set var="callerPagename" value="browsedistrict"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="callerPagename" value="browsecity"/>
+        </c:otherwise>
+    </c:choose>
     <jsp:include page="/community/localQuestions.module">
         <jsp:param name="cityId" value="${cityId}"/>
         <jsp:param name="cityDisplayName" value="${cityDisplayName}"/>
+        <jsp:param name="callerPagename" value="${callerPagename}"/>
     </jsp:include>
 </div>
 
