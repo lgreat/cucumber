@@ -55,12 +55,14 @@
 }
 
 #intro .content {
+    margin-top: 10px;
     float: right;
 }
 
 #intro .image {
 	background: url(/res/img/preschool/HeroImage.gif) no-repeat left top;
     float: left;
+    margin-top: 10px;
     height: 166px;
     width: 362px;
 }
