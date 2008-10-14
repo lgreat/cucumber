@@ -41,6 +41,18 @@
     <!--[if IE]>
         <link rel="stylesheet" href="/res/css/content/landingPageShared_ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
     <![endif]-->
+    <!--[if IE]>
+        <style type="text/css">
+        #AboveFold_Left_160x600 {
+            padding: 0;
+            margin: 20px 0 0 10px;
+        }
+        #google_ads_div_Library_Microsite_Preschool_Promo_170x92 {
+            padding: 0;
+            margin: 20px 0 0 10px;
+        }
+        </style>
+    <![endif]-->
     ]]>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
