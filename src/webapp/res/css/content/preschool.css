@@ -46,18 +46,27 @@
 	margin: 10px 0;
 }
 
+#intro {
+	background-image: url(/res/img/preschool/wide-box-bottom.png);
+}
+
+#intro .inner {
+	background-image: url(/res/img/preschool/wide-box-top.png);
+}
+
 #intro .content {
     float: right;
 }
 
 #intro .image {
-	background: url(/res/img/library/various_children.jpg) no-repeat left top;
+	background: url(/res/img/preschool/HeroImage.gif) no-repeat left top;
     float: left;
-    height: 162px;
-    width: 313px;
+    height: 166px;
+    width: 362px;
 }
 
 #intro .contentBottom {
+    padding-top: 5px;
     clear: both;
 }
 

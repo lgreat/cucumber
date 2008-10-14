@@ -4,6 +4,14 @@
 	background: url(/res/img/library/header.jpg) no-repeat left top;
 }
 
+#intro {
+	background-image: url(/res/img/library/middle-box-bottom.png);
+}
+
+#intro .inner {
+	background-image: url(/res/img/library/middle-box-top.png);
+}
+
 #intro h2 {
 	position: relative;
 	z-index: 20;

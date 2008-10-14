@@ -94,14 +94,6 @@
 	margin: 10px 0;
 }
 
-#intro {
-	background-image: url(/res/img/library/middle-box-bottom.png);
-}
-
-#intro .inner {
-	background-image: url(/res/img/library/middle-box-top.png);
-}
-
 #main-copy {
 	background-image: url(/res/img/library/middle-box2-bottom.png);
 }
