@@ -27,7 +27,7 @@
     </bean>
 
     <bean name="/community/communityQuestionPromo.module"
-          class="gs.web.community.CommunityQuestionPromoController"
+          class="gs.web.community.CommunityTemplatedQuestionPromoController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/communityQuestionPromo"/>
         <property name="tableDao">
