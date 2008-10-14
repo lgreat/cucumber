@@ -46,7 +46,7 @@
 	height: 0;
 	clear: both;
 	margin: 15px 0;
-	border-bottom: 2px dotted #ccc;
+    border-bottom: 2px dotted #ccc;
 }
 
 #pageWrapper p, #pageWrapper ul {

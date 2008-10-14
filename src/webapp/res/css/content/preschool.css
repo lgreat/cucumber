@@ -66,24 +66,29 @@
     left: 372px;
 }
 
-#intro .image {
-	background: url(/res/img/preschool/HeroImage.gif) no-repeat left top;
-    float: left;
-    margin-top: 10px;
-    height: 166px;
-    width: 362px;
-}
-
 #intro .contentBottom {
     padding-top: 3px;
     clear: both;
 }
 
-#rightPreschoolDiv {
-    width: 300px;
-    height: 105px;
-    background-color: red;
+#rightPreschoolWrapper {
+    width: 422px; 
+    height: 110px;
+    margin-bottom: 15px;
     clear: both;
+}
+
+#rightPreschoolDiv {
+    width: 150px;
+    height: 100px; 
+    background: url(/res/img/library/child_and_tutor.jpg) no-repeat left top;
+    position: relative;
+}
+
+#rightPreschoolDiv .text {
+    width: 265px;
+    position: absolute;
+    left: 160px;
 }
 
 #tabbed-info .wrapper {

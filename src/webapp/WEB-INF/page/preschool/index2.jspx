@@ -90,12 +90,11 @@
 <div id="intro" class="box">
     <div class="inner cleared">
         <div class="content">
-            <!--div class="image"> don't collapse </div-->
             <div class="text">
-            <h2>The Path to Preschool Success</h2>
+                <h2>The Path to Preschool Success</h2>
 
-            <p class="description">Expert advice to build a foundation for school learning.</p>
-            <c:import
+                <p class="description">Expert advice to build a foundation for school learning.</p>
+                <c:import
                     url="/content/editorialLinks.module?page=preschool_PathToSuccess&amp;type=all&amp;layout=list&amp;style=bulleted"/>
             </div>
         </div>
@@ -114,11 +113,11 @@
     <div class="inner cleared">
         <h2>Find the Right Preschool</h2>
 
+        <div id="rightPreschoolWrapper">
+
         <div id="rightPreschoolDiv">
 
-        <img class="left" src="/res/img/library/child_and_tutor.jpg" alt="Child and tutor"/>
-
-        <div class="column">
+        <div class="text">
             <p>
                 We offer information on nearly 100,000 preschools
                 throughout the country, enabling you
@@ -157,6 +156,8 @@
         </div>
 
         </div>
+
+            </div>
 
 
         <div class="hr">
