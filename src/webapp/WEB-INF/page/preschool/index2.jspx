@@ -63,6 +63,11 @@
         }
         </style>
     <![endif]-->
+    <!--[if IE7]>
+        #more-info ul.topKDiscussions {
+        background-color: red;
+        }
+    <![endif]-->
     ]]>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
@@ -266,7 +271,7 @@
             </div>
 
             <div id="kindergartenLinks">
-            <ul>
+            <ul class="noBottomMargin">
                 <gsweb:articlelink articleId="416" wrappingElement="li"/>
                 <gsweb:articlelink articleId="1014" wrappingElement="li"/>
                 <gsweb:articlelink articleId="331" wrappingElement="li"/>
@@ -278,12 +283,10 @@
                 <hr/>
             </div>
 
-            <h3 class="quotable">Top Discussions About Kindergarten</h3>
+            <h3 class="quotable" style="margin-bottom: 10px;">Top Discussions About Kindergarten</h3>
 
-            <div>
             <c:import
-                    url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=PreschoolLanding_CommDisc__b&amp;linkStyle=GS_EV5_"/>
-            </div>
+                    url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=topKDiscussions&amp;linkIdPrefix=PreschoolLanding_CommDisc__b&amp;linkStyle=GS_EV5_"/>
 
             <p class="more"><gsml:a styleClass="GS_EV5_" id="PreschoolLanding_CommDisc__bMore"
                                     href="http://${communityHost}">Find answers in our parent community &amp;gt;</gsml:a></p>
