@@ -60,8 +60,8 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
 
         _controller.getCityAndStateFromSession(_request);
         String original = "/urlBase/<city>/something/else/";
-        String expected = "/urlBase/new-york-city/something/else/";
-        assertEquals("Target <city> should be replaced with 'new-york-city'",expected, _controller.replaceTargets(original, true));
+        String expected = "/urlBase/New-York-City/something/else/";
+        assertEquals("Target <city> should be replaced with 'New-York-City'",expected, _controller.replaceTargets(original, true));
 
         verify(_sessionContext);
     }
@@ -85,8 +85,8 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
 
         _controller.getCityAndStateFromSession(_request);
         String original = "/urlBase/<state>/something/else/";
-        String expected = "/urlBase/new-york/something/else/";
-        assertEquals("Target <state> should be replaced with 'new-york'",expected, _controller.replaceTargets(original, true));
+        String expected = "/urlBase/New-York/something/else/";
+        assertEquals("Target <state> should be replaced with 'New-York'",expected, _controller.replaceTargets(original, true));
 
         verify(_sessionContext);
     }
@@ -111,11 +111,28 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
 
         _controller.getCityAndStateFromSession(_request);
         String original = "/urlBase/<state>/<city>/something/else/";
-        String expected = "/urlBase/new-york/new-york-city/something/else/";
-        assertEquals("Target <city> should be replaced with 'new-york-city', and Target <state> should be replaced with 'new-york'",expected, _controller.replaceTargets(original, true));
+        String expected = "/urlBase/New-York/New-York-City/something/else/";
+        assertEquals("Target <city> should be replaced with 'New-York-City', and Target <state> should be replaced with 'New-York'",expected, _controller.replaceTargets(original, true));
 
         verify(_sessionContext);
     }
+
+    public void testReplaceTargets_WithValidCityWithAnUnderscoreTargetInALink(){
+
+        expect(_sessionContext.getState()).andReturn(State.CA);
+        expect(_sessionContext.getCity()).andReturn(new City("Cardiff-By-the-Sea", State.CA));
+        replay(_sessionContext);
+
+        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _controller.getCityAndStateFromSession(_request);
+        String original = "/urlBase/<city>/something/else/";
+        String expected = "/urlBase/Cardiff_By_the_Sea/something/else/";
+        assertEquals("Target <city> should be replaced with 'Cardiff_By_the_Sea'",expected, _controller.replaceTargets(original, true));
+
+        verify(_sessionContext);
+    }
+
 
     private void setUpSessionContextWithValidCityAndState() {
         expect(_sessionContext.getState()).andReturn(State.NY);
@@ -144,7 +161,6 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
         replay(row);
         assertFalse("Since NONE of the fields are templated, the row in not templated", _controller.isTemplated(row));
         verify(row);
-
     }
 
     public void testIsTemplated_LinkTextTrue(){
@@ -165,7 +181,6 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
         replay(row);
         assertTrue("Since linktext is templated, the row is templated", _controller.isTemplated(row));
         verify(row);
-
     }
 
     public void testIsTemplated_TextCityTrue(){
@@ -183,7 +198,6 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
         replay(row);
         assertTrue("Since linktext is templated, the row is templated", _controller.isTemplated(row));
         verify(row);
-
     }
 
     public void testIsTemplated_TextStateTrue(){
@@ -201,7 +215,6 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
         replay(row);
         assertTrue("Since linktext is templated, the row is templated", _controller.isTemplated(row));
         verify(row);
-
     }
 
     public void testIsTemplated_WithANonStringColumn(){
@@ -225,8 +238,5 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
         replay(row);
         assertFalse("Since none of the fields are templated, the row is not templated", _controller.isTemplated(row));
         verify(row);
-
     }
-
-
 }

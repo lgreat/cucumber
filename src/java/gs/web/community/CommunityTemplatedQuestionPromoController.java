@@ -55,8 +55,8 @@ public class CommunityTemplatedQuestionPromoController extends CommunityQuestion
             String stateAndCityReplaced = "";
 
             if(isLink)   {
-                cityReplaced = s.replace(CITY_TARGET, _city.getName().toLowerCase().replaceAll(" ", "-"));
-                stateAndCityReplaced = cityReplaced.replace(STATE_TARGET, _state.getLongName().toLowerCase().replaceAll(" ", "-"));
+                cityReplaced = s.replace(CITY_TARGET, _city.getName().replaceAll("-", "_").replaceAll(" ", "-"));
+                stateAndCityReplaced = cityReplaced.replace(STATE_TARGET, _state.getLongName().replaceAll(" ", "-"));
             }else{
                 cityReplaced = s.replace(CITY_TARGET, _city.getName());
                 stateAndCityReplaced = cityReplaced.replace(STATE_TARGET, _state.getLongName());
