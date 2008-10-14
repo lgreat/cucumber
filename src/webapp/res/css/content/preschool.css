@@ -127,6 +127,14 @@
 	margin: 0 0 5px 10px;
 }
 
+#kindergarten {
+    height: 80px;
+}
+
+#kindergartenLinks {
+    padding: 5px 0 0 0;
+}
+
 #more-info p img {
     float: left;
 }

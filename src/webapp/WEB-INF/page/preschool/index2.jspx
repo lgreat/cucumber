@@ -51,6 +51,9 @@
             padding: 0;
             margin: 20px 0 0 10px;
         }
+        #kindergartenLinks {
+            padding: 5px 0 10px 0;
+        }
         </style>
     <![endif]-->
     ]]>
@@ -238,6 +241,7 @@
 
             <h2>Next: Kindergarten Readiness</h2>
 
+            <div id="kindergarten">
             <img class="left" src="/res/img/preschool/kindergarten_boy.jpg"
                          alt="Kindergarten boy"/>
             <div class="column">
@@ -245,13 +249,16 @@
                 Better prepare your preschooler with tips and tools from our experts.
                 </p>
             </div>
+            </div>
 
+            <div id="kindergartenLinks">
             <ul>
                 <gsweb:articlelink articleId="416" wrappingElement="li"/>
                 <gsweb:articlelink articleId="1014" wrappingElement="li"/>
                 <gsweb:articlelink articleId="331" wrappingElement="li"/>
                 <gsweb:articlelink articleId="60" wrappingElement="li"/>
             </ul>
+            </div>
 
             <div class="hr">
                 <hr/>
