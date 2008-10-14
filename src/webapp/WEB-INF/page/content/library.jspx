@@ -1,7 +1,10 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0">
 <html>
@@ -68,66 +71,51 @@
 </div>
 <div id="main-copy" class="box">
     <div class="inner cleared">
+
         <h2>Find the Right School for Your Family</h2>
-
         <img class="left" src="/res/img/library/child_and_tutor.jpg" alt=""/>
-
         <div class="column">
             <p>Get expert advice on choosing the best fit for your child.</p>
-
-
             <ul>
-                <li><a href="#">Find the Right Preschool</a></li>
-                <li><a href="#">K-12 School Choice Tips</a></li>
-                <li><a href="#">Public vs. Private</a></li>
-                <li><a href="#">Moving with Kids</a></li>
+                <li><link:preschool>Find the Right Preschool</link:preschool></li>
+                <li><link:schoolChoiceCenter>K-12 School Choice Tips</link:schoolChoiceCenter></li>
+                <li><gsweb:articlelink articleId="197">Public vs. Private</gsweb:articlelink></li>
+                <li><link:movingWithKids>Moving with Kids</link:movingWithKids></li>
             </ul>
         </div>
 
-
-        <div class="hr">
-            <hr/>
-        </div>
+        <div class="hr"><hr/></div>
 
         <h2>Struggling at School?</h2>
-
         <img class="left" src="/res/img/library/thinking_child.jpg" alt="Thinking Child"/>
-
         <div class="column">
             <p>Tips and tools to ensure your child succeeds in school.</p>
             <ul>
-                <li><a href="#">Learning Disabilities</a></li>
-                <li><a href="#">Tutoring and Homework Help</a></li>
-                <li><a href="#">Bullying</a></li>
-                <li><a href="#">Other?</a></li>
+                <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
+                <li><link:tutoring>Tutoring and Homework Help</link:tutoring></li>
+                <li><gsweb:articlelink articleId="204">Study Skills</gsweb:articlelink></li>
+                <li><gsml:a href="/search/search.page?search_type=0&amp;q=bullying&amp;state=IA&amp;c=topic">Bullying</gsml:a></li>
             </ul>
         </div>
 
-        <div class="hr">
-            <hr/>
-        </div>
+        <div class="hr"><hr/></div>
 
         <h2>Stay Involved!</h2>
-
-
         <img class="left" src="/res/img/library/child_and_parent.jpg" alt=""/>
-
         <div class="column">
             <p>Parent support makes all the difference. See how you can support your child's school.</p>
-
             <ul>
-                <li><a href="#">Fundraising</a></li>
-                <li><a href="#">Join the school site council</a></li>
-                <li><a href="#">Something else</a></li>
-                <li><a href="#">Other tips for getting involved</a></li>
+                <li><gsweb:articlelink articleId="41">10 Easy Ways to Help Your Child's School</gsweb:articlelink></li>
+                <li><gsweb:articlelink articleId="33">Raising Money for Your School</gsweb:articlelink></li>
+                <li><gsweb:articlelink articleId="34">What Makes a Great Parent?</gsweb:articlelink></li>
             </ul>
         </div>
+        
     </div>
 </div>
 <div id="tabbed-info" class="box">
 <div class="inner cleared">
 <h2>Fun Activities that Support Learning</h2>
-
 
 <div class="wrapper">
 <h3><a id="preschool" class="active" href="#preschool-contents">Preschool</a></h3>
@@ -352,11 +340,7 @@
         <div class="inner">
             <h3>Hot Topics</h3>
             <img class="right" src="/res/img/library/jackolantern.jpg" alt=""/>
-            <ul>
-                <li><a href="#">Holiday Activities for Home</a></li>
-                <li><a href="#">Halloween Learning Games</a></li>
-                <li><a href="#">Travel Games that Work</a></li>
-            </ul>
+            <c:import url="/content/editorialLinks.module?page=library_HotTopics&amp;type=all&amp;layout=list&amp;style=bulleted"/>
         </div>
     </div>
 
@@ -364,18 +348,14 @@
 
     <div id="more-info" class="box">
         <div class="inner">
-
             <h3 id="quotable">Find Parents Like You</h3>
-
             <ul>
-                <li><a href="#">Parents of preschoolers</a></li>
-                <li><a href="#">Elementary School Parents</a></li>
-                <li><a href="#">Middle School Parents</a></li>
-                <li><a href="#">High School Parents</a></li>
-
+                <li><gsml:a href="http://community.greatschools.net/groups/11534">Parents of Preschoolers</gsml:a></li>
+                <li><gsml:a href="http://community.greatschools.net/groups/11527">Elementary School Parents</gsml:a></li>
+                <li><gsml:a href="http://community.greatschools.net/groups/11528">Middle School Parents</gsml:a></li>
+                <li><gsml:a href="http://community.greatschools.net/groups/11529">High School Parents</gsml:a></li>
             </ul>
-
-            <p class="more"><a href="#">Find more &gt;</a></p>
+            <p class="more"><a href="#" onclick="clickCapture.capture('eVar5', 'Library_JoinCommunity'); return true">Join Greatschools &gt;</a></p>
         </div>
     </div>
 
