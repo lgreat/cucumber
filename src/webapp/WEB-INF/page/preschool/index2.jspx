@@ -217,15 +217,19 @@
                     <img src="/res/img/preschool/AreYouReadyforBedv2.jpg"
                          alt="Are You Ready for Bed?"/>
 
-                    Recommended:<br/>
-                    Are You Ready for Bed?
+                    Cornelius P. Mud, Are You Ready for Bed?<br/>
+                    by Barney Saltzberg
                 </p>
 
-                <ul>
-                    <li>My Friend Rabbit</li>
-                    <li>The Hello, Goodbye Window</li>
-                    <li>Escape of Marvin the Ape</li>
-                </ul>
+                <br/>
+
+                <p class="featured-book">
+                    <img src="/res/img/preschool/Anatole_small.gif"
+                         alt="Anatole"/>
+
+                    Anatole<br/>
+                    by Eve Titus
+                </p>
 
                 <p class="more"><gsweb:articlelink articleId="3607">Preschool Books &amp;gt;</gsweb:articlelink></p>
 
@@ -236,12 +240,11 @@
                 <ul>
                     <gsweb:articlelink articleId="3575" wrappingElement="li"/>
                     <gsweb:articlelink articleId="3616" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="787" wrappingElement="li"/>
                 </ul>
 
                 <p class="more"><gsweb:articlelink articleId="3614">Preschool Activities &amp;gt;</gsweb:articlelink></p>
 
-                <p><img src="/res/img/library/coloring_children.jpg" alt="Children making drawing"/></p>
+                <p><img src="/res/img/preschool/ActivityImage.gif" alt="Children making drawing"/></p>
             </div>
         </div>
 
