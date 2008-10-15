@@ -37,7 +37,7 @@ div#localQuestions h2 {
 }
 
 div#localQuestions div.caption {
-    font-size: 11.5px;
+    font-size: 11.px;
     color: #666;
     margin-bottom: 5px;
 }
@@ -50,7 +50,7 @@ div#localQuestions li {
 }
 
 div#localQuestions li div a {
-    font-size: 11.5px;
+    font-size: 13px;
     color: #3399AA;
     text-decoration: none;
 }
