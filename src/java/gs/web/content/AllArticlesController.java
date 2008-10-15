@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.16 2008/10/14 23:46:18 chriskimm Exp $
+ * $Id: AllArticlesController.java,v 1.17 2008/10/15 00:54:50 chriskimm Exp $
  */
 package gs.web.content;
 
@@ -38,7 +38,7 @@ public class AllArticlesController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
         if ("301".equals(getViewName())) {
-            return new ModelAndView(new RedirectView301("/education-topics"));
+            return new ModelAndView(new RedirectView301("/education-topics/"));
         }
         
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
