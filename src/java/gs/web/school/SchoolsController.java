@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.73 2008/10/01 19:20:07 yfan Exp $
+ * $Id: SchoolsController.java,v 1.74 2008/10/15 22:49:42 yfan Exp $
  */
 
 package gs.web.school;
@@ -196,6 +196,12 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
             if (paramLevelCode != null) {
                 levelCode = LevelCode.createLevelCode(paramLevelCode);
+                if (levelCode.hasMultipleLevelCodes() || levelCode.hasNoLevelCodes()) {
+                    // remove any "lc" parameters
+                    String queryString = request.getQueryString().replaceAll("&?lc=[^&]*","");
+                    String redirectUrl = request.getRequestURI() + "?" + queryString;
+                    return new ModelAndView(new RedirectView301(redirectUrl));
+                }
             }
         } else {
             levelCode = fields.getLevelCode();

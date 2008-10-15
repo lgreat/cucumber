@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.44 2008/09/26 03:13:11 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.45 2008/10/15 22:49:42 yfan Exp $
  */
 
 package gs.web.school;
@@ -21,6 +21,7 @@ import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.search.SchoolSearchResult;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.DirectoryStructureUrlFactory;
+import gs.web.util.RedirectView301;
 import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,14 +56,42 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
 
         // old-style to new-style city browse urls
+        request.removeAllParameters();
         request.setRequestURI("/schools.page");
         request.setParameter(SchoolsController.PARAM_CITY, "Anchorage");
         request.setParameter("state", "AK");
         request.setQueryString("city=Anchorage&state=AK");
         _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
-        assertTrue(mAndV.getView() instanceof RedirectView);
+        assertTrue(mAndV.getView() instanceof RedirectView301);
         assertEquals("/alaska/anchorage/schools/", ((RedirectView) mAndV.getView()).getUrl());
+
+        // district browse with multiple level codes in same parameter, comma-separated
+        request.removeAllParameters();
+        request.setRequestURI("/schools.page");
+        request.setParameter(SchoolsController.PARAM_DISTRICT, "717");
+        request.setParameter("state", "CA");
+        request.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e,m");
+        request.setParameter(SchoolsController.PARAM_SHOW_ALL, "1");
+        request.setQueryString("district=717&state=CA&lc=e%2Cm&showall=1");
+        _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
+        mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView301);
+        assertEquals("/schools.page?district=717&state=CA&showall=1", ((RedirectView) mAndV.getView()).getUrl());
+
+        // district browse with multiple level codes in repeated "lc" parameters
+        request.removeAllParameters();
+        request.setRequestURI("/schools.page");
+        request.setParameter(SchoolsController.PARAM_DISTRICT, "717");
+        request.setParameter("state", "CA");
+        request.addParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
+        request.addParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
+        request.setParameter(SchoolsController.PARAM_SHOW_ALL, "1");
+        request.setQueryString("district=717&state=CA&lc=e&lc=m&showall=1");
+        _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
+        mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView301);
+        assertEquals("/schools.page?district=717&state=CA&showall=1", ((RedirectView) mAndV.getView()).getUrl());
     }
 
     public void testIsDistrictBrowseRequest() throws Exception {
