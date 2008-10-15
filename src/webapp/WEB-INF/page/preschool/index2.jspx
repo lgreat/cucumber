@@ -139,7 +139,7 @@
                     <gsweb:stateSelector useNoState="false"
                                          noStateLabel="--"
                                          usingLongNames="false"
-                                         styleId="stateSelector"
+                                         styleId="stateSelectorPreschool"
                                          state="${requestScope.context.stateOrDefault.abbreviation}"
                                          styleClass="stateSelect"/>
                     <input type="image" alt="Go" src="/res/img/button/go.gif"/>
