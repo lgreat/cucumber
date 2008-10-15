@@ -146,4 +146,8 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
     public void testSurveyPage3() {
         assertValidXhtml(INTEGRATION_HOST + "/survey/form.page?id=4&state=AK&level=e&p=3&year=2004");
     }
+
+    public void testLibraryPage() {
+        assertValidXhtml(INTEGRATION_HOST + "/education-topics/");
+    }
 }
