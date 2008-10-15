@@ -150,4 +150,8 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
     public void testLibraryPage() {
         assertValidXhtml(INTEGRATION_HOST + "/education-topics/");
     }
+
+    public void testPreschoolLandingPage() {
+        assertValidXhtml(INTEGRATION_HOST + "/preschool/");
+    }
 }
