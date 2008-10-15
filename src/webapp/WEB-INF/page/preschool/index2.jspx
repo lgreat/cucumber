@@ -79,7 +79,7 @@
 <div id="pageWrapper" class="cleared">
 
 <div id="contentLeft">
-    <content:librarySidebar collapseTopicTips="true"/>
+    <content:librarySidebar/>
     <ad:Promo_170x92/>
     <ad:AboveFold_Left_160x600/>
 </div>
