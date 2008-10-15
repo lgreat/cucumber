@@ -1,15 +1,21 @@
 package gs.web.community;
 
 import gs.data.util.table.ITableRow;
+import gs.data.state.State;
+import gs.data.geo.City;
 import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.HashMap;
 import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -26,21 +32,27 @@ public class CommunityTemplatedQuestionPromoController extends CommunityQuestion
     public static final String STATE_TARGET = "<state>";
 
 
+
     protected SessionContext _sessionContext;
 
-    protected void fillModel(Map<String, Object> model, ITableRow row) {
+    protected void fillModel(HttpServletRequest request, Map<String, Object> model, ITableRow row) {
         if (row != null) {
-            //getCityAndStateFromSession();
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            State state = sessionContext.getState();
+            City city =  sessionContext.getCity();
 
             if (isTemplated(row)  ){
                 //when a community quesiton is templated for city and state, and the state or city isn't known,
                 //don't add the question to the model and view
-                if ((_state == null || _city == null)){
+                if ((state == null || city == null)){
                     return;
                 }
-                model.put(MODEL_QUESTION_TEXT, replaceTargets((String)row.get("text"),false));
-                model.put(MODEL_QUESTION_LINK, replaceTargets((String)row.get("link"), true));
-                model.put(MODEL_QUESTION_LINK_TEXT, replaceTargets((String)row.get("linktext"), false));
+                Map<String, String> targets = new HashMap<String, String>();
+                targets.put("city", city.getName());
+                targets.put("state", state.getLongName());
+                model.put(MODEL_QUESTION_TEXT, replaceTargets(targets,(String)row.get("text"),false));
+                model.put(MODEL_QUESTION_LINK, replaceTargets(targets,(String)row.get("link"), true));
+                model.put(MODEL_QUESTION_LINK_TEXT, replaceTargets(targets,(String)row.get("linktext"), false));
             }else{
                 model.put(MODEL_QUESTION_TEXT, row.get("text"));
                 model.put(MODEL_QUESTION_LINK, row.get("link"));
@@ -64,17 +76,20 @@ public class CommunityTemplatedQuestionPromoController extends CommunityQuestion
     }
 
 
-    protected String replaceTargets(String s, boolean isLink){
+    protected String replaceTargets(Map<String, String> targets, String s, boolean isLink){
         if (s != null){
             String cityReplaced = "";
             String stateAndCityReplaced = "";
 
+            String state = targets.get("state");
+            String city =  targets.get("city");
+
             if(isLink)   {
-                cityReplaced = s.replace(CITY_TARGET, urlEncode(_city.getName().replaceAll("-", "_").replaceAll(" ", "-")));
-                stateAndCityReplaced = cityReplaced.replace(STATE_TARGET, _state.getLongName().replaceAll(" ", "-"));
+                cityReplaced = s.replace(CITY_TARGET, urlEncode(city.replaceAll("-", "_").replaceAll(" ", "-")));
+                stateAndCityReplaced = cityReplaced.replace(STATE_TARGET, state.replaceAll(" ", "-"));
             }else{
-                cityReplaced = s.replace(CITY_TARGET, _city.getName());
-                stateAndCityReplaced = cityReplaced.replace(STATE_TARGET, _state.getLongName());
+                cityReplaced = s.replace(CITY_TARGET, city);
+                stateAndCityReplaced = cityReplaced.replace(STATE_TARGET, state);
             }
 
             return stateAndCityReplaced;

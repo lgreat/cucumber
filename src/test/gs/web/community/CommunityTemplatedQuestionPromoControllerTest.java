@@ -36,122 +36,78 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
 
     public void testReplaceTargets_WithNoTarget(){
 
-        setUpSessionContextWithValidCityAndState();
-        
-        _controller.getCityAndStateFromSession(_request);
-        String noTarget = "This is a string with out a target";
-        assertEquals("No target in the string should return the original string",noTarget, _controller.replaceTargets(noTarget, false));
+        Map<String, String> targets = createTargets("New York", "New York City");
 
-        verify(_sessionContext);
+        String noTarget = "This is a string with out a target";
+        assertEquals("No target in the string should return the original string",noTarget, _controller.replaceTargets(targets, noTarget, false));
     }
 
 
     public void testReplaceTargets_WithValidCityTarget(){
 
-        setUpSessionContextWithValidCityAndState();
-
-        _controller.getCityAndStateFromSession(_request);
+        Map<String, String> targets = createTargets("New York", "New York City");
         String original = "This is a string with a target: <city>";
         String expected = "This is a string with a target: New York City";
-        assertEquals("Target <city> should be replaced with 'New York City'",expected, _controller.replaceTargets(original, false));
-
-        verify(_sessionContext);
+        assertEquals("Target <city> should be replaced with 'New York City'",expected, _controller.replaceTargets(targets,original, false));
     }
 
     public void testReplaceTargets_WithValidCityTargetInALink(){
 
-        setUpSessionContextWithValidCityAndState();
-
-        _controller.getCityAndStateFromSession(_request);
+        Map<String, String> targets = createTargets("New York", "New York City");
         String original = "/urlBase/<city>/something/else/";
         String expected = "/urlBase/New-York-City/something/else/";
-        assertEquals("Target <city> should be replaced with 'New-York-City'",expected, _controller.replaceTargets(original, true));
-
-        verify(_sessionContext);
+        assertEquals("Target <city> should be replaced with 'New-York-City'",expected, _controller.replaceTargets(targets, original, true));
     }
 
 
     public void testReplaceTargets_WithValidStateTarget(){
 
-        setUpSessionContextWithValidCityAndState();
-
-        _controller.getCityAndStateFromSession(_request);
+        Map<String, String> targets = createTargets("New York", "New York City");
         String original = "This is a string with a target: <state>";
         String expected = "This is a string with a target: New York";
-        assertEquals("Target <state> should be replaced with 'New York'",expected, _controller.replaceTargets(original, false));
-
-        verify(_sessionContext);
+        assertEquals("Target <state> should be replaced with 'New York'",expected, _controller.replaceTargets(targets, original, false));
     }
 
     public void testReplaceTargets_WithValidStateTargetInALink(){
 
-        setUpSessionContextWithValidCityAndState();
-
-        _controller.getCityAndStateFromSession(_request);
+        Map<String, String> targets = createTargets("New York", "New York City");
         String original = "/urlBase/<state>/something/else/";
         String expected = "/urlBase/New-York/something/else/";
-        assertEquals("Target <state> should be replaced with 'New-York'",expected, _controller.replaceTargets(original, true));
-
-        verify(_sessionContext);
+        assertEquals("Target <state> should be replaced with 'New-York'",expected, _controller.replaceTargets(targets, original, true));
     }
 
 
 
     public void testReplaceTargets_WithValidCityAndStateTargets(){
 
-        setUpSessionContextWithValidCityAndState();
-
-        _controller.getCityAndStateFromSession(_request);
+        Map<String, String> targets = createTargets("New York", "New York City");
         String original = "This is a string with a target: <city>, <state>";
         String expected = "This is a string with a target: New York City, New York";
-        assertEquals("Target <city> should be replaced with 'New York City' and <state> target replace with 'New York'",expected, _controller.replaceTargets(original, false));
-
-        verify(_sessionContext);
+        assertEquals("Target <city> should be replaced with 'New York City' and <state> target replace with 'New York'",expected, _controller.replaceTargets(targets, original, false));
     }
 
     public void testReplaceTargets_WithValidCityAndStateTargetsInALink(){
 
-        setUpSessionContextWithValidCityAndState();
-
-        _controller.getCityAndStateFromSession(_request);
+        Map<String, String> targets = createTargets("New York", "New York City");
         String original = "/urlBase/<state>/<city>/something/else/";
         String expected = "/urlBase/New-York/New-York-City/something/else/";
-        assertEquals("Target <city> should be replaced with 'New-York-City', and Target <state> should be replaced with 'New-York'",expected, _controller.replaceTargets(original, true));
-
-        verify(_sessionContext);
+        assertEquals("Target <city> should be replaced with 'New-York-City', and Target <state> should be replaced with 'New-York'",expected, _controller.replaceTargets(targets, original, true));
     }
 
     public void testReplaceTargets_WithValidCityWithAnUnderscoreTargetInALink(){
 
-        expect(_sessionContext.getState()).andReturn(State.CA);
-        expect(_sessionContext.getCity()).andReturn(new City("Cardiff-By-the-Sea", State.CA));
-        replay(_sessionContext);
-
-        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
-
-        _controller.getCityAndStateFromSession(_request);
+        Map<String, String> targets = createTargets("California", "Cardiff-By-the-Sea");
         String original = "/urlBase/<city>/something/else/";
         String expected = "/urlBase/Cardiff_By_the_Sea/something/else/";
-        assertEquals("Target <city> should be replaced with 'Cardiff_By_the_Sea'",expected, _controller.replaceTargets(original, true));
-
-        verify(_sessionContext);
+        assertEquals("Target <city> should be replaced with 'Cardiff_By_the_Sea'",expected, _controller.replaceTargets(targets, original, true));
     }
 
 
     public void testReplaceTargets_WithValidCityWithAnApostroheTargetInALink(){
-
-        expect(_sessionContext.getState()).andReturn(State.ID);
-        expect(_sessionContext.getCity()).andReturn(new City("Cour d' Alene", State.ID));
-        replay(_sessionContext);
-
-        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
-
-        _controller.getCityAndStateFromSession(_request);
+        Map<String, String> targets = createTargets("Idaho", "Cour d' Alene");
         String original = "/urlBase/<city>/something/else/";
         String expected = "/urlBase/Cour-d%27-Alene/something/else/";
-        assertEquals("Target <city> should be replaced with 'Cour-d%27-Alene'",expected, _controller.replaceTargets(original, true));
-
-        verify(_sessionContext);
+        assertEquals("Target <city> should be replaced with 'Cour-d%27-Alene'",expected, _controller.replaceTargets(targets, original, true));
     }
 
     public void testUrlEncode(){
@@ -160,13 +116,6 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
         assertEquals("Target <city> should be replaced with 'Cour-d%27-Alene'",expected,_controller.urlEncode(original));
     }
 
-    private void setUpSessionContextWithValidCityAndState() {
-        expect(_sessionContext.getState()).andReturn(State.NY);
-        expect(_sessionContext.getCity()).andReturn(new City("New York City", State.NY));
-        replay(_sessionContext);
-
-        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
-    }
 
 
     public void testIsTemplated_False(){
@@ -288,15 +237,20 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
 
         _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
-        _controller.getCityAndStateFromSession(_request);
-
-        _controller.fillModel(model, row);
+        _controller.fillModel(_request,model, row);
 
         assertEquals(expectedQuestionText, model.get(MODEL_QUESTION_TEXT));
         assertEquals(expectedQuestionLink, model.get(MODEL_QUESTION_LINK));
         assertEquals(expectedQuestionLinkText, model.get(MODEL_QUESTION_LINK_TEXT));
 
         verify(_sessionContext);
+    }
 
+    public Map<String, String> createTargets(String state, String city){
+        Map<String, String> targets = new HashMap<String, String>();
+        targets.put("city", city);
+        targets.put("state", state);
+
+        return targets;
     }
 }

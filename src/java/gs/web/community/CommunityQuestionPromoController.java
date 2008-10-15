@@ -13,10 +13,7 @@ import java.util.HashMap;
 import gs.web.util.UrlUtil;
 import gs.data.util.table.ITableRow;
 import gs.data.util.table.ITableDao;
-import gs.data.state.State;
-import gs.data.geo.City;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.SessionContext;
 import gs.web.util.google.GoogleSpreadsheetDao;
 
 /**
@@ -39,14 +36,10 @@ public class CommunityQuestionPromoController extends AbstractController {
     private String _viewName;
     private ITableDao _tableDao;
 
-    protected State _state;
-    protected City _city;
-
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         injectWorksheetName(request);
         Map<String, Object> model = new HashMap<String, Object>();
-        getCityAndStateFromSession(request);
-        loadSpreadsheetDataIntoModel(model, getCode(request));
+        loadSpreadsheetDataIntoModel(request, model);
         addExtraInfoToModel(model, request);
         return new ModelAndView(_viewName, model);
     }
@@ -102,14 +95,15 @@ public class CommunityQuestionPromoController extends AbstractController {
 
     }
 
-    protected void loadSpreadsheetDataIntoModel(Map<String, Object> model, String code) {
+    protected void loadSpreadsheetDataIntoModel(HttpServletRequest request, Map<String, Object> model) {
+        String code = getCode(request);
         ITableRow row = getTableDao().getRandomRowByKey
                 (WORKSHEET_PRIMARY_ID_COL, code);
 
-        fillModel(model, row);
+        fillModel(request, model, row);
     }
 
-    protected void fillModel(Map<String, Object> model, ITableRow row) {
+    protected void fillModel(HttpServletRequest request, Map<String, Object> model, ITableRow row) {
         if (row != null) {
             model.put(MODEL_QUESTION_TEXT, row.get("text"));
             model.put(MODEL_QUESTION_LINK, row.get("link"));
@@ -117,13 +111,6 @@ public class CommunityQuestionPromoController extends AbstractController {
             model.put(MODEL_USERNAME, row.get("username"));
             model.put(MODEL_USER_ID, row.get("memberid"));
         }
-    }
-
-    protected void getCityAndStateFromSession(HttpServletRequest request) {
-
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        _state = sessionContext.getState();
-        _city =  sessionContext.getCity();
     }
 
     /**

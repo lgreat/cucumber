@@ -14,6 +14,8 @@ import static gs.web.community.CommunityQuestionPromoController.*;
 import static org.easymock.classextension.EasyMock.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -107,11 +109,16 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         row.addCell("username", "user name");
         row.addCell("memberid", "member id");
 
+        HttpServletRequest localRequest = createMock(HttpServletRequest.class);
+
+        expect(localRequest.getParameter(WORKSHEET_PRIMARY_ID_COL)).andReturn("someKey");
+        replay(localRequest);
         expect(_dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(row);
         replay(_dao);
 
-        _controller.loadSpreadsheetDataIntoModel(model, "someKey");
+        _controller.loadSpreadsheetDataIntoModel(localRequest, model);
         verify(_dao);
+        verify(localRequest);
 
         assertEquals("text text", model.get(MODEL_QUESTION_TEXT));
         assertEquals("link link", model.get(MODEL_QUESTION_LINK));
@@ -126,11 +133,16 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
 
         ITableRow row = new HashMapTableRow();
 
+        HttpServletRequest localRequest = createMock(HttpServletRequest.class);
+
+        expect(localRequest.getParameter(WORKSHEET_PRIMARY_ID_COL)).andReturn("someKey");
+        replay(localRequest);
         expect(_dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(row);
         replay(_dao);
 
-        _controller.loadSpreadsheetDataIntoModel(model, "someKey");
+        _controller.loadSpreadsheetDataIntoModel(localRequest, model);
         verify(_dao);
+        verify(localRequest);
 
         assertNull(model.get(MODEL_QUESTION_TEXT));
         assertNull(model.get(MODEL_QUESTION_LINK));
@@ -142,12 +154,18 @@ public class CommunityQuestionPromoControllerTest extends BaseControllerTestCase
         // shouldn't crash
         Map<String, Object> model = new HashMap<String, Object>();
 
+        HttpServletRequest localRequest = createMock(HttpServletRequest.class);
+
+        expect(localRequest.getParameter(WORKSHEET_PRIMARY_ID_COL)).andReturn("someKey");
+        replay(localRequest);
         expect(_dao.getRandomRowByKey(WORKSHEET_PRIMARY_ID_COL, "someKey")).andReturn(null);
         replay(_dao);
 
-        _controller.loadSpreadsheetDataIntoModel(model, "someKey");
-        verify(_dao);
+        _controller.loadSpreadsheetDataIntoModel(localRequest, model);
 
+        verify(localRequest);
+        verify(_dao);
+        
         assertNull(model.get(MODEL_QUESTION_TEXT));
         assertNull(model.get(MODEL_QUESTION_LINK));
         assertNull(model.get(MODEL_USERNAME));
