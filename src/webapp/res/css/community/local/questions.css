@@ -29,7 +29,7 @@ div#localQuestions a {
 
 div#localQuestions li {
     position: relative;
-    background: url( ../../../img/community/local/ask_question.gif ) no-repeat;
+    background: url( /res/img/community/local/ask_question.gif ) no-repeat;
     margin-bottom: 15px;
 }
 

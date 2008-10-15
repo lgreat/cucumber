@@ -4,7 +4,7 @@ div#localQuestions {
     min-height: 310px;
     height: auto !important;
     height: 310px;
-    background: url( ../../../img/community/local/localBackground.gif ) no-repeat scroll -3px;
+    background: url( /res/img/community/local/localBackground.gif ) no-repeat scroll -3px;
     font-family: Trebuchet MS, sans-serif;
     font-size: 12px;
     line-height: 15px;
