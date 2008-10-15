@@ -1,17 +1,17 @@
 h1#stateStandardsText {
-    background: url( "../../img/content/stateStandards/learningStandards.gif" ) no-repeat;
+    background: url(/res/img/content/stateStandards/learningStandards.gif) no-repeat;
 }
 
 h2#moreFromGreatSchools {
-    background: url( "../../img/content/stateStandards/more_from_greatschools.gif" ) no-repeat;
+    background: url(/res/img/content/stateStandards/more_from_greatschools.gif) no-repeat;
 }
 
 h2#stateStandardsHead {
-    background: url( "../../img/content/stateStandards/stateStandards.gif" ) no-repeat;
+    background: url(/res/img/content/stateStandards/stateStandards.gif) no-repeat;
 }
 
 h2#nationalStandardsHead {
-    background: url( "../../img/content/stateStandards/nationalStandards.gif" ) no-repeat;
+    background: url(/res/img/content/stateStandards/nationalStandards.gif) no-repeat;
 }
 
 #contentGS .middle p.introText {

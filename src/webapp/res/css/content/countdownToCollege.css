@@ -120,7 +120,7 @@
     color: #999;
     padding: 0px 12px 4px 16px;
     margin-bottom: 1px;
-    background-image: url("../../img/content/countdownToCollege/dotOnEee.gif");
+    background-image: url(/res/img/content/countdownToCollege/dotOnEee.gif);
     background-repeat: no-repeat;
     background-position: .8ex 1.5ex;
 }
@@ -147,7 +147,7 @@
 #contentGS .middle h2#whatYourChildNeeds {
     text-indent: -9999px;
     overflow: hidden;
-    background: url("../../img/content/countdownToCollege/t_whatYourChildNeeds.gif");
+    background: url(/res/img/content/countdownToCollege/t_whatYourChildNeeds.gif);
     background-repeat: no-repeat;
     background-color: #fb0;
     background-position: 0px; 0px; 0px; 0px;
@@ -159,7 +159,7 @@
 #contentGS .middle h2#resources {
     text-indent: -9999px;
     overflow: hidden;
-    background: url("../../img/content/countdownToCollege/t_resources.gif");
+    background: url(/res/img/content/countdownToCollege/t_resources.gif);
     background-repeat: no-repeat;
     background-color: #fb0;
     background-position: 0px; 0px; 0px; 0px;
@@ -266,7 +266,7 @@ span.actionTip {
 .midDotLine {
     height: 24px;
 	font-size: xx-small;
-    background-image: url("../../img/content/countdownToCollege/mid_dot_line.gif");
+    background-image: url(/res/img/content/countdownToCollege/mid_dot_line.gif);
 	background-repeat: repeat-x;
     padding-top:0px;
     margin-bottom: 9px;
@@ -283,7 +283,7 @@ span.actionTip {
 	display: block;
 	height: 25px;
     padding-top:5px;
-    background-image: url("../../img/content/countdownToCollege/red_dot.gif");
+    background-image: url(/res/img/content/countdownToCollege/red_dot.gif);
 	background-repeat: repeat-x;
 }
 
@@ -299,7 +299,7 @@ span.actionTip {
 	margin-bottom: 8px;
     height: 20px;
     padding-top:3px;
-    background-image: url("../../img/content/countdownToCollege/dash_line.gif");
+    background-image: url(/res/img/content/countdownToCollege/dash_line.gif);
 	background-repeat: repeat-x;
 }
 

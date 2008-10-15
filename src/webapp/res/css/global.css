@@ -276,7 +276,7 @@ div.featuredarticle h3 {
     .hotTopics li {
     padding: 3px 5px 3px 12px;
     margin: 2px 0px 3px 0px;
-    background: url( ../img/bullet/bullet_blueball.gif ) 2px 7px no-repeat;
+    background: url( /res/img/bullet/bullet_blueball.gif ) 2px 7px no-repeat;
 }
 
 .featuredarticles li.new  img,
@@ -428,7 +428,7 @@ div.about li {
 .schoolchoicecenter pdf_li {
     margin-top: 3px;
     margin-bottom: 3px;
-    list-style-image: url( ../img/adobe/pdficon.gif )
+    list-style-image: url( /res/img/adobe/pdficon.gif )
 }
 
 .featuredarticle {
@@ -508,7 +508,7 @@ div.about li {
 .singleTextOnlyColumnLayout .contentGS ul li {
     padding: 3px 5px 3px 12px;
     margin: 2px 0px 3px 0px;
-    background: url( ../img/bullet/bullet_blueball.gif ) 2px 7px no-repeat;
+    background: url( /res/img/bullet/bullet_blueball.gif ) 2px 7px no-repeat;
 }
 
 .singleTextOnlyColumnLayout .contentGS ol li {

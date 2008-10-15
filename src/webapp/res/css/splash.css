@@ -56,12 +56,12 @@
 
 
 #findAndCompare #findAndCompareSchoolsNationwide h3 {
-    background-image: url( ../img/splash/findAndCompare.gif ); /* Phark */
+    background-image: url( /res/img/splash/findAndCompare.gif ); /* Phark */
     margin-bottom: 9px;
 }
 
 #findAndCompare #getIdeasAndLearnMoreAbout h3 {
-    background-image: url( ../img/splash/getIdeasAndLearnMoreAboutTrans.gif ); /* Phark */
+    background-image: url( /res/img/splash/getIdeasAndLearnMoreAboutTrans.gif ); /* Phark */
     margin-bottom: 2px;
 }
 

@@ -1,6 +1,6 @@
 h1#preschoolText {
     text-indent: -5000px;
-    background: url( "/res/img/GS_Preschool_headertext.gif" ) no-repeat;
+    background: url( "/res/img/GS_Preschool_headertext.gif) no-repeat;
     width: 155px;
     height: 192px;
     float: left;
@@ -10,28 +10,28 @@ h1#preschoolText {
 
 h2#choosingAPreschool {
     text-indent: -5000px;
-    background: url( "/res/img/choosing_a_preschool.gif" ) no-repeat;
+    background: url( "/res/img/choosing_a_preschool.gif) no-repeat;
     width: 365px;
     height: 26px;
 }
 
 h2#preschoolerAndLearning {
     text-indent: -5000px;
-    background: url( "/res/img/your_preschooler.gif" ) no-repeat;
+    background: url( "/res/img/your_preschooler.gif) no-repeat;
     width: 365px;
     height: 26px;
 }
 
 h2#funActivities {
     text-indent: -5000px;
-    background: url( "/res/img/fun_activities_for_your_preschooler.gif" ) no-repeat;
+    background: url( "/res/img/fun_activities_for_your_preschooler.gif) no-repeat;
     width: 365px;
     height: 26px;
 }
 
 h2#gettingReady {
     text-indent: -5000px;
-    background: url( "/res/img/getting_ready_for_kindergarten.gif" ) no-repeat;
+    background: url( "/res/img/getting_ready_for_kindergarten.gif) no-repeat;
     width: 365px;
     height: 26px;
 }

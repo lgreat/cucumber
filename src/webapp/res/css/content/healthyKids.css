@@ -1,6 +1,6 @@
 h1#healthyKidsText {
     text-indent: -5000px;
-    background: url( "../../img/content/healthyKids/healthykidstext.gif" ) no-repeat;
+    background: url(/res/img/content/healthyKids/healthykidstext.gif) no-repeat;
     width: 155px;
     height: 192px;
     float: left;
@@ -10,14 +10,14 @@ h1#healthyKidsText {
 
 h2#fitnessRoutine {
     text-indent: -5000px;
-    background: url( "../../img/content/healthyKids/healthy_1.gif" ) no-repeat;
+    background: url(/res/img/content/healthyKids/healthy_1.gif) no-repeat;
     width: 365px;
     height: 26px;
 }
 
 h2#healthyEating {
     text-indent: -5000px;
-    background: url( "../../img/content/healthyKids/healthy_2.gif" ) no-repeat;
+    background: url(/res/img/content/healthyKids/healthy_2.gif) no-repeat;
     width: 365px;
     height: 26px;
 }

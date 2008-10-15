@@ -1,6 +1,6 @@
 h1#title {
     text-indent: -5000px;
-    background: url( "../../img/content/mediaChoices/mediaAndYourChild.gif" ) no-repeat;
+    background: url(/res/img/content/mediaChoices/mediaAndYourChild.gif) no-repeat;
     width: 155px;
     height: 192px;
     float: left;
@@ -9,19 +9,19 @@ h1#title {
 }
 
 h2#subTitle1 {
-    background: url( "../../img/content/mediaChoices/managingYourChildsMultimediaDiet.gif" ) no-repeat;
+    background: url(/res/img/content/mediaChoices/managingYourChildsMultimediaDiet.gif) no-repeat;
 }
 
 h2#subTitle2 {
-    background: url( "../../img/content/mediaChoices/howMediaMattersToKidsHealth.gif" ) no-repeat;
+    background: url(/res/img/content/mediaChoices/howMediaMattersToKidsHealth.gif) no-repeat;
 }
 
 h2#subTitle3 {
-    background: url( "../../img/content/mediaChoices/tipsForRaisingAReader.gif" ) no-repeat;
+    background: url(/res/img/content/mediaChoices/tipsForRaisingAReader.gif) no-repeat;
 }
 
 h2#subTitle4 {
-    background: url( "../../img/content/mediaChoices/yourChildAndTechnology.gif" ) no-repeat;
+    background: url(/res/img/content/mediaChoices/yourChildAndTechnology.gif) no-repeat;
 }
 
 #contentGS .middle div#commonSenseMediaSponsor {

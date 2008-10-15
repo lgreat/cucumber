@@ -37,7 +37,7 @@ div#localQuestions div.caption {
 div#localQuestions li {
     position: relative;
     margin-bottom: 15px;
-    background: transparent url( ../../../img/community/local/localChat.gif ) no-repeat scroll left top;
+    background: transparent url( /res/img/community/local/localChat.gif ) no-repeat scroll left top;
 }
 
 div#localQuestions li div a {

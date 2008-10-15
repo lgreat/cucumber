@@ -41,7 +41,7 @@
 #editorialFooter .k12SuccessImg {
     text-indent:-50em;
 	padding: 0px 0px 12px 0px;
-	background-image: url("../../img/content/research/reading.jpg");
+	background-image: url(/res/img/content/research/reading.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 94px;
@@ -111,7 +111,7 @@
 #editorialFooter .askExpertsImg {
     text-indent:-100em;
 	padding: 0px 0px 21px 0px;
-	background-image: url("../../img/content/research/askexperts.jpg");
+	background-image: url(/res/img/content/research/askexperts.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -203,7 +203,7 @@
 
 #contentGS #editorialFooter .arrowLI {
 	padding: 0px 0px 2px 10px;
-	background-image: url("../../img/content/research/pink_arrow.gif");
+	background-image: url(/res/img/content/research/pink_arrow.gif);
 	background-repeat: no-repeat;
 	background-position: 0ex .5ex;
 	color: #3399AA;
@@ -211,7 +211,7 @@
 }
 
 #editorialFooter .redDotVert {
-	background-image: url("../../img/content/research/red_dot_vert.gif");
+	background-image: url(/res/img/content/research/red_dot_vert.gif);
 	background-repeat: repeat-y;
 }
 

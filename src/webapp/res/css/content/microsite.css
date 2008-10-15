@@ -71,7 +71,7 @@
     color: #999;
     padding: 0px 12px 4px 16px;
     margin-bottom: 1px;
-    background-image: url( "../../img/content/countdownToCollege/dotOnEee.gif" );
+    background-image: url(/res/img/content/countdownToCollege/dotOnEee.gif );
     background-repeat: no-repeat;
     background-position: .8ex 1.4ex;
 }
@@ -206,7 +206,7 @@
 #contentGS .middle div#contentHeaderImage {
     height:200px;
     border-bottom:none;
-    background: url("../../img/content/countdownToCollege/red_dot.gif") bottom repeat-x;
+    background: url(/res/img/content/countdownToCollege/red_dot.gif) bottom repeat-x;
     padding-bottom:10px;
 }
 
@@ -223,14 +223,14 @@
 
 h3#askTheExperts {
     text-indent: -5000px;
-    background-image: url( "../../img/content/backtoschool/askTheExperts.gif" );
+    background-image: url(/res/img/content/backtoschool/askTheExperts.gif );
     width: 169px;
     height: 23px;
 }
 
 h3#freeNewsletters {
     text-indent: -5000px;
-    background-image: url( "../../img/content/backtoschool/freeNewsletters.gif" );
+    background-image: url(/res/img/content/backtoschool/freeNewsletters.gif );
     width: 174px;
     height: 20px;
 }
@@ -273,7 +273,7 @@ ul.pdf{
     padding-top:5px;
 }
 ul.pdf li {
-    background: url("../../../res/img/adobe/pdficon.gif") no-repeat left;
+    background: url(/res/img/adobe/pdficon.gif) no-repeat left;
 }
 
 .byGrade a {
@@ -283,51 +283,51 @@ ul.pdf li {
 }
 
 .byGrade a.by_k {
-    background-image: url( "../../img/content/grade/hollowK.gif" );
+    background-image: url(/res/img/content/grade/hollowK.gif );
 }
 
 .byGrade a.by_k:hover {
-    background-image: url( "../../img/content/grade/blueK.gif" );
+    background-image: url(/res/img/content/grade/blueK.gif );
 }
 
 .byGrade a.by_1 {
-    background-image: url( "../../img/content/grade/hollow1.gif" );
+    background-image: url(/res/img/content/grade/hollow1.gif );
 }
 
 .byGrade a.by_1:hover {
-    background-image: url( "../../img/content/grade/blue1.gif" );
+    background-image: url(/res/img/content/grade/blue1.gif );
 }
 
 .byGrade a.by_2 {
-    background-image: url( "../../img/content/grade/hollow2.gif" );
+    background-image: url(/res/img/content/grade/hollow2.gif );
 }
 
 .byGrade a.by_2:hover {
-    background-image: url( "../../img/content/grade/blue2.gif" );
+    background-image: url(/res/img/content/grade/blue2.gif );
 }
 
 .byGrade a.by_3 {
-    background-image: url( "../../img/content/grade/hollow3.gif" );
+    background-image: url(/res/img/content/grade/hollow3.gif );
 }
 
 .byGrade a.by_3:hover {
-    background-image: url( "../../img/content/grade/blue3.gif" );
+    background-image: url(/res/img/content/grade/blue3.gif );
 }
 
 .byGrade a.by_4 {
-    background-image: url( "../../img/content/grade/hollow4.gif" );
+    background-image: url(/res/img/content/grade/hollow4.gif );
 }
 
 .byGrade a.by_4:hover {
-    background-image: url( "../../img/content/grade/blue4.gif" );
+    background-image: url(/res/img/content/grade/blue4.gif );
 }
 
 .byGrade a.by_5 {
-    background-image: url( "../../img/content/grade/hollow5.gif" );
+    background-image: url(/res/img/content/grade/hollow5.gif );
 }
 
 .byGrade a.by_5:hover {
-    background-image: url( "../../img/content/grade/blue5.gif" );
+    background-image: url(/res/img/content/grade/blue5.gif );
 }
 
 /* text ads */

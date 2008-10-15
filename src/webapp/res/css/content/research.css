@@ -122,7 +122,7 @@ a.arrowLink:hover {
 .yellowArrow {
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-	background-image: url("../../img/content/research/yellow_arrow.gif");
+	background-image: url(/res/img/content/research/yellow_arrow.gif);
 	background-repeat: no-repeat;
 	background-position: 7px 0px;
 	width: 22px;
@@ -130,7 +130,7 @@ a.arrowLink:hover {
 
 .goBlue {
 	padding: 5px 0px 0px 0px;
-	background-image: url("../../img/content/research/go_blue.gif");
+	background-image: url(/res/img/content/research/go_blue.gif);
 	background-repeat: no-repeat;
 	width: 39px;
 	height: 20px;
@@ -209,7 +209,7 @@ input.district {
     margin-top: 0px;
 	margin-right: 10px;
     height: 21px;
-    background-image: url("../../img/content/research/blue_dash.gif");
+    background-image: url(/res/img/content/research/blue_dash.gif);
 	background-repeat: repeat-x;
 }
 
@@ -219,12 +219,12 @@ input.district {
 }
 
 .blueDotVert {
-    background-image: url("../../img/content/research/blue_dot_vert.gif");
+    background-image: url(/res/img/content/research/blue_dot_vert.gif);
 	background-repeat: repeat-y;
 }
 
 .redDotVert {
-	background-image: url("../../img/content/research/red_dot_vert.gif");
+	background-image: url(/res/img/content/research/red_dot_vert.gif);
 	background-repeat: repeat-y;
 }
 
@@ -261,7 +261,7 @@ input.district {
 .k12SuccessImg {
     text-indent:-50em;
 	padding: 0px 0px 16px 0px;
-	background-image: url("../../img/content/research/img_pencil.jpg");
+	background-image: url(/res/img/content/research/img_pencil.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 94px;
@@ -303,7 +303,7 @@ input.district {
 .askExpertsImg {
     text-indent:-100em;
 	padding: 0px 0px 21px 0px;
-	background-image: url("../../img/content/research/img_books.jpg");
+	background-image: url(/res/img/content/research/img_books.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -380,7 +380,7 @@ div.healthyKids {
 
 #contentGS .arrowLI {
 	padding: 0px 0px 2px 10px;
-	background-image: url("../../img/content/research/pink_arrow.gif");
+	background-image: url(/res/img/content/research/pink_arrow.gif);
 	background-repeat: no-repeat;
 	background-position: 0ex .5ex;
 	color: #3399AA;
@@ -391,7 +391,7 @@ div.healthyKids {
 	border: 1px solid #DDEEEE;
 	padding: 2px 2px 2px 2px;
     text-indent:-1000em;
-    background-image: url("../../img/content/research/lrosenthal.jpg");
+    background-image: url(/res/img/content/research/lrosenthal.jpg);
 	background-repeat: no-repeat;
 	background-position: 2px; 2px; 2px; 2px;
 	width: 53px;
@@ -465,7 +465,7 @@ td#leftBox {
 
 #contentGS .dearParentsLI {
 	padding: 1px 0px 8px 10px;
-	background-image: url("../../img/content/research/grey_dot.gif");
+	background-image: url(/res/img/content/research/grey_dot.gif);
 	background-repeat: no-repeat;
 	background-position: 0ex .8ex;
 	color: #666666;
