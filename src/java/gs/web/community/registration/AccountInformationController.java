@@ -191,6 +191,8 @@ public class AccountInformationController extends SimpleFormController implement
             setSuccessView(redirectUrl);
         }
 
+        Date updated = new Date();
+
         AccountInformationCommand command = (AccountInformationCommand) commandObj;
 
         User user = _userDao.findUserFromId(command.getMemberId());
@@ -213,7 +215,7 @@ public class AccountInformationController extends SimpleFormController implement
                 Student student = new Student();
                 student.setGrade(studentCommand.getGrade());
                 student.setState(studentCommand.getState());
-                student.setUpdated(new Date());
+                student.setUpdated(updated);
                 student.setOrder(counter++);
                 if (studentCommand.getSchoolId() == -1) {
                     student.setSchoolId(null);
@@ -223,6 +225,8 @@ public class AccountInformationController extends SimpleFormController implement
                 user.addStudent(student);
             }
         }
+
+        user.getUserProfile().setUpdated(updated);
 
         // saves gender, state, city, students
         _userDao.saveUser(user);
