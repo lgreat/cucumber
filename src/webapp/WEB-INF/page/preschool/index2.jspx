@@ -63,11 +63,6 @@
         }
         </style>
     <![endif]-->
-    <!--[if IE7]>
-        #more-info ul.topKDiscussions {
-             margin-top: 70px;
-        }
-    <![endif]-->
     ]]>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
@@ -124,9 +119,8 @@
 
         <div class="text">
             <p>
-                We offer information on nearly 100,000 preschools
-                throughout the country, enabling you
-                to easily find the right fit for your child.
+                Information on nearly 100,000 preschools
+                throughout the country. Find the right fit for your child.
             </p>
 
             <form action="/search/search.page" method="get" accept-charset="UTF-8">
@@ -169,7 +163,7 @@
             <hr/>
         </div>
 
-        <h3>Getting Started</h3>
+        <h3>Get Started</h3>
 
         <div>
             <ul>
@@ -186,7 +180,7 @@
             <hr/>
         </div>
 
-        <h3 class="quotable">Top Questions from Other Parents</h3>
+        <h3 class="quotable">Top Questions From Other Parents</h3>
 
 
         <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
@@ -205,7 +199,7 @@
 
 <div id="tabbed-info" class="box">
     <div class="inner cleared">
-        <h2>Fun Activities that Support Learning</h2>
+        <h2>Fun Activities That Support Learning</h2>
 
         <div class="wrapper">
 
@@ -231,7 +225,7 @@
                     by Eve Titus
                 </p>
 
-                <p class="more"><gsweb:articlelink articleId="3607">Preschool Books &amp;gt;</gsweb:articlelink></p>
+                <p class="more"><gsweb:articlelink articleId="3607">Preschool books &amp;gt;</gsweb:articlelink></p>
 
             </div>
             <div class="column last">
@@ -242,7 +236,7 @@
                     <gsweb:articlelink articleId="3616" wrappingElement="li"/>
                 </ul>
 
-                <p class="more"><gsweb:articlelink articleId="3614">Preschool Activities &amp;gt;</gsweb:articlelink></p>
+                <p class="more"><gsweb:articlelink articleId="3614">Preschool activities &amp;gt;</gsweb:articlelink></p>
 
                 <p><img src="/res/img/preschool/ActivityImage.gif" alt="Children making drawing"/></p>
             </div>
@@ -268,7 +262,7 @@
                          alt="Kindergarten boy"/>
             <div class="column">
                 <p>
-                Better prepare your preschooler with tips and tools from our experts.
+                Prepare your preschooler with tips and tools from our experts.
                 </p>
             </div>
             </div>
@@ -286,7 +280,7 @@
                 <hr/>
             </div>
 
-            <h3 class="quotable topKDiscussions">Top Discussions About Kindergarten</h3>
+            <h3 class="quotable topKDiscussions">Discussions About Kindergarten</h3>
 
             <c:import
                     url="/content/editorialLinks.module?page=preschool_TopDiscussions&amp;type=all&amp;layout=list&amp;style=topKDiscussions&amp;linkIdPrefix=PreschoolLanding_CommDisc__b&amp;linkStyle=GS_EV5_"/>
