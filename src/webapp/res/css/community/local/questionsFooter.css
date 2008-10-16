@@ -55,6 +55,10 @@ div#localQuestions li div a {
     text-decoration: none;
 }
 
+div#localQuestions li div a:hover {
+    text-decoration: underline;
+}
+
 div#localQuestions a.localQuestionsMore {
     font-weight: normal;
     line-height: 13px;
