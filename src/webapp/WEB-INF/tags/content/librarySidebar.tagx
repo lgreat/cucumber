@@ -20,7 +20,7 @@
     <div id="sidebar">
         <div class="box">
             <div class="inner">
-                <h3>Browse Tips</h3>
+                <h3>Browse Articles</h3>
                 <ul id="browse-tips">
                     <li>
                         <a href="#grade-tips" id="gradeTips">By Grade</a>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.17 2008/10/15 00:54:50 chriskimm Exp $
+ * $Id: AllArticlesController.java,v 1.18 2008/10/16 00:17:09 chriskimm Exp $
  */
 package gs.web.content;
 
@@ -37,6 +37,8 @@ public class AllArticlesController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
+        // GS-7301 - standard requests for /content/allArticles.page are redirected
+        // to /education-topics/
         if ("301".equals(getViewName())) {
             return new ModelAndView(new RedirectView301("/education-topics/"));
         }

@@ -1171,6 +1171,13 @@
             <type>java.lang.String</type>
             <description>rel attribute, for nofollow links</description>
         </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>
     </tag>
     <tag>
         <name>forgotPassword</name>
