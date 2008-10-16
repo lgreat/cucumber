@@ -191,3 +191,8 @@ div.featured-image {
 .tags .size3 {
 	font-size: 18px;
 }
+
+#AboveFold_300x250 {
+    border-top:none;
+    margin-top:0;
+}
