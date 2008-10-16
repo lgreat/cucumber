@@ -361,13 +361,6 @@
         </div>
     </div>
 
-    <div>
-        <div id="a">one</div>
-        <div id="b">two</div>
-        <div id="a-card">card one</div>
-        <div id="b-card">card two</div>
-    </div>
-
     <div id="tagcloud" class="box">
         <div class="inner">
             <div class="wrapper">
