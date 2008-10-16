@@ -73,7 +73,7 @@
                         <c:set var="questionAskText" value="Ask about ${cityDisplayName} &amp;gt;"/>
                     </c:if>
                     <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
-                       href="http://${communityHost}/q-and-a">${questionAskText}</a>
+                       href="http://${communityHost}/q-and-a/?ask_local_question">${questionAskText}</a>
                 </variant:a>
                 <variant:b>
                     <img class="localQuestionsLogo" src="/res/img/community/local/localLogo_vertical.gif" alt="Local"/>
@@ -85,7 +85,7 @@
                         <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
                     </content:feed>
                     <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
-                       href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
+                       href="http://${communityHost}/q-and-a/?ask_local_question"><gsml:img
                             src="/res/img/community/local/askQuestionButton.gif" alt="Ask a question"/></a>
                     <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
                        href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions">Read more local questions &amp;gt;</a>
