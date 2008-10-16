@@ -38,8 +38,10 @@
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             String communityHost = sessionContext.getSessionContextUtil().getCommunityHost(request);
             String url = "http://" + communityHost +
-                    "/category/feed/?category=all,none&amp;type=question&amp;loc_id=" + request.getParameter("cityId") +
-                    "&amp;limit=" + numberOfEntriesToShow;
+                    "/feed/local_module/?loc_id=" + request.getParameter("cityId");
+            // trying out the new feed as above. Old feed is commented below for reference
+//                    "/category/feed/?category=all,none&amp;type=question&amp;loc_id=" + request.getParameter("cityId") +
+//                    "&amp;limit=" + numberOfEntriesToShow;
 
             request.setAttribute("communityHost", communityHost);
             request.setAttribute("communityFeedUrl", url);
