@@ -127,7 +127,7 @@
         ITestDataSetDao testDataSetDao = (ITestDataSetDao) ac.getBean(ITestDataSetDao.BEAN_ID);
         privateTestData = testDataSetDao.hasDisplayableData(school);
     }
-    request.setAttribute("privateHasTestData",privateTestData);
+    request.setAttribute("privateHasTestfData",privateTestData);
     
 
     ]]></jsp:scriptlet>
@@ -224,10 +224,13 @@
 
     <div id="breadcrumbs">
         <ul>
-            <li><link:research state="${state}" title="${state.longName} schools">${state.longName} schools</link:research> &gt; </li>
+            <li><link:research state="${state}" title="${state.longName} schools">${state.longName} schools</link:research> &amp;gt; </li>
             <li><link:city city="${city}" state="${school.physicalAddress.state}" title="${city} schools">${city} schools</link:city>&amp;#160;</li>
             <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
-                <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}" title="District information">${school.district.name}</link:districtProfile></li>
+                <li>&amp;gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}" title="District information">${school.district.name}</link:districtProfile></li>
+            </c:if>
+            <c:if test="${school.levelCode == 'p'}">
+                <li>&amp;gt; <link:schools cityName="${city}" levelCode="p">${city} preschools</link:schools></li>
             </c:if>
         </ul>
     </div>
@@ -424,6 +427,9 @@
                     </c:if>
                 </c:when>
                 <c:when test="${tab ne 'overview'}">
+                    <c:if test="${school.levelCode == 'p'}">
+                        ${delimiter} <link:schools cityName="${city}" levelCode="p">${city} preschools</link:schools>
+                    </c:if>
                     ${delimiter} <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
                 </c:when>
             </c:choose>
