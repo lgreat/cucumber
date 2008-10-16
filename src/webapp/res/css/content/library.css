@@ -99,8 +99,9 @@
 
 div.featured {
     position:relative;
-    padding:0 0 0 50px;
+    padding:0 0 0 55px;
     width:90px;
+    height:60px;
 }
 
 div.blah {
@@ -108,20 +109,6 @@ div.blah {
     clear:both;
     left:0;
     top:0;
-}
-
-#tabbed-info .featured-book {
-	padding: 0 0 0 55px;
-	min-height: 70px;
-	height: auto !important;
-	height: 70px;
-	position: relative;
-}
-
-#tabbed-info .featured-book img {
-	position: absolute;
-	top: 0px;
-	left: 0px;
 }
 
 #quotable {
