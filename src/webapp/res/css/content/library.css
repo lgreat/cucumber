@@ -40,7 +40,7 @@
 }
 
 #tabbed-info {
-
+    font-size:13px;
 }
 
 #tabbed-info h3 {
@@ -96,6 +96,9 @@
 	margin: 0 0 5px;
 }
 
+#tabbed-info div.gradelevel-books {
+     text-align:right;
+}
 
 div.featured {
     position:relative;
@@ -151,7 +154,7 @@ div.featured-image {
 
 #tagcloud {
 	background-image: url(/res/img/library/right-box3-bottom.png);
-	padding-bottom: 6px;
+	padding-bottom: 16px;
 }
 
 #tagcloud .inner {
