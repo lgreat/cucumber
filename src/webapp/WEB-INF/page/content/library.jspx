@@ -137,7 +137,7 @@
             <div class="featured-image">
                 <img src="/res/img/library/AreYouReadyforBedv2.jpg" alt="Are You Ready for Bed?"></img>
             </div>
-            <gsweb:articlelink articleId="3607">Are Your Ready for Bed?</gsweb:articlelink> by Cornelius P. Mud
+            <gsweb:articlelink articleId="3607">Are Your Ready for Bed?</gsweb:articlelink>
         </div>
         <ul>
             <li><gsweb:articlelink articleId="3607">My Friend Rabbit</gsweb:articlelink></li>
@@ -171,7 +171,7 @@
             <div class="featured-image">
                 <img src="/res/img/library/LibraryLion.jpg" alt="Library Lion"></img>
             </div>
-            <gsweb:articlelink articleId="622" anchorName="Lion">Library Lion</gsweb:articlelink> by Michelle Knudsen
+            <gsweb:articlelink articleId="622" anchorName="Lion">Library Lion</gsweb:articlelink>
         </div>
         <ul>
             <li><gsweb:articlelink articleId="622" anchorName="School">Books About School</gsweb:articlelink></li>
@@ -201,7 +201,7 @@
             <div class="featured-image">
                 <img src="/res/img/library/Book_EmilysFirst.jpg" alt="Emily's First 100 Days of School"/>
             </div>
-            <gsweb:articlelink articleId="623" anchorName="Emily">Emily's First 100 Days of School</gsweb:articlelink> by Rosemary Wells
+            <gsweb:articlelink articleId="623" anchorName="Emily">Emily's First 100 Days of School</gsweb:articlelink>
         </div>
         <ul>
             <li><gsweb:articlelink articleId="623" anchorName="School">Books About School</gsweb:articlelink></li>
@@ -229,7 +229,7 @@
             <div class="featured-image">
                 <img src="/res/img/library/diaryofaworm.jpg" alt="Diary of a Worm"/>
             </div>
-            <gsweb:articlelink articleId="624" anchorName="Diary">Diary of a Worm</gsweb:articlelink> by Doreen Cronin
+            <gsweb:articlelink articleId="624" anchorName="Diary">Diary of a Worm</gsweb:articlelink>
         </div>
         <ul>
             <li><gsweb:articlelink articleId="624" anchorName="Friends">All About Friends</gsweb:articlelink></li>
@@ -258,7 +258,7 @@
             <div class="featured-image">
                 <img src="/res/img/library/cleansea.jpg" alt="Clean Sea: The Story of Rachel Carson"/>
             </div>
-            <gsweb:articlelink articleId="625" anchorName="Clean">Clean Sea: The Story of Rachel Carson</gsweb:articlelink> by Carol Hilgartner Schlank, Barbara Metzger
+            <gsweb:articlelink articleId="625" anchorName="Clean">Clean Sea: The Story of Rachel Carson</gsweb:articlelink>
         </div>
         <ul>
             <li><gsweb:articlelink articleId="625" anchorName="Fantasy">Fantasy Books</gsweb:articlelink></li>
@@ -287,7 +287,7 @@
             <div class="featured-image">
                 <img src="/res/img/library/OutFromBoneville.jpg" alt="Out From Boneville"/>
             </div>
-            <gsweb:articlelink articleId="677" anchorName="Bone">Bone #1: Out From Boneville</gsweb:articlelink> by Jeff Smith
+            <gsweb:articlelink articleId="677" anchorName="Bone">Bone #1: Out From Boneville</gsweb:articlelink>
         </div>
         <ul>
             <li><gsweb:articlelink articleId="677" anchorName="Adventure">Adventure Stories</gsweb:articlelink></li>
@@ -316,7 +316,7 @@
             <div class="featured-image">
                 <img src="/res/img/library/TheLightPrincess.gif" alt="The Light Princess"/>
             </div>
-            <gsweb:articlelink articleId="678" anchorName="Light">The Light Princess</gsweb:articlelink> by George McDonald
+            <gsweb:articlelink articleId="678" anchorName="Light">The Light Princess</gsweb:articlelink>
         </div>
         <ul>
             <li><gsweb:articlelink articleId="678" anchorName="Classic">Classic Childhood Favorites</gsweb:articlelink></li>

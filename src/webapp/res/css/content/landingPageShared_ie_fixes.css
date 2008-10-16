@@ -53,6 +53,10 @@
 	padding: 5px 0 0 30px;
 }
 
+h3#quotable {
+	background: url(/res/img/library/quote_bubble.png) no-repeat left 54px;
+}
+
 .quotable {
 	background-position: left 8px;
 	height: 23px;

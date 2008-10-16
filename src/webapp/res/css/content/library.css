@@ -115,7 +115,7 @@ div.featured-image {
 }
 
 #quotable {
-	background: url(/res/img/library/quote_bubble.png) no-repeat left 54px;
+	background: url(/res/img/library/quote_bubble.png) no-repeat 0 3px;
 	height: 22px;
 	padding: 2px 0 0 30px;
 }
