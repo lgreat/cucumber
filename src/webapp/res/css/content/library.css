@@ -127,7 +127,7 @@ div.featured-image {
 }
 
 #searchbox .inner {
-	background-image: url(/res/img/library/right-searchbox-top.png);
+	background-image: url( /res/img/library/right-searchbox-top2.png );
 	background-color: #98ca64;
 	padding-bottom: 10px;
 }
@@ -181,7 +181,7 @@ div.featured-image {
 }
 
 .tags .size1 {
-	font-size: 13;
+	font-size: 13px;
 }
 
 .tags .size2 {
