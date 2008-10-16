@@ -212,7 +212,7 @@ div.topRatedSchools {
 }
 
 div.recentParentReviews {
-    padding: 10px 0 0 0;
+    padding: 6px 0 0 0;
     margin: 10px 0 0 0;
     border-top: 1px solid #DDD;
     font-family: "Trebuchet MS", Arial, sans-serif;
@@ -249,6 +249,8 @@ div.recentParentReviews table tr td {
 .recentParentReviews .stars {
     white-space: nowrap;
     text-align: right;
+    vertical-align: middle;
+    padding-top: 3px;
 }
 
 .recentParentReviews h4 {
@@ -406,8 +408,13 @@ a#nearbyCityLink:hover, #cityrating a#nearbyCityLink:hover, a.callToAction:hover
 .gsBlog {
     padding: 10px 5px;
     margin: 10px 0;
-    border-top: 1px solid #DDD;
+    border-top: 2px solid #66CCCC;
     font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+div.belowGSBlog {
+    border-top-width: 2px;
+    border-top-color: #66CCCC;
 }
 
 .gsBlog .header {

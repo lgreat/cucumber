@@ -45,7 +45,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="${(loopStatus.last)?'':'dottedLineBottomBox'}">
-                    <h5>${review.date}</h5>
+                    <h5>Posted ${review.date}</h5>
                 </td>
             </tr>
         </c:forEach>
