@@ -43,7 +43,6 @@
 
 
 <body class="www  unframed" >
-<!--onload="relocateDeferredContent();">-->
 
 <div id="pageWrapper" class="cleared">
 
@@ -135,7 +134,7 @@
     <div class="column">
         <h4>Books</h4>
         <div class="featured">
-            <div class="blah">
+            <div class="featured-image">
                 <img src="/res/img/library/AreYouReadyforBedv2.jpg" alt="Are You Ready for Bed?"></img>
             </div>
             <a href="#">Are Your Ready for Bed?</a>
@@ -162,7 +161,7 @@
     <div class="column">
         <h4>Books (k)</h4>
         <div class="featured">
-            <div class="blah">
+            <div class="featured-image">
                 <img src="/res/img/library/LibraryLion.jpg" alt="Library Lion"></img>
             </div>
             <a href="#">Library Lion</a> by Michelle Knudsen
@@ -189,7 +188,7 @@
     <div class="column">
         <h4>Books (1)</h4>
         <div class="featured">
-            <div class="blah">
+            <div class="featured-image">
                 <img src="/res/img/library/Book_EmilysFirst.jpg" alt="Emily's First 100 Days of School"/>
             </div>
             <a href="#">Emily's First 100 Days of School</a>
@@ -214,7 +213,7 @@
     <div class="column">
         <h4>Books (2)</h4>
         <div class="featured">
-            <div class="blah">
+            <div class="featured-image">
                 <img src="/res/img/library/diaryofaworm.jpg" alt="Diary of a Worm"/>
             </div>
             <a href="#">Diary of a Worm</a>
@@ -240,7 +239,7 @@
     <div class="column">
         <h4>Books (3)</h4>
         <div class="featured">
-            <div class="blah">
+            <div class="featured-image">
                 <img src="/res/img/library/cleansea.jpg" alt="Clean Sea: The Story of Rachel Carson"/>
             </div>
             <a href="#">Clean Sea: The Story of Rachel Carson</a>
@@ -266,7 +265,7 @@
     <div class="column">
         <h4>Books (4)</h4>
         <div class="featured">
-            <div class="blah">
+            <div class="featured-image">
                 <img src="/res/img/library/OutFromBoneville.jpg" alt="Out From Boneville"/>
             </div>
             <a href="#">Bone #1: Out From Boneville</a>            
@@ -292,7 +291,7 @@
     <div class="column">
         <h4>Books (5)</h4>
         <div class="featured">
-            <div class="blah">
+            <div class="featured-image">
                 <img src="/res/img/library/TheLightPrincess.gif" alt="The Light Princess"/>
             </div>
             <a href="#">The Light Princess</a>
@@ -335,7 +334,7 @@
 
             <form accept-charset="UTF-8" action="/search/search.page" method="get">
                 <input class="text" type="text" name="q" />
-                <input type="image" src="/res/img/library/go-button.png" alt="GO"/>
+                <input id="search_go" type="image" src="/res/img/library/go-button.png" alt="GO"/>
                 <input type="hidden" value="topic" name="c" />
             </form>
         </div>
@@ -366,7 +365,7 @@
             <div class="wrapper">
                 <h3>Popular Topics</h3>
 
-                <![CDATA[
+                <![CDATA[                                                                   
                 <div class="tags">
                     <span><a href="/search/search.page?search_type=0&amp;q=math&amp;c=topic" class="size3" rel="nofollow">math</a></span>
                     <span><a href="/search/search.page?search_type=0&amp;q=school+uniforms&amp;c=topic" class="size2" rel="nofollow">school uniforms</a></span>

@@ -104,7 +104,7 @@ div.featured {
     height:60px;
 }
 
-div.blah {
+div.featured-image {
     position:absolute;
     clear:both;
     left:0;
@@ -135,6 +135,10 @@ div.blah {
 
 #searchbox input {
 	vertical-align: middle;
+}
+
+#searchbox #search_go {
+    margin: 0 0 0 3px;
 }
 
 #searchbox .text {

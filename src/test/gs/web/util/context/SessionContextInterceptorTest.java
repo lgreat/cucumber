@@ -67,5 +67,10 @@ public class SessionContextInterceptorTest extends BaseControllerTestCase {
         _request.setQueryString("q=nclb&state=ca&c=topic");
         sessionContext = ctxUtil.prepareSessionContext(_request, new MockHttpServletResponse());
         assertTrue(sessionContext.isTopicPage());
+
+        _request.setRequestURI("/education-topics/");
+        _request.setQueryString("");
+        sessionContext = ctxUtil.prepareSessionContext(_request, new MockHttpServletResponse());
+        assertTrue(sessionContext.isTopicPage());        
     }
 }
