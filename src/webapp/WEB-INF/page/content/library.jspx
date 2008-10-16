@@ -43,6 +43,7 @@
 
 
 <body class="www  unframed" >
+<ad:setSlotPrefix slotPrefix="Library"/>
 
 <div id="pageWrapper" class="cleared">
 
@@ -359,7 +360,6 @@
         </div>
     </div>
 
-    <ad:setSlotPrefix slotPrefix="Library"/>
     <ad:AboveFold_300x250/>
 
     <div id="more-info" class="box">
@@ -407,7 +407,6 @@
         </div>
     </div>
 
-    <ad:setSlotPrefix slotPrefix="Library"/>
     <ad:House_Ad_300x137 referredBy="${pageName}"/>
 </div>
 </div>
