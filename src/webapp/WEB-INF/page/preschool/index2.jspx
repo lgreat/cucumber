@@ -72,6 +72,8 @@
 
 </head>
 
+<pageHelper:setPathway pathway="LIBRARY"/>
+
 <c:set var="pageName" value="Preschool Microsite"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Preschool"/>
 <gsml:body adPageName="preschool/index" pageLayout="preschool" startAdHierarchyAtPage="true">
