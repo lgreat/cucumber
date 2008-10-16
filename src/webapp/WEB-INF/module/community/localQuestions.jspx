@@ -88,7 +88,7 @@
                        href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
                             src="/res/img/community/local/askQuestionButton.gif" alt="Ask a question"/></a>
                     <a class="localQuestionsAsk" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
-                       href="http://${communityHost}/q-and-a">Read more local questions &amp;gt;</a>
+                       href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions">Read more local questions &amp;gt;</a>
                 </variant:b>
             </div>
         </div>
