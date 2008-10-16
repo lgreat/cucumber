@@ -42,7 +42,8 @@
 </head>
 
 
-<body class="www  unframed" onunload="" onload="relocateDeferredContent();">
+<body class="www  unframed" >
+<!--onload="relocateDeferredContent();">-->
 
 <div id="pageWrapper" class="cleared">
 
@@ -52,13 +53,13 @@
 </div>
 
 <div id="main">
-<h1>Expert Tips to Help your Child Succeed in School</h1>
+<h1>Expert Articles to Help your Child Succeed in School</h1>
 
 <div id="content">
 
 <div id="intro" class="box">
     <div class="inner cleared">
-        <h2>Get School Ready!</h2>
+        <h2>Get School Savvy!</h2>
         <p class="description">What your child should know grade-by-grade.</p>
         <ul class="column">
             <li><link:preschool>Preschool</link:preschool></li>
@@ -75,12 +76,12 @@
             <li><link:articleCategoryBrowse categoryId="54">Middle School</link:articleCategoryBrowse></li>
             <li><link:articleCategoryBrowse categoryId="104">High School</link:articleCategoryBrowse></li>
         </ul>
-        <p class="column">When you should start <link:countdownToCollege>Countdown to College?</link:countdownToCollege></p>
+        <p class="column">When you should start <link:countdownToCollege>Countdown to College.</link:countdownToCollege></p>
     </div>
 </div>
 <div id="main-copy" class="box">
     <div class="inner cleared">
-        <h2>Find the Right School for Your Family</h2>
+        <h2>Find the Right School</h2>
         <img class="left" src="/res/img/library/child_and_tutor.jpg" alt=""/>
         <div class="column">
             <p>Get expert advice on choosing the best fit for your child.</p>
@@ -88,7 +89,7 @@
                 <li><link:preschool>Find the Right Preschool</link:preschool></li>
                 <li><link:schoolChoiceCenter>K-12 School Choice Tips</link:schoolChoiceCenter></li>
                 <li><gsweb:articlelink articleId="197">Public vs. Private</gsweb:articlelink></li>
-                <li><link:movingWithKids>Moving with Kids</link:movingWithKids></li>
+                <li><link:movingWithKids>Moving With Kids</link:movingWithKids></li>
             </ul>
         </div>
 
@@ -102,7 +103,7 @@
                 <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
                 <li><link:tutoring>Tutoring and Homework Help</link:tutoring></li>
                 <li><gsweb:articlelink articleId="204">Study Skills</gsweb:articlelink></li>
-                <li><gsml:a href="/search/search.page?search_type=0&amp;q=bullying&amp;state=IA&amp;c=topic">Bullying</gsml:a></li>
+                <li><gsml:a href="/search/search.page?search_type=0&amp;q=bullying&amp;c=topic">Bullying</gsml:a></li>
             </ul>
         </div>
 
@@ -124,23 +125,26 @@
 
 <div id="tabbed-info" class="box">
 <div class="inner cleared">
-<h2>Fun Activities that Support Learning</h2>
+<h2>Fun Activities That Support Learning</h2>
 
 <div class="wrapper">
-<h3><a id="preschool" href="#preschool-contents">Preschool</a></h3>
 
+
+<h3><a id="preschool" href="#preschool-contents">Preschool</a></h3>
 <div id="preschool-contents" class="contents">
     <div class="column">
         <h4>Books</h4>
-        <p class="featured-book">
-            <img src="/res/img/library/AreYouReadyforBedv2.jpg" alt="Are You Ready for Bed?"/>
-            Recommended:<br/>
+        <div class="featured">
+            <div class="blah">
+                <img src="/res/img/library/AreYouReadyforBedv2.jpg" alt="Are You Ready for Bed?"></img>
+            </div>
             <a href="#">Are Your Ready for Bed?</a>
-        </p>
+        </div>
         <ul>
             <li><gsweb:articlelink articleId="3607">My Friend Rabbit</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="3607">The Hello, Goodbye Window</gsweb:articlelink></li>
         </ul>
+        <gsweb:articlelink articleId="3607">Preschool Books &gt;</gsweb:articlelink>
     </div>
     <div class="column">
         <h4>Activities</h4>
@@ -152,20 +156,22 @@
     </div>
 </div>
 
-<h3 class="bumped"><a id="kindergarten" class="active" href="#kindergarten-contents">Kindergarten</a></h3>
+<h3><a id="kindergarten" href="#kindergarten-contents">Kindergarten</a></h3>
 
 <div id="kindergarten-contents" class="contents">
     <div class="column">
         <h4>Books (k)</h4>
-        <p class="featured-book">
-            <img src="/res/img/library/LibraryLion.jpg" alt="Library Lion"/>
-            Recommended:<br/>
-            <a href="#">Library Lion</a>
-        </p>
+        <div class="featured">
+            <div class="blah">
+                <img src="/res/img/library/LibraryLion.jpg" alt="Library Lion"></img>
+            </div>
+            <a href="#">Library Lion</a> by Michelle Knudsen
+        </div>
         <ul>
             <li><gsweb:articlelink articleId="622" anchorName="School">Books About School</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="622" anchorName="Silliness">Silliness and Humor</gsweb:articlelink></li>
         </ul>
+        <gsweb:articlelink articleId="622">Kindergarten Books &gt;</gsweb:articlelink>
     </div>
     <div class="column">
         <h4>Activities</h4>
@@ -182,41 +188,40 @@
 <div id="firstgrade-contents" class="contents">
     <div class="column">
         <h4>Books (1)</h4>
-
-        <p class="featured-book">
-            <img src="/res/img/library/Book_EmilysFirst.jpg" alt="Emily's First 100 Days of School"/>
-            Recommended:<br/>
+        <div class="featured">
+            <div class="blah">
+                <img src="/res/img/library/Book_EmilysFirst.jpg" alt="Emily's First 100 Days of School"/>
+            </div>
             <a href="#">Emily's First 100 Days of School</a>
-        </p>
-
+        </div>
         <ul>
             <li><gsweb:articlelink articleId="623" anchorName="School">Books About School</gsweb:articlelink></li>
-            <li><gsweb:articlelink articleId="623" anchorName="Joy">The Joy of Reading</gsweb:articlelink></li>            
+            <li><gsweb:articlelink articleId="623" anchorName="Joy">The Joy of Reading</gsweb:articlelink></li>
         </ul>
     </div>
     <div class="column">
         <h4>Activities</h4>
         <ul>
             <li><gsweb:articlelink articleId="1078">The "Scents" of Smell</gsweb:articlelink></li>
-            <li><gsweb:articlelink articleId="1059">Shape Walk</gsweb:articlelink></li>            
+            <li><gsweb:articlelink articleId="1059">Shape Walk</gsweb:articlelink></li>
         </ul>
         <p><img src="/res/img/library/activity_1stgr.jpg" alt="Painting Boy"/></p>
     </div>
 </div>
 
 <h3><a id="secondgrade" href="#secondgrade-contents">2nd Grade</a></h3>
-
 <div id="secondgrade-contents" class="contents">
     <div class="column">
         <h4>Books (2)</h4>
-        <p class="featured-book">
-            <img src="/res/img/library/diaryofaworm.jpg" alt="Diary of a Worm"/>
-            Recommended:<br/>
+        <div class="featured">
+            <div class="blah">
+                <img src="/res/img/library/diaryofaworm.jpg" alt="Diary of a Worm"/>
+            </div>
             <a href="#">Diary of a Worm</a>
-        </p>
+        </div>
         <ul>
             <li><gsweb:articlelink articleId="624" anchorName="Friends">All About Friends</gsweb:articlelink></li>
-            <li><gsweb:articlelink articleId="624" anchorName="Classic">Classic Childhood Favorites</gsweb:articlelink></li>            
+            <li><gsweb:articlelink articleId="624" anchorName="Classic">Classic Childhood Favorites</gsweb:articlelink></li>
         </ul>
     </div>
     <div class="column">
@@ -230,15 +235,16 @@
 </div>
 
 <h3><a id="thirdgrade" href="#thirdgrade-contents">3rd Grade</a></h3>
-
 <div id="thirdgrade-contents" class="contents">
+
     <div class="column">
         <h4>Books (3)</h4>
-        <p class="featured-book">
-            <img src="/res/img/library/cleansea.jpg" alt="Clean Sea: The Story of Rachel Carson"/>
-            Recommended:<br/>
+        <div class="featured">
+            <div class="blah">
+                <img src="/res/img/library/cleansea.jpg" alt="Clean Sea: The Story of Rachel Carson"/>
+            </div>
             <a href="#">Clean Sea: The Story of Rachel Carson</a>
-        </p>
+        </div>
         <ul>
             <li><gsweb:articlelink articleId="625" anchorName="Fantasy">Fantasy Books</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="625" anchorName="Classic">The Joy of Reading</gsweb:articlelink></li>
@@ -259,11 +265,12 @@
 <div id="fourthgrade-contents" class="contents">
     <div class="column">
         <h4>Books (4)</h4>
-        <p class="featured-book">
-            <img src="/res/img/library/OutFromBoneville.jpg" alt="Out From Boneville"/>
-            Recommended:<br/>
-            <a href="#">Bone #1: Out From Boneville</a>
-        </p>
+        <div class="featured">
+            <div class="blah">
+                <img src="/res/img/library/OutFromBoneville.jpg" alt="Out From Boneville"/>
+            </div>
+            <a href="#">Bone #1: Out From Boneville</a>            
+        </div>
         <ul>
             <li><gsweb:articlelink articleId="677" anchorName="Adventure">Adventure Stories</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="677" anchorName="Humor">Humor</gsweb:articlelink></li>
@@ -279,16 +286,17 @@
     </div>
 </div>
 
-<h3><a id="fifthgrade" href="#fifthgrade-contents">5th Grade</a></h3>
-
+<h3><a id="fifthgrade" class="active" href="#fifthgrade-contents">5th Grade</a></h3>
 <div id="fifthgrade-contents" class="contents">
+
     <div class="column">
         <h4>Books (5)</h4>
-        <p class="featured-book">
-            <img src="/res/img/library/TheLightPrincess.jpg" alt="The Light Princess"/>
-            Recommended:<br/>
+        <div class="featured">
+            <div class="blah">
+                <img src="/res/img/library/TheLightPrincess.gif" alt="The Light Princess"/>
+            </div>
             <a href="#">The Light Princess</a>
-        </p>
+        </div>
         <ul>
             <li><gsweb:articlelink articleId="678" anchorName="Classic">Classic Childhood Favorites</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="678" anchorName="Historical">Historical Fiction</gsweb:articlelink></li>
@@ -298,11 +306,13 @@
         <h4>Activities</h4>
         <ul>
             <li><gsweb:articlelink articleId="1028">Design a Book Jacket</gsweb:articlelink></li>
-            <li><gsweb:articlelink articleId="802">Make Social Studies Come Alive</gsweb:articlelink></li>            
+            <li><gsweb:articlelink articleId="802">Make Social Studies Come Alive</gsweb:articlelink></li>
         </ul>
         <p><img src="/res/img/library/activity_5thgr.jpg" alt="Hopscotch"/></p>
     </div>
+
 </div>
+
 </div>
 </div>
 </div>
@@ -310,6 +320,7 @@
 </div>
 
 <div id="supplement">
+
     <div id="topics" class="box">
         <div class="inner">
             <h3>Hot Topics</h3>
@@ -342,8 +353,19 @@
                 <li><gsml:a href="http://community.greatschools.net/groups/11528">Middle School Parents</gsml:a></li>
                 <li><gsml:a href="http://community.greatschools.net/groups/11529">High School Parents</gsml:a></li>
             </ul>
-            <p class="more"><a href="#" onclick="clickCapture.capture('eVar5', 'Library_JoinCommunity'); return true">Join Greatschools &gt;</a></p>
+            <p class="more">
+                <link:loginOrRegister onclick="clickCapture.capture('eVar5', 'Library_JoinCommunity'); return true">
+                    Join Greatschools &gt;
+                </link:loginOrRegister>
+            </p>
         </div>
+    </div>
+
+    <div>
+        <div id="a">one</div>
+        <div id="b">two</div>
+        <div id="a-card">card one</div>
+        <div id="b-card">card two</div>
     </div>
 
     <div id="tagcloud" class="box">
@@ -351,25 +373,25 @@
             <div class="wrapper">
                 <h3>Popular Topics</h3>
 
+                <![CDATA[
                 <div class="tags">
-                    <gsml:a href="" styleClass="size3">math</gsml:a>
-                    <gsml:a href="" styleClass="size1">learning games</gsml:a>
-                    <gsml:a href="" styleClass="size1">school uniforms</gsml:a>
-                    <gsml:a href="" styleClass="size1">standardized testing</gsml:a>
-                    <gsml:a href="" styleClass="size3">reading</gsml:a>
-                    <gsml:a href="" styleClass="size3">autism</gsml:a>
-                    <gsml:a href="" styleClass="size1">NCLB</gsml:a>
-                    <gsml:a href="" styleClass="size1">school choice</gsml:a>
-                    <gsml:a href="" styleClass="size2">children's books</gsml:a>
-                    <gsml:a href="" styleClass="size1">asperger's</gsml:a>
-                    <gsml:a href="" styleClass="size1">phonics</gsml:a>
-                    <gsml:a href="" styleClass="size1">homeschooling</gsml:a>
-                    <gsml:a href="" styleClass="size2">ADHD</gsml:a>
-                    <gsml:a href="" styleClass="size2">child development</gsml:a>
-                    <gsml:a href="" styleClass="size3">science</gsml:a>
-                    <gsml:a href="" styleClass="size3">vocabulary</gsml:a>
-                    <gsml:a href="" styleClass="size2">social studies</gsml:a>
+                    <span><a href="/search/search.page?search_type=0&amp;q=math&amp;c=topic" class="size3" rel="nofollow">math</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=school+uniforms&amp;c=topic" class="size2" rel="nofollow">school uniforms</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=reading&amp;c=topic" class="size3" rel="nofollow">reading</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=autism&amp;c=topic" class="size3" rel="nofollow">autism</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=NCLB&amp;c=topic" class="size1" rel="nofollow">NCLB</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=school+choice&amp;c=topic" class="size1" rel="nofollow">school choice</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=childrens+books&amp;c=topic" class="size2" rel="nofollow">children's books</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=aspergers&amp;c=topic" class="size1" rel="nofollow">asperger's</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=phonics&amp;c=topic" class="size1" rel="nofollow">phonics</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=homeschooling&amp;c=topic" class="size2" rel="nofollow">homeschooling</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=ADHD&amp;c=topic" class="size2" rel="nofollow">ADHD</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=child+development&amp;c=topic" class="size2" rel="nofollow">child development</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=science&amp;c=topic" class="size3" rel="nofollow">science</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=vocabulary&amp;c=topic" class="size3" rel="nofollow">vocabulary</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=social+studies&amp;c=topic" class="size2" rel="nofollow">social studies</a></span>
                 </div>
+                ]]>
             </div>
         </div>
     </div>

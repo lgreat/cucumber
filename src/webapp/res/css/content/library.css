@@ -96,6 +96,20 @@
 	margin: 0 0 5px;
 }
 
+
+div.featured {
+    position:relative;
+    padding:0 0 0 50px;
+    width:90px;
+}
+
+div.blah {
+    position:absolute;
+    clear:both;
+    left:0;
+    top:0;
+}
+
 #tabbed-info .featured-book {
 	padding: 0 0 0 55px;
 	min-height: 70px;
@@ -164,16 +178,20 @@
 	padding: 1px 10px 0;
 }
 
+.tags {
+    text-align:justify;
+}
+
 .tags a {
 	padding: 0 1px;
 }
 
 .tags .size1 {
-	font-size: 11px;
+	font-size: 13;
 }
 
 .tags .size2 {
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .tags .size3 {
