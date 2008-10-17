@@ -481,9 +481,10 @@ function reloadPageWithFilters(sortColId) {
                         showAll="${not empty param.showall}"
                         rel="nofollow"
                         styleClass="noInterstitial"> Charter</link:schools></label>
-                <label><gsml:checkbox name="type_schools[]"
+                <label class="${isCityBrowse ? '' : 'hidden' }"><gsml:checkbox name="type_schools[]"
                                       checked="${privateChecked}"
                                       styleId="type_schools_private"
+                                      styleClass="${isCityBrowse ? '' : 'hidden' }"
                                       onclick="reloadPageWithFilters();"/><link:schools
                         cityName="${cityName}"
                         districtId="${district}"
@@ -492,6 +493,7 @@ function reloadPageWithFilters(sortColId) {
                         showAll="${not empty param.showall}"
                         rel="nofollow"
                         styleClass="noInterstitial"> Private</link:schools></label>
+
             </div>
             <c:if test="${not empty results.schools}">
                 <select id="resultsPerPageSelector" onchange="reloadPageWithFilters();">
