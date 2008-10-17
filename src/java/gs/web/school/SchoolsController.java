@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.74 2008/10/15 22:49:42 yfan Exp $
+ * $Id: SchoolsController.java,v 1.75 2008/10/17 19:54:10 yfan Exp $
  */
 
 package gs.web.school;
@@ -33,6 +33,7 @@ import org.apache.lucene.search.SortField;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -200,7 +201,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                     // remove any "lc" parameters
                     String queryString = request.getQueryString().replaceAll("&?lc=[^&]*","");
                     String redirectUrl = request.getRequestURI() + "?" + queryString;
-                    return new ModelAndView(new RedirectView301(redirectUrl));
+                    return new ModelAndView(new RedirectView(redirectUrl));
                 }
             }
         } else {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.45 2008/10/15 22:49:42 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.46 2008/10/17 19:54:10 yfan Exp $
  */
 
 package gs.web.school;
@@ -90,7 +90,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setQueryString("district=717&state=CA&lc=e&lc=m&showall=1");
         _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
         mAndV = _controller.handleRequestInternal(request, getResponse());
-        assertTrue(mAndV.getView() instanceof RedirectView301);
+        assertTrue((mAndV.getView() instanceof RedirectView) && !(mAndV.getView() instanceof RedirectView301));
         assertEquals("/schools.page?district=717&state=CA&showall=1", ((RedirectView) mAndV.getView()).getUrl());
     }
 
