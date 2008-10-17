@@ -179,6 +179,7 @@
         </div>
     </div>
     <div class="column">
+        <h4>Activities</h4>
         <ul>
             <li><gsweb:articlelink articleId="1201">Word Family Flip Book</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="720">Fruit Fractions</gsweb:articlelink></li>
