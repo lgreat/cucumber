@@ -48,6 +48,7 @@
                 <entry key="/schools/**" value="/schools/allInState.page"/>
                 <entry key="/preschool/**" value="/preschool/index.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
+                <entry key="/school/parentReviews/submit" value="/school/parentReviews/submit.page"/>
             </map>
         </property>
     </bean>
@@ -1345,6 +1346,18 @@
         <property name="tableDao">
             <bean factory-bean="testScoreLandingPageTableFactory" factory-method="getTableDao"/>
         </property>
+    </bean>
+
+    <bean name="/school/parentReviews/submit.page"
+          class="gs.web.school.review.SubmitParentFeedbackController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="submitParentFeedbackCommand"/>
+        <property name="commandClass" value="gs.web.school.review.SubmitParentFeedbackCommand"/>
+        <property name="formView" value="/school/parentReviews/submitParentFeedback"/>
+        <property name="levelCodes" value="p"/>
+        <property name="omniturePageName" value="Rating Review Submit Page"/>
+        <property name="omnitureHierarchy" value="School,Parent Reviews,Rating Review Submit Page"/>
     </bean>
 
     <bean name="/test/schoolsInCity.page"

@@ -53,11 +53,17 @@ public class SchoolsInCityAjaxController implements Controller {
     protected void outputSchoolSelect(HttpServletRequest request, PrintWriter out, LevelCode filter) {
         State state = _stateManager.getState(request.getParameter("state"));
         String city = request.getParameter("city");
+        String includePrivateSchoolsStr = request.getParameter("includePrivateSchools");
+        boolean includePrivateSchools = (StringUtils.isNotBlank(includePrivateSchoolsStr) ? Boolean.valueOf(includePrivateSchoolsStr) : false);
+        String chooseSchoolLabel = request.getParameter("chooseSchoolLabel");
+        if (StringUtils.isBlank(chooseSchoolLabel)) {
+            chooseSchoolLabel = "2. Choose school";
+        }
         List<School> schools = _schoolDao.findSchoolsInCity(state, city, false);
         out.println("<select id=\"schoolSelect\" name=\"sid\" class=\"selectSchool\">");
-        out.println("<option value=\"\">2. Choose school</option>");
+        out.println("<option value=\"\">" + chooseSchoolLabel + "</option>");
         for (School school : schools) {
-            if (school.getType() != SchoolType.PRIVATE) {
+            if (includePrivateSchools || school.getType() != SchoolType.PRIVATE) {
                 if (filter != null) {
                     if (!filter.containsSimilarLevelCode(school.getLevelCode())) {
                         continue;
