@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.47 2008/10/17 20:02:12 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.48 2008/10/20 20:46:29 aroy Exp $
  */
 
 package gs.web.school;
@@ -20,7 +20,6 @@ import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.search.SchoolSearchResult;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.DirectoryStructureUrlFactory;
 import gs.web.util.RedirectView301;
 import static org.easymock.EasyMock.*;
 import org.springframework.validation.BindException;
@@ -670,7 +669,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Elementary Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY, null));
         assertEquals("San Francisco Middle Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE, null));
         assertEquals("San Francisco High Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.HIGH, null));
-        assertEquals("San Francisco Preschools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.PRESCHOOL, null));
+        assertEquals("San Francisco Preschools and Daycare Centers - GreatSchools", SchoolsController.calcCitySchoolsTitle("San Francisco", LevelCode.PRESCHOOL, null));
 
         assertEquals("San Francisco Public Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
         assertEquals("San Francisco Private Schools", SchoolsController.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
@@ -685,8 +684,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("View and map all San Francisco public elementary schools. Plus, compare or save public elementary schools.",
                 SchoolsController.calcMetaDesc(null, "San Francisco", LevelCode.ELEMENTARY, new String[]{"public"}));
 
-        assertEquals("View and map all San Francisco public preschool schools. Plus, compare or save public preschool schools.",
-                SchoolsController.calcMetaDesc(null, "San Francisco", LevelCode.PRESCHOOL, new String[]{"public"}));
+        assertEquals("Find the best preschools in San Francisco, California (CA) - view preschool ratings, reviews and map locations.",
+                SchoolsController.calcMetaDesc(null, "San Francisco", State.CA, LevelCode.PRESCHOOL, null));
 
         assertEquals("View and map all schools in the Oakland Unified School District. Plus, compare or save schools in this district.",
                 SchoolsController.calcMetaDesc("Oakland Unified School District", "Oakland", null, null));

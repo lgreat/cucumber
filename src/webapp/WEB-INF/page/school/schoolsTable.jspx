@@ -254,6 +254,7 @@ function reloadPageWithFilters(sortColId) {
                 String metadesc = SchoolsController.calcMetaDesc(
                         (String) request.getAttribute("districtDisplayName"),
                         (String) request.getAttribute("cityDisplayName"),
+                        SessionContextUtil.getSessionContext(request).getStateOrDefault(),
                         (LevelCode) request.getAttribute("lc"),
                         (String[]) request.getAttribute("st"));
                 out.print(metadesc);

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.75 2008/10/17 19:54:10 yfan Exp $
+ * $Id: SchoolsController.java,v 1.76 2008/10/20 20:46:29 aroy Exp $
  */
 
 package gs.web.school;
@@ -212,7 +212,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             model.put(MODEL_LEVEL_CODE, levelCode);
         }
 
-        String[] paramSchoolType = null;
+        String[] paramSchoolType;
         if (isDistrictBrowse) {
             paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
         } else {
@@ -584,14 +584,23 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         if (levelCode != null &&
                 levelCode.getCommaSeparatedString().length() == 1 &&
                 levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
-            sb.append("s");
+            sb.append("s and Daycare Centers - GreatSchools");
         } else {
             sb.append(" Schools");
         }
         return sb.toString();
     }
 
-    public static String calcMetaDesc(String districtDisplayName, String cityDisplayName, LevelCode levelCode, String[] schoolType) {
+    /**
+     * Kept in case any other usages exist. Use other method with State instead.
+     */
+    public static String calcMetaDesc(String districtDisplayName, String cityDisplayName,
+                                      LevelCode levelCode, String[] schoolType) {
+        return calcMetaDesc(districtDisplayName, cityDisplayName, null, levelCode, schoolType);
+    }
+
+    public static String calcMetaDesc(String districtDisplayName, String cityDisplayName,
+                                      State state, LevelCode levelCode, String[] schoolType) {
         StringBuffer sb = new StringBuffer();
         StringBuffer cityWithModifier = new StringBuffer();
         StringBuffer modifier = new StringBuffer();
@@ -626,9 +635,23 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
         if (districtDisplayName == null) {
             cityWithModifier.append(cityDisplayName).append(" ").append(modifier);
-            sb.append("View and map all ").append(cityWithModifier).
-                    append("schools. Plus, compare or save ").
-                    append(modifier).append("schools.");
+            // for preschools, do a special SEO meta description
+            if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1 &&
+                    levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+                sb.append("Find the best preschools in ").append(cityDisplayName);
+                if (state != null) {
+                    // pretty sure State can never be null here, but why take a chance?
+                    sb.append(", ").append(state.getLongName()).append(" (").
+                            append(state.getAbbreviation()).
+                            append(")");
+                }
+                sb.append(" - view preschool ratings, reviews and map locations.");
+            } else {
+                sb.append("View and map all ").append(cityWithModifier).
+                        append("schools. Plus, compare or save ").
+                        append(modifier).append("schools.");
+            }
         } else {
             sb.append("View and map all ").append(modifier).
                     append("schools in the ").append(districtDisplayName).
