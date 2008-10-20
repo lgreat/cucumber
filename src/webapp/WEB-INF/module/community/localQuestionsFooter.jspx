@@ -69,7 +69,7 @@
                        onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}'); return true"
                        href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions">Talk to parents about local schools</a>
                 </div>
-                <content:feed feedUrl="foo${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}" showCommentCount="false"
+                <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}" showCommentCount="false"
                               numberOfCharactersPerEntryToShow="100" onClick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}'); return true">
                     <!-- If no RSS content is found display this default text -->
                     <ol>
