@@ -48,7 +48,6 @@
                 <entry key="/schools/**" value="/schools/allInState.page"/>
                 <entry key="/preschool/**" value="/preschool/index.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
-                <entry key="/school/parentReviews/submit" value="/school/parentReviews/submit.page"/>
             </map>
         </property>
     </bean>
