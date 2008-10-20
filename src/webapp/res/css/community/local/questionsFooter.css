@@ -11,7 +11,7 @@ div#localQuestions {
     position: relative;
 }
 
-div#localQuestions a.noDecoration {
+div#localQuestions a.noDecoration, div#localQuestions a.noDecoration:hover {
     color: #666;
     text-decoration: none;
 }

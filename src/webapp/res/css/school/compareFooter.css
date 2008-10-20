@@ -12,7 +12,7 @@ div.editorialMoving, div.editorialChoosing {
     margin: 0;
     float: left;
     width: 275px;
-    height: 99px;
+    height: 109px;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-weight: bold;
     color:#55BBCC;
@@ -71,7 +71,7 @@ div.editorialMoving a img,
 div.editorialChoosing a img,
 div img.leftPhoto {
     float:left;
-    margin-right:12px;
+    margin-right:10px;
 }
 
 div#editorialBar img.word {

@@ -20,6 +20,7 @@
                 <jsp:include page="/community/localQuestionsFooter.module">
                     <jsp:param name="cityId" value="${city.id}"/>
                     <jsp:param name="cityDisplayName" value="${city.name}, ${city.state}"/>
+                    <jsp:param name="cityName" value="${city.name}"/>
                     <jsp:param name="callerPagename" value="overviewfooter"/>
                     <jsp:param name="maxEntries" value="1"/>
                 </jsp:include>
@@ -97,8 +98,8 @@
     <div class="editorialChoosing">
         <c:choose>
             <c:when test="${param.preschoolOnly eq true}">
-                <gsml:img src="/res/img/preschool/preschoolChildren.jpg"
-                          alt="A group of children" styleClass="leftPhoto"/>
+                <gsml:img src="/res/img/preschool/child_rest.jpg"
+                          alt="A child resting" styleClass="leftPhoto"/>
                 <gsml:img src="/res/img/preschool/kindergartenPrep.gif" alt="Kindergarten Prep"
                           styleClass="word"/>
                 <ul class="contentList">
