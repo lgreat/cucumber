@@ -327,13 +327,10 @@
         </ul>
         <p><img src="/res/img/library/activity_5thgr.jpg" alt="Hopscotch"/></p>
     </div>
-
-</div>
-
 </div>
 </div>
 </div>
-
+</div>
 </div>
 
 <div id="supplement">
@@ -341,7 +338,7 @@
     <div id="topics" class="box">
         <div class="inner">
             <h3>Hot Topics</h3>
-            <img class="right" src="/res/img/library/jackolantern.jpg" alt=""/>
+            <c:import url="/content/editorialLinks.module?page=library_HotTopics_image&amp;type=image&amp;layout=image&amp;style=right"/>            
             <c:import url="/content/editorialLinks.module?page=library_HotTopics&amp;type=all&amp;layout=list&amp;style=bulleted"/>
         </div>
     </div>

@@ -1,7 +1,6 @@
 package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.content.LinksController;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.google.GoogleSpreadsheetInfo;
 import gs.web.util.list.AnchorListModel;
@@ -9,7 +8,6 @@ import gs.web.util.list.Anchor;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.data.util.table.HashMapTableRow;
-//import static org.easymock.EasyMock.*;
 
 import static org.easymock.classextension.EasyMock.createMock;
 import static org.easymock.classextension.EasyMock.replay;
@@ -301,6 +299,50 @@ public class LinksControllerTest extends BaseControllerTestCase {
 
         modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
         assertNull("Expected null anchor list", modelAndView.getModel().get(LinksController.MODEL_ANCHOR_LIST));
+
+        verify(dao);
+    }
+
+    public void testHandleRequestInternalTypeImage() throws Exception {
+        getRequest().setParameter(LinksController.PARAM_PAGE, "library_HotTopics_image");
+        getRequest().setParameter(LinksController.PARAM_TYPE, LinksController.TYPE_IMAGE);
+        getRequest().setParameter(LinksController.PARAM_LAYOUT, LinksController.LAYOUT_IMAGE);
+
+        GoogleSpreadsheetDao dao = (GoogleSpreadsheetDao) _tableDao;
+        getRequest().setServerName("dev.greatschools.net");
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+
+        HashMapTableRow hashMapTableRow = new HashMapTableRow();
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_TEXT, "GreatSchools.net");
+        hashMapTableRow.addCell(LinksController.SPREADSHEET_URL, "http://www.greatschools.net");
+        expect(dao.getFirstRowByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(hashMapTableRow);
+        replay(dao);
+
+        ModelAndView modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
+
+        assertEquals("View name did not match " + LinksController.VIEW_NAME,
+            LinksController.VIEW_NAME, modelAndView.getViewName());
+        assertEquals("Layout did not match " + LinksController.LAYOUT_IMAGE,
+            LinksController.LAYOUT_IMAGE, modelAndView.getModel().get(LinksController.MODEL_LAYOUT));
+        assertTrue("Model did not contain anchor",
+            modelAndView.getModel().containsKey(LinksController.MODEL_ANCHOR));
+        assertTrue("Model anchor was not Anchor object",
+            modelAndView.getModel().get(LinksController.MODEL_ANCHOR) instanceof Anchor);
+
+        Anchor anchor = (Anchor) modelAndView.getModel().get(LinksController.MODEL_ANCHOR);
+        assertEquals("Anchor href was not GreatSchools.net", "GreatSchools.net", anchor.getContents());
+        assertEquals("Anchor href was not http://www.greatschools.net", "http://www.greatschools.net", anchor.getHref());
+
+        reset(dao);
+
+        expect(dao.getSpreadsheetInfo()).andReturn(new GoogleSpreadsheetInfo(null,null,null,"od6"));
+        expect(dao.getFirstRowByKey(LinksController.SPREADSHEET_PAGE,
+            getRequest().getParameter(LinksController.PARAM_PAGE))).andReturn(null);
+        replay(dao);
+
+        modelAndView = _controller.handleRequestInternal(getRequest(), getResponse());
+        assertNull("Expected null anchor", modelAndView.getModel().get(LinksController.MODEL_ANCHOR));
 
         verify(dao);
     }

@@ -34,9 +34,11 @@ public class LinksController extends AbstractController {
     public static final String PARAM_TYPE = "type";
     public static final String PARAM_LAYOUT = "layout";
     public static final String TYPE_ALL = "all";
+    public static final String TYPE_IMAGE = "image";
     public static final String TYPE_RANDOM = "random";
     public static final String TYPE_FIRST = "first";
     public static final String LAYOUT_BASIC = "basic";
+    public static final String LAYOUT_IMAGE = "image";
     public static final String LAYOUT_Q_AND_A = "q_and_a";
     public static final String LAYOUT_LIST = "list";
     public static final String MODEL_ANCHOR = "modelAnchor";
@@ -114,11 +116,17 @@ public class LinksController extends AbstractController {
             return false;
         }
 
-        if (!TYPE_FIRST.equals(type) && !TYPE_ALL.equals(type) && !TYPE_RANDOM.equals(type)) {
+        if (!TYPE_FIRST.equals(type)
+                && !TYPE_ALL.equals(type)
+                && !TYPE_RANDOM.equals(type)
+                && !TYPE_IMAGE.equals(type)) {
             return false;
         }
 
-        if (!LAYOUT_BASIC.equals(layout) && !LAYOUT_Q_AND_A.equals(layout) && !LAYOUT_LIST.equals(layout)) {
+        if (!LAYOUT_BASIC.equals(layout)
+                && !LAYOUT_Q_AND_A.equals(layout)
+                && !LAYOUT_LIST.equals(layout)
+                && !LAYOUT_IMAGE.equals(layout)) {
             return false;
         }
 
@@ -143,7 +151,7 @@ public class LinksController extends AbstractController {
 
         modelAndView.addObject("page", page);
 
-        if (TYPE_FIRST.equals(type)) {
+        if (TYPE_FIRST.equals(type) || TYPE_IMAGE.equals(type)) {
             ITableRow row = _tableDao.getFirstRowByKey(SPREADSHEET_PAGE, page);
             if (row != null) {
                 Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
@@ -151,8 +159,7 @@ public class LinksController extends AbstractController {
                 anchor.setAfter(row.getString(SPREADSHEET_AFTER));
                 modelAndView.addObject(MODEL_ANCHOR, anchor);
             }
-        }
-        else if (TYPE_RANDOM.equals(type)) {
+        } else if (TYPE_RANDOM.equals(type)) {
             ITableRow row = _tableDao.getRandomRowByKey(SPREADSHEET_PAGE, page);
             if (row != null) {
                 Anchor anchor = new Anchor(row.getString(SPREADSHEET_URL), row.getString(SPREADSHEET_TEXT));
@@ -160,8 +167,7 @@ public class LinksController extends AbstractController {
                 anchor.setAfter(row.getString(SPREADSHEET_AFTER));
                 modelAndView.addObject(MODEL_ANCHOR, anchor);
             }
-        }
-        else if (TYPE_ALL.equals(type)) {
+        } else if (TYPE_ALL.equals(type)) {
             List<ITableRow> rows = _tableDao.getRowsByKey(SPREADSHEET_PAGE, page);
             if (rows != null) {
                 AnchorListModel anchorListModel = new AnchorListModel();

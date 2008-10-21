@@ -8,6 +8,21 @@
         >
 
     <c:choose>
+        <c:when test="${requestScope.modelLayout eq 'image'}">
+            <c:if test="${!empty requestScope.modelAnchor}">
+                <c:set var="href">
+                    <c:out value="${requestScope.modelAnchor.href}" escapeXml="true"/>
+                </c:set>
+                <c:set var="alt">
+                    <c:out value="${requestScope.modelAnchor.contents}" escapeXml="true"/>
+                </c:set>
+
+                <c:set var="imgStyle">
+                    <c:if test="${not empty param.style}">${param.style}</c:if>                    
+                </c:set>
+                <img src="${href}" alt="${alt}" class="${imgStyle}"/>
+            </c:if>
+        </c:when>
         <c:when test="${requestScope.modelLayout eq 'basic'}">
             <c:if test="${!empty requestScope.modelAnchor}">
                 <c:set var="url">
