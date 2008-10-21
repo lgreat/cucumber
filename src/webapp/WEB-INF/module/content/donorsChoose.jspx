@@ -8,35 +8,39 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
+    
+    <c:if test="${not empty requestScope.proposals}">
 
-    <div class="partnership">
-        <gsml:a href="/">
-            <gsml:img src="/res/img/logo/logo_GS_148x27notag.gif" alt="GreatSchools Logo"/>
-        </gsml:a>
-        In partnership with
-        <a href="http://www.donorschoose.org/about/history.html?zone=103">
-            <gsml:img src="http://www.donorschoose.org/images/logo_trans.gif" alt="DonorsChoose.org"/>
-        </a>
-    </div>
-    <h2>Support local schools in need</h2>
-    <c:forEach var="proposal" items="${requestScope.proposals}">
-        <hr/>
-        <div class="proposal">
-            <div class="title">${proposal.title}</div>
-            <div class="description">${proposal.shortDescription}</div>
-            <div class="give">
-                $${proposal.costToComplete} needed
-                <c:set var="proposalURL"><c:out value="${proposal.proposalURL}" escapeXml="true"/></c:set>
-                <a href="${proposalURL}">Give</a>
-            </div>
+        <div class="partnership">
+            <gsml:a href="/">
+                <gsml:img src="/res/img/logo/logo_GS_148x27notag.gif" alt="GreatSchools Logo"/>
+            </gsml:a>
+            In partnership with
+            <a href="http://www.donorschoose.org/about/history.html?zone=103">
+                <gsml:img src="http://www.donorschoose.org/images/logo_trans.gif" alt="DonorsChoose.org"/>
+            </a>
         </div>
-    </c:forEach>
-    <hr/>
-    <div class="seeMore">
-        <a href="http://www.donorschoose.org/donors/search.html">See more local classroom projects</a>
-    </div>
-    <div class="how">
-        <a href="http://www.donorschoose.org/about/about.html?zone=0">How does this work?</a>
-    </div>
+        <h2>Support local schools in need</h2>
+        <c:forEach var="proposal" items="${requestScope.proposals}">
+            <hr/>
+            <div class="proposal">
+                <div class="title"><c:out value="${proposal.title}" escapeXml="true"/></div>
+                <div class="description"><c:out value="${proposal.shortDescription}" escapeXml="true"/></div>
+                <div class="give">
+                    $${proposal.costToComplete} needed
+                    <c:set var="proposalURL"><c:out value="${proposal.proposalURL}" escapeXml="true"/></c:set>
+                    <a href="${proposalURL}">Give</a>
+                </div>
+            </div>
+        </c:forEach>
+        <hr/>
+        <div class="seeMore">
+            <a href="http://www.donorschoose.org/donors/search.html">See more local classroom projects</a>
+        </div>
+        <div class="how">
+            <a href="http://www.donorschoose.org/about/about.html?zone=0">How does this work?</a>
+        </div>
+
+    </c:if>
 
 </jsp:root>
