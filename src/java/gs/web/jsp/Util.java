@@ -272,7 +272,7 @@ public class Util {
                 displayName += ", a " + poster;
             }
         } else if (StringUtils.isNotBlank(poster)) {
-            displayName = "a " + poster;
+            displayName = poster.equals("principal")? "the " : "a " + poster;
         }
 
         return displayName;
