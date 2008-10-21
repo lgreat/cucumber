@@ -62,8 +62,20 @@
                     <h2>${cityDisplayName} Local Q&amp;amp;A</h2>
                     <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}"
                                   numberOfCharactersPerEntryToShow="90" onClick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true">
-                        <!-- If no RSS content is found hide this module -->
-                        <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
+                        <c:choose>
+                            <c:when test="${callerPagename eq 'districtprofile'}">
+                                <!-- If no RSS content is found display this default text -->
+                                <ol>
+                                    <li><div><a class="noDecoration"
+                                                href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;order=desc&amp;tab=local#browseQuestions"
+                                                onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}'); return true">Find answers about ${cityDisplayName} schools in our Parent Community!</a></div></li>
+                                </ol>
+                            </c:when>
+                            <c:otherwise>
+                                <!-- If no RSS content is found hide this module -->
+                                <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
+                            </c:otherwise>
+                        </c:choose>
                     </content:feed>
                     <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
                        href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;amp;order=desc&amp;amp;tab=local#browseQuestions"><gsml:img
@@ -81,8 +93,20 @@
                     <div class="caption">Talk to parents about local schools</div>
                     <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}" showCommentCount="false"
                                   numberOfCharactersPerEntryToShow="75" onClick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true">
-                        <!-- If no RSS content is found hide this module -->
-                        <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
+                        <c:choose>
+                            <c:when test="${callerPagename eq 'districtprofile'}">
+                                <!-- If no RSS content is found display this default text -->
+                                <ol>
+                                    <li><div><a class="noDecoration"
+                                                href="http://${communityHost}/q-and-a/browse?sort=timestamp&amp;order=desc&amp;tab=local#browseQuestions"
+                                                onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}'); return true">Find answers about ${cityDisplayName} schools in our Parent Community!</a></div></li>
+                                </ol>
+                            </c:when>
+                            <c:otherwise>
+                                <!-- If no RSS content is found hide this module -->
+                                <pageHelper:externalCss file="/res/css/community/local/questionsHide.css"/>
+                            </c:otherwise>
+                        </c:choose>
                     </content:feed>
                     <a class="localQuestionsMore" onclick="clickCapture.capture('eVar5', 'LOCAL${callerPagename}${abVersion}'); return true"
                        href="http://${communityHost}/q-and-a/?ask_local_question"><gsml:img
