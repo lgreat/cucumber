@@ -130,7 +130,7 @@
 <div class="wrapper">
 
 
-<h3><a id="preschool" href="#preschool-contents">Preschool</a></h3>
+<h3><a id="preschool"  class="active" href="#preschool-contents">Preschool</a></h3>
 <div id="preschool-contents" class="contents">
     <div class="column">
         <h4>Books</h4>
@@ -159,7 +159,6 @@
 </div>
 
 <h3><a id="kindergarten" href="#kindergarten-contents">Kindergarten</a></h3>
-
 <div id="kindergarten-contents" class="contents">
     <div class="column">
         <h4>Books</h4>
@@ -189,7 +188,6 @@
 </div>
 
 <h3><a id="firstgrade" href="#firstgrade-contents">1st Grade</a></h3>
-
 <div id="firstgrade-contents" class="contents">
     <div class="column">
         <h4>Books</h4>
@@ -238,10 +236,10 @@
     <div class="column">
         <h4>Activities</h4>
         <ul>
-            <li><gsweb:articlelink articleId="1027">Develop a Mental Image</gsweb:articlelink></li>
+            <li><gsweb:articlelink articleId="1027">Mental Images</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="3630">Plant Parts Salad</gsweb:articlelink></li>
         </ul>
-        <p><img src="/res/img/library/coloring_children.jpg" alt=""/></p>
+        <p><img src="/res/img/library/activity_2ndgr.jpg" alt=""/></p>
     </div>
 </div>
 
@@ -275,7 +273,6 @@
 </div>
 
 <h3><a id="fourthgrade" href="#fourthgrade-contents">4th Grade</a></h3>
-
 <div id="fourthgrade-contents" class="contents">
     <div class="column">
         <h4>Books</h4>
@@ -303,7 +300,7 @@
     </div>
 </div>
 
-<h3><a id="fifthgrade" class="active" href="#fifthgrade-contents">5th Grade</a></h3>
+<h3><a id="fifthgrade" href="#fifthgrade-contents">5th Grade</a></h3>
 <div id="fifthgrade-contents" class="contents">
 
     <div class="column">
