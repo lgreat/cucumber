@@ -17,11 +17,13 @@
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="divider" required="false" description="Should a divider appear below the big picture?" type="java.lang.Boolean"/>
 <jsp:directive.attribute name="anchor" required="false" description="Anchor - typically used for #from... tracking anchors" type="java.lang.String"/>
+    <jsp:directive.attribute name="hideTalkLink" required="false" description="Whether or not to hide 'talk to other parents' link" type="java.lang.Boolean"/>
 
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="stateName" value="${school.databaseState.longName}"/>
 <c:set var="bigPictureAnchor" value="${(not empty anchor) ? anchor : 'from..BigPicture'}"/>
+<c:set var="hideTalkLink" value="${(not empty hideTalkLink) ? hideTalkLink : false}"/>
 
 <jsp:scriptlet>
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -49,26 +51,32 @@
         </h3>
         <h3><link:nearbyCities city="${city}" state="${school.physicalAddress.state}" title="Cities near ${city}" anchor="${bigPictureAnchor}">Cities near ${city}&#160;&#62;</link:nearbyCities></h3>
 
-        <c:choose>
-            <c:when test="${school.levelCode eq 'p'}">
-                <c:set var="level" value="preschool"/>
-                <c:set var="groupID" value="11534"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="level" value="${fn:toLowerCase(school.levelCode.lowestNonPreSchoolLevel.longName)} school"/>
-                <c:choose>
-                    <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'e'}">
-                        <c:set var="groupID" value="11527"/>
-                    </c:when>
-                    <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'm'}">
-                        <c:set var="groupID" value="11528"/>
-                    </c:when>
-                    <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'h'}">
-                        <c:set var="groupID" value="11529"/>
-                    </c:when>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
-        <h3><gsml:a href="http://${communityHost}/groups/${groupID}">Talk to other ${level} parents &amp;gt;</gsml:a></h3>
+        <c:if test="${not hideTalkLink}">
+            <c:choose>
+                <c:when test="${school.levelCode eq 'p'}">
+                    <c:set var="level" value="preschool"/>
+                    <c:set var="groupID" value="11534"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="level"
+                           value="${fn:toLowerCase(school.levelCode.lowestNonPreSchoolLevel.longName)} school"/>
+                    <c:choose>
+                        <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'e'}">
+                            <c:set var="groupID" value="11527"/>
+                        </c:when>
+                        <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'm'}">
+                            <c:set var="groupID" value="11528"/>
+                        </c:when>
+                        <c:when test="${school.levelCode.lowestNonPreSchoolLevel.name eq 'h'}">
+                            <c:set var="groupID" value="11529"/>
+                        </c:when>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+
+            <h3><gsml:a
+                    href="http://${communityHost}/groups/${groupID}">Talk to other ${level} parents &amp;gt;</gsml:a>
+            </h3>
+        </c:if>
     </div><!-- end: bigPicture -->
 </jsp:root>
