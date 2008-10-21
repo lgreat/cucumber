@@ -19,7 +19,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:setPathway pathway="COUNTDOWN_COLLEGE"/>
+<pageHelper:setPathway pathway="LIBRARY"/>
 <pageHelper:hideFooterAd/>
 <pageHelper:hideLeaderboard/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>

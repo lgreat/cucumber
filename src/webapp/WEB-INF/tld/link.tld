@@ -2249,6 +2249,13 @@
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
     </tag>
     <tag>
         <name>stateStandards</name>
