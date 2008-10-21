@@ -19,6 +19,11 @@ div#localQuestions h2 {
     margin-bottom: 15px;
 }
 
+div#localQuestions a.noDecoration, div#localQuestions a.noDecoration:hover {
+    color: #666;
+    text-decoration: none;
+}
+
 div#localQuestions a {
     font-size: 13px;
     font-weight: normal;
@@ -48,4 +53,8 @@ div#localQuestions li a {
     position:absolute;
     right:18px;
     bottom:20px;
+}
+
+div#localQuestions div.defaultText a {
+    font-size: 15px;
 }
