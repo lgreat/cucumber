@@ -26,7 +26,8 @@
             <div class="description">${proposal.shortDescription}</div>
             <div class="give">
                 $${proposal.costToComplete} needed
-                <a href="${proposal.proposalURL}">Give</a>
+                <c:set var="proposalURL"><c:out value="${proposal.proposalURL}" escapeXml="true"/></c:set>
+                <a href="${proposalURL}">Give</a>
             </div>
         </div>
     </c:forEach>
