@@ -35,13 +35,6 @@
         </property>
     </bean>
 
-    <!--<bean name="/school/donorsChoice.module"-->
-          <!--class="gs.web.school.DonorsChoiceController"-->
-          <!--autowire="byName" lazy-init="true">-->
-        <!--<property name="viewName" value="/school/donorsChoice"/>-->
-        <!--<property name="apiKey" value="DONORSCHOOSE"/>-->
-    <!--</bean>-->
-
     <bean name="/community/localQuestions.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           lazy-init="true">
@@ -290,6 +283,32 @@
             <value>/about/feedback/submitPrivateSchoolInfoSubset</value>
         </property>
     </bean>
+
+    <bean id="cityDonorsChooseDaoFactory"
+          class="gs.data.content.DonorsChooseDaoFactory" lazy-init="true">
+        <!-- cached dao properties -->
+        <property name="cacheName" value="cityDonorsChooseCache"/>
+        <property name="cacheSize" value="500"/>
+        <property name="cacheEntryTTLSeconds" value="7200"/>
+        <property name="cacheEntryIdleSeconds" value="7200"/>
+        <property name="failCacheName" value="cityDonorsChooseFailCache"/>
+        <property name="failCacheSize" value="80"/>
+        <property name="failCacheEntryTTLSeconds" value="60"/>
+        <property name="failCacheEntryIdleSeconds" value="60"/>
+        <!-- donors choose and donors choose cache properties -->
+        <property name="apiKey" value="DONORSCHOOSE"/>
+        <property name="maxItemsInBucket" value="30"/>
+        <property name="maxDescLength" value="50"/>
+    </bean>
+
+    <bean name="/content/donorsChoose.module"
+         class="gs.web.content.DonorsChooseController"
+         autowire="byName" lazy-init="true">
+       <property name="viewName" value="/content/donorsChoose"/>       
+        <property name="donorsChooseDao">
+            <bean factory-bean="cityDonorsChooseDaoFactory" factory-method="getDonorsChooseDao"/>
+        </property>
+   </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
