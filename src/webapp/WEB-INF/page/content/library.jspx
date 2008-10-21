@@ -41,8 +41,8 @@
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
 </head>
 
-
-<body class="www  unframed" >
+<mod:tracking pageName="AllArticles" hier1="Article,AllArticles"/>
+<gsml:body adPageName="allArticles" >
 <ad:setSlotPrefix slotPrefix="Library"/>
 
 <div id="pageWrapper" class="cleared">
@@ -82,7 +82,7 @@
 <div id="main-copy" class="box">
     <div class="inner cleared">
         <h2>Find the Right School</h2>
-        <img class="left" src="/res/img/library/child_and_tutor.jpg" alt=""/>
+        <img class="left" src="/res/img/library/child_and_tutor.jpg" alt="Girl and Teacher"/>
         <div class="column">
             <p>Get expert advice on choosing the best fit for your child.</p>
             <ul>
@@ -110,7 +110,7 @@
         <div class="hr"><hr/></div>
 
         <h2>Stay Involved!</h2>
-        <img class="left" src="/res/img/library/child_and_parent.jpg" alt=""/>
+        <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and Parent"/>
         <div class="column">
             <p>Parent support makes all the difference. See how you can support your child's school.</p>
             <ul>
@@ -239,7 +239,7 @@
             <li><gsweb:articlelink articleId="1027">Mental Images</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="3630">Plant Parts Salad</gsweb:articlelink></li>
         </ul>
-        <p><img src="/res/img/library/activity_2ndgr.jpg" alt=""/></p>
+        <p><img src="/res/img/library/activity_2ndgr.jpg" alt="Girl with painted hands"/></p>
     </div>
 </div>
 
@@ -256,7 +256,7 @@
         </div>
         <ul>
             <li><gsweb:articlelink articleId="625" anchorName="Fantasy">Fantasy Books</gsweb:articlelink></li>
-            <li><gsweb:articlelink articleId="625" anchorName="Classic">The Joy of Reading</gsweb:articlelink></li>
+            <li><gsweb:articlelink articleId="625" anchorName="Joy">The Joy of Reading</gsweb:articlelink></li>
         </ul>
         <div class="gradelevel-books">
             <gsweb:articlelink articleId="625">Third Grade Books &gt;</gsweb:articlelink>
@@ -406,7 +406,6 @@
 </div>
 </div>
 </div>
-</body>
-<mod:tracking pageName="${pageName}" hier1="Article,AllArticles"/>
+</gsml:body>
 </html>
 </jsp:root>
