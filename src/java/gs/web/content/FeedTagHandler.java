@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.8 2008/10/07 20:42:36 aroy Exp $
+ * $Id: FeedTagHandler.java,v 1.9 2008/10/21 22:17:45 aroy Exp $
  */
 
 package gs.web.content;
@@ -77,7 +77,7 @@ public class FeedTagHandler extends SimpleTagSupport {
                 out.append("<li><div><a ");
                 if (_onClick != null) out.append("onclick=\"").append(_onClick).append("\" ");
                 out.append("href=\"").append(entry.getLink()).append("\">");
-                out.append(XMLUtil.escape(title));
+                out.append(title);
                 out.append("</a>");
                 if (_showCommentCount) {
                     int commentCount = 0;
