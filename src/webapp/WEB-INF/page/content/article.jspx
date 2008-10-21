@@ -2,6 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -24,6 +25,13 @@
         <c:choose>
             <c:when test="${requestScope.newArticle eq true}">
                 <pageHelper:externalCss file="/res/css/content/articleNew.css"/>
+                <pageHelper:externalCss file="/res/css/widelayout.css" />
+                <pageHelper:externalCss file="/res/css/content/landingPageShared.css" />
+                <pageHelper:externalCss file="/res/css/content/library.css" />
+                <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
+                <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
+                <pageHelper:externalJavascript file="/res/js/library/interface.js"/>                
+
                 <c:set var="articleStyle" value="new" scope="request"/>
             </c:when>
             <c:otherwise>
@@ -52,8 +60,15 @@
     <body>
 
     <table cellspacing="0" cellpadding="0" border="0">
-        <tbody>
-            <tr>
+    <tbody>
+    <tr>
+        <c:if test="${articleStyle eq 'new'}">
+            <td id="leftCol">
+                <div id="foo" class="cleared">
+                    <content:librarySidebar cssClass="white" />
+                </div>
+            </td>
+        </c:if>
                 <td class="articlecopy">
                     <!-- Tools -->
                     <div id="articletools" class="noprint">

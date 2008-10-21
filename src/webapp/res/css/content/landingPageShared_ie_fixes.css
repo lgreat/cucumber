@@ -63,7 +63,7 @@ h3#quotable {
 	padding: 5px 0 0 30px;
 }
 
-* html #pageWrapper #sidebar, * html #pageWrapper #main, * html #supplement, * html #intro .column {
+* html #pageWrapper #librarySidebar, * html #pageWrapper #main, * html #supplement, * html #intro .column {
 	display: inline;
 }
 

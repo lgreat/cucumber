@@ -3,6 +3,13 @@
     color: #3399AA;
 }
 
+.articlecopy {
+    border-right: none;
+    border-left: none;
+    padding: 15px 60px 85px 25px;
+    font-size: 14px;
+}
+
 ol span.liText,
 ul span.liText {
     font-weight: normal;
@@ -206,7 +213,7 @@ div.greenHeader span {
 }
 
 div#articleComments div#enterComment textarea {
-    width:360px;
+    width:320px;
     height:17em;
     border:2px solid #CCCCCC;
     margin:10px 0 0 10px;
@@ -217,7 +224,7 @@ div#articleComments div#enterComment textarea {
 div#articleComments div#enterComment div#nameEmail {
     position:absolute;
     top:35px;
-    left:400px;
+    left:355px;
     font-family:"Trebuchet MS", Helvetica, sans-serif;
 }
 
@@ -582,3 +589,6 @@ div#references li {
     list-style:square;
 }
 
+td#leftCol {
+    vertical-align:top;
+}

@@ -9,6 +9,8 @@
     <jsp:directive.tag body-content="scriptless"/>
     <pageHelper:externalCss file="/res/css/content/librarySidebar.css" />
 
+    <jsp:directive.attribute name="cssClass" required="false" description="Style class to be added the top-level div" />
+
     <jsp:directive.attribute name="collapseTopicTips" type="java.lang.Boolean"
         description="Whether or not to collapse topic tips" required="false"/>
     <jsp:directive.attribute name="collapseGradeTips" type="java.lang.Boolean"
@@ -17,10 +19,11 @@
     <c:set var="collapseTopicTips" value="${not empty collapseTopicTips ? collapseTopicTips : false}"/>
     <c:set var="collapseGradeTips" value="${not empty collapseGradeTips ? collapseGradeTips : false}"/>
 
-    <div id="sidebar">
+    <div id="librarySidebar" class="${cssClass}">
         <div class="box">
             <div class="inner">
                 <h3>Browse Articles</h3>
+                <div class="inner-links">
                 <ul id="browse-tips">
                     <li>
                         <a href="#grade-tips" id="gradeTips">By Grade</a>
@@ -52,6 +55,7 @@
                         </div>
                     </li>
                 </ul>
+                </div>
             </div>
         </div>
     </div>

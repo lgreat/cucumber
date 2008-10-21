@@ -1,33 +1,32 @@
 /* Left Sidebar */
-
-#pageWrapper #sidebar {
+#librarySidebar {
 	width: 164px;
 	float: left;
 	margin-left: 10px;
 }
 
-#pageWrapper #sidebar .box {
+#librarySidebar .box {
 	background-image: url(/res/img/library/left-box-bottom.png);
 	margin: 12px 0 0;
 }
 
-#pageWrapper #sidebar .inner {
+#librarySidebar .inner {
 	background-image: url(/res/img/library/left-box-top.png);
 	padding-left: 0;
 	padding-right: 0;
 }
 
-#pageWrapper #sidebar .box h3 {
+#librarySidebar .box h3 {
 	padding: 2px 10px 5px;
 	background-color: #6cd;
 	color: #fff;
-	margin: 0 0 10px;
 	font-size: 14px;
 	font-weight: bold;
 }
 
-#browse-tips {
+.contentGS ul {
 	margin: 0 10px;
+    padding-left:0;
 }
 
 #browse-tips li {
@@ -83,4 +82,13 @@
 
 #browse-tips li li a:hover {
 	text-decoration: underline;
+}
+
+div.inner-links {
+    padding:10px 0 0 0;
+}
+
+.white div.inner-links {
+    border-left:1px solid #cccccc;
+    border-right:1px solid #cccccc;
 }
