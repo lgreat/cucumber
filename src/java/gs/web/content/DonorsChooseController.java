@@ -68,6 +68,7 @@ public class DonorsChooseController extends AbstractController {
             ICounty county = _geoDao.findCountyByFipsCode(city.getCountyFips());
             props = _donorsChooseDao.getProposalsForCity(city, county, maxProposals);
         }
+        
         model.put("proposals", props);
         return new ModelAndView(_viewName, model);
     }

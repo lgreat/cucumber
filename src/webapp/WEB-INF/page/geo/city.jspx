@@ -319,11 +319,11 @@
         </tr>
         <tr>
             <td>
-                <!-- jsp:include page="/content/donorsChoose.module">
+                <jsp:include page="/content/donorsChoose.module">
                     <jsp:param name="cityID" value="${cityObject.id}"/>
                     <jsp:param name="state" value="${stateAbbrev}"/>
                     <jsp:param name="maxProposals" value="${3}"/>
-                </jsp:include -->
+                </jsp:include>
             </td>
         </tr>
     </table>
