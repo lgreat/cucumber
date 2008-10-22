@@ -327,12 +327,13 @@
 
                         linkNode.href = '/community/newsletters/popup/newsletter.page?referrer=articlePage';
                         linkNode.onclick = oNewsletter.showNewsletterSubscriptionPopup ;
-                        linkNode.className = "submodal-480-550 GS_EV5_";
+                        linkNode.className = "submodal-480-550";
                         linkNode.id = "NL_sub_end_of_article";
                         var linkText = document.createTextNode('Sign up for our newsletters >');
                         linkNode.appendChild(linkText);
 
                         paragraphNode.appendChild(linkNode);
+                        var res = registerEventHandler(linkNode,"click", evar5ClickEventHandler)
 
                         return paragraphNode;
                     },
