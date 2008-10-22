@@ -292,6 +292,56 @@
              -->
             ]]>
         </script>
+
+        <script type="text/javascript" >
+            <![CDATA[
+            <!--
+                /* newsletter sign up */
+                var oNewsletter = {
+                    addNewsletterSubscribeLink : function(){
+                        this.insertElement();
+                    },
+                    findElementToInsertBefore : function(){
+                        /* insert before the first instance of div class="dotted-divider" */
+                        var nodes = document.getElementsByClassName("dotted-divider") ;
+                        if (nodes != null && nodes.length > 0){
+                            return nodes[0];
+                        } else {
+                            return null;
+                        }
+                    },
+                    createLinkParagraphNode : function(){
+                        var paragraphNode = document.createElement('div');
+                        paragraphNode.setAttribute('class','paragraph');
+
+                        var breakNode = document.createElement('br');
+                        paragraphNode.appendChild(breakNode);
+
+                        var textNode = document.createTextNode('Get more great tips to keep your child on track! ');
+                        paragraphNode.appendChild(textNode);
+
+                        var linkNode = document.createElement('a');
+                        linkNode.setAttribute('href', '/community/newsletters/popup/newsletter.page?referrer=schoolProfile');
+                        var linkText = document.createTextNode('Sign up for our newsletters >');
+                        linkNode.appendChild(linkText);
+
+                        paragraphNode.appendChild(linkNode);
+
+                        return paragraphNode;
+                    },
+                    insertElement : function(){
+                        var insertBeforeThisNode = this.findElementToInsertBefore();
+                        if (insertBeforeThisNode != null) {
+                            var newLinkParagraphNode = this.createLinkParagraphNode() ;
+                            insertBeforeThisNode.parentNode.insertBefore(newLinkParagraphNode, insertBeforeThisNode);
+                        }
+                    }
+                };
+
+                oNewsletter.addNewsletterSubscribeLink();
+             -->
+            ]]>
+        </script>
         <c:if test="${false}">  <!-- related community content -->
         <script type="text/javascript" >
             <![CDATA[
@@ -418,7 +468,7 @@
          --> ]]>
         </script>
 
-   
+
         </c:if>
     </c:if>
 
