@@ -80,3 +80,7 @@ div.phone span {
     left: 170px;
     font-size: 14px;
 }
+
+div#localQuestionsContainer {
+    margin-top: 20px;
+}

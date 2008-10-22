@@ -8,9 +8,12 @@ import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
+import gs.web.util.PageHelper;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -36,6 +39,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
     private ISchoolDao _schoolDao;
     private IUserDao _userDao;
     private StateManager _stateManager;
+    private IGeoDao _geoDao;
 
     /** query parameters accepted by this controller */
     public static final String PARAM_COMMAND = "command";
@@ -55,6 +59,8 @@ public class MySchoolListController extends AbstractController implements ReadWr
     public static final String MODEL_COMPARE_STATES = "compareStates";
     public static final String MODEL_COMPARE_LEVELS = "compareLevels";
     public static final String MODEL_PRESCHOOL_ONLY = "preschoolOnly";
+    public static final String MODEL_CITY_ID = "cityId";
+    public static final String MODEL_CITY_NAME = "cityName";
 
     /** Used to sort schools by name */
     private Comparator<School> _schoolNameComparator;
@@ -93,7 +99,93 @@ public class MySchoolListController extends AbstractController implements ReadWr
             }
         }
 
+        determineLocalCity(request, response, model);
+
         return new ModelAndView(view, model);
+    }
+
+    /**
+     * GS-7380. The page wants to know the user's location. Use either the location cookie, or if it
+     * isn't present determine the location by the most common city appearing in the school list.
+     */
+    protected void determineLocalCity(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        if (model != null && sessionContext.getCity() != null) {
+            // if the location cookie is set, then this is easy. Just use that value
+            model.put(MODEL_CITY_ID, sessionContext.getCityId());
+            model.put(MODEL_CITY_NAME, sessionContext.getCity().getName());
+        } else if (model != null && model.get(MODEL_SCHOOLS) != null) {
+            // Otherwise, let's see if we can guess it
+            List<School> schools = (List<School>) model.get(MODEL_SCHOOLS);
+            Map<LocalCity, Integer> cities = new HashMap<LocalCity, Integer>();
+            LocalCity cityMax = null;
+            int numMax = 0;
+            for (School school: schools) {
+                // Look at each school and note its city
+                // we'll use whichever city is used the most
+                // which we'll store in cityMax and stateMax
+                String city = school.getCity();
+                State state = school.getDatabaseState();
+                LocalCity localCity = new LocalCity(city, state);
+                Integer currentNumber = cities.get(localCity);
+                if (currentNumber == null) {
+                    currentNumber = 1;
+                } else {
+                    currentNumber += 1;
+                }
+                cities.put(localCity, currentNumber);
+                if (currentNumber > numMax) {
+                    // if this city is now the most common, store it in the max vars
+                    numMax = currentNumber;
+                    cityMax = localCity;
+                }
+            }
+            // Use the most common city as the user's location
+            if (cityMax != null) {
+                City city = _geoDao.findCity(cityMax.getState(), cityMax.getName());
+                model.put(MODEL_CITY_ID, city.getId());
+                model.put(MODEL_CITY_NAME, city.getName());
+                // also set this permanently as their location, per GS-7380
+                PageHelper.setCityIdCookie(request, response, city);
+            }
+        }
+    }
+
+    protected static class LocalCity {
+        private String _name;
+        private State _state;
+
+        public LocalCity(String name, State state) {
+            _name = name;
+            _state = state;
+        }
+
+        public String getName() {
+            return _name;
+        }
+
+        public void setName(String name) {
+            _name = name;
+        }
+
+        public State getState() {
+            return _state;
+        }
+
+        public void setState(State state) {
+            _state = state;
+        }
+
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            LocalCity localCity = (LocalCity) o;
+            return _name.equals(localCity._name) && _state.equals(localCity._state);
+        }
+
+        public int hashCode() {
+            return 31 * _name.hashCode() + _state.hashCode();
+        }
     }
 
     protected Map<String, Object> buildModel(User user) {
@@ -267,5 +359,13 @@ public class MySchoolListController extends AbstractController implements ReadWr
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }

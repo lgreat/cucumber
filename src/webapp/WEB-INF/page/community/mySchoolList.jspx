@@ -116,6 +116,14 @@
 
     <ad:AboveFold_300x250 />
 
+    <c:if test="${requestScope.cityId ne null and requestScope.cityId gt 0}">
+        <jsp:include page="/community/localQuestions.module">
+            <jsp:param name="cityId" value="${requestScope.cityId}"/>
+            <jsp:param name="cityDisplayName" value="${requestScope.cityName}"/>
+            <jsp:param name="callerPagename" value="mySchoolList"/>
+        </jsp:include>
+    </c:if>
+
     <ad:Top_300x137/>
 
 </div>

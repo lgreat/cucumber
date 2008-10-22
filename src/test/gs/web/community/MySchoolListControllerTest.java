@@ -8,6 +8,8 @@ import gs.data.school.School;
 import gs.data.school.LevelCode;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
@@ -27,6 +29,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
     private MySchoolListController _controller;
     private ISchoolDao _schoolDao;
     private IUserDao _userDao;
+    private IGeoDao _geoDao;
     private User _user;
 
     protected void setUp() throws Exception {
@@ -36,9 +39,11 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
         _schoolDao = createMock(ISchoolDao.class);
         _userDao = createMock(IUserDao.class);
+        _geoDao = createStrictMock(IGeoDao.class);
 
         _controller.setSchoolDao(_schoolDao);
         _controller.setUserDao(_userDao);
+        _controller.setGeoDao(_geoDao);
 
         _controller.setStateManager(new StateManager());
         
@@ -52,6 +57,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
         assertSame(_schoolDao, _controller.getSchoolDao());
         assertSame(_userDao, _controller.getUserDao());
+        assertSame(_geoDao, _controller.getGeoDao());
         assertEquals("view", _controller.getViewName());
     }
 
@@ -76,9 +82,20 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         sc.setMemberId(1);
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool()).times(4);
         replay(_schoolDao);
+        expect(_geoDao.findCity(State.NJ, "Beirut")).andReturn(createStubCity());
+        replay(_geoDao);
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_schoolDao);
+        verify(_geoDao);
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
+    }
+
+    City createStubCity() {
+        City city = new City();
+        city.setName("Beirut");
+        city.setState(State.NJ);
+        city.setId(2);
+        return city;
     }
 
     School createStubSchool() {
@@ -86,7 +103,16 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         school.setName("East Beirut High");
         school.setDatabaseState(State.NJ);
         school.setLevelCode(LevelCode.PRESCHOOL);
+        school.setCity("Beirut");
         return school;
+    }
+
+    City createStubCity2() {
+        City city = new City();
+        city.setName("Alameda");
+        city.setState(State.CA);
+        city.setId(1);
+        return city;
     }
 
     School createStubSchool2() {
@@ -95,6 +121,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         school.setId(1);
         school.setDatabaseState(State.CA);
         school.setLevelCode(LevelCode.HIGH);
+        school.setCity("Alameda");
         return school;
     }
 
@@ -112,11 +139,15 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
     public void testRequestFromKnownUserSchoolsAdded() throws Exception {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setMemberId(1);
+        sc.setCityId(135457);
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool()).times(4);
         replay(_schoolDao);
+//        expect(_geoDao.findCity(State.NJ, "Beirut")).andReturn(createStubCity());
+        replay(_geoDao);
         getRequest().setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "12,3456");
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_schoolDao);
+        verify(_geoDao);
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
@@ -141,10 +172,13 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(user);
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool2()).times(3);
         replay(_schoolDao);
+        expect(_geoDao.findCity(State.CA, "Alameda")).andReturn(createStubCity());
+        replay(_geoDao);
 
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_schoolDao);
-        assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());        
+        verify(_geoDao);
+        assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
     public void testAddSchools() throws Exception {
@@ -168,9 +202,12 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool2()).anyTimes();
         replay(_schoolDao);
+        expect(_geoDao.findCity(State.CA, "Alameda")).andReturn(createStubCity());
+        replay(_geoDao);
 
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verify(_schoolDao);
+        verify(_geoDao);
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
     }
 
