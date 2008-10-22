@@ -70,11 +70,12 @@
     height:17px;
     margin-bottom:0px;
     color: #444;
-    padding-top:2px;
+    padding-top:0px;
     padding-left:3px;
     max-height:22px;
     padding-bottom:0px;
     font-size:.8em;
+    width: 170px;
 }
 
 /* IE ONLY */
