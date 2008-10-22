@@ -46,6 +46,14 @@
         PageHelper.hideFooterAd(request);
     </jsp:scriptlet>
 
+    <script type="text/javascript" charset="utf-8">
+        function textSwitch(el, target, replace) {
+            if (el.value == replace) {
+                el.value = target;
+            }
+        }
+    </script>
+
     <!-- The function showLatestTools() is for GS-6999. Only show the last list item (4th bullet) in
          The Latest Tools module if no ad slot is targeted within that module. Do this by checking for
          the presence of the element google_ads_div_Homepage_185x28 and only make the last list item
@@ -171,7 +179,9 @@
                 <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
-                <input type="text" value="Enter school, city or district" name="q" size="21" class="textInput"/>
+                <input type="text" value="Enter school, city or district" name="q" size="21" class="textInput"
+                           onfocus="textSwitch(this, '', 'Enter school, city or district');"
+                           onblur="textSwitch(this, 'Enter school, city or district', '');"/>
                 &amp;#160;
                 <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
                                      useNoState="${not requestScope.context.hasSearched}"
