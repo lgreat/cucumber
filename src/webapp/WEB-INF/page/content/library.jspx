@@ -82,7 +82,7 @@
 <div id="main-copy" class="box">
     <div class="inner cleared">
         <h2>Find the Right School</h2>
-        <img class="left" src="/res/img/library/child_and_tutor.jpg" alt="Girl and Teacher"/>
+        <img class="left" src="/res/img/library/findschool_girl_2.jpg" alt="Girl in school"/>
         <div class="column">
             <p>Get expert advice on choosing the best fit for your child.</p>
             <ul>
@@ -110,7 +110,7 @@
         <div class="hr"><hr/></div>
 
         <h2>Stay Involved!</h2>
-        <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and Parent"/>
+        <img class="left" src="/res/img/library/library_parentinvolve.jpg" alt="Child and Parents"/>
         <div class="column">
             <p>Parent support makes all the difference. See how you can support your child's school.</p>
             <ul>
