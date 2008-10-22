@@ -87,7 +87,7 @@
                             </div>
                             <div class="simplemenu">
                                 <gsml:img src="/images/editorial/signupgrey.gif" alt="Sign-up for newsletters"/>
-                                <link:newsletterCenter>Sign-up For Newsletters</link:newsletterCenter>
+                                <link:newsletterCenter styleClass="GS_EV5_" id="NL_sub_article_tools">Sign-up For Newsletters</link:newsletterCenter>
                             </div>
                             <br/>
                             <div class="simplemenu">
@@ -312,16 +312,23 @@
                     },
                     createLinkParagraphNode : function(){
                         var paragraphNode = document.createElement('div');
-                        paragraphNode.setAttribute('class','paragraph');
+                        paragraphNode.className = 'paragraph';
 
-                        var breakNode = document.createElement('br');
-                        paragraphNode.appendChild(breakNode);
+                        var nodes = document.getElementsByClassName("articleCopyright") ;
+                        if (nodes != null && nodes.length > 0){
+                            var breakNode = document.createElement('br');
+                            paragraphNode.appendChild(breakNode);
+                        }
 
                         var textNode = document.createTextNode('Get more great tips to keep your child on track! ');
                         paragraphNode.appendChild(textNode);
 
                         var linkNode = document.createElement('a');
-                        linkNode.setAttribute('href', '/community/newsletters/popup/newsletter.page?referrer=schoolProfile');
+
+                        linkNode.href = '/community/newsletters/popup/newsletter.page?referrer=articlePage';
+                        linkNode.onclick = oNewsletter.showNewsletterSubscriptionPopup ;
+                        linkNode.className = "submodal-480-550 GS_EV5_";
+                        linkNode.id = "NL_sub_end_of_article";
                         var linkText = document.createTextNode('Sign up for our newsletters >');
                         linkNode.appendChild(linkText);
 
@@ -335,6 +342,11 @@
                             var newLinkParagraphNode = this.createLinkParagraphNode() ;
                             insertBeforeThisNode.parentNode.insertBefore(newLinkParagraphNode, insertBeforeThisNode);
                         }
+                    },
+                    showNewsletterSubscriptionPopup : function(){
+                        var popup = window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=550,left=50,top=50');
+                        popup.focus();
+                        return false;
                     }
                 };
 
