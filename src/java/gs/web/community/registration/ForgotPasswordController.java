@@ -4,12 +4,12 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.validation.BindException;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,6 +66,10 @@ public class ForgotPasswordController extends SimpleFormController {
         }
         UserCommand userCommand = (UserCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
+        boolean isMslSubscriber = false;
+        if (user != null) {
+            isMslSubscriber =  (user.getFavoriteSchools() != null && !user.getFavoriteSchools().isEmpty());
+        }
         if (user == null || user.isEmailProvisional()) {
             // generate error
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
@@ -83,12 +87,16 @@ public class ForgotPasswordController extends SimpleFormController {
             String href = builder.asAnchor(request, "join the community").asATag();
             errors.rejectValue("email", null, "There is no community account associated with that email address. " +
                     "Would you like to " + href + "?");
+            _log.info("Forgot password: non-community user " + userCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
             String errmsg = "The account associated with that email address has been disabled. " +
                     "Please <a href=\"http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/report/email-moderator\">contact us</a> for more information.";
             errors.rejectValue("email", null, errmsg);
+            _log.info("Forgot password: disabled community user " + userCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
+        } else {
+            _log.info("Forgot password: community user " + userCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         }
     }
 
