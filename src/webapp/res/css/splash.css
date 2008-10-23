@@ -89,7 +89,11 @@
     #findAndCompare select {
     color: #444;
 }
-
+#splashStateSelector {
+    width:44px;
+    height: 21px;
+    margin-left: 12px;
+}
 #findAndCompare input.button {
     margin: 3px 3px 3px 0px;
 }
