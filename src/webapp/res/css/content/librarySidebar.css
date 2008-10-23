@@ -112,3 +112,10 @@ div.inner-links {
 .white .inner {
     padding-bottom:0;
 }
+
+.box .inner {
+	padding: 5px 15px 1px;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: left top;
+}

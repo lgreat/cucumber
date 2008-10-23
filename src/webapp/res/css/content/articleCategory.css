@@ -1,5 +1,6 @@
 #col_left {
-    padding-left: 0;
+    padding-left: 10px;
+    width:440px;
 }
 
 #col_left h1 {
@@ -107,5 +108,3 @@ div.abstract {
     top: 8px;
     left: 313px;
 }
-
-

@@ -33,6 +33,10 @@
 <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>
 <pageHelper:externalCss file="/res/css/content/articleCategory.css"/>
+<pageHelper:externalCss file="/res/css/widelayout.css" />
+<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
+<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
+<pageHelper:externalJavascript file="/res/js/library/interface.js"/>                
 
 <!-- total results -->
 <c:set var="total" value="${requestScope.total}"/>
@@ -48,7 +52,12 @@
 </c:if>
 
 <gsml:equalizeColumns ids="'col_left','col_right'"/>
-<div id="col_left">
+
+    <div id="contentLeft">
+        <content:librarySidebar cssClass="white" />
+    </div>
+
+    <div id="col_left">
     <h1>${requestScope.subcategory.typeDisplay}</h1>
 
     <div id="searchResults">
@@ -58,12 +67,6 @@
 
         <br style="clear: left;"/>
         <search:catPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}"/>
-        <div id="searchFooter">
-            <search:searchControl rememberQuery="false"
-                                  showStates="true"
-                                  showLinks="true"
-                                  fieldLength="30"/>
-        </div>
     </div>
 
 </div>
