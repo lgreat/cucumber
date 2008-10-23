@@ -70,6 +70,16 @@ public class DonorsChooseController extends AbstractController {
         }
         
         model.put("proposals", props);
+
+        if (props != null && !props.isEmpty()) {
+            model.put("zoneId", props.toArray(new DonorsChooseProposal[]{})[0].getZoneId());
+
+            Map<String,String> longStateNames = new HashMap<String,String>();
+            for (DonorsChooseProposal prop : props) {
+                longStateNames.put(prop.getId(), _stateManager.getState(prop.getState()).getLongName());
+            }
+            model.put("longStateNames", longStateNames);
+        }
         return new ModelAndView(_viewName, model);
     }
 

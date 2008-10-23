@@ -298,7 +298,7 @@
         <!-- donors choose and donors choose cache properties -->
         <property name="apiKey" value="DONORSCHOOSE"/>
         <property name="maxItemsInBucket" value="30"/>
-        <property name="maxDescLength" value="50"/>
+        <property name="maxDescLength" value="45"/>
     </bean>
 
     <bean name="/content/donorsChoose.module"
