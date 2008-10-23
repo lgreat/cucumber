@@ -1,31 +1,28 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.35 2008/09/02 18:50:06 aroy Exp $
+ * $Id: LoginController.java,v 1.36 2008/10/23 16:38:51 cpickslay Exp $
  */
 package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.soap.SoapRequestException;
+import gs.web.soap.ReportLoginRequest;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.soap.ReportLoginRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
-import java.util.HashMap;
 
 /**
  * Lets user sign in.
@@ -102,6 +99,10 @@ public class LoginController extends SimpleFormController {
 
         LoginCommand loginCommand = (LoginCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(loginCommand.getEmail());
+        boolean isMslSubscriber = false;
+        if (user != null) {
+            isMslSubscriber = (user.getFavoriteSchools() != null && !user.getFavoriteSchools().isEmpty());
+        }
 
         if (user == null || user.isEmailProvisional()) {
             errors.reject(null,
@@ -117,8 +118,10 @@ public class LoginController extends SimpleFormController {
 //                    "by clicking the link in your registration email. " +
 //                    href2 + "." +
 //                    " If you believe this message to be in error, please " + href + ".");
+            _log.info("Community login: user " + loginCommand.getEmail() + " is not in database");
         } else if (user.isPasswordEmpty()) {
             errors.reject(null, "There is no community account associated with that email address.");
+            _log.info("Community login: non-community user " + loginCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
 
             String errmsg = "The account associated with that email address has been disabled. " +
@@ -126,6 +129,7 @@ public class LoginController extends SimpleFormController {
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/report/email-moderator\">contact us</a> for more information.";
             errors.reject(null, errmsg);
+            _log.info("Community login: disabled community user " + loginCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         } else {
             String password = loginCommand.getPassword();
             // validate password
@@ -134,6 +138,7 @@ public class LoginController extends SimpleFormController {
                     (!user.matchesPassword(password)) ) {
                 errors.reject(INVALID_PASSWORD_CODE, "The password you entered is incorrect.");
             }
+            _log.info("Community login: community user " + loginCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         }
     }
 
