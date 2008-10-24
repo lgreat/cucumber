@@ -29,7 +29,7 @@ import java.util.List;
 public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
     protected final Log _log = LogFactory.getLog(getClass());
     private ISchoolDao _schoolDao;
-    private Boolean _showXmlErrorPage = Boolean.TRUE;
+    private Boolean _showXmlErrorPage = Boolean.FALSE;
 
     /**
      * Used when storing the school in the reqest

@@ -239,7 +239,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
                 review.setQuality(command.getOverall());
             }
         }
-
+        review.setHow(command.getClient());
         review.setPoster(command.getPoster());
         review.setComments(command.getComments());
         review.setOriginal(command.getComments());

@@ -12,8 +12,8 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private String _confirmEmail;
     private String _firstName;
     private String _lastName;
-
     private String _comments;
+    private String _client;
     
     private CategoryRating _principal = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _teacher = CategoryRating.DECLINE_TO_STATE;
@@ -73,6 +73,14 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
     public void setComments(String comments) {
         _comments = comments;
+    }
+
+    public String getClient() {
+        return _client;
+    }
+
+    public void setClient(String client) {
+        _client = client;
     }
 
     public CategoryRating getPrincipal() {
