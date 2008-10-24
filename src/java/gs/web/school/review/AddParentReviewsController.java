@@ -39,6 +39,8 @@ import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ *
+ * http://wiki.greatschools.net/bin/view/Greatschools/ParentReviewWebService
  */
 public class AddParentReviewsController extends SimpleFormController implements ReadWriteController {
 

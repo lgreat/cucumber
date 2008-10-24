@@ -121,20 +121,37 @@
         </property>
     </bean>
 
-    <bean name="schoolWebServicesHandlerMapping" parent="defaultHandlerMapping"
+    <bean name="schoolRestWebServicesHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
           lazy-init="true">
         <property name="interceptors">
             <!--Use merge="true" to add an interceptor to the parents list  -->
             <list merge="true">
                 <bean class="gs.web.school.SchoolPageInterceptor" autowire="byName">
-                    <property name="showXmlErrorPage" value="true"/>    
+                    <property name="showXmlErrorPage" value="true"/>
                 </bean>
             </list>
         </property>
         <property name="urlMap">
             <map>
                 <entry key="/school/restAddComments.page" value="restAddParentReviews"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="schoolJsonWebServicesHandlerMapping" parent="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
+          lazy-init="true">
+        <property name="interceptors">
+            <!--Use merge="true" to add an interceptor to the parents list  -->
+            <list merge="true">
+                <bean class="gs.web.school.SchoolPageInterceptor" autowire="byName">
+                    <property name="showJsonErrorPage" value="true"/>
+                </bean>
+            </list>
+        </property>
+        <property name="urlMap">
+            <map>
                 <entry key="/school/ajaxAddComments.page" value="jsonAddParentReviews"/>
             </map>
         </property>

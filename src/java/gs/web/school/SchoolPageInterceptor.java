@@ -20,6 +20,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Iterator;
 
 /**
  * Interceptor that puts a school into current request if request parameters contain valid id (or schoolId) and state
@@ -30,6 +31,7 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
     protected final Log _log = LogFactory.getLog(getClass());
     private ISchoolDao _schoolDao;
     private Boolean _showXmlErrorPage = Boolean.FALSE;
+    private Boolean _showJsonErrorPage = Boolean.FALSE;
 
     /**
      * Used when storing the school in the reqest
@@ -60,11 +62,9 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
         }
 
         // If we get this far we have an error
-        if (_showXmlErrorPage) {
-            showXmlErrorPage(response);
-        } else {
-            request.getRequestDispatcher("/school/error.page").include(request, response);
-        }
+        if (_showXmlErrorPage) showXmlErrorPage(response);
+        else if (_showJsonErrorPage) showJsonErrorPage(response);
+        else request.getRequestDispatcher("/school/error.page").include(request, response);
         return false;
     }
 
@@ -80,12 +80,27 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
         this._showXmlErrorPage = showXmlErrorPage;
     }
 
-    private void showXmlErrorPage(HttpServletResponse response) throws ParserConfigurationException, TransformerException, IOException {
+    public void setShowJsonErrorPage(Boolean showJsonErrorPage) {
+        _showJsonErrorPage = showJsonErrorPage;
+    }
+
+    protected void showXmlErrorPage(HttpServletResponse response) throws ParserConfigurationException, TransformerException, IOException {
         Document doc = getDocument("errors");
         Element errorElem = appendElement(doc, "error", "School could not be found, please make sure you specify a valid schoolId and state.");
         errorElem.setAttribute("key", "school_not_found");
         response.setContentType("application/xml");
         serializeDocument(response.getWriter(), doc);
+        response.getWriter().flush();
+    }
+
+    protected void showJsonErrorPage(HttpServletResponse response) throws IOException {
+        StringBuffer buff = new StringBuffer(400);
+        buff.append("{\"status\":false,\"errors\":");
+        buff.append("[");
+        buff.append("\"").append("School could not be found, please make sure you specify a valid schoolId and state.").append("\"");
+        buff.append("]}");
+        response.setContentType("text/x-json");
+        response.getWriter().print(buff.toString());
         response.getWriter().flush();
     }
 }
