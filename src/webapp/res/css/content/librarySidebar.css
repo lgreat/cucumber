@@ -5,6 +5,13 @@
 	margin-left: 10px;
 }
 
+.box {
+	margin: 10px 0 0;
+	padding-bottom: 5px;
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+
 #librarySidebar .box {
 	background-image: url(/res/img/library/left-box-bottom.png);
 	margin: 12px 0 0;
