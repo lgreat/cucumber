@@ -52,7 +52,7 @@
                                     </c:otherwise>
                                 </c:choose>
                                 |
-                                <span class="costtocomplete">$${proposal.roundedcosttocomplete} needed</span>
+                                <span class="costtocomplete">$${proposal.roundedCostToComplete} needed</span>
                             </div>
                             <div class="give right">
                                 <a href="${proposalURL}" target="_blank"><img alt="Give" src="/res/img/content/donorsChoose/give_button.gif"/></a>
