@@ -1,6 +1,8 @@
 package gs.web.school.review;
 
 import gs.data.school.review.CategoryRating;
+import gs.data.school.School;
+import gs.web.school.SchoolPageInterceptor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -14,7 +16,7 @@ public class AddParentReviewsValidator implements Validator {
         }
 
         public void validate(Object object, Errors errors) {
-            ReviewCommand command = (ReviewCommand) object;
+            ReviewCommand command = (ReviewCommand) object;                        
 
             if (!StringUtils.equals(command.getEmail(), command.getConfirmEmail())) {
                 errors.rejectValue("confirmEmail", "addPR_error_confirmation_email", "The confirmation email is not the same as your email.");

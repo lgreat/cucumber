@@ -112,13 +112,30 @@
             <map>
                 <entry key="/school/parentReviews.page" value="parentReviews"/>
                 <entry key="/school/addComments.page" value="addParentReviews"/>
-                <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
-                <entry key="/school/restAddComments.page" value="restAddParentReviews"/>
                 <entry key="/school/updateRatings.page" value="updateRatings"/>
                 <entry key="/survey/form.page" value="surveyController"/>
                 <entry key="/survey/results.page" value="surveyResultsController"/>
                 <entry key="/survey/start.page" value="surveySchoolLevelController"/>
                 <entry key="/survey/startResults.page" value="resultsSchoolLevelController"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="schoolWebServicesHandlerMapping" parent="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
+          lazy-init="true">
+        <property name="interceptors">
+            <!--Use merge="true" to add an interceptor to the parents list  -->
+            <list merge="true">
+                <bean class="gs.web.school.SchoolPageInterceptor" autowire="byName">
+                    <property name="showXmlErrorPage" value="true"/>    
+                </bean>
+            </list>
+        </property>
+        <property name="urlMap">
+            <map>
+                <entry key="/school/restAddComments.page" value="restAddParentReviews"/>
+                <entry key="/school/ajaxAddComments.page" value="jsonAddParentReviews"/>
             </map>
         </property>
     </bean>
@@ -1401,7 +1418,7 @@
         </property>
     </bean>
 
-    <!-- This bean is for the add comments hover, but posts happen to ajaxAddParentReviews bean -->
+    <!-- This bean is for the add comments hover, but posts happen to jsonAddParentReviews bean -->
     <bean name="addParentReviews"
           class="gs.web.school.SchoolInModelController"
           autowire="byName" lazy-init="true">
@@ -1424,7 +1441,7 @@
         </property>
     </bean>
 
-    <bean id="ajaxAddParentReviews" parent="addParentReviewsTarget" lazy-init="true">
+    <bean id="jsonAddParentReviews" parent="addParentReviewsTarget" lazy-init="true">
         <property name="ajaxPage" value="true"/>
     </bean>
 

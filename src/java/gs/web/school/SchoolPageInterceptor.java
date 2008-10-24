@@ -3,16 +3,23 @@ package gs.web.school;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import static gs.data.util.XMLUtil.*;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.validation.ObjectError;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Interceptor that puts a school into current request if request parameters contain valid id (or schoolId) and state
@@ -22,11 +29,14 @@ import java.io.IOException;
 public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
     protected final Log _log = LogFactory.getLog(getClass());
     private ISchoolDao _schoolDao;
+    private Boolean _showXmlErrorPage = Boolean.TRUE;
 
-    /** Used when storing the school in the reqest */
+    /**
+     * Used when storing the school in the reqest
+     */
     public static final String SCHOOL_ATTRIBUTE = "school";
 
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException, ServletException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException, ServletException, ParserConfigurationException, TransformerException {
         // make sure we have a valid school
         State state = SessionContextUtil.getSessionContext(request).getState();
         if (state != null) {
@@ -48,7 +58,13 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }
-        request.getRequestDispatcher("/school/error.page").include(request, response);
+
+        // If we get this far we have an error
+        if (_showXmlErrorPage) {
+            showXmlErrorPage(response);
+        } else {
+            request.getRequestDispatcher("/school/error.page").include(request, response);
+        }
         return false;
     }
 
@@ -60,5 +76,17 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
         _schoolDao = schoolDao;
     }
 
+    public void setShowXmlErrorPage(Boolean showXmlErrorPage) {
+        this._showXmlErrorPage = showXmlErrorPage;
+    }
+
+    private void showXmlErrorPage(HttpServletResponse response) throws ParserConfigurationException, TransformerException, IOException {
+        Document doc = getDocument("errors");
+        Element errorElem = appendElement(doc, "error", "School could not be found, please make sure you specify a valid schoolId and state.");
+        errorElem.setAttribute("key", "school_not_found");
+        response.setContentType("application/xml");
+        serializeDocument(response.getWriter(), doc);
+        response.getWriter().flush();
+    }
 }
 
