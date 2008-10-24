@@ -2640,5 +2640,36 @@
             <description>CSS class name(s)</description>
         </attribute>
     </tag>
+
+    <tag>
+        <name>donorsChooseExplained</name>
+        <tag-class>gs.web.jsp.link.DonorsChooseExplainedTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>donorsChooseExplained</display-name>
+        <description>
+            <![CDATA[Link to our Donors Choose Explained page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>JavaScript onclick attribute</description>
+        </attribute>
+    </tag>
 </taglib>
 

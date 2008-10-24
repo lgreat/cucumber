@@ -36,8 +36,11 @@
 
                     <ul>
                     <c:forEach var="proposal" items="${requestScope.proposals}" varStatus="status">
+                        <c:set var="proposalURL"><c:out value="${proposal.proposalURL}" escapeXml="true"/></c:set>
                         <li class="proposal cleared">
-                            <div class="title"><c:out value="${proposal.title}" escapeXml="false"/></div>
+                            <div class="title">
+                                <a href="${proposalURL}" target="_blank"><c:out value="${proposal.title}" escapeXml="false"/></a>
+                            </div>
                             <div class="description">&amp;quot;<c:out value="${proposal.shortDescription}" escapeXml="true"/>&amp;quot;</div>
                             <div class="moreDetails left">
                                 <c:choose>
@@ -49,10 +52,9 @@
                                     </c:otherwise>
                                 </c:choose>
                                 |
-                                <span class="costToComplete">$${proposal.costToComplete} needed</span>
+                                <span class="costtocomplete">$${proposal.roundedcosttocomplete} needed</span>
                             </div>
                             <div class="give right">
-                                <c:set var="proposalURL"><c:out value="${proposal.proposalURL}" escapeXml="true"/></c:set>
                                 <a href="${proposalURL}" target="_blank"><img alt="Give" src="/res/img/content/donorsChoose/give_button.gif"/></a>
                             </div>
                         </li>
@@ -61,7 +63,9 @@
 
                     <a href="http://www.donorschoose.org/donors/search.html?zone=${zoneId}" target="_blank"><img id="seeMoreDonorsChoose" alt="See more teachers' requests" src="/res/img/content/donorsChoose/seemore_button.gif"/></a>
 
-                    <a href="http://www.donorschoose.org/about/about.html" target="_blank" class="learnHow">Learn how this works</a>
+                    <link:donorsChooseExplained target="_blank" styleClass="learnHow" onclick="window.open(this.href, 'donorsChooseExplained', 'width=544,height=480,scrollbars=yes'); return false;">
+                        Learn how this works
+                    </link:donorsChooseExplained>
 
                     <a href="http://www.donorschoose.org" target="_blank"><img id="donorsChooseOrg" alt="Powered by DonorsChoose.org" src="/res/img/content/donorsChoose/donorschoose_logo.gif"/></a>
 

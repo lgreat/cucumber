@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.132 2008/10/23 22:36:27 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.133 2008/10/24 19:23:56 yfan Exp $
  */
 
 package gs.web.util;
@@ -218,7 +218,9 @@ public class UrlBuilder {
     public static final VPage SUBMIT_PRIVATE_SCHOOL = new VPage("vpage:submitPrivateSchool");
 
     /** browse pages */
-    public static final VPage BROWSE_PRESCHOOLS = new VPage("vpage:browsePreschools");    
+    public static final VPage BROWSE_PRESCHOOLS = new VPage("vpage:browsePreschools");
+
+    public static final VPage DONORS_CHOOSE_EXPLAINED = new VPage("vpage:donorsChooseExplained");
 
     /**
      * Create a builder to the given site page.
@@ -464,7 +466,9 @@ public class UrlBuilder {
         } else if (MY_SCHOOL_LIST_LOGIN.equals(page)) {
             _path = "/mySchoolListLogin.page";
         } else if (PRESCHOOL.equals(page)) {
-            _path = "/preschool/";            
+            _path = "/preschool/";
+        } else if (DONORS_CHOOSE_EXPLAINED.equals(page)) {
+            _path = "/donorsChooseExplained.html";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
