@@ -113,6 +113,7 @@
                 <entry key="/school/parentReviews.page" value="parentReviews"/>
                 <entry key="/school/addComments.page" value="addParentReviews"/>
                 <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
+                <entry key="/school/restAddComments.page" value="restAddParentReviews"/>
                 <entry key="/school/updateRatings.page" value="updateRatings"/>
                 <entry key="/survey/form.page" value="surveyController"/>
                 <entry key="/survey/results.page" value="surveyResultsController"/>
@@ -1400,13 +1401,14 @@
         </property>
     </bean>
 
+    <!-- This bean is for the add comments hover, but posts happen to ajaxAddParentReviews bean -->
     <bean name="addParentReviews"
           class="gs.web.school.SchoolInModelController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/school/parentReviews/addCommentsHover"/>
     </bean>
 
-    <bean name="ajaxAddParentReviews"
+    <bean name="addParentReviewsTarget" abstract="true"
           class="gs.web.school.review.AddParentReviewsController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
@@ -1414,13 +1416,20 @@
         <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
         <property name="formView" value="/school/parentReviews/addComments"/>
         <property name="successView" value="redirect:/school/parentReviews/updatedParentRatingsThanks.page"/>
-        <property name="ajaxPage" value="true"/>
         <property name="validators">
             <list>
                 <ref bean="emailValidator"/>
                 <ref bean="addParentReviewsValidator"/>
             </list>
         </property>
+    </bean>
+
+    <bean id="ajaxAddParentReviews" parent="addParentReviewsTarget" lazy-init="true">
+        <property name="ajaxPage" value="true"/>
+    </bean>
+
+    <bean id="restAddParentReviews" parent="addParentReviewsTarget" lazy-init="true">
+        <property name="restPage" value="true"/>
     </bean>
 
     <bean name="addParentReviewsValidator"

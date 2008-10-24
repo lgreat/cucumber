@@ -79,8 +79,8 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
-        _controller.setSubscriptionDao(_subscriptionDao);       
-        
+        _controller.setSubscriptionDao(_subscriptionDao);
+
         _controller.onSubmit(_request, _response, _command, _errors);
         verify(_userDao);
         verify(_reviewDao);
@@ -108,7 +108,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     public void testEmptyReviewWithRatingMarkedActive() {
         _command.setComments("");
         _command.setOverallAsString("1");
-        
+
         _controller.setReviewDao(_reviewDao);
         Review r = _controller.createOrUpdateReview(_user, _school, _command, false);
         assertEquals("a", r.getStatus());
@@ -118,71 +118,71 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         String commentStart = "the word that best describes this school is ";
         String commentEnd = ". that pretty much sums it up.";
 
-        String [] badwords = new String [] {
-            "fuck",
-            "poop ",
-            "poop.",
-            "poop,",
-            "poopie",
-            " ass ",
-            " .ass ",
-            " ,ass ",
-            " ass ",
-            " ass.",
-            " ass,",
-            "faggot",
-            " gay ",
-            " .gay ",
-            " ,gay ",
-            " gay ",
-            " gay.",
-            " gay,",
-            "nigger",
-            "shit",
-            " prick ",
-            " prick.",
-            " prick,",
-            "ass-kicker",
-            "suck",
-            "asshole",
-            " dick ",
-            " dick.",
-            " dick,",
-            "Satan",
-            "dickhead",
-            " piss ",
-            " piss.",
-            " piss,",            
+        String[] badwords = new String[]{
+                "fuck",
+                "poop ",
+                "poop.",
+                "poop,",
+                "poopie",
+                " ass ",
+                " .ass ",
+                " ,ass ",
+                " ass ",
+                " ass.",
+                " ass,",
+                "faggot",
+                " gay ",
+                " .gay ",
+                " ,gay ",
+                " gay ",
+                " gay.",
+                " gay,",
+                "nigger",
+                "shit",
+                " prick ",
+                " prick.",
+                " prick,",
+                "ass-kicker",
+                "suck",
+                "asshole",
+                " dick ",
+                " dick.",
+                " dick,",
+                "Satan",
+                "dickhead",
+                " piss ",
+                " piss.",
+                " piss,",
         };
 
-        for (int i=0; i<badwords.length; i++) {
+        for (int i = 0; i < badwords.length; i++) {
             String text = commentStart + badwords[i] + commentEnd;
-            assertTrue(text+ ": has a bad word in it", _controller.hasBadWord(text));
+            assertTrue(text + ": has a bad word in it", _controller.hasBadWord(text));
 
             text = commentStart + badwords[i];
-            assertTrue(text+ ": has a bad word in it", _controller.hasBadWord(text));
+            assertTrue(text + ": has a bad word in it", _controller.hasBadWord(text));
 
             text = badwords[i] + commentEnd;
-            assertTrue(text+ ": has a bad word in it", _controller.hasBadWord(text));
+            assertTrue(text + ": has a bad word in it", _controller.hasBadWord(text));
         }
 
-        String [] goodWords = new String [] {
-            "pissingly awesome",
-            "gayingly awesome",
-            "prickingly awesome",
-            "gayingly awesome",
-            "dickingly awesome",
+        String[] goodWords = new String[]{
+                "pissingly awesome",
+                "gayingly awesome",
+                "prickingly awesome",
+                "gayingly awesome",
+                "dickingly awesome",
         };
 
-        for (int i=0; i<goodWords.length; i++) {
+        for (int i = 0; i < goodWords.length; i++) {
             String text = commentStart + badwords[i] + commentEnd;
-            assertTrue(text+ ": does not have a bad word.", _controller.hasBadWord(text));
+            assertTrue(text + ": does not have a bad word.", _controller.hasBadWord(text));
 
             text = commentStart + badwords[i];
-            assertTrue(text+ ": does not have a bad word", _controller.hasBadWord(text));
+            assertTrue(text + ": does not have a bad word", _controller.hasBadWord(text));
 
             text = badwords[i] + commentEnd;
-            assertTrue(text+ ": does not have a bad word", _controller.hasBadWord(text));
+            assertTrue(text + ": does not have a bad word", _controller.hasBadWord(text));
         }
     }
 
@@ -209,9 +209,9 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         Review r = _controller.createOrUpdateReview(_user, _school, _command, true);
         assertEquals(CategoryRating.RATING_1, r.getPrincipal());
-        assertEquals(CategoryRating.RATING_2,  r.getTeachers());
+        assertEquals(CategoryRating.RATING_2, r.getTeachers());
         assertEquals(CategoryRating.RATING_3, r.getActivities());
-        assertEquals(CategoryRating.RATING_4,  r.getParents());
+        assertEquals(CategoryRating.RATING_4, r.getParents());
         assertEquals(CategoryRating.RATING_5, r.getSafety());
         assertEquals(CategoryRating.RATING_3, r.getQuality());
 
@@ -224,7 +224,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     }
 
     public void testErrorJson() throws Exception {
-        _errors.reject("bad","this is a bad");
+        _errors.reject("bad", "this is a bad");
         _errors.reject("bad", "this is really bad");
         _controller.errorJSON(getResponse(), _errors);
 
@@ -240,20 +240,38 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         assertEquals("{\"status\":true}", getResponse().getContentAsString());
     }
 
+    public void testErrorRest() throws Exception {
+        _errors.rejectValue("confirmEmail", "addPR_error_confirmation_email", "The confirmation email is not the same as your email.");
+        _errors.rejectValue("comments", "addPR_error_comments", "Please enter a review or rating.");
+        _controller.errorREST(getResponse(), _errors);
+
+        assertEquals("application/xml", getResponse().getContentType());
+        assertEquals("<errors>\n" +
+                "<error key=\"addPR_error_confirmation_email\">The confirmation email is not the same as your email.</error>\n" +
+                "<error key=\"addPR_error_comments\">Please enter a review or rating.</error>\n" +
+                "</errors>\n", getResponse().getContentAsString());
+    }
+
+    public void testSuccessRest() throws Exception {
+        _controller.successREST(getResponse());
+        assertEquals("application/xml", getResponse().getContentType());
+        assertEquals("<success/>", getResponse().getContentAsString());
+    }
+
     public void xtestSendRejectEmailReal() throws Exception {
         _user.setEmail("dlee@greatschools.net");
         String comments = "this school rocks!";
 
-        _controller.getEmailHelperFactory().setMailSender((JavaMailSender)getApplicationContext().getBean("mailSender"));
-        _controller.sendMessage(_user, comments, _school,"rejectEmail.txt");
+        _controller.getEmailHelperFactory().setMailSender((JavaMailSender) getApplicationContext().getBean("mailSender"));
+        _controller.sendMessage(_user, comments, _school, "rejectEmail.txt");
     }
 
     public void xtestSendCommunityEmailReal() throws Exception {
         _user.setEmail("eford@greatschools.net");
         String comments = "this school rocks and I like it a lot!";
 
-        _controller.getEmailHelperFactory().setMailSender((JavaMailSender)getApplicationContext().getBean("mailSender"));
-        _controller.sendMessage(_user, comments, _school,"communityEmail.txt");
+        _controller.getEmailHelperFactory().setMailSender((JavaMailSender) getApplicationContext().getBean("mailSender"));
+        _controller.sendMessage(_user, comments, _school, "communityEmail.txt");
     }
 
     public void testMssSignUp() throws Exception {
@@ -266,7 +284,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _subscriptionDao.addNewsletterSubscriptions(_user, Arrays.asList(sub));
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
-        _reviewDao.saveReview((Review)anyObject());
+        _reviewDao.saveReview((Review) anyObject());
         replay(_reviewDao);
         replay(_userDao);
         replay(_subscriptionDao);
@@ -288,9 +306,9 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         //max out a user's subscriptions
         Set<Subscription> subscriptions = new HashSet<Subscription>();
-        for (int i=0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++) {
+        for (int i = 0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++) {
             Subscription sub = new Subscription(_user, SubscriptionProduct.MYSTAT, State.CA);
-            sub.setSchoolId(i+1);
+            sub.setSchoolId(i + 1);
             subscriptions.add(sub);
         }
         _user.setSubscriptions(subscriptions);
@@ -315,7 +333,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _controller.onSubmit(_request, _response, _command, _errors);
 
         verify(_userDao);
-        verify(_reviewDao);        
+        verify(_reviewDao);
         //no calls to subscription dao to add a newsletter
         verify(_subscriptionDao);
     }
@@ -366,11 +384,11 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         assertNull(review2.getProcessDate());
         assertNull(review2.getSubmitter());
         assertNull(review2.getNote());
-        assertTrue(DateUtils.isSameDay(new Date(),review2.getPosted()));
+        assertTrue(DateUtils.isSameDay(new Date(), review2.getPosted()));
 
         verify(_reviewDao);
     }
-    
+
 
     public void testErrorOnJsonPageShortCircuits() throws Exception {
         _errors.reject("some error");

@@ -2,20 +2,11 @@ package gs.web.util.feed;
 
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
-import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import static org.apache.commons.lang.StringUtils.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.*;
-import javax.xml.transform.stream.StreamResult;
-import java.io.Writer;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
@@ -23,6 +14,7 @@ import gs.data.test.rating.CityRating;
 import gs.data.test.rating.ICityRatingDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import static gs.data.util.XMLUtil.*;
 import gs.web.util.UrlBuilder;
 
 /**
@@ -108,38 +100,6 @@ public class CityFeedController implements Controller {
         response.setContentType("application/xml");
         serializeDocument(response.getWriter(), doc);
         return null;
-    }
-
-    /**
-     * Create the XML document
-     */
-    private Document getDocument(String name) throws ParserConfigurationException {
-        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        final DocumentBuilder builder = factory.newDocumentBuilder();
-        final DOMImplementation impl = builder.getDOMImplementation();
-        return impl.createDocument(null, name, null);
-    }
-
-    /**
-     * Write the document to the servlet response
-     */
-    private void serializeDocument(Writer out, Document doc) throws TransformerException {
-        DOMSource domSource = new DOMSource(doc);
-        StreamResult streamResult = new StreamResult(out);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer serializer = tf.newTransformer();
-        serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-        serializer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        serializer.transform(domSource, streamResult);
-    }
-
-    /**
-     * Helper method to create an element, set its text content, and append it
-     */
-    private void appendElement(Document doc, String name, String content) {
-        Element element = doc.createElement(name);
-        if (content != null) element.setTextContent(content);
-        doc.getDocumentElement().appendChild(element);
     }
 
     public void setGeoDao(IGeoDao geoDao) {
