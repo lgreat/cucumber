@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.springframework.validation.ObjectError;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -19,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
-import java.util.List;
-import java.util.Iterator;
 
 /**
  * Interceptor that puts a school into current request if request parameters contain valid id (or schoolId) and state
@@ -37,6 +34,11 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
      * Used when storing the school in the reqest
      */
     public static final String SCHOOL_ATTRIBUTE = "school";
+
+    /**
+     * output format, defaults to HTML but can also be set to json or xml
+     */
+    public static final String OUTPUT_PARAMETER = "output";
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException, ServletException, ParserConfigurationException, TransformerException {
         // make sure we have a valid school
@@ -61,10 +63,13 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
             }
         }
 
-        // If we get this far we have an error
-        if (_showXmlErrorPage) showXmlErrorPage(response);
+        // If we get this far we have an error, now determine the error format as html, json, or xml
+        if ("xml".equals(request.getParameter(OUTPUT_PARAMETER))) showXmlErrorPage(response);
+        else if ("json".equals(request.getParameter(OUTPUT_PARAMETER))) showJsonErrorPage(response);
+        else if ("html".equals(request.getParameter(OUTPUT_PARAMETER))) showHtmlErrorPage(request, response);
+        else if (_showXmlErrorPage) showXmlErrorPage(response);
         else if (_showJsonErrorPage) showJsonErrorPage(response);
-        else request.getRequestDispatcher("/school/error.page").include(request, response);
+        else showHtmlErrorPage(request, response);
         return false;
     }
 
@@ -102,6 +107,10 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
         response.setContentType("text/x-json");
         response.getWriter().print(buff.toString());
         response.getWriter().flush();
+    }
+
+    protected void showHtmlErrorPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/school/error.page").include(request, response);
     }
 }
 

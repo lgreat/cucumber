@@ -39,15 +39,12 @@ import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
- *
- * http://wiki.greatschools.net/bin/view/Greatschools/ParentReviewWebService
+ *         <p/>
+ *         http://wiki.greatschools.net/bin/view/Greatschools/ParentReviewWebService
  */
 public class AddParentReviewsController extends SimpleFormController implements ReadWriteController {
 
     protected final static Log _log = LogFactory.getLog(AddParentReviewsController.class);
-
-    public final static String JSON_BEAN_ID = "jsonAddParentReviews";
-    public final static String REST_BEAN_ID = "restAddParentReviews";
 
     private IUserDao _userDao;
     private IReviewDao _reviewDao;
@@ -55,9 +52,9 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
     private EmailHelperFactory _emailHelperFactory;
 
-    private Boolean _ajaxPage = Boolean.FALSE;
+    private Boolean _jsonPage = Boolean.FALSE;
 
-    private Boolean _restPage = Boolean.FALSE;
+    private Boolean _xmlPage = Boolean.FALSE;
 
     private static Pattern BAD_WORDS = Pattern.compile(".*(fuck|poop[\\s\\.,]|poopie|[\\s\\.,]ass[\\s\\.,]|faggot|[\\s\\.,]gay[\\s\\.,]|nigger|shit|prick[\\s\\.,]|ass-kicker|suck|asshole|dick[\\s\\.,]|Satan|dickhead|piss[\\s\\.,]).*");
 
@@ -65,15 +62,16 @@ public class AddParentReviewsController extends SimpleFormController implements 
                                                  HttpServletResponse response,
                                                  Object command,
                                                  BindException errors) throws Exception {
-        if (isAjaxPage() && errors.hasErrors()) {
-            errorJSON(response, errors);
-            return null;
-        } else if (isRestPage() && errors.hasErrors()) {
-            errorREST(response, errors);
-            return null;
-        } else {
-            return super.processFormSubmission(request, response, command, errors);
+        if (errors.hasErrors()) {
+            ReviewCommand rc = (ReviewCommand) command;
+            if ("xml".equals(rc.getOutput())) return errorXML(response, errors);
+            else if ("json".equals(rc.getOutput())) return errorXML(response, errors);
+            else if ("html".equals(rc.getOutput()))
+                return super.processFormSubmission(request, response, command, errors);
+            else if (isXmlPage()) return errorXML(response, errors);
+            else if (isJsonPage()) return errorJSON(response, errors);
         }
+        return super.processFormSubmission(request, response, command, errors);
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -147,17 +145,12 @@ public class AddParentReviewsController extends SimpleFormController implements 
             omnitureSuccessEvent.add(OmnitureSuccessEvent.SuccessEvent.ParentReview);
         }
 
-        if (isAjaxPage()) {
-            successJSON(response);
-            return null;
-        } else if (isRestPage()) {
-            successREST(response);
-            return null;
-        } else {
-            ModelAndView mAndV = new ModelAndView();
-            mAndV.setViewName(getSuccessView());
-            return mAndV;
-        }
+        if ("xml".equals(rc.getOutput())) return successXML(response);
+        else if ("json".equals(rc.getOutput())) return successJSON(response);
+        else if ("html".equals(rc.getOutput())) return successHTML();
+        else if (isXmlPage()) return successXML(response);
+        else if (isJsonPage()) return successJSON(response);
+        else return successHTML();
     }
 
     protected static boolean userRatedOneOrMoreCategories(ReviewCommand rc) {
@@ -291,7 +284,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
     }
 
 
-    protected void errorJSON(HttpServletResponse response, BindException errors) throws IOException {
+    protected ModelAndView errorJSON(HttpServletResponse response, BindException errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
         buff.append("{\"status\":false,\"errors\":");
         buff.append("[");
@@ -308,18 +301,11 @@ public class AddParentReviewsController extends SimpleFormController implements 
         response.setContentType("text/x-json");
         response.getWriter().print(buff.toString());
         response.getWriter().flush();
+        return null;
     }
 
-    protected void successJSON(HttpServletResponse response) throws IOException {
-        response.setContentType("text/x-json");
-        response.getWriter().print("{\"status\":true}");
-        response.getWriter().flush();
-    }
-
-    protected void errorREST(HttpServletResponse response, BindException errors) throws IOException, ParserConfigurationException, TransformerException {
+    protected ModelAndView errorXML(HttpServletResponse response, BindException errors) throws IOException, ParserConfigurationException, TransformerException {
         Document doc = getDocument("errors");
-
-        List messages = errors.getAllErrors();
         for (Object e : errors.getAllErrors()) {
             ObjectError error = (ObjectError) e;
             Element errorElem = appendElement(doc, "error", error.getDefaultMessage());
@@ -328,12 +314,27 @@ public class AddParentReviewsController extends SimpleFormController implements 
         response.setContentType("application/xml");
         serializeDocument(response.getWriter(), doc);
         response.getWriter().flush();
+        return null;
     }
 
-    protected void successREST(HttpServletResponse response) throws IOException {
+    protected ModelAndView successJSON(HttpServletResponse response) throws IOException {
+        response.setContentType("text/x-json");
+        response.getWriter().print("{\"status\":true}");
+        response.getWriter().flush();
+        return null;
+    }
+
+    protected ModelAndView successXML(HttpServletResponse response) throws IOException {
         response.setContentType("application/xml");
         response.getWriter().print("<success/>");
         response.getWriter().flush();
+        return null;
+    }
+
+    protected ModelAndView successHTML() {
+        ModelAndView mAndV = new ModelAndView();
+        mAndV.setViewName(getSuccessView());
+        return mAndV;
     }
 
     public IUserDao getUserDao() {
@@ -360,20 +361,20 @@ public class AddParentReviewsController extends SimpleFormController implements 
         _subscriptionDao = subscriptionDao;
     }
 
-    public Boolean isAjaxPage() {
-        return _ajaxPage;
+    public Boolean isJsonPage() {
+        return _jsonPage;
     }
 
-    public void setAjaxPage(Boolean ajaxPage) {
-        _ajaxPage = ajaxPage;
+    public void setJsonPage(Boolean jsonPage) {
+        _jsonPage = jsonPage;
     }
 
-    public Boolean isRestPage() {
-        return _restPage;
+    public Boolean isXmlPage() {
+        return _xmlPage;
     }
 
-    public void setRestPage(Boolean restPage) {
-        _restPage = restPage;
+    public void setXmlPage(Boolean xmlPage) {
+        _xmlPage = xmlPage;
     }
 
     public EmailHelperFactory getEmailHelperFactory() {

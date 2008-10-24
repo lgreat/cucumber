@@ -243,7 +243,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     public void testErrorRest() throws Exception {
         _errors.rejectValue("confirmEmail", "addPR_error_confirmation_email", "The confirmation email is not the same as your email.");
         _errors.rejectValue("comments", "addPR_error_comments", "Please enter a review or rating.");
-        _controller.errorREST(getResponse(), _errors);
+        _controller.errorXML(getResponse(), _errors);
 
         assertEquals("application/xml", getResponse().getContentType());
         assertEquals("<errors>\n" +
@@ -253,7 +253,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     }
 
     public void testSuccessRest() throws Exception {
-        _controller.successREST(getResponse());
+        _controller.successXML(getResponse());
         assertEquals("application/xml", getResponse().getContentType());
         assertEquals("<success/>", getResponse().getContentAsString());
     }
@@ -392,7 +392,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
     public void testErrorOnJsonPageShortCircuits() throws Exception {
         _errors.reject("some error");
-        _controller.setAjaxPage(true);
+        _controller.setJsonPage(true);
 
         assertNull(_controller.processFormSubmission(_request, _response, _command, _errors));
         assertEquals("text/x-json", _response.getContentType());

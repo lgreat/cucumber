@@ -117,11 +117,12 @@
                 <entry key="/survey/results.page" value="surveyResultsController"/>
                 <entry key="/survey/start.page" value="surveySchoolLevelController"/>
                 <entry key="/survey/startResults.page" value="resultsSchoolLevelController"/>
+                <entry key="/school/ajaxAddComments.page" value="ajaxAddParentReviews"/>
             </map>
         </property>
     </bean>
 
-    <bean name="schoolRestWebServicesHandlerMapping" parent="defaultHandlerMapping"
+    <bean name="schoolRestXmlWebServicesHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
           lazy-init="true">
         <property name="interceptors">
@@ -135,24 +136,6 @@
         <property name="urlMap">
             <map>
                 <entry key="/school/restAddComments.page" value="restAddParentReviews"/>
-            </map>
-        </property>
-    </bean>
-
-    <bean name="schoolJsonWebServicesHandlerMapping" parent="defaultHandlerMapping"
-          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
-          lazy-init="true">
-        <property name="interceptors">
-            <!--Use merge="true" to add an interceptor to the parents list  -->
-            <list merge="true">
-                <bean class="gs.web.school.SchoolPageInterceptor" autowire="byName">
-                    <property name="showJsonErrorPage" value="true"/>
-                </bean>
-            </list>
-        </property>
-        <property name="urlMap">
-            <map>
-                <entry key="/school/ajaxAddComments.page" value="jsonAddParentReviews"/>
             </map>
         </property>
     </bean>
@@ -1458,12 +1441,12 @@
         </property>
     </bean>
 
-    <bean id="jsonAddParentReviews" parent="addParentReviewsTarget" lazy-init="true">
-        <property name="ajaxPage" value="true"/>
+    <bean id="ajaxAddParentReviews" parent="addParentReviewsTarget" lazy-init="true">
+        <property name="jsonPage" value="true"/>
     </bean>
 
     <bean id="restAddParentReviews" parent="addParentReviewsTarget" lazy-init="true">
-        <property name="restPage" value="true"/>
+        <property name="xmlPage" value="true"/>
     </bean>
 
     <bean name="addParentReviewsValidator"

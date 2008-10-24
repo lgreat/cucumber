@@ -14,6 +14,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private String _lastName;
     private String _comments;
     private String _client;
+    private String _output;
     
     private CategoryRating _principal = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _teacher = CategoryRating.DECLINE_TO_STATE;
@@ -197,6 +198,15 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
     public void setPoster(Poster poster) {
         _poster = poster;
+    }
+
+    public String getOutput() {
+        return _output;
+    }
+
+    /** Set output format to html,xml,or json */
+    public void setOutput(String output) {
+        _output = output;
     }
 
     public boolean isGivePermission() {
