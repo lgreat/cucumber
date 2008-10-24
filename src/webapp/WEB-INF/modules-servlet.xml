@@ -296,7 +296,7 @@
         <property name="failCacheEntryTTLSeconds" value="60"/>
         <property name="failCacheEntryIdleSeconds" value="60"/>
         <!-- donors choose and donors choose cache properties -->
-        <property name="apiKey" value="DONORSCHOOSE"/>
+        <property name="apiKey" value="2dh64gpr"/>
         <property name="maxItemsInBucket" value="30"/>
         <property name="maxDescLength" value="45"/>
     </bean>
