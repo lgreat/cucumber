@@ -1,10 +1,12 @@
 /* breadcrumbs */
 #breadcrumbs {
 	margin: 2px 0 0 4px;
-	_margin: 2px 0 12px 24px; /* IE 6 hack */
-    width:550px;
+	_margin: 2px 0 12px 4px; /* IE 6 hack */
+    width:450px;
 }
-
+#breadcrumbs ul {
+    margin: 0;
+}
 #breadcrumbs ul li {
 	font: 11px "Trebuchet MS", Arial, sans-serif;
 	color: #888;
