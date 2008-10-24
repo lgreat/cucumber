@@ -44,8 +44,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
     protected final static Log _log = LogFactory.getLog(AddParentReviewsController.class);
 
-    public final static String BEAN_ID = "addParentReviews";
-    public final static String AJAX_BEAN_ID = "ajaxAddParentReviews";
+    public final static String JSON_BEAN_ID = "jsonAddParentReviews";
     public final static String REST_BEAN_ID = "restAddParentReviews";
 
     private IUserDao _userDao;
