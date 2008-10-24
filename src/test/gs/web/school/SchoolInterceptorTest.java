@@ -59,6 +59,7 @@ public class SchoolInterceptorTest extends TestCase {
     public void testNoStateParameter() throws Exception {
         _context.setState(null);
         expect(_request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME)).andReturn(_context);
+        expect(_request.getParameter(SchoolPageInterceptor.OUTPUT_PARAMETER)).andReturn(null).times(3);
         expect(_request.getRequestDispatcher("/school/error.page")).
                 andReturn(createMock(RequestDispatcher.class));
 
@@ -72,6 +73,7 @@ public class SchoolInterceptorTest extends TestCase {
     public void testNoIdParameter() throws Exception {
         _context.setState(State.CA);
         expect(_request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME)).andReturn(_context);
+        expect(_request.getParameter(SchoolPageInterceptor.OUTPUT_PARAMETER)).andReturn(null).times(3);
         expect(_request.getParameter("id")).andReturn(null);
         expect(_request.getParameter("schoolId")).andReturn(null);
         expect(_request.getRequestDispatcher("/school/error.page")).
@@ -88,6 +90,7 @@ public class SchoolInterceptorTest extends TestCase {
         _context.setState(State.CA);
 
         expect(_request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME)).andReturn(_context);
+        expect(_request.getParameter(SchoolPageInterceptor.OUTPUT_PARAMETER)).andReturn(null).times(3);
         expect(_request.getParameter("id")).andReturn("1");
 
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(_school);
