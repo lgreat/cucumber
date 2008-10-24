@@ -53,7 +53,7 @@
 </div>
 
 <div id="main">
-<h1>Expert Articles to Help your Child Succeed in School</h1>
+<h1>Expert Articles to Help Your Child Succeed in School</h1>
 
 <div id="content">
 
@@ -76,7 +76,7 @@
             <li><link:articleCategoryBrowse categoryId="54">Middle School</link:articleCategoryBrowse></li>
             <li><link:articleCategoryBrowse categoryId="104">High School</link:articleCategoryBrowse></li>
         </ul>
-        <p class="column">When you should start <link:countdownToCollege>Countdown to College.</link:countdownToCollege></p>
+        <p class="column">When you should start the <link:countdownToCollege>Countdown to College.</link:countdownToCollege></p>
     </div>
 </div>
 <div id="main-copy" class="box">
@@ -100,8 +100,8 @@
         <div class="column">
             <p>Tips and tools to ensure your child succeeds in school.</p>
             <ul>
-                <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
                 <li><link:tutoring>Tutoring and Homework Help</link:tutoring></li>
+                <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
                 <li><gsweb:articlelink articleId="204">Study Skills</gsweb:articlelink></li>
                 <li><gsml:a href="/search/search.page?search_type=0&amp;q=bullying&amp;c=topic">Bullying</gsml:a></li>
             </ul>
