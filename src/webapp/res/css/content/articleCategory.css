@@ -16,7 +16,9 @@
 	padding: 0;
 }
 
-#breadcrumbs ul li a.breadcrumb {
+#breadcrumbs ul li a:active.breadcrumb,
+#breadcrumbs ul li a:link.breadcrumb,
+#breadcrumbs ul li a:visited.breadcrumb{
 	text-decoration: underline;
 	color: #888888;
 }
