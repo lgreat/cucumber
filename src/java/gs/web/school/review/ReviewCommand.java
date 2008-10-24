@@ -15,20 +15,23 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private String _comments;
     private String _client;
     private String _output;
-    
-    private CategoryRating _principal = CategoryRating.DECLINE_TO_STATE;
+
     private CategoryRating _teacher = CategoryRating.DECLINE_TO_STATE;
-    private CategoryRating _activities = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _parent = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _safety = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _overall = CategoryRating.DECLINE_TO_STATE;
 
-    private CategoryRating _pOverall = CategoryRating.DECLINE_TO_STATE;
+    /**
+     * K-12 parameters
+     */
+    private CategoryRating _principal = CategoryRating.DECLINE_TO_STATE;
+    private CategoryRating _activities = CategoryRating.DECLINE_TO_STATE;
+
+    /**
+     * Preschool
+     */
     private CategoryRating _pProgram = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _pFacilities = CategoryRating.DECLINE_TO_STATE;
-    private CategoryRating _pSafety = CategoryRating.DECLINE_TO_STATE;
-    private CategoryRating _pTeachers = CategoryRating.DECLINE_TO_STATE;
-    private CategoryRating _pParents = CategoryRating.DECLINE_TO_STATE;
 
     private Poster _poster;
 
@@ -133,11 +136,11 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public CategoryRating getPOverall() {
-        return _pOverall;
+        return _overall;
     }
 
     public void setPOverall(CategoryRating pOverall) {
-        _pOverall = pOverall;
+        _overall = pOverall;
     }
 
     public CategoryRating getPProgram() {
@@ -157,27 +160,27 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public CategoryRating getPSafety() {
-        return _pSafety;
+        return _safety;
     }
 
     public void setPSafety(CategoryRating pSafety) {
-        _pSafety = pSafety;
+        _safety = pSafety;
     }
 
     public CategoryRating getPTeachers() {
-        return _pTeachers;
+        return _teacher;
     }
 
     public void setPTeachers(CategoryRating pTeachers) {
-        _pTeachers = pTeachers;
+        _teacher = pTeachers;
     }
 
     public CategoryRating getPParents() {
-        return _pParents;
+        return _parent;
     }
 
     public void setPParents(CategoryRating pParents) {
-        _pParents = pParents;
+        _parent = pParents;
     }
 
     public String getPosterAsString() {
@@ -291,11 +294,11 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getPParentsAsString() {
-        return _pParents.getName();
+        return _parent.getName();
     }
 
     public void setPParentsAsString(String rating) {
-        _pParents = CategoryRating.getCategoryRating(rating);
+        _parent = CategoryRating.getCategoryRating(rating);
     }
 
     public String getPFacilitiesAsString() {
@@ -307,26 +310,26 @@ public class ReviewCommand implements EmailValidator.IEmail {
     }
 
     public String getPSafetyAsString() {
-        return _pSafety.getName();
+        return _safety.getName();
     }
 
     public void setPSafetyAsString(String rating) {
-        _pSafety = CategoryRating.getCategoryRating(rating);
+        _safety = CategoryRating.getCategoryRating(rating);
     }
 
     public String getPTeachersAsString() {
-        return _pTeachers.getName();
+        return _teacher.getName();
     }
 
     public void setPTeachersAsString(String rating) {
-        _pTeachers = CategoryRating.getCategoryRating(rating);
+        _teacher = CategoryRating.getCategoryRating(rating);
     }
 
     public String getPOverallAsString() {
-        return _pOverall.getName();
+        return _overall.getName();
     }
 
     public void setPOverallAsString(String rating) {
-        _pOverall = CategoryRating.getCategoryRating(rating);
+        _overall = CategoryRating.getCategoryRating(rating);
     }
 }
