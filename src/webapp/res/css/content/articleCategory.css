@@ -108,3 +108,8 @@ div.abstract {
     top: 8px;
     left: 313px;
 }
+
+#searchResultsList .article, #searchResults {
+    width:440px;
+}
+
