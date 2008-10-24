@@ -35,6 +35,7 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_PAGE_SIZE = "pageSize";
     protected static final String MODEL_RESULTS = "mainResults";
     protected static final String MODEL_TOTAL_HITS = "total";
+    protected static final String MODEL_ISA_LD_CATEGORY = "isAnLDCategory";
 
     /** Page number */
     public static final String PARAM_PAGE = "p";
@@ -78,6 +79,7 @@ public class ArticlesByCategoryController extends AbstractController {
         }
         model.put(MODEL_PAGE, page);
         model.put(MODEL_PAGE_SIZE, PAGE_SIZE); // results per page
+        model.put(MODEL_ISA_LD_CATEGORY,isAnLDCategory(request.getRequestURI()));
 
         // if we found a category, ask the searcher for results and put them in the model
         if (categories != null && categories.size() > 0) {
@@ -142,6 +144,19 @@ public class ArticlesByCategoryController extends AbstractController {
         return null;
     }
 
+    protected boolean isAnLDCategory(String requestURI) {
+
+        String requestUri = requestURI.replaceAll("/gs-web", "");
+        requestUri = requestUri.replaceAll("/articles/", "");
+        String[] rs = StringUtils.split(requestUri, "/");
+        if (rs.length >= 2) {
+            if (rs[1].equals("LD")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected List<ArticleCategory> getCategoriesFromId(String categoryId) {
         List<ArticleCategory> categories = new ArrayList<ArticleCategory>();
         ArticleCategory category = _articleCategoryDao.getArticleCategory(Integer.valueOf(categoryId));
@@ -173,6 +188,8 @@ public class ArticlesByCategoryController extends AbstractController {
         } // end if category != null
         return categories;
     }
+
+    
 
     public IArticleCategoryDao getArticleCategoryDao() {
         return _articleCategoryDao;

@@ -58,18 +58,15 @@
     <content:librarySidebar cssClass="white" />
 </div>
 
-<c:set var="isALearningDisabilityCategory" value="true"/>
+<c:set var="isALearningDisabilityCategory" value="${requestScope.isAnLDCategory}"/>
 
 <div id="col_left">
     <div id="breadcrumbs">
-        <ul><li><a href="/education-topics/">Education Topics </a> &amp;gt;</li>
+        <ul><li><a href="/education-topics/" class="breadcrumb">Education Topics</a> &amp;gt; </li>
 
             <c:if test="${isALearningDisabilityCategory}">
-                <li>
-                    <link:specialNeeds> Learning Disabilities</link:specialNeeds> &amp;gt;
-                </li>
+                <li><link:specialNeeds styleClass="breadcrumb">Learning Disabilities</link:specialNeeds> &amp;gt;</li>
             </c:if>
-
             <li> ${requestScope.subcategory.typeDisplay}</li>
         </ul>
     </div>

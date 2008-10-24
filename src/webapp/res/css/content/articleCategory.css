@@ -9,16 +9,16 @@
 }
 #breadcrumbs ul li {
 	font: 11px "Trebuchet MS", Arial, sans-serif;
-	color: #888;
+	color: #888888;
 	list-style: none;
 	display: inline;
 	margin: 0;
 	padding: 0;
 }
 
-#breadcrumbs ul li a {
+#breadcrumbs ul li a.breadcrumb {
 	text-decoration: underline;
-	color: #888;
+	color: #888888;
 }
 
 #col_left {
