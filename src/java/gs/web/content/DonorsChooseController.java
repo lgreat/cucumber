@@ -59,14 +59,20 @@ public class DonorsChooseController extends AbstractController {
         String cityID = request.getParameter(CITY_ID_PARAM);
         Integer maxProposals = Integer.valueOf(request.getParameter(MAX_PROPOSALS_PARAM));
 
-        if (state != null && StringUtils.isNumeric(schoolID)) {
-            School school = _schoolDao.getSchoolById(state, Integer.valueOf(schoolID));
-            ICounty county = _geoDao.findCountyByFipsCode(school.getFipsCountyCode());
-            props = _donorsChooseDao.getProposalsForSchool(school, county, maxProposals);
-        } else if (StringUtils.isNumeric(cityID)) {
-            City city = _geoDao.findCityById(Integer.valueOf(cityID));
-            ICounty county = _geoDao.findCountyByFipsCode(city.getCountyFips());
-            props = _donorsChooseDao.getProposalsForCity(city, county, maxProposals);
+        try {
+
+            if (state != null && StringUtils.isNumeric(schoolID)) {
+                School school = _schoolDao.getSchoolById(state, Integer.valueOf(schoolID));
+                ICounty county = _geoDao.findCountyByFipsCode(school.getFipsCountyCode());
+                props = _donorsChooseDao.getProposalsForSchool(school, county, maxProposals);
+            } else if (StringUtils.isNumeric(cityID)) {
+                City city = _geoDao.findCityById(Integer.valueOf(cityID));
+                ICounty county = _geoDao.findCountyByFipsCode(city.getCountyFips());
+                props = _donorsChooseDao.getProposalsForCity(city, county, maxProposals);
+            }
+
+        } catch (Exception e) {
+            _log.error("Error getting proposals", e);
         }
         
         model.put("proposals", props);
