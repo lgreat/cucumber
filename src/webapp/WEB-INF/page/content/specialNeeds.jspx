@@ -35,7 +35,8 @@
 <gsml:body adPageName="content/specialNeeds" pageLayout="specialNeeds" startAdHierarchyAtPage="true">
 <div>
     <div class="wrapBorder">
-        <jsp:include page="/content/leftNav.module" />
+        <!--<jsp:include page="/content/leftNav.module" />-->
+        <content:librarySidebar cssClass="white micro" />
 
         <div class="middle">
             <c:if test="${param.fromSchwab == '1'}">

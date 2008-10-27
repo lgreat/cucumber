@@ -5,6 +5,11 @@
 	margin-left: 10px;
 }
 
+#librarySidebar.micro {
+	margin-left: 0;
+    margin-right: 5px;
+}
+
 .box {
 	margin: 10px 0 0;
 	padding-bottom: 5px;
@@ -26,6 +31,10 @@
 #librarySidebar.white .box {
 	background-image: url(/res/img/library/Leftnav_bottom.gif);
     margin:12px 0 0;
+}
+
+#librarySidebar.micro .box {
+	margin: 0;
 }
 
 #librarySidebar.white .inner {
