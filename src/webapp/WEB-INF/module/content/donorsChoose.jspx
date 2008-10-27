@@ -39,7 +39,7 @@
                         <c:set var="proposalURL"><c:out value="${proposal.proposalURL}" escapeXml="true"/></c:set>
                         <li class="proposal cleared">
                             <div class="title">
-                                <a href="${proposalURL}" target="_blank"><c:out value="${proposal.title}" escapeXml="false"/></a>
+                                <a href="${proposalURL}" target="_blank"><c:out value="${proposal.title}" escapeXml="true"/></a>
                             </div>
                             <div class="description">&amp;quot;<c:out value="${proposal.shortDescription}" escapeXml="true"/>&amp;quot;</div>
                             <div class="moreDetails left">
