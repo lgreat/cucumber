@@ -35,12 +35,9 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
         assertValidXhtml(INTEGRATION_HOST + "/school/research.page");
     }
 
-    /*
-    // temporarily commenting out for GS-7379
     public void testCityPage() {
         assertValidXhtml(INTEGRATION_HOST + "/city/Anchorage/AK");
     }
-    */
 
     public void testNearbyCitiesPage() {
         assertValidXhtml(INTEGRATION_HOST + "/cities.page?includeState=1&order=alpha&all=1&city=Anchorage&state=AK");
