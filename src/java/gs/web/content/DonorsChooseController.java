@@ -37,7 +37,6 @@ import gs.web.util.context.SessionContextUtil;
 public class DonorsChooseController extends AbstractController {
     private static final Log _log = LogFactory.getLog(DonorsChooseController.class);
     private String _viewName;
-    private String _apiKey;
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
     private StateManager _stateManager;
@@ -50,7 +49,7 @@ public class DonorsChooseController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
-        Set<DonorsChooseProposal> props = new TreeSet<DonorsChooseProposal>();
+        List<DonorsChooseProposal> props = new ArrayList<DonorsChooseProposal>();
 
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
