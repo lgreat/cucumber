@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.76 2008/10/20 20:46:29 aroy Exp $
+ * $Id: SchoolsController.java,v 1.77 2008/10/28 17:36:17 aroy Exp $
  */
 
 package gs.web.school;
@@ -332,7 +332,15 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                 model.put(MODEL_CITY_NAME, cityName);
                 model.put(MODEL_CITY_DISPLAY_NAME, displayName);
                 if (!isDistrictBrowse) {
-                    model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
+                    if (levelCode != null &&
+                        levelCode.getCommaSeparatedString().length() == 1 &&
+                        levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+                        // Added for GS-7375, heading1 for preschool filter shouldn't use the same
+                        // text as the title
+                        model.put(MODEL_HEADING1, displayName + " Preschools");
+                    } else {
+                        model.put(MODEL_HEADING1, calcCitySchoolsTitle(displayName, levelCode, paramSchoolType));
+                    }
                 }
             } else {
                 BadRequestLogger.logBadRequest(_log, request, "City not found in state in city/district browse request.");
