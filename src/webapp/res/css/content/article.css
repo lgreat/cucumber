@@ -22,7 +22,7 @@
 /* Article Tools box */
 div#articletools {
     float: right;
-    padding: 0 13px 2px 5px;
+    padding: 0 0 10px 5px;
     font-family:Geneva, Arial, Helvetica, sans-serif;
     width:332px;
 }
