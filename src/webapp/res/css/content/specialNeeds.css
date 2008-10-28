@@ -50,11 +50,9 @@ h2#Identifying-a-Learning-Difficulty {
     background: url(/res/img/content/specialNeeds/text_1.gif) no-repeat;
 
 }
-
 h2#Managing-Home-and-Family {
     background: url(/res/img/content/specialNeeds/text_2.gif) no-repeat;
 }
-
 h2#Managing-School-and-Learning {
     background: url(/res/img/content/specialNeeds/text_3.gif) no-repeat;
 }
@@ -65,6 +63,9 @@ h2#Technology-to-Support-Learning{
 
 h2#Other-Disabilities{
     background: url(/res/img/content/specialNeeds/text_5.gif) no-repeat;
+}
+h2#Managing-Your-Child {
+    background: url(/res/img/content/specialNeeds/text_6.gif) no-repeat;
 }
 
 #contentGS div.multipleQuestions {
