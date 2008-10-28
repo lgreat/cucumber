@@ -63,7 +63,7 @@
 
                     <a href="http://www.donorschoose.org/donors/search.html?zone=${zoneId}" target="_blank"><img id="seeMoreDonorsChoose" alt="See more teachers' requests" src="/res/img/content/donorsChoose/seemore_button.gif"/></a>
 
-                    <link:donorsChooseExplained target="_blank" styleClass="learnHow" onclick="window.open(this.href, 'donorsChooseExplained', 'width=544,height=480,scrollbars=yes'); return false;">
+                    <link:donorsChooseExplained target="_blank" styleClass="learnHow" onclick="window.open(this.href, 'donorsChooseExplained', 'width=600,height=600,scrollbars=yes'); return false;">
                         Learn how this works
                     </link:donorsChooseExplained>
 
