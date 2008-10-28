@@ -151,7 +151,7 @@
     <div class="column">
         <h4>Activities</h4>
         <ul>
-            <li><gsweb:articlelink articleId="3575">Healthy Food Collage</gsweb:articlelink></li>
+            <li><gsweb:articlelink articleId="3575">Food Collage</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="3616">Laundry Sort</gsweb:articlelink></li>
         </ul>
         <p><img src="/res/img/library/coloring_children.jpg" alt="Coloring Children"/></p>
@@ -208,7 +208,7 @@
     <div class="column">
         <h4>Activities</h4>
         <ul>
-            <li><gsweb:articlelink articleId="1078">The "Scents" of Smell</gsweb:articlelink></li>
+            <li><gsweb:articlelink articleId="1078">"Scents" of Smell</gsweb:articlelink></li>
             <li><gsweb:articlelink articleId="1059">Shape Walk</gsweb:articlelink></li>
         </ul>
         <p><img src="/res/img/library/activity_1stgr.jpg" alt="Painting Boy"/></p>
