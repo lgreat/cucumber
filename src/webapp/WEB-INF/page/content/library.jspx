@@ -112,7 +112,7 @@
         <h2>Stay Involved!</h2>
         <img class="left" src="/res/img/library/library_parentinvolve.jpg" alt="Child and Parents"/>
         <div class="column">
-            <p>Parent support makes all the difference. See how you can support your child's school.</p>
+            <p>Parental support makes all the difference. See how you can support your child's school.</p>
             <ul>
                 <li><gsweb:articlelink articleId="41">10 Easy Ways to Help Your Child's School</gsweb:articlelink></li>
                 <li><gsweb:articlelink articleId="33">Raising Money for Your School</gsweb:articlelink></li>
@@ -368,7 +368,7 @@
             </ul>
             <p class="more">
                 <link:loginOrRegister onclick="clickCapture.capture('eVar5', 'Library_JoinCommunity'); return true">
-                    Join Greatschools &gt;
+                    Join GreatSchools &gt;
                 </link:loginOrRegister>
             </p>
         </div>
@@ -388,7 +388,7 @@
                     <span><a href="/search/search.page?search_type=0&amp;q=NCLB&amp;c=topic" class="size1" rel="nofollow">NCLB</a></span>
                     <span><a href="/search/search.page?search_type=0&amp;q=school+choice&amp;c=topic" class="size1" rel="nofollow">school choice</a></span>
                     <span><a href="/search/search.page?search_type=0&amp;q=childrens+books&amp;c=topic" class="size2" rel="nofollow">children's books</a></span>
-                    <span><a href="/search/search.page?search_type=0&amp;q=aspergers&amp;c=topic" class="size1" rel="nofollow">asperger's</a></span>
+                    <span><a href="/search/search.page?search_type=0&amp;q=aspergers&amp;c=topic" class="size1" rel="nofollow">Asperger's</a></span>
                     <span><a href="/search/search.page?search_type=0&amp;q=phonics&amp;c=topic" class="size1" rel="nofollow">phonics</a></span>
                     <span><a href="/search/search.page?search_type=0&amp;q=homeschooling&amp;c=topic" class="size2" rel="nofollow">homeschooling</a></span>
                     <span><a href="/search/search.page?search_type=0&amp;q=ADHD&amp;c=topic" class="size2" rel="nofollow">ADHD</a></span>
