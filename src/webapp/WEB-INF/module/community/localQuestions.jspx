@@ -25,6 +25,14 @@
     </c:if>
     <!-- Max number of entries to show (populated in numberOfEntriesToShow) -->
     <c:set var="maxEntries" value="${param.maxEntries}"/>
+    <!-- GS-7298 When this module appears in an iframe, it must be static height -->
+    <c:set var="forceHeight" value=""/>
+    <!-- Only A version since B version is already static height -->
+    <variant:a>
+        <c:if test="${param.forceHeight ne null and param.forceHeight gt 100}">
+            <c:set var="forceHeight" value="height: ${param.forceHeight-92}px !important"/>
+        </c:if>
+    </variant:a>
 
     <c:if test="${cityId > 0 and not requestScope.context.crawler}">
         <jsp:scriptlet>
@@ -57,7 +65,7 @@
         </variant:b>
 
         <div id="localQuestionsContainer">
-            <div id="localQuestions">
+            <div id="localQuestions" style="${forceHeight}">
                 <variant:a>
                     <h2>${cityDisplayName} Local Q&amp;amp;A</h2>
                     <content:feed feedUrl="${communityFeedUrl}" numberOfEntriesToShow="${numberOfEntriesToShow}"
