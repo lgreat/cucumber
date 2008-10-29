@@ -33,6 +33,12 @@
             <c:set var="forceHeight" value="height: ${param.forceHeight-92}px !important"/>
         </c:if>
     </variant:a>
+    <!-- GS-7298 When appearing in iframes, make sure to open links in parent frame -->
+    <c:if test="${callerPagename eq 'districtprofile'}">
+        <head>
+            <base target="_top"/>
+        </head>
+    </c:if>
 
     <c:if test="${cityId > 0 and not requestScope.context.crawler}">
         <jsp:scriptlet>
