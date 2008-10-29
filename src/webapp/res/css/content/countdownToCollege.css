@@ -335,3 +335,11 @@ h2#adBlurb {
    text-decoration:underline ;
 }
 
+/* CtC-specific tweaks for the librarySidebar*/
+#librarySidebar.white {
+    margin-left:0;
+}
+
+td #librarySidebar.white .box {
+    margin:0;
+}

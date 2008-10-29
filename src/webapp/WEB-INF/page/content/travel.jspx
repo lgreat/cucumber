@@ -30,6 +30,11 @@
           content="Educational trips, Family Travel, Family Vacations, Travel for Kids, Summer programs for kids"/>
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>
     <pageHelper:externalCss file="/res/css/content/travel.css"/>
+    <![CDATA[
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="/res/css/content/librarySidebar_ie.css" />
+    <![endif]-->
+    ]]>
 </head>
 
 <c:set var="pageName" value="Travel Microsite"/>

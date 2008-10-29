@@ -28,6 +28,11 @@
           content="College prep advice and help from College Board and GreatSchools to help parents of high school and middle school students with academics, behavior issues and financial planning."/>
     <pageHelper:externalCss file="/res/css/content/countdownToCollege.css"/>
     <pageHelper:externalCss file="http://www.collegeboard.com/greatschools/fin_aid_plan.css"/>
+    <![CDATA[
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="/res/css/content/librarySidebar_ie.css" />
+    <![endif]-->
+    ]]>
     <jsp:scriptlet>
         Calendar now = Calendar.getInstance();
         int month = now.get(Calendar.MONTH);
@@ -77,62 +82,8 @@
 <gsml:body adPageName="content/countdownToCollege" pageLayout="countdownToCollege" startAdHierarchyAtPage="true">
 <table cellspacing="0" cellpadding="0" class="content" border="0">
 <tr>
-<td class="left" style="width: 173px;" valign="top">
-    <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
-    <ul class="plain">
-        <gsweb:articlelink articleId="2976" wrappingElement="li"/>
-        <gsweb:articlelink articleId="2524" wrappingElement="li"/>
-        <gsweb:articlelink articleId="688" wrappingElement="li"/>
-        <gsweb:articlelink articleId="752" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1076" wrappingElement="li"/>
-    </ul>
-
-    <h3 id="testTips">Test Tips</h3>
-    <ul class="plain">
-        <gsweb:articlelink articleId="243" wrappingElement="li"/>
-        <gsweb:articlelink articleId="244" wrappingElement="li"/>
-        <gsweb:articlelink articleId="832" wrappingElement="li"/>
-    </ul>
-
-    <h3 id="askTheExperts">Ask the Experts</h3>
-    <ul class="plain">
-        <gsweb:articlelink articleId="675" wrappingElement="li"/>
-        <gsweb:articlelink articleId="3643" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1146" wrappingElement="li"/>
-    </ul>
-
-    <h3 id="choosingASchool">School Choice Tips</h3>
-    <ul class="plain">
-        <gsweb:articlelink articleId="197" wrappingElement="li"/>
-        <gsweb:articlelink articleId="96" wrappingElement="li"/>
-        <li style="background-image:none;text-align:right; padding-top:4px;">
-            <gsml:a href="/content/schoolChoiceCenter.page">See more &gt;</gsml:a>
-        </li>
-    </ul>
-
-    <h3 id="healthyKids">Healthy Kids</h3>
-    <ul class="plain">
-        <gsweb:articlelink articleId="1098" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1123" wrappingElement="li"/>
-        <li style="background-image:none;text-align:right; padding-top:4px;">
-            <gsml:a href="/content/healthyKids.page">See more &gt;</gsml:a>
-        </li>
-    </ul>
-
-    <h3 id="getInvolved">Get Involved</h3>
-    <ul class="plain">
-        <gsweb:articlelink articleId="325" wrappingElement="li"/>
-        <gsweb:articlelink articleId="703" wrappingElement="li"/>
-        <gsweb:articlelink articleId="1071" wrappingElement="li"/>
-    </ul>
-
-    <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
-    <ul class="empty">
-        <li class="empty"><gsml:img style="height: 250px; width: 100px" alt=""
-                                    src="/res/img/header/clear_pix.gif"></gsml:img></li>
-    </ul>
-
-    <gsml:img style="height: 38px; width: 173px" alt="" src="/res/img/header/clear_pix.gif"></gsml:img>
+<td style="width: 173px;" valign="top">
+    <content:librarySidebar cssClass="white" />
 </td>
 
 <td style="width: 9px;" valign="top"><gsml:img style="width: 9px;" alt=""

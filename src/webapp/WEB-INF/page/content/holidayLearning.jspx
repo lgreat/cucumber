@@ -25,6 +25,11 @@
     <meta name="Description" content="Make holiday learning fun with gifts and learning activities to spark the imagination."/>
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
     <pageHelper:externalCss file="/res/css/content/holidayLearning.css"/>
+    <![CDATA[
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="/res/css/content/librarySidebar_ie.css" />
+    <![endif]-->
+    ]]>
 </head>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_Holiday_Learning"/>
 <gsml:body adPageName="content/holidayLearning" pageLayout="holidayLearning" startAdHierarchyAtPage="true">
