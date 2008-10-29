@@ -48,9 +48,10 @@
                             <ul id="topic-tips">
                                 <li><link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter></li>
                                 <li><link:movingWithKids>Moving With Kids</link:movingWithKids></li>
-                                <li><link:countdownToCollege>Countdown to College</link:countdownToCollege></li>
-                                <li><link:tutoring>Tutoring &amp;amp; Homework</link:tutoring></li>
-                                <li><link:specialNeeds>Learning Difficulties</link:specialNeeds></li>
+                                <li><link:countdownToCollege>College Prep</link:countdownToCollege></li>
+                                <li><link:tutoring>Tutoring</link:tutoring></li>
+                                <li><link:tutoring>Homework Help</link:tutoring></li>
+                                <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
                                 <li><link:travel>Travel and Learning</link:travel></li>
                                 <li><link:mediaChoices>Media and Your Child</link:mediaChoices></li>
                                 <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
