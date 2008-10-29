@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.77 2008/10/28 17:36:17 aroy Exp $
+ * $Id: SchoolsController.java,v 1.78 2008/10/29 23:09:25 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -18,6 +18,7 @@ import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.util.Address;
+import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.search.ResultsPager;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
@@ -146,12 +147,6 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
     public static final String MODEL_IS_CITY_BROWSE = "isCityBrowse";
     public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
-
-    public static final String LEVEL_LABEL_PRESCHOOLS = "preschools";
-    public static final String LEVEL_LABEL_ELEMENTARY_SCHOOLS = "elementary-schools";
-    public static final String LEVEL_LABEL_MIDDLE_SCHOOLS = "middle-schools";
-    public static final String LEVEL_LABEL_HIGH_SCHOOLS = "high-schools";
-    public static final String LEVEL_LABEL_SCHOOLS = "schools";
 
     /**
      * Though this method throws <code>Exception</code>, it should swallow most
