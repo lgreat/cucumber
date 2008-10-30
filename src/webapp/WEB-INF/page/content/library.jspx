@@ -41,7 +41,7 @@
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
 </head>
 
-<mod:tracking pageName="AllArticles" hier1="Article,AllArticles"/>
+
 <gsml:body adPageName="allArticles" >
 <ad:setSlotPrefix slotPrefix="Library"/>
 
@@ -403,9 +403,15 @@
     </div>
 
     <ad:House_Ad_300x137 referredBy="${pageName}"/>
+
 </div>
 </div>
 </div>
+
+<div style="display: none;">
+    <mod:tracking pageName="AllArticles" hier1="Article,AllArticles"/>
+</div>
+
 </gsml:body>
 </html>
 </jsp:root>
