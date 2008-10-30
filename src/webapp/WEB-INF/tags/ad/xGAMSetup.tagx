@@ -100,11 +100,12 @@
             <!--]]>
             <c:forEach var="slotName" items="${GAMadNames}">
                 GA_googleAddSlot("ca-pub-9662012843341888", '${slotName}');</c:forEach>
-            <c:if test="${not empty GAMadSenseHint}">
+            <!-- Implemented for GS-7089, commented out for GS-7451: -->
+            <!-- c:if test="${not empty GAMadSenseHint}">
                 <c:forEach var="slotName" items="${GAMadNames}">
                     GA_googleAddAdSenseSlotAttr('${slotName}','google_hints','${GAMadSenseHint}');
                 </c:forEach>
-            </c:if>            
+            </c:if -->            
             <![CDATA[
             -->
             </script>
