@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.134 2008/10/29 23:09:26 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.135 2008/10/30 20:28:47 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -879,7 +879,7 @@ public class UrlBuilder {
      * @param request option request object.
      */
     public String asSiteRelativeXml(HttpServletRequest request) {
-        String s = buildSiteRelative(request);
+        String s = asSiteRelative(request);
         s = encodeForXml(s);
         return s;
     }
@@ -889,13 +889,9 @@ public class UrlBuilder {
      * Not encoded for XHTML.
      *
      * @param request option request object.
+     * @return A site-relative url as a String
      */
     public String asSiteRelative(HttpServletRequest request) {
-        String s = buildSiteRelative(request);
-        return s;
-    }
-
-    private String buildSiteRelative(HttpServletRequest request) {
         StringBuffer sb = new StringBuffer();
         String contextPath = request != null ? request.getContextPath() : "";
         if (!_perlPage) {
@@ -984,7 +980,7 @@ public class UrlBuilder {
         String url = "http://" +
                 serverName +
                 ((serverPort != 80) ? ":" + serverPort : "") +
-                buildSiteRelative(request);
+                asSiteRelative(request);
         return url;
     }
 
@@ -1007,7 +1003,7 @@ public class UrlBuilder {
         String url = "http://" +
                 serverName +
                 ((serverPort != 80) ? ":" + serverPort : "") +
-                buildSiteRelative(request);
+                asSiteRelative(request);
         url = encodeForXml(url);
         return url;
     }
