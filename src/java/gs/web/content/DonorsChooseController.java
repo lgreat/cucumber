@@ -52,6 +52,11 @@ public class DonorsChooseController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
         List<DonorsChooseProposal> props = new ArrayList<DonorsChooseProposal>();
 
+        boolean isInternalServer = false;
+        if (UrlUtil.isDevEnvironment(request.getServerName()) || UrlUtil.isStagingServer(request.getServerName())) {
+            isInternalServer = true;
+        }
+
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
 
@@ -64,11 +69,11 @@ public class DonorsChooseController extends AbstractController {
             if (state != null && StringUtils.isNumeric(schoolID)) {
                 School school = _schoolDao.getSchoolById(state, Integer.valueOf(schoolID));
                 ICounty county = _geoDao.findCountyByFipsCode(school.getFipsCountyCode());
-                props = _donorsChooseDao.getProposalsForSchool(school, county, maxProposals);
+                props = _donorsChooseDao.getProposalsForSchool(school, county, maxProposals, isInternalServer);
             } else if (StringUtils.isNumeric(cityID)) {
                 City city = _geoDao.findCityById(Integer.valueOf(cityID));
                 ICounty county = _geoDao.findCountyByFipsCode(city.getCountyFips());
-                props = _donorsChooseDao.getProposalsForCity(city, county, maxProposals);
+                props = _donorsChooseDao.getProposalsForCity(city, county, maxProposals, isInternalServer);
             }
 
         } catch (Exception e) {
@@ -87,10 +92,6 @@ public class DonorsChooseController extends AbstractController {
             model.put("longStateNames", longStateNames);
         }
 
-        boolean isInternalServer = false;
-        if (UrlUtil.isDevEnvironment(request.getServerName()) || UrlUtil.isStagingServer(request.getServerName())) {
-            isInternalServer = true;
-        }
         model.put("isInternalServer", isInternalServer);
 
         return new ModelAndView(_viewName, model);
