@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.68 2008/09/23 17:42:19 aroy Exp $
+ * $Id: UrlUtil.java,v 1.69 2008/10/31 20:39:46 yfan Exp $
  */
 
 package gs.web.util;
@@ -273,7 +273,7 @@ public final class UrlUtil {
      * or on one of the development servers?
      * Is this not the live site? or a very near clone of it?
      */
-    public boolean isDevEnvironment(String hostName) {
+    public static boolean isDevEnvironment(String hostName) {
         return hostName.indexOf("dev.") != -1 ||
                 hostName.endsWith("dev") ||
                 hostName.indexOf("staging") != -1 ||
@@ -283,7 +283,7 @@ public final class UrlUtil {
                 isDeveloperWorkstation(hostName);
     }
 
-    public boolean isStagingServer(String hostName) {
+    public static boolean isStagingServer(String hostName) {
         return hostName.indexOf("staging") != -1 ||
                 hostName.indexOf("clone") != -1;
     }
@@ -305,7 +305,7 @@ public final class UrlUtil {
         }
     }
 
-    public boolean isAdminServer(String hostName) {
+    public static boolean isAdminServer(String hostName) {
         return hostName.indexOf("admin") != -1 ||
                 hostName.indexOf("maddy") != -1;
     }
@@ -316,7 +316,7 @@ public final class UrlUtil {
      * data)
      * @param url url to check (null-safe: returns false)
      */
-    public boolean isCommunityContentLink(String url) {
+    public static boolean isCommunityContentLink(String url) {
         boolean rval = false;
         // if it is non-empty
         if (!StringUtils.isEmpty(url)) {

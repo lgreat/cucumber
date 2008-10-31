@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="/Users/youngfan/dev/GSWeb/src/webapp/WEB-INF/tld/gsweb.tld"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
@@ -34,10 +35,19 @@
 
                     <ul>
                     <c:forEach var="proposal" items="${requestScope.proposals}" varStatus="status">
-                        <c:set var="proposalURL"><c:out value="${proposal.proposalURL}" escapeXml="true"/></c:set>
+                        <c:set var="url">
+                            <c:choose>
+                                <c:when test="${isInternalServer}">${fn:replace(proposal.proposalURL,'www.donorschoose','qa1.donorschoose')}</c:when>
+                                <c:otherwise>${proposal.proposalURL}</c:otherwise>
+                            </c:choose>
+                        </c:set>
+                        <c:url var="href" value="http://www.jdoqocy.com/click-3220060-10599822">
+                            <c:param name="URL" value="${url}"/>
+                        </c:url>
+                        <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
                         <li class="proposal cleared">
                             <div class="title">
-                                <a href="${proposalURL}" target="_blank"><c:out value="${proposal.title}" escapeXml="true"/></a>
+                                <a href="${escapedHref}" target="_blank"><c:out value="${proposal.title}" escapeXml="true"/></a>
                             </div>
                             <div class="description">&amp;quot;<c:out value="${proposal.shortDescription}" escapeXml="true"/>&amp;quot;</div>
                             <div class="moreDetails left">
@@ -53,19 +63,39 @@
                                 <span class="costtocomplete">$${proposal.roundedCostToComplete} needed</span>
                             </div>
                             <div class="give right">
-                                <a href="${proposalURL}" target="_blank"><img alt="Give" src="/res/img/content/donorsChoose/give_button.gif"/></a>
+                                <a href="${escapedHref}" target="_blank"><img alt="Give" src="/res/img/content/donorsChoose/give_button.gif"/></a>
                             </div>
                         </li>
                     </c:forEach>
                     </ul>
 
-                    <a href="http://www.donorschoose.org/donors/search.html?zone=${zoneId}" target="_blank"><img id="seeMoreDonorsChoose" alt="See more teachers' requests" src="/res/img/content/donorsChoose/seemore_button.gif"/></a>
+                    <c:set var="url">
+                        <c:choose>
+                            <c:when test="${isInternalServer}">http://qa1.donorschoose.org/donors/search.html?zone=${zoneId}</c:when>
+                            <c:otherwise>http://www.donorschoose.org/donors/search.html?zone=${zoneId}</c:otherwise>
+                        </c:choose>
+                    </c:set>
+                    <c:url var="href" value="http://www.jdoqocy.com/click-3220060-10599822">
+                        <c:param name="URL" value="${url}"/>
+                    </c:url>
+                    <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
+                    <a href="${escapedHref}" target="_blank"><img id="seeMoreDonorsChoose" alt="See more teachers' requests" src="/res/img/content/donorsChoose/seemore_button.gif"/></a>
 
                     <link:donorsChooseExplained target="_blank" styleClass="learnHow" onclick="window.open(this.href, 'donorsChooseExplained', 'width=600,height=600,scrollbars=yes'); return false;">
                         Learn how this works
                     </link:donorsChooseExplained>
 
-                    <a href="http://www.donorschoose.org" target="_blank"><img id="donorsChooseOrg" alt="Powered by DonorsChoose.org" src="/res/img/content/donorsChoose/donorschoose_logo.gif"/></a>
+                    <c:set var="url">
+                        <c:choose>
+                            <c:when test="${isInternalServer}">http://qa1.donorschoose.org</c:when>
+                            <c:otherwise>http://www.donorschoose.org</c:otherwise>
+                        </c:choose>
+                    </c:set>
+                    <c:url var="href" value="http://www.jdoqocy.com/click-3220060-10599822">
+                        <c:param name="URL" value="${url}"/>
+                    </c:url>
+                    <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
+                    <a href="${escapedHref}" target="_blank"><img id="donorsChooseOrg" alt="Powered by DonorsChoose.org" src="/res/img/content/donorsChoose/donorschoose_logo.gif"/></a>
 
                 </div>
             </div>
