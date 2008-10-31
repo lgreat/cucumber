@@ -206,6 +206,7 @@
         <c:if test="${requestScope.pageHelper.showingLeaderboard}">
             <ad:x22/>
         </c:if>
+        ${modTracking}
         <div id="deferredContent" style="display:none;">
             ${deferredContent}
         </div>

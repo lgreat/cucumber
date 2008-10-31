@@ -38,6 +38,7 @@
 <div id="marginGS">
     <decorator:body/>
 </div>
+${modTracking}
 </body>
 </html>
 </jsp:root>

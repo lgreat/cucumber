@@ -64,7 +64,7 @@
                         </ul>
                     </li>
                     <li class="third">
-                        <div><link:articleLibrary>Education Topics</link:articleLibrary></div>
+                        <div><a href="/education-topics/">Education Topics</a></div>
                         <ul>
                             <li><link:tutoring>Homework</link:tutoring></li>
                             <li><link:tutoring>Tutoring</link:tutoring></li>

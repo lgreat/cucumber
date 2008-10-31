@@ -40,6 +40,7 @@
             <decorator:body/>
         </div>
     </div>
+    ${modTracking}
 </body>
 </html>
 </jsp:root>
