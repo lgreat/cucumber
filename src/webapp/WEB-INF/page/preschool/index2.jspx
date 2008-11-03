@@ -110,11 +110,9 @@
         </p>
     </div>
     <link:submitParentReviewPreschool styleClass="GS_EV5_" styleId="PreschoolLanding_ParentReviewCampaign">
-        <div id="promo">
-            <p>
-                You're the Expert! Submit a preschool review today!
-            </p>
-        </div>
+        <span id="promo">
+            You're the Expert! Submit a preschool review today!
+        </span>
     </link:submitParentReviewPreschool>
 </div>
 
