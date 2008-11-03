@@ -73,7 +73,7 @@
         </c:if>
         <div class="innerWrapper">
         <div id="newuser">
-            <h2>New User?</h2>
+            <h2>New to GreatSchools?</h2>
             <h3><link:registration email="${loginCmd.email}" 
                                    redirect="${loginCmd.redirect}"
                                    onMouseOver="rollover();"
@@ -81,8 +81,15 @@
 
             <link:registration styleId="joinText" email="${loginCmd.email}" redirect="${loginCmd.redirect}"
                                onMouseOver="rollover();" onMouseOut="rollout();">
-                Join the GreatSchools community and connect with<br/>
-                parents who are passionate about education! <strong>It's free!</strong>
+                It's free and easy to join GreatSchools. As a member, you can:
+                <ul>
+                    <li><span><strong>Find the right school.</strong>
+                        More than 500,000 ratings and reviews nationwide</span></li>
+                    <li><span><strong>Track your child's education.</strong>
+                        Free newsletters tell you what your child should be learning, grade-by-grade</span></li>
+                    <li><span><strong>Connect with other parents.</strong>
+                        Talk about local schools and education in our parent community</span></li>
+                </ul>
             </link:registration>
 
             <link:registration email="${loginCmd.email}"
@@ -95,7 +102,7 @@
         </div>
         <!-- end: newuser -->
         <div id="returninguser">
-            <h2>Returning User?</h2>
+            <h2>Returning Member?</h2>
 
             <c:set var="messageClass" value=""/>
             <c:if test="${param.message ne null and param.message gt ''}">
@@ -132,7 +139,7 @@
                                        styleClass="checkbox" styleId="rememberMeBox"/>
                     </li>
                     <li id="goButton">
-                        <gsml:inputImage src="/res/img/community/registration/gobutton.gif"
+                        <gsml:inputImage src="/res/img/community/registration/signin.gif"
                                          alt="Sign in"/>
                     </li>
                     <li id="forgotPassword">

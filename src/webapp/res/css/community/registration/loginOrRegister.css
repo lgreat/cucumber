@@ -39,7 +39,7 @@
 }
 
 #newuser h2 {
-    background: url(/res/img/community/registration/newuser.gif) no-repeat left;
+    background: url(/res/img/community/registration/newtogreatschools.gif) no-repeat left;
     text-indent: -9999em;
     padding: 0 0 16px 0;
     border-bottom: 1px solid #CACC9E;
@@ -69,15 +69,26 @@
 
 #joinText {
     position: absolute;
-    bottom: 90px;
+    bottom: 5px;
     left: 0;
     width: 375px;
-    font-size: 15px;
-    color: #666666;
+    font-size: 13px;
+    color: #444;
+}
+
+.contentGS #joinText ul li {
+    list-style: disc;
+    list-style-position: outside;
+    margin-left: 18px;
+    color: #CE6373;
+}
+
+#joinText ul li span {
+    color: #444;
 }
 
 #returninguser h2 {
-    background: url(/res/img/community/registration/returninguser.gif) no-repeat left;
+    background: url(/res/img/community/registration/returningmember.gif) no-repeat left;
     text-indent: -9999em;
     padding: 0 0 12px 0;
     border-bottom: 1px solid #CACC9E;
