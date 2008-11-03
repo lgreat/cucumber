@@ -46,6 +46,48 @@
 	margin: 5px 0;
 }
 
+#pageWrapper #introPromo h2 {
+    font-size: 18px;
+	color: #d66671;
+	margin: 5px 0;
+}
+
+#introPromo {
+    background-image: url(/res/img/preschool/preschool_landing_hero.jpg);
+    width: 765px;
+    height: 203px;
+    margin-top: 10px;
+    position: relative;
+}
+
+#introPromo .content {
+    position: absolute;
+    left: 355px;
+    top: 10px;
+    width: 260px;
+}
+
+#introPromo .contentBottom {
+    position: absolute;
+    left: 10px;
+    bottom: -3px;
+}
+
+#introPromo #promo {
+    position: absolute;
+    width: 145px;
+    height: 145px;
+    left: 615px;
+    top: 40px;
+    cursor: pointer;
+}
+
+#introPromo #promo p {
+    position: absolute;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
 #intro {
 	background-image: url(/res/img/preschool/wide-box-bottom.png);
 }

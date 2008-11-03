@@ -9,6 +9,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <html lang="en">
 
@@ -90,6 +91,34 @@
 <div id="main">
 <h1>Preschool</h1>
 
+<!-- added for GS-7442 -->
+<div id="introPromo">
+    <div class="content">
+        <div class="text">
+            <h2>The Path to Preschool Success</h2>
+
+            <p class="description">Expert advice to build a foundation for school learning.</p>
+            <c:import
+                    url="/content/editorialLinks.module?page=preschool_PathToSuccess&amp;type=all&amp;layout=list&amp;style=bulleted"/>
+        </div>
+    </div>
+    <div class="contentBottom">
+        <p>
+            Stay on top of your preschooler's development.
+            <promo:nthGraderHover autocheck="mypk" referredBy="${pageName}"
+                                  isForm="false">Sign up for our preschool newsletter &amp;gt;</promo:nthGraderHover>
+        </p>
+    </div>
+    <div id="promo" onclick="window.location=document.getElementById('submitParentReviewPreschool').href;">
+        <p>
+            You're the Expert! <link:submitParentReviewPreschool styleId="submitParentReviewPreschool">Submit a preschool review today!</link:submitParentReviewPreschool>
+        </p>
+        <!-- don't collapse -->
+    </div>
+</div>
+
+<!-- commented out for GS-7442 -->
+<!--
 <div id="intro" class="box">
     <div class="inner cleared">
         <div class="content">
@@ -109,6 +138,7 @@
         </div>
     </div>
 </div>
+-->
 
 <div id="content">
 
