@@ -34,6 +34,7 @@ public class SubmitParentFeedbackController extends SimpleFormController {
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
 
+    private String _title;
     private String _levelCodes;
     private String _omniturePageName;
     private String _omnitureHierarchy;
@@ -57,6 +58,7 @@ public class SubmitParentFeedbackController extends SimpleFormController {
     protected Map referenceData(HttpServletRequest request, Object cmd, Errors errors) throws Exception {
         Map<String, Object> refData = new HashMap<String, Object>();
 
+        refData.put("title", _title);
         refData.put("levelCodes", _levelCodes);
         refData.put("pageName", _omniturePageName);
         refData.put("hier1", _omnitureHierarchy);
@@ -68,6 +70,10 @@ public class SubmitParentFeedbackController extends SimpleFormController {
             refData.put("cities", _geoDao.findCitiesByState(state));
         }
         return refData;
+    }
+
+    public void setTitle(String title) {
+        _title = title;
     }
 
     public void setLevelCodes(String levelCodes) {

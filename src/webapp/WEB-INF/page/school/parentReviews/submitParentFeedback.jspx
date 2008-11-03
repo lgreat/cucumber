@@ -27,7 +27,8 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>${title}</title>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
-    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
+    <pageHelper:externalCss file="/res/css/school/parentReviews/submitParentFeedback.css"/>
+    <pageHelper:externalJavascript file="/res/js/prototype.js"/>    
 
     <![CDATA[
     <script type="text/javascript">
@@ -96,33 +97,82 @@
 
 <gsml:body adPageName="submitParentReview">
 
-    <gsweb:form action="/school/parentReviews/submit.page" method="get">
-        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.state}" onChange="this.form.submit();"
-                             useNoState="${empty requestScope.context.state}" noStateLabel="1. Choose state"/>
-    </gsweb:form>
-    <gsweb:form action="/school/parentReviews/submit.page" method="post" onsubmit="return checkSchoolSelected(this)">
-        <input type="hidden" name="state" value="${stateAbbrev}"/>
-        <select name="city" tabindex="10"
-                onchange="changeFindCity(this, '${stateAbbrev}', '${levelCodes}', 'schools', 'true', '3. Choose school');">
-            <option selected="selected" value="">2. Choose city</option>
-            <c:forEach var="cityOption" items="${cities}">
-                <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
-            </c:forEach>
-        </select>
+    <div id="pageWrapper">
 
-        <div id="schools">
-            <select id="schoolSelect" name="sid" class="selectSchool">
-                <option value="">3. Choose school</option>
-            </select>
+        <h1>Help Other Parents Find a Preschool</h1>
+
+        <div id="steps">
+
+            <div class="step" id="step1">
+                <div class="content">
+                    <h2>You Tell Us About a Preschool</h2>
+
+                    <p>It only takes 30 seconds.</p>
+
+                    <div id="chooseSchoolForm">
+                        <gsweb:form action="/school/parentReviews/submit.page" method="get" id="form1">
+                            <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.state}"
+                                                 onChange="this.form.submit();"
+                                                 styleId="stateSelect"
+                                                 useNoState="${empty requestScope.context.state}"
+                                                 noStateLabel="Choose state"/>
+                        </gsweb:form>
+
+                        <select name="city" tabindex="10" id="citySelect"
+                                onchange="changeFindCity(this, '${stateAbbrev}', '${levelCodes}', 'schools', 'true', 'Choose school');">
+                            <option selected="selected" value="">Choose city</option>
+                            <c:forEach var="cityOption" items="${cities}">
+                                <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
+                            </c:forEach>
+                        </select>
+
+                        <gsweb:form action="/school/parentReviews/submit.page" method="post"
+                                    onsubmit="return checkSchoolSelected(this)" id="form2">
+                            <input type="hidden" name="state" value="${stateAbbrev}"/>
+
+                            <div id="schools">
+                                <select id="schoolSelect" name="sid" class="selectSchool">
+                                    <option value="">Choose school</option>
+                                </select>
+                            </div>
+
+                            <gsml:url var="go" value="/res/img/splash/go.gif"/>
+                            <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
+
+                            <input id="goButton" type="image" src="${go}" alt="Submit"
+                                   class="button" onmouseover="this.src='${goOver}';"
+                                   onmouseout="this.src='${go}';"/>
+                        </gsweb:form>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="step" id="step2">
+                <div class="content">
+                    <h2>We post it on GreatSchools</h2>
+                    <p>We featured nearly 85,000 preschools.</p>
+                </div>
+            </div>
+
+            <div class="step" id="step3">
+                <div class="content">
+                    <h2>All Parents Benefit</h2>
+                    <p>They find the right preschool, thanks to your expertise.</p>
+                </div>
+            </div>
+
         </div>
-        <gsml:url var="go" value="/res/img/splash/go.gif"/>
-        <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
-        <input id="goAchieve" type="image" src="${go}" alt="Submit"
-               class="button" onmouseover="this.src='${goOver}';"
-               onmouseout="this.src='${go}';"/>
-    </gsweb:form>
 
-    <mod:tracking pageName="${pageName}" hier1="${hier1}"/>
+        <div id="photo">
+            <img src="/res/img/preschool/review/survey_landing_kids.jpg" alt="Children"/>
+        </div>
+
+    </div>
+
+    <div style="display: none;">
+        <mod:tracking pageName="${pageName}" hier1="${hier1}"/>
+    </div>
 </gsml:body>
 </html>
 </jsp:root>
