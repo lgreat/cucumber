@@ -47,7 +47,7 @@
                         <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
                         <li class="proposal cleared">
                             <div class="title">
-                                <a href="${escapedHref}" target="_blank"><c:out value="${proposal.title}" escapeXml="true"/></a>
+                                <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;"><c:out value="${proposal.title}" escapeXml="true"/></a>
                             </div>
                             <div class="description">&amp;quot;<c:out value="${proposal.shortDescription}" escapeXml="true"/>&amp;quot;</div>
                             <div class="moreDetails left">
@@ -63,7 +63,7 @@
                                 <span class="costtocomplete">$${proposal.roundedCostToComplete} needed</span>
                             </div>
                             <div class="give right">
-                                <a href="${escapedHref}" target="_blank"><img alt="Give" src="/res/img/content/donorsChoose/give_button.gif"/></a>
+                                <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;"><img alt="Give" src="/res/img/content/donorsChoose/give_button.gif"/></a>
                             </div>
                         </li>
                     </c:forEach>
@@ -79,7 +79,7 @@
                         <c:param name="URL" value="${url}"/>
                     </c:url>
                     <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
-                    <a href="${escapedHref}" target="_blank"><img id="seeMoreDonorsChoose" alt="See more teachers' requests" src="/res/img/content/donorsChoose/seemore_button.gif"/></a>
+                    <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;"><img id="seeMoreDonorsChoose" alt="See more teachers' requests" src="/res/img/content/donorsChoose/seemore_button.gif"/></a>
 
                     <link:donorsChooseExplained target="_blank" styleClass="learnHow" onclick="window.open(this.href, 'donorsChooseExplained', 'width=600,height=600,scrollbars=yes'); return false;">
                         Learn how this works
@@ -95,7 +95,7 @@
                         <c:param name="URL" value="${url}"/>
                     </c:url>
                     <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
-                    <a href="${escapedHref}" target="_blank"><img id="donorsChooseOrg" alt="Powered by DonorsChoose.org" src="/res/img/content/donorsChoose/donorschoose_logo.gif"/></a>
+                    <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;"><img id="donorsChooseOrg" alt="Powered by DonorsChoose.org" src="/res/img/content/donorsChoose/donorschoose_logo.gif"/></a>
 
                 </div>
             </div>
