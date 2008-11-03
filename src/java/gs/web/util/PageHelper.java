@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.64 2008/10/01 21:47:17 cpickslay Exp $
+ * $Id: PageHelper.java,v 1.65 2008/11/03 22:30:26 aroy Exp $
  */
 
 package gs.web.util;
@@ -627,10 +627,14 @@ public class PageHelper {
         util.changeUser(context, response, user);
     }
 
-    public static void setCityIdCookie(HttpServletRequest request, HttpServletResponse response, City city) {
+    public static void setCityIdCookie(HttpServletRequest request, HttpServletResponse response, Integer cityId) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
-        util.changeCity(context, request, response, city);
+        util.changeCity(context, request, response, cityId);
+    }
+
+    public static void setCityIdCookie(HttpServletRequest request, HttpServletResponse response, City city) {
+        setCityIdCookie(request, response, city.getId());
     }
 
     public static void setPathway(HttpServletRequest request, HttpServletResponse response, String pathway) {

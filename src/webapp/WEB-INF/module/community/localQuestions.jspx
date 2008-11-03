@@ -11,6 +11,7 @@
         >
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
 
     <!-- Parameters -->
     <!-- id for city location object -->
@@ -61,6 +62,7 @@
             request.setAttribute("communityFeedUrl", url);
             request.setAttribute("numberOfEntriesToShow", numberOfEntriesToShow);
             request.setAttribute("abVersion", sessionContext.getABVersion().toUpperCase());
+            PageHelper.setCityIdCookie(request, response, Integer.valueOf(request.getParameter("cityId")));
         </jsp:scriptlet>
 
         <variant:a>

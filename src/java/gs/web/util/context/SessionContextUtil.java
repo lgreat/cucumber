@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.50 2008/10/16 01:01:31 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.51 2008/11/03 22:30:26 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -668,12 +668,16 @@ public class SessionContextUtil implements ApplicationContextAware {
         return COMMUNITY_LIVE_HOSTNAME;
     }
 
-    public void changeCity(SessionContext context, HttpServletRequest req, HttpServletResponse res, City city) {
-        context.setCityId(city.getId());
+    public void changeCity(SessionContext context, HttpServletRequest req, HttpServletResponse res, Integer cityId) {
+        context.setCityId(cityId);
         if (!UrlUtil.isDeveloperWorkstation(req.getServerName())) {
             _cityIdCookieGenerator.setCookieDomain(".greatschools.net");
         }
-        _cityIdCookieGenerator.addCookie(res, city.getId().toString());
+        _cityIdCookieGenerator.addCookie(res, cityId.toString());
+    }
+
+    public void changeCity(SessionContext context, HttpServletRequest req, HttpServletResponse res, City city) {
+        changeCity(context, req, res, city.getId());
     }
 
     public void clearUserCookies(HttpServletResponse response) {
