@@ -77,7 +77,7 @@
             <h3><link:registration email="${loginCmd.email}" 
                                    redirect="${loginCmd.redirect}"
                                    onMouseOver="rollover();"
-                                   onMouseOut="rollout();">Join our community!</link:registration></h3>
+                                   onMouseOut="rollout();">Join now!</link:registration></h3>
 
             <div id="joinText">
             <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
