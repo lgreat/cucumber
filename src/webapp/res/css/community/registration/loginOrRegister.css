@@ -76,15 +76,15 @@
     color: #444;
 }
 
+#joinText a {
+    color: #444;
+}
+
 .contentGS #joinText ul li {
     list-style: disc;
     list-style-position: outside;
     margin-left: 18px;
     color: #CE6373;
-}
-
-#joinText ul li span {
-    color: #444;
 }
 
 #returninguser h2 {

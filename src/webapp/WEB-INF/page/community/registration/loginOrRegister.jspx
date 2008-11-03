@@ -79,18 +79,24 @@
                                    onMouseOver="rollover();"
                                    onMouseOut="rollout();">Join our community!</link:registration></h3>
 
-            <link:registration styleId="joinText" email="${loginCmd.email}" redirect="${loginCmd.redirect}"
+            <div id="joinText">
+            <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
                                onMouseOver="rollover();" onMouseOut="rollout();">
                 It's free and easy to join GreatSchools. As a member, you can:
+                </link:registration>
                 <ul>
-                    <li><span><strong>Find the right school.</strong>
-                        More than 500,000 ratings and reviews nationwide</span></li>
-                    <li><span><strong>Track your child's education.</strong>
-                        Free newsletters tell you what your child should be learning, grade-by-grade</span></li>
-                    <li><span><strong>Connect with other parents.</strong>
-                        Talk about local schools and education in our parent community</span></li>
+                    <li><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
+                               onMouseOver="rollover();" onMouseOut="rollout();"><span><strong>Find the right school.</strong>
+                        More than 500,000 ratings and reviews nationwide</span></link:registration></li>
+                    <li><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
+                               onMouseOver="rollover();" onMouseOut="rollout();"><span><strong>Track your child's education.</strong>
+                        Free newsletters tell you what your child should be learning, grade-by-grade</span></link:registration></li>
+                    <li><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"
+                               onMouseOver="rollover();" onMouseOut="rollout();"><span><strong>Connect with other parents.</strong>
+                        Talk about local schools and education in our parent community</span></link:registration></li>
                 </ul>
-            </link:registration>
+
+            </div>
 
             <link:registration email="${loginCmd.email}"
                                redirect="${loginCmd.redirect}" onMouseOver="rollover();" onMouseOut="rollout();">
