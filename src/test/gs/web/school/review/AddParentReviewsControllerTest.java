@@ -259,11 +259,12 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     }
 
     public void xtestSendRejectEmailReal() throws Exception {
-        _user.setEmail("dlee@greatschools.net");
+        _user.setEmail("eford@greatschools.net");
         String comments = "this school rocks!";
 
         _controller.getEmailHelperFactory().setMailSender((JavaMailSender) getApplicationContext().getBean("mailSender"));
-        _controller.sendMessage(_user, comments, _school, "rejectEmail.txt");
+        _school.setName("Alameda High");
+        _controller.sendRejectMessage(_user, comments, _school, "rejectEmail.txt");
     }
 
     public void xtestSendCommunityEmailReal() throws Exception {

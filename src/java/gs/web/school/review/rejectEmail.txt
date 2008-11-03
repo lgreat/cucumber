@@ -1,20 +1,30 @@
-<p>Thanks for submitting your review about your child's school. We appreciate your taking the time to submit a review but we were unable to post it because the review does not provide enough information about the quality of the school.</p>
-<p/>
-<p>We believe the most valuable reviews to share with other parents are those that are concise, relevant to the quality of the whole school and specific.</p>
-<p/>
-<p>Here are two samples of reviews we have posted:</p>
-<p/>
-<p>"Both my children have gone to ANLC since they were 5 years old. ANLC is a school where the children come first. Each child is encouraged to do their personal best without being labeled as the smart or dumb kids. The teachers are highly skilled and work hard to bring out the best in each child.  The principal is kind and knows each child by name. She is a great example of a leader and I will miss seeing her everyday as my daughter graduates this year. Thank you ANLC for bringing out the best in my children and giving them the encouragement and confidence they need to go out into the world!"</p>
-<p/>
-<p>"This school has been a big disappointment. It is probably fine for most kids, but our eighth grader needs accelerated learning opportunities which have not been available. Its outstanding music program dramatically deteriorated while my child was here, so that it is at best mediocre currently. The special advanced algebra class for 8th grade was cancelled just before he reached 8th grade, and the caliber of most of his English teachers has been shockingly poor. It has therefore given none of the advantages of a huge school, with all of the disadvantages. I can recommend it only in contrast to most of the other public schools in the district."</p>
-<p/>
-<p/>
-<p>To see our guidelines for posting reviews, <a href="http://www.greatschools.net/cgi-bin/static/guidelines.html/$STATE#guidelines">click here</a>.</p>
-<p/>
-<p>Your review:</p>
-<p/>
-<p>"$USER_COMMENTS"</p>
-<p/>
-<p>We invite you to resubmit your review following our guidelines.</p>
-<p>If you have a particular problem with your child's teacher or principal, or if your child is experiencing difficulties at school, we urge you to bring the matter to the attention of your child's teacher or principal.</p>
-<p>GreatSchools.net Staff</p>
+Thanks for submitting your comments about your child's school. We appreciate your taking the time to provide your insights.
+
+The goal of our Reviews and Ratings system is to enable parents to share their experiences about a school with other parents. We've found the most valuable reviews are those that express your opinion in a respectful way. The review should be concise and relevant to the overall quality of the school.
+
+We do post both positive and negative reviews, but they must meet our editorial guidelines, which you can see here: http://www.greatschools.net/cgi-bin/static/guidelines.html/ca/
+
+Unfortunately, we're unable to post your review because:
+
+The review does not provide enough information about the quality of the school.
+
+To give you an idea of the kind of positive and negative reviews we accept, here are two samples of reviews we have posted:
+
+"I have two children currently attending this school. It is a warm and caring community with wonderful parents and wonderful teachers. The quality of the instruction has been great and my kids have been challenged and pushed to do their best consistently. Parent groups like the PTA and Dad's Club do an amazing job of fundraising and building a sense of community. In addition, the school is a community where kindness and respect do not take a back seat to the curriculum. It is a wonderful place for my children to spend their days and I am pleased to be part of such a great community."
+
+"The parents at this school have worked very hard and have fought tooth and nail to keep desirable programs, like art and music, afloat. And of course, the kids are great! Unfortunately, leadership is lacking at this school and the teaching my child received was very uneven. Personal experience with some teaching staff was extremely unprofessional. A small school like this one doesn't afford much choice when teachers aren't meeting your child's need. And the principal is doing very little to weed out those teachers who are just "biding their time," while they waste the precious time of the students they are trained professionally to serve and inspire."
+
+Your review:
+
+$USER_COMMENTS
+
+GreatSchools relies on parents to help other parents by providing insights on the experiences you've had with a particular school. We encourage you to re-submit your review with the above in mind.
+
+Thanks again for being a valuable member of GreatSchools.
+
+Regards,
+
+GreatSchools
+
+GreatSchools is an independent, nonprofit organization that inspires and empowers parents to be involved in their children's educational success.
+

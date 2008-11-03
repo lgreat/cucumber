@@ -283,6 +283,25 @@ public class AddParentReviewsController extends SimpleFormController implements 
         emailHelper.send();
     }
 
+    protected void sendRejectMessage(final User user, final String comments, final School school, String emailTemplate) throws MessagingException, IOException {
+        EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+        emailHelper.setSubject("Thanks for your feedback");
+        emailHelper.setFromEmail("editorial@greatschools.net");
+        emailHelper.setFromName("GreatSchools");
+
+        emailHelper.setToEmail(user.getEmail());
+        emailHelper.readPlainTextFromResource("gs/web/school/review/" + emailTemplate);
+
+        emailHelper.setSentToCustomMessage(emailHelper.getHTML_THIS_EMAIL_SENT_TO_EMAIL_MSG());
+        emailHelper.addInlineReplacement("EMAIL", user.getEmail());
+        emailHelper.addInlineReplacement("STATE", school.getDatabaseState().getAbbreviation());
+        emailHelper.addInlineReplacement("USER_COMMENTS", comments);
+        emailHelper.addInlineReplacement("SCHOOLNAME", school.getName());
+        emailHelper.addInlineReplacement("SCHOOLID", school.getId().toString());
+
+        emailHelper.send();
+    }
+
 
     protected ModelAndView errorJSON(HttpServletResponse response, BindException errors) throws IOException {
         StringBuffer buff = new StringBuffer(400);
