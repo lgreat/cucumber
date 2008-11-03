@@ -109,12 +109,13 @@
                                   isForm="false">Sign up for our preschool newsletter &amp;gt;</promo:nthGraderHover>
         </p>
     </div>
-    <div id="promo" onclick="window.location=document.getElementById('submitParentReviewPreschool').href;">
-        <p>
-            You're the Expert! <link:submitParentReviewPreschool styleId="submitParentReviewPreschool">Submit a preschool review today!</link:submitParentReviewPreschool>
-        </p>
-        <!-- don't collapse -->
-    </div>
+    <link:submitParentReviewPreschool styleClass="GS_EV5_" styleId="PreschoolLanding_ParentReviewCampaign">
+        <div id="promo">
+            <p>
+                You're the Expert! Submit a preschool review today!
+            </p>
+        </div>
+    </link:submitParentReviewPreschool>
 </div>
 
 <!-- commented out for GS-7442 -->

@@ -2681,6 +2681,13 @@
             <![CDATA[Link to the preschool review campaign and landing page.]]>
         </description>
         <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
             <name>styleId</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
