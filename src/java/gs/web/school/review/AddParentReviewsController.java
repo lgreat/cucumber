@@ -130,7 +130,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
         //only send them an email if they submitted a message that is not blank
         if ("a".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
-            sendMessage(user, r.getComments(), school, "rejectEmail.txt");
+            sendRejectMessage(user, r.getComments(), school, "rejectEmail.txt");
         } else if ("u".equals(r.getStatus()) && StringUtils.isNotBlank(r.getComments())) {
             sendMessage(user, r.getComments(), school, "communityEmail.txt");
         }
