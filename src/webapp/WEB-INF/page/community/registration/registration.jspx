@@ -91,10 +91,13 @@
         </script>
     -->
     <div id="outline"><!-- creates darker blue outer outline -->
-        <h2>Welcome to the GreatSchools Parent Community!</h2>
+        <h2>Welcome to GreatSchools!</h2>
 
-        <h3>You're joining a national network of parents who are passionate about education. We're
-            excited to have you!</h3>
+        <div class="loginLink">
+            Already a member? <link:loginOrRegister email="${userCmd.user.email}">Sign in</link:loginOrRegister>
+        </div>
+        <h3>Just take a minute to register and you'll be on your way to finding the right school for your
+        child and tracking your child's education&amp;#8212;grade-by-grade. It's free to join!</h3>
         <p class="requiredFld">Fields with an asterisk(*) are required.</p>
         <spring:hasBindErrors name="userCmd">
             <pageHelper:addOnLoadHandler handler="scrollToError();"/>
@@ -156,7 +159,7 @@
                         <input id="email" type="text" name="${status.expression}" value="${status.value}" tabindex="6"/>
                     </spring:bind>
                     <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
-                    <span id="emailDisclaimer">We will not share your email.
+                    <span id="emailDisclaimer">Your privacy is important to us.
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                                 title="GreatSchools Privacy Policy"
                                 href="/about/privacyStatement.page?state=$STATE"
@@ -271,7 +274,7 @@
                     <p class="privacyBox">Items with a
                         <gsml:img src="/res/img/community/registration/icon_private_9x11.gif"
                                   alt="Private" styleClass="private"/>
-                        will be private and not viewable by other users.</p>
+                        will be private and not viewable by other members.</p>
                     <gsml:inputImage src="${submitSrc}" alt="submit"
                                      name="submit" onclick="return doSingleClick(this);" tabIndex="17"
                                      id="submitButton"/>

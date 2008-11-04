@@ -101,7 +101,17 @@ public class RegistrationController extends SimpleFormController implements Read
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
         State state = userCommand.getState();
         if (state == null) {
-            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+            _log.info("state is null");
+            if (SessionContextUtil.getSessionContext(request).getCity() != null) {
+                City userCity = SessionContextUtil.getSessionContext(request).getCity();
+                _log.info("userCity=" + userCity);
+                state = userCity.getState();
+                SessionContextUtil.getSessionContext(request).setState(state);
+                userCommand.setCity(userCity.getName());
+            } else {
+                state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+                _log.info("No user city, using state " + state);
+            }
         }
         List<City> cities = _geoDao.findCitiesByState(state);
         City city = new City();

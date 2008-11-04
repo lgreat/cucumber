@@ -17,9 +17,22 @@
     width: 503px;
 }
 
+#outline .loginLink {
+    position: absolute;
+    top: 37px;
+    left: 440px;
+    font-size: 12px;
+}
+
+#outline .loginLink a, #outline .loginLink a:hover {
+    text-decoration: none;
+    color: #3399AA;    
+}
+
 #outline h3 {
     width: 503px;
-    font-size: 15px;
+    font-size: 12px;
+    line-height: 14px;
     padding-bottom: 22px;
 }
 
@@ -214,7 +227,7 @@
     position: absolute;
     font-size: 11px;
     border: 2px solid #DDEEEE;
-    width: 166px;
+    width: 182px;
     padding: 5px 5px 5px 8px;
     line-height: 14px;
 }
