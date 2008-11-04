@@ -59,7 +59,25 @@
             return strings[levels];
         }
 
-        function changeFindCity(citySelect, state, levels, selectId, includePrivateSchools, chooseSchoolLabel) {
+        function stateChange(stateSelect, selectId) {
+            var url = '/community/registrationAjax.page';
+            var pars = 'state=' + stateSelect.value + "&type=city";
+            $(selectId).innerHTML = '<select name="city" id="citySelect"><option value="">Loading ...</option></select>';
+            var myAjax = new Ajax.Updater (
+                    selectId,
+                    url,
+                    {
+                        method: 'get',
+                        parameters: {
+                            state : stateSelect.value,
+                            type : 'city',
+                            onchange : "changeFindCity(this, 'stateSelect', '${levelCodes}', 'schools', 'true', 'Choose school');"
+                        }
+                    });
+        }
+
+        function changeFindCity(citySelect, stateSelectId, levels, selectId, includePrivateSchools, chooseSchoolLabel) {
+            var state = document.getElementById(stateSelectId).value;
             $(selectId).innerHTML = '<select class="selectSchool" name="sid" id="schoolSelect"><option value="">Loading ...</option></select>';
             new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
                 method: 'get',
@@ -110,25 +128,23 @@
                     <p>It only takes 30 seconds.</p>
 
                     <div id="chooseSchoolForm">
-                        <gsweb:form action="/school/parentReviews/submit.page" method="get" id="form1">
+                        <gsweb:form action="/school/parentReviews/submit.page" method="post" id="form1" onsubmit="return checkSchoolSelected(this)">
                             <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.state}"
-                                                 onChange="this.form.submit();"
+                                                 onChange="stateChange(this, 'cities');"
                                                  styleId="stateSelect"
+                                                 name="state"
                                                  useNoState="${empty requestScope.context.state}"
                                                  noStateLabel="Choose state"/>
-                        </gsweb:form>
 
-                        <select name="city" tabindex="10" id="citySelect"
-                                onchange="changeFindCity(this, '${stateAbbrev}', '${levelCodes}', 'schools', 'true', 'Choose school');">
-                            <option selected="selected" value="">Choose city</option>
-                            <c:forEach var="cityOption" items="${cities}">
-                                <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
-                            </c:forEach>
-                        </select>
-
-                        <gsweb:form action="/school/parentReviews/submit.page" method="post"
-                                    onsubmit="return checkSchoolSelected(this)" id="form2">
-                            <input type="hidden" name="state" value="${stateAbbrev}"/>
+                            <div id="cities">
+                                <select name="city" tabindex="10" id="citySelect"
+                                        onchange="changeFindCity(this, 'stateSelect', '${levelCodes}', 'schools', 'true', 'Choose school');">
+                                    <option selected="selected" value="">Choose city</option>
+                                    <c:forEach var="cityOption" items="${cities}">
+                                        <![CDATA[<option value="${cityOption.name}">${cityOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
+                            </div>
 
                             <div id="schools">
                                 <select id="schoolSelect" name="sid" class="selectSchool">

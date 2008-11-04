@@ -4,6 +4,7 @@ import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,7 +71,7 @@ public class SchoolsInCityAjaxController implements Controller {
                     } 
                 }
                 out.print("<option value=\"" + school.getId() + "\">");
-                out.print(XMLUtil.escape(school.getName()));
+                out.print(StringEscapeUtils.escapeHtml(school.getName()));
                 out.println("</option>");
             }
         }

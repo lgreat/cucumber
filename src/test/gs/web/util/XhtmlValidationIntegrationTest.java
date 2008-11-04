@@ -154,4 +154,8 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
     public void testPreschoolLandingPage() {
         assertValidXhtml(INTEGRATION_HOST + "/preschool/");
     }
+
+    public void testSubmitPreschoolReviewPage() {
+        assertValidXhtml(INTEGRATION_HOST + "/school/parentReviews/submit.page");
+    }
 }
