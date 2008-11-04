@@ -288,27 +288,33 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 user.addStudent(student);
             }
         }
-        deleteSubscriptionsForProduct(user, SubscriptionProduct.COMMUNITY);
-        deleteSubscriptionsForProduct(user, SubscriptionProduct.CITY_COMMUNITY);
-        deleteSubscriptionsForProduct(user, SubscriptionProduct.SCHOOL_COMMUNITY);
+        // GS-7480 Swap out Best of Community with Parent Advisor
+//        deleteSubscriptionsForProduct(user, SubscriptionProduct.COMMUNITY);
+//        deleteSubscriptionsForProduct(user, SubscriptionProduct.CITY_COMMUNITY);
+//        deleteSubscriptionsForProduct(user, SubscriptionProduct.SCHOOL_COMMUNITY);
         if (fupCommand.getNewsletter()) {
             // add three newsletters at once
             // Best of Community
+//            Subscription subscription = new Subscription();
+//            subscription.setUser(user);
+//            subscription.setProduct(SubscriptionProduct.COMMUNITY);
+//            subscription.setState(fupCommand.getUserProfile().getState());
+//            fupCommand.addSubscription(subscription);
+            // Best of City Communities
+//            subscription = new Subscription();
+//            subscription.setUser(user);
+//            subscription.setProduct(SubscriptionProduct.CITY_COMMUNITY);
+//            subscription.setState(fupCommand.getUserProfile().getState());
+//            fupCommand.addSubscription(subscription);
+            // Best of School Communities
+//            subscription = new Subscription();
+//            subscription.setUser(user);
+//            subscription.setProduct(SubscriptionProduct.SCHOOL_COMMUNITY);
+//            subscription.setState(fupCommand.getUserProfile().getState());
+//            fupCommand.addSubscription(subscription);
             Subscription subscription = new Subscription();
             subscription.setUser(user);
-            subscription.setProduct(SubscriptionProduct.COMMUNITY);
-            subscription.setState(fupCommand.getUserProfile().getState());
-            fupCommand.addSubscription(subscription);
-            // Best of City Communities
-            subscription = new Subscription();
-            subscription.setUser(user);
-            subscription.setProduct(SubscriptionProduct.CITY_COMMUNITY);
-            subscription.setState(fupCommand.getUserProfile().getState());
-            fupCommand.addSubscription(subscription);
-            // Best of School Communities
-            subscription = new Subscription();
-            subscription.setUser(user);
-            subscription.setProduct(SubscriptionProduct.SCHOOL_COMMUNITY);
+            subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
             subscription.setState(fupCommand.getUserProfile().getState());
             fupCommand.addSubscription(subscription);
         }

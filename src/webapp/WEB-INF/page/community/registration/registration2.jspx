@@ -127,9 +127,7 @@
   
   <h2><span>You're Almost Done Registering!</span></h2>
 
-  <p>In the community, you'll be able to connect with other parents in your school and
-      school district&amp;#151;to share success stories and join groups focused on helping your
-      children thrive in school.</p>
+  <p>Just a few more questions&amp;#8212;you're almost done!</p>
 
   <p>We'll always keep your name and your email address private to preserve your anonymity on
       our site.</p>
@@ -240,7 +238,7 @@
 
   <ul id="newsletters">
       <li>
-          <label for="newsletterCheckbox">Yes! Send me local updates and subscribe me to the "Best of GreatSchools Community" newsletter!</label>
+          <label for="newsletterCheckbox">Yes! Sign me up for expert tips, news, advice and more in the bi-monthly Parent Advisor newsletter.</label>
           <gsml:checkbox styleId="newsletterCheckbox" name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
       </li>
       <li>

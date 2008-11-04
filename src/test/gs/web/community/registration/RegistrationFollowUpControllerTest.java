@@ -228,9 +228,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         // but only one, because 2nd student shares school, and 3rd student has no school listed
         _subscriptionDao.saveSubscription(isA(Subscription.class));
 
-        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY)).andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.CITY_COMMUNITY)).andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.SCHOOL_COMMUNITY)).andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY)).andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.CITY_COMMUNITY)).andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.SCHOOL_COMMUNITY)).andReturn(null);
 
         replay(_subscriptionDao);
         replay(_soapRequest);
@@ -274,9 +274,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         // controller checks for previous subscriptions
         // detects none
         _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.CITY_COMMUNITY), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.SCHOOL_COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.CITY_COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.SCHOOL_COMMUNITY), null);
         _subscriptionControl.replay();
         replay(_soapRequest);
 
@@ -362,15 +362,15 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
                 SubscriptionProduct.PARENT_CONTACT))
                 .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.CITY_COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.SCHOOL_COMMUNITY))
-                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.CITY_COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.SCHOOL_COMMUNITY))
+//                .andReturn(null);
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), (List)notNull());
 
         replay(_subscriptionDao);
@@ -402,7 +402,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         followUpCommand.setRedirect(testRedirectUrl);
 
 
-                Subscription newsletterSubscription = new Subscription();
+        Subscription newsletterSubscription = new Subscription();
         newsletterSubscription.setUser(followUpCommand.getUser());
         newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
         newsletterSubscription.setState(State.GA);
@@ -410,15 +410,15 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
                 SubscriptionProduct.PARENT_CONTACT))
                 .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.CITY_COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.SCHOOL_COMMUNITY))
-                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.CITY_COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.SCHOOL_COMMUNITY))
+//                .andReturn(null);
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), (List)notNull());
 
         replay(_subscriptionDao);
@@ -454,15 +454,15 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
                 SubscriptionProduct.PARENT_CONTACT))
                 .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.CITY_COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
-                SubscriptionProduct.SCHOOL_COMMUNITY))
-                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.CITY_COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(),
+//                SubscriptionProduct.SCHOOL_COMMUNITY))
+//                .andReturn(null);
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), (List)notNull());
 
         replay(_subscriptionDao);
@@ -491,9 +491,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         // no call to saveSubscription expected
         _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.CITY_COMMUNITY), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.SCHOOL_COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.CITY_COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.SCHOOL_COMMUNITY), null);
         _subscriptionControl.replay();
 
         // user dao behavior is validated elsewhere
@@ -520,12 +520,12 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         // no call to saveSubscription expected
         expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT))
                 .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.CITY_COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.SCHOOL_COMMUNITY))
-                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.CITY_COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.SCHOOL_COMMUNITY))
+//                .andReturn(null);
         expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.BETA_GROUP))
                 .andReturn(null);
         Subscription betaSubscription = new Subscription();
@@ -558,12 +558,12 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         // no call to saveSubscription expected
         expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT))
                 .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.CITY_COMMUNITY))
-                .andReturn(null);
-        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.SCHOOL_COMMUNITY))
-                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.CITY_COMMUNITY))
+//                .andReturn(null);
+//        expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.SCHOOL_COMMUNITY))
+//                .andReturn(null);
         expect(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.BETA_GROUP))
                 .andReturn(new ArrayList<Subscription>());
         // no save expected
@@ -590,9 +590,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         // no call to saveSubscription expected
         _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.CITY_COMMUNITY), null);
-        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.SCHOOL_COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.CITY_COMMUNITY), null);
+//        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.SCHOOL_COMMUNITY), null);
         _subscriptionControl.replay();
 
         // user dao behavior is validated elsewhere
