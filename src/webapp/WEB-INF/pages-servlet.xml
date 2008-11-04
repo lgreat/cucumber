@@ -48,6 +48,7 @@
                 <entry key="/schools/**" value="/schools/allInState.page"/>
                 <entry key="/preschool/**" value="/preschool/index.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
+                <entry key="/holiday-giving/**" value="/content/holidayGiving.page"/>
             </map>
         </property>
     </bean>
@@ -831,6 +832,12 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/holidayLearning"/>
+    </bean>
+
+    <bean name="/content/holidayGiving.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/holidayGiving"/>
     </bean>
 
     <bean name="/content/movingWithKids.page"

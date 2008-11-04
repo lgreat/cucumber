@@ -94,7 +94,7 @@
         </div>        
     </div>
 
-    <content:micrositeContent showTopBorder="false"/>
+    <content:micrositeContent showTopBorder="false" rightBoxType="askTheExperts"/>
 </div>
 
 <div id="contentRight">

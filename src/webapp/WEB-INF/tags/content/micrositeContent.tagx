@@ -13,6 +13,8 @@
 
 <jsp:directive.attribute name="showTopBorder" type="java.lang.Boolean"
                          description="Whether or not to show top border" required="true"/>
+<jsp:directive.attribute name="rightBoxType" type="java.lang.String"
+                         description="Type of content to show in the right box" required="true"/>
 
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
@@ -41,21 +43,40 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                 <h3 id="boxFirstHeader"><img src="/res/img/content/backtoschool/join_discussion.png"
                      alt="Join the Discussion" title=""/></h3>
 
-                <jsp:include page="/content/links.module?page=backtoschool&amp;type=all&amp;layout=list&amp;style=bulleted"/>
+                <jsp:include page="/content/links.module?page=holidayGiving&amp;type=all&amp;layout=list&amp;style=bulleted"/>
             </div>
 
-            <div class="box">
-                <h3><img src="/res/img/content/backtoschool/ask_experts.png" alt="Ask the Experts" title=""/></h3>
+            <div class="box ${rightBoxType}">
+                <c:choose>
+                    <c:when test="${rightBoxType eq 'askTheExperts'}">
+                        <h3><img src="/res/img/content/backtoschool/ask_experts.png" alt="Ask the Experts"/>
+                        </h3>
 
-                <p class="question">How can I help ease the transition to middle school?<br/>
-                    <gsweb:articlelink articleId="1075">Read the answer &gt;</gsweb:articlelink></p>
+                        <p class="question">How can I help ease the transition to middle school?<br/>
+                            <gsweb:articlelink articleId="1075">Read the answer &gt;</gsweb:articlelink></p>
 
-                <p class="question">My kindergartner has separation anxiety. What can I do?<br/>
-                    <gsweb:articlelink articleId="1072">Read the answer &gt;</gsweb:articlelink></p>
+                        <p class="question">My kindergartner has separation anxiety. What can I do?<br/>
+                            <gsweb:articlelink articleId="1072">Read the answer &gt;</gsweb:articlelink></p>
 
-                <div class="adDiv">
-                    <ad:Badge_166x45 position="BoxRight_166x45"/>
-                </div>
+                        <div class="adDiv">
+                            <ad:Badge_166x45 position="BoxRight_166x45"/>
+                        </div>
+                    </c:when>
+                    <c:when test="${rightBoxType eq 'holidayBookNook'}">
+                        <h3><img src="/res/img/holidayGiving/bookNook_hdr-1.gif" alt="Book Nook: Holiday Favorites By Grade"/>
+                        </h3>
+
+                        <ul>
+                        <gsweb:articlelink articleId="3666" anchorName="bears" wrappingElement="li" styleId="bears">The Three Snow Bears</gsweb:articlelink>
+                        <gsweb:articlelink articleId="1075" anchorName="fairies" wrappingElement="li" styleId="fairies">Flower Fairies of the Winter</gsweb:articlelink>
+                        </ul>
+
+                        <gsml:a href="">More Holiday Favorites &amp;gt;</gsml:a>
+
+                        <img id="snowflakes" src="/res/img/holidayGiving/bookNook_bottomRightdecoration.gif" alt="Snowflakes"/>
+
+                    </c:when>
+                </c:choose>
             </div>
         </div>
     </div>

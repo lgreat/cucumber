@@ -28,7 +28,8 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="GreatSchools.net: Back to School"/>
     <title>GreatSchools.net: Back to School</title>
-    <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/content/holidayGiving.css"/>
     <![CDATA[
     <!--[if IE]>
     <style type="text/css">
@@ -288,72 +289,51 @@
     <div id="contentMiddleModuleTop" class="contentMiddleModule cleared">
         <div class="moduleBox">
             <div class="wrapper">
-                <h3><img src="/res/img/content/backtoschool/modules/get_organized.png" alt="Get Organized" /></h3>
+                <h3><img src="/res/img/holidayGiving/hdr_holidayActivities.gif" alt="Get Organized" /></h3>
                 <img class="leadoff" src="/res/img/content/backtoschool/modules/bts_smallgirl_01.jpg" alt="Smiling girl" title="" />
                 <ul class="bulleted">
-                    <gsweb:articlelink articleId="324"
-                        wrappingElement="li">Shopping With Tweens</gsweb:articlelink>
-                    <gsweb:articlelink articleId="256"
-                        wrappingElement="li">Tips for Buying a Backpack</gsweb:articlelink>
-                    <gsweb:articlelink articleId="1045"
-                        wrappingElement="li">Get Organized for School</gsweb:articlelink>
-                    <gsweb:articlelink articleId="242"
-                        wrappingElement="li">Avoid Back-to-School Blues</gsweb:articlelink>
-                    <gsweb:articlelink articleId="657"
-                        wrappingElement="li">10 Tips for Smart Shopping</gsweb:articlelink>
+                    <gsweb:articlelink articleId="422"
+                        wrappingElement="li">Easy Gifts Kids Can Make</gsweb:articlelink>
+                    <gsweb:articlelink articleId="787"
+                        wrappingElement="li">Make Your Own Wrapping Paper</gsweb:articlelink>
+                    <gsweb:articlelink articleId="430"
+                        wrappingElement="li">Make a Family Cookbook</gsweb:articlelink>
+                    <gsweb:articlelink articleId="427"
+                        wrappingElement="li">Fun Activities for the Holiday Break</gsweb:articlelink>
                 </ul>
 
-                <div class="adDiv">
-                    <ad:Badge_166x45 position="ModuleBoxLeft_166x45"/>
-                </div>
             </div>
         </div>
 
         <div class="moduleBox">
             <div class="wrapper">
-                <h3><img src="/res/img/content/backtoschool/modules/prep.png" alt="Prep for School Success" /></h3>
+                <h3><img src="/res/img/holidayGiving/hdr_giftsthatTeach.gif" alt="Prep for School Success" /></h3>
                 <img class="leadoff" src="/res/img/content/backtoschool/modules/bts_smalltwoboys.jpg" alt="Two boys" title="" />
                 <ul class="bulleted">
-                    <gsweb:articlelink articleId="44"
-                        wrappingElement="li">Reading With Your Child</gsweb:articlelink>
-                    <gsweb:articlelink articleId="209"
-                        wrappingElement="li">Get Excited About Math</gsweb:articlelink>
-                    <gsweb:articlelink articleId="60"
-                        wrappingElement="li">Adjusting to a New School</gsweb:articlelink>
-                    <gsweb:articlelink articleId="730"
-                        wrappingElement="li">Back to School Night Basics</gsweb:articlelink>
-                    <gsweb:articlelink articleId="634"
-                        wrappingElement="li">Find the Reading Sweet Spot</gsweb:articlelink>
+                    <gsweb:articlelink articleId="771"
+                        wrappingElement="li">Bundles of Holiday Learning Gifts</gsweb:articlelink>
+                    <gsweb:articlelink articleId="1133"
+                        wrappingElement="li">Parents Choice Holiday Guide</gsweb:articlelink>
+                    <gsweb:articlelink articleId="782"
+                        wrappingElement="li">10 Tips to Find Great Learning Gifts</gsweb:articlelink>
                 </ul>
+
+                <div class="adDiv">
+                    <ad:Badge_166x45 position="ModuleBoxLeft_166x45"/>
+                </div>                
             </div>
         </div>
 
-        <div class="moduleBox last">
-            <div class="wrapper">
-                <h3><img src="/res/img/content/backtoschool/modules/supply_list.png" alt="School Supply List" /></h3>
-                <img class="leadoff" src="/res/img/content/backtoschool/modules/bts_small_pencils.jpg" alt="Pencils" title="" />
-
-                <p>Shopping early for <span style="white-space: nowrap;">back-to-school</span>
-                    supplies gives you a chance to look for bargains.</p>
-
-                <p>
-                <select id="supplyListMenu" onchange="document.location.href = this.options[this.options.selectedIndex].value;">
-                    <option value="">-- Select a grade level --</option>
-                    <option value="${gsweb:articleUrl(3562)}">Kindergarten - 2nd Grade</option>
-                    <option value="${gsweb:articleUrl(3563)}">3rd - 5th Grade</option>
-                    <option value="${gsweb:articleUrl(3564)}">Middle School</option>
-                    <option value="${gsweb:articleUrl(3565)}">High School</option>
-                </select>
-                </p>
-
-                <div class="adDiv">
-                    <ad:Badge_166x45 position="ModuleBoxRight_166x45"/>
-                </div>
+        <div class="moduleBox last" id="givingContest">
+            <div id="text">
+                <p>How do you teach chldren the spirit of giving?</p>
+                <p>Submit your story for a chance to win a $100 DonorsChoose gift card for your school.</p>
             </div>
+            <img src="/res/img/holidayGiving/contest_giftcard.gif" alt="Giving card"/>
         </div>
     </div>
 
-    <content:micrositeContent showTopBorder="true" rightBoxType="askTheExperts"/>
+    <content:micrositeContent showTopBorder="true" rightBoxType="holidayBookNook"/>
 
 </div>
 
@@ -362,33 +342,11 @@
 
     <ad:adTag position="BTS_Quiz_Promo_300x316"/>
 
-    <div id="popularArticles" class="greenBoxWrapper">
-        <div id="greenBox" class="greenBox">
-            <h3><img id="popularArticlesImg" src="/res/img/content/backtoschool/popular_articles.jpg" alt="Popular Articles"/></h3>
-            <ul class="greenArrow">
-                <gsweb:articlelink articleId="765"
-                                   wrappingElement="li">Parent Involvement Primer</gsweb:articlelink>
-                <gsweb:articlelink articleId="703"
-                                   wrappingElement="li">School Improvement Starts at Home</gsweb:articlelink>
-                <gsweb:articlelink articleId="650"
-                                   wrappingElement="li">Managing Screen Time</gsweb:articlelink>
-                <gsweb:articlelink articleId="1073"
-                                   wrappingElement="li">Should Kids Hang Out at Club Penguin?</gsweb:articlelink>
-                <gsweb:articlelink articleId="902"
-                                   wrappingElement="li">Book Picks for Grades K-5</gsweb:articlelink>
-                <gsweb:articlelink articleId="903"
-                                   wrappingElement="li">Reading Tips for Grades 6-12</gsweb:articlelink>
-                <gsweb:articlelink articleId="320"
-                                   wrappingElement="li">Tips For Reluctant Readers</gsweb:articlelink>
-                <gsweb:articlelink articleId="1145"
-                                   wrappingElement="li">Sleep: Secret Weapon for School Success</gsweb:articlelink>
-                <gsweb:articlelink articleId="34"
-                                   wrappingElement="li">What Makes a Great Parent?</gsweb:articlelink>
-                <gsweb:articlelink articleId="259"
-                                   wrappingElement="li">What Makes a Great Teacher?</gsweb:articlelink>
-            </ul>
-        </div>
-    </div>
+    <jsp:include page="/content/donorsChoose.module">
+        <jsp:param name="cityID" value="433288"/>
+        <jsp:param name="state" value="CA"/>
+        <jsp:param name="maxProposals" value="${3}"/>
+    </jsp:include>
 
 </div>
 
