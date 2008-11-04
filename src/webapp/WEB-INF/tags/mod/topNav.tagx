@@ -194,7 +194,7 @@
                 id="GlobalNav_ResearchButton"
                 >Research &amp;amp; Compare</link:research></td>
              <!--#9--><td><link:preschool
-                                 id="GlobalNav_CountdownToCollegeButton"
+                                 id="GlobalNav_PreschoolButton"
                                  styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '') } GS_CI9_ "
                 >Preschools</link:preschool></td>
             <!--#10--><td ><gsml:a href="http://${communityHost}"
