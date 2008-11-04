@@ -26,7 +26,7 @@
             required="false"/>
     <jsp:directive.attribute
             name="schoolLevel"
-            description="e,m,h or combinations thereof"
+            description="p,e,m,h or combinations thereof -- but should actually be Preschool+Elementary+Middle+High or combinations thereof -- bug will be filed to deal with p,e,m,h in schoolResults.jspx and schoolsTable.jspx"
             required="false"/>
     <jsp:directive.attribute
             name="locale"
