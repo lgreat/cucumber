@@ -74,6 +74,11 @@
     float: left;
     clear: right;
     margin-left: 10px;
+    width: 195px;
+}
+
+#chooseSchoolForm #schoolSelect {
+    width: 275px;
 }
 
 #chooseSchoolForm #schools {

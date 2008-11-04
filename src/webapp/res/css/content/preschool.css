@@ -79,12 +79,9 @@
     height: 145px;
     left: 615px;
     top: 40px;
-}
-
-#introPromo #promo {
-    position: absolute;
     text-indent: -9999px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 #intro {

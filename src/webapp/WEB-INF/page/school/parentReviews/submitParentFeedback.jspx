@@ -13,7 +13,7 @@
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0" >
-<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<pageHelper:setPathway pathway="COUNTDOWN_COLLEGE"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -60,7 +60,7 @@
         }
 
         function changeFindCity(citySelect, state, levels, selectId, includePrivateSchools, chooseSchoolLabel) {
-            $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
+            $(selectId).innerHTML = '<select class="selectSchool" name="sid" id="schoolSelect"><option value="">Loading ...</option></select>';
             new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
                 method: 'get',
                 parameters: {state : state, city : citySelect.value, levels: levels, includePrivateSchools: includePrivateSchools, chooseSchoolLabel: chooseSchoolLabel },
