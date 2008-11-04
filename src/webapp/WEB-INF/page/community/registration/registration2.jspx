@@ -127,7 +127,7 @@
   
   <h2><span>You're Almost Done Registering!</span></h2>
 
-  <p>Just a few more questions&amp;#8212;you're almost done!</p>
+  <p class="belowHeader">Just a few more questions&amp;#8212;you're almost done!</p>
 
   <p>We'll always keep your name and your email address private to preserve your anonymity on
       our site.</p>

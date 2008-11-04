@@ -19,7 +19,7 @@
     font-size: 20px;
     border-bottom: 1px solid #CACC9E;
     padding-bottom: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     width: 503px;
 }
 
@@ -27,6 +27,10 @@
     width: 503px;
     padding: 7px 0 7px 0;
     line-height: 15px;
+}
+
+#outline .belowHeader {
+    padding-top: 4px;
 }
 
 #outline h3 {
