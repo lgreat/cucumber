@@ -3,7 +3,7 @@
     width: 752px;
     position: relative;
     font-family: Trebuchet MS, Arial, sans-serif;
-    color: #666666;
+    color: #444;
     padding: 31px 20px 28px 84px;
 }
 
@@ -50,7 +50,7 @@
 
 #outline ul li input, #outline ul li select {
     position: absolute;
-    color: #666666;
+    color: #444;
     left: 158px;
     width: 213px;
 }
