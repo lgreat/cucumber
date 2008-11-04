@@ -188,7 +188,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         Subscription newsletterSubscription = new Subscription();
         newsletterSubscription.setUser(userCommand.getUser());
-        newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+        newsletterSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
         newsletterSubscription.setState(State.GA);
 
         getRequest().addParameter("join", "join"); // submit button

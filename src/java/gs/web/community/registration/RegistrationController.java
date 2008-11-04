@@ -248,24 +248,31 @@ public class RegistrationController extends SimpleFormController implements Read
         } else {
             // only subscribe to newsletter on final step
             if (userCommand.getNewsletter()) {
-                // subscribe to three newsletters
                 List<Subscription> subs = new ArrayList<Subscription>();
+                // GS-7479 Swap out BoC newsletter with Parent Advisor
+                // subscribe to three newsletters
                 // best of community
+//                Subscription communityNewsletterSubscription = new Subscription();
+//                communityNewsletterSubscription.setUser(user);
+//                communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+//                communityNewsletterSubscription.setState(userCommand.getState());
+//                subs.add(communityNewsletterSubscription);
+                // best of city
+//                communityNewsletterSubscription = new Subscription();
+//                communityNewsletterSubscription.setUser(user);
+//                communityNewsletterSubscription.setProduct(SubscriptionProduct.CITY_COMMUNITY);
+//                communityNewsletterSubscription.setState(userCommand.getState());
+//                subs.add(communityNewsletterSubscription);
+                // best of school
+//                communityNewsletterSubscription = new Subscription();
+//                communityNewsletterSubscription.setUser(user);
+//                communityNewsletterSubscription.setProduct(SubscriptionProduct.SCHOOL_COMMUNITY);
+//                communityNewsletterSubscription.setState(userCommand.getState());
+//                subs.add(communityNewsletterSubscription);
+
                 Subscription communityNewsletterSubscription = new Subscription();
                 communityNewsletterSubscription.setUser(user);
-                communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
-                communityNewsletterSubscription.setState(userCommand.getState());
-                subs.add(communityNewsletterSubscription);
-                // best of city
-                communityNewsletterSubscription = new Subscription();
-                communityNewsletterSubscription.setUser(user);
-                communityNewsletterSubscription.setProduct(SubscriptionProduct.CITY_COMMUNITY);
-                communityNewsletterSubscription.setState(userCommand.getState());
-                subs.add(communityNewsletterSubscription);
-                // best of school
-                communityNewsletterSubscription = new Subscription();
-                communityNewsletterSubscription.setUser(user);
-                communityNewsletterSubscription.setProduct(SubscriptionProduct.SCHOOL_COMMUNITY);
+                communityNewsletterSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
                 communityNewsletterSubscription.setState(userCommand.getState());
                 subs.add(communityNewsletterSubscription);
 
