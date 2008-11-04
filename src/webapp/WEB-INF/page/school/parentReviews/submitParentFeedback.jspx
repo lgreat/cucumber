@@ -187,7 +187,7 @@
     </div>
 
     <div style="display: none;">
-        <mod:tracking pageName="${pageName}" hier1="${hier1}"/>
+        <mod:tracking pageName="${pageName}" hier1="${hier1}" schoolLevel="Preschool"/>
     </div>
 </gsml:body>
 </html>
