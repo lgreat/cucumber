@@ -374,6 +374,7 @@ div.phone {
 
 #searchFooter #goButton {
     margin: 0 0 6px 5px;
+    position: absolute;
 }
 
 #searchFooter #refine_stateSelector {
