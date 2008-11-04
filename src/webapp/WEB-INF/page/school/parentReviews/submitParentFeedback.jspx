@@ -59,10 +59,11 @@
             return strings[levels];
         }
 
-        function stateChange(stateSelect, selectId) {
+        function stateChange(stateSelect, selectId, schoolsWrapper, chooseSchoolLabel) {
             var url = '/community/registrationAjax.page';
             var pars = 'state=' + stateSelect.value + "&type=city";
             $(selectId).innerHTML = '<select name="city" id="citySelect"><option value="">Loading ...</option></select>';
+            $(schoolsWrapper).innerHTML = '<select class="selectSchool" name="sid" id="schoolSelect"><option value="">' + chooseSchoolLabel + '</option></select>';
             var myAjax = new Ajax.Updater (
                     selectId,
                     url,
@@ -130,7 +131,7 @@
                     <div id="chooseSchoolForm">
                         <gsweb:form action="/school/parentReviews/submit.page" method="post" id="form1" onsubmit="return checkSchoolSelected(this)">
                             <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.state}"
-                                                 onChange="stateChange(this, 'cities');"
+                                                 onChange="stateChange(this, 'cities', 'schools', 'Choose school');"
                                                  styleId="stateSelect"
                                                  name="state"
                                                  useNoState="${empty requestScope.context.state}"
