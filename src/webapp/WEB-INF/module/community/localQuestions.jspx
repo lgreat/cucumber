@@ -12,6 +12,8 @@
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <jsp:directive.page import="java.util.Date"/>
+    <jsp:directive.page import="java.util.Calendar"/>
 
     <!-- Parameters -->
     <!-- id for city location object -->
@@ -34,10 +36,18 @@
             <c:set var="forceHeight" value="height: ${param.forceHeight-92}px !important"/>
         </c:if>
     </variant:a>
-    <!-- GS-7298 When appearing in iframes, make sure to open links in parent frame -->
+    <!-- GS-7298 When appearing in iframes, make sure to open links in parent frame and set cookie -->
     <c:if test="${callerPagename eq 'districtprofile'}">
         <head>
             <base target="_top"/>
+            <jsp:scriptlet>
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.YEAR, 2);
+                Date date = calendar.getTime();
+                System.err.println(date);
+                request.setAttribute("cookieExpires", date);
+            </jsp:scriptlet>
+            <meta http-equiv="Set-Cookie" content="CITYID=${cityId};expires=${cookieExpires}; path=/"/>
         </head>
     </c:if>
 
