@@ -277,7 +277,7 @@ function getNode(e){
      var obj = eventTrigger(e);
 
      // if obj is an image get it's parent (expected to be a link)
-     if (obj.tagName.toLowerCase() == 'img'){
+     if (obj.tagName.toLowerCase() == 'img' || obj.tagName.toLowerCase() == 'span') {
          obj = obj.parentNode;
      }
 
