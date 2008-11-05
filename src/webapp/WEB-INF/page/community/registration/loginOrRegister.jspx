@@ -161,7 +161,7 @@
                 </ul>
             </gsweb:form>
         </div>
-        <gsml:img src="/res/img/community/registration/vertical_dots.jpg"
+        <gsml:img src="/res/img/community/registration/vertical_dots.gif"
                   alt="Vertical dot divider"
                   id="verticalDots"/>
         <!-- end: returninguser -->
