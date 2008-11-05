@@ -55,7 +55,7 @@
 	background-color: #42BCCE;
 }
 
-.contentGS ul {
+.contentGS #librarySidebar ul {
 	margin: 0 10px;
     padding-left:0;
 }
