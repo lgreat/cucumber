@@ -23,6 +23,9 @@
 <c:set var="stateOrNull" value="${requestScope.context.state}" />
 <c:set var="stateAbbrev" value="${stateOrDefault.abbreviationLowerCase}" />
 
+<ad:setSlotPrefix slotPrefix="Parent_Review_Submit"/>
+<pageHelper:hideFooterAd/>
+
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>${title}</title>
