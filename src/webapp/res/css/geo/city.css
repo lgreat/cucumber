@@ -1,4 +1,9 @@
-@import "cityCommon.css";
+#mapContainer {
+    margin: .3em;
+    border: 1px solid #9A9A9A;
+    background-color: #eee;
+    padding: .0em;
+}
 
 .cityPage {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
