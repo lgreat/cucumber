@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.51 2008/11/03 22:30:26 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.52 2008/11/05 23:44:48 thuss Exp $
  */
 
 package gs.web.util.context;
@@ -291,6 +291,11 @@ public class SessionContextUtil implements ApplicationContextAware {
         // Get the real hostname or see if it's been overridden
         String paramHost = request.getParameter(HOST_PARAM);
         String hostName = StringUtils.isEmpty(paramHost) ? request.getServerName() : paramHost;
+
+        // Determine if we're running in the integration test environment
+        if ("localhost.greatschools.net".equals(hostName)) {
+            context.setIntegrationTest(true);
+        }
 
         // Determine if this is a cobrand
         String cobrand = null;

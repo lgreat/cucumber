@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.24 2008/09/26 21:18:55 cpickslay Exp $
+ * $Id: SessionContext.java,v 1.25 2008/11/05 23:44:48 thuss Exp $
  */
 package gs.web.util.context;
 
@@ -89,6 +89,8 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private IGeoDao _geoDao;
     private boolean _readFromClient = false;
     private boolean _hasSearched = false;
+    // Tells us whether we're running in the integration test environment
+    private boolean _integrationTest = false;
     private boolean _crawler = false;
 
     private String _tempMsg;
@@ -424,6 +426,14 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setCrawler(boolean crawler) {
         _crawler = crawler;
+    }
+
+    public boolean isIntegrationTest() {
+        return _integrationTest;
+    }
+
+    public void setIntegrationTest(boolean integrationTest) {
+        _integrationTest = integrationTest;
     }
 
     public boolean isTopicPage() {

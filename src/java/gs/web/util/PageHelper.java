@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.65 2008/11/03 22:30:26 aroy Exp $
+ * $Id: PageHelper.java,v 1.66 2008/11/05 23:44:48 thuss Exp $
  */
 
 package gs.web.util;
@@ -333,7 +333,7 @@ public class PageHelper {
         return buffer.toString();
     }
 
-    /**
+    /**                                                                                    is
      * @param ad Ad position that will be added on current page
      */
     public void addAdPosition(AdPosition ad) {
@@ -460,7 +460,7 @@ public class PageHelper {
      * @return true if it's ad free
      */
     public boolean isAdFree() {
-        return !_sessionContext.isAdvertisingOnline() || isFramed() || _sessionContext.isCrawler();
+        return !_sessionContext.isAdvertisingOnline() || isFramed() || _sessionContext.isCrawler() || _sessionContext.isIntegrationTest();
     }
 
     /**
