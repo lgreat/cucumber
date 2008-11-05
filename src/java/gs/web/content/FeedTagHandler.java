@@ -1,12 +1,11 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: FeedTagHandler.java,v 1.9 2008/10/21 22:17:45 aroy Exp $
+ * $Id: FeedTagHandler.java,v 1.10 2008/11/05 19:43:41 thuss Exp $
  */
 
 package gs.web.content;
 
 import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndContent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,7 +17,6 @@ import java.util.*;
 import gs.web.jsp.Util;
 import gs.data.util.feed.IFeedDao;
 import gs.data.util.feed.CachedFeedDaoFactory;
-import gs.data.util.XMLUtil;
 
 /**
  * A generic rss/atom feed handler with time based cache expiry, uses ehcache
@@ -33,11 +31,6 @@ import gs.data.util.XMLUtil;
  */
 public class FeedTagHandler extends SimpleTagSupport {
 
-    protected static int CACHE_SIZE = 500;
-    protected static int CACHE_ENTRY_TTL_SECONDS = 3600; // 1 hour
-    protected static int CACHE_ENTRY_IDLE_SECONDS = 3600; // 1 hour
-    protected static String CACHE_NAME = "feedCache";
-
     protected static final Log _log = LogFactory.getLog(FeedTagHandler.class);
 
     private String _feedUrl;
@@ -48,12 +41,7 @@ public class FeedTagHandler extends SimpleTagSupport {
     private IFeedDao _feedDao;
 
     protected void initializeFeedDao() {
-        CachedFeedDaoFactory feedDaoFactory = new CachedFeedDaoFactory();
-        feedDaoFactory.setCacheSize(CACHE_SIZE);
-        feedDaoFactory.setCacheEntryTTLSeconds(CACHE_ENTRY_TTL_SECONDS);
-        feedDaoFactory.setCacheEntryIdleSeconds(CACHE_ENTRY_IDLE_SECONDS);
-        feedDaoFactory.setCacheName(CACHE_NAME);
-        _feedDao = feedDaoFactory.getFeedDao();
+        _feedDao = new CachedFeedDaoFactory().getFeedDao();
     }
 
     public void doTag() throws JspException, IOException {
