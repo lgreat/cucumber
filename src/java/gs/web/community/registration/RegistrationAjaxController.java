@@ -60,10 +60,14 @@ public class RegistrationAjaxController implements Controller {
     protected void outputCitySelect(HttpServletRequest request, PrintWriter out) {
         State state = _stateManager.getState(request.getParameter("state"));
         List cities = _geoDao.findCitiesByState(state);
-        City notListed = new City();
         String onChange = request.getParameter("onchange");
-        notListed.setName("My city is not listed");
-        cities.add(0, notListed);
+
+        if (request.getParameter("showNotListed") != null && Boolean.valueOf(request.getParameter("showNotListed"))) {
+            City notListed = new City();
+            notListed.setName("My city is not listed");
+            cities.add(0, notListed);
+        }
+
         if (cities.size() > 0) {
             out.print("<select id=\"citySelect\" name=\"city\" class=\"selectCity\" tabindex=\"10\"" +
                  (StringUtils.isNotBlank(onChange) ? " onchange=\"" + onChange + "\"" : "") +  ">");

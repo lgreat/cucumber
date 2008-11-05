@@ -23,7 +23,7 @@
 
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
-              var pars = 'state=' + stateSelect.value + "&type=city";
+              var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
               $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
               var myAjax = new Ajax.Updater (
                       'city',
