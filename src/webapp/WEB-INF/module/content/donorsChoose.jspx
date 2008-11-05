@@ -10,7 +10,14 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
 
+    <c:set var="theme" value="${not empty param.theme ? param.theme : ''}"/>
+
     <pageHelper:externalCss file="/res/css/content/donorsChoose.css"/>
+
+    <c:if test="${theme eq 'holiday'}">
+        <pageHelper:externalCss file="/res/css/content/donorsChooseHoliday.css"/>
+    </c:if>
+    
       <![CDATA[
     <!--[if IE]>
     <style type="text/css">
@@ -31,7 +38,14 @@
             <div class="outer">
                 <div class="inner cleared">
 
-                    <h2>Help classrooms in need: Donate to a teacher's project</h2>
+                    <c:choose>
+                        <c:when test="${not empty theme}">
+                            <h2 class="${theme}">Help classrooms in need: Donate to a teacher's project</h2>
+                        </c:when>
+                        <c:otherwise>
+                            <h2>Help classrooms in need: Donate to a teacher's project</h2>
+                        </c:otherwise>
+                    </c:choose>
 
                     <ul>
                     <c:forEach var="proposal" items="${requestScope.proposals}" varStatus="status">
@@ -63,7 +77,17 @@
                                 <span class="costtocomplete">$${proposal.roundedCostToComplete} needed</span>
                             </div>
                             <div class="give right">
-                                <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;"><img alt="Give" src="/res/img/content/donorsChoose/give_button.gif"/></a>
+                                <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;">
+                                    <c:choose>
+                                        <c:when test="${theme eq 'holiday'}">
+                                            <c:set var="giveButtonSrc" value="/res/img/content/donorsChoose/holiday/widget_redGIVEbtn.gif"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="giveButtonSrc" value="/res/img/content/donorsChoose/give_button.gif"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <img alt="Give" src="${giveButtonSrc}"/>
+                                </a>
                             </div>
                         </li>
                     </c:forEach>
@@ -79,7 +103,18 @@
                         <c:param name="URL" value="${url}"/>
                     </c:url>
                     <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
-                    <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;"><img id="seeMoreDonorsChoose" alt="See more teachers' requests" src="/res/img/content/donorsChoose/seemore_button.gif"/></a>
+                    <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;">
+                        <c:choose>
+                            <c:when test="${theme eq 'holiday'}">
+                                <c:set var="seeMoreSrc"
+                                       value="/res/img/content/donorsChoose/holiday/widget_redREQUESTbtn.gif"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="seeMoreSrc" value="/res/img/content/donorsChoose/seemore_button.gif"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <img id="seeMoreDonorsChoose" alt="See more teachers' requests" src="${seeMoreSrc}"/>
+                    </a>
 
                     <link:donorsChooseExplained target="_blank" styleClass="learnHow" onclick="window.open(this.href, 'donorsChooseExplained', 'width=600,height=600,scrollbars=yes'); return false;">
                         Learn how this works

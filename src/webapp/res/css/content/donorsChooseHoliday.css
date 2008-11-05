@@ -1,0 +1,25 @@
+.donorsChooseBox {
+    padding-bottom: 102px;
+    background-image: url(/res/img/content/donorsChoose/holiday/widget_bottom3.gif);
+}
+
+.donorsChooseBox .outer {
+    padding-top: 65px;    
+    background-image: url(/res/img/content/donorsChoose/holiday/widget_headertop-1.gif);
+}
+
+.donorsChooseBox .inner {
+    padding-top: 22px;
+    padding-bottom: 4px;
+    background-image: url(/res/img/content/donorsChoose/holiday/widget_1px_center.gif);
+}
+
+#donorsChoose h2.holiday {
+    display: none;
+}
+
+#donorsChoose li {
+    background: transparent url(/res/img/content/donorsChoose/holiday/widget_redBullet.gif) no-repeat scroll left 4px;
+    margin: 0 0 5px;
+    padding: 0 0 0 10px;
+}

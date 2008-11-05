@@ -65,6 +65,9 @@
 #donorsChoose li .title {
     font-weight: bold;
     font-size: 12px;
+}
+
+#donorsChoose li .title a, #donorsChoose li .title a:link, #donorsChoose li .title a:visited, #donorsChoose li .title a:active {
     color: #0065b3;
 }
 
