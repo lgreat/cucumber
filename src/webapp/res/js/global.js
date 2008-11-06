@@ -11,7 +11,7 @@ function readCookie(cookieName) {
 }
 
 function hasCookie(cookieName) {
-  return parseInt(document.cookie.indexOf(cookieName)) > -1;
+    return (document.cookie.length > 0 && document.cookie.indexOf(cookieName+"=") >= 0);  
 }
 
 // create a cookie with name=value and optional "days" expiration
