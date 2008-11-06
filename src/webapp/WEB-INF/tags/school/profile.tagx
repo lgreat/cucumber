@@ -24,6 +24,7 @@
 <jsp:directive.tag import="gs.data.geo.IGeoDao"/>
 <jsp:directive.tag import="gs.data.geo.City"/>
 <jsp:directive.tag import="gs.data.school.LevelCode"/>
+<jsp:directive.tag import="gs.data.admin.IPropertyDao"/>
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
@@ -128,7 +129,11 @@
         privateTestData = testDataSetDao.hasDisplayableData(school);
     }
     request.setAttribute("privateHasTestfData",privateTestData);
-    
+
+    // GS-7445
+    String surveyHoverPct = ((IPropertyDao)ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT);
+    if (surveyHoverPct == null) surveyHoverPct = "0";
+    request.setAttribute("surveyHoverPct",surveyHoverPct);
 
     ]]></jsp:scriptlet>
 
@@ -140,6 +145,8 @@
 
 <c:if test="${!requestScope.context.crawler}">
     <script type="text/javascript" language="javascript">
+        <!-- GS-7445 -->
+        var surveyHoverPct = ${surveyHoverPct};
         <![CDATA[
         var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
         function openDelicious() { location.href=deliciousUrl; }
