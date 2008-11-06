@@ -10,6 +10,10 @@ function readCookie(cookieName) {
     return unescape(cookie.substring(i + cookieName.length + 1, j));
 }
 
+function hasCookie(cookieName) {
+  return parseInt(document.cookie.indexOf(cookieName)) > -1;
+}
+
 // create a cookie with name=value and optional "days" expiration
 function createCookie(name, value, days) {
     var expires = "";
