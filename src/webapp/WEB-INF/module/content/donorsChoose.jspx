@@ -95,8 +95,8 @@
 
                     <c:set var="url">
                         <c:choose>
-                            <c:when test="${isInternalServer}">http://qa1.donorschoose.org/donors/search.html?zone=${zoneId}</c:when>
-                            <c:otherwise>http://www.donorschoose.org/donors/search.html?zone=${zoneId}</c:otherwise>
+                            <c:when test="${isInternalServer}">http://qa1.donorschoose.org/donors/search.html?zone=${zoneId}&amp;utm_source=api&amp;utm_medium=feed&amp;utm_content=seemore&amp;utm_campaign=2dh64gpr</c:when>
+                            <c:otherwise>http://www.donorschoose.org/donors/search.html?zone=${zoneId}&amp;utm_source=api&amp;utm_medium=feed&amp;utm_content=seemore&amp;utm_campaign=2dh64gpr</c:otherwise>
                         </c:choose>
                     </c:set>
                     <c:url var="href" value="http://www.jdoqocy.com/click-3220060-10599822">
@@ -122,8 +122,8 @@
 
                     <c:set var="url">
                         <c:choose>
-                            <c:when test="${isInternalServer}">http://qa1.donorschoose.org</c:when>
-                            <c:otherwise>http://www.donorschoose.org</c:otherwise>
+                            <c:when test="${isInternalServer}">http://qa1.donorschoose.org/?utm_source=api&amp;utm_medium=feed&amp;utm_content=poweredby&amp;utm_campaign=2dh64gpr</c:when>
+                            <c:otherwise>http://www.donorschoose.org/?utm_source=api&amp;utm_medium=feed&amp;utm_content=poweredby&amp;utm_campaign=2dh64gpr</c:otherwise>
                         </c:choose>
                     </c:set>
                     <c:url var="href" value="http://www.jdoqocy.com/click-3220060-10599822">
