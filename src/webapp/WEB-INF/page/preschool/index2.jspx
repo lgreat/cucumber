@@ -85,7 +85,7 @@
 <div id="contentLeft">
     <content:librarySidebar/>
     <ad:Promo_170x92/>
-    <ad:AboveFold_Left_160x600/>
+    <!--ad:AboveFold_Left_160x600/-->
 </div>
 
 <div id="main">
