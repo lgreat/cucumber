@@ -61,7 +61,6 @@
         }
     </script>
 </head>
-<c:set var="pageName" value="Back to School"/>
 
 <c:set var="showAd"
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
@@ -354,8 +353,9 @@
 <content:micrositeFooter crossPromo="election2008"/>
 
 <div style="display: none;">
+<c:set var="pageName" value="Holiday Giving 2008"/>
 <mod:tracking pageName="${pageName}"
-              hier1="Article,Back to School"
+              hier1="Article,${pageName}"
               microsite="${pageName}"/>
 </div>
 
