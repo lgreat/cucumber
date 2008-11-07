@@ -1,0 +1,40 @@
+div.wrapper {
+    position: relative;
+    width: 100%;
+    height: 571px;
+    color: #444;
+}
+
+#contentGS div.wrapper a:hover {
+    text-decoration:none;
+}
+
+div.wrapper a img {
+    border: 0;
+}
+
+div.wrapper input {
+    color: #444;
+}
+
+div.returninguser {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+}
+
+img.verticalDots {
+    position: absolute;
+    top: 0;
+    left: 210px;
+}
+
+div.newuser {
+    position: absolute;
+    width: 225px;
+    top: 0;
+    left: 220px;
+}
+
+

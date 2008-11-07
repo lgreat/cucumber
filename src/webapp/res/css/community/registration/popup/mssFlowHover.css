@@ -1,0 +1,22 @@
+#myDialog {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    position: relative;
+}
+
+#dialogTopBar {
+    background-color: #8BCBCB;
+    height: 26px;
+    position: relative;
+}
+
+    #dialogTopBar .dialogClose {
+        position: absolute;
+        right: 8px;
+        top: 5px;
+        cursor: pointer;
+    }
+
+#dialogBody {
+    border: 3px solid #8BCBCB;
+    border-top: 0;
+}

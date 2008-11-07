@@ -17,6 +17,7 @@
         <pattern>/school/addComments.page*</pattern>
         <pattern>/school/updateRatings.page*</pattern>
         <pattern>/school/thankYouHover.page*</pattern>        
+        <pattern>/community/registration/popup/*</pattern>        
     </decorator>
 
     <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">
@@ -29,6 +30,7 @@
 
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
         <pattern>/*</pattern>
+        <pattern>/sandbox/testHover.page</pattern>
     </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->

@@ -1264,6 +1264,33 @@
             </list>
         </property>
     </bean>
+
+    <bean name="/community/registration/popup/loginOrRegisterHover.page"
+          class="gs.web.community.registration.popup.LoginHoverController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="formView" value="/community/registration/popup/loginOrRegisterHover"/>
+        <property name="commandName" value="loginCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.popup.LoginHoverCommand"/>
+    </bean>
+
+    <bean name="/community/registration/popup/registrationHover.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/registration/popup/registrationHover"/>
+    </bean>
+
+    <bean name="/community/registration/popup/forgotPasswordHover.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/registration/popup/forgotPasswordHover"/>
+    </bean>
+
+    <bean name="/community/registration/popup/sendToDestination.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/registration/popup/sendToDestination"/>
+    </bean>
     <!--End Registration pages -->
 
     <bean name="/accountInformation.page"

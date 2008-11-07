@@ -1,0 +1,107 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+    >
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Test Hover - GreatSchools</title>
+    <link rel="stylesheet" type="text/css" href="/res/css/community/registration/popup/mssFlowHover.css"><!-- foo --></link>
+    <link rel="stylesheet" type="text/css" href="/res/css/school/compareHover-container.css"><!-- foo --></link>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"><!-- foo --></script>
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"><!-- foo --></script>
+    <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        //<!--
+        var mssFlowDialog;
+        function loginHoverInit() {
+            mssFlowDialog = new YAHOO.widget.Dialog("myDialog",
+            {
+                postmethod: "form",
+                width: "560px",
+                fixedcenter: true,
+                visible: false,
+                constraintoviewport: true,
+                draggable: false,
+                modal: true,
+                close: false
+            });
+            mssFlowDialog.render();
+        }
+
+        function showLoginHover() {
+            var frameLocation = '' + window.frames['myDialogIFrame'].window.location;
+            if (frameLocation.indexOf('/community/registration/popup/loginOrRegisterHover.page') == -1) {
+                window.frames['myDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
+            }
+
+            document.getElementById("myDialog").style.display="block";
+
+            mssFlowDialog.show();
+
+            document.getElementById("mslText").style.display="none";
+
+            return false;
+        }
+
+        function closeMssFlowDialog() {
+            mssFlowDialog.cancel();
+        }
+
+        function sendToDestination() {
+            closeMssFlowDialog();
+            document.getElementById("mslText").style.display="block";
+        }
+
+        //-->
+        ]]>
+    </script>
+
+</head>
+<body onload="loginHoverInit();">
+<div id="myDialog" style="display: none;">
+    <div id="dialogTopBar">
+        <div class="dialogClose">
+            <img src="/res/img/submodal/close.gif" alt="Close window" onclick="closeMssFlowDialog();"/>
+        </div>
+    </div>
+    <div id="dialogBody">
+        <iframe id="myDialogIFrame" name="myDialogIFrame" src="/community/registration/popup/loginOrRegisterHover.page"
+                width="547" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+    </div>
+</div>
+<c:choose>
+    <c:when test="${empty requestScope.context.memberId}">
+        <p>You're not signed in.</p>
+    </c:when>
+    <c:otherwise>
+        <jsp:scriptlet>
+            request.setAttribute("communityAuth",
+                    Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+        </jsp:scriptlet>
+        <c:choose>
+            <!-- full community login case -->
+            <c:when test="${communityAuth eq true}">
+                <p>You are signed in to community as ${context.user.userProfile.screenName}.</p>
+            </c:when>
+            <!-- msl only login case -->
+            <c:otherwise>
+                <p>You are signed into msl as ${context.user.email}.</p>
+            </c:otherwise>
+        </c:choose>
+    </c:otherwise>
+</c:choose>
+<p id="mslText" style="display:none">You would now be redirected to MSL</p>
+<div style="background-color:#eee; height: 110px; width: 200px; margin: auto; margin-top: 200px; padding-top: 100px; text-align: center">
+    <a href="/community/registration/popup/loginOrRegisterHover.page"
+       onclick="return showLoginHover()">Sign in</a>
+</div>
+</body>
+</html>
+</jsp:root>
