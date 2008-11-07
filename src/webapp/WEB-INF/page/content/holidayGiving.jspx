@@ -26,8 +26,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <meta name="Description" content="GreatSchools.net: Back to School"/>
-    <title>GreatSchools.net: Back to School</title>
+    <meta name="description" content="The holidays are a perfect time to teach kids the spirit of giving. Enter our holiday contest, find holiday giving activities and teacher gift ideas, and learn how you can help disadvantaged classrooms across the country."/>
+    <meta name="keywords" content="teaching kids charity, teaching kids giving, teaching kids holiday giving, give back to schools, holidays teacher gifts"/>    
+    <title>Teaching Kids to Give During the Holidays - Holiday Giving - GreatSchools</title>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/holidayGiving.css"/>
     <![CDATA[
