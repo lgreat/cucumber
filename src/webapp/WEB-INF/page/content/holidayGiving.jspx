@@ -51,106 +51,16 @@
     <![endif]-->
     ]]>
     <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
-
-    <script type="text/javascript">
-        function showPopularArticles() {
-            if (document.getElementById('adBTS_Quiz_Promo_300x316') == null ||
-                document.getElementById('google_ads_div_Library_Microsite_Back_to_School_BTS_Quiz_Promo_300x316') == null ||
-                document.getElementById('imgBTS_Quiz_Promo_300x316') == null) {
-                document.getElementById('popularArticles').style.display = 'block';
-            }
-        }
-    </script>
 </head>
 
 <c:set var="showAd"
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
-<ad:setSlotPrefix slotPrefix="Library_Microsite_Back_to_School"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Holiday_Giving"/>
 <pageHelper:addOnLoadHandler handler="imgSetup();initWeek();showPopularArticles();"/>
 <gsml:body adPageName="content/backToSchool" pageLayout="backToSchool" startAdHierarchyAtPage="true">
 
 <div id="contentTop">
-
-    <div class="sponsor">
-        <ad:Badge_99x40 position="PageSponsor_99x40"/>
-    </div>
-
-    <div class="manila">
-        <h2><img src="/res/img/content/backtoschool/manila/back_to_school.png" alt="Back to School" title=""/></h2>
-
-        <div class="left-side">
-
-            <img id="countdown-header" src="/res/img/content/backtoschool/manila/countdown_header.gif"
-                 alt="Countdown to Back-to-School!" title=""/>
-
-            <ul id="stickies" class="cleared">
-                <li><a href="#" onmouseover="hoverIn('week4');" onmouseout="hoverOut('week4');"
-                    onclick="return changeWeek('week4');"><img id="week4-img"
-                    src="/res/img/content/backtoschool/manila/calendar_unselected_04.jpg" alt="4+ weeks" title=""/></a></li>
-                <li><a href="#" onmouseover="hoverIn('week3');" onmouseout="hoverOut('week3');"
-                    onclick="return changeWeek('week3');"><img id="week3-img"
-                    src="/res/img/content/backtoschool/manila/calendar_unselected_03.jpg" alt="3 weeks" title=""/></a></li>
-                <li><a href="#" onmouseover="hoverIn('week2');" onmouseout="hoverOut('week2');"
-                    onclick="return changeWeek('week2');"><img id="week2-img"
-                    src="/res/img/content/backtoschool/manila/calendar_unselected_02.jpg" alt="2 weeks" title=""/></a></li>
-                <li><a href="#" onmouseover="hoverIn('week1');" onmouseout="hoverOut('week1');"
-                    onclick="return changeWeek('week1');"><img id="week1-img"
-                    src="/res/img/content/backtoschool/manila/calendar_unselected_01.jpg" alt="1 week" title=""/></a>
-                </li>
-            </ul>
-
-            <hr class="clear"/>
-
-            <div id="week4" style="display: none;">
-                <p class="header">Create a Summer Brain Workout!</p>
-                <ul class="bulleted">
-                    <gsweb:articlelink articleId="320" wrappingElement="li">
-                        Tips for Reluctant Readers</gsweb:articlelink>
-                    <gsweb:articlelink articleId="595" wrappingElement="li">
-                        It's Not Just for Oprah: Book Clubs for Kids</gsweb:articlelink>
-                </ul>
-                <p class="learnMore">
-                    <gsweb:articlelink articleId="3576">Learn more &gt;</gsweb:articlelink>
-                </p>
-            </div>
-            <div id="week3" style="display: none;">
-                <p class="header">Get Healthy for Back to School</p>
-                <ul class="bulleted">
-                    <gsweb:articlelink articleId="1145" wrappingElement="li">
-                        Sleep: The Secret Weapon</gsweb:articlelink>
-                    <gsweb:articlelink articleId="330" wrappingElement="li">
-                        Help Your Child Eat a Healthy Lunch</gsweb:articlelink>
-                </ul>
-                <p class="learnMore">
-                    <gsweb:articlelink articleId="3577">Learn more &gt;</gsweb:articlelink>
-                </p>
-            </div>
-            <div id="week2" style="display: none;">
-                <p class="header">Back-to-School Shopping</p>
-                <ul class="bulleted">
-                    <gsweb:articlelink articleId="324" wrappingElement="li">
-                        Shopping With Tweens and Teens</gsweb:articlelink>
-                    <gsweb:articlelink articleId="657" wrappingElement="li">
-                        10 Tips for Smart Back-to-School Shopping</gsweb:articlelink>
-                </ul>
-                <p class="learnMore">
-                    <gsweb:articlelink articleId="3578">Learn more &gt;</gsweb:articlelink>
-                </p>
-            </div>
-            <div id="week1" style="display: none;">
-                <p class="header">Get Organized</p>
-                <ul class="bulleted">
-                    <gsweb:articlelink articleId="1051" wrappingElement="li">
-                        Seven Things to Tell Your Child's New Teacher</gsweb:articlelink>
-                    <gsweb:articlelink articleId="1053" wrappingElement="li">
-                        Finding Balance in Your Child's Life</gsweb:articlelink>
-                </ul>
-                <p class="learnMore">
-                    <gsweb:articlelink articleId="3579">Learn more &gt;</gsweb:articlelink>
-                </p>
-            </div>
-        </div>
 
         <div class="flash">
         <![CDATA[
@@ -200,88 +110,6 @@
                 </noscript>
                 ]]>
         </div>
-    </div>
-
-    <script type="text/javascript" charset="utf-8">
-	    <![CDATA[
-        // <!--
-        var img = new Object();
-
-        function newImg(path) {
-            result = new Image();
-            result.src = path;
-            return result;
-        }
-
-        function imgSetup() {
-            // Manila hovers; preloading function
-            img['week1'] = newImg('/res/img/content/backtoschool/manila/calendar_unselected_01.jpg');
-            img['week1-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_selected_01.jpg');
-            img['week2'] = newImg('/res/img/content/backtoschool/manila/calendar_unselected_02.jpg');
-            img['week2-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_selected_02.jpg');
-            img['week3'] = newImg('/res/img/content/backtoschool/manila/calendar_unselected_03.jpg');
-            img['week3-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_selected_03.jpg');
-            img['week4'] = newImg('/res/img/content/backtoschool/manila/calendar_unselected_04.jpg');
-            img['week4-hover'] = newImg('/res/img/content/backtoschool/manila/calendar_selected_04.jpg');
-        }
-
-        function hoverIn(root) {
-            // Swaps the hover images in
-            document.getElementById(root + '-img').src = img[root + '-hover'].src;
-        }
-
-        var currentWeek = '';
-
-        function hoverOut(root) {
-            if (root != currentWeek) {
-                // Swaps the hover image out
-                document.getElementById(root + '-img').src = img[root].src;
-            }
-        }
-
-        function changeWeek(selectedWeek) {
-            currentWeek = selectedWeek;
-
-            for (var i = 1; i <= 4; i++) {
-                if (selectedWeek == 'week' + i) {
-                    hoverIn('week' + i);
-                } else {
-                    hoverOut('week' + i);
-                }
-
-                document.getElementById('week' + i).style.display = ((selectedWeek == 'week' + i) ? 'block' : 'none');
-            }
-
-            document.getElementById(selectedWeek + '-img').blur();
-
-            return false;
-        }
-
-        function initWeek() {
-            var today = new Date();
-            // month is 0-11 in JavaScript
-            var threeWeekStart = new Date(2008, 6, 30);
-            var twoWeekStart = new Date(2008, 7, 6);
-            var oneWeekStart = new Date(2008, 7, 13);
-
-            if (today.getTime() < threeWeekStart.getTime()) {
-                // 4+ weeks
-                changeWeek('week4');
-            } else if (today.getTime() < twoWeekStart.getTime()) {
-                // 3 weeks
-                changeWeek('week3');
-            } else if (today.getTime() < oneWeekStart.getTime()) {
-                // 2 weeks
-                changeWeek('week2');
-            } else {
-                // 1 week
-                changeWeek('week1');
-            }
-        }
-
-        //-->
-        ]]>
-    </script>
 
 </div>
 
@@ -319,7 +147,7 @@
                 </ul>
 
                 <div class="adDiv">
-                    <ad:Badge_166x45 position="ModuleBoxLeft_166x45"/>
+                    <ad:Badge_166x45 position="ModuleBoxMiddle_166x45"/>
                 </div>                
             </div>
         </div>
