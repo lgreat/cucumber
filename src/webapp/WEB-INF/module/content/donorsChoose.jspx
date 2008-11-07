@@ -33,6 +33,11 @@
     
     <c:if test="${not empty requestScope.proposals}">
 
+        <c:set var="omnitureCustomLink" value="DonorsChoose_citypage"/>
+        <c:if test="${theme eq 'holiday'}">
+            <c:set var="omnitureCustomLink" value="DonorsChoose_Holiday"/>
+        </c:if>
+
         <div id="donorsChoose">
         <div class="donorsChooseBox">
             <div class="outer">
@@ -61,7 +66,7 @@
                         <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
                         <li class="proposal cleared">
                             <div class="title">
-                                <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;"><c:out value="${proposal.title}" escapeXml="true"/></a>
+                                <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', '${omnitureCustomLink}');} return true;"><c:out value="${proposal.title}" escapeXml="true"/></a>
                             </div>
                             <div class="description">&amp;quot;<c:out value="${proposal.shortDescription}" escapeXml="true"/>&amp;quot;</div>
                             <div class="moreDetails left">
@@ -77,7 +82,7 @@
                                 <span class="costtocomplete">$${proposal.roundedCostToComplete} needed</span>
                             </div>
                             <div class="give right">
-                                <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;">
+                                <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', '${omnitureCustomLink}');} return true;">
                                     <c:choose>
                                         <c:when test="${theme eq 'holiday'}">
                                             <c:set var="giveButtonSrc" value="/res/img/content/donorsChoose/holiday/widget_redGIVEbtn.gif"/>
@@ -103,7 +108,7 @@
                         <c:param name="URL" value="${url}"/>
                     </c:url>
                     <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
-                    <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;">
+                    <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', '${omnitureCustomLink}');} return true;">
                         <c:choose>
                             <c:when test="${theme eq 'holiday'}">
                                 <c:set var="seeMoreSrc"
@@ -130,7 +135,7 @@
                         <c:param name="URL" value="${url}"/>
                     </c:url>
                     <c:set var="escapedHref"><c:out value="${href}" escapeXml="true"/></c:set>
-                    <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'DonorsChoose_citypage');} return true;"><img id="donorsChooseOrg" alt="Powered by DonorsChoose.org" src="/res/img/content/donorsChoose/donorschoose_logo.gif"/></a>
+                    <a href="${escapedHref}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', '${omnitureCustomLink}');} return true;"><img id="donorsChooseOrg" alt="Powered by DonorsChoose.org" src="/res/img/content/donorsChoose/donorschoose_logo.gif"/></a>
 
                 </div>
             </div>
