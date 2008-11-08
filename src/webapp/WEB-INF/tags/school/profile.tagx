@@ -138,46 +138,40 @@
     // GS-7445 - this is really verbose but it's done inline so it will be easy to remove in the next release
     boolean showNLHover = true;
     boolean showSurvey = false;
-    if (request.getRequestURL().indexOf("school/overview") > -1) {
-        int cookieLife = 15; // days
-        if (!CookieUtil.hasCookie(request, "decipherinc_seen_popup")) {
-            boolean surveyEligable = false;
-            Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligable");
-            if (surveyEligableCookie != null) {
-                // User has the survey_eligable cookie so determine if they are eligable
-                surveyEligable = "true".equals(surveyEligableCookie.getValue());
-            } else {
-                // We need to determine eligability
-                int surveyHoverPct = 0;
-                try {
-                    surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
-                } catch (Exception e) {
-                    // no nothing
-                }
-                if (Util.randomNumber(100) < surveyHoverPct) {
-                    surveyEligable = true;
-                }
-                CookieUtil.setCookie(response, "survey_eligable", String.valueOf(surveyEligable), 60 * 60 * 24 * cookieLife);
-            }
-            // If they've seen a hover recently we want to delay showing the survey by one click
-            if (surveyEligable && CookieUtil.hasCookie(request, "hover")) {
-                if (!CookieUtil.hasCookie(request, "hover_delay")) {
-                    CookieUtil.setCookie(response, "hover_delay", "1", 60 * 60 * 24 * cookieLife);
-                    showSurvey = false;
-                } else {
-                    showSurvey = surveyEligable;
-                }
-            } else {
-                showSurvey = surveyEligable;
-            }
-            showNLHover = !showSurvey;
+    int cookieLife = 15; // days
+    if (!CookieUtil.hasCookie(request, "decipherinc_seen_popup")) {
+        boolean surveyEligable = false;
+        Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligable");
+        if (surveyEligableCookie != null) {
+            // User has the survey_eligable cookie so determine if they are eligable
+            surveyEligable = "true".equals(surveyEligableCookie.getValue());
         } else {
-            // They have seen the popup survey, so now we want to make sure we skip launching the NL hover once
-            Cookie surveyDelayCookie = CookieUtil.getCookie(request, "survey_delay");
-            if (surveyDelayCookie == null) {
-                CookieUtil.setCookie(response, "survey_delay", "1", 60 * 60 * 24 * cookieLife);
-                showNLHover = false;
+            // We need to determine eligability
+            int surveyHoverPct = 0;
+            try {
+                surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
+            } catch (Exception e) {
+                // no nothing
             }
+            if (Util.randomNumber(100) < surveyHoverPct) {
+                surveyEligable = true;
+            }
+            CookieUtil.setCookie(response, "survey_eligable", String.valueOf(surveyEligable), 60 * 60 * 24 * cookieLife);
+        }
+        // If they've seen a hover recently we want to delay showing the survey by one click
+        if (surveyEligable && CookieUtil.hasCookie(request, "hover") && !CookieUtil.hasCookie(request, "hover_delay")) {
+            CookieUtil.setCookie(response, "hover_delay", "1", 60 * 60 * 24 * cookieLife);
+            showSurvey = false;
+        } else {
+            showSurvey = surveyEligable && (request.getRequestURL().indexOf("school/overview") > -1);
+        }
+        showNLHover = !showSurvey;
+    } else {
+        // They have seen the popup survey, so now we want to make sure we skip launching the NL hover once
+        Cookie surveyDelayCookie = CookieUtil.getCookie(request, "survey_delay");
+        if (surveyDelayCookie == null) {
+            CookieUtil.setCookie(response, "survey_delay", "1", 60 * 60 * 24 * cookieLife);
+            showNLHover = false;
         }
     }
     request.setAttribute("showNLHover", showNLHover);
