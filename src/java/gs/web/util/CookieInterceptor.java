@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author David Lee <mailto:dlee@greatschools.net>
  * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  */
-public class CookieInterceptor implements HandlerInterceptor {
+public class CookieInterceptor extends CookieUtil implements HandlerInterceptor {
     public static final int EXPIRE_AT_END_OF_SESSION = -1;
     public static final int EXPIRE_NOW = 0;
 
@@ -45,7 +45,7 @@ public class CookieInterceptor implements HandlerInterceptor {
     }
 
     protected void buildCobrandCookie(HttpServletRequest request, SessionContext sessionContext, HttpServletResponse response) {
-        Cookie cobrandCookie = findCookie(request, SessionContextUtil.COBRAND_COOKIE);
+        Cookie cobrandCookie = getCookie(request, SessionContextUtil.COBRAND_COOKIE);
         String hostName = sessionContext.getHostName();
         if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
             cobrandCookie = new Cookie(SessionContextUtil.COBRAND_COOKIE, hostName);
@@ -56,15 +56,14 @@ public class CookieInterceptor implements HandlerInterceptor {
     }
 
     protected Cookie buildTrackingNumberCookie(HttpServletRequest request, HttpServletResponse response) {
-        Cookie cookie = findCookie(request, SessionContextUtil.TRACKING_NUMBER);
+        Cookie cookie = getCookie(request, SessionContextUtil.TRACKING_NUMBER);
 
         if (cookie == null) {
             String cookieValue = String.valueOf(System.currentTimeMillis() / 1000);
             cookie = new Cookie(SessionContextUtil.TRACKING_NUMBER, cookieValue);
             cookie.setPath("/");
             cookie.setMaxAge(-1);
-            UrlUtil urlUtil = new UrlUtil();
-            if (!urlUtil.isDeveloperWorkstation(request.getServerName())) {
+            if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                 // don't set domain for developer workstations so they can still access the cookie!!
                 cookie.setDomain(".greatschools.net");
             }
@@ -99,18 +98,6 @@ public class CookieInterceptor implements HandlerInterceptor {
 
     protected boolean isKnownCrawler(HttpServletRequest request) {
         return SessionContextUtil.isKnownCrawler(request.getHeader("User-Agent"));
-    }
-
-    protected Cookie findCookie(HttpServletRequest request, String cookieName) {
-        Cookie cookies[] = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookieName.equals(cookie.getName())) {
-                    return cookie;
-                }
-            }
-        }
-        return null;
     }
 
     public IPropertyDao getPropertyDao() {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.66 2008/11/05 23:44:48 thuss Exp $
+ * $Id: PageHelper.java,v 1.67 2008/11/08 20:23:21 thuss Exp $
  */
 
 package gs.web.util;
@@ -700,11 +700,7 @@ public class PageHelper {
     public static boolean isCommunityCookieSet(HttpServletRequest request) {
         if (request.getCookies() != null) {
             String cookieName = "community_" + SessionContextUtil.getServerName(request);
-            for (Cookie cookie: request.getCookies()) {
-                if (cookieName.equals(cookie.getName())) {
-                    return true;
-                }
-            }
+            return CookieUtil.hasCookie(request, cookieName);
         }
         return false;
     }
