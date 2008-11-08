@@ -87,9 +87,11 @@
                     }
 
 
-                    if (MM_FlashCanPlay) {
+                    //if (MM_FlashCanPlay) {
+                    // TODO-7447 TEMPORARY
+                    if (MM_FlashCanPlay && false) {
                         // c.swf does flash detection
-                        var backToSchoolResource = '/res/swf/c?path=/res/swf/back_to_school.swf';
+                        var backToSchoolResource = '/res/swf/c?path=/res/img/holidayGiving/flash_standin.jpg';
 
                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
@@ -101,12 +103,12 @@
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
                                 'movie', backToSchoolResource);
                     } else {
-                        document.write('<img class="flashImage" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>');
+                        document.write('<img class="flashImage" src="/res/img/holidayGiving/flash_standin.jpg" alt=""/>');
                     }
                     -->
                 </script>
                 <noscript>
-                    <img class="flashImage" src="/res/img/content/backtoschool/manila/flash_standin.jpg" alt=""/>
+                    <img class="flashImage" src="/res/img/holidayGiving/flash_standin.jpg" alt=""/>
                 </noscript>
                 ]]>
         </div>

@@ -63,17 +63,26 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                         </div>
                     </c:when>
                     <c:when test="${rightBoxType eq 'holidayBookNook'}">
+                        <div id="inner">
+
                         <h3><img src="/res/img/holidayGiving/bookNook_hdr-1.gif" alt="Book Nook: Holiday Favorites By Grade"/>
                         </h3>
 
-                        <ul>
-                        <gsweb:articlelink articleId="3666" anchorName="bears" wrappingElement="li" styleId="bears">The Three Snow Bears</gsweb:articlelink>
-                        <gsweb:articlelink articleId="1075" anchorName="fairies" wrappingElement="li" styleId="fairies">Flower Fairies of the Winter</gsweb:articlelink>
-                        </ul>
+                        <div class="featured-book" id="bears">
+                            <div class="cover"><img src="/res/img/holidayGiving/threesnowbears.gif" alt="Three Snow Bears"/></div>
+                            <div class="title"><gsweb:articlelink articleId="3666" anchorName="bears">The Three Snow Bears</gsweb:articlelink></div>
+                        </div>
 
-                        <gsml:a href="">More Holiday Favorites &amp;gt;</gsml:a>
+                        <div class="featured-book" id="fairies">
+                            <div class="cover"><img src="/res/img/holidayGiving/flowerfairieswinter.gif" alt="Flower Fairies of the Winter"/></div>
+                            <div class="title"><gsweb:articlelink articleId="1075" anchorName="fairies">Flower Fairies of the Winter</gsweb:articlelink></div>
+                        </div>
 
-                        <img id="snowflakes" src="/res/img/holidayGiving/bookNook_bottomRightdecoration.gif" alt="Snowflakes"/>
+                        <div class="more">
+                            <gsweb:articlelink articleId="3666">More Holiday Favorites &amp;gt;</gsweb:articlelink>
+                        </div>
+
+                        </div>
 
                     </c:when>
                 </c:choose>

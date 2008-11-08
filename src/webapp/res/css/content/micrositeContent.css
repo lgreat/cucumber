@@ -90,16 +90,67 @@ p.question {
     padding-right: 10px;
 }
 
-.box.holidayBookNook #snowflakes{
-    position: absolute;
-    bottom: 10px;
-    right: 5px;
+.box.holidayBookNook {
+    /* 145x102 */
+    background: url(/res/img/holidayGiving/bookNook_bottomRightdecoration.gif) no-repeat 148px 148px;
+    background-color: #fff;
+    /*
+    background: #fff;
+	width: 266px;
+	min-height: 250px;
+	height: auto !important;
+	height: 250px;
+	float: left;
+	margin-top: 14px;
+	padding: 10px 15px 0;
+    color: #666;
+    position: relative;
+*/
 }
 
-.box.holidayBookNook li#bears {
-    background: url(/res/img/holidayGiving/threesnowbears.gif) no-repeat left top;
+.box.holidayBookNook #inners {
+    /* 145x102 */
+    background: url(/res/img/holidayGiving/bookNook_bottomRightdecoration.gif) no-repeat 129px 148px;
+    overflow: visible;
+    width: 274px;
+	height: 250px;
+    padding: 10px 15px 0;
+    /*background-color: red;*/
 }
 
-.box.holidayBookNook li#bears {
-    background: url(/res/img/holidayGiving/flowerfairieswinter.gif) no-repeat left top;
+
+.holidayBookNook div.more {
+    clear: both;
+    float: right;
+    margin-top: 10px;
+    font-size: small;
+}
+
+.holidayBookNook .featured-book {
+    clear: both;
+}
+
+.holidayBookNook .featured-book#bears {
+    padding-top: 15px;
+    height: 60px;
+}
+
+.holidayBookNook .featured-book#fairies {
+    padding-top: 10px;
+    height: 70px;
+}
+
+
+.holidayBookNook .featured-book .cover {
+    float: left;
+    width: 100px;
+    text-align: center;
+}
+
+.holidayBookNook .featured-book .title {
+    float: left;
+    width: 160px;
+    font-style: italic;
+    font-size: small;
+    padding-top: 15px;
 }
