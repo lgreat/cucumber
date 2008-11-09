@@ -8,6 +8,7 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
+import gs.data.util.email.EmailContentHelper;
 import static gs.data.util.XMLUtil.*;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
@@ -49,6 +50,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
     private IUserDao _userDao;
     private IReviewDao _reviewDao;
     private ISubscriptionDao _subscriptionDao;
+    private EmailContentHelper _emailContentHelper;
 
     private EmailHelperFactory _emailHelperFactory;
 
@@ -277,8 +279,9 @@ public class AddParentReviewsController extends SimpleFormController implements 
         emailHelper.addInlineReplacement("EMAIL", user.getEmail());
         emailHelper.addInlineReplacement("STATE", school.getDatabaseState().getAbbreviation());
         emailHelper.addInlineReplacement("USER_COMMENTS", comments);
-        emailHelper.addInlineReplacement("SCHOOLNAME", school.getName());
-        emailHelper.addInlineReplacement("SCHOOLID", school.getId().toString());
+        emailHelper.addInlineReplacement("SCHOOL_NAME", school.getName());
+        emailHelper.addInlineReplacement("SCHOOL_ID", school.getId().toString());
+        _emailContentHelper.setCityAndLocalQuestions(school, emailHelper.getInlineReplacements(), "autoprsubmitted");
 
         emailHelper.send();
     }
@@ -378,6 +381,10 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+    public void setEmailContentHelper(EmailContentHelper emailContentHelper) {
+        _emailContentHelper = emailContentHelper;
     }
 
     public Boolean isJsonPage() {

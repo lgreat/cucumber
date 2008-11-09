@@ -1,23 +1,22 @@
-<p>Thank you for submitting a parent review for $SCHOOLNAME! Our Parent Review team will read 
-<br>your review and post it if it meets <a href="http://www.greatschools.net/cgi-bin/static/guidelines.html/$STATE#guidelines">our guidelines</a>. This process may take a few days.</p>
+<p><b>Dear GreatSchools Parent,</b></p>
 
-<p>Parent reviews bring your school to life on the GreatSchools Web site - but
-<br/>that's not the only way you can reach out to other parents!</p>
+<p>Thank you for submitting a parent review for $SCHOOL_NAME! We really appreciate your taking the time to share your
+personal experience at this school with other parents. It’s what makes our Parent Reviews such a valuable resource.
+Our Parent Review team will read your review and post it so long as it meets our guidelines. This process may take
+a few days.</p>
+
+<p>Parent reviews bring your school to life on the GreatSchools Web site - but that’s not the only way you can
+reach out to other parents!</p>
 
 <ul>
-<li> <a href="http://www.greatschools.net/survey/start.page?cpn=ParentReviewEmail&id=$SCHOOLID&state=$STATE">Complete a parent survey for  $SCHOOLNAME.</a>
-<br/>Share the unique qualities about your school's academics,
-<br/>extracurricular activities and school culture.</li>
-<br/>
-<li> <a href="http://www.greatschools.net/community/registration.page?redirect=http://community.greatschools.net/&cpn=ParentReviewEmail">Register for the GreatSchools Parent Community</a>
-<br/>Share your success stories, find answers to your questions about
-<br/>parenting and education and meet like-minded parents. It's free
-<br/>and only takes a minute to sign up!</li>
+<li><p><a href="http://www.greatschools.net/survey/start.page?id=$SCHOOL_ID&state=$STATE&cpn=autoprsubmitted">Complete a parent survey about $SCHOOL_NAME</a><br/>Share the unique qualities about your school's academics, extracurricular activities and school culture.</p></li>
+<li><p><a href="$CITY_LINK">Answer parent questions about local schools</a><br/>Help other parents by sharing your local knowledge in our Parent Community:</p>
+$CITY_LOCAL_QUESTIONS
+</li>
 </ul>
 
-<p>Thanks for helping parents understand more about $SCHOOLNAME!</p>
+<p>See you soon,</p>
 
-<p><b><i>The GreatSchools Team</b></i></p>
-
+<p>GreatSchools</p>
 
 

@@ -8,19 +8,21 @@ import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
+import gs.data.util.email.EmailContentHelper;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import org.apache.commons.lang.time.DateUtils;
 import static org.easymock.EasyMock.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.io.Serializable;
 
 /**
- * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
+ * @author dlee
+ * @author thuss
  */
 public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     AddParentReviewsController _controller;
@@ -37,13 +39,18 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         super.setUp();
         _controller = new AddParentReviewsController();
 
+        _controller.setEmailContentHelper(new MockEmailContentHelper());
+
         _reviewDao = createMock(IReviewDao.class);
         _userDao = createMock(IUserDao.class);
         _subscriptionDao = createMock(ISubscriptionDao.class);
 
         _school = new School();
         _school.setDatabaseState(State.CA);
-        _school.setId(1);
+        _school.setId(6397);
+        _school.setName("Lowell High School");
+        _school.setCity("San Francisco");
+        _school.setActive(true);
 
         _request.setAttribute("school", _school);
 
@@ -155,14 +162,14 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
                 " piss,",
         };
 
-        for (int i = 0; i < badwords.length; i++) {
-            String text = commentStart + badwords[i] + commentEnd;
+        for (String badword : badwords) {
+            String text = commentStart + badword + commentEnd;
             assertTrue(text + ": has a bad word in it", _controller.hasBadWord(text));
 
-            text = commentStart + badwords[i];
+            text = commentStart + badword;
             assertTrue(text + ": has a bad word in it", _controller.hasBadWord(text));
 
-            text = badwords[i] + commentEnd;
+            text = badword + commentEnd;
             assertTrue(text + ": has a bad word in it", _controller.hasBadWord(text));
         }
 
@@ -268,9 +275,18 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     }
 
     public void xtestSendCommunityEmailReal() throws Exception {
-        _user.setEmail("eford@greatschools.net");
+        _user.setEmail("kkornas@greatschools.net");
         String comments = "this school rocks and I like it a lot!";
 
+        EmailContentHelper emailContentHelper = new EmailContentHelper();
+        City city = new City();
+        city.setId(433097);
+        city.setName("San Francisco");
+        IGeoDao geoDao = createMock(IGeoDao.class);
+        expect(geoDao.findCity(State.CA, "San Francisco")).andReturn(city);
+        replay(geoDao);
+        emailContentHelper.setGeoDao(geoDao);
+        _controller.setEmailContentHelper(emailContentHelper);
         _controller.getEmailHelperFactory().setMailSender((JavaMailSender) getApplicationContext().getBean("mailSender"));
         _controller.sendMessage(_user, comments, _school, "communityEmail.txt");
     }
@@ -323,16 +339,13 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(r);
         _reviewDao.saveReview(r);
-
         replay(_reviewDao);
         replay(_userDao);
         replay(_subscriptionDao);
-
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.onSubmit(_request, _response, _command, _errors);
-
         verify(_userDao);
         verify(_reviewDao);
         //no calls to subscription dao to add a newsletter
@@ -342,17 +355,14 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     public void testExistingUserEmptyReviewNonEmptyCategoryRating() throws Exception {
         Review r = new Review();
         r.setComments("this review has comments");
-
         _command.setComments("");
         _command.setOverall(CategoryRating.RATING_2);
         expect(_reviewDao.findReview(_user, _school)).andReturn(r);
         replay(_reviewDao);
-
         _controller.setReviewDao(_reviewDao);
         Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false);
         assertEquals(r, review2);
         assertEquals(CategoryRating.RATING_2, review2.getQuality());
-
         verify(_reviewDao);
     }
 
@@ -397,5 +407,14 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
 
         assertNull(_controller.processFormSubmission(_request, _response, _command, _errors));
         assertEquals("text/x-json", _response.getContentType());
+    }
+
+    protected class MockEmailContentHelper extends EmailContentHelper {
+        public void setCityAndLocalQuestions(School school, Map<String, Serializable> replacements, String cpncode) {
+            replacements.put(EmailContentHelper.FIELD_CITY_NAME, "Foo");
+            replacements.put(EmailContentHelper.FIELD_CITY_ID, "1234");
+            replacements.put(EmailContentHelper.FIELD_CITY_LINK, "<a href=\"http://city_link\">city link</a>");
+            replacements.put(EmailContentHelper.FIELD_LOCAL_QUESTIONS, "<p><a href=\"http://foo\">Foo</a></p>");
+        }
     }
 }
