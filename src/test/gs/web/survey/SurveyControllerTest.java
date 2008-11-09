@@ -14,11 +14,14 @@ import gs.data.state.StateManager;
 import gs.data.survey.*;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
+import gs.data.util.email.EmailContentHelper;
 import gs.web.BaseControllerTestCase;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import org.easymock.IAnswer;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.*;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.BindException;
@@ -27,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import java.util.*;
 import java.util.regex.Matcher;
+import java.io.Serializable;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -61,6 +65,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         _controller.setGeoDao(_geoDao);
         _controller.setSchoolDao(_schoolDao);
         _controller.setStateManager(_stateManager);
+        _controller.setEmailContentHelper(new MockEmailContentHelper());
 
         _mailSender = new MockJavaMailSender();
         _mailSender.setHost("greatschools.net");
@@ -78,7 +83,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         expect(_surveyDao.getSurvey("e")).andReturn(createSurvey());
         expect(_surveyDao.getSurveyResponses(1, null)).andReturn(null);
-        
+
         replay(_surveyDao);
 
         _controller.handleRequest(getRequest(), getResponse());
@@ -119,15 +124,15 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         User user = createUser(true);
 
         expect(_surveyDao.getSurvey("test")).andReturn(survey);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
-        expect(_surveyDao.getSurveyResponses(1, school)).andReturn(new ArrayList<UserResponse>());        
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
+        expect(_surveyDao.getSurveyResponses(1, school)).andReturn(new ArrayList<UserResponse>());
         replay(_surveyDao);
 
         expect(_userDao.findUserFromEmailIfExists(user.getEmail())).andReturn(null);
         _userDao.saveUser(user);
-        expectLastCall().andAnswer(new IAnswer<Object>(){
+        expectLastCall().andAnswer(new IAnswer<Object>() {
             public Object answer() throws Throwable {
-                User user = (User)getCurrentArguments()[0];
+                User user = (User) getCurrentArguments()[0];
                 user.setId(101);
                 return user;
             }
@@ -181,7 +186,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         expect(_surveyDao.getSurvey("test")).andReturn(survey);
         expect(_surveyDao.hasTakenASurvey(user, school)).andReturn(false);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
         expect(_surveyDao.getSurveyResponses(1, school)).andReturn(new ArrayList<UserResponse>());
         replay(_surveyDao);
 
@@ -225,7 +230,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         expect(_surveyDao.getSurvey("test")).andReturn(survey);
         expect(_surveyDao.hasTakenASurvey(user, school)).andReturn(true);
         _surveyDao.removeAllUserResponses(survey, page, school, user);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
         expect(_surveyDao.getSurveyResponses(1, school)).andReturn(new ArrayList<UserResponse>());
         replay(_surveyDao);
 
@@ -268,7 +273,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(2, responses.size());
 
         UserResponse response = responses.get(1);
-        assertEquals("Band,Orchestra,Choir",response.getResponseValue());
+        assertEquals("Band,Orchestra,Choir", response.getResponseValue());
         assertEquals(school.getId(), response.getSchoolId());
         assertEquals(survey.getId(), response.getSurveyId());
         assertEquals(user.getId(), response.getUserId());
@@ -276,7 +281,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(1), response.getAnswerId());
 
         response = responses.get(0);
-        assertEquals("Baseball",response.getResponseValue());
+        assertEquals("Baseball", response.getResponseValue());
         assertEquals(school.getId(), response.getSchoolId());
         assertEquals(survey.getId(), response.getSurveyId());
         assertEquals(user.getId(), response.getUserId());
@@ -358,13 +363,13 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         urc.setSurvey(survey);
         urc.setPage(survey.getPages().get(0));
         BindException errors = new BindException(urc, "");
-        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
-        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);        
+        expect(_surveyDao.hasTakenASurvey((User) anyObject(), (School) anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
+        expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
         replay(_surveyDao);
 
         getRequest().setParameter("level", "h");
-        ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), urc, errors);
 
         assertNull("temp survey message cookie should not be in response",
                 getResponse().getCookie("TMP_MSG"));
@@ -383,14 +388,14 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         urc.setSurvey(survey);
         urc.setPage(survey.getPages().get(2));
         BindException errors = new BindException(urc, "");
-        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.hasTakenASurvey((User) anyObject(), (School) anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
         expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
         replay(_surveyDao);
 
         getRequest().setParameter("level", "p");
         getRequest().setParameter("p", "3");
-        ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), urc, errors);
 
         assertNull("temp survey message cookie should not be in response",
                 getResponse().getCookie("TMP_MSG"));
@@ -409,18 +414,18 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         SurveyPage page = survey.getPages().get(0);
         urc.setPage(page);
         BindException errors = new BindException(urc, "");
-        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.hasTakenASurvey((User) anyObject(), (School) anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
         expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
         replay(_surveyDao);
 
         getRequest().setParameter("level", "m");
         getRequest().setParameter("year", "2006");
 
-        ModelAndView mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), urc, errors);
         reset(_surveyDao);
-        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.hasTakenASurvey((User) anyObject(), (School) anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
         expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
         replay(_surveyDao);
 
@@ -428,17 +433,17 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&level=m&p=2&year=2006", mAndV.getViewName());
 
         urc.setPage(survey.getPages().get(1));
-        mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        mAndV = _controller.onSubmit(getRequest(), getResponse(), urc, errors);
         reset(_surveyDao);
-        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.hasTakenASurvey((User) anyObject(), (School) anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
         expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(3);
         replay(_surveyDao);
 
         assertEquals("redirect:" + builder.asFullUrl(getRequest()) + "&level=m&p=3&year=2006", mAndV.getViewName());
 
         urc.setPage(survey.getPages().get(2));
-        mAndV =_controller.onSubmit(getRequest(), getResponse(), urc, errors);
+        mAndV = _controller.onSubmit(getRequest(), getResponse(), urc, errors);
         assertEquals("redirect:http://www.greatschools.net/survey/results.page?id=123&state=WY&level=m&thanks=true",
                 mAndV.getViewName());
     }
@@ -469,8 +474,8 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         BindException errors = new BindException(urc, null);
 
-        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.hasTakenASurvey((User) anyObject(), (School) anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
         replay(_surveyDao);
 
         //public or charter sign up for MSS
@@ -484,8 +489,8 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         reset(_subscriptionDao);
         reset(_surveyDao);
         school.setType(SchoolType.PRIVATE);
-        expect(_surveyDao.hasTakenASurvey((User)anyObject(), (School)anyObject())).andReturn(false);
-        _surveyDao.saveSurveyResponses((List<UserResponse>)anyObject());
+        expect(_surveyDao.hasTakenASurvey((User) anyObject(), (School) anyObject())).andReturn(false);
+        _surveyDao.saveSurveyResponses((List<UserResponse>) anyObject());
         replay(_surveyDao);
         _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, school.getDatabaseState())));
         replay(_subscriptionDao);
@@ -524,7 +529,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         List<SurveyPage> pages = new ArrayList<SurveyPage>();
         for (int i = 0; i < pageCount; i++) {
             SurveyPage page = new SurveyPage();
-            int index = i+1;
+            int index = i + 1;
             page.setId(index);
             page.setIndex(index);
             page.setTitle("page " + index);
@@ -560,12 +565,27 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("mail.greatschools.net");
         emailHelperFactory.setMailSender(mailSender);
-
         _controller.setEmailHelperFactory(emailHelperFactory);
 
+        EmailContentHelper emailContentHelper = new EmailContentHelper();
+        City city = new City();
+        city.setId(433097);
+        city.setName("San Francisco");
+        IGeoDao geoDao = createMock(IGeoDao.class);
+        expect(geoDao.findCity(State.CA, "San Francisco")).andReturn(city);
+        replay(geoDao);
+        emailContentHelper.setGeoDao(geoDao);
+        _controller.setEmailContentHelper(emailContentHelper);
+
         User user = createUser(false);
-        user.setEmail("dlee@greatschools.net");
-        School school = createSchool();
+        user.setEmail("thuss@greatschools.net");
+        
+        School school = new School();
+        school.setDatabaseState(State.CA);
+        school.setId(6397);
+        school.setName("Lowell High School");
+        school.setCity("San Francisco");
+        school.setActive(true);
 
         _controller.sendEmail(user, school, getRequest());
     }
@@ -599,7 +619,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         verify(_surveyDao);
     }
     */
-    
+
     public void testPrevNextReferenceDataWithLevelE() throws Exception {
 
         School defaultSchool = new School();
@@ -619,7 +639,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         urc.setPage(surveyPage);
 
-        expect(_propertyDao.getProperty((String)anyObject())).andReturn("2002-2003");
+        expect(_propertyDao.getProperty((String) anyObject())).andReturn("2002-2003");
         replay(_propertyDao);
 
         City city = new City();
@@ -645,10 +665,10 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(LevelCode.Level.MIDDLE_LEVEL, model.get("nextLevel"));
 
         assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
-        assertEquals(3, ((List)model.get("prevSchools")).size());
+        assertEquals(3, ((List) model.get("prevSchools")).size());
 
         assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
-        assertEquals(2, ((List)model.get("nextSchools")).size());
+        assertEquals(2, ((List) model.get("nextSchools")).size());
 
         assertEquals(schoolNotListed, model.get("schoolNotListed"));
         assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));
@@ -675,7 +695,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         urc.setPage(surveyPage);
 
-        expect(_propertyDao.getProperty((String)anyObject())).andReturn("2002-2003");
+        expect(_propertyDao.getProperty((String) anyObject())).andReturn("2002-2003");
         replay(_propertyDao);
 
         City city = new City();
@@ -699,10 +719,10 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(LevelCode.Level.HIGH_LEVEL, model.get("nextLevel"));
 
         assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
-        assertEquals(schoolNotListed, ((List)model.get("prevSchools")).get(1));
+        assertEquals(schoolNotListed, ((List) model.get("prevSchools")).get(1));
 
         assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
-        assertEquals(schoolNotListed, ((List)model.get("nextSchools")).get(1));
+        assertEquals(schoolNotListed, ((List) model.get("nextSchools")).get(1));
 
         assertEquals(schoolNotListed, model.get("schoolNotListed"));
         assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));
@@ -726,7 +746,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
 
         urc.setPage(surveyPage);
 
-        expect(_propertyDao.getProperty((String)anyObject())).andReturn("2002-2003");
+        expect(_propertyDao.getProperty((String) anyObject())).andReturn("2002-2003");
         replay(_propertyDao);
 
         City city = new City();
@@ -750,10 +770,10 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(null, model.get("nextLevel"));
 
         assertEquals(Collections.EMPTY_LIST, model.get("prevCities"));
-        assertEquals(schoolNotListed, ((List)model.get("prevSchools")).get(1));
+        assertEquals(schoolNotListed, ((List) model.get("prevSchools")).get(1));
 
         assertEquals(Collections.EMPTY_LIST, model.get("nextCities"));
-        assertEquals(1, ((List)model.get("nextSchools")).size());
+        assertEquals(1, ((List) model.get("nextSchools")).size());
 
         assertEquals(schoolNotListed, model.get("schoolNotListed"));
         assertEquals(_stateManager.getSortedAbbreviations(), model.get("states"));
@@ -805,7 +825,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(6);
         expect(_surveyDao.getNumSurveysTaken(isA(School.class), anyInt(), isA(LevelCode.Level.class), isA(Date.class))).andReturn(7);
         replay(_surveyDao);
-        
+
         _controller.checkSubmitCount(school, "h", 1, getRequest());
         assertEquals(1, _mailSender.getSentMessages().size());
 
@@ -816,5 +836,14 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertEquals(1, _mailSender.getSentMessages().size());
 
         verify(_surveyDao);
+    }
+
+    protected class MockEmailContentHelper extends EmailContentHelper {
+        public void setCityAndLocalQuestions(School school, Map<String, Serializable> replacements, String cpncode) {
+            replacements.put(EmailContentHelper.FIELD_CITY_NAME, "Foo");
+            replacements.put(EmailContentHelper.FIELD_CITY_ID, "1234");
+            replacements.put(EmailContentHelper.FIELD_CITY_LINK, "<a href=\"http://city_link\">city link</a>");
+            replacements.put(EmailContentHelper.FIELD_LOCAL_QUESTIONS, "<p><a href=\"http://foo\">Foo</a></p>");
+        }
     }
 }

@@ -13,6 +13,7 @@ import gs.data.survey.SurveyPage;
 import gs.data.survey.UserResponse;
 import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
+import gs.data.util.email.EmailContentHelper;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
@@ -34,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,6 +63,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     private IPropertyDao _propertyDao;
     private ISubscriptionDao _subscriptionDao;
     private EmailHelperFactory _emailHelperFactory;
+    private EmailContentHelper _emailContentHelper;    
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
     private StateManager _stateManager;
@@ -68,7 +71,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
     protected final static Pattern QUESTION_ANSWER_IDS = Pattern.compile("^responseMap\\[q(\\d+)a(\\d+)\\]\\.values*$");
 
     List<School> buildSchoolList(UserResponseCommand urc, LevelCode.Level level, boolean next) {
-        List tempList = null;
+        List<School> tempList = null;
         if (next) {
             tempList = getSchoolDao().findSchoolsInCity(urc.getNextState(), urc.getNextCity(), false);
         } else {
@@ -88,7 +91,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
             throws Exception {
-        Map referenceData = new HashMap();
+        Map<String, Object> referenceData = new HashMap<String, Object>();
         //is of form 2005-2006
         String curAcadYear = getPropertyDao().getProperty(IPropertyDao.CURRENT_ACADEMIC_YEAR);
         referenceData.put(MODEL_SCHOOL_YEARS, computeSchoolYears(curAcadYear));
@@ -235,7 +238,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             }
         }
 
-        List responses = _surveyDao.getSurveyResponses(survey.getId(), school);
+        List<UserResponse> responses = _surveyDao.getSurveyResponses(survey.getId(), school);
         if (responses != null) {
             urc.setPreviousResponseCount(responses.size());
         }
@@ -501,10 +504,11 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
         String communityHost = UrlBuilder.getCommunitySiteBaseUrl(request) + "?cpn=autoprtsurvey";
 
-        Map replacements = new HashMap();
+        Map<String, Serializable> replacements = new HashMap<String, Serializable>();
         replacements.put("SCHOOL_NAME", school.getName());
         replacements.put("PARENT_REVIEW_URL", parentReviewHref);
         replacements.put("COMMUNITY_URL", communityHost);
+        _emailContentHelper.setCityAndLocalQuestions(school, replacements, "autoprtsurvey");
 
         emailHelper.setInlineReplacements(replacements);
         emailHelper.send();
@@ -528,6 +532,10 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
 
     public IUserDao getUserDao() {
         return _userDao;
+    }
+
+    public void setEmailContentHelper(EmailContentHelper emailContentHelper) {
+        _emailContentHelper = emailContentHelper;
     }
 
     public void setUserDao(IUserDao userDao) {

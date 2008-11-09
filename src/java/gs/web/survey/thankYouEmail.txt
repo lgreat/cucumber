@@ -7,11 +7,11 @@
 <ul>
 <li><a href="$PARENT_REVIEW_URL">Add your own Parent Review of $SCHOOL_NAME</a><br/>
 (If you have reviewed this school already, your new review will replace your older one.)</li>
-
-<li><a href="$COMMUNITY_URL">Visit the GreatSchools Parent Community</a><br/>
-Share your success stories, find answers to your questions about parenting and education and meet like-minded parents.</li>
+<li><p><a href="$CITY_LINK">Answer parent questions about local schools</a><br/>Help other parents by sharing your local knowledge in our Parent Community:</p>
+$CITY_LOCAL_QUESTIONS
+</li>
 </ul>
 
-<p>Thanks for helping parents understand more about $SCHOOL_NAME!</p>
+<p>See you soon,</p>
 
-<p class="bold italic">The GreatSchools Team</p>
+<p>GreatSchools</p>
