@@ -20,8 +20,6 @@ import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import org.easymock.IAnswer;
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.*;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.BindException;
