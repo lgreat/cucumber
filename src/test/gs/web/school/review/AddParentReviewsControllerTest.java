@@ -275,7 +275,7 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
     }
 
     public void xtestSendCommunityEmailReal() throws Exception {
-        _user.setEmail("kkornas@greatschools.net");
+        _user.setEmail("thuss@greatschools.net");
         String comments = "this school rocks and I like it a lot!";
 
         EmailContentHelper emailContentHelper = new EmailContentHelper();
