@@ -37,6 +37,12 @@
 
             <p class="subheader">Please log in to access My School List.</p>
 
+            <!--<c:set var="messageClass" value=""/>-->
+            <c:if test="${param.message ne null and param.message gt ''}">
+                <!--<c:set var="messageClass" value="hasMessage"/>-->
+                <p class="infoMessage">${gsweb:escapeHtml(param.message)}</p>
+            </c:if>
+
             <c:if test="${not loginCmd.joinError}">            
                 <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
             </c:if>

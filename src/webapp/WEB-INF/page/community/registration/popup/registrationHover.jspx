@@ -25,6 +25,10 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         ]]>
     <title>Register - GreatSchools</title>
+    <c:set var="nickname" value="${context.nickname}"/>
+    <c:if test="${nickname eq null or nickname eq ''}">
+        <c:set var="nickname" value="${param.email}"/>
+    </c:if>
 </head>
 
 <gsml:body adPageName="registration">
@@ -32,7 +36,7 @@
 
     <c:if test="${param.msl ne null}">
         <p>
-            Hi, ${context.nickname}! You have an email address on file, but still need to create an
+            Hi, ${nickname}! You have an email address on file, but still need to create an
             account with GreatSchools. Take a minute to register below!
         </p>
     </c:if>

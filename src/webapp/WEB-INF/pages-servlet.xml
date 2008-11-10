@@ -1281,9 +1281,17 @@
     </bean>
 
     <bean name="/community/registration/popup/forgotPasswordHover.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.community.registration.popup.ForgotPasswordHoverController"
           autowire="byName" lazy-init="true">
-        <property name="viewName" value="/community/registration/popup/forgotPasswordHover"/>
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="forgotPasswordCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.popup.ForgotPasswordHoverCommand"/>
+        <property name="formView" value="/community/registration/popup/forgotPasswordHover"/>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+            </list>
+        </property>
     </bean>
 
     <bean name="/community/registration/popup/sendToDestination.page"

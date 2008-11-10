@@ -16,7 +16,6 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlUtil;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
 import gs.web.util.validator.EmailValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -146,8 +145,6 @@ public class LoginHoverController extends SimpleFormController {
             // Log the user in to MSL
             PageHelper.setMemberCookie(request, response, user);
             // But they don't have a community password, so send them to the registration page
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null,
-                    email, loginCommand.getRedirect());
             redirectUrl = "/community/registration/popup/registrationHover.page?email=" + email + "&msl=1";
         } else {
             // The password has validated, so set the cookies and send them onward

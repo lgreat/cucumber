@@ -3,6 +3,7 @@ div.wrapper {
     width: 100%;
     height: 571px;
     color: #444;
+    font-family: "Trebuchet MS", Arial, sans-serif;    
 }
 
 #contentGS div.wrapper a:hover {
