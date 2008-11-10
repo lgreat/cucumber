@@ -73,7 +73,7 @@ public class ForgotPasswordController extends SimpleFormController {
         if (user == null || user.isEmailProvisional()) {
             // generate error
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
-            String href = builder.asAnchor(request, "join the community").asATag();
+            String href = builder.asAnchor(request, "join GreatSchools").asATag();
             errors.rejectValue("email", null, "There is no account associated with that email address. " +
                     "Would you like to " + href + "?");
 //        } else if (user.isEmailProvisional()) {
@@ -85,7 +85,7 @@ public class ForgotPasswordController extends SimpleFormController {
             _log.info("Forgot password: user " + userCommand.getEmail() + " is not in database");
         } else if (user.isPasswordEmpty()) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
-            String href = builder.asAnchor(request, "join the community").asATag();
+            String href = builder.asAnchor(request, "join GreatSchools").asATag();
             errors.rejectValue("email", null, "There is no community account associated with that email address. " +
                     "Would you like to " + href + "?");
             _log.info("Forgot password: non-community user " + userCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
