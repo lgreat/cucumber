@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.137 2008/11/07 00:43:59 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.138 2008/11/10 22:30:21 yfan Exp $
  */
 
 package gs.web.util;
@@ -203,6 +203,7 @@ public class UrlBuilder {
     public static final VPage MOVING_WITH_KIDS = new VPage("vpage:movingWithKids");
     public static final VPage COUNTDOWN_TO_COLLEGE = new VPage("vpage:countdownToCollege");
     public static final VPage HOLIDAY_LEARNING = new VPage("vpage:holidayLearning");
+    public static final VPage HOLIDAY_GIVING = new VPage("vpage:holidayGiving");
     public static final VPage STATE_STANDARDS = new VPage("vpage:stateStandards");
     public static final VPage SUMMER_PLANNING = new VPage("vpage:summerPlanning");
     public static final VPage SUMMER_READING = new VPage("vpage:summerReading");
@@ -474,6 +475,8 @@ public class UrlBuilder {
             _path = "/donorsChooseExplained.html";
         } else if (SUBMIT_PARENT_REVIEW_PRESCHOOL.equals(page)) {
             _path = "/school/parentReviews/submit.page";
+        } else if (HOLIDAY_GIVING.equals(page)) {
+            _path = "/holiday-giving/";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

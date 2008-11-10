@@ -201,10 +201,10 @@
                                    styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} GS_CI9_ "
                                    id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
 
-            <!--#7--><td><gsml:a href="/content/specialNeeds.page"
-                                 id="GlobalNav_SeasonalButton"
+            <!--#7--><td><link:holidayGiving
+                                 id="Holiday_Giving_2008_GlobalNav_SeasonalButton"
                                  styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} GS_CI9_ "
-                >Learning Disabilities</gsml:a></td>
+                >Holiday Giving</link:holidayGiving></td>
 
             <!--#2--><td><link:articleLibrary
                 id="GlobalNav_ArticleLibraryButton"
