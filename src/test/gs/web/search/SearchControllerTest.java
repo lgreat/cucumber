@@ -231,7 +231,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertTrue(mav.getView() instanceof RedirectView);
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/content/allArticles.page", view.getUrl());
+        assertEquals("/education-topics/", view.getUrl());
 
     }
 
@@ -247,7 +247,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertTrue(mav.getView() instanceof RedirectView);
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/content/allArticles.page", view.getUrl());
+        assertEquals("/education-topics/", view.getUrl());
 
     }
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.92 2008/10/07 20:34:21 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.93 2008/11/10 22:42:26 yfan Exp $
  */
 
 package gs.web.util;
@@ -354,7 +354,7 @@ public class UrlBuilderSaTest extends TestCase {
         GsMockHttpServletRequest request = getMockRequest();
 
         UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, State.WY);
-        assertEquals("/content/allArticles.page", builder.asSiteRelative(request));
+        assertEquals("/education-topics/", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST);
         assertEquals("/mySchoolList.page", builder.asSiteRelative(request));

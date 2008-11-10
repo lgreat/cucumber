@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.50 2008/09/22 21:17:11 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.51 2008/11/10 22:42:26 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -206,7 +206,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         ArticleLibraryTagHandler tagHandler = new ArticleLibraryTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/content/allArticles.page", builder.asSiteRelative(null));
+        assertEquals("/education-topics/", builder.asSiteRelative(null));
     }
 
     public void testArticleTag() {
