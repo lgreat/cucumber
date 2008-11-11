@@ -1,18 +1,19 @@
 #givingContest {
     background: url(/res/img/holidayGiving/contest_module.gif) no-repeat left top;
     position: relative;
-    width: 203px;
+    width: 208px;
     height: 284px;
 }
 
 #givingContest #text {
-    padding: 85px 4px 4px 4px;
-    width: 203px;
-    height: 284px;
+    padding: 85px 3px 0 3px;
+    width: 200px;
+    height: 190px;
 }
 
 #givingContest #text p {
     font-size: 12px;
+    line-height: 16px;
 }
 
 #givingContest #text p.more {
@@ -48,7 +49,7 @@ ul.bulleted {
 }
 
 #contentTop {
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
     position: relative;
     top: 0px;
 }
@@ -59,10 +60,7 @@ ul.bulleted {
 
 
 #contentTop .flash {
-	float: left;
     margin-left: 1px;
-    margin-top: 2px;
-    margin-bottom: 8px;
 }
 
 .clear {

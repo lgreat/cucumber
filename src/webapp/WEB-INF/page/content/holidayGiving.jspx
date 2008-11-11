@@ -41,16 +41,6 @@
     .bulleted li {
         background: url(/res/img/content/backtoschool/modules/orange_bullet.jpg) no-repeat left 7px;
     }
-
-    #stickies {
-       margin: 17px 0 -17px 0;
-    }
-
-    #contentTop {
-       top: 8px;
-       margin: 0 0 11px 0;
-    }
-
     </style>
     <![endif]-->
     ]]>
