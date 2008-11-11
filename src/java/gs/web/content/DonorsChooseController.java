@@ -74,6 +74,8 @@ public class DonorsChooseController extends AbstractController {
                 City city = _geoDao.findCityById(Integer.valueOf(cityID));
                 ICounty county = _geoDao.findCountyByFipsCode(city.getCountyFips());
                 props = _donorsChooseDao.getProposalsForCity(city, county, maxProposals, isInternalServer);
+            } else {
+                props = _donorsChooseDao.getProposalsForLowCostToComplete(maxProposals, isInternalServer);
             }
 
         } catch (Exception e) {

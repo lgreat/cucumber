@@ -174,8 +174,6 @@
 
     <div>
     <jsp:include page="/content/donorsChoose.module">
-        <jsp:param name="cityID" value="433288"/>
-        <jsp:param name="state" value="CA"/>
         <jsp:param name="maxProposals" value="${3}"/>
         <jsp:param name="theme" value="holiday"/>
     </jsp:include>
