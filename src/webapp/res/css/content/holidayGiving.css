@@ -28,7 +28,6 @@
 
 #donorsChooseWrapper {
     width: 300px;
-    /*position: absolute;*/
 }
 
 
@@ -89,7 +88,6 @@ ul.bulleted {
 #contentRight {
     float: right;
     margin: 0;
-    /*height: 604px;*/
     width: 300px;
     position: relative;
 }

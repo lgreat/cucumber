@@ -60,11 +60,10 @@
 }
 
 #donorsChoose .donorsChooseBox.holiday .inner {
-    padding: 22px 27px 0 22px;
+    padding: 22px 27px 4px 22px;
     background-image: url(/res/img/content/donorsChoose/holiday/widget_1px_center.gif);
     background-repeat: repeat-y;
     background-position: left top;
-    /*background-color: transparent;    */
 }
 
 #donorsChoose .donorsChooseBox.holiday h2 {

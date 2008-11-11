@@ -159,7 +159,7 @@
 
 </div>
 
-<div id="contentRight" class="cleared">
+<div id="contentRight">
     <ad:AboveFold_300x250/>
 
     <div id="donorsChooseWrapper">
@@ -171,8 +171,6 @@
     </div>
 
 </div>
-
-<div class="cleared"><!-- --></div>
 
 <content:micrositeFooter crossPromo="election2008"/>
 
