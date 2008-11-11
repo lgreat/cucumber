@@ -21,6 +21,8 @@ import gs.web.util.validator.EmailValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -129,13 +131,13 @@ public class LoginHoverController extends SimpleFormController {
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
-                                 BindException errors) throws NoSuchAlgorithmException {
+                                 BindException errors) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         LoginCommand loginCommand = (LoginCommand) command;
         String email = loginCommand.getEmail();
         ModelAndView mAndV = new ModelAndView();
 
         if (request.getParameter("joinForm") != null) {
-            mAndV.setViewName("redirect:/community/registration/popup/registrationHover.page?email=" + email);
+            mAndV.setViewName("redirect:/community/registration/popup/registrationHover.page?email=" + URLEncoder.encode(email, "UTF-8"));
             return mAndV;
         }
         User user = getUserDao().findUserFromEmail(email);
@@ -145,7 +147,7 @@ public class LoginHoverController extends SimpleFormController {
             // Log the user in to MSL
             PageHelper.setMemberCookie(request, response, user);
             // But they don't have a community password, so send them to the registration page
-            redirectUrl = "/community/registration/popup/registrationHover.page?email=" + email + "&msl=1";
+            redirectUrl = "/community/registration/popup/registrationHover.page?email=" + URLEncoder.encode(email, "UTF-8") + "&msl=1";
         } else {
             // The password has validated, so set the cookies and send them onward
             // only notify community on final step

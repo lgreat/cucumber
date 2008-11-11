@@ -8,12 +8,13 @@ import org.apache.commons.logging.LogFactory;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.community.registration.ForgotPasswordEmail;
-import gs.web.community.registration.LoginCommand;
 import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -50,7 +51,7 @@ public class ForgotPasswordHoverController extends SimpleFormController {
      */
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
-                                     BindException errors) throws NoSuchAlgorithmException {
+                                     BindException errors) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // don't do validation on cancel
         // also don't both checking for a user if the emailValidator rejects the address
         if (suppressValidation(request, command) || errors.hasErrors()) {
@@ -65,7 +66,7 @@ public class ForgotPasswordHoverController extends SimpleFormController {
         if (user == null || user.isEmailProvisional()) {
             // generate error
             String href = "<a href=\"/community/registration/popup/registrationHover.page?email=" +
-                    forgotPasswordHoverCommand.getEmail() + "\">join GreatSchools</a>";
+                    URLEncoder.encode(forgotPasswordHoverCommand.getEmail(), "UTF-8") + "\">join GreatSchools</a>";
             errors.rejectValue("email", null, "There is no account associated with that email address. " +
                     "Would you like to " + href + "?");
             _log.info("Forgot password: user " + forgotPasswordHoverCommand.getEmail() + " is not in database");
@@ -94,7 +95,7 @@ public class ForgotPasswordHoverController extends SimpleFormController {
         if (!suppressValidation(request, command)) {
             if (forgotPasswordHoverCommand.isMsl()) {
                 redirectUrl = "/community/registration/popup/registrationHover.page?email=" +
-                        forgotPasswordHoverCommand.getEmail() + "&msl=1";
+                        URLEncoder.encode(forgotPasswordHoverCommand.getEmail(), "UTF-8") + "&msl=1";
             } else {
                 User user = getUserDao().findUserFromEmailIfExists(forgotPasswordHoverCommand.getEmail());
                 _forgotPasswordEmail.sendToUser(user, request);
