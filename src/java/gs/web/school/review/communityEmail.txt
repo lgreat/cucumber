@@ -9,7 +9,7 @@ a few days.</p>
 reach out to other parents!</p>
 
 <ul>
-<li><p><a href="http://www.greatschools.net/survey/start.page?id=$SCHOOL_ID&state=$STATE&cpn=autoprsubmitted">Complete a parent survey about $SCHOOL_NAME</a><br/>Share the unique qualities about your school's academics, extracurricular activities and school culture.</p></li>
+<li><p><a href="http://www.greatschools.net/survey/start.page?id=$SCHOOL_ID&state=$STATE&cpn=ParentReviewEmail">Complete a parent survey about $SCHOOL_NAME</a><br/>Share the unique qualities about your school's academics, extracurricular activities and school culture.</p></li>
 <li><p><a href="$CITY_LINK">Answer parent questions about $CITY_NAME schools</a><br/>Help other parents by sharing your local knowledge in our Parent Community:</p>
 $CITY_LOCAL_QUESTIONS
 </li>

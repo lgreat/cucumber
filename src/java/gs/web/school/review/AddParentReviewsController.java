@@ -281,7 +281,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
         emailHelper.addInlineReplacement("USER_COMMENTS", comments);
         emailHelper.addInlineReplacement("SCHOOL_NAME", school.getName());
         emailHelper.addInlineReplacement("SCHOOL_ID", school.getId().toString());
-        _emailContentHelper.setCityAndLocalQuestions(school, emailHelper.getInlineReplacements(), "autoprsubmitted");
+        _emailContentHelper.setCityAndLocalQuestions(school, emailHelper.getInlineReplacements(), "ParentReviewEmail");
 
         emailHelper.send();
     }
