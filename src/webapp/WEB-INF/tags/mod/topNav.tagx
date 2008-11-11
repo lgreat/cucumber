@@ -202,7 +202,7 @@
                                    id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
 
             <!--#7--><td><link:holidayGiving
-                                 id="Holiday_Giving_2008_GlobalNav_SeasonalButton"
+                                 id="GlobalNav_SeasonalButton"
                                  styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} GS_CI9_ "
                 >Holiday Giving</link:holidayGiving></td>
 
