@@ -209,7 +209,7 @@
             <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
             <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
             <c:if test="${showSurvey}"><pageHelper:externalJavascript
-                    file="http://static.decipherinc.com/survey/gts/gts08001/stub.js"/></c:if>
+                    file="http://survey.greatschools.net/survey/gts/gts08001/stub.js"/></c:if>
             <c:if test="${showNLHover}"><pageHelper:externalJavascript file="/cm/mss_modal.js"/></c:if>
             <c:choose>
                 <c:when test="${school.levelCode == 'p'}">
