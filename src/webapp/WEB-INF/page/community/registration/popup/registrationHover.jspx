@@ -13,6 +13,8 @@
         xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
+<jsp:directive.page import="gs.web.community.registration.UserCommand"/>
+<jsp:directive.page import="org.apache.commons.lang.StringUtils"/>
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -29,7 +31,14 @@
     <pageHelper:externalCss file="/res/css/community/registration/popup/registrationHover.css"/>    
     <c:set var="nickname" value="${context.nickname}"/>
     <c:if test="${nickname eq null or nickname eq ''}">
-        <c:set var="nickname" value="${userCmd.email}"/>
+        <jsp:scriptlet>
+            UserCommand userCmd = (UserCommand) request.getAttribute("userCmd");
+            String nickname = userCmd.getEmail();
+            if (StringUtils.contains(userCmd.getEmail(), '@')) {
+                nickname = nickname.split("@")[0];
+            }
+            request.setAttribute("nickname", nickname);
+        </jsp:scriptlet>
     </c:if>
     <script type="text/javascript">
         <![CDATA[
