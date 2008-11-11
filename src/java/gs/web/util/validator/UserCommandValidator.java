@@ -26,57 +26,72 @@ public class UserCommandValidator implements IRequestAwareValidator {
     public static final String BEAN_ID = "userValidator";
     private IUserDao _userDao;
 
-    private static final int SCREEN_NAME_MINIMUM_LENGTH = 6;
-    private static final int SCREEN_NAME_MAXIMUM_LENGTH = 14;
-    private static final int FIRST_NAME_MINIMUM_LENGTH = 2;
-    private static final int FIRST_NAME_MAXIMUM_LENGTH = 24;
-    //private static final int LAST_NAME_MAXIMUM_LENGTH = 64;
-    private static final int EMAIL_MAXIMUM_LENGTH = 127;
-    private static final int PASSWORD_MINIMUM_LENGTH = 6;
-    private static final int PASSWORD_MAXIMUM_LENGTH = 14;
-    private static final String GENDER_MISSING =
+    protected static final int SCREEN_NAME_MINIMUM_LENGTH = 6;
+    protected static final int SCREEN_NAME_MAXIMUM_LENGTH = 14;
+    protected static final int FIRST_NAME_MINIMUM_LENGTH = 2;
+    protected static final int FIRST_NAME_MAXIMUM_LENGTH = 24;
+    protected static final int EMAIL_MAXIMUM_LENGTH = 127;
+    protected static final int PASSWORD_MINIMUM_LENGTH = 6;
+    protected static final int PASSWORD_MAXIMUM_LENGTH = 14;
+    protected static final String GENDER_MISSING =
             "Please select from one of the options.";
-    private static final String ERROR_FIRST_NAME_LENGTH =
+    protected static final String ERROR_FIRST_NAME_LENGTH =
             "Your first name must be 2-24 characters long.";
-    private static final String ERROR_SCREEN_NAME_LENGTH =
+    protected static final String ERROR_SCREEN_NAME_LENGTH =
             "Your username must be 6-14 characters long.";
-    private static final String ERROR_SCREEN_NAME_BAD =
+    protected static final String ERROR_SCREEN_NAME_BAD =
             "Your username may only contain letters and numbers.";
-    private static final String ERROR_SCREEN_NAME_TAKEN =
+    protected static final String ERROR_SCREEN_NAME_TAKEN =
             "We're sorry, that username is already taken. Please try another username.";
-    private static final String ERROR_EMAIL_MISSING =
+    protected static final String ERROR_EMAIL_MISSING =
             "Please enter your email address.";
     public static final String ERROR_EMAIL_LENGTH = "Your email must be less than 128 characters long.";
 
-//    private static final String ERROR_EMAIL_PROVISIONAL =
-//            "You have already registered with GreatSchools! Please check your email and follow " +
-//                    "the instructions to validate your account.";
-    private static final String ERROR_PASSWORD_LENGTH =
+    protected static final String ERROR_PASSWORD_LENGTH =
             "Your password must be 6-14 characters long.";
-    private static final String ERROR_PASSWORD_MISMATCH =
+    protected static final String ERROR_PASSWORD_MISMATCH =
             "The two password fields don't match.";
-    private static final String ERROR_STATE_MISSING =
+    protected static final String ERROR_STATE_MISSING =
             "Please select your state.";
-    private static final String ERROR_CITY_MISSING =
+    protected static final String ERROR_CITY_MISSING =
             "Please select your city, or select \"My city is not listed.\"";
-    private static final String ERROR_NUM_CHILDREN_MISSING =
+    protected static final String ERROR_NUM_CHILDREN_MISSING =
             "Please tell us the number of children you have in K-12 schools.";
-    private static final String ERROR_TERMS_MISSING =
+    protected static final String ERROR_TERMS_MISSING =
             "Please read and accept our Terms of Use to join GreatSchools.";
-    private static final char[] FIRST_NAME_DISALLOWED_CHARACTERS = {
+    protected static final char[] FIRST_NAME_DISALLOWED_CHARACTERS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
     };
-    private static final String ERROR_FIRST_NAME_BAD = "Please enter your name without numbers or symbols.";
-    private static final String ERROR_EMAIL_TAKEN = "The email address you entered has already been registered with GreatSchools.";
+    protected static final String ERROR_FIRST_NAME_BAD = "Please enter your name without numbers or symbols.";
+    protected static final String ERROR_EMAIL_TAKEN = "The email address you entered has already been registered with GreatSchools.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
 
-        String email = command.getEmail();
-        // String confirmEmail = command.getConfirmEmail();
+        User user = validateEmail(command, request, errors);
+        if (user != null && errors.hasFieldErrors("email")) {
+            // User exists but email failed validation?
+            // This can only happen if they are already registered or are disabled
+            return; // other errors are irrelevant
+        }
 
+        validateFirstName(command, errors);
+        validateUsername(command, user, errors);
+        validateGender(command, errors);
+        validateNumSchoolChildren(command, errors);
+        if ("u".equals(command.getGender()) || (command.getNumSchoolChildren() != null &&
+                command.getNumSchoolChildren() == 0)) {
+            // only validate terms of use if this is final page of registration
+            // which happens if they don't list children
+            validateTerms(command, errors);
+        }
+        validatePassword(command, errors);
+        validateStateCity(command, errors);
+    }
+
+    protected User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
         User user = null;
-
+        String email = command.getEmail();
         if (StringUtils.isEmpty(email)) {
             errors.rejectValue("email", null, ERROR_EMAIL_MISSING);
             _log.info("Registration error: " + ERROR_EMAIL_MISSING);
@@ -85,12 +100,6 @@ public class UserCommandValidator implements IRequestAwareValidator {
             _log.info("Registration error: " + ERROR_EMAIL_LENGTH);
         } else {
             user = _userDao.findUserFromEmailIfExists(email);
-
-            // verify confirm email matches email
-//        if (confirmEmail != null && !confirmEmail.equals(email)) {
-//            errors.rejectValue("email", null, "Please enter the same email into both fields.");
-//        }
-
             if (user != null) {
                 if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
                     String errmsg = "The account associated with that email address has been disabled. " +
@@ -105,33 +114,58 @@ public class UserCommandValidator implements IRequestAwareValidator {
                     String loginUrl = builder.asFullUrl(request);
                     String errmsg = ERROR_EMAIL_TAKEN + " <a href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
                     errors.rejectValue("email", null, errmsg);
-                    return; // other errors are irrelevant
                 } else if (user.isEmailProvisional()) {
                     // let them register, just overwrite previous values
-                    //errors.rejectValue("email", null, ERROR_EMAIL_PROVISIONAL);
-                    //return; // other errors are irrelevant
                 }
             }
         }
+        return user;
+    }
 
-        if (StringUtils.isEmpty(command.getFirstName()) ||
-                command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH ||
-                command.getFirstName().length() < FIRST_NAME_MINIMUM_LENGTH) {
-            errors.rejectValue("firstName", null, ERROR_FIRST_NAME_LENGTH);
-            _log.info("Registration error: " + ERROR_FIRST_NAME_LENGTH);
-        } else if (!StringUtils.containsNone(command.getFirstName(), FIRST_NAME_DISALLOWED_CHARACTERS)) {
-            errors.rejectValue("firstName", null, ERROR_FIRST_NAME_BAD);
-            _log.info("Registration error: " + ERROR_FIRST_NAME_BAD);
+    protected void validateStateCity(UserCommand command, Errors errors) {
+        UserProfile userProfile = command.getUserProfile();
+        if (userProfile.getState() == null) {
+            errors.rejectValue("state", null, ERROR_STATE_MISSING);
+            _log.info("Registration error: " + ERROR_STATE_MISSING);
+            return; // avoid NPEs
         }
+        if (StringUtils.isEmpty(userProfile.getCity())) {
+            errors.rejectValue("city", null, ERROR_CITY_MISSING);
+            _log.info("Registration error: " + ERROR_CITY_MISSING);
+        }
+    }
 
-//        if (StringUtils.isEmpty(command.getLastName())) {
-//            errors.rejectValue("lastName", "missing_last_name", "Please enter your last name");
-//        } else if (command.getLastName().length() > LAST_NAME_MAXIMUM_LENGTH) {
-//            errors.rejectValue("lastName", "long_last_name",
-//                    "Your last name can be no more than " + LAST_NAME_MAXIMUM_LENGTH +
-//                            " characters long.");
-//        }
+    protected void validateTerms(UserCommand command, Errors errors) {
+        if (!command.getTerms()) {
+            errors.rejectValue("terms", null, ERROR_TERMS_MISSING);
+            _log.info("Registration error: " + ERROR_TERMS_MISSING);
+        }
+    }
 
+    protected void validateNumSchoolChildren(UserCommand command, Errors errors) {
+        if (command.getNumSchoolChildren() == null || command.getNumSchoolChildren() == -1) {
+            if (!"u".equals(command.getGender())) {
+                errors.rejectValue("numSchoolChildren", null, ERROR_NUM_CHILDREN_MISSING);
+                _log.info("Registration error: " + ERROR_NUM_CHILDREN_MISSING);
+            }
+        }
+    }
+
+    protected void validateGender(UserCommand command, Errors errors) {
+        String gender = command.getGender();
+        if (StringUtils.isEmpty(gender)) {
+            errors.rejectValue("gender", null, GENDER_MISSING);
+            _log.info("Registration error: " + GENDER_MISSING);
+        } else if  (gender.length() > 1) {
+            errors.rejectValue("gender", null, GENDER_MISSING);
+            _log.info("Registration error: " + GENDER_MISSING);
+        } else if (!("m".equals(gender) || "f".equals(gender) || "u".equals(gender))) {
+            errors.rejectValue("gender", null, GENDER_MISSING);
+            _log.info("Registration error: " + GENDER_MISSING);
+        }
+    }
+
+    protected void validateUsername(UserCommand command, User user, Errors errors) {
         // screen name must be 5-20 characters and alphanumeric only (no space)
         String sn = command.getScreenName();
         boolean snError = false;
@@ -154,45 +188,17 @@ public class UserCommandValidator implements IRequestAwareValidator {
                 _log.info("Registration error: " + ERROR_SCREEN_NAME_TAKEN);
             }
         }
+    }
 
-        String gender = command.getGender();
-        if (StringUtils.isEmpty(gender)) {
-            errors.rejectValue("gender", null, GENDER_MISSING);
-            _log.info("Registration error: " + GENDER_MISSING);
-        } else if  (gender.length() > 1) {
-            errors.rejectValue("gender", null, GENDER_MISSING);
-            _log.info("Registration error: " + GENDER_MISSING);
-        } else if (!("m".equals(gender) || "f".equals(gender) || "u".equals(gender))) {
-            errors.rejectValue("gender", null, GENDER_MISSING);
-            _log.info("Registration error: " + GENDER_MISSING);
-        }
-
-        if (command.getNumSchoolChildren() == null || command.getNumSchoolChildren().intValue() == -1) {
-            if (!"u".equals(gender)) {
-                errors.rejectValue("numSchoolChildren", null, ERROR_NUM_CHILDREN_MISSING);
-                _log.info("Registration error: " + ERROR_NUM_CHILDREN_MISSING);
-            }
-        }
-
-        if ("u".equals(gender) || (command.getNumSchoolChildren() != null &&
-                command.getNumSchoolChildren().intValue() == 0)) {
-            if (!command.getTerms()) {
-                errors.rejectValue("terms", null, ERROR_TERMS_MISSING);
-                _log.info("Registration error: " + ERROR_TERMS_MISSING);
-            }
-        }
-
-        validatePassword(command, errors);
-
-        UserProfile userProfile = command.getUserProfile();
-        if (userProfile.getState() == null) {
-            errors.rejectValue("state", null, ERROR_STATE_MISSING);
-            _log.info("Registration error: " + ERROR_STATE_MISSING);
-            return; // avoid NPEs
-        }
-        if (StringUtils.isEmpty(userProfile.getCity())) {
-            errors.rejectValue("city", null, ERROR_CITY_MISSING);
-            _log.info("Registration error: " + ERROR_CITY_MISSING);
+    protected void validateFirstName(UserCommand command, Errors errors) {
+        if (StringUtils.isEmpty(command.getFirstName()) ||
+                command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH ||
+                command.getFirstName().length() < FIRST_NAME_MINIMUM_LENGTH) {
+            errors.rejectValue("firstName", null, ERROR_FIRST_NAME_LENGTH);
+            _log.info("Registration error: " + ERROR_FIRST_NAME_LENGTH);
+        } else if (!StringUtils.containsNone(command.getFirstName(), FIRST_NAME_DISALLOWED_CHARACTERS)) {
+            errors.rejectValue("firstName", null, ERROR_FIRST_NAME_BAD);
+            _log.info("Registration error: " + ERROR_FIRST_NAME_BAD);
         }
     }
 
@@ -201,7 +207,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
      * @param sn screen name
      * @return true if screen name contains all valid characters or is null
      */
-    private boolean screenNameHasInvalidCharacters(String sn) {
+    protected boolean screenNameHasInvalidCharacters(String sn) {
         // valid characters are all alphanumeric, hyphen, underscore
         return sn != null && !sn.matches("[0-9a-zA-Z\\-\\_]*");
     }

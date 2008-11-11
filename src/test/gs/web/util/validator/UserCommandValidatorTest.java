@@ -76,7 +76,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         //command.setLastName(GOOD_LAST_NAME64);
         command.setScreenName(GOOD_SCREEN_NAME_SHORT);
         command.setGender("m");
-        command.setNumSchoolChildren(new Integer(0));
+        command.setNumSchoolChildren(0);
         command.setTerms(true);
         setupUserControl(GOOD_EMAIL, GOOD_SCREEN_NAME_SHORT);
         return command;
@@ -453,7 +453,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         errors = new BindException(command, "");
         setupUserControl(GOOD_EMAIL, GOOD_SCREEN_NAME_SHORT);
-        command.setNumSchoolChildren(new Integer(-1));
+        command.setNumSchoolChildren(-1);
 
         _validator.validate(_request, command, errors);
         _userControl.verify();
@@ -483,7 +483,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
         command.setTerms(false);
-        command.setNumSchoolChildren(new Integer(1));
+        command.setNumSchoolChildren(1);
 
         _validator.validate(_request, command, errors);
         _userControl.verify();
@@ -506,7 +506,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         // 0 children requires terms of service
         errors = new BindException(command, "");
         setupUserControl(GOOD_EMAIL, GOOD_SCREEN_NAME_SHORT);
-        command.setNumSchoolChildren(new Integer(0));
+        command.setNumSchoolChildren(0);
         command.setGender("m");
         command.setTerms(false);
 
@@ -527,7 +527,6 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         reset(_userDao);
         expect(_userDao.findUserFromEmailIfExists(GOOD_EMAIL)).andReturn(user);
-        expect(_userDao.findUserFromScreenNameIfExists(GOOD_SCREEN_NAME_SHORT)).andReturn(user);
         replay(_userDao);
         Errors errors = new BindException(command, "");
 
