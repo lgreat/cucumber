@@ -46,7 +46,7 @@ public class UserCommandHoverValidator implements IRequestAwareValidator {
             "Please select your city, or select \"My city is not listed.\"";
     private static final String ERROR_EMAIL_TAKEN = "The email address you entered has already been registered with GreatSchools.";
     private static final String ERROR_TERMS_MISSING =
-            "Please read and accept our Terms of Use to join the community.";    
+            "Please read and accept our Terms of Use to join GreatSchools.";    
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
