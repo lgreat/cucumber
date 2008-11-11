@@ -208,8 +208,19 @@
         <c:if test="${!requestScope.context.crawler}">
             <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
             <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-            <c:if test="${showSurvey}"><pageHelper:externalJavascript
-                    file="http://survey.greatschools.net/survey/gts/gts08001/stub.js"/></c:if>
+            <c:if test="${showSurvey}">
+                <pageHelper:externalJavascript file="/res/js/blogTracking/pageTracking.js"/>
+                <pageHelper:externalJavascript file="http://survey.greatschools.net/survey/gts/gts08001/stub.js"/>
+                <script type="text/javascript">
+                    function trackSurveyHover() {
+                        pageTracking.pageName = "Decipher Hover Survey";
+                        pageTracking.heirarchy = "Surveys,Auto Hover";
+                        pageTracking.server = "${requestScope.context.hostName}";
+                        pageTracking.send(); 
+                    }
+                    setTimeout ("trackSurveyHover()", 5000);                    
+                </script>
+            </c:if>
             <c:if test="${showNLHover}"><pageHelper:externalJavascript file="/cm/mss_modal.js"/></c:if>
             <c:choose>
                 <c:when test="${school.levelCode == 'p'}">
