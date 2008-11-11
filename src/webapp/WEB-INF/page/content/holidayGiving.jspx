@@ -20,9 +20,13 @@
 <jsp:directive.page contentType="text/html"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-<!--pageHelper:setPathway pathway="SEASONAL"/-->
-<pageHelper:setPathway pathway="LIBRARY"/>
+<pageHelper:setPathway pathway="SEASONAL"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
+<jsp:scriptlet>
+    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -87,28 +91,26 @@
                     }
 
 
-                    //if (MM_FlashCanPlay) {
-                    // TODO-7447 TEMPORARY
-                    if (MM_FlashCanPlay && false) {
+                    if (MM_FlashCanPlay) {
                         // c.swf does flash detection
-                        var backToSchoolResource = '/res/swf/c?path=/res/img/holidayGiving/flash_standin.jpg';
+                        var backToSchoolResource = '/res/swf/c?path=/res/swf/gs_holiday.swf';
 
                         AC_FL_RunContent(
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
-                                'width', '600',
-                                'height', '270',
+                                'width', '952',
+                                'height', '318',
                                 'src', backToSchoolResource,
                                 'quality', 'high',
                                 'wmode', 'transparent',
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
                                 'movie', backToSchoolResource);
                     } else {
-                        document.write('<img class="flashImage" src="/res/img/holidayGiving/flash_standin.jpg" alt=""/>');
+                        //document.write('<img class="flashImage" src="/res/img/holidayGiving/flash_standin.jpg" alt=""/>');
                     }
                     -->
                 </script>
                 <noscript>
-                    <img class="flashImage" src="/res/img/holidayGiving/flash_standin.jpg" alt=""/>
+                    <!--img class="flashImage" src="/res/img/holidayGiving/flash_standin.jpg" alt=""/-->
                 </noscript>
                 ]]>
         </div>
@@ -141,7 +143,7 @@
                 <img class="leadoff" src="/res/img/content/backtoschool/modules/bts_smalltwoboys.jpg" alt="Two boys" title="" />
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="771"
-                        wrappingElement="li">Bundles of Holiday Learning Gifts</gsweb:articlelink>
+                        wrappingElement="li">Bundles of Learning Gifts</gsweb:articlelink>
                     <gsweb:articlelink articleId="1133"
                         wrappingElement="li">Parents Choice Holiday Guide</gsweb:articlelink>
                     <gsweb:articlelink articleId="782"
@@ -157,7 +159,7 @@
         <div class="moduleBox last" id="givingContest">
             <div id="text">
                 <p>How do you teach chldren the spirit of giving?</p>
-                <p>Submit your story for a chance to win a $100 DonorsChoose gift card for your school.</p>
+                <p><a href="http://${communityHost}/advice/write?adrefer=gift_of_giving">Submit your story for a chance to win a $100 DonorsChoose gift card for your school.</a></p>
             </div>
             <img src="/res/img/holidayGiving/contest_giftcard.gif" alt="Giving card"/>
         </div>
@@ -170,14 +172,14 @@
 <div id="contentRight">
     <ad:AboveFold_300x250/>
 
-    <ad:adTag position="BTS_Quiz_Promo_300x316"/>
-
+    <div>
     <jsp:include page="/content/donorsChoose.module">
         <jsp:param name="cityID" value="433288"/>
         <jsp:param name="state" value="CA"/>
         <jsp:param name="maxProposals" value="${3}"/>
         <jsp:param name="theme" value="holiday"/>
     </jsp:include>
+    </div>
 
 </div>
 

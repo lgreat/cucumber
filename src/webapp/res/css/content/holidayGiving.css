@@ -6,17 +6,23 @@
 }
 
 #givingContest #text {
-    font-size: 9px;
-    position: absolute;
-    top: 85px; 
+    padding: 85px 4px 4px 4px;
     width: 203px;
-    padding: 0 4px;
+    height: 284px;
+}
+
+#givingContest #text p {
+    font-size: 12px;
+}
+
+#givingContest #text p.more {
+    text-align: right;
 }
 
 #givingContest img {
     position: absolute;
-    left: 50px;
-    bottom: 50px;
+    left: 65px;
+    bottom: 40px;
 }
 
 
@@ -54,6 +60,9 @@ ul.bulleted {
 
 #contentTop .flash {
 	float: left;
+    margin-left: 1px;
+    margin-top: 2px;
+    margin-bottom: 8px;
 }
 
 .clear {
