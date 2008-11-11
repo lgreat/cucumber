@@ -345,6 +345,26 @@ public class RegistrationController extends SimpleFormController implements Read
         soapRequest.createOrUpdateUserRequest(bean);
     }
 
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public JavaMailSender getMailSender() {
+        return _mailSender;
+    }
+
+    public RegistrationConfirmationEmail getRegistrationConfirmationEmail() {
+        return _registrationConfirmationEmail;
+    }
+
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
     }
