@@ -65,7 +65,7 @@
         </div>
 
         <c:choose>
-            <c:when test="${param.msl ne null}">
+            <c:when test="${userCmd.mslOnly eq true}">
                 <div class="infoMessage">
                     <img src="/res/img/community/registration/check.gif" alt="Check"/>
                     <p>
@@ -83,6 +83,9 @@
         </c:choose>
 
         <form action="/community/registration/popup/registrationHover.page" method="post">
+            <spring:bind path="userCmd.mslOnly">
+                <input type="hidden" name="${status.expression}" value="${status.value}"/>
+            </spring:bind>
             <ul>
                 <li>
                     <label for="screenName">Username</label>

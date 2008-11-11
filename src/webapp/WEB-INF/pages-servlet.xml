@@ -1279,7 +1279,7 @@
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
-        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="commandClass" value="gs.web.community.registration.popup.RegistrationHoverCommand"/>
         <property name="formView" value="/community/registration/popup/registrationHover"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
         <property name="validators">

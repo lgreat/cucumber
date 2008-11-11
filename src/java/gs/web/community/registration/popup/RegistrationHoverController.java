@@ -38,8 +38,12 @@ public class RegistrationHoverController extends RegistrationController implemen
                                    Object command,
                                    BindException errors) {
 
-        UserCommand userCommand = (UserCommand) command;
+        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
         loadCityList(request, userCommand);
+
+        if (request.getParameter("msl") != null) {
+            userCommand.setMslOnly(true);
+        }
     }
 
     public void onBind(HttpServletRequest request, Object command) {
