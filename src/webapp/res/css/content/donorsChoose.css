@@ -38,11 +38,43 @@
 }
 
 .donorsChooseBox .inner {
-	padding: 5px 27px 1px 22px;;
-	background-image: url(/res/img/content/donorsChoose/background_middle.gif);
+	padding: 5px 27px 1px 22px;
+    width: 251px;
+    background-image: url(/res/img/content/donorsChoose/background_middle.gif);
     background-repeat: repeat-y;
     background-position: left top;
     background-color: transparent;
+}
+
+/* Holiday theme */
+
+.donorsChooseBox.holiday {
+    padding-bottom: 102px;
+    background-image: url(/res/img/content/donorsChoose/holiday/widget_bottom3.gif);
+    position: relative;
+}
+
+.donorsChooseBox.holiday .outer {
+    padding-top: 65px;
+    background-image: url(/res/img/content/donorsChoose/holiday/widget_headertop-1.gif);
+}
+
+#donorsChoose .donorsChooseBox.holiday .inner {
+    padding: 22px 27px 0 22px;
+    background-image: url(/res/img/content/donorsChoose/holiday/widget_1px_center.gif);
+    background-repeat: repeat-y;
+    background-position: left top;
+    /*background-color: transparent;    */
+}
+
+#donorsChoose .donorsChooseBox.holiday h2 {
+    display: none;
+}
+
+#donorsChoose .donorsChooseBox.holiday li {
+    background: transparent url(/res/img/content/donorsChoose/holiday/widget_redBullet.gif) no-repeat scroll left 4px;
+    margin: 0 0 5px;
+    padding: 0 0 0 10px;
 }
 
 /* Content */

@@ -13,12 +13,8 @@
     <c:set var="theme" value="${not empty param.theme ? param.theme : ''}"/>
 
     <pageHelper:externalCss file="/res/css/content/donorsChoose.css"/>
-
-    <c:if test="${theme eq 'holiday'}">
-        <pageHelper:externalCss file="/res/css/content/donorsChooseHoliday.css"/>
-    </c:if>
     
-      <![CDATA[
+    <![CDATA[
     <!--[if IE]>
     <style type="text/css">
     #donorsChoose li {
@@ -33,13 +29,14 @@
     
     <c:if test="${not empty requestScope.proposals}">
 
-        <c:set var="omnitureCustomLink" value="DonorsChoose_citypage"/>
-        <c:if test="${theme eq 'holiday'}">
-            <c:set var="omnitureCustomLink" value="DonorsChoose_Holiday"/>
+        <c:set var="themeClass" value="${theme}"/>
+        <c:if test="${not empty themeClass}">
+            <c:set var="themeClass" value=" ${theme}"/>
         </c:if>
+        <c:set var="omnitureCustomLink" value="${param.omnitureCustomLink}"/>
 
         <div id="donorsChoose">
-        <div class="donorsChooseBox">
+        <div class="donorsChooseBox${not empty themeClass ? themeClass : ''}">
             <div class="outer">
                 <div class="inner cleared">
 

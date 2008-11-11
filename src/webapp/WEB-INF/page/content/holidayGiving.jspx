@@ -159,17 +159,20 @@
 
 </div>
 
-<div id="contentRight">
+<div id="contentRight" class="cleared">
     <ad:AboveFold_300x250/>
 
-    <div>
+    <div id="donorsChooseWrapper">
     <jsp:include page="/content/donorsChoose.module">
         <jsp:param name="maxProposals" value="${3}"/>
         <jsp:param name="theme" value="holiday"/>
+        <jsp:param name="omnitureCustomLink" value="DonorsChoose_Holiday"/>
     </jsp:include>
     </div>
 
 </div>
+
+<div class="cleared"><!-- --></div>
 
 <content:micrositeFooter crossPromo="election2008"/>
 
