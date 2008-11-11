@@ -42,6 +42,21 @@ div.wrapper h2 {
     font-size: 12px;
 }
 
+div.infoMessage {
+    color: #cc5566;
+    position: relative;
+}
+
+div.infoMessage img {
+    position: absolute;
+    top: 4px;
+    left: 5px;
+}
+
+div.infoMessage p {
+    margin-left: 33px;
+}
+
 div.wrapper ul {
     padding: 15px;
     margin: 0;
@@ -138,7 +153,8 @@ div.wrapper ul li input.checkbox {
 div.wrapper ul li label.checkbox {
     margin-left: 20px;
     display: block;
-    width: 480px;
+    width: 470px;
+    font-weight: normal;
 }
 
 div.privacyButtonBar {

@@ -29,7 +29,7 @@
     <pageHelper:externalCss file="/res/css/community/registration/popup/registrationHover.css"/>    
     <c:set var="nickname" value="${context.nickname}"/>
     <c:if test="${nickname eq null or nickname eq ''}">
-        <c:set var="nickname" value="${param.email}"/>
+        <c:set var="nickname" value="${userCmd.email}"/>
     </c:if>
     <script type="text/javascript">
         <![CDATA[
@@ -66,10 +66,13 @@
 
         <c:choose>
             <c:when test="${param.msl ne null}">
-                <p class="infoMessage">
-                    Hi, ${nickname}! You have an email address on file, but still need to create an
-                    account with GreatSchools. Take a minute to register below!
-                </p>
+                <div class="infoMessage">
+                    <img src="/res/img/community/registration/check.gif" alt="Check"/>
+                    <p>
+                        Hi, ${nickname}! You have an email address on file, but still need to create an
+                        account with GreatSchools. Take a minute to register below!
+                    </p>
+                </div>
             </c:when>
             <c:otherwise>
                 <p>
