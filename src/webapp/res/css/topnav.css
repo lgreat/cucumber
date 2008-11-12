@@ -315,3 +315,33 @@
     width:865px;
     margin:0 auto;
 }
+
+/* NEW IMAGE FOR PRESCHOOLS */
+
+#topnav table#nav td.new {
+    width: 150px;
+    height: 30px;
+}
+
+#topnav table#nav td.new a {
+    text-align: left;
+    padding: 0;
+    width: 150px;
+    height: 30px;
+}
+
+#topnav table#nav td.new a .text {
+    float: left;
+    padding: 8px 0 8px 24px;
+}
+
+#topnav table#nav td.new a span.image {
+    float: left;
+    width: 38px;
+    height: 30px;
+    padding-left: 3px;
+}
+
+#topnav table#nav td.new a img {
+    padding-top: 5px;
+}
