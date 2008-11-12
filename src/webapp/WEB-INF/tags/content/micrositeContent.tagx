@@ -75,7 +75,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
                         <div class="featured-book" id="fairies">
                             <div class="cover"><img src="/res/img/holidayGiving/flowerfairieswinter.gif" alt="Flower Fairies of the Winter"/></div>
-                            <div class="title"><gsweb:articlelink articleId="1075" anchorName="fairies">Flower Fairies of the Winter</gsweb:articlelink></div>
+                            <div class="title"><gsweb:articlelink articleId="3666" anchorName="fairies">Flower Fairies of the Winter</gsweb:articlelink></div>
                         </div>
 
                         <div class="more">
