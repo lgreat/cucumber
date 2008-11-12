@@ -62,7 +62,7 @@ centerSchool.ratingHtml = '';
 centerSchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
 <c:set var="parent_rating" value="0"/>
 <c:if test="${parent_ratings.displayOverallRating eq true}">
-    <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
+    <c:set var="parent_rating" value="${parent_ratings.overall}"/>
 </c:if>
 
 <c:choose>
@@ -106,7 +106,7 @@ function initSchoolInfo() {
     mySchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
     <c:set var="parent_rating" value="0"/>
     <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.displayOverallRating eq true)}">
-        <c:set var="parent_rating" value="${nearbySchool.parentRatings.avgQuality}"/>
+        <c:set var="parent_rating" value="${nearbySchool.parentRatings.overall}"/>
     </c:if>
     <c:choose>
         <c:when test="${parent_rating eq 0}">
