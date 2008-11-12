@@ -141,9 +141,9 @@
     int cookieLife = 15; // days
     if (!CookieUtil.hasCookie(request, "decipherinc_seen_popup")) {
         boolean surveyEligable = false;
-        Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligable");
+        Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligible");
         if (surveyEligableCookie != null) {
-            // User has the survey_eligable cookie so determine if they are eligable
+            // User has the survey_eligible cookie so determine if they are eligable
             surveyEligable = "true".equals(surveyEligableCookie.getValue());
         } else {
             // We need to determine eligability
@@ -156,7 +156,7 @@
             if (Util.randomNumber(100) < surveyHoverPct) {
                 surveyEligable = true;
             }
-            CookieUtil.setCookie(response, "survey_eligable", String.valueOf(surveyEligable), 60 * 60 * 24 * cookieLife);
+            CookieUtil.setCookie(response, "survey_eligible", String.valueOf(surveyEligable), 60 * 60 * 24 * cookieLife);
         }
         // If they've seen a hover recently we want to delay showing the survey by one click
         if (surveyEligable && CookieUtil.hasCookie(request, "hover") && !CookieUtil.hasCookie(request, "hover_delay")) {
