@@ -160,3 +160,17 @@ div.newuser p {
     margin: 5px 0 10px 0;
     padding: 0;
 }
+
+div.wrapper ul.warning li {
+    font-size: 11px;
+    color: #CC5566;
+    position: relative;
+    padding-left: 18px;
+    height: 30px;
+}
+
+div.wrapper ul.warning li img {
+    position: absolute;
+    left: 0;
+    top: 5px;
+}
