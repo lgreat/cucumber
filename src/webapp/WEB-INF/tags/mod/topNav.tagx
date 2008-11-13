@@ -180,6 +180,26 @@
     <!--<table width="100%" border="0" cellspacing="0" cellpadding="0">-->
         <!--<tr>-->
             <!--<td>-->
+
+    <c:set var="preschoolNewDefaultImage" value="/res/img/${(requestScope.context.pathway == tabs.COUNTDOWN_COLLEGE ? 'new_dark_green_bg.gif' : 'new_light_green_bg.gif')}"/>
+    <c:set var="preschoolNewSelectedImage" value="/res/img/new_dark_green_bg.gif"/>
+
+    <script type="text/javascript">
+    // preload images
+    var newOff = new Image();
+    newOff.src = '${preschoolNewDefaultImage}';
+    var newOn = new Image();
+    newOn.src = '${preschoolNewSelectedImage}';
+    function togglePreschoolNewImage(selected) {
+        var img = document.getElementById('preschoolNew');
+        if (selected) {
+            img.src = newOn.src;
+        } else {
+            img.src = newOff.src;
+        }
+    }
+    </script>
+
     <table cellpadding="0" cellspacing="0" id="nav" class="${navBarClass}">
         <tr>
             <td width="28px">&amp;#160;</td>
@@ -194,9 +214,11 @@
                 id="GlobalNav_ResearchButton"
                 >Research &amp;amp; Compare</link:research></td>
              <!--#9--><td class="new"><link:preschool
+                                 onMouseOver="togglePreschoolNewImage(true);"
+                                 onMouseOut="togglePreschoolNewImage(false);"
                                  id="GlobalNav_PreschoolButton"
                                  styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '') } GS_CI9_ "
-                ><span class="text">Preschools</span><span class="image"><img src="/res/img/new_slug.gif" alt="New"/></span></link:preschool></td>
+                ><span class="text">Preschools</span><span class="image"><img id="preschoolNew" src="${preschoolNewDefaultImage}" alt="New"/></span></link:preschool></td>
             <!--#10--><td ><gsml:a href="http://${communityHost}"
                                    styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} GS_CI9_ "
                                    id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
