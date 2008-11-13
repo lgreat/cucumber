@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <pageHelper:externalCss file="/res/css/community/registration/popup/mssFlowHover.css"/>
+    <pageHelper:externalCss file="/res/css/school/compareHover-container.css"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
+    <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
+    <pageHelper:addOnLoadHandler handler="loginHoverInit()"/>
+
+    <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        //<!--
+        var mslFlowDialog;
+        function loginHoverInit() {
+            mslFlowDialog = new YAHOO.widget.Dialog("myDialog",
+            {
+                postmethod: "form",
+                width: "560px",
+                fixedcenter: true,
+                visible: false,
+                constraintoviewport: true,
+                draggable: false,
+                modal: true,
+                close: false
+            });
+            mslFlowDialog.render();
+        }
+
+        function showLoginHover() {
+            var frameLocation = '' + window.frames['myDialogIFrame'].window.location;
+            if (frameLocation.indexOf('/community/registration/popup/loginOrRegisterHover.page') == -1) {
+                window.frames['myDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
+            }
+
+            document.getElementById("myDialog").style.display="block";
+
+            mslFlowDialog.show();
+
+            return false;
+        }
+
+        function closeMslFlowDialog() {
+            mslFlowDialog.cancel();
+        }
+
+        function sendToDestination() {
+            closeMslFlowDialog();
+            alert("the function sendToDestination needs to be updated to forward the user to msl");
+        }
+
+        //-->
+        ]]>
+    </script>
+
+    <div id="myDialog" style="display: none;">
+        <div id="dialogTopBar">
+            <div class="dialogClose">
+                <img src="/res/img/submodal/close.gif" alt="Close window" onclick="closeMslFlowDialog();"/>
+            </div>
+        </div>
+        <div id="dialogBody">
+            <iframe id="myDialogIFrame" name="myDialogIFrame" src="/community/registration/popup/loginOrRegisterHover.page"
+                    width="547" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+        </div>
+    </div>
+
+    <!--
+     MSL login hover is now ready for use on your page
+     To use, attach an onclick handler to an a href like this:
+     <a href="/community/loginOrRegister.page"
+        onclick="return showLoginHover()">Sign in</a>
+
+     In addition, the sendToDestination function here should probably exist on your page instead, and use
+     page state to determine where to send the user and with what parameters. I would imagine the onclick
+     handler would set some local JS variables before calling showLoginHover. Then those variables are
+     used by sendToDestination.
+    -->
+
+</jsp:root>
