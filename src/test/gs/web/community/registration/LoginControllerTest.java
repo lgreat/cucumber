@@ -58,7 +58,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertTrue("MSL only users expect to get an error when trying to sign in", _errors.hasErrors());
     }
 
-    public void testOnSubmitWithRedirect() throws NoSuchAlgorithmException, SoapRequestException {
+    public void testOnSubmitWithRedirect() throws Exception {
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
@@ -82,7 +82,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
     }
 
-    public void testOnSubmitWithIPAttribute() throws NoSuchAlgorithmException, SoapRequestException {
+    public void testOnSubmitWithIPAttribute() throws Exception {
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
@@ -110,7 +110,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
                 mAndV.getViewName());
     }
 
-    public void testOnSubmitWithIPAttributeUndefined() throws NoSuchAlgorithmException, SoapRequestException {
+    public void testOnSubmitWithIPAttributeUndefined() throws Exception {
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
@@ -140,7 +140,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
                 mAndV.getViewName());
     }
 
-    public void testOnSubmitNoRedirect() throws NoSuchAlgorithmException, SoapRequestException {
+    public void testOnSubmitNoRedirect() throws Exception {
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
@@ -167,7 +167,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
                 mAndV.getViewName());
     }
 
-    public void testOnSubmitWithSoapError() throws NoSuchAlgorithmException, SoapRequestException {
+    public void testOnSubmitWithSoapError() throws Exception {
         // expect login to proceed despite error
         _user.setPlaintextPassword("foobar");
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);

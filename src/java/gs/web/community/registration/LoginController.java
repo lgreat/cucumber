@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.36 2008/10/23 16:38:51 cpickslay Exp $
+ * $Id: LoginController.java,v 1.37 2008/11/13 19:44:10 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -66,9 +66,8 @@ public class LoginController extends SimpleFormController {
                 loginCommand.setEmail("");
             }
         }
-        UrlUtil urlUtil = new UrlUtil();
         String url = loginCommand.getRedirect();
-        if (urlUtil.isCommunityContentLink(url)) {
+        if (UrlUtil.isCommunityContentLink(url)) {
 
             if (StringUtils.contains(url, "/q-and-a")) {
                 request.setAttribute("alertMessageType", "Question");
@@ -145,7 +144,7 @@ public class LoginController extends SimpleFormController {
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
-                                 BindException errors) throws NoSuchAlgorithmException {
+                                 BindException errors) throws Exception {
         LoginCommand loginCommand = (LoginCommand) command;
         String email = loginCommand.getEmail();
         User user = getUserDao().findUserFromEmail(email);

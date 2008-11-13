@@ -1,20 +1,14 @@
 package gs.web.community.registration.popup;
 
-import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
-import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.soap.SoapRequestException;
-import gs.web.community.registration.AuthenticationManager;
 import gs.web.community.registration.LoginCommand;
-import gs.web.soap.ReportLoginRequest;
+import gs.web.community.registration.LoginController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.UrlUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.EmailValidator;
 
@@ -22,19 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class LoginHoverController extends SimpleFormController {
-    protected final Log _log = LogFactory.getLog(getClass());
-
+public class LoginHoverController extends LoginController {
     public static final String BEAN_ID = "/community/registration/popup/loginOrRegisterHover.page";
-
-    private IUserDao _userDao;
-    private AuthenticationManager _authenticationManager;
-    private ReportLoginRequest _reportLoginRequest;
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -51,13 +38,6 @@ public class LoginHoverController extends SimpleFormController {
             }
         }
         loginCommand.setRememberMe(true);
-    }
-
-    protected void onBind(HttpServletRequest request, Object command) throws Exception {
-        super.onBind(request, command);
-        // make sure remember me check box is bound prior to validation
-        LoginCommand loginCommand = (LoginCommand) command;
-        loginCommand.setRememberMe(request.getParameter("loginCmd.rememberMe") != null);
     }
 
     /**
@@ -131,7 +111,7 @@ public class LoginHoverController extends SimpleFormController {
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
-                                 BindException errors) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+                                 BindException errors) throws Exception {
         LoginCommand loginCommand = (LoginCommand) command;
         String email = loginCommand.getEmail();
         ModelAndView mAndV = new ModelAndView();
@@ -165,46 +145,5 @@ public class LoginHoverController extends SimpleFormController {
 
         mAndV.setViewName("redirect:" + redirectUrl);
         return mAndV;
-    }
-
-    protected void notifyCommunity(User user, HttpServletRequest request) throws SoapRequestException {
-        ReportLoginRequest soapRequest = getReportLoginRequest();
-        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            soapRequest.setTarget("http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/soap/user");
-        }
-        String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
-        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
-            requestIP = request.getRemoteAddr();
-        }
-        soapRequest.reportLoginRequest(user, requestIP);
-    }
-
-    public IUserDao getUserDao() {
-        return _userDao;
-    }
-
-    public void setUserDao(IUserDao userDao) {
-        _userDao = userDao;
-    }
-
-    public AuthenticationManager getAuthenticationManager() {
-        return _authenticationManager;
-    }
-
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        _authenticationManager = authenticationManager;
-    }
-
-    public ReportLoginRequest getReportLoginRequest() {
-        if (_reportLoginRequest == null) {
-            _reportLoginRequest = new ReportLoginRequest();
-        }
-        return _reportLoginRequest;
-    }
-
-    public void setReportLoginRequest(ReportLoginRequest reportLoginRequest) {
-        _reportLoginRequest = reportLoginRequest;
     }
 }
