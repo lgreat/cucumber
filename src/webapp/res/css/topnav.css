@@ -318,6 +318,11 @@
 
 /* NEW IMAGE FOR PRESCHOOLS */
 
+#topnav table#nav td a:link span,
+#topnav table#nav td a:visited span {
+    color: #FFFFFF;
+}
+
 #topnav table#nav td.new {
     width: 150px;
     height: 30px;
