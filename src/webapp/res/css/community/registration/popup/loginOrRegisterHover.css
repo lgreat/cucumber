@@ -166,11 +166,18 @@ div.wrapper ul.warning li {
     color: #CC5566;
     position: relative;
     padding-left: 18px;
-    height: 30px;
 }
 
 div.wrapper ul.warning li img {
     position: absolute;
     left: 0;
     top: 5px;
+}
+
+.newuser ul.warning li {
+    height: 40px;
+}
+
+.returninguser ul.warning li {
+    height: 30px;
 }
