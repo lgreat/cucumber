@@ -45,7 +45,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(email)).andReturn(user);
         replay(_userDao);
 
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         command.setEmail(email);
         BindException errors = new BindException(command, "");
 
@@ -68,7 +68,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(email)).andReturn(null);
         replay(_userDao);
 
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         command.setEmail(email);
         BindException errors = new BindException(command, "");
 
@@ -85,7 +85,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net")).andReturn(user);
         replay(_userDao);
 
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         command.setEmail("forgotPasswordTest@greatschools.net");
         BindException errors = new BindException(command, "");
 
@@ -104,7 +104,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net")).andReturn(user);
         replay(_userDao);
 
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         command.setEmail(user.getEmail());
         BindException errors = new BindException(command, "");
 
@@ -124,7 +124,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists("forgotPasswordTest@greatschools.net")).andReturn(user);
         replay(_userDao);
 
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         command.setEmail(user.getEmail());
         BindException errors = new BindException(command, "");
 
@@ -134,10 +134,10 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testSuppressValidation() throws Exception {
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         getRequest().setParameter("cancel", "cancel");
-        assertTrue(_controller.suppressValidation(getRequest()));
+        assertTrue(_controller.suppressValidation(getRequest(), command));
 
-        UserCommand command = new UserCommand();
         BindException errors = new BindException(command, "");
         replay(_userDao);
 
@@ -153,10 +153,10 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     public void testCancelFromDev() throws Exception {
         getRequest().setParameter("cancel", "cancel");
         getRequest().setServerName("dev.greatschools.net");
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         BindException errors = new BindException(command, "");
 
-        assertTrue(_controller.suppressValidation(getRequest()));
+        assertTrue(_controller.suppressValidation(getRequest(), command));
 
         replay(_userDao);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
@@ -170,10 +170,10 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     public void testCancelFromDevWorkstation() throws Exception {
         getRequest().setParameter("cancel", "cancel");
         getRequest().setServerName("localhost");
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         BindException errors = new BindException(command, "");
 
-        assertTrue(_controller.suppressValidation(getRequest()));
+        assertTrue(_controller.suppressValidation(getRequest(), command));
 
         replay(_userDao);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
@@ -187,10 +187,10 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     public void testCancelFromStaging() throws Exception {
         getRequest().setParameter("cancel", "cancel");
         getRequest().setServerName("staging.greatschools.net");
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         BindException errors = new BindException(command, "");
 
-        assertTrue(_controller.suppressValidation(getRequest()));
+        assertTrue(_controller.suppressValidation(getRequest(), command));
 
         replay(_userDao);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
@@ -204,10 +204,10 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     public void testCancelFromWww() throws Exception {
         getRequest().setParameter("cancel", "cancel");
         getRequest().setServerName("www.greatschools.net");
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         BindException errors = new BindException(command, "");
 
-        assertTrue(_controller.suppressValidation(getRequest()));
+        assertTrue(_controller.suppressValidation(getRequest(), command));
 
         replay(_userDao);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
@@ -221,10 +221,10 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     public void testCancelFromWwwCobrand() throws Exception {
         getRequest().setParameter("cancel", "cancel");
         getRequest().setServerName("sfgate.greatschools.net");
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         BindException errors = new BindException(command, "");
 
-        assertTrue(_controller.suppressValidation(getRequest()));
+        assertTrue(_controller.suppressValidation(getRequest(), command));
 
         replay(_userDao);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
@@ -238,11 +238,11 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     public void testCancelWithReferrer() throws Exception {
         getRequest().setParameter("cancel", "cancel");
         getRequest().setServerName("dev.greatschools.net");
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         command.setReferrer("http://hello.kit.ty/");
         BindException errors = new BindException(command, "");
 
-        assertTrue(_controller.suppressValidation(getRequest()));
+        assertTrue(_controller.suppressValidation(getRequest(), command));
 
         replay(_userDao);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
@@ -256,11 +256,11 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     public void testCancelWithReferrerIframe() throws Exception {
         getRequest().setParameter("cancel", "cancel");
         getRequest().setServerName("dev.greatschools.net");
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         command.setReferrer("http://community.dev.greatschools.net/login_iframe?redirect=blahblah");
         BindException errors = new BindException(command, "");
 
-        assertTrue(_controller.suppressValidation(getRequest()));
+        assertTrue(_controller.suppressValidation(getRequest(), command));
 
         replay(_userDao);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
@@ -272,7 +272,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testBindReferrer() {
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         BindException errors = new BindException(command, "");
 
         getRequest().addHeader("REFERER", "http://good.b.ye/");
@@ -283,7 +283,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testBindNoReferrer() {
-        UserCommand command = new UserCommand();
+        ForgotPasswordCommand command = new ForgotPasswordCommand();
         BindException errors = new BindException(command, "");
 
         assertNull(command.getReferrer());

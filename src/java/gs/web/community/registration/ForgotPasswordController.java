@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -31,18 +33,14 @@ public class ForgotPasswordController extends SimpleFormController {
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
                                    BindException errors) {
-        UserCommand userCommand = (UserCommand) command;
+        ForgotPasswordCommand forgotPasswordCommand = (ForgotPasswordCommand) command;
 
         if (request.getParameter("email") != null) {
-            userCommand.setEmail(request.getParameter("email"));
+            forgotPasswordCommand.setEmail(request.getParameter("email"));
         }
         if (!StringUtils.isEmpty(request.getHeader("REFERER"))) {
-            userCommand.setReferrer(request.getHeader("REFERER"));
+            forgotPasswordCommand.setReferrer(request.getHeader("REFERER"));
         }
-    }
-
-    protected boolean suppressValidation(HttpServletRequest request) {
-        return isCancel(request);
     }
 
     protected boolean suppressValidation(HttpServletRequest request, Object obj) {
@@ -58,21 +56,21 @@ public class ForgotPasswordController extends SimpleFormController {
      */
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
-                                     BindException errors) throws NoSuchAlgorithmException {
+                                     BindException errors) throws Exception {
         // don't do validation on cancel
         // also don't both checking for a user if the emailValidator rejects the address
-        if (suppressValidation(request) || errors.hasErrors()) {
+        if (suppressValidation(request, command) || errors.hasErrors()) {
             return;
         }
-        UserCommand userCommand = (UserCommand) command;
-        User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
+        ForgotPasswordCommand forgotPasswordCommand = (ForgotPasswordCommand) command;
+        User user = getUserDao().findUserFromEmailIfExists(forgotPasswordCommand.getEmail());
         boolean isMslSubscriber = false;
         if (user != null) {
             isMslSubscriber =  (user.getFavoriteSchools() != null && !user.getFavoriteSchools().isEmpty());
         }
         if (user == null || user.isEmailProvisional()) {
             // generate error
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, forgotPasswordCommand.getEmail());
             String href = builder.asAnchor(request, "join GreatSchools").asATag();
             errors.rejectValue("email", null, "There is no account associated with that email address. " +
                     "Would you like to " + href + "?");
@@ -82,22 +80,22 @@ public class ForgotPasswordController extends SimpleFormController {
 //            errors.rejectValue("email", "password_empty", "You have chosen a new password, but haven't " +
 //                    "validated your email address yet. To validate your email address, follow the " +
 //                    "instructions in the email sent to you " + href2 + ".");
-            _log.info("Forgot password: user " + userCommand.getEmail() + " is not in database");
+            _log.info("Forgot password: user " + forgotPasswordCommand.getEmail() + " is not in database");
         } else if (user.isPasswordEmpty()) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, forgotPasswordCommand.getEmail());
             String href = builder.asAnchor(request, "join GreatSchools").asATag();
             errors.rejectValue("email", null, "There is no community account associated with that email address. " +
                     "Would you like to " + href + "?");
-            _log.info("Forgot password: non-community user " + userCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
+            _log.info("Forgot password: non-community user " + forgotPasswordCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
             String errmsg = "The account associated with that email address has been disabled. " +
                     "Please <a href=\"http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                     "/report/email-moderator\">contact us</a> for more information.";
             errors.rejectValue("email", null, errmsg);
-            _log.info("Forgot password: disabled community user " + userCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
+            _log.info("Forgot password: disabled community user " + forgotPasswordCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         } else {
-            _log.info("Forgot password: community user " + userCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
+            _log.info("Forgot password: community user " + forgotPasswordCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         }
     }
 
@@ -106,16 +104,11 @@ public class ForgotPasswordController extends SimpleFormController {
                                  Object command,
                                  BindException errors) throws Exception {
         ModelAndView mAndV = new ModelAndView();
-        UserCommand userCommand = (UserCommand) command;
-        if (!suppressValidation(request)) {
-            User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-            _forgotPasswordEmail.sendToUser(user, request);
-            mAndV.setViewName(getSuccessView());
-            String msg = "An email has been sent to " + userCommand.getEmail() +
-                    " with instructions for selecting a new password.";
-            mAndV.getModel().put("message", msg);
+        ForgotPasswordCommand forgotPasswordCommand = (ForgotPasswordCommand) command;
+        if (!suppressValidation(request, command)) {
+            sendEmail(forgotPasswordCommand, mAndV, request);
         } else {
-            String redirectUrl = userCommand.getReferrer();
+            String redirectUrl = forgotPasswordCommand.getReferrer();
             if (StringUtils.isEmpty(redirectUrl) || StringUtils.contains(redirectUrl, "login_iframe")) {
                 redirectUrl = "http://" +
                         SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
@@ -125,6 +118,17 @@ public class ForgotPasswordController extends SimpleFormController {
         }
 
         return mAndV;
+    }
+
+    protected void sendEmail(ForgotPasswordCommand forgotPasswordCommand,
+                             ModelAndView mAndV,
+                             HttpServletRequest request) throws IOException, MessagingException, NoSuchAlgorithmException {
+        User user = getUserDao().findUserFromEmailIfExists(forgotPasswordCommand.getEmail());
+        _forgotPasswordEmail.sendToUser(user, request);
+        mAndV.setViewName(getSuccessView());
+        String msg = "An email has been sent to " + forgotPasswordCommand.getEmail() +
+                " with instructions for selecting a new password.";
+        mAndV.getModel().put("message", msg);
     }
 
     public IUserDao getUserDao() {

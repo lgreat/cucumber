@@ -1,13 +1,14 @@
-package gs.web.community.registration.popup;
+package gs.web.community.registration;
 
 import gs.web.util.validator.EmailValidator;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class ForgotPasswordHoverCommand implements EmailValidator.IEmail {
+public class ForgotPasswordCommand implements EmailValidator.IEmail {
     private String _email;
     private boolean _msl;
+    private String _referrer;
 
     public String getEmail() {
         return _email;
@@ -23,5 +24,13 @@ public class ForgotPasswordHoverCommand implements EmailValidator.IEmail {
 
     public void setMsl(boolean msl) {
         _msl = msl;
+    }
+
+    public String getReferrer() {
+        return _referrer;
+    }
+
+    public void setReferrer(String referrer) {
+        _referrer = referrer;
     }
 }
