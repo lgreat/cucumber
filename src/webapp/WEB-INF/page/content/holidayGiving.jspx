@@ -134,8 +134,8 @@
                 <ul class="bulleted">
                     <gsweb:articlelink articleId="771"
                         wrappingElement="li">Bundles of Learning Gifts</gsweb:articlelink>
-                    <gsweb:articlelink articleId="1133"
-                        wrappingElement="li">Parents Choice Holiday Guide</gsweb:articlelink>
+                    <gsweb:articlelink articleId="3673"
+                        wrappingElement="li">Parent's Choice Gift Guide 2008</gsweb:articlelink>
                     <gsweb:articlelink articleId="782"
                         wrappingElement="li">10 Tips to Find Great Learning Gifts</gsweb:articlelink>
                 </ul>
@@ -149,7 +149,7 @@
         <div class="moduleBox last" id="givingContest">
             <div id="text">
                 <p>How do you teach chldren the spirit of giving?</p>
-                <p><a href="http://${communityHost}/category/holidays/">Submit your story for a chance to win a $100 DonorsChoose gift card for your school!</a></p>
+                <p><a href="http://${communityHost}/category/holiday-contest/">Submit your story for a chance to win a $100 DonorsChoose gift card for your school!</a></p>
             </div>
             <img src="/res/img/holidayGiving/contest_giftcard.gif" alt="Giving card"/>
         </div>

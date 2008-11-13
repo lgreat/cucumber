@@ -94,36 +94,14 @@ p.question {
     /* 145x102 */
     background: url(/res/img/holidayGiving/bookNook_bottomRightdecoration.gif) no-repeat 148px 148px;
     background-color: #fff;
-    /*
-    background: #fff;
-	width: 266px;
-	min-height: 250px;
-	height: auto !important;
-	height: 250px;
-	float: left;
-	margin-top: 14px;
-	padding: 10px 15px 0;
-    color: #666;
-    position: relative;
-*/
 }
-
-.box.holidayBookNook #inners {
-    /* 145x102 */
-    background: url(/res/img/holidayGiving/bookNook_bottomRightdecoration.gif) no-repeat 129px 148px;
-    overflow: visible;
-    width: 274px;
-	height: 250px;
-    padding: 10px 15px 0;
-    /*background-color: red;*/
-}
-
 
 .holidayBookNook div.more {
     clear: both;
     float: right;
-    margin-top: 10px;
+    margin-top: 5px;
     font-size: small;
+    text-align: right;
 }
 
 .holidayBookNook .featured-book {
@@ -131,12 +109,12 @@ p.question {
 }
 
 .holidayBookNook .featured-book#bears {
-    padding-top: 15px;
+    padding-top: 10px;
     height: 60px;
 }
 
 .holidayBookNook .featured-book#fairies {
-    padding-top: 10px;
+    padding-top: 8px;
     height: 70px;
 }
 

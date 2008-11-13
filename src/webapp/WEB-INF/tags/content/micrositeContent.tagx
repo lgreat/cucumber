@@ -79,6 +79,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
                         </div>
 
                         <div class="more">
+                            <gsweb:articlelink articleId="3672">Great Gift Books for Young Adults &amp;gt;</gsweb:articlelink><br/>
                             <gsweb:articlelink articleId="3666">More Holiday Favorites &amp;gt;</gsweb:articlelink>
                         </div>
 
