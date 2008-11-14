@@ -222,6 +222,9 @@
             </c:choose>
         </c:if>
     </c:when>
+    <c:otherwise>
+        <c:set var="schoolType" value="private"/>
+    </c:otherwise>
     <c:if test="${showSurvey}">
         <pageHelper:externalJavascript file="/res/js/blogTracking/pageTracking.js"/>
         <pageHelper:externalJavascript file="http://survey.greatschools.net/survey/gts/gts08001/stub.js"/>
@@ -235,9 +238,6 @@
             setTimeout("trackSurveyHover()", 5000);
         </script>
     </c:if>
-    <c:otherwise>
-        <c:set var="schoolType" value="private"/>
-    </c:otherwise>
 </c:choose>
 
 <div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
