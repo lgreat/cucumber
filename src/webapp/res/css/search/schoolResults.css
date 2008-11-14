@@ -392,19 +392,19 @@ div.phone {
 }
 
 #searchFooter #sf_col_left {
-    width: 272px;
+    width: 252px;
     /*float: left;*/
     border-right: 1px solid #c8ce9e;
     padding: 10px 0 5px 0;
 }
 
 #searchFooter #sf_col_right {
-    width: 170px;
+    width: 210px;
     /*float: left;*/
     padding-left: 20px;
     position: absolute;
     top: 8px;
-    left: 313px;
+    left: 293px;
 }
 
 #mainresults {

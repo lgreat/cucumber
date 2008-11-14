@@ -13,12 +13,24 @@
             <h2 class="browseheader label">Browse</h2>
             <ul class="refinementlist">
                 <c:if test="${(param.c ne 'topic' and param.type ne 'topic' and requestScope.typeOverride ne 'topic') or (param.c eq 'school' or param.type eq 'school' or requestScope.typeOverride eq 'school')}">
-                    <li>
-                        <link:cities state="${state}">${state.longName} cities</link:cities>
-                    </li>
-                    <li>
-                        <link:districts state="${state}">${state.longName} districts</link:districts>
-                    </li>
+                    <c:choose>
+                        <c:when test="${state eq 'DC'}">
+                            <li>
+                                <link:schools cityName="Washington">All schools in Washington, DC</link:schools>
+                            </li>
+                            <li>
+                                <link:districtProfile state="${state}" districtId="1">District of Columbia Public Schools</link:districtProfile>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <link:cities state="${state}">${state.longName} cities</link:cities>
+                            </li>
+                            <li>
+                                <link:districts state="${state}">${state.longName} districts</link:districts>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
                 </c:if>
                 <c:if test="${(param.c eq 'topic' or param.type eq 'topic' or requestScope.typeOverride eq 'topic') or (param.c ne 'school' and param.type ne 'school' and requestScope.typeOverride ne 'school')}">
                     <li><link:articleLibrary>Articles</link:articleLibrary></li>

@@ -86,8 +86,16 @@
                 <h1>${displayName} Schools</h1>
             </td>
             <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
+                <c:choose>
+                    <c:when test="${cityObject.name eq 'Washington' and stateAbbrev eq 'DC'}">
+                        <c:set var="numNearbyCities" value="4"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="numNearbyCities" value="5"/>
+                    </c:otherwise>
+                </c:choose>
                 <jsp:include
-                        page="/geo/nearbyCities.module?city=${cityObject.name}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities&amp;state=${stateAbbrev}&amp;module=true"/>
+                        page="/geo/nearbyCities.module?city=${cityObject.name}&amp;count=${numNearbyCities}&amp;more=true&amp;heading=Nearby+Cities&amp;state=${stateAbbrev}&amp;module=true"/>
             </td>
         </tr>
     </table>

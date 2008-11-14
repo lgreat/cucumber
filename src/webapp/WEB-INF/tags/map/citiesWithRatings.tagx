@@ -84,6 +84,7 @@
         var bubbleText = '';
         var height = 110;
         var ieWidth = 'style="width:210px"';
+        var cityDisplayName = (cityName == 'Washington' && state == 'DC' ? 'Washington, DC' : cityName);
         if (cityMedianHomePrice != '0') {
             height += 20;
             if (zip += '') {
@@ -123,7 +124,7 @@
             }
         }
         bubbleText += '  <div class="viewAllSchools" ' + ieWidth + '>\n';
-        bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityName + ' &gt;</a>\n';
+        bubbleText += '    <a href="' + schoolsUrl + '">View all schools in ' + cityDisplayName + ' &gt;</a>\n';
         bubbleText += '  </div>\n';
         bubbleText += '</div>';
         return bubbleText;
