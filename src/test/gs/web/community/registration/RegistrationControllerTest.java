@@ -13,7 +13,6 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
 import static org.easymock.classextension.EasyMock.*;
-import org.easymock.classextension.MockClassControl;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -37,8 +36,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     private static final String SUCCESS_VIEW = "/community/registration/registrationSuccess";
     private MockControl _subscriptionDaoMock;
     private ISubscriptionDao _subscriptionDao;
-    private MockControl _authenticationManagerMock;
-    private AuthenticationManager _authenticationManager;
     private CreateOrUpdateUserRequest _soapRequest;
 
     protected void setUp() throws Exception {
@@ -56,10 +53,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _subscriptionDaoMock = MockControl.createControl(ISubscriptionDao.class);
         _subscriptionDao = (ISubscriptionDao) _subscriptionDaoMock.getMock();
 
-        _authenticationManagerMock = MockClassControl.createNiceControl(AuthenticationManager.class);
-        _authenticationManager = (AuthenticationManager) _authenticationManagerMock.getMock();
-        _authenticationManagerMock.replay();
-
         _soapRequest = createMock(CreateOrUpdateUserRequest.class);
         _controller.setSoapRequest(_soapRequest);
 
@@ -67,8 +60,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _controller.setUserDao(_userDao);
         _controller.setSuccessView(SUCCESS_VIEW);
         _controller.setSubscriptionDao(_subscriptionDao);
-        _controller.setAuthenticationManager(_authenticationManager);
-
 
          GoogleSpreadsheetDaoFactory tableDaoFactory =
                 (GoogleSpreadsheetDaoFactory)getApplicationContext().
@@ -84,6 +75,17 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
                 getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
         email.getEmailHelperFactory().setMailSender(_mailSender);
         _controller.setRegistrationConfirmationEmail(email);
+        _controller.setRequireEmailValidation(true);
+        _controller.setErrorView("error");
+    }
+    
+    public void testBasics() {
+        assertSame(_userDao, _controller.getUserDao());
+        assertSame(_geoDao, _controller.getGeoDao());
+        assertNotNull(_controller.getTableDao());
+        assertSame(_subscriptionDao, _controller.getSubscriptionDao());
+        assertSame(_mailSender, _controller.getMailSender());
+        assertNotNull(_controller.getRegistrationConfirmationEmail());
     }
 
     /**
@@ -357,7 +359,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      */
     public void testExistingUser() throws Exception {
         String email = "testExistingUser@greatschools.net";
-        Integer userId = new Integer(346);
+        Integer userId = 346;
 
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
@@ -367,7 +369,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setPassword(password);
         userCommand.setConfirmPassword(password);
         userCommand.setScreenName("screeny");
-        userCommand.setNumSchoolChildren(new Integer(0));
+        userCommand.setNumSchoolChildren(0);
         userCommand.getUser().setId(userId);
 
         assertTrue(userCommand.getUser().isPasswordEmpty());

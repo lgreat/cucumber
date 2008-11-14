@@ -1,0 +1,210 @@
+package gs.web.community.registration.popup;
+
+import gs.data.community.*;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
+import gs.data.soap.CreateOrUpdateUserRequest;
+import gs.data.soap.CreateOrUpdateUserRequestBean;
+import gs.data.state.State;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableRow;
+import gs.web.BaseControllerTestCase;
+import gs.web.community.registration.RegistrationConfirmationEmail;
+import org.apache.commons.lang.StringUtils;
+import static org.easymock.classextension.EasyMock.*;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
+ */
+public class RegistrationHoverControllerTest extends BaseControllerTestCase {
+    private RegistrationHoverController _controller;
+    private IUserDao _userDao;
+    private IGeoDao _geoDao;
+    private ISubscriptionDao _subscriptionDao;
+    private ITableDao _tableDao;
+    private CreateOrUpdateUserRequest _soapRequest;
+    private RegistrationConfirmationEmail _registrationConfirmationEmail;
+    private RegistrationHoverCommand _command;
+    private BindException _errors;
+
+    public void setUp() throws Exception {
+        super.setUp();
+
+        _controller = new RegistrationHoverController();
+
+        _userDao = createStrictMock(IUserDao.class);
+        _geoDao = createStrictMock(IGeoDao.class);
+        _subscriptionDao = createStrictMock(ISubscriptionDao.class);
+        _tableDao = createStrictMock(ITableDao.class);
+        _soapRequest = createStrictMock(CreateOrUpdateUserRequest.class);
+        _registrationConfirmationEmail = createStrictMock(RegistrationConfirmationEmail.class);
+
+        _controller.setUserDao(_userDao);
+        _controller.setGeoDao(_geoDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.setTableDao(_tableDao);
+        _controller.setSoapRequest(_soapRequest);
+        _controller.setRegistrationConfirmationEmail(_registrationConfirmationEmail);
+
+        _command = new RegistrationHoverCommand();
+        _command.setEmail("RegistrationHoverControllerTest@greatschools.net");
+        _command.getUser().setId(123); // to fake the database save
+        _command.setPassword("foobar");
+        _command.setConfirmPassword("foobar");
+        _command.setNewsletter(false);
+        _controller.setRequireEmailValidation(false);
+        _errors = new BindException(_command, "");
+
+        getRequest().setRemoteAddr("127.0.0.1");
+        getRequest().setServerName("dev.greatschools.net");
+    }
+
+    public void replayMocks() {
+        replay(_userDao);
+        replay(_geoDao);
+        replay(_subscriptionDao);
+        replay(_tableDao);
+        replay(_soapRequest);
+        replay(_registrationConfirmationEmail);
+    }
+
+    public void verifyMocks() {
+        verify(_userDao);
+        verify(_geoDao);
+        verify(_subscriptionDao);
+        verify(_tableDao);
+        verify(_soapRequest);
+        verify(_registrationConfirmationEmail);
+    }
+
+    public void resetMocks() {
+        reset(_userDao);
+        reset(_geoDao);
+        reset(_subscriptionDao);
+        reset(_tableDao);
+        reset(_soapRequest);
+        reset(_registrationConfirmationEmail);
+    }
+
+    public void testOnBindOnNewForm() {
+        expect(_geoDao.findCitiesByState(State.CA)).andReturn(new ArrayList<City>());
+        replayMocks();
+        _controller.onBindOnNewForm(getRequest(), _command, _errors);
+        verifyMocks();
+
+        assertFalse(_command.isMslOnly());
+
+        resetMocks();
+        getRequest().setParameter("msl", "true");
+        expect(_geoDao.findCitiesByState(State.CA)).andReturn(new ArrayList<City>());
+        replayMocks();
+        _controller.onBindOnNewForm(getRequest(), _command, _errors);
+        verifyMocks();
+
+        assertTrue(_command.isMslOnly());
+    }
+
+    public void testOnBindAndValidate() throws Exception {
+        assertFalse(_errors.hasErrors());
+        User user = new User();
+        user.setId(123);
+        user.setPlaintextPassword("foobar");
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
+        replayMocks();
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        verifyMocks();
+        assertTrue("Expect validation to occur", _errors.hasErrors());
+    }
+
+    public void testOnSubmitNewUser() throws Exception {
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser(isA(User.class)); // create new user
+        _userDao.updateUser(isA(User.class)); // set password
+        _userDao.updateUser(isA(User.class)); // update user profile
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        _registrationConfirmationEmail.sendToUser(isA(User.class), eq("foobar"), eq(getRequest()));
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
+    }
+
+    public void testOnSubmitExistingUser() throws Exception {
+        User user = new User();
+        user.setId(123);
+        user.setEmail("RegistrationHoverControllerTest@greatschools.net");
+
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
+        _userDao.updateUser(user); // set password
+        _userDao.updateUser(user); // update user profile
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        _registrationConfirmationEmail.sendToUser(isA(User.class), eq("foobar"), eq(getRequest()));
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
+    }
+
+    public void testOnSubmitProvisionalUser() throws Exception {
+        User user = new User();
+        user.setId(123);
+        user.setEmail("RegistrationHoverControllerTest@greatschools.net");
+        user.setPlaintextPassword("foobar");
+        user.setEmailProvisional("foobar");
+        UserProfile profile = new UserProfile();
+        profile.setId(123);
+        user.setUserProfile(profile);
+
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
+        _userDao.updateUser(user); // set password
+        _userDao.updateUser(user); // update user profile
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        _registrationConfirmationEmail.sendToUser(isA(User.class), eq("foobar"), eq(getRequest()));
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
+    }
+
+    public void testOnSubmitNewUserWithSubscriptions() throws Exception {
+        _command.setNewsletter(true);
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(null);
+        _userDao.saveUser(isA(User.class)); // create new user
+        _userDao.updateUser(isA(User.class)); // set password
+        _userDao.updateUser(isA(User.class)); // update user profile
+        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
+        _soapRequest.setTarget("http://community.dev.greatschools.net/soap/user");
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        _registrationConfirmationEmail.sendToUser(isA(User.class), eq("foobar"), eq(getRequest()));
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertTrue("Expect hover to be closed", StringUtils.contains(mAndV.getViewName(), "sendToDestination"));
+    }
+
+    public void testOnSubmitBlockedIP() throws Exception {
+        _controller.setErrorView("error");
+        expect(_tableDao.getFirstRowByKey("ip", "127.0.0.1")).andReturn(createMock(ITableRow.class));
+        replayMocks();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        verifyMocks();
+        assertNotNull(mAndV);
+        assertTrue("Expect error view", StringUtils.equals(mAndV.getViewName(), "error"));
+    }
+}

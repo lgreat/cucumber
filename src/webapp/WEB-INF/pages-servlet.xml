@@ -1282,6 +1282,7 @@
         <property name="commandClass" value="gs.web.community.registration.popup.RegistrationHoverCommand"/>
         <property name="formView" value="/community/registration/popup/registrationHover"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
+        <property name="requireEmailValidation" value="false"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
