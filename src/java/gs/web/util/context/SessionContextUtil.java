@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.52 2008/11/05 23:44:48 thuss Exp $
+ * $Id: SessionContextUtil.java,v 1.53 2008/11/14 19:15:04 yfan Exp $
  */
 
 package gs.web.util.context;
@@ -265,7 +265,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         }
 
         String uri = httpServletRequest.getRequestURI();
-        if (uri != null && (uri.contains("/content/") || uri.contains("/education-topics/"))) {
+        if (uri != null && (uri.contains("/content/") || uri.contains("/education-topics/") || uri.contains("/articles/"))) {
             context.setIsTopicPage(true);
         } else if (uri != null && uri.endsWith("/preschool/")) {
             context.setIsTopicPage(true);
