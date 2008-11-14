@@ -138,40 +138,43 @@
     // GS-7445 - this is really verbose but it's done inline so it will be easy to remove in the next release
     boolean showNLHover = true;
     boolean showSurvey = false;
-    int cookieLife = 15; // days
-    if (!CookieUtil.hasCookie(request, "decipherinc_seen_popup")) {
-        boolean surveyEligable = false;
-        Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligible");
-        if (surveyEligableCookie != null) {
-            // User has the survey_eligible cookie so determine if they are eligable
-            surveyEligable = "true".equals(surveyEligableCookie.getValue());
-        } else {
-            // We need to determine eligability
-            int surveyHoverPct = 0;
-            try {
-                surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
-            } catch (Exception e) {
-                // no nothing
+    SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+    if (!context.isCobranded()) {
+        int cookieLife = 15; // days
+        if (!CookieUtil.hasCookie(request, "decipherinc_seen_popup")) {
+            boolean surveyEligable = false;
+            Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligible");
+            if (surveyEligableCookie != null) {
+                // User has the survey_eligible cookie so determine if they are eligable
+                surveyEligable = "true".equals(surveyEligableCookie.getValue());
+            } else {
+                // We need to determine eligability
+                int surveyHoverPct = 0;
+                try {
+                    surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
+                } catch (Exception e) {
+                    // no nothing
+                }
+                if (Util.randomNumber(100) < surveyHoverPct) {
+                    surveyEligable = true;
+                }
+                CookieUtil.setCookie(response, "survey_eligible", String.valueOf(surveyEligable), 60 * 60 * 24 * cookieLife);
             }
-            if (Util.randomNumber(100) < surveyHoverPct) {
-                surveyEligable = true;
+            // If they've seen a hover recently we want to delay showing the survey by one click
+            if (surveyEligable && CookieUtil.hasCookie(request, "hover") && !CookieUtil.hasCookie(request, "hover_delay")) {
+                CookieUtil.setCookie(response, "hover_delay", "1", 60 * 60 * 24 * cookieLife);
+                showSurvey = false;
+            } else {
+                showSurvey = surveyEligable && (request.getRequestURL().indexOf("school/overview") > -1);
             }
-            CookieUtil.setCookie(response, "survey_eligible", String.valueOf(surveyEligable), 60 * 60 * 24 * cookieLife);
-        }
-        // If they've seen a hover recently we want to delay showing the survey by one click
-        if (surveyEligable && CookieUtil.hasCookie(request, "hover") && !CookieUtil.hasCookie(request, "hover_delay")) {
-            CookieUtil.setCookie(response, "hover_delay", "1", 60 * 60 * 24 * cookieLife);
-            showSurvey = false;
+            showNLHover = !showSurvey;
         } else {
-            showSurvey = surveyEligable && (request.getRequestURL().indexOf("school/overview") > -1);
-        }
-        showNLHover = !showSurvey;
-    } else {
-        // They have seen the popup survey, so now we want to make sure we skip launching the NL hover once
-        Cookie surveyDelayCookie = CookieUtil.getCookie(request, "survey_delay");
-        if (surveyDelayCookie == null) {
-            CookieUtil.setCookie(response, "survey_delay", "1", 60 * 60 * 24 * cookieLife);
-            showNLHover = false;
+            // They have seen the popup survey, so now we want to make sure we skip launching the NL hover once
+            Cookie surveyDelayCookie = CookieUtil.getCookie(request, "survey_delay");
+            if (surveyDelayCookie == null) {
+                CookieUtil.setCookie(response, "survey_delay", "1", 60 * 60 * 24 * cookieLife);
+                showNLHover = false;
+            }
         }
     }
     request.setAttribute("showNLHover", showNLHover);
@@ -208,19 +211,6 @@
         <c:if test="${!requestScope.context.crawler}">
             <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
             <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-            <c:if test="${showSurvey}">
-                <pageHelper:externalJavascript file="/res/js/blogTracking/pageTracking.js"/>
-                <pageHelper:externalJavascript file="http://survey.greatschools.net/survey/gts/gts08001/stub.js"/>
-                <script type="text/javascript">
-                    function trackSurveyHover() {
-                        pageTracking.pageName = "Decipher Hover Survey";
-                        pageTracking.heirarchy = "Surveys,Auto Hover";
-                        pageTracking.server = "${requestScope.context.hostName}";
-                        pageTracking.send(); 
-                    }
-                    setTimeout ("trackSurveyHover()", 5000);                    
-                </script>
-            </c:if>
             <c:if test="${showNLHover}"><pageHelper:externalJavascript file="/cm/mss_modal.js"/></c:if>
             <c:choose>
                 <c:when test="${school.levelCode == 'p'}">
@@ -232,6 +222,19 @@
             </c:choose>
         </c:if>
     </c:when>
+    <c:if test="${showSurvey}">
+        <pageHelper:externalJavascript file="/res/js/blogTracking/pageTracking.js"/>
+        <pageHelper:externalJavascript file="http://survey.greatschools.net/survey/gts/gts08001/stub.js"/>
+        <script type="text/javascript">
+            function trackSurveyHover() {
+                pageTracking.pageName = "Decipher Hover Survey";
+                pageTracking.heirarchy = "Surveys,Auto Hover";
+                pageTracking.server = "${requestScope.context.hostName}";
+                pageTracking.send();
+            }
+            setTimeout("trackSurveyHover()", 5000);
+        </script>
+    </c:if>
     <c:otherwise>
         <c:set var="schoolType" value="private"/>
     </c:otherwise>
