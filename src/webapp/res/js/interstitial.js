@@ -82,5 +82,7 @@ function isAdLink(link) {
 }
 
 function isExcludedLink(link) {
-    return link.className.match(/noInterstitial/);
+    return link.className.match(/noInterstitial/) ||
+           (link.getAttribute("href") != null && link.getAttribute("href").match(/(^#)|javascript/)) ||
+           (link.getAttribute("onclick") != null && link.getAttribute("onclick").match(/window.open/));
 }
