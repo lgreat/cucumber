@@ -13,6 +13,10 @@
 
     <c:set var="hideRating" value="${!empty hideGSRating and hideGSRating ? true : false}"/>
     
+    <!-- A/B test for GS-7598: B users are prompted to log in or join GS community when clicking Add to MSL
+    To revert to A, delete variant:b block, mslOnclick variable, and any onclick references to said variable
+    To revert to B, make variant:b block permanent.
+    -->
     <c:set var="mslOnclick" value=""/>
     <variant:b>
         <c:if test="${requestScope.context.userSeemsValid eq false}">
