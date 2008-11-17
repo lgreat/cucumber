@@ -261,7 +261,7 @@
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
         <div id="tools">
-            <c:set var="mslOnClick" value=""/>
+            <c:set var="mslOnclick" value=""/>
             <variant:b>
                 <c:if test="${requestScope.context.userSeemsValid eq false}">
                     <community:mslLoginHover/>
@@ -279,15 +279,15 @@
                             return showLoginHover();
                         }
                     </script>
-                    <c:set var="mslOnClick" value="return storeHrefOpenHover(this.href);"/>
+                    <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
                 </c:if>
             </variant:b>
             <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"
-                               onclick="${mslOnClick}"><gsml:img
+                               onclick="${mslOnclick}"><gsml:img
                     src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
             <link:mySchoolList school="${school}" styleClass="add toolsTxt"
                                anchor="${headerLinkAnchor}"
-                               onclick="${mslOnClick}">Add to My School List</link:mySchoolList>
+                               onclick="${mslOnclick}">Add to My School List</link:mySchoolList>
 
             <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 

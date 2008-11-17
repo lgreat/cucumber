@@ -1,22 +1,22 @@
-#myDialog {
+#mslFlowDialog {
     font-family: "Trebuchet MS", Arial, sans-serif;
     position: relative;
 }
 
-#dialogTopBar {
+#mslFlowDialogTopBar {
     background-color: #8BCBCB;
     height: 26px;
     position: relative;
 }
 
-    #dialogTopBar .dialogClose {
+    #mslFlowDialogTopBar .dialogClose {
         position: absolute;
         right: 8px;
         top: 5px;
         cursor: pointer;
     }
 
-#dialogBody {
+#mslFlowDialogBody {
     border: 3px solid #8BCBCB;
     border-top: 0;
 }

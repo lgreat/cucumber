@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.26 2008/11/17 19:35:46 aroy Exp $
+ * $Id: SessionContext.java,v 1.27 2008/11/17 22:17:39 aroy Exp $
  */
 package gs.web.util.context;
 
@@ -24,7 +24,6 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URLEncoder;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * The purpose is to hold common "global" properties for a user throughout their
