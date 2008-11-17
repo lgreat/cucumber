@@ -33,7 +33,10 @@
         }
 
         function showLoginHover() {
-            window.frames['myDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
+            var frameLocation = '' + window.frames['myDialogIFrame'].window.location;
+            if (frameLocation.indexOf('/community/registration/popup/loginOrRegisterHover.page') == -1) {
+                window.frames['myDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
+            }
 
             document.getElementById("myDialog").style.display="block";
 
