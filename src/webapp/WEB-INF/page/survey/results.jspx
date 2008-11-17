@@ -98,7 +98,7 @@
                 <c:otherwise>
                     <c:set var="surveyPageName" value="School Culture" />
                     <c:set var="promoImageName" value="culture"/>
-                    <meta name="Description" content="Review parent survey results about ${school.name}’s school culture including information about the principal, discipline, parent involvement and more - ${location}"/>
+                    <meta name="Description" content="Review parent survey results about ${school.name}'s school culture including information about the principal, discipline, parent involvement and more - ${location}"/>
                     <meta name="keywords" content="${school.name} principal, ${school.name} administration, ${school.name} parents, ${school.name} discipline, ${school.name} culture" />
                 </c:otherwise>
             </c:choose>
