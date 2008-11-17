@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.25 2008/11/05 23:44:48 thuss Exp $
+ * $Id: SessionContext.java,v 1.26 2008/11/17 19:35:46 aroy Exp $
  */
 package gs.web.util.context;
 
@@ -113,15 +113,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         return _applicationContext;
     }
 
-    public boolean isUserValid() {
-        User user = getUser();
-        if (user != null && _userHash != null) {
-            try {
-                Object[] hashInput = new Object[]{User.SECRET_NUMBER, user.getId(), user.getEmail()};
-                String realHash = DigestUtil.hashObjectArray(hashInput);
-                return realHash.equals(_userHash);
-            } catch (NoSuchAlgorithmException e) {
-                // fall through to return false below
+    public boolean isUserSeemsValid() {
+        if (_memberId != null && _userHash != null && _userHash.length() > DigestUtil.MD5_HASH_LENGTH) {
+            if (StringUtils.equals(_memberId.toString(), _userHash.substring(DigestUtil.MD5_HASH_LENGTH))) {
+                return true;
             }
         }
         return false;

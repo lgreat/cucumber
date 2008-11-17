@@ -61,17 +61,18 @@ public class SessionContextTest extends BaseTestCase {
         _sessionContext.setGeoDao(_geoDao);
     }
 
-    public void testIsUserValid() throws NoSuchAlgorithmException {
+    public void testIsUserSeemsValid() throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(123);
         user.setEmail("anEmail@greatschools.net");
+        _sessionContext.setMemberId(123);
         _sessionContext.setUser(user);
         assertEquals("anEmail@greatschools.net", _sessionContext.getEmail());
         assertEquals("anEmail%40greatschools.net", _sessionContext.getEmailUrlEncoded());
 
-        Object[] inputs = {User.SECRET_NUMBER, user.getId(), user.getEmail()};
-        _sessionContext.setUserHash(DigestUtil.hashObjectArray(inputs));
-        assertTrue(_sessionContext.isUserValid());
+        Object[] inputs = {User.SECRET_NUMBER, "foobar", user.getId()};
+        _sessionContext.setUserHash(DigestUtil.hashObjectArray(inputs) + "123");
+        assertTrue(_sessionContext.isUserSeemsValid());
     }
 
     public void testIsCrawler() {

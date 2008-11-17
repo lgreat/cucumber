@@ -33,10 +33,7 @@
         }
 
         function showLoginHover() {
-            var frameLocation = '' + window.frames['myDialogIFrame'].window.location;
-            if (frameLocation.indexOf('/community/registration/popup/loginOrRegisterHover.page') == -1) {
-                window.frames['myDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
-            }
+            window.frames['myDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
 
             document.getElementById("myDialog").style.display="block";
 
@@ -48,12 +45,6 @@
         function closeMslFlowDialog() {
             mslFlowDialog.cancel();
         }
-
-        function sendToDestination() {
-            closeMslFlowDialog();
-            alert("the function sendToDestination needs to be updated to forward the user to msl");
-        }
-
         //-->
         ]]>
     </script>
