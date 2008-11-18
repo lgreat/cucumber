@@ -11,7 +11,7 @@
     <pageHelper:externalCss file="/res/css/school/compareHover-container.css"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
-    <pageHelper:addOnLoadHandler handler="loginHoverInit()"/>
+    <!--<pageHelper:addOnLoadHandler handler="loginHoverInit()"/>-->
 
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
@@ -36,10 +36,6 @@
             var frameLocation = '' + window.frames['mslFlowDialogIFrame'].window.location;
             if (frameLocation.indexOf('/community/registration/popup/loginOrRegisterHover.page') == -1) {
                 window.frames['mslFlowDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
-            } else {
-                try {
-                    window.frames['mslFlowDialogIFrame'].window.location.reload(false);
-                } catch (e) {}
             }
 
             document.getElementById("mslFlowDialog").style.display="block";
@@ -63,10 +59,18 @@
             </div>
         </div>
         <div id="mslFlowDialogBody">
-            <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src="/community/registration/popup/loginOrRegisterHover.page"
+            <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
                     width="547" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
         </div>
     </div>
+
+    <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        //<!--
+        loginHoverInit();
+        //-->
+        ]]>
+    </script>
 
     <!--
      MSL login hover is now ready for use on your page

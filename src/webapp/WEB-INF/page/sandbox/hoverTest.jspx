@@ -21,7 +21,7 @@
         //<!--
         var mssFlowDialog;
         function loginHoverInit() {
-            mssFlowDialog = new YAHOO.widget.Dialog("myDialog",
+            mssFlowDialog = new YAHOO.widget.Dialog("mslFlowDialog",
             {
                 postmethod: "form",
                 width: "560px",
@@ -36,12 +36,12 @@
         }
 
         function showLoginHover() {
-            var frameLocation = '' + window.frames['myDialogIFrame'].window.location;
+            var frameLocation = '' + window.frames['mslFlowDialogIFrame'].window.location;
             if (frameLocation.indexOf('/community/registration/popup/loginOrRegisterHover.page') == -1) {
-                window.frames['myDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
+                window.frames['mslFlowDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
             }
 
-            document.getElementById("myDialog").style.display="block";
+            document.getElementById("mslFlowDialog").style.display="block";
 
             mssFlowDialog.show();
 
@@ -65,14 +65,14 @@
 
 </head>
 <body onload="loginHoverInit();">
-<div id="myDialog" style="display: none;">
-    <div id="dialogTopBar">
+<div id="mslFlowDialog" style="display: none;">
+    <div id="mslFlowDialogTopBar">
         <div class="dialogClose">
             <img src="/res/img/submodal/close.gif" alt="Close window" onclick="closeMssFlowDialog();"/>
         </div>
     </div>
-    <div id="dialogBody">
-        <iframe id="myDialogIFrame" name="myDialogIFrame" src="/community/registration/popup/loginOrRegisterHover.page"
+    <div id="mslFlowDialogBody">
+        <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
                 width="547" height="571" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
     </div>
 </div>
@@ -83,16 +83,16 @@
     <c:otherwise>
         <jsp:scriptlet>
             request.setAttribute("communityAuth",
-                    Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                    PageHelper.isCommunityCookieSet(request));
         </jsp:scriptlet>
         <c:choose>
             <!-- full community login case -->
             <c:when test="${communityAuth eq true}">
-                <p>You are signed in to community as ${context.user.userProfile.screenName}.</p>
+                <p>You are signed in to community as ${requestScope.context.user.userProfile.screenName}.</p>
             </c:when>
             <!-- msl only login case -->
             <c:otherwise>
-                <p>You are signed into msl as ${context.user.email}.</p>
+                <p>You are signed into msl as ${requestScope.context.user.email}.</p>
             </c:otherwise>
         </c:choose>
     </c:otherwise>
