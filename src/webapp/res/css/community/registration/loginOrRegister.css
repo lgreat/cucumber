@@ -114,7 +114,7 @@
 }
 
 #returninguserForm.hasMessage {
-    top: 136px;
+    top: 146px;
 }
 
 #returninguserForm input, #returninguser label {
@@ -211,20 +211,41 @@ p.infoMessage img {
     margin-right: 8px;
 }
 
-#infoMessage {
-    color: #cc5566;
-    padding: 10px 0 0 27px;
-    font-size: 11px;
-    background: url("/res/img/community/registration/check.gif") left no-repeat 15px;
+.contentGS p.infoMessage a, .contentGS p.infoMessage a:hover {
+    color: #3399AA;
+    text-decoration: none;
+}
+
+#returninguser p.infoMessage {
+    margin: 10px 0 0 0;
+    font-size: 13px;
+    font-weight: normal;
+    position: relative;
+}
+
+#returninguser p.infoMessage span {
+    margin-left: 27px;
+    display: block;
+}
+
+#returninguser p.infoMessage img {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    margin: 0;
 }
 
 ul.warning {
     position: absolute;
-    top: 75px;
+    top: 85px;
     left: 14px;
     width: 370px;
     color: #cc5566;
     line-height: 12px;
+}
+
+ul.warning.hasMessage {
+    top: 125px;
 }
 
 #outline ul.warning li {

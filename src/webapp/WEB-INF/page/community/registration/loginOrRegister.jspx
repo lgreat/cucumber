@@ -110,10 +110,16 @@
         <div id="returninguser">
             <h2>Returning Member?</h2>
 
-            <c:set var="messageClass" value=""/>
             <c:if test="${param.message ne null and param.message gt ''}">
+                <c:set var="message" value="${gsweb:escapeHtml(param.message)}"/>
+            </c:if>
+            <c:set var="messageClass" value=""/>
+            <c:if test="${requestScope.message ne null and requestScope.message gt ''}">
                 <c:set var="messageClass" value="hasMessage"/>
-                <p id="infoMessage">${gsweb:escapeHtml(param.message)}</p>
+                <p class="infoMessage">
+                    <gsml:img src="/res/img/community/registration/check.gif" alt="Check mark"/>
+                    <span>${message}</span>
+                </p>
             </c:if>
 
             <h3 class="${messageClass}">Yes! I'm already a member</h3>
@@ -123,7 +129,7 @@
                     <input type="hidden" name="${status.expression}" value="${status.value}"/>
                 </spring:bind>
 
-                <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
+                <gsml:errorMessage command="loginCmd" styleClass="warning ${messageClass}" useImage="true"/>
 
                 <ul id="returninguserForm" class="${messageClass}">
                     <li id="emailAddress">

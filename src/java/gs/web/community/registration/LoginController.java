@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.37 2008/11/13 19:44:10 aroy Exp $
+ * $Id: LoginController.java,v 1.38 2008/11/18 00:05:39 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -77,6 +77,20 @@ public class LoginController extends SimpleFormController {
                 request.setAttribute("alertMessageType", "Group");
             }
         }
+        addMSLMessage(url, request);
+    }
+
+    protected void addMSLMessage(String redirectUrl, HttpServletRequest request) {
+        if (StringUtils.contains(redirectUrl, "mySchoolList.page")) {
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            String nickname = sessionContext.getNickname();
+            if (StringUtils.isNotBlank(nickname)) {
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, sessionContext.getEmail());
+                String joinLink = builder.asAHref(request, "Join now &gt;");
+                request.setAttribute("message", "Hi, " + nickname + "! You have an email address on file, " +
+                        "but still need to create a free account with GreatSchools. " + joinLink);
+            }
+        }
     }
 
     protected void onBind(HttpServletRequest request, Object command) throws Exception {
@@ -84,6 +98,7 @@ public class LoginController extends SimpleFormController {
         // make sure remember me check box is bound prior to validation
         LoginCommand loginCommand = (LoginCommand) command;
         loginCommand.setRememberMe(request.getParameter("loginCmd.rememberMe") != null);
+        addMSLMessage(loginCommand.getRedirect(), request);
     }
 
     /**
