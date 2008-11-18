@@ -93,10 +93,13 @@
 	margin: 5px 0 0 15px;
 }
 
-#browse-tips li li {	background: url(/res/img/library/bullet-hyphen.png) no-repeat left 6px;
+#browse-tips li li {
+    background: url(/res/img/library/bullet-hyphen.png) no-repeat left 6px;
 	padding: 0 0 0 10px;
-	border: none;
-	font-size: 12px;
+    border-style: none;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    font-size: 12px;
 	font-weight: normal;
 	margin-bottom: 5px;
 }
