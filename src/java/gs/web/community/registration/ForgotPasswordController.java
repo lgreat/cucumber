@@ -83,9 +83,10 @@ public class ForgotPasswordController extends SimpleFormController {
             _log.info("Forgot password: user " + forgotPasswordCommand.getEmail() + " is not in database");
         } else if (user.isPasswordEmpty()) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, forgotPasswordCommand.getEmail());
-            String href = builder.asAnchor(request, "join GreatSchools").asATag();
-            errors.rejectValue("email", null, "There is no community account associated with that email address. " +
-                    "Would you like to " + href + "?");
+            String joinLink = builder.asAHref(request, "Join now &gt;");
+            errors.rejectValue("email", null, "Hi, " + user.getEmail().split("@")[0] +
+                    "! You have an email address on file, " +
+                    "but still need to create a free account with GreatSchools. " + joinLink);
             _log.info("Forgot password: non-community user " + forgotPasswordCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
             String errmsg = "The account associated with that email address has been disabled. " +

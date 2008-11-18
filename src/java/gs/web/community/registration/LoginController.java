@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.38 2008/11/18 00:05:39 aroy Exp $
+ * $Id: LoginController.java,v 1.39 2008/11/18 21:29:58 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -134,7 +134,13 @@ public class LoginController extends SimpleFormController {
 //                    " If you believe this message to be in error, please " + href + ".");
             _log.info("Community login: user " + loginCommand.getEmail() + " is not in database");
         } else if (user.isPasswordEmpty()) {
-            errors.reject(null, "There is no community account associated with that email address.");
+//            errors.reject("email", "There is no community account associated with that email address.");
+            errors.reject("email");
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, user.getEmail());
+            String joinLink = builder.asAHref(request, "Join now &gt;");
+            request.setAttribute("message", "Hi, " + user.getEmail().split("@")[0] +
+                    "! You have an email address on file, " +
+                    "but still need to create a free account with GreatSchools. " + joinLink);
             _log.info("Community login: non-community user " + loginCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
 
