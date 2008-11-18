@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.54 2008/09/23 17:42:19 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.55 2008/11/18 01:03:03 aroy Exp $
  */
 
 package gs.web.util;
@@ -187,58 +187,58 @@ public class UrlUtilSaTest extends TestCase {
 
 
     public void testIsDeveloperWorkstation() {
-        assertFalse(_urlUtil.isDeveloperWorkstation("www.greatschools.net"));
-        assertFalse(_urlUtil.isDeveloperWorkstation("maddy.greatschools.net"));
-        assertFalse(_urlUtil.isDeveloperWorkstation("clone.greatschools.net"));
-        assertFalse(_urlUtil.isDeveloperWorkstation("dev.greatschools.net"));
-        assertFalse(_urlUtil.isDeveloperWorkstation("staging.greatschools.net"));
-        assertFalse(_urlUtil.isDeveloperWorkstation("aroy.dev.greatschools.net"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("aroy.office.greatschools.net"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("somenewdeveloper.office.greatschools.net"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("macbook.greatschools.net"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("macbook"));
+        assertFalse(UrlUtil.isDeveloperWorkstation("www.greatschools.net"));
+        assertFalse(UrlUtil.isDeveloperWorkstation("maddy.greatschools.net"));
+        assertFalse(UrlUtil.isDeveloperWorkstation("clone.greatschools.net"));
+        assertFalse(UrlUtil.isDeveloperWorkstation("dev.greatschools.net"));
+        assertFalse(UrlUtil.isDeveloperWorkstation("staging.greatschools.net"));
+        assertFalse(UrlUtil.isDeveloperWorkstation("aroy.dev.greatschools.net"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("aroy.office.greatschools.net"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("somenewdeveloper.office.greatschools.net"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("macbook.greatschools.net"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("macbook"));
         assertFalse("Potential cobrand shouldn't be considered developer workstation",
-                _urlUtil.isDeveloperWorkstation("office.greatschools.net"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("aroy.office"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("localhost"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("127.0.0.1"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("172.21.1.142"));
-        assertTrue(_urlUtil.isDeveloperWorkstation("172.21.1.142:8080"));
+                UrlUtil.isDeveloperWorkstation("office.greatschools.net"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("aroy.office"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("localhost"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("127.0.0.1"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("172.21.1.142"));
+        assertTrue(UrlUtil.isDeveloperWorkstation("172.21.1.142:8080"));
         assertFalse("cpickslay.office should not be dev workstation", UrlUtil.isDeveloperWorkstation("cpickslay.office.greatschools.net"));
     }
 
     public void testIsDevEnvironment() {
-        assertFalse(_urlUtil.isDevEnvironment("www.greatschools.net"));
-        assertFalse(_urlUtil.isDevEnvironment("cobrand.greatschools.net"));
-        assertFalse(_urlUtil.isDevEnvironment("maddy.greatschools.net"));
-        assertFalse(_urlUtil.isDevEnvironment("yahoo.greatschools.net"));
-        assertFalse(_urlUtil.isDevEnvironment("charterschoolratings.org"));
+        assertFalse(UrlUtil.isDevEnvironment("www.greatschools.net"));
+        assertFalse(UrlUtil.isDevEnvironment("cobrand.greatschools.net"));
+        assertFalse(UrlUtil.isDevEnvironment("maddy.greatschools.net"));
+        assertFalse(UrlUtil.isDevEnvironment("yahoo.greatschools.net"));
+        assertFalse(UrlUtil.isDevEnvironment("charterschoolratings.org"));
 
-        assertTrue(_urlUtil.isDevEnvironment("dev.greatschools.net"));
-        assertFalse(_urlUtil.isDevEnvironment("devwirefakecobrand.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("dev"));
-        assertTrue(_urlUtil.isDevEnvironment("cobrand.dev.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("charterschoolratings.dev.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("staging.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("aroy.dev.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("aroy.office.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("aroy.office"));
-        assertTrue(_urlUtil.isDevEnvironment("somedev.office.greatschools.net"));
-        assertFalse(_urlUtil.isDevEnvironment("office.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("macbook.greatschools.net:8080"));
-        assertTrue(_urlUtil.isDevEnvironment("macbook:8080"));
-        assertTrue(_urlUtil.isDevEnvironment("clone.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("azcentral.clone.greatschools.net"));
-        assertTrue(_urlUtil.isDevEnvironment("localhost"));
-        assertTrue(_urlUtil.isDevEnvironment("127.0.0.1"));
-        assertTrue(_urlUtil.isDevEnvironment("172.21.1.142"));
-        assertTrue(_urlUtil.isDevEnvironment("172.21.1.142:8080"));
+        assertTrue(UrlUtil.isDevEnvironment("dev.greatschools.net"));
+        assertFalse(UrlUtil.isDevEnvironment("devwirefakecobrand.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("dev"));
+        assertTrue(UrlUtil.isDevEnvironment("cobrand.dev.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("charterschoolratings.dev.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("staging.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("aroy.dev.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("aroy.office.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("aroy.office"));
+        assertTrue(UrlUtil.isDevEnvironment("somedev.office.greatschools.net"));
+        assertFalse(UrlUtil.isDevEnvironment("office.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("macbook.greatschools.net:8080"));
+        assertTrue(UrlUtil.isDevEnvironment("macbook:8080"));
+        assertTrue(UrlUtil.isDevEnvironment("clone.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("azcentral.clone.greatschools.net"));
+        assertTrue(UrlUtil.isDevEnvironment("localhost"));
+        assertTrue(UrlUtil.isDevEnvironment("127.0.0.1"));
+        assertTrue(UrlUtil.isDevEnvironment("172.21.1.142"));
+        assertTrue(UrlUtil.isDevEnvironment("172.21.1.142:8080"));
     }
 
     public void testIsStagingServer() {
-        assertTrue(_urlUtil.isStagingServer("staging.greatschools.net"));
-        assertTrue(_urlUtil.isStagingServer("clone.greatschools.net"));
-        assertFalse(_urlUtil.isStagingServer("dev.greatschools.net"));
+        assertTrue(UrlUtil.isStagingServer("staging.greatschools.net"));
+        assertTrue(UrlUtil.isStagingServer("clone.greatschools.net"));
+        assertFalse(UrlUtil.isStagingServer("dev.greatschools.net"));
     }
 
     public void testBuildHref() {
@@ -252,92 +252,94 @@ public class UrlUtilSaTest extends TestCase {
     }
 
     public void testIsAdminServer() {
-        assertTrue("Expected true for admin URL", _urlUtil.isAdminServer("admin.greatschools.net"));
-        assertTrue("Expected true for maddy URL", _urlUtil.isAdminServer("admin.greatschools.net"));
-        assertFalse("Expected false for production URL", _urlUtil.isAdminServer("www.greatschools.net"));
+        assertTrue("Expected true for admin URL", UrlUtil.isAdminServer("admin.greatschools.net"));
+        assertTrue("Expected true for maddy URL", UrlUtil.isAdminServer("admin.greatschools.net"));
+        assertFalse("Expected false for production URL", UrlUtil.isAdminServer("www.greatschools.net"));
     }
 
     public void testIsCommunityContentLink() {
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/advice/write"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/advice/write"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/groups/create"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/groups/create"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http%3A%2F%2Fcommunity.dev.greatschools.net/q-and-a?submit=true"));
+                UrlUtil.isCommunityContentLink("http%3A%2F%2Fcommunity.dev.greatschools.net/q-and-a?submit=true"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http%3A%2F%2Fcommunity.dev.greatschools.net/q-and-a/?submit=true"));
+                UrlUtil.isCommunityContentLink("http%3A%2F%2Fcommunity.dev.greatschools.net/q-and-a/?submit=true"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/groups/2771/join"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/groups/2771/join"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/recommend-content?id=106495&type=5000"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/recommend-content?id=106495&type=5000"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/report/email-moderator"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/report/email-moderator"));
 
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/advice/write"));
+                UrlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/advice/write"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/groups/create"));
+                UrlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/groups/create"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/groups/2771/join"));
+                UrlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/groups/2771/join"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/q-and-a/12345/blah-blah?comment=5100_106604"));
+                UrlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/q-and-a/12345/blah-blah?comment=5100_106604"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/members/watchlist/watch?type=5000&id=106495"));
+                UrlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/members/watchlist/watch?type=5000&id=106495"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/recommend-content?id=106495&type=5000"));
+                UrlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/recommend-content?id=106495&type=5000"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/report/email-moderator"));
+                UrlUtil.isCommunityContentLink("http://comgen1.greatschools.net:8000/report/email-moderator"));
 
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/advice/write"));
+                UrlUtil.isCommunityContentLink("http://community.dev.greatschools.net/advice/write"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/groups/create"));
+                UrlUtil.isCommunityContentLink("http://community.dev.greatschools.net/groups/create"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/groups/similar"));
+                UrlUtil.isCommunityContentLink("http://community.dev.greatschools.net/groups/similar"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/groups/2771/join"));
+                UrlUtil.isCommunityContentLink("http://community.dev.greatschools.net/groups/2771/join"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
+                UrlUtil.isCommunityContentLink("http://community.dev.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
+                UrlUtil.isCommunityContentLink("http://community.dev.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/recommend-content?id=106495&type=5000"));
+                UrlUtil.isCommunityContentLink("http://community.dev.greatschools.net/recommend-content?id=106495&type=5000"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.dev.greatschools.net/report/email-moderator"));
+                UrlUtil.isCommunityContentLink("http://community.dev.greatschools.net/report/email-moderator"));
 
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/advice/write"));
+                UrlUtil.isCommunityContentLink("http://community.staging.greatschools.net/advice/write"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/groups/create"));
+                UrlUtil.isCommunityContentLink("http://community.staging.greatschools.net/groups/create"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/groups/2771/join"));
+                UrlUtil.isCommunityContentLink("http://community.staging.greatschools.net/groups/2771/join"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
+                UrlUtil.isCommunityContentLink("http://community.staging.greatschools.net/q-and-a/12345/blah-blah?comment=5100_106604"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
+                UrlUtil.isCommunityContentLink("http://community.staging.greatschools.net/members/watchlist/watch?type=5000&id=106495"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/recommend-content?id=106495&type=5000"));
+                UrlUtil.isCommunityContentLink("http://community.staging.greatschools.net/recommend-content?id=106495&type=5000"));
         assertTrue("Expected true for content-creation URL",
-                _urlUtil.isCommunityContentLink("http://community.staging.greatschools.net/report/email-moderator"));
+                UrlUtil.isCommunityContentLink("http://community.staging.greatschools.net/report/email-moderator"));
 
         assertFalse("Expected false for GS URL",
-                _urlUtil.isCommunityContentLink("http://www.greatschools.net/advice/write"));
+                UrlUtil.isCommunityContentLink("http://www.greatschools.net/advice/write"));
         assertFalse("Expected false for GS cobrand URL",
-                _urlUtil.isCommunityContentLink("http://sfgate.greatschools.net/advice/write"));
+                UrlUtil.isCommunityContentLink("http://sfgate.greatschools.net/advice/write"));
         assertFalse("Expected false for GS cobrand URL",
-                _urlUtil.isCommunityContentLink("http://sfgate.dev.greatschools.net/advice/write"));
+                UrlUtil.isCommunityContentLink("http://sfgate.dev.greatschools.net/advice/write"));
 
         assertFalse("Expected false for non-content-creation URL on community",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/advice"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/advice"));
         assertFalse("Expected false for non-content-creation URL on community",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/"));
         assertFalse("Expected false for non-content-creation URL on community",
-                _urlUtil.isCommunityContentLink("http://community.greatschools.net/q-and-a/"));
+                UrlUtil.isCommunityContentLink("http://community.greatschools.net/q-and-a/"));
 
+        assertTrue("Expected true for MSL forward link", UrlUtil.isCommunityContentLink("http://dev.greatschools.net/mySchoolList.page"));
+        assertTrue("Expected true for MSL forward link", UrlUtil.isCommunityContentLink("/mySchoolList.page"));
     }
 
     public void testAddParameterWithoutPreexistingParameters(){
@@ -361,12 +363,12 @@ public class UrlUtilSaTest extends TestCase {
 
     public void testBuildArticleUrl() {
         try {
-            _urlUtil.buildArticleUrl(null);
+            UrlUtil.buildArticleUrl(null);
             fail("Expected IllegalArgumentException with null argument.");
         } catch (IllegalArgumentException iae) {
             assertTrue(true);
         }
 
-        assertEquals("Expected valid article URL", "/cgi-bin/showarticle/5", _urlUtil.buildArticleUrl(5));
+        assertEquals("Expected valid article URL", "/cgi-bin/showarticle/5", UrlUtil.buildArticleUrl(5));
     }
 }
