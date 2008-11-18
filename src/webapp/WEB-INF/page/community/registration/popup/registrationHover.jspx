@@ -15,6 +15,7 @@
         >
 <jsp:directive.page import="gs.web.community.registration.UserCommand"/>
 <jsp:directive.page import="org.apache.commons.lang.StringUtils"/>
+<jsp:directive.page import="java.net.URLEncoder"/>
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -40,6 +41,14 @@
             request.setAttribute("nickname", nickname);
         </jsp:scriptlet>
     </c:if>
+    <jsp:scriptlet>
+        UserCommand userCmd = (UserCommand) request.getAttribute("userCmd");
+        String emailEscaped = userCmd.getEmail();
+        if (StringUtils.isNotBlank(emailEscaped)) {
+            emailEscaped = URLEncoder.encode(emailEscaped, "UTF-8");
+        }
+        request.setAttribute("emailEscaped", emailEscaped);
+    </jsp:scriptlet>
     <script type="text/javascript">
         <![CDATA[
         <!--
@@ -70,7 +79,7 @@
         <h2>Welcome to GreatSchools</h2>
         <div class="loginLink">
             Already a member?
-            <a href="/community/registration/popup/loginOrRegisterHover.page?email=${userCmd.user.email}">Sign in</a>
+            <a href="/community/registration/popup/loginOrRegisterHover.page?email=${emailEscaped}">Sign in</a>
         </div>
 
         <c:choose>
