@@ -263,22 +263,3 @@ ul.warning.hasMessage {
     color: #3399AA;
 }
 
-div.newInfoBox {
-    position: absolute;
-    top: 290px;
-    width: 307px;
-    padding: 8px 2px;
-    border: solid 2px #DFEDED;
-    color: #444;
-    font-size: 13px;
-}
-
-div.newInfoBox span.new {
-    color: #CC5566;
-    font-style: italic;
-}
-
-.contentGS div.newInfoBox a, .contentGS div.newInfoBox a:hover {
-    color: #3399AA;
-    text-decoration: none;
-}

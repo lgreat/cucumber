@@ -166,10 +166,6 @@
                     </li>
                 </ul>
             </gsweb:form>
-            <div class="newInfoBox">
-                <span class="new">New!</span> My School List is available for GreatSchools
-                members. <link:registration email="${loginCmd.email}">Join now!</link:registration>
-            </div>
         </div>
         <gsml:img src="/res/img/community/registration/vertical_dots.gif"
                   alt="Vertical dot divider"
