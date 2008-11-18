@@ -213,15 +213,17 @@
         <c:if test="${!requestScope.context.crawler}">
             <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
             <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-            <c:if test="${showNLHover}"><pageHelper:externalJavascript file="/cm/mss_modal.js"/></c:if>
-            <c:choose>
-                <c:when test="${school.levelCode == 'p'}">
-                    <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}', 'true')"/>
-                </c:when>
-                <c:otherwise>
-                    <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
-                </c:otherwise>
-            </c:choose>
+            <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
+            <c:if test="${showNLHover}">
+                <c:choose>
+                    <c:when test="${school.levelCode == 'p'}">
+                        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}', 'true')"/>
+                    </c:when>
+                    <c:otherwise>
+                        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
         </c:if>
     </c:when>
     <c:otherwise>
