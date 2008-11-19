@@ -1,7 +1,6 @@
 #outline {
     border: 4px solid #F2F3DB;
     width: 856px;
-    /*height: 385px;*/
     position: relative;
     font-family: Trebuchet MS, Arial, sans-serif;
 }
@@ -16,7 +15,7 @@
 
 #outline div.innerWrapper {
     position: relative;
-    height: 385px;
+    height: 397px;
     margin: 0;
     padding: 0;
 }
@@ -106,15 +105,10 @@
 }
 
 #returninguserForm {
-    position: absolute;
-    top: 102px;
-    left: 0;
     height: 180px;
     width: 313px;
-}
-
-#returninguserForm.hasMessage {
-    top: 146px;
+    position: relative;
+    margin-top: 10px;
 }
 
 #returninguserForm input, #returninguser label {
@@ -236,16 +230,11 @@ p.infoMessage img {
 }
 
 ul.warning {
-    position: absolute;
-    top: 85px;
-    left: 14px;
+    position: relative;
+    margin: 5px 0 0 14px;
     width: 370px;
     color: #cc5566;
     line-height: 12px;
-}
-
-ul.warning.hasMessage {
-    top: 125px;
 }
 
 #outline ul.warning li {
