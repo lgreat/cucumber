@@ -83,11 +83,11 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
 //                getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
 //        User user = new User();
 //        user.setUserProfile(new UserProfile());
-//        user.getUserProfile().setScreenName("Anthony");
+//        user.getUserProfile().setScreenName("Test GS-7601");
 //        user.getUserProfile().setState(State.CA);
 //        user.getUserProfile().setCity("Alameda");
 //        user.setEmail("aroy@greatschools.net");
 //
-//        email.sendToUser(user, "foobar", getRequest());
+//        email.sendToUser(user, "password", getRequest());
 //    }
 }

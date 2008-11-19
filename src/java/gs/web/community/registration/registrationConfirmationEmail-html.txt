@@ -9,13 +9,13 @@ parents who turn to GreatSchools each year to ensure their child's academic succ
 
 <ul>
 <li><strong>Connect with parents.</strong> <a href="$LOCAL_TAB">Talk about $CITY_NAME schools and
-get answers to your parenting and education questions.</a></li>
+get answers to your parenting and education questions.</a><br/><br/></li>
 
 <li><strong>Get school savvy.</strong> <a href="$ALL_ARTICLES">Find out what your child should
-be learning, grade-by-grade.</a></li>
+be learning, grade-by-grade.</a><br/><br/></li>
 
 <li><strong>Keep track of schools.</strong> <a href="$MY_SCHOOL_LIST">Track schools with My
-School List, your personalized guide to schools.</a></li>
+School List, your personalized guide to schools.</a><br/><br/></li>
 </ul>
 
 <p>Your account details (in case you do not have them):</p>
@@ -29,3 +29,6 @@ Password: $USER_PASSWORD<br/>
 <p>GreatSchools</p>
 
 P.S. Have a great school year!
+<br/>
+<br/>
+<br/>

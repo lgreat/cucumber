@@ -7,7 +7,9 @@ By staying active in our community, you can get more out of your GreatSchools ex
 Here's how to get started:
 
     * Connect with parents ($LOCAL_TAB). Talk about Alameda schools and get answers to your parenting and education questions.
+
     * Get school savvy ($ALL_ARTICLES). Find out what your child should be learning, grade-by-grade.
+    
     * Keep track of schools ($MY_SCHOOL_LIST). Track schools with My School List, your personalized guide to schools.
 
 Your account details (in case you do not have them):
@@ -18,3 +20,4 @@ Best wishes,
 
 GreatSchools
 P.S. Have a great school year!
+
