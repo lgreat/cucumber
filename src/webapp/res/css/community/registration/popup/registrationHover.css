@@ -74,7 +74,7 @@ div.wrapper ul li {
 div.wrapper ul li input, div.wrapper ul li select {
     position: absolute;
     left: 115px;
-    width: 140px;
+    width: 158px;
     margin: 0;
     padding: 0;
     font-size: 13px;
@@ -95,7 +95,7 @@ div.wrapper ul li label {
     position: absolute;
     top: 26px;
     left: 115px;
-    width: 230px;
+    width: 310px;
 }
 
 #userDetails {
@@ -182,7 +182,7 @@ div.privacyButtonBar span {
 img.errorIcon {
     position: absolute;
     top: 8px;
-    left: 268px;
+    left: 286px;
 }
 
 div.wrapper p.warning {
@@ -190,7 +190,7 @@ div.wrapper p.warning {
     font-size: 11px;
     position: absolute;
     top: 6px;
-    left: 287px;
+    left: 305px;
     width: 190px;
     line-height: 12px;
     margin: 0;

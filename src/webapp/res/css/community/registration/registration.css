@@ -94,7 +94,7 @@
     position: absolute;
     top: 26px;
     left: 157px;
-    width: 220px; 
+    width: 310px; 
 }
 
 #userDetails {
@@ -256,6 +256,12 @@ p.warning {
     left: 399px;
     width: 350px;
     line-height: 12px;
+}
+
+#usernameLine p.warning {
+    text-indent: -65px;
+    padding-left: 65px;
+    width: 300px;
 }
 
 #emailLine p.warning {

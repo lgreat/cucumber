@@ -238,7 +238,7 @@
 
   <ul id="newsletters">
       <li>
-          <label for="newsletterCheckbox">Yes! Sign me up for expert tips, news, advice and more in the bi-monthly Parent Advisor newsletter.</label>
+          <label for="newsletterCheckbox">Yes! Sign me up to receive expert tips and more in the free, bi-monthly Parent Advisor newsletter.</label>
           <gsml:checkbox styleId="newsletterCheckbox" name="newsletterStr" checked="${followUpCmd.newsletter eq true}"/>
       </li>
       <li>

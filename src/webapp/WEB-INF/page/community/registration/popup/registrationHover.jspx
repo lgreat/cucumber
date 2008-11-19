@@ -30,7 +30,7 @@
     <title>Join - GreatSchools</title>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalCss file="/res/css/community/registration/popup/registrationHover.css"/>    
-    <c:set var="nickname" value="${context.nickname}"/>
+    <c:set var="nickname" value="${requestScope.context.nickname}"/>
     <c:if test="${nickname eq null or nickname eq ''}">
         <jsp:scriptlet>
             UserCommand userCmd = (UserCommand) request.getAttribute("userCmd");
@@ -105,6 +105,14 @@
                 <input type="hidden" name="${status.expression}" value="${status.value}"/>
             </spring:bind>
             <ul>
+                <li id="emailLine">
+                    <label for="email">Email address</label>
+                    <spring:bind path="userCmd.user.email">
+                        <input id="email" type="text" name="${status.expression}" value="${status.value}"/>
+                    </spring:bind>
+                    <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
+                </li>
+
                 <li>
                     <label for="screenName">Username</label>
                     <spring:bind path="userCmd.screenName">
@@ -112,15 +120,7 @@
                     </spring:bind>
                     <gsml:errorMessage command="userCmd" field="screenName" useImage="true" styleClass="warning"/>
                     <span id="userDetails">6-14 characters</span>
-                    <span id="userDisclaimer">Choose carefully&amp;#8212;usernames cannot be changed.</span>
-                </li>
-
-                <li id="emailLine">
-                    <label for="email">Email address</label>
-                    <spring:bind path="userCmd.user.email">
-                        <input id="email" type="text" name="${status.expression}" value="${status.value}"/>
-                    </spring:bind>
-                    <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
+                    <span id="userDisclaimer">Choose carefully&amp;#8212;This will be your public identity on GreatSchools</span>
                 </li>
 
                 <li>
@@ -173,7 +173,7 @@
                     <gsml:checkbox styleId="newsletterField" styleClass="checkbox" name="newsletterStr"
                                    checked="${userCmd.newsletter eq true}"/>
                     <label for="newsletterField" class="checkbox">
-                        Sign me up for expert tips and more in the bi-monthly Parent Advisor newsletter.
+                        Sign me up to receive expert tips and more in the free, bi-monthly Parent Advisor newsletter.
                     </label>
                 </li>
 
