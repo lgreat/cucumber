@@ -32,10 +32,10 @@
             <variant:b>
                 <c:choose>
                     <c:when test="${not empty requestScope.context.mslCount}">
-                        <link:loginOrRegister email="${requestScope.context.email}" redirect="/mySchoolList.page">My School List (${requestScope.context.mslCount})</link:loginOrRegister>
+                        <link:loginOrRegister email="${requestScope.context.email}" redirect="/mySchoolList.page">My School List</link:loginOrRegister>
                     </c:when>
                     <c:otherwise>
-                        <link:loginOrRegister redirect="/mySchoolList.page">My School List (0)</link:loginOrRegister>
+                        <link:loginOrRegister redirect="/mySchoolList.page">My School List</link:loginOrRegister>
                     </c:otherwise>
                 </c:choose>
             </variant:b>
