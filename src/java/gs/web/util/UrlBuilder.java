@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.139 2008/11/10 22:34:46 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.140 2008/11/19 17:54:39 yfan Exp $
  */
 
 package gs.web.util;
@@ -472,7 +472,7 @@ public class UrlBuilder {
         } else if (PRESCHOOL.equals(page)) {
             _path = "/preschool/";
         } else if (DONORS_CHOOSE_EXPLAINED.equals(page)) {
-            _path = "/donorsChooseExplained.html";
+            _path = "/content/donorsChooseExplained.html";
         } else if (SUBMIT_PARENT_REVIEW_PRESCHOOL.equals(page)) {
             _path = "/school/parentReviews/submit.page";
         } else if (HOLIDAY_GIVING.equals(page)) {
