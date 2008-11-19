@@ -73,7 +73,7 @@
         </c:if>
         <div class="innerWrapper">
         <div id="newuser">
-            <h2>New to GreatSchools?</h2>
+            <h2>Join GreatSchools</h2>
             <h3><link:registration email="${loginCmd.email}" 
                                    redirect="${loginCmd.redirect}"
                                    onMouseOver="rollover();"

@@ -28,6 +28,9 @@
 <gsml:body adPageName="login">
     <ad:setSlotPrefix slotPrefix="CommunityLoginOrRegister"/>
 
+    <div class="header">
+        <p>Please sign in or register to access My School List.</p>
+    </div>
     <div class="wrapper">
         <div class="returninguser">
             <h2>Returning Member?</h2>
@@ -76,7 +79,7 @@
                   styleClass="verticalDots"/>
 
         <div class="newuser">
-            <h2>New to GreatSchools?</h2>
+            <h2>Join GreatSchools</h2>
             <a href="/community/registration/popup/registrationHover.page"><img
                     src="/res/img/community/registration/momgirl_small.jpg"
                     alt="Mom and girl"/></a>

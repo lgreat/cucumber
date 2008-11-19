@@ -38,10 +38,9 @@
 }
 
 #newuser h2 {
-    background: url(/res/img/community/registration/newtogreatschools.gif) no-repeat left;
+    background: url(/res/img/community/registration/newtogreatschools.gif) no-repeat -3px;
     text-indent: -9999em;
     padding: 0 0 16px 0;
-    border-bottom: 1px solid #CACC9E;
 }
 
 #newuser h3 {
@@ -87,10 +86,9 @@
 }
 
 #returninguser h2 {
-    background: url(/res/img/community/registration/returningmember.gif) no-repeat left;
+    background: url(/res/img/community/registration/returningmember.gif) no-repeat -3px;
     text-indent: -9999em;
     padding: 0 0 12px 0;
-    border-bottom: 1px solid #CACC9E;
 }
 
 #returninguser h3 {

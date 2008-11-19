@@ -11,7 +11,24 @@ div.wrapper {
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 13px;
     padding: 25px 15px 15px 15px;
+    top: 41px;
 }
+
+div.header {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #F2F3DB;
+    height: 41px;
+}
+
+    div.header p {
+        margin: 12px 0 0 15px;
+        padding: 0;
+        font-size: 13px;
+        font-weight: bold;
+    }
 
 div.wrapper form {
     padding: 0;
@@ -128,7 +145,7 @@ div.newuser {
 }
 
 div.newuser h2 {
-    background: url(/res/img/community/registration/newtogreatschools_1.gif) no-repeat 3px;
+    background: url(/res/img/community/registration/newtogreatschools_1.gif) no-repeat 1px;
     text-indent: -9999em;
     padding: 0 0 16px 0;
     margin: 0 0 10px -4px;
@@ -139,8 +156,8 @@ div.newuser p.subheader {
 }
 
 div.wrapper li.joinButton input {
-    width: 49px;
-    height: 20px;
+    width: 54px;
+    height: 24px;
     left: auto;
     right: 0;
 }
