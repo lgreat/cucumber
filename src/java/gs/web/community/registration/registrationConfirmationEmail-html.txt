@@ -1,28 +1,31 @@
-<h3>Welcome to the GreatSchools Parent Community!</h3>
+<p>Hi $USER_USERNAME,</p>
 
-<p>
-You're ready to start talking with parents about the issues that matter to you about your child's education!
-Meet parents, share your success stories, find answers to your questions, advocate for schools and more.
-</p>
+<p>Welcome to GreatSchools! As a member of our community, you're joining the 35 million
+parents who turn to GreatSchools each year to ensure their child's academic success.</p>
 
-<p><a href="$GET_STARTED">Get started today!</a></p>
+<p>By staying active in our community, you can get more out of your GreatSchools experience.</p>
 
-<p>Here's your login information:</p>
+<p>Here's how to get started:</p>
 
-<strong>Email address:</strong> $USER_EMAIL<br/>
-<strong>Password:</strong> $USER_PASSWORD<br/>
-<br/>
-
-Want to learn more about what the community has to offer?
 <ul>
-<li><a href="$TAKE_TOUR">Take a tour</a> or</li>
-<li><a href="$READ_FAQ">Read our community FAQ</a></li>
+<li><strong>Connect with parents.</strong> <a href="$LOCAL_TAB">Talk about $CITY_NAME schools and
+get answers to your parenting and education questions.</a></li>
+
+<li><strong>Get school savvy.</strong> <a href="$ALL_ARTICLES">Find out what your child should
+be learning, grade-by-grade.</a></li>
+
+<li><strong>Keep track of schools.</strong> <a href="$MY_SCHOOL_LIST">Track schools with My
+School List, your personalized guide to schools.</a></li>
 </ul>
 
-<p>Happy posting!</p>
+<p>Your account details (in case you do not have them):</p>
 
-<p>
-Tajalli Love<br/>
-Mom and Community Moderator<br/>
-GreatSchools
-</p>
+Email Address: $USER_EMAIL<br/>
+Password: $USER_PASSWORD<br/>
+<br/>
+
+<p>Best wishes,</p>
+
+<p>GreatSchools</p>
+
+P.S. Have a great school year!

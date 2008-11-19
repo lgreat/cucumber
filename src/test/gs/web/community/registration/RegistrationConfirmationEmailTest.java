@@ -7,11 +7,17 @@ import gs.web.BaseControllerTestCase;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
+import gs.data.state.State;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 
 import javax.mail.MessagingException;
 import javax.mail.Message;
 import java.io.IOException;
 import java.util.List;
+
+import static org.easymock.EasyMock.*;
 
 /**
  * Provides testing for the RegistrationConfirmationEmail bean.
@@ -24,6 +30,7 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
     private static final String SUBJECT = "Testing";
     private RegistrationConfirmationEmail _email;
     private MockJavaMailSender _mailSender;
+    private IGeoDao _geoDao;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -36,6 +43,8 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         EmailHelperFactory _factory = new EmailHelperFactory();
         _factory.setMailSender(_mailSender);
         _email.setEmailHelperFactory(_factory);
+        _geoDao = createStrictMock(IGeoDao.class);
+        _email.setGeoDao(_geoDao);
     }
 
     public void testSend() throws MessagingException, IOException {
@@ -46,8 +55,18 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         // setup
         User user = new User();
         user.setEmail("aroy+1@greatschools.net");
+        user.setUserProfile(new UserProfile());
+        user.getUserProfile().setScreenName("Anthony");
+        user.getUserProfile().setState(State.CA);
+        user.getUserProfile().setCity("Alameda");
+        City city = new City();
+        city.setId(123);
+        city.setName("Alameda");
+        expect(_geoDao.findCity(State.CA, "Alameda")).andReturn(city);
         // call
+        replay(_geoDao);
         _email.sendToUser(user, "initpass", getRequest());
+        verify(_geoDao);
         // verify
         List msgs = _mailSender.getSentMessages();
         assertNotNull(msgs);
@@ -57,5 +76,18 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         assertTrue(msg.getFrom()[0].toString().indexOf(FROM_NAME) > -1);
         assertTrue(msg.getFrom()[0].toString().indexOf(FROM_EMAIL) > -1);
         assertNotNull(msg.getContent());
+    }
+
+    public void testRealSend() throws Exception {
+        RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
+                getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
+        User user = new User();
+        user.setUserProfile(new UserProfile());
+        user.getUserProfile().setScreenName("Anthony");
+        user.getUserProfile().setState(State.CA);
+        user.getUserProfile().setCity("Alameda");
+        user.setEmail("aroy@greatschools.net");
+
+        email.sendToUser(user, "foobar", getRequest());
     }
 }

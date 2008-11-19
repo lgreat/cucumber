@@ -1,21 +1,20 @@
-Welcome to the GreatSchools Parent Community!
+Hi $USER_USERNAME,
 
-You're ready to start talking with parents about the issues that matter to you about your child's education!
-Meet parents, share your success stories, find answers to your questions, advocate for schools and more.
+Welcome to GreatSchools! As a member of our community, you're joining the 35 million parents who turn to GreatSchools each year to ensure their child's academic success.
 
-Get started today! $GET_STARTED
+By staying active in our community, you can get more out of your GreatSchools experience.
 
-Here's your login information:
+Here's how to get started:
 
-Email address: $USER_EMAIL
+    * Connect with parents ($LOCAL_TAB). Talk about Alameda schools and get answers to your parenting and education questions.
+    * Get school savvy ($ALL_ARTICLES). Find out what your child should be learning, grade-by-grade.
+    * Keep track of schools ($MY_SCHOOL_LIST). Track schools with My School List, your personalized guide to schools.
+
+Your account details (in case you do not have them):
+Email Address: $USER_EMAIL
 Password: $USER_PASSWORD
 
-Want to learn more about what the community has to offer?
-  * Take a tour ($TAKE_TOUR) or
-  * Read our community FAQ ($READ_FAQ)
+Best wishes,
 
-Happy posting!
-
-Tajalli Love
-Mom and Community Moderator
 GreatSchools
+P.S. Have a great school year!
