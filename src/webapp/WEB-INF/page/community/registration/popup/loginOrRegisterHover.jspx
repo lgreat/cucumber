@@ -40,7 +40,10 @@
             <c:if test="${param.message ne null and param.message gt ''}">
                 <p class="infoMessage">${gsweb:escapeHtml(param.message)}</p>
             </c:if>
-
+            <c:set var="showEmail" value="${false}"/>
+            <spring:hasBindErrors name="loginCmd">
+                <c:set var="showEmail" value="${true}"/>
+            </spring:hasBindErrors>
             <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
 
             <form action="/community/registration/popup/loginOrRegisterHover.page" method="post">
@@ -48,7 +51,14 @@
                     <li class="emailAddress">
                         <label>Email address</label>
                         <spring:bind path="loginCmd.email">
-                            <input type="text" name="${status.expression}" value="${status.value}"/>
+                            <c:choose>
+                                <c:when test="${showEmail eq true}">
+                                    <input type="text" name="${status.expression}" value="${status.value}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="text" name="${status.expression}" value=""/>
+                                </c:otherwise>
+                            </c:choose>
                         </spring:bind>
                     </li>
                     <li class="password">
