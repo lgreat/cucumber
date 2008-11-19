@@ -83,6 +83,6 @@ function isAdLink(link) {
 
 function isExcludedLink(link) {
     return link.className.match(/noInterstitial/) ||
-           (link.getAttribute("href") != null && link.getAttribute("href").match(/(^#)|javascript/)) ||
-           (link.getAttribute("onclick") != null && link.getAttribute("onclick").match(/window.open/));
+           (link.getAttribute("href") && link.getAttribute("href").toString().match(/(^#)|javascript/)) ||
+           (link.getAttribute("onclick") && link.getAttribute("onclick").toString().match(/window.open/));
 }
