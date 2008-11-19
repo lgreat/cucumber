@@ -11,8 +11,6 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import static org.easymock.classextension.EasyMock.*;
 
-import java.security.NoSuchAlgorithmException;
-
 /**
  * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  */
@@ -48,7 +46,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _errors = new BindException(_command, "");
     }
 
-    public void testOnSubmitNoPassword() throws NoSuchAlgorithmException {
+    public void testOnSubmitNoPassword() throws Exception {
         expect(_mockUserDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_mockUserDao.findUserFromEmail(_user.getEmail())).andReturn(_user);
         replay(_mockUserDao);
@@ -193,7 +191,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
     }
 
-    public void testNonexistantUser() throws NoSuchAlgorithmException {
+    public void testNonexistantUser() throws Exception {
         LoginCommand command = new LoginCommand();
 
         expect(_mockUserDao.findUserFromEmailIfExists("")).andReturn(null);
@@ -205,7 +203,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertTrue("Controller does not have expected errors on validate", _errors.hasErrors());
     }
 
-    public void testProvisionalUser() throws NoSuchAlgorithmException {
+    public void testProvisionalUser() throws Exception {
         _user.setPlaintextPassword("foobar");
         _user.setEmailProvisional("foobar");
 
@@ -221,7 +219,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertTrue("Controller does not have expected errors on validate", _errors.hasErrors());
     }
 
-    public void testBadPassword() throws NoSuchAlgorithmException {
+    public void testBadPassword() throws Exception {
         _user.setPlaintextPassword("foobar");
 
         expect(_mockUserDao.findUserFromEmailIfExists("testLoginController@greatschools.net")).andReturn(_user);
@@ -237,7 +235,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertTrue("Controller does not have expected errors on validate", _errors.hasErrors());
     }
 
-    public void testDisabledUser() throws NoSuchAlgorithmException {
+    public void testDisabledUser() throws Exception {
         _user.setPlaintextPassword("foobar");
         _user.setUserProfile(new UserProfile());
         _user.getUserProfile().setActive(false);

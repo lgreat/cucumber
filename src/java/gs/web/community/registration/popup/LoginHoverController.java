@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -45,7 +46,7 @@ public class LoginHoverController extends LoginController {
      */
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
-                                     BindException errors) throws NoSuchAlgorithmException {
+                                     BindException errors) throws Exception {
         boolean isJoinForm = (request.getParameter("joinForm") != null);
         LoginHoverCommand loginCommand = (LoginHoverCommand) command;
 
@@ -69,7 +70,7 @@ public class LoginHoverController extends LoginController {
 
     public void validateLoginForm(HttpServletRequest request,
                                   LoginHoverCommand loginCommand,
-                                  BindException errors) throws NoSuchAlgorithmException{
+                                  BindException errors) throws Exception {
         EmailValidator emailValidator = new EmailValidator();
         emailValidator.validate(loginCommand, errors);
         if (errors.hasErrors()) {
@@ -83,8 +84,11 @@ public class LoginHoverController extends LoginController {
         }
 
         if (user == null || user.isEmailProvisional()) {
+            String link = "<a href=\"/community/registration/popup/registrationHover.page?email=";
+            link += URLEncoder.encode(loginCommand.getEmail(), "UTF-8");
+            link += "\">Join now!</a>";
             errors.reject(null,
-                    "There is no account associated with that email address.");
+                    "There is no account associated with that email address. " + link);
             _log.info("Community login: user " + loginCommand.getEmail() + " is not in database");
         } else if (user.isPasswordEmpty()) {
             // MSL case, let them through

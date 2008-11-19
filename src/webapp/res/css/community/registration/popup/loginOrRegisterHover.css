@@ -35,6 +35,10 @@ div.wrapper ul {
     margin: 0;
 }
 
+div.wrapper ul.returninguserForm {
+    padding-top: 5px;
+}
+
 div.wrapper ul li {
     position: relative;
     list-style-type: none;
@@ -74,8 +78,8 @@ div.wrapper li.signInButton {
 }
 
 div.wrapper li.signInButton input {
-    width: 82px;
-    height: 20px;
+    width: 70px;
+    height: 21px;
     left: auto;
     right: 10px;
 }
@@ -91,10 +95,6 @@ div.wrapper li.forgotPassword {
         font-size: 11px;
     }
 
-p.note {
-    font-size: 11px;
-}
-
 div.returninguser {
     position: absolute;
     top: 25px;
@@ -103,7 +103,7 @@ div.returninguser {
 }
 
 div.returninguser h2 {
-    background: url(/res/img/community/registration/returningmember_1.gif) no-repeat left;
+    background: url(/res/img/community/registration/returningmember_1.gif) no-repeat 3px;
     text-indent: -9999em;
     padding: 0 0 16px 0;
     margin: 0 0 10px -4px;
@@ -111,7 +111,7 @@ div.returninguser h2 {
 
 p.subheader {
     font-weight: bold;
-    margin-top: 0;
+    margin: 0 0 5px 0;
 }
 
 img.verticalDots {
@@ -128,7 +128,7 @@ div.newuser {
 }
 
 div.newuser h2 {
-    background: url(/res/img/community/registration/newtogreatschools_1.gif) no-repeat left;
+    background: url(/res/img/community/registration/newtogreatschools_1.gif) no-repeat 3px;
     text-indent: -9999em;
     padding: 0 0 16px 0;
     margin: 0 0 10px -4px;
@@ -139,8 +139,8 @@ div.newuser p.subheader {
 }
 
 div.wrapper li.joinButton input {
-    width: 68px;
-    height: 22px;
+    width: 49px;
+    height: 20px;
     left: auto;
     right: 0;
 }
@@ -174,10 +174,6 @@ div.wrapper ul.warning li img {
     top: 5px;
 }
 
-.newuser ul.warning li {
-    height: 40px;
-}
-
 .returninguser ul.warning li {
-    height: 30px;
+    height: auto;
 }

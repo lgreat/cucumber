@@ -38,10 +38,8 @@
                 <p class="infoMessage">${gsweb:escapeHtml(param.message)}</p>
             </c:if>
 
-            <c:if test="${not loginCmd.joinError}">            
-                <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
-            </c:if>
-            
+            <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
+
             <form action="/community/registration/popup/loginOrRegisterHover.page" method="post">
                 <ul class="returninguserForm">
                     <li class="emailAddress">
@@ -71,10 +69,6 @@
                     </li>
                 </ul>
             </form>
-            <p class="note">
-                <strong>New!</strong> My School List is available for GreatSchools members.
-                <a href="/community/registration/popup/registrationHover.page">Join now!</a>
-            </p>
         </div>
 
         <gsml:img src="/res/img/community/registration/vertical_dots_hover.gif"
@@ -87,10 +81,6 @@
                     src="/res/img/community/registration/momgirl_small.jpg"
                     alt="Mom and girl"/></a>
             <p class="subheader">Setting up a free membership is easy!</p>
-
-            <c:if test="${loginCmd.joinError}">
-                <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
-            </c:if>
 
             <form action="/community/registration/popup/loginOrRegisterHover.page" method="post">
                 <input type="hidden" name="joinForm" value="joinForm"/>

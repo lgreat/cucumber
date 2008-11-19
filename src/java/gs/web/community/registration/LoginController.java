@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.39 2008/11/18 21:29:58 aroy Exp $
+ * $Id: LoginController.java,v 1.40 2008/11/19 01:47:34 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -106,7 +106,7 @@ public class LoginController extends SimpleFormController {
      */
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
-                                     BindException errors) throws NoSuchAlgorithmException {
+                                     BindException errors) throws Exception {
         if (errors.hasErrors()) {
             return;
         }
