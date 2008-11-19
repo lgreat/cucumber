@@ -4,7 +4,9 @@ import gs.web.BaseControllerTestCase;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
+import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.easymock.MockControl;
@@ -47,6 +49,11 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         user.setId(new Integer(234));
         user.setPlaintextPassword("foobar");
         user.setEmailProvisional("foobar");
+        user.setUserProfile(new UserProfile());
+        user.getUserProfile().setScreenName("Anthony");
+        user.getUserProfile().setState(State.CA);
+        user.getUserProfile().setCity("Alameda");
+
         assertTrue(user.isEmailProvisional());
         assertFalse(user.isEmailValidated());
 
