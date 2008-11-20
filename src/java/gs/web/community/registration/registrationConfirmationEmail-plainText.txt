@@ -8,9 +8,9 @@ Here's how to get started:
 
     * Connect with parents ($LOCAL_TAB). Talk about Alameda schools and get answers to your parenting and education questions.
 
-    * Get school savvy ($ALL_ARTICLES). Find out what your child should be learning, grade-by-grade.
-    
     * Keep track of schools ($MY_SCHOOL_LIST). Track schools with My School List, your personalized guide to schools.
+
+    * Get expert advice ($NEWSLETTER_SUBSCRIBE). Sign up for free newsletters and manage your subscriptions.
 
 Your account details (in case you do not have them):
 Email Address: $USER_EMAIL

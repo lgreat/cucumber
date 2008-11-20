@@ -78,16 +78,16 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         assertNotNull(msg.getContent());
     }
 
-//    public void testRealSend() throws Exception {
-//        RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
-//                getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
-//        User user = new User();
-//        user.setUserProfile(new UserProfile());
-//        user.getUserProfile().setScreenName("Test GS-7601");
-//        user.getUserProfile().setState(State.CA);
-//        user.getUserProfile().setCity("Alameda");
-//        user.setEmail("aroy@greatschools.net");
-//
-//        email.sendToUser(user, "password", getRequest());
-//    }
+    public void xtestRealSend() throws Exception {
+        RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
+                getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
+        User user = new User();
+        user.setUserProfile(new UserProfile());
+        user.getUserProfile().setScreenName("Test GS-7601");
+        user.getUserProfile().setState(State.CA);
+        user.getUserProfile().setCity("Alameda");
+        user.setEmail("aroy@greatschools.net");
+
+        email.sendToUser(user, "password", getRequest());
+    }
 }
