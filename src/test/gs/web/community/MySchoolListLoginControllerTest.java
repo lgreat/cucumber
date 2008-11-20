@@ -8,8 +8,7 @@ import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
-import static org.easymock.EasyMock.*;
-import static org.easymock.classextension.EasyMock.createMock;
+import static org.easymock.classextension.EasyMock.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
     IUserDao _mockUserDao;
     ISubscriptionDao _mockSubscriptionDao;
     User _testUser;
+    MySchoolListConfirmationEmail _email;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -36,13 +36,17 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
         _mockSubscriptionDao = createStrictMock(ISubscriptionDao.class);
         _controller.setSubscriptionDao(_mockSubscriptionDao);
         _controller.setUserDao(_mockUserDao);
+        _email = createStrictMock(MySchoolListConfirmationEmail.class);
+        _controller.setMySchoolListConfirmationEmail(_email);
     }
 
     public void testRequestWithKnownUser() throws Exception {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setMemberId(1);
         getRequest().setMethod("GET");
+        replay(_email);
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        verify(_email);
         // for now, known users will not be redirected to the msl - instead, they will be
         // allowed to change identity on the login page.
         assertEquals("Expected msl login form view", "/community/mySchoolListLogin", mAndV.getViewName());
@@ -50,7 +54,9 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
 
     public void testRequestWithUnknownUser() throws Exception {
         getRequest().setMethod("GET");
+        replay(_email);
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        verify(_email);
         assertEquals("Expected msl login form view", "/community/mySchoolListLogin", mAndV.getViewName());
     }
 
@@ -62,9 +68,11 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
         expect(_mockUserDao.findUserFromEmailIfExists(_testUser.getEmail())).andReturn(_testUser);
         replay(_mockUserDao);
         replay(_mockSubscriptionDao);
+        replay(_email);
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
         verify(_mockUserDao);
         verify(_mockSubscriptionDao);
+        verify(_email);
         assertEquals("Expected the MSL page", _controller.getSuccessView(), mAndV.getViewName());
         assertEquals("Member cookie should now be in response", "1", getResponse().getCookie("MEMID").getValue());
     }
@@ -78,11 +86,14 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
         expect(_mockUserDao.findUserFromEmailIfExists(_testUser.getEmail())).andReturn(null);
         _mockUserDao.saveUser(_testUser);
         expect(_mockUserDao.findUserFromEmail(_testUser.getEmail())).andReturn(_testUser);
+        _email.sendToUser(_testUser, getRequest());
         replay(_mockUserDao);
         replay(_mockSubscriptionDao);
+        replay(_email);
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
         verify(_mockUserDao);
         verify(_mockSubscriptionDao);
+        verify(_email);
         assertEquals("Expected the MSL page", _controller.getSuccessView(), mAndV.getViewName());
         assertEquals("Member cookie should be set set to user id", "1234", getResponse().getCookie("MEMID").getValue());
     }
@@ -106,10 +117,11 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
 
         replay(_mockUserDao);
         replay(_mockSubscriptionDao);
-
+        replay(_email);
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
         verify(_mockUserDao);
         verify(_mockSubscriptionDao);
+        verify(_email);
 
         assertEquals("Expected the MSL page", _controller.getSuccessView(), mAndV.getViewName());
         assertEquals("Member cookie should now be in response", "1", getResponse().getCookie("MEMID").getValue());

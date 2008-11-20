@@ -18,6 +18,13 @@
 
     <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"/>
 
+    <bean id="mySchoolListConfirmationEmail"
+          class="gs.web.community.MySchoolListConfirmationEmail">
+        <property name="subject" value="Your My School List membership is only the beginning"/>
+        <property name="fromEmail" value="gs-batch@greatschools.net"/>
+        <property name="fromName" value="GreatSchools"/>
+    </bean>
+
     <bean id="registrationConfirmationEmail"
           class="gs.web.community.registration.RegistrationConfirmationEmail">
         <property name="subject" value="Welcome to GreatSchools"/>

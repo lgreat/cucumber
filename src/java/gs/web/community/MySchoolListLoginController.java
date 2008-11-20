@@ -5,13 +5,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.apache.commons.validator.EmailValidator;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.data.community.*;
 import gs.data.state.State;
-import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
@@ -23,10 +24,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MySchoolListLoginController extends SimpleFormController implements ReadWriteController {
+    protected final Log _log = LogFactory.getLog(getClass());
 
     public static final String BEAN_NAME = "/mySchoolListLogin.page";
     public IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private MySchoolListConfirmationEmail _mySchoolListConfirmationEmail;
 
     final public static String EMAIL_FIELD_CODE = "email";
     final public static String ERROR_EMPTY_EMAIL_ADDRESS = "Please enter your email address.";
@@ -55,6 +58,7 @@ public class MySchoolListLoginController extends SimpleFormController implements
             user.setEmail(email);
             getUserDao().saveUser(user);
             user = getUserDao().findUserFromEmail(email);
+            sendConfirmationEmail(user, request);
         }
 
         if (request.getParameter("pa") != null) {
@@ -64,9 +68,20 @@ public class MySchoolListLoginController extends SimpleFormController implements
 
         PageHelper.setMemberCookie(request, response, user);
 
-        Map model = new HashMap<String,Boolean>();
+        Map<String,Boolean> model = new HashMap<String,Boolean>();
         model.put("showNewsletterHover", true);
         return new ModelAndView(getSuccessView(), model);
+    }
+
+    /**
+     * Sends a confirmation email to the new user
+     */
+    protected void sendConfirmationEmail(User user, HttpServletRequest request) {
+        try {
+            _mySchoolListConfirmationEmail.sendToUser(user, request);
+        } catch (Exception ex) {
+            _log.error("Error sending msl confirmation email to " + user, ex);
+        }
     }
 
     protected List<Subscription> createSubscriptionList(User user, HttpServletRequest request) {
@@ -99,5 +114,13 @@ public class MySchoolListLoginController extends SimpleFormController implements
 
     public void setSubscriptionDao(ISubscriptionDao _subscriptionDao) {
         this._subscriptionDao = _subscriptionDao;
+    }
+
+    public MySchoolListConfirmationEmail getMySchoolListConfirmationEmail() {
+        return _mySchoolListConfirmationEmail;
+    }
+
+    public void setMySchoolListConfirmationEmail(MySchoolListConfirmationEmail mySchoolListConfirmationEmail) {
+        _mySchoolListConfirmationEmail = mySchoolListConfirmationEmail;
     }
 }
