@@ -410,15 +410,6 @@
         </div>
     </div><!-- end: schoolOverview -->
 
-    <variant:b>
-        <jsp:include page="/school/compareFooter.module" >
-            <jsp:param name="state" value="${stateAbbrev}"/>
-            <jsp:param name="city" value="${city}"/>
-            <jsp:param name="showCommunityPromo" value="true"/>
-            <jsp:param name="preschoolOnly" value="${school.levelCode eq 'p'}"/>
-        </jsp:include>
-    </variant:b>
-
     <c:if test="${school.levelCode ne 'p' and not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
         <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />
         <c:set var="yahooRealEstateURL" value='http://realestate.yahoo.com/${requestScope.context.stateOrDefault.longName}/${requestScope.pageHelper.yahooRealEstateCityEscaped}' />
