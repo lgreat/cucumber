@@ -148,7 +148,7 @@
 
         <div class="moduleBox last" id="givingContest">
             <div id="text">
-                <p>How do you teach chldren the spirit of giving?</p>
+                <p>How do you teach children the spirit of giving?</p>
                 <p><a href="http://${communityHost}/category/holiday-contest/">Submit your story for a chance to win a $500 DonorsChoose gift card for your school!</a></p>
             </div>
             <img src="/res/img/holidayGiving/contest_giftcard.gif" alt="Giving card"/>
