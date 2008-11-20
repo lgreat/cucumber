@@ -10,6 +10,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
         >
     <jsp:directive.tag import="gs.data.school.ISchoolDao"/>
     <jsp:directive.tag import="gs.data.school.NearbySchool"/>
@@ -51,6 +52,19 @@
     </c:choose>
     <c:if test="${hasNearby}">
         <pageHelper:externalCss file="/res/css/school/nearby.css"/>
+
+        <!-- A/B test for GS-7597: B users are prompted to log in or join GS community when clicking Add to MSL
+        To revert to A, delete variant:b block, mslOnclick variable, and any onclick references to said variable
+        To revert to B, make variant:b block permanent.
+        -->
+        <c:set var="mslOnclick" value=""/>
+        <variant:b>
+            <c:if test="${requestScope.context.userSeemsValid eq false}">
+                <!-- scripts are included in the profile.tagx -->
+                <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
+            </c:if>
+        </variant:b>
+
         <!-- nearbyWrapper div is for top border styling -->
         <div id="nearbyWrapper" class="noprint">
             <div id="nearbySchools">
@@ -100,7 +114,7 @@
                                         </c:choose>
                                     </div>
                                     <c:if test="${not empty nearbySchool.distance}">
-                                        <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
+                                        <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save" onclick="${mslOnclick}">Save</link:mySchoolList>
                                     </c:if>
                                 </li>
                             </c:when>
@@ -112,7 +126,7 @@
                                 <li class="${rating}">
                                     <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
                                     <c:if test="${not empty nearbySchool.distance}">
-                                        <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
+                                        <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save" onclick="${mslOnclick}">Save</link:mySchoolList>
                                     </c:if>
                                 </li>
                             </c:otherwise>
