@@ -14,6 +14,7 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -78,6 +79,13 @@ public class MySchoolListController extends AbstractController implements ReadWr
                 view = LIST_VIEW_NAME;
                 model = buildModel(user);
             } else {
+                // GS-7601 Anonymous users from reg welcome email redirected to community login 
+                if (StringUtils.equals(request.getParameter("cpn"), "gssu_welcome")) {
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
+                    urlBuilder.setParameter("redirect", BEAN_ID);
+                    urlBuilder.setParameter("message", "Please login or register to access My School List");
+                    return new ModelAndView("redirect:" + urlBuilder.asSiteRelative(request));
+                }
                 view = INTRO_VIEW_NAME;                
             }
         } else {

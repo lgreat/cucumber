@@ -114,7 +114,7 @@
                 <c:set var="message" value="${gsweb:escapeHtml(param.message)}"/>
             </c:if>
             <c:set var="messageClass" value=""/>
-            <c:if test="${requestScope.message ne null and requestScope.message gt ''}">
+            <c:if test="${message ne null and message gt ''}">
                 <c:set var="messageClass" value="hasMessage"/>
                 <p class="infoMessage">
                     <gsml:img src="/res/img/community/registration/check.gif" alt="Check mark"/>
