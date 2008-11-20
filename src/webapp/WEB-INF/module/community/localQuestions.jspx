@@ -40,7 +40,6 @@
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.YEAR, 2);
                 Date date = calendar.getTime();
-                System.err.println(date);
                 request.setAttribute("cookieExpires", date);
             </jsp:scriptlet>
             <meta http-equiv="Set-Cookie" content="CITYID=${cityId};expires=${cookieExpires}; path=/;domain=.greatschools.net"/>
