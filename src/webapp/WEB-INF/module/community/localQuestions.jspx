@@ -29,7 +29,6 @@
     <c:set var="maxEntries" value="${param.maxEntries}"/>
     <!-- GS-7298 When this module appears in an iframe, it must be static height -->
     <c:set var="forceHeight" value=""/>
-    <!-- Only A version since B version is already static height -->
     <c:if test="${param.forceHeight ne null and param.forceHeight gt 100}">
         <c:set var="forceHeight" value="height: ${param.forceHeight-92}px !important"/>
     </c:if>
