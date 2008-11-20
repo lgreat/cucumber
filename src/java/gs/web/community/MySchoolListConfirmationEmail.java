@@ -54,6 +54,11 @@ public class MySchoolListConfirmationEmail extends AbstractSendEmailBean {
         urlBuilder.addParameter("cpn", cpn);
         emailHelper.addInlineReplacement("MY_SCHOOL_LIST",
                 urlBuilder.asFullUrl(request));
+        urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, sc.getStateOrDefault(), null);
+        urlBuilder.addParameter("email", user.getEmail());
+        urlBuilder.addParameter("cpn", cpn);
+        emailHelper.addInlineReplacement("NEWSLETTER_SUBSCRIBE",
+                urlBuilder.asFullUrl(request));
 
         emailHelper.send();
     }
