@@ -14,9 +14,7 @@ import gs.web.util.validator.EmailValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.NoSuchAlgorithmException;
 import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -65,6 +63,10 @@ public class LoginHoverController extends LoginController {
                     "been registered with GreatSchools. Sign in now!");
             loginCommand.setEmail("");
             loginCommand.setJoinError(true);
+            // remember me is supposed to default to true on the login form
+            // since we both use the same command, it's common courtesy for me to
+            // set it to true when I'm sending it that way
+            loginCommand.setRememberMe(true);
         }
     }
 

@@ -86,7 +86,7 @@
 }
 
 #returninguser h2 {
-    background: url(/res/img/community/registration/returningmember.gif) no-repeat -3px;
+    background: url(/res/img/community/registration/returningmember.gif) no-repeat -3px -3px;
     text-indent: -9999em;
     padding: 0 0 12px 0;
 }

@@ -120,15 +120,15 @@ div.returninguser {
 }
 
 div.returninguser h2 {
-    background: url(/res/img/community/registration/returningmember_1.gif) no-repeat 3px;
+    background: url(/res/img/community/registration/returningmember_1.gif) no-repeat 1px;
     text-indent: -9999em;
     padding: 0 0 16px 0;
     margin: 0 0 10px -4px;
 }
 
-p.subheader {
+div.newuser p.subheader {
     font-weight: bold;
-    margin: 0 0 5px 0;
+    margin: 15px 0 5px 0;
 }
 
 img.verticalDots {
@@ -145,14 +145,10 @@ div.newuser {
 }
 
 div.newuser h2 {
-    background: url(/res/img/community/registration/newtogreatschools_1.gif) no-repeat 1px;
+    background: url(/res/img/community/registration/newtogreatschools_1.gif) no-repeat 1px 0;
     text-indent: -9999em;
     padding: 0 0 16px 0;
     margin: 0 0 10px -4px;
-}
-
-div.newuser p.subheader {
-    margin-top: 15px;
 }
 
 div.wrapper li.joinButton input {
