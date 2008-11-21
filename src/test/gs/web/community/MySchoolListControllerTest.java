@@ -139,7 +139,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
     public void testRequestFromKnownUserSchoolsAdded() throws Exception {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setMemberId(1);
-        sc.setCityId(135457);
+        sc.setCity(createStubCity());
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool()).times(4);
         replay(_schoolDao);
 //        expect(_geoDao.findCity(State.NJ, "Beirut")).andReturn(createStubCity());

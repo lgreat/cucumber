@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.27 2008/11/17 22:17:39 aroy Exp $
+ * $Id: SessionContext.java,v 1.28 2008/11/21 00:03:59 aroy Exp $
  */
 package gs.web.util.context;
 
@@ -474,6 +474,15 @@ public class SessionContext implements ApplicationContextAware, Serializable {
             }
         }
         return _city;
+    }
+
+    public void setCity(City city) {
+        _city = city;
+        if (city != null) {
+            _cityId = city.getId();
+        } else {
+            _cityId = null;
+        }
     }
 
     public void setCityId(Integer cityId) {
