@@ -11,7 +11,8 @@
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsweb="gstaglib">
-    <jsp:directive.tag body-content="empty"/>
+<jsp:directive.tag import="gs.web.util.PageHelper"/>
+<jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
     <jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="sortDirection" required="true" type="java.lang.String"/>
@@ -83,8 +84,12 @@
     To revert to B, make variant:b block permanent.
     -->
     <c:set var="mslOnclick" value=""/>
+    <jsp:scriptlet>
+        request.setAttribute("communityAuth",
+                PageHelper.isCommunityCookieSet(request));
+    </jsp:scriptlet>
     <variant:b>
-        <c:if test="${requestScope.context.userSeemsValid eq false}">
+        <c:if test="${communityAuth eq false}">
             <community:mslLoginHover/>
             <script type="text/javascript">
                 var mslHref = '';

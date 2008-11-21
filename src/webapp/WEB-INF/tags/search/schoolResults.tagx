@@ -8,7 +8,8 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
-    <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
+<jsp:directive.tag import="gs.web.util.PageHelper"/>
+<jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
     <jsp:directive.attribute name="hideGSRating" required="false" type="java.lang.Boolean"/>
 
     <c:set var="hideRating" value="${!empty hideGSRating and hideGSRating ? true : false}"/>
@@ -18,8 +19,12 @@
     To revert to B, make variant:b block permanent.
     -->
     <c:set var="mslOnclick" value=""/>
+    <jsp:scriptlet>
+        request.setAttribute("communityAuth",
+                PageHelper.isCommunityCookieSet(request));
+    </jsp:scriptlet>
     <variant:b>
-        <c:if test="${requestScope.context.userSeemsValid eq false}">
+        <c:if test="${communityAuth eq false}">
             <community:mslLoginHover/>
             <script type="text/javascript">
                 var mslHref = '';
