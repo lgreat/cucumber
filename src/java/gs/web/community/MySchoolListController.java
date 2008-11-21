@@ -75,18 +75,24 @@ public class MySchoolListController extends AbstractController implements ReadWr
         Map<String, Object> model = null;
 
         if (StringUtils.isBlank(command)) {
-            if (user != null) {
-                view = LIST_VIEW_NAME;
-                model = buildModel(user);
-            } else {
-                // GS-7601 Anonymous users from reg welcome email redirected to community login 
-                if (StringUtils.equals(request.getParameter("cpn"), "gssu_welcome")) {
+            // GS-7601 Anonymous users from reg welcome email redirected to community login
+            if (StringUtils.equals(request.getParameter("cpn"), "gssu_welcome")) {
+                // if you aren't signed in, go to community sign in
+                // if you are signed in only to MSL, if you are a B user go to community sign in
+                if (user == null ||
+                        (StringUtils.equals(sessionContext.getABVersion(), "b") && 
+                                !PageHelper.isMemberAuthorized(request))) {
                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
                     urlBuilder.setParameter("redirect", BEAN_ID);
                     urlBuilder.setParameter("message", "Please login or register to access My School List");
                     return new ModelAndView("redirect:" + urlBuilder.asSiteRelative(request));
                 }
-                view = INTRO_VIEW_NAME;                
+            }
+            if (user != null) {
+                view = LIST_VIEW_NAME;
+                model = buildModel(user);
+            } else {
+                view = INTRO_VIEW_NAME;
             }
         } else {
             if (user != null) {
