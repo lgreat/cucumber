@@ -8,6 +8,7 @@ import gs.web.util.validator.EmailValidator;
  */
 public class RegistrationHoverCommand extends UserCommand implements EmailValidator.IEmail{
     private boolean _mslOnly;
+    private String _how;
 
     public RegistrationHoverCommand() {
         super();
@@ -19,5 +20,13 @@ public class RegistrationHoverCommand extends UserCommand implements EmailValida
 
     public void setMslOnly(boolean mslOnly) {
         _mslOnly = mslOnly;
+    }
+
+    public String getHow() {
+        return _how;
+    }
+
+    public void setHow(String how) {
+        _how = how;
     }
 }

@@ -9,7 +9,6 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.UserCommandHoverValidator;
 import gs.web.community.registration.RegistrationController;
-import gs.web.community.registration.UserCommand;
 import gs.web.tracking.OmnitureSuccessEvent;
 import gs.data.community.*;
 
@@ -49,7 +48,7 @@ public class RegistrationHoverController extends RegistrationController implemen
                                  BindException errors) throws Exception {
         if (isIPBlocked(request)) return new ModelAndView(getErrorView());
 
-        UserCommand userCommand = (UserCommand) command;
+        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
         ModelAndView mAndV = new ModelAndView();
         OmnitureSuccessEvent ose = new OmnitureSuccessEvent(request, response);
@@ -90,7 +89,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         return mAndV;
     }
 
-    protected UserProfile updateUserProfile(User user, UserCommand userCommand, OmnitureSuccessEvent ose) {
+    protected UserProfile updateUserProfile(User user, RegistrationHoverCommand userCommand, OmnitureSuccessEvent ose) {
         UserProfile userProfile;
         if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
             // hack to get provisional accounts working in least amount of development time
@@ -106,6 +105,9 @@ public class RegistrationHoverController extends RegistrationController implemen
             user.setUserProfile(userProfile);
 
             ose.add(OmnitureSuccessEvent.SuccessEvent.CommunityRegistration);
+        }
+        if (!StringUtils.isBlank(userCommand.getHow())) {
+            user.getUserProfile().setHow(userCommand.getHow());
         }
         user.getUserProfile().setUpdated(new Date());
         user.getUserProfile().setNumSchoolChildren(0);        

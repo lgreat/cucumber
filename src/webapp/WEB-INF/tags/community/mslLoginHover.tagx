@@ -34,7 +34,7 @@
         function showLoginHover() {
             var frameLocation = '' + window.frames['mslFlowDialogIFrame'].window.location;
             if (frameLocation.indexOf('/community/registration/popup/loginOrRegisterHover.page') == -1) {
-                window.frames['mslFlowDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page';
+                window.frames['mslFlowDialogIFrame'].window.location = '/community/registration/popup/loginOrRegisterHover.page?how=mslHover';
             }
 
             document.getElementById("mslFlowDialog").style.display="block";

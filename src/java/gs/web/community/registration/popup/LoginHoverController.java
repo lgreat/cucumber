@@ -118,12 +118,13 @@ public class LoginHoverController extends LoginController {
                                  HttpServletResponse response,
                                  Object command,
                                  BindException errors) throws Exception {
-        LoginCommand loginCommand = (LoginCommand) command;
+        LoginHoverCommand loginCommand = (LoginHoverCommand) command;
         String email = loginCommand.getEmail();
         ModelAndView mAndV = new ModelAndView();
 
         if (request.getParameter("joinForm") != null) {
-            mAndV.setViewName("redirect:/community/registration/popup/registrationHover.page?email=" + URLEncoder.encode(email, "UTF-8"));
+            mAndV.setViewName("redirect:/community/registration/popup/registrationHover.page?email=" +
+                    URLEncoder.encode(email, "UTF-8") + "&how=" + loginCommand.getHow());
             return mAndV;
         }
         User user = getUserDao().findUserFromEmail(email);
@@ -133,7 +134,8 @@ public class LoginHoverController extends LoginController {
             // Log the user in to MSL
             PageHelper.setMemberCookie(request, response, user);
             // But they don't have a community password, so send them to the registration page
-            redirectUrl = "/community/registration/popup/registrationHover.page?email=" + URLEncoder.encode(email, "UTF-8") + "&msl=1";
+            redirectUrl = "/community/registration/popup/registrationHover.page?email=" +
+                    URLEncoder.encode(email, "UTF-8") + "&msl=1&how=" + loginCommand.getHow();
         } else {
             // The password has validated, so set the cookies and send them onward
             // only notify community on final step

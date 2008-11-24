@@ -14,7 +14,7 @@ import static org.easymock.classextension.EasyMock.*;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @author Anthony Roy <mailto:aroy@greatschoolure nimirs.net>
  */
 public class LoginHoverControllerTest extends BaseControllerTestCase {
     private LoginHoverController _controller;
@@ -50,6 +50,9 @@ public class LoginHoverControllerTest extends BaseControllerTestCase {
 
     public void testCommand() {
         assertFalse(_command.isJoinError());
+        assertNull(_command.getHow());
+        _command.setHow("unittest");
+        assertEquals("unittest", _command.getHow());
     }
 
     public void testOnBindOnNewFormEmptyEmail() {

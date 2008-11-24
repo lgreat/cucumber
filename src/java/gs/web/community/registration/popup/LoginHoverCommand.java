@@ -7,6 +7,7 @@ import gs.web.community.registration.LoginCommand;
  */
 public class LoginHoverCommand extends LoginCommand {
     private boolean _joinError = false;
+    private String _how;
 
     public boolean isJoinError() {
         return _joinError;
@@ -14,5 +15,13 @@ public class LoginHoverCommand extends LoginCommand {
 
     public void setJoinError(boolean joinError) {
         _joinError = joinError;
+    }
+
+    public String getHow() {
+        return _how;
+    }
+
+    public void setHow(String how) {
+        _how = how;
     }
 }

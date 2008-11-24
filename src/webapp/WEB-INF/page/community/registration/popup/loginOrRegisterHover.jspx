@@ -45,6 +45,9 @@
             <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
 
             <form action="/community/registration/popup/loginOrRegisterHover.page" method="post">
+                <spring:bind path="loginCmd.how">
+                    <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                </spring:bind>
                 <ul class="returninguserForm">
                     <li class="emailAddress">
                         <label>Email address</label>
@@ -88,13 +91,16 @@
 
         <div class="newuser">
             <h2>Not a Member?</h2>
-            <a href="/community/registration/popup/registrationHover.page"><img
+            <a href="/community/registration/popup/registrationHover.page?how=${loginCmd.how}"><img
                     src="/res/img/community/registration/momgirl_small.jpg"
                     alt="Mom and girl"/></a>
             <p class="subheader">Setting up a free membership is easy!</p>
 
             <form action="/community/registration/popup/loginOrRegisterHover.page" method="post">
                 <input type="hidden" name="joinForm" value="joinForm"/>
+                <spring:bind path="loginCmd.how">
+                    <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                </spring:bind>
                 <ul class="newuserForm">
                     <li class="emailAddress">
                         <label>Email address</label>

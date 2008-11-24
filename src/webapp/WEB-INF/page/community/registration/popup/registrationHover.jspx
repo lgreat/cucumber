@@ -104,6 +104,9 @@
             <spring:bind path="userCmd.mslOnly">
                 <input type="hidden" name="${status.expression}" value="${status.value}"/>
             </spring:bind>
+            <spring:bind path="userCmd.how">
+                <input type="hidden" name="${status.expression}" value="${status.value}"/>
+            </spring:bind>
             <ul>
                 <li id="emailLine">
                     <label for="email">Email address</label>
