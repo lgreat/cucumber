@@ -152,7 +152,7 @@
             //s.prop13 is being set on the article.page to distinguish new and old articles
             s.prop13 = "${articleStyle}";
 
-            s.prop14 = "${if not empty(articleId) ? articleId : ''}";
+            s.prop14 = "${not empty(articleId) ? articleId : ''}";
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
