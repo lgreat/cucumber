@@ -60,6 +60,11 @@
             name="articleStyle"
             description="Article Style: new or old"
             required="false"/>
+    <jsp:directive.attribute
+            name="articleId"
+            description="Article Id"
+            required="false"/>
+
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request">
     <jsp:scriptlet>
@@ -146,6 +151,8 @@
 
             //s.prop13 is being set on the article.page to distinguish new and old articles
             s.prop13 = "${articleStyle}";
+
+            s.prop14 = "${if not empty(articleId) ? articleId : ''}";
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";

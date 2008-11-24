@@ -283,7 +283,8 @@
     <mod:tracking pageName="${pageName}"
                 hier1="Article,ArticleTitle: ${requestScope.articleHier1}"
                 events="event7"
-                articleStyle="${articleStyle}" />
+                articleStyle="${articleStyle}"
+                articleId = "${requestScope.article.id}" />
 
     <c:if test="${articleStyle eq 'new'}">
         <script type="text/javascript" >
