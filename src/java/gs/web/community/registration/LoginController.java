@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.41 2008/11/25 22:21:53 aroy Exp $
+ * $Id: LoginController.java,v 1.42 2008/11/25 23:39:06 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -138,8 +138,8 @@ public class LoginController extends SimpleFormController {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, user.getEmail());
             String joinLink = builder.asAHref(request, "Join now &gt;");
             request.setAttribute("message", "Hi, " + user.getEmail().split("@")[0] +
-                    "! You have an email address on file, " +
-                    "but still need to create a free account with GreatSchools. " + joinLink);
+                    "! You've already subscribed to My School List, " +
+                    "but still need to create an account with GreatSchools. " + joinLink);
             _log.info("Community login: non-community user " + loginCommand.getEmail() + " MSL subscriber? " + isMslSubscriber);
         } else if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
 
