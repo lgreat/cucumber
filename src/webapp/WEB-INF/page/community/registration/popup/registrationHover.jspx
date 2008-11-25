@@ -87,8 +87,9 @@
                 <div class="infoMessage">
                     <img src="/res/img/community/registration/check.gif" alt="Check"/>
                     <p>
-                        Hi, ${nickname}! You have an email address on file, but still need to create an
-                        account with GreatSchools. Take a minute to register below!
+                        Hi, ${nickname}! You've already subscribed to My School List,
+                        but still need to create an account with GreatSchools.
+                        Take a minute to register below!
                     </p>
                 </div>
             </c:when>
