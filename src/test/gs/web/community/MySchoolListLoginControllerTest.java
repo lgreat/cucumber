@@ -77,6 +77,30 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
         assertEquals("Member cookie should now be in response", "1", getResponse().getCookie("MEMID").getValue());
     }
 
+    public void testSubmitWithCommandParameters() throws Exception {
+        // Regression test for GS-7623
+        SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
+        assertNull("Member id should not be set", sc.getUser());
+        getRequest().setParameter("email", _testUser.getEmail());
+        getRequest().setMethod("POST");
+        getRequest().setParameter("command", "add");
+        getRequest().setParameter("ids", "8485");
+        getRequest().setParameter("state", "CA");
+        expect(_mockUserDao.findUserFromEmailIfExists(_testUser.getEmail())).andReturn(_testUser);
+        replay(_mockUserDao);
+        replay(_mockSubscriptionDao);
+        replay(_email);
+        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        verify(_mockUserDao);
+        verify(_mockSubscriptionDao);
+        verify(_email);
+        assertEquals("Expected the MSL page", _controller.getSuccessView(), mAndV.getViewName());
+        assertEquals("Member cookie should now be in response", "1", getResponse().getCookie("MEMID").getValue());
+        assertEquals("add", mAndV.getModel().get("command"));
+        assertEquals("8485", mAndV.getModel().get("ids"));
+        assertEquals("CA", mAndV.getModel().get("state"));
+    }
+
     public void testSubmitWithUnknownEmail() throws Exception {
         assertNull("Member cookie should not be set", getResponse().getCookie("MEMID"));
         _testUser.setEmail("foo@flimflam.com");

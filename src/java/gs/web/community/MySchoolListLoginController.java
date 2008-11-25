@@ -2,6 +2,7 @@ package gs.web.community;
 
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.validation.BindException;
 import org.apache.commons.validator.EmailValidator;
 import org.apache.commons.lang.StringUtils;
@@ -68,8 +69,17 @@ public class MySchoolListLoginController extends SimpleFormController implements
 
         PageHelper.setMemberCookie(request, response, user);
 
-        Map<String,Boolean> model = new HashMap<String,Boolean>();
+        Map<String,Object> model = new HashMap<String,Object>();
         model.put("showNewsletterHover", true);
+        // GS-7623 Pass back any command parameters to the MSL controller
+        if (request.getParameter(MySchoolListController.PARAM_COMMAND) != null) {
+            model.put(MySchoolListController.PARAM_COMMAND,
+                    request.getParameter(MySchoolListController.PARAM_COMMAND));
+            model.put(MySchoolListController.PARAM_SCHOOL_IDS,
+                    request.getParameter(MySchoolListController.PARAM_SCHOOL_IDS));
+            model.put(MySchoolListController.PARAM_STATE,
+                    request.getParameter(MySchoolListController.PARAM_STATE));
+        }
         return new ModelAndView(getSuccessView(), model);
     }
 
