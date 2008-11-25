@@ -78,7 +78,6 @@ public class OmnitureTrackingTest  extends BaseControllerTestCase {
                      OmnitureTracking.SuccessEvent.ParentSurvey.toOmnitureString(), result);
     }
 
-
     public void testAddOmnitureInformationToString_WithSuccessEventParameterNull(){
         String existingEvents = "event1;event101;";
         String result = OmnitureTracking.addOmnitureInformationToString(null,existingEvents);
@@ -87,15 +86,25 @@ public class OmnitureTrackingTest  extends BaseControllerTestCase {
     }
 
     public void testSuccessEventEnumValues(){
-        assertEquals(OmnitureTracking.SuccessEvent.CommunityRegistration.toOmnitureString(), "event6;");
-        assertEquals(OmnitureTracking.SuccessEvent.ArticleView.toOmnitureString(), "event7;");
-        assertEquals(OmnitureTracking.SuccessEvent.ParentRating.toOmnitureString(), "event8;");
-        assertEquals(OmnitureTracking.SuccessEvent.ParentReview.toOmnitureString(), "event9;");
-        assertEquals(OmnitureTracking.SuccessEvent.ParentSurvey.toOmnitureString(), "event10;");
-        assertEquals(OmnitureTracking.SuccessEvent.NewNewsLetterSubscriber.toOmnitureString(), "event11;");
+        assertEquals("event6;", OmnitureTracking.SuccessEvent.CommunityRegistration.toOmnitureString());
+        assertEquals("event7;", OmnitureTracking.SuccessEvent.ArticleView.toOmnitureString());
+        assertEquals("event8;", OmnitureTracking.SuccessEvent.ParentRating.toOmnitureString());
+        assertEquals("event9;", OmnitureTracking.SuccessEvent.ParentReview.toOmnitureString());
+        assertEquals("event10;", OmnitureTracking.SuccessEvent.ParentSurvey.toOmnitureString());
+        assertEquals("event11;", OmnitureTracking.SuccessEvent.NewNewsLetterSubscriber.toOmnitureString());
+        assertEquals(6, OmnitureTracking.SuccessEvent.CommunityRegistration.getEventNumber());
     }
 
-    public void testEvarEnumValues() {
-        assertEquals(OmnitureTracking.EvarNumber.RegistrationSegment.getNumber(), 7);
+    public void testEvarClassAndEnum() {
+        assertEquals(7, OmnitureTracking.EvarNumber.RegistrationSegment.getNumber());
+        OmnitureTracking.Evar evar = new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "foo");
+        assertSame(OmnitureTracking.EvarNumber.RegistrationSegment, evar.getOmnitureEvar());
+        
+        try {
+            new OmnitureTracking.Evar(null, null);
+            fail("Expect illegal argument exception for null enum EvarNumber");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
     }
 }

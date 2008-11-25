@@ -81,8 +81,8 @@ public class OmnitureTracking {
         ParentSurvey(10),
         NewNewsLetterSubscriber(11);
 
-        private Integer _eventNumber;
-        SuccessEvent(Integer eventNumber){
+        private int _eventNumber;
+        SuccessEvent(int eventNumber){
             _eventNumber = eventNumber;
         }
 
@@ -90,7 +90,7 @@ public class OmnitureTracking {
             return "event" + _eventNumber + ";";
         }
 
-        protected Integer getEventNumber(){
+        protected int getEventNumber(){
             return _eventNumber;
         }
     }
