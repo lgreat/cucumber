@@ -9,7 +9,7 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.UserCommandHoverValidator;
 import gs.web.community.registration.RegistrationController;
-import gs.web.tracking.OmnitureSuccessEvent;
+import gs.web.tracking.OmnitureTracking;
 import gs.data.community.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +51,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
         ModelAndView mAndV = new ModelAndView();
-        OmnitureSuccessEvent ose = new OmnitureSuccessEvent(request, response);
+        OmnitureTracking ot = new OmnitureTracking(request, response);
         boolean userExists = false;
 
         if (user != null) {
@@ -64,7 +64,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
 
         setUsersPassword(user, userCommand, userExists);
-        updateUserProfile(user, userCommand, ose);
+        updateUserProfile(user, userCommand, ot);
         // set up defaults for data not collected in hover registration
         if (StringUtils.isEmpty(user.getGender())) {
             user.setGender("u");    
@@ -75,8 +75,9 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         // subscribe to newsletters
         if (userCommand.getNewsletter()) {
-            processNewsletterSubscriptions(user, userCommand, ose);
+            processNewsletterSubscriptions(user, userCommand, ot);
         }
+        ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "MSL Combo Reg"));
         notifyCommunity(user, userCommand, mAndV, request);
 
         if (!user.isEmailProvisional()) {
@@ -89,7 +90,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         return mAndV;
     }
 
-    protected UserProfile updateUserProfile(User user, RegistrationHoverCommand userCommand, OmnitureSuccessEvent ose) {
+    protected UserProfile updateUserProfile(User user, RegistrationHoverCommand userCommand, OmnitureTracking ot) {
         UserProfile userProfile;
         if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
             // hack to get provisional accounts working in least amount of development time
@@ -104,7 +105,7 @@ public class RegistrationHoverController extends RegistrationController implemen
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
 
-            ose.add(OmnitureSuccessEvent.SuccessEvent.CommunityRegistration);
+            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
         }
         if (!StringUtils.isBlank(userCommand.getHow())) {
             user.getUserProfile().setHow(userCommand.getHow());

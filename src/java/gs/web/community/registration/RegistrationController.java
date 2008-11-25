@@ -15,7 +15,7 @@ import gs.web.util.UrlUtil;
 import gs.web.util.NewSubscriberDetector;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.tracking.OmnitureSuccessEvent;
+import gs.web.tracking.OmnitureTracking;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -132,7 +132,7 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
         ModelAndView mAndV = new ModelAndView();
-        OmnitureSuccessEvent ose = new OmnitureSuccessEvent(request, response);
+        OmnitureTracking ot = new OmnitureTracking(request, response);
         boolean userExists = false;
 
         if (user != null) {
@@ -161,7 +161,7 @@ public class RegistrationController extends SimpleFormController implements Read
             sendValidationEmail(user, userCommand, userExists, request);
         }
 
-        UserProfile userProfile = updateUserProfile(user, userCommand, ose);
+        UserProfile userProfile = updateUserProfile(user, userCommand, ot);
 
         // save
         _userDao.updateUser(user);
@@ -182,7 +182,7 @@ public class RegistrationController extends SimpleFormController implements Read
         } else {
             // complete registration
             if (userCommand.getNewsletter()) {
-                processNewsletterSubscriptions(user, userCommand, ose);
+                processNewsletterSubscriptions(user, userCommand, ot);
             }
             if (userCommand.isBeta()) {
                 subscribeToBetaGroup(user, userCommand);
@@ -246,7 +246,7 @@ public class RegistrationController extends SimpleFormController implements Read
         }
     }
 
-    protected void processNewsletterSubscriptions(User user, UserCommand userCommand, OmnitureSuccessEvent ose) {
+    protected void processNewsletterSubscriptions(User user, UserCommand userCommand, OmnitureTracking ot) {
         List<Subscription> subs = new ArrayList<Subscription>();
         // GS-7479 Swap out BoC newsletter with Parent Advisor
         // subscribe to three newsletters
@@ -275,11 +275,11 @@ public class RegistrationController extends SimpleFormController implements Read
         communityNewsletterSubscription.setState(userCommand.getState());
         subs.add(communityNewsletterSubscription);
 
-        NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ose);
+        NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);
         _subscriptionDao.addNewsletterSubscriptions(user, subs);
     }
 
-    protected UserProfile updateUserProfile(User user, UserCommand userCommand, OmnitureSuccessEvent ose) {
+    protected UserProfile updateUserProfile(User user, UserCommand userCommand, OmnitureTracking ot) {
         UserProfile userProfile;
         if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
             // hack to get provisional accounts working in least amount of development time
@@ -295,7 +295,7 @@ public class RegistrationController extends SimpleFormController implements Read
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
 
-            ose.add(OmnitureSuccessEvent.SuccessEvent.CommunityRegistration);
+            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
         }
         user.getUserProfile().setUpdated(new Date());        
         if (userProfile.getNumSchoolChildren() == -1) {

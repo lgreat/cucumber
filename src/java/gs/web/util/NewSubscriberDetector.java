@@ -3,17 +3,14 @@ package gs.web.util;
 import gs.data.community.User;
 import gs.data.community.Subscription;
 import gs.web.tracking.OmnitureSuccessEvent;
+import gs.web.tracking.OmnitureTracking;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 /**
- * Created by IntelliJ IDEA.
- * User: jnorton
- * Date: Jul 30, 2008
- * Time: 2:00:07 PM
- * To change this template use File | Settings | File Templates.
+ * Adds an omniture success event if the user had no previous newsletter subscriptions.
  */
 public class NewSubscriberDetector {
 
@@ -21,11 +18,19 @@ public class NewSubscriberDetector {
         Set<Subscription> subs = user.getSubscriptions();
 
         if (!userHasNewsLetterSubscriptions(subs)) {
-            //OmnitureSuccessEvent.createSuccessEvent(OmnitureSuccessEvent.SuccessEvent.NewNewsLetterSubscriber, request, response);
-            OmnitureSuccessEvent ose = new OmnitureSuccessEvent(request, response);
-            ose.add(OmnitureSuccessEvent.SuccessEvent.NewNewsLetterSubscriber);
+            OmnitureTracking ot = new OmnitureTracking(request, response);
+            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.NewNewsLetterSubscriber);
         }
     }
+
+    public static void notifyOmnitureWhenNewNewsLetterSubscriber(User user, OmnitureTracking ot){
+        Set<Subscription> subs = user.getSubscriptions();
+
+        if (!userHasNewsLetterSubscriptions(subs)) {
+            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.NewNewsLetterSubscriber);
+        }
+    }
+
     public static void notifyOmnitureWhenNewNewsLetterSubscriber(User user, OmnitureSuccessEvent omnitureSuccessEvent){
         Set<Subscription> subs = user.getSubscriptions();
 
