@@ -13,7 +13,7 @@ import static gs.data.util.XMLUtil.*;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
-import gs.web.tracking.OmnitureSuccessEvent;
+import gs.web.tracking.OmnitureTracking;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,7 +81,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
                                  Object command,
                                  BindException errors) throws Exception {
 
-        OmnitureSuccessEvent omnitureSuccessEvent = new OmnitureSuccessEvent(request, response);
+        OmnitureTracking omnitureTracking = new OmnitureTracking(request, response);
 
         ReviewCommand rc = (ReviewCommand) command;
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
@@ -106,7 +106,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
         if (rc.isWantMssNL() && !user.hasReachedMaximumMssSubscriptions()) {
             Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school.getDatabaseState());
             sub.setSchoolId(school.getId());
-            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureSuccessEvent);
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
 
@@ -140,11 +140,11 @@ public class AddParentReviewsController extends SimpleFormController implements 
 
         //trigger the success events
         if (userRatedOneOrMoreCategories(rc)) {
-            omnitureSuccessEvent.add(OmnitureSuccessEvent.SuccessEvent.ParentRating);
+            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentRating);
         }
 
         if (StringUtils.isNotBlank(rc.getComments())) {
-            omnitureSuccessEvent.add(OmnitureSuccessEvent.SuccessEvent.ParentReview);
+            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentReview);
         }
 
         if ("xml".equals(rc.getOutput())) return successXML(response);

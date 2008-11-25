@@ -2,7 +2,6 @@ package gs.web.util;
 
 import gs.data.community.User;
 import gs.data.community.Subscription;
-import gs.web.tracking.OmnitureSuccessEvent;
 import gs.web.tracking.OmnitureTracking;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,14 +27,6 @@ public class NewSubscriberDetector {
 
         if (!userHasNewsLetterSubscriptions(subs)) {
             ot.addSuccessEvent(OmnitureTracking.SuccessEvent.NewNewsLetterSubscriber);
-        }
-    }
-
-    public static void notifyOmnitureWhenNewNewsLetterSubscriber(User user, OmnitureSuccessEvent omnitureSuccessEvent){
-        Set<Subscription> subs = user.getSubscriptions();
-
-        if (!userHasNewsLetterSubscriptions(subs)) {
-            omnitureSuccessEvent.add(OmnitureSuccessEvent.SuccessEvent.NewNewsLetterSubscriber);
         }
     }
 

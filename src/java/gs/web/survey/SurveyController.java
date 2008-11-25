@@ -18,7 +18,7 @@ import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.tracking.OmnitureSuccessEvent;
+import gs.web.tracking.OmnitureTracking;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -337,7 +337,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                                     BindException errors) throws Exception {
         UserResponseCommand urc = (UserResponseCommand) command;
         _log.info("onSubmit()");
-        OmnitureSuccessEvent omnitureSuccessEvent = new OmnitureSuccessEvent(request, response);
+        OmnitureTracking omnitureTracking = new OmnitureTracking(request, response);
 
         User user = urc.getUser();
         boolean isExistingUser = true;
@@ -380,7 +380,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
             } else {
                 sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);
             }
-            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureSuccessEvent);
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
             getSubscriptionDao().addNewsletterSubscriptions(user, Arrays.asList(sub));
         }
 
@@ -394,7 +394,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
          * set the events with Event10.
          */
         if (curPageIndex == 1 && responses.size() > 3 ){
-            omnitureSuccessEvent.add(OmnitureSuccessEvent.SuccessEvent.ParentSurvey);
+            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ParentSurvey);
         }
 
         String level = request.getParameter("level");
