@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.53 2008/11/14 19:15:04 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.54 2008/11/25 17:36:42 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -108,6 +108,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.net";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.net";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.net";
+    public static final String COMMUNITY_PRERELEASE_HOSTNAME = "comgen1.greatschools.net:8000";
 
 
     public SessionContextUtil() {
@@ -499,7 +500,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         if (newState != null) {
             context.setState(newState);
             //_stateCookieGenerator.setCookieDomain();
-            if (_urlUtil.isDeveloperWorkstation(httpServletRequest.getServerName())) {
+            if (UrlUtil.isDeveloperWorkstation(httpServletRequest.getServerName())) {
                 // don't set domain for developer workstations
                 // so they can still access the cookie!!
                 _stateCookieGenerator.setCookieDomain(null);
@@ -619,7 +620,7 @@ public class SessionContextUtil implements ApplicationContextAware {
             _sessionCacheCookieGenerator.addCookie(response, cache.getCookieRepresentation());
             if (StringUtils.isEmpty(_communityCookieGenerator.getCookieName())) {
                 _communityCookieGenerator.setCookieName("community_" + getServerName(request));
-                if (!_urlUtil.isDeveloperWorkstation(request.getServerName())) {
+                if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
                     // don't set domain for developer workstations
                     // so they can still access the cookie!!
                     _communityCookieGenerator.setCookieDomain(".greatschools.net");
@@ -665,10 +666,12 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public String getCommunityHost(HttpServletRequest request) {
         String serverName = request.getServerName();
-        if (_urlUtil.isStagingServer(serverName)) {
+        if (UrlUtil.isStagingServer(serverName)) {
             return COMMUNITY_STAGING_HOSTNAME;
-        } else if (_urlUtil.isDevEnvironment(serverName)) {
+        } else if (UrlUtil.isDevEnvironment(serverName)) {
             return COMMUNITY_DEV_HOSTNAME;
+        } else if (UrlUtil.isPreReleaseServer(serverName)) {
+            return COMMUNITY_PRERELEASE_HOSTNAME;
         }
         return COMMUNITY_LIVE_HOSTNAME;
     }

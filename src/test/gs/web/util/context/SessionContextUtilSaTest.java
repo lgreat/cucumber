@@ -235,6 +235,13 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         assertEquals("Unexpected community host for some other cobrand domain on staging", SessionContextUtil.COMMUNITY_STAGING_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
     }
 
+    public void testGetCommunityHostForPrerelease() {
+        _request.setServerName("rithmatic.greatschools.net");
+        assertEquals("Unexpected rithmatic community host", SessionContextUtil.COMMUNITY_PRERELEASE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+        _request.setServerName("sfgate.rithmatic.greatschools.net");
+        assertEquals("Unexpected community host for sfgate cobrand domain on rithmatic", SessionContextUtil.COMMUNITY_PRERELEASE_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));
+    }
+
     public void testGetCommunityHostForDev() {
         _request.setServerName("dev.greatschools.net");
         assertEquals("Unexpected dev community host", SessionContextUtil.COMMUNITY_DEV_HOSTNAME, _sessionContextUtil.getCommunityHost(_request));

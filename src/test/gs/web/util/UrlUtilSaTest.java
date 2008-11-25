@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.55 2008/11/18 01:03:03 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.56 2008/11/25 17:36:41 aroy Exp $
  */
 
 package gs.web.util;
@@ -239,6 +239,13 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(UrlUtil.isStagingServer("staging.greatschools.net"));
         assertTrue(UrlUtil.isStagingServer("clone.greatschools.net"));
         assertFalse(UrlUtil.isStagingServer("dev.greatschools.net"));
+    }
+
+    public void testIsPrereleaseServer() {
+        assertTrue(UrlUtil.isPreReleaseServer("rithmatic.greatschools.net"));
+        assertTrue(UrlUtil.isPreReleaseServer("sfgate.rithmatic.greatschools.net"));
+        assertFalse(UrlUtil.isPreReleaseServer("www.greatschools.net"));
+        assertFalse(UrlUtil.isPreReleaseServer("staging.greatschools.net"));
     }
 
     public void testBuildHref() {
