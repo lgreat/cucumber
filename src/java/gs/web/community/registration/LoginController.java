@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.40 2008/11/19 01:47:34 aroy Exp $
+ * $Id: LoginController.java,v 1.41 2008/11/25 22:21:53 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Lets user sign in.
@@ -87,8 +86,8 @@ public class LoginController extends SimpleFormController {
             if (StringUtils.isNotBlank(nickname)) {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, sessionContext.getEmail());
                 String joinLink = builder.asAHref(request, "Join now &gt;");
-                request.setAttribute("message", "Hi, " + nickname + "! You have an email address on file, " +
-                        "but still need to create a free account with GreatSchools. " + joinLink);
+                request.setAttribute("message", "Hi, " + nickname + "! You've already subscribed to My School List, " +
+                        "but still need to create an account with GreatSchools. " + joinLink);
             }
         }
     }
