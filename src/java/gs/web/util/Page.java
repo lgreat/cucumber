@@ -1,6 +1,5 @@
 package gs.web.util;
 
-import java.util.List;
 import java.net.URL;
 
 /**

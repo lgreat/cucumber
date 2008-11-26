@@ -4,9 +4,6 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-import gs.web.school.SchoolsController;
-import gs.web.school.SchoolOverviewController;
-
 import java.util.List;
 
 /**

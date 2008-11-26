@@ -1,14 +1,6 @@
 package gs.web.jsp.link;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import javax.servlet.jsp.JspWriter;
-import java.io.IOException;
-import java.util.*;
-
-import gs.data.community.UserProfile;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
