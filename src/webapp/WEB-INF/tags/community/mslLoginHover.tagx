@@ -21,9 +21,7 @@
             {
                 postmethod: "form",
                 width: "560px",
-                fixedcenter: true,
                 visible: false,
-                constraintoviewport: true,
                 draggable: false,
                 modal: true,
                 close: false
@@ -40,6 +38,24 @@
             document.getElementById("mslFlowDialog").style.display="block";
 
             mslFlowDialog.show();
+
+            try {
+                var dwidth = 560;
+                var dheight = 600;
+                var scrollTop = 0;
+                if (document.all) {
+                    var iebody=(document.compatMode && document.compatMode != "BackCompat")?
+                                document.documentElement : document.body
+                    scrollTop = iebody.scrollTop;
+                } else {
+                    scrollTop = window.pageYOffset;
+                }
+                var x = Math.round((YAHOO.util.Dom.getViewportWidth()-dwidth)/2);
+                x = (x < 0)?0:x;
+                var y = Math.round((YAHOO.util.Dom.getViewportHeight()-dheight)/2) + scrollTop;
+                y = (y < scrollTop)?scrollTop:y;
+                mslFlowDialog.moveTo(x,y);
+            } catch (e) {}
 
             return false;
         }
