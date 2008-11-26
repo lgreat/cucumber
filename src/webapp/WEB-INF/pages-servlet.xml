@@ -377,9 +377,22 @@
             <value>status/cache</value>
         </property>
     </bean>
-
-
     <!-- Status end -->
+
+    <bean name="/content/poll.page"
+          class="gs.web.util.google.GoogleSpreadsheetController" lazy-init="true">
+        <property name="viewName" value="/content/poll"/>
+        <property name="tableDao">
+            <bean factory-bean="pollFactory" factory-method="getTableDao"/>
+        </property>
+    </bean>
+
+    <bean name="pollFactory" class="gs.web.util.google.GoogleSpreadsheetDaoFactory">
+        <property name="googleKey" value="pouqRkV5D_eZrSoQkrDCwBA"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+        <property name="worksheetName" value="od6"/>
+    </bean>
 
     <bean name="/content/article.page"
           class="gs.web.content.ArticleController"
