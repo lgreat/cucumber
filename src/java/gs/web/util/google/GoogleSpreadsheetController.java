@@ -2,8 +2,10 @@ package gs.web.util.google;
 
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,10 +18,10 @@ public class GoogleSpreadsheetController extends AbstractController {
 
     private ITableDao _tableDao;
     private String _viewName;
-    protected final String MODEL_ROWS = "rows";
+    protected static final String MODEL_ROWS = "rows";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map model = new HashMap();
+        Map<String, List<ITableRow>> model = new HashMap<String, List<ITableRow>>();
         model.put(MODEL_ROWS, _tableDao.getAllRows());
         return new ModelAndView(_viewName, model);
     }
