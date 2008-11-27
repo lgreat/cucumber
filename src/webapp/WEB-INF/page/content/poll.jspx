@@ -70,6 +70,7 @@
             </iframe>
             <a id="discuss" href="${discussionUrl}">Discuss this issue with other parents &amp;gt;</a>
 
+			<ad:setSlotPrefix slotPrefix="Poll"/>
             <ad:AboveFold_300x250/>
         </div>
         <mod:tracking pageName="Poll page"
