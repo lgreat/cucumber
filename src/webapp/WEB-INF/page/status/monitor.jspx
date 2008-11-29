@@ -113,6 +113,15 @@
         <td class="statusvalue">${remote_addr}</td>
         <td class="statuserror"></td>
     </tr>
+
+    <tr>
+        <td class="statustitle">Changes to ${branch} since this build</td>
+        <td class="statusvalue">
+            <a target="_blank" href="${fisheyeGsweb}">GSWeb</a>,
+            <a target="_blank" href="${fisheyeGsdata}">GSData</a>
+        </td>
+        <td class="statuserror"></td>
+    </tr>
 </table>
 
 <br/>

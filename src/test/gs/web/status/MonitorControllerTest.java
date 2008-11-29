@@ -4,6 +4,7 @@ import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.admin.IPropertyDao;
+import java.text.ParseException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -32,7 +33,7 @@ public class MonitorControllerTest extends BaseControllerTestCase {
     /**
      * The handle request method connects to the database and gets the build version
      */
-    public void testHandleRequest() throws IOException, ServletException {
+    public void testHandleRequest() throws IOException, ServletException, ParseException {
         ModelAndView mv = _controller.handleRequest(getRequest(), getResponse());
 
         assertTrue(mv.getViewName().indexOf("status") > -1);
@@ -40,6 +41,9 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         assertNotNull(model);
         assertTrue(((String) model.get("version")).length() > 0);
         assertTrue(((String) model.get("hostname")).length() > 0);
+        assertTrue(((String) model.get("branch")).indexOf("RELEASE_") > -1);
+        assertTrue(((String) model.get("fisheyeGsweb")).indexOf("GSWeb") > -1);
+        assertTrue(((String) model.get("fisheyeGsdata")).indexOf("GSData") > -1);
         assertTrue((Boolean) model.get("mainReadWrite"));
         assertEquals(model.get("mainError"), "");
         assertTrue((Boolean) model.get("stateReadWrite"));

@@ -12,6 +12,7 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.VariantConfiguration;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
+import java.text.ParseException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,7 +66,7 @@ public class MonitorController implements ReadWriteController {
     private Searcher _searcher;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
 
         // This tests the logging system.  Doing it this way seems a lot simpler
         // than creating a FormController, etc.
@@ -83,10 +84,16 @@ public class MonitorController implements ReadWriteController {
         Map<String, Object> model = new HashMap<String, Object>();
 
         // Set the version
-        model.put("buildtime",
-                _versionProperties.getProperty("gsweb.buildtime"));
-        model.put("version",
-                _versionProperties.getProperty("gsweb.version"));
+        String buildtime = _versionProperties.getProperty("gsweb.buildtime");
+        String version = _versionProperties.getProperty("gsweb.version");
+        model.put("buildtime", buildtime);
+        model.put("version", version);
+
+        // Set the fisheye url to compare against
+        String branch = "RELEASE_" + version.replace(".", "_");
+        model.put("branch", branch);
+        model.put("fisheyeGsweb", generateFisheyeUrl(branch, buildtime, "GSWeb"));
+        model.put("fisheyeGsdata", generateFisheyeUrl(branch, buildtime, "GSData"));
 
         // Set the hostname
         String hostname = "Unable to resolve hostname";
@@ -158,6 +165,14 @@ public class MonitorController implements ReadWriteController {
         model.put("remote_addr", request.getRemoteAddr());
 
         return new ModelAndView(_viewName, model);
+    }
+
+    protected String generateFisheyeUrl(String branch, String buildtime, String module) throws ParseException {
+        Date builddate = new SimpleDateFormat("yyyyMMddHHmmss").parse(buildtime);
+        String fisheyeBuildTime = new SimpleDateFormat("yyyy-MM-dd'T'HH'%3A'mm'%3A'ss.00").format(builddate);
+        return "http://cvsweb.greatschools.net/search/gsrepo/" + module +
+                "?ql=select+revisions+from+dir+%2F" + module + "+where+(on+branch+" + branch +
+                "+and+date+%3E%3D+" + fisheyeBuildTime + ")+group+by+changeset&amp;refresh=y";
     }
 
     protected void incrementVersion(HttpServletRequest request, HttpServletResponse response) {
