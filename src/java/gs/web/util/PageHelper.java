@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.67 2008/11/08 20:23:21 thuss Exp $
+ * $Id: PageHelper.java,v 1.68 2008/11/30 04:38:26 thuss Exp $
  */
 
 package gs.web.util;
@@ -314,8 +314,7 @@ public class PageHelper {
      */
     public String getOASKeywords() {
         StringBuffer buffer = new StringBuffer(_adKeywords.size()*12);
-
-        for (Iterator it = _adKeywords.keySet().iterator(); it.hasNext();) {
+        for (Iterator it = new TreeMap(_adKeywords).keySet().iterator(); it.hasNext();) {
             String key = (String) it.next();
             Collection values = (Collection)_adKeywords.get(key);
             for (Object obj : values) {

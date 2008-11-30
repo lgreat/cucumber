@@ -14,7 +14,7 @@ import gs.data.survey.UserResponse;
 import gs.web.util.validator.EmailValidator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +44,7 @@ public class UserResponseCommand implements EmailValidator.IEmail {
     private LevelCode.Level _level;
 
     public UserResponseCommand () {
-        _responseMap = new HashMap<String, UserResponse>();
+        _responseMap = new LinkedHashMap<String, UserResponse>();
     }
 
     public List<UserResponse> getResponses() {

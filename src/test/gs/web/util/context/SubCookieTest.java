@@ -5,13 +5,10 @@ import gs.web.BaseTestCase;
 import javax.servlet.http.Cookie;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
- * Created by IntelliJ IDEA.
- * User: jnorton
- * Date: Jun 3, 2008
- * Time: 3:44:42 PM
- * To change this template use File | Settings | File Templates.
+ * @author jnorton
  */
 public class SubCookieTest extends BaseTestCase {
     private final String cookieName = "Omniture";
@@ -19,7 +16,7 @@ public class SubCookieTest extends BaseTestCase {
     private Map<String, String> propertySetOneValuePair = null;
     private Map<String, String> propertySetManyValuePairs = null;
 
-   private final String manyValuePairs = "The Other Thing$$:$$don't forget that.$$/$$That$$:$$Is the true answer$$/$$This$$:$$And a lot of that.$$/$$Me$$:$$I am";
+   private final String manyValuePairs = "This$$:$$And a lot of that.$$/$$That$$:$$Is the true answer$$/$$The Other Thing$$:$$don't forget that.$$/$$Me$$:$$I am";
    private final String oneValuePair =  "This$$:$$And a lot of that.";
    private final String noPairs = "a strin with no pairs";
 
@@ -29,15 +26,15 @@ public class SubCookieTest extends BaseTestCase {
         setUpPropertySetManyValuePairs();
     }
     private void setUpPropertySetEmpty(){
-        propertySetEmpty = new HashMap<String, String>();
+        propertySetEmpty = new LinkedHashMap<String, String>();
     }
     private void setUpPropertySetOneValuePair(){
-        propertySetOneValuePair = new HashMap<String, String>();
+        propertySetOneValuePair = new LinkedHashMap<String, String>();
         propertySetOneValuePair.put("This", "And a lot of that.");
     }
 
     private void setUpPropertySetManyValuePairs(){
-        propertySetManyValuePairs = new HashMap<String, String>();
+        propertySetManyValuePairs = new LinkedHashMap<String, String>();
         propertySetManyValuePairs.put("This", "And a lot of that.");
         propertySetManyValuePairs.put("That", "Is the true answer");
         propertySetManyValuePairs.put("The Other Thing", "don't forget that.");
@@ -57,6 +54,7 @@ public class SubCookieTest extends BaseTestCase {
 
         result = SubCookie.encodeProperties(propertySetManyValuePairs);
         assertNotNull("Didn't expect an null", result);
+        System.out.println(result);
         assertEquals(manyValuePairs, result);
     }
 

@@ -270,15 +270,17 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         List<UserResponse> responses = urc.getResponses();
         assertEquals(2, responses.size());
 
-        UserResponse response = responses.get(1);
-        assertEquals("Band,Orchestra,Choir", response.getResponseValue());
+        UserResponse response = responses.get(0);
+        assertTrue(response.getResponseValue().indexOf("Band") > -1);
+        assertTrue(response.getResponseValue().indexOf("Orchestra") > -1);
+        assertTrue(response.getResponseValue().indexOf("Choir") > -1);
         assertEquals(school.getId(), response.getSchoolId());
         assertEquals(survey.getId(), response.getSurveyId());
         assertEquals(user.getId(), response.getUserId());
         assertEquals(new Integer(1), response.getQuestionId());
         assertEquals(new Integer(1), response.getAnswerId());
 
-        response = responses.get(0);
+        response = responses.get(1);
         assertEquals("Baseball", response.getResponseValue());
         assertEquals(school.getId(), response.getSchoolId());
         assertEquals(survey.getId(), response.getSurveyId());
