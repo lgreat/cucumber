@@ -50,7 +50,8 @@ public class SubmitParentFeedbackController extends SimpleFormController {
 
         School school = _schoolDao.getSchoolById(state, Integer.parseInt(command.getSid()));
 
-        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_TAKE_SURVEY);
+        builder.setParameter("level","p");
         View view = new RedirectView(builder.asSiteRelative(request));
         return new ModelAndView(view);
     }
