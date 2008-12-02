@@ -1444,7 +1444,7 @@
         <property name="commandClass" value="gs.web.school.review.SubmitParentFeedbackCommand"/>
         <property name="formView" value="/school/parentReviews/submitParentFeedback"/>
         <property name="levelCodes" value="p"/>
-        <property name="title" value="Submit a Preschool Review"/>
+        <property name="title" value="Submit a Parent Survey for Your Preschool"/>
         <property name="omniturePageName" value="Rating Review Submit Page"/>
         <property name="omnitureHierarchy" value="School,Parent Reviews,Rating Review Submit Page"/>
     </bean>
