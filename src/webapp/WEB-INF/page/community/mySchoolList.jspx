@@ -11,6 +11,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           version="2.0">
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
@@ -84,8 +85,12 @@
                 </div>
             </c:if>
         </div>
+        <c:set var="logoutRedirect" value="/mySchoolListLogin.page"/>
+        <variant:b>
+            <c:set var="logoutRedirect" value="/community/loginOrRegister.page"/>
+        </variant:b>
         <div id="msl_header_bottom">
-            <div id="msl_welcome">Welcome ${username} (<a href="/community/logout.page?redirect=/mySchoolListLogin.page">not ${username}?</a>)</div>
+            <div id="msl_welcome">Welcome ${username} (<a href="/community/logout.page?redirect=${logoutRedirect}">not ${username}?</a>)</div>
         </div>
     </div>
 
