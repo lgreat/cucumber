@@ -46,7 +46,7 @@
             }
 
             #pageGS #poll {
-                margin: 10px 0 0 60px;
+                margin: 10px 0 60px 20px;
             }
 
             #pageGS #discuss {
