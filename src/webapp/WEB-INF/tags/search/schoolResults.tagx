@@ -85,7 +85,8 @@
                     <address><c:out value="${school.physicalAddress.cityStateZip}"/></address>
                     <div class="resultcontrols">
                         <link:mySchoolList school="${school}"
-                                           onclick="${mslOnclick}">Add to my school list &gt;</link:mySchoolList>
+                                           onclick="${mslOnclick}"
+                                           styleClass="noInterstitial">Add to my school list &gt;</link:mySchoolList>
                         <c:if test="${school.levelCode ne 'p'}">
                             <br />
                             <link:schoolCompareSchool school="${school}">Compare to nearby schools &gt;</link:schoolCompareSchool>

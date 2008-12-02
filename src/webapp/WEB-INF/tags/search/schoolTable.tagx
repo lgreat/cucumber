@@ -205,7 +205,7 @@
                         </div>
                     </c:if>
                     <div class="resultcontrols">
-                        <link:mySchoolList school="${school}" onclick="${mslOnclick}">Add to my school list &gt;</link:mySchoolList>
+                        <link:mySchoolList school="${school}" onclick="${mslOnclick}" styleClass="noInterstitial">Add to my school list &gt;</link:mySchoolList>
                         <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
                             <br />
                             <div class="compare_schools_row">
