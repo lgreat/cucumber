@@ -132,6 +132,9 @@
                                     <entry key="gsweb.version"
                                            type="string"
                                            default="${gs.version}"/>
+                                    <entry key="gsweb.branch"
+                                           type="string"
+                                           default="${gs.branch}"/>
                                 </propertyfile>
                             </tasks>
                         </configuration>
@@ -363,7 +366,7 @@
         <dependency>
             <groupId>httpunit</groupId>
             <artifactId>httpunit</artifactId>
-            <version>1.6</version>            
+            <version>1.6</version>
             <exclusions>
                 <exclusion>
                     <groupId>nekohtml</groupId>

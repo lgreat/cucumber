@@ -86,11 +86,11 @@ public class MonitorController implements ReadWriteController {
         // Set the version
         String buildtime = _versionProperties.getProperty("gsweb.buildtime");
         String version = _versionProperties.getProperty("gsweb.version");
+        String branch = _versionProperties.getProperty("gsweb.branch");
         model.put("buildtime", buildtime);
         model.put("version", version);
 
         // Set the fisheye url to compare against
-        String branch = "RELEASE_" + version.replace(".", "_");
         model.put("branch", branch);
         model.put("fisheyeGsweb", generateFisheyeUrl(branch, buildtime, "GSWeb"));
         model.put("fisheyeGsdata", generateFisheyeUrl(branch, buildtime, "GSData"));

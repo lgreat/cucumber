@@ -41,7 +41,7 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         assertNotNull(model);
         assertTrue(((String) model.get("version")).length() > 0);
         assertTrue(((String) model.get("hostname")).length() > 0);
-        assertTrue(((String) model.get("branch")).indexOf("RELEASE_") > -1);
+        assertTrue(((String) model.get("branch")).length() > 3);
         assertTrue(((String) model.get("fisheyeGsweb")).indexOf("GSWeb") > -1);
         assertTrue(((String) model.get("fisheyeGsdata")).indexOf("GSData") > -1);
         assertTrue((Boolean) model.get("mainReadWrite"));
