@@ -37,6 +37,7 @@
         request.setAttribute("moduleParams", params);
         ]]>
     </jsp:scriptlet>
+    <![CDATA[<script type="text/javascript" src="/res/js/trackIt.js"></script>]]>
 </head>
 <body>
     <div id="pageGS" class="pageGS">
