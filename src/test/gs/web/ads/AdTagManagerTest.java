@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagManagerTest.java,v 1.4 2008/10/01 17:26:35 cpickslay Exp $
+ * $Id: AdTagManagerTest.java,v 1.5 2008/12/03 00:15:20 yfan Exp $
  */
 package gs.web.ads;
 
@@ -31,7 +31,7 @@ public class AdTagManagerTest extends BaseTestCase {
         _log.debug(adTag);
 
         adTag = _adTagManager.getAdTag("ocregister", AdPosition.AboveFold_300x250);
-        assertTrue("should contain ocregister ad code", adTag.indexOf("FI_OAS_RICH") > -1);
+        assertTrue("should contain ocregister ad code", adTag.indexOf("OAS_RICH") > -1);
     }
 
     public void testSingleton() {
