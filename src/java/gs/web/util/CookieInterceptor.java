@@ -30,7 +30,7 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
         if (!(o instanceof CacheablePageController)) {
             Cookie trackingNumber = buildTrackingNumberCookie(request, response);
             buildCobrandCookie(request, sessionContext, response);
-            buildCobrandTypeCookie(request, sessionContext, response);
+            //buildCobrandTypeCookie(request, sessionContext, response);
             determineAbVersion(trackingNumber, request, sessionContext);
         }
 
