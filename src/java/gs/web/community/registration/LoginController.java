@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.42 2008/11/25 23:39:06 aroy Exp $
+ * $Id: LoginController.java,v 1.43 2008/12/03 22:25:31 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -85,6 +85,7 @@ public class LoginController extends SimpleFormController {
             String nickname = sessionContext.getNickname();
             if (StringUtils.isNotBlank(nickname)) {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, sessionContext.getEmail());
+                builder.addParameter("redirect", "/mySchoolList.page");
                 String joinLink = builder.asAHref(request, "Join now &gt;");
                 request.setAttribute("message", "Hi, " + nickname + "! You've already subscribed to My School List, " +
                         "but still need to create an account with GreatSchools. " + joinLink);
