@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.43 2008/12/03 22:25:31 aroy Exp $
+ * $Id: LoginController.java,v 1.44 2008/12/03 22:36:48 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -77,6 +77,9 @@ public class LoginController extends SimpleFormController {
             }
         }
         addMSLMessage(url, request);
+        if (StringUtils.contains(url, "mySchoolList.page")) {
+            loginCommand.setEmail("");
+        }
     }
 
     protected void addMSLMessage(String redirectUrl, HttpServletRequest request) {
