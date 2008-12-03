@@ -30,6 +30,7 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
         if (!(o instanceof CacheablePageController)) {
             Cookie trackingNumber = buildTrackingNumberCookie(request, response);
             buildCobrandCookie(request, sessionContext, response);
+            buildCobrandTypeCookie(request, sessionContext, response);
             determineAbVersion(trackingNumber, request, sessionContext);
         }
 
@@ -52,6 +53,28 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
             cobrandCookie.setPath("/");
             cobrandCookie.setDomain(".greatschools.net");
             response.addCookie(cobrandCookie);
+        }
+    }
+
+    protected void buildCobrandTypeCookie(HttpServletRequest request, SessionContext sessionContext, HttpServletResponse response) {
+        PageHelper pageHelper = new PageHelper(sessionContext, request);
+        Cookie cobrandTypeCookie = getCookie(request, SessionContextUtil.COBRAND_TYPE_COOKIE);
+        StringBuilder value = new StringBuilder();
+        value.append(sessionContext.isFramed() ? "framed" : "standard");
+        value.append(",");
+        if (pageHelper.isAdFree()) {
+            value.append("adfree");
+        } else if (pageHelper.isAdServedByCobrand()) {
+            value.append("adscustom");
+        } else {
+            value.append("adsgs");
+        }
+
+        if (cobrandTypeCookie == null || !value.toString().equals(cobrandTypeCookie.getValue())) {
+            cobrandTypeCookie = new Cookie(SessionContextUtil.COBRAND_TYPE_COOKIE, value.toString());
+            cobrandTypeCookie.setPath("/");
+            cobrandTypeCookie.setDomain(".greatschools.net");
+            response.addCookie(cobrandTypeCookie);
         }
     }
 

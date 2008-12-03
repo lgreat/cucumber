@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.54 2008/11/25 17:36:42 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.55 2008/12/03 01:13:25 yfan Exp $
  */
 
 package gs.web.util.context;
@@ -77,6 +77,11 @@ public class SessionContextUtil implements ApplicationContextAware {
      * Cookie we set to track what cobrand a user is on
      */
     public static final String COBRAND_COOKIE = "COBRAND";
+
+    /**
+     * Cookie we set to track what cobrand a user is on
+     */
+    public static final String COBRAND_TYPE_COOKIE = "COBRAND_TYPE";
 
     // City ID cookie - id is based on us_geo.city.id  - Domain is ".greatschools.net".
     public static final String CITY_ID_COOKIE = "CITYID";

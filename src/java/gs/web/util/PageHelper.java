@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.68 2008/11/30 04:38:26 thuss Exp $
+ * $Id: PageHelper.java,v 1.69 2008/12/03 01:13:25 yfan Exp $
  */
 
 package gs.web.util;
@@ -459,7 +459,7 @@ public class PageHelper {
      * @return true if it's ad free
      */
     public boolean isAdFree() {
-        return !_sessionContext.isAdvertisingOnline() || isFramed() || _sessionContext.isCrawler() || _sessionContext.isIntegrationTest();
+        return !_sessionContext.isAdvertisingOnline() || _sessionContext.isCrawler() || _sessionContext.isIntegrationTest();
     }
 
     /**
