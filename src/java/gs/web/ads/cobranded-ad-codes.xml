@@ -112,28 +112,28 @@
         <ad id="Footer_728x90">
             <![CDATA[
                 <script language="JavaScript" type="text/javascript">
-                   FI_OAS_RICH('Top');
+                   OAS_RICH('Top');
                 </script>
             ]]>
         </ad>
         <ad id="AboveFold_300x250">
             <![CDATA[
                 <script language="JavaScript" type="text/javascript">
-                   FI_OAS_RICH('Middle');
+                   OAS_RICH('Middle');
                 </script>
             ]]>
         </ad>
         <ad id="BelowFold_300x250">
             <![CDATA[
                 <script language="JavaScript" type="text/javascript">
-                   FI_OAS_RICH('Middle');
+                   OAS_RICH('Middle');
                 </script>
             ]]>
         </ad>
         <ad id="AboveFold_300x600">
             <![CDATA[
                 <script language="JavaScript" type="text/javascript">
-                   FI_OAS_RICH('Middle');
+                   OAS_RICH('Middle');
                 </script>
             ]]>
         </ad>
