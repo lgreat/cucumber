@@ -135,14 +135,7 @@
                     <li id="emailAddress">
                         <label>Email address</label>
                         <spring:bind path="loginCmd.email">
-                            <c:choose>
-                                <c:when test="${param.redirect ne null and param.redirect eq '/mySchoolList.page'}">
-                                    <input type="text" name="${status.expression}" value=""/>
-                                </c:when>
-                                <c:otherwise>
-                                    <input type="text" name="${status.expression}" value="${status.value}"/>
-                                </c:otherwise>
-                            </c:choose>
+                            <input type="text" name="${status.expression}" value="${status.value}"/>
                         </spring:bind>
                     </li>
                     <li id="password">
