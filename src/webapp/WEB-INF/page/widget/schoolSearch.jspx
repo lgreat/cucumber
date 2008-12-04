@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>School Search Widget - GreatSchools</title>
+
+        <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
+        <pageHelper:externalJavascript file="/res/js/global.js"/>
+        <pageHelper:externalJavascript file="/res/js/schoolSearchWidget.js"/>
+
+        <c:set var="externalCss" value="${param.externalCss}"/>
+        <c:if test="${externalCss ne null and externalCss gt ''}">
+            <pageHelper:externalCss file="${externalCss}"/>
+        </c:if>
+    </head>
+    <body>
+        <c:set var="mapTabClass" value=""/>
+        <c:set var="searchTabClass" value=""/>
+        <c:choose>
+            <c:when test="${requestScope.command.displayTab eq 'map'}">
+                <c:set var="mapTabClass" value="selected"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="searchTabClass" value="selected"/>
+            </c:otherwise>
+        </c:choose>
+
+        <div id="schoolSearchWidget">
+            <!-- Begin Tab Bar -->
+            <div class="tabBar">
+                <div id="mapTab" class="${mapTabClass}" onclick="showMapTab();">Map</div>
+                <div id="searchTab" class="${searchTabClass}" onclick="showSearchTab();">Search</div>
+            </div>
+            <!-- End Tab Bar -->
+
+            <!-- Begin Map Tab-->
+            <div id="mapTabBody" class="tabBody ${mapTabClass}">
+                Top schools in search area
+
+                <c:if test="${fn:length(requestScope.command.schools) gt 0}">
+                    <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
+                        schools.</noscript></div>
+                    <map:schoolsWithRatings id="map"
+                                            schools="${requestScope.command.schools}"
+                            />
+                </c:if>
+            </div>
+            <!-- End Map Tab-->
+
+            <!-- Begin Search Tab-->
+            <div id="searchTabBody" class="tabBody ${searchTabClass}">
+                <h2>Find Schools</h2>
+
+                <p>Find the top schools in a city or near an address or zip</p>
+
+                <gsml:errorMessage command="command" field="searchQuery" styleClass="warning" useImage="false"/>
+
+                <form:form name="searchForm" action="/widget/schoolSearch.page" method="post">
+                    <form:input path="searchQuery" cssClass="searchInput"
+                                onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
+                                onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
+                    <input type="image" src="/res/img/button/go.gif" class="searchSubmit"/>
+                </form:form>
+            </div>
+            <!-- End Search Tab-->
+        </div>
+    </body>
+    </html>
+</jsp:root>

@@ -20,6 +20,10 @@
         <pattern>/community/registration/popup/*</pattern>        
     </decorator>
 
+    <decorator name="minimalDecorator" page="minimalDecorator.jspx">
+        <pattern>*/widget/*</pattern>
+    </decorator>
+
     <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">
         <pattern>/ads/serveAds.page*</pattern>
     </decorator>
@@ -51,7 +55,6 @@
         <pattern>*/ads/tacoda/*</pattern>
         <pattern>*/sandbox/*</pattern>
         <pattern>*/tableMover.page*</pattern>
-        <pattern>*/widget/*</pattern>
     </excludes>
 
 </decorators>

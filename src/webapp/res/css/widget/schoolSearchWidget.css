@@ -1,0 +1,149 @@
+div#schoolSearchWidget {
+    border: solid 3px #5BC;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: #444;
+}
+
+div#schoolSearchWidget input {
+    color: #444;
+}
+
+div.tabBar {
+    position: relative;
+    background-color: #5BC;
+    width: 100%;
+    height: 39px;
+}
+
+    div.tabBar div {
+        position: absolute;
+        top: 0;
+        padding: 10px 0;
+        background-color: #7DE;
+        border-bottom: solid 2px #5BC;
+        border-top: solid 1px #5BC;
+        width: 149px;
+        text-align: center;
+        color: #178;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    /*div.tabBar div#listTab {*/
+        /*left: 101px;*/
+        /*width: 98px;*/
+    /*}*/
+
+    div.tabBar div#mapTab {
+        left: 0;
+    }
+
+    div.tabBar div#searchTab {
+        right: 0;
+    }
+
+    div.tabBar div.selected {
+        background-color: #FFF;
+    }
+
+div.tabBody {
+    display: none;
+    position: relative;
+    padding: 10px 20px;
+}
+
+div.tabBody.selected {
+    display: block;
+}
+
+div#mapTabBody {
+    padding: 10px 5px;
+}
+
+div#searchTabBody h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #5BC;
+}
+
+div#searchTabBody p {
+    padding: 0;
+    margin: 8px 0 15px 0;
+    line-height: 14px;
+}
+
+div#searchTabBody form {
+    margin: 0;
+    padding: 0;
+}
+
+div#searchTabBody input.searchInput {
+    width: 175px;
+    margin-right: 10px;
+}
+
+div#searchTabBody input.searchSubmit {
+    position: relative;
+    top: 7px;
+}
+
+div#mapTabBody div#map {
+    width: 289px;
+    height: 230px;
+    border: 1px solid #CDCDCE;
+}
+
+div.schoolInfoWindow {
+    position: relative;
+}
+
+div.schoolInfoWindow div.schoolRatings {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 92px;
+    height: 60px;
+    padding-right: 5px;
+    border-right: 1px solid #666;
+}
+
+div.schoolInfoWindow div.schoolRating {
+    text-align: center;
+}
+
+div.schoolInfoWindow div.schoolRating div {
+    font-size: 10px;
+    text-align: left;
+}
+
+div.schoolInfoWindow div.parentRating {
+    text-align: center;
+}
+
+div.schoolInfoWindow div.parentRating div {
+    font-size: 10px;
+}
+
+div.schoolInfoWindow div.schoolInfo {
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    width: 140px;
+}
+
+div.schoolInfoWindow div.schoolInfo address {
+    font-style: normal;
+}
+
+div.schoolInfoWindow div.schoolInfo p {
+    margin: 3px 0 0 0;
+    padding: 0;
+}
+
+
