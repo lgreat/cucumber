@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.45 2008/12/03 22:42:55 aroy Exp $
+ * $Id: LoginController.java,v 1.46 2008/12/04 02:05:57 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -85,7 +85,7 @@ public class LoginController extends SimpleFormController {
             String nickname = sessionContext.getNickname();
             if (StringUtils.isNotBlank(nickname)) {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, sessionContext.getEmail());
-                builder.addParameter("redirect", "/mySchoolList.page");
+                builder.addParameter("redirect", redirectUrl);
                 String joinLink = builder.asAHref(request, "Join now &gt;");
                 request.setAttribute("message", "Hi, " + nickname + "! You've already subscribed to My School List, " +
                         "but still need to create an account with GreatSchools. " + joinLink);
@@ -137,6 +137,9 @@ public class LoginController extends SimpleFormController {
 //            errors.reject("email", "There is no community account associated with that email address.");
             errors.reject("email");
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, user.getEmail());
+            if (StringUtils.isNotBlank(loginCommand.getRedirect())) {
+                builder.addParameter("redirect", loginCommand.getRedirect());
+            }
             String joinLink = builder.asAHref(request, "Join now &gt;");
             request.setAttribute("message", "Hi, " + user.getEmail().split("@")[0] +
                     "! You've already subscribed to My School List, " +
