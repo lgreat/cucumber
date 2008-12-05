@@ -87,6 +87,9 @@ function initSchoolInfo() {
     mySchool.zip = "${curSchool.physicalAddress.zip}";
     mySchool.phone = '<c:if test="${not empty curSchool.phone}">${curSchool.phone}</c:if>';
     mySchool.address = mySchool.street + ' ' + mySchool.city + ', ' + mySchool.state + ' ' + mySchool.zip;
+    mySchool.levelCode = "${curSchool.levelCode}";
+    mySchool.type = "${curSchool.type.name}";
+    mySchool.gradeLevel = "${curSchool.gradeLevels}";
 
     mySchool.ratingHtml = '';
     <c:if test="${schoolWithRatings.rating ne null and schoolWithRatings.rating gt 0 and schoolWithRatings.rating lt 11}">
@@ -161,13 +164,20 @@ function addBubbleListener(marker, school) {
 
 <![CDATA[
 function getSchoolInfoWindowHtml(school) {
-    var rval = '<div class="schoolInfoWindow" style="font: 11px/13px Trebuchet MS, Arial, sans-serif; height: 75px; width: 240px;">';
+    var rval = '<div class="schoolInfoWindow" style="font: 11px/13px Trebuchet MS, Arial, sans-serif; height: 85px; width: 240px;">';
     rval += '<div class="schoolName" style="width: 210px;"><a href="' + school.link + '">'+ school.name + '</a></div>';
     rval += '<div class="schoolRatings">';
     rval += school.ratingHtml;
     rval += school.parentRatingHtml;
     rval += '</div>';
     rval += '<div class="schoolInfo">';
+    rval += '<div class="typeGrade">';
+    if (school.levelCode == 'p') {
+        rval += 'Preschool';
+    } else {
+        rval += school.type + ', ' + school.gradeLevel;
+    }
+    rval += '</div>';
     rval += '<address>';
     rval += school.street + '<br />';
     rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';

@@ -15,6 +15,7 @@ public class SchoolSearchWidgetCommand {
     private String _searchQuery = "Enter city & state or zip code";
     private List<SchoolWithRatings> _schools = new ArrayList<SchoolWithRatings>();
     private City _city;
+    private String _mapLocationPrefix;
     private String _mapLocationString;
 
     public String getDisplayTab() {
@@ -47,6 +48,14 @@ public class SchoolSearchWidgetCommand {
 
     public void setCity(City city) {
         _city = city;
+    }
+
+    public String getMapLocationPrefix() {
+        return _mapLocationPrefix;
+    }
+
+    public void setMapLocationPrefix(String mapLocationPrefix) {
+        _mapLocationPrefix = mapLocationPrefix;
     }
 
     public String getMapLocationString() {

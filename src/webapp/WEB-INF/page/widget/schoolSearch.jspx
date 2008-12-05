@@ -49,7 +49,10 @@
 
             <!-- Begin Map Tab-->
             <div id="mapTabBody" class="tabBody ${mapTabClass}">
-                Top schools in search area
+                <div class="locationDescription">
+                    Top schools ${requestScope.command.mapLocationPrefix}
+                    <span>${requestScope.command.mapLocationString}</span>:
+                </div>
 
                 <c:if test="${fn:length(requestScope.command.schools) gt 0}">
                     <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its

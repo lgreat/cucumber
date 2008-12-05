@@ -68,6 +68,8 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                             hasResults = true;
                             loadRatingsIntoSchoolList(schools);
                             command.setSchools(schools);
+                            command.setMapLocationPrefix("in ");
+                            command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
                         }
                     } else {
                         errors.rejectValue("searchQuery", null, "I cannot find a city matching " + cityStr);
