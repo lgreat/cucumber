@@ -126,7 +126,7 @@
         <ad id="BelowFold_300x250">
             <![CDATA[
                 <script language="JavaScript" type="text/javascript">
-                   OAS_RICH('Middle');
+                   OAS_RICH('Middle1');
                 </script>
             ]]>
         </ad>
@@ -134,6 +134,20 @@
             <![CDATA[
                 <script language="JavaScript" type="text/javascript">
                    OAS_RICH('Middle');
+                </script>
+            ]]>
+        </ad>
+        <ad id="AboveFold_Right_120x600">
+            <![CDATA[
+                <script language="JavaScript" type="text/javascript">
+                   OAS_RICH('Right');
+                </script>
+            ]]>
+        </ad>
+        <ad id="AboveFold_Left_160x600">
+            <![CDATA[
+                <script language="JavaScript" type="text/javascript">
+                   OAS_RICH('Right');
                 </script>
             ]]>
         </ad>
