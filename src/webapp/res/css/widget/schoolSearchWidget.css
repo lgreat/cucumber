@@ -1,5 +1,5 @@
 div#schoolSearchWidget {
-    border: solid 3px #5BC;
+    border: solid 4px #BFE9F1;
     width: 300px;
     height: 320px;
     position: relative;
@@ -17,26 +17,26 @@ div#schoolSearchWidget {
 
 div.tabBar {
     position: relative;
-    background-color: #5BC;
+    background-color: #9CD4DB;
     width: 100%;
-    height: 39px;
+    height: 37px;
 }
 
     div.tabBar div {
         position: absolute;
         top: 0;
         padding: 10px 0;
-        background-color: #7DE;
-        border-bottom: solid 2px #5BC;
-        border-top: solid 1px #5BC;
+        background-color: #F2F2F2;
+        border-bottom: solid 1px #9CD4DB;
         width: 149px;
         text-align: center;
-        color: #178;
+        color: #289;
         text-transform: uppercase;
         font-weight: bold;
     }
 
     div.tabBar div#mapTab {
+        width: 150px;
         left: 0;
     }
 
