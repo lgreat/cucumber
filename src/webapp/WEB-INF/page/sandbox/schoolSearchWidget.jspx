@@ -17,10 +17,45 @@
                 border: solid 4px #BFE9F1;
                 border-bottom-width: 20px;
                 width: 292px;
+                position: relative;
             }
 
             div.GS_widget_innerBorder {
                 border: solid 1px #9CD4DB;
+            }
+
+            div.GS_widget_footer {
+                height: 40px;
+                padding: 0 5px 0 15px;
+            }
+
+            div.GS_widget_footer img {
+                margin-top: 8px;
+                float: left;
+            }
+
+            div.GS_seo {
+                float: right;
+                text-align: right;
+                width: 120px
+            }
+
+            div.GS_seo a, div.GS_seo a:hover {
+                text-decoration: underline;
+                color: #666; 
+                font-size: 12px;
+            }
+
+            div.GS_getWidget {
+                position: absolute;
+                bottom: -15px;
+                right: 0;
+            }
+
+            div.GS_getWidget a, div.GS_getWidget a:hover {
+                color: #289;
+                font-size: 11px;
+                text-decoration: underline;
             }
         </style>
     </head>
@@ -32,6 +67,16 @@
                         width="290" height="320"
                         marginheight="0" marginwidth="0"
                         frameborder="0" scrolling="no">/* */</iframe>
+                <div class="GS_widget_footer">
+                    <img src="/res/img/widget/poweredby_logo.gif" alt="Powered by GreatSchools"/>
+                    <div class="GS_seo">
+                        <div class="GS_city"><a href="#">San Francisco schools</a></div>
+                        <div class="GS_state"><a href="#">California schools</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="GS_getWidget">
+                <a href="#">Get this schools widget for my site</a>
             </div>
         </div>
     </body>
