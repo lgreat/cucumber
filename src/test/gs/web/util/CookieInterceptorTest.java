@@ -28,10 +28,8 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _sessionContext = new SessionContext();
         IPropertyDao propertyDao = createMock(IPropertyDao.class);
         _interceptor.setPropertyDao(propertyDao);
+        _sessionContext.setPropertyDao(propertyDao);
         _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
-
-        expect(propertyDao.getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
-        replay(propertyDao);
     }
 
     private void setUpSessionContext(boolean isCobranded, boolean isFramed) {
@@ -43,7 +41,13 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
     public void testPreHandleShouldSetTrackingNumberCookie() throws Exception {
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
+
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+        
         assertTrue(_interceptor.preHandle(request, response, null));
+        verify(_interceptor.getPropertyDao());
 
         // Verify that a Tracking number cookie was set
         boolean hasCookie = false;
@@ -87,11 +91,24 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         MockHttpServletResponse response = getResponse();
         request.setCookies(new Cookie[]{trnoCookieA});
 
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         _interceptor.preHandle(request, response, null);
+        verify(_interceptor.getPropertyDao());
+
+        reset(_interceptor.getPropertyDao());
+
         assertEquals("Expect b from trno value 1", "b", _sessionContext.getABVersion());
 
         request.setParameter(SessionContextUtil.VERSION_PARAM, "a");
+
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         _interceptor.preHandle(request, response, null);
+        verify(_interceptor.getPropertyDao());
 
         assertEquals("Version parameter should override A/B version from TRNO cookie", "a", _sessionContext.getABVersion());
     }
@@ -100,7 +117,12 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, false);
 
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
+        verify(_interceptor.getPropertyDao());
 
         Cookie cobrandCookie = findCobrandCookie();
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
@@ -114,7 +136,12 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, false);
 
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
+        verify(_interceptor.getPropertyDao());
 
         Cookie cobrandCookie = findCobrandCookie();
         assertNull("Cobrand cookie should not be set again for cobrand domains", cobrandCookie);
@@ -124,7 +151,12 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _request.setServerName(_requestedServer);
         setUpSessionContext(false, false);
 
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
+        verify(_interceptor.getPropertyDao());
 
         Cookie cobrandCookie = findCobrandCookie();
         assertNotNull("Cobrand cookie should be set even for non-cobrand domains", cobrandCookie);
@@ -138,7 +170,12 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, true);
 
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
+        verify(_interceptor.getPropertyDao());
 
         Cookie cobrandCookie = findCobrandCookie();
         assertNotNull("Cobrand cookie should be set even for framed domains", cobrandCookie);
@@ -153,7 +190,12 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _request.setServerName(_requestedServer);
         setUpSessionContext(false, false);
 
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
+        verify(_interceptor.getPropertyDao());
 
         Cookie cobrandCookie = findCobrandCookie();
         assertNull("Cobrand cookie should not be set again for any domain", cobrandCookie);
@@ -164,7 +206,12 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, true);
 
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
+        verify(_interceptor.getPropertyDao());
 
         Cookie cobrandCookie = findCobrandCookie();
         assertNull("Cobrand cookie should not be set again even for framed cobrand domains", cobrandCookie);
@@ -176,7 +223,12 @@ public class CookieInterceptorTest extends BaseControllerTestCase {
         _request.setServerName(_requestedServer);
         setUpSessionContext(true, false);
 
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.VARIANT_CONFIGURATION)).andReturn("1/1");
+        expect(_interceptor.getPropertyDao().getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        replay(_interceptor.getPropertyDao());
+
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
+        verify(_interceptor.getPropertyDao());
 
         Cookie cobrandCookie = findCobrandCookie();
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
