@@ -30,7 +30,8 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
         if (!(o instanceof CacheablePageController)) {
             Cookie trackingNumber = buildTrackingNumberCookie(request, response);
             buildCobrandCookie(request, sessionContext, response);
-            //buildCobrandTypeCookie(request, sessionContext, response);
+            // TODO-7664
+            buildCobrandTypeCookie(request, sessionContext, response);
             determineAbVersion(trackingNumber, request, sessionContext);
         }
 
@@ -61,7 +62,7 @@ public class CookieInterceptor extends CookieUtil implements HandlerInterceptor 
         Cookie cobrandTypeCookie = getCookie(request, SessionContextUtil.COBRAND_TYPE_COOKIE);
         StringBuilder value = new StringBuilder();
         value.append(sessionContext.isFramed() ? "framed" : "standard");
-        value.append(",");
+        value.append("-");
         if (pageHelper.isAdFree()) {
             value.append("adfree");
         } else if (pageHelper.isAdServedByCobrand()) {

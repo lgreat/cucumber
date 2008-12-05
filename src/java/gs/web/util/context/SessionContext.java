@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.28 2008/11/21 00:03:59 aroy Exp $
+ * $Id: SessionContext.java,v 1.29 2008/12/05 00:59:02 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -264,7 +264,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     public boolean isFramed() {
         return _cobrand != null &&
-                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors|test");
+                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors|test|ocregister");
     }
 
     public void setHostName(final String hostName) {
