@@ -76,7 +76,7 @@
                     <form:input path="searchQuery" cssClass="searchInput"
                                 onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
                                 onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
-                    <input type="image" src="/res/img/button/go.gif" class="searchSubmit"/>
+                    <input type="image" src="/res/img/widget/greygo_button.gif" alt="GO" class="searchSubmit"/>
                 </form:form>
             </div>
             <!-- End Search Tab-->

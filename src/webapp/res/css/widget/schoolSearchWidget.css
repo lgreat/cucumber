@@ -1,6 +1,6 @@
 div#schoolSearchWidget {
-    border: solid 4px #BFE9F1;
-    width: 300px;
+    /*border: solid 4px #BFE9F1;*/
+    width: 290px;
     height: 320px;
     position: relative;
     font-family: "Trebuchet MS", Arial, sans-serif;
@@ -28,7 +28,7 @@ div.tabBar {
         padding: 10px 0;
         background-color: #F2F2F2;
         border-bottom: solid 1px #9CD4DB;
-        width: 149px;
+        width: 144px;
         text-align: center;
         color: #289;
         text-transform: uppercase;
@@ -36,7 +36,7 @@ div.tabBar {
     }
 
     div.tabBar div#mapTab {
-        width: 150px;
+        width: 145px;
         left: 0;
     }
 
@@ -63,16 +63,17 @@ div.tabBody {
 /* Search Tab */
 
 div#searchTabBody h2 {
-    margin: 0;
+    margin: 30px 0 13px 0;
     padding: 0;
-    font-size: 16px;
+    font-size: 18px;
     color: #5BC;
 }
 
 div#searchTabBody p {
     padding: 0;
-    margin: 8px 0 15px 0;
-    line-height: 14px;
+    margin: 0 0 7px 0;
+    font-size: 13px;
+    line-height: 15px;
 }
 
 div#searchTabBody form {
@@ -81,13 +82,12 @@ div#searchTabBody form {
 }
 
 div#searchTabBody input.searchInput {
-    width: 175px;
-    margin-right: 10px;
+    width: 245px;
 }
 
 div#searchTabBody input.searchSubmit {
-    position: relative;
-    top: 7px;
+    float: right;
+    margin-top: 20px;
 }
 
 /* Map Tab */
@@ -109,7 +109,7 @@ div#mapTabBody {
     /* Map */
 
     div#mapTabBody div#map {
-        width: 289px;
+        width: 279px;
         height: 250px;
         border: 1px solid #CDCDCE;
     }
@@ -123,6 +123,7 @@ div#mapTabBody {
             color: #2B91A2;
             text-decoration: underline;
             font-size: 13px;
+            line-height: 15px;
             font-weight: bold;
         }
 
