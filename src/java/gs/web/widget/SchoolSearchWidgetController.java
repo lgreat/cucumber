@@ -25,6 +25,12 @@ import java.util.List;
  */
 public class SchoolSearchWidgetController extends SimpleFormController {
     private static final Logger _log = Logger.getLogger(SchoolSearchWidgetController.class);
+
+    private static final String SEARCH_QUERY_PARAM = "searchQuery";
+    private static final String CITY_PARAM = "city";
+    private static final String STATE_PARAM = "state";
+    private static final String DISPLAY_TAB_PARAM = "displayTab";
+
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
@@ -32,8 +38,19 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) super.formBackingObject(request);
-        if (request.getParameter("displayTab") != null) {
-            command.setDisplayTab(request.getParameter("displayTab"));
+        if (request.getParameter(DISPLAY_TAB_PARAM) != null) {
+            command.setDisplayTab(request.getParameter(DISPLAY_TAB_PARAM));
+        }
+        if (request.getParameter(STATE_PARAM) != null) {
+            State state = _stateManager.getState(request.getParameter(STATE_PARAM));
+            if (state != null && request.getParameter(CITY_PARAM) != null) {
+                City city = _geoDao.findCity(state, request.getParameter(CITY_PARAM));
+                if (city != null ) {
+                    command.setCity(city);
+                    command.setMapLocationPrefix("in ");
+                    command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
+                }
+            }
         }
         return command;
     }
@@ -43,7 +60,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         super.onBindAndValidate(request, commandObj, errors);
 
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
-        String searchQuery = request.getParameter("searchQuery");
+        String searchQuery = request.getParameter(SEARCH_QUERY_PARAM);
 
         parseSearchQuery(searchQuery, command, errors);
     }

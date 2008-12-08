@@ -53,14 +53,26 @@
                     Top schools ${requestScope.command.mapLocationPrefix}
                     <span>${requestScope.command.mapLocationString}</span>:
                 </div>
+                <div class="help">
+                    <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
+                </div>
 
-                <c:if test="${fn:length(requestScope.command.schools) gt 0}">
-                    <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
-                        schools.</noscript></div>
-                    <map:schoolsWithRatings id="map"
-                                            schools="${requestScope.command.schools}"
-                            />
-                </c:if>
+                <c:choose>
+                    <c:when test="${fn:length(requestScope.command.schools) gt 0}">
+                        <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
+                            schools.</noscript></div>
+                        <map:schoolsWithRatings id="map"
+                                                schools="${requestScope.command.schools}"
+                                />
+                    </c:when>
+                    <c:when test="${requestScope.command.city ne null}">
+                        <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
+                            schools.</noscript></div>
+                        <map:schoolsWithRatings id="map"
+                                                lat="${requestScope.command.city.lat}"
+                                                lon="${requestScope.command.city.lon}"/>
+                    </c:when>
+                </c:choose>
             </div>
             <!-- End Map Tab-->
 

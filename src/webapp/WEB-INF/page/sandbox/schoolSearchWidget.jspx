@@ -37,13 +37,14 @@
             div.GS_seo {
                 float: right;
                 text-align: right;
-                width: 120px
+                width: 120px;
+                margin-top: 3px;
             }
 
             div.GS_seo a, div.GS_seo a:hover {
                 text-decoration: underline;
                 color: #666; 
-                font-size: 12px;
+                font-size: 11px;
             }
 
             div.GS_getWidget {
@@ -63,8 +64,8 @@
         <div id="GS_schoolSearchWidget">
             <div class="GS_widget_innerBorder">
                 <iframe class="greatschools"
-                        src="/widget/schoolSearch.page"
-                        width="290" height="320"
+                        src="/widget/schoolSearch.page?city=San+Francisco&amp;state=CA"
+                        width="290" height="332"
                         marginheight="0" marginwidth="0"
                         frameborder="0" scrolling="no">/* */</iframe>
                 <div class="GS_widget_footer">

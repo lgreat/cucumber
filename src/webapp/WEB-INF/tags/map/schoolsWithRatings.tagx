@@ -6,6 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
@@ -14,7 +15,7 @@
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
 <jsp:directive.attribute name="lon" required="false" type="java.lang.Float" description="Longitude (center of map)"/>
 <jsp:directive.attribute name="lat" required="false" type="java.lang.Float" description="Latitude (center of map)"/>
-<jsp:directive.attribute name="schools" required="true" description="Schools to map, as SchoolWithRatings objects" type="java.util.List"/>
+<jsp:directive.attribute name="schools" required="false" description="Schools to map, as SchoolWithRatings objects" type="java.util.List"/>
 <jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom, defaults to 9"/>
 <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom, defaults to 12"/>
 <!--
@@ -25,13 +26,19 @@ Schools without lat/lon are skipped.
     request.setAttribute("mapSchools", schools);
 
     // Calculate the optimal center point
-    LatLonRect r = new LatLonRect(schools);
-    if (r.isCentered()) {
-        request.setAttribute("center", r.getCenter());
+    if (schools != null) {
+        LatLonRect r = new LatLonRect(schools);
+        if (r.isCentered()) {
+            System.err.println("isCentered");
+            request.setAttribute("center", r.getCenter());
+        } else {
+            System.err.println("not centered");
+            request.setAttribute("center", new LatLon(lat, lon));
+        }
     } else {
+        System.err.println("no schools");
         request.setAttribute("center", new LatLon(lat, lon));
     }
-
     ]]></jsp:scriptlet>
 <c:if test="${!requestScope.context.crawler}">
 <map:setup/>
@@ -91,6 +98,7 @@ function initSchoolInfo() {
     mySchool.type = "${curSchool.type.name}";
     mySchool.gradeLevel = "${curSchool.gradeLevels}";
 
+    mySchool.rating = 0;
     mySchool.ratingHtml = '';
     <c:if test="${schoolWithRatings.rating ne null and schoolWithRatings.rating gt 0 and schoolWithRatings.rating lt 11}">
         schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
@@ -98,16 +106,26 @@ function initSchoolInfo() {
         mySchool.ratingHtml = '<div class="schoolRating"><div>GreatSchools Rating</div>' +
                            schoolRatingImg +
                            '</div>';
+        mySchool.rating = ${schoolWithRatings.rating};
     </c:if>
     mySchool.parentRatingHtml = '<div class="parentRating">';
     <c:set var="parent_rating" value="0"/>
     <c:if test="${(schoolWithRatings.parentRatings ne null) and (schoolWithRatings.parentRatings.displayOverallRating eq true)}">
         <c:set var="parent_rating" value="${schoolWithRatings.parentRatings.overall}"/>
     </c:if>
-    <c:if test="${parent_rating ne 0}">
-        mySchool.parentRatingHtml += '<div>Parent Rating</div>'
-        mySchool.parentRatingHtml += '<gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Parent rating ${parent_rating}"/>';
-    </c:if>
+    <c:choose>
+       <c:when test="${parent_rating eq 0}">
+            mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview
+                    onclick="showPopWin(this.href+\'&amp;showName=1\', 344, 362, null, \'map\');return false;"
+                    school="${curSchool}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
+       </c:when>
+       <c:otherwise>
+            mySchool.parentRatingHtml += '<div>Parent Rating</div>'
+            mySchool.parentRatingHtml += '<gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Parent rating ${parent_rating}"/>';
+       </c:otherwise>
+
+    </c:choose>
+
     mySchool.parentRatingHtml += '</div>';
 
     mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
@@ -131,19 +149,35 @@ function initMap() {
     GS_map.setCenter(centerPoint, 17);
     var bounds = new GLatLngBounds();
     bounds.extend(centerPoint);
+    var zoom = maxZoom;
     <![CDATA[
-    for (var counter=0; counter < schoolArray.length; counter++) {
-      var curSchool = schoolArray[counter];
-      tooltip = curSchool.name;
-      marker = new GMarker(curSchool.location, {title: tooltip});
-      addBubbleListener(marker, curSchool);
-      GS_map.addOverlay(marker);
-      bounds.extend(curSchool.location);
+    if (schoolArray.length > 0) {
+        for (var counter=0; counter < schoolArray.length; counter++) {
+            var curSchool = schoolArray[counter];
+            var icon = new GIcon();
+            var imageValue = curSchool.rating;
+            if (imageValue == 0) {
+                imageValue = 'na';
+            }
+            icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
+            icon.shadow =  "/res/img/map/GS_gsr_1_backgroundshadow.png";
+            icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_trans.png";
+            icon.iconSize = new GSize(42,41);
+            icon.iconAnchor = new GPoint(14,39);
+            icon.infoWindowAnchor = new GPoint(21,2);
+            icon.infoShadowAnchor = new GPoint(21,2);
+            icon.shadowSize = new GSize(42,41);
+            tooltip = curSchool.name;
+            marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
+            addBubbleListener(marker, curSchool);
+            GS_map.addOverlay(marker);
+            bounds.extend(curSchool.location);
+        }
+        zoom = GS_map.getBoundsZoomLevel(bounds);
+        if (zoom > maxZoom) zoom = maxZoom;
+        if (minZoom > zoom) zoom = minZoom;
     }
     ]]>
-    var zoom = GS_map.getBoundsZoomLevel(bounds);
-    if (zoom > maxZoom) zoom = maxZoom;
-    if (minZoom > zoom) zoom = minZoom;
     GS_map.setZoom(zoom);
 
     GEvent.addListener(GS_map, "infowindowopen", function() {
