@@ -33,7 +33,7 @@
          }
          if (!center) {
              icon.image = "/res/img/map/pushpin_" + imageValue + ".png";
-             icon.shadow =  "/res/img/map/pushpin_shadow.png"
+             icon.shadow =  "/res/img/map/pushpin_shadow.png";
              icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
              icon.iconSize = new GSize(39,36);
              icon.iconAnchor = new GPoint(19,34);
