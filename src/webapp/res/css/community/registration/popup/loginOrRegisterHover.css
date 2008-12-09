@@ -23,8 +23,14 @@ div.header {
     height: 41px;
 }
 
+    div.header img {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+    }
+
     div.header p {
-        margin: 12px 0 0 15px;
+        margin: 12px 0 0 60px;
         padding: 0;
         font-size: 13px;
         font-weight: bold;

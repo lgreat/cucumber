@@ -29,6 +29,7 @@
     <ad:setSlotPrefix slotPrefix="CommunityLoginOrRegister"/>
 
     <div class="header">
+        <img src="/res/img/community/registration/new_label_f2f3db.gif" alt="New!"/>
         <p>Please sign in or register to access My School List.</p>
     </div>
     <div class="wrapper">
