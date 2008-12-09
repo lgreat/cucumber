@@ -33,6 +33,7 @@ div.tabBar {
         color: #289;
         text-transform: uppercase;
         font-weight: bold;
+        cursor: pointer;
     }
 
     div.tabBar div#mapTab {
@@ -113,11 +114,28 @@ div#mapTabBody {
         top: 7px;
     }
 
-    /* Map */
-
     div#mapTabBody a img {
         border: 0;
     }
+
+    div#mapTabBody ul {
+        margin: 5px 0;
+        padding: 0;
+    }
+
+    div#mapTabBody li {
+        list-style-type: none;
+        display: inline;
+        font-size: 11px;
+        margin-right: 8px;
+    }
+
+        div#mapTabBody li label {
+            position: relative;
+            top: -2px;
+        }
+
+    /* Map */
 
     div#mapTabBody div#map {
         width: 279px;

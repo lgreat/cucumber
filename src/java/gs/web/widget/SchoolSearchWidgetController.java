@@ -41,18 +41,42 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         if (request.getParameter(DISPLAY_TAB_PARAM) != null) {
             command.setDisplayTab(request.getParameter(DISPLAY_TAB_PARAM));
         }
-        if (request.getParameter(STATE_PARAM) != null) {
-            State state = _stateManager.getState(request.getParameter(STATE_PARAM));
-            if (state != null && request.getParameter(CITY_PARAM) != null) {
-                City city = _geoDao.findCity(state, request.getParameter(CITY_PARAM));
-                if (city != null ) {
-                    command.setCity(city);
-                    command.setMapLocationPrefix("in ");
-                    command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
-                }
-            }
-        }
+        State state = getStateFromString(request.getParameter(STATE_PARAM), true); // default to CA
+        City city = getCityFromString(state, request.getParameter(CITY_PARAM), true); // default to SF
+        command.setCity(city);
+        command.setMapLocationPrefix("in ");
+        command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
         return command;
+    }
+
+    protected State getStateFromString(String stateStr) {
+        return getStateFromString(stateStr, false);
+    }
+
+    protected State getStateFromString(String stateStr, boolean defaultToCalifornia) {
+        State state = null;
+        if (stateStr != null) {
+            state = _stateManager.getState(stateStr);
+        }
+        if (state == null && defaultToCalifornia) {
+            state = State.CA;
+        }
+        return state;
+    }
+
+    protected City getCityFromString(State state, String cityStr) {
+        return getCityFromString(state, cityStr, false);
+    }
+
+    protected City getCityFromString(State state, String cityStr, boolean defaultToSanFrancisco) {
+        City city = null;
+        if (cityStr != null) {
+            city = _geoDao.findCity(state, cityStr);
+        }
+        if (city == null && defaultToSanFrancisco) {
+            city = _geoDao.findCity(State.CA, "San Francisco");
+        }
+        return city;
     }
 
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj,
@@ -74,9 +98,9 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             if (tok.countTokens() == 2) {
                 String cityStr = tok.nextToken();
                 String stateStr = tok.nextToken();
-                State state = _stateManager.getState(stateStr);
+                State state = getStateFromString(stateStr);
                 if (state != null) {
-                    City city = _geoDao.findCity(state, cityStr);
+                    City city = getCityFromString(state, cityStr);
                     if (city != null ) {
                         command.setCity(city);
                         validSearch = true;
@@ -120,7 +144,18 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     }
 
     /**
-     * Obtain parent ratings for a list of schools
+     * Obtain parent ratings for a list of schools.
+     *
+     * Disgustingly inefficient. Ideally, this would group the schools into two lists:
+     * 1) Preschools
+     * 2) Other schools
+     * Then farm each off to specially designed methods in IReviewDao that take a batch of School Ids and
+     * return a map of ids to Ratings objects. This would then loop through the school list, look up the
+     * associated ratings object in one of the maps, and attach it to the data structure.
+     *
+     * I bet that would be a lot faster, and certainly less trouble on the database.
+     *
+     * TODO: Make it so, Number One!
      */
     protected void loadRatingsIntoSchoolList(List<SchoolWithRatings> schools) {
         // for each school

@@ -11,13 +11,14 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Test widget - GreatSchools</title>
+        <title>Test school search widget - GreatSchools</title>
         <style type="text/css">
             div#GS_schoolSearchWidget {
                 border: solid 4px #BFE9F1;
                 border-bottom-width: 20px;
                 width: 292px;
                 position: relative;
+                font-family: "Trebuchet MS", Arial, sans-serif;
             }
 
             div.GS_widget_innerBorder {
@@ -32,6 +33,7 @@
             div.GS_widget_footer img {
                 margin-top: 8px;
                 float: left;
+                border: 0
             }
 
             div.GS_seo {
@@ -44,13 +46,13 @@
             div.GS_seo a, div.GS_seo a:hover {
                 text-decoration: underline;
                 color: #666; 
-                font-size: 11px;
+                font-size: 10px;
             }
 
             div.GS_getWidget {
                 position: absolute;
-                bottom: -15px;
-                right: 0;
+                bottom: -17px;
+                right: 8px;
             }
 
             div.GS_getWidget a, div.GS_getWidget a:hover {
@@ -64,12 +66,13 @@
         <div id="GS_schoolSearchWidget">
             <div class="GS_widget_innerBorder">
                 <iframe class="greatschools"
-                        src="/widget/schoolSearch.page?city=San+Francisco&amp;state=CA"
-                        width="290" height="316"
+                        src="/widget/schoolSearch.page?city=San+Francisco&amp;amp;state=CA"
+                        width="290" height="346"
                         marginheight="0" marginwidth="0"
-                        frameborder="0" scrolling="no">/* */</iframe>
+                        frameborder="0" scrolling="no"><!-- Keep from collapsing --></iframe>
                 <div class="GS_widget_footer">
-                    <img src="/res/img/widget/poweredby_logo.gif" alt="Powered by GreatSchools"/>
+                    <a href="/" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
+                                                     alt="Powered by GreatSchools"/></a>
                     <div class="GS_seo">
                         <div class="GS_city"><a href="#">San Francisco schools</a></div>
                         <div class="GS_state"><a href="#">California schools</a></div>

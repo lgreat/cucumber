@@ -60,7 +60,34 @@
                         <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
                     </a>
                 </div>
-
+                <div class="filters">
+                    <ul>
+                        <li>
+                            <gsml:checkbox name="preschool"
+                                           styleId="filter_p"
+                                           checked="${requestScope.command.preschoolFilterChecked}"/>
+                            <label for="filter_p">Preschool</label>
+                        </li>
+                        <li>
+                            <gsml:checkbox name="elementary"
+                                           styleId="filter_e"
+                                           checked="${requestScope.command.elementaryFilterChecked}"/>
+                            <label for="filter_e">Elementary</label>
+                        </li>
+                        <li>
+                            <gsml:checkbox name="middle"
+                                           styleId="filter_m"
+                                           checked="${requestScope.command.middleFilterChecked}"/>
+                            <label for="filter_m">Middle</label>
+                        </li>
+                        <li>
+                            <gsml:checkbox name="high"
+                                           styleId="filter_h"
+                                           checked="${requestScope.command.highFilterChecked}"/>
+                            <label for="filter_h">High</label>
+                        </li>
+                    </ul>
+                </div>
                 <c:choose>
                     <c:when test="${fn:length(requestScope.command.schools) gt 0}">
                         <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its

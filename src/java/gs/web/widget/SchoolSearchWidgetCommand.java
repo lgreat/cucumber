@@ -1,6 +1,5 @@
 package gs.web.widget;
 
-import gs.data.school.School;
 import gs.data.school.SchoolWithRatings;
 import gs.data.geo.City;
 
@@ -17,6 +16,10 @@ public class SchoolSearchWidgetCommand {
     private City _city;
     private String _mapLocationPrefix;
     private String _mapLocationString;
+    private boolean _preschoolFilterChecked = true;
+    private boolean _elementaryFilterChecked = true;
+    private boolean _middleFilterChecked = true;
+    private boolean _highFilterChecked = true;
 
     public String getDisplayTab() {
         return _displayTab;
@@ -64,5 +67,37 @@ public class SchoolSearchWidgetCommand {
 
     public void setMapLocationString(String mapLocationString) {
         _mapLocationString = mapLocationString;
+    }
+
+    public boolean isPreschoolFilterChecked() {
+        return _preschoolFilterChecked;
+    }
+
+    public void setPreschoolFilterChecked(boolean preschoolFilterChecked) {
+        _preschoolFilterChecked = preschoolFilterChecked;
+    }
+
+    public boolean isElementaryFilterChecked() {
+        return _elementaryFilterChecked;
+    }
+
+    public void setElementaryFilterChecked(boolean elementaryFilterChecked) {
+        _elementaryFilterChecked = elementaryFilterChecked;
+    }
+
+    public boolean isMiddleFilterChecked() {
+        return _middleFilterChecked;
+    }
+
+    public void setMiddleFilterChecked(boolean middleFilterChecked) {
+        _middleFilterChecked = middleFilterChecked;
+    }
+
+    public boolean isHighFilterChecked() {
+        return _highFilterChecked;
+    }
+
+    public void setHighFilterChecked(boolean highFilterChecked) {
+        _highFilterChecked = highFilterChecked;
     }
 }
