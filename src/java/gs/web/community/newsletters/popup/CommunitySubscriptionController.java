@@ -1,8 +1,8 @@
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
+import gs.data.util.SubscriptionUtil;
 import gs.web.util.ReadWriteController;
-import gs.web.util.NewSubscriberDetector;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
@@ -46,7 +46,7 @@ public class CommunitySubscriptionController extends AbstractController implemen
             }
 
             Subscription subscription = new Subscription(user, SubscriptionProduct.COMMUNITY, sessionContext.getStateOrDefault());
-            if (!NewSubscriberDetector.userHasNewsLetterSubscriptions(user.getSubscriptions()))  {
+            if (!SubscriptionUtil.userHasNewsLetterSubscriptions(user.getSubscriptions()))  {
                 result += ",newSubscriber";
             }
             _subscriptionDao.addNewsletterSubscriptions(user, Arrays.asList(new Subscription[]{subscription}));
