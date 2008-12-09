@@ -115,6 +115,10 @@ div#mapTabBody {
 
     /* Map */
 
+    div#mapTabBody a img {
+        border: 0;
+    }
+
     div#mapTabBody div#map {
         width: 279px;
         height: 250px;
@@ -162,7 +166,6 @@ div#mapTabBody {
         }
 
             div.schoolInfoWindow div.parentRating a img {
-                border: 0;
                 position: relative;
                 left: -1px;
             }

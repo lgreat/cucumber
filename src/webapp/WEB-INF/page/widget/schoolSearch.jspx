@@ -56,7 +56,9 @@
                     <span>${requestScope.command.mapLocationString}</span>:
                 </div>
                 <div class="help">
-                    <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
+                    <a href="#">
+                        <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
+                    </a>
                 </div>
 
                 <c:choose>
