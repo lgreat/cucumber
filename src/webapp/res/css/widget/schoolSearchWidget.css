@@ -159,9 +159,9 @@ div#mapTabBody {
         div.schoolInfoWindow div.schoolRatings {
             position: absolute;
             left: 0;
-            top: 25px;
             width: 92px;
-            height: 70px;
+            height: 65px;
+            margin-top: 10px;
             padding-right: 5px;
             border-right: 1px solid #ccc;
         }
@@ -180,7 +180,7 @@ div#mapTabBody {
         div.schoolInfoWindow div.parentRating {
             clear: left;
             text-align: left;
-            padding-top: 3px;
+            padding-top: 6px;
         }
 
             div.schoolInfoWindow div.parentRating a img {
@@ -195,7 +195,7 @@ div#mapTabBody {
         div.schoolInfoWindow div.schoolInfo {
             position: absolute;
             right: -5px;
-            top: 25px;
+            margin-top: 10px;
             width: 140px;
         }
 

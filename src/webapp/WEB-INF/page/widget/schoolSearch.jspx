@@ -7,7 +7,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:spring="http://www.springframework.org/tags"
         >
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -30,100 +30,125 @@
         </c:if>
     </head>
     <body>
-        <c:set var="mapTabClass" value=""/>
-        <c:set var="searchTabClass" value=""/>
-        <c:choose>
-            <c:when test="${requestScope.command.displayTab eq 'map'}">
-                <c:set var="mapTabClass" value="selected"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="searchTabClass" value="selected"/>
-            </c:otherwise>
-        </c:choose>
+    <c:set var="mapTabClass" value=""/>
+    <c:set var="searchTabClass" value=""/>
+    <c:choose>
+        <c:when test="${requestScope.command.displayTab eq 'map'}">
+            <c:set var="mapTabClass" value="selected"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="searchTabClass" value="selected"/>
+        </c:otherwise>
+    </c:choose>
 
-        <div id="schoolSearchWidget">
-            <!-- Begin Tab Bar -->
-            <div class="tabBar">
-                <div id="mapTab" class="${mapTabClass}" onclick="showMapTab();">Map</div>
-                <div id="searchTab" class="${searchTabClass}" onclick="showSearchTab();">Search</div>
-            </div>
-            <!-- End Tab Bar -->
-
-            <!-- Begin Map Tab-->
-            <div id="mapTabBody" class="tabBody ${mapTabClass}">
-                <div class="locationDescription">
-                    Top schools ${requestScope.command.mapLocationPrefix}
-                    <span>${requestScope.command.mapLocationString}</span>:
-                </div>
-                <div class="help">
-                    <a href="#">
-                        <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
-                    </a>
-                </div>
-                <div class="filters">
-                    <ul>
-                        <li>
-                            <gsml:checkbox name="preschool"
-                                           styleId="filter_p"
-                                           checked="${requestScope.command.preschoolFilterChecked}"/>
-                            <label for="filter_p">Preschool</label>
-                        </li>
-                        <li>
-                            <gsml:checkbox name="elementary"
-                                           styleId="filter_e"
-                                           checked="${requestScope.command.elementaryFilterChecked}"/>
-                            <label for="filter_e">Elementary</label>
-                        </li>
-                        <li>
-                            <gsml:checkbox name="middle"
-                                           styleId="filter_m"
-                                           checked="${requestScope.command.middleFilterChecked}"/>
-                            <label for="filter_m">Middle</label>
-                        </li>
-                        <li>
-                            <gsml:checkbox name="high"
-                                           styleId="filter_h"
-                                           checked="${requestScope.command.highFilterChecked}"/>
-                            <label for="filter_h">High</label>
-                        </li>
-                    </ul>
-                </div>
-                <c:choose>
-                    <c:when test="${fn:length(requestScope.command.schools) gt 0}">
-                        <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
-                            schools.</noscript></div>
-                        <map:schoolsWithRatings id="map"
-                                                schools="${requestScope.command.schools}"
-                                />
-                    </c:when>
-                    <c:when test="${requestScope.command.city ne null}">
-                        <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
-                            schools.</noscript></div>
-                        <map:schoolsWithRatings id="map"
-                                                lat="${requestScope.command.city.lat}"
-                                                lon="${requestScope.command.city.lon}"/>
-                    </c:when>
-                </c:choose>
-            </div>
-            <!-- End Map Tab-->
-
-            <!-- Begin Search Tab-->
-            <div id="searchTabBody" class="tabBody ${searchTabClass}">
-                <h2>Find Schools</h2>
-
-                <p>Find the top schools in a city or near an address or zip</p>
-
-                <gsml:errorMessage command="command" field="searchQuery" styleClass="warning" useImage="false"/>
-
-                <form:form name="searchForm" action="/widget/schoolSearch.page" method="post">
-                    <form:input path="searchQuery" cssClass="searchInput"
-                                onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
-                                onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
-                    <input type="image" src="/res/img/widget/greygo_button.gif" alt="GO" class="searchSubmit"/>
-                </form:form>
-            </div>
-            <!-- End Search Tab-->
+    <div id="schoolSearchWidget">
+        <!-- Begin Tab Bar -->
+        <div class="tabBar">
+            <div id="mapTab" class="${mapTabClass}" onclick="showMapTab();">Map</div>
+            <div id="searchTab" class="${searchTabClass}" onclick="showSearchTab();">Search</div>
         </div>
+        <!-- End Tab Bar -->
+
+        <!-- Begin Map Tab-->
+        <div id="mapTabBody" class="tabBody ${mapTabClass}">
+            <div class="locationDescription">
+                Top schools ${requestScope.command.mapLocationPrefix}
+                <span>${requestScope.command.mapLocationString}</span>:
+            </div>
+            <div class="help">
+                <a href="#">
+                    <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
+                </a>
+            </div>
+            <div class="filters">
+                <ul>
+                    <li>
+                        <gsml:checkbox name="preschool"
+                                       styleId="filter_p"
+                                       checked="${requestScope.command.preschoolFilterChecked}"/>
+                        <label for="filter_p">Preschool</label>
+                    </li>
+                    <li>
+                        <gsml:checkbox name="elementary"
+                                       styleId="filter_e"
+                                       checked="${requestScope.command.elementaryFilterChecked}"/>
+                        <label for="filter_e">Elementary</label>
+                    </li>
+                    <li>
+                        <gsml:checkbox name="middle"
+                                       styleId="filter_m"
+                                       checked="${requestScope.command.middleFilterChecked}"/>
+                        <label for="filter_m">Middle</label>
+                    </li>
+                    <li>
+                        <gsml:checkbox name="high"
+                                       styleId="filter_h"
+                                       checked="${requestScope.command.highFilterChecked}"/>
+                        <label for="filter_h">High</label>
+                    </li>
+                </ul>
+            </div>
+            <c:choose>
+                <c:when test="${fn:length(requestScope.command.schools) gt 0}">
+                    <div id="map">&#160;
+                        <noscript>JavaScript is required in order to view a map of the city and its
+                            schools.
+                        </noscript>
+                    </div>
+                    <map:schoolsWithRatings id="map"
+                                            schools="${requestScope.command.schools}"
+                            />
+                </c:when>
+                <c:when test="${requestScope.command.city ne null}">
+                    <div id="map">&#160;
+                        <noscript>JavaScript is required in order to view a map of the city and its
+                            schools.
+                        </noscript>
+                    </div>
+                    <map:schoolsWithRatings id="map"
+                                            lat="${requestScope.command.city.lat}"
+                                            lon="${requestScope.command.city.lon}"/>
+                </c:when>
+            </c:choose>
+        </div>
+        <!-- End Map Tab-->
+
+        <!-- Begin Search Tab-->
+        <div id="searchTabBody" class="tabBody ${searchTabClass}">
+            <h2>Find Schools</h2>
+
+            <p>Find the top schools in a city or near an address or zip</p>
+
+            <gsml:errorMessage command="command" field="searchQuery" styleClass="warning" useImage="false"/>
+
+            <form:form name="searchForm" action="/widget/schoolSearch.page" method="post">
+                <form:input path="searchQuery" cssClass="searchInput"
+                            onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
+                            onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
+                <input type="image" src="/res/img/widget/greygo_button.gif" alt="GO" class="searchSubmit"/>
+            </form:form>
+        </div>
+        <!-- End Search Tab-->
+
+        <!-- Update parent frame's SEO links if there are no form errors -->
+        <c:set var="updateSeo" value="true"/>
+        <spring:hasBindErrors name="command">
+            <spring:bind path="command.searchQuery">
+                <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                    <c:set var="updateSeo" value="false"/>
+                </c:if>
+            </spring:bind>
+        </spring:hasBindErrors>
+        <c:if test="${updateSeo eq 'true'}">
+            <script type="text/javascript">
+                try {
+                    window.top.GS_updateSEOLinks("${requestScope.command.city.name}", "${requestScope.command.city.state.longName}", "${requestScope.command.city.state.abbreviation}");
+                } catch (e) {
+                    // ignore -- we must not be in our widget frame
+                }
+            </script>
+        </c:if>
+    </div>
     </body>
     </html>
 </jsp:root>

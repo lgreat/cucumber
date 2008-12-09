@@ -30,14 +30,11 @@ Schools without lat/lon are skipped.
     if (schools != null) {
         LatLonRect r = new LatLonRect(schools);
         if (r.isCentered()) {
-            System.err.println("isCentered");
             request.setAttribute("center", r.getCenter());
         } else {
-            System.err.println("not centered");
             request.setAttribute("center", new LatLon(lat, lon));
         }
     } else {
-        System.err.println("no schools");
         request.setAttribute("center", new LatLon(lat, lon));
     }
     ]]></jsp:scriptlet>
@@ -212,7 +209,13 @@ function addBubbleListener(marker, school) {
 
 <![CDATA[
 function getSchoolInfoWindowHtml(school) {
-    var rval = '<div class="schoolInfoWindow" style="font: 11px/13px Trebuchet MS, Arial, sans-serif; height: 85px; width: 240px;">';
+    var height = 85; // default height
+    var heightMultiplier = Math.floor(school.name.length / 30);
+    // add 13 pixels (font line-height) for every multiple of 30 that the school name's length exceeds
+    // this is a guesstimate of how many chars it takes to wrap to the next line
+    height += heightMultiplier * 13;
+
+    var rval = '<div class="schoolInfoWindow" style="font: 11px/13px Trebuchet MS, Arial, sans-serif; height: ' + height + 'px; width: 240px;">';
     rval += '<div class="schoolName" style="width: 210px;"><a href="' + school.link + '" target="_blank">'+ school.name + '</a></div>';
     rval += '<div class="schoolRatings">';
     rval += school.ratingHtml;

@@ -61,6 +61,30 @@
                 text-decoration: underline;
             }
         </style>
+        <script type="text/javascript">
+            function GS_updateSEOLinks(cityName, stateName, stateAbbr) {
+                var cityLink = document.getElementById('GS_city_SEO');
+                var stateLink = document.getElementById('GS_state_SEO');
+
+                var cityUrl = GS_replaceAll(cityName, "%27", "'");
+                cityUrl = GS_replaceAll(cityUrl, " ", "_");
+                cityUrl = GS_replaceAll(cityUrl, "+", "_");
+                cityLink.href = "/city/" + cityUrl + "/" + stateAbbr;
+                cityLink.innerHTML = cityName  + " schools";
+                stateLink.href = "/modperl/go/" + stateAbbr;
+                stateLink.innerHTML = stateName + " schools";
+            }
+
+            function GS_replaceAll(strSource, strMatch, strReplace) {
+                var rval = strSource;
+                var index = rval.indexOf(strMatch);
+                while (index != -1) {
+                    rval = rval.replace(strMatch, strReplace);
+                    index = rval.indexOf(strMatch);
+                }
+                return rval;
+            }
+        </script>
     </head>
     <body>
         <div id="GS_schoolSearchWidget">
@@ -74,8 +98,12 @@
                     <a href="/" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
                                                      alt="Powered by GreatSchools"/></a>
                     <div class="GS_seo">
-                        <div class="GS_city"><a href="#">San Francisco schools</a></div>
-                        <div class="GS_state"><a href="#">California schools</a></div>
+                        <div class="GS_city"><a href="/city/San_Francisco/CA"
+                                                target="_blank"
+                                                id="GS_city_SEO">San Francisco schools</a></div>
+                        <div class="GS_state"><a href="/modperl/go/CA"
+                                                 target="_blank"
+                                                 id="GS_state_SEO">California schools</a></div>
                     </div>
                 </div>
             </div>
