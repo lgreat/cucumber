@@ -65,7 +65,7 @@
             <div class="GS_widget_innerBorder">
                 <iframe class="greatschools"
                         src="/widget/schoolSearch.page?city=San+Francisco&amp;state=CA"
-                        width="290" height="332"
+                        width="290" height="316"
                         marginheight="0" marginwidth="0"
                         frameborder="0" scrolling="no">/* */</iframe>
                 <div class="GS_widget_footer">

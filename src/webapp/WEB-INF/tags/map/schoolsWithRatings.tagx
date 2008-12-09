@@ -116,7 +116,7 @@ function initSchoolInfo() {
     <c:choose>
        <c:when test="${parent_rating eq 0}">
             mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview
-                    onclick="showPopWin(this.href+\'&amp;showName=1\', 344, 362, null, \'map\');return false;"
+                    onclick="window.open(this.href + \'&amp;showName=1\', \'map\', \'width=344,height=362,scrollbars=no\'); return false;"
                     school="${curSchool}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
        </c:when>
        <c:otherwise>
