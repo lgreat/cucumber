@@ -171,8 +171,8 @@ public class MonitorController implements ReadWriteController {
         Date builddate = new SimpleDateFormat("yyyyMMddHHmmss").parse(buildtime);
         String fisheyeBuildTime = new SimpleDateFormat("yyyy-MM-dd'T'HH'%3A'mm'%3A'ss.00").format(builddate);
         return "http://cvsweb.greatschools.net/search/gsrepo/" + module +
-                "?ql=select+revisions+from+dir+%2F" + module + "+where+(on+branch+" + branch +
-                "+and+date+%3E%3D+" + fisheyeBuildTime + ")+group+by+changeset&amp;refresh=y";
+                "?ql=select+revisions+from+dir+%2F" + module + "+where+(" + ("HEAD".equals(branch)?"":"on+branch+" + branch + "+and+") + 
+		"date+%3E%3D+" + fisheyeBuildTime + ")+group+by+changeset&amp;refresh=y";
     }
 
     protected void incrementVersion(HttpServletRequest request, HttpServletResponse response) {
