@@ -65,25 +65,29 @@
                     <li>
                         <gsml:checkbox name="preschool"
                                        styleId="filter_p"
-                                       checked="${requestScope.command.preschoolFilterChecked}"/>
+                                       checked="${requestScope.command.preschoolFilterChecked}"
+                                       onclick="toggleFilter('p', this.checked, '${requestScope.command.searchQuery}');"/>
                         <label for="filter_p">Preschool</label>
                     </li>
                     <li>
                         <gsml:checkbox name="elementary"
                                        styleId="filter_e"
-                                       checked="${requestScope.command.elementaryFilterChecked}"/>
+                                       checked="${requestScope.command.elementaryFilterChecked}"
+                                       onclick="toggleFilter('e', this.checked, '${requestScope.command.searchQuery}');"/>
                         <label for="filter_e">Elementary</label>
                     </li>
                     <li>
                         <gsml:checkbox name="middle"
                                        styleId="filter_m"
-                                       checked="${requestScope.command.middleFilterChecked}"/>
+                                       checked="${requestScope.command.middleFilterChecked}"
+                                       onclick="toggleFilter('m', this.checked, '${requestScope.command.searchQuery}');"/>
                         <label for="filter_m">Middle</label>
                     </li>
                     <li>
                         <gsml:checkbox name="high"
                                        styleId="filter_h"
-                                       checked="${requestScope.command.highFilterChecked}"/>
+                                       checked="${requestScope.command.highFilterChecked}"
+                                       onclick="toggleFilter('h', this.checked, '${requestScope.command.searchQuery}');"/>
                         <label for="filter_h">High</label>
                     </li>
                 </ul>
@@ -122,7 +126,11 @@
             <gsml:errorMessage command="command" field="searchQuery" styleClass="warning" useImage="false"/>
 
             <form:form name="searchForm" action="/widget/schoolSearch.page" method="post">
-                <form:input path="searchQuery" cssClass="searchInput"
+                <form:hidden path="preschoolFilterChecked" id="filter_p_value"/>
+                <form:hidden path="elementaryFilterChecked" id="filter_e_value"/>
+                <form:hidden path="middleFilterChecked" id="filter_m_value"/>
+                <form:hidden path="highFilterChecked" id="filter_h_value"/>
+                <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
                             onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
                 <input type="image" src="/res/img/widget/greygo_button.gif" alt="GO" class="searchSubmit"/>

@@ -109,6 +109,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                         command.setCity(city);
                         validSearch = true;
                         List<SchoolWithRatings> schools = _schoolDao.findSchoolsWithRatingsInCity(state, cityStr);
+                        applyLevelCodeFilters(schools, command); // edits list in place
                         if (schools != null && schools.size() > 0) {
                             hasResults = true;
                             loadRatingsIntoSchoolList(schools, state);
@@ -195,8 +196,31 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         }
         long end = System.currentTimeMillis();
 
-        _log.info((end - start) + "ms");
-        _log.info( ((float)(end - start)) / 1000.0 + "s");
+        _log.info("Bulk retrieval of parent ratings took " + ((float)(end - start)) / 1000.0 + "s");
+    }
+
+    protected void applyLevelCodeFilters(List<SchoolWithRatings> schools, SchoolSearchWidgetCommand command) {
+        String lcs = command.getLevelCodeString();
+        List<SchoolWithRatings> itemsToRemove = new ArrayList<SchoolWithRatings>();
+        if (StringUtils.isBlank(lcs)) {
+            // filter out all schools
+            itemsToRemove = schools;
+        } else if (command.isPreschoolFilterChecked()
+                && command.isElementaryFilterChecked()
+                && command.isMiddleFilterChecked()
+                && command.isHighFilterChecked()) {
+            // do no filtering
+        } else {
+            LevelCode lc = LevelCode.createLevelCode(lcs);
+            _log.info(lc);
+            for (SchoolWithRatings schoolWithRatings: schools) {
+                School school = schoolWithRatings.getSchool();
+                if (!lc.containsSimilarLevelCode(school.getLevelCode())) {
+                    itemsToRemove.add(schoolWithRatings);
+                }
+            }
+        }
+        schools.removeAll(itemsToRemove);
     }
 
     public IGeoDao getGeoDao() {

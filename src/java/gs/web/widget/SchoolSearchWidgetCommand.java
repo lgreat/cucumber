@@ -100,4 +100,22 @@ public class SchoolSearchWidgetCommand {
     public void setHighFilterChecked(boolean highFilterChecked) {
         _highFilterChecked = highFilterChecked;
     }
+
+    public String getLevelCodeString() {
+        String rval = "";
+        if (isPreschoolFilterChecked()) {
+            rval += "p";
+        }
+        if (isElementaryFilterChecked()) {
+            rval += (rval.length() > 0)?",e":"e";
+        }
+        if (isMiddleFilterChecked()) {
+            rval += (rval.length() > 0)?",m":"m";
+        }
+        if (isHighFilterChecked()) {
+            rval += (rval.length() > 0)?",h":"h";
+        }
+
+        return rval;
+    }
 }

@@ -40,3 +40,8 @@ function textSwitch(el, target, replace) {
     }
 }
 
+function toggleFilter(levelCode, checked, searchQuery) {
+    document.getElementById('filter_' + levelCode + '_value').value = checked;
+    document.getElementById('searchInput').value = searchQuery;
+    document.forms['searchForm'].submit();
+}
