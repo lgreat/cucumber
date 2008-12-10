@@ -212,7 +212,6 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             // do no filtering
         } else {
             LevelCode lc = LevelCode.createLevelCode(lcs);
-            _log.info(lc);
             for (SchoolWithRatings schoolWithRatings: schools) {
                 School school = schoolWithRatings.getSchool();
                 if (!lc.containsSimilarLevelCode(school.getLevelCode())) {
