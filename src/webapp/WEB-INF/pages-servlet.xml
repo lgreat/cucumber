@@ -256,6 +256,11 @@
         <property name="viewName" value="widget/customizeSchoolInfoWidget"/>
     </bean>
 
+    <bean name="/widget/customizeSchoolSearchWidget.page"
+          class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
+        <property name="viewName" value="widget/customizeSchoolSearchWidget"/>
+    </bean>
+
     <bean name="/widget/schoolSearch.page"
           class="gs.web.widget.SchoolSearchWidgetController"
           autowire="byName"

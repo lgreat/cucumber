@@ -31,8 +31,6 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     private static final Logger _log = Logger.getLogger(SchoolSearchWidgetController.class);
 
     private static final String SEARCH_QUERY_PARAM = "searchQuery";
-    private static final String CITY_PARAM = "city";
-    private static final String STATE_PARAM = "state";
     private static final String DISPLAY_TAB_PARAM = "displayTab";
 
     private IGeoDao _geoDao;
@@ -40,55 +38,40 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     private IReviewDao _reviewDao;
     private StateManager _stateManager;
 
-    protected Object formBackingObject(HttpServletRequest request) throws Exception {
-        SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) super.formBackingObject(request);
+    protected void onBindOnNewForm(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
+        _log.info("onBindOnNewForm");
+        SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
+
         if (request.getParameter(DISPLAY_TAB_PARAM) != null) {
             command.setDisplayTab(request.getParameter(DISPLAY_TAB_PARAM));
         }
-        State state = getStateFromString(request.getParameter(STATE_PARAM), true); // default to CA
-        City city = getCityFromString(state, request.getParameter(CITY_PARAM), true); // default to SF
-        command.setCity(city);
-        loadResultsForCity(city, state, command);
-        command.setMapLocationPrefix("in ");
-        command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
-        return command;
+
+        if (StringUtils.isNotBlank(request.getParameter(SEARCH_QUERY_PARAM))) {
+            parseSearchQuery(request.getParameter(SEARCH_QUERY_PARAM), command, errors);
+        }
     }
 
     protected State getStateFromString(String stateStr) {
-        return getStateFromString(stateStr, false);
-    }
-
-    protected State getStateFromString(String stateStr, boolean defaultToCalifornia) {
         State state = null;
         if (StringUtils.length(stateStr) == 2) {
             state = _stateManager.getState(stateStr);
         } else if (StringUtils.length(stateStr) > 2) {
             state = _stateManager.getStateByLongName(stateStr);
         }
-        if (state == null && defaultToCalifornia) {
-            state = State.CA;
-        }
         return state;
     }
 
     protected City getCityFromString(State state, String cityStr) {
-        return getCityFromString(state, cityStr, false);
-    }
-
-    protected City getCityFromString(State state, String cityStr, boolean defaultToSanFrancisco) {
         City city = null;
         if (cityStr != null) {
             city = _geoDao.findCity(state, cityStr);
-        }
-        if (city == null && defaultToSanFrancisco) {
-            city = _geoDao.findCity(State.CA, "San Francisco");
         }
         return city;
     }
 
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj,
                                      BindException errors) throws Exception {
-        super.onBindAndValidate(request, commandObj, errors);
+        _log.info("onBindAndValidate");
 
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
         String searchQuery = request.getParameter(SEARCH_QUERY_PARAM);

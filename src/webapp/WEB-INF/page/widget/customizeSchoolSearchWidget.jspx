@@ -1,0 +1,226 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsweb="gstaglib"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>School Search Widget</title>
+    <style type="text/css">
+        body {
+            font-family: "Trebuchet MS", Arial, sans-serif;
+        }
+        h1, h2 {
+            font-size: 18px;
+            color: #333;
+            font-weight:normal;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+        p, .section input, label {
+            color: #555;
+            font-size: 13px;
+        }
+        p {
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            margin-top: 25px;
+        }
+        td.leftSide {
+            width: 400px;
+        }
+        table td {
+            vertical-align: top;
+        }
+        div.section {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .cobrandSite input {
+            width: 100px;
+        }
+        .rightSide h2 {
+            margin: 10px 0 0 0;
+        }
+        .rightSide textarea {
+            background-color: #ddd;
+        }
+
+        /* Widget frame styles */
+        div#GS_schoolSearchWidget {
+            border: solid 4px #BFE9F1;
+            border-bottom-width: 20px;
+            width: 292px;
+            position: relative;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+        }
+
+        div.GS_widget_innerBorder {
+            border: solid 1px #9CD4DB;
+        }
+
+        div.GS_widget_footer {
+            height: 40px;
+            padding: 0 5px 0 15px;
+        }
+
+        div.GS_widget_footer img {
+            margin-top: 8px;
+            float: left;
+            border: 0
+        }
+
+        div.GS_seo {
+            float: right;
+            text-align: right;
+            width: 120px;
+            margin-top: 3px;
+        }
+
+        div.GS_seo a, div.GS_seo a:hover {
+            text-decoration: underline;
+            color: #666;
+            font-size: 10px;
+        }
+
+        div.GS_getWidget {
+            position: absolute;
+            bottom: -17px;
+            right: 8px;
+        }
+
+        div.GS_getWidget a, div.GS_getWidget a:hover {
+            color: #289;
+            font-size: 11px;
+            text-decoration: underline;
+        }
+    </style>
+    <script type="text/javascript">
+        <![CDATA[
+        // <!--
+        function inputsValid() {
+            return true;
+        }
+
+        function previewWidget() {
+            if (!inputsValid()) {
+                return;
+            }
+            var iframeUrl = '/widget/schoolSearch.page';
+            var params = '';
+            var customizeForm = document.forms['customizeForm'];
+            // cobrand
+            var cobrandSite = customizeForm.cobrandSite.value;
+            if (cobrandSite != 'www' && cobrandSite != '') {
+                params += '?cobrand=' + cobrandSite;
+            } else {
+                cobrandSite = 'www';
+            }
+            // search query
+            var searchQuery = customizeForm.searchQuery.value;
+            if (searchQuery != '') {
+                if (params.length > 0) {
+                    params += '&amp;';
+                } else {
+                    params += '?';
+                }
+                params += 'searchQuery=' + searchQuery;
+            }
+            // output preview
+            iframeUrl += params;
+            document.getElementById('widget').innerHTML = '<iframe class="greatschools" src="' + iframeUrl + '" width="290" height="346' +
+                '" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>';
+        }
+
+        function GS_updateSEOLinks(cityName, stateName, stateAbbr) {
+            var cityLink = document.getElementById('GS_city_SEO');
+            var stateLink = document.getElementById('GS_state_SEO');
+
+            var cityUrl = GS_replaceAll(cityName, "%27", "'");
+            cityUrl = GS_replaceAll(cityUrl, " ", "_");
+            cityUrl = GS_replaceAll(cityUrl, "+", "_");
+            cityLink.href = "/city/" + cityUrl + "/" + stateAbbr;
+            cityLink.innerHTML = cityName  + " schools";
+            stateLink.href = "/modperl/go/" + stateAbbr;
+            stateLink.innerHTML = stateName + " schools";
+        }
+
+        function GS_replaceAll(strSource, strMatch, strReplace) {
+            var rval = strSource;
+            var index = rval.indexOf(strMatch);
+            while (index != -1) {
+                rval = rval.replace(strMatch, strReplace);
+                index = rval.indexOf(strMatch);
+            }
+            return rval;
+        }
+
+        // -->
+        ]]>
+    </script>
+</head>
+<body>
+    <h1>School Search Widget</h1>
+    <p>Give your users access to local school information in minutes.</p>
+
+    <table>
+        <tr>
+            <td class="leftSide">
+                <h2>Customize it:</h2>
+                <form class="customize" name="customizeForm" action="#" onsubmit="return false;">
+                    <input type="hidden" name="cobrandSite" value="${requestScope.context.cobrand}"/>
+                    <div class="section searchQuery">
+                        <p>1. Enter the search query:</p>
+                        <input type="text" name="searchQuery" value=""/>
+                    </div>
+
+                    <input type="submit" name="preview" value="Preview and Generate HTML Code"
+                           onclick="previewWidget(); return false;"/>
+                </form>
+            </td>
+            <td class="rightSide">
+                <h2>Widget Preview:</h2>
+                <div id="GS_schoolSearchWidget">
+                    <div class="GS_widget_innerBorder">
+                        <div id="widget">
+                            <iframe class="greatschools"
+                                    src="/widget/schoolSearch.page"
+                                    width="290" height="346"
+                                    marginheight="0" marginwidth="0"
+                                    frameborder="0" scrolling="no"><!-- Keep from collapsing --></iframe>
+                        </div>
+                        <div class="GS_widget_footer">
+                            <a href="/" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
+                                                             alt="Powered by GreatSchools"/></a>
+                            <div class="GS_seo">
+                                <div class="GS_city"><a href="/city/San_Francisco/CA"
+                                                        target="_blank"
+                                                        id="GS_city_SEO">San Francisco schools</a></div>
+                                <div class="GS_state"><a href="/modperl/go/CA"
+                                                         target="_blank"
+                                                         id="GS_state_SEO">California schools</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="GS_getWidget">
+                        <a href="#">Get this schools widget for my site</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+</jsp:root>
