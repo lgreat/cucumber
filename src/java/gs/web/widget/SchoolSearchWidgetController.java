@@ -48,6 +48,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         State state = getStateFromString(request.getParameter(STATE_PARAM), true); // default to CA
         City city = getCityFromString(state, request.getParameter(CITY_PARAM), true); // default to SF
         command.setCity(city);
+        loadResultsForCity(city, state, command);
         command.setMapLocationPrefix("in ");
         command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
         return command;
@@ -59,8 +60,10 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
     protected State getStateFromString(String stateStr, boolean defaultToCalifornia) {
         State state = null;
-        if (stateStr != null) {
+        if (StringUtils.length(stateStr) == 2) {
             state = _stateManager.getState(stateStr);
+        } else if (StringUtils.length(stateStr) > 2) {
+            state = _stateManager.getStateByLongName(stateStr);
         }
         if (state == null && defaultToCalifornia) {
             state = State.CA;
@@ -93,50 +96,40 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         parseSearchQuery(searchQuery, command, errors);
     }
 
+    /**
+     * Figure out what the user wants and give it to them. This method is only concerned with
+     * determining the type of search. Once that is done, it should delegate to a specific load
+     * method such as loadResultsForCity.
+     */
     protected void parseSearchQuery(String searchQuery, SchoolSearchWidgetCommand command, BindException errors) {
-        boolean validSearch = false;
         boolean hasResults = false;
         boolean shownError = false;
         if (StringUtils.isNotBlank(searchQuery)) {
+            // check for "CITY, STATE"
             StringTokenizer tok = new StringTokenizer(searchQuery, ",");
             if (tok.countTokens() == 2) {
-                String cityStr = tok.nextToken();
-                String stateStr = tok.nextToken();
+                String cityStr = StringUtils.trim(tok.nextToken());
+                String stateStr = StringUtils.trim(tok.nextToken());
                 State state = getStateFromString(stateStr);
                 if (state != null) {
                     City city = getCityFromString(state, cityStr);
                     if (city != null ) {
                         command.setCity(city);
-                        validSearch = true;
-                        List<SchoolWithRatings> schools = _schoolDao.findSchoolsWithRatingsInCity(state, cityStr);
-                        applyLevelCodeFilters(schools, command); // edits list in place
-                        if (schools != null && schools.size() > 0) {
-                            hasResults = true;
-                            loadRatingsIntoSchoolList(schools, state);
-                            command.setSchools(schools);
-                            command.setMapLocationPrefix("in ");
-                            command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
-                        }
-                    } else {
-                        errors.rejectValue("searchQuery", null, "I cannot find a city matching " + cityStr);
-                        shownError = true;
+                        hasResults = loadResultsForCity(city, state, command);
                     }
-                } else {
-                    errors.rejectValue("searchQuery", null, "I cannot find a state matching " + stateStr);
-                    shownError = true;
                 }
+                // TODO: check for "CITY, STATE ZIP
             }
+            // TODO: check for "UNIQUE CITY"
+            // TODO: check for "ZIP"
+            // TODO: check for "ADDRESS etc."
         } else {
             errors.rejectValue("searchQuery", null, "Please enter a search query");
             shownError = true;
         }
-        if (!validSearch) {
+        if (!hasResults) {
             if (!shownError) {
-                errors.rejectValue("searchQuery", null, "I do not understand that query");
-            }
-        } else if (!hasResults) {
-            if (!shownError) {
-                errors.rejectValue("searchQuery", null, "No results for that query");
+                errors.rejectValue("searchQuery", null, "No school results found for \"" + searchQuery + "\"");
             }
         } else {
             errors.reject("Show results");
@@ -144,6 +137,31 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         }
     }
 
+    /**
+     * Load all schools in city into command.
+     * @return false if no schools are found in city, true otherwise
+     */
+    protected boolean loadResultsForCity(City city, State state, SchoolSearchWidgetCommand command) {
+        boolean hasResults = false;
+        List<SchoolWithRatings> schools = _schoolDao.findSchoolsWithRatingsInCity(state, city.getName());
+        applyLevelCodeFilters(schools, command); // edits list in place
+        if (schools != null && schools.size() > 0) {
+            hasResults = true;
+            loadRatingsIntoSchoolList(schools, state);
+            command.setSchools(schools);
+            command.setMapLocationPrefix("in ");
+            command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
+        }
+        return hasResults;
+    }
+
+    /**
+     * The way I have the form set up, an error is always generated by onBindAndValidate.
+     * Therefore this method will never be reached.
+     *
+     * This is because the "success" view of the form is the same as the form itself, and this
+     * was the easiest way to make that happen.
+     */
     protected ModelAndView onSubmit(Object commandObj) throws Exception {
         throw new IllegalStateException("SchoolSearchWidgetController.onSubmit should never be called");
     }
@@ -151,23 +169,21 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     /**
      * Obtain parent ratings for a list of schools.
      *
-     * Disgustingly inefficient. Ideally, this would group the schools into two lists:
+     * This groups the schools into two lists:
      * 1) Preschools
      * 2) Other schools
-     * Then farm each off to specially designed methods in IReviewDao that take a batch of School Ids and
-     * return a map of ids to Ratings objects. This would then loop through the school list, look up the
-     * associated ratings object in one of the maps, and attach it to the data structure.
-     *
-     * I bet that would be a lot faster, and certainly less trouble on the database.
-     *
-     * TODO: Make it so, Number One!
+     * Then farms each list off to specially designed methods in IReviewDao that take a batch of
+     * School Ids and returns a map of ids to Ratings objects.
+     * This then loops through the school list, looks up the associated ratings object
+     * in one of the maps, and attaches it to the data structure.
      */
     protected void loadRatingsIntoSchoolList(List<SchoolWithRatings> schools, State state) {
         long start = System.currentTimeMillis();
         
-        // for each school
+        // Two lists: grade schools, preschools
         List<Integer> gradeSchoolIds = new ArrayList<Integer>();
         List<Integer> preschoolIds = new ArrayList<Integer>();
+        // for each school, group it into one of the above lists
         for (SchoolWithRatings schoolWithRatings: schools) {
             School school = schoolWithRatings.getSchool();
             if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
@@ -177,15 +193,18 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             }
         }
         // Retrieve parent ratings
+        // grade schools
         Map<Integer, Ratings> gradeSchoolMap = null;
         if (gradeSchoolIds.size() > 0) {
             gradeSchoolMap = _reviewDao.findGradeSchoolRatingsByIdList(gradeSchoolIds, state);
         }
+        // preschools
         Map<Integer, Ratings> preschoolMap = null;
         if (preschoolIds.size() > 0) {
             preschoolMap = _reviewDao.findPreschoolRatingsByIdList(preschoolIds, state);
         }
-
+        // for each school, look up its rating in one of the above maps and attach it to
+        // the data structure
         for (SchoolWithRatings schoolWithRatings: schools) {
             School school = schoolWithRatings.getSchool();
             if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
@@ -199,7 +218,15 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         _log.info("Bulk retrieval of parent ratings took " + ((float)(end - start)) / 1000.0 + "s");
     }
 
+    /**
+     * Manually filter out schools with level codes that don't match the filter.
+     *
+     * TODO: This can be done on the DB side when fetching the initial group of schools with ratings
+     */
     protected void applyLevelCodeFilters(List<SchoolWithRatings> schools, SchoolSearchWidgetCommand command) {
+        if (schools == null) {
+            return; // exit early
+        }
         String lcs = command.getLevelCodeString();
         List<SchoolWithRatings> itemsToRemove = new ArrayList<SchoolWithRatings>();
         if (StringUtils.isBlank(lcs)) {

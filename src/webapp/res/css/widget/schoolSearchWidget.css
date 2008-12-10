@@ -77,6 +77,10 @@ div#searchTabBody p {
     line-height: 15px;
 }
 
+div#searchTabBody p.warning {
+    color: #C56;
+}
+
 div#searchTabBody form {
     margin: 0;
     padding: 0;
