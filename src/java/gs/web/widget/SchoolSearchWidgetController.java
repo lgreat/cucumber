@@ -13,12 +13,16 @@ import gs.data.geo.City;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.SchoolWithRatings;
+import gs.data.school.LevelCode;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Ratings;
 import gs.data.state.StateManager;
 import gs.data.state.State;
 
 import java.util.StringTokenizer;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -107,7 +111,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                         List<SchoolWithRatings> schools = _schoolDao.findSchoolsWithRatingsInCity(state, cityStr);
                         if (schools != null && schools.size() > 0) {
                             hasResults = true;
-                            loadRatingsIntoSchoolList(schools);
+                            loadRatingsIntoSchoolList(schools, state);
                             command.setSchools(schools);
                             command.setMapLocationPrefix("in ");
                             command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
@@ -157,13 +161,42 @@ public class SchoolSearchWidgetController extends SimpleFormController {
      *
      * TODO: Make it so, Number One!
      */
-    protected void loadRatingsIntoSchoolList(List<SchoolWithRatings> schools) {
+    protected void loadRatingsIntoSchoolList(List<SchoolWithRatings> schools, State state) {
+        long start = System.currentTimeMillis();
+        
         // for each school
+        List<Integer> gradeSchoolIds = new ArrayList<Integer>();
+        List<Integer> preschoolIds = new ArrayList<Integer>();
         for (SchoolWithRatings schoolWithRatings: schools) {
             School school = schoolWithRatings.getSchool();
-            // Retrieve parent ratings
-            schoolWithRatings.setParentRatings(_reviewDao.findRatingsBySchool(school));
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                preschoolIds.add(school.getId());
+            } else {
+                gradeSchoolIds.add(school.getId());
+            }
         }
+        // Retrieve parent ratings
+        Map<Integer, Ratings> gradeSchoolMap = null;
+        if (gradeSchoolIds.size() > 0) {
+            gradeSchoolMap = _reviewDao.findGradeSchoolRatingsByIdList(gradeSchoolIds, state);
+        }
+        Map<Integer, Ratings> preschoolMap = null;
+        if (preschoolIds.size() > 0) {
+            preschoolMap = _reviewDao.findPreschoolRatingsByIdList(preschoolIds, state);
+        }
+
+        for (SchoolWithRatings schoolWithRatings: schools) {
+            School school = schoolWithRatings.getSchool();
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                schoolWithRatings.setParentRatings(preschoolMap.get(school.getId()));
+            } else {
+                schoolWithRatings.setParentRatings(gradeSchoolMap.get(school.getId()));
+            }
+        }
+        long end = System.currentTimeMillis();
+
+        _log.info((end - start) + "ms");
+        _log.info( ((float)(end - start)) / 1000.0 + "s");
     }
 
     public IGeoDao getGeoDao() {
