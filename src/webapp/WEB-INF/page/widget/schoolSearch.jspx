@@ -34,15 +34,19 @@
         <jsp:scriptlet>
             SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
             PageHelper pageHelper = new PageHelper(context, request);
+            String cobrand = context.getCobrand();
+            if (StringUtils.isBlank(cobrand)) {
+                cobrand = "www";
+            }
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())
-                    &amp;&amp; !StringUtils.equals("www", context.getCobrand())) {
-                if (pageHelper.isDevEnvironment()) {
-                    </jsp:scriptlet>
-                    <base href="http://${cobrandSite}.dev.greatschools.net" target="_blank"/>
-                    <jsp:scriptlet>
-                } else if (pageHelper.isStagingServer()) {
+                    &amp;&amp; !StringUtils.equals("www", cobrand)) {
+                if (pageHelper.isStagingServer()) {
                     </jsp:scriptlet>
                     <base href="http://${cobrandSite}.staging.greatschools.net" target="_blank"/>
+                    <jsp:scriptlet>
+                } else if (pageHelper.isDevEnvironment()) {
+                    </jsp:scriptlet>
+                    <base href="http://${cobrandSite}.dev.greatschools.net" target="_blank"/>
                     <jsp:scriptlet>
                 } else {
                     </jsp:scriptlet>
