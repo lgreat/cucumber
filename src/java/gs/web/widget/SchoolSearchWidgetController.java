@@ -47,6 +47,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         }
 
         if (StringUtils.isNotBlank(request.getParameter(SEARCH_QUERY_PARAM))) {
+            command.setSearchQuery(request.getParameter(SEARCH_QUERY_PARAM));
             parseSearchQuery(request.getParameter(SEARCH_QUERY_PARAM), command, errors);
         }
     }
