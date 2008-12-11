@@ -39,7 +39,6 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     private StateManager _stateManager;
 
     protected void onBindOnNewForm(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
-        _log.info("onBindOnNewForm");
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
 
         if (request.getParameter(DISPLAY_TAB_PARAM) != null) {
@@ -72,8 +71,6 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj,
                                      BindException errors) throws Exception {
-        _log.info("onBindAndValidate");
-
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
         String searchQuery = request.getParameter(SEARCH_QUERY_PARAM);
 
