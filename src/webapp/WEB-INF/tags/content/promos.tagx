@@ -17,8 +17,6 @@
     
     <c:if test="${fn:contains(pageContext.request.requestURI,'specialNeeds')}">
         <map name="specialNeedsContentProvidedBy" id="specialNeedsContentProvidedBy">
-            <area shape="rect" href="http://www.schwablearning.com" target="_blank"
-                  coords="0,0 154,124" alt="Content provided by: Schwablearning.org and ADDitude magazine"/>
             <area shape="rect" href="http://www.additudemag.com" target="_blank"
                   coords="155,0 300,124" alt="Content provided by: Schwablearning.org and ADDitude magazine"/>
         </map>
