@@ -9,6 +9,7 @@ import gs.data.state.State;
 import gs.data.soap.SoapRequestException;
 import gs.data.soap.CreateOrUpdateUserRequestBean;
 import gs.data.soap.CreateOrUpdateUserRequest;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
@@ -165,7 +166,11 @@ public class RegistrationController extends SimpleFormController implements Read
 
         // save
         _userDao.updateUser(user);
-
+        // Because of hibernate caching, it's possible for a list_active record
+        // (with list_member id) to be commited before the list_member record is
+        // commited. Adding this commitOrRollback prevents this.
+        ThreadLocalTransactionManager.commitOrRollback();
+        
         if (userProfile.getNumSchoolChildren() > 0) {
             // send to page 2
             mAndV.setViewName(getSuccessView());
