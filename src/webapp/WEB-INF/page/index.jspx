@@ -86,6 +86,38 @@
         }
     </script>
 
+    <![CDATA[
+    <script type="text/javascript" language="javascript">
+        function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
+            var returnVal = true;
+            var queryVal = document.getElementById(queryId).value;
+            var stateVal = document.getElementById(stateSelectorId).value;
+
+            var noSearchTerms = (queryVal == 'Enter school, city or district');
+            var noState = (stateVal == "--" || stateVal == "");
+
+            if (noSearchTerms && noState) {
+                // show state laumcher hover
+                showStateWidget('${stateWidgetUrl}', 250, 300);
+                returnVal = false;
+            } else if (!noSearchTerms && noState) {
+                // show javascript alert
+                alert("Please select a state.");
+                returnVal = false;
+            } else if (!noSearchTerms && !noState) {
+                // go to search page
+                document.getElementById(pathwaysId).value = 'search_single';
+                returnVal = true;
+            } else if (noSearchTerms && !noState) {
+                // go to R and C page
+                document.getElementById(pathwaysId).value = 'pathway4';
+                returnVal = true;
+            }
+            return returnVal;
+        }
+    </script>
+    ]]>
+
     <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
 </head>
 
@@ -173,13 +205,13 @@
             <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
             <gsweb:form method="get"
                         action="/stateLauncher.page"
-                        onsubmit="return checkSearchStateSelected(this, 'splashStateSelector')">
-                <input name="p" type="hidden" value="search_single"/>
+                        onsubmit="return findAndCompareCheck('q', 'splashStateSelector', 'p')">
+                <input name="p" id="p" type="hidden" value="search_single"/>
                 <input name="type" type="hidden" value="school"/>
                 <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
-                <input type="text" value="Enter school, city or district" name="q" size="21" class="textInput"
+                <input type="text" value="Enter school, city or district" name="q" id="q" size="21" class="textInput"
                            onfocus="textSwitch(this, '', 'Enter school, city or district');"
                            onblur="textSwitch(this, 'Enter school, city or district', '');"/>
                 

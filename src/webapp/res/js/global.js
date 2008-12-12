@@ -195,23 +195,6 @@ function setSearchPrompt(s) {
     e.select();
 }
 
-/*
- * Used by the global search widget to make sure that a user
- * selects a state.
- */
-function checkSearchStateSelected(theForm, selectorId) {
-    var returnVal = true;
-    var val = document.getElementById(selectorId).value;
-
-    if (val == "--" || val == "") {
-        alert("Please select a state.");
-        returnVal = false;
-    } else {
-        returnVal = true;
-    }
-    return returnVal;
-}
-
 //inspired by http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
 var BoxHeights = {
 	equalize: function() {
