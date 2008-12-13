@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 
 import gs.data.community.*;
 import gs.data.state.State;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
@@ -76,6 +77,10 @@ public class Election2008Controller extends SimpleFormController implements Read
             user.setHow("edin08");
             user.setEmail(command.getEmail());
             _userDao.saveUser(user);
+            // Because of hibernate caching, it's possible for a list_active record
+            // (with list_member id) to be commited before the list_member record is
+            // committed. Adding this commitOrRollback prevents this.
+            ThreadLocalTransactionManager.commitOrRollback();
         }
 
         List<Subscription> subs = createSubscriptionList(user, request);

@@ -168,7 +168,7 @@ public class RegistrationController extends SimpleFormController implements Read
         _userDao.updateUser(user);
         // Because of hibernate caching, it's possible for a list_active record
         // (with list_member id) to be commited before the list_member record is
-        // commited. Adding this commitOrRollback prevents this.
+        // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
         
         if (userProfile.getNumSchoolChildren() > 0) {

@@ -1,6 +1,7 @@
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
 import gs.web.util.context.SessionContext;
@@ -43,6 +44,10 @@ public class CommunitySubscriptionController extends AbstractController implemen
                 user = new User();
                 user.setEmail(email);
                 _userDao.saveUser(user);
+                // Because of hibernate caching, it's possible for a list_active record
+                // (with list_member id) to be commited before the list_member record is
+                // committed. Adding this commitOrRollback prevents this.
+                ThreadLocalTransactionManager.commitOrRollback();
             }
 
             Subscription subscription = new Subscription(user, SubscriptionProduct.COMMUNITY, sessionContext.getStateOrDefault());

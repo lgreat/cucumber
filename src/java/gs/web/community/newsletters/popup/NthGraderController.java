@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.24 2008/08/01 22:33:58 jnorton Exp $
+ * $Id: NthGraderController.java,v 1.25 2008/12/13 01:05:53 yfan Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,6 +8,7 @@ import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.data.admin.IPropertyDao;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
@@ -113,6 +114,10 @@ public class NthGraderController extends SimpleFormController implements ReadWri
             user.setEmail(email);
             getUserDao().saveUser(user);
             mAndV.getModel().put("newuser", "true");
+            // Because of hibernate caching, it's possible for a list_active record
+            // (with list_member id) to be commited before the list_member record is
+            // committed. Adding this commitOrRollback prevents this.
+            ThreadLocalTransactionManager.commitOrRollback();
         }
         PageHelper.setMemberCookie(request, response, user);
 

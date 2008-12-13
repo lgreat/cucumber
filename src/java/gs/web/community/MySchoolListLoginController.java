@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.community.*;
 import gs.data.state.State;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
@@ -60,6 +61,10 @@ public class MySchoolListLoginController extends SimpleFormController implements
             getUserDao().saveUser(user);
             user = getUserDao().findUserFromEmail(email);
             sendConfirmationEmail(user, request);
+            // Because of hibernate caching, it's possible for a list_active record
+            // (with list_member id) to be commited before the list_member record is
+            // committed. Adding this commitOrRollback prevents this.
+            ThreadLocalTransactionManager.commitOrRollback();
         }
 
         if (request.getParameter("pa") != null) {

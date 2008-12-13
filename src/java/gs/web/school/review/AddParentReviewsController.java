@@ -10,6 +10,7 @@ import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.EmailContentHelper;
 import static gs.data.util.XMLUtil.*;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
@@ -93,6 +94,10 @@ public class AddParentReviewsController extends SimpleFormController implements 
             user = new User();
             user.setEmail(rc.getEmail());
             getUserDao().saveUser(user);
+            // Because of hibernate caching, it's possible for a list_active record
+            // (with list_member id) to be commited before the list_member record is
+            // committed. Adding this commitOrRollback prevents this.
+            ThreadLocalTransactionManager.commitOrRollback();
             //this is for unit test purposes.  so I can return any user.
             user = getUserDao().findUserFromEmailIfExists(rc.getEmail());
 

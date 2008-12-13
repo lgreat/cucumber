@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.23 2008/08/01 22:33:58 jnorton Exp $
+ * $Id: MssPaController.java,v 1.24 2008/12/13 01:05:53 yfan Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -9,6 +9,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.admin.IPropertyDao;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
@@ -113,6 +114,10 @@ public class MssPaController extends SimpleFormController implements ReadWriteCo
             user.setEmail(email);
             getUserDao().saveUser(user);
             mAndV.getModel().put("newuser", "true");
+            // Because of hibernate caching, it's possible for a list_active record
+            // (with list_member id) to be commited before the list_member record is
+            // committed. Adding this commitOrRollback prevents this.
+            ThreadLocalTransactionManager.commitOrRollback();
         }
         PageHelper.setMemberCookie(request, response, user);
         List subscriptions = new ArrayList();

@@ -14,6 +14,7 @@ import gs.data.survey.UserResponse;
 import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.EmailContentHelper;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
@@ -347,6 +348,10 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                 user = new User();
                 user.setEmail(urc.getEmail());
                 getUserDao().saveUser(user);
+                // Because of hibernate caching, it's possible for a list_active record
+                // (with list_member id) to be commited before the list_member record is
+                // committed. Adding this commitOrRollback prevents this.
+                ThreadLocalTransactionManager.commitOrRollback();
                 PageHelper.setMemberCookie(request, response, user);
                 isExistingUser = false;
             }
