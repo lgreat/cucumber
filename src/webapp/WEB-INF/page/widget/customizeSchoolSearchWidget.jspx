@@ -2,6 +2,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsweb="gstaglib"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:form="http://www.springframework.org/tags/form"
           version="2.0">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:output doctype-root-element="html"
@@ -13,23 +14,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>School Search Widget</title>
     <style type="text/css">
+        /* Page styles */
         body {
             font-family: "Trebuchet MS", Arial, sans-serif;
+            color: #666;
+            font-size: 14px;
+        }
+        div.top {
+            width: 640px;
         }
         h1, h2 {
             font-size: 18px;
             color: #333;
             font-weight:normal;
-            margin: 0;
+            margin: 0 0 15px 0;
             padding: 0;
         }
         h2 {
             font-size: 17px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        ul {
+            margin: 0;
         }
         p, .section input, label {
-            color: #555;
-            font-size: 13px;
+            color: #666;
         }
         p {
             margin: 0;
@@ -40,6 +49,7 @@
         }
         td.leftSide {
             width: 400px;
+            padding-left: 10px;
         }
         table td {
             vertical-align: top;
@@ -48,21 +58,44 @@
             margin-bottom: 15px;
             position: relative;
         }
+        .section input {
+            margin: 5px 0 0 10px
+        }
+        .searchQuery input {
+            width: 200px;
+        }
         .cobrandSite input {
             width: 100px;
         }
-        .rightSide h2 {
-            margin: 10px 0 0 0;
+        div.dim input {
+            margin-right: 10px;
         }
-        .rightSide textarea {
-            background-color: #ddd;
+        div.specifyDim {
+            margin-left: 34px;
+        }
+        div.specifyDim input {
+            width: 50px;
+            margin-right: 20px;
+        }
+        .email input {
+            width: 200px;
+        }
+        input.submitButton {
+            margin: 10px 0 0 10px;
+        }
+        p.questions {
+            margin-top: 10px;
+        }
+        p.questions a, p.questions a:hover {
+            color: #39A;
+            text-decoration: underline;
         }
 
         /* Widget frame styles */
         div#GS_schoolSearchWidget {
             border: solid 4px #BFE9F1;
             border-bottom-width: 20px;
-            width: 292px;
+            width: ${requestScope.command.width}px;
             position: relative;
             font-family: "Trebuchet MS", Arial, sans-serif;
         }
@@ -111,37 +144,23 @@
         <![CDATA[
         // <!--
         function inputsValid() {
-            return true;
-        }
-
-        function previewWidget() {
-            if (!inputsValid()) {
-                return;
-            }
-            var iframeUrl = '/widget/schoolSearch.page';
-            var params = '';
             var customizeForm = document.forms['customizeForm'];
-            // cobrand
-            var cobrandSite = customizeForm.cobrandSite.value;
-            if (cobrandSite != 'www' && cobrandSite != '') {
-                params += '?cobrand=' + cobrandSite;
-            } else {
-                cobrandSite = 'www';
+            if (customizeForm.width.value < 292) {
+                customizeForm.width.value = 292;
+                alert("Minimum width is 292");
+                return false;
             }
-            // search query
-            var searchQuery = customizeForm.searchQuery.value;
-            if (searchQuery != '') {
-                if (params.length > 0) {
-                    params += '&amp;';
-                } else {
-                    params += '?';
-                }
-                params += 'searchQuery=' + searchQuery;
+            if (customizeForm.height.value < 410) {
+                customizeForm.height.value = 410;
+                alert("Minimum height is 410");
+                return false;
             }
-            // output preview
-            iframeUrl += params;
-            document.getElementById('widget').innerHTML = '<iframe class="greatschools" src="' + iframeUrl + '" width="290" height="346' +
-                '" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>';
+            if (customizeForm.email.value == '') {
+                customizeForm.email.select();
+                alert("You must provide an email address");
+                return false;
+            }
+            return true;
         }
 
         function GS_updateSEOLinks(cityName, stateName, stateAbbr) {
@@ -167,37 +186,103 @@
             return rval;
         }
 
+        function selectDim(width, height) {
+            document.forms['customizeForm'].width.value=width;
+            document.forms['customizeForm'].height.value=height;
+        }
+
+        function customDim() {
+            document.forms['customizeForm'].dimensions3.checked = true;
+        }
         // -->
         ]]>
     </script>
 </head>
 <body>
-    <h1>School Search Widget</h1>
-    <p>Give your users access to local school information in minutes.</p>
-
+    <div class="top">
+        <h1>GreatSchools School Finder Widget</h1>
+        <p>
+            Provide school information on your Web site from the independent, nonprofit
+            organization that has been improving education by inspiring parents to get
+            involved for over a decade. This flexible widget lets you:
+        </p>
+        <ul>
+            <li>Easily map school based on address, zip or city.</li>
+            <li>See schools mapped, with pins showing the GreatSchools Rating, a measure of
+            school performance.</li>
+            <li>Click in to individual schools and see how parents have rated the school. K-12
+            schools nationwide have an average of 5 parent ratings.</li>
+            <li>View preschools, elementary, middle or high schools.</li>
+        </ul>
+    </div>
+    
     <table>
         <tr>
             <td class="leftSide">
-                <h2>Customize it:</h2>
-                <form class="customize" name="customizeForm" action="#" onsubmit="return false;">
-                    <input type="hidden" name="cobrandSite" value="${requestScope.context.cobrand}"/>
+                <h2>Create Your Customized Widget:</h2>
+                <form:form cssClass="customize" name="customizeForm" action="/widget/customizeSchoolSearchWidget.page" method="post">
                     <div class="section searchQuery">
-                        <p>1. Enter the search query:</p>
-                        <input type="text" name="searchQuery" value=""/>
+                        <p>Step 1: Choose address, zip or city, state<br/>
+                        Pick the location that you'd like your widget to feature</p>
+                        <form:input path="searchQuery"/>
                     </div>
 
-                    <input type="submit" name="preview" value="Preview and Generate HTML Code"
-                           onclick="previewWidget(); return false;"/>
-                </form>
+                    <div class="section cobrandSite">
+                        <p>Step 2: Choose cobrand<br/>
+                        Pick the cobrand, or leave in 'www' for none</p>
+                        <form:input path="cobrand"/>
+                    </div>
+
+                    <div class="section widgetSize">
+                        <p>Step 3: Choose the size<br/>
+                        Do you want the widget to be small for
+                        your blog, or full page for your
+                        real estate Web site?</p>
+                        <div class="dim smallDim">
+                            <form:radiobutton path="dimensions" value="298x410" label="Small (298 x 410)"
+                                              onclick="selectDim(298, 410);"/>
+                        </div>
+                        <div class="dim panDim">
+                            <form:radiobutton path="dimensions" value="750x410" label="Panoramic (750 x 410)"
+                                              onclick="selectDim(750, 410);"/>
+                        </div>
+                        <div class="dim customDim">
+                            <form:radiobutton path="dimensions" value="custom" label="Custom"/>
+                        </div>
+                        <div class="specifyDim">
+                            <form:label path="width">Width:</form:label><form:input path="width" onclick="customDim();"/>
+                            <form:label path="height">Height:</form:label><form:input path="height" onclick="customDim();"/>
+                        </div>
+                        <!-- 298x410 -->
+                    </div>
+
+                    <div class="section widgetColors">
+                        <p>Step 4: Choose your colors<br/>
+                        Customize the widget to blend in with
+                        your Web site</p>
+                        
+                    </div>
+
+                    <div class="section email">
+                        <p>Step 5: Enter your email address<br/>
+                        Required to customize the widget. We'll
+                        send your widget code directly to your
+                        inbox.</p>
+                        <form:input path="email"/>
+                    </div>
+
+                    <input type="submit" name="preview" value="Create Widget Code"
+                           onclick="return inputsValid();" class="submitButton"/>
+                </form:form>
+                <p class="questions">Questions? Contact us at <a href="mailto:widget-support@greatschools.net">widget-support@greatschools.net</a>.</p>
             </td>
             <td class="rightSide">
-                <h2>Widget Preview:</h2>
                 <div id="GS_schoolSearchWidget">
                     <div class="GS_widget_innerBorder">
                         <div id="widget">
                             <iframe class="greatschools"
-                                    src="/widget/schoolSearch.page"
-                                    width="290" height="346"
+                                    src="${requestScope.command.iframeUrl}"
+                                    width="${requestScope.command.iframeWidth}" height="${requestScope.command.iframeHeight}"
                                     marginheight="0" marginwidth="0"
                                     frameborder="0" scrolling="no"><!-- Keep from collapsing --></iframe>
                         </div>

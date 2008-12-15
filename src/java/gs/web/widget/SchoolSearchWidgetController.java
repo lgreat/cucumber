@@ -29,6 +29,7 @@ import java.util.Map;
  */
 public class SchoolSearchWidgetController extends SimpleFormController {
     private static final Logger _log = Logger.getLogger(SchoolSearchWidgetController.class);
+    public static final String BEAN_ID = "/widget/schoolSearch.page";
 
     private static final String SEARCH_QUERY_PARAM = "searchQuery";
     private static final String DISPLAY_TAB_PARAM = "displayTab";

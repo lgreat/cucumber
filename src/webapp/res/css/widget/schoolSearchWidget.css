@@ -1,7 +1,4 @@
 div#schoolSearchWidget {
-    /*border: solid 4px #BFE9F1;*/
-    width: 290px;
-    height: 320px;
     position: relative;
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 12px;
@@ -28,7 +25,6 @@ div.tabBar {
         padding: 10px 0;
         background-color: #F2F2F2;
         border-bottom: solid 1px #9CD4DB;
-        width: 144px;
         text-align: center;
         color: #289;
         text-transform: uppercase;
@@ -37,7 +33,6 @@ div.tabBar {
     }
 
     div.tabBar div#mapTab {
-        width: 145px;
         left: 0;
     }
 
@@ -91,8 +86,9 @@ div#searchTabBody input.searchInput {
 }
 
 div#searchTabBody input.searchSubmit {
-    float: right;
-    margin-top: 20px;
+    position: absolute;
+    left: 223px;
+    margin-top: 35px;
 }
 
 /* Map Tab */
@@ -142,8 +138,6 @@ div#mapTabBody {
     /* Map */
 
     div#mapTabBody div#map {
-        width: 279px;
-        height: 250px;
         border: 1px solid #CDCDCE;
     }
 

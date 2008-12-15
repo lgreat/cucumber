@@ -257,8 +257,11 @@
     </bean>
 
     <bean name="/widget/customizeSchoolSearchWidget.page"
-          class="gs.web.util.CacheablePageParameterizableViewController" lazy-init="true">
-        <property name="viewName" value="widget/customizeSchoolSearchWidget"/>
+          class="gs.web.widget.CustomizeSchoolSearchWidgetController" lazy-init="true">
+        <property name="commandName" value="command"/>
+        <property name="commandClass" value="gs.web.widget.CustomizeSchoolSearchWidgetCommand"/>
+        <property name="formView" value="widget/customizeSchoolSearchWidget"/>
+        <property name="successView" value="widget/customizeSchoolSearchWidget"/>
     </bean>
 
     <bean name="/widget/schoolSearch.page"

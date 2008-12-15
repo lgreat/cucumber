@@ -20,6 +20,8 @@ public class SchoolSearchWidgetCommand {
     private boolean _elementaryFilterChecked = true;
     private boolean _middleFilterChecked = true;
     private boolean _highFilterChecked = true;
+    private int _width;
+    private int _height;
 
     public String getDisplayTab() {
         return _displayTab;
@@ -99,6 +101,22 @@ public class SchoolSearchWidgetCommand {
 
     public void setHighFilterChecked(boolean highFilterChecked) {
         _highFilterChecked = highFilterChecked;
+    }
+
+    public int getWidth() {
+        return _width;
+    }
+
+    public void setWidth(int width) {
+        _width = width;
+    }
+
+    public int getHeight() {
+        return _height;
+    }
+
+    public void setHeight(int height) {
+        _height = height;
     }
 
     public String getLevelCodeString() {
