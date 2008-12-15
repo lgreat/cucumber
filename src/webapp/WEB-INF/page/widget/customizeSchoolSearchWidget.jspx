@@ -95,7 +95,7 @@
         div#GS_schoolSearchWidget {
             border: solid 4px #BFE9F1;
             border-bottom-width: 20px;
-            width: ${requestScope.command.width}px;
+            width: ${requestScope.command.iframeWidth+2}px;
             position: relative;
             font-family: "Trebuchet MS", Arial, sans-serif;
         }
@@ -145,14 +145,14 @@
         // <!--
         function inputsValid() {
             var customizeForm = document.forms['customizeForm'];
-            if (customizeForm.width.value < 292) {
-                customizeForm.width.value = 292;
-                alert("Minimum width is 292");
+            if (customizeForm.width.value < 300) {
+                customizeForm.width.value = 300;
+                alert("Minimum width is 300");
                 return false;
             }
-            if (customizeForm.height.value < 410) {
-                customizeForm.height.value = 410;
-                alert("Minimum height is 410");
+            if (customizeForm.height.value < 412) {
+                customizeForm.height.value = 412;
+                alert("Minimum height is 412");
                 return false;
             }
             if (customizeForm.email.value == '') {
@@ -239,12 +239,12 @@
                         your blog, or full page for your
                         real estate Web site?</p>
                         <div class="dim smallDim">
-                            <form:radiobutton path="dimensions" value="298x410" label="Small (298 x 410)"
-                                              onclick="selectDim(298, 410);"/>
+                            <form:radiobutton path="dimensions" value="300x412" label="Small (300 x 412)"
+                                              onclick="selectDim(300, 412);"/>
                         </div>
                         <div class="dim panDim">
-                            <form:radiobutton path="dimensions" value="750x410" label="Panoramic (750 x 410)"
-                                              onclick="selectDim(750, 410);"/>
+                            <form:radiobutton path="dimensions" value="750x412" label="Panoramic (750 x 412)"
+                                              onclick="selectDim(750, 412);"/>
                         </div>
                         <div class="dim customDim">
                             <form:radiobutton path="dimensions" value="custom" label="Custom"/>

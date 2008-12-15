@@ -73,11 +73,13 @@ public class CustomizeSchoolSearchWidgetCommand {
     }
 
     public int getIframeWidth() {
-        return _width - 8;
+        // 4+1 left border, 4+1 right border
+        return _width - 10;
     }
 
     public int getIframeHeight() {
-        return _height - 64;
+        // 4+1 top border, 20 + 1 bottom border, 40 bottom area
+        return _height - 66;
     }
 
     public String getIframeUrl() {

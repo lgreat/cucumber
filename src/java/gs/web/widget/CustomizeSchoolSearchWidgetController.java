@@ -13,8 +13,8 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
     private static final String BEAN_ID = "/widget/customizeSchoolSearchWidget.page";
     private static final Logger _log = Logger.getLogger(CustomizeSchoolSearchWidgetController.class);
 
-    public static final int MINIMUM_WIDTH = 298;
-    public static final int MINIMUM_HEIGHT = 410;
+    public static final int MINIMUM_WIDTH = 300;
+    public static final int MINIMUM_HEIGHT = 412;
 
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj,
                                      BindException errors) throws Exception {
