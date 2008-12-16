@@ -19,6 +19,7 @@
 <jsp:directive.attribute name="schools" required="false" description="Schools to map, as SchoolWithRatings objects" type="java.util.List"/>
 <jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom, defaults to 9"/>
 <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom, defaults to 12"/>
+<jsp:directive.attribute name="s_cid" required="false" type="java.lang.String" description="Optional s_cid campaign tracking code to append to links"/>
 <!--
 Schools without lat/lon are skipped.
 -->
@@ -86,6 +87,9 @@ function initSchoolInfo() {
 
     mySchool.name = "${curSchool.name}";
     mySchool.link = "${hrefbase}";
+    <c:if test="${s_cid ne null and s_cid > ''}">
+    mySchool.link += "?s_cid=${s_cid}";
+    </c:if>
     mySchool.street = "${curSchool.physicalAddress.street}";
     mySchool.city = "${curSchool.physicalAddress.city}";
     mySchool.state = "${curSchool.physicalAddress.state.abbreviation}";

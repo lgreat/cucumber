@@ -148,16 +148,8 @@
                     </div>
                     <map:schoolsWithRatings id="map"
                                             schools="${requestScope.command.schools}"
+                                            s_cid="wsbayf93"
                             />
-                </c:when>
-                <c:when test="${requestScope.command.city ne null}">
-                    <div id="map">&#160;
-                        <noscript>JavaScript is required in order to view a map of the schools.
-                        </noscript>
-                    </div>
-                    <map:schoolsWithRatings id="map"
-                                            lat="${requestScope.command.city.lat}"
-                                            lon="${requestScope.command.city.lon}"/>
                 </c:when>
                 <c:otherwise>
                     <p>No results to display.</p>
@@ -208,6 +200,11 @@
                 }
             </script>
         </c:if>
+    </div>
+    <div style="display:none">
+        <mod:tracking pageName="School Finder Widget External"
+                      hier1="Widgets,SchoolFinder,${uniqueId}"/>
+        ${modTracking}
     </div>
     </body>
     </html>
