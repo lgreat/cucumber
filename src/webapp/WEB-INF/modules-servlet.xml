@@ -285,7 +285,8 @@
     </bean>
 
     <bean id="cityDonorsChooseDaoFactory"
-          class="gs.data.content.DonorsChooseDaoFactory" lazy-init="true">
+          class="gs.data.content.DonorsChooseDaoFactory" lazy-init="true"
+          autowire="byName">
         <!-- cached dao properties -->
         <property name="cacheName" value="cityDonorsChooseCache"/>
         <property name="cacheSize" value="500"/>
