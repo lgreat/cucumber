@@ -86,9 +86,9 @@
             var cityUrl = GS_replaceAll(cityName, "%27", "'");
             cityUrl = GS_replaceAll(cityUrl, " ", "_");
             cityUrl = GS_replaceAll(cityUrl, "+", "_");
-            cityLink.href = "/city/" + cityUrl + "/" + stateAbbr;
+            cityLink.href = "/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
             cityLink.innerHTML = cityName  + " schools";
-            stateLink.href = "/modperl/go/" + stateAbbr;
+            stateLink.href = "/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
             stateLink.innerHTML = stateName + " schools";
         }
 
@@ -263,21 +263,21 @@
                                         frameborder="0" scrolling="no"><!-- Keep from collapsing --></iframe>
                             </div>
                             <div class="GS_widget_footer">
-                                <a href="/" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
+                                <a href="/?s_cid=wsbay93" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
                                                                  alt="Powered by GreatSchools"/></a>
                                 <div class="GS_seo">
                                     <!-- These links should always go to www -->
-                                    <div class="GS_city"><a href="/city/San_Francisco/CA"
+                                    <div class="GS_city"><a href="/city/San_Francisco/CA?s_cid=wsbay93"
                                                             target="_blank" rel="follow follow"
                                                             id="GS_city_SEO">San Francisco schools</a></div>
-                                    <div class="GS_state"><a href="/modperl/go/CA"
+                                    <div class="GS_state"><a href="/modperl/go/CA?s_cid=wsbay93"
                                                              target="_blank" rel="follow follow"
                                                              id="GS_state_SEO">California schools</a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="GS_getWidget">
-                            <a href="#">Get this schools widget for my site</a>
+                            <a href="?s_cid=wsbay93">Get this schools widget for my site</a>
                         </div>
                     </div>
                     <!--<script type="text/javascript">-->
