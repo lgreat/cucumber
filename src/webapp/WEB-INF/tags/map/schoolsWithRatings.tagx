@@ -159,10 +159,10 @@ function initMap() {
             var icon = new GIcon();
             var imageValue = curSchool.rating;
             if (imageValue == 0) {
-                if (curSchool.type == 'private') {
-                    imageValue = 'private';
-                } else if (curSchool.levelCode == 'p') {
+                if (curSchool.levelCode == 'p') {
                     imageValue = 'preschool';
+                } else if (curSchool.type == 'private') {
+                    imageValue = 'private';
                 } else {
                     imageValue = 'na';
                 }
