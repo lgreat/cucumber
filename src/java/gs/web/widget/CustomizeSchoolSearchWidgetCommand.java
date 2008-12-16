@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 
 import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -17,6 +19,9 @@ public class CustomizeSchoolSearchWidgetCommand {
     private int _height = CustomizeSchoolSearchWidgetController.MINIMUM_HEIGHT;
     private int _width = CustomizeSchoolSearchWidgetController.MINIMUM_WIDTH;
     private String _dimensions = _width + "x" + _height;
+    private String _backgroundColor = "BFE9F1";
+    private String _textColor = "228899";
+    private String _bordersColor = "9CD4DB";
 
     public String getSearchQuery() {
         return _searchQuery;
@@ -82,6 +87,63 @@ public class CustomizeSchoolSearchWidgetCommand {
         return _height - 66;
     }
 
+    public String getBackgroundColor() {
+        return _backgroundColor;
+    }
+
+    public String getBackgroundColorSelect() {
+        return _backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        _backgroundColor = backgroundColor;
+    }
+
+    public String getTextColor() {
+        return _textColor;
+    }
+
+    public String getTextColorSelect() {
+        return _textColor;
+    }
+
+    public void setTextColor(String textColor) {
+        _textColor = textColor;
+    }
+
+    public String getBordersColor() {
+        return _bordersColor;
+    }
+
+    public String getBordersColorSelect() {
+        return _bordersColor;
+    }
+
+    public void setBordersColor(String bordersColor) {
+        _bordersColor = bordersColor;
+    }
+
+    public Map<String, String> getBackgroundColorOptions() {
+        Map<String, String> rval = new HashMap<String, String>();
+        rval.put("FFFFFF", "");
+        rval.put("BFE9F1", "");
+        return rval;
+    }
+
+    public Map<String, String> getTextColorOptions() {
+        Map<String, String> rval = new HashMap<String, String>();
+        rval.put("FFFFFF", "");
+        rval.put("228899", "");
+        return rval;
+    }
+
+    public Map<String, String> getBordersColorOptions() {
+        Map<String, String> rval = new HashMap<String, String>();
+        rval.put("FFFFFF", "");
+        rval.put("9CD4DB", "");
+        return rval;
+    }
+
     public String getIframeUrl() {
         String rval = SchoolSearchWidgetController.BEAN_ID;
         String separator = "?";
@@ -94,6 +156,8 @@ public class CustomizeSchoolSearchWidgetCommand {
                 rval += separator  + "cobrand=" + URLEncoder.encode(_cobrand, "UTF-8");
                 separator = "&amp;";
             }
+            rval += separator  + "textColor=" + URLEncoder.encode(_textColor, "UTF-8");
+            separator = "&amp;";
         } catch (UnsupportedEncodingException uee) {
             _log.error(uee);
         }

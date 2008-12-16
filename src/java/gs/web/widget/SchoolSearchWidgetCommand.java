@@ -22,6 +22,7 @@ public class SchoolSearchWidgetCommand {
     private boolean _highFilterChecked = true;
     private int _width;
     private int _height;
+    private String _textColor;
 
     public String getDisplayTab() {
         return _displayTab;
@@ -117,6 +118,14 @@ public class SchoolSearchWidgetCommand {
 
     public void setHeight(int height) {
         _height = height;
+    }
+
+    public String getTextColor() {
+        return _textColor;
+    }
+
+    public void setTextColor(String textColor) {
+        _textColor = textColor;
     }
 
     public String getLevelCodeString() {

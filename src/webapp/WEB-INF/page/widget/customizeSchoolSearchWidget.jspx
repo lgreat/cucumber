@@ -77,6 +77,30 @@
             width: 50px;
             margin-right: 20px;
         }
+        div.colors label.name {
+            width: 83px;
+            float: left;
+            position: relative;
+            top: 7px;
+        }
+        div.colors label.hex {
+            margin: 0 5px 0 10px;
+        }
+        div.colors select {
+            width: 75px;
+        }
+        div.colors input {
+            width: 75px;
+        }
+        div.colors.background option.default {
+            background-color: #BFE9F1;
+        }
+        div.colors.text option.default {
+            background-color: #228899;
+        }
+        div.colors.borders option.default {
+            background-color: #9CD4DB;
+        }
         .email input {
             width: 200px;
         }
@@ -93,7 +117,7 @@
 
         /* Widget frame styles */
         div#GS_schoolSearchWidget {
-            border: solid 4px #BFE9F1;
+            border: solid 4px #${requestScope.command.backgroundColor};
             border-bottom-width: 20px;
             width: ${requestScope.command.iframeWidth+2}px;
             position: relative;
@@ -101,7 +125,7 @@
         }
 
         div.GS_widget_innerBorder {
-            border: solid 1px #9CD4DB;
+            border: solid 1px #${requestScope.command.bordersColor};
         }
 
         div.GS_widget_footer {
@@ -135,7 +159,7 @@
         }
 
         div.GS_getWidget a, div.GS_getWidget a:hover {
-            color: #289;
+            color: #${requestScope.command.textColor};
             font-size: 11px;
             text-decoration: underline;
         }
@@ -143,7 +167,7 @@
     <script type="text/javascript">
         <![CDATA[
         // <!--
-        function inputsValid() {
+        function previewValid() {
             var customizeForm = document.forms['customizeForm'];
             if (customizeForm.width.value < 300) {
                 customizeForm.width.value = 300;
@@ -155,6 +179,13 @@
                 alert("Minimum height is 412");
                 return false;
             }
+            return true;
+        }
+        function inputsValid() {
+            if (!previewValid()) {
+                return false;
+            }
+            var customizeForm = document.forms['customizeForm'];
             if (customizeForm.email.value == '') {
                 customizeForm.email.select();
                 alert("You must provide an email address");
@@ -193,6 +224,11 @@
 
         function customDim() {
             document.forms['customizeForm'].dimensions3.checked = true;
+        }
+
+        function updateColor(selectElement, inputElementId, hexValue) {
+            selectElement.style.backgroundColor = "#" + hexValue;
+            document.getElementById(inputElementId).value = hexValue;
         }
         // -->
         ]]>
@@ -260,21 +296,71 @@
                         <p>Step 4: Choose your colors<br/>
                         Customize the widget to blend in with
                         your Web site</p>
-                        
+                        <div class="colors background">
+                            <form:label path="backgroundColorSelect" cssClass="name">Background:</form:label>
+                            <form:select path="backgroundColorSelect" onchange="updateColor(this, 'backgroundColor', this.value);">
+                                <form:options items="${requestScope.command.backgroundColorOptions}"/>
+                            </form:select>
+                            <form:label path="backgroundColor" cssClass="hex">or Hex#</form:label>
+                            <form:input path="backgroundColor"/>
+                        </div>
+                        <div class="colors text">
+                            <form:label path="textColorSelect" cssClass="name">Text:</form:label>
+                            <form:select path="textColorSelect" onchange="updateColor(this, 'textColor', this.value);">
+                                <form:options items="${requestScope.command.textColorOptions}"/>
+                            </form:select>
+                            <form:label path="textColor" cssClass="hex">or Hex#</form:label>
+                            <form:input path="textColor"/>
+                        </div>
+                        <div class="colors borders">
+                            <form:label path="bordersColorSelect" cssClass="name">Borders:</form:label>
+                            <form:select path="bordersColorSelect" onchange="updateColor(this, 'bordersColor', this.value);">
+                                <form:options items="${requestScope.command.bordersColorOptions}"/>
+                            </form:select>
+                            <form:label path="bordersColor" cssClass="hex">or Hex#</form:label>
+                            <form:input path="bordersColor"/>
+                        </div>
+                        <script type="text/javascript">
+                            {
+                                var colorSelect;
+                                var i;
+                                var colorOption;
+                                colorSelect = document.getElementById('backgroundColorSelect');
+                                colorSelect.style.backgroundColor = '#' + colorSelect.value;
+                                for (i=0; i &lt; colorSelect.options.length; i++) {
+                                    colorOption = colorSelect.options[i];
+                                    colorOption.style.backgroundColor = '#' + colorOption.value;
+                                }
+                                colorSelect = document.getElementById('textColorSelect');
+                                colorSelect.style.backgroundColor = '#' + colorSelect.value;
+                                for (i=0; i &lt; colorSelect.options.length; i++) {
+                                    colorOption = colorSelect.options[i];
+                                    colorOption.style.backgroundColor = '#' + colorOption.value;
+                                }
+                                colorSelect = document.getElementById('bordersColorSelect');
+                                colorSelect.style.backgroundColor = '#' + colorSelect.value;
+                                for (i=0; i &lt; colorSelect.options.length; i++) {
+                                    colorOption = colorSelect.options[i];
+                                    colorOption.style.backgroundColor = '#' + colorOption.value;
+                                }
+                            }
+                        </script>
                     </div>
 
                     <div class="section email">
                         <p>Step 5: Enter your email address<br/>
                         Required to customize the widget. We'll
                         send your widget code directly to your
-                        inbox.</p>
+                        inbox</p>
                         <form:input path="email"/>
                     </div>
 
-                    <input type="submit" name="preview" value="Create Widget Code"
+                    <input type="submit" name="preview" value="Preview"
+                           onclick="return previewValid();" class="previewButton"/>
+                    <input type="submit" name="submit" value="Create Widget Code"
                            onclick="return inputsValid();" class="submitButton"/>
                 </form:form>
-                <p class="questions">Questions? Contact us at <a href="mailto:widget-support@greatschools.net">widget-support@greatschools.net</a>.</p>
+                <p class="questions">Questions? Contact us at <a href="mailto:widget@greatschools.net">widget@greatschools.net</a>.</p>
             </td>
             <td class="rightSide">
                 <div id="GS_schoolSearchWidget">

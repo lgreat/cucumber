@@ -61,6 +61,7 @@
             }
             div.tabBar div {
                 width: ${requestScope.command.width/2}px;
+                color: #${requestScope.command.textColor};
             }
             div.tabBar div#mapTab {
                 width: ${requestScope.command.width/2 - 1}px;
@@ -68,6 +69,9 @@
             div#mapTabBody div#map {
                 width: ${requestScope.command.width-11}px;
                 height: ${requestScope.command.height-96}px;                
+            }
+            div#searchTabBody h2 {
+                color: #${requestScope.command.textColor};
             }
         </style>
     </head>
@@ -175,6 +179,7 @@
                 <form:hidden path="highFilterChecked" id="filter_h_value"/>
                 <form:hidden path="width"/>
                 <form:hidden path="height"/>
+                <form:hidden path="textColor"/>
                 <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
                             onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
