@@ -201,11 +201,6 @@
             </script>
         </c:if>
     </div>
-    <div style="display:none">
-        <mod:tracking pageName="School Finder Widget External"
-                      hier1="Widgets,SchoolFinder,${uniqueId}"/>
-        ${modTracking}
-    </div>
     </body>
     </html>
 </jsp:root>

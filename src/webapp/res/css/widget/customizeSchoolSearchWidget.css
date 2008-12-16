@@ -1,19 +1,20 @@
 body {
     font-family: "Trebuchet MS", Arial, sans-serif;
     color: #666;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
+    width: 850px;
 }
 
 /* Top part */
 div.top {
-    background-color: #DCEEEE;
+    background-color: #DEE;
     padding: 25px 20px;
 }
 
 div.top h1 {
-    font-size: 18px;
-    color: #4EBECA;
+    font-size: 22px;
+    color: #5BC;
     font-weight:normal;
     margin: 0 0 20px 0;
     padding: 0;
@@ -30,12 +31,29 @@ div.top ul {
     line-height: 20px;
 }
 
+div.top ul li {
+    color: #EB9339;
+}
+
+div.top ul li span {
+    color: #666;
+}
+
 h2 {
     font-size: 17px;
-    color: #4EBECA;
+    color: #5BC;
     font-weight:normal;
-    margin: 20px 0 5px 0;
-    padding: 0 0 10px 0;
+    margin: 20px 0 10px 0;
+    padding: 0;
+}
+
+div.divider {
+    background: url("/res/img/widget/horizontal_dots.gif") no-repeat;
+    height: 5px;
+}
+
+div.divider hr {
+    display: none;
 }
 
 /* Customization table */
@@ -51,8 +69,6 @@ div.body {
 table {
     padding: 25px 0;
     width: 100%;
-    border-top: 1px dotted #000;
-    border-bottom: 1px dotted #000;
 }
 
 table td {
@@ -63,8 +79,9 @@ td.leftSide {
     width: 450px;
 }
 
-td.rightSide div {
-    float: right;
+div.section {
+    margin-bottom: 35px;
+    position: relative;
 }
 
 div.step {
@@ -72,14 +89,13 @@ div.step {
 }
 
 span.step {
-    font-size: 18px;
-    color: #D4595E;
+    font-size: 17px;
+    color: #C56;
     margin-right: 5px;
 }
 
-div.section {
-    margin-bottom: 35px;
-    position: relative;
+span.title {
+    font-size: 14px;
 }
 
 div.instructions {
@@ -102,13 +118,13 @@ div.dim input {
     margin-right: 10px;
 }
 
-div.specifyDim {
-    margin-left: 24px;
+div.dim input.specifyDim {
+    width: 50px;
+    margin-right: 0;
 }
 
-div.specifyDim input {
-    width: 50px;
-    margin-right: 20px;
+label.specifyDim {
+    margin: 0 3px 0 10px;
 }
 
 div.colors label.name {
@@ -131,11 +147,11 @@ div.colors input {
 }
 
 input.submitButton {
-    margin: 0 0 15px 10px;
+    margin: 0 0 0 20px;
 }
 
 p.questions {
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 td.leftSide a, td.leftSide a:hover {
@@ -144,7 +160,11 @@ td.leftSide a, td.leftSide a:hover {
 }
 
 div.faq {
-    margin-top: 45px;
+    margin-top: 40px;
+}
+
+div.faq h2 {
+    margin-bottom: 15px;
 }
 
 div.question {
@@ -152,6 +172,24 @@ div.question {
 }
 
 div.answer {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
+td.rightSide {
+    position: absolute;
+}
+
+td.rightSide div {
+    float: right;
+}
+
+td.rightSide div div {
+    float: none;
+}
+
+td.rightSide div.preview {
+    background-color: #DEE;
+    padding: 10px 20px;
+    margin-bottom: 2px;
+    font-size: 15px;
+}
