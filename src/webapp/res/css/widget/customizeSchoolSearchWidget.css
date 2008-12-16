@@ -1,0 +1,157 @@
+body {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color: #666;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+/* Top part */
+div.top {
+    background-color: #DCEEEE;
+    padding: 25px 20px;
+}
+
+div.top h1 {
+    font-size: 18px;
+    color: #4EBECA;
+    font-weight:normal;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+div.top p {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+div.top ul {
+    margin: 0;
+    padding-left: 15px;
+    line-height: 20px;
+}
+
+h2 {
+    font-size: 17px;
+    color: #4EBECA;
+    font-weight:normal;
+    margin: 20px 0 5px 0;
+    padding: 0 0 10px 0;
+}
+
+/* Customization table */
+p {
+    margin: 0;
+    padding: 0;
+}
+
+div.body {
+    margin: 0 20px 0 20px;
+}
+
+table {
+    padding: 25px 0;
+    width: 100%;
+    border-top: 1px dotted #000;
+    border-bottom: 1px dotted #000;
+}
+
+table td {
+    vertical-align: top;
+}
+
+td.leftSide {
+    width: 450px;
+}
+
+td.rightSide div {
+    float: right;
+}
+
+div.step {
+    font-weight: bold;
+}
+
+span.step {
+    font-size: 18px;
+    color: #D4595E;
+    margin-right: 5px;
+}
+
+div.section {
+    margin-bottom: 35px;
+    position: relative;
+}
+
+div.instructions {
+    margin-bottom: 15px;
+}
+
+.section input, label {
+    color: #666;
+}
+
+.section input {
+    margin: 5px 0 0 0;
+}
+
+div.searchQuery input, div.cobrandSite input, div.email input {
+    width: 200px;
+}
+
+div.dim input {
+    margin-right: 10px;
+}
+
+div.specifyDim {
+    margin-left: 24px;
+}
+
+div.specifyDim input {
+    width: 50px;
+    margin-right: 20px;
+}
+
+div.colors label.name {
+    width: 83px;
+    float: left;
+    position: relative;
+    top: 7px;
+}
+
+div.colors label.hex {
+    margin: 0 5px 0 10px;
+}
+
+div.colors select {
+    width: 75px;
+}
+
+div.colors input {
+    width: 75px;
+}
+
+input.submitButton {
+    margin: 0 0 15px 10px;
+}
+
+p.questions {
+    margin-top: 10px;
+}
+
+td.leftSide a, td.leftSide a:hover {
+    color: #39A;
+    text-decoration: none;
+}
+
+div.faq {
+    margin-top: 45px;
+}
+
+div.question {
+    font-weight: bold;
+}
+
+div.answer {
+    margin-bottom: 10px;
+}
+

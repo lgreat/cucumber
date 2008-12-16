@@ -22,6 +22,7 @@ public class CustomizeSchoolSearchWidgetCommand {
     private String _backgroundColor = "BFE9F1";
     private String _textColor = "228899";
     private String _bordersColor = "9CD4DB";
+    private boolean _terms;
 
     public String getSearchQuery() {
         return _searchQuery;
@@ -121,6 +122,14 @@ public class CustomizeSchoolSearchWidgetCommand {
 
     public void setBordersColor(String bordersColor) {
         _bordersColor = bordersColor;
+    }
+
+    public boolean isTerms() {
+        return _terms;
+    }
+
+    public void setTerms(boolean terms) {
+        _terms = terms;
     }
 
     public Map<String, String> getBackgroundColorOptions() {

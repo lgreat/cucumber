@@ -7,7 +7,8 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:spring="http://www.springframework.org/tags"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:spring="http://www.springframework.org/tags"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
@@ -55,6 +56,7 @@
                 }
             }
         </jsp:scriptlet>
+        <!-- Style overrides to support custom width/height, as well as custom text color -->
         <style type="text/css">
             div#schoolSearchWidget {
                 width: ${requestScope.command.width}px;
