@@ -21,7 +21,6 @@
             closeMslFlowDialog();
         }
     </script>
-    <ad:xGAMSetup/>
 </head>
 <body>
 
