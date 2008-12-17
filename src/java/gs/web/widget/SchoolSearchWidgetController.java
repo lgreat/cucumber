@@ -5,6 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,11 +19,19 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.state.StateManager;
 import gs.data.state.State;
+import gs.data.admin.cobrand.ICobrandDao;
+import gs.data.admin.cobrand.Cobrand;
+import gs.data.json.IJSONDao;
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
+import gs.data.json.JSONArray;
 
 import java.util.StringTokenizer;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+import java.net.*;
+import java.io.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -37,7 +46,20 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
+    private ICobrandDao _cobrandDao;
+    private IJSONDao _jsonDao;
     private StateManager _stateManager;
+
+    protected String getGoogleApiKey(String serverName) {
+        String googleApiKey;
+        Cobrand c = _cobrandDao.getCobrandByHostname(serverName);
+        if (c == null) {
+            return null;
+        } else {
+            googleApiKey = c.getGoogleMapsKey();
+        }
+        return googleApiKey;
+    }
 
     protected void onBindOnNewForm(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
@@ -48,7 +70,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
         if (StringUtils.isNotBlank(request.getParameter(SEARCH_QUERY_PARAM))) {
             command.setSearchQuery(request.getParameter(SEARCH_QUERY_PARAM));
-            parseSearchQuery(request.getParameter(SEARCH_QUERY_PARAM), command, errors);
+            parseSearchQuery(request.getParameter(SEARCH_QUERY_PARAM), getGoogleApiKey(request.getServerName()), command, errors);
         }
     }
 
@@ -75,7 +97,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
         String searchQuery = request.getParameter(SEARCH_QUERY_PARAM);
 
-        parseSearchQuery(searchQuery, command, errors);
+        parseSearchQuery(searchQuery, getGoogleApiKey(request.getServerName()), command, errors);
     }
 
     /**
@@ -83,13 +105,18 @@ public class SchoolSearchWidgetController extends SimpleFormController {
      * determining the type of search. Once that is done, it should delegate to a specific load
      * method such as loadResultsForCity.
      */
-    protected void parseSearchQuery(String searchQuery, SchoolSearchWidgetCommand command, BindException errors) {
+    protected void parseSearchQuery(String searchQuery, String googleApiKey, SchoolSearchWidgetCommand command, BindException errors) {
         boolean hasResults = false;
         boolean shownError = false;
+        command.setLat(0);
+        command.setLon(0);
         if (StringUtils.isNotBlank(searchQuery)) {
+            searchQuery = searchQuery.trim();
             // check for "CITY, STATE"
             StringTokenizer tok = new StringTokenizer(searchQuery, ",");
             if (tok.countTokens() == 2) {
+                // - Exact match for Cityname, State abbreviation
+                // - Exact match for Cityname, Statename
                 String cityStr = StringUtils.trim(tok.nextToken());
                 String stateStr = StringUtils.trim(tok.nextToken());
                 State state = getStateFromString(stateStr);
@@ -100,11 +127,63 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                         hasResults = loadResultsForCity(city, state, command);
                     }
                 }
-                // TODO: check for "CITY, STATE ZIP
             }
-            // TODO: check for "UNIQUE CITY"
-            // TODO: check for "ZIP"
-            // TODO: check for "ADDRESS etc."
+
+            if (!hasResults) {
+                int distanceInMiles = 10;
+                // TODO - Exact match for a unique Cityname (YES San Francisco, NO Lincoln)
+                // TODO - Exact match for 5 digit zip
+                // TODO - Exact match for Cityname, State abbreviation 5 digit zip
+                // TODO - Exact match for Cityname, State name 5 digit zip
+                // TODO - Exact match for Address, cityname, state abbreviation (or statename), 5 digit zip
+                // TODO - Exact match for Address, cityname, state abbreviation (or statename)
+                // TODO - Exact match for Address, cityname, 5 digit zip
+                // TODO - Exact match for Address, 5 digit zip
+                try {
+                    // http://code.google.com/apis/maps/documentation/services.html#Geocoding_Direct
+                    String geocodeUrl = "http://maps.google.com/maps/geo?q=" + URLEncoder.encode(searchQuery, "UTF-8") +
+                        "&output=json&sensor=false" + (googleApiKey != null ? "&key=" + googleApiKey : "");
+                    URL url = new URL(geocodeUrl);
+                    JSONObject result = _jsonDao.fetch(url, "UTF-8");
+                    JSONObject status = result.getJSONObject("Status");
+                    String code = status.getString("code");
+                    if ("602".equals(code)) {
+                        System.out.println("no results");
+                    } else if ("200".equals(code)) {
+                        JSONArray placemarks = result.getJSONArray("Placemark");
+                        if (placemarks.length() == 1) {
+                            JSONObject firstMatch = placemarks.getJSONObject(0);
+
+                            JSONObject addressDetails = firstMatch.getJSONObject("AddressDetails");
+                            JSONObject country = addressDetails.getJSONObject("Country");
+                            JSONObject adminArea = country.getJSONObject("AdministrativeArea");
+                            String stateAbbrev = adminArea.getString("AdministrativeAreaName");
+
+                            JSONObject point = firstMatch.getJSONObject("Point");
+                            JSONArray coordinates = point.getJSONArray("coordinates");
+                            if (coordinates.length() == 3) {
+                                float lon = Float.parseFloat(coordinates.getString(0));
+                                float lat = Float.parseFloat(coordinates.getString(1));
+
+                                System.out.println("stateAbbrev = " + stateAbbrev + ", lat = " + lat + ", lon = " + lon);
+                                hasResults = loadResultsForLatLon(_stateManager.getState(stateAbbrev), lat, lon, distanceInMiles, searchQuery, command);
+                                command.setLat(lat);
+                                command.setLon(lon);
+                            }
+                        } else {
+                            hasResults = false;
+                        }
+                    }
+                } catch (UnsupportedEncodingException e) {
+
+                } catch (MalformedURLException e) {
+
+                } catch (IOException e) {
+                    
+                } catch (JSONException e) {
+                    
+                }
+            }
         } else {
             errors.rejectValue("searchQuery", null, "Please enter a search query");
             shownError = true;
@@ -117,6 +196,20 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             errors.reject("Show results");
             command.setDisplayTab("map");
         }
+    }
+
+    protected boolean loadResultsForLatLon(State state, float lat, float lon, float distanceInMiles, String searchQuery, SchoolSearchWidgetCommand command) {
+        boolean hasResults = false;
+        List<SchoolWithRatings> schools = _schoolDao.findNearbySchoolsWithRatings(state, lat, lon, distanceInMiles);
+        applyLevelCodeFilters(schools, command); // edits list in place
+        if (schools != null && schools.size() > 0) {
+            hasResults = true;
+            loadRatingsIntoSchoolList(schools, state);
+            command.setSchools(schools);
+            command.setMapLocationPrefix("within " + (int)distanceInMiles + " miles of ");
+            command.setMapLocationString(WordUtils.capitalizeFully(searchQuery));
+        }
+        return hasResults;
     }
 
     /**
@@ -253,6 +346,22 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public ICobrandDao getCobrandDao() {
+        return _cobrandDao;
+    }
+
+    public void setCobrandDao(ICobrandDao cobrandDao) {
+        _cobrandDao = cobrandDao;
+    }
+
+    public IJSONDao getJsonDao() {
+        return _jsonDao;
+    }
+
+    public void setJsonDao(IJSONDao jsonDao) {
+        _jsonDao = jsonDao;
     }
 
     public StateManager getStateManager() {

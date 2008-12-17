@@ -27,16 +27,22 @@ Schools without lat/lon are skipped.
 
     request.setAttribute("mapSchools", schools);
 
-    // Calculate the optimal center point
-    if (schools != null) {
-        LatLonRect r = new LatLonRect(schools);
-        if (r.isCentered()) {
-            request.setAttribute("center", r.getCenter());
+    if (lat != null && lon != null) {
+        request.setAttribute("centerOnStar", true);
+        request.setAttribute("center", new LatLon(lat, lon));
+    } else {
+        request.setAttribute("centerOnStar", false);
+        // Calculate the optimal center point
+        if (schools != null) {
+            LatLonRect r = new LatLonRect(schools);
+            if (r.isCentered()) {
+                request.setAttribute("center", r.getCenter());
+            } else {
+                request.setAttribute("center", new LatLon(lat, lon));
+            }
         } else {
             request.setAttribute("center", new LatLon(lat, lon));
         }
-    } else {
-        request.setAttribute("center", new LatLon(lat, lon));
     }
     ]]></jsp:scriptlet>
 <c:if test="${!requestScope.context.crawler}">
@@ -63,6 +69,7 @@ var minZoom = ${not empty minZoom?minZoom:6};
 var maxZoom = ${not empty maxZoom?maxZoom:13};
 var displayTooltips = true;
 var useBubbles = true;
+var centerOnStar = ${centerOnStar};
 var centerPoint = new GLatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
 
@@ -185,11 +192,28 @@ function initMap() {
             GS_map.addOverlay(marker);
             bounds.extend(curSchool.location);
         }
-        zoom = GS_map.getBoundsZoomLevel(bounds);
-        if (zoom > maxZoom) zoom = maxZoom;
-        if (minZoom > zoom) zoom = minZoom;
     }
     ]]>
+    if (centerOnStar) {
+      var starIcon = new GIcon();
+
+      starIcon.image = "/res/img/school/overview/star.gif";
+      starIcon.iconSize = new GSize(26,25);
+      starIcon.iconAnchor = new GPoint(13,12);
+      // for the purposes of stack order, the star marker is treated as if it is
+      // just north of the equator. This effectively makes it always on top of any
+      // markers placed in the United States
+      function fakeLatitudeAtEquatorOrder(marker, b) {
+        return GOverlay.getZIndex(1.0);
+      }
+      tooltip = null;
+      marker = new GMarker(centerPoint, {icon:starIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
+      GS_map.addOverlay(marker);
+      extendBoundsToCenterOnPoint(centerPoint, bounds);
+    }
+    var zoom = GS_map.getBoundsZoomLevel(bounds);
+    if (zoom > maxZoom) zoom = maxZoom;
+    if (minZoom > zoom) zoom = minZoom;
     GS_map.setZoom(zoom);
 
     if (GS_map.getSize().height &lt; GS_smallHeight) {

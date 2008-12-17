@@ -23,6 +23,8 @@ public class SchoolSearchWidgetCommand {
     private int _width;
     private int _height;
     private String _textColor;
+    private float _lat;
+    private float _lon;
 
     public String getDisplayTab() {
         return _displayTab;
@@ -126,6 +128,22 @@ public class SchoolSearchWidgetCommand {
 
     public void setTextColor(String textColor) {
         _textColor = textColor;
+    }
+
+    public float getLat() {
+        return _lat;
+    }
+
+    public void setLat(float lat) {
+        _lat = lat;
+    }
+
+    public float getLon() {
+        return _lon;
+    }
+
+    public void setLon(float lon) {
+        _lon = lon;
     }
 
     public String getLevelCodeString() {

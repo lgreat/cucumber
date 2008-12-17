@@ -146,10 +146,24 @@
                         <noscript>JavaScript is required in order to view a map of the schools.
                         </noscript>
                     </div>
-                    <map:schoolsWithRatings id="map"
-                                            schools="${requestScope.command.schools}"
-                                            s_cid="wsbayf93"
-                            />
+                    <c:choose>
+                        <c:when test="${requestScope.command.lat != 0 and requestScope.command.lon != 0}">
+                            <map:schoolsWithRatings id="map"
+                                                    lat="${requestScope.command.lat}"
+                                                    lon="${requestScope.command.lon}"
+                                                    schools="${requestScope.command.schools}"
+                                                    minZoom="12"
+                                                    maxZoom="12"
+                                                    s_cid="wsbayf93"
+                                    />
+                        </c:when>
+                        <c:otherwise>
+                            <map:schoolsWithRatings id="map"
+                                                    schools="${requestScope.command.schools}"
+                                                    s_cid="wsbayf93"
+                                    />
+                        </c:otherwise>
+                    </c:choose>
                 </c:when>
                 <c:otherwise>
                     <p>No results to display.</p>
