@@ -150,7 +150,7 @@ input.submitButton {
     margin: 0 0 0 20px;
 }
 
-p.questions {
+div.body p.questions {
     margin-top: 25px;
 }
 
@@ -175,16 +175,15 @@ div.answer {
     margin-bottom: 15px;
 }
 
-td.rightSide {
-    position: absolute;
+form.customize {
+    width: 450px;
 }
 
-td.rightSide div {
+td.rightSide div.wrapper {
     float: right;
 }
 
 td.rightSide div.preview {
-    float: none;
     background-color: #DEE;
     padding: 10px 20px;
     margin-bottom: 2px;

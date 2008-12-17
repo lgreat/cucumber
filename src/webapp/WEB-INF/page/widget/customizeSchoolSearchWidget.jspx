@@ -261,7 +261,7 @@
                     <p class="questions">Questions? Contact us at <a href="mailto:widget@greatschools.net">widget@greatschools.net</a>.</p>
                 </td>
                 <td class="rightSide">
-                    <div>
+                    <div class="wrapper">
                         <div class="preview">Preview your widget:</div>
                         <div id="GS_schoolSearchWidget">
                             <div class="GS_widget_innerBorder">
