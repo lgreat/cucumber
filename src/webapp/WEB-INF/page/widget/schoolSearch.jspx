@@ -100,7 +100,7 @@
         <!-- Begin Map Tab-->
         <div id="mapTabBody" class="tabBody ${mapTabClass}">
             <div class="locationDescription">
-                Top schools ${requestScope.command.mapLocationPrefix}
+                ${requestScope.command.mapLocationPrefix}
                 <span>${requestScope.command.mapLocationString}</span>:
             </div>
             <div class="help">
@@ -152,8 +152,8 @@
                                                     lat="${requestScope.command.lat}"
                                                     lon="${requestScope.command.lon}"
                                                     schools="${requestScope.command.schools}"
-                                                    minZoom="12"
-                                                    maxZoom="12"
+                                                    minZoom="13"
+                                                    maxZoom="13"
                                                     s_cid="wsbayf93"
                                     />
                         </c:when>
