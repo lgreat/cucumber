@@ -183,11 +183,8 @@ td.rightSide div {
     float: right;
 }
 
-td.rightSide div div {
-    float: none;
-}
-
 td.rightSide div.preview {
+    float: none;
     background-color: #DEE;
     padding: 10px 20px;
     margin-bottom: 2px;
