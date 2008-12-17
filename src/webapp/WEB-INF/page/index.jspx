@@ -88,13 +88,14 @@
 
     <![CDATA[
     <script type="text/javascript" language="javascript">
+    <!--
         function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
             var returnVal = true;
             var queryVal = document.getElementById(queryId).value;
             var stateVal = document.getElementById(stateSelectorId).value;
 
             var noSearchTerms = (queryVal == 'Enter school, city or district');
-            var noState = (stateVal == "--" || stateVal == "");
+            var noState = (stateVal == ("-" + "-") || stateVal == "");
 
             if (noSearchTerms && noState) {
                 // show state laumcher hover
@@ -115,6 +116,7 @@
             }
             return returnVal;
         }
+        -->
     </script>
     ]]>
 
