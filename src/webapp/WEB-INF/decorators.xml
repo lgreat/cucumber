@@ -22,6 +22,7 @@
 
     <decorator name="minimalDecorator" page="minimalDecorator.jspx">
         <pattern>/widget/*</pattern>
+        <pattern>*/sandbox/*</pattern>
     </decorator>
 
     <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">
@@ -34,7 +35,7 @@
 
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
         <pattern>/*</pattern>
-        <pattern>/sandbox/testHover.page</pattern>
+        <pattern>/sandbox/hoverTest.page</pattern>
     </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
@@ -53,7 +54,6 @@
         <pattern>*/survey/admin.page*</pattern>
         <pattern>*/survey/edit.page*</pattern>
         <pattern>*/ads/tacoda/*</pattern>
-        <pattern>*/sandbox/*</pattern>
         <pattern>*/tableMover.page*</pattern>
     </excludes>
 
