@@ -87,10 +87,11 @@
         </script>
     </head>
     <body>
+    <p>Please use <a href="/schoolfinder/widget/customize.page">the customization page</a> to view this widget. This page is obsolete.</p>
         <div id="GS_schoolSearchWidget">
             <div class="GS_widget_innerBorder">
                 <iframe class="greatschools"
-                        src="/widget/schoolSearch.page?city=San+Francisco&amp;amp;state=CA"
+                        src="/widget/schoolSearch.page?city=San+Francisco&amp;amp;state=CA&amp;width=298&amp;height=408"
                         width="290" height="346"
                         marginheight="0" marginwidth="0"
                         frameborder="0" scrolling="no"><!-- Keep from collapsing --></iframe>

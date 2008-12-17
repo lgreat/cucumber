@@ -1,0 +1,32 @@
+<p><strong>Thank you for creating a customized GreatSchools School Finder Widget!</strong></p>
+
+<p>You’re ready to put the widget onto your Web site or blog, simply by copying and pasting the code below.</p>
+
+<p>Or, if you’d like to go back and customize the widget differently, you can return to the
+<a href="$WIDGET_CUSTOMIZATION_PAGE">Widget Customization Page</a>.</p>
+
+<p>Sincerely,</p>
+
+<strong><i>GreatSchools Business Development</i></strong><br/>
+<a href="mailto:widget@greatschools.net">widget@greatschools.net</a><br/>
+1-415-977-0700<br/>
+
+<br/>
+<br/>
+<hr/>
+<p><strong>GreatSchools School Finder Widget FAQ</strong></p>
+
+<p>(To be determined)</p>
+
+<br/>
+<br/>
+<hr/>
+<p><strong>Here is your customized widget code.</strong><br/>
+Simply copy and paste into your Web site or blog:</p>
+
+$WIDGET_CODE
+
+<br/>
+<br/>
+<br/>
+<br/>

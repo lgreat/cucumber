@@ -21,7 +21,7 @@
     </decorator>
 
     <decorator name="minimalDecorator" page="minimalDecorator.jspx">
-        <pattern>*/widget/*</pattern>
+        <pattern>/widget/*</pattern>
     </decorator>
 
     <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">

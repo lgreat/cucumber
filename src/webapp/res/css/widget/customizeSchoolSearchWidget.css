@@ -1,9 +1,8 @@
-body {
+#contentGS {
     font-family: "Trebuchet MS", Arial, sans-serif;
     color: #666;
     font-size: 13px;
     line-height: 17px;
-    width: 850px;
 }
 
 /* Top part */
@@ -33,13 +32,14 @@ div.top ul {
 
 div.top ul li {
     color: #EB9339;
+    list-style-type: disc;
 }
 
 div.top ul li span {
     color: #666;
 }
 
-h2 {
+div.body h2, div.body h2 {
     font-size: 17px;
     color: #5BC;
     font-weight:normal;
@@ -57,7 +57,7 @@ div.divider hr {
 }
 
 /* Customization table */
-p {
+div.top p, div.body p {
     margin: 0;
     padding: 0;
 }
@@ -66,12 +66,12 @@ div.body {
     margin: 0 20px 0 20px;
 }
 
-table {
+div.body table {
     padding: 25px 0;
     width: 100%;
 }
 
-table td {
+div.body table td {
     vertical-align: top;
 }
 
@@ -154,7 +154,7 @@ p.questions {
     margin-top: 25px;
 }
 
-td.leftSide a, td.leftSide a:hover {
+td.leftSide a, td.leftSide a:hover, .contentGS td.leftSide a, .contentGS td.leftSide a:hover {
     color: #39A;
     text-decoration: none;
 }

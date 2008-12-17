@@ -256,7 +256,7 @@
         <property name="viewName" value="widget/customizeSchoolInfoWidget"/>
     </bean>
 
-    <bean name="/widget/customizeSchoolSearchWidget.page"
+    <bean name="/schoolfinder/widget/customize.page"
           class="gs.web.widget.CustomizeSchoolSearchWidgetController" lazy-init="true">
         <property name="commandName" value="command"/>
         <property name="commandClass" value="gs.web.widget.CustomizeSchoolSearchWidgetCommand"/>

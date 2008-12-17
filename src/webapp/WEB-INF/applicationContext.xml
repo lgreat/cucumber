@@ -18,6 +18,13 @@
 
     <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"/>
 
+    <bean id="schoolFinderWidgetEmail"
+          class="gs.web.widget.SchoolFinderWidgetEmail">
+        <property name="subject" value="Your customized School Finder Widget code"/>
+        <property name="fromEmail" value="widget@greatschools.net"/>
+        <property name="fromName" value="GreatSchools"/>
+    </bean>
+
     <bean id="mySchoolListConfirmationEmail"
           class="gs.web.community.MySchoolListConfirmationEmail">
         <property name="subject" value="Your My School List membership is only the beginning"/>

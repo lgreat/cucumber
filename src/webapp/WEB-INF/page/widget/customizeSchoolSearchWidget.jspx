@@ -15,11 +15,12 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>School Search Widget</title>
+    <meta name="description" content="Add school information to your Web site in minutes with the School Finder widget - it's free and easy to use. Customize the design and create the code instantly."/>
+    <title>School Finder - Customize Your Free School Information Widget - GreatSchools</title>
     <pageHelper:externalCss file="/res/css/widget/customizeSchoolSearchWidget.css"/>
-    <pageHelper:externalJavascript file="/res/js/global.js"/>
-    <pageHelper:externalJavascript file="/res/js/cookie.js"/>
-    <pageHelper:externalJavascript file="/res/js/trackIt.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/global.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/cookie.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/trackIt.js"/>-->
     <pageHelper:externalJavascript file="/res/js/customizeSchoolSearchWidget.js"/>
     <!--<c:if test="${requestScope.pageHelper.devEnvironment}">-->
         <!--<gsml:url var="js" value="/res/js/s_code_dev.js"/>-->
@@ -34,6 +35,7 @@
         div#GS_schoolSearchWidget {
             border: solid 4px #${requestScope.command.backgroundColor};
             border-bottom-width: 20px;
+            background-color: #FFF;
             width: ${requestScope.command.iframeWidth+2}px;
             position: relative;
             font-family: "Trebuchet MS", Arial, sans-serif;
@@ -61,8 +63,11 @@
             margin-top: 3px;
         }
 
-        div.GS_seo a, div.GS_seo a:hover {
+        div#GS_schoolSearchWidget a, div#GS_schoolSearchWidget a:hover {
             text-decoration: underline;
+        }
+
+        div#GS_schoolSearchWidget div.GS_seo a, div#GS_schoolSearchWidget div.GS_seo a:hover {
             color: #666;
             font-size: 10px;
         }
@@ -73,10 +78,9 @@
             right: 8px;
         }
 
-        div.GS_getWidget a, div.GS_getWidget a:hover {
+        div#GS_schoolSearchWidget div.GS_getWidget a, div#GS_schoolSearchWidget div.GS_getWidget a:hover {
             color: #${requestScope.command.textColor};
             font-size: 11px;
-            text-decoration: underline;
         }
     </style>
     <script type="text/javascript">
@@ -127,7 +131,7 @@
         <table>
             <tr>
                 <td class="leftSide">
-                    <form:form cssClass="customize" name="customizeForm" action="/widget/customizeSchoolSearchWidget.page" method="post">
+                    <form:form cssClass="customize" name="customizeForm" method="post">
                         <div class="section searchQuery">
                             <div class="step"><span class="step">Step 1:</span>
                                 <span class="title">Choose address, zip or city, state</span></div>
@@ -283,7 +287,7 @@
                                 </div>
                             </div>
                             <div class="GS_getWidget">
-                                <a href="?s_cid=wsbay93">Get this schools widget for my site</a>
+                                <a href="?s_cid=wsbay93">I want this widget for my site</a>
                             </div>
                         </div>
                         <!--<script type="text/javascript">-->
@@ -329,7 +333,6 @@
         <c:set var="pageName" value="Customize Widget"/>
         <mod:tracking pageName="${pageName}"
                       hier1="Home,ContactUs,Partner Opportunities,SchoolFinder Widget"/>
-        ${modTracking}
     </div>
 </body>
 </html>
