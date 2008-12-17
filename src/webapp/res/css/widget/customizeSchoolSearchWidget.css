@@ -56,6 +56,14 @@ div.divider hr {
     display: none;
 }
 
+div.divider.upper {
+    margin-bottom: 25px;
+}
+
+div.divider.lower {
+    margin-top: 25px;
+}
+
 /* Customization table */
 div.top p, div.body p {
     margin: 0;
@@ -67,7 +75,6 @@ div.body {
 }
 
 div.body table {
-    padding: 25px 0;
     width: 100%;
 }
 

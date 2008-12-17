@@ -127,7 +127,7 @@
 
     <div class="body">
         <h2>Create Your Customized Widget</h2>
-        <div class="divider"><hr/></div>
+        <div class="divider upper"><hr/></div>
         <table>
             <tr>
                 <td class="leftSide">
@@ -301,7 +301,7 @@
             </tr>
         </table>
 
-        <div class="divider"><hr/></div>
+        <div class="divider lower"><hr/></div>
 
         <div class="faq">
             <h2>GreatSchools School Finder Widget FAQ</h2>
