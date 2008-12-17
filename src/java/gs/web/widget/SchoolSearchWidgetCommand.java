@@ -20,9 +20,9 @@ public class SchoolSearchWidgetCommand {
     private boolean _elementaryFilterChecked = true;
     private boolean _middleFilterChecked = true;
     private boolean _highFilterChecked = true;
-    private int _width;
-    private int _height;
-    private String _textColor;
+    private int _width = 290;
+    private int _height = 346;
+    private String _textColor = "228899";
     private float _lat;
     private float _lon;
 
