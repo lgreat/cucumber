@@ -272,6 +272,12 @@ public class AddParentReviewsController extends SimpleFormController implements 
     }
 
     protected void sendMessage(final User user, final String comments, final School school, String emailTemplate) throws MessagingException, IOException {
+
+        if (user.getUndeliverable()) {
+            _log.warn("Not sending to user marked undeliverable: " + user);
+            return;
+        }
+
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
         emailHelper.setSubject("Thanks for your feedback");
         emailHelper.setFromEmail("editorial@greatschools.net");
@@ -292,6 +298,12 @@ public class AddParentReviewsController extends SimpleFormController implements 
     }
 
     protected void sendRejectMessage(final User user, final String comments, final School school, String emailTemplate) throws MessagingException, IOException {
+
+        if (user.getUndeliverable()) {
+            _log.warn("Not sending to user marked undeliverable: " + user);
+            return;
+        }
+
         EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
         emailHelper.setSubject("Thanks for your feedback");
         emailHelper.setFromEmail("editorial@greatschools.net");
