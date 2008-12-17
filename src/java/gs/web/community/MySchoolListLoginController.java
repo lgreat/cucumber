@@ -2,7 +2,6 @@ package gs.web.community;
 
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.validation.BindException;
 import org.apache.commons.validator.EmailValidator;
 import org.apache.commons.lang.StringUtils;
@@ -85,12 +84,11 @@ public class MySchoolListLoginController extends SimpleFormController implements
             model.put(MySchoolListController.PARAM_STATE,
                     request.getParameter(MySchoolListController.PARAM_STATE));
         }
+        response.addHeader("P3P", "CAO PSA OUR");
         return new ModelAndView(getSuccessView(), model);
     }
 
-    /**
-     * Sends a confirmation email to the new user
-     */
+    // Sends a confirmation email to the new user
     protected void sendConfirmationEmail(User user, HttpServletRequest request) {
         try {
             _mySchoolListConfirmationEmail.sendToUser(user, request);

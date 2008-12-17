@@ -70,6 +70,7 @@ public class MySchoolListLoginControllerTest extends BaseControllerTestCase {
         replay(_mockSubscriptionDao);
         replay(_email);
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        assertEquals("P3P header must be set", "CAO PSA OUR", getResponse().getHeader("P3P"));
         verify(_mockUserDao);
         verify(_mockSubscriptionDao);
         verify(_email);

@@ -54,6 +54,17 @@ public class MySchoolListConfirmationEmailTest extends BaseControllerTestCase {
         assertNotNull(msg.getContent());
     }
 
+    public void testSendToUndeliverableUser() throws Exception {
+        User user = new User();
+        user.setEmail("foobar@greatschools.net");
+        user.setUndeliverable(true);
+        // call
+        _email.sendToUser(user, getRequest());
+        // verify
+        List msgs = _mailSender.getSentMessages();
+        assertNull(msgs);
+    }
+
     /**
      * Remove x to trigger a real email send to the user's email address.
      */
