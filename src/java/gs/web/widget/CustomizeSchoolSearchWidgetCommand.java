@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.UrlBuilder;
@@ -138,23 +139,40 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     }
 
     public Map<String, String> getBackgroundColorOptions() {
-        Map<String, String> rval = new HashMap<String, String>();
-        rval.put("FFFFFF", "");
-        rval.put("BFE9F1", "");
-        return rval;
+        return getDefaultColorMap("BFE9F1");
     }
 
     public Map<String, String> getTextColorOptions() {
-        Map<String, String> rval = new HashMap<String, String>();
-        rval.put("FFFFFF", "");
-        rval.put("228899", "");
-        return rval;
+        return getDefaultColorMap("228899");
     }
 
     public Map<String, String> getBordersColorOptions() {
-        Map<String, String> rval = new HashMap<String, String>();
+        return getDefaultColorMap("9CD4DB");
+    }
+
+    protected Map<String, String> getDefaultColorMap(String firstOption) {
+        Map<String, String> rval = new TreeMap<String, String>();
+        if (StringUtils.isNotBlank(firstOption)) {
+            rval.put(firstOption, "");
+        }
         rval.put("FFFFFF", "");
-        rval.put("9CD4DB", "");
+        rval.put("BDCFEF", "");
+        rval.put("000000", "");
+        rval.put("82CAFA", "");
+        rval.put("898989", "");
+        rval.put("BBDD66", "");
+        rval.put("EE8888", "");
+        rval.put("0088CC", "");
+        rval.put("66CCFF", "");
+        rval.put("CCBBCC", "");
+        rval.put("FFEE99", "");
+        rval.put("FF9977", "");
+        rval.put("595959", "");
+        rval.put("99BBCC", "");
+        rval.put("993333", "");
+        rval.put("004488", "");
+        rval.put("998899", "");
+        rval.put("FFDD00", "");
         return rval;
     }
 

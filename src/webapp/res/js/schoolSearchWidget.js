@@ -1,27 +1,28 @@
+var GS_MAP_TAB_NAME = "mapTab";
+var GS_SEARCH_TAB_NAME = "searchTab";
+var GS_HELP_TAB_NAME = "helpTab";
+
 function showMapTab() {
-    showTab('mapTab');
-//    hideTab('listTab');
-    hideTab('searchTab');
-    hideTab('helpTab');
+    showTab(GS_MAP_TAB_NAME);
+    hideTab(GS_SEARCH_TAB_NAME);
+    hideTab(GS_HELP_TAB_NAME);
 }
 
-//function showListTab() {
-//    hideTab('mapTab');
-//    showTab('listTab');
-//    hideTab('searchTab');
-//}
-
 function showSearchTab() {
-    hideTab('mapTab');
-    hideTab('helpTab');
-//    hideTab('listTab');
-    showTab('searchTab');
+    hideTab(GS_MAP_TAB_NAME);
+    hideTab(GS_HELP_TAB_NAME);
+    showTab(GS_SEARCH_TAB_NAME);
 }
 
 function showHelpTab() {
-    hideTab('mapTab');
-    hideTab('searchTab');
-    showTab('helpTab');
+    hideTab(GS_MAP_TAB_NAME);
+    hideTab(GS_SEARCH_TAB_NAME);
+    showTab(GS_HELP_TAB_NAME);
+}
+
+function closeHelpTab() {
+    hideTab(GS_HELP_TAB_NAME);
+    showTab(GS_MAP_TAB_NAME);
 }
 
 function showTab(tabId) {

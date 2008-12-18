@@ -205,6 +205,7 @@
             <h3>
                 <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
                 More information
+                <img class="close" src="/res/img/submodal/close.gif" alt="Close" title="Close Help" onclick="closeHelpTab();"/>
             </h3>
             <p>
                 GreatSchools is an independent, nonprofit organization
@@ -216,7 +217,7 @@
                 right preschool through 12<span class="super">th</span> grade public or private
                 schools for their child. Parents gain quick insight into
                 schools through the GreatSchools Ratings and Parent
-                Ratings and Reviews.
+                Ratings and Reviews.<br/>
                 <link:article articleId="1023" target="_blank" campaignId="wsbayf93">Learn about GreatSchools Ratings.</link:article>
             </p>
             <p>
@@ -228,7 +229,7 @@
             </p>
             <p>
                 For more information, visit us at
-                <a href="http://www.greatschools.net/?s_cid=wsbayf93" target="_blank">www.greatschools.net</a>
+                <a href="http://www.greatschools.net/?s_cid=wsbayf93" target="_blank">www.greatschools.net</a>.
             </p>
         </div>
         

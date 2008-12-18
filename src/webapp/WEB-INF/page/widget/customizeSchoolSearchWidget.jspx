@@ -225,7 +225,8 @@
 
                         <div class="section cobrandSite">
                             <div class="step"><span class="step">Step 4:</span>
-                                <span class="title">(for GreatSchools cobrand customers only)</span> <span class="optional">optional</span></div>
+                                <span class="optional">optional</span>
+                                <span class="title">(for GreatSchools cobrand customers only)</span></div>
                             <div class="instructions">
                                 Enter the cobrand URL you want the widget to link into <a href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
                                 Otherwise, leave as www

@@ -185,7 +185,7 @@ div#mapTabBody {
 
             div.schoolInfoWindow div.parentRating a img {
                 position: relative;
-                left: -3px;
+                left: -6px;
             }
 
             div.schoolInfoWindow div.parentRating div {
@@ -225,9 +225,9 @@ div#helpTabBody p {
     }
 
 div#helpTabBody p span.super {
-    vertical-align: super;
     font-size: 9px;
-    line-height: 5px;
+    position: relative;
+    top: -4px;
 }
 
 div#helpTabBody h3 {
@@ -240,5 +240,13 @@ div#helpTabBody h3 {
     div#helpTabBody h3 img {
         position: relative;
         top: 5px;
+    }
+
+    div#helpTabBody h3 img.close {
+        position: absolute;
+        right: 5px;
+        top: 7px;
+        border: 1px solid #9CD4DB;
+        cursor: pointer;
     }
 
