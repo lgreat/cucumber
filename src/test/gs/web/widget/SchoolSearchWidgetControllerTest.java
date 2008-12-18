@@ -283,6 +283,7 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("searchQuery", "nowhere");
 
         expect(_cobrandDao.getCobrandByHostname(getRequest().getServerName())).andReturn(null);
+        expect(_geoDao.findUniqueCity("nowhere")).andReturn(null);
         URL url = new URL("http://maps.google.com/maps/geo?q=nowhere&output=json&sensor=false");
         expect(_jsonDao.fetch(url, "UTF-8")).andReturn(new JSONObject(GMAPS_JSON_602, "UTF-8"));
 

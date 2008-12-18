@@ -130,6 +130,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                     State state = getStateFromString(stateStr);
                     if (state != null) {
                         city = getCityFromString(state, cityStr);
+                        city.setState(state);
                     }
                 }
 
