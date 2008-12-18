@@ -161,10 +161,6 @@
                                                     maxZoom="13"
                                                     s_cid="wsbayf93"
                                     />
-<!--
-                                                    minZoom="13"
-                                                    maxZoom="13"
--->
                         </c:when>
                         <c:otherwise>
                             <map:schoolsWithRatings id="map"
@@ -189,7 +185,7 @@
 
             <gsml:errorMessage command="command" field="searchQuery" styleClass="warning" useImage="false"/>
 
-            <form:form name="searchForm" action="/widget/schoolSearch.page" method="post">
+            <form:form name="searchForm" action="/widget/schoolSearch.page" method="post" onsubmit="return submitSearch();">
                 <form:hidden path="preschoolFilterChecked" id="filter_p_value"/>
                 <form:hidden path="elementaryFilterChecked" id="filter_e_value"/>
                 <form:hidden path="middleFilterChecked" id="filter_m_value"/>

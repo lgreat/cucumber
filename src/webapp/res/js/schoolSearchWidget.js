@@ -56,5 +56,35 @@ function textSwitch(el, target, replace) {
 function toggleFilter(levelCode, checked, searchQuery) {
     document.getElementById('filter_' + levelCode + '_value').value = checked;
     document.getElementById('searchInput').value = searchQuery;
-    document.forms['searchForm'].submit();
+
+    var noneChecked =
+        !document.getElementById('filter_p').checked &&
+        !document.getElementById('filter_e').checked &&
+        !document.getElementById('filter_m').checked &&
+        !document.getElementById('filter_h').checked;
+
+    if (noneChecked) {
+        clearMarkers();
+        if (centerOnStar) {
+            addCenterPoint(GS_map, centerPoint);
+        }
+    } else {
+        document.forms['searchForm'].submit();
+    }
+
+}
+
+function submitSearch() {
+    var noneChecked =
+        !document.getElementById('filter_p').checked &&
+        !document.getElementById('filter_e').checked &&
+        !document.getElementById('filter_m').checked &&
+        !document.getElementById('filter_h').checked;
+    if (noneChecked) {
+        document.getElementById('filter_p_value').value = 'true';
+        document.getElementById('filter_e_value').value = 'true';
+        document.getElementById('filter_m_value').value = 'true';
+        document.getElementById('filter_h_value').value = 'true';
+    }
+    return true;
 }
