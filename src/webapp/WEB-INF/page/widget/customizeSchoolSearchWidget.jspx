@@ -147,6 +147,8 @@
                                 your blog, or full page for your
                                 real estate Web site?
                             </div>
+                            <gsml:errorMessage command="command" field="height" useImage="true" styleClass="warning"/>
+                            <gsml:errorMessage command="command" field="width" useImage="true" styleClass="warning"/>
                             <div class="dim smallDim">
                                 <form:radiobutton path="dimensions" value="300x412" label="Small (300 x 412)"
                                                   onclick="selectDim(300, 412);"/>
@@ -223,10 +225,10 @@
 
                         <div class="section cobrandSite">
                             <div class="step"><span class="step">Step 4:</span>
-                                <span class="title">(optional, for GreatSchools cobrand customers only)</span></div>
+                                <span class="title">(for GreatSchools cobrand customers only)</span> <span class="optional">optional</span></div>
                             <div class="instructions">
-                                Enter the cobrand URL you want the widget to link into<br/>
-                                EX: XXX.greatschools.net
+                                Enter the cobrand URL you want the widget to link into <a href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
+                                Otherwise, leave as www
                             </div>
                             <form:input path="cobrand"/>
                         </div>
@@ -239,10 +241,12 @@
                                 send your widget code directly to your
                                 inbox
                             </div>
+                            <gsml:errorMessage command="command" field="email" useImage="true" styleClass="warning"/>
                             <form:input path="email"/>
                         </div>
 
                         <div class="section terms">
+                            <gsml:errorMessage command="command" field="terms" useImage="true" styleClass="warning"/>
                             <form:checkbox path="terms" id="termsBox"/>
                             <form:label path="terms" for="termsBox">
                                 I agree to the <gsml:popupWindow width="800" height="600" left="50" top="50"

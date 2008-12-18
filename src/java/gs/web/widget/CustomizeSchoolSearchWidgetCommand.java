@@ -8,10 +8,15 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.HashMap;
 
+import gs.web.util.validator.EmailValidator;
+import gs.web.util.UrlBuilder;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class CustomizeSchoolSearchWidgetCommand {
+public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail {
     private static final Logger _log = Logger.getLogger(CustomizeSchoolSearchWidgetCommand.class);
     private String _searchQuery;
     private String _cobrand = "www";
@@ -154,7 +159,17 @@ public class CustomizeSchoolSearchWidgetCommand {
     }
 
     public String getIframeUrl() {
-        String rval = SchoolSearchWidgetController.BEAN_ID;
+        return getIframeUrl(null);
+    }
+
+    public String getIframeUrl(HttpServletRequest request) {
+        String rval = "";
+        if (request != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_WIDGET);
+            rval += urlBuilder.asFullUrl(request);
+        } else {
+            rval += SchoolSearchWidgetController.BEAN_ID;
+        }
         String separator = "?";
         try {
             if (StringUtils.isNotBlank(_searchQuery)) {

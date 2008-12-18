@@ -52,7 +52,7 @@ public class SchoolFinderWidgetEmailTest extends BaseControllerTestCase {
         // setup
         User user = new User();
         user.setEmail("aroy+1@greatschools.net");
-        _email.sendToUser(user, "widgetCode", getRequest());
+        _email.sendToUser(user, "<widgetCode>", getRequest());
         // verify
         List msgs = _mailSender.getSentMessages();
         assertNotNull(msgs);
@@ -70,6 +70,12 @@ public class SchoolFinderWidgetEmailTest extends BaseControllerTestCase {
         User user = new User();
         user.setEmail("aroy@greatschools.net");
 
-        email.sendToUser(user, "widgetCode", getRequest());
+        CustomizeSchoolSearchWidgetController controller = new CustomizeSchoolSearchWidgetController();
+        CustomizeSchoolSearchWidgetCommand command = new CustomizeSchoolSearchWidgetCommand();
+        command.setBackgroundColor("123456");
+        getRequest().setServerName("localhost");
+        String widgetCode = controller.getWidgetCode(command, getRequest());
+
+        email.sendToUser(user, widgetCode, getRequest());
     }
 }

@@ -1,0 +1,102 @@
+<style type="text/css">
+    div#GS_schoolSearchWidget {
+        border: solid 4px #$BG_COLOR;
+        border-bottom-width: 20px;
+        background-color: #FFF;
+        width: $WIDGET_WIDTHpx;
+        position: relative;
+        font-family: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    div.GS_widget_innerBorder {
+        border: solid 1px #$BORDER_COLOR;
+    }
+
+    div.GS_widget_footer {
+        height: 40px;
+        padding: 0 5px 0 15px;
+    }
+
+    div.GS_widget_footer img {
+        margin-top: 8px;
+        float: left;
+        border: 0
+    }
+
+    div.GS_seo {
+        float: right;
+        text-align: right;
+        width: 120px;
+        margin-top: 3px;
+    }
+
+    div#GS_schoolSearchWidget a, div#GS_schoolSearchWidget a:hover {
+        text-decoration: underline;
+    }
+
+    div#GS_schoolSearchWidget div.GS_seo a, div#GS_schoolSearchWidget div.GS_seo a:hover {
+        color: #666;
+        font-size: 10px;
+    }
+
+    div.GS_getWidget {
+        position: absolute;
+        bottom: -17px;
+        right: 8px;
+    }
+
+    div#GS_schoolSearchWidget div.GS_getWidget a, div#GS_schoolSearchWidget div.GS_getWidget a:hover {
+        color: #$TEXT_COLOR;
+        font-size: 11px;
+    }
+</style>
+<script type="text/javascript">
+    function GS_updateSEOLinks(cityName, stateName, stateAbbr) {
+        var cityLink = document.getElementById('GS_city_SEO');
+        var stateLink = document.getElementById('GS_state_SEO');
+
+        var cityUrl = GS_replaceAll(cityName, "%27", "'");
+        cityUrl = GS_replaceAll(cityUrl, " ", "_");
+        cityUrl = GS_replaceAll(cityUrl, "+", "_");
+        cityLink.href = "http://www.greatschools.net/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
+        cityLink.innerHTML = cityName  + " schools";
+        stateLink.href = "http://www.greatschools.net/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
+        stateLink.innerHTML = stateName + " schools";
+    }
+
+    function GS_replaceAll(strSource, strMatch, strReplace) {
+        var rval = strSource;
+        var index = rval.indexOf(strMatch);
+        while (index != -1) {
+            rval = rval.replace(strMatch, strReplace);
+            index = rval.indexOf(strMatch);
+        }
+        return rval;
+    }
+</script>
+<div id="GS_schoolSearchWidget">
+    <div class="GS_widget_innerBorder">
+        <div id="widget">
+            <iframe class="greatschools"
+                    src="$IFRAME_URL"
+                    width="$IFRAME_WIDTH" height="$IFRAME_HEIGHT"
+                    marginheight="0" marginwidth="0"
+                    frameborder="0" scrolling="no"><!-- Keep from collapsing --></iframe>
+        </div>
+        <div class="GS_widget_footer">
+            <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
+                                             alt="Powered by GreatSchools"/></a>
+            <div class="GS_seo">
+                <div class="GS_city"><a href="http://www.greatschools.net/city/San_Francisco/CA?s_cid=wsbay93"
+                                        target="_blank" rel="follow follow"
+                                        id="GS_city_SEO">San Francisco schools</a></div>
+                <div class="GS_state"><a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"
+                                         target="_blank" rel="follow follow"
+                                         id="GS_state_SEO">California schools</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="GS_getWidget">
+        <a href="?s_cid=wsbay93">I want this widget for my site</a>
+    </div>
+</div>

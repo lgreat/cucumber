@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.141 2008/12/17 17:07:40 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.142 2008/12/18 00:36:15 aroy Exp $
  */
 
 package gs.web.util;
@@ -16,6 +16,7 @@ import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.util.list.Anchor;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
+import gs.web.widget.SchoolSearchWidgetController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
@@ -227,6 +228,8 @@ public class UrlBuilder {
     public static final VPage SUBMIT_PARENT_REVIEW_PRESCHOOL = new VPage("vpage:submitParentReviewPreschool");
 
     public static final VPage SCHOOL_FINDER_CUSTOMIZATION = new VPage("vpage:schoolFinderCustomization");
+
+    public static final VPage SCHOOL_FINDER_WIDGET = new VPage("vpage:schoolFinderWidget");
 
     /**
      * Create a builder to the given site page.
@@ -481,6 +484,8 @@ public class UrlBuilder {
             _path = "/holiday-giving/";
         } else if (SCHOOL_FINDER_CUSTOMIZATION.equals(page)) {
             _path = "/schoolfinder/widget/customize.page";
+        } else if (SCHOOL_FINDER_WIDGET.equals(page)) {
+            _path = SchoolSearchWidgetController.BEAN_ID;
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

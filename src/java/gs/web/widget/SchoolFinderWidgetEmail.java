@@ -9,6 +9,8 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -35,7 +37,7 @@ public class SchoolFinderWidgetEmail extends AbstractSendEmailBean {
         urlBuilder.addParameter("cpn", cpn);
         emailHelper.addInlineReplacement("WIDGET_CUSTOMIZATION_PAGE", urlBuilder.asFullUrl(request));
 
-        emailHelper.addInlineReplacement("WIDGET_CODE", widgetCode);
+        emailHelper.addInlineReplacement("WIDGET_CODE", StringEscapeUtils.escapeHtml(widgetCode));
 
         emailHelper.send();
     }

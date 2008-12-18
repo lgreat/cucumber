@@ -153,6 +153,11 @@ div.colors input {
     width: 75px;
 }
 
+span.optional {
+    color: #C56;
+    padding-left: 3px;
+}
+
 input.submitButton {
     margin: 0 0 0 20px;
 }
@@ -196,3 +201,15 @@ td.rightSide div.preview {
     margin-bottom: 2px;
     font-size: 15px;
 }
+
+img.errorIcon {
+    float: left;
+    position: relative;
+    top: 3px;
+}
+
+div.body p.warning {
+    color: #C56;
+    margin-left: 17px;
+}
+
