@@ -24,7 +24,8 @@
                 visible: false,
                 draggable: false,
                 modal: true,
-                close: false
+                close: false,
+                zIndex: 9999999
             });
             mslFlowDialog.render();
         }
