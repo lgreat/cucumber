@@ -109,6 +109,10 @@ div.instructions {
     margin-bottom: 15px;
 }
 
+    div.instructions a {
+        margin-left: 3px;
+    }
+
 .section input, label {
     color: #666;
 }

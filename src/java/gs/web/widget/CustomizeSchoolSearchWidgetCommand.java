@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.TreeMap;
+import java.util.Comparator;
 
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.UrlBuilder;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail {
     private static final Logger _log = Logger.getLogger(CustomizeSchoolSearchWidgetCommand.class);
-    private String _searchQuery;
+    private String _searchQuery = "94536";
     private String _cobrand = "www";
     private String _email;
     private int _height = CustomizeSchoolSearchWidgetController.MINIMUM_HEIGHT;
@@ -150,8 +150,22 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         return getDefaultColorMap("9CD4DB");
     }
 
+    public Integer colorStringToInt(String colorString) {
+        if (StringUtils.length(colorString) != 6) {
+            return 0;
+        }
+        return    Integer.parseInt(colorString.substring(0,2), 16)
+                + Integer.parseInt(colorString.substring(2,4), 16)
+                + Integer.parseInt(colorString.substring(4,6), 16);
+    }
+
     protected Map<String, String> getDefaultColorMap(String firstOption) {
-        Map<String, String> rval = new TreeMap<String, String>();
+        // sort by approximate order white-to-black
+        Map<String, String> rval = new TreeMap<String, String>(new Comparator<String>() {
+            public int compare(String o1, String o2) {
+                return colorStringToInt(o2).compareTo(colorStringToInt(o1));
+            }
+        });
         if (StringUtils.isNotBlank(firstOption)) {
             rval.put(firstOption, "");
         }

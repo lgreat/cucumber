@@ -228,8 +228,8 @@
                                 <span class="optional">optional</span>
                                 <span class="title">(for GreatSchools cobrand customers only)</span></div>
                             <div class="instructions">
-                                Enter the cobrand URL you want the widget to link into <a href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
-                                Otherwise, leave as www
+                                Enter the cobrand URL you want the widget to link into. <a href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
+                                Otherwise, leave as www.
                             </div>
                             <form:input path="cobrand"/>
                         </div>
@@ -240,7 +240,7 @@
                             <div class="instructions">
                                 Required to customize the widget. We'll
                                 send your widget code directly to your
-                                inbox
+                                inbox.
                             </div>
                             <gsml:errorMessage command="command" field="email" useImage="true" styleClass="warning"/>
                             <form:input path="email"/>
