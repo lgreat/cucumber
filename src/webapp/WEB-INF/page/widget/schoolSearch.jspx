@@ -161,6 +161,10 @@
                                                     maxZoom="13"
                                                     s_cid="wsbayf93"
                                     />
+<!--
+                                                    minZoom="13"
+                                                    maxZoom="13"
+-->
                         </c:when>
                         <c:otherwise>
                             <map:schoolsWithRatings id="map"

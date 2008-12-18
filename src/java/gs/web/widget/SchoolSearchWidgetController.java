@@ -130,7 +130,9 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                     State state = getStateFromString(stateStr);
                     if (state != null) {
                         city = getCityFromString(state, cityStr);
-                        city.setState(state);
+                        if (city != null) {
+                            city.setState(state);
+                        }
                     }
                 }
 
@@ -143,13 +145,13 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
             // if no results found for city matches, try proximity search
             if (!hasResults) {
-                // TODO - Exact match for 5 digit zip
-                // TODO - Exact match for Cityname, State abbreviation 5 digit zip
-                // TODO - Exact match for Cityname, State name 5 digit zip
-                // TODO - Exact match for Address, cityname, state abbreviation (or statename), 5 digit zip
-                // TODO - Exact match for Address, cityname, state abbreviation (or statename)
-                // TODO - Exact match for Address, cityname, 5 digit zip
-                // TODO - Exact match for Address, 5 digit zip
+                // - Exact match for 5 digit zip
+                // - Exact match for Cityname, State abbreviation 5 digit zip
+                // - Exact match for Cityname, State name 5 digit zip
+                // - Exact match for Address, cityname, state abbreviation (or statename), 5 digit zip
+                // - Exact match for Address, cityname, state abbreviation (or statename)
+                // - Exact match for Address, cityname, 5 digit zip
+                // - Exact match for Address, 5 digit zip
                 try {
                 hasResults = loadResultsForFreeFormAddress(searchQuery, googleApiKey, command);
                 } catch (IOException e) {
@@ -193,11 +195,13 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             if (placemarks.length() == 1) {
                 JSONObject firstMatch = placemarks.getJSONObject(0);
 
+                String normalizedAddress = firstMatch.getString("address");
                 JSONObject addressDetails = firstMatch.getJSONObject("AddressDetails");
                 JSONObject country = addressDetails.getJSONObject("Country");
                 String countryNameCode = country.getString("CountryNameCode");
 
                 if ("US".equals(countryNameCode)) {
+                    normalizedAddress = normalizedAddress.replaceAll(", USA","");
                     JSONObject adminArea = country.getJSONObject("AdministrativeArea");
                     String stateAbbrev = adminArea.getString("AdministrativeAreaName");
 
@@ -207,7 +211,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                         float lon = Float.parseFloat(coordinates.getString(0));
                         float lat = Float.parseFloat(coordinates.getString(1));
 
-                        hasResults = loadResultsForLatLon(_stateManager.getState(stateAbbrev), lat, lon, DISTANCE_IN_MILES, MAX_NUM_RESULTS, address, command);
+                        hasResults = loadResultsForLatLon(_stateManager.getState(stateAbbrev), lat, lon, DISTANCE_IN_MILES, MAX_NUM_RESULTS, normalizedAddress, command);
                         command.setLat(lat);
                         command.setLon(lon);
                     }
@@ -218,16 +222,29 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         return hasResults;
     }
 
-    protected boolean loadResultsForLatLon(State state, float lat, float lon, float distanceInMiles, int maxNumResults, String searchQuery, SchoolSearchWidgetCommand command) {
+    protected boolean loadResultsForLatLon(State state, float lat, float lon, float distanceInMiles, int maxNumResults, String address, SchoolSearchWidgetCommand command) {
         boolean hasResults = false;
-        List<SchoolWithRatings> schools = _schoolDao.findNearbySchoolsWithRatings(state, lat, lon, distanceInMiles, maxNumResults);
-        applyLevelCodeFilters(schools, command); // edits list in place
+
+        // level code filtering
+        LevelCode lc;
+        if (command.isPreschoolFilterChecked()
+                && command.isElementaryFilterChecked()
+                && command.isMiddleFilterChecked()
+                && command.isHighFilterChecked()) {
+            // do no filtering
+            lc = null;
+        } else {
+            lc = LevelCode.createLevelCode(command.getLevelCodeString());
+        }
+
+        List<SchoolWithRatings> schools = _schoolDao.findNearbySchoolsWithRatings(state, lat, lon, distanceInMiles, maxNumResults, lc);
+
         if (schools != null && schools.size() > 0) {
             hasResults = true;
             loadRatingsIntoSchoolList(schools, state);
             command.setSchools(schools);
-            command.setMapLocationPrefix("Nearest schools to ");
-            command.setMapLocationString(WordUtils.capitalizeFully(searchQuery));
+            command.setMapLocationPrefix("Schools near ");
+            command.setMapLocationString(address);
         }
         return hasResults;
     }
