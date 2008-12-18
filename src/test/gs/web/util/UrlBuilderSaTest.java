@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.93 2008/11/10 22:42:26 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.94 2008/12/18 00:39:30 aroy Exp $
  */
 
 package gs.web.util;
@@ -14,6 +14,8 @@ import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.widget.CustomizeSchoolSearchWidgetController;
+import gs.web.widget.SchoolSearchWidgetController;
 import junit.framework.TestCase;
 
 import java.io.UnsupportedEncodingException;
@@ -477,7 +479,13 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/california/san-francisco/preschools/", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.BROWSE_PRESCHOOLS, State.CA, "Bangle-Deshmir");
-        assertEquals("/california/bangle_deshmir/preschools/", builder.asSiteRelative(request));        
+        assertEquals("/california/bangle_deshmir/preschools/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_CUSTOMIZATION);
+        assertEquals(CustomizeSchoolSearchWidgetController.BEAN_ID, builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_WIDGET);
+        assertEquals(SchoolSearchWidgetController.BEAN_ID, builder.asSiteRelative(request));
     }
 
     public void testMicroSitePages() {
