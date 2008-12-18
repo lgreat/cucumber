@@ -195,11 +195,15 @@ function initMap() {
     }
     ]]>
     if (centerOnStar) {
-      var starIcon = new GIcon();
-
-      starIcon.image = "/res/img/school/overview/star.gif";
-      starIcon.iconSize = new GSize(26,25);
-      starIcon.iconAnchor = new GPoint(13,12);
+        var arrowIcon = new GIcon();
+        arrowIcon.image = "/res/img/map/green_arrow.png";
+        arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
+        arrowIcon.transparent = "/res/img/map/green_arrow_transparent.png";
+        arrowIcon.iconSize = new GSize(39, 34);
+        arrowIcon.iconAnchor = new GPoint(11, 34);
+        arrowIcon.infoWindowAnchor = new GPoint(13, 2);
+        arrowIcon.infoShadowAnchor = new GPoint(13, 2);
+        arrowIcon.shadowSize = new GSize(39, 34);
       // for the purposes of stack order, the star marker is treated as if it is
       // just north of the equator. This effectively makes it always on top of any
       // markers placed in the United States
@@ -207,7 +211,7 @@ function initMap() {
         return GOverlay.getZIndex(1.0);
       }
       tooltip = null;
-      marker = new GMarker(centerPoint, {icon:starIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
+      marker = new GMarker(centerPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
       GS_map.addOverlay(marker);
       extendBoundsToCenterOnPoint(centerPoint, bounds);
     }
