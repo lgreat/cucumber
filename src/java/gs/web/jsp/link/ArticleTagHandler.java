@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleTagHandler.java,v 1.6 2007/01/02 20:09:16 cpickslay Exp $
+ * $Id: ArticleTagHandler.java,v 1.7 2008/12/18 17:36:54 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -10,6 +10,7 @@ import gs.data.content.IArticleDao;
 import gs.web.util.context.SessionContext;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Generates link to an article.
@@ -21,11 +22,14 @@ public class ArticleTagHandler extends LinkTagHandler {
     private Article _article;
     private Integer _articleId;
     private boolean _featured;
-
+    private String _campaignId;
 
     protected UrlBuilder createUrlBuilder() {
         Article a= getArticle();
         UrlBuilder builder = new UrlBuilder(a, getState(), _featured);
+        if (StringUtils.isNotBlank(_campaignId)) {
+            builder.addParameter("s_cid", _campaignId);
+        }
         return builder;
     }
 
@@ -52,4 +56,7 @@ public class ArticleTagHandler extends LinkTagHandler {
         _featured = featured.booleanValue();
     }
 
+    public void setCampaignId(String campaignId) {
+        _campaignId = campaignId;
+    }
 }

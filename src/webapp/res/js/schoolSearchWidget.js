@@ -2,6 +2,7 @@ function showMapTab() {
     showTab('mapTab');
 //    hideTab('listTab');
     hideTab('searchTab');
+    hideTab('helpTab');
 }
 
 //function showListTab() {
@@ -12,25 +13,36 @@ function showMapTab() {
 
 function showSearchTab() {
     hideTab('mapTab');
+    hideTab('helpTab');
 //    hideTab('listTab');
     showTab('searchTab');
+}
+
+function showHelpTab() {
+    hideTab('mapTab');
+    hideTab('searchTab');
+    showTab('helpTab');
 }
 
 function showTab(tabId) {
     var tabElem = document.getElementById(tabId);
     var tabBodyElem = document.getElementById(tabId + 'Body');
-    if (tabElem && tabBodyElem) {
-        tabBodyElem.className = "tabBody selected";
+    if (tabElem) {
         tabElem.className = "selected";
+    }
+    if (tabBodyElem) {
+        tabBodyElem.className = "tabBody selected";
     }
 }
 
 function hideTab(tabId) {
     var tabElem = document.getElementById(tabId);
     var tabBodyElem = document.getElementById(tabId + 'Body');
-    if (tabElem && tabBodyElem) {
-        tabBodyElem.className = "tabBody";
+    if (tabElem) {
         tabElem.className = "";
+    }
+    if (tabBodyElem) {
+        tabBodyElem.className = "tabBody";
     }
 }
 

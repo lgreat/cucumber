@@ -9,6 +9,7 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:spring="http://www.springframework.org/tags"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
@@ -80,9 +81,13 @@
     <body>
     <c:set var="mapTabClass" value=""/>
     <c:set var="searchTabClass" value=""/>
+    <c:set var="helpTabClass" value=""/>
     <c:choose>
         <c:when test="${requestScope.command.displayTab eq 'map'}">
             <c:set var="mapTabClass" value="selected"/>
+        </c:when>
+        <c:when test="${requestScope.command.displayTab eq 'help'}">
+            <c:set var="helpTabClass" value="selected"/>
         </c:when>
         <c:otherwise>
             <c:set var="searchTabClass" value="selected"/>
@@ -104,7 +109,7 @@
                 <span>${requestScope.command.mapLocationString}</span>:
             </div>
             <div class="help">
-                <a href="#">
+                <a href="#" onclick="showHelpTab(); return false;">
                     <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
                 </a>
             </div>
@@ -196,6 +201,37 @@
         </div>
         <!-- End Search Tab-->
 
+        <div id="helpTabBody" class="tabBody ${helpTabClass}">
+            <h3>
+                <img src="/res/img/widget/bluequestion.gif" alt="Question mark"/>
+                More information
+            </h3>
+            <p>
+                GreatSchools is an independent, nonprofit organization
+                that improves education by inspiring parents to get
+                involved.
+            </p>
+            <p>
+                GreatSchools empowers parents nationwide to find the
+                right preschool through 12<span class="super">th</span> grade public or private
+                schools for their child. Parents gain quick insight into
+                schools through the GreatSchools Ratings and Parent
+                Ratings and Reviews.
+                <link:article articleId="1023" target="_blank" campaignId="wsbayf93">Learn about GreatSchools Ratings.</link:article>
+            </p>
+            <p>
+                GreatSchools includes a vast array of information,
+                including academic performance, the school culture and
+                environment, extracurricular programs and more.
+                GreatSchools members can also track their children's
+                school performance grade-by-grade.
+            </p>
+            <p>
+                For more information, visit us at
+                <a href="http://www.greatschools.net/?s_cid=wsbayf93" target="_blank">www.greatschools.net</a>
+            </p>
+        </div>
+        
         <!-- Update parent frame's SEO links if there are no form errors -->
         <c:set var="updateSeo" value="true"/>
         <spring:hasBindErrors name="command">

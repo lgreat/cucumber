@@ -55,6 +55,10 @@ div.tabBody {
         display: block;
     }
 
+    div#helpTabBody {
+        padding: 3px 8px;
+    }
+
 /* Search Tab */
 
 div#searchTabBody h2 {
@@ -208,4 +212,33 @@ div#mapTabBody {
                 padding: 0;
             }
 
+div#helpTabBody p {
+    font-size: 11px;
+    line-height: 14px;
+    margin: 7px 0;
+    color: #666;
+}
+
+    div#helpTabBody p a, div#helpTabBody p a:hover {
+        color: #666;
+        text-decoration: underline;
+    }
+
+div#helpTabBody p span.super {
+    vertical-align: super;
+    font-size: 9px;
+    line-height: 5px;
+}
+
+div#helpTabBody h3 {
+    color: #666;
+    font-size: 12px;
+    margin: 0 0 0 3px;
+    padding: 0;
+}
+
+    div#helpTabBody h3 img {
+        position: relative;
+        top: 5px;
+    }
 

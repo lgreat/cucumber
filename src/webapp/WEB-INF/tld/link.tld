@@ -129,6 +129,13 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>
+        <attribute>
+            <name>campaignId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Campaign id to attach to link</description>
+        </attribute>
 
         <!--attribute>
             <name>state</name>
