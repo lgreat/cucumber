@@ -305,20 +305,28 @@
 
         <div class="divider lower"><hr/></div>
         
-        <c:if test="${requestScope.command.widgetCode ne null and requestScope.command.widgetCode gt ''}">
-            <div class="widgetCode">
-                <![CDATA[<a name="widgetCode"></a>]]>
-                <p>Copy and paste this code into your Web site or blog:</p>
-                <textarea rows="20"
-                          cols="100"
-                          onfocus="this.select();"
-                          readonly="readonly">${requestScope.command.widgetCode}</textarea>
-            </div>
-            <script type="text/javascript">
-                window.location.href = document.location.pathname + '#widgetCode';
-            </script>
-            <div class="divider lower"><hr/></div>
-        </c:if>
+        <c:choose>
+            <c:when test="${requestScope.command.widgetCode ne null and requestScope.command.widgetCode gt ''}">
+                <c:set var="pageName" value="Widget Code Created"/>
+
+                <div class="widgetCode">
+                    <![CDATA[<a name="widgetCode"></a>]]>
+                    <p>Copy and paste this code into your Web site or blog:</p>
+                    <textarea rows="20"
+                              cols="100"
+                              onfocus="this.select();"
+                              readonly="readonly">${requestScope.command.widgetCode}</textarea>
+                </div>
+                <script type="text/javascript">
+                    window.location.href = document.location.pathname + '#widgetCode';
+                </script>
+                <div class="divider lower"><hr/></div>
+
+            </c:when>
+            <c:otherwise>
+                <c:set var="pageName" value="Customize Widget"/>
+            </c:otherwise>
+        </c:choose>
 
         <div class="faq">
             <h2>GreatSchools School Finder Widget FAQ</h2>
@@ -347,7 +355,6 @@
     </div>
 
     <div style="display:none">
-        <c:set var="pageName" value="Customize Widget"/>
         <mod:tracking pageName="${pageName}"
                       hier1="Home,ContactUs,Partner Opportunities,SchoolFinder Widget"/>
     </div>
