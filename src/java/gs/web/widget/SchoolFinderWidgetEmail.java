@@ -30,6 +30,8 @@ public class SchoolFinderWidgetEmail extends AbstractSendEmailBean {
         EmailHelper emailHelper = getEmailHelper();
         emailHelper.setToEmail(user.getEmail());
         emailHelper.readHtmlFromResource(HTML_EMAIL_LOCATION);
+        emailHelper.setSentToCustomMessage("<p>This confirmation message was sent to $EMAIL.</p>");
+        emailHelper.setGreatSchoolsDescriptionWithNoLineBreaks(true);
 
         String cpn = "arwemcod";
 

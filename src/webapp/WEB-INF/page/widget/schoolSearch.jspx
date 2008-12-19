@@ -184,7 +184,7 @@
         <div id="searchTabBody" class="tabBody ${searchTabClass}">
             <h2>Find Schools</h2>
 
-            <p>Find the top schools in a city or near an address or zip</p>
+            <p>Find the top schools in a city or near an address or ZIP code</p>
 
             <gsml:errorMessage command="command" field="searchQuery" styleClass="warning" useImage="false"/>
 
@@ -200,8 +200,8 @@
                 <form:hidden path="lat" id="lat"/>
                 <form:hidden path="lon" id="lon"/>
                 <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
-                            onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
-                            onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
+                            onfocus="textSwitch(this, '', 'Enter city &amp; state or ZIP code');"
+                            onblur="textSwitch(this, 'Enter city &amp; state or ZIP code', '');"/>
                 <input type="image" src="/res/img/widget/greygo_button.gif" alt="GO" class="searchSubmit"/>
             </form:form>
         </div>
