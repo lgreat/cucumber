@@ -141,8 +141,14 @@
     boolean showSurvey = false;
     boolean surveyEligible = false;
     SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+    int surveyHoverPct = 0;
+    try {
+        surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
+    } catch (Exception e) {
+        // no nothing
+    }
     // False condition is set to disable the survey
-    if (false && !context.isCobranded()) {
+    if (surveyHoverPct > 0 && !context.isCobranded()) {
         int cookieLife = 15; // days
         if (!CookieUtil.hasCookie(request, "decipherinc_seen_popup")) {
             Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligible");
@@ -151,12 +157,6 @@
                 surveyEligible = "true".equals(surveyEligableCookie.getValue());
             } else {
                 // We need to determine eligability
-                int surveyHoverPct = 0;
-                try {
-                    surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
-                } catch (Exception e) {
-                    // no nothing
-                }
                 if (Util.randomNumber(100) < surveyHoverPct) {
                     surveyEligible = true;
                 }
