@@ -71,7 +71,7 @@
             }
             div#mapTabBody div#map {
                 width: ${requestScope.command.width-11}px;
-                height: ${requestScope.command.height-96}px;                
+                height: ${requestScope.command.height-118}px;                
             }
             div#searchTabBody h2 {
                 color: #${requestScope.command.textColor};
@@ -156,6 +156,7 @@
                         <noscript>JavaScript is required in order to view a map of the schools.
                         </noscript>
                     </div>
+                    <img src="/res/img/widget/map_key.gif" alt="Map Key" class="mapKey"/>
                     <c:set var="zoom" value="${not empty requestScope.command.zoom and requestScope.command.zoom gt 0 ? requestScope.command.zoom : 0}"/>
                     ZOOM[${zoom}]
                     <c:choose>

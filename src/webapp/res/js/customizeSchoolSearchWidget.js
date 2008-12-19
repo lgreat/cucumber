@@ -5,9 +5,9 @@ function previewValid() {
         alert("Minimum width is 300");
         return false;
     }
-    if (customizeForm.height.value < 412) {
-        customizeForm.height.value = 412;
-        alert("Minimum height is 412");
+    if (customizeForm.height.value < 434) {
+        customizeForm.height.value = 434;
+        alert("Minimum height is 434");
         return false;
     }
     return true;

@@ -147,19 +147,19 @@
                             <gsml:errorMessage command="command" field="height" useImage="true" styleClass="warning"/>
                             <gsml:errorMessage command="command" field="width" useImage="true" styleClass="warning"/>
                             <div class="dim smallDim">
-                                <form:radiobutton path="dimensions" value="300x412" label="Small (300 x 412)"
-                                                  onclick="selectDim(300, 412);"/>
+                                <form:radiobutton path="dimensions" value="300x434" label="Small (300 x 434)"
+                                                  onclick="selectDim(300, 434);"/>
                             </div>
                             <div class="dim panDim">
-                                <form:radiobutton path="dimensions" value="750x412" label="Panoramic (750 x 412)"
-                                                  onclick="selectDim(750, 412);"/>
+                                <form:radiobutton path="dimensions" value="750x434" label="Panoramic (750 x 434)"
+                                                  onclick="selectDim(750, 434);"/>
                             </div>
                             <div class="dim customDim">
                                 <form:radiobutton path="dimensions" value="custom" label="Custom:"/>
                                 <form:label cssClass="specifyDim" path="width">Width:</form:label><form:input cssClass="specifyDim" path="width" onclick="customDim();"/>
                                 <form:label cssClass="specifyDim" path="height">Height:</form:label><form:input cssClass="specifyDim" path="height" onclick="customDim();"/>
                             </div>
-                            <!-- 300x412 -->
+                            <!-- 300x434 -->
                         </div>
 
                         <div class="section widgetColors">

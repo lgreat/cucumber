@@ -28,7 +28,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
     private static final Logger _log = Logger.getLogger(CustomizeSchoolSearchWidgetController.class);
 
     public static final int MINIMUM_WIDTH = 300;
-    public static final int MINIMUM_HEIGHT = 412;
+    public static final int MINIMUM_HEIGHT = 434;
 
     private IUserDao _userDao;
     private SchoolFinderWidgetEmail _schoolFinderWidgetEmail;
