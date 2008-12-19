@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.55 2008/12/03 01:13:25 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.56 2008/12/19 02:15:26 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -605,6 +605,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public void changeUser(SessionContext context, HttpServletResponse response, User user) {
         if (user != null) {
+            _memberIdCookieGenerator.setCookieDomain(".greatschools.net");
             _memberIdCookieGenerator.addCookie(response, user.getId().toString());
         } else {
             _log.error("Tried to set member id for a null user");

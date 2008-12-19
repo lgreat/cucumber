@@ -662,12 +662,6 @@
     </bean>
     <!-- End Conversion pages -->
 
-    <!--
-    <bean name="/api/"
-          class="gs.web.api.ApiController"
-          autowire="byName" lazy-init="true"/>
-    -->
-
     <bean name="/path/compareEntry.page"
           class="gs.web.path.CompareEntryController" lazy-init="true"/>
 
