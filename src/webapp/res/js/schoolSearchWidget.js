@@ -81,7 +81,9 @@ function submitSearch() {
         !document.getElementById('filter_e').checked &&
         !document.getElementById('filter_m').checked &&
         !document.getElementById('filter_h').checked;
-    if (noneChecked) {
+    var newSearch =
+        (document.getElementById(GS_SEARCH_TAB_NAME).className == "selected");
+    if (noneChecked || newSearch) {
         document.getElementById('filter_p_value').value = 'true';
         document.getElementById('filter_e_value').value = 'true';
         document.getElementById('filter_m_value').value = 'true';
