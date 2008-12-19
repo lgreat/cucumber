@@ -63,6 +63,8 @@ function toggleFilter(levelCode, checked, searchQuery) {
         !document.getElementById('filter_m').checked &&
         !document.getElementById('filter_h').checked;
 
+    document.getElementById('zoom').value = GS_map.getZoom();
+
     if (noneChecked) {
         clearMarkers();
         if (centerOnStar) {
@@ -86,5 +88,6 @@ function submitSearch() {
         document.getElementById('filter_m_value').value = 'true';
         document.getElementById('filter_h_value').value = 'true';
     }
+    document.getElementById('zoom').value = 0;
     return true;
 }

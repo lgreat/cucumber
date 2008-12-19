@@ -19,6 +19,7 @@
 <jsp:directive.attribute name="schools" required="false" description="Schools to map, as SchoolWithRatings objects" type="java.util.List"/>
 <jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom, defaults to 9"/>
 <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom, defaults to 12"/>
+<jsp:directive.attribute name="zoom" required="false" type="java.lang.Integer" description="Google zoom, overrides minZoom or maxZoom"/>
 <jsp:directive.attribute name="s_cid" required="false" type="java.lang.String" description="Optional s_cid campaign tracking code to append to links"/>
 <!--
 Schools without lat/lon are skipped.
@@ -67,6 +68,7 @@ function reflectPoint(centerPoint, outlierPoint) {
 
 var minZoom = ${not empty minZoom?minZoom:6};
 var maxZoom = ${not empty maxZoom?maxZoom:13};
+var specifiedZoom = ${not empty zoom?zoom:0};
 var displayTooltips = true;
 var useBubbles = true;
 var centerOnStar = ${centerOnStar};
@@ -203,6 +205,7 @@ function initMap() {
     var zoom = GS_map.getBoundsZoomLevel(bounds);
     if (zoom > maxZoom) zoom = maxZoom;
     if (minZoom > zoom) zoom = minZoom;
+    if (specifiedZoom > 0) zoom = specifiedZoom;
     GS_map.setZoom(zoom);
 
     if (GS_map.getSize().height &lt; GS_smallHeight) {

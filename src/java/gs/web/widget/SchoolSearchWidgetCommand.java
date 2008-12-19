@@ -26,6 +26,7 @@ public class SchoolSearchWidgetCommand {
     private String _textColor = "228899";
     private float _lat;
     private float _lon;
+    private int _zoom;
 
     public String getDisplayTab() {
         return _displayTab;
@@ -153,6 +154,14 @@ public class SchoolSearchWidgetCommand {
 
     public void setLon(float lon) {
         _lon = lon;
+    }
+
+    public int getZoom() {
+        return _zoom;
+    }
+
+    public void setZoom(int zoom) {
+        _zoom = zoom;
     }
 
     public String getLevelCodeString() {
