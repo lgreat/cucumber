@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.18 2008/09/25 00:59:29 yfan Exp $
+ * $Id: AnchorListModelFactory.java,v 1.19 2008/12/19 23:22:57 eddie Exp $
  */
 
 package gs.web.util.list;
@@ -26,10 +26,7 @@ import org.apache.lucene.search.Hits;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Generates AnchorListModel objects from all sorts of input. Created to reduce
@@ -119,7 +116,7 @@ public class AnchorListModelFactory {
         sc = _schoolDao.countSchools(state, null, LevelCode.PRESCHOOL, cityName);
         if (sc > 0) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, LevelCode.PRESCHOOL);
-            String href = urlBuilder.asSiteRelative(request); 
+            String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, cityDisplayName + " Preschools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
@@ -209,10 +206,12 @@ public class AnchorListModelFactory {
                 String cityName = cityDoc.get("city");
                 String s = cityDoc.get("state");
                 State stateOfCity = _stateManager.getState(s);
-
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, stateOfCity, cityName, new HashSet<SchoolType>(), null);
-                cityName += ", " + stateOfCity;
-                anchorListModel.add(builder.asAnchor(request, cityName));
+                if(isGoodCity(cityName,s)){
+                    UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+                            stateOfCity, cityName, new HashSet<SchoolType>(), null);
+                    cityName += ", " + stateOfCity;
+                    anchorListModel.add(builder.asAnchor(request, cityName));
+                }
             }
         }
 
@@ -231,6 +230,16 @@ public class AnchorListModelFactory {
             a.appendStyleClass("first");
         }
         return anchorListModel;
+    }
+
+    public boolean isGoodCity(String cityName,String s){
+        Map<String,String> badCities = new HashMap<String,String>();
+        badCities.put("laurel","DC");
+        if(badCities.get(cityName.toLowerCase()) !=null
+                && badCities.get(cityName.toLowerCase()).equalsIgnoreCase(s)){
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -323,9 +332,11 @@ public class AnchorListModelFactory {
             }
 
             // anchor
-            UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
-            Anchor anchor = builder.asAnchor(request, name, styleClass);
-            anchorListModel.add(anchor);
+            if(isGoodCity(name,nearbyCity.getState().getAbbreviation())){
+                UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
+                Anchor anchor = builder.asAnchor(request, name, styleClass);
+                anchorListModel.add(anchor);
+            }
         }
 
         if (includeMoreItem) {
@@ -364,12 +375,12 @@ public class AnchorListModelFactory {
      *                             item. (Ignored for Washington, D.C.)
      */
     public AnchorListModel createNearbyCitiesWithRatingsAnchorListModel(final String heading, ICity city,
-                                                             List<NearbyCitiesController.CityAndRating> nearbyCities,
-                                                             int limit,
-                                                             final boolean alwaysIncludeState,
-                                                             final boolean includeMoreItem,
-                                                             final boolean includeBrowseAllItem,
-                                                             HttpServletRequest request) {
+                                                                        List<NearbyCitiesController.CityAndRating> nearbyCities,
+                                                                        int limit,
+                                                                        final boolean alwaysIncludeState,
+                                                                        final boolean includeMoreItem,
+                                                                        final boolean includeBrowseAllItem,
+                                                                        HttpServletRequest request) {
         AnchorListModel anchorListModel = new AnchorListModel(heading);
 
         for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
@@ -395,14 +406,16 @@ public class AnchorListModelFactory {
             }
 
             // anchor
-            UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
-            Anchor anchor = builder.asAnchor(request, name, styleClass);
-            if (rating == null) {
-                anchor.setAfter("0");
-            } else {
-                anchor.setAfter(String.valueOf(rating.getRating()));
+            if(isGoodCity(name,nearbyCity.getState().getAbbreviation())){
+                UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
+                Anchor anchor = builder.asAnchor(request, name, styleClass);
+                if (rating == null) {
+                    anchor.setAfter("0");
+                } else {
+                    anchor.setAfter(String.valueOf(rating.getRating()));
+                }
+                anchorListModel.add(anchor);
             }
-            anchorListModel.add(anchor);
         }
 
         if (includeMoreItem) {

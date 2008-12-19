@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.9 2008/09/25 00:59:29 yfan Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.10 2008/12/19 23:22:57 eddie Exp $
  */
 
 package gs.web.util.list;
@@ -13,16 +13,25 @@ import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
+import gs.data.search.Searcher;
+import gs.data.search.Indexer;
+import gs.data.search.GSAnalyzer;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.UrlBuilder;
 import static org.easymock.EasyMock.*;
+import org.apache.lucene.search.Hits;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.index.IndexWriter;
+import org.springframework.context.ApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.io.IOException;
 
 /**
  * Tests AnchorListModelFactory.
@@ -33,10 +42,12 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
 
     AnchorListModelFactory _anchorListModelFactory;
     private HttpServletRequest _request;
+    private Searcher _searcher;
 
     protected void setUp() throws Exception {
         super.setUp();
         _anchorListModelFactory = (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID);
+        _searcher = (Searcher) getApplicationContext().getBean(Searcher.BEAN_ID);
         final GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setRequestURI("http://www.greatschools.net/index.html");
         request.setRemoteHost("www.greatschools.net");
@@ -66,19 +77,19 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
 
         Anchor preschoolAnchor = (Anchor) list.get(0);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.PRESCHOOL)).asSiteRelative(null),
-            preschoolAnchor.getHref());
+                preschoolAnchor.getHref());
         assertEquals("Anchorage Preschools", preschoolAnchor.getContents());
         assertEquals(" (1)", preschoolAnchor.getAfter());
 
         Anchor elementaryAnchor = (Anchor) list.get(1);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.ELEMENTARY)).asSiteRelative(null),
-            elementaryAnchor.getHref());
+                elementaryAnchor.getHref());
         assertEquals("Anchorage Elementary Schools", elementaryAnchor.getContents());
         assertEquals(" (2)", elementaryAnchor.getAfter());
 
         Anchor middleAnchor = (Anchor) list.get(2);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.MIDDLE)).asSiteRelative(null),
-            middleAnchor.getHref());
+                middleAnchor.getHref());
         assertEquals(" (3)", middleAnchor.getAfter());
 
         Anchor highAnchor = (Anchor) list.get(3);
@@ -87,11 +98,11 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
 
         Anchor publicAnchor = (Anchor) list.get(4);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PUBLIC), null)).asSiteRelative(null),
-            publicAnchor.getHref());
+                publicAnchor.getHref());
 
         Anchor privateAnchor = (Anchor) list.get(5);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PRIVATE), null)).asSiteRelative(null),
-            privateAnchor.getHref());
+                privateAnchor.getHref());
 
         _anchorListModelFactory.setSchoolDao(springSchoolDao);
     }
@@ -161,6 +172,27 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         } finally {
             anchorListModelFactory.setDistrictDao(backupDistrictDao);
         }
+    }
+
+    public void testCreateCitiesListModel() throws Exception{
+        //This is a useless test because I couldn't load any sample dc data
+         AnchorListModelFactory anchorListModelFactory = (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID);
+        Hits cityHits = _searcher.searchForCities("anchorage",State.AK);
+            AnchorListModel anchorListModel =
+                    anchorListModelFactory.createCitiesListModel(_request,
+                            cityHits,
+                            SchoolType.PUBLIC,
+                            20,
+                            false);
+                assertEquals(anchorListModel.getResults().size(),1);
+            cityHits = _searcher.searchForCities("laurel",State.DC);
+            anchorListModel =
+                    anchorListModelFactory.createCitiesListModel(_request,
+                            cityHits,
+                            SchoolType.PUBLIC,
+                            20,
+                            false);
+            assertEquals(anchorListModel.getResults().size(),0);
     }
 
     private Set<SchoolType> createSchoolTypeSet(SchoolType... types) {
