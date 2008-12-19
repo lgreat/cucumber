@@ -29,9 +29,9 @@ public class SchoolFinderWidgetEmail extends AbstractSendEmailBean {
     public void sendToUser(User user, String widgetCode, HttpServletRequest request) throws IOException, MessagingException {
         EmailHelper emailHelper = getEmailHelper();
         emailHelper.setToEmail(user.getEmail());
-        emailHelper.readHtmlFromResource(HTML_EMAIL_LOCATION);
         emailHelper.setSentToCustomMessage("<p>This confirmation message was sent to $EMAIL.</p>");
         emailHelper.setGreatSchoolsDescriptionWithNoLineBreaks(true);
+        emailHelper.readHtmlFromResource(HTML_EMAIL_LOCATION);
 
         String cpn = "arwemcod";
 
