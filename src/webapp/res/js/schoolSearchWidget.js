@@ -64,12 +64,11 @@ function toggleFilter(levelCode, checked, searchQuery) {
         !document.getElementById('filter_h').checked;
 
     document.getElementById('zoom').value = GS_map.getZoom();
+    document.getElementById('lat').value = GS_map.getCenter().lat();
+    document.getElementById('lon').value = GS_map.getCenter().lng();
 
     if (noneChecked) {
         clearMarkers();
-        if (centerOnStar) {
-            addCenterPoint(GS_map, centerPoint);
-        }
     } else {
         document.forms['searchForm'].submit();
     }
@@ -89,5 +88,7 @@ function submitSearch() {
         document.getElementById('filter_h_value').value = 'true';
     }
     document.getElementById('zoom').value = 0;
+    document.getElementById('lat').value = 0;
+    document.getElementById('lon').value = 0;
     return true;
 }

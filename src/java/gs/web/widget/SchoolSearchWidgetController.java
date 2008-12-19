@@ -107,9 +107,10 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         boolean hasResults = false;
         boolean shownError = false;
 
-        // reset latitude and longitude
-        command.setLat(0);
-        command.setLon(0);
+        // reset location marker latitude and longitude (but not current lat, lon)
+        command.setShowLocationMarker(false);
+        command.setLocationMarkerLat(0);
+        command.setLocationMarkerLon(0);
 
         if (StringUtils.isNotBlank(searchQuery)) {
             searchQuery = searchQuery.trim();
@@ -212,8 +213,13 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                         float lat = Float.parseFloat(coordinates.getString(1));
 
                         hasResults = loadResultsForLatLon(_stateManager.getState(stateAbbrev), lat, lon, DISTANCE_IN_MILES, MAX_NUM_RESULTS, normalizedAddress, command);
-                        command.setLat(lat);
-                        command.setLon(lon);
+                        command.setShowLocationMarker(true);
+                        command.setLocationMarkerLat(lat);
+                        command.setLocationMarkerLon(lon);
+                        if (command.getLat() == 0 && command.getLon() == 0) {
+                            command.setLat(lat);
+                            command.setLon(lon);
+                        }
                     }
                 }
             }

@@ -26,6 +26,9 @@ public class SchoolSearchWidgetCommand {
     private String _textColor = "228899";
     private float _lat;
     private float _lon;
+    private float _locationMarkerLat;
+    private float _locationMarkerLon;
+    private boolean _showLocationMarker;
     private int _zoom;
 
     public String getDisplayTab() {
@@ -154,6 +157,30 @@ public class SchoolSearchWidgetCommand {
 
     public void setLon(float lon) {
         _lon = lon;
+    }
+
+    public float getLocationMarkerLat() {
+        return _locationMarkerLat;
+    }
+
+    public void setLocationMarkerLat(float locationMarkerLat) {
+        _locationMarkerLat = locationMarkerLat;
+    }
+
+    public float getLocationMarkerLon() {
+        return _locationMarkerLon;
+    }
+
+    public void setLocationMarkerLon(float locationMarkerLon) {
+        _locationMarkerLon = locationMarkerLon;
+    }
+
+    public boolean isShowLocationMarker() {
+        return _showLocationMarker;
+    }
+
+    public void setShowLocationMarker(boolean showLocationMarker) {
+        _showLocationMarker = showLocationMarker;
     }
 
     public int getZoom() {

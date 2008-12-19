@@ -158,26 +158,20 @@
                     </div>
                     <img src="/res/img/widget/map_key.gif" alt="Map Key" class="mapKey"/>
                     <c:set var="zoom" value="${not empty requestScope.command.zoom and requestScope.command.zoom gt 0 ? requestScope.command.zoom : 0}"/>
-                    ZOOM[${zoom}]
-                    <c:choose>
-                        <c:when test="${requestScope.command.lat != 0 and requestScope.command.lon != 0}">
-                            <c:set var="zoom" value="${zoom gt 0 ? zoom : 13}"/>
-                            <map:schoolsWithRatings id="map"
-                                                    lat="${requestScope.command.lat}"
-                                                    lon="${requestScope.command.lon}"
-                                                    schools="${requestScope.command.schools}"
-                                                    zoom="${zoom}"
-                                                    s_cid="wsbayf93"
-                                    />
-                        </c:when>
-                        <c:otherwise>
-                            <map:schoolsWithRatings id="map"
-                                                    schools="${requestScope.command.schools}"
-                                                    zoom="${zoom}"
-                                                    s_cid="wsbayf93"
-                                    />
-                        </c:otherwise>
-                    </c:choose>
+                    <c:if test="${requestScope.command.showLocationMarker and zoom eq 0}">
+                        <c:set var="zoom" value="13"/>
+                    </c:if>
+
+                    <map:schoolsWithRatings id="map"
+                                            lat="${requestScope.command.lat}"
+                                            lon="${requestScope.command.lon}"
+                                            showLocationMarker="${requestScope.command.showLocationMarker}"
+                                            locationMarkerLat="${requestScope.command.locationMarkerLat}"
+                                            locationMarkerLon="${requestScope.command.locationMarkerLon}"
+                                            schools="${requestScope.command.schools}"
+                                            zoom="${zoom}"
+                                            s_cid="wsbayf93"
+                            />
                 </c:when>
                 <c:otherwise>
                     <p>No results to display.</p>
@@ -203,10 +197,8 @@
                 <form:hidden path="height"/>
                 <form:hidden path="textColor"/>
                 <form:hidden path="zoom" id="zoom"/>
-                <!--
-                <form:hidden path="centerLat" id="center_lat"/>
-                <form:hidden path="centerLon" id="center_lon"/>
-                -->
+                <form:hidden path="lat" id="lat"/>
+                <form:hidden path="lon" id="lon"/>
                 <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
                             onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>

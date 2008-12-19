@@ -16,6 +16,9 @@
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
 <jsp:directive.attribute name="lon" required="false" type="java.lang.Float" description="Longitude (center of map)"/>
 <jsp:directive.attribute name="lat" required="false" type="java.lang.Float" description="Latitude (center of map)"/>
+<jsp:directive.attribute name="showLocationMarker" required="false" type="java.lang.Boolean" description="Whether or not to show the location marker"/>
+<jsp:directive.attribute name="locationMarkerLon" required="false" type="java.lang.Float" description="Longitude of location marker"/>
+<jsp:directive.attribute name="locationMarkerLat" required="false" type="java.lang.Float" description="Latitude of location marker"/>
 <jsp:directive.attribute name="schools" required="false" description="Schools to map, as SchoolWithRatings objects" type="java.util.List"/>
 <jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom, defaults to 9"/>
 <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom, defaults to 12"/>
@@ -28,11 +31,18 @@ Schools without lat/lon are skipped.
 
     request.setAttribute("mapSchools", schools);
 
-    if (lat != null && lon != null) {
-        request.setAttribute("centerOnStar", true);
+    if (showLocationMarker == null || locationMarkerLon == null || locationMarkerLat == null) {
+        showLocationMarker = false;
+    }
+
+    request.setAttribute("showLocationMarker", showLocationMarker);
+    if (showLocationMarker) {
+        request.setAttribute("locationPoint", new LatLon(locationMarkerLat, locationMarkerLon));
+    }
+
+    if (lat != null && lon != null && (lat + lon != 0)) {
         request.setAttribute("center", new LatLon(lat, lon));
     } else {
-        request.setAttribute("centerOnStar", false);
         // Calculate the optimal center point
         if (schools != null) {
             LatLonRect r = new LatLonRect(schools);
@@ -71,7 +81,11 @@ var maxZoom = ${not empty maxZoom?maxZoom:13};
 var specifiedZoom = ${not empty zoom?zoom:0};
 var displayTooltips = true;
 var useBubbles = true;
-var centerOnStar = ${centerOnStar};
+var showLocationMarker = ${showLocationMarker};
+
+<c:if test="${not empty locationPoint}">
+var locationPoint = new GLatLng(${locationPoint.lat}, ${locationPoint.lon});
+</c:if>
 var centerPoint = new GLatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
 
@@ -197,9 +211,9 @@ function initMap() {
     }
     ]]>
 
-    if (centerOnStar) {
-        addCenterPoint(GS_map, centerPoint);
-        extendBoundsToCenterOnPoint(centerPoint, bounds);
+    if (showLocationMarker) {
+        addLocationMarker(GS_map, locationPoint);
+        extendBoundsToCenterOnPoint(locationPoint, bounds);
     }
 
     var zoom = GS_map.getBoundsZoomLevel(bounds);
@@ -207,6 +221,7 @@ function initMap() {
     if (minZoom > zoom) zoom = minZoom;
     if (specifiedZoom > 0) zoom = specifiedZoom;
     GS_map.setZoom(zoom);
+    GS_map.setCenter(centerPoint);
 
     if (GS_map.getSize().height &lt; GS_smallHeight) {
         GEvent.addListener(GS_map, "infowindowopen", function() {
@@ -239,7 +254,7 @@ function addBubbleListener(marker, school) {
   });
 }
 
-function addCenterPoint(GS_map, centerPoint) {
+function addLocationMarker(GS_map, locationPoint) {
     var arrowIcon = new GIcon();
     arrowIcon.image = "/res/img/map/green_arrow.png";
     arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
@@ -256,12 +271,15 @@ function addCenterPoint(GS_map, centerPoint) {
     function fakeLatitudeAtEquatorOrder(marker, b) {
       return GOverlay.getZIndex(1.0);
     }
-    marker = new GMarker(centerPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
+    marker = new GMarker(locationPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
     GS_map.addOverlay(marker);
 }
 
 function clearMarkers() {
     GS_map.clearOverlays();
+    if (showLocationMarker) {
+        addLocationMarker(GS_map, locationPoint);
+    }
 }
 
 <![CDATA[
