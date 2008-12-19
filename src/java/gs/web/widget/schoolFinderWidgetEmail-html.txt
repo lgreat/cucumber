@@ -1,8 +1,8 @@
 <p><strong>Thank you for creating a customized GreatSchools School Finder Widget!</strong></p>
 
-<p>You’re ready to put the widget onto your Web site or blog, simply by copying and pasting the code below.</p>
+<p>You're ready to put the widget onto your Web site or blog, simply by copying and pasting the code below.</p>
 
-<p>Or, if you’d like to go back and customize the widget differently, you can return to the
+<p>Or, if you'd like to go back and customize the widget differently, you can return to the
 <a href="$WIDGET_CUSTOMIZATION_PAGE">Widget Customization Page</a>.</p>
 
 <p>Sincerely,</p>
