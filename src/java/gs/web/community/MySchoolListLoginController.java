@@ -36,6 +36,14 @@ public class MySchoolListLoginController extends SimpleFormController implements
     final public static String ERROR_EMPTY_EMAIL_ADDRESS = "Please enter your email address.";
     final public static String ERROR_INVALID_EMAIL_ADDRESS = "Please enter a valid email address.";
 
+    
+    // Intercept the request in order to had the P3P header to all repsonses from this controller.
+    @Override
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.addHeader("P3P", "CAO PSA OUR");
+        return super.handleRequest(request, response); 
+    }
+
     protected void onBindAndValidate(HttpServletRequest request, java.lang.Object objCommand,
                                      BindException errors) {
         LoginCommand command = (LoginCommand)objCommand;
@@ -84,7 +92,6 @@ public class MySchoolListLoginController extends SimpleFormController implements
             model.put(MySchoolListController.PARAM_STATE,
                     request.getParameter(MySchoolListController.PARAM_STATE));
         }
-        response.addHeader("P3P", "CAO PSA OUR");
         return new ModelAndView(getSuccessView(), model);
     }
 
