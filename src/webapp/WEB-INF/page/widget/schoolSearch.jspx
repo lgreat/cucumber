@@ -106,7 +106,12 @@
         <div id="mapTabBody" class="tabBody ${mapTabClass}">
             <div class="locationDescription">
                 ${requestScope.command.mapLocationPrefix}
-                <span>${requestScope.command.mapLocationString}</span>:
+                <span>${requestScope.command.mapLocationString}</span>${requestScope.command.mapLocationSuffix}
+                <c:if test="${empty requestScope.command.mapLocationPrefix and
+                              empty requestScope.command.mapLocationString and
+                              empty requestScope.command.mapLocationSuffix}">
+                    <br/>
+                </c:if>
             </div>
             <div class="help">
                 <a href="#" onclick="showHelpTab(); return false;">

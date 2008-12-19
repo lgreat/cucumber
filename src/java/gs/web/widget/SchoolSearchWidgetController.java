@@ -245,6 +245,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             command.setSchools(schools);
             command.setMapLocationPrefix("Schools near ");
             command.setMapLocationString(address);
+            command.setMapLocationSuffix(":");
         }
         return hasResults;
     }
@@ -263,6 +264,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             command.setSchools(schools);
             command.setMapLocationPrefix("All schools in ");
             command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
+            command.setMapLocationSuffix(":");
         }
         return hasResults;
     }

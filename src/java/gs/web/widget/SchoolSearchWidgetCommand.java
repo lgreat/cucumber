@@ -16,6 +16,7 @@ public class SchoolSearchWidgetCommand {
     private City _city;
     private String _mapLocationPrefix;
     private String _mapLocationString;
+    private String _mapLocationSuffix;
     private boolean _preschoolFilterChecked = true;
     private boolean _elementaryFilterChecked = true;
     private boolean _middleFilterChecked = true;
@@ -72,6 +73,14 @@ public class SchoolSearchWidgetCommand {
 
     public void setMapLocationString(String mapLocationString) {
         _mapLocationString = mapLocationString;
+    }
+
+    public String getMapLocationSuffix() {
+        return _mapLocationSuffix;
+    }
+
+    public void setMapLocationSuffix(String mapLocationSuffix) {
+        _mapLocationSuffix = mapLocationSuffix;
     }
 
     public boolean isPreschoolFilterChecked() {
