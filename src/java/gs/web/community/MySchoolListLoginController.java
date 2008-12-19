@@ -40,7 +40,7 @@ public class MySchoolListLoginController extends SimpleFormController implements
     // Intercept the request in order to had the P3P header to all repsonses from this controller.
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.addHeader("P3P", "CAO PSA OUR");
+        response.addHeader("P3P", "CP=\"CAO PSA OUR\"");
         return super.handleRequest(request, response); 
     }
 
