@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ClassPathResource;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -69,6 +70,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
                 }
                 String widgetCode = getWidgetCode(command, request);
                 sendWidgetCodeEmail(user, widgetCode, request);
+                command.setWidgetCode(StringEscapeUtils.escapeHtml(widgetCode));
             }
         }
 
@@ -93,7 +95,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
             String line = reader.readLine();
             while (line != null) {
-                buffer.append(line);
+                buffer.append(line.trim()).append(" ");
                 line = reader.readLine();
             }
             text = buffer.toString();

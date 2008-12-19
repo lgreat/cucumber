@@ -29,6 +29,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private String _textColor = "228899";
     private String _bordersColor = "9CD4DB";
     private boolean _terms;
+    private String _widgetCode;
 
     public String getSearchQuery() {
         return _searchQuery;
@@ -221,5 +222,13 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         separator = "&amp;";
         rval += separator  + "height=" + getIframeHeight();
         return rval;
+    }
+
+    public void setWidgetCode(String widgetCode) {
+        _widgetCode = widgetCode;
+    }
+
+    public String getWidgetCode() {
+        return _widgetCode;
     }
 }

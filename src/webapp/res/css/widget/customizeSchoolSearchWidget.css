@@ -175,6 +175,15 @@ td.leftSide a, td.leftSide a:hover, .contentGS td.leftSide a, .contentGS td.left
     text-decoration: none;
 }
 
+div.widgetCode {
+    margin-top: 25px;
+}
+
+    div.widgetCode textarea {
+        color: #444;
+        margin-top: 5px;
+    }
+
 div.faq {
     margin-top: 40px;
 }

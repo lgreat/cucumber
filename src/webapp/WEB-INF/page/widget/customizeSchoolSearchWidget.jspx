@@ -18,9 +18,6 @@
     <meta name="description" content="Add school information to your Web site in minutes with the School Finder widget - it's free and easy to use. Customize the design and create the code instantly."/>
     <title>School Finder - Customize Your Free School Information Widget - GreatSchools</title>
     <pageHelper:externalCss file="/res/css/widget/customizeSchoolSearchWidget.css"/>
-    <!--<pageHelper:externalJavascript file="/res/js/global.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/cookie.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/trackIt.js"/>-->
     <pageHelper:externalJavascript file="/res/js/customizeSchoolSearchWidget.js"/>
     <!--<c:if test="${requestScope.pageHelper.devEnvironment}">-->
         <!--<gsml:url var="js" value="/res/js/s_code_dev.js"/>-->
@@ -275,7 +272,7 @@
                                             src="${requestScope.command.iframeUrl}"
                                             width="${requestScope.command.iframeWidth}" height="${requestScope.command.iframeHeight}"
                                             marginheight="0" marginwidth="0"
-                                            frameborder="0" scrolling="no"><!-- Keep from collapsing --></iframe>
+                                            frameborder="0" scrolling="no"> Keep from collapsing </iframe>
                                 </div>
                                 <div class="GS_widget_footer">
                                     <a href="/?s_cid=wsbay93" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
@@ -307,6 +304,21 @@
         </table>
 
         <div class="divider lower"><hr/></div>
+        
+        <c:if test="${requestScope.command.widgetCode ne null and requestScope.command.widgetCode gt ''}">
+            <div class="widgetCode">
+                <![CDATA[<a name="widgetCode"></a>]]>
+                <p>Copy and paste this code into your Web site or blog:</p>
+                <textarea rows="20"
+                          cols="100"
+                          onfocus="this.select();"
+                          readonly="readonly">${requestScope.command.widgetCode}</textarea>
+            </div>
+            <script type="text/javascript">
+                window.location.href = document.location.pathname + '#widgetCode';
+            </script>
+            <div class="divider lower"><hr/></div>
+        </c:if>
 
         <div class="faq">
             <h2>GreatSchools School Finder Widget FAQ</h2>
