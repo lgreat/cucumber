@@ -1,0 +1,21 @@
+.main-box .inner {
+    background-image: url( /res/img/library/middle-box2-top.png );
+}
+
+.main-box {
+    background-image: url( /res/img/library/middle-box2-bottom.png );
+}
+
+.side-box .inner {
+    background-image: url( /res/img/library/right-box2-top.png );
+}
+
+.side-box {
+    background-image: url( /res/img/library/right-box2-bottom.png );
+}
+
+#pageWrapper #supplement h2 {
+    color : #D66671;
+    font-size: 18px;
+    margin: 10px 0;
+}

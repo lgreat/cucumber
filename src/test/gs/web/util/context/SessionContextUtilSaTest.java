@@ -17,9 +17,8 @@ import javax.servlet.http.Cookie;
  * 1.14 of SessionContextUtil and is not comprehensive ... I'm only testing certain methods that I've
  * modified / created in revision 1.14.
  *
- * @TODO Expand test cases to all methods in SessionContextUtil
- *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * @TODO Expand test cases to all methods in SessionContextUtil
  */
 public class SessionContextUtilSaTest extends BaseTestCase {
     private GsMockHttpServletRequest _request;
@@ -186,33 +185,33 @@ public class SessionContextUtilSaTest extends BaseTestCase {
 
         assertNull(_sessionContext.getState());
 
-        _request.setCookies(new Cookie[] {newStateCookie});
+        _request.setCookies(new Cookie[]{newStateCookie});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value not read from STATE3 cookie", State.CA, _sessionContext.getState());
 
-        _request.setCookies(new Cookie[] {oldStateCookie1});
+        _request.setCookies(new Cookie[]{oldStateCookie1});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value did not fall back to old STATE cookie", State.AK, _sessionContext.getState());
 
-        _request.setCookies(new Cookie[] {newStateCookie, oldStateCookie1});
+        _request.setCookies(new Cookie[]{newStateCookie, oldStateCookie1});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value should always default to new STATE3 cookie", State.CA, _sessionContext.getState());
 
         // make sure order of cookie doesn't matter
-        _request.setCookies(new Cookie[] {oldStateCookie1, newStateCookie});
+        _request.setCookies(new Cookie[]{oldStateCookie1, newStateCookie});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value should always default to new STATE3 cookie", State.CA, _sessionContext.getState());
 
-        _request.setCookies(new Cookie[] {oldStateCookie2});
+        _request.setCookies(new Cookie[]{oldStateCookie2});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value did not fall back to old STATE cookie", State.TX, _sessionContext.getState());
 
-        _request.setCookies(new Cookie[] {newStateCookie, oldStateCookie2});
+        _request.setCookies(new Cookie[]{newStateCookie, oldStateCookie2});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value should always default to new STATE3 cookie", State.CA, _sessionContext.getState());
 
         // make sure order of cookie doesn't matter
-        _request.setCookies(new Cookie[] {oldStateCookie2, newStateCookie});
+        _request.setCookies(new Cookie[]{oldStateCookie2, newStateCookie});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value should always default to new STATE3 cookie", State.CA, _sessionContext.getState());
     }
@@ -282,11 +281,23 @@ public class SessionContextUtilSaTest extends BaseTestCase {
 
         _request.setRequestURI("/new-york/ithaca/schools/");
         _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
-        assertEquals("Expected state of NY", State.NY, _sessionContext.getState());        
+        assertEquals("Expected state of NY", State.NY, _sessionContext.getState());
+
+        _request.setRequestURI("/Vermont/burlington/schools/");
+        _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
+        assertEquals("Expected state of VT", State.VT, _sessionContext.getState());
+
+        _request.setRequestURI("/washington-dc/washington/schools/");
+        _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
+        assertEquals("Expected state of DC", State.DC, _sessionContext.getState());
+
+        _request.setRequestURI("/top-high-schools/florida");
+        _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
+        assertEquals("Expected state of FL", State.FL, _sessionContext.getState());
 
         _request.setRequestURI("/schools.page?district=717&state=CA");
         _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
-        assertEquals("Expected state of NY", State.NY, _sessionContext.getState());
+        assertEquals("Expected state of FL because the URI matched shouldn't match state=CA", State.FL, _sessionContext.getState());
     }
 
     public void testCityIdCookie() throws Exception {
@@ -295,12 +306,12 @@ public class SessionContextUtilSaTest extends BaseTestCase {
 
         assertNull(_sessionContext.getCityId());
 
-        _request.setCookies(new Cookie[] {cityCookie});
+        _request.setCookies(new Cookie[]{cityCookie});
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Value not read from CITYID cookie", new Integer(133917), _sessionContext.getCityId());
 
-        _request.setCookies(new Cookie[] {newCityCookie});
+        _request.setCookies(new Cookie[]{newCityCookie});
         _sessionContextUtil.readCookies(_request, _sessionContext);
-        assertEquals("Correct value not read from CITYID cookie", new Integer(12345), _sessionContext.getCityId());        
+        assertEquals("Correct value not read from CITYID cookie", new Integer(12345), _sessionContext.getCityId());
     }
 }

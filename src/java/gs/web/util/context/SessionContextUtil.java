@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.56 2008/12/19 02:15:26 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.57 2008/12/20 00:19:12 thuss Exp $
  */
 
 package gs.web.util.context;
@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.List;
 
 /**
  * Provides...
@@ -94,6 +95,8 @@ public class SessionContextUtil implements ApplicationContextAware {
     private static final Pattern CRAWLER_USER_AGENTS =
             Pattern.compile(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver).*");
 
+    private static Pattern LONG_STATE_URI_PATTERN = null;
+
     private static final Log _log = LogFactory.getLog(SessionContextUtil.class);
     private ApplicationContext _applicationContext;
 
@@ -103,7 +106,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     private CookieGenerator _omnitureSubCookieGenerator;
     private CookieGenerator _stateCookieGenerator;
-    private CookieGenerator _memberCookieGenerator;    
+    private CookieGenerator _memberCookieGenerator;
     private CookieGenerator _memberIdCookieGenerator;
     private CookieGenerator _hasSearchedCookieGenerator;
     private CookieGenerator _sessionCacheCookieGenerator;
@@ -113,14 +116,10 @@ public class SessionContextUtil implements ApplicationContextAware {
     public static final String COMMUNITY_LIVE_HOSTNAME = "community.greatschools.net";
     public static final String COMMUNITY_STAGING_HOSTNAME = "community.staging.greatschools.net";
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.net";
-    public static final String COMMUNITY_PRERELEASE_HOSTNAME = "comgen1.greatschools.net:8000";
-
-
-    public SessionContextUtil() {
-    }
+    public static final String COMMUNITY_PRERELEASE_HOSTNAME = "comgen1.greatschools.net:8000";       
 
     protected void readCookies(HttpServletRequest httpServletRequest,
-                             final SessionContext context) {
+                               final SessionContext context) {
         // Find the cookie that pertains to the user
         // We don't need to do this every time, but for now
         // while we are jumping back and forth with the perl code, we do.
@@ -285,6 +284,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     /**
      * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
+     *
      * @param request
      * @param sessionContext
      */
@@ -448,15 +448,14 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     /**
      * Grab the original request URI before tomcat resets it to the JSP that is forwarded to
+     *
      * @param request
      * @param response
      * @param context
      */
     public void updateStateFromRequestURI(HttpServletRequest request, HttpServletResponse response,
                                           SessionContext context) {
-        String statePattern = "/(.*?)/.*";
-        Pattern pattern = Pattern.compile(statePattern);
-        Matcher matcher = pattern.matcher(request.getRequestURI());
+        Matcher matcher = getLongStateUriPattern().matcher(request.getRequestURI());
         boolean matchFound = matcher.find();
 
         if (matchFound) {
@@ -495,9 +494,9 @@ public class SessionContextUtil implements ApplicationContextAware {
     }
 
     private void updateStateHelper(SessionContext context,
-                                     HttpServletRequest httpServletRequest,
-                                     HttpServletResponse httpServletResponse,
-                                     State currState, State newState) {
+                                   HttpServletRequest httpServletRequest,
+                                   HttpServletResponse httpServletResponse,
+                                   State currState, State newState) {
         if (currState == null && newState == null) {
             _log.debug("No existing state in session and bogus, non-empty state through url param.");
         }
@@ -612,6 +611,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         }
 
     }
+
     public void changeAuthorization(HttpServletRequest request, HttpServletResponse response, User user, String hash) {
         changeAuthorization(request, response, user, hash, false);
     }
@@ -700,8 +700,22 @@ public class SessionContextUtil implements ApplicationContextAware {
         _memberCookieGenerator.removeCookie(response);
         // Before a user logs into community, the name of the community cookie is blank. Thus, we
         // do this check in order to avoid a NPE.
-        if(!StringUtils.isBlank(_communityCookieGenerator.getCookieName())) {
+        if (!StringUtils.isBlank(_communityCookieGenerator.getCookieName())) {
             _communityCookieGenerator.removeCookie(response);
         }
+    }
+
+    public Pattern getLongStateUriPattern() {
+        if (LONG_STATE_URI_PATTERN == null) {
+            StringBuffer longStatePattern = new StringBuffer("/(");
+            List<State> states = _stateManager.getListByAbbreviations();
+            for (int i = 0; i < states.size(); i++) {
+                if (i > 0) longStatePattern.append("|");
+                longStatePattern.append(states.get(i).getLongName().replaceAll(" ", "-").toLowerCase());
+            }
+            longStatePattern.append(")");
+            LONG_STATE_URI_PATTERN = Pattern.compile(longStatePattern.toString(), Pattern.CASE_INSENSITIVE);
+        }
+        return LONG_STATE_URI_PATTERN;
     }
 }

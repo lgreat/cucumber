@@ -45,6 +45,7 @@
         <property name="urlMap">
             <map>
                 <entry key="/city/**" value="/city.page"/>
+                <entry key="/top-high-schools/*" value="/schools/topSchools.page"/>
                 <entry key="/schools/**" value="/schools/allInState.page"/>
                 <entry key="/preschool/**" value="/preschool/index.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
@@ -696,6 +697,12 @@
     <bean name="/schools/allInState.page"
           class="gs.web.school.AllInStateController"
           autowire="byName" lazy-init="true"/>
+
+    <bean name="/schools/topSchools.page" class="gs.web.school.TopSchoolsController" autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>/school/topSchools</value>
+        </property>
+    </bean>
 
     <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName" lazy-init="true"/>
 

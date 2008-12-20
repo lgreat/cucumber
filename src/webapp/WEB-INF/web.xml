@@ -55,6 +55,11 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/top-high-schools/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/schools/*</url-pattern>
     </servlet-mapping>
 
@@ -551,6 +556,11 @@
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/top-high-schools/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
         <url-pattern>/preschool/*</url-pattern>
     </filter-mapping>
 
@@ -996,6 +1006,14 @@
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>/city/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/top-high-schools/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -1764,6 +1782,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/city/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/top-high-schools/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
