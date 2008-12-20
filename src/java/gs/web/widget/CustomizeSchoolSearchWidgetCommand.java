@@ -214,6 +214,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
                 separator = "&amp;";
             }
             rval += separator  + "textColor=" + URLEncoder.encode(_textColor, "UTF-8");
+            rval += separator  + "bordersColor=" + URLEncoder.encode(_bordersColor, "UTF-8");
             separator = "&amp;";
         } catch (UnsupportedEncodingException uee) {
             _log.error(uee);

@@ -62,9 +62,13 @@
             div#schoolSearchWidget {
                 width: ${requestScope.command.width}px;
             }
+            div.tabBar {
+                background-color: #${requestScope.command.bordersColor};
+            }
             div.tabBar div {
                 width: ${requestScope.command.width/2}px;
                 color: #${requestScope.command.textColor};
+                border-bottom: solid 1px #${requestScope.command.bordersColor};
             }
             div.tabBar div#mapTab {
                 width: ${requestScope.command.width/2 - 1}px;

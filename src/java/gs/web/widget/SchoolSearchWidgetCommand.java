@@ -24,6 +24,7 @@ public class SchoolSearchWidgetCommand {
     private int _width = 290;
     private int _height = 346;
     private String _textColor = "228899";
+    private String _bordersColor = "9CD4DB";
     private float _lat;
     private float _lon;
     private float _locationMarkerLat;
@@ -141,6 +142,14 @@ public class SchoolSearchWidgetCommand {
 
     public void setTextColor(String textColor) {
         _textColor = textColor;
+    }
+
+    public String getBordersColor() {
+        return _bordersColor;
+    }
+
+    public void setBordersColor(String bordersColor) {
+        _bordersColor = bordersColor;
     }
 
     public float getLat() {
