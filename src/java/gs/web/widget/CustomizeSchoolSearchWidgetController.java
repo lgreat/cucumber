@@ -19,6 +19,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
+import java.util.Date;
+import java.util.Random;
+import java.text.SimpleDateFormat;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -68,6 +71,12 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
                     user.setHow("school_finder_widget");
                     getUserDao().saveUser(user);
                 }
+
+                // set widget unique id
+                Random rand = new Random(System.currentTimeMillis());
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
+                command.setUniqueId(user.getId() + "." + dateFormatter.format(new Date()) + "." + rand.nextInt(1000000));
+
                 String widgetCode = getWidgetCode(command, request);
                 sendWidgetCodeEmail(user, widgetCode, request);
                 command.setWidgetCode(StringEscapeUtils.escapeHtml(widgetCode));
@@ -107,6 +116,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             text = replaceText(text, "IFRAME_URL", command.getIframeUrl(request));
             text = replaceText(text, "IFRAME_WIDTH", String.valueOf(command.getWidth()));
             text = replaceText(text, "IFRAME_HEIGHT", String.valueOf(command.getHeight()));
+            text = replaceText(text, "UNIQUE_ID", String.valueOf(command.getUniqueId()));
         } catch (IOException e) {
             _log.error(e);
         } finally {

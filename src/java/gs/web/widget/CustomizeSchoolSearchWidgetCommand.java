@@ -30,6 +30,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private String _bordersColor = "9CD4DB";
     private boolean _terms;
     private String _widgetCode;
+    private String _uniqueId;
 
     public String getSearchQuery() {
         return _searchQuery;
@@ -231,5 +232,13 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
 
     public String getWidgetCode() {
         return _widgetCode;
+    }
+
+    public String getUniqueId() {
+        return _uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        _uniqueId = uniqueId;
     }
 }
