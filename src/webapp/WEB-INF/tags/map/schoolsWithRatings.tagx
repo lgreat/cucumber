@@ -178,7 +178,6 @@ function initMap() {
     GS_map.setCenter(centerPoint, 17);
     var bounds = new GLatLngBounds();
     bounds.extend(centerPoint);
-    var zoom = maxZoom;
     <![CDATA[
     if (schoolArray.length > 0) {
         for (var counter=0; counter < schoolArray.length; counter++) {
@@ -225,15 +224,17 @@ function initMap() {
 
     if (GS_map.getSize().height &lt; GS_smallHeight) {
         GEvent.addListener(GS_map, "infowindowopen", function() {
-            GS_map.removeControl(GS_map_zoomControl);
+            // trigger manual function to try and center window
             needsExtraZoom = true;
         });
         GEvent.addListener(GS_map, "infowindowbeforeclose", function() {
+            // add zoom control back in
             GS_map.addControl(GS_map_zoomControl);
             needsExtraZoom = false;
         });
         GEvent.addListener(GS_map, "moveend", function() {
             if (needsExtraZoom) {
+                // trigger manual function to try and center window
                 window.setTimeout(panUpABit, 100);
             }
         });
@@ -241,15 +242,15 @@ function initMap() {
 }
 
 function panUpABit() {
-    GS_map.panDirection(0,0.3);
+    // remove control so it doesn't block info window
+    GS_map.removeControl(GS_map_zoomControl);
+    // pan view down to keep top of info window visible
+    GS_map.panDirection(0,0.4);
     needsExtraZoom = false;
 }
 
 function addBubbleListener(marker, school) {
   GEvent.addListener(marker, "click", function() {
-      if (GS_map.getSize().height &lt; GS_smallHeight) {
-        GS_map.removeControl(GS_map_zoomControl);
-      }
       marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
   });
 }
