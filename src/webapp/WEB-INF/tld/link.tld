@@ -2173,6 +2173,13 @@
             <type>java.lang.Boolean</type>
             <description>Make link absolute true/false</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>        
     </tag>
     <tag>
         <name>specialNeeds</name>
