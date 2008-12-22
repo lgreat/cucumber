@@ -46,7 +46,7 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         assertTrue(((List)mv.getModel().get(TopSchoolsController.MODEL_TOP_SCHOOLS)).size() > 2);
     }
 
-    public void xtestRedirection() throws Exception {
+    public void testRedirection() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setRequestURI("/top-high-schools/California");
         _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
