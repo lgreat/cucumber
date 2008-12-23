@@ -1,3 +1,4 @@
+<!-- School Finder Widget starts here -->
 <style type="text/css">
     div#GS_schoolSearchWidget {
         border: solid 4px #$BG_COLOR;
@@ -89,12 +90,12 @@
             <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img src="http://www.greatschools.net/res/img/widget/poweredby_logo.gif"
                                              alt="Powered by GreatSchools"/></a>
             <div class="GS_seo">
-                <div class="GS_city"><a href="http://www.greatschools.net/city/San_Francisco/CA?s_cid=wsbay93"
+                <div class="GS_city"><a href="$CITY_URL"
                                         target="_blank" rel="follow follow"
-                                        id="GS_city_SEO">San Francisco schools</a></div>
-                <div class="GS_state"><a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"
+                                        id="GS_city_SEO">$CITY_NAME schools</a></div>
+                <div class="GS_state"><a href="$STATE_URL"
                                          target="_blank" rel="follow follow"
-                                         id="GS_state_SEO">California schools</a></div>
+                                         id="GS_state_SEO">$STATE_NAME schools</a></div>
             </div>
         </div>
     </div>
@@ -108,4 +109,4 @@
     pageTracking.server = "www.greatschools.net";
     pageTracking.send();
 </script>
-
+<!-- School Finder Widget ends here -->

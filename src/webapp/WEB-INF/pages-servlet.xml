@@ -263,6 +263,7 @@
         <property name="commandClass" value="gs.web.widget.CustomizeSchoolSearchWidgetCommand"/>
         <property name="formView" value="widget/customizeSchoolSearchWidget"/>
         <property name="successView" value="widget/customizeSchoolSearchWidget"/>
+        <property name="schoolSearchWidgetController" ref="/widget/schoolSearch.page"/>
     </bean>
 
     <bean name="/widget/schoolSearch.page"

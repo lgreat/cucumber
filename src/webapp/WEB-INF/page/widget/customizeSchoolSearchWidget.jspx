@@ -6,6 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:output doctype-root-element="html"
@@ -270,12 +271,31 @@
                                                                      alt="Powered by GreatSchools"/></a>
                                     <div class="GS_seo">
                                         <!-- These links should always go to www -->
-                                        <div class="GS_city"><a href="http://www.greatschools.net/city/San_Francisco/CA?s_cid=wsbay93"
-                                                                target="_blank" rel="follow follow"
-                                                                id="GS_city_SEO">San Francisco schools</a></div>
-                                        <div class="GS_state"><a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"
-                                                                 target="_blank" rel="follow follow"
-                                                                 id="GS_state_SEO">California schools</a></div>
+                                        <div class="GS_city">
+                                            <c:choose>
+                                                <c:when test="${requestScope.command.city ne null}">
+                                                    <link:city city="${requestScope.command.city.name}"
+                                                               state="${requestScope.command.city.state}">${requestScope.command.city.name} schools</link:city>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93"
+                                                       target="_blank" rel="follow follow"
+                                                       id="GS_city_SEO">Fremont schools</a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                        <div class="GS_state">
+                                            <c:choose>
+                                                <c:when test="${requestScope.command.city ne null}">
+                                                    <link:research state="${requestScope.command.city.state}">${requestScope.command.city.state.longName} schools</link:research>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"
+                                                       target="_blank" rel="follow follow"
+                                                       id="GS_state_SEO">California schools</a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

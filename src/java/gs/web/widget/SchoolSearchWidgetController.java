@@ -214,13 +214,10 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                     try {
                         JSONObject locality = adminArea.getJSONObject("Locality");
                         if (locality != null) {
-                            _log.info("Locality=" + locality);
                             String cityName = locality.getString("LocalityName");
                             if (cityName != null) {
-                                _log.info("cityName=" + cityName);
                                 City city = getCityFromString(state, cityName);
                                 if (city != null) {
-                                    _log.info("city=" + city);
                                     city.setState(state);
                                     command.setCity(city);
                                 }

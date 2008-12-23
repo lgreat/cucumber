@@ -11,6 +11,7 @@ import java.util.Comparator;
 
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.UrlBuilder;
+import gs.data.geo.City;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,6 +32,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private boolean _terms;
     private String _widgetCode;
     private String _uniqueId;
+    private City _city;
 
     public String getSearchQuery() {
         return _searchQuery;
@@ -240,5 +242,13 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
 
     public void setUniqueId(String uniqueId) {
         _uniqueId = uniqueId;
+    }
+
+    public City getCity() {
+        return _city;
+    }
+
+    public void setCity(City city) {
+        _city = city;
     }
 }

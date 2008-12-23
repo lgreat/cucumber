@@ -17,6 +17,7 @@ import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.User;
 import gs.data.community.IUserDao;
+import gs.data.geo.City;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -38,6 +39,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
 
     private IUserDao _userDao;
     private SchoolFinderWidgetEmail _schoolFinderWidgetEmail;
+    private SchoolSearchWidgetController _schoolSearchWidgetController;
 
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj,
                                      BindException errors) throws Exception {
@@ -56,6 +58,14 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
         if (command.getHeight() < MINIMUM_HEIGHT) {
             errors.rejectValue("height", null, "Minimum height is " + MINIMUM_HEIGHT + ".");
         }
+
+        SchoolSearchWidgetCommand widgetCommand = new SchoolSearchWidgetCommand();
+        BindException widgetErrors = new BindException(widgetCommand, "widgetCommand");
+        _schoolSearchWidgetController.parseSearchQuery(
+                command.getSearchQuery(),
+                _schoolSearchWidgetController.getGoogleApiKey(request.getServerName()),
+                widgetCommand, request, widgetErrors);
+        command.setCity(widgetCommand.getCity());
 
         if (request.getParameter("submit") != null || request.getParameter("submit.x") != null) {
             if (!command.isTerms()) {
@@ -102,6 +112,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
         Resource resource = new ClassPathResource("/gs/web/widget/schoolFinderWidgetCode.txt");
         StringBuffer buffer = new StringBuffer();
         BufferedReader reader = null;
+        UrlBuilder urlBuilder;
         String text = "Error creating widget code. Please try again or contact us at widget@greatschools.net";
         try {
             reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
@@ -134,7 +145,25 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             }
             text = replaceText(text, "EXTERNAL_TRACKING_JS", externalTrackingJS);
 
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_CUSTOMIZATION);
+            if (command.getCity() != null) {
+                City city = command.getCity();
+                urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
+                urlBuilder.addParameter("s_cid", "wsbay93");
+                text = replaceText(text, "CITY_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request));
+                text = replaceText(text, "CITY_NAME", city.getName());
+
+                urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, city.getState(), null);
+                urlBuilder.addParameter("s_cid", "wsbay93");
+                text = replaceText(text, "STATE_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request));
+                text = replaceText(text, "STATE_NAME", city.getState().getLongName());
+            } else {
+                text = replaceText(text, "CITY_URL", "http://www.greatschools.net/city/Fremont/CA");
+                text = replaceText(text, "CITY_NAME", "Fremont");
+                text = replaceText(text, "STATE_URL", "http://www.greatschools.net/modperl/go/CA");
+                text = replaceText(text, "STATE_NAME", "California");
+            }
+
+            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_CUSTOMIZATION);
             urlBuilder.addParameter("s_cid", "wsbay93");
             text = replaceText(text, "WIDGET_CUSTOMIZATION_PAGE", urlBuilder.asFullUrl(request));
         } catch (IOException e) {
@@ -169,5 +198,13 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
 
     public void setSchoolFinderWidgetEmail(SchoolFinderWidgetEmail schoolFinderWidgetEmail) {
         _schoolFinderWidgetEmail = schoolFinderWidgetEmail;
+    }
+
+    public SchoolSearchWidgetController getSchoolSearchWidgetController() {
+        return _schoolSearchWidgetController;
+    }
+
+    public void setSchoolSearchWidgetController(SchoolSearchWidgetController schoolSearchWidgetController) {
+        _schoolSearchWidgetController = schoolSearchWidgetController;
     }
 }
