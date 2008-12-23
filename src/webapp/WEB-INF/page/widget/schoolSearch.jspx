@@ -80,6 +80,9 @@
             div#searchTabBody h2 {
                 color: #${requestScope.command.textColor};
             }
+            div#mapTabBody div.locationDescription {
+                width: ${requestScope.command.width-50}px;
+            }
         </style>
     </head>
     <body>
@@ -108,7 +111,7 @@
 
         <!-- Begin Map Tab-->
         <div id="mapTabBody" class="tabBody ${mapTabClass}">
-            <div class="locationDescription">
+            <div class="locationDescription" id="locationDescription">
                 ${requestScope.command.mapLocationPrefix}
                 <span>${requestScope.command.mapLocationString}</span>${requestScope.command.mapLocationSuffix}
                 <c:if test="${empty requestScope.command.mapLocationPrefix and
@@ -242,6 +245,17 @@
                 <a href="http://www.greatschools.net/?s_cid=wsbayf93" target="_blank">www.greatschools.net</a>.
             </p>
         </div>
+
+        <script type="text/javascript">
+            function adjustMapHeight() {
+                var locationDesc = document.getElementById('locationDescription');
+                var map = document.getElementById('map');
+                if (locationDesc.offsetHeight > locationDesc.style.lineHeight + 5) {
+                    map.style.height = (map.offsetHeight - 16) + "px";
+                }
+            }
+            adjustMapHeight();
+        </script>
         
         <!-- Update parent frame's SEO links if there are no form errors -->
         <c:set var="updateSeo" value="true"/>
