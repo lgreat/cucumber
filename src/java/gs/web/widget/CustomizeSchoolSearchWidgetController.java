@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.ReadWriteController;
+import gs.web.util.UrlBuilder;
+import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContextUtil;
 import gs.data.community.User;
 import gs.data.community.IUserDao;
 
@@ -114,9 +117,26 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             text = replaceText(text, "TEXT_COLOR", command.getTextColor());
             text = replaceText(text, "WIDGET_WIDTH", String.valueOf(command.getIframeWidth()+2));
             text = replaceText(text, "IFRAME_URL", command.getIframeUrl(request));
-            text = replaceText(text, "IFRAME_WIDTH", String.valueOf(command.getWidth()));
-            text = replaceText(text, "IFRAME_HEIGHT", String.valueOf(command.getHeight()));
+            text = replaceText(text, "IFRAME_WIDTH", String.valueOf(command.getIframeWidth()));
+            text = replaceText(text, "IFRAME_HEIGHT", String.valueOf(command.getIframeHeight()));
             text = replaceText(text, "UNIQUE_ID", String.valueOf(command.getUniqueId()));
+            
+            PageHelper pageHelper = new PageHelper(SessionContextUtil.getSessionContext(request), request);
+            String omniture_js = "http://www.greatschools.net/res/js/s_code.js";
+            if (pageHelper.isDevEnvironment()) {
+                omniture_js = "http://staging.greatschools.net/res/js/s_code_dev.js";
+            }
+            text = replaceText(text, "OMNITURE_JS", omniture_js);
+
+            String externalTrackingJS = "http://www.greatschools.net/res/js/externalTracking.js";
+            if (pageHelper.isDevEnvironment()) {
+                externalTrackingJS = "http://staging.greatschools.net/res/js/externalTracking.js";
+            }
+            text = replaceText(text, "EXTERNAL_TRACKING_JS", externalTrackingJS);
+
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_CUSTOMIZATION);
+            urlBuilder.addParameter("s_cid", "wsbay93");
+            text = replaceText(text, "WIDGET_CUSTOMIZATION_PAGE", urlBuilder.asFullUrl(request));
         } catch (IOException e) {
             _log.error(e);
         } finally {

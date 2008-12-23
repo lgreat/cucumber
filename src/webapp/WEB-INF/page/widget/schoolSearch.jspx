@@ -257,7 +257,11 @@
                 try {
                     window.top.GS_updateSEOLinks("${requestScope.command.city.name}", "${requestScope.command.city.state.longName}", "${requestScope.command.city.state.abbreviation}");
                 } catch (e) {
-                    // ignore -- we must not be in our widget frame
+                    try {
+                        parent.GS_updateSEOLinks("${requestScope.command.city.name}", "${requestScope.command.city.state.longName}", "${requestScope.command.city.state.abbreviation}");
+                    } catch (ee) {
+                        // nothing
+                    }
                 }
             </script>
         </c:if>

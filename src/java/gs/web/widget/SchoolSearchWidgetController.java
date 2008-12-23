@@ -5,7 +5,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -71,7 +70,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
         if (StringUtils.isNotBlank(request.getParameter(SEARCH_QUERY_PARAM))) {
             command.setSearchQuery(request.getParameter(SEARCH_QUERY_PARAM));
-            parseSearchQuery(request.getParameter(SEARCH_QUERY_PARAM), getGoogleApiKey(request.getServerName()), command, errors);
+            parseSearchQuery(request.getParameter(SEARCH_QUERY_PARAM), getGoogleApiKey(request.getServerName()), command, request, errors);
         }
     }
 
@@ -80,7 +79,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
         String searchQuery = request.getParameter(SEARCH_QUERY_PARAM);
 
-        parseSearchQuery(searchQuery, getGoogleApiKey(request.getServerName()), command, errors);
+        parseSearchQuery(searchQuery, getGoogleApiKey(request.getServerName()), command, request, errors);
     }
 
     /**
@@ -103,7 +102,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
      * determining the type of search. Once that is done, it should delegate to a specific load
      * method such as loadResultsForCity.
      */
-    protected void parseSearchQuery(String searchQuery, String googleApiKey, SchoolSearchWidgetCommand command, BindException errors) {
+    protected void parseSearchQuery(String searchQuery, String googleApiKey, SchoolSearchWidgetCommand command, HttpServletRequest request, BindException errors) {
         boolean hasResults = false;
         boolean shownError = false;
 
@@ -121,8 +120,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                 City city = null;
                 if (tok.countTokens() == 1) {
                     // - Exact match for a unique Cityname (YES San Francisco, NO Lincoln)
-                    String cityStr = searchQuery;
-                    city = _geoDao.findUniqueCity(cityStr);
+                    city = _geoDao.findUniqueCity(searchQuery);
                 } else if (tok.countTokens() == 2) {
                     // - Exact match for Cityname, State abbreviation
                     // - Exact match for Cityname, Statename
@@ -173,7 +171,10 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             }
         } else {
             errors.reject("Show results");
-            command.setDisplayTab("map");
+            if (request.getParameter(DISPLAY_TAB_PARAM) == null) {
+                // only set to map tab if another tab isn't specified
+                command.setDisplayTab("map");
+            }
         }
     }
 
@@ -213,10 +214,13 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                     try {
                         JSONObject locality = adminArea.getJSONObject("Locality");
                         if (locality != null) {
+                            _log.info("Locality=" + locality);
                             String cityName = locality.getString("LocalityName");
                             if (cityName != null) {
-                                City city = getCityFromString(state, cityName); 
+                                _log.info("cityName=" + cityName);
+                                City city = getCityFromString(state, cityName);
                                 if (city != null) {
+                                    _log.info("city=" + city);
                                     city.setState(state);
                                     command.setCity(city);
                                 }

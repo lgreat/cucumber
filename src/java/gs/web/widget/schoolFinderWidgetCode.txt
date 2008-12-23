@@ -74,6 +74,8 @@
         return rval;
     }
 </script>
+<script type="text/javascript" src="$OMNITURE_JS"></script>
+<script type="text/javascript" src="$EXTERNAL_TRACKING_JS"></script>
 <div id="GS_schoolSearchWidget">
     <div class="GS_widget_innerBorder">
         <div id="widget">
@@ -81,10 +83,10 @@
                     src="$IFRAME_URL"
                     width="$IFRAME_WIDTH" height="$IFRAME_HEIGHT"
                     marginheight="0" marginwidth="0"
-                    frameborder="0" scrolling="no"><!-- Keep from collapsing --></iframe>
+                    frameborder="0" scrolling="no"></iframe>
         </div>
         <div class="GS_widget_footer">
-            <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
+            <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img src="http://www.greatschools.net/res/img/widget/poweredby_logo.gif"
                                              alt="Powered by GreatSchools"/></a>
             <div class="GS_seo">
                 <div class="GS_city"><a href="http://www.greatschools.net/city/San_Francisco/CA?s_cid=wsbay93"
@@ -97,6 +99,13 @@
         </div>
     </div>
     <div class="GS_getWidget">
-        <a href="?s_cid=wsbay93">I want this widget for my site</a>
+        <a href="$WIDGET_CUSTOMIZATION_PAGE">I want this widget for my site</a>
     </div>
 </div>
+<script type="text/javascript">
+    pageTracking.pageName = "SchoolFinder Widget External";
+    pageTracking.hierarchy = "Widgets,SchoolFinder,$UNIQUE_ID";
+    pageTracking.server = "www.greatschools.net";
+    pageTracking.send();
+</script>
+
