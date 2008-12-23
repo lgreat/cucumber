@@ -203,15 +203,23 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
                 if ("US".equals(countryNameCode)) {
                     normalizedAddress = normalizedAddress.replaceAll(", USA","");
+
+                    // get the state
                     JSONObject adminArea = country.getJSONObject("AdministrativeArea");
                     String stateAbbrev = adminArea.getString("AdministrativeAreaName");
                     State state = _stateManager.getState(stateAbbrev);
+ 
+                    // attempt to get the city; may not be available for certain zip codes
                     JSONObject locality = adminArea.getJSONObject("Locality");
-                    String cityName = locality.getString("LocalityName");
-                    City city = getCityFromString(state, cityName); 
-                    if (city != null) {
-                        city.setState(state);
-                        command.setCity(city);
+                    if (locality != null) {
+                        String cityName = locality.getString("LocalityName");
+                        if (cityName != null) {
+                            City city = getCityFromString(state, cityName); 
+                            if (city != null) {
+                                city.setState(state);
+                                command.setCity(city);
+                            }
+                        }
                     }
 
                     JSONObject point = firstMatch.getJSONObject("Point");
@@ -255,6 +263,22 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
         if (schools != null && schools.size() > 0) {
             hasResults = true;
+
+            // if city not already set, e.g. with certain zip codes,
+            // set city to the one for the nearest school for which a mailing city is found 
+            int i = 0;
+            while (command.getCity() == null && i < schools.size()) {
+                String cityName = schools.get(i).getSchool().getMailingCity();
+                if (StringUtils.isNotBlank(cityName)) {
+                    City city = getCityFromString(state, cityName);
+                    if (city != null) {
+                        city.setState(state);
+                        command.setCity(city);
+                    }
+                }
+                i++;
+            }
+
             loadRatingsIntoSchoolList(schools, state);
             command.setSchools(schools);
             command.setMapLocationPrefix("Schools near ");
