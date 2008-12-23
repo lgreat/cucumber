@@ -326,7 +326,7 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         expect(_cobrandDao.getCobrandByHostname(getRequest().getServerName())).andReturn(null);
 
         replayAll();
-        _controller.parseSearchQuery("Alameda, CA", _controller.getGoogleApiKey("www.greatschools.net"), _command, _errors);
+        _controller.parseSearchQuery("Alameda, CA", _controller.getGoogleApiKey("www.greatschools.net"), _command, getRequest(), _errors);
         verifyAll();
 
         assertSame(schools, _command.getSchools());
