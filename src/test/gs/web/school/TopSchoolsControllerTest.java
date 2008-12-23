@@ -47,8 +47,10 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("WY", mv.getModel().get(TopSchoolsController.MODEL_STATE_ABBREVIATION));
         List<TopSchoolsController.TopSchool> topSchools = (List<TopSchoolsController.TopSchool>) mv.getModel().get(TopSchoolsController.MODEL_TOP_SCHOOLS);
         assertTrue(topSchools.size() > 2);
-        assertEquals("", topSchools.get(0).getReviewText());
-        assertEquals(TopSchoolCategory.Poverty, topSchools.get(0).getTopSchoolCategory());
+        for (TopSchoolsController.TopSchool school : topSchools) {
+            assertNotNull(school.getReviewText());
+            assertNotNull(school.getTopSchoolCategory());
+        }
     }
 
     public void testRedirection() throws Exception {
