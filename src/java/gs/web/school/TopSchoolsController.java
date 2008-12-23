@@ -66,7 +66,10 @@ public class TopSchoolsController extends AbstractController {
         model.put(MODEL_STATE_NAME, state.getLongName());
         model.put(MODEL_STATE_ABBREVIATION, state.getAbbreviation());
         model.put(MODEL_NATIONAL, national);
-        model.put(MODEL_TOP_SCHOOLS, getTopSchools(state));
+        if (national) {
+        } else {
+            model.put(MODEL_TOP_SCHOOLS, getTopSchools(state));
+        }
         model.put(MODEL_ALL_STATES, StateManager.getList());
         return new ModelAndView(_viewName, model);
     }
@@ -146,7 +149,7 @@ public class TopSchoolsController extends AbstractController {
         }
 
         public int compareTo(Object school) {
-            return _category.getCode() - ((TopSchool)school).getTopSchoolCategory().getCode();
+            return _category.getCode() - ((TopSchool) school).getTopSchoolCategory().getCode();
         }
 
         public boolean isLast() {
