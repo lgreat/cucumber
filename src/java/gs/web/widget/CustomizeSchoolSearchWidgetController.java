@@ -18,6 +18,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.data.community.User;
 import gs.data.community.IUserDao;
 import gs.data.geo.City;
+import gs.data.state.State;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -149,17 +150,31 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
                 City city = command.getCity();
                 urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
                 text = replaceText(text, "CITY_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request) + "?s_cid=wsbay93");
-                text = replaceText(text, "CITY_NAME", city.getName());
+
+                if (city.getName().equals("New York") && State.NY.equals(city.getState())) {
+                    text = replaceText(text, "CITY_SCHOOLS_LINK_TEXT", city.getName() + " City schools");
+                } else if (city.getName().equals("Washington") && State.DC.equals(city.getState())) {
+                    text = replaceText(text, "CITY_SCHOOLS_LINK_TEXT", city.getName() + ", DC schools");
+                } else {
+                    text = replaceText(text, "CITY_SCHOOLS_LINK_TEXT", city.getName() + " schools");
+                }
 
                 urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, city.getState(), null);
                 urlBuilder.addParameter("s_cid", "wsbay93");
                 text = replaceText(text, "STATE_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request));
-                text = replaceText(text, "STATE_NAME", city.getState().getLongName());
+
+                if (city.getName().equals("New York") && State.NY.equals(city.getState())) {
+                    text = replaceText(text, "STATE_SCHOOLS_LINK_TEXT", city.getState().getLongName() + " State schools");
+                } else if (city.getName().equals("Washington") && State.DC.equals(city.getState())) {
+                    text = replaceText(text, "STATE_SCHOOLS_LINK_TEXT", "");
+                } else {
+                    text = replaceText(text, "STATE_SCHOOLS_LINK_TEXT", city.getState().getLongName() + " schools");
+                }
             } else {
                 text = replaceText(text, "CITY_URL", "http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93");
-                text = replaceText(text, "CITY_NAME", "Fremont");
+                text = replaceText(text, "CITY_SCHOOLS_LINK_TEXT", "Fremont schools");
                 text = replaceText(text, "STATE_URL", "http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93");
-                text = replaceText(text, "STATE_NAME", "California");
+                text = replaceText(text, "STATE_SCHOOLS_LINK_TEXT", "California schools");
             }
 
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_CUSTOMIZATION);

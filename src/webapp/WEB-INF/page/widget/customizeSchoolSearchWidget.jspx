@@ -84,9 +84,17 @@
             cityUrl = GS_replaceAll(cityUrl, " ", "_");
             cityUrl = GS_replaceAll(cityUrl, "+", "_");
             cityLink.href = "http://www.greatschools.net/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
-            cityLink.innerHTML = cityName  + " schools";
             stateLink.href = "http://www.greatschools.net/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
-            stateLink.innerHTML = stateName + " schools";
+            if (cityName == "New York" && stateAbbrev == "NY") {
+                cityLink.innerHTML = cityName  + " City schools";
+                stateLink.innerHTML = stateName + " State schools";                
+            } else if (cityName == "Washington" && stateAbbrev == "DC") {
+                cityLink.innerHTML = cityName  + ", DC schools";
+                stateLink.innerHTML = "";
+            } else {
+                cityLink.innerHTML = cityName  + " schools";
+                stateLink.innerHTML = stateName + " schools";
+            }
         }
 
         function GS_replaceAll(strSource, strMatch, strReplace) {
@@ -274,10 +282,26 @@
                                         <div class="GS_city">
                                             <c:choose>
                                                 <c:when test="${requestScope.command.city ne null}">
-                                                    <link:city city="${requestScope.command.city.name}"
+                                                    <c:choose>
+                                                        <c:when test="${requestScope.command.city.name eq 'New York' and requestScope.command.city.state eq 'NY'}">
+                                                            <link:city city="${requestScope.command.city.name}"
+                                                               state="${requestScope.command.city.state}"
+                                                               styleId="GS_city_SEO"
+                                                               target="_blank">${requestScope.command.city.name} City schools</link:city>
+                                                        </c:when>
+                                                        <c:when test="${requestScope.command.city.name eq 'Washington' and requestScope.command.city.state eq 'DC'}">
+                                                            <link:city city="${requestScope.command.city.name}"
+                                                               state="${requestScope.command.city.state}"
+                                                               styleId="GS_city_SEO"
+                                                               target="_blank">${requestScope.command.city.name}, DC schools</link:city>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <link:city city="${requestScope.command.city.name}"
                                                                state="${requestScope.command.city.state}"
                                                                styleId="GS_city_SEO"
                                                                target="_blank">${requestScope.command.city.name} schools</link:city>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <a href="http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93"
@@ -289,9 +313,23 @@
                                         <div class="GS_state">
                                             <c:choose>
                                                 <c:when test="${requestScope.command.city ne null}">
-                                                    <link:research state="${requestScope.command.city.state}"
-                                                                   id="GS_state_SEO"
-                                                                   target="_blank">${requestScope.command.city.state.longName} schools</link:research>
+                                                    <c:choose>
+                                                        <c:when test="${requestScope.command.city.name eq 'New York' and requestScope.command.city.state.name eq 'NY'}">
+                                                            <link:research state="${requestScope.command.city.state}"
+                                                                           id="GS_state_SEO"
+                                                                           target="_blank">${requestScope.command.city.state.longName} State schools</link:research>
+                                                        </c:when>
+                                                        <c:when test="${requestScope.command.city.name eq 'Washington' and requestScope.command.city.state eq 'DC'}">
+                                                            <link:research state="${requestScope.command.city.state}"
+                                                                           id="GS_state_SEO"
+                                                                           target="_blank"></link:research>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <link:research state="${requestScope.command.city.state}"
+                                                                           id="GS_state_SEO"
+                                                                           target="_blank">${requestScope.command.city.state.longName} schools</link:research>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"

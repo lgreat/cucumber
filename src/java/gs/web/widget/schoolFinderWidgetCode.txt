@@ -60,9 +60,17 @@
         cityUrl = GS_replaceAll(cityUrl, " ", "_");
         cityUrl = GS_replaceAll(cityUrl, "+", "_");
         cityLink.href = "http://www.greatschools.net/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
-        cityLink.innerHTML = cityName  + " schools";
         stateLink.href = "http://www.greatschools.net/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
-        stateLink.innerHTML = stateName + " schools";
+        if (cityName == "New York" && stateAbbr == "NY") {
+            cityLink.innerHTML = cityName  + " City schools";
+            stateLink.innerHTML = stateName + " State schools";
+        } else if (cityName == "Washington" && stateAbbr == "DC") {
+            cityLink.innerHTML = cityName  + ", DC schools";
+            stateLink.innerHTML = "";
+        } else {
+            cityLink.innerHTML = cityName  + " schools";
+            stateLink.innerHTML = stateName + " schools";
+        }
     }
 
     function GS_replaceAll(strSource, strMatch, strReplace) {
@@ -92,10 +100,10 @@
             <div class="GS_seo">
                 <div class="GS_city"><a href="$CITY_URL"
                                         target="_blank" rel="follow follow"
-                                        id="GS_city_SEO">$CITY_NAME schools</a></div>
+                                        id="GS_city_SEO">$CITY_SCHOOLS_LINK_TEXT</a></div>
                 <div class="GS_state"><a href="$STATE_URL"
                                          target="_blank" rel="follow follow"
-                                         id="GS_state_SEO">$STATE_NAME schools</a></div>
+                                         id="GS_state_SEO">$STATE_SCHOOLS_LINK_TEXT</a></div>
             </div>
         </div>
     </div>
