@@ -9,131 +9,160 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
-<html lang="en">
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page contentType="text/html"/>
-<pageHelper:hideFooterAd/>
-<pageHelper:externalCss file="/res/css/widelayout.css"/>
-<pageHelper:externalCss file="/res/css/about/gsFaq.css"/>
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:hideFooterAd/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/about/gsFaq.css"/>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <title>Link To Great Schools</title>
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>Link To Great Schools</title>
+    </head>
 
-<gsml:body adPageName="linkToUs" pageLayout="gsFaq">
+    <gsml:body adPageName="linkToUs" pageLayout="gsFaq">
 
-<mod:tracking pageName="linkToUs" hier1="Home,Corporate,AboutUs,LinkToUs"/>
+        <mod:tracking pageName="linkToUs" hier1="Home,Corporate,AboutUs,LinkToUs"/>
 
-<div id="contentFAQ" class="contentFAQ">
-<h1>Link to GreatSchools</h1>
+        <div id="contentFAQ" class="contentFAQ">
+            <h1>Link to GreatSchools</h1>
 
-<p>GreatSchools values the utility of hyperlinks, which allow Web users to gain immediate access to informative content. Here are the different ways you can link to GreatSchools:</p>
+            <p>GreatSchools values the utility of hyperlinks, which allow Web users to gain immediate access to informative content. Here are the different ways you can link to GreatSchools:</p>
 
-<ul class="pageNav">
-    <li><a href="#searchbox">Search Box</a></li>
-    <li><a href="#textlinks">Text Links</a></li>
-    <li><a href="#framing">Framing Our Content</a></li>
-    <li><a href="#linkstoyou">Links To Your Website</a></li>
-</ul>
+            <ul class="pageNav">
+                <li><a href="#schoolfinderwidget">School Finder Widget</a></li>
+                <li><a href="#searchbox">Search Box</a></li>
+                <li><a href="#textlinks">Text Links</a></li>
+                <li><a href="#framing">Framing Our Content</a></li>
+                <li><a href="#linkstoyou">Links To Your Website</a></li>
+            </ul>
 
-<![CDATA[ <a name="searchbox"></a> ]]>
+            <![CDATA[ <a name="textlinks"></a> ]]>
+<h2>School Finder Widget</h2>
+
+            <p>
+                You can easily add school information to your Web site with our free School Finder Widget. Assess the academic performance of a school,
+                see how other parents rate and review specific schools and map schools by address, ZIP code or city. Click below to customize
+                the colors and size to match your site.
+            </p>
+
+            <table border="0" cellpadding="0px" cellspacing="0px">
+                <tr>
+                    <td>
+                        <img src="/res/img/about/schoolfinder_70percent.jpg" alt="School Finder Widget"/>
+                    </td>
+                    <td valign="top" style="padding: 130px  0 0 10px;">
+                        <p>
+                            <link:schoolFinderCustomization>Customize this widget for your site &amp;gt;</link:schoolFinderCustomization>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+            <br/>
+
+            <![CDATA[ <a name="searchbox"></a> ]]>
 <h2>Search Box</h2>
 
-<p>If you would like to include a GreatSchools search box within your site (a link in which users leave your site and go to ours), you can integrate this search box into your site. Please feel free to cut and paste the HTML below.</p>
+            <p>If you would like to include a GreatSchools search box within your site (a link in which users leave your site and go to ours),
+               you can integrate this search box into your site.
+               Feel free to cut and paste the HTML below, or you can customize colors and size to match your site.</p>
 
-    <table border="0" cellpadding="0px" cellspacing="0px">
-        <tr>
-            <td>
-                <script type="text/javascript"
-                        src="http://gmodules.com/ig/ifr?url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js"><!-- no colapse --></script>
-            </td>
-            <td valign="top" style="padding: 15px  0 0 10px;">
-                <span style="font-weight: bold;">Embed:</span>
-                <br/>
+            <table border="0" cellpadding="0px" cellspacing="0px">
+                <tr>
+                    <td>
+                        <script type="text/javascript"
+                                src="http://gmodules.com/ig/ifr?url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js"><!-- no colapse --></script>
+                    </td>
+                    <td valign="top" style="padding: 15px  0 0 10px;">
+                        <span style="font-weight: bold;">Embed:</span>
+                        <br/>
 
-                <form name="searchboxexample" action="" style="margin-top: 4px; padding-top: 0;">
-                    <input type="text" onclick="this.select()" readonly="readonly"
-                           style="width: 670px; background-color: #D3D3D3;"
-                           value="&amp;lt;script src=&amp;quot;http://gmodules.com/ig/ifr?url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=GreatSchools+Search&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;"/>
-                </form>
-                <br/>
-                <span style="font-weight: bold;">Customize:</span>
-                <br/>
-                <p>
-                    Click <a href="http://gmodules.com/ig/creator?synd=open&amp;amp;url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF"
-                        target="_blank">here</a> to modify and generate new HTML. Use Google's tools to customize
-                    colors and size in order to match your site.
-                </p>
-            </td>
-        </tr>
-    </table>
+                        <form name="searchboxexample" action="" style="margin-top: 4px; padding-top: 0;">
+                            <input type="text" onclick="this.select()" readonly="readonly"
+                                   style="width: 670px; background-color: #D3D3D3;"
+                                   value="&amp;lt;script src=&amp;quot;http://gmodules.com/ig/ifr?url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;up_city=&amp;amp;up_state=&amp;amp;up_cobrand=www&amp;amp;synd=open&amp;amp;w=170&amp;amp;h=200&amp;amp;title=GreatSchools+Search&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;"/>
+                        </form>
 
-<br/>
+                        <br/>
 
-<![CDATA[ <a name="textlinks"></a> ]]>
+                        <p>
+                            <a
+                                href="http://gmodules.com/ig/creator?synd=open&amp;amp;url=http://www.greatschools.net/res/gadget/GS_Search.xml&amp;amp;border=%23ffffff%7C0px%2C1px+solid+%2382CAFA%7C0px%2C2px+solid+%23BDEDFF%7C0px%2C3px+solid+%23E0FFFF"
+                                target="_blank">Customize this widget for your site &amp;gt;</a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+            <br/>
+
+            <![CDATA[ <a name="textlinks"></a> ]]>
 <h2>Text Links</h2>
 
-<p>If you would like to place a text link to our site, please follow the requirements below:
-    <br/>
-    <br/>
-    <b>National Focus:</b>
-    <br/>
-    For links of a general nature, referring to our entire Web site, use this phrase:
-    <br/>
-    GreatSchools.net - Elementary, middle and high school information for public, private and charter schools nationwide.
-    <br/>
-    URL: <a href="http://www.greatschools.net">http://www.greatschools.net</a>
-    <br/>
-    <br/>
-    <b>State or Regional Focus:</b>
-    <br/>
-    If your content is most likely to reach users in a particular state, you may find it useful (and more relevant to your users) to link directly to a state home page. Use this information for California, or substitute the abbreviation for any state at the end of the URL:
-    <br/>
-    California Schools - CA Elementary, middle and high school information
-    <br/>
-    URL: <a href="http://www.greatschools.net/modperl/go/CA">http://www.greatschools.net/modperl/go/CA</a>
-    <br/>
-    <br/>
-    <b>Specific Topic Focus:</b>
-    <br/>
-    If you would like to link to a specific article, such as "What You Can Do To Stamp Out Bullying," you have our permission to link to the article-specific URL if you place only the title of the article on your website. An example is below.
-    <br/>
-    "What You Can Do To Stamp Out Bullying," from GreatSchools.net
-    <br/>
-    URL: <a href="http://www.greatschools.net/cgi-bin/showarticle/CA/215/improve">http://www.greatschools.net/cgi-bin/showarticle/CA/215/improve</a>
-    <br/>
-    <br/>
-    If you would like to republish or host the article on your site, the license fee is $200 per year per article. You can download a
-    <a href="/content/Letter%20Of%20Agreement%20To%20Republish%20Content%205_12_2008.doc">contract here</a>. Just print it out and fax it back to us at 415.977.0704 or e-mail us at businessdevelopment@greatshools.net.
-</p>
+            <p>If you would like to place a text link to our site, please follow the requirements below:
+                <br/>
+                <br/>
+                <b>National Focus:</b>
+                <br/>
+                For links of a general nature, referring to our entire Web site, use this phrase:
+                <br/>
+                GreatSchools.net - Elementary, middle and high school information for public, private and charter schools nationwide.
+                <br/>
+                URL: <a href="http://www.greatschools.net">http://www.greatschools.net</a>
+                <br/>
+                <br/>
+                <b>State or Regional Focus:</b>
+                <br/>
+                If your content is most likely to reach users in a particular state, you may find it useful (and more relevant to your users) to link directly to a state home page. Use this information for California, or substitute the abbreviation for any state at the end of the URL:
+                <br/>
+                California Schools - CA Elementary, middle and high school information
+                <br/>
+                URL: <a href="http://www.greatschools.net/modperl/go/CA">http://www.greatschools.net/modperl/go/CA</a>
+                <br/>
+                <br/>
+                <b>Specific Topic Focus:</b>
+                <br/>
+                If you would like to link to a specific article, such as "What You Can Do To Stamp Out Bullying," you have our permission to link to the article-specific URL if you place only the title of the article on your website. An example is below.
+                <br/>
+                "What You Can Do To Stamp Out Bullying," from GreatSchools.net
+                <br/>
+                URL:
+                <a href="http://www.greatschools.net/cgi-bin/showarticle/CA/215/improve">http://www.greatschools.net/cgi-bin/showarticle/CA/215/improve</a>
+                <br/>
+                <br/>
+                If you would like to republish or host the article on your site, the license fee is $200 per year per article. You can download a
+                <a href="/content/Letter%20Of%20Agreement%20To%20Republish%20Content%205_12_2008.doc">contract here</a>. Just print it out and fax it back to us at 415.977.0704 or e-mail us at businessdevelopment@greatshools.net.
+            </p>
 
-<![CDATA[ <a name="framing"></a> ]]>
+            <![CDATA[ <a name="framing"></a> ]]>
 <h2>Framing Our Content</h2>
 
-<p>
-    Unless there is a written agreement with a site that specifies otherwise,
-    please note that GreatSchools considers the framing of our content, i.e.
-    the wrapping of our content in a third party's site navigation, an illegal
-    use of our intellectual property. If you would like to frame our site
-    within your site and/or explore cobranding opportunities, please find more
-    information on <a href="/about/partnerOpportunities.page#license">License Our Content</a>.
-</p>
+            <p>
+                Unless there is a written agreement with a site that specifies otherwise,
+                please note that GreatSchools considers the framing of our content, i.e.
+                the wrapping of our content in a third party's site navigation, an illegal
+                use of our intellectual property. If you would like to frame our site
+                within your site and/or explore cobranding opportunities, please find more
+                information on <a href="/about/partnerOpportunities.page#license">License Our Content</a>.
+            </p>
 
-<![CDATA[ <a name="linkstoyou"></a> ]]>
+            <![CDATA[ <a name="linkstoyou"></a> ]]>
 <h2>Links to Your Web Site</h2>
 
-<p>
-    If you would like us to consider linking to your site, please click here to find out how to <a
-            href="http://www.greatschools.net/about/partnerOpportunities.page?state=tx#advertise">Advertise on GreatSchools.net</a>.
-</p>
+            <p>
+                If you would like us to consider linking to your site, please click here to find out how to <a
+                    href="http://www.greatschools.net/about/partnerOpportunities.page?state=tx#advertise">Advertise on GreatSchools.net</a>.
+            </p>
 
-</div>
-</gsml:body>
-</html>
+        </div>
+    </gsml:body>
+    </html>
 </jsp:root>
 
