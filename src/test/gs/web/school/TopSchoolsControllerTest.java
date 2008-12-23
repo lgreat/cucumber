@@ -4,6 +4,7 @@ import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.RedirectView301;
+import gs.data.school.TopSchoolCategory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -17,13 +18,14 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
     private TopSchoolsController _controller;
     private SessionContextUtil _sessionContextUtil;
 
+
     protected void setUp() throws Exception {
         super.setUp();
         _controller = (TopSchoolsController) getApplicationContext().getBean(TopSchoolsController.BEAN_ID);
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
     }
 
-    public void xtestNational() throws Exception {
+    public void testNational() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setRequestURI("/top-high-schools/");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
@@ -35,7 +37,7 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         assertTrue(((List)mv.getModel().get(TopSchoolsController.MODEL_ALL_STATES)).size() > 50);
     }
 
-    public void xtestWyomingWhereWeHaveSampleData() throws Exception {
+    public void testWyomingWhereWeHaveSampleData() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setRequestURI("/top-high-schools/wyoming");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
@@ -43,7 +45,10 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(false, mv.getModel().get(TopSchoolsController.MODEL_NATIONAL));
         assertEquals("Wyoming", mv.getModel().get(TopSchoolsController.MODEL_STATE_NAME));
         assertEquals("WY", mv.getModel().get(TopSchoolsController.MODEL_STATE_ABBREVIATION));
-        assertTrue(((List)mv.getModel().get(TopSchoolsController.MODEL_TOP_SCHOOLS)).size() > 2);
+        List<TopSchoolsController.TopSchool> topSchools = (List<TopSchoolsController.TopSchool>) mv.getModel().get(TopSchoolsController.MODEL_TOP_SCHOOLS);
+        assertTrue(topSchools.size() > 2);
+        assertEquals("", topSchools.get(0).getReviewText());
+        assertEquals(TopSchoolCategory.Poverty, topSchools.get(0).getTopSchoolCategory());
     }
 
     public void testRedirection() throws Exception {

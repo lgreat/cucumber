@@ -14,8 +14,114 @@
     background-image: url( /res/img/library/right-box2-bottom.png );
 }
 
+#pageWrapper #top-schools-header h1 {
+    font-size: 5px;
+    display: block;
+    float: left;
+    width: 423px;
+    height: 191px;
+    background: url( /res/img/school/topSchools/heropic.jpg ) no-repeat;
+    text-indent: -99999px;
+    margin: 10px 0 10px 0;
+    padding: 0;
+}
+
+#pageWrapper #top-schools-header .contentTop {
+    margin-top: 50px;
+    font-size: 13px;
+    height: 85px;
+}
+
+#pageWrapper #top-schools-header .businessWeek {
+    display: block;
+    float: right;
+    font-style: italic;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+#pageWrapper #top-schools-header .businessWeek img {
+    margin: 0 20px -3px 0;
+}
+
+#pageWrapper #top-schools-header .contentBottom {
+    font-size: 13px;
+}
+
+#pageWrapper #top-schools-header .viewTopSchools {
+    background: url( /res/img/school/topSchools/arrow.gif ) no-repeat;
+    padding: 3px 0 3px 25px;
+}
+
+#pageWrapper #top-schools-header #switchStateForm {
+    display: inline;
+}
+
+#pageWrapper #top-schools-header #switchStateForm #topSchoolsStateChanger {
+    font-size: 11px;
+    margin-left: 3px;
+}
+
+#pageWrapper #top-schools-header #switchStateForm #topSchoolsStateChangerGo {
+    margin-bottom: -6px;
+    margin-left: 3px;
+}
+
+#pageWrapper #top-schools-header .whatMakesATopSchool {
+    padding: 5px 12px 0 0;
+    font-size:12px;
+    display:block;
+    float:right;
+}
+
 #pageWrapper #supplement h2 {
-    color : #D66671;
+    color: #D66671;
     font-size: 18px;
     margin: 10px 0;
+}
+
+#pageWrapper #top-five-schools li {
+    display: block;
+    height: 110px;
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+
+#pageWrapper #top-five-schools .badge {
+    display: block;
+    float: left;
+    padding: 73px 10px 0 0;
+    font-size: 9px;
+}
+
+#pageWrapper #top-five-schools .badge_overall {
+    background: url( /res/img/school/topSchools/topperforming.jpg ) no-repeat;
+}
+
+#pageWrapper #top-five-schools .badge_poverty {
+    background: url( /res/img/school/topSchools/topperforminglowincome.jpg ) no-repeat;
+}
+
+#pageWrapper #top-five-schools .badge_improved {
+    background: url( /res/img/school/topSchools/mostimproved.jpg ) no-repeat;
+}
+
+#pageWrapper #top-five-schools .badge_publicparents {
+    background: url( /res/img/school/topSchools/pchoice_public.jpg ) no-repeat;
+}
+
+#pageWrapper #top-five-schools .badge_privateparents {
+    background: url( /res/img/school/topSchools/pchoice_private.jpg ) no-repeat;
+}
+
+#pageWrapper #top-five-schools .school {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+#pageWrapper #top-five-schools .location {
+    font-size: 14px;
+    font-style: italic;
 }

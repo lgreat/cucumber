@@ -2,12 +2,11 @@ package gs.web.school;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -16,6 +15,10 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.TopSchoolCategory;
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Review;
+import gs.data.school.review.CategoryRating;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -35,8 +38,8 @@ public class TopSchoolsController extends AbstractController {
 
     protected String _viewName;
     protected ISchoolDao _schoolDao;
-    protected StateManager _stateManager;
     protected static Cache _cache;
+    protected IReviewDao _reviewDao;
 
     static {
         // Cache active top schools for 6 hrs for performance
@@ -64,22 +67,38 @@ public class TopSchoolsController extends AbstractController {
         model.put(MODEL_STATE_ABBREVIATION, state.getAbbreviation());
         model.put(MODEL_NATIONAL, national);
         model.put(MODEL_TOP_SCHOOLS, getTopSchools(state));
-        model.put(MODEL_ALL_STATES, _stateManager.getList());
+        model.put(MODEL_ALL_STATES, StateManager.getList());
         return new ModelAndView(_viewName, model);
     }
 
-    protected List<School> getTopSchools(State state) {
-//        String key = state.getAbbreviation() + "_top_schools";
-//        Element cacheElement = _cache.get(key);
-//        List<School> schools;
-//        if (cacheElement == null) {
-//            schools = _schoolDao.getTopSchools(state);
-//            _cache.put(new Element(key, schools));
-//        } else {
-//            schools = (List<School>) cacheElement.getObjectValue();
-//        }
-//        return schools;
-        return _schoolDao.getTopSchools(state);         
+    protected List<TopSchool> getTopSchools(State state) {
+        String key = state.getAbbreviation().toLowerCase() + "_top_schools";
+        Element cacheElement = _cache.get(key);
+        List<TopSchool> topSchools;
+        if (cacheElement == null) {
+            topSchools = new ArrayList<TopSchool>();
+            List<School> schools = _schoolDao.getTopSchools(state);
+            for (School school : schools) {
+                TopSchoolCategory category = (TopSchoolCategory) _schoolDao.getTopSchoolCategories(school).toArray()[0];
+                topSchools.add(new TopSchool(school, category, getReviewText(school)));
+            }
+            _cache.put(new Element(key, topSchools));
+        } else {
+            topSchools = (List<TopSchool>) cacheElement.getObjectValue();
+        }
+        return topSchools;
+    }
+
+    protected String getReviewText(School school) {
+        String reviewText = "";
+        List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
+        for (Review review : reviews) {
+            CategoryRating rating = review.getQuality();
+            if (rating.equals(CategoryRating.RATING_4) || rating.equals(CategoryRating.RATING_5)) {
+                reviewText = review.getComments();
+            }
+        }
+        return reviewText;
     }
 
     public void setViewName(String viewName) {
@@ -90,7 +109,36 @@ public class TopSchoolsController extends AbstractController {
         _schoolDao = schoolDao;
     }
 
-    public void setStateManager(StateManager stateManager) {
-        _stateManager = stateManager;
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
+    }
+
+    /**
+     * We create a school value object for 2 reasons
+     * 1. So we can ehCache it efficiently. Also, Hibernate objects get cglib'd so they are troublesome to cache.
+     * 2. By subclassing we can also pass along additional data to the view without rewriting a bunch of getters
+     */
+    public class TopSchool extends School {
+        TopSchoolCategory _category;
+        String _reviewText;
+
+        public TopSchool(School school, TopSchoolCategory category, String reviewText) {
+            _category = category;
+            setId(school.getId());
+            setName(school.getName());
+            setCity(school.getCity());
+            setDatabaseState(school.getDatabaseState());
+            setLevelCode(school.getLevelCode());
+            setType(school.getType());
+            _reviewText = StringUtils.abbreviate(reviewText, 40);
+        }
+
+        public String getReviewText() {
+            return _reviewText;
+        }
+
+        public TopSchoolCategory getTopSchoolCategory() {
+            return _category;
+        }
     }
 }
