@@ -114,21 +114,19 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="244" styleClass="noHover">
-            SAT or ACT: How to Help Your Child Get Ready
+        <gsweb:articlelink articleId="778" styleClass="noHover">
+            Can MySpace Be Good for Teens?
         </gsweb:articlelink>
     </div>
     <div class="module">
-        There’s no secret to getting a high score on the SAT or ACT,
-        but there are many ways you can help your teen prepare for the
-        test(s).  By encouraging your teen to take challenging courses,
-        get familiar with the test formats, and research college
-        requirements you’ll increase her chances of scoring well when
-        test time arrives.
+        Today's teens are mad about MySpace. They flock to Facebook. But when it comes to
+        such social networking sites, many parents are uninformed and fear the evils that
+        lurk there. Rest assured that kids can benefit from online communication if you
+        provide proper guidance and controls.
         <br/>
         <div align="right">
-            <gsweb:articlelink articleId="244" styleClass="seeFullArticle">
-                Learn more &gt;
+            <gsweb:articlelink articleId="778" styleClass="seeFullArticle">
+                Arm yourself with information &gt;
             </gsweb:articlelink>
         </div>
     </div>
@@ -150,18 +148,17 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <a href="http://www.collegeboard.com/parents/apply/college-applications/21364.html" class="noHover"
-           target="_blank">What’s in a College Essay?</a>
+        <a href="http://www.collegeboard.com/parents/csearch/know-the-options/21385.html" class="noHover"
+           target="_blank">2008-09 College Prices: Keep Increases in Perspective</a>
     </div>
 
     <div class="module">
-        The college essay gives your teen a chance to communicate with
-        colleges on a more personal level and reveals who she is. It can
-        be a strong voice in your child's favor and one way to stand out
-        from the crowd. 
+        Recent reports from the College Board indicate that college tuition and fees are on
+        the rise.  The good news: There is more than $143 billion in financial aid available,
+        making a college education affordable for most families.
     </div>
     <div align="right">
-        <a href="http://www.collegeboard.com/parents/apply/college-applications/21364.html" class="seeFullArticle"
+        <a href="http://www.collegeboard.com/parents/csearch/know-the-options/21385.html" class="seeFullArticle"
            target="_blank">Learn more &gt;</a>
     </div>
 
@@ -179,16 +176,20 @@
                 <td valign="top">
                     <ul class="quickFindLinks">
                         <li>
-                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21361.html"
-                               target="_blank">College Essay Tips for Your Teen</a>
+                            <a href="http://www.collegeboard.com/parents/csearch/know-the-options/38529.html"
+                               target="_blank">Hidden Costs of a College Education</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21363.html"
-                               target="_blank">Types of Essays and Sample Questions</a>
+                            <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/36990.html"
+                               target="_blank">Are Four Years of College Financing Enough?</a>
                         </li>
                         <li>
-                            <a href="http://www.collegeboard.com/parents/apply/college-applications/21362.html"
-                               target="_blank">Help Your Teen Kick-Start the Application Essay</a>
+                            <a href="http://www.collegeboard.com/parents/csearch/know-the-options/21386.html"
+                               target="_blank">Break Down the Bill: What Will it Cost?</a>
+                        </li>
+                        <li>
+                            <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21397.html"
+                               target="_blank">How Financial Aid Works</a>
                         </li>
                        
                     </ul>
@@ -253,9 +254,8 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Get informed about college costs. Explore your family's
-                               options for financing your child's college education and
-                               learn how financial aid works.
+                               Motivate your teen to keep up with independent reading. Get him a
+                               subscription to the <em>New York Times</em> or other newspaper. 
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan &gt;</a>
                 </td>
@@ -263,9 +263,8 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               If your teen is taking the PSAT/NMSQT have her check
-                               “yes” for <a href="http://www.collegeboard.com/student/testing/psat/reg/sss.html" target="_blank">Student Search Service®</a>  
-                               to learn about colleges and scholarships.
+                               Use the <a href="http://apps.collegeboard.com/fincalc/efc_welcome.jsp" target="_blank">Expected Family Contribution (EFC) Calculator</a> to
+                               estimate how much your family can expect to pay for college.
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan &gt;</a></td>
             </tr>
@@ -275,18 +274,16 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Your teen can take either the SAT Reasoning Test™
-                               or up to three SAT Subject Tests™ on one test day.
-                               See the <a href="http://www.collegeboard.com/student/testing/sat/calenfees.html" target="_blank">SAT Schedule of test dates</a>
-                               and <a href="http://www.collegeboard.com/student/testing/sat/reg.html" target="_blank">register online for the SAT</a>.
+                               Help your child organize a file for college brochures and
+                               information -- before they start pouring in. 
                            </span> <br/><!-- GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan &gt;</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Use <a href="http://apps.collegeboard.com/cbsearch_ss/welcome.jsp" target="_blank">Scholarship Search</a>
-                               at collegeboard.com, review scholarship books, and have 
-                               your teen ask his counselor about local and state funding sources.                           </span><br />
+                              Colleges like to see strong second semester grades, so advise your child to <a href="http://www.collegeboard.com/parents/apply/college-applications/21291.html" target="_blank">
+                               avoid senioritis</a>.
+                           </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan &gt;</a></td>
             </tr>
             <tr>
