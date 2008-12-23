@@ -275,7 +275,9 @@
                                             <c:choose>
                                                 <c:when test="${requestScope.command.city ne null}">
                                                     <link:city city="${requestScope.command.city.name}"
-                                                               state="${requestScope.command.city.state}">${requestScope.command.city.name} schools</link:city>
+                                                               state="${requestScope.command.city.state}"
+                                                               styleId="GS_city_SEO"
+                                                               target="_blank">${requestScope.command.city.name} schools</link:city>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <a href="http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93"
@@ -287,7 +289,9 @@
                                         <div class="GS_state">
                                             <c:choose>
                                                 <c:when test="${requestScope.command.city ne null}">
-                                                    <link:research state="${requestScope.command.city.state}">${requestScope.command.city.state.longName} schools</link:research>
+                                                    <link:research state="${requestScope.command.city.state}"
+                                                                   id="GS_city_SEO"
+                                                                   target="_blank">${requestScope.command.city.state.longName} schools</link:research>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"

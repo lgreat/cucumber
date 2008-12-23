@@ -148,8 +148,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             if (command.getCity() != null) {
                 City city = command.getCity();
                 urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
-                urlBuilder.addParameter("s_cid", "wsbay93");
-                text = replaceText(text, "CITY_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request));
+                text = replaceText(text, "CITY_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request) + "?s_cid=wsbay93");
                 text = replaceText(text, "CITY_NAME", city.getName());
 
                 urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, city.getState(), null);
@@ -157,9 +156,9 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
                 text = replaceText(text, "STATE_URL", "http://www.greatschools.net" + urlBuilder.asSiteRelative(request));
                 text = replaceText(text, "STATE_NAME", city.getState().getLongName());
             } else {
-                text = replaceText(text, "CITY_URL", "http://www.greatschools.net/city/Fremont/CA");
+                text = replaceText(text, "CITY_URL", "http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93");
                 text = replaceText(text, "CITY_NAME", "Fremont");
-                text = replaceText(text, "STATE_URL", "http://www.greatschools.net/modperl/go/CA");
+                text = replaceText(text, "STATE_URL", "http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93");
                 text = replaceText(text, "STATE_NAME", "California");
             }
 

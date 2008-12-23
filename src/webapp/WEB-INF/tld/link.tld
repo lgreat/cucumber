@@ -597,6 +597,20 @@
             <description>CSS class name(s)</description>
         </attribute>
         <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>link target</description>
+        </attribute>
+        <attribute>
             <name>city</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
