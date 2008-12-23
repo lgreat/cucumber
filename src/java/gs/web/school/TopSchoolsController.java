@@ -34,6 +34,7 @@ public class TopSchoolsController extends AbstractController {
     public static final String MODEL_STATE_NAME = "stateName";
     public static final String MODEL_STATE_ABBREVIATION = "stateAbbreviation";
     public static final String MODEL_TOP_SCHOOLS = "topSchools";
+    public static final String MODEL_WHAT_MAKES_A_SCHOOL_GREAT = "whatMakesASchoolGreat";
     public static final String MODEL_ALL_STATES = "allStates";
 
     protected String _viewName;
@@ -70,8 +71,17 @@ public class TopSchoolsController extends AbstractController {
         } else {
             model.put(MODEL_TOP_SCHOOLS, getTopSchools(state));
         }
+        model.put(MODEL_WHAT_MAKES_A_SCHOOL_GREAT, getWhatMakesASchoolGreatContent());
         model.put(MODEL_ALL_STATES, StateManager.getList());
         return new ModelAndView(_viewName, model);
+    }
+
+    protected List<ContentLink> getWhatMakesASchoolGreatContent() {
+        List<ContentLink> contents = new ArrayList<ContentLink>();
+        contents.add(new ContentLink("View from the top", "/", "_blank", "Bill Jackson, Greatschools founder and President, reveals the secrets behind a great school"));
+        contents.add(new ContentLink("Talk it out", "http://community.greatschools.net", "", "Share with other parents what makes a school great, and whether your school makes the grade"));
+        contents.add(new ContentLink("Field trip", "/", "_blank", "Visit BusinessWeek to find out why these schools made the list"));
+        return contents;
     }
 
     protected List<TopSchool> getTopSchools(State state) {
@@ -158,6 +168,36 @@ public class TopSchoolsController extends AbstractController {
 
         public void setLast(boolean last) {
             _last = last;
+        }
+    }
+
+    public class ContentLink {
+        String _title;
+        String _link;
+        String _target;
+        String _text;
+
+        public ContentLink(String title, String link, String target, String text) {
+            _title = title;
+            _link = link;
+            _target = target;
+            _text = text;
+        }
+
+        public String getTitle() {
+            return _title;
+        }
+
+        public String getLink() {
+            return _link;
+        }
+
+        public String getTarget() {
+            return _target;
+        }
+
+        public String getText() {
+            return _text;
         }
     }
 }

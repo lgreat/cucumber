@@ -132,9 +132,13 @@
                         </div>
                     </div>
 
-                    <div id="what-makes-a-great-school" class="box main-box">
+                    <div id="what-makes-a-school-great" class="box main-box">
                         <div class="inner cleared">
-                            <h2>What makes a great school</h2>
+                            <h2>What makes a school great</h2>
+                            <img src="/res/img/school/topSchools/top5_boyinclass.jpg" alt="What makes a school great"/>
+                            <c:forEach var="contentLink" items="${whatMakesASchoolGreat}">
+                                <a href="">${contentLink.title}</a>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
