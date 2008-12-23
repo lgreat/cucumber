@@ -137,6 +137,7 @@
     request.setAttribute("privateHasTestfData", privateTestData);
 
     // GS-7445 - this is really verbose but it's done inline so it will be easy to remove in the next release
+    // if we keep it, we'll probably want to refactor this logic out into an interceptor
     boolean showNLHover = true;
     boolean showSurvey = false;
     boolean surveyEligible = false;
@@ -229,10 +230,6 @@
     </c:when>
     <c:otherwise>
         <c:set var="schoolType" value="private"/>
-        <c:if test="${requestScope.context.interstitialEnabled and !surveyEligible}">
-            <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
-            <pageHelper:addOnLoadHandler handler="doInterstitial('school')"/>
-        </c:if>
     </c:otherwise>
 </c:choose>
 
