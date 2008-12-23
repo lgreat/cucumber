@@ -290,7 +290,7 @@
                                             <c:choose>
                                                 <c:when test="${requestScope.command.city ne null}">
                                                     <link:research state="${requestScope.command.city.state}"
-                                                                   id="GS_city_SEO"
+                                                                   id="GS_state_SEO"
                                                                    target="_blank">${requestScope.command.city.state.longName} schools</link:research>
                                                 </c:when>
                                                 <c:otherwise>
