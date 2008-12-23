@@ -205,6 +205,14 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                     normalizedAddress = normalizedAddress.replaceAll(", USA","");
                     JSONObject adminArea = country.getJSONObject("AdministrativeArea");
                     String stateAbbrev = adminArea.getString("AdministrativeAreaName");
+                    State state = _stateManager.getState(stateAbbrev);
+                    JSONObject locality = adminArea.getJSONObject("Locality");
+                    String cityName = locality.getString("LocalityName");
+                    City city = getCityFromString(state, cityName); 
+                    if (city != null) {
+                        city.setState(state);
+                        command.setCity(city);
+                    }
 
                     JSONObject point = firstMatch.getJSONObject("Point");
                     JSONArray coordinates = point.getJSONArray("coordinates");
@@ -212,7 +220,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                         float lon = Float.parseFloat(coordinates.getString(0));
                         float lat = Float.parseFloat(coordinates.getString(1));
 
-                        hasResults = loadResultsForLatLon(_stateManager.getState(stateAbbrev), lat, lon, DISTANCE_IN_MILES, MAX_NUM_RESULTS, normalizedAddress, command);
+                        hasResults = loadResultsForLatLon(state, lat, lon, DISTANCE_IN_MILES, MAX_NUM_RESULTS, normalizedAddress, command);
                         command.setShowLocationMarker(true);
                         command.setLocationMarkerLat(lat);
                         command.setLocationMarkerLon(lon);
