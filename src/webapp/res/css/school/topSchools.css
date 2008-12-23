@@ -82,10 +82,15 @@
 
 #pageWrapper #top-five-schools li {
     display: block;
-    height: 110px;
-    margin: 0;
+    height: 95px;
+    margin: 15px 0 10px 0;
     padding: 0;
     background: none;
+    border-bottom: 2px dotted #CCC;
+}
+
+#pageWrapper #top-five-schools li.lastSchool {
+    border-bottom:none;
 }
 
 #pageWrapper #top-five-schools .badge {
@@ -115,10 +120,18 @@
     background: url( /res/img/school/topSchools/pchoice_private.jpg ) no-repeat;
 }
 
+#pageWrapper #top-five-schools .whatMakesATopSchool {
+    font-size: 13px;
+}
+
 #pageWrapper #top-five-schools .school {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     margin-right: 8px;
+}
+
+#pageWrapper #top-five-schools .more {
+    margin-left: 10px;
 }
 
 #pageWrapper #top-five-schools .location {

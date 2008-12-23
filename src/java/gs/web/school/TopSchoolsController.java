@@ -82,6 +82,8 @@ public class TopSchoolsController extends AbstractController {
                 TopSchoolCategory category = (TopSchoolCategory) _schoolDao.getTopSchoolCategories(school).toArray()[0];
                 topSchools.add(new TopSchool(school, category, getReviewText(school)));
             }
+            Collections.sort(topSchools);
+            topSchools.get(topSchools.size() - 1).setLast(true);
             _cache.put(new Element(key, topSchools));
         } else {
             topSchools = (List<TopSchool>) cacheElement.getObjectValue();
@@ -118,9 +120,10 @@ public class TopSchoolsController extends AbstractController {
      * 1. So we can ehCache it efficiently. Also, Hibernate objects get cglib'd so they are troublesome to cache.
      * 2. By subclassing we can also pass along additional data to the view without rewriting a bunch of getters
      */
-    public class TopSchool extends School {
+    public class TopSchool extends School implements Comparable {
         TopSchoolCategory _category;
         String _reviewText;
+        boolean _last = false;
 
         public TopSchool(School school, TopSchoolCategory category, String reviewText) {
             _category = category;
@@ -130,7 +133,8 @@ public class TopSchoolsController extends AbstractController {
             setDatabaseState(school.getDatabaseState());
             setLevelCode(school.getLevelCode());
             setType(school.getType());
-            _reviewText = StringUtils.abbreviate(reviewText, 40);
+            _reviewText = StringUtils.abbreviate(reviewText, 95);
+            _reviewText = StringUtils.abbreviate("this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test ", 95);
         }
 
         public String getReviewText() {
@@ -139,6 +143,18 @@ public class TopSchoolsController extends AbstractController {
 
         public TopSchoolCategory getTopSchoolCategory() {
             return _category;
+        }
+
+        public int compareTo(Object school) {
+            return _category.getCode() - ((TopSchool)school).getTopSchoolCategory().getCode();
+        }
+
+        public boolean isLast() {
+            return _last;
+        }
+
+        public void setLast(boolean last) {
+            _last = last;
         }
     }
 }

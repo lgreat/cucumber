@@ -118,10 +118,9 @@
                     <div id="top-five-schools" class="box main-box">
                         <div class="inner cleared">
                             <h2>The top 5 high schools in ${stateName}</h2>
-
                             <ul>
                                 <c:forEach var="school" items="${topSchools}">
-                                    <li>
+                                    <li class="${(school.last)?'lastSchool':''}">
                                         <a class="badge badge_${fn:toLowerCase(school.topSchoolCategory)}" href="#">What does this mean?</a>
                                         <link:schoolProfileOverview school="${school}" styleClass="school">${school.name}</link:schoolProfileOverview>
                                         <span class="location">${school.city}, ${school.databaseState}<br/>${school.reviewText}</span>
@@ -129,7 +128,7 @@
                                     </li>
                                 </c:forEach>
                             </ul>
-                            What makes a top school &amp;gt;
+                            <a class="whatMakesATopSchool" href="#">What makes a top school &amp;gt;</a>
                         </div>
                     </div>
 
