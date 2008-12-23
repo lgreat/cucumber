@@ -82,9 +82,9 @@
             var cityUrl = GS_replaceAll(cityName, "%27", "'");
             cityUrl = GS_replaceAll(cityUrl, " ", "_");
             cityUrl = GS_replaceAll(cityUrl, "+", "_");
-            cityLink.href = "/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
+            cityLink.href = "http://www.greatschools.net/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
             cityLink.innerHTML = cityName  + " schools";
-            stateLink.href = "/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
+            stateLink.href = "http://www.greatschools.net/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
             stateLink.innerHTML = stateName + " schools";
         }
 
@@ -266,7 +266,7 @@
                                             frameborder="0" scrolling="no"> Keep from collapsing </iframe>
                                 </div>
                                 <div class="GS_widget_footer">
-                                    <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img src="/res/img/widget/poweredby_logo.gif"
+                                    <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img src="http://www.greatschools.net/res/img/widget/poweredby_logo.gif"
                                                                      alt="Powered by GreatSchools"/></a>
                                     <div class="GS_seo">
                                         <!-- These links should always go to www -->
