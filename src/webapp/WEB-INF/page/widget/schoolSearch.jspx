@@ -251,7 +251,7 @@
                 var locationDesc = document.getElementById('locationDescription');
                 var map = document.getElementById('map');
                 if (locationDesc.offsetHeight > locationDesc.style.lineHeight + 5) {
-                    map.style.height = (map.offsetHeight - 16) + "px";
+                    map.style.height = (map.offsetHeight - 20) + "px";
                 }
             }
             adjustMapHeight();
