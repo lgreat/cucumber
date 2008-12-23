@@ -210,16 +210,21 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                     State state = _stateManager.getState(stateAbbrev);
  
                     // attempt to get the city; may not be available for certain zip codes
-                    JSONObject locality = adminArea.getJSONObject("Locality");
-                    if (locality != null) {
-                        String cityName = locality.getString("LocalityName");
-                        if (cityName != null) {
-                            City city = getCityFromString(state, cityName); 
-                            if (city != null) {
-                                city.setState(state);
-                                command.setCity(city);
+                    try {
+                        JSONObject locality = adminArea.getJSONObject("Locality");
+                        if (locality != null) {
+                            String cityName = locality.getString("LocalityName");
+                            if (cityName != null) {
+                                City city = getCityFromString(state, cityName); 
+                                if (city != null) {
+                                    city.setState(state);
+                                    command.setCity(city);
+                                }
                             }
                         }
+                    } catch (JSONException e) {
+                        // this means Locality and/or LocalityName were not available
+                        command.setCity(null);
                     }
 
                     JSONObject point = firstMatch.getJSONObject("Point");
