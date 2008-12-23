@@ -19,14 +19,6 @@
     <title>School Finder - Customize Your Free School Information Widget - GreatSchools</title>
     <pageHelper:externalCss file="/res/css/widget/customizeSchoolSearchWidget.css"/>
     <pageHelper:externalJavascript file="/res/js/customizeSchoolSearchWidget.js"/>
-    <c:if test="${requestScope.pageHelper.devEnvironment}">
-        <gsml:url var="js" value="/res/js/s_code_dev.js"/>
-    </c:if>
-    <c:if test="${not requestScope.pageHelper.devEnvironment}">
-        <gsml:url var="js" value="/res/js/s_code.js"/>
-    </c:if>
-    <pageHelper:externalJavascript file="${js}"/>
-    <pageHelper:externalJavascript file="/res/js/externalTracking.js"/>
     <style type="text/css">
         /* Widget frame styles */
         div#GS_schoolSearchWidget {
@@ -291,12 +283,6 @@
                                 <a href="?s_cid=wsbay93">I want this widget for my site</a>
                             </div>
                         </div>
-                        <script type="text/javascript">
-                            pageTracking.pageName = "SchoolFinder Widget External";
-                            pageTracking.hierarchy = "Widgets,SchoolFinder,UNIQUEID";
-                            pageTracking.server = "www.greatschools.net";
-                            pageTracking.send();
-                        </script>
                     </div>
                 </td>
             </tr>
