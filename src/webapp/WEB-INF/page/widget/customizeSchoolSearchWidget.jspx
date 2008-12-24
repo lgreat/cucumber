@@ -410,9 +410,9 @@
                 To link into the search screen instead of the map screen, locate the iframe section of code as above.
                 Then you will want to add this parameter to the src URL "&amp;amp;displayTab=search". For example,
                 if your code looked like this:<br/>
-                <code>&amp;lt;iframe class="greatschools" src="http://localhost/widget/schoolSearch.page?searchQuery=94536&amp;textColor=228899&amp;width=290&amp;height=346" ...</code><br/>
+                <code>&amp;lt;iframe class="greatschools" src="http://www.greatschools.net/widget/schoolSearch.page?searchQuery=94536&amp;textColor=228899&amp;width=290&amp;height=346" ...</code><br/>
                 You would change it to read:<br/>
-                <code>&amp;lt;iframe class="greatschools" src="http://localhost/widget/schoolSearch.page?searchQuery=94536&amp;textColor=228899&amp;width=290&amp;height=346&amp;displayTab=search"...</code>
+                <code>&amp;lt;iframe class="greatschools" src="http://www.greatschools.net/widget/schoolSearch.page?searchQuery=94536&amp;textColor=228899&amp;width=290&amp;height=346&amp;displayTab=search"...</code>
             </div>
         </div>
     </div>
