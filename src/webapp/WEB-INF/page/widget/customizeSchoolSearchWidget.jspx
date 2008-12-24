@@ -85,10 +85,10 @@
             cityUrl = GS_replaceAll(cityUrl, "+", "_");
             cityLink.href = "http://www.greatschools.net/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
             stateLink.href = "http://www.greatschools.net/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
-            if (cityName == "New York" && stateAbbrev == "NY") {
+            if (cityName == "New York" && stateAbbr == "NY") {
                 cityLink.innerHTML = cityName  + " City schools";
                 stateLink.innerHTML = stateName + " State schools";                
-            } else if (cityName == "Washington" && stateAbbrev == "DC") {
+            } else if (cityName == "Washington" && stateAbbr == "DC") {
                 cityLink.innerHTML = cityName  + ", DC schools";
                 stateLink.innerHTML = "";
             } else {
@@ -312,9 +312,9 @@
                                         </div>
                                         <div class="GS_state">
                                             <c:choose>
-                                                <c:when test="${requestScope.command.city ne null}">
+                                                <c:when test="${not empty requestScope.command.city}">
                                                     <c:choose>
-                                                        <c:when test="${requestScope.command.city.name eq 'New York' and requestScope.command.city.state.name eq 'NY'}">
+                                                        <c:when test="${requestScope.command.city.name eq 'New York' and requestScope.command.city.state eq 'NY'}">
                                                             <link:research state="${requestScope.command.city.state}"
                                                                            id="GS_state_SEO"
                                                                            target="_blank">${requestScope.command.city.state.longName} State schools</link:research>
