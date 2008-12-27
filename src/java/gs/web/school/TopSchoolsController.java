@@ -19,6 +19,8 @@ import gs.data.school.TopSchoolCategory;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.school.review.CategoryRating;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableRow;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -39,14 +41,18 @@ public class TopSchoolsController extends AbstractController {
 
     protected String _viewName;
     protected ISchoolDao _schoolDao;
-    protected static Cache _cache;
+    protected static Cache _schoolCache;
+    protected static Cache _articleCache;
     protected IReviewDao _reviewDao;
+    protected ITableDao _tableDao;
 
     static {
-        // Cache active top schools for 6 hrs for performance
+        // Cache active top schools for 3 hrs for performance, articles for 10 minutes
         CacheManager manager = CacheManager.create();
-        _cache = new Cache(TopSchoolsController.class.getName(), 51, false, false, 3600, 600);
-        manager.addCache(_cache); // You have to add a cache to a manager for it to work
+        _schoolCache = new Cache(TopSchoolsController.class.getName() + ".schools", 51, false, false, 10800, 3600);
+        _articleCache = new Cache(TopSchoolsController.class.getName() + ".articles", 5, false, false, 600, 600);
+        manager.addCache(_schoolCache);
+        manager.addCache(_articleCache);
     }
 
     public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -67,26 +73,33 @@ public class TopSchoolsController extends AbstractController {
         model.put(MODEL_STATE_NAME, state.getLongName());
         model.put(MODEL_STATE_ABBREVIATION, state.getAbbreviation());
         model.put(MODEL_NATIONAL, national);
-        if (national) {
-        } else {
-            model.put(MODEL_TOP_SCHOOLS, getTopSchools(state));
-        }
+        if (!national) model.put(MODEL_TOP_SCHOOLS, getTopSchools(state));
         model.put(MODEL_WHAT_MAKES_A_SCHOOL_GREAT, getWhatMakesASchoolGreatContent());
         model.put(MODEL_ALL_STATES, StateManager.getList());
         return new ModelAndView(_viewName, model);
     }
 
     protected List<ContentLink> getWhatMakesASchoolGreatContent() {
-        List<ContentLink> contents = new ArrayList<ContentLink>();
-        contents.add(new ContentLink("View from the top", "/", "_blank", "Bill Jackson, Greatschools founder and President, reveals the secrets behind a great school"));
-        contents.add(new ContentLink("Talk it out", "http://community.greatschools.net", "", "Share with other parents what makes a school great, and whether your school makes the grade"));
-        contents.add(new ContentLink("Field trip", "/", "_blank", "Visit BusinessWeek to find out why these schools made the list"));
+        String key = "what_makes_a_school_great";
+        Element cacheElement = _articleCache.get(key);
+        List<ContentLink> contents;
+        if (cacheElement == null) {
+            contents = new ArrayList<ContentLink>();
+            for (ITableRow row : _tableDao.getAllRows()) {
+                if (row.getString("link") != null && row.getString("link").trim().length() > 0)
+                    contents.add(new ContentLink(row.getString("title"), row.getString("link"),
+                            row.getString("target"), row.getString("class"), row.getString("text")));
+            }
+            _articleCache.put(new Element(key, contents));
+        } else {
+            contents = (List<ContentLink>) cacheElement.getObjectValue();
+        }
         return contents;
     }
 
     protected List<TopSchool> getTopSchools(State state) {
         String key = state.getAbbreviation().toLowerCase() + "_top_schools";
-        Element cacheElement = _cache.get(key);
+        Element cacheElement = _schoolCache.get(key);
         List<TopSchool> topSchools;
         if (cacheElement == null) {
             topSchools = new ArrayList<TopSchool>();
@@ -97,7 +110,7 @@ public class TopSchoolsController extends AbstractController {
             }
             Collections.sort(topSchools);
             topSchools.get(topSchools.size() - 1).setLast(true);
-            _cache.put(new Element(key, topSchools));
+            _schoolCache.put(new Element(key, topSchools));
         } else {
             topSchools = (List<TopSchool>) cacheElement.getObjectValue();
         }
@@ -128,6 +141,10 @@ public class TopSchoolsController extends AbstractController {
         _reviewDao = reviewDao;
     }
 
+    public void setTableDao(ITableDao tableDao) {
+        _tableDao = tableDao;
+    }
+
     /**
      * We create a school value object for 2 reasons
      * 1. So we can ehCache it efficiently. Also, Hibernate objects get cglib'd so they are troublesome to cache.
@@ -147,7 +164,6 @@ public class TopSchoolsController extends AbstractController {
             setLevelCode(school.getLevelCode());
             setType(school.getType());
             _reviewText = StringUtils.abbreviate(reviewText, 95);
-            _reviewText = StringUtils.abbreviate("this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test this is a test ", 95);
         }
 
         public String getReviewText() {
@@ -175,12 +191,14 @@ public class TopSchoolsController extends AbstractController {
         String _title;
         String _link;
         String _target;
+        String _styleClass;
         String _text;
 
-        public ContentLink(String title, String link, String target, String text) {
+        public ContentLink(String title, String link, String target, String styleClass, String text) {
             _title = title;
             _link = link;
-            _target = target;
+            _target = (target != null && target.length() > 3) ? target : "_self";
+            _styleClass = styleClass;
             _text = text;
         }
 
@@ -194,6 +212,10 @@ public class TopSchoolsController extends AbstractController {
 
         public String getTarget() {
             return _target;
+        }
+
+        public String getStyleClass() {
+            return _styleClass;
         }
 
         public String getText() {

@@ -76,11 +76,14 @@
 
                         <div id="introPromo">
                             <div class="contentTop">
-                            Five high schools in each state that represent the qualities of a great school
-                            <span class="businessWeek">As featured in <a target="_blank" href="http://www.businessweek.com"><img src="/res/img/school/topSchools/businessweek.gif" alt="Business Week"></img></a></span>
+                                Five high schools in each state that represent the qualities of a great school
+                                <span class="businessWeek">As featured in <a target="_blank"
+                                                                             href="http://www.businessweek.com"><img
+                                        src="/res/img/school/topSchools/businessweek.gif" alt="Business Week"></img></a></span>
                             </div>
                             <div class="contentBottom">
                                 <span class="viewTopSchools">View top schools in:</span>
+
                                 <form id="switchStateForm" action="#" method="get"
                                       onsubmit="return changeTopSchoolsState(this)">
                                     <select id="topSchoolsStateChanger" name="state" class="stateSelect">
@@ -96,7 +99,8 @@
                                             </c:choose>
                                         </c:forEach>
                                     </select>
-                                    <input id="topSchoolsStateChangerGo" type="image" src="/res/img/header/btn_go.gif" alt="GO"
+                                    <input id="topSchoolsStateChangerGo" type="image" src="/res/img/header/btn_go.gif"
+                                           alt="GO"
                                            style="width: 37px; height: 20px;"/>
                                     <a class="whatMakesATopSchool" href="#">What makes a top school &gt;</a>
                                 </form>
@@ -107,38 +111,56 @@
 
                 <div id="content">
 
-                    <c:if test="${national}">
-                        <div id="about-the-awards" class="box main-box">
-                            <div class="inner cleared">
-                                <h2>About the awards</h2>
+                    <c:choose>
+                        <c:when test="${national}">
+                            <div id="top-five-schools" class="box main-box about-the-awards">
+                                <div class="inner cleared">
+                                    <h2>About the awards</h2>
+                                    <ul>
+                                        <li>
+                                            <a class="badge badge_overall" href="#"></a>
+                                            <a class="school" href="#">Top Performing</a><br/>
+                                            A Top performing school means
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    </c:if>
-
-                    <div id="top-five-schools" class="box main-box">
-                        <div class="inner cleared">
-                            <h2>The top 5 high schools in ${stateName}</h2>
-                            <ul>
-                                <c:forEach var="school" items="${topSchools}">
-                                    <li class="${(school.last)?'lastSchool':''}">
-                                        <a class="badge badge_${fn:toLowerCase(school.topSchoolCategory)}" href="#">What does this mean?</a>
-                                        <link:schoolProfileOverview school="${school}" styleClass="school">${school.name}</link:schoolProfileOverview>
-                                        <span class="location">${school.city}, ${school.databaseState}<br/>${school.reviewText}</span>
-                                        <link:schoolProfileOverview school="${school}" styleClass="more">More &amp;gt;</link:schoolProfileOverview>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                            <a class="whatMakesATopSchool" href="#">What makes a top school &amp;gt;</a>
-                        </div>
-                    </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div id="top-five-schools" class="box main-box">
+                                <div class="inner cleared">
+                                    <h2>The top 5 high schools in ${stateName}</h2>
+                                    <ul>
+                                        <c:forEach var="school" items="${topSchools}">
+                                            <li class="${(school.last)?'lastSchool':''}">
+                                                <a class="badge badge_${fn:toLowerCase(school.topSchoolCategory)}"
+                                                   href="#">What does this mean?</a>
+                                                <link:schoolProfileOverview school="${school}"
+                                                                            styleClass="school">${school.name}</link:schoolProfileOverview>
+                                                <span class="location">${school.city}, ${school.databaseState}
+                                                    <br/>${school.reviewText}</span>
+                                                <link:schoolProfileOverview school="${school}"
+                                                                            styleClass="more">More &amp;gt;</link:schoolProfileOverview>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                    <a class="whatMakesATopSchool" href="#">What makes a top school &amp;gt;</a>
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
 
                     <div id="what-makes-a-school-great" class="box main-box">
                         <div class="inner cleared">
                             <h2>What makes a school great</h2>
                             <img src="/res/img/school/topSchools/top5_boyinclass.jpg" alt="What makes a school great"/>
-                            <c:forEach var="contentLink" items="${whatMakesASchoolGreat}">
-                                <a href="">${contentLink.title}</a>
-                            </c:forEach>
+                            <ul>
+                                <c:forEach var="contentLink" items="${whatMakesASchoolGreat}">
+                                    <li><a class="content-link ${contentLink.styleClass}" target="${contentLink.target}"
+                                           href="${contentLink.link}">${contentLink.title}</a>
+                                        ${contentLink.text}</li>
+                                </c:forEach>
+                            </ul>
                         </div>
                     </div>
                 </div>

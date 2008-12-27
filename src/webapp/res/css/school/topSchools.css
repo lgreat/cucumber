@@ -69,9 +69,9 @@
 
 #pageWrapper #top-schools-header .whatMakesATopSchool {
     padding: 5px 12px 0 0;
-    font-size:12px;
-    display:block;
-    float:right;
+    font-size: 12px;
+    display: block;
+    float: right;
 }
 
 #pageWrapper #supplement h2 {
@@ -89,14 +89,19 @@
     border-bottom: 2px dotted #CCC;
 }
 
+#pageWrapper #top-five-schools.about-the-awards li {
+    height:85px;
+}
+
 #pageWrapper #top-five-schools li.lastSchool {
-    border-bottom:none;
+    border-bottom: none;
 }
 
 #pageWrapper #top-five-schools .badge {
     display: block;
     float: left;
     padding: 73px 10px 0 0;
+    width: 95px;
     font-size: 9px;
 }
 
@@ -139,6 +144,24 @@
     font-style: italic;
 }
 
+#pageWrapper #what-makes-a-school-great {
+    margin-bottom: 10px;
+}
+
 #pageWrapper #what-makes-a-school-great img {
-    display:inline;
+    position:absolute;
+}
+
+#pageWrapper #what-makes-a-school-great ul {
+    margin-left: 150px;
+}
+
+#pageWrapper #what-makes-a-school-great li {
+    background: none;
+    margin-bottom: 20px;
+}
+
+#pageWrapper #what-makes-a-school-great a.content-link {
+    font-size: 15px;
+    display:block;
 }

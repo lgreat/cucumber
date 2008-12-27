@@ -703,6 +703,16 @@
         <property name="viewName">
             <value>/school/topSchools</value>
         </property>
+        <property name="tableDao">
+            <bean factory-bean="topSchoolsFactory" factory-method="getTableDao"/>
+        </property>
+    </bean>
+
+    <bean name="topSchoolsFactory" class="gs.web.util.google.GoogleSpreadsheetDaoFactory">
+        <property name="googleKey" value="pouqRkV5D_eZtLbVwDRFtHQ"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+        <property name="worksheetName" value="od6"/>
     </bean>
 
     <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName" lazy-init="true"/>
