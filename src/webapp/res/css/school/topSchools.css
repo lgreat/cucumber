@@ -1,3 +1,11 @@
+.title-box .inner {
+    background-image: url( /res/img/library/top-box-top.png );
+}
+
+.title-box {
+    background-image: url( /res/img/library/top-box-bottom.png );
+}
+
 .main-box .inner {
     background-image: url( /res/img/library/middle-box2-top.png );
 }
@@ -63,8 +71,8 @@
 }
 
 #pageWrapper #top-schools-header #switchStateForm #topSchoolsStateChangerGo {
-    margin-bottom: -6px;
-    margin-left: 3px;
+    margin-bottom: -9px;
+    margin-left: 5px;
 }
 
 #pageWrapper #top-schools-header .whatMakesATopSchool {
@@ -148,12 +156,9 @@
     margin-bottom: 10px;
 }
 
-#pageWrapper #what-makes-a-school-great img {
-    position:absolute;
-}
-
 #pageWrapper #what-makes-a-school-great ul {
-    margin-left: 150px;
+    background: url( /res/img/school/topSchools/top5_boyinclass.jpg ) no-repeat;
+    padding-left: 150px;
 }
 
 #pageWrapper #what-makes-a-school-great li {
@@ -164,4 +169,9 @@
 #pageWrapper #what-makes-a-school-great a.content-link {
     font-size: 15px;
     display:block;
+}
+
+#pageWrapper #what-makes-a-school-great a.dialog {
+    background: url( /res/img/home/blue_module/bubble.png ) no-repeat;
+    padding-left: 30px;
 }

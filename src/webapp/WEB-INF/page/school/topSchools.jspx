@@ -99,9 +99,8 @@
                                             </c:choose>
                                         </c:forEach>
                                     </select>
-                                    <input id="topSchoolsStateChangerGo" type="image" src="/res/img/header/btn_go.gif"
-                                           alt="GO"
-                                           style="width: 37px; height: 20px;"/>
+                                    <input id="topSchoolsStateChangerGo" type="image" src="/res/img/splash/go.gif"
+                                           alt="GO"/>
                                     <a class="whatMakesATopSchool" href="#">What makes a top school &gt;</a>
                                 </form>
                             </div>
@@ -153,7 +152,6 @@
                     <div id="what-makes-a-school-great" class="box main-box">
                         <div class="inner cleared">
                             <h2>What makes a school great</h2>
-                            <img src="/res/img/school/topSchools/top5_boyinclass.jpg" alt="What makes a school great"/>
                             <ul>
                                 <c:forEach var="contentLink" items="${whatMakesASchoolGreat}">
                                     <li><a class="content-link ${contentLink.styleClass}" target="${contentLink.target}"

@@ -86,8 +86,9 @@ public class TopSchoolsController extends AbstractController {
         if (cacheElement == null) {
             contents = new ArrayList<ContentLink>();
             for (ITableRow row : _tableDao.getAllRows()) {
-                if (row.getString("link") != null && row.getString("link").trim().length() > 0)
-                    contents.add(new ContentLink(row.getString("title"), row.getString("link"),
+                String link = row.getString("link");
+                if (link != null && link.trim().length() > 0)
+                    contents.add(new ContentLink(row.getString("title"), link,
                             row.getString("target"), row.getString("class"), row.getString("text")));
             }
             _articleCache.put(new Element(key, contents));
