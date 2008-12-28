@@ -3,10 +3,11 @@ package gs.web.school;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContext;
 import gs.web.util.RedirectView301;
 import gs.web.util.google.GoogleSpreadsheetDao;
-import gs.data.school.TopSchoolCategory;
 import gs.data.util.table.ITableRow;
+import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import static org.easymock.classextension.EasyMock.*;
@@ -21,14 +22,12 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
 
     private TopSchoolsController _controller;
     private SessionContextUtil _sessionContextUtil;
-    private GoogleSpreadsheetDao _tableDao;
-
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = (TopSchoolsController) getApplicationContext().getBean(TopSchoolsController.BEAN_ID);
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
-        _tableDao = createMock(GoogleSpreadsheetDao.class);
+        GoogleSpreadsheetDao tableDao = createMock(GoogleSpreadsheetDao.class);
         ITableRow row = createMock(ITableRow.class);
         expect(row.getString("title")).andReturn("A Title");
         expect(row.getString("link")).andReturn("http://www.greatschools.net");
@@ -37,10 +36,10 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         expect(row.getString("text")).andReturn("Some text");
         List<ITableRow> rows = new ArrayList<ITableRow>();
         rows.add(row);
-        expect(_tableDao.getAllRows()).andReturn(rows);
+        expect(tableDao.getAllRows()).andReturn(rows);
         replay(row);
-        replay(_tableDao);
-        _controller.setTableDao(_tableDao);
+        replay(tableDao);
+        _controller.setTableDao(tableDao);
     }
 
     public void testNational() throws Exception {
@@ -78,7 +77,7 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         }
     }
 
-    public void testRedirection() throws Exception {
+    public void testIncorrectCaseRedirection() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setRequestURI("/top-high-schools/California");
         _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
@@ -87,4 +86,13 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("/top-high-schools/california", ((RedirectView) mAndV.getView()).getUrl());
     }
 
+    public void testStateCookieRedirection() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setRequestURI("/top-high-schools/");
+        SessionContext context = _sessionContextUtil.prepareSessionContext(request, getResponse());
+        context.setState(State.WY);
+        ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView301);
+        assertEquals("/top-high-schools/wyoming", ((RedirectView) mAndV.getView()).getUrl());
+    }
 }

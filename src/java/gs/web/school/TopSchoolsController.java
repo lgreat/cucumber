@@ -65,8 +65,13 @@ public class TopSchoolsController extends AbstractController {
 
         boolean national = false;
         if (request.getRequestURI().endsWith("schools/")) {
-            national = true;
-            state = State.CA;
+            if (state == null) {
+                national = true;
+                state = State.CA;
+            } else {
+                // If the user has a state cookie redirect them
+                return new ModelAndView(new RedirectView301("/top-high-schools/" + state.getLongName().toLowerCase().replace(" ","-")));
+            }
         }
 
         Map<String, Object> model = new HashMap<String, Object>();
