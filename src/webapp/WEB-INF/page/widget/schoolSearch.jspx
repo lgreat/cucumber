@@ -165,7 +165,14 @@
                         <noscript>JavaScript is required in order to view a map of the schools.
                         </noscript>
                     </div>
-                    <img src="/res/img/widget/map_key.gif" alt="Map Key" class="mapKey"/>
+                    <c:choose>
+                        <c:when test="${requestScope.command.hidePreschools}">
+                            <img src="/res/img/widget/map_key_no_preschools.gif" alt="Map Key" class="mapKey"/>
+                        </c:when>
+                        <c:otherwise>
+                            <img src="/res/img/widget/map_key.gif" alt="Map Key" class="mapKey"/>
+                        </c:otherwise>
+                    </c:choose>
                     <c:set var="zoom" value="${not empty requestScope.command.zoom and requestScope.command.zoom gt 0 ? requestScope.command.zoom : 0}"/>
                     <c:if test="${requestScope.command.showLocationMarker and zoom eq 0}">
                         <c:set var="zoom" value="13"/>
