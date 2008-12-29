@@ -63,10 +63,14 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     // SPRING MVC METHODS
     // ==============================================================================
 
+    protected Object formBackingObject(HttpServletRequest request) throws Exception {
+        SchoolSearchWidgetCommand command = new SchoolSearchWidgetCommand();
+        command.setHidePreschools(_hidePreschools);
+        return command;
+    }
+
     protected void onBindOnNewForm(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
-
-        command.setHidePreschools(_hidePreschools);
 
         if (request.getParameter(DISPLAY_TAB_PARAM) != null) {
             command.setDisplayTab(request.getParameter(DISPLAY_TAB_PARAM));
@@ -81,8 +85,6 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj,
                                      BindException errors) throws Exception {
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
-
-        command.setHidePreschools(_hidePreschools);
 
         String searchQuery = request.getParameter(SEARCH_QUERY_PARAM);
         parseSearchQuery(searchQuery, getGoogleApiKey(request.getServerName()), command, request, errors);

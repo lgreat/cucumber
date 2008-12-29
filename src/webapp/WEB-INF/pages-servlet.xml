@@ -270,12 +270,6 @@
           class="gs.web.widget.SchoolSearchWidgetController"
           autowire="byName"
           lazy-init="true">
-        <property name="commandName">
-            <value>command</value>
-        </property>
-        <property name="commandClass">
-            <value>gs.web.widget.SchoolSearchWidgetCommand</value>
-        </property>
         <property name="formView">
             <value>widget/schoolSearch</value>
         </property>
@@ -546,11 +540,10 @@
     </bean>
 
     <bean name="/about/linkToUs.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.about.LinkToUsController"
           autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/linkToUs</value>
-        </property>
+        <property name="formView" value="about/linkToUs"/>
+        <property name="hideSchoolFinderWidgetPreschools" value="true"/>
     </bean>
 
     <bean name="/about/whoWeAre.page"

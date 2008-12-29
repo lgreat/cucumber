@@ -55,7 +55,15 @@
             <table border="0" cellpadding="0px" cellspacing="0px">
                 <tr>
                     <td>
-                        <img src="/res/img/about/schoolfinder_70percent.jpg" alt="School Finder Widget"/>
+                        <c:choose>
+                            <c:when test="${requestScope.command.hideSchoolFinderWidgetPreschools}">
+                                <c:set var="schoolFinderImgUrl" value="/res/img/about/schoolfinder_70percent_no_preschools.jpg"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="schoolFinderImgUrl" value="/res/img/about/schoolfinder_70percent.jpg"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <img src="${schoolFinderImgUrl}" alt="School Finder Widget"/>
                     </td>
                     <td valign="top" style="padding: 130px  0 0 10px;">
                         <p>
