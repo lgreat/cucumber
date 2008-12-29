@@ -242,8 +242,6 @@ function initMap() {
 }
 
 function panUpABit() {
-    // remove control so it doesn't block info window
-    GS_map.removeControl(GS_map_zoomControl);
     // pan view down to keep top of info window visible
     GS_map.panDirection(0,0.4);
     needsExtraZoom = false;
