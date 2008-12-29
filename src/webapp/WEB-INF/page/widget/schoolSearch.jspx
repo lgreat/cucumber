@@ -127,13 +127,15 @@
             </div>
             <div class="filters">
                 <ul>
-                    <li>
-                        <gsml:checkbox name="preschool"
-                                       styleId="filter_p"
-                                       checked="${requestScope.command.preschoolFilterChecked}"
-                                       onclick="toggleFilter('p', this.checked, '${requestScope.command.searchQuery}');"/>
-                        <label for="filter_p">Preschool</label>
-                    </li>
+                    <c:if test="${!requestScope.command.hidePreschools}">
+                        <li>
+                            <gsml:checkbox name="preschool"
+                                           styleId="filter_p"
+                                           checked="${requestScope.command.preschoolFilterChecked}"
+                                           onclick="toggleFilter('p', this.checked, '${requestScope.command.searchQuery}');"/>
+                            <label for="filter_p">Preschool</label>
+                        </li>
+                    </c:if>
                     <li>
                         <gsml:checkbox name="elementary"
                                        styleId="filter_e"

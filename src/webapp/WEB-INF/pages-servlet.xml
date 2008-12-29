@@ -282,7 +282,8 @@
         <property name="successView">
             <value>widget/schoolSearch</value>
         </property>
-        <property name="bindOnNewForm" value="true"/>        
+        <property name="bindOnNewForm" value="true"/>
+        <property name="hidePreschools" value="true"/>
     </bean>
 
     <bean name="/community/betaUnsubscribe.page" class="gs.web.community.BetaUnsubscribeController"

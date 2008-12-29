@@ -17,6 +17,7 @@ public class SchoolSearchWidgetCommand {
     private String _mapLocationPrefix;
     private String _mapLocationString;
     private String _mapLocationSuffix;
+    private boolean _hidePreschools = false;
     private boolean _preschoolFilterChecked = true;
     private boolean _elementaryFilterChecked = true;
     private boolean _middleFilterChecked = true;
@@ -88,8 +89,16 @@ public class SchoolSearchWidgetCommand {
         _mapLocationSuffix = mapLocationSuffix;
     }
 
+    public boolean isHidePreschools() {
+        return _hidePreschools;
+    }
+
+    public void setHidePreschools(boolean hidePreschools) {
+        _hidePreschools = hidePreschools;
+    }
+
     public boolean isPreschoolFilterChecked() {
-        return _preschoolFilterChecked;
+        return !isHidePreschools() && _preschoolFilterChecked;
     }
 
     public void setPreschoolFilterChecked(boolean preschoolFilterChecked) {

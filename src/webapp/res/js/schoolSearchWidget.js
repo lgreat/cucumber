@@ -58,10 +58,13 @@ function toggleFilter(levelCode, checked, searchQuery) {
     document.getElementById('searchInput').value = searchQuery;
 
     var noneChecked =
-        !document.getElementById('filter_p').checked &&
         !document.getElementById('filter_e').checked &&
         !document.getElementById('filter_m').checked &&
         !document.getElementById('filter_h').checked;
+    if (document.getElementById('filter_p') != null) {
+        noneChecked =
+            noneChecked && !document.getElementById('filter_p').checked; 
+    }
 
     document.getElementById('zoom').value = GS_map.getZoom();
     document.getElementById('lat').value = GS_map.getCenter().lat();
@@ -77,14 +80,19 @@ function toggleFilter(levelCode, checked, searchQuery) {
 
 function submitSearch() {
     var noneChecked =
-        !document.getElementById('filter_p').checked &&
         !document.getElementById('filter_e').checked &&
         !document.getElementById('filter_m').checked &&
         !document.getElementById('filter_h').checked;
+    if (document.getElementById('filter_p') != null) {
+        noneChecked =
+            noneChecked && !document.getElementById('filter_p').checked;
+    }
     var newSearch =
         (document.getElementById(GS_SEARCH_TAB_NAME).className == "selected");
     if (noneChecked || newSearch) {
-        document.getElementById('filter_p_value').value = 'true';
+        if (document.getElementById('filter_p_value') != null) {
+            document.getElementById('filter_p_value').value = 'true';
+        }
         document.getElementById('filter_e_value').value = 'true';
         document.getElementById('filter_m_value').value = 'true';
         document.getElementById('filter_h_value').value = 'true';

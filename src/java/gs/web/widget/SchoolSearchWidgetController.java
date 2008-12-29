@@ -50,6 +50,8 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     // http://code.google.com/apis/maps/documentation/reference.html#GGeoStatusCode
     private static final String G_GEO_SUCCESS = "200";
 
+    private boolean _hidePreschools;
+
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
@@ -64,6 +66,8 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     protected void onBindOnNewForm(HttpServletRequest request, Object commandObj, BindException errors) throws Exception {
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
 
+        command.setHidePreschools(_hidePreschools);
+
         if (request.getParameter(DISPLAY_TAB_PARAM) != null) {
             command.setDisplayTab(request.getParameter(DISPLAY_TAB_PARAM));
         }
@@ -77,8 +81,10 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj,
                                      BindException errors) throws Exception {
         SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand) commandObj;
-        String searchQuery = request.getParameter(SEARCH_QUERY_PARAM);
 
+        command.setHidePreschools(_hidePreschools);
+
+        String searchQuery = request.getParameter(SEARCH_QUERY_PARAM);
         parseSearchQuery(searchQuery, getGoogleApiKey(request.getServerName()), command, request, errors);
     }
 
@@ -432,6 +438,14 @@ public class SchoolSearchWidgetController extends SimpleFormController {
     // ==============================================================================
     // SETTERS & GETTERS
     // ==============================================================================
+
+    public boolean isHidePreschools() {
+        return _hidePreschools;
+    }
+
+    public void setHidePreschools(boolean hidePreschools) {
+        _hidePreschools = hidePreschools;
+    }
 
     public IGeoDao getGeoDao() {
         return _geoDao;
