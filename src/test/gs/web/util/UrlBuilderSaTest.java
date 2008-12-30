@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.94 2008/12/18 00:39:30 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.95 2008/12/30 22:51:31 yfan Exp $
  */
 
 package gs.web.util;
@@ -491,7 +491,7 @@ public class UrlBuilderSaTest extends TestCase {
     public void testMicroSitePages() {
         GsMockHttpServletRequest request = getMockRequest();
         UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
-        assertEquals("/content/schoolChoiceCenter.page", builder.asSiteRelative(request));
+        assertEquals("/school-choice/", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.HEALTHY_KIDS);
         assertEquals("/content/healthyKids.page", builder.asSiteRelative(request));
