@@ -95,8 +95,9 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
         assertValidXhtml(INTEGRATION_HOST + "/content/healthyKids.page");
     }
 
-    public void testSchoolChoiceCenter() {
-        assertValidXhtml(INTEGRATION_HOST + "/content/schoolChoiceCenter.page");
+    // TODO-7752
+    public void xtestSchoolChoiceCenter() {
+        assertValidXhtml(INTEGRATION_HOST + "/school-choice/");
     }
 
     public void testCountdownToCollege() {
