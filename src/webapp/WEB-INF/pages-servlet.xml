@@ -50,6 +50,7 @@
                 <entry key="/preschool/**" value="/preschool/index.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
                 <entry key="/holiday-giving/**" value="/content/holidayGiving.page"/>
+                <entry key="/school-choice/**" value="/content/schoolChoice.page"/>
             </map>
         </property>
     </bean>
@@ -827,10 +828,16 @@
     </bean>
 
     <bean name="/content/schoolChoiceCenter.page"
+          class="gs.web.util.Redirect301Controller"
+          autowire="byName" lazy-init="true">
+        <property name="redirectPath" value="/school-choice/"/>
+    </bean>
+
+    <bean name="/content/schoolChoice.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
-            <value>/content/schoolChoiceTips</value>
+            <value>/content/schoolChoice</value>
         </property>
     </bean>
 
