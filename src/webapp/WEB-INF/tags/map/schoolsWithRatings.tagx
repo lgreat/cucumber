@@ -140,8 +140,12 @@ function initSchoolInfo() {
     </c:if>
     <c:choose>
        <c:when test="${parent_rating eq 0}">
+            <c:set var="parentRatingSCid" value=""/>
+            <c:if test="${not empty s_cid}">
+                 <c:set var="parentRatingSCid" value="&amp;s_cid=${s_cid}"/>
+            </c:if>
             mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview
-                    onclick="window.open(this.href + \'&amp;showName=1\', \'map\', \'width=344,height=362,scrollbars=no\'); return false;"
+                    onclick="window.open(this.href + \'&amp;showName=1${parentRatingSCid}\', \'map\', \'width=344,height=362,scrollbars=no\'); return false;"
                     school="${curSchool}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
        </c:when>
        <c:otherwise>
