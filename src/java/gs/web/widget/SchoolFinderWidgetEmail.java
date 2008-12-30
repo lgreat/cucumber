@@ -18,6 +18,11 @@ public class SchoolFinderWidgetEmail extends AbstractSendEmailBean {
     public static final String BEAN_ID = "schoolFinderWidgetEmail";
     public static final String HTML_EMAIL_LOCATION =
             "/gs/web/widget/schoolFinderWidgetEmail-html.txt";
+    public static final String HTML_EMAIL_EXTRA_STYLES =
+            "li {\n" +
+            "    list-style-type: disc;\n" +
+            "    margin-left: 17px;\n" +
+            "}";
 
     /**
      * Creates and sends an email to the given user with their customized SchoolFinder widget code
@@ -28,6 +33,7 @@ public class SchoolFinderWidgetEmail extends AbstractSendEmailBean {
      */
     public void sendToUser(User user, String widgetCode, HttpServletRequest request) throws IOException, MessagingException {
         EmailHelper emailHelper = getEmailHelper();
+        emailHelper.setExtraStyles(HTML_EMAIL_EXTRA_STYLES);
         emailHelper.setToEmail(user.getEmail());
         emailHelper.setSentToCustomMessage("<p>This confirmation message was sent to $EMAIL.</p>");
         emailHelper.setGreatSchoolsDescriptionWithNoLineBreaks(true);

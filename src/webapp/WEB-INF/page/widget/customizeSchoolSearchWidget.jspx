@@ -398,18 +398,25 @@
             <div class="answer">You can utilize this widget as a 'mini' site within your site by
                 framing the panoramic size.  Follow these instructions to link directly in to
                 different views of the widget.<br/>
-                To link to schools within a city or near an address, find the section of the code that reads<br/>
+                <br/>
+                To link to schools within a city or near an address:<br/>
+                <ul class="bulleted">
+                    <li>Find the section of the code that reads:<br/>
                 <code>&amp;lt;iframe class="greatschools" src="http://www.greatschools.net/widget/schoolSearch.page...</code><br/>
-                Modify the part inside the source that says "?searchQuery=[some text here]&amp;..." by replacing the
-                "[some text here]" with the address in question. For example, if your code looked like this:<br/>
+                </li>
+                <li>Modify the part inside the source that says "?searchQuery=[some text here]&amp;..." by replacing the
+                "[some text here]" with the address in question.<br/>
+                For example, if you want to link to the address &quot;Central Ave 94501&quot;, you would change:<br/>
                 <code>&amp;lt;iframe class="greatschools" src=”http://www.greatschools.net/widget/schoolSearch.page?searchQuery=94536&amp;textColor=228899...</code><br/>
-                And you wanted to link to the address "Central Ave 94501" you would change it to read:<br/>
+                To:<br/>
                 <code>&amp;lt;iframe class="greatschools" src="http://www.greatschools.net/widget/schoolSearch.page?searchQuery=Central+Ave+94501&amp;textColor=228899...</code><br/>
                 Note that the search query must be URL-encoded to function properly.<br/>
+                </li>
+                </ul>
                 <br/>
                 To link into the search screen instead of the map screen, locate the iframe section of code as above.
-                Then you will want to add this parameter to the src URL "&amp;amp;displayTab=search". For example,
-                if your code looked like this:<br/>
+                Then, you will want to add this parameter to the src URL: &quot;&amp;amp;displayTab=search&quot;.<br/>
+                For example, if your code looked like this:<br/>
                 <code>&amp;lt;iframe class="greatschools" src="http://www.greatschools.net/widget/schoolSearch.page?searchQuery=94536&amp;textColor=228899&amp;width=290&amp;height=346" ...</code><br/>
                 You would change it to read:<br/>
                 <code>&amp;lt;iframe class="greatschools" src="http://www.greatschools.net/widget/schoolSearch.page?searchQuery=94536&amp;textColor=228899&amp;width=290&amp;height=346&amp;displayTab=search"...</code>
