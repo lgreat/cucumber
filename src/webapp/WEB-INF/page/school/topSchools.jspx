@@ -52,7 +52,7 @@
     </script>
 </head>
 <c:set var="pageName" value="Top High Schools"/>
-<ad:setSlotPrefix slotPrefix="Top_High_Schools"/>
+<ad:setSlotPrefix slotPrefix="Top_Schools"/>
 <gsml:body adPageName="top-high-schools" pageLayout="topHighSchools" startAdHierarchyAtPage="true">
 
 <div id="pageWrapper" class="cleared">
@@ -148,7 +148,7 @@
                 <c:otherwise>
                     <div id="top-five-schools" class="box main-box">
                         <div class="inner cleared">
-                            <h2>The top 5 high schools in ${stateName}</h2>
+                            <h2>The top high schools in ${stateName}</h2>
                             <ul>
                                 <c:forEach var="school" items="${topSchools}">
                                     <li class="${(school.last)?'lastSchool':''}">

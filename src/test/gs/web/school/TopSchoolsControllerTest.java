@@ -51,8 +51,8 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(true, mv.getModel().get(TopSchoolsController.MODEL_NATIONAL));
         assertEquals("California", mv.getModel().get(TopSchoolsController.MODEL_STATE_NAME));
         assertEquals("CA", mv.getModel().get(TopSchoolsController.MODEL_STATE_ABBREVIATION));
-        assertTrue(((List)mv.getModel().get(TopSchoolsController.MODEL_ALL_STATES)).size() > 50);
-        assertTrue(((List)mv.getModel().get(TopSchoolsController.MODEL_COMPARE_CITIES)).size() > 50);
+        assertTrue(((List) mv.getModel().get(TopSchoolsController.MODEL_ALL_STATES)).size() > 50);
+        assertTrue(((List) mv.getModel().get(TopSchoolsController.MODEL_COMPARE_CITIES)).size() > 50);
         List<TopSchoolsController.ContentLink> content = (List<TopSchoolsController.ContentLink>) mv.getModel().get(TopSchoolsController.MODEL_WHAT_MAKES_A_SCHOOL_GREAT);
         assertEquals(1, content.size());
         assertEquals("A Title", content.get(0).getTitle());
@@ -64,9 +64,10 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
 
     public void testWyomingWhereWeHaveSampleData() throws Exception {
         GsMockHttpServletRequest request = getRequest();
-        request.setRequestURI("/top-high-schools/wyoming");
+        request.setRequestURI("/top-high-schools/wyoming/");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         ModelAndView mv = _controller.handleRequestInternal(request, getResponse());
+        assertFalse(mv.getView() instanceof RedirectView301);
         assertEquals(false, mv.getModel().get(TopSchoolsController.MODEL_NATIONAL));
         assertEquals("Wyoming", mv.getModel().get(TopSchoolsController.MODEL_STATE_NAME));
         assertEquals("WY", mv.getModel().get(TopSchoolsController.MODEL_STATE_ABBREVIATION));
@@ -78,13 +79,22 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         }
     }
 
-    public void testIncorrectCaseRedirection() throws Exception {
+    public void testMissingTrailingSlashRedirection() throws Exception {
         GsMockHttpServletRequest request = getRequest();
-        request.setRequestURI("/top-high-schools/California");
+        request.setRequestURI("/top-high-schools/california");
         _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
         assertTrue(mAndV.getView() instanceof RedirectView301);
-        assertEquals("/top-high-schools/california", ((RedirectView) mAndV.getView()).getUrl());
+        assertEquals("/top-high-schools/california/", ((RedirectView) mAndV.getView()).getUrl());
+    }
+
+    public void testIncorrectCaseRedirection() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setRequestURI("/top-high-schools/California/");
+        _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
+        ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertTrue(mAndV.getView() instanceof RedirectView301);
+        assertEquals("/top-high-schools/california/", ((RedirectView) mAndV.getView()).getUrl());
     }
 
     public void testStateCookieRedirection() throws Exception {
@@ -94,6 +104,6 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         context.setState(State.WY);
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
         assertTrue(mAndV.getView() instanceof RedirectView301);
-        assertEquals("/top-high-schools/wyoming", ((RedirectView) mAndV.getView()).getUrl());
+        assertEquals("/top-high-schools/wyoming/", ((RedirectView) mAndV.getView()).getUrl());
     }
 }

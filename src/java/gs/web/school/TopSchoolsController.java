@@ -19,6 +19,7 @@ import gs.data.school.TopSchoolCategory;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.school.review.CategoryRating;
+import gs.data.school.review.Poster;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.data.geo.City;
@@ -64,8 +65,11 @@ public class TopSchoolsController extends AbstractController {
         State state = context.getState();
 
         // If someone accidentally enters .../California instead of ../california, 301 them 
-        if (!request.getRequestURI().equals(request.getRequestURI().toLowerCase()))
-            return new ModelAndView(new RedirectView301(request.getRequestURI().toLowerCase()));
+        if (!request.getRequestURI().equals(request.getRequestURI().toLowerCase()) || !request.getRequestURI().endsWith("/")) {
+            String newUri = request.getRequestURI().toLowerCase();
+            if (!newUri.endsWith("/")) newUri += "/";
+            return new ModelAndView(new RedirectView301(newUri));
+        }
 
         boolean national = false;
         if (request.getRequestURI().endsWith("schools/")) {
@@ -74,7 +78,7 @@ public class TopSchoolsController extends AbstractController {
                 state = State.CA;
             } else {
                 // If the user has a state cookie redirect them
-                return new ModelAndView(new RedirectView301("/top-high-schools/" + state.getLongName().toLowerCase().replace(" ", "-")));
+                return new ModelAndView(new RedirectView301("/top-high-schools/" + state.getLongName().toLowerCase().replace(" ", "-") + "/"));
             }
         }
 
@@ -128,16 +132,18 @@ public class TopSchoolsController extends AbstractController {
         return topSchools;
     }
 
+    /**
+     * Return ESP school vision if it exists, otherwise return a parent review where the review is
+     * from a parent and 4 or 5 stars (preferring 5 stars).
+     */
     protected String getReviewText(School school) {
         String reviewText = _schoolDao.getPrincipalSchoolVision(school);
         if (reviewText == null || reviewText.length() < 3) {
             List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
-            for (Review review : reviews) {
-                CategoryRating rating = review.getQuality();
-                if (rating.equals(CategoryRating.RATING_4) || rating.equals(CategoryRating.RATING_5)) {
-                    reviewText = review.getComments();
-                }
-            }
+            for (CategoryRating rating : Arrays.asList(CategoryRating.RATING_5, CategoryRating.RATING_4))
+                for (Review review : reviews)
+                    if (rating.equals(review.getQuality()) && Poster.PARENT.equals(review.getPoster()))
+                        reviewText = review.getComments();
         }
         return (reviewText == null) ? "" : reviewText;
     }

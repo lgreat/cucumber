@@ -45,7 +45,7 @@
         <property name="urlMap">
             <map>
                 <entry key="/city/**" value="/city.page"/>
-                <entry key="/top-high-schools/*" value="/schools/topSchools.page"/>
+                <entry key="/top-high-schools/**" value="/schools/topSchools.page"/>
                 <entry key="/schools/**" value="/schools/allInState.page"/>
                 <entry key="/preschool/**" value="/preschool/index.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
