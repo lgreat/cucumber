@@ -159,7 +159,7 @@
                                                 <span class="location">${school.city}, ${school.databaseState}
                                                     <br/>${school.reviewText}</span>
                                         <link:schoolProfileOverview school="${school}"
-                                                                    styleClass="more">More &amp;gt;</link:schoolProfileOverview>
+                                                                    styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileOverview>
                                     </li>
                                 </c:forEach>
                             </ul>
@@ -213,7 +213,7 @@
                             <li>Prep for a school visit</li>
                             <li>Apply and enroll</li>
                         </ul>
-                        <a href="#">Visit our School Choice Center &gt;</a>
+                        <link:schoolChoiceCenter>Visit our School Choice Center &gt;</link:schoolChoiceCenter>
                     </div>
                     <div id="find-and-compare-schools">
                         <h2>Find and compare schools</h2>

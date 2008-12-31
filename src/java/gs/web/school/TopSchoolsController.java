@@ -129,15 +129,17 @@ public class TopSchoolsController extends AbstractController {
     }
 
     protected String getReviewText(School school) {
-        String reviewText = "";
-        List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
-        for (Review review : reviews) {
-            CategoryRating rating = review.getQuality();
-            if (rating.equals(CategoryRating.RATING_4) || rating.equals(CategoryRating.RATING_5)) {
-                reviewText = review.getComments();
+        String reviewText = _schoolDao.getPrincipalSchoolVision(school);
+        if (reviewText == null || reviewText.length() < 3) {
+            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
+            for (Review review : reviews) {
+                CategoryRating rating = review.getQuality();
+                if (rating.equals(CategoryRating.RATING_4) || rating.equals(CategoryRating.RATING_5)) {
+                    reviewText = review.getComments();
+                }
             }
         }
-        return reviewText;
+        return (reviewText == null) ? "" : reviewText;
     }
 
     protected List<City> getCityList(State state) {
@@ -186,7 +188,7 @@ public class TopSchoolsController extends AbstractController {
             setDatabaseState(school.getDatabaseState());
             setLevelCode(school.getLevelCode());
             setType(school.getType());
-            _reviewText = StringUtils.abbreviate(reviewText, 95);
+            _reviewText = StringUtils.abbreviate(reviewText, 115);
         }
 
         public String getReviewText() {
