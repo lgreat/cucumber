@@ -4,7 +4,7 @@
 
 .title-box {
     background-image: url( /res/img/library/top-box-bottom.png );
-}
+}                                                                                                        1
 
 .main-box .inner {
     background-image: url( /res/img/library/middle-box2-top.png );
@@ -25,6 +25,15 @@
 #pageWrapper select, #pageWrapper input[type="text"] {
     font-size: 11px;
     color: #555;
+}
+
+#pageWrapper .go-button {
+    margin-bottom: -8px;
+}
+
+/* IE specific */
+* html #pageWrapper .go-button {
+    margin-bottom: -6px;
 }
 
 #pageWrapper #top-schools-header h1 {
@@ -76,7 +85,6 @@
 }
 
 #pageWrapper #top-schools-header #switchStateForm #topSchoolsStateChangerGo {
-    margin-bottom: -9px;
     margin-left: 5px;
 }
 
@@ -200,7 +208,7 @@
 }
 
 #pageWrapper #stand-up-for-your-school #stand-up-go {
-    margin: 0 0 -8px 5px;
+    margin-left: 5px;
 }
 
 #pageWrapper #finding-the-right-school #identify-your-priorities ul {
@@ -236,10 +244,6 @@
     display: inline;
 }
 
-#pageWrapper #finding-the-right-school #find-and-compare-search input[type="image"] {
-    margin: 0 0 -9px 0;
-}
-
 #pageWrapper #finding-the-right-school #find-and-compare-schools h2 {
     color: #5BC;
 }
@@ -251,8 +255,4 @@
 #pageWrapper #finding-the-right-school #find-and-compare-city-form select {
     margin-right: 2px;
     display: inline;
-}
-
-#pageWrapper #finding-the-right-school #find-and-compare-city-form input[type="image"] {
-    margin-bottom: -9px;
 }

@@ -100,7 +100,7 @@
                                     </c:choose>
                                 </c:forEach>
                             </select>
-                            <input id="topSchoolsStateChangerGo" type="image" src="/res/img/button/go.gif"
+                            <input id="topSchoolsStateChangerGo" class="go-button" type="image" src="/res/img/button/go.gif"
                                    alt="Go"/>
                             <a class="whatMakesATopSchool" href="#">What makes a top school &gt;</a>
                         </form>
@@ -198,7 +198,7 @@
                     <form id="stand-up-form" method="post" action="#">
                         <input id="stand-up-email" name="email" type="text" value="Enter your email address"
                                onfocus="if (this.value.indexOf('Enter ') > -1) this.value=''"/>
-                        <input id="stand-up-go" type="image" src="/res/img/button/go.gif" alt="Go"/>
+                        <input id="stand-up-go" class="go-button" type="image" src="/res/img/button/go.gif" alt="Go"/>
                     </form>
                 </div>
             </div>
@@ -221,7 +221,7 @@
                             <input name="q" type="text" value="School, city or district"
                                    onfocus="if (this.value.indexOf('or district') > -1) this.value=''"/>
                             <gsweb:stateSelector state="${stateAbbreviation}" usingLongNames="false" name="state"/>
-                            <gsml:inputImage src="/res/img/button/go.gif" alt="Go" name="submit"/>
+                            <gsml:inputImage styleClass="go-button" src="/res/img/button/go.gif" alt="Go" name="submit"/>
                         </gsweb:form>
 
                         <h2>Moving with kids</h2>
@@ -241,7 +241,7 @@
                             </div>
                             <gsweb:stateSelector state="${stateAbbreviation}" name="state"
                                                  onChange="stateChange(this, 'find-and-compare-city', 'find-and-compare-city-select');"/>
-                            <gsml:inputImage src="/res/img/button/go.gif" alt="Go"
+                            <gsml:inputImage styleClass="go-button" src="/res/img/button/go.gif" alt="Go"
                                              name="submit" onclick="return verifyCity('verticalCompareCitySelect');"/>
                         </gsweb:form>
                     </div>
