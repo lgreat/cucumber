@@ -155,8 +155,7 @@
                                     <li class="${(school.last)?'lastSchool':''}">
                                         <a class="badge badge_${fn:toLowerCase(school.topSchoolCategory)}"
                                            href="#">What does this mean?</a>
-                                        <link:schoolProfileOverview school="${school}"
-                                                                    styleClass="school">${school.name}</link:schoolProfileOverview>
+                                        <link:schoolProfileOverview school="${school}" styleClass="school">${school.name}</link:schoolProfileOverview>&amp;#160;
                                         <span class="location">${school.city}, ${school.databaseState}</span><br/>${school.reviewText}
                                         <c:if test="${fn:length(school.reviewText) > 0}">
                                             <link:schoolProfileOverview school="${school}"
