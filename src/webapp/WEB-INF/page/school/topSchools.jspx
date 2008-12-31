@@ -100,7 +100,8 @@
                                     </c:choose>
                                 </c:forEach>
                             </select>
-                            <input id="topSchoolsStateChangerGo" class="go-button" type="image" src="/res/img/button/go.gif"
+                            <input id="topSchoolsStateChangerGo" class="go-button" type="image"
+                                   src="/res/img/button/go.gif"
                                    alt="Go"/>
                             <a class="whatMakesATopSchool" href="#">What makes a top school &gt;</a>
                         </form>
@@ -156,10 +157,11 @@
                                            href="#">What does this mean?</a>
                                         <link:schoolProfileOverview school="${school}"
                                                                     styleClass="school">${school.name}</link:schoolProfileOverview>
-                                                <span class="location">${school.city}, ${school.databaseState}
-                                                    <br/>${school.reviewText}</span>
-                                        <link:schoolProfileOverview school="${school}"
-                                                                    styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileOverview>
+                                        <span class="location">${school.city}, ${school.databaseState}</span><br/>${school.reviewText}
+                                        <c:if test="${fn:length(school.reviewText) > 0}">
+                                            <link:schoolProfileOverview school="${school}"
+                                                                        styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileOverview>
+                                        </c:if>
                                     </li>
                                 </c:forEach>
                             </ul>
@@ -221,13 +223,14 @@
                             <input name="q" type="text" value="School, city or district"
                                    onfocus="if (this.value.indexOf('or district') > -1) this.value=''"/>
                             <gsweb:stateSelector state="${stateAbbreviation}" usingLongNames="false" name="state"/>
-                            <gsml:inputImage styleClass="go-button" src="/res/img/button/go.gif" alt="Go" name="submit"/>
+                            <gsml:inputImage styleClass="go-button" src="/res/img/button/go.gif" alt="Go"
+                                             name="submit"/>
                         </gsweb:form>
 
                         <h2>Moving with kids</h2>
                         <ul>
-                            <li><a href="#">Prepare for a smooth transition</a></li>
-                            <li><a href="#">Ease into the first day with these quick tips</a></li>
+                            <li><link:article articleId="455">Prepare for a smooth transition</link:article></li>
+                            <li><link:article articleId="60">Ease into the first day</link:article></li>
                         </ul>
                         <h3>Compare cities near:</h3>
                         <gsweb:form id="find-and-compare-city-form" action="/cities.page" method="get">
