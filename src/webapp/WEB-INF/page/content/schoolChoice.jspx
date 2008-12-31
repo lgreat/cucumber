@@ -1,0 +1,291 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0">
+
+<pageHelper:setPathway pathway="SEASONAL"/>
+
+<c:set var="pageName" value="School Choice Tips"/>
+<html>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>Greatschools.net: School Choice Tips</title>
+    <meta content="TODO-7752 TBD" name="description"/>
+    <meta content="TODO-7752 TBD" name="keywords"/>
+
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
+    <pageHelper:externalCss file="/res/css/content/schoolChoice.css"/>
+
+    <pageHelper:externalJavascript file="/res/js/schoolChoice.js"/>
+
+    <![CDATA[
+    <!--[if IE]>
+        <link rel="stylesheet" href="/res/css/content/landingPageShared_ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
+    <![endif]-->
+    ]]>
+</head>
+
+<ad:setSlotPrefix slotPrefix="Library_Microsite_School_Choice_Tips"/>
+<gsml:body adPageName="content/schoolChoiceTips" pageLayout="schoolChoiceTips" startAdHierarchyAtPage="true">
+
+    <div id="pageWrapper" class="cleared">
+
+        <div id="contentLeft">
+            <content:librarySidebar/>
+
+            <div id="skyscraper">
+                <ad:adTag position="AboveFold_Left_160x600"/>
+            </div>
+        </div>
+
+        <div id="main">
+            <h1>Guide to Choosing the Right School</h1>
+
+            <div id="content">
+
+                <div id="intro" class="box">
+                    <div class="inner cleared">
+                        <h2>What's the best school for your child?</h2>
+
+                        <div>
+
+                            <div class="description">
+
+                                <p>Start by figuring out what's important to you, what's practical
+                                    and check out your options.</p>
+
+                                <p>Need a snippet of video intro text??</p>
+
+                            </div>
+
+                            <div class="video">
+                                <object width="192" height="159">
+                                    <param name="movie"
+                                           value="http://www.youtube.com/v/M-mNXr2u1Ek&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0"></param>
+                                    <param name="allowFullScreen" value="true"></param>
+                                    <param name="allowscriptaccess" value="always"></param>
+                                    <embed src="http://www.youtube.com/v/M-mNXr2u1Ek&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0"
+                                           type="application/x-shockwave-flash" allowscriptaccess="always"
+                                           allowfullscreen="true" width="192" height="159"></embed>
+                                </object>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div id="main-copy" class="box">
+                    <div class="inner cleared">
+                        <h2>Step 1: Define your Great School</h2>
+                        <img class="left" src="/res/img/library/findschool_girl_2.jpg" alt="Girl in school"/>
+
+                        <div class="column">
+                            <p>What's your ideal school? Small or large, strong academics or focus on the arts?
+                                To find out, first identify your child's learning style and your family's needs.</p>
+                            <ul>
+                                <li><gsweb:articlelink articleId="197">Link TBD</gsweb:articlelink></li>
+                                <li><gsweb:articlelink articleId="197">Link TBD</gsweb:articlelink></li>
+                            </ul>
+                        </div>
+
+                        <div class="hr">
+                            <hr/>
+                        </div>
+
+                        <h2>Step 2: Start your Search</h2>
+
+                        <p>
+                            Find schools in your area. First, search by school name, city or district.
+                            Then narrow your search by public, charter or private, and by school level.
+                        </p>
+
+                        <form method="get" target="_blank" action="/search/search.page" onsubmit="return checkForm(this);">
+
+                        <div class="searchContent">
+                            <input type="text" maxlength="75" name="q"
+                                   value="Search for school, district or city"
+                                   class="searchInput"
+                                   onfocus="textSwitch(this, '', 'Search for school, district or city');"
+                                   onblur="textSwitch(this, 'Search for school, district or city', '');"/>
+
+                            <gsweb:stateSelector styleClass="searchDropdown" name="state"
+                                                 styleId="stateSelector1"
+                                                 state="${requestScope.context.stateOrDefault.abbreviation}"
+                                                 useNoState="false"/>
+                            <input type="hidden" name="c" value="school"/>
+                            <input type="hidden" name="search_type" value="0"/>
+                            <input type="image" alt="Go" src="/res/img/button/go.gif"/>
+                        </div>
+
+                        </form>
+
+                        <div class="hr">
+                            <hr/>
+                        </div>
+
+                        <h2>Step 3: Prep for the School Visit</h2>
+                        <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Thinking Child"/>
+
+                        <div class="column">
+                            <p>Seeing is believing! Make an appointment to visit, prepare your questions and use our handy
+                                school visit worksheet to guide your school tour.</p>
+
+                            <p>Download worksheet for
+                                <form onsubmit="return downloadWorksheet();" style="display: inline;">
+                                <select id="worksheet">
+                                    <option value="/full_path_to_pdf_file">Preschool</option>
+                                    <option value="/full_path_to_pdf_file">Elementary</option>
+                                    <option value="/full_path_to_pdf_file">Middle</option>
+                                    <option value="/full_path_to_pdf_file">High</option>
+                                </select>
+                                <input type="image" alt="Go" src="/res/img/button/go.gif"/>
+                                </form>
+                            </p>
+                        </div>
+
+                        <div class="hr">
+                            <hr/>
+                        </div>
+
+                        <h2>Step 4: Apply &amp;amp; Enroll</h2>
+                        <img class="left" src="/res/img/library/library_parentinvolve.jpg" alt="Child and Parents"/>
+
+                        <div class="column">
+                            <p>Once you've made your choice, find out the application deadline, get all the necessary documents
+                                and apply. Have a Plan B, in case you don't get your first choice.</p>
+                            <ul>
+                                <li><gsweb:articlelink
+                                        articleId="489">Working the System to Get the School of Your Choice</gsweb:articlelink>
+                                </li>
+                                <li><gsweb:articlelink articleId="490">Have a Plan B</gsweb:articlelink></li>
+                            </ul>
+                        </div>
+
+                        <div class="hr">
+                            <hr/>
+                        </div>
+
+                        <h2>NEXT: Get Ready!</h2>
+
+                        <p>Placeholder text here and then a link to articles and maybe a drop-down.</p>
+
+                            <ul>
+                                <li><gsweb:articlelink
+                                        articleId="489">Some article number TBD</gsweb:articlelink>
+                                </li>
+                                <li>What your child should know by the end of:
+                                    <form onsubmit="return whatYourChildShouldKnow();" style="display: inline;">
+                                    <select id="shouldKnow">
+                                        <option value="articleId">Preschool</option>
+                                        <option value="articleId">Kindergarten</option>
+                                        <option value="articleId">First Grade</option>
+                                        <option value="articleId">Second Grade</option>
+                                        <option value="articleId">Third Grade</option>
+                                        <option value="articleId">Fourth Grade</option>
+                                        <option value="articleId">Fifth Grade</option>
+                                        <option value="articleId">Middle School</option>
+                                        <option value="articleId">High School</option>
+                                    </select>
+                                    <input type="image" alt="Go" src="/res/img/button/go.gif"/>
+                                    </form>
+                                </li>
+                            </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="supplement">
+
+                <div id="top5" class="box">
+                    <div class="inner">
+                        <h3>GreatSchools Top 5</h3>
+
+                        <p>
+                            Check out the five high schools in each state that represent the qualities of a great school.
+                        </p>
+
+                        <p>
+                            View top schools in:
+                            <gsweb:stateSelector useNoState="false"
+                                         usingLongNames="true"
+                                         styleId="top5State"
+                                         state="${requestScope.context.stateOrDefault.abbreviation}"
+                                         styleClass="stateSelect"/>
+                            <a href="#" onclick="return viewTopSchools();"><img src="/res/img/button/go.gif" alt="Go"/></a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- TODO-7752 Add Download our chooser guide when Chris Kimm is done GS-7753 -->
+
+                <ad:AboveFold_300x600/>
+
+                <div id="poll" class="box">
+                    <div class="inner">
+                        <h3 id="quotable">Take a poll</h3>
+
+                        <!-- TODO-7752 see poll.jspx, pages-servlet.xml -->
+                        <c:set var="pollId" value="14581"/>
+
+                        <iframe style="width:170px;height:280px;" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"
+                                src="http://poll.websitegear.com/iframepoll.asp?pollID=${pollId}"
+                                id="poll">Web Poll: requires newer web browser to view
+                        </iframe>
+
+                    </div>
+                </div>
+
+                <div id="movingWithKids" class="box">
+                    <div class="inner">
+                        <h3>Moving with Kids</h3>
+
+                        <p>
+                            Placeholder text with a link to an article
+                        </p>
+
+                        <ul>
+                            <li><gsweb:articlelink articleId="490">Moving schools</gsweb:articlelink></li>
+                            <li><gsweb:articlelink articleId="455">Smoothing the transition</gsweb:articlelink></li>
+                        </ul>
+
+                        <p>
+                            Compare cities near
+                            <!-- TODO-7752 see compareFooter.jspx -->
+                            <gsweb:stateSelector useNoState="false"
+                                         usingLongNames="true"
+                                         styleId="stateSelector"
+                                         state="${requestScope.context.stateOrDefault.abbreviation}"
+                                         styleClass="stateSelect"/>
+                            <input type="image" alt="Go" src="/res/img/button/go.gif"/>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none;">
+        <mod:tracking pageName="${pageName}"
+                      hier1="Article,School Choice Tips"
+                      microsite="${pageName}"/>
+    </div>
+
+</gsml:body>
+</html>
+</jsp:root>

@@ -1,0 +1,55 @@
+/* Left Content */
+
+#contentLeft {
+    float: left;
+    width: 174px;
+}
+
+#skyscraper {
+    padding-top: 10px;
+    margin-left: 10px;
+    clear: both;
+}
+
+/* Center Content */
+
+#pageWrapper #main h1 {
+	background: url(/res/img/library/header.jpg) no-repeat left top;
+}
+
+#intro {
+	background-image: url(/res/img/library/middle-box-bottom.png);
+}
+
+#intro .inner {
+	background-image: url(/res/img/library/middle-box-top.png);
+}
+
+#intro h2 {
+	position: relative;
+	z-index: 20;
+}
+
+#intro .inner .description {
+    float: left;
+    width: 220px;
+}
+
+#intro .inner .video {
+    float: right;
+}
+
+/* Right Content */
+
+#top5 {
+    
+}
+
+#top5State {
+    
+}
+
+#AboveFold_300x600 {
+    border-top: none;
+    margin-top: 0;
+}
