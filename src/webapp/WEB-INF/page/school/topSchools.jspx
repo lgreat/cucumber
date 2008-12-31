@@ -195,7 +195,7 @@
                         We're recruiting parents to represent their schools to interested families-
                         sign up now to be a part of the launch!
                     </div>
-                    <form id="stand-up-form" method="post" action="#">
+                    <form id="stand-up-form" method="get" action="/community/registration.page">
                         <input id="stand-up-email" name="email" type="text" value="Enter your email address"
                                onfocus="if (this.value.indexOf('Enter ') > -1) this.value=''"/>
                         <input id="stand-up-go" class="go-button" type="image" src="/res/img/button/go.gif" alt="Go"/>
