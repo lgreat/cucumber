@@ -22,6 +22,11 @@
     background-image: url( /res/img/library/right-box2-bottom.png );
 }
 
+#pageWrapper select, #pageWrapper input[type="text"] {
+    font-size: 11px;
+    color: #555;
+}
+
 #pageWrapper #top-schools-header h1 {
     font-size: 5px;
     display: block;
@@ -98,7 +103,7 @@
 }
 
 #pageWrapper #top-five-schools.about-the-awards li {
-    height:85px;
+    height: 85px;
 }
 
 #pageWrapper #top-five-schools li.lastSchool {
@@ -168,10 +173,84 @@
 
 #pageWrapper #what-makes-a-school-great a.content-link {
     font-size: 15px;
-    display:block;
+    display: block;
 }
 
 #pageWrapper #what-makes-a-school-great a.dialog {
     background: url( /res/img/home/blue_module/bubble.png ) no-repeat;
     padding-left: 30px;
+}
+
+#pageWrapper #stand-up-for-your-school #recruiting {
+    background: url( /res/img/school/topSchools/standup.jpg ) no-repeat;
+    background-position: 0 5px;
+    padding-left: 120px;
+    font-size: 13px;
+}
+
+#pageWrapper #stand-up-for-your-school #stand-up-form {
+    margin: 10px 0 10px 0;
+}
+
+#pageWrapper #stand-up-for-your-school #stand-up-email {
+    padding-left: 3px;
+    width: 200px;
+}
+
+#pageWrapper #stand-up-for-your-school #stand-up-go {
+    margin: 0 0 -8px 5px;
+}
+
+#pageWrapper #finding-the-right-school #identify-your-priorities ul {
+    background: url( /res/img/school/topSchools/rightschool.jpg ) no-repeat;
+    background-position: 0 5px;
+    padding-left: 120px;
+}
+
+#pageWrapper #finding-the-right-school #identify-your-priorities a {
+    font-size: 13px;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-schools {
+    margin: 20px -10px 0 -10px;
+    padding: 5px 0px 10px 10px;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-schools {
+    background: url( /res/img/library/right-box3-bg.png ) repeat-x;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-schools h3 {
+    color: #777;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-search input[type="text"] {
+    padding-left: 3px;
+    width: 150px;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-search select {
+    margin-left: 3px;
+    display: inline;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-search input[type="image"] {
+    margin: 0 0 -9px 0;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-schools h2 {
+    color: #5BC;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-city {
+    display: inline;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-city-form select {
+    margin-right: 2px;
+    display: inline;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-city-form input[type="image"] {
+    margin-bottom: -9px;
 }

@@ -21,6 +21,8 @@ import gs.data.school.review.Review;
 import gs.data.school.review.CategoryRating;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -38,6 +40,7 @@ public class TopSchoolsController extends AbstractController {
     public static final String MODEL_TOP_SCHOOLS = "topSchools";
     public static final String MODEL_WHAT_MAKES_A_SCHOOL_GREAT = "whatMakesASchoolGreat";
     public static final String MODEL_ALL_STATES = "allStates";
+    public static final String MODEL_COMPARE_CITIES = "compareCities";
 
     protected String _viewName;
     protected ISchoolDao _schoolDao;
@@ -45,6 +48,7 @@ public class TopSchoolsController extends AbstractController {
     protected static Cache _articleCache;
     protected IReviewDao _reviewDao;
     protected ITableDao _tableDao;
+    protected IGeoDao _geoDao;
 
     static {
         // Cache active top schools for 3 hrs for performance, articles for 10 minutes
@@ -70,7 +74,7 @@ public class TopSchoolsController extends AbstractController {
                 state = State.CA;
             } else {
                 // If the user has a state cookie redirect them
-                return new ModelAndView(new RedirectView301("/top-high-schools/" + state.getLongName().toLowerCase().replace(" ","-")));
+                return new ModelAndView(new RedirectView301("/top-high-schools/" + state.getLongName().toLowerCase().replace(" ", "-")));
             }
         }
 
@@ -81,6 +85,7 @@ public class TopSchoolsController extends AbstractController {
         if (!national) model.put(MODEL_TOP_SCHOOLS, getTopSchools(state));
         model.put(MODEL_WHAT_MAKES_A_SCHOOL_GREAT, getWhatMakesASchoolGreatContent());
         model.put(MODEL_ALL_STATES, StateManager.getList());
+        model.put(MODEL_COMPARE_CITIES, getCityList(state));
         return new ModelAndView(_viewName, model);
     }
 
@@ -135,6 +140,14 @@ public class TopSchoolsController extends AbstractController {
         return reviewText;
     }
 
+    protected List<City> getCityList(State state) {
+        List<City> cities = _geoDao.findCitiesByState(state);
+        City city = new City();
+        city.setName("Choose city");
+        cities.add(0, city);
+        return cities;
+    }
+
     public void setViewName(String viewName) {
         _viewName = viewName;
     }
@@ -149,6 +162,10 @@ public class TopSchoolsController extends AbstractController {
 
     public void setTableDao(ITableDao tableDao) {
         _tableDao = tableDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 
     /**

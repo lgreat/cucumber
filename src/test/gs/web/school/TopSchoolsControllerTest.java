@@ -52,6 +52,7 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("California", mv.getModel().get(TopSchoolsController.MODEL_STATE_NAME));
         assertEquals("CA", mv.getModel().get(TopSchoolsController.MODEL_STATE_ABBREVIATION));
         assertTrue(((List)mv.getModel().get(TopSchoolsController.MODEL_ALL_STATES)).size() > 50);
+        assertTrue(((List)mv.getModel().get(TopSchoolsController.MODEL_COMPARE_CITIES)).size() > 50);
         List<TopSchoolsController.ContentLink> content = (List<TopSchoolsController.ContentLink>) mv.getModel().get(TopSchoolsController.MODEL_WHAT_MAKES_A_SCHOOL_GREAT);
         assertEquals(1, content.size());
         assertEquals("A Title", content.get(0).getTitle());

@@ -31,8 +31,7 @@
                 <select id="verticalCompareCitySelect" name="city" class="compareCitySelect">
                     <c:forEach var="cityOption" items="${requestScope.compareCities}">
                         <gsml:selectOption selected="${requestScope.cityObject.name eq cityOption.name}"
-                                           value="${cityOption.name}"
-                                >${cityOption.name}</gsml:selectOption>
+                                           value="${cityOption.name}">${cityOption.name}</gsml:selectOption>
                     </c:forEach>
                 </select>
             </div>
