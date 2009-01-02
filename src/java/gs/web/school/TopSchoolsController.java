@@ -85,9 +85,8 @@ public class TopSchoolsController extends AbstractController {
     }
 
     private ModelAndView getCanonicalUrlRedirect(State state) {
-        String newUri = "/top-high-schools/";
-        if (state != null) newUri += state.getLongName().toLowerCase().replace(" ", "-") + "/";
-        return new ModelAndView(new RedirectView301(newUri));
+        TopSchoolsUrl url = new TopSchoolsUrl(state);
+        return new ModelAndView(new RedirectView301(url.getRelativePath()));
     }
 
     private boolean isUrlCanonical(HttpServletRequest request) {
