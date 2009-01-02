@@ -46,7 +46,7 @@
     <script type="text/javascript">
         function changeTopSchoolsState(form) {
             var val = document.getElementById('topSchoolsStateChanger').value;
-            document.location = "/top-high-schools/" + val.toLowerCase().replace(' ', '-');
+            document.location = "/top-high-schools/" + val.toLowerCase().replace(' ', '-') + "/";
             return false;
         }
     </script>
