@@ -52,7 +52,7 @@ public class TopSchoolsController extends AbstractController {
     protected IGeoDao _geoDao;
 
     static {
-        // Cache active top schools for 3 hrs for performance, articles for 10 minutes
+        // Cache active top schools for 3 hrs for performance, google docs features articles for 10 minutes
         CacheManager manager = CacheManager.create();
         _schoolCache = new Cache(TopSchoolsController.class.getName() + ".schools", 51, false, false, 10800, 3600);
         _articleCache = new Cache(TopSchoolsController.class.getName() + ".articles", 5, false, false, 600, 600);
@@ -64,23 +64,13 @@ public class TopSchoolsController extends AbstractController {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
 
-        // If someone accidentally enters .../California instead of ../california, 301 them 
-        if (!request.getRequestURI().equals(request.getRequestURI().toLowerCase()) || !request.getRequestURI().endsWith("/")) {
-            String newUri = request.getRequestURI().toLowerCase();
-            if (!newUri.endsWith("/")) newUri += "/";
-            return new ModelAndView(new RedirectView301(newUri));
-        }
+        if (!isUrlCanonical(request))
+            return getCanonicalUrlRedirect(state);
 
-        boolean national = false;
-        if (request.getRequestURI().endsWith("schools/")) {
-            if (state == null) {
-                national = true;
-                state = State.CA;
-            } else {
-                // If the user has a state cookie redirect them
-                return new ModelAndView(new RedirectView301("/top-high-schools/" + state.getLongName().toLowerCase().replace(" ", "-") + "/"));
-            }
-        }
+        boolean national = isNational(request);
+        if (national)
+            if (state == null) state = State.CA;
+            else return getCanonicalUrlRedirect(state);
 
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(MODEL_STATE_NAME, state.getLongName());
@@ -93,23 +83,18 @@ public class TopSchoolsController extends AbstractController {
         return new ModelAndView(_viewName, model);
     }
 
-    protected List<ContentLink> getWhatMakesASchoolGreatContent() {
-        String key = "what_makes_a_school_great";
-        Element cacheElement = _articleCache.get(key);
-        List<ContentLink> contents;
-        if (cacheElement == null) {
-            contents = new ArrayList<ContentLink>();
-            for (ITableRow row : _tableDao.getAllRows()) {
-                String link = row.getString("link");
-                if (link != null && link.trim().length() > 0)
-                    contents.add(new ContentLink(row.getString("title"), link,
-                            row.getString("target"), row.getString("class"), row.getString("text")));
-            }
-            _articleCache.put(new Element(key, contents));
-        } else {
-            contents = (List<ContentLink>) cacheElement.getObjectValue();
-        }
-        return contents;
+    private boolean isNational(HttpServletRequest request) {
+        return request.getRequestURI().endsWith("schools/");
+    }
+
+    private ModelAndView getCanonicalUrlRedirect(State state) {
+        String newUri = "/top-high-schools/";
+        if (state != null) newUri += state.getLongName().toLowerCase().replace(" ", "-") + "/";
+        return new ModelAndView(new RedirectView301(newUri));
+    }
+
+    private boolean isUrlCanonical(HttpServletRequest request) {
+        return request.getRequestURI().equals(request.getRequestURI().toLowerCase()) && request.getRequestURI().endsWith("/");
     }
 
     protected List<TopSchool> getTopSchools(State state) {
@@ -146,6 +131,25 @@ public class TopSchoolsController extends AbstractController {
                         reviewText = review.getComments();
         }
         return (reviewText == null) ? "" : reviewText;
+    }
+
+    protected List<ContentLink> getWhatMakesASchoolGreatContent() {
+        String key = "what_makes_a_school_great";
+        Element cacheElement = _articleCache.get(key);
+        List<ContentLink> contents;
+        if (cacheElement == null) {
+            contents = new ArrayList<ContentLink>();
+            for (ITableRow row : _tableDao.getAllRows()) {
+                String link = row.getString("link");
+                if (link != null && link.trim().length() > 0)
+                    contents.add(new ContentLink(row.getString("title"), link,
+                            row.getString("target"), row.getString("class"), row.getString("text")));
+            }
+            _articleCache.put(new Element(key, contents));
+        } else {
+            contents = (List<ContentLink>) cacheElement.getObjectValue();
+        }
+        return contents;
     }
 
     protected List<City> getCityList(State state) {
@@ -205,6 +209,9 @@ public class TopSchoolsController extends AbstractController {
             return _category;
         }
 
+        /**
+         * Sort top schools by their top school category type so they display in the correct order
+         */
         public int compareTo(Object school) {
             return _category.getCode() - ((TopSchool) school).getTopSchoolCategory().getCode();
         }
