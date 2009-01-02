@@ -42,22 +42,19 @@ public class TopSchoolsController extends AbstractController {
     public static final String MODEL_WHAT_MAKES_A_SCHOOL_GREAT = "whatMakesASchoolGreat";
     public static final String MODEL_ALL_STATES = "allStates";
     public static final String MODEL_COMPARE_CITIES = "compareCities";
+    public static final int HOURS = 3600;
 
     protected String _viewName;
     protected ISchoolDao _schoolDao;
     protected static Cache _schoolCache;
-    protected static Cache _articleCache;
     protected IReviewDao _reviewDao;
     protected ITableDao _tableDao;
     protected IGeoDao _geoDao;
 
     static {
-        // Cache active top schools for 3 hrs for performance, google docs features articles for 10 minutes
-        CacheManager manager = CacheManager.create();
-        _schoolCache = new Cache(TopSchoolsController.class.getName() + ".schools", 51, false, false, 10800, 3600);
-        _articleCache = new Cache(TopSchoolsController.class.getName() + ".articles", 5, false, false, 600, 600);
-        manager.addCache(_schoolCache);
-        manager.addCache(_articleCache);
+        // Cache active top schools for 3 hrs for performance
+        _schoolCache = new Cache(TopSchoolsController.class.getName() + ".schools", 51, false, false, 3 * HOURS, 1 * HOURS);
+        CacheManager.create().addCache(_schoolCache);
     }
 
     public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -134,20 +131,13 @@ public class TopSchoolsController extends AbstractController {
     }
 
     protected List<ContentLink> getWhatMakesASchoolGreatContent() {
-        String key = "what_makes_a_school_great";
-        Element cacheElement = _articleCache.get(key);
         List<ContentLink> contents;
-        if (cacheElement == null) {
-            contents = new ArrayList<ContentLink>();
-            for (ITableRow row : _tableDao.getAllRows()) {
-                String link = row.getString("link");
-                if (link != null && link.trim().length() > 0)
-                    contents.add(new ContentLink(row.getString("title"), link,
-                            row.getString("target"), row.getString("class"), row.getString("text")));
-            }
-            _articleCache.put(new Element(key, contents));
-        } else {
-            contents = (List<ContentLink>) cacheElement.getObjectValue();
+        contents = new ArrayList<ContentLink>();
+        for (ITableRow row : _tableDao.getAllRows()) {
+            String link = row.getString("link");
+            if (link != null && link.trim().length() > 0)
+                contents.add(new ContentLink(row.getString("title"), link,
+                        row.getString("target"), row.getString("class"), row.getString("text")));
         }
         return contents;
     }
