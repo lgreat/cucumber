@@ -133,7 +133,7 @@
                         <div class="section searchQuery">
                             <div class="step"><span class="step">Step 1:</span>
                                 <span class="title">Choose address, ZIP code, or city and state</span></div>
-                            <div class="instructions">Pick the location that you'd like your widget to feature</div>
+                            <div class="instructions">Pick the location that you'd like your widget to feature.</div>
                             <form:input path="searchQuery"/>
                         </div>
 
@@ -168,7 +168,7 @@
                                 <span class="title">Choose your colors</span></div>
                             <div class="instructions">
                                 Customize the widget to blend in with
-                                your Web site
+                                your Web site.
                             </div>
                             <div class="colors background">
                                 <form:label path="backgroundColorSelect" cssClass="name">Background:</form:label>
@@ -391,16 +391,16 @@
 
             <div class="question">3) How often is the GreatSchools data updated?</div>
             <div class="answer">We are constantly updating our data to provide you with the most
-                recent and accurate school data that is available.  Every two weeks new data is refreshed.</div>
+                recent and accurate school data that is available.  Every two weeks we update with new data as it becomes available.</div>
 
             <div class="question">4) How do I get the School Finder Widget on my Web site?</div>
             <div class="answer">Customize it to show schools near an address or within a city, and
                 choose the size and colors of the widget.  Then simply create the widget code, and
                 copy and paste the code anywhere within your site or blog.</div>
 
-            <div class="question">5) How can I link directly in to the widget from my site?</div>
+            <div class="question">5) How can I link directly to the widget from my site?</div>
             <div class="answer">You can utilize this widget as a 'mini' site within your site by
-                framing the panoramic size.  Follow these instructions to link directly in to
+                framing the panoramic size.  Follow these instructions to link directly to
                 different views of the widget.<br/>
                 <br/>
                 To link to schools within a city or near an address:<br/>

@@ -23,13 +23,13 @@ No, it's free! And it's simple to add to your Web site.</p>
 Public K-12 schools are rated based on a 1-10 scale that reflects the test score performance of a given school relative to other schools in the same state.</p>
 
 <p>3) How often is the GreatSchools data updated?<br/>
-We are constantly updating our data to provide you with the most recent and accurate school data that is available.  Every two weeks new data is refreshed.</p>
+We are constantly updating our data to provide you with the most recent and accurate school data that is available.  Every two weeks we update with new data as it becomes available.</p>
 
 <p>4) How do I get the School Finder Widget on my Web site?<br/>
 Customize it to show schools near an address or within a city, and choose the size and colors of the widget.  Then simply create the widget code, and copy and paste the code anywhere within your site or blog.</p>
 
-<p>5) How can I link directly in to the widget from my site?<br/>
-You can utilize this widget as a 'mini' site within your site by framing the panoramic size.  Follow these instructions to link directly in to different views of the widget.<br/><br/>
+<p>5) How can I link directly to the widget from my site?<br/>
+You can utilize this widget as a 'mini' site within your site by framing the panoramic size.  Follow these instructions to link directly to different views of the widget.<br/><br/>
 To link to schools within a city or near an address:<br/>
 <ul>
 <li>Find the section of the code that reads:<br/>
