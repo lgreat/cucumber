@@ -2211,6 +2211,36 @@
             <description>CSS class name(s)</description>
         </attribute>
     </tag>
+        <tag>
+        <name>topSchools</name>
+        <tag-class>gs.web.jsp.url.TopSchoolsLinkTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Top Schools</display-name>
+        <description>
+            <![CDATA[Link to the top schools page, national or state.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>Optional state object determines whether to link to the state page or the national version.</description>
+        </attribute>
+    </tag>
     <tag>
         <name>mediaChoices</name>
         <tag-class>gs.web.jsp.link.microsite.MediaChoicesTagHandler</tag-class>
