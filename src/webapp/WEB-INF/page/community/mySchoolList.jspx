@@ -69,7 +69,7 @@
 </head>
 <body>
 
-<c:set var="username" value="${fn:substringBefore(requestScope.context.user.email, '@')}" />
+<c:set var="username" value="${(requestScope.context.screenName != null)?requestScope.context.screenName:fn:substringBefore(requestScope.context.user.email, '@')}" />
 <div id="col_left">
 
     <c:if test="${!hasSeenMsl}">
