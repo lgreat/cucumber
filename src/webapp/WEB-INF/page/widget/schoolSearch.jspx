@@ -21,10 +21,6 @@
     <jsp:directive.page contentType="text/html"/>
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head>
-        <c:set var="cobrandHostname" value="${requestScope.command.cobrandHostname}" scope="page"/>
-        <c:if test="${empty cobrandHostname}">
-            <c:set var="cobrandHostname" value="www.greatschools.net" scope="page"/>
-        </c:if>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>School Search Widget - GreatSchools</title>
 
@@ -33,6 +29,8 @@
         <pageHelper:externalJavascript file="/res/js/global.js"/>
         <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
         <pageHelper:externalJavascript file="/res/js/schoolSearchWidget.js"/>
+
+        <c:set var="cobrandHostname" value="${requestScope.command.cobrandHostname}" scope="page"/>
         <jsp:scriptlet>
             String cobrandHostname = (String)pageContext.getAttribute("cobrandHostname");
             boolean hasCobrandHostname = StringUtils.isNotBlank(cobrandHostname);
@@ -45,6 +43,8 @@
                     pageContext.setAttribute("cobrandHostname", cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.net"));
                 } else if (pageHelper.isDevEnvironment() &amp;&amp; cobrandHostnameNotDefault) {
                     pageContext.setAttribute("cobrandHostname", cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.net"));
+                } else {
+                    pageContext.setAttribute("cobrandHostname", "www.greatschools.net");
                 }
                 // purposefully omit clone to allow testing production behavior
                 </jsp:scriptlet>
