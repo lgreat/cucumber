@@ -204,7 +204,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
 
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_CUSTOMIZATION);
             urlBuilder.addParameter("s_cid", "wsbay93");
-            text = replaceText(text, "WIDGET_CUSTOMIZATION_PAGE", urlBuilder.asFullUrl(request));
+            text = replaceText(text, "WIDGET_CUSTOMIZATION_PAGE", urlBuilder.asFullUrl(command.getCobrand(),80));
         } catch (IOException e) {
             _log.error(e);
         } finally {
