@@ -230,9 +230,9 @@
                                 <span class="title">(for GreatSchools cobrand customers only)</span></div>
                             <div class="instructions">
                                 Enter the cobrand URL you want the widget to link into. <a href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
-                                Otherwise, leave as www.
+                                Otherwise, leave as www.greatschools.net.
                             </div>
-                            <form:input path="cobrand"/>
+                            http://<form:input path="cobrand"/>
                         </div>
 
                         <div class="section email">

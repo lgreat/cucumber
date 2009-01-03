@@ -19,6 +19,8 @@ import gs.data.community.User;
 import gs.data.community.IUserDao;
 import gs.data.geo.City;
 import gs.data.state.State;
+import gs.data.admin.cobrand.ICobrandDao;
+import gs.data.admin.cobrand.Cobrand;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -37,8 +39,10 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
 
     public static final int MINIMUM_WIDTH = 300;
     public static final int MINIMUM_HEIGHT = 434;
+    public static final String DEFAULT_COBRAND = "www.greatschools.net";
 
     private IUserDao _userDao;
+    private ICobrandDao _cobrandDao;
     private SchoolFinderWidgetEmail _schoolFinderWidgetEmail;
     private SchoolSearchWidgetController _schoolSearchWidgetController;
 
@@ -58,6 +62,25 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
         }
         if (command.getHeight() < MINIMUM_HEIGHT) {
             errors.rejectValue("height", null, "Minimum height is " + MINIMUM_HEIGHT + ".");
+        }
+
+        String cobrandName = command.getCobrand();
+        if (cobrandName != null) {
+            cobrandName.trim();
+            // remove any prepended http://
+            cobrandName = cobrandName.replaceAll("^http://", "");
+            // remove any trailing slashes
+            cobrandName = cobrandName.replaceAll("/+^","");
+            // if no dot (.) is in the cobrand, append .greatschools.net
+            if (!cobrandName.contains(".")) {
+                cobrandName = cobrandName + ".greatschools.net";
+            }
+
+            // look for the cobrand; if not found, use www.greatschools.net
+            Cobrand cobrand = _cobrandDao.getCobrandByHostname(cobrandName);
+            if (cobrand == null) {
+                command.setCobrand(DEFAULT_COBRAND);
+            }
         }
 
         SchoolSearchWidgetCommand widgetCommand = new SchoolSearchWidgetCommand();
@@ -196,6 +219,14 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
 
     protected String replaceText(String text, String key, String value) {
         return text.replaceAll("\\$" + key, Matcher.quoteReplacement(value)); // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6325587
+    }
+
+    public ICobrandDao getCobrandDao() {
+        return _cobrandDao;
+    }
+
+    public void setCobrandDao(ICobrandDao cobrandDao) {
+        _cobrandDao = cobrandDao;
     }
 
     public IUserDao getUserDao() {

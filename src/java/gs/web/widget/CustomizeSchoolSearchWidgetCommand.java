@@ -11,6 +11,10 @@ import java.util.Comparator;
 
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.UrlBuilder;
+import gs.web.util.PageHelper;
+import gs.web.util.UrlUtil;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.data.geo.City;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail {
     private static final Logger _log = Logger.getLogger(CustomizeSchoolSearchWidgetCommand.class);
     private String _searchQuery = "94536";
-    private String _cobrand = "www";
+    private String _cobrand = CustomizeSchoolSearchWidgetController.DEFAULT_COBRAND;
     private String _email;
     private int _height = CustomizeSchoolSearchWidgetController.MINIMUM_HEIGHT;
     private int _width = CustomizeSchoolSearchWidgetController.MINIMUM_WIDTH;
@@ -202,7 +206,27 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         String rval = "";
         if (request != null) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_WIDGET);
-            rval += urlBuilder.asFullUrl(request);
+
+            // allways have iframe pull from www.greatschools.net except for internal servers
+            SessionContext context = SessionContextUtil.getSessionContext(request);
+            PageHelper pageHelper = new PageHelper(context, request);
+            // non-developer workstation
+            if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                if (pageHelper.isStagingServer()) {
+                    rval += urlBuilder.asFullUrl("staging.greatschools.net",80);
+                } else if (pageHelper.isDevEnvironment()) {
+                    rval += urlBuilder.asFullUrl("dev.greatschools.net",80);
+                } else if ("clone.greatschools.net".equals(request.getServerName())) {
+                    // purposefully include clone to allow testing production behavior, unlike schoolSearch.jspx
+                    rval += urlBuilder.asFullUrl("clone.greatschools.net",80);
+                } else {
+                    // not dev, staging, clone, or developer workstation -- so use www.greatschools.net
+                    rval += urlBuilder.asFullUrl("www.greatschools.net",80);
+                }
+            } else {
+                // developer workstation, so use own url
+                rval += urlBuilder.asFullUrl(request);                
+            }
         } else {
             rval += SchoolSearchWidgetController.BEAN_ID;
         }
@@ -212,8 +236,8 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
                 rval += separator  + "searchQuery=" + URLEncoder.encode(_searchQuery, "UTF-8");
                 separator = "&amp;";
             }
-            if (StringUtils.isNotBlank(_cobrand) && !StringUtils.equals("www", _cobrand)) {
-                rval += separator  + "cobrand=" + URLEncoder.encode(_cobrand, "UTF-8");
+            if (StringUtils.isNotBlank(_cobrand) && !StringUtils.equals(CustomizeSchoolSearchWidgetController.DEFAULT_COBRAND, _cobrand)) {
+                rval += separator  + "cobrandHostname=" + URLEncoder.encode(_cobrand, "UTF-8");
                 separator = "&amp;";
             }
             rval += separator  + "textColor=" + URLEncoder.encode(_textColor, "UTF-8");

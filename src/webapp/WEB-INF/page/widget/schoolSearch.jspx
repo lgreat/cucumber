@@ -21,9 +21,9 @@
     <jsp:directive.page contentType="text/html"/>
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head>
-        <c:set var="cobrandSite" value="${requestScope.context.cobrand}"/>
-        <c:if test="${cobrandSite eq null or cobrandSite eq ''}">
-            <c:set var="cobrandSite" value="www"/>
+        <c:set var="cobrandHostname" value="${requestScope.command.cobrandHostname}" scope="page"/>
+        <c:if test="${empty cobrandHostname}">
+            <c:set var="cobrandHostname" value="www.greatschools.net" scope="page"/>
         </c:if>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>School Search Widget - GreatSchools</title>
@@ -34,27 +34,21 @@
         <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
         <pageHelper:externalJavascript file="/res/js/schoolSearchWidget.js"/>
         <jsp:scriptlet>
+            String cobrandHostname = (String)pageContext.getAttribute("cobrandHostname");
+            boolean hasCobrandHostname = StringUtils.isNotBlank(cobrandHostname);
             SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
             PageHelper pageHelper = new PageHelper(context, request);
-            String cobrand = context.getCobrand();
-            if (StringUtils.isBlank(cobrand)) {
-                cobrand = "www";
-            }
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())
-                    &amp;&amp; !StringUtils.equals("www", cobrand)) {
+                    &amp;&amp; hasCobrandHostname) {
                 if (pageHelper.isStagingServer()) {
-                    </jsp:scriptlet>
-                    <base href="http://${cobrandSite}.staging.greatschools.net"/>
-                    <jsp:scriptlet>
+                    pageContext.setAttribute("cobrandHostname", cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.net"));
                 } else if (pageHelper.isDevEnvironment()) {
-                    </jsp:scriptlet>
-                    <base href="http://${cobrandSite}.dev.greatschools.net"/>
-                    <jsp:scriptlet>
-                } else {
-                    </jsp:scriptlet>
-                    <base href="http://${cobrandSite}.greatschools.net"/>
-                    <jsp:scriptlet>
+                    pageContext.setAttribute("cobrandHostname", cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.net"));
                 }
+                // purposefully omit clone to allow testing production behavior
+                </jsp:scriptlet>
+                    <base href="http://${cobrandHostname}"/>
+                <jsp:scriptlet>
             }
         </jsp:scriptlet>
         <!-- Style overrides to support custom width/height, as well as custom text color -->
@@ -215,6 +209,7 @@
                 <form:hidden path="zoom" id="zoom"/>
                 <form:hidden path="lat" id="lat"/>
                 <form:hidden path="lon" id="lon"/>
+                <form:hidden path="cobrandHostname" id="cobrandHostname"/>
                 <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or ZIP code');"
                             onblur="textSwitch(this, 'Enter city &amp; state or ZIP code', '');"/>

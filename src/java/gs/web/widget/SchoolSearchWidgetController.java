@@ -41,6 +41,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
     private static final String SEARCH_QUERY_PARAM = "searchQuery";
     private static final String DISPLAY_TAB_PARAM = "displayTab";
+    private static final String COBRAND_HOSTNAME_PARAM = "cobrandHostname";
 
     // relevant to location (proximity) search only
     private static final int DISTANCE_IN_MILES = 10;
@@ -74,6 +75,10 @@ public class SchoolSearchWidgetController extends SimpleFormController {
 
         if (request.getParameter(DISPLAY_TAB_PARAM) != null) {
             command.setDisplayTab(request.getParameter(DISPLAY_TAB_PARAM));
+        }
+
+        if (request.getParameter(COBRAND_HOSTNAME_PARAM) != null) {
+            command.setCobrandHostname(request.getParameter(COBRAND_HOSTNAME_PARAM));
         }
 
         if (StringUtils.isNotBlank(request.getParameter(SEARCH_QUERY_PARAM))) {

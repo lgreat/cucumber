@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.143 2008/12/30 22:44:09 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.144 2009/01/03 04:22:41 yfan Exp $
  */
 
 package gs.web.util;
@@ -982,6 +982,14 @@ public class UrlBuilder {
 
     public Anchor asAbsoluteAnchor(HttpServletRequest request, String label) {
         return new Anchor(asFullUrl(request), label);
+    }
+
+    public String asFullUrl(String serverName, int serverPort) {
+        String url = "http://" +
+                serverName +
+                ((serverPort != 80) ? ":" + serverPort : "") +
+                asSiteRelative(null);
+        return url;
     }
 
     /**

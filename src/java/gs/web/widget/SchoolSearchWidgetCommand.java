@@ -32,6 +32,7 @@ public class SchoolSearchWidgetCommand {
     private float _locationMarkerLon;
     private boolean _showLocationMarker;
     private int _zoom;
+    private String _cobrandHostname;
 
     public String getDisplayTab() {
         return _displayTab;
@@ -207,6 +208,14 @@ public class SchoolSearchWidgetCommand {
 
     public void setZoom(int zoom) {
         _zoom = zoom;
+    }
+
+    public String getCobrandHostname() {
+        return _cobrandHostname;
+    }
+
+    public void setCobrandHostname(String cobrandHostname) {
+        _cobrandHostname = cobrandHostname;
     }
 
     public String getLevelCodeString() {
