@@ -51,7 +51,8 @@
             text-align: right;
             width: 120px;
             margin-top: 3px;
-            line-height: 12px;
+            font-size: 13px;
+            line-height: 17px;
         }
 
         div#GS_schoolSearchWidget a, div#GS_schoolSearchWidget a:hover {
