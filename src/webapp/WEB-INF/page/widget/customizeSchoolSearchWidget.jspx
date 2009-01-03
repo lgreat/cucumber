@@ -203,19 +203,19 @@
                                     var colorOption;
                                     colorSelect = document.getElementById('backgroundColorSelect');
                                     colorSelect.style.backgroundColor = '#' + colorSelect.value;
-                                    for (i=0; i &lt; colorSelect.options.length; i++) {
+                                    for (i=0; i < colorSelect.options.length; i++) {
                                         colorOption = colorSelect.options[i];
                                         colorOption.style.backgroundColor = '#' + colorOption.value;
                                     }
                                     colorSelect = document.getElementById('textColorSelect');
                                     colorSelect.style.backgroundColor = '#' + colorSelect.value;
-                                    for (i=0; i &lt; colorSelect.options.length; i++) {
+                                    for (i=0; i < colorSelect.options.length; i++) {
                                         colorOption = colorSelect.options[i];
                                         colorOption.style.backgroundColor = '#' + colorOption.value;
                                     }
                                     colorSelect = document.getElementById('bordersColorSelect');
                                     colorSelect.style.backgroundColor = '#' + colorSelect.value;
-                                    for (i=0; i &lt; colorSelect.options.length; i++) {
+                                    for (i=0; i < colorSelect.options.length; i++) {
                                         colorOption = colorSelect.options[i];
                                         colorOption.style.backgroundColor = '#' + colorOption.value;
                                     }
