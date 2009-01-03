@@ -175,21 +175,25 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 
 .top_school_gs {
 	margin: 0 0 0 10px;
-	padding-left: 10px;
+	padding: 1px 0 2px 12px;
 	border-left: 1px solid #ccc;
 }
 
 #schoolProfile.overview .top_school_gs {
 	margin: 0;
-	padding-left: 0;
+	padding: 0;
 	border-left: none;
 }
 
 a.parent_rating, span.parent_rating {
-	width: 99px;
+	width: 75px;
 	height: 25px;
 	margin: 0;
 	float: left;
+}
+
+a.parent_0 {
+    width: 99px;
 }
 
 a:hover.parent_rating {
