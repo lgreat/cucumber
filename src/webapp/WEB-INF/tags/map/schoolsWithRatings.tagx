@@ -97,11 +97,11 @@ function initSchoolInfo() {
   <c:if test="${not empty curSchool.lon}">
     <c:choose>
       <c:when test="${'private' == curSchool.type.schoolTypeName}">
-        <gsml:url var="hrefbase"
+        <c:set var="hrefbase"
                   value="/cgi-bin/${curSchool.databaseState.abbreviationLowerCase}/private/${curSchool.id}"/>
       </c:when>
       <c:otherwise>
-        <gsml:url var="hrefbase"
+        <c:set var="hrefbase"
                   value="/modperl/browse_school/${curSchool.databaseState.abbreviationLowerCase}/${curSchool.id}"/>
       </c:otherwise>
     </c:choose>
