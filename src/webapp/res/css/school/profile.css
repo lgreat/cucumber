@@ -186,12 +186,13 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 }
 
 a.parent_rating, span.parent_rating {
-	width: 75px;
+	width: 72px;
 	height: 25px;
 	margin: 0;
 	float: left;
 }
 
+/* The parent_0 background image needs an expanded width */
 a.parent_0 {
     width: 99px;
 }
