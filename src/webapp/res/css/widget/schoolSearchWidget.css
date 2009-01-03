@@ -87,7 +87,7 @@ div#searchTabBody input.searchInput {
 
 div#searchTabBody input.searchSubmit {
     position: absolute;
-    left: 223px;
+    right: 20px;
     margin-top: 35px;
 }
 
