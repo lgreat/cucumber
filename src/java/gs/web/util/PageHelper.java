@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.71 2008/12/05 00:59:01 yfan Exp $
+ * $Id: PageHelper.java,v 1.72 2009/01/03 05:12:27 yfan Exp $
  */
 
 package gs.web.util;
@@ -577,6 +577,10 @@ public class PageHelper {
 
     public boolean isStagingServer() {
         return _urlUtil.isStagingServer(_sessionContext.getHostName());
+    }
+
+    public boolean isCloneServer() {
+        return _urlUtil.isCloneServer(_sessionContext.getHostName());
     }
 
     public boolean isAdminServer() {

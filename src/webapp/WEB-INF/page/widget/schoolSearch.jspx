@@ -41,7 +41,7 @@
             PageHelper pageHelper = new PageHelper(context, request);
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())
                     &amp;&amp; hasCobrandHostname) {
-                if (pageHelper.isStagingServer() &amp;&amp; cobrandHostnameNotDefault) {
+                if (pageHelper.isStagingServer() &amp;&amp; !pageHelper.isCloneServer() &amp;&amp; cobrandHostnameNotDefault) {
                     pageContext.setAttribute("cobrandHostname", cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.net"));
                 } else if (pageHelper.isDevEnvironment() &amp;&amp; cobrandHostnameNotDefault) {
                     pageContext.setAttribute("cobrandHostname", cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.net"));

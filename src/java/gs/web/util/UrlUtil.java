@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.71 2008/11/25 17:36:42 aroy Exp $
+ * $Id: UrlUtil.java,v 1.72 2009/01/03 05:12:27 yfan Exp $
  */
 
 package gs.web.util;
@@ -286,6 +286,10 @@ public final class UrlUtil {
     public static boolean isStagingServer(String hostName) {
         return hostName.indexOf("staging") != -1 ||
                 hostName.indexOf("clone") != -1;
+    }
+
+    public static boolean isCloneServer(String hostName) {
+        return hostName.indexOf("clone") != -1;
     }
 
     public static boolean isPreReleaseServer(String hostName) {

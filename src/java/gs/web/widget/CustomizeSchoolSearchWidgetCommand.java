@@ -212,15 +212,15 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
             PageHelper pageHelper = new PageHelper(context, request);
             // non-developer workstation
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-                if (pageHelper.isStagingServer()) {
+                if (pageHelper.isCloneServer()) {
+                    // purposefully include clone to allow testing production behavior without code being on production yet
+                    rval += urlBuilder.asFullUrl("clone.greatschools.net",80);
+                } else if (pageHelper.isStagingServer()) {
                     rval += urlBuilder.asFullUrl("staging.greatschools.net",80);
                 } else if (pageHelper.isDevEnvironment()) {
                     rval += urlBuilder.asFullUrl("dev.greatschools.net",80);
-                } else if ("clone.greatschools.net".equals(request.getServerName())) {
-                    // purposefully include clone to allow testing production behavior, unlike schoolSearch.jspx
-                    rval += urlBuilder.asFullUrl("clone.greatschools.net",80);
                 } else {
-                    // not dev, staging, clone, or developer workstation -- so use www.greatschools.net
+                    // not dev, staging, or developer workstation -- so use www.greatschools.net
                     rval += urlBuilder.asFullUrl("www.greatschools.net",80);
                 }
             } else {
