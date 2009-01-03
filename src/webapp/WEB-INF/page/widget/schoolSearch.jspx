@@ -36,13 +36,14 @@
         <jsp:scriptlet>
             String cobrandHostname = (String)pageContext.getAttribute("cobrandHostname");
             boolean hasCobrandHostname = StringUtils.isNotBlank(cobrandHostname);
+            boolean cobrandHostnameNotDefault = !"www.greatschools.net".equals(cobrandHostname);
             SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
             PageHelper pageHelper = new PageHelper(context, request);
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())
                     &amp;&amp; hasCobrandHostname) {
-                if (pageHelper.isStagingServer()) {
+                if (pageHelper.isStagingServer() &amp;&amp; cobrandHostnameNotDefault) {
                     pageContext.setAttribute("cobrandHostname", cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.net"));
-                } else if (pageHelper.isDevEnvironment()) {
+                } else if (pageHelper.isDevEnvironment() &amp;&amp; cobrandHostnameNotDefault) {
                     pageContext.setAttribute("cobrandHostname", cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.net"));
                 }
                 // purposefully omit clone to allow testing production behavior
