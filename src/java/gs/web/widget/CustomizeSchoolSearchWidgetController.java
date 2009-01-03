@@ -70,7 +70,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             // remove any prepended http://
             cobrandName = cobrandName.replaceAll("^http://", "");
             // remove any trailing slashes
-            cobrandName = cobrandName.replaceAll("/+^","");
+            cobrandName = cobrandName.replaceAll("/+$","");
             // if no dot (.) is in the cobrand, append .greatschools.net
             if (!cobrandName.contains(".")) {
                 cobrandName = cobrandName + ".greatschools.net";
@@ -80,6 +80,8 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             Cobrand cobrand = _cobrandDao.getCobrandByHostname(cobrandName);
             if (cobrand == null) {
                 command.setCobrand(DEFAULT_COBRAND);
+            } else {
+                command.setCobrand(cobrandName);
             }
         }
 
