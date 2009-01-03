@@ -8,18 +8,18 @@ import gs.data.state.State;
  */
 public class TopSchoolsUrl extends GSUrl {
 
-    private final static String TOP_HIGH_SCHOOL_PATH = "/top-high-schools/";
+    private final static String TOP_HIGH_SCHOOLS_PATH = "/top-high-schools/";
 
     private final String _path;
 
     public TopSchoolsUrl(State state) {
-        StringBuffer uri = new StringBuffer(TOP_HIGH_SCHOOL_PATH);
+        StringBuffer uri = new StringBuffer(TOP_HIGH_SCHOOLS_PATH);
         if (state != null) uri.append(state.getLongName().toLowerCase().replace(" ", "-")).append("/");
         _path = uri.toString();
     }
 
     public TopSchoolsUrl() {
-        _path = TOP_HIGH_SCHOOL_PATH;
+        _path = TOP_HIGH_SCHOOLS_PATH;
     }
 
     public String getRelativePath() {
