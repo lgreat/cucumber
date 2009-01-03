@@ -34,16 +34,22 @@
         <jsp:scriptlet>
             String cobrandHostname = (String)pageContext.getAttribute("cobrandHostname");
             boolean hasCobrandHostname = StringUtils.isNotBlank(cobrandHostname);
-            String baseHref;
+            String baseHref = null;
             SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
             PageHelper pageHelper = new PageHelper(context, request);
             if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-                if (pageHelper.isCloneServer() &amp;&amp; hasCobrandHostname) {
-                    baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".clone.greatschools.net");
-                } else if (pageHelper.isStagingServer() &amp;&amp; hasCobrandHostname) {
-                    baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.net");
-                } else if (pageHelper.isDevEnvironment() &amp;&amp; hasCobrandHostname) {
-                    baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.net");
+                if (pageHelper.isCloneServer()) {
+                    if (hasCobrandHostname) {
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".clone.greatschools.net");
+                    }
+                } else if (pageHelper.isStagingServer()) {
+                    if (hasCobrandHostname) {
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".staging.greatschools.net");
+                    }
+                } else if (pageHelper.isDevEnvironment()) {
+                    if (hasCobrandHostname) {
+                        baseHref = cobrandHostname.replaceAll("\\.greatschools\\.net$",".dev.greatschools.net");
+                    }
                 } else {
                     if (hasCobrandHostname) {
                         baseHref = cobrandHostname;
