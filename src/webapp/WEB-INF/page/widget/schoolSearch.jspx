@@ -44,15 +44,15 @@
                     &amp;&amp; !StringUtils.equals("www", cobrand)) {
                 if (pageHelper.isStagingServer()) {
                     </jsp:scriptlet>
-                    <base href="http://${cobrandSite}.staging.greatschools.net" target="_blank"/>
+                    <base href="http://${cobrandSite}.staging.greatschools.net"/>
                     <jsp:scriptlet>
                 } else if (pageHelper.isDevEnvironment()) {
                     </jsp:scriptlet>
-                    <base href="http://${cobrandSite}.dev.greatschools.net" target="_blank"/>
+                    <base href="http://${cobrandSite}.dev.greatschools.net"/>
                     <jsp:scriptlet>
                 } else {
                     </jsp:scriptlet>
-                    <base href="http://${cobrandSite}.greatschools.net" target="_blank"/>
+                    <base href="http://${cobrandSite}.greatschools.net"/>
                     <jsp:scriptlet>
                 }
             }
