@@ -144,8 +144,7 @@
                                 <span class="title">Choose the size</span></div>
                             <div class="instructions">
                                 Do you want the widget to be small for
-                                your blog, or full page for your
-                                real estate Web site?
+                                your blog, or full page for your Web site?
                             </div>
                             <gsml:errorMessage command="command" field="height" useImage="true" styleClass="warning"/>
                             <gsml:errorMessage command="command" field="width" useImage="true" styleClass="warning"/>
