@@ -45,7 +45,7 @@
                                     <link:city city="${context.city.name}" state="${context.city.state}">${context.city.name} Schools</link:city>
                                 </li>
                             </c:if>
-                            <li><link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter></li>
+                            <li><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
                             <li><link:movingWithKids>Moving with Kids</link:movingWithKids></li>
                         </ul>
                     </li>

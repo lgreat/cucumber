@@ -236,7 +236,7 @@
                     <tr>
                         <td><select name="page">
                             <![CDATA[
-                        <option value="/content/schoolChoiceCenter.page"> School choice tips </option>
+                        <option value="/school-choice/"> School choice </option>
                         <option value="/cgi-bin/showarticle/197"> Private vs. public schools </option>
                         <option value="/preschool/">Preschool and Your Child </option>
                         <option value="/content/movingWithKids.page"> Moving with kids </option>

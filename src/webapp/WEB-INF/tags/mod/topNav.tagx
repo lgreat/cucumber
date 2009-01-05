@@ -226,7 +226,7 @@
             <!--#7--><td><link:schoolChoiceCenter
                                  id="GlobalNav_SeasonalButton"
                                  styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} GS_CI9_ "
-                >School Choice Tips</link:schoolChoiceCenter></td>
+                >School Choice</link:schoolChoiceCenter></td>
 
             <!--#2--><td><link:articleLibrary
                 id="GlobalNav_ArticleLibraryButton"
