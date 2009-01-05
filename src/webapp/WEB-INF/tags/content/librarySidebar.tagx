@@ -46,7 +46,7 @@
                         <a href="#topic-tips" id="topicTips">By Topics</a>
                         <div class="toggle">
                             <ul id="topic-tips">
-                                <li><link:schoolChoiceCenter>School Choice Tips</link:schoolChoiceCenter></li>
+                                <li><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
                                 <li><link:movingWithKids>Moving With Kids</link:movingWithKids></li>
                                 <li><link:countdownToCollege>College Prep</link:countdownToCollege></li>
                                 <li><link:tutoring>Tutoring</link:tutoring></li>
