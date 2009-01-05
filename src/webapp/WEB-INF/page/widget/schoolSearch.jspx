@@ -6,6 +6,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:fmt="http://java.sun.com/jstl/fmt"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:spring="http://www.springframework.org/tags"
@@ -15,6 +16,7 @@
     <jsp:directive.page import="gs.web.util.context.SessionContext"/>
     <jsp:directive.page import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.page import="gs.web.util.UrlUtil"/>
+    <jsp:directive.page import="gs.web.widget.SchoolSearchWidgetCommand"/>
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -66,6 +68,17 @@
             <base href="http://${baseHref}"/>
         </c:if>
 
+        <jsp:scriptlet>
+            SchoolSearchWidgetCommand command = (SchoolSearchWidgetCommand)pageContext.findAttribute("command");
+            int schoolSearchWidgetWidth = command.getWidth();
+            int tabBarDivWidth = Math.round(schoolSearchWidgetWidth / 2);
+            int tabBarDivMapTabWidth = tabBarDivWidth - 1;
+
+            pageContext.setAttribute("tabBarDivWidth", tabBarDivWidth);
+            pageContext.setAttribute("tabBarDivMapTabWidth", tabBarDivMapTabWidth);
+        </jsp:scriptlet>
+
+
         <!-- Style overrides to support custom width/height, as well as custom text color -->
         <style type="text/css">
             div#schoolSearchWidget {
@@ -75,12 +88,12 @@
                 background-color: #${requestScope.command.bordersColor};
             }
             div.tabBar div {
-                width: ${requestScope.command.width/2}px;
+                width: ${tabBarDivWidth}px;
                 color: #${requestScope.command.textColor};
                 border-bottom: solid 1px #${requestScope.command.bordersColor};
             }
             div.tabBar div#mapTab {
-                width: ${requestScope.command.width/2 - 1}px;
+                width: ${tabBarDivMapTabWidth}px;
             }
             div#mapTabBody div#map {
                 width: ${requestScope.command.width-11}px;

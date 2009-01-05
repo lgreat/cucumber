@@ -285,6 +285,12 @@ function clearMarkers() {
     }
 }
 
+function checkResize() {
+    // needed for when displayTab=search because map is not displayed
+    // so Google Maps can't calculate map dimensions
+    GS_map.checkResize();
+}
+
 <![CDATA[
 function getSchoolInfoWindowHtml(school) {
     var height = 85; // default height
@@ -328,7 +334,9 @@ function GS_doMapSchoolsWithRatings() {
       initMap();
   }
 }
--->
+<![CDATA[
+//-->
+]]>
 </script>
 </c:if>
 </jsp:root>

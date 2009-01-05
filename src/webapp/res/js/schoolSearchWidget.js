@@ -6,6 +6,7 @@ function showMapTab() {
     showTab(GS_MAP_TAB_NAME);
     hideTab(GS_SEARCH_TAB_NAME);
     hideTab(GS_HELP_TAB_NAME);
+    checkResize();
 }
 
 function showSearchTab() {
