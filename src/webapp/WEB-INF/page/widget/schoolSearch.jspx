@@ -105,6 +105,9 @@
             div#mapTabBody div.locationDescription {
                 width: ${requestScope.command.width-50}px;
             }
+            div#searchTabBody input.searchInput {
+                width: ${requestScope.command.width-45}px;
+            }
         </style>
     </head>
     <body>

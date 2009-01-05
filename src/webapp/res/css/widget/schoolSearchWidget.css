@@ -81,10 +81,6 @@ div#searchTabBody form {
     padding: 0;
 }
 
-div#searchTabBody input.searchInput {
-    width: 245px;
-}
-
 div#searchTabBody input.searchSubmit {
     position: absolute;
     right: 20px;
