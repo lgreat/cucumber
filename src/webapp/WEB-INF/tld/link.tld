@@ -100,6 +100,13 @@
             <description>CSS class name(s)</description>
         </attribute>
         <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>anchor name on destination page ('#' is optional)</description>
+        </attribute>
+        <attribute>
             <name>article</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

@@ -114,6 +114,7 @@
     padding: 0;
     background: none;
     border-bottom: 2px dotted #CCC;
+    font-size: 12px;
 }
 
 #pageWrapper #top-five-schools.about-the-awards li {
@@ -136,7 +137,7 @@
     background: url( /res/img/school/topSchools/topperforming.jpg ) no-repeat;
 }
 
-#pageWrapper #top-five-schools .badge_poverty {
+#pageWrapper #top-five-schools .badge_lowincome {
     background: url( /res/img/school/topSchools/topperforminglowincome.jpg ) no-repeat;
 }
 
@@ -258,6 +259,11 @@
 
 #pageWrapper #finding-the-right-school #find-and-compare-schools h2 {
     color: #5BC;
+    margin: 7px 0;
+}
+
+#pageWrapper #finding-the-right-school #find-and-compare-search {
+    margin-bottom: 15px;
 }
 
 #pageWrapper #finding-the-right-school #find-and-compare-city {
