@@ -103,7 +103,7 @@
                             <input id="topSchoolsStateChangerGo" class="go-button" type="image"
                                    src="/res/img/button/go.gif"
                                    alt="Go"/>
-                            <a class="whatMakesATopSchool" href="#">What makes a top school &gt;</a>
+                            <link:article styleClass="whatMakesATopSchool" articleId="3703">What makes a top school? &amp;gt;</link:article>
                         </form>
                     </div>
                 </div>
@@ -158,13 +158,23 @@
                                         <link:schoolProfileOverview school="${school}" styleClass="school">${school.name}</link:schoolProfileOverview>&amp;#160;
                                         <span class="location">${school.city}, ${school.databaseState}</span><br/>${school.reviewText}
                                         <c:if test="${fn:length(school.reviewText) > 0}">
-                                            <link:schoolProfileOverview school="${school}"
-                                                                        styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileOverview>
+                                            <c:choose>
+                                                <c:when test="${school.reviewSubmitterParent}">
+                                                    <link:schoolProfileParentReview school="${school}" styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileParentReview>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <link:schoolProfilePrincipalView school="${school}" styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfilePrincipalView>        
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <link:schoolProfileParentReview school="${school}" title="Parent Reviews" styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileParentReview>
+                                            <span class="submitted-by">
+                                                Submitted by ${(school.reviewSubmitterParent)?'a parent':'the school'}
+                                            </span>
                                         </c:if>
                                     </li>
                                 </c:forEach>
                             </ul>
-                            <a class="whatMakesATopSchool" href="#">What makes a top school &amp;gt;</a>
+                            <link:article styleClass="whatMakesATopSchool" articleId="3703">What makes a top school? &amp;gt;</link:article>
                         </div>
                     </div>
                 </c:otherwise>
@@ -193,7 +203,7 @@
                     <h2>Stand up for your school</h2>
 
                     <div id="recruiting">
-                        We're recruiting parents to represent their schools to interested families-
+                        We're recruiting parents to represent their schools to interested families&amp;mdash;
                         sign up now to be a part of the launch!
                     </div>
                     <form id="stand-up-form" method="get" action="/community/registration.page">
@@ -221,7 +231,7 @@
                         <gsweb:form id="find-and-compare-search" action="/search/search.page" method="get">
                             <input name="q" type="text" value="School, city or district"
                                    onfocus="if (this.value.indexOf('or district') > -1) this.value=''"/>
-                            <gsweb:stateSelector state="${stateAbbreviation}" usingLongNames="false" name="state"/>
+                            <gsweb:stateSelector styleId="find-and-compare-state-selector" state="${stateAbbreviation}" usingLongNames="false" name="state"/>
                             <gsml:inputImage styleClass="go-button" src="/res/img/button/go.gif" alt="Go"
                                              name="submit"/>
                         </gsweb:form>
@@ -236,12 +246,12 @@
                             <div id="find-and-compare-city">
                                 <select id="horizontalCompareCitySelect" name="city" class="compareCitySelect">
                                     <c:forEach var="cityOption" items="${compareCities}">
-                                        <gsml:selectOption
+                                        <gsml:selectOption selected="${requestScope.context.cityId eq cityOption.id}"
                                                 value="${cityOption.name}">${cityOption.name}</gsml:selectOption>
                                     </c:forEach>
                                 </select>
                             </div>
-                            <gsweb:stateSelector state="${stateAbbreviation}" name="state"
+                            <gsweb:stateSelector styleId="find-and-compare-city-state-selector" state="${stateAbbreviation}" name="state"
                                                  onChange="stateChange(this, 'find-and-compare-city', 'find-and-compare-city-select');"/>
                             <gsml:inputImage styleClass="go-button" src="/res/img/button/go.gif" alt="Go"
                                              name="submit" onclick="return verifyCity('verticalCompareCitySelect');"/>

@@ -102,7 +102,8 @@ public class TopSchoolsController extends AbstractController {
             List<School> schools = _schoolDao.getTopSchools(state);
             for (School school : schools) {
                 TopSchoolCategory category = (TopSchoolCategory) _schoolDao.getTopSchoolCategories(school).toArray()[0];
-                topSchools.add(new TopSchool(school, category, getReviewText(school)));
+                Object[] review = getReviewText(school);
+                topSchools.add(new TopSchool(school, category, (String) review[0], (Boolean) review[1]));
             }
             Collections.sort(topSchools);
             topSchools.get(topSchools.size() - 1).setLast(true);
@@ -117,16 +118,19 @@ public class TopSchoolsController extends AbstractController {
      * Return ESP school vision if it exists, otherwise return a parent review where the review is
      * from a parent and 4 or 5 stars (preferring 5 stars).
      */
-    protected String getReviewText(School school) {
+    protected Object[] getReviewText(School school) {
         String reviewText = _schoolDao.getPrincipalSchoolVision(school);
+        boolean reviewSubmitterParent = false;
         if (reviewText == null || reviewText.length() < 3) {
+            reviewSubmitterParent = true;
             List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
+            Collections.sort(reviews, Review.DATE_POSTED_COMPARATOR);
             for (CategoryRating rating : Arrays.asList(CategoryRating.RATING_5, CategoryRating.RATING_4))
                 for (Review review : reviews)
                     if (rating.equals(review.getQuality()) && Poster.PARENT.equals(review.getPoster()))
                         reviewText = review.getComments();
         }
-        return (reviewText == null) ? "" : reviewText;
+        return new Object[]{reviewText, reviewSubmitterParent};
     }
 
     protected List<ContentLink> getWhatMakesASchoolGreatContent() {
@@ -177,9 +181,10 @@ public class TopSchoolsController extends AbstractController {
     public class TopSchool extends School implements Comparable {
         TopSchoolCategory _category;
         String _reviewText;
+        boolean _reviewSubmitterParent;
         boolean _last = false;
 
-        public TopSchool(School school, TopSchoolCategory category, String reviewText) {
+        public TopSchool(School school, TopSchoolCategory category, String reviewText, boolean reviewSubmitterParent) {
             _category = category;
             setId(school.getId());
             setName(school.getName());
@@ -187,7 +192,10 @@ public class TopSchoolsController extends AbstractController {
             setDatabaseState(school.getDatabaseState());
             setLevelCode(school.getLevelCode());
             setType(school.getType());
-            _reviewText = StringUtils.abbreviate(reviewText, 115);
+            if (reviewText != null && reviewText.length() > 0) {
+                _reviewText = "\"" + StringUtils.abbreviate(reviewText, 115) + "\"";
+                _reviewSubmitterParent = reviewSubmitterParent;
+            }
         }
 
         public String getReviewText() {
@@ -196,6 +204,10 @@ public class TopSchoolsController extends AbstractController {
 
         public TopSchoolCategory getTopSchoolCategory() {
             return _category;
+        }
+
+        public boolean isReviewSubmitterParent() {
+            return _reviewSubmitterParent;
         }
 
         /**

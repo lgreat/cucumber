@@ -172,6 +172,11 @@
     white-space: nowrap;
 }
 
+#pageWrapper #top-five-schools .submitted-by {
+    font-size: 11px;
+    font-style: italic;
+}
+
 #pageWrapper #what-makes-a-school-great {
     margin-bottom: 10px;
 }
