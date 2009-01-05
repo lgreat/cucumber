@@ -183,7 +183,6 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                 errors.rejectValue("searchQuery", null, "No school results found for \"" + searchQuery + "\"");
             }
         } else {
-            errors.reject("Show results");
             if (request.getParameter(DISPLAY_TAB_PARAM) == null) {
                 // only set to map tab if another tab isn't specified
                 command.setDisplayTab("map");
