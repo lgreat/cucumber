@@ -21,9 +21,9 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>Greatschools.net: School Choice Tips</title>
-    <meta content="TODO-7752 TBD" name="description"/>
-    <meta content="TODO-7752 TBD" name="keywords"/>
+    <title>School Choice - A Guide for Parents | GreatSchools</title>
+    <meta content="Parent's guide to choosing a school for your child, with tips for finding, applying and enrolling at top choice public and private schools." name="description"/>
+    <meta content="school choice, choosing a school, choose a school" name="keywords"/>
 
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
