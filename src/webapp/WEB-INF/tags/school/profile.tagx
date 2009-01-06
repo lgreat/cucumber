@@ -380,7 +380,6 @@
 
     <!-- Ratings -->
     <div id="ratings">
-        <c:if test="${tab ne 'overview'}">
         <!-- Great Schools Rating -->
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
             <c:choose>
@@ -425,7 +424,6 @@
                 </link:schoolProfileParentReview>
             </c:otherwise>
         </c:choose>
-        </c:if>
         <c:if test="${gs_top_school}">
             <link:topSchools state="${state}">
                 <gsml:img styleClass="top_school_gs" alt="Top ${state.longName} High Schools" src="/res/img/school/topSchools/top_school_badge.png"/>

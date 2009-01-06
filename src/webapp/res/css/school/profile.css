@@ -18,11 +18,6 @@ div.printSchoolProfileHeader {
 div.printSchoolProfileHeader div{display:inline;margin:0;position:absolute;top:0px;}
 div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 
-.overview #schoolProfileHeader { /* Has IE 7 equivalent */
-    padding-bottom: 20px;
-    _padding-bottom: 21px;
-}
-
 /* breadcrumbs */
 #breadcrumbs {
 	margin: 2px 0 0 24px;
@@ -143,19 +138,9 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
     _margin: 0 0 0 12px;
 }
 
-#schoolProfile.overview #schoolName {
-    margin: 22px 0 8px 24px;
-    _margin: 10px 0 8px 12px;
-}
-
 #schoolProfile #schoolProfileHeader h1 {
     font: bold 24px "Trebuchet MS", Arial, sans-serif;
     color: #5bc;
-}
-
-#schoolProfile.overview #schoolProfileHeader h1 {
-	font: bold 26px "Trebuchet MS", Arial, sans-serif;
-	color: #5bc;
 }
 
 /* Ratings */
@@ -177,12 +162,6 @@ div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 	margin: 0 0 0 10px;
 	padding: 1px 0 2px 12px;
 	border-left: 1px solid #ccc;
-}
-
-#schoolProfile.overview .top_school_gs {
-	margin: 0;
-	padding: 0;
-	border-left: none;
 }
 
 a.parent_rating, span.parent_rating {
@@ -331,10 +310,6 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 
 /* School Overview page header */
-
-.overview #ratings { /* hides the ratings */
-	/* display: none;  */
-}
 
 .overview #navigation { /* has IE 7 equivalent */
     _float: none; /* IE 6 hack */

@@ -11,17 +11,8 @@ Internet Explorer 7 specific styles
     margin-bottom: -19px;
 }
 
-.overview #schoolProfileHeader {
-    padding-bottom: 19px;
-    /*height: 88px;*/
-}
-
 #schoolProfile #schoolName {
     margin: 12px 0 0 24px;
-}
-
-#schoolProfile.overview #schoolName { /* has IE 7 equivalent */
-    margin: 22px 0 8px 24px;
 }
 
 #tools .addImg {
