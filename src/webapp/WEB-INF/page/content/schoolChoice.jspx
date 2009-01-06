@@ -178,25 +178,23 @@
                             <hr/>
                         </div>
 
-                        <h2>NEXT: Get Ready!</h2>
+                        <h2>Next: Get Ready</h2>
 
-                        <p>Placeholder text here and then a link to articles and maybe a drop-down.</p>
+                        <p>Now that you've made your choice, find out what your child will be expected to know
+                           as he enters each grade level and what he'll be learning.</p>
 
                             <ul>
-                                <li><gsweb:articlelink
-                                        articleId="489">Some article number TBD</gsweb:articlelink>
-                                </li>
-                                <li>What your child should know by the end of:
+                                <li>What Your Child Should Do to Prepare for:
                                     <form onsubmit="return whatYourChildShouldKnow();" style="display: inline;">
                                     <select id="shouldKnow">
-                                        <option value="articleId">Preschool</option>
-                                        <option value="articleId">Kindergarten</option>
-                                        <option value="articleId">First Grade</option>
-                                        <option value="articleId">Second Grade</option>
-                                        <option value="articleId">Third Grade</option>
-                                        <option value="articleId">Fourth Grade</option>
-                                        <option value="articleId">Fifth Grade</option>
-                                        <option value="articleId">Middle School</option>
+                                        <option value="416">Preschool</option>
+                                        <option value="631">Kindergarten</option>
+                                        <option value="632">First Grade</option>
+                                        <option value="633">Second Grade</option>
+                                        <option value="645">Third Grade</option>
+                                        <option value="1012">Fourth Grade</option>
+                                        <option value="1013">Fifth Grade</option>
+                                        <option value="1032">Middle School</option>
                                         <option value="articleId">High School</option>
                                     </select>
                                     <input type="image" alt="Go" src="/res/img/button/go.gif"/>
@@ -252,15 +250,15 @@
 
                 <div id="movingWithKids" class="box">
                     <div class="inner">
-                        <h3>Moving with Kids</h3>
+                        <h3>Moving With Kids</h3>
 
                         <p>
-                            Placeholder text with a link to an article
+                            On the move with your family? Make the transition a smooth one.
                         </p>
 
                         <ul>
-                            <li><gsweb:articlelink articleId="490">Moving schools</gsweb:articlelink></li>
-                            <li><gsweb:articlelink articleId="455">Smoothing the transition</gsweb:articlelink></li>
+                            <li><gsweb:articlelink articleId="455">Moving? Tips to Help Your Child With the Transition</gsweb:articlelink></li>
+                            <li><gsweb:articlelink articleId="60">10 Tips for Adjusting to a New School</gsweb:articlelink></li>
                         </ul>
 
                         <p>
