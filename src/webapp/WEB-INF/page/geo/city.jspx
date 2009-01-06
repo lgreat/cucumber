@@ -274,7 +274,8 @@
     </c:otherwise>
 </c:choose>
 
-
+    <promo:topSchools cssClass="top_5_promo_city" state="${cityObject.state}" />
+    
 <jsp:include page="/geo/cityStats.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
 
 <c:if test="${empty requestScope.topRatedSchools}">

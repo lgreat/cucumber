@@ -500,3 +500,29 @@ div.belowGSBlog {
 div#localQuestionsContainer {
     padding-bottom: 15px;
 }
+
+div.top_5_promo_city {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: small;
+    color: #666666;
+    border: 1px solid #BBBBBB;
+    width: 255px;
+    padding: 6px 0 6px 6px;
+    margin-bottom:10px;
+}
+
+div.top_5_promo_city img {
+    float:left;
+}
+
+div.top_5_promo_city div {
+    margin: 8px 0 5px 45px;
+}
+
+div.top_5_promo_city div span.headline {
+    font-weight:bold;
+}
+
+div.top_5_promo_city div span.subline {
+    display:none
+}
