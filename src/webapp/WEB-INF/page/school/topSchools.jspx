@@ -176,7 +176,7 @@
         <c:otherwise>
             <div id="top-five-schools" class="box main-box">
                 <div class="inner cleared">
-                    <h2>The top high schools in ${stateName}</h2>
+                    <h2>Top high schools in ${stateName}</h2>
                     <ul>
                         <c:forEach var="school" items="${topSchools}">
                             <li class="${(school.last)?'lastSchool':''}">
@@ -197,12 +197,10 @@
                                                 <link:schoolProfilePrincipalView school="${school}"
                                                                                  styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfilePrincipalView>
                                             </c:otherwise>
-                                        </c:choose>
-                                        <link:schoolProfileParentReview school="${school}" title="Parent Reviews"
-                                                                        styleClass="more">More&amp;#160;&amp;gt;</link:schoolProfileParentReview>
-                                            <span class="submitted-by">
-                                                Submitted by ${(school.reviewSubmitterParent)?'a parent':'the school'}
-                                            </span>
+                                        </c:choose>                                       
+                                        <span class="submitted-by">
+                                            <br/>Submitted by ${(school.reviewSubmitterParent)?'a parent':'the school'}
+                                        </span>
                                     </c:when>
                                     <c:otherwise>
                                         ${pageScope[fn:toLowerCase(school.topSchoolCategory)]}
