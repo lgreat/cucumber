@@ -74,7 +74,6 @@ public class TopSchoolsControllerTest extends BaseControllerTestCase {
         List<TopSchoolsController.TopSchool> topSchools = (List<TopSchoolsController.TopSchool>) mv.getModel().get(TopSchoolsController.MODEL_TOP_SCHOOLS);
         assertTrue(topSchools.size() > 2);
         for (TopSchoolsController.TopSchool school : topSchools) {
-            assertNotNull(school.getReviewText());
             assertNotNull(school.getTopSchoolCategory());
         }
     }
