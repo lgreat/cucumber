@@ -526,3 +526,7 @@ div.top_5_promo_city div span.headline {
 div.top_5_promo_city div span.subline {
     display:none
 }
+
+span.nobreak {
+    white-space:nowrap;
+}

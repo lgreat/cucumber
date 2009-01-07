@@ -33,7 +33,7 @@
                 <c:set var="stateText" value="your state"/>
             </c:otherwise>
         </c:choose>
-        <link:topSchools styleClass="copy" state="${state}">View top high schools in ${stateText} &gt;</link:topSchools>
+        <link:topSchools styleClass="copy" state="${state}">View top high schools in <span class="nobreak">${stateText}</span> &gt;</link:topSchools>
     </div>
 
 </jsp:root>
