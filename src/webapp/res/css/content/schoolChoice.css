@@ -14,7 +14,7 @@
 /* Center Content */
 
 #pageWrapper #main h1 {
-	background: url(/res/img/library/header.jpg) no-repeat left top;
+	background: url(/res/img/schoolChoice/schoolchoice_headerbar.gif) no-repeat left top;
 }
 
 #intro {
@@ -23,6 +23,15 @@
 
 #intro .inner {
 	background-image: url(/res/img/library/middle-box-top.png);
+}
+
+#main-copy .inner h2 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#main-copy .inner h2 img {
+    padding-right: 5px;
 }
 
 #intro h2 {
@@ -52,4 +61,18 @@
 #AboveFold_300x600 {
     border-top: none;
     margin-top: 0;
+}
+
+#supplement .column {
+	width: 140px;
+	margin: 0 0 5px 10px;
+}
+
+#movingWithKidsTop {
+    height: 80px;
+}
+
+#movingWithKids ul {
+    padding-top: 5px;
+    clear: both;
 }

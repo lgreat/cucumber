@@ -29,6 +29,12 @@
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
     <pageHelper:externalCss file="/res/css/content/schoolChoice.css"/>
 
+    <style type="text/css">
+        #pollFrame {
+            height: expression(frames("pollFrame").document.body.scrollHeight);
+        }
+    </style>
+
     <pageHelper:externalJavascript file="/res/js/schoolChoice.js"/>
 
     <![CDATA[
@@ -89,8 +95,8 @@
                 </div>
                 <div id="main-copy" class="box">
                     <div class="inner cleared">
-                        <h2>Step 1: Define your Great School</h2>
-                        <img class="left" src="/res/img/library/findschool_girl_2.jpg" alt="Girl in school"/>
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number1.gif" alt="1"/>  Define your Great School</h2>
+                        <img class="left" src="/res/img/schoolChoice/schoolchoice_define_image.jpg" alt="Girl in school"/>
 
                         <div class="column">
                             <p>What's your ideal school? Small or large, strong academics or focus on the arts?
@@ -105,7 +111,7 @@
                             <hr/>
                         </div>
 
-                        <h2>Step 2: Start your Search</h2>
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number2.gif" alt="2"/> Start your Search</h2>
 
                         <p>
                             Find schools in your area. First, search by school name, city or district.
@@ -136,8 +142,8 @@
                             <hr/>
                         </div>
 
-                        <h2>Step 3: Prep for the School Visit</h2>
-                        <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Thinking Child"/>
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number3.gif" alt="3"/> Prep for the School Visit</h2>
+                        <img class="left" src="/res/img/schoolChoice/schoolchoice_prep_image.jpg" alt="Thinking Child"/>
 
                         <div class="column">
                             <p>Seeing is believing! Make an appointment to visit, prepare your questions and use our handy
@@ -160,9 +166,8 @@
                             <hr/>
                         </div>
 
-                        <h2>Step 4: Apply &amp;amp; Enroll</h2>
-                        <img class="left" src="/res/img/library/library_parentinvolve.jpg" alt="Child and Parents"/>
-
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number3.gif" alt="4"/> Apply &amp;amp; Enroll</h2>
+                        <img class="left" src="/res/img/schoolChoice/schoolchoice_apply_image.jpg" alt="Child and Parents"/>
                         <div class="column">
                             <p>Once you've made your choice, find out the application deadline, get all the necessary documents
                                 and apply. Have a Plan B, in case you don't get your first choice.</p>
@@ -174,9 +179,11 @@
                             </ul>
                         </div>
 
-                        <div class="hr">
-                            <hr/>
-                        </div>
+                    </div>
+                </div>
+
+                <div id="main-copy" class="box">
+                    <div class="inner cleared">
 
                         <h2>Next: Get Ready</h2>
 
@@ -240,11 +247,23 @@
                         <!-- TODO-7752 see poll.jspx, pages-servlet.xml -->
                         <c:set var="pollId" value="14581"/>
 
-                        <iframe style="width:170px;height:280px;" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"
+
+                        <iframe style="width:280px;height:280px;margin-left:-5px;" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"
                                 src="http://poll.websitegear.com/iframepoll.asp?pollID=${pollId}"
-                                id="poll">Web Poll: requires newer web browser to view
+                                onload="alert(document.getElementById('pollFrame').location.href)"
+                                id="pollFrame">Web Poll: requires newer web browser to view
                         </iframe>
 
+<div style="margin-left:-5px;clear:both;background-color: red;">
+        <![CDATA[
+        ]]>
+    
+                        <!-- BEGIN WEBSITEGEAR.COM COMPACT POLL CODE -->
+<!--script type="text/javascript" src="http://poll.websitegear.com/compactpoll.asp?pollID=14581"></script><noscript><a href="http://poll.websitegear.com/">Poll</a> Powered By <a href="http://www.websitegear.com">WebsiteGear</a>: Requires Javascript Enabled On Your Browser.</noscript-->
+    <!--script type="text/javascript" src="/res/js/schoolchoicepoll.js?pollID=14581"></script><noscript><a href="http://poll.websitegear.com/">Poll</a> Powered By <a href="http://www.websitegear.com">WebsiteGear</a>: Requires Javascript Enabled On Your Browser.</noscript-->
+<!-- END WEBSITEGEAR.COM COMPACT POLL CODE -->
+
+    </div>
                     </div>
                 </div>
 
@@ -252,14 +271,22 @@
                     <div class="inner">
                         <h3>Moving With Kids</h3>
 
-                        <p>
-                            On the move with your family? Make the transition a smooth one.
-                        </p>
+                        <div id="movingWithKidsTop">
+                        <img class="left" src="/res/img/schoolChoice/schoolchoice_moving_image.jpg" alt="Children with hands raised"/>
+                        <div class="column">
+                            <p>
+                                On the move with your family? Make the transition a smooth one.
+                            </p>
+                        </div>
+                        </div>
 
-                        <ul>
-                            <li><gsweb:articlelink articleId="455">Moving? Tips to Help Your Child With the Transition</gsweb:articlelink></li>
-                            <li><gsweb:articlelink articleId="60">10 Tips for Adjusting to a New School</gsweb:articlelink></li>
-                        </ul>
+                            <ul>
+                                <li><gsweb:articlelink
+                                        articleId="455">Moving? Tips to Help Your Child With the Transition</gsweb:articlelink>
+                                </li>
+                                <li><gsweb:articlelink
+                                        articleId="60">10 Tips for Adjusting to a New School</gsweb:articlelink></li>
+                            </ul>
 
                         <p>
                             Compare cities near
