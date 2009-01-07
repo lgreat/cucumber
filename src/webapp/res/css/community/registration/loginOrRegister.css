@@ -218,12 +218,14 @@ p.infoMessage img {
 #returninguser p.infoMessage span {
     margin-left: 27px;
     display: block;
+    font-size:15px;
+    font-weight:bold;
 }
 
 #returninguser p.infoMessage img {
     position: absolute;
     left: 0;
-    top: 6px;
+    top: 0px;
     margin: 0;
 }
 
