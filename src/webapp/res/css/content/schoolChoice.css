@@ -48,6 +48,36 @@
     float: right;
 }
 
+#next {
+    padding-bottom: 6px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_next_bottom.gif);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+
+#next .outer {
+    padding-top: 6px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_next_top.gif);
+    background-repeat: no-repeat;
+    background-position: left top;
+}
+
+#next .inner {
+    padding: 6px 16px 6px 16px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_next_sides.gif);
+    background-repeat: repeat-y;
+    background-position: left top;
+    background-color: transparent;
+}
+
+#next .outer .inner h2 {
+    padding-top: 0px;
+}
+
+#next .outer .inner h2 .next {
+    color: #666666;
+}
+
 /* Right Content */
 
 #top5 {
@@ -75,4 +105,42 @@
 #movingWithKids ul {
     padding-top: 5px;
     clear: both;
+}
+
+#top5 {
+	background-image: url(/res/img/library/right-box2-bottom.png);
+}
+
+#top5 .inner {
+	background-image: url(/res/img/library/right-box2-top.png);
+}
+
+#poll {
+    padding-bottom: 6px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_poll_bottom.gif);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+
+#poll .outer {
+    padding-top: 6px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_poll_top.gif);
+    background-repeat: no-repeat;
+    background-position: left top;
+}
+
+#poll .inner {
+    padding: 6px 16px 6px 16px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_pol_sides.gif);
+    background-repeat: repeat-y;
+    background-position: left top;
+    background-color: transparent;
+}
+
+#movingWithKids {
+	background-image: url(/res/img/library/right-box2-bottom.png);
+}
+
+#movingWithKids .inner {
+	background-image: url(/res/img/library/right-box2-top.png);
 }

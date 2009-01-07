@@ -182,33 +182,32 @@
                     </div>
                 </div>
 
-                <div id="main-copy" class="box">
-                    <div class="inner cleared">
+                <div id="next" class="box">
+                    <div class="outer">
+                        <div class="inner">
 
-                        <h2>Next: Get Ready</h2>
+                        <h2><span class="next">NEXT:</span> Get Ready</h2>
 
                         <p>Now that you've made your choice, find out what your child will be expected to know
                            as he enters each grade level and what he'll be learning.</p>
 
                             <ul>
-                                <li>What Your Child Should Do to Prepare for:
-                                    <form onsubmit="return whatYourChildShouldKnow();" style="display: inline;">
+                                <li>What your child should do to prepare for:
                                     <select id="shouldKnow">
-                                        <option value="416">Preschool</option>
-                                        <option value="631">Kindergarten</option>
-                                        <option value="632">First Grade</option>
-                                        <option value="633">Second Grade</option>
-                                        <option value="645">Third Grade</option>
-                                        <option value="1012">Fourth Grade</option>
-                                        <option value="1013">Fifth Grade</option>
+                                        <option value="416">Kindergarten</option>
+                                        <option value="631">First Grade</option>
+                                        <option value="632">Second Grade</option>
+                                        <option value="633">Third Grade</option>
+                                        <option value="645">Fourth Grade</option>
+                                        <option value="1012">Fifth Grade</option>
+                                        <option value="1013">Sixth Grade</option>
                                         <option value="1032">Middle School</option>
-                                        <option value="articleId">High School</option>
                                     </select>
-                                    <input type="image" alt="Go" src="/res/img/button/go.gif"/>
-                                    </form>
+                                    <a href="#" onclick="return whatYourChildShouldKnow();"><img src="/res/img/button/go.gif" alt="Go"/></a>
                                 </li>
                             </ul>
 
+                        </div>
                     </div>
                 </div>
 
@@ -219,6 +218,8 @@
                 <div id="top5" class="box">
                     <div class="inner">
                         <h3>GreatSchools Top 5</h3>
+
+                        <img src="/res/img/schoolChoice/schoolchoice_top5.jpg" alt="GreatSchools Top 5"/>
 
                         <p>
                             Check out the five high schools in each state that represent the qualities of a great school.
@@ -241,14 +242,15 @@
                 <ad:AboveFold_300x600/>
 
                 <div id="poll" class="box">
-                    <div class="inner">
+                    <div class="outer">
+                        <div class="inner">
                         <h3 id="quotable">Take a poll</h3>
 
                         <!-- TODO-7752 see poll.jspx, pages-servlet.xml -->
                         <c:set var="pollId" value="14581"/>
 
 
-                        <iframe style="width:280px;height:280px;margin-left:-5px;" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"
+                        <iframe style="width:280px;height:180px;margin-left:-5px;" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"
                                 src="http://poll.websitegear.com/iframepoll.asp?pollID=${pollId}"
                                 onload="alert(document.getElementById('pollFrame').location.href)"
                                 id="pollFrame">Web Poll: requires newer web browser to view
@@ -264,6 +266,7 @@
 <!-- END WEBSITEGEAR.COM COMPACT POLL CODE -->
 
     </div>
+                        </div>
                     </div>
                 </div>
 
@@ -289,6 +292,7 @@
                             </ul>
 
                         <p>
+                            <img src="/res/img/geo/compare_yellow.gif" alt="Magnifying glass"/>
                             Compare cities near
                             <!-- TODO-7752 see compareFooter.jspx -->
                             <gsweb:stateSelector useNoState="false"
