@@ -13,6 +13,8 @@ import gs.data.test.ITestDataSetDao;
 import gs.data.test.SchoolTestValue;
 import gs.data.util.NameValuePair;
 import gs.data.survey.SurveyDao;
+import gs.data.community.User;
+import gs.data.community.Subscription;
 import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -129,6 +131,7 @@ public class SchoolOverviewController extends AbstractSchoolController implement
             model.put("hasElementaryLevelCode", school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL));
             model.put("hasProgramData", hasProgramData(school));
             model.put("hasSurveyData", _surveyDao.hasSurveyData(school));
+            model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request));
 
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
                 model.put("hasTeacherData", _groupDataTypeDao.hasTeacherData(school));
@@ -170,6 +173,28 @@ public class SchoolOverviewController extends AbstractSchoolController implement
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
     }
+
+    // Checks to see if the user has any "School Chooser Pack" subscription
+    // products.  Resturns false if they do.
+    static boolean showSchoolChooserPackPromo(HttpServletRequest request) {
+        boolean show = true;
+        SessionContext sc = SessionContextUtil.getSessionContext(request);
+        User u = sc.getUser();
+        if (u != null) {
+            Set<Subscription> subs = u.getSubscriptions();
+            if (subs != null && subs.size() > 0) {
+                for (Subscription sub : subs) {
+                    String prod = sub.getProduct().getName();
+                    if (prod != null && prod.startsWith("chooserpack")) {
+                        show = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return show;
+    }
+
 
     boolean hasProgramData(School s) {
 

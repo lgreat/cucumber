@@ -610,7 +610,7 @@ div.top_5_promo_research {
     margin:10px 0 0 0;
     padding:0 0 0 35px;
     font-family: "Trebuchet MS", Arial, sans-serif;
-    font-size:12px;
+    font-size:13px;
     color:#444444;
 }
 
@@ -633,11 +633,7 @@ div.top_5_promo_research div span.subline {
     display:block;
 }
 
-div.top_5_promo_research div {
-    padding-bottom:2px;
-}
-
 div.top_5_promo_research div,
-div.top_5_promo_research a {
+div.top_5_promo_research a.copy {
     margin:0 0 0 50px;
 }

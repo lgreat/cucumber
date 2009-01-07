@@ -11,7 +11,9 @@
     <jsp:directive.attribute name="state" required="true" description="State object or null" type="gs.data.state.State"/>
 
     <div class="${cssClass}">
-        <gsml:img src="/res/img/promo/top5_icon.gif" alt="Top 5 icon"/>
+        <link:topSchools styleClass="icon" state="${state}">
+            <gsml:img src="/res/img/promo/top5_icon.gif" alt="Top 5 icon"/>
+        </link:topSchools>
         <div>
             <span class="headline">GreatSchools Top 5</span>
             <span class="subline">High schools that represent the qualities of a great school</span>
@@ -31,7 +33,7 @@
                 <c:set var="stateText" value="your state"/>
             </c:otherwise>
         </c:choose>
-        <link:topSchools state="${state}">View top high schools in ${stateText} &gt;</link:topSchools>
+        <link:topSchools styleClass="copy" state="${state}">View top high schools in ${stateText} &gt;</link:topSchools>
     </div>
 
 </jsp:root>

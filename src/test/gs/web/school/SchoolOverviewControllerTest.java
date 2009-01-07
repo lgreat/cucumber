@@ -9,6 +9,9 @@ import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.util.NameValuePair;
+import gs.data.community.User;
+import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.jsp.Util;
@@ -20,10 +23,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -407,5 +407,25 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
            assertEquals("Expect reviewMap.size to be 0", 0, reviewMap.size());
     }
 
+    public void testShowChooserPackPromo() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setAttribute("state", State.CA);
+        request.setParameter("id", "1");
+        request.setMethod("GET");
+        assertTrue("Should show promo", _controller.showSchoolChooserPackPromo(request));
 
+        SessionContext sc = (SessionContext)_request.
+                getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+        User user = new User();
+        user.setId(1234);
+        user.setEmail("tester@greatschools.net");
+        Set<Subscription> subs = new HashSet<Subscription>();
+        Subscription sub_1 = new Subscription();
+        sub_1.setUser(user);
+        sub_1.setProduct(SubscriptionProduct.SCHOOL_CHOOSER_PACK_ELEMENTARY);
+        subs.add(sub_1);
+        user.setSubscriptions(subs);
+        sc.setUser(user);
+        assertFalse("Should not show promo", _controller.showSchoolChooserPackPromo(request));
+    }
 }

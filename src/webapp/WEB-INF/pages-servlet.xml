@@ -1842,4 +1842,7 @@
         </property>
     </bean>
 
+    <bean name="/promo/schoolChoicePackPromo.page"
+          class="gs.web.promo.SchoolChoicePackPromoController"
+          autowire="byName" lazy-init="true"/>
 </beans>

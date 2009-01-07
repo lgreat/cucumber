@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
+    <jsp:directive.tag body-content="empty"/>
+
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/jquery-1.2.6.js"/>-->
+    <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
+    <div id="out">.</div>
+    <div>
+        <form action="">
+            <fieldset>
+                <div>
+                    <input type="checkbox" id="p_check" class="ck">Preschool</input>
+                    <input type="checkbox" id="e_check" class="ck">Elementary</input>
+                    <input type="checkbox" id="m_check" class="ck">Middle</input>
+                    <input type="checkbox" id="h_check" class="ck">High</input>
+                </div>
+                <label for="cemail">E-Mail (required)</label>
+                <input id="cemail" name="cemail" class="required email" />
+                <input type="submit" id="send" name="sub" value="subber"/>
+            </fieldset>
+        </form>
+    </div>
+</jsp:root>
