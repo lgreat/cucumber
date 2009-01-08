@@ -220,6 +220,14 @@
           autowire="byName">
     </bean>
 
+    <bean name="/school/compareCities.module"
+          class="gs.web.school.CompareFooterModuleController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/school/compareCities</value>
+        </property>
+    </bean>
+
     <bean name="/content/leftNav.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

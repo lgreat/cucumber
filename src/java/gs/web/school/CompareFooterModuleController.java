@@ -32,6 +32,8 @@ public class CompareFooterModuleController extends AbstractController {
     public static final String MODEL_CITIES = "cities";
     public static final String MODEL_CITY = "city";
 
+    private String _viewName = null;
+
     private IGeoDao _geoDao;
     private StateManager _stateManager;
 
@@ -53,7 +55,7 @@ public class CompareFooterModuleController extends AbstractController {
             }
         }
 
-        return new ModelAndView(VIEW_NAME, model);
+        return new ModelAndView((_viewName != null ? _viewName : VIEW_NAME), model);
     }
 
     public void setGeoDao(IGeoDao geoDao) {
@@ -62,5 +64,9 @@ public class CompareFooterModuleController extends AbstractController {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    public void setViewName(String viewName) {
+        _viewName = viewName;
     }
 }

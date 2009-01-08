@@ -327,15 +327,7 @@
                             </ul>
 
                         <p>
-                            <img src="/res/img/geo/compare_yellow.gif" alt="Magnifying glass"/>
-                            Compare cities near
-                            <!-- TODO-7752 see compareFooter.jspx -->
-                            <gsweb:stateSelector useNoState="false"
-                                         usingLongNames="true"
-                                         styleId="stateSelector"
-                                         state="${requestScope.context.stateOrDefault.abbreviation}"
-                                         styleClass="stateSelect"/>
-                            <input type="image" alt="Go" src="/res/img/button/go.gif"/>
+                            <jsp:include page="/school/compareCities.module?state=${requestScope.context.stateOrDefault.abbreviation}" />
                         </p>
                     </div>
                 </div>
