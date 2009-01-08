@@ -5,10 +5,16 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.data.community.User"/>
+<jsp:directive.page import="gs.data.community.Subscription"/>
+<jsp:directive.page import="java.util.Set"/>
 
 <pageHelper:setPathway pathway="SEASONAL"/>
 
@@ -19,6 +25,27 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+
+<jsp:scriptlet>
+<![CDATA[
+    boolean show = true;
+    SessionContext sc = SessionContextUtil.getSessionContext(request);
+    User u = sc.getUser();
+    if (u != null) {
+        Set<Subscription> subs = u.getSubscriptions();
+        if (subs != null && subs.size() > 0) {
+            for (Subscription sub : subs) {
+                String prod = sub.getProduct().getName();
+                if (prod != null && prod.startsWith("chooserpack")) {
+                    show = false;
+                    break;
+                }
+            }
+        }
+    }
+    pageContext.setAttribute("showSchoolChooserPackPromo", show);
+]]>
+</jsp:scriptlet>
 
 <head>
     <title>School Choice - A Guide for Parents | GreatSchools</title>
@@ -36,6 +63,22 @@
     </style>
 
     <pageHelper:externalJavascript file="/res/js/schoolChoice.js"/>
+
+    <script type="text/javascript" charset="utf-8">
+        function textSwitch(el, target, replace) {
+            if (el.value == replace) {
+                el.value = target;
+            }
+        }
+
+        function checkForm(form) {
+            if (form['state'].value == '') {
+                alert("Please select a state.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 
     <![CDATA[
     <!--[if IE]>
@@ -118,7 +161,7 @@
                             Then narrow your search by public, charter or private, and by school level.
                         </p>
 
-                        <form method="get" target="_blank" action="/search/search.page" onsubmit="return checkForm(this);">
+                        <form method="get" action="/search/search.page" onsubmit="return checkForm(this);">
 
                         <div class="searchContent">
                             <input type="text" maxlength="75" name="q"
@@ -215,29 +258,38 @@
 
             <div id="supplement">
 
+                <c:choose>
+                    <c:when test="${showSchoolChooserPackPromo}">
+                        <promo:schoolChoicePackPromo />
+                    </c:when>
+                    <c:otherwise>
+                        <!-- TODO-7752 put something else here? -->
+                    </c:otherwise>
+                </c:choose>
+
                 <div id="top5" class="box">
                     <div class="inner">
                         <h3>GreatSchools Top 5</h3>
 
-                        <img src="/res/img/schoolChoice/schoolchoice_top5.jpg" alt="GreatSchools Top 5"/>
+                        <div id="top5top">
+                            <img class="left" src="/res/img/schoolChoice/schoolchoice_top5.jpg" alt="GreatSchools Top 5"/>
+                            <div class="column">
+                                <p>
+                                    Check out the five high schools in each state that represent the qualities of a great school.
+                                </p>
+                            </div>
+                        </div>
 
-                        <p>
-                            Check out the five high schools in each state that represent the qualities of a great school.
-                        </p>
-
-                        <p>
-                            View top schools in:
+                        <p>View top schools in:
                             <gsweb:stateSelector useNoState="false"
-                                         usingLongNames="true"
-                                         styleId="top5State"
-                                         state="${requestScope.context.stateOrDefault.abbreviation}"
-                                         styleClass="stateSelect"/>
+                                     usingLongNames="true"
+                                     styleId="top5State"
+                                     state="${requestScope.context.stateOrDefault.abbreviation}"
+                                     styleClass="stateSelect"/>
                             <a href="#" onclick="return viewTopSchools();"><img src="/res/img/button/go.gif" alt="Go"/></a>
                         </p>
                     </div>
                 </div>
-
-                <!-- TODO-7752 Add Download our chooser guide when Chris Kimm is done GS-7753 -->
 
                 <ad:AboveFold_300x600/>
 

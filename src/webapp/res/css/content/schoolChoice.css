@@ -48,6 +48,10 @@
     float: right;
 }
 
+.searchInput {
+    width: 250px;
+}
+
 #next {
     padding-bottom: 6px;
     background-image: url(/res/img/schoolChoice/schoolchoice_next_bottom.gif);
@@ -113,6 +117,16 @@
 
 #top5 .inner {
 	background-image: url(/res/img/library/right-box2-top.png);
+    padding-right: 5px;
+}
+
+#top5 .column {
+	width: 120px;
+	margin: 0 0 5px 0;
+}
+
+#top5top {
+    height: 125px;
 }
 
 #poll {
