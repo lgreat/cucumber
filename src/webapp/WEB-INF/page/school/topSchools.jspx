@@ -121,10 +121,10 @@
     A Most Improved School shows the greatest improvement in test scores when comparing scores from the most recent year available to the year before.
 </c:set>
 <c:set var="publicparents">
-    A Most Improved School shows the greatest improvement in test scores when comparing scores from the most recent year available to the year before.
+    A Parents' Choice Public School has the highest average parent rating and at least 10 parent reviews when compared to all public schools. 
 </c:set>
 <c:set var="privateparents">
-    A Most Improved School shows the greatest improvement in test scores when comparing scores from the most recent year available to the year before.
+    A Parents' Choice Private School has the highest average parent rating and at least 10 parent reviews when compared to all private schools.
 </c:set>
 
 <div id="content">
@@ -139,14 +139,14 @@
                                           articleId="3703"></link:article>
                             <link:article target="_blank" anchor="overall" styleClass="school"
                                           articleId="3703">Top Performing</link:article><br/>
-                            ${overall}
+                            <span class="description">${overall}</span>
                         </li>
                         <li>
                             <link:article styleClass="badge badge_lowincome" anchor="lowincome" target="_blank"
                                           articleId="3703"></link:article>
                             <link:article target="_blank" anchor="lowincome" styleClass="school"
                                           articleId="3703">Top Performing Low Income</link:article><br/>
-                            ${lowincome}
+                            <span class="description">${lowincome}</span>
                         </li>
                         <li>
                             <link:article styleClass="badge badge_improved" anchor="improved" target="_blank"
@@ -159,14 +159,14 @@
                             <link:article styleClass="badge badge_publicparents" anchor="publicparents" target="_blank"
                                           articleId="3703"></link:article>
                             <link:article target="_blank" anchor="publicparents" styleClass="school"
-                                          articleId="3703">Parents Choice, Public School</link:article><br/>
+                                          articleId="3703">Parents' Choice, Public School</link:article><br/>
                             ${publicparents}
                         </li>
                         <li class="lastSchool">
                             <link:article styleClass="badge badge_privateparents" anchor="privateparents"
                                           target="_blank" articleId="3703"></link:article>
                             <link:article target="_blank" anchor="privateparents" styleClass="school"
-                                          articleId="3703">Parents Choice, Private School</link:article><br/>
+                                          articleId="3703">Parents' Choice, Private School</link:article><br/>
                             ${privateparents}
                         </li>
                     </ul>
@@ -233,7 +233,7 @@
 <div id="supplement">
 
     <ad:AboveFold_300x250/>
-
+    <!--
     <div id="stand-up-for-your-school" class="box side-box">
         <div class="inner">
             <h2>Stand up for your school</h2>
@@ -249,6 +249,7 @@
             </form>
         </div>
     </div>
+    -->
 
     <div id="finding-the-right-school" class="box side-box">
         <div class="inner">

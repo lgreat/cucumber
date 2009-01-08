@@ -109,16 +109,25 @@
 
 #pageWrapper #top-five-schools li {
     display: block;
-    height: 95px;
+    min-height: 85px;
+    height: auto !important;
+    height: 85px;
     margin: 15px 0 10px 0;
-    padding: 0;
+    padding: 0 0 13px 0;
     background: none;
     border-bottom: 2px dotted #CCC;
     font-size: 12px;
 }
 
 #pageWrapper #top-five-schools.about-the-awards li {
-    height: 85px;
+    min-height: 70px;
+    height: auto !important;
+    height: 70px;
+}
+
+#pageWrapper #top-five-schools li .description {
+    display: block;
+    margin-left: 105px;
 }
 
 #pageWrapper #top-five-schools li.lastSchool {
