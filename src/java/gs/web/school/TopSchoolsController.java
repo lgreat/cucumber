@@ -125,7 +125,7 @@ public class TopSchoolsController extends AbstractController {
             reviewSubmitterParent = true;
             List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
             Collections.sort(reviews, Review.DATE_POSTED_COMPARATOR);
-            for (CategoryRating rating : Arrays.asList(CategoryRating.RATING_5, CategoryRating.RATING_4))
+            for (CategoryRating rating : Arrays.asList(CategoryRating.RATING_4, CategoryRating.RATING_5))
                 for (Review review : reviews)
                     if (rating.equals(review.getQuality()) && Poster.PARENT.equals(review.getPoster()))
                         reviewText = review.getComments();
