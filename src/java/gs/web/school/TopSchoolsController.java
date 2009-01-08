@@ -193,7 +193,7 @@ public class TopSchoolsController extends AbstractController {
             setLevelCode(school.getLevelCode());
             setType(school.getType());
             if (reviewText != null && reviewText.length() > 0) {
-                _reviewText = "\"" + StringUtils.abbreviate(reviewText, 115) + "\"";
+                _reviewText = "\"" + StringUtils.abbreviate(reviewText, 140) + "\"";
                 _reviewSubmitterParent = reviewSubmitterParent;
             }
         }
