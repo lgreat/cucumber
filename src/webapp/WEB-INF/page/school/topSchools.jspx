@@ -121,7 +121,7 @@
     A Most Improved School shows the greatest improvement in test scores when comparing scores from the most recent year available to the year before.
 </c:set>
 <c:set var="publicparents">
-    A Parents' Choice Public School has the highest average parent rating and at least 10 parent reviews when compared to all public schools. 
+    A Parents' Choice Public School has the highest average parent rating and at least 10 parent reviews when compared to all public schools.
 </c:set>
 <c:set var="privateparents">
     A Parents' Choice Private School has the highest average parent rating and at least 10 parent reviews when compared to all private schools.
@@ -153,21 +153,21 @@
                                           articleId="3703"></link:article>
                             <link:article target="_blank" anchor="improved" styleClass="school"
                                           articleId="3703">Most Improved</link:article><br/>
-                            ${improved}
+                            <span class="description">${improved}</span>
                         </li>
                         <li>
                             <link:article styleClass="badge badge_publicparents" anchor="publicparents" target="_blank"
                                           articleId="3703"></link:article>
                             <link:article target="_blank" anchor="publicparents" styleClass="school"
                                           articleId="3703">Parents' Choice, Public School</link:article><br/>
-                            ${publicparents}
+                            <span class="description">${publicparents}</span>
                         </li>
                         <li class="lastSchool">
                             <link:article styleClass="badge badge_privateparents" anchor="privateparents"
                                           target="_blank" articleId="3703"></link:article>
                             <link:article target="_blank" anchor="privateparents" styleClass="school"
                                           articleId="3703">Parents' Choice, Private School</link:article><br/>
-                            ${privateparents}
+                            <span class="description">${privateparents}</span>
                         </li>
                     </ul>
                 </div>
@@ -186,6 +186,7 @@
                                 <link:schoolProfileOverview school="${school}"
                                                             styleClass="school">${school.name}</link:schoolProfileOverview>&amp;#160;
                                 <span class="location">${school.city}, ${school.databaseState}</span><br/>${school.reviewText}
+                                <span class="description">
                                 <c:choose>
                                     <c:when test="${fn:length(school.reviewText) > 0}">
                                         <c:choose>
@@ -206,6 +207,7 @@
                                         ${pageScope[fn:toLowerCase(school.topSchoolCategory)]}
                                     </c:otherwise>
                                 </c:choose>
+                                </span>
                             </li>
                         </c:forEach>
                     </ul>
