@@ -185,8 +185,9 @@
                                               articleId="3703">What does this mean?</link:article>
                                 <link:schoolProfileOverview school="${school}"
                                                             styleClass="school">${school.name}</link:schoolProfileOverview>&amp;#160;
-                                <span class="location">${school.city}, ${school.databaseState}</span><br/>${school.reviewText}
+                                <span class="location">${school.city}, ${school.databaseState}</span><br/>
                                 <span class="description">
+                                ${school.reviewText}
                                 <c:choose>
                                     <c:when test="${fn:length(school.reviewText) > 0}">
                                         <c:choose>
