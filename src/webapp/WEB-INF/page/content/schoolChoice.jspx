@@ -244,28 +244,11 @@
                 <div id="poll" class="box">
                     <div class="outer">
                         <div class="inner">
-                        <h3 id="quotable">Take a poll</h3>
+                            <h3 id="quotable">Take a poll</h3>
 
-                        <!-- TODO-7752 see poll.jspx, pages-servlet.xml -->
-                        <c:set var="pollId" value="14581"/>
-
-
-                        <iframe style="width:280px;height:180px;margin-left:-5px;" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"
-                                src="http://poll.websitegear.com/iframepoll.asp?pollID=${pollId}"
-                                onload="alert(document.getElementById('pollFrame').location.href)"
-                                id="pollFrame">Web Poll: requires newer web browser to view
-                        </iframe>
-
-<div style="margin-left:-5px;clear:both;background-color: red;">
-        <![CDATA[
-        ]]>
-    
-                        <!-- BEGIN WEBSITEGEAR.COM COMPACT POLL CODE -->
-<!--script type="text/javascript" src="http://poll.websitegear.com/compactpoll.asp?pollID=14581"></script><noscript><a href="http://poll.websitegear.com/">Poll</a> Powered By <a href="http://www.websitegear.com">WebsiteGear</a>: Requires Javascript Enabled On Your Browser.</noscript-->
-    <!--script type="text/javascript" src="/res/js/schoolchoicepoll.js?pollID=14581"></script><noscript><a href="http://poll.websitegear.com/">Poll</a> Powered By <a href="http://www.websitegear.com">WebsiteGear</a>: Requires Javascript Enabled On Your Browser.</noscript-->
-<!-- END WEBSITEGEAR.COM COMPACT POLL CODE -->
-
-    </div>
+                            <div id="pollWrapper">
+                                <jsp:include page="/content/schoolChoiceCenterPoll.module"/>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -137,6 +137,10 @@
     background-color: transparent;
 }
 
+#poll #pollwrapper {
+    margin-left: -5px;
+}
+
 #movingWithKids {
 	background-image: url(/res/img/library/right-box2-bottom.png);
 }
