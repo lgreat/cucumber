@@ -1,3 +1,6 @@
+// required to avoid "$" collisions with Prototype.js
+jQuery.noConflict();
+
 var $j = jQuery;
 
 $j(function() {
