@@ -384,6 +384,10 @@ div.statsModule {
     color:#666666;
 }
 
+#cityrating #ratingtext img#ratingYellowCircle {
+    /*margin-bottom: -3px;*/
+}
+
 #cityrating a:link,
     #cityrating a:visited,
     #cityrating a:active{

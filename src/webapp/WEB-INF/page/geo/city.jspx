@@ -113,7 +113,7 @@
         <div id="textwrapper">
             <div id="ratingtext">
                 ${displayName}'s rating is based on its public schools' test results; 10 is best.
-                <gsweb:articlelink articleId="1023" anchorName="13" target="_blank">Learn&#160;more&#160;&gt;</gsweb:articlelink>
+                <gsweb:articlelink articleId="1023" anchorName="13" target="_blank"><img src="/res/img/yellow_circle_i.gif" alt="Learn more" id="ratingYellowCircle"/></gsweb:articlelink>
             </div>
             <div style="margin-top: 8px;">
                 <link:nearbyCities city="${cityObject.name}"
