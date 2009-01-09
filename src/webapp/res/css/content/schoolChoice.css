@@ -34,6 +34,19 @@
     padding-right: 5px;
 }
 
+#step1top {
+    height: 100px;
+}
+
+#step3top {
+    height: 100px;
+}
+
+#quizDiv {
+    padding-top: 5px;
+    clear: both;
+}
+
 #intro h2 {
 	position: relative;
 	z-index: 20;
@@ -70,12 +83,19 @@
 }
 
 #downloadWorksheetDiv {
-    height: 50px;
-    line-height: 25px;
+    padding-top: 5px;
+    clear: both;
+    height: 25px;
+}
+
+#downloadWorksheetText {
+    margin-top: 2px;
+    float: left;
 }
 
 #worksheet {
     float: left;
+    margin-left: 7px;
 }
 
 #worksheetGo {
@@ -131,15 +151,12 @@
 
 /* Right Content */
 
-#top5 #movingWithKids.box .inner {
-    /*padding-right: 0px;*/
-}
-
 #viewTopSchoolsDiv {
     height: 25px;
 }
 
 #viewTopSchoolsText {
+    margin-top: 2px;
     float: left;
 }
 
