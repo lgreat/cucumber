@@ -48,8 +48,39 @@
     float: right;
 }
 
+.searchContent {
+    height: 25px;
+}
+
 .searchInput {
     width: 250px;
+    float: left;
+}
+
+#searchState {
+    float: left;
+    margin-left: 7px;
+}
+
+#searchGo {
+    float: left;
+    margin-top: -3px;
+    margin-left: 3px;
+    
+}
+
+#downloadWorksheetDiv {
+    height: 50px;
+}
+
+#worksheet {
+    float: left;
+}
+
+#worksheetGo {
+    float: left;
+    margin-top: -3px;
+    margin-left: 3px;
 }
 
 #next {
@@ -82,14 +113,37 @@
     color: #666666;
 }
 
+#next .outer .inner #shouldKnow {
+    float: left;
+}
+
+#next .outer .inner .go {
+    float: left;
+}
+
 /* Right Content */
 
-#top5 {
-    
+#top5 #movingWithKids.box .inner {
+    padding-right: 0px;
+}
+
+#viewTopSchoolsDiv {
+    height: 25px;
+}
+
+#viewTopSchoolsText {
+    float: left;
 }
 
 #top5State {
-    
+    float: left;
+    margin-left: 5px;
+}
+
+#top5Go {
+    float: left;
+    margin-left: 2px;
+    margin-top: -3px;
 }
 
 #AboveFold_300x600 {
@@ -117,11 +171,12 @@
 
 #top5 .inner {
 	background-image: url(/res/img/library/right-box2-top.png);
-    padding-right: 5px;
+    padding-right: 3px;
 }
 
 #top5 .column {
-	width: 120px;
+    float: left;
+	width: 140px;                                               
 	margin: 0 0 5px 0;
 }
 
@@ -161,4 +216,36 @@
 
 #movingWithKids .inner {
 	background-image: url(/res/img/library/right-box2-top.png);
+}
+
+#movingWithKids #compareVertical #compareCitiesYellow {
+    float: left;
+}
+
+#movingWithKids #compareVertical h2 {
+    float: left;
+    margin-top: 15px;
+}
+
+#movingWithKids #compareVertical #verticalCompareCitySelect {
+    clear: left;
+    float: left;
+    margin-top: 5px;
+    margin-left: 35px;
+}
+
+#movingWithKids #compareVertical #verticalCompareState {
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+#movingWithKids #compareVertical #compareCitiesGo {
+    float: left;
+    margin-top: 2px;
+    margin-left: 5px;
+}
+
+#movingWithKids.box .inner {
+    padding-right: 5px;
 }

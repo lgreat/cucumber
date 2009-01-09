@@ -171,12 +171,12 @@
                                    onblur="textSwitch(this, 'Search for school, district or city', '');"/>
 
                             <gsweb:stateSelector styleClass="searchDropdown" name="state"
-                                                 styleId="stateSelector1"
+                                                 styleId="searchState"
                                                  state="${requestScope.context.stateOrDefault.abbreviation}"
                                                  useNoState="false"/>
                             <input type="hidden" name="c" value="school"/>
                             <input type="hidden" name="search_type" value="0"/>
-                            <input type="image" alt="Go" src="/res/img/button/go.gif"/>
+                            <input type="image" alt="Go" src="/res/img/button/go.gif" id="searchGo"/>
                         </div>
 
                         </form>
@@ -192,17 +192,20 @@
                             <p>Seeing is believing! Make an appointment to visit, prepare your questions and use our handy
                                 school visit worksheet to guide your school tour.</p>
 
+                            <form onsubmit="return downloadWorksheet();" style="display: inline;">
+                            <div id="downloadWorksheetDiv">
                             <p>Download worksheet for
-                                <form onsubmit="return downloadWorksheet();" style="display: inline;">
                                 <select id="worksheet">
                                     <option value="/full_path_to_pdf_file">Preschool</option>
-                                    <option value="/full_path_to_pdf_file">Elementary</option>
-                                    <option value="/full_path_to_pdf_file">Middle</option>
-                                    <option value="/full_path_to_pdf_file">High</option>
+                                    <option value="/full_path_to_pdf_file">Elementary School</option>
+                                    <option value="/full_path_to_pdf_file">Middle School</option>
+                                    <option value="/full_path_to_pdf_file">High School</option>
                                 </select>
-                                <input type="image" alt="Go" src="/res/img/button/go.gif"/>
-                                </form>
+                                <input type="image" alt="Go" src="/res/img/button/go.gif" id="worksheetGo"/>
                             </p>
+                            </div>
+                            </form>
+
                         </div>
 
                         <div class="hr">
@@ -235,7 +238,7 @@
                            as he enters each grade level and what he'll be learning.</p>
 
                             <ul>
-                                <li>What your child should do to prepare for:
+                                <li><span class="left">What your child should do to prepare for:</span>
                                     <select id="shouldKnow">
                                         <option value="416">Kindergarten</option>
                                         <option value="631">First Grade</option>
@@ -246,7 +249,7 @@
                                         <option value="1013">Sixth Grade</option>
                                         <option value="1032">Middle School</option>
                                     </select>
-                                    <a href="#" onclick="return whatYourChildShouldKnow();"><img src="/res/img/button/go.gif" alt="Go"/></a>
+                                    <a href="#" onclick="return whatYourChildShouldKnow();"><img src="/res/img/button/go.gif" alt="Go" class="go"/></a>
                                 </li>
                             </ul>
 
@@ -280,14 +283,16 @@
                             </div>
                         </div>
 
-                        <p>View top schools in:
-                            <gsweb:stateSelector useNoState="false"
+                        <div id="viewTopSchoolsDiv">
+                            <p><span id="viewTopSchoolsText">View top schools in:</span>
+                                <gsweb:stateSelector useNoState="false"
                                      usingLongNames="true"
                                      styleId="top5State"
                                      state="${requestScope.context.stateOrDefault.abbreviation}"
                                      styleClass="stateSelect"/>
-                            <a href="#" onclick="return viewTopSchools();"><img src="/res/img/button/go.gif" alt="Go"/></a>
-                        </p>
+                                <a href="#" onclick="return viewTopSchools();"><img src="/res/img/button/go.gif" alt="Go" id="top5Go"/></a>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
