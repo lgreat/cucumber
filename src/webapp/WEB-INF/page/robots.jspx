@@ -119,6 +119,10 @@ User-agent: Teoma
 ${excludes}
 ${sitemapExcludes}
 
+User-agent: twiceler
+${excludes}
+${sitemapExcludes}
+
 User-agent: *
 Disallow: /
 </c:when>

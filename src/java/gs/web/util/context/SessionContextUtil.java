@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.57 2008/12/20 00:19:12 thuss Exp $
+ * $Id: SessionContextUtil.java,v 1.58 2009/01/09 21:25:56 thuss Exp $
  */
 
 package gs.web.util.context;
@@ -93,7 +93,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     /* User information cached cookies */
 
     private static final Pattern CRAWLER_USER_AGENTS =
-            Pattern.compile(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver).*");
+            Pattern.compile(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver|twiceler).*");
 
     private static Pattern LONG_STATE_URI_PATTERN = null;
 
