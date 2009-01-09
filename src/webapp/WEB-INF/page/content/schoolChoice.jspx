@@ -192,7 +192,6 @@
                             <p>Seeing is believing! Make an appointment to visit, prepare your questions and use our handy
                                 school visit worksheet to guide your school tour.</p>
 
-                            <form onsubmit="return downloadWorksheet();" style="display: inline;">
                             <div id="downloadWorksheetDiv">
                             <p>Download worksheet for
                                 <select id="worksheet">
@@ -201,10 +200,9 @@
                                     <option value="/full_path_to_pdf_file">Middle School</option>
                                     <option value="/full_path_to_pdf_file">High School</option>
                                 </select>
-                                <input type="image" alt="Go" src="/res/img/button/go.gif" id="worksheetGo"/>
+                                <a href="#" onclick="return downloadWorksheet();"><img src="/res/img/button/go.gif" id="worksheetGo" alt="Go"/></a>
                             </p>
                             </div>
-                            </form>
 
                         </div>
 
@@ -331,9 +329,8 @@
                                         articleId="60">10 Tips for Adjusting to a New School</gsweb:articlelink></li>
                             </ul>
 
-                        <p>
-                            <jsp:include page="/school/compareCities.module?state=${requestScope.context.stateOrDefault.abbreviation}" />
-                        </p>
+                        <jsp:include page="/school/compareCities.module?state=${requestScope.context.stateOrDefault.abbreviation}" />
+
                     </div>
                 </div>
 
