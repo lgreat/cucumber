@@ -238,7 +238,7 @@
                            as he enters each grade level and what he'll be learning.</p>
 
                             <ul>
-                                <li><span class="left">What your child should do to prepare for:</span>
+                                <li id="shouldKnowLi"><span class="left">What your child should do to prepare for:</span>
                                     <select id="shouldKnow">
                                         <option value="416">Kindergarten</option>
                                         <option value="631">First Grade</option>

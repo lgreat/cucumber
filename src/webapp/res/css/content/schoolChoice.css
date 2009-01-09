@@ -71,6 +71,7 @@
 
 #downloadWorksheetDiv {
     height: 50px;
+    line-height: 25px;
 }
 
 #worksheet {
@@ -113,12 +114,19 @@
     color: #666666;
 }
 
+#next .outer .inner #shouldKnowLi {
+    height: 25px;
+}
+
 #next .outer .inner #shouldKnow {
     float: left;
+    margin-left: 3px;
 }
 
 #next .outer .inner .go {
     float: left;
+    margin-left: 3px;
+    margin-top: -3px;
 }
 
 /* Right Content */
@@ -143,7 +151,7 @@
 
 #top5Go {
     float: left;
-    margin-left: 2px;
+    margin-left: 3px;
     margin-top: -3px;
 }
 
@@ -251,7 +259,7 @@
 #movingWithKids #compareVertical #compareCitiesGo {
     float: left;
     margin-top: 2px;
-    margin-left: 5px;
+    margin-left: 3px;
 }
 
 #movingWithKids.box .inner {
