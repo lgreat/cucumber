@@ -373,7 +373,7 @@
             <div class="ad_top">
                 <c:choose>
                     <c:when test="${showSchoolChooserPackPromo}">
-                        <promo:schoolChoicePackPromo />
+                        <promo:schoolChoicePackPromo schoolName="${school.name}"/>
                     </c:when>
                     <c:otherwise>
                         <ad:Top_300x137/>

@@ -1,0 +1,78 @@
+div#schoolChoicePackPromo {
+    border: 2px solid #EEEEEE;
+    padding:10px 10px 10px 13px;
+    color: #666666;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 13px;
+}
+
+div#schoolChoicePackPromo img.headicon {
+    float:left;
+    margin:0 10px 0 0;
+}
+
+div#schoolChoicePackPromo .headline {
+    color:#D66671;
+    font-size:17px;
+}
+
+div#schoolChoicePackPromo .blurb {
+    margin:5px 0 5px 0;
+}
+
+div#schoolChoicePackPromo div.levs {
+    padding:5px 0 2px 18px;
+}
+div#schoolChoicePackPromo div.left_levs {
+    margin: 0 25px 0 0;
+    width:100px;
+}
+div#schoolChoicePackPromo div.left_levs div,
+div#schoolChoicePackPromo div.right_levs div {
+     border:solid white;
+}
+div#schoolChoicePackPromo .levs input {
+   display:block;
+   float:left;
+   margin:2px 2px 0 0;
+}
+* + html div#schoolChoicePackPromo .levs input {
+    margin:0 2px 0 0;    
+}
+
+* + html div#schoolChoicePackPromo .levs label {
+    margin:0;
+    padding-top:1px;
+}
+
+* html div#schoolChoicePackPromo .levs input {
+    margin:0 2px 0 0;
+}
+
+* html div#schoolChoicePackPromo .levs label {
+    margin:0;
+    padding-top:1px;
+}
+
+div#schoolChoicePackPromo div#email_go #cemail {
+    vertical-align:top;
+    margin:2px 10px 0 0;
+    width:200px;
+    color:#888888;
+    font-family: "Trebuchet MS",Arial,sans-serif;
+    font-size: 13px;
+}
+
+div#schoolChoicePackPromo div#email_go #send {
+    margin:0;
+    padding:0;
+}
+
+div#schoolChoicePackPromo .privacy_terms {
+    margin:4px 0 0 2px;
+    font-size:10px;
+}
+
+div#schoolChoicePackPromo div.levs div.left_levs {
+    float:left;
+}

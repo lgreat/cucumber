@@ -7,24 +7,72 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
     <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="schoolName" required="false" description="Name of a school" type="java.lang.String"/>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
-    <!--<pageHelper:externalJavascript file="/res/js/jquery-1.2.6.js"/>-->
     <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
-    <div id="out">.</div>
-    <div>
-        <form action="">
-            <fieldset>
-                <div>
-                    <input type="checkbox" id="p_check" class="ck">Preschool</input>
-                    <input type="checkbox" id="e_check" class="ck">Elementary</input>
-                    <input type="checkbox" id="m_check" class="ck">Middle</input>
-                    <input type="checkbox" id="h_check" class="ck">High</input>
+    <pageHelper:externalCss file="/res/css/promo/schoolChoicePackPromo.css" />
+
+    <div id="schoolChoicePackPromo">
+        
+    <div id="form_panel">
+        <gsml:img src="/res/img/promo/clipboard_icon.jpg" styleClass="headicon" alt="Clipboard" />
+        <c:if test="${not empty schoolName}">
+            <div class="headline">
+            Is ${schoolName} Right for Your Child?
+            </div>
+        </c:if>
+        <div class="blurb">
+            Find the right school with our FREE toolkit.  You'll also recieve our emails to keep your child on track.
+        </div>
+        <div>
+            I'm looking for a:
+            <form action="">
+                <div class="levs">
+                    <div class="left_levs">
+                        <div>
+                            <input type="checkbox" id="p_check" name="p" class="ck" />
+                            <label for="p_check">Preschool</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="e_check" name="e" class="ck" />
+                            <label for="e_check">Elementary</label>
+                        </div>
+                    </div>
+                    <div class="right_levs">
+                        <div>
+                            <input type="checkbox" id="m_check" name="m" class="ck" />
+                            <label for="m_check">Middle</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="h_check" name="h" class="ck"/>
+                            <label for="h_check">High</label>
+                        </div>
+                    </div>
                 </div>
-                <label for="cemail">E-Mail (required)</label>
-                <input id="cemail" name="cemail" class="required email" />
-                <input type="submit" id="send" name="sub" value="subber"/>
-            </fieldset>
-        </form>
+                <div id="email_go">
+                    <input id="cemail" name="cemail"
+                           class="required email" value="Enter Email Address"/>
+                    <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
+                           onmouseover="this.src='/res/img/splash/goOver.gif';"
+                           class="button" style="width: 41px; height: 26px;" alt="GO" src="/res/img/splash/go.gif" type="image" />
+                </div>
+            </form>
+        </div>
+        <div class="privacy_terms">
+            <link:privacyPolicy>Privacy Policy</link:privacyPolicy> and <link:termsOfUse>Terms</link:termsOfUse>
+        </div>
+    </div>
+
+    <div id="confirm_panel" style="display:none">
+        <div class="headline">
+            Thank you!
+        </div>
+
+        <div class="blurb">The Chooser packs for the grade level(s) you have selected will be sent your email shortly.</div>
+        <div class="blurb">In the meantime -
+            <a href="/school-choice/" >check out our tips for getting started &gt;</a>
+        </div>
+    </div>
     </div>
 </jsp:root>
