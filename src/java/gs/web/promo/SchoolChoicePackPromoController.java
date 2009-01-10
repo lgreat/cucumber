@@ -12,11 +12,12 @@ import java.util.HashMap;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.web.util.ReadWriteController;
 
 /**
  * Created by chriskimm@greatschools.net
  */
-public class SchoolChoicePackPromoController extends AbstractController {
+public class SchoolChoicePackPromoController extends AbstractController implements ReadWriteController {
 
     public static final String BEAN_ID = "/promo/schoolChoicePackPromo.page";
     public static final String EMAIL_PARAM = "email";
