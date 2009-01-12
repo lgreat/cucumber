@@ -107,15 +107,14 @@
 
                 <div id="intro" class="box">
                     <div class="inner cleared">
-                        <h2>What's the best school for your child?</h2>
+                        <h2>Choosing the right school</h2>
 
                         <div>
 
                             <div class="description">
-
-                                <p>Finding the right school for your child is vital. But it doesn't need to be
-                                    frustrating. See our short video.</p>
-
+                                <p>There's a right school for your child and we invite you to start your search here.</p>
+                                <p>Join GreatSchools President Bill Jackson on a two-minute tour of our site and
+                                   learn how to find a school your child will thrive in.</p>
                             </div>
 
                             <div class="video">
@@ -136,32 +135,33 @@
                 </div>
                 <div id="main-copy" class="box">
                     <div class="inner cleared">
-                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number1.gif" alt="1"/>  Define your Great School</h2>
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number1.gif" alt="1"/>  Define your dream school</h2>
 
                         <div id="step1top">
                             <img class="left" src="/res/img/schoolChoice/schoolchoice_define_image.jpg" alt="Students in class"/>
 
                             <div class="column">
-                                <p>What's your ideal school? Small or large, strong academics or focus on the arts?
-                                    To find out, first identify your child's learning style and your family's needs.</p>
+                                <p>What qualities are you looking for in a school? Do you want one that's big,
+                                   or small? Strong in academics, or the arts - or both? Listing what's most
+                                   important at the outset makes it much more likely you'll find something your child will like.</p>
                             </div>
                         </div>
 
                         <div id="quizDiv">
-                            <p><gsweb:articlelink articleId="197">Take our quiz</gsweb:articlelink>
-                                to see where your child fits and what type of school to look for.</p>
+                            <ul>
+                                <li>Which educational qualities matter most?</li>
+                                <li>Charter, private, or public &amp;mdash; what's right for you?</li>
+                            </ul>
                         </div>
 
                         <div class="hr">
                             <hr/>
                         </div>
 
-                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number2.gif" alt="2"/> Start your Search</h2>
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number2.gif" alt="2"/> Start your search</h2>
 
-                        <p>
-                            Find schools in your area. First, search by school name, city or district.
-                            Then narrow your search by public, charter or private, and by school level.
-                        </p>
+                        <p>Find schools in your area. First, search by school name, city or district. Then narrow
+                           your search by public, charter or private, and by school level.</p>
 
                         <form method="get" action="/search/search.page" onsubmit="return checkForm(this);">
 
@@ -187,14 +187,15 @@
                             <hr/>
                         </div>
 
-                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number3.gif" alt="3"/> Prep for the School Visit</h2>
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number3.gif" alt="3"/> Prep for your school visit</h2>
 
                         <div id="step3top">
                             <img class="left" src="/res/img/schoolChoice/schoolchoice_prep_image.jpg" alt="Woman and child"/>
 
                             <div class="column">
-                                <p>Seeing is believing! Make an appointment to visit, prepare your questions and use our handy
-                                    school visit worksheet to guide your school tour.</p>
+                                <p>Once you've narrowed your search to a handful of schools, make appointments to visit
+                                   each one because seeing is believing. Take along our easy-to-use checklist to get
+                                   the most out of your school tours.</p>
                             </div>
                         </div>
 
@@ -214,16 +215,16 @@
                             <hr/>
                         </div>
 
-                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number4.gif" alt="4"/> Apply &amp;amp; Enroll</h2>
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number4.gif" alt="4"/> Apply and enroll</h2>
                         <img class="left" src="/res/img/schoolChoice/schoolchoice_apply_image.jpg" alt="Smiling girl"/>
                         <div class="column">
-                            <p>Once you've made your choice, find out the application deadline, get all the necessary documents
-                                and apply. Have a Plan B, in case you don't get your first choice.</p>
+                            <p>Once you've made your choice, find out the application deadline, assemble all the
+                               necessary documents, and apply. Have a Plan B, in case you don't get your first choice.</p>
                             <ul>
                                 <li><gsweb:articlelink
-                                        articleId="489">Working the System to Get the School of Your Choice</gsweb:articlelink>
+                                        articleId="489">Working the system to get the school of your choice </gsweb:articlelink>
                                 </li>
-                                <li><gsweb:articlelink articleId="490">Have a Plan B</gsweb:articlelink></li>
+                                <li><gsweb:articlelink articleId="490">Apply and enroll</gsweb:articlelink></li>
                             </ul>
                         </div>
 
@@ -234,13 +235,13 @@
                     <div class="outer">
                         <div class="inner">
 
-                        <h2><span class="next">NEXT:</span> Get Ready</h2>
+                        <h2><span class="next">Next:</span> Get ready!</h2>
 
-                        <p>Once you've made your choice, find out the application deadline,
-                           get all the necessary documents and apply.</p>
+                        <p>Now that you've made your choice, find out what your child will be expected
+                           to know as he enters each grade level.</p>
 
                             <ul>
-                                <li id="shouldKnowLi"><span class="left">What your child should do to prepare for:</span>
+                                <li id="shouldKnowLi"><span class="left">Get your child ready for:</span>
                                     <select id="shouldKnow">
                                         <option value="416">Kindergarten</option>
                                         <option value="631">First Grade</option>
@@ -274,14 +275,10 @@
 
                 <div id="top5" class="box">
                     <div class="inner">
-                        <h3>GreatSchools Top 5</h3>
-
                         <div id="top5top">
                             <img class="left" src="/res/img/schoolChoice/schoolchoice_top5.jpg" alt="GreatSchools Top 5, as featured in BusinessWeek"/>
                             <div class="column">
-                                <p>
-                                    Check out the five high schools in each state that represent the qualities of a great school.
-                                </p>
+                                <p>Check out the five high schools in each state that represent what makes a school great.</p>
                             </div>
                         </div>
 
@@ -327,10 +324,10 @@
 
                             <ul>
                                 <li><gsweb:articlelink
-                                        articleId="455">Moving? Tips to Help Your Child With the Transition</gsweb:articlelink>
+                                        articleId="455">Prepare for the transition</gsweb:articlelink>
                                 </li>
                                 <li><gsweb:articlelink
-                                        articleId="60">10 Tips for Adjusting to a New School</gsweb:articlelink></li>
+                                        articleId="60">Ease into the first day</gsweb:articlelink></li>
                             </ul>
 
                         <jsp:include page="/school/compareCities.module?state=${requestScope.context.stateOrDefault.abbreviation}" />
