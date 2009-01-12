@@ -89,7 +89,7 @@
 }
 
 #downloadWorksheetText {
-    margin-top: 2px;
+    margin-top: 3px;
     float: left;
 }
 
@@ -135,19 +135,31 @@
 }
 
 #next .outer .inner #shouldKnowLi {
-    height: 25px;
+    height: 30px;
+    position: relative;
 }
 
 #next .outer .inner #shouldKnow {
-    float: left;
     margin-left: 3px;
+    position: absolute;
+    top: -3px;
+    width: 115px;
 }
 
 #next .outer .inner .go {
-    float: left;
     margin-left: 3px;
     margin-top: -3px;
+    position: absolute;
+    top: -2px;
+    left: 271px;
 }
+
+#shouldKnow, #worksheet, #searchState, #verticalCompareCitySelect, #verticalCompareState, .searchInput, #top5State {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666666;
+    font-size: 13px;
+}
+
 
 /* Right Content */
 
