@@ -4,12 +4,14 @@ var $j = jQuery;
 
 $j(function() {
 
+    // clears the email field
     $j('#cemail').click(function () {
         if (this.value == 'Enter Email Address') {
             this.value = '';
         }
     });
 
+    // handles form validation and ajax processing
     $j("#send").click(function() {
         var cks = new Array();
         $j('.ck').each (function () {
@@ -20,17 +22,16 @@ $j(function() {
         var emailVal = $j('input#cemail').val();
         if (cks.length > 0) {
             if (emailVal) {
-                var emailIsValid = false;
                 $j.get("/util/isValidEmail.page", {email : emailVal},
                         function (data) {
                             if (data == 'true') {
                                 $j.post("/promo/schoolChoicePackPromo.page",
-                                {email : emailVal, levels : cks, pageName : clickCapture.pageName},
+                                {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName},
                                         function(datax){
+                                            createCookie("MEMID", datax.memid);
                                             $j("#form_panel").hide();
                                             $j("#confirm_panel").show();
                                         }, "json");
-                                emailIsValid = true;
                             } else {
                                 alert ("Please enter a valid email address");
                             }

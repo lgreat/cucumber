@@ -16,6 +16,7 @@ import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.tracking.OmnitureTracking;
 
@@ -73,24 +74,41 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             for (String level : levels) {
                 SubscriptionProduct prod = SubscriptionProduct.getSubscriptionProduct("chooserpack_" + level);
                 if (prod != null) {
-                    Subscription sub = new Subscription();
-                    sub.setProduct(prod);
-                    sub.setUser(user);
-                    _subscriptionDao.saveSubscription(sub);
+                    if (!_subscriptionDao.isUserSubscribed(user, prod, null)) {
+                        Subscription sub = new Subscription();
+                        sub.setProduct(prod);
+                        sub.setUser(user);
+                        _subscriptionDao.saveSubscription(sub);
+                    } else {
+                        StringBuilder sb = new StringBuilder("User is already subscribed: ");
+                        sb.append(user.toString());
+                        sb.append(" prod: ");
+                        sb.append(prod.getName());
+                        _log.info(sb.toString());
+                    }
                 } else {
                     _log.warn ("Could not find subscription product for: " + level);
                 }
             }
-            triggerEmail(user, levels);
+            PageHelper.setMemberCookie(request, response, user);
+            triggerPromoPackEmail(user, levels);
+
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.println("{\"memid\":\"" + String.valueOf(user.getId()) + "\"}");
         }
 
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.println("{\"tester\":\"foo\"}");
+
         return null;
     }
 
-    void triggerEmail(User user, String[] levels) {
+    /**
+     * This method triggers an ExactTarget SOAP api call that sends out the
+     * promo pack email.
+     * @param user - a valid user
+     * @param levels - the grade levels - {p,e,m,h} 
+     */
+    void triggerPromoPackEmail(User user, String[] levels) {
         Map<String, String> attributes = new HashMap<String, String>();
         for (String level : levels) {
             attributes.put(level,  "1");
