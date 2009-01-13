@@ -23,10 +23,18 @@
 	color: #888888;
 }
 
+* html #librarySidebar {
+    margin-left: 5px; /* GS-7616: IE6 only */
+}
+
 #col_left {
     padding-left: 10px;
     width:440px;
     margin-top:8px;
+}
+
+* html #col_left {
+    padding-right: 5px; /* GS-7616: IE6 only */
 }
 
 #col_left h1 {
