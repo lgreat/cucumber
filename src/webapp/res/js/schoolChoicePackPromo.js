@@ -25,7 +25,7 @@ $j(function() {
                         function (data) {
                             if (data == 'true') {
                                 $j.post("/promo/schoolChoicePackPromo.page",
-                                {email : emailVal, levels : cks},
+                                {email : emailVal, levels : cks, pageName : clickCapture.pageName},
                                         function(datax){
                                             $j("#form_panel").hide();
                                             $j("#confirm_panel").show();

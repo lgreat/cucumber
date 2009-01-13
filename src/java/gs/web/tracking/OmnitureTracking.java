@@ -57,6 +57,7 @@ public class OmnitureTracking {
      * Typesafe eVar number definitions.
      */
     public enum EvarNumber {
+        CrossPromotion(5),
         RegistrationSegment(7);
 
         private int _number;
@@ -79,7 +80,8 @@ public class OmnitureTracking {
         ParentRating(8),
         ParentReview(9),
         ParentSurvey(10),
-        NewNewsLetterSubscriber(11);
+        NewNewsLetterSubscriber(11),
+        ChoicePackRequest(18);
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){

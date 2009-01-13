@@ -9,10 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.web.util.ReadWriteController;
+import gs.web.util.NewSubscriberDetector;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.tracking.OmnitureTracking;
 
 /**
  * Created by chriskimm@greatschools.net
@@ -22,6 +27,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
     public static final String BEAN_ID = "/promo/schoolChoicePackPromo.page";
     public static final String EMAIL_PARAM = "email";
     public static final String LEVELS_PARAM = "levels";
+    public static final String PAGE_NAME = "pageName";
     public static final String SCHOOL_CHOICE_PACK_TRIGGER_KEY = "chooser_pack_trigger";
 
     private ISubscriptionDao _subscriptionDao;
@@ -33,7 +39,9 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
 
         String email = request.getParameter(EMAIL_PARAM);
         String level_val= request.getParameter(LEVELS_PARAM);
+        String pageName = request.getParameter(PAGE_NAME);
         if (level_val != null) {
+
             String[] levels = level_val.split(",");
 
             User user = _userDao.findUserFromEmailIfExists(email);
@@ -44,6 +52,22 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
                 user.setEmail(email);
                 _userDao.saveUser(user);
             }
+
+            OmnitureTracking omnitureTracking = new OmnitureTracking(request, response);
+
+            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
+            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ChoicePackRequest);
+            omnitureTracking.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.CrossPromotion, "Chooser_pack_" + pageName));
+
+            // add PA subscription
+            List<Subscription> subs = new ArrayList<Subscription>();
+            Subscription communityNewsletterSubscription = new Subscription();
+            communityNewsletterSubscription.setUser(user);
+            communityNewsletterSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+            communityNewsletterSubscription.setState(SessionContextUtil.getSessionContext(request).getStateOrDefault());
+            subs.add(communityNewsletterSubscription);
+
+            _subscriptionDao.addNewsletterSubscriptions(user, subs);
 
             // add each promo level as a new subscription
             for (String level : levels) {
