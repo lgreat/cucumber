@@ -51,6 +51,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             if (user == null) {
                 user = new User();
                 user.setEmail(email);
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 _userDao.saveUser(user);
             }
 
