@@ -117,9 +117,9 @@
                         <div>
 
                             <div class="description">
-                                <p>There's a right school for your child and we invite you to start your search here.</p>
-                                <p>Join GreatSchools President Bill Jackson on a two-minute tour of our site and
-                                   learn how to find a school your child will thrive in.</p>
+                                <p>You can find a school that's a good fit for your child.</p>
+                                <p>Join GreatSchools President Bill Jackson to learn how to use GreatSchools
+                                   to find a school your child will thrive in.</p>
                             </div>
 
                             <div class="video">
@@ -142,15 +142,16 @@
                 </div>
                 <div id="main-copy" class="box">
                     <div class="inner cleared">
-                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number1.gif" alt="1"/>  Define your dream school</h2>
+                        <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number1.gif" alt="1"/>  Define your ideal school</h2>
 
                         <div id="step1top">
                             <img class="left" src="/res/img/schoolChoice/schoolchoice_define_image.jpg" alt="Students in class"/>
 
                             <div class="column">
-                                <p>What qualities are you looking for in a school? Do you want one that's big,
-                                   or small? Strong in academics, or the arts - or both? Listing what's most
-                                   important at the outset makes it much more likely you'll find something your child will like.</p>
+                                <p>What qualities are you looking for in a school? Do you want one that's big
+                                   or small? Strong in academics or the arts &amp;mdash; or both? When you list what's
+                                   most important at the outset, you're more likely to find the right school for your
+                                   child.</p>
                             </div>
                         </div>
 
@@ -160,7 +161,8 @@
                                 <li><gsweb:articlelink
                                         articleId="3705">Which educational qualities matter most? </gsweb:articlelink>
                                 </li>
-                                <li><gsweb:articlelink articleId="3704">Charter, private, or public &amp;mdash; what's right for you?</gsweb:articlelink></li>
+                                <li><gsweb:articlelink articleId="3704">Charter, private or public &amp;mdash; What's right for you?</gsweb:articlelink></li>
+                                <li><gsweb:articlelink articleId="2390">Finding Schools for Kids with LD</gsweb:articlelink></li>
                             </ul>
 
                         </div>
@@ -234,9 +236,9 @@
                                necessary documents, and apply. Have a Plan B, in case you don't get your first choice.</p>
                             <ul>
                                 <li><gsweb:articlelink
-                                        articleId="3698">School Enrollment Requirements</gsweb:articlelink>
+                                        articleId="3698">School enrollment requirements</gsweb:articlelink>
                                 </li>
-                                <li><gsweb:articlelink articleId="490">Apply and enroll</gsweb:articlelink></li>
+                                <li><gsweb:articlelink articleId="490">Have a Plan B</gsweb:articlelink></li>
                             </ul>
                         </div>
 
@@ -288,7 +290,7 @@
                         <div id="top5top">
                             <img class="left" src="/res/img/schoolChoice/schoolchoice_top5.jpg" alt="GreatSchools Top 5, as featured in BusinessWeek"/>
                             <div class="column">
-                                <p>Check out the five high schools in each state that represent what makes a school great.</p>
+                                <p>Check out five high schools in each state that represent what makes a school great.</p>
                             </div>
                         </div>
 
@@ -319,19 +321,22 @@
                     </div>
                 </div>
 
-                <div id="movingWithKids" class="box">
+                <div id="moving" class="box">
                     <div class="inner">
-                        <h3>Moving With Kids</h3>
+                        <h3>Moving with kids</h3>
 
-                        <div id="movingWithKidsTop">
-                        <img class="left" src="/res/img/schoolChoice/schoolchoice_moving_image.jpg" alt="Children with hands raised"/>
-                        <div class="column">
-                            <p>
-                                On the move with your family? Make the transition a smooth one.
-                            </p>
-                        </div>
+                        <div id="movingTop">
+                            <img class="left" src="/res/img/schoolChoice/schoolchoice_moving_image.jpg"
+                                 alt="Children with hands raised"/>
+
+                            <div class="column">
+                                <p>
+                                    On the move with your family? Make the transition a smooth one.
+                                </p>
+                            </div>
                         </div>
 
+                        <div id="movingArticles">
                             <ul>
                                 <li><gsweb:articlelink
                                         articleId="455">Prepare for the transition</gsweb:articlelink>
@@ -339,12 +344,14 @@
                                 <li><gsweb:articlelink
                                         articleId="60">Ease into the first day</gsweb:articlelink></li>
                             </ul>
+                        </div>
 
-                        <jsp:include page="/school/compareCities.module?state=${requestScope.context.stateOrDefault.abbreviation}" />
-
+                        <div id="compareCitiesDiv">
+                            <jsp:include page="/school/compareCities.module?state=${requestScope.context.stateOrDefault.abbreviation}" />
+                        </div>
+                        
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

@@ -23,7 +23,6 @@
 
 #intro .inner {
 	background-image: url(/res/img/library/middle-box-top.png);
-    padding-bottom: 15px;
 }
 
 #main-copy .inner h2 {
@@ -56,6 +55,7 @@
 #intro .inner .description {
     float: left;
     width: 115px;
+    padding-right: 5px;
 }
 
 #intro .inner .video {
@@ -253,43 +253,54 @@
     background-color: transparent;
 }
 
-#poll #pollwrapper {
-    margin-left: -5px;
-}
+#poll
 
-#movingWithKids {
+#moving {
 	background-image: url(/res/img/schoolChoice/moving_bottomcurves.gif);
+    height: 400px;
 }
 
-#movingWithKids .inner {
+#moving .inner {
 	background-image: url(/res/img/schoolChoice/moving_topcurves.gif);
+    padding-right: 3px;
+    padding-top:15px;
 }
 
-#movingWithKidsTop {
+#moving h3 {
+    color: #D66671;
+}
+
+#moving #movingTop {
     height: 93px;
 }
 
-#movingWithKids ul {
-    padding-top: 5px;
+#moving #movingTop .column {
+    float: left;
+	width: 140px;
+	margin: -4px 0 5px 10px;
+}
+
+#moving #movingArticles {
+    padding-top: 10px;
     clear: both;
 }
 
-#movingWithKids #compareForm #compareCitiesYellow {
+#moving #compareCitiesDiv {
+    padding-top: 5px;
+}
+
+#moving #compareForm #compareCitiesYellow {
     float: left;
 }
 
-#movingWithKids #compareForm h2 {
+#moving #compareForm h2 {
     float: left;
     font-size: 15px;
     margin-left: 3px;
     margin-top: 7px;
 }
 
-#movingWithKids h3{
-    color:#D66671;
-}
-
-#movingWithKids #compareForm #horizontalCompareCitySelect {
+#moving #compareForm #horizontalCompareCitySelect {
     clear: left;
     float: left;
     margin-top: 5px;
@@ -297,18 +308,18 @@
     width: 136px;
 }
 
-#movingWithKids #compareForm #compareState {
+#moving #compareForm #compareState {
     float: left;
     margin-top: 5px;
     margin-left: 5px;
 }
 
-#movingWithKids #compareForm #compareCitiesGo {
+#moving #compareForm #compareCitiesGo {
     float: left;
     margin-top: 2px;
     margin-left: 3px;
 }
 
-#movingWithKids.box .inner {
+#moving.box .inner {
     padding-right: 5px;
 }
