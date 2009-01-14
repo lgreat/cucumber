@@ -26,15 +26,21 @@ div#schoolChoicePackPromo .blurb {
 }
 
 div#schoolChoicePackPromo div.levs {
-    padding:5px 0 2px 18px;
+    padding:5px 0 5px 10px;
+    height: 45px;
 }
 div#schoolChoicePackPromo div.left_levs {
-    margin: 0 25px 0 0;
-    width:100px;
+    margin: 0 15px 0 0;
+    width:125px;
 }
-div#schoolChoicePackPromo div.left_levs div,
+div#schoolChoicePackPromo div.left_levs div {
+     border:solid white;
+    width: 125px;
+    float: left;
+}
 div#schoolChoicePackPromo div.right_levs div {
      border:solid white;
+    float: left;
 }
 div#schoolChoicePackPromo .levs input {
    display:block;
