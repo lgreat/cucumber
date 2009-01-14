@@ -11,15 +11,14 @@
 
     <pageHelper:externalJavascript file="/res/js/compareModule.js"/>
 
-                <gsweb:form id="compareVertical" action="/cities.page" method="get">
+                <gsweb:form id="compareForm" action="/cities.page" method="get">
                     <input type="hidden" name="includeState" value="${param['includeState']}"/>
                     <input type="hidden" name="order" value="${param['order']}"/>
                     <input type="hidden" name="all" value="${param['all']}"/>
-                    <gsml:img src="/res/img/geo/compare_yellow.gif" id="compareCitiesYellow"
-                              alt="Magnifying glass"/>
-                    <h2>Compare cities near:</h2>
-                    <div id="verticalCompareCity">
-                        <select id="verticalCompareCitySelect" name="city" class="compareCitySelect">
+                    <h2><gsml:img src="/res/img/geo/compare_yellow.gif" id="compareCitiesYellow"
+                              alt="Magnifying glass"/> Compare cities near:</h2>
+                    <div id="compareCity">
+                        <select id="horizontalCompareCitySelect" name="city" class="compareCitySelect">
                             <c:if test="${empty city}">
                                 <gsml:selectOption value="Choose city">Choose city</gsml:selectOption>
                             </c:if>
@@ -31,12 +30,12 @@
                         </select>
                     </div>
                     <gsweb:stateSelector state="${param['state']}"
-                                         styleId="verticalCompareState"
+                                         styleId="compareState"
                                          name="state"
-                                         onChange="stateChange(this, 'verticalCompareCity', 'verticalCompareCitySelect');"/>
+                                         onChange="stateChange(this, 'compareCity', 'horizontalCompareCitySelect');"/>
 
                     <gsml:inputImage src="/res/img/button/go.gif" alt="Go" id="compareCitiesGo"
-                                     name="submit" onclick="return verifyCity('verticalCompareCitySelect');"/>
+                                     name="submit" onclick="return verifyCity('horizontalCompareCitySelect');"/>
                 </gsweb:form>
 
 </jsp:root>
