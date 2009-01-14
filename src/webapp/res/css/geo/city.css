@@ -379,13 +379,15 @@ div.statsModule {
     position:relative;
     vertical-align:middle;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 18px;
     font-weight:normal;
     color:#666666;
 }
 
 #cityrating #ratingtext img#ratingYellowCircle {
-    /*margin-bottom: -3px;*/
+    position: absolute;
+    top: 18px;
+    padding-left: 3px;
 }
 
 #cityrating a:link,
