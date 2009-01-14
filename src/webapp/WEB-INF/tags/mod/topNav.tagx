@@ -62,7 +62,7 @@
                         <c:set var="communityClassSearch" value="communityHeader"/>
                         <!-- webbyStyle is used to hide the webby logo below -->
                         <c:set var="webbyStyle" value="display: none;"/>
-                        <mod:communityAccountHeader communityHost="${communityHost}"/>
+                        <mod:communityAccountHeader communityHost="${communityHost}" inCommunity="${inCommunity}"/>
                     </c:when>
                     <!-- msl only login case -->
                     <c:otherwise>
