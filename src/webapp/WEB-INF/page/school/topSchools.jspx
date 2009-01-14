@@ -184,7 +184,7 @@
                                               anchor="${fn:toLowerCase(school.topSchoolCategory)}" target="_blank"
                                               articleId="3703">What does this mean?</link:article>
                                 <link:schoolProfileOverview school="${school}"
-                                                            styleClass="school">${school.name}</link:schoolProfileOverview> <!-- need this comment so whitespace doesn't get collapsed -->
+                                                            styleClass="school">${school.name}</link:schoolProfileOverview><c:out value=" "/> 
                                 <span class="location">${school.city}, ${school.databaseState}</span><br/>
                                 <span class="description">
                                 ${school.reviewText}
