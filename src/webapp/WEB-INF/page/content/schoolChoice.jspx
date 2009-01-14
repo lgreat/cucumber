@@ -124,10 +124,14 @@
                         </div>
 
                         <div id="quizDiv">
+
                             <ul>
-                                <li>Which educational qualities matter most?</li>
-                                <li>Charter, private, or public &amp;mdash; what's right for you?</li>
+                                <li><gsweb:articlelink
+                                        articleId="3705">Which educational qualities matter most? </gsweb:articlelink>
+                                </li>
+                                <li><gsweb:articlelink articleId="3704">Charter, private, or public &amp;mdash; what's right for you?</gsweb:articlelink></li>
                             </ul>
+
                         </div>
 
                         <div class="hr">
@@ -198,7 +202,7 @@
                                necessary documents, and apply. Have a Plan B, in case you don't get your first choice.</p>
                             <ul>
                                 <li><gsweb:articlelink
-                                        articleId="489">Working the system to get the school of your choice </gsweb:articlelink>
+                                        articleId="3698">School Enrollment Requirements</gsweb:articlelink>
                                 </li>
                                 <li><gsweb:articlelink articleId="490">Apply and enroll</gsweb:articlelink></li>
                             </ul>
