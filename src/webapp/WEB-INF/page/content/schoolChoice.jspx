@@ -26,26 +26,6 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<jsp:scriptlet>
-<![CDATA[
-    boolean show = true;
-    SessionContext sc = SessionContextUtil.getSessionContext(request);
-    User u = sc.getUser();
-    if (u != null) {
-        Set<Subscription> subs = u.getSubscriptions();
-        if (subs != null && subs.size() > 0) {
-            for (Subscription sub : subs) {
-                String prod = sub.getProduct().getName();
-                if (prod != null && prod.startsWith("chooserpack")) {
-                    show = false;
-                    break;
-                }
-            }
-        }
-    }
-    pageContext.setAttribute("showSchoolChooserPackPromo", show);
-]]>
-</jsp:scriptlet>
 
 <head>
     <title>School Choice - A Guide for Parents | GreatSchools</title>
@@ -264,14 +244,12 @@
 
             <div id="supplement">
 
-                <c:choose>
-                    <c:when test="${showSchoolChooserPackPromo}">
-                        <promo:schoolChoicePackPromo />
-                    </c:when>
-                    <c:otherwise>
-                        <!-- TODO-7752 put something else here? -->
-                    </c:otherwise>
-                </c:choose>
+
+                <div id="schoolChoicePromo" class="box">
+                    <div class="inner">
+                        <promo:schoolChoicePackPromo showBorder="${false}"/>
+                    </div>
+                </div>
 
                 <div id="top5" class="box">
                     <div class="inner">
