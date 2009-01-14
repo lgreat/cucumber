@@ -32,7 +32,7 @@
             </c:choose>
         </div>
         <div class="blurb">
-           Find the right school with our SchoolChooser tip sheet. You can also opt to receive emails to keep your child on track.
+           Find the right school with our School Chooser tip sheet. You will also receive emails to help you keep your child on track in school.
         </div>
         <div>
             I'm looking for a:
@@ -69,7 +69,7 @@
             </form>
         </div>
         <div class="privacy_terms">
-            <link:privacyPolicy>Privacy Policy</link:privacyPolicy> and <link:termsOfUse>Terms</link:termsOfUse>
+            GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> and <link:termsOfUse>Terms of Use</link:termsOfUse>
         </div>
     </div>
 

@@ -78,6 +78,10 @@ div#schoolChoicePackPromo .privacy_terms {
     font-size:10px;
 }
 
+div#schoolChoicePackPromo .privacy_terms a {
+    color:#666666;
+}
+
 div#schoolChoicePackPromo div.levs div.left_levs {
     float:left;
 }
