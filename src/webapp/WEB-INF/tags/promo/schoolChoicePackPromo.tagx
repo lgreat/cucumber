@@ -8,22 +8,31 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schoolName" required="false" description="Name of a school" type="java.lang.String"/>
+    <jsp:directive.attribute name="showBorder" required="true" description="Whether or not to show border around the module" type="java.lang.Boolean"/>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
     <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
     <pageHelper:externalCss file="/res/css/promo/schoolChoicePackPromo.css" />
 
-    <div id="schoolChoicePackPromo">
+
+    <div id="schoolChoicePackPromo" class="${showBorder ?'bordered':''}">
+
         
     <div id="form_panel">
         <gsml:img src="/res/img/promo/clipboard_icon.jpg" styleClass="headicon" alt="Clipboard" />
-        <c:if test="${not empty schoolName}">
-            <div class="headline">
-            Is ${schoolName} Right for Your Child?
-            </div>
-        </c:if>
+
+        <div class="headline">
+            <c:choose>
+                <c:when test="${not empty schoolName}">
+                    Is ${schoolName} Right for Your Child?
+                </c:when>
+                <c:otherwise>
+                    What school is right for your child?
+                </c:otherwise>
+            </c:choose>
+        </div>
         <div class="blurb">
-            Find the right school with our FREE toolkit.  You'll also recieve our emails to keep your child on track.
+           Find the right school with our SchoolChooser tip sheet. You can also opt to receive emails to keep your child on track.
         </div>
         <div>
             I'm looking for a:

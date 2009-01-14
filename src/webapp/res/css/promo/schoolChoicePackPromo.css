@@ -1,9 +1,14 @@
 div#schoolChoicePackPromo {
-    border: 2px solid #EEEEEE;
-    padding:10px 10px 10px 13px;
     color: #666666;
     font-family: "Trebuchet MS",Arial,sans-serif;
     font-size: 13px;
+    background-color: #ffffff;
+}
+
+div#schoolChoicePackPromo.bordered{
+    border: 2px solid #EEEEEE;
+    padding:10px 10px 10px 13px;
+
 }
 
 div#schoolChoicePackPromo img.headicon {
