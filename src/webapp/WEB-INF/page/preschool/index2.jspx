@@ -67,6 +67,37 @@
     <![endif]-->
     ]]>
 
+    <![CDATA[
+    <script type="text/javascript" language="javascript">
+    <!--
+        function findAndCompareCheck(queryId, stateSelectorId) {
+            var returnVal = true;
+            var queryVal = document.getElementById(queryId).value;
+            var stateVal = document.getElementById(stateSelectorId).value;
+
+            var noSearchTerms = (queryVal == 'Search for school name, city or zip code');
+            var noState = (stateVal == ("-" + "-") || stateVal == "");
+
+            if (noSearchTerms && noState) {
+                alert("Please enter an address and select a state.");
+                returnVal = false;
+            } else if (!noSearchTerms && noState) {
+                alert("Please select a state.");
+                returnVal = false;
+            } else if (!noSearchTerms && !noState) {
+                // go to search page
+                returnVal = true;
+            } else if (noSearchTerms && !noState) {
+                alert("Please enter an address.");
+                returnVal = false;
+            }
+            return returnVal;
+        }
+        -->
+    </script>
+    ]]>
+    
+
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
@@ -155,14 +186,16 @@
                 throughout the country. Find the right fit for your child.
             </p>
 
-            <form action="/search/search.page" method="get" accept-charset="UTF-8">
+            <form action="/search/search.page" method="get" accept-charset="UTF-8"
+                    onsubmit="return findAndCompareCheck('location', 'stateSelectorPreschool');"
+                    >
                 <input id="location" type="text" name="q" onblur="textSwitch('location', false);"
                        onfocus="textSwitch('location', true);"/>
                 <input type="hidden" name="c" value="school"/>
                 <input type="hidden" name="lc" value="p"/>
 
                 <div id="searchLine2">
-                    <gsweb:stateSelector useNoState="false"
+                    <gsweb:stateSelector useNoState="true"
                                          noStateLabel="--"
                                          usingLongNames="false"
                                          styleId="stateSelectorPreschool"
