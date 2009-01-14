@@ -23,6 +23,7 @@
 
 #intro .inner {
 	background-image: url(/res/img/library/middle-box-top.png);
+    padding-bottom: 15px;
 }
 
 #main-copy .inner h2 {
@@ -54,11 +55,12 @@
 
 #intro .inner .description {
     float: left;
-    width: 220px;
+    width: 115px;
 }
 
 #intro .inner .video {
-    float: right;
+    float: left;
+    border: 1px solid #cccccc;
 }
 
 .searchContent {
@@ -154,7 +156,7 @@
     left: 271px;
 }
 
-#shouldKnow, #worksheet, #searchState, #verticalCompareCitySelect, #verticalCompareState, .searchInput, #top5State {
+#shouldKnow, #worksheet, #searchState, #horizontalCompareCitySelect, #compareState, .searchInput, #top5State {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #666666;
     font-size: 13px;
@@ -272,11 +274,11 @@
     clear: both;
 }
 
-#movingWithKids #compareVertical #compareCitiesYellow {
+#movingWithKids #compareForm #compareCitiesYellow {
     float: left;
 }
 
-#movingWithKids #compareVertical h2 {
+#movingWithKids #compareForm h2 {
     float: left;
     font-size: 15px;
     margin-left: 3px;
@@ -287,7 +289,7 @@
     color:#D66671;
 }
 
-#movingWithKids #compareVertical #verticalCompareCitySelect {
+#movingWithKids #compareForm #horizontalCompareCitySelect {
     clear: left;
     float: left;
     margin-top: 5px;
@@ -295,13 +297,13 @@
     width: 136px;
 }
 
-#movingWithKids #compareVertical #verticalCompareState {
+#movingWithKids #compareForm #compareState {
     float: left;
     margin-top: 5px;
     margin-left: 5px;
 }
 
-#movingWithKids #compareVertical #compareCitiesGo {
+#movingWithKids #compareForm #compareCitiesGo {
     float: left;
     margin-top: 2px;
     margin-left: 3px;

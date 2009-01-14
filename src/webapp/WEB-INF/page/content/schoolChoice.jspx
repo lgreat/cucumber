@@ -10,11 +10,6 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
-<jsp:directive.page import="gs.web.util.context.SessionContext"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.page import="gs.data.community.User"/>
-<jsp:directive.page import="gs.data.community.Subscription"/>
-<jsp:directive.page import="java.util.Set"/>
 
 <pageHelper:setPathway pathway="SEASONAL"/>
 
@@ -57,6 +52,40 @@
     </script>
 
     <![CDATA[
+    <script type="text/javascript" language="javascript">
+    <!--
+        function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
+            var returnVal = true;
+            var queryVal = document.getElementById(queryId).value;
+            var stateVal = document.getElementById(stateSelectorId).value;
+
+            var noSearchTerms = (queryVal == 'Search for school, district or city');
+            var noState = (stateVal == ("-" + "-") || stateVal == "");
+
+            if (noSearchTerms && noState) {
+                // go to national R&C (/school/research.page)
+                window.location.href = '/school/research.page';
+                returnVal = false;
+            } else if (!noSearchTerms && noState) {
+                // show javascript alert
+                alert("Please select a state.");
+                returnVal = false;
+            } else if (!noSearchTerms && !noState) {
+                // go to search page
+                document.getElementById(pathwaysId).value = 'search_single';
+                returnVal = true;
+            } else if (noSearchTerms && !noState) {
+                // go to R and C page
+                document.getElementById(pathwaysId).value = 'pathway4';
+                returnVal = true;
+            }
+            return returnVal;
+        }
+        -->
+    </script>
+    ]]>
+
+    <![CDATA[
     <!--[if IE]>
         <link rel="stylesheet" href="/res/css/content/landingPageShared_ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
     <![endif]-->
@@ -94,15 +123,17 @@
                             </div>
 
                             <div class="video">
-                                <object width="192" height="159">
+                                <![CDATA[
+                                <object width="300" height="166">
+                                    <param name="allowfullscreen" value="true"/>
+                                    <param name="allowscriptaccess" value="always"/>
                                     <param name="movie"
-                                           value="http://www.youtube.com/v/M-mNXr2u1Ek&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0"></param>
-                                    <param name="allowFullScreen" value="true"></param>
-                                    <param name="allowscriptaccess" value="always"></param>
-                                    <embed src="http://www.youtube.com/v/M-mNXr2u1Ek&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0"
-                                           type="application/x-shockwave-flash" allowscriptaccess="always"
-                                           allowfullscreen="true" width="192" height="159"></embed>
+                                           value="http://vimeo.com/moogaloop.swf?clip_id=2773154&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1"/>
+                                    <embed src="http://vimeo.com/moogaloop.swf?clip_id=2773154&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1"
+                                           type="application/x-shockwave-flash" allowfullscreen="true"
+                                           allowscriptaccess="always" width="300" height="166"></embed>
                                 </object>
+                                ]]>
                             </div>
 
                         </div>
@@ -143,10 +174,10 @@
                         <p>Find schools in your area. First, search by school name, city or district. Then narrow
                            your search by public, charter or private, and by school level.</p>
 
-                        <form method="get" action="/search/search.page" onsubmit="return checkForm(this);">
+                        <form method="get" action="/stateLauncher.page" onsubmit="return findAndCompareCheck('schoolChoiceQuery', 'searchState', 'p');">
 
                         <div class="searchContent">
-                            <input type="text" maxlength="75" name="q"
+                            <input type="text" maxlength="75" name="q" id="schoolChoiceQuery"
                                    value="Search for school, district or city"
                                    class="searchInput"
                                    onfocus="textSwitch(this, '', 'Search for school, district or city');"
@@ -154,10 +185,11 @@
 
                             <gsweb:stateSelector styleClass="searchDropdown" name="state"
                                                  styleId="searchState"
-                                                 state="${requestScope.context.stateOrDefault.abbreviation}"
-                                                 useNoState="false"/>
+                                                 state="${requestScope.context.state}"
+                                                 useNoState="true"/>
                             <input type="hidden" name="c" value="school"/>
                             <input type="hidden" name="search_type" value="0"/>
+                            <input name="p" id="p" type="hidden" value="search_single"/>
                             <input type="image" alt="Go" src="/res/img/button/go.gif" id="searchGo"/>
                         </div>
 
