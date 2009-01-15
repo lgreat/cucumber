@@ -82,6 +82,10 @@ hr { /* has IE 7 equivalent */
 	text-transform: uppercase;
 }
 
+#quickFacts .phoneFax .type {
+    display:none;
+}
+
 #quickFacts ul {
 	margin: 14px 8px 10px 10px;
 }
@@ -1038,4 +1042,8 @@ ul.compareSchoolB {
 #col_right div.ad_bottom {
     padding: 0;
     margin-top: 20px;
+}
+
+.hreview .hide {
+    display:none;
 }

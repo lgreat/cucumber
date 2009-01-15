@@ -1546,6 +1546,13 @@
             <type>java.lang.String</type>
             <description>Anchor value</description>
         </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolProfilePrincipalView</name>
@@ -1641,6 +1648,13 @@
             <type>java.lang.String</type>
             <description>Anchor value</description>
         </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>        
     </tag>
     <tag>
         <name>schoolProfileTestscore</name>
