@@ -36,6 +36,7 @@
 
 #step1top {
     height: 100px;
+    overflow: hidden;
 }
 
 #step3top {
@@ -44,7 +45,6 @@
 
 #quizDiv {
     padding-top: 5px;
-    clear: both;
 }
 
 #intro h2 {
@@ -264,6 +264,7 @@
 	background-image: url(/res/img/schoolChoice/moving_topcurves.gif);
     padding-right: 3px;
     padding-top:15px;
+    position: relative;
 }
 
 #moving h3 {
@@ -290,14 +291,14 @@
 }
 
 #moving #compareForm #compareCitiesYellow {
-    float: left;
+    /*float: left;*/
 }
 
 #moving #compareForm h2 {
-    float: left;
+    /*float: left;*/
     font-size: 15px;
     margin-left: 3px;
-    margin-top: 7px;
+    margin-top: 0;
 }
 
 #moving #compareForm #horizontalCompareCitySelect {
