@@ -288,24 +288,33 @@
 
 #moving #compareCitiesDiv {
     padding-top: 5px;
+    height: 60px;
+}
+
+#moving #compareForm #compareCitiesLeft {
+    width: 34px;
+    float: left;
+}
+
+#moving #compareForm #compareCitiesRight {
+    width: 245px;
+    float: left;
+    padding-top: 5px;
+    padding-left: 5px;
 }
 
 #moving #compareForm #compareCitiesYellow {
-    /*float: left;*/
 }
 
 #moving #compareForm h2 {
-    /*float: left;*/
     font-size: 15px;
-    margin-left: 3px;
-    margin-top: 0;
+    padding-bottom: 3px;
 }
 
 #moving #compareForm #horizontalCompareCitySelect {
     clear: left;
     float: left;
     margin-top: 5px;
-    margin-left: 38px;
     width: 136px;
 }
 
@@ -322,5 +331,5 @@
 }
 
 #moving.box .inner {
-    padding-right: 5px;
+    padding-right: 0;
 }
