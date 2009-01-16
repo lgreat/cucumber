@@ -12,7 +12,7 @@ $j(function() {
     });
 
     // handles form validation and ajax processing
-    $j("#send").click(function() {
+    $j("#scpp_form").submit(function() {
         var cks = new Array();
         $j('.ck').each (function () {
             if (this.checked) {
