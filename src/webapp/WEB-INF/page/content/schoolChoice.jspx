@@ -215,10 +215,10 @@
                         <div id="downloadWorksheetDiv">
                             <p><span id="downloadWorksheetText">Download worksheet for</span>
                                 <select id="worksheet">
-                                    <option value="/full_path_to_pdf_file">Preschool</option>
-                                    <option value="/full_path_to_pdf_file">Elementary</option>
-                                    <option value="/full_path_to_pdf_file">Middle</option>
-                                    <option value="/full_path_to_pdf_file">High</option>
+                                    <option value="/pdf/schq_visit_preschool.pdf">Preschool</option>
+                                    <option value="/pdf/schq_visit_elem.pdf">Elementary</option>
+                                    <option value="/pdf/schq_visit_middle.pdf">Middle</option>
+                                    <option value="/pdf/schq_visit_high.pdf">High</option>
                                 </select>
                                 <a href="#" onclick="return downloadWorksheet();"><img src="/res/img/button/go.gif" id="worksheetGo" alt="Go"/></a>
                             </p>
