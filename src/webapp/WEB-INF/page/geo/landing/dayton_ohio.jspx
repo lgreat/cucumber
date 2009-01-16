@@ -180,7 +180,7 @@
                 </h3>
                 <ul>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/DaytonSchoolChooser2009.pdf" >Dayton School Chooser</gsml:a>
+                        <gsml:a href="/schoolreports/DaytonSchoolChooser2009.pdf" >Montgomery County School Chooser</gsml:a>
                     </li>
                     <li><link:newsletterCenter>Sign up for GreatSchools newsletters</link:newsletterCenter></li>
                 </ul>
@@ -192,18 +192,17 @@
                 <ul>
                     <li>Call our hotline: 937-229-2637</li>
                     <li><a href="mailto:aperkins@greatschools.net?subject=I%20want%20more%20information%20on%20GreatSchools%20Dayton" >E-mail us for more information</a></li>
-                    <li><gsml:a href="http://www.otap.org" target="_blank">Get low cost computers</gsml:a></li>
                     <li><link:article articleId="1092">Get computer training</link:article></li>
                     <li><gsml:a href="http://daytonunitedway.org/find_help/index.htm" target="_blank">Go to 211.org</gsml:a></li>
                 </ul>                
             </div>
         </div>
-        <div id="donate">
+        <div id="daytondonate">
             <h3>
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
             <ul>
-                <li>Your contribution helps support Dayton School Chooser and the GreatSchools Dayton parent leadership program.</li>
+                <li>Your contribution helps support Montgomery County School Chooser and the GreatSchools Dayton parent leadership program.</li>
             </ul>
             <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
                 <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
