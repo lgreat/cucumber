@@ -333,7 +333,6 @@
                     <jsp:param name="cityID" value="${cityObject.id}"/>
                     <jsp:param name="state" value="${stateAbbrev}"/>
                     <jsp:param name="maxProposals" value="${3}"/>
-                    <jsp:param name="theme" value="holiday"/>
                     <jsp:param name="omnitureCustomLink" value="DonorsChoose_citypage"/>
                 </jsp:include>
             </td>
