@@ -1,5 +1,6 @@
-.title-box .inner {
+#pageWrapper .title-box .inner {
     background-image: url( /res/img/library/top-box-top.png );
+    padding-right: 0px;
 }
 
 .title-box {
@@ -51,37 +52,53 @@
     margin-bottom: -9px;
 }
 
-#pageWrapper #top-schools-header h1 {
-    font-size: 5px;
-    display: block;
-    float: left;
-    width: 423px;
+#pageWrapper #top-schools-header-content {
+    background: url(/res/img/school/topSchools/heropic.jpg ) no-repeat;
+    position: relative;
     height: 191px;
-    background: url( /res/img/school/topSchools/heropic.jpg ) no-repeat;
+    margin: 8px 0 7px 0;
+}
+
+#pageWrapper #top-schools-header h1 {
+    background: none;
     text-indent: -99999px;
-    margin: 10px 0 10px 0;
+    margin: 0;
     padding: 0;
 }
 
-#pageWrapper #top-schools-header .contentTop {
-    margin-top: 50px;
+#pageWrapper #top-schools-header-content .contentTop {
+    position: absolute;
+    top: 100px;
+    left: 245px;
+    width: 350px;
     font-size: 13px;
-    height: 85px;
 }
 
 #pageWrapper #top-schools-header .businessWeek {
-    display: block;
-    float: right;
-    font-style: italic;
+    position: absolute;
+    top: 125px;
+    right: 15px;
     font-size: 12px;
-    margin-top: 5px;
+    font-style: italic;
+}
+
+#pageWrapper #top-schools-header .businessWeek a {
+    font-style: normal;    
 }
 
 #pageWrapper #top-schools-header .businessWeek img {
-    margin: 0 20px -3px 0;
+    margin: 0 0 -3px 0;
+}
+
+#pageWrapper #top-schools-header .whatMakesATopSchool {
+    display:block;
+    padding-top: 3px;
 }
 
 #pageWrapper #top-schools-header .contentBottom {
+    position: absolute;
+    bottom: 8px;
+    left: 245px;
     font-size: 13px;
 }
 
@@ -101,13 +118,6 @@
 
 #pageWrapper #top-schools-header #switchStateForm #topSchoolsStateChangerGo {
     margin-left: 5px;
-}
-
-#pageWrapper #top-schools-header .whatMakesATopSchool {
-    padding: 5px 12px 0 0;
-    font-size: 12px;
-    display: block;
-    float: right;
 }
 
 #pageWrapper #supplement h2 {
