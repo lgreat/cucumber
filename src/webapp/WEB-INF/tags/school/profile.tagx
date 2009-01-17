@@ -30,13 +30,15 @@
 <jsp:directive.tag import="gs.web.util.CookieUtil"/>
 <jsp:directive.tag import="gs.web.jsp.Util"/>
 <jsp:directive.tag import="gs.data.school.ISchoolDao"/>
+<jsp:directive.tag import="gs.data.school.TopSchoolCategory"/>
+<jsp:directive.tag import="java.util.Set"/>
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
 <jsp:directive.attribute name="gs_rating" required="false" description="GreatSchools Overall Rating Integer"
                          type="java.lang.Integer"/>
 <jsp:directive.attribute name="gs_top_school" required="false" description="GreatSchools Overall Rating Integer"
-                         type="java.lang.Boolean"/>
+                         type="gs.data.school.TopSchoolCategory"/>
 <jsp:directive.attribute name="parent_ratings" required="false" description="Parent Ratings Object"
                          type="gs.data.school.review.Ratings"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
@@ -59,7 +61,8 @@
 
     if (gs_top_school == null) {
         try {
-            gs_top_school = ((ISchoolDao)ac.getBean(ISchoolDao.BEAN_ID)).isTopSchool(school);
+            Set<TopSchoolCategory> categories = ((ISchoolDao)ac.getBean(ISchoolDao.BEAN_ID)).getTopSchoolCategories(school);
+            if (categories.size() > 0) gs_top_school = (TopSchoolCategory) categories.toArray()[0];            
             request.setAttribute("gs_top_school", gs_top_school);
         } catch (Exception ex) {
             // log the error in some way?
@@ -424,9 +427,9 @@
                 </link:schoolProfileParentReview>
             </c:otherwise>
         </c:choose>
-        <c:if test="${gs_top_school}">
+        <c:if test="${gs_top_school != null}">
             <link:topSchools state="${state}">
-                <gsml:img styleClass="top_school_gs" alt="Top ${state.longName} High Schools" src="/res/img/school/topSchools/top_school_badge.png"/>
+                <gsml:img styleClass="top_school_gs" alt="Top ${state.longName} High Schools" src="/res/img/school/topSchools/badge_${fn:toLowerCase(gs_top_school)}.png"/>
             </link:topSchools>
         </c:if>
     </div>

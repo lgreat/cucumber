@@ -16,7 +16,7 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<pageHelper:setPathway pathway="SEASONAL"/>
 <head>
     <c:choose>
         <c:when test="${national}">
@@ -263,8 +263,8 @@
             <div id="identify-your-priorities">
                 <h2>Finding the right school</h2>
                 <ul>
-                    <li>Identify your priorities</li>
-                    <li>Start the search</li>
+                    <li>Define your ideal school</li>
+                    <li>Start your search</li>
                     <li>Prep for a school visit</li>
                     <li>Apply and enroll</li>
                 </ul>
