@@ -15,6 +15,10 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
         assertValidXhtml(INTEGRATION_HOST + "/about/privacyStatement.page");
     }
 
+    public void testTopSchoolsPage() {
+        assertValidXhtml(INTEGRATION_HOST + "/top-high-schools/wyoming/");
+    }
+
     public void testSearchResults() {
         assertValidXhtml(INTEGRATION_HOST + "/search/search.page?state=AK&q=Anchorage&type=school");
     }
