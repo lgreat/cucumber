@@ -9,8 +9,10 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.UserCommandHoverValidator;
 import gs.web.community.registration.RegistrationController;
+import gs.web.community.registration.UserCommand;
 import gs.web.tracking.OmnitureTracking;
 import gs.data.community.*;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,8 +72,16 @@ public class RegistrationHoverController extends RegistrationController implemen
             user.setGender("u");    
         }
 
+        // GS-7861 Fail-safe mechanism to ensure user is validated
+        if (user.isEmailProvisional()) {
+            user.setEmailValidated();
+        }
         // save
         getUserDao().updateUser(user);
+        // GS-7649 Because of hibernate caching, it's possible for a list_active record
+        // (with list_member id) to be commited before the list_member record is
+        // committed. Adding this commitOrRollback prevents this.
+        ThreadLocalTransactionManager.commitOrRollback();
 
         // subscribe to newsletters
         if (userCommand.getNewsletter()) {
@@ -82,12 +92,26 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         if (!user.isEmailProvisional()) {
             sendConfirmationEmail(user, userCommand, request);
+            PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
         }
-        PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
 
         mAndV.setViewName("redirect:/community/registration/popup/sendToDestination.page");
 
         return mAndV;
+    }
+
+    protected void setUsersPassword(User user, UserCommand userCommand, boolean userExists) throws Exception {
+        try {
+            user.setPlaintextPassword(userCommand.getPassword());
+            getUserDao().updateUser(user);
+        } catch (Exception e) {
+            _log.warn("Error setting password: " + e.getMessage(), e);
+            if (!userExists) {
+                // for new users, cancel the account on error
+                getUserDao().removeUser(user.getId());
+            }
+            throw e;
+        }
     }
 
     protected UserProfile updateUserProfile(User user, RegistrationHoverCommand userCommand, OmnitureTracking ot) {
