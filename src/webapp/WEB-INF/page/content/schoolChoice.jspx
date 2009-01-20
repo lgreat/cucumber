@@ -119,7 +119,7 @@
                             <div class="description">
                                 <p>You can find a school that's a good fit for your child.</p>
                                 <p>Join GreatSchools President Bill Jackson to learn how to use GreatSchools
-                                   to find a school your child will thrive in.</p>
+                                   to find a school where your child will thrive.</p>
                             </div>
 
                             <div class="video">
@@ -215,10 +215,10 @@
                         <div id="downloadWorksheetDiv">
                             <p><span id="downloadWorksheetText">Download worksheet for</span>
                                 <select id="worksheet">
-                                    <option value="/pdf/schq_visit_preschool.pdf">Preschool</option>
-                                    <option value="/pdf/schq_visit_elem.pdf">Elementary</option>
-                                    <option value="/pdf/schq_visit_middle.pdf">Middle</option>
-                                    <option value="/pdf/schq_visit_high.pdf">High</option>
+                                    <option value="/pdf/choosertipsheet_preschool.pdf">Preschool</option>
+                                    <option value="/pdf/choosertipsheet_elementary.pdf">Elementary</option>
+                                    <option value="/pdf/choosertipsheet_middle.pdf">Middle</option>
+                                    <option value="/pdf/choosertipsheet_high.pdf">High</option>
                                 </select>
                                 <a href="#" onclick="return downloadWorksheet();"><img src="/res/img/button/go.gif" id="worksheetGo" alt="Go"/></a>
                             </p>
@@ -287,7 +287,7 @@
                 <div id="top5" class="box">
                     <div class="inner">
                         <div id="top5top">
-                            <img class="left" src="/res/img/schoolChoice/schoolchoice_top5.jpg" alt="GreatSchools Top 5, as featured in BusinessWeek"/>
+                            <img class="left" src="/res/img/schoolChoice/schoolchoice_top5.jpg" alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
                             <div class="column">
                                 <p>Check out five high schools in each state that represent what makes a school great.</p>
                             </div>
