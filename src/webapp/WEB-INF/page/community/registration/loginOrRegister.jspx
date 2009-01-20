@@ -67,6 +67,9 @@
                         <c:when test="${alertMessageType eq 'Advice'}">
                             write advice.
                         </c:when>
+                        <c:when test="${alertMessageType eq 'MSL'}">
+                            access My School List.
+                        </c:when>
                     </c:choose>
                 </span>
             </p>

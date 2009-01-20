@@ -84,7 +84,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
                                 !PageHelper.isMemberAuthorized(request))) {
                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
                     urlBuilder.setParameter("redirect", BEAN_ID);
-                    urlBuilder.setParameter("message", "Please login or register to access My School List");
+                    //urlBuilder.setParameter("message", "Please login or register to access My School List");
                     return new ModelAndView("redirect:" + urlBuilder.asSiteRelative(request));
                 }
             }

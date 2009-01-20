@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.46 2008/12/04 02:05:57 aroy Exp $
+ * $Id: LoginController.java,v 1.47 2009/01/20 19:39:37 jnorton Exp $
  */
 package gs.web.community.registration;
 
@@ -74,6 +74,8 @@ public class LoginController extends SimpleFormController {
                 request.setAttribute("alertMessageType", "Advice");
             } else if (StringUtils.contains(url, "/groups")) {
                 request.setAttribute("alertMessageType", "Group");
+            } else if (StringUtils.contains(url, "mySchoolList")) {
+                request.setAttribute("alertMessageType", "MSL");
             }
         }
         addMSLMessage(url, request);
