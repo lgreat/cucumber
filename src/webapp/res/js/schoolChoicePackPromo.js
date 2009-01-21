@@ -20,18 +20,23 @@ $j(function() {
             }
         });
         var emailVal = $j('input#cemail').val();
+        var termsChecked = document.getElementById('privacy_terms_checkbox').checked;
         if (cks.length > 0) {
             if (emailVal) {
                 $j.get("/util/isValidEmail.page", {email : emailVal},
                         function (data) {
                             if (data == 'true') {
-                                $j.post("/promo/schoolChoicePackPromo.page",
-                                {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName},
-                                        function(datax){
-                                            createCookie("MEMID", datax.memid);
-                                            $j("#form_panel").hide();
-                                            $j("#confirm_panel").show();
-                                        }, "json");
+                                if (termsChecked) {
+                                    $j.post("/promo/schoolChoicePackPromo.page",
+                                    {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName},
+                                            function(datax){
+                                                createCookie("MEMID", datax.memid);
+                                                $j("#form_panel").hide();
+                                                $j("#confirm_panel").show();
+                                            }, "json");
+                                } else {
+                                    alert ("Please accept the GreatSchools Privacy Policy and Terms of Use.");
+                                }
                             } else {
                                 alert ("Please enter a valid email address");
                             }

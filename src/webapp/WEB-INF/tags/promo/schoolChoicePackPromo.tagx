@@ -9,6 +9,7 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schoolName" required="false" description="Name of a school" type="java.lang.String"/>
     <jsp:directive.attribute name="showBorder" required="true" description="Whether or not to show border around the module" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="showSchoolChoiceLink" required="true" description="Whether or not to show School Choice Center link in confirmation message" type="java.lang.Boolean"/>
 
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
     <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
@@ -34,9 +35,9 @@
         <div class="blurb">
            Find the right school with our School Chooser tip sheet. You will also receive emails to help you keep your child on track in school.
         </div>
+                    <form id="scpp_form" action="">
         <div>
             I'm looking for a:
-            <form id="scpp_form" action="">
                 <div class="levs">
                     <div class="left_levs">
                         <div>
@@ -64,13 +65,14 @@
                            class="required email" value="Enter Email Address"/>
                     <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
                            onmouseover="this.src='/res/img/splash/goOver.gif';"
-                           class="button" style="width: 41px; height: 26px;" alt="GO" src="/res/img/splash/go.gif" type="image" />
+                           class="button" alt="GO" src="/res/img/splash/go.gif" type="image" />
                 </div>
-            </form>
         </div>
         <div class="privacy_terms">
-            GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> and <link:termsOfUse>Terms of Use</link:termsOfUse>
+            <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
+            <span id="privacy_terms_text">I agree to the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
         </div>
+            </form>
     </div>
 
     <div id="confirm_panel" style="display:none">
@@ -78,10 +80,12 @@
             Thank you!
         </div>
 
-        <div class="blurb">The Chooser packs for the grade level(s) you have selected will be sent your email shortly.</div>
-        <div class="blurb">In the meantime -
-            <a href="/school-choice/" >check out our tips for getting started &gt;</a>
-        </div>
+        <div class="blurb">The Chooser packs for the grade level(s) you have selected will be sent to your email shortly.</div>
+        <c:if test="${showSchoolChoiceLink}">
+            <div class="blurb">In the meantime -
+                <link:schoolChoiceCenter>check out our tips for getting started &gt;</link:schoolChoiceCenter>
+            </div>
+        </c:if>
     </div>
     </div>
 </jsp:root>
