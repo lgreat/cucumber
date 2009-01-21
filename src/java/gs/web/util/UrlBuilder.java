@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.144 2009/01/03 04:22:41 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.145 2009/01/21 09:34:00 eddie Exp $
  */
 
 package gs.web.util;
@@ -770,7 +770,9 @@ public class UrlBuilder {
             _perlPage = false;
             StringBuilder sb = new StringBuilder();
             sb.append("/");
-            sb.append(state.getLongName().toLowerCase());
+            String urlState =  state.getLongName().toLowerCase();
+            urlState.replace(" ", "-");
+            sb.append(urlState);
             sb.append("/");
             if (param0 != null) {
                 String city = param0.toLowerCase();
