@@ -8,7 +8,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
     <jsp:directive.tag body-content="empty"/>
 
-<gsml:a href="/content/schoolChoiceCenter.page">
+<link:schoolChoiceCenter>
     <gsml:img src="/res/img/content/schoolChoiceTips/SCT_HouseAd_small.jpg" alt="Choose a great school for your family"/>
-</gsml:a>
+</link:schoolChoiceCenter>
 </jsp:root>
