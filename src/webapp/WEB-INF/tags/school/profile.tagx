@@ -141,7 +141,7 @@
         ITestDataSetDao testDataSetDao = (ITestDataSetDao) ac.getBean(ITestDataSetDao.BEAN_ID);
         privateTestData = testDataSetDao.hasDisplayableData(school);
     }
-    request.setAttribute("privateHasTestfData", privateTestData);
+    request.setAttribute("privateHasTestData", privateTestData);
 
     // GS-7445 - this is really verbose but it's done inline so it will be easy to remove in the next release
     // if we keep it, we'll probably want to refactor this logic out into an interceptor
