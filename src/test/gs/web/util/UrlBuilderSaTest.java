@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.95 2008/12/30 22:51:31 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.96 2009/01/21 10:08:00 eddie Exp $
  */
 
 package gs.web.util;
@@ -480,6 +480,9 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.BROWSE_PRESCHOOLS, State.CA, "Bangle-Deshmir");
         assertEquals("/california/bangle_deshmir/preschools/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.BROWSE_PRESCHOOLS, State.NH, "East Hampstead");
+        assertEquals("/new-hampshire/east-hampstead/preschools/", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_CUSTOMIZATION);
         assertEquals(CustomizeSchoolSearchWidgetController.BEAN_ID, builder.asSiteRelative(request));
