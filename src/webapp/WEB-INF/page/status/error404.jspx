@@ -20,6 +20,10 @@
 <jsp:directive.page contentType="text/html"/>
  <pageHelper:hideFooterAd/>
 
+<jsp:scriptlet>
+    gs.web.util.PageHelper.setPageName(request, "error404");
+</jsp:scriptlet>
+
 <page:apply-decorator name="cobrandHeaderGsFooter">
 
     <head>
