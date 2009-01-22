@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.30 2008/12/05 00:59:39 yfan Exp $
+ * $Id: SessionContext.java,v 1.31 2009/01/22 00:38:48 jnorton Exp $
  */
 package gs.web.util.context;
 
@@ -10,6 +10,7 @@ import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -24,6 +25,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URLEncoder;
+import java.util.Set;
 
 /**
  * The purpose is to hold common "global" properties for a user throughout their
@@ -254,7 +256,20 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     public boolean isInterstitialEnabled() {
         return !isCobranded() &&
                 !isCrawler() &&
-                "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false"));
+                "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")) &&
+                isInterstitialEnabledForState(_state);
+
+    }
+
+    protected boolean isInterstitialEnabledForState(State state){
+        if(state == null){
+            return false;
+        }
+        StateManager sm = new StateManager();
+
+        Set<State> statesWithInterstitialEnabled = sm.getStateSetFromString(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, ""));
+
+        return statesWithInterstitialEnabled.contains(state);
     }
 
     /**

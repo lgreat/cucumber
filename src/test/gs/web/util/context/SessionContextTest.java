@@ -376,7 +376,42 @@ public class SessionContextTest extends BaseTestCase {
         verify(_geoDao);
     }
 
+
+    public String getAllStatesString(){
+        StateManager sm = new StateManager();
+
+        StringBuilder sb = new StringBuilder();
+        for (State state : sm.getListByAbbreviations()){
+            if (sb.length() > 0){
+                sb.append(",");
+            }
+            sb.append(state.getAbbreviation());
+        }
+        return sb.toString();
+    }
+
     public void testIsInterstitialEnabled() {
+
+        /*
+            isCobranded  - true when the site is cobranded
+            isCrawler    - true when the user of the site is a crawler
+            property.INTERSTITIAL_ENABLED  - true/false set in the property table
+            property.INTERSTITIAL_ENABLED_STATES - a list csv containing the state
+                    abbreviations that should get the interstitial set in the property table
+            state        - the current state in context
+                     
+            testIsInterstitialEnabled() will return false when:
+                isCobranded is true or
+                isCrawler is true or
+                state is null or
+                property.INTERSTITIAL_ENABLED isn't set or
+                property.INTERSTITIAL_ENABLED isn't set to 'true' or
+                property.INTERSTITIAL_ENABLED_STATES isn't set or
+                property.INTERSTITIAL_ENABLED_STATES doesn't contain the abberviation for the current state in context
+         */
+
+        String allStatesString = getAllStatesString();
+        _sessionContext.setState(State.NJ);
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("false");
         replay(_propertyDao);
         assertFalse("Property is false, expect call to return false", _sessionContext.isInterstitialEnabled());
@@ -385,14 +420,19 @@ public class SessionContextTest extends BaseTestCase {
         reset(_propertyDao);
         // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
         // This is because the if statement gets short-circuited before the DB call in 3 of the cases
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true").times(3);
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
         replay(_propertyDao);
 
-        assertTrue("Property is true, expect call to return true (1)", _sessionContext.isInterstitialEnabled());
+        assertTrue("Property.INTERSTITIAL_ENABLED_KEY is true, Property.INTERSTITIAL_ENABLED_STATES_KEY contains the state, expect call to return true (1)", _sessionContext.isInterstitialEnabled());
         _sessionContext.setCobrand("cobrand");
         assertFalse("Cobrand exists, should override rval to false", _sessionContext.isInterstitialEnabled());
         _sessionContext.setCobrand(null);
-        assertTrue("Property is true, expect call to return true (2)", _sessionContext.isInterstitialEnabled());
+        assertTrue("Property.INTERSTITIAL_ENABLED_KEY is true, Property.INTERSTITIAL_ENABLED_STATES_KEY contains the state, expect call to return true (2)", _sessionContext.isInterstitialEnabled());
         _sessionContext.setCrawler(true);
         assertFalse("Crawler exists, should override rval to false", _sessionContext.isInterstitialEnabled());
         _sessionContext.setCobrand("cobrand");
@@ -400,9 +440,35 @@ public class SessionContextTest extends BaseTestCase {
                 _sessionContext.isInterstitialEnabled());
         _sessionContext.setCobrand(null);
         _sessionContext.setCrawler(false);
-        assertTrue("Property is true, expect call to return true (3)", _sessionContext.isInterstitialEnabled());
+        assertTrue("Property.INTERSTITIAL_ENABLED_KEY is true, Property.INTERSTITIAL_ENABLED_STATES_KEY contains the state, expect call to return true (3)", _sessionContext.isInterstitialEnabled());
         _sessionContext.setCobrand("cobrand");
         verify(_propertyDao);
+
+        // test null state
+
+        reset(_propertyDao);
+        // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
+        // This is because the if statement gets short-circuited before the DB call in 3 of the cases
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
+
+        replay(_propertyDao);
+
+        _sessionContext.setState(null);
+        assertFalse("Property.INTERSTITIAL_ENABLED_KEY is true, SessionContext.State is null expect call to return false", _sessionContext.isInterstitialEnabled());
+
+        // test state not enabled
+
+         reset(_propertyDao);
+        // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
+        // This is because the if statement gets short-circuited before the DB call in 3 of the cases
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn("");
+
+        replay(_propertyDao);
+
+        _sessionContext.setState(State.NV);
+        assertFalse("Property.INTERSTITIAL_ENABLED_KEY is true, Property.INTERSTITIAL_ENABLED_STATES_KEY doesn't contain the state, NV, expect call to return false", _sessionContext.isInterstitialEnabled());
     }
 
     public void testIsFramed() {
