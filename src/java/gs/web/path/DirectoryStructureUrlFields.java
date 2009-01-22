@@ -48,7 +48,7 @@ public class DirectoryStructureUrlFields {
     public DirectoryStructureUrlFields(HttpServletRequest request) {
         // require that the request uri starts and ends with /
         String requestUri = request.getRequestURI();
-        if (StringUtils.isBlank(requestUri) || !requestUri.startsWith("/") || !requestUri.endsWith("/")) {
+        if (StringUtils.isBlank(requestUri) || !requestUri.startsWith("/")) {
             return;
         }
 
