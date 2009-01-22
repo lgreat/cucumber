@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.73 2009/01/03 07:30:15 yfan Exp $
+ * $Id: UrlUtil.java,v 1.74 2009/01/22 19:05:37 aroy Exp $
  */
 
 package gs.web.util;
@@ -49,6 +49,8 @@ public final class UrlUtil {
                 && !hostName.startsWith("editorial.")
                 && !(hostName.indexOf("vpn.greatschools.net") != -1)
                 && !hostName.equals("127.0.0.1")
+                && !hostName.startsWith("192.168.")
+                && !hostName.startsWith("172.21.1.142")
                 && hostName.indexOf('.') != -1;
         if (isCobrand) {
             cobrandName = hostName.substring(0, hostName.indexOf("."));
