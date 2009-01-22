@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:page="http://www.opensymphony.com/sitemesh/page"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
@@ -14,15 +14,11 @@
         >
     <jsp:directive.page import="java.io.PrintWriter"/>
     <jsp:directive.page import="java.io.StringWriter"/>
-    <html lang="en">
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <page:apply-decorator name="cobrandHeaderGsFooter">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
     <jsp:directive.page contentType="text/html"/>
     <pageHelper:hideFooterAd/>
-
-    <page:apply-decorator name="cobrandHeaderGsFooter">
 
         <head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -37,10 +33,11 @@
                     request.setAttribute("printme", sw.getBuffer().toString());
                 }
                 request.setAttribute("requestURI", request.getRequestURI());
+                gs.web.util.PageHelper.setPageName(request, "error500");
             </jsp:scriptlet>
             <c:if test="${requestScope.context.hostName != 'dev.greatschools.net'}">
                 <style type="text/css">
-                    span.stackTrace {
+                    div.stackTrace {
                         display: none;
                     }
                 </style>
@@ -71,10 +68,10 @@
                 <gsml:a href="/">Homepage</gsml:a>
                 .
             </p>
-        <span class="stackTrace">
+        <div class="stackTrace">
             <pre>${printme}</pre>
-        </span>
+        </div>
         </gsml:body>
-    </page:apply-decorator>
     </html>
+    </page:apply-decorator>
 </jsp:root>
