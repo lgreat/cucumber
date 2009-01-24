@@ -128,9 +128,6 @@
 <br/>
 
 <table class="statusbox">
-    <tr>
-        <td>Environment Properties</td>
-    </tr>
     <c:forEach items="${environment}" var="item">
         <tr>
             <td class="statustitle">
