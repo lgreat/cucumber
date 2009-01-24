@@ -160,6 +160,20 @@
             </td>
         </tr>
     </c:forEach>
+
+    <!--
+    todo: not sure if this info is useful
+    <c:forEach items="${rtmemory}" var="memItem">
+        <tr>
+            <td class="statustitle">
+                <c:out value="${memItem.key}"/>
+            </td>
+            <td class="statusvalue">
+                <fmt:formatNumber maxFractionDigits="1" minFractionDigits="1" value="${memItem.value / 1024 / 1024}"/> Mb
+            </td>
+        </tr>
+    </c:forEach>
+    -->
 </table>
 
 <br/>

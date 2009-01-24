@@ -143,6 +143,7 @@ public class MonitorController implements ReadWriteController {
         model.put("stateError", stateError);
         model.put("environment", getEnvironmentMap());
         model.put("management", getManagementMap());
+        model.put("rtmemory", getRuntimeMemoryMap());
 
         if (request.getParameter("increment") != null) {
             incrementVersion(request, response);
@@ -181,9 +182,9 @@ public class MonitorController implements ReadWriteController {
 		"date+%3E%3D+" + fisheyeBuildTime + ")+group+by+changeset&amp;refresh=y";
     }
 
-    public static final String HEAP_USAGE = "Heap Usage";
-    public static final String NON_HEAP_USAGE = "Non-heap Usage";
-    public static final String PERM_GEN_USAGE = "Perm Gen Usage";
+    static final String HEAP_USAGE = "Heap Usage";
+    static final String NON_HEAP_USAGE = "Non-heap Usage";
+    static final String PERM_GEN_USAGE = "Perm Gen Usage";
 
     protected Map<String, MemoryUsage> getManagementMap() {
         Map<String, MemoryUsage> m = new HashMap<String, MemoryUsage>();
@@ -198,6 +199,19 @@ public class MonitorController implements ReadWriteController {
                 m.put(PERM_GEN_USAGE, bean.getUsage());
             }
         }
+        return m;
+    }
+
+    static final String RUNTIME_MEMORY_TOTAL = "Runtime Memory - Total";
+    static final String RUNTIME_MEMORY_MAX = "Runtime Memory - MAX";
+    static final String RUNTIME_MEMORY_FREE = "Runtime Memory - FREE";
+
+    protected Map<String, Long> getRuntimeMemoryMap() {
+        Map<String, Long> m = new HashMap<String, Long>();
+        Runtime rt = Runtime.getRuntime();
+        m.put(RUNTIME_MEMORY_TOTAL, rt.totalMemory());
+        m.put(RUNTIME_MEMORY_MAX, rt.maxMemory());
+        m.put(RUNTIME_MEMORY_FREE, rt.freeMemory());
         return m;
     }
 
@@ -268,18 +282,8 @@ public class MonitorController implements ReadWriteController {
     }
 
     private Map getEnvironmentMap() {
-
         Properties props = System.getProperties();
         Map<String, Object> env = new TreeMap<String, Object>();
-        /*
-        if (context != null) {
-            Enumeration en = context.getAttributeNames();
-            while(en.hasMoreElements()) {
-                env.put(en.nextElement(), context.getAttribute((String)en.nextElement()));
-            }
-        }
-        */
-
         env.put("Java Version", props.getProperty("java.vm.version"));
         StringBuffer osBuffer = new StringBuffer(props.getProperty("os.name"));
         osBuffer.append(" ");
@@ -291,13 +295,6 @@ public class MonitorController implements ReadWriteController {
 //            mailappender = "configured";
 //        }
         env.put("log4j.mailappender", mailappender);
-
-        Runtime rt = Runtime.getRuntime();
-        env.put("memory - total", rt.totalMemory());
-        env.put("memory - max", rt.maxMemory());
-        env.put("memory - free", rt.freeMemory());
-
-
         return env;
     }
 

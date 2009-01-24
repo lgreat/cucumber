@@ -127,6 +127,7 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         Map<String, MemoryUsage> m = _controller.getManagementMap();
         assertNotNull (m.get(MonitorController.HEAP_USAGE));
         assertNotNull (m.get(MonitorController.NON_HEAP_USAGE));
-        assertNotNull (m.get(MonitorController.PERM_GEN_USAGE));
+        //assertNotNull (m.get(MonitorController.PERM_GEN_USAGE));
+        //The perm gen pool is not guaranteed to be available.
     }
 }
