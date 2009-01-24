@@ -2,6 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3c.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 <html lang="en">
@@ -127,7 +128,6 @@
 <br/>
 
 <table class="statusbox">
-
     <tr>
         <td>Environment Properties</td>
     </tr>
@@ -138,6 +138,28 @@
             </td>
             <td class="statusvalue">
                 <c:out value="${item.value}"/>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+
+<br/>
+
+<table class="statusbox">
+    <c:forEach items="${management}" var="item">
+        <tr>
+            <td class="statustitle">
+                <a href="http://wiki.greatschools.net/bin/view/Greatschools/WebApplicationMemoryUsage" target="_blank">
+                    <c:out value="${item.key}"/>
+                </a>
+            </td>
+            <td class="statusvalue">
+                <ul>
+                    <li>init: <fmt:formatNumber maxFractionDigits="1" minFractionDigits="1" value="${item.value.init / 1024 / 1024}"/> Mb</li>
+                    <li>used: <fmt:formatNumber maxFractionDigits="1" minFractionDigits="1" value="${item.value.used / 1024 / 1024}"/> Mb</li>
+                    <!--<li>commited : <fmt:formatNumber maxFractionDigits="2" value="${item.value.committed / 1024 / 1024}"/> Mb</li>-->
+                    <li>max : <fmt:formatNumber maxFractionDigits="1" minFractionDigits="1" value="${item.value.max / 1024 / 1024}"/> Mb</li>
+                </ul>
             </td>
         </tr>
     </c:forEach>

@@ -25,6 +25,10 @@ import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
+import java.lang.management.MemoryPoolMXBean;
 
 /**
  * Controller for showing the build _versionProperties and database connectivity check
@@ -138,6 +142,8 @@ public class MonitorController implements ReadWriteController {
         model.put("stateReadWrite", stateReadWrite);
         model.put("stateError", stateError);
         model.put("environment", getEnvironmentMap());
+        model.put("management", getManagementMap());
+
         if (request.getParameter("increment") != null) {
             incrementVersion(request, response);
         }
@@ -173,6 +179,26 @@ public class MonitorController implements ReadWriteController {
         return "http://cvsweb.greatschools.net/search/gsrepo/" + module +
                 "?ql=select+revisions+from+dir+%2F" + module + "+where+(" + ("HEAD".equals(branch)?"":"on+branch+" + branch + "+and+") + 
 		"date+%3E%3D+" + fisheyeBuildTime + ")+group+by+changeset&amp;refresh=y";
+    }
+
+    public static final String HEAP_USAGE = "Heap Usage";
+    public static final String NON_HEAP_USAGE = "Non-heap Usage";
+    public static final String PERM_GEN_USAGE = "Perm Gen Usage";
+
+    protected Map<String, MemoryUsage> getManagementMap() {
+        Map<String, MemoryUsage> m = new HashMap<String, MemoryUsage>();
+        MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+        MemoryUsage heapUsage = memoryBean.getHeapMemoryUsage();
+        m.put(HEAP_USAGE, heapUsage);
+        MemoryUsage nonHeapUsage = memoryBean.getNonHeapMemoryUsage();
+        m.put(NON_HEAP_USAGE, nonHeapUsage);
+        List<MemoryPoolMXBean> memPoolBeans = ManagementFactory.getMemoryPoolMXBeans();
+        for (MemoryPoolMXBean bean : memPoolBeans) {
+            if (bean.getName().equalsIgnoreCase("perm gen")) {
+                m.put(PERM_GEN_USAGE, bean.getUsage());
+            }
+        }
+        return m;
     }
 
     protected void incrementVersion(HttpServletRequest request, HttpServletResponse response) {

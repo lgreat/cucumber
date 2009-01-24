@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.util.Map;
+import java.lang.management.MemoryUsage;
 
 import static org.easymock.EasyMock.*;
 
@@ -120,5 +121,12 @@ public class MonitorControllerTest extends BaseControllerTestCase {
 
         assertEquals("Expect original value to be incremented 101 times",
                 "102", getResponse().getCookie(SessionContextUtil.TRACKING_NUMBER).getValue());
+    }
+
+    public void testGetManagementMap() throws Exception {
+        Map<String, MemoryUsage> m = _controller.getManagementMap();
+        assertNotNull (m.get(MonitorController.HEAP_USAGE));
+        assertNotNull (m.get(MonitorController.NON_HEAP_USAGE));
+        assertNotNull (m.get(MonitorController.PERM_GEN_USAGE));
     }
 }
