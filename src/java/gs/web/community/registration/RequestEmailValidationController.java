@@ -116,7 +116,7 @@ public class RequestEmailValidationController extends AbstractController {
         emailContent.append(builder.asAbsoluteAnchor(request, "click here to cancel the request").asATag());
         emailContent.append(" and leave your account unchanged.</p>\n<br/>\n");
         emailContent.append("GreatSchools.net<br/>\n");
-        emailContent.append("301 Howard St., Suite 1440<br/>\n");
+        emailContent.append("160 Spear St., Suite 1020<br/>\n");
         emailContent.append("San Francisco, CA 94105<br/>\n");
         emailContent.append("</body></html>");
 
@@ -144,7 +144,7 @@ public class RequestEmailValidationController extends AbstractController {
         emailContent.append(builder.asFullUrl(request));
         emailContent.append("\n\n");
         emailContent.append("GreatSchools.net\n");
-        emailContent.append("301 Howard St., Suite 1440\n");
+        emailContent.append("160 Spear St., Suite 1020\n");
         emailContent.append("San Francisco, CA 94105\n");
 
         return emailContent.toString();
