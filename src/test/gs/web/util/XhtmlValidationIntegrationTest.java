@@ -4,11 +4,17 @@ import gs.web.BaseHtmlUnitIntegrationTestCase;
 
 /**
  * Add pages that should undergoe XHTML validation to this test
+ *
+ * If you are experiencing problems with one of these tests the easiest thing to do is run it in Idea as follows
+ * 1. Outside of Idea run "mvn jetty:run" since these tests expect localhost.greatschools.net:9000/... to work
+ * 2. Go into BaseHtmlUnitIntegrationTest and uncomment the bit that writes the file content to /tmp/out.html
+ * 3. Now when you run a particular test in Idea it will write the HTML contents that are failing into a file
+ * 4. Load up /tmp/out.html in your browser and run it through the W3C validator to troubleshoot 
  */
 public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestCase {
 
     public void testHomePage() {
-        assertValidXhtml(INTEGRATION_HOST + "/");
+        assertValidXhtml(INTEGRATION_HOST + "/index.page");
     }
 
     public void testPrivacyPolicy() {
