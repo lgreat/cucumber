@@ -26,9 +26,6 @@
 <jsp:directive.tag import="gs.data.geo.IGeoDao"/>
 <jsp:directive.tag import="gs.data.geo.City"/>
 <jsp:directive.tag import="gs.data.school.LevelCode"/>
-<jsp:directive.tag import="gs.data.admin.IPropertyDao"/>
-<jsp:directive.tag import="gs.web.util.CookieUtil"/>
-<jsp:directive.tag import="gs.web.jsp.Util"/>
 <jsp:directive.tag import="gs.data.school.ISchoolDao"/>
 <jsp:directive.tag import="gs.data.school.TopSchoolCategory"/>
 <jsp:directive.tag import="java.util.Set"/>
@@ -51,7 +48,7 @@
     // if parent ratings have not been supplied, retrieve them here
     if (parent_ratings == null) {
         try {
-            parent_ratings = ((IReviewDao)ac.getBean(IReviewDao.BEAN_ID)).findRatingsBySchool(school);
+            parent_ratings = ((IReviewDao) ac.getBean(IReviewDao.BEAN_ID)).findRatingsBySchool(school);
             request.setAttribute("parent_ratings", parent_ratings);
         } catch (Exception ex) {
             // log the error in some way?
@@ -61,8 +58,8 @@
 
     if (gs_top_school == null) {
         try {
-            Set<TopSchoolCategory> categories = ((ISchoolDao)ac.getBean(ISchoolDao.BEAN_ID)).getTopSchoolCategories(school);
-            if (categories.size() > 0) gs_top_school = (TopSchoolCategory) categories.toArray()[0];            
+            Set<TopSchoolCategory> categories = ((ISchoolDao) ac.getBean(ISchoolDao.BEAN_ID)).getTopSchoolCategories(school);
+            if (categories.size() > 0) gs_top_school = (TopSchoolCategory) categories.toArray()[0];
             request.setAttribute("gs_top_school", gs_top_school);
         } catch (Exception ex) {
             // log the error in some way?
@@ -98,6 +95,7 @@
     try {
         String levelAbbrev = school.getLevelCode().getLowestLevel().getName();
         String schoolType = school.getType().getSchoolTypeName();
+        request.setAttribute("schoolType", schoolType);
 
         String adPageName = "school/" + schoolType + '/' + levelAbbrev;
         request.setAttribute("adPageName", adPageName);
@@ -142,56 +140,6 @@
         privateTestData = testDataSetDao.hasDisplayableData(school);
     }
     request.setAttribute("privateHasTestData", privateTestData);
-
-    // GS-7445 - this is really verbose but it's done inline so it will be easy to remove in the next release
-    // if we keep it, we'll probably want to refactor this logic out into an interceptor
-    boolean showNLHover = true;
-    boolean showSurvey = false;
-    boolean surveyEligible = false;
-    SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-    int surveyHoverPct = 0;
-    try {
-        surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
-    } catch (Exception e) {
-        // no nothing
-    }
-    // False condition is set to disable the survey
-    if (surveyHoverPct > 0 && !context.isCobranded()) {
-        int cookieLife = 15; // days
-        if (!CookieUtil.hasCookie(request, "decipherinc_seen_popup")) {
-            Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligible");
-            if (surveyEligableCookie != null) {
-                // User has the survey_eligible cookie so determine if they are eligable
-                surveyEligible = "true".equals(surveyEligableCookie.getValue());
-            } else {
-                // We need to determine eligability
-                if (Util.randomNumber(100) < surveyHoverPct) {
-                    surveyEligible = true;
-                }
-                CookieUtil.setCookie(response, "survey_eligible", String.valueOf(surveyEligible), 60 * 60 * 24 * cookieLife);
-            }
-            // If they've seen a hover recently we want to delay showing the survey by one click
-            if (surveyEligible && CookieUtil.hasCookie(request, "hover") && !CookieUtil.hasCookie(request, "hover_delay")) {
-                CookieUtil.setCookie(response, "hover_delay", "1", 60 * 60 * 24 * cookieLife);
-                showSurvey = false;
-            } else {
-                showSurvey = surveyEligible && (request.getRequestURL().indexOf("school/overview") > -1);
-            }
-            showNLHover = !showSurvey;
-        } else {
-            // They have seen the popup survey, so now we want to make sure we skip launching the NL hover once
-            Cookie surveyDelayCookie = CookieUtil.getCookie(request, "survey_delay");
-            if (surveyDelayCookie == null) {
-                CookieUtil.setCookie(response, "survey_delay", "1", 60 * 60 * 24 * cookieLife);
-                showNLHover = false;
-            }
-        }
-    }
-    request.setAttribute("showNLHover", showNLHover);
-    request.setAttribute("showSurvey", showSurvey);
-    request.setAttribute("surveyEligible", surveyEligible);
-    // End GS-7445
-
     ]]></jsp:scriptlet>
 
 <![CDATA[
@@ -215,45 +163,7 @@
 <c:set var="schoolId" value="${school.id}"/>
 <c:set var="headerLinkAnchor" value="from..HeaderLink"/>
 
-<c:choose>
-    <c:when test="${school.type.schoolTypeName != 'private'}">
-        <c:set var="schoolType" value="public"/>
-        <!-- to trigger MSS modal on exit -->
-        <c:if test="${!requestScope.context.crawler}">
-            <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-            <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-            <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
-            <c:if test="${showNLHover}">
-                <c:choose>
-                    <c:when test="${school.levelCode == 'p'}">
-                        <pageHelper:addOnLoadHandler
-                                handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}', 'true')"/>
-                    </c:when>
-                    <c:otherwise>
-                        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-        </c:if>
-    </c:when>
-    <c:otherwise>
-        <c:set var="schoolType" value="private"/>
-    </c:otherwise>
-</c:choose>
-
-<c:if test="${showSurvey}">
-    <pageHelper:externalJavascript file="/res/js/blogTracking/pageTracking.js"/>
-    <pageHelper:externalJavascript file="http://survey.greatschools.net/survey/gts/gts08001/stub.js"/>
-    <script type="text/javascript">
-        function trackSurveyHover() {
-            pageTracking.pageName = "Decipher Hover Survey";
-            pageTracking.heirarchy = "Surveys,Auto Hover";
-            pageTracking.server = "${requestScope.context.hostName}";
-            pageTracking.send();
-        }
-        setTimeout("trackSurveyHover()", 5000);
-    </script>
-</c:if>
+<school:hovers school="${school}" tab="${tab}"/>
 
 <div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
 <div class="printSchoolProfileHeader">
@@ -429,7 +339,8 @@
         </c:choose>
         <c:if test="${gs_top_school != null}">
             <link:topSchools state="${state}">
-                <gsml:img styleClass="top_school_gs" alt="Top ${state.longName} High Schools" src="/res/img/school/topSchools/badge_${fn:toLowerCase(gs_top_school)}.png"/>
+                <gsml:img styleClass="top_school_gs" alt="Top ${state.longName} High Schools"
+                          src="/res/img/school/topSchools/badge_${fn:toLowerCase(gs_top_school)}.png"/>
             </link:topSchools>
         </c:if>
     </div>

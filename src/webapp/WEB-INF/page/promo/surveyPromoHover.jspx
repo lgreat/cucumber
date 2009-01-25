@@ -32,20 +32,17 @@
 <gsml:body adPageName="surveyHover" pageLayout="newsPop">
 
     <div>
-        <a href="http://www.zoomerang.com/Survey/?p=WEB2283GNHUMYJ" target="_blank"
+        <a href="http://www.zoomerang.com/Survey/?p=WEB228QGBZNR6D" target="_blank"
            onclick="subModalInterceptor.setPresentedToUser();window.top.hidePopWin(false);">
-            <gsml:img src="/res/img/GS_SV_hover_version2.jpg" alt="" />
+            <gsml:img src="/res/img/survey/surveyhover.jpg" alt="Help make GreatSchools better. Complete a short survey so we can better serve you and others like you" />
         </a>
     </div>
 
-    <div id="popupCloseBtn">
-        <div class="leftlogo"><gsml:img src="/res/img/logo/logo_GS_148x27notag.gif" alt="greatschools"/></div>
-        <div class="right"><a onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_close_window_blue.gif" alt="Close Window"/></a></div>
+    <div id="popupCloseBtn">        
+        <div style="cursor: pointer; margin:0 0 15px 148px" class="right"><a onclick="window.top.hidePopWin(false);"><gsml:img src="/res/img/button/btn_close_window_blue.gif" alt="Close Window"/></a></div>
     </div>
 
-    <mod:tracking pageName="segmentation survey hover"
-                  hier1="Surveys"
-            />
+    <mod:tracking pageName="Zoomerang Hover Survey" hier1="Surveys,Auto Hover" />
 </gsml:body>
 </html>
 </jsp:root>
