@@ -118,7 +118,7 @@
             <div id="footerGS">
                 <c:set var="footerCopyright">
                     <div id="footerCopyright">
-                        &amp;#169;1998-2008 GreatSchools Inc. All Rights Reserved.
+                        &amp;#169;1998-2009 GreatSchools Inc. All Rights Reserved.
                         <link:termsOfUse>Terms of Use</link:termsOfUse> &#124;
                         <gsml:a rel="nofollow" href="/about/privacyStatement.page">Privacy Policy</gsml:a>
                         <br/>GreatSchools is a 501(c)(3) not-for-profit organization
