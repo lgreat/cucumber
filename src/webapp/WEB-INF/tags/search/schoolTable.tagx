@@ -8,10 +8,8 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsweb="gstaglib">
-<jsp:directive.tag import="gs.web.util.PageHelper"/>
 <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
     <jsp:directive.attribute name="sortColumn" required="true" type="java.lang.String"/>
@@ -78,36 +76,6 @@
     
 
     <school:compareHover schoolSearchResults="${results}"/>
-
-    <!-- A/B test for GS-7598: B users are prompted to log in or join GS community when clicking Add to MSL
-    To revert to A, delete variant:b block, mslOnclick variable, and any onclick references to said variable
-    To revert to B, make variant:b block permanent.
-    -->
-    <c:set var="mslOnclick" value=""/>
-    <jsp:scriptlet>
-        request.setAttribute("communityAuth",
-                PageHelper.isCommunityCookieSet(request));
-    </jsp:scriptlet>
-    <variant:b>
-        <c:if test="${communityAuth eq false}">
-            <community:mslLoginHover/>
-            <script type="text/javascript">
-                var mslHref = '';
-                function sendToDestination() {
-                    closeMslFlowDialog();
-                    if (mslHref != '') {
-                        window.location = mslHref;
-                        mslHref = '';
-                    }
-                }
-                function storeHrefOpenHover(href) {
-                    mslHref = href;
-                    return showLoginHover();
-                }
-            </script>
-            <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
-        </c:if>
-    </variant:b>
 
     <div id="searchResultsHeader" class="cleared">
          <div class="firstspace">
@@ -205,7 +173,7 @@
                         </div>
                     </c:if>
                     <div class="resultcontrols">
-                        <link:mySchoolList school="${school}" onclick="${mslOnclick}" styleClass="noInterstitial">Add to my school list &gt;</link:mySchoolList>
+                        <link:mySchoolList school="${school}" styleClass="noInterstitial">Add to my school list &gt;</link:mySchoolList>
                         <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
                             <br />
                             <div class="compare_schools_row">

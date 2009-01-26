@@ -9,7 +9,6 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 <jsp:directive.tag import="gs.data.school.review.IReviewDao"/>
@@ -179,41 +178,10 @@
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
         <div id="tools">
-            <!-- A/B test for GS-7597: B users are prompted to log in or join GS community when clicking Add to MSL
-            To revert to A, delete variant:b block, mslOnclick variable, and any onclick references to said variable
-            To revert to B, make variant:b block permanent.
-            -->
-            <jsp:scriptlet>
-                request.setAttribute("communityAuth",
-                        PageHelper.isCommunityCookieSet(request));
-            </jsp:scriptlet>
-            <c:set var="mslOnclick" value=""/>
-            <variant:b>
-                <c:if test="${communityAuth eq false}">
-                    <community:mslLoginHover/>
-                    <script type="text/javascript">
-                        var mslHref = '';
-                        function sendToDestination() {
-                            closeMslFlowDialog();
-                            if (mslHref != '') {
-                                window.location = mslHref;
-                                mslHref = '';
-                            }
-                        }
-                        function storeHrefOpenHover(href) {
-                            mslHref = href;
-                            return showLoginHover();
-                        }
-                    </script>
-                    <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
-                </c:if>
-            </variant:b>
-            <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"
-                               onclick="${mslOnclick}"><gsml:img
+            <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img
                     src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
             <link:mySchoolList school="${school}" styleClass="add toolsTxt"
-                               anchor="${headerLinkAnchor}"
-                               onclick="${mslOnclick}">Add to My School List</link:mySchoolList>
+                               anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
 
             <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 

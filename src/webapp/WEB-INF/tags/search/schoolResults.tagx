@@ -4,45 +4,14 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
-<jsp:directive.tag import="gs.web.util.PageHelper"/>
 <jsp:directive.attribute name="results" required="true" type="java.util.Collection"/>
     <jsp:directive.attribute name="hideGSRating" required="false" type="java.lang.Boolean"/>
 
     <c:set var="hideRating" value="${!empty hideGSRating and hideGSRating ? true : false}"/>
     
-    <!-- A/B test for GS-7598: B users are prompted to log in or join GS community when clicking Add to MSL
-    To revert to A, delete variant:b block, mslOnclick variable, and any onclick references to said variable
-    To revert to B, make variant:b block permanent.
-    -->
-    <c:set var="mslOnclick" value=""/>
-    <jsp:scriptlet>
-        request.setAttribute("communityAuth",
-                PageHelper.isCommunityCookieSet(request));
-    </jsp:scriptlet>
-    <variant:b>
-        <c:if test="${communityAuth eq false}">
-            <community:mslLoginHover/>
-            <script type="text/javascript">
-                var mslHref = '';
-                function sendToDestination() {
-                    closeMslFlowDialog();
-                    if (mslHref != '') {
-                        window.location = mslHref;
-                        mslHref = '';
-                    }
-                }
-                function storeHrefOpenHover(href) {
-                    mslHref = href;
-                    return showLoginHover();
-                }
-            </script>
-            <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
-        </c:if>
-    </variant:b>
     <div id="searchResultsHeader" class="cleared">
         <div id="schoolResultsHeader" class="${hideRating ? 'wideSchoolResultsHeader' : ''}">
             School Name
@@ -85,7 +54,6 @@
                     <address><c:out value="${school.physicalAddress.cityStateZip}"/></address>
                     <div class="resultcontrols">
                         <link:mySchoolList school="${school}"
-                                           onclick="${mslOnclick}"
                                            styleClass="noInterstitial">Add to my school list &gt;</link:mySchoolList>
                         <c:if test="${school.levelCode ne 'p'}">
                             <br />
