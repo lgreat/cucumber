@@ -39,7 +39,7 @@
     }
     // False condition is set to disable the survey
     if (surveyHoverPct > 0 && !context.isCobranded()) {
-        if (!CookieUtil.hasCookie(request, "survey_seen_hover")) {
+        if (!CookieUtil.hasCookie(request, "survey_seen_popup")) {
             Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligible");
             if (surveyEligableCookie != null) {
                 // User has the survey_eligible cookie so determine if they are eligable
@@ -92,8 +92,8 @@
     <c:if test="${showSurvey}">
         <script type="text/javascript">
             function launchSurveyHover() {
-                if (!hasCookie("survey_seen_hover")) {
-                    createCookie("survey_seen_hover", "1", 15);
+                if (!hasCookie("survey_seen_popup")) {
+                    createCookie("survey_seen_popup", "1", 15);
                     showPopWin('/promo/surveyPromoHover.page', 474, 428, null);
                 }
             }
