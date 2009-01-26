@@ -86,9 +86,6 @@
             </c:if>
         </div>
         <c:set var="logoutRedirect" value="/mySchoolListLogin.page"/>
-        <variant:b>
-            <c:set var="logoutRedirect" value="/community/loginOrRegister.page"/>
-        </variant:b>
         <div id="msl_header_bottom">
             <div id="msl_welcome">Welcome ${username} (<a href="/community/logout.page?redirect=${logoutRedirect}">not ${username}?</a>)</div>
         </div>
