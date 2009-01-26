@@ -33,7 +33,7 @@
 
     <div>
         <a href="http://www.zoomerang.com/Survey/?p=WEB228QGBZNR6D" target="_blank"
-           onclick="subModalInterceptor.setPresentedToUser();window.top.hidePopWin(false);">
+           onclick="subModalInterceptor.setPresentedToUser(); window.top.hidePopWin(false);">
             <gsml:img src="/res/img/survey/surveyhover.jpg" alt="Help make GreatSchools better. Complete a short survey so we can better serve you and others like you" />
         </a>
     </div>
