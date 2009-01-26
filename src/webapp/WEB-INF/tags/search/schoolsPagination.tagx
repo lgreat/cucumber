@@ -41,7 +41,7 @@
                                            schoolType="${schoolTypesSB}" levelCode="${levelCode.commaSeparatedString}"
                                            styleClass="page showAll noInterstitial" showAll="${true}"
                                            resultsPerPage="${pageSize}" sortDirection="${param.sortDirection}"
-                                           sortColumn="${param.sortColumn}">Show all &amp;gt;</link:schools>
+                                           sortColumn="${param.sortColumn}" sortSelection="Show all">Show all &amp;gt;</link:schools>
                 <c:if test="${currentPage gt 1}">
                     <link:schools cityName="${cityName}" districtId="${districtId}"
                                            schoolType="${schoolTypesSB}" levelCode="${levelCode.commaSeparatedString}"

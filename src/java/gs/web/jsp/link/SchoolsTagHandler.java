@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.15 2008/09/11 21:18:15 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.16 2009/01/26 21:59:19 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -33,6 +33,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
     private Integer _resultsPerPage;
     private String _sortColumn;
     private String _sortDirection;
+    private String _sortSelection;
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder;        
@@ -83,6 +84,9 @@ public class SchoolsTagHandler extends LinkTagHandler {
         }
         if (!StringUtils.isBlank(_sortDirection)) {
             urlBuilder.setParameter(SchoolsController.PARAM_SORT_DIRECTION, _sortDirection);
+        }
+        if (!StringUtils.isBlank(_sortSelection)) {
+            urlBuilder.setParameter("sortSelection", _sortSelection);
         }
         return urlBuilder;
     }
@@ -176,5 +180,13 @@ public class SchoolsTagHandler extends LinkTagHandler {
 
     public void setResultsPerPage(Integer resultsPerPage){
         _resultsPerPage = resultsPerPage;
+    }
+
+    public String getSortSelection() {
+        return _sortSelection;
+    }
+
+    public void setSortSelection(String sortSelection) {
+        _sortSelection = sortSelection;
     }
 }

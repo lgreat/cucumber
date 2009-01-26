@@ -64,6 +64,11 @@
             name="articleId"
             description="Article Id"
             required="false"/>
+<!-- See GS-7845 for sortSelection -->
+    <jsp:directive.attribute
+            name="sortSelection"
+            description="School browse sort selection"
+            required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -155,6 +160,8 @@
             s.prop13 = "${articleStyle}";
 
             s.prop14 = "${not empty(articleId) ? articleId : ''}";
+
+            s.prop15 = clickCapture.getProp(15,"${sortSelection}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";

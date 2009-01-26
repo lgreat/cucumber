@@ -373,6 +373,13 @@
             <type>java.lang.String</type>
             <description>rel attribute, for nofollow links</description>
         </attribute>
+        <attribute>
+            <name>sortSelection</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>GS-7845 sort selection for omniture prop 15</description>
+        </attribute>
     </tag>
 
     <tag>
