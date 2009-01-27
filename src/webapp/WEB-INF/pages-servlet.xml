@@ -389,6 +389,16 @@
         </property>
     </bean>
 
+    <bean name="/status/memorymonitor.page"
+          class="gs.web.status.MonitorController" autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>status/memorymonitor</value>
+        </property>
+        <property name="searcher">
+            <ref bean="searcher"/>
+        </property>
+    </bean>
+
     <bean name="/status/batch.page"
           class="gs.web.status.BatchLogController" autowire="byName" lazy-init="true">
         <property name="viewName">
