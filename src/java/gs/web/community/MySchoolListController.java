@@ -78,10 +78,7 @@ public class MySchoolListController extends AbstractController implements ReadWr
             // GS-7601 Anonymous users from reg welcome email redirected to community login
             if (StringUtils.equals(request.getParameter("cpn"), "gssu_welcome")) {
                 // if you aren't signed in, go to community sign in
-                // if you are signed in only to MSL, if you are a B user go to community sign in
-                if (user == null ||
-                        (StringUtils.equals(sessionContext.getABVersion(), "b") && 
-                                !PageHelper.isMemberAuthorized(request))) {
+                if (user == null) {
                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, null);
                     urlBuilder.setParameter("redirect", BEAN_ID);
                     //urlBuilder.setParameter("message", "Please login or register to access My School List");
