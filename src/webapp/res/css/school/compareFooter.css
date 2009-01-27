@@ -102,3 +102,22 @@ div#editorialBar ul.contentList {
     float:right;
     width:196px;
 }
+
+.topSchoolsImg{
+    float:left;
+}
+
+.topSchoolTextDiv {
+	padding: 10px 0px 0px 0px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 17px;
+	color: #666666;
+	letter-spacing: 0px;
+    font-weight:normal;
+}
+
+.contentGS .topSchoolTextDiv a:link, .contentGS .topSchoolTextDiv a:visited, .contentGS .topSchoolTextDiv a:active {
+    color: #3399AA;
+    font-weight:normal;
+}

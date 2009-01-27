@@ -342,7 +342,7 @@
 </tr>
 </table>
 
-<jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${cityObject.name}" />
+<jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${cityObject.name}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopSchoolsFooter=${'true'}&amp;linkToSchoolChoice=${'true'}" />
 
 <c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
     <c:set var="yahooRealEstateCity" value='${requestScope.pageHelper.yahooRealEstateCity}' />

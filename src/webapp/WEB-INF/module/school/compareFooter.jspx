@@ -75,6 +75,21 @@
                     </gsweb:articlelink>
                 </ul>
             </c:when>
+            <c:when test="${param.showTopSchoolsFooter ne null and param.showTopSchoolsFooter eq true}">
+                <gsml:img styleClass="topSchoolsImg"
+                          src="/res/img/content/research/statepage_top5_badge.jpg"
+                          alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
+                <div class="businessWeekImgDiv">
+                    <img src="/res/img/content/research/statepage_top5_bizweek.gif"
+                         alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
+                </div>
+                <div class="topSchoolTextDiv">Five high schools in each state that represent the qualities of a great school.
+                </div>
+             <div class="topSchoolTextDiv">
+                 <link:topSchools state="${stateOrNull}" styleClass="underline">View Top ${param['stateFullName']} High Schools &#62;
+                 </link:topSchools>
+             </div>
+            </c:when>
             <c:otherwise>
                 <link:movingWithKids>
                     <gsml:img src="/res/img/moving_image.jpg"
@@ -91,7 +106,7 @@
                     <gsweb:articlelink articleId="60" wrappingElement="li">
                         Adjusting to a New School
                     </gsweb:articlelink>
-                </ul>
+                </ul> 
             </c:otherwise>
         </c:choose>
     </div>
@@ -121,15 +136,30 @@
                 </link:schoolChoiceCenter>
                 <gsml:img src="/res/img/choosingschool.gif" alt="Choosing a school?" styleClass="word"/>
                 <ul class="contentList">
-                    <gsweb:articlelink articleId="87" wrappingElement="li">
-                        Imagining Your Ideal School
-                    </gsweb:articlelink>
-                    <gsweb:articlelink articleId="197" wrappingElement="li">
-                        Private vs. Public
-                    </gsweb:articlelink>
-                    <gsweb:articlelink articleId="48" wrappingElement="li">
-                        Tips for Your School Visit
-                    </gsweb:articlelink>
+                    <c:choose>
+                        <c:when test="${param.linkToSchoolChoice eq true}">
+                            <li>
+                                <link:schoolChoiceCenter>Four Steps to Choosing the Right School</link:schoolChoiceCenter>
+                            </li>
+                            <gsweb:articlelink articleId="3705" wrappingElement="li">
+                                Imagining Your Ideal School
+                            </gsweb:articlelink>
+                            <gsweb:articlelink articleId="3704" wrappingElement="li">
+                                Private vs. Public
+                            </gsweb:articlelink>
+                        </c:when>
+                        <c:otherwise>
+                            <gsweb:articlelink articleId="87" wrappingElement="li">
+                                Imagining Your Ideal School
+                            </gsweb:articlelink>
+                            <gsweb:articlelink articleId="197" wrappingElement="li">
+                                Private vs. Public
+                            </gsweb:articlelink>
+                            <gsweb:articlelink articleId="48" wrappingElement="li">
+                                Tips for Your School Visit
+                            </gsweb:articlelink>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </c:otherwise>
         </c:choose>

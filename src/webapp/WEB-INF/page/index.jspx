@@ -345,12 +345,11 @@
                     </div>
                     <div id="rightSchoolDiv">
                         <ul id="rightSchoolLinksDiv">
-                            <gsweb:articlelink articleId="96"
-                                               wrappingElement="li">Where do I even start?</gsweb:articlelink>
-                            <gsweb:articlelink articleId="197"
-                                               wrappingElement="li">Private vs. Public: How to decide?</gsweb:articlelink>
-                            <gsweb:articlelink articleId="87"
-                                               wrappingElement="li">Tips for selecting the right school</gsweb:articlelink>
+                            <li><link:schoolChoiceCenter>Where do I even start?</link:schoolChoiceCenter></li>
+                            <gsweb:articlelink articleId="3704"
+                                               wrappingElement="li">Charter, private or public &amp;mdash; What's right for you?</gsweb:articlelink>
+                            <gsweb:articlelink articleId="3705"
+                                               wrappingElement="li">Which educational qualities matter most?</gsweb:articlelink>
                             <gsweb:articlelink articleId="48"
                                                wrappingElement="li">My Checklist for the School Visit</gsweb:articlelink>
                         </ul>

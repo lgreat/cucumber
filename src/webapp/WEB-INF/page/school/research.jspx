@@ -449,28 +449,18 @@
 
 <div id="leftcol" class="content border10">
     <table width="173" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-            <td id="editorPhoto">
-                <div class="lisaDashedBorder">
-                    <div class="lisa" title="Photo of GreatSchools Senior Editor, Lisa Rosenthal">Photo of GreatSchools Senior Editor, Lisa Rosenthal</div>
-                </div>
-            </td>
-            <td id="editorText">
-                <span class="photoName">Lisa Rosenthal</span><br />
-                <span class="photoCaption">Senior Editor, GreatSchools</span>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" id="leftBox">
-                <strong>Editor's Picks:</strong>
-                <br/><br/>
-                <gsml:a href="/cgi-bin/showarticle/197" styleClass="dearParentsLink">Private vs. Public Schools: What's the Difference?</gsml:a>
-                <br/><br/>
-                <gsml:a href="/cgi-bin/showarticle/96" styleClass="dearParentsLink">Choosing a School: An Overview</gsml:a>
-                <br/><br/>
-                <link:articleLibrary styleClass="underline">View more articles &gt;</link:articleLibrary>
-            </td>
-        </tr>
+       <tr>
+              <td><div class="fourStepsBox">
+                  <img class="fourStepsImg" alt="Clipboard" src="/res/img/promo/clipboard_icon.jpg"/><h2 class="fourStepsHeader"> Four Steps to Choosing the Right school</h2></div>
+                  <ul class="fourStepsUlstyle">
+
+                                <li id="img1">Define the ideal school</li>
+                                <li id="img2">Start the search</li>
+                                <li id="img3">Prep for a school visit</li>
+                                <li id="img4">Apply and enroll</li>
+                   </ul>
+          </td></tr>
+        <tr><td><link:schoolChoiceCenter><img src="/res/img/content/research/statepage_getguide_button.gif" alt="1" class="getGuideButton"/></link:schoolChoiceCenter></td></tr>
     </table>
 </div>
 <div id="leftcolAd">
