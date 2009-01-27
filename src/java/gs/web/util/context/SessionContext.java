@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.31 2009/01/22 00:38:48 jnorton Exp $
+ * $Id: SessionContext.java,v 1.32 2009/01/27 01:55:09 jnorton Exp $
  */
 package gs.web.util.context;
 
@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.Set;
+import java.util.Random;
 
 /**
  * The purpose is to hold common "global" properties for a user throughout their
@@ -71,7 +72,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private int _mssCount;
     private Integer _cityId; // greatschools city id from us_geo.city
     private City _city;
-
+    private static StateManager _stateManager = new StateManager();
     /**
      * Current US state
      */
@@ -254,10 +255,12 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     }
 
     public boolean isInterstitialEnabled() {
+        Random r = new Random();
         return !isCobranded() &&
                 !isCrawler() &&
                 "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")) &&
-                isInterstitialEnabledForState(_state);
+                isInterstitialEnabledForState(_state) &&
+                isInterstitialWithinTolerance(r.nextInt(100));
 
     }
 
@@ -265,11 +268,20 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         if(state == null){
             return false;
         }
-        StateManager sm = new StateManager();
-
-        Set<State> statesWithInterstitialEnabled = sm.getStateSetFromString(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, ""));
-
+        Set<State> statesWithInterstitialEnabled = _stateManager.getStateSetFromString(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, ""));
         return statesWithInterstitialEnabled.contains(state);
+    }
+
+    protected boolean isInterstitialWithinTolerance(int randomValue0To100){
+        Integer interstitialDisplayRate;
+        try{
+            interstitialDisplayRate = Integer.parseInt(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")) ;
+        }catch(NumberFormatException e){
+            _log.error("The value the property table for 'interstitialDisplayRate' is incorrect! " + e.getMessage());
+            return false;
+        }
+
+        return randomValue0To100 < interstitialDisplayRate;
     }
 
     /**
@@ -503,4 +515,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     public void setCityId(Integer cityId) {
         this._cityId = cityId;
     }
+
+
 }
