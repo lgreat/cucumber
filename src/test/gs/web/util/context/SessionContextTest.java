@@ -424,13 +424,13 @@ public class SessionContextTest extends BaseTestCase {
         // This is because the if statement gets short-circuited before the DB call in 3 of the cases
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
         replay(_propertyDao);
 
         assertTrue("Property.INTERSTITIAL_ENABLED_KEY is true, Property.INTERSTITIAL_ENABLED_STATES_KEY contains the state, expect call to return true (1)", _sessionContext.isInterstitialEnabled());
@@ -478,9 +478,9 @@ public class SessionContextTest extends BaseTestCase {
 
     public void testIsInterstitialWithinTolerance(){
         reset(_propertyDao);
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("0");
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("0");
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("0");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("0");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("0");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("0");
         replay(_propertyDao);
 
         assertFalse("Expect isInterstitialWithinTolerance when property.INTERSTITIAL_DISPLAY_RATE_KEY is 0, randomValue is 0", _sessionContext.isInterstitialWithinTolerance(0));
@@ -489,9 +489,9 @@ public class SessionContextTest extends BaseTestCase {
         verify(_propertyDao);
 
         reset(_propertyDao);
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("52");
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("52");
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("52");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("52");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("52");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("52");
         replay(_propertyDao);
 
         assertTrue("Expect isInterstitialWithinTolerance when property.INTERSTITIAL_DISPLAY_RATE_KEY is 52, randomValue is 0", _sessionContext.isInterstitialWithinTolerance(0));
@@ -500,9 +500,9 @@ public class SessionContextTest extends BaseTestCase {
         verify(_propertyDao);
 
         reset(_propertyDao);
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("100");
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("100");
-        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "0")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
         replay(_propertyDao);
 
         assertTrue("Expect isInterstitialWithinTolerance when property.INTERSTITIAL_DISPLAY_RATE_KEY is 100, randomValue is 0", _sessionContext.isInterstitialWithinTolerance(0));
