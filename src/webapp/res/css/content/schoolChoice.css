@@ -37,6 +37,7 @@
 #step1top {
     height: 100px;
     overflow: hidden;
+    padding-bottom: 0.3em;
 }
 
 #step3top {
