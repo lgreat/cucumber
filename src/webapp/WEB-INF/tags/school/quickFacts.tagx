@@ -63,7 +63,7 @@
                 <h3 class="fn org"><strong>${school.name}</strong></h3>
                 <address class="adr">
                     <span class="street-address">${school.physicalAddress.street}</span><br />
-                    <span class="locality">${school.physicalAddress.city}</span>, <span class="region">${school.physicalAddress.state.abbreviation}</span>&#32;<span class="postal-code">${school.physicalAddress.zip}</span><br/>
+                    <span class="locality">${school.physicalAddress.city}</span>, <span class="region">${school.physicalAddress.state.abbreviation} </span><span class="postal-code">${school.physicalAddress.zip}</span><br/>
                     <c:if test="${not empty(school.county)}">
                         <c:choose>
                             <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
