@@ -94,7 +94,7 @@
             function launchSurveyHover() {
                 if (!hasCookie("survey_seen_popup")) {
                     createCookie("survey_seen_popup", "1", 15);
-                    showPopWin('/promo/surveyPromoHover.page', 474, 428, null, 'surveyHover');
+                    showPopWin('/promo/surveyPromoHover.page', 520, 350, null, 'surveyHover');
                 }
             }
             setTimeout("launchSurveyHover()", 7000);
