@@ -252,7 +252,7 @@ h2.fourStepsHeader {
     background-position:left 2px;
 }
 
-* + html .contentGS ul.fourStepsUlstyle li#img3{
+* html .contentGS ul.fourStepsUlstyle li#img3{
     background-position:left 2px;
 }
 .contentGS ul.fourStepsUlstyle li#img4{
@@ -269,7 +269,7 @@ h2.fourStepsHeader {
 }
 
 .getGuideButton{
-    margin:15px 0 0 15px;
+    margin:8px 0 5px 15px;
 }
 
 select.school {

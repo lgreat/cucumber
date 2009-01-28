@@ -426,7 +426,7 @@
             </div>
             <div class="topSchoolTextDiv">
                 <h2 class="topSchoolsHeader">Top High Schools in ${requestScope.context.state.longName} </h2>GreatSchools selects high schools in ${requestScope.context.state.longName} that represent the qualities of a great school.
-                <link:topSchools state="${stateOrNull}" styleClass="underline">View Top High Schools &#62;</link:topSchools>
+                <link:topSchools state="${stateOrNull}" styleClass="underline">View Top ${requestScope.context.state.longName} High Schools &#62;</link:topSchools>
             </div>
             <div class="businessWeekImgDiv"> <img src="/res/img/content/research/statepage_top5_bizweek.gif"
                 alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
