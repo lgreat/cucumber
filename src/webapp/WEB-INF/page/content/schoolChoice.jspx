@@ -159,7 +159,7 @@
                                 <li><gsweb:articlelink
                                         articleId="3705">Which educational qualities matter most? </gsweb:articlelink>
                                 </li>
-                                <li><gsweb:articlelink articleId="3704">Charter, private or public &amp;mdash; What's right for you?</gsweb:articlelink></li>
+                                <li><gsweb:articlelink articleId="3704">Charter, private or public &amp;mdash; what's right for you?</gsweb:articlelink></li>
                             </ul>
 
                         </div>
@@ -230,12 +230,12 @@
                         <img class="left" src="/res/img/schoolChoice/schoolchoice_apply_image.jpg" alt="Smiling girl"/>
                         <div class="column">
                             <p>Once you've made your choice, find out the application deadline, assemble all the
-                               necessary documents, and apply. Have a Plan B, in case you don't get your first choice.</p>
+                               necessary documents, and apply. Have a plan B, in case you don't get your first choice.</p>
                             <ul>
                                 <li><gsweb:articlelink
                                         articleId="3698">School enrollment requirements</gsweb:articlelink>
                                 </li>
-                                <li><gsweb:articlelink articleId="490">Have a Plan B</gsweb:articlelink></li>
+                                <li><gsweb:articlelink articleId="490">Have a plan B</gsweb:articlelink></li>
                             </ul>
                         </div>
 
@@ -285,7 +285,7 @@
                 <div id="top5" class="box">
                     <div class="inner">
                         <div id="top5top">
-                            <img class="left" src="/res/img/schoolChoice/choice_topschools_badge02.jpg" alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
+                            <a href="#" onclick="return viewTopSchools();"><img class="left" src="/res/img/schoolChoice/choice_topschools_badge02.jpg" alt="GreatSchools Top Schools, as featured in BusinessWeek"/></a>
                             <div class="column">
                                 <p>Check out five high schools in each state that represent what makes a school great.</p>
                             </div>
