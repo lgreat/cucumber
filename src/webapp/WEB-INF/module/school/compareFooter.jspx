@@ -139,7 +139,7 @@
                     <c:choose>
                         <c:when test="${param.linkToSchoolChoice eq true}">
                             <li>
-                                <link:schoolChoiceCenter>Four Steps to Choosing the Right School</link:schoolChoiceCenter>
+                                <link:schoolChoiceCenter>Where do I even start?</link:schoolChoiceCenter>
                             </li>
                             <gsweb:articlelink articleId="3705" wrappingElement="li">
                                 Imagining Your Ideal School

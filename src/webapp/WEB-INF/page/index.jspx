@@ -347,11 +347,11 @@
                         <ul id="rightSchoolLinksDiv">
                             <li><link:schoolChoiceCenter>Where do I even start?</link:schoolChoiceCenter></li>
                             <gsweb:articlelink articleId="3704"
-                                               wrappingElement="li">Charter, private or public &amp;mdash; What's right for you?</gsweb:articlelink>
+                                               wrappingElement="li">Charter, private or public</gsweb:articlelink>
                             <gsweb:articlelink articleId="3705"
                                                wrappingElement="li">Which educational qualities matter most?</gsweb:articlelink>
                             <gsweb:articlelink articleId="48"
-                                               wrappingElement="li">My Checklist for the School Visit</gsweb:articlelink>
+                                               wrappingElement="li">My checklist for the school visit</gsweb:articlelink>
                         </ul>
 
                         <p class="more right">
