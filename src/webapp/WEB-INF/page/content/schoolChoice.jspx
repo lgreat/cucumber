@@ -121,17 +121,21 @@
                             </div>
 
                             <div class="video">
-                                <![CDATA[
-                                <object width="300" height="166">
-                                    <param name="allowfullscreen" value="true"/>
-                                    <param name="allowscriptaccess" value="always"/>
-                                    <param name="movie"
-                                           value="http://vimeo.com/moogaloop.swf?clip_id=2910874&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=1&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1"/>
-                                    <embed src="http://vimeo.com/moogaloop.swf?clip_id=2910874&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=1&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1"
-                                           type="application/x-shockwave-flash" allowfullscreen="true"
-                                           allowscriptaccess="always" width="300" height="166"></embed>
-                                </object>
-                                ]]>
+                                <!-- http://validifier.com/ -->
+                                <!-- http://www.howtocreate.co.uk/tutorials/javascript/incorporate -->
+                                <script type="text/javascript">
+                                <!--//--><![CDATA[//><!--
+                                document.write('<object width="300" height="166">');
+                                document.write('    <param name="allowfullscreen" value="true"/>');
+                                document.write('    <param name="allowscriptaccess" value="always"/>');
+                                document.write('    <param name="movie"');
+                                document.write('           value="http://vimeo.com/moogaloop.swf?clip_id=2910874&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=1&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1"/>');
+                                document.write('    <embed src="http://vimeo.com/moogaloop.swf?clip_id=2910874&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=1&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1"');
+                                document.write('           type="application/x-shockwave-flash" allowfullscreen="true"');
+                                document.write('           allowscriptaccess="always" width="300" height="166"></embed>');
+                                document.write('</object>');
+                                //--> ]]>
+                                </script>
                             </div>
 
                         </div>

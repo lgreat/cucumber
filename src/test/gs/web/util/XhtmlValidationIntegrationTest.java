@@ -105,10 +105,7 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
         assertValidXhtml(INTEGRATION_HOST + "/content/healthyKids.page");
     }
 
-    // GS-7752
-    // Vimeo.com video embed code prevents this page from being XHTML valid
-    // Leaving out this test for this reason.
-    public void xtestSchoolChoiceCenter() {
+    public void testSchoolChoiceCenter() {
         assertValidXhtml(INTEGRATION_HOST + "/school-choice/");
     }
 
