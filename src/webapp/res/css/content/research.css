@@ -208,7 +208,7 @@ h2.fourStepsHeader {
  }
 
 .contentGS ul.fourStepsUlstyle {
-	padding-left: 0px;
+	margin-left:14px;
 	list-style-type: none;
 }
 
@@ -221,21 +221,55 @@ h2.fourStepsHeader {
     background:transparent url(/res/img/content/research/statepage_number1.gif) no-repeat scroll left 4px;
     position:relative;         
 }
+
+* + html .contentGS ul.fourStepsUlstyle li#img1{
+   background-position:left 2px;
+}
+
+* html .contentGS ul.fourStepsUlstyle li#img1{
+   background-position:left 2px;
+}
+
 .contentGS ul.fourStepsUlstyle li#img2{
     background:transparent url(/res/img/content/research/statepage_number2.gif) no-repeat scroll left 4px;
     position:relative;
 }
+
+* + html .contentGS ul.fourStepsUlstyle li#img2{
+    background-position:left 2px;
+}
+
+* html .contentGS ul.fourStepsUlstyle li#img2{
+    background-position:left 2px;
+}
+
 .contentGS ul.fourStepsUlstyle li#img3{
     background:transparent url(/res/img/content/research/statepage_number3.gif) no-repeat scroll left 4px;
     position:relative;
+}
+
+* + html .contentGS ul.fourStepsUlstyle li#img3{
+    background-position:left 2px;
+}
+
+* + html .contentGS ul.fourStepsUlstyle li#img3{
+    background-position:left 2px;
 }
 .contentGS ul.fourStepsUlstyle li#img4{
     background:transparent url(/res/img/content/research/statepage_number4.gif) no-repeat scroll left 4px;
     position:relative;
 }
 
+* + html .contentGS ul.fourStepsUlstyle li#img4{
+    background-position:left 2px;
+}
+
+* html .contentGS ul.fourStepsUlstyle li#img4{
+    background-position:left 2px;
+}
+
 .getGuideButton{
-    margin:15px 0 0 17px;
+    margin:15px 0 0 15px;
 }
 
 select.school {
