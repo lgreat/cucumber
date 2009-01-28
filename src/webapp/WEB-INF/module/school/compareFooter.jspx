@@ -85,7 +85,7 @@
                 </div>
                 <div class="topSchoolTextDiv">Five high schools in each state that represent the qualities of a great school.
                 </div>
-             <div class="topSchoolTextDiv">
+             <div class="topSchoolLinkDiv">
                  <link:topSchools state="${stateOrNull}" styleClass="underline">View Top ${param['stateFullName']} High Schools &#62;
                  </link:topSchools>
              </div>

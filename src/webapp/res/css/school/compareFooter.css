@@ -107,7 +107,7 @@ div#editorialBar ul.contentList {
     float:left;
 }
 
-.topSchoolTextDiv {
+.topSchoolTextDiv, .topSchoolLinkDiv {
 	padding: 10px 0px 0px 0px;
     font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
@@ -117,7 +117,19 @@ div#editorialBar ul.contentList {
     font-weight:normal;
 }
 
-.contentGS .topSchoolTextDiv a:link, .contentGS .topSchoolTextDiv a:visited, .contentGS .topSchoolTextDiv a:active {
+  .topSchoolLinkDiv {
+    padding: 5px 0px 0px 0px;
+    clear:both;
+}
+
+* + html .topSchoolLinkDiv {
+    padding: 3px 0px 0px 0px;
+}
+
+* html .topSchoolLinkDiv {
+    padding: 3px 0px 0px 0px;
+}
+.contentGS .topSchoolLinkDiv a:link, .contentGS .topSchoolLinkDiv a:visited, .contentGS .topSchoolLinkDiv a:active {
     color: #3399AA;
     font-weight:normal;
 }
