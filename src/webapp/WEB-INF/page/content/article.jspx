@@ -25,6 +25,7 @@
         <c:choose>
             <c:when test="${requestScope.newArticle eq true}">
                 <pageHelper:externalCss file="/res/css/content/articleNew.css"/>
+                <pageHelper:externalCss file="/res/css/content/articlePrint.css"/>
                 <pageHelper:externalCss file="/res/css/widelayout.css" />
                 <pageHelper:externalCss file="/res/css/content/landingPageShared.css" />
                 <pageHelper:externalCss file="/res/css/content/library.css" />
@@ -67,7 +68,7 @@
         <c:if test="${articleStyle eq 'new'}">
             <td id="leftCol">
                 <div id="foo" class="cleared">
-                    <content:librarySidebar cssClass="white" />
+                    <content:librarySidebar cssClass="white hideFromPrint" />
                 </div>
             </td>
         </c:if>
