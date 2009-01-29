@@ -83,10 +83,10 @@
                     <img src="/res/img/content/research/statepage_top5_bizweek.gif"
                          alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
                 </div>
-                <div class="topSchoolTextDiv">Five high schools in each state that represent the qualities of a great school.
+                <div class="topSchoolTextDiv">Five high schools in each state that represent the qualities of a great school
                 </div>
              <div class="topSchoolLinkDiv">
-                 <link:topSchools state="${stateOrNull}" styleClass="underline">View Top ${param['stateFullName']} High Schools &#62;
+                 <link:topSchools state="${stateOrNull}" styleClass="underline">View top ${param['stateFullName']} high schools &#62;
                  </link:topSchools>
              </div>
             </c:when>
