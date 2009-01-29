@@ -97,7 +97,7 @@ public class FeedbackController extends SimpleFormController {
 
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
-        props.setProperty("mail.smtp.host", "mail.greatschools.net");
+        props.setProperty("mail.smtp.host", "mx3.greatschools.net");
         Session session = Session.getDefaultInstance(props, null);
 
         Message msg = new MimeMessage(session);
