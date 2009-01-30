@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Hashtable;
 
 import static org.easymock.EasyMock.*;
 
@@ -203,6 +204,8 @@ public class SearchControllerTest extends BaseControllerTestCase {
         verify(_schoolDao);
         List results = (List) map.get(SearchController.MODEL_RESULTS);
         assertNotNull(results);
+
+        assertEquals("topic",map.get("typeOverride"));
         assertEquals(1, results.size());
         int kindergartenHits = results.size();
 
@@ -216,6 +219,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         results = (List) map.get(SearchController.MODEL_RESULTS);
         assertNotNull(results);
         assertEquals(1, results.size());
+
         assertEquals(kindergartenHits, results.size());
     }
 

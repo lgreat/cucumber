@@ -85,7 +85,7 @@ public class SearchController extends AbstractFormController {
     public static final String MODEL_SHOW_QUERY_AGAIN = "showQueryAgain"; // Boolean
     private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser"; // Boolean
     private static final String MODEL_NO_RESULTS_EXPLAINED = "noResultsExplanation";
-
+    public static final String MODEL_TYPEOVERRIDE = "typeOverride";
 
     private static int LIST_SIZE = 3;  // The # of city or dist results to show
     private static int EXTENDED_LIST_SIZE = 50;
@@ -288,6 +288,7 @@ public class SearchController extends AbstractFormController {
         if (resultsToShow) { // was hits != null && hits.length() > 0
             if (searchCommand.isTopicsOnly()) {
                 heading1 = "Article results";
+                model.put(MODEL_TYPEOVERRIDE,"topic");
             } else if (searchCommand.isSchoolsOnly()) {
                 heading1 = "School results";
             } else {
@@ -311,6 +312,7 @@ public class SearchController extends AbstractFormController {
             String type = "";
             if (searchCommand.isTopicsOnly()) {
                 type = "topic";
+                model.put(MODEL_TYPEOVERRIDE,type);
             } else if (searchCommand.isSchoolsOnly()) {
                 type = "school";
             }
