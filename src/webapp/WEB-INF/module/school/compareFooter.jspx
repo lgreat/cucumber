@@ -77,7 +77,7 @@
             </c:when>
             <c:when test="${param.showTopSchoolsFooter ne null and param.showTopSchoolsFooter eq true}">
                 <gsml:img styleClass="topSchoolsImg"
-                          src="/res/img/content/research/statepage_top5_badge.jpg"
+                          src="/res/img/content/research/citypage_top5_badgeonly.jpg"
                           alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
                 <div class="businessWeekImgDiv">
                     <img src="/res/img/content/research/statepage_top5_bizweek.gif"
