@@ -425,7 +425,7 @@
                     alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
             </div>
             <div class="topSchoolTextDiv">
-                <h2 class="topSchoolsHeader">Top High Schools in ${(requestScope.context.state.longName eq null)?'America':requestScope.context.state.longName} </h2>GreatSchools selects high schools in ${(requestScope.context.state.longName eq null)?'America':requestScope.context.state.longName} that represent the qualities of a great school
+                <h2 class="topSchoolsHeader">Top High Schools in ${(empty requestScope.context.state.longName) ? "America" : requestScope.context.state.longName} </h2>GreatSchools selects high schools in ${(empty requestScope.context.state.longName) ? "America" : requestScope.context.state.longName} that represent the qualities of a great school
                 <br/><link:topSchools state="${stateOrNull}" styleClass="underline">View top ${requestScope.context.state.longName} high schools &#62;</link:topSchools>
             </div>
             <div class="businessWeekImgDiv"> <img src="/res/img/content/research/statepage_top5_bizweek.gif"
