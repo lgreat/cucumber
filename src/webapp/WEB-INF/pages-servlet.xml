@@ -30,10 +30,10 @@
         </property>
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
-
+<!--
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
           parent="defaultHandlerMapping"/>
-
+-->
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
         <property name="lazyInitHandlers" value="true"/>
