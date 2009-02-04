@@ -11,7 +11,10 @@
             http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <context:component-scan base-package="gs.web.api" />
+    <context:component-scan base-package="gs.web.api">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -30,10 +33,10 @@
         </property>
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
-<!--
+
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
-          parent="defaultHandlerMapping"/>
--->
+          parent="defaultHandlerMapping" />
+
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
         <property name="lazyInitHandlers" value="true"/>
