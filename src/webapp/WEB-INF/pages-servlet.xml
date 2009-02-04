@@ -31,7 +31,7 @@
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
-    <bean class="gs.web.api.GSDefaultAnnotationHandlerMapping" parent="defaultHandlerMapping" />
+    <!--<bean class="gs.web.api.GSDefaultAnnotationHandlerMapping" parent="defaultHandlerMapping" />-->
 
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
