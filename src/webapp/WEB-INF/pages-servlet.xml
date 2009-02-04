@@ -31,6 +31,8 @@
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
+    <bean class="gs.web.api.GSDefaultAnnotationHandlerMapping" parent="defaultHandlerMapping" />
+
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
         <property name="lazyInitHandlers" value="true"/>
@@ -145,6 +147,7 @@
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
           parent="defaultHandlerMapping" />
     -->
+
     
     <bean id="requiresStateInterceptor"
           class="gs.web.state.RequiresStateInterceptor"
