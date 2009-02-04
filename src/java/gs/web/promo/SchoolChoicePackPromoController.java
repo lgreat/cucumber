@@ -31,6 +31,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
     public static final String LEVELS_PARAM = "levels";
     public static final String PAGE_NAME = "pageName";
     public static final String SCHOOL_CHOICE_PACK_TRIGGER_KEY = "chooser_pack_trigger";
+    public static final String CHOOSER_TIP_SHEET_TRIGGER_KEY = "chooser_tip_sheet_trigger"; 
 
     private ISubscriptionDao _subscriptionDao;
     private IUserDao _userDao;
@@ -94,7 +95,9 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             }
             PageHelper.setMemberCookie(request, response, user);
             triggerPromoPackEmail(user, levels);
-
+            if(user.isCommunityMember()){
+                triggerChooserTipSheet(user);
+            }
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             out.println("{");
@@ -117,6 +120,11 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             attributes.put(level,  "1");
         }
         _exactTargetAPI.sendTriggeredEmail(SCHOOL_CHOICE_PACK_TRIGGER_KEY, user, attributes);
+    }
+
+    void triggerChooserTipSheet(User user){
+
+        _exactTargetAPI.sendTriggeredEmail(CHOOSER_TIP_SHEET_TRIGGER_KEY,user);
     }
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
