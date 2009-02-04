@@ -17,7 +17,7 @@
     <pageHelper:externalCss file="/res/css/promo/schoolChoicePackPromo.css" />
 
 
-    <div id="scho olChoicePackPromo" class="${showBorder ?'bordered':''}">
+    <div id="schoolChoicePackPromo" class="${showBorder ?'bordered':''}">
 
         
     <div id="form_panel">
