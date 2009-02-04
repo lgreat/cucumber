@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
             http://www.springframework.org/schema/context
@@ -11,7 +12,8 @@
             http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <context:component-scan base-package="gs.web.api" />
+    <!--<context:component-scan base-package="gs.web.api" />-->
+    <!--<bean class="gs.web.api.GSDefaultAnnotationHandlerMapping" parent="defaultHandlerMapping" p:order="0"/>-->
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -30,8 +32,6 @@
         </property>
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
-
-    <!--<bean class="gs.web.api.GSDefaultAnnotationHandlerMapping" parent="defaultHandlerMapping" />-->
 
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
@@ -142,13 +142,6 @@
         </property>
     </bean>
 
-    <!--
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
-          parent="defaultHandlerMapping" />
-    -->
-
-    
     <bean id="requiresStateInterceptor"
           class="gs.web.state.RequiresStateInterceptor"
           autowire="byName" lazy-init="true">
@@ -1861,5 +1854,34 @@
     <bean name="/promo/schoolChoicePackPromo.page"
           class="gs.web.promo.SchoolChoicePackPromoController"
           autowire="byName" lazy-init="true"/>
+
+    <bean name="/api/registration.page"
+          class="gs.web.api.RegistrationController"
+          lazy-init="true">
+        <property name="bindOnNewForm" value="true" />
+        <!--<property name="commandName" value="registrationCommand" />-->
+        <!--<property name="commandClass" value="gs.web.api.RegistrationCommand" />-->
+        <property name="commandClass" value="gs.data.api.ApiAccount" />
+        <property name="formView" value="api/registration" />
+        <property name="successView" value="api/success" />
+    </bean>
+
+    <bean name="/api/registrationSuccess.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName" value="api/registrationSuccess"/>
+    </bean>
+
+    <bean name="/api/admin/accounts.page"
+          class="gs.web.api.admin.AccountsController" lazy-init="true">
+    </bean>
+
+    <bean name="/api/admin/account.page"
+          class="gs.web.api.admin.AccountController"
+          lazy-init="true">
+        <property name="bindOnNewForm" value="true" />
+        <property name="commandClass" value="gs.data.api.ApiAccount" />
+        <property name="formView" value="api/admin/account" />
+        <property name="successView" value="api/success" />
+    </bean>
 
 </beans>

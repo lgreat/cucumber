@@ -1,4 +1,4 @@
-package gs.web.api;
+package gs.web.api.admin;
 
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,7 +10,7 @@ import gs.web.util.ReadWriteController;
 /**
  * @author chriskimm@greatschools.net
  */
-public class RegistrationController extends SimpleFormController implements ReadWriteController {
+public class AccountController extends SimpleFormController implements ReadWriteController {
 
     private IApiAccountDao _apiAccountDao;
 

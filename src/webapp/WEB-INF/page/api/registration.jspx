@@ -8,29 +8,51 @@
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          version="2.0">
+          version="2.0" xmlns:form="http://www.springframework.org/tags/form">
 
-<c:set var="pageName" value="API Registration" />
-<html>
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <c:set var="pageName" value="API Registration"/>
+    <html>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page contentType="text/html"/>
+    <jsp:directive.page contentType="text/html"/>
 
-<head>
-    <title>GreatSchools.net API Registration</title>
-    <meta content="todo" name="description"/>
-    <meta content="todo" name="keywords"/>
+    <head>
+        <title>GreatSchools.net API Registration</title>
+        <meta content="todo" name="description"/>
+        <meta content="todo" name="keywords"/>
 
-    <pageHelper:externalCss file="/res/css/widelayout.css" />
-    <pageHelper:externalCss file="/res/css/api/registration.css" />
+        <pageHelper:externalCss file="/res/css/widelayout.css"/>
+        <pageHelper:externalCss file="/res/css/api/registration.css"/>
 
-    <!--<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>-->
-</head>
+        <!--<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>-->
+    </head>
 
-<body >
+    <body>
     <div>Registration</div>
-</body>
-</html>
+    <!--<form:form commandName="registrationCommand">-->
+    <form:form>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><form:input path="name" /></td>
+            </tr>
+            <tr>
+                <td>Organization:</td>
+                <td><form:input path="organization" /></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><form:input path="email" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Save Changes" />
+                </td>
+            </tr>
+        </table>
+    </form:form>
+    </body>
+    </html>
 </jsp:root>

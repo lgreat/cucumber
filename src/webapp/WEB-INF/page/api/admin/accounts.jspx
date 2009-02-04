@@ -1,0 +1,36 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          version="2.0">
+
+<c:set var="pageName" value="API Registration" />
+<html>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>GreatSchools.net API Accounts</title>
+    <meta content="todo" name="description"/>
+    <meta content="todo" name="keywords"/>
+
+    <pageHelper:externalCss file="/res/css/widelayout.css" />
+    <pageHelper:externalCss file="/res/css/api/registration.css" />
+
+    <!--<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>-->
+</head>
+
+<body >
+    <div>accounts</div>
+<c:forEach var="account" items="accounts">
+    <h1>account</h1>
+    ${account}
+</c:forEach>
+</body>
+</html>
+</jsp:root>
