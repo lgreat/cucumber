@@ -71,7 +71,7 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
 
     public void xtestExactTargetTrigger() throws Exception {
         User u = new User();
-        u.setEmail("chriskimm@greatschools.net");
+        u.setEmail("tester@greatschools.net");
         _controller.triggerPromoPackEmail(u, new String[] {"preschool", "elementary"});
     }
 
@@ -79,7 +79,7 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
      * Verify that the new user is set to NEVER_SEND as their welcomeMessageStatus
      */
     public void testNewUser() throws Exception {
-        String email = "chriskimm@greatschools.net";
+        String email = "tester@greatschools.net";
         User u = new User();
         u.setEmail(email);
         getRequest().setParameter(SchoolChoicePackPromoController.EMAIL_PARAM, email);
