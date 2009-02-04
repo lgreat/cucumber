@@ -140,6 +140,7 @@
         </property>
     </bean>
 
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
           parent="defaultHandlerMapping" />
 
