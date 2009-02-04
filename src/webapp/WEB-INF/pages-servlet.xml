@@ -11,10 +11,7 @@
             http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <context:component-scan base-package="gs.web.api">
-        <context:include-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+    <context:component-scan base-package="gs.web.api" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -33,9 +30,6 @@
         </property>
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
-
-    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
-          parent="defaultHandlerMapping" />
 
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
@@ -145,6 +139,9 @@
             </map>
         </property>
     </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
+          parent="defaultHandlerMapping" />
 
     <bean id="requiresStateInterceptor"
           class="gs.web.state.RequiresStateInterceptor"
