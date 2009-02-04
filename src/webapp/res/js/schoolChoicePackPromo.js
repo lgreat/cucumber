@@ -33,6 +33,10 @@ $j(function() {
                                                 createCookie("MEMID", datax.memid);
                                                 $j("#form_panel").hide();
                                                 $j("#confirm_panel").show();
+                                                omnitureEventNotifier.clear();
+                                                omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
+                                                omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
+                                                omnitureEventNotifier.send();
                                             }, "json");
                                 } else {
                                     alert ("Please accept the GreatSchools Privacy Policy and Terms of Use.");

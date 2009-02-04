@@ -3,6 +3,7 @@ package gs.web.util;
 import gs.data.community.User;
 import gs.data.community.Subscription;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.tracking.CookieBasedOmnitureTracking;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ public class NewSubscriberDetector {
         Set<Subscription> subs = user.getSubscriptions();
 
         if (!userHasNewsLetterSubscriptions(subs)) {
-            OmnitureTracking ot = new OmnitureTracking(request, response);
+            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
             ot.addSuccessEvent(OmnitureTracking.SuccessEvent.NewNewsLetterSubscriber);
         }
     }

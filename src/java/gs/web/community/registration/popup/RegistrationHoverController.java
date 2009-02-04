@@ -11,6 +11,7 @@ import gs.web.util.validator.UserCommandHoverValidator;
 import gs.web.community.registration.RegistrationController;
 import gs.web.community.registration.UserCommand;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
@@ -53,7 +54,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
         ModelAndView mAndV = new ModelAndView();
-        OmnitureTracking ot = new OmnitureTracking(request, response);
+        OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         boolean userExists = false;
 
         if (user != null) {

@@ -17,6 +17,7 @@ import gs.web.util.NewSubscriberDetector;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.tracking.CookieBasedOmnitureTracking;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -133,7 +134,7 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
         ModelAndView mAndV = new ModelAndView();
-        OmnitureTracking ot = new OmnitureTracking(request, response);
+        OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         boolean userExists = false;
 
         if (user != null) {

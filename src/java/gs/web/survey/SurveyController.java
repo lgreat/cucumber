@@ -20,6 +20,7 @@ import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.tracking.CookieBasedOmnitureTracking;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -338,7 +339,7 @@ public class SurveyController extends SimpleFormController implements ReadWriteC
                                     BindException errors) throws Exception {
         UserResponseCommand urc = (UserResponseCommand) command;
         _log.info("onSubmit()");
-        OmnitureTracking omnitureTracking = new OmnitureTracking(request, response);
+        OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
 
         User user = urc.getUser();
         boolean isExistingUser = true;

@@ -15,6 +15,7 @@ import gs.web.school.SchoolPageInterceptor;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.tracking.CookieBasedOmnitureTracking;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -82,7 +83,7 @@ public class AddParentReviewsController extends SimpleFormController implements 
                                  Object command,
                                  BindException errors) throws Exception {
 
-        OmnitureTracking omnitureTracking = new OmnitureTracking(request, response);
+        OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
 
         ReviewCommand rc = (ReviewCommand) command;
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);

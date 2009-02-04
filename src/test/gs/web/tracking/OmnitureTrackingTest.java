@@ -7,12 +7,12 @@ import gs.web.BaseControllerTestCase;
  */
 public class OmnitureTrackingTest  extends BaseControllerTestCase {
 
-    private OmnitureTracking _tracking;
+    private CookieBasedOmnitureTracking _tracking;
 
     public void setUp() throws Exception {
         super.setUp();
 
-        _tracking = new OmnitureTracking(getRequest(), getResponse());
+        _tracking = new CookieBasedOmnitureTracking(getRequest(), getResponse());
     }
 
     public void testAddEvar() {

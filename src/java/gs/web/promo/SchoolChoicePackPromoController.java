@@ -19,6 +19,7 @@ import gs.web.util.NewSubscriberDetector;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.tracking.JsonBasedOmnitureTracking;
 
 /**
  * Created by chriskimm@greatschools.net
@@ -55,7 +56,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
                 _userDao.saveUser(user);
             }
 
-            OmnitureTracking omnitureTracking = new OmnitureTracking(request, response);
+            JsonBasedOmnitureTracking omnitureTracking = new JsonBasedOmnitureTracking();
 
             NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
             omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ChoicePackRequest);
@@ -96,10 +97,11 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
 
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
-            out.println("{\"memid\":\"" + String.valueOf(user.getId()) + "\"}");
+            out.println("{");
+            out.println("\"memid\":\"" + String.valueOf(user.getId()) + "\",");
+            out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
+            out.println("}");                                     
         }
-
-
         return null;
     }
 
