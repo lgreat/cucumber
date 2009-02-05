@@ -1858,7 +1858,7 @@
 
     <bean name="/api/registration.page"
           class="gs.web.api.RegistrationController"
-          lazy-init="true">
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true" />
         <property name="commandClass" value="gs.data.api.ApiAccount" />
         <property name="formView" value="api/registration" />
