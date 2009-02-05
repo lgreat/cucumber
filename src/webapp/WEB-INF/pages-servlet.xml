@@ -1860,6 +1860,7 @@
           class="gs.web.api.RegistrationController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true" />
+        <property name="commandName" value="accountCommand" />
         <property name="commandClass" value="gs.data.api.ApiAccount" />
         <property name="formView" value="api/registration" />
         <property name="successView" value="api/success" />
