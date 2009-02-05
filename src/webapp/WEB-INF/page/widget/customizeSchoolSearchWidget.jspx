@@ -15,24 +15,28 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Add school information to your Web site in minutes with the School Finder widget - it's free and easy to use. Customize the design and create the code instantly."/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description"
+          content="Add school information to your Web site in minutes with the School Finder widget - it's free and easy to use. Customize the design and create the code instantly."/>
     <title>School Finder - Customize Your Free School Information Widget - GreatSchools</title>
     <pageHelper:externalCss file="/res/css/widget/customizeSchoolSearchWidget.css"/>
     <pageHelper:externalJavascript file="/res/js/customizeSchoolSearchWidget.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.2/scriptaculous.js"/>
+    <pageHelper:externalJavascript file="/res/js/slider.js"/>
     <style type="text/css">
         /* Widget frame styles */
         div#GS_schoolSearchWidget {
-            border: solid 4px #${requestScope.command.backgroundColor};
+            border: solid 4px # ${requestScope.command.backgroundColor};
             border-bottom-width: 20px;
             background-color: #FFF;
-            width: ${requestScope.command.iframeWidth+2}px;
+            width: ${requestScope.command.iframeWidth+2} px;
             position: relative;
             font-family: "Trebuchet MS", Arial, sans-serif;
         }
 
         div.GS_widget_innerBorder {
-            border: solid 1px #${requestScope.command.bordersColor};
+            border: solid 1px # ${requestScope.command.bordersColor};
         }
 
         div.GS_widget_footer {
@@ -71,7 +75,7 @@
         }
 
         div#GS_schoolSearchWidget div.GS_getWidget a, div#GS_schoolSearchWidget div.GS_getWidget a:hover {
-            color: #${requestScope.command.textColor};
+            color: # ${requestScope.command.textColor};
             font-size: 11px;
         }
     </style>
@@ -88,13 +92,13 @@
             cityLink.href = "http://www.greatschools.net/city/" + cityUrl + "/" + stateAbbr + "?s_cid=wsbay93";
             stateLink.href = "http://www.greatschools.net/modperl/go/" + stateAbbr + "?s_cid=wsbay93";
             if (cityName == "New York" && stateAbbr == "NY") {
-                cityLink.innerHTML = cityName  + " City schools";
-                stateLink.innerHTML = stateName + " State schools";                
+                cityLink.innerHTML = cityName + " City schools";
+                stateLink.innerHTML = stateName + " State schools";
             } else if (cityName == "Washington" && stateAbbr == "DC") {
-                cityLink.innerHTML = cityName  + ", DC schools";
+                cityLink.innerHTML = cityName + ", DC schools";
                 stateLink.innerHTML = "";
             } else {
-                cityLink.innerHTML = cityName  + " schools";
+                cityLink.innerHTML = cityName + " schools";
                 stateLink.innerHTML = stateName + " schools";
             }
         }
@@ -113,299 +117,359 @@
     </script>
 </head>
 <body>
-    <div class="top">
-        <h1>GreatSchools School Finder Widget</h1>
-        <p>
-            Add school information to your Web site for free to:
-        </p>
-        <ul>
-            <li><span>Easily assess the academic performance of a school</span></li>
-            <li><span>See how other parents rate and review specific schools</span></li>
-            <li><span>Map schools by address, ZIP code or city</span></li>
-        </ul>
-    </div>
+<div class="top">
+    <h1>GreatSchools School Finder Widget</h1>
 
-    <div class="body">
-        <h2>Create Your Customized Widget</h2>
-        <div class="divider upper"><hr/></div>
-        <table>
-            <tr>
-                <td class="leftSide">
-                    <form:form cssClass="customize" name="customizeForm" method="post">
-                        <div class="section searchQuery">
-                            <div class="step"><span class="step">Step 1:</span>
-                                <span class="title">Choose address, ZIP code, or city and state</span></div>
-                            <div class="instructions">Pick the location that you'd like your widget to feature.</div>
-                            <form:input path="searchQuery"/>
+    <p>
+        Add school information to your Web site for free to:
+    </p>
+    <ul>
+        <li><span>Easily assess the academic performance of a school</span></li>
+        <li><span>See how other parents rate and review specific schools</span></li>
+        <li><span>Map schools by address, ZIP code or city</span></li>
+    </ul>
+</div>
+
+<div class="body">
+<h2>Create Your Customized Widget</h2>
+
+<div class="divider upper">
+    <hr/>
+</div>
+<table>
+<tr>
+<td class="leftSide">
+    <form:form cssClass="customize" name="customizeForm" method="post">
+        <div class="section searchQuery">
+            <div class="step"><span class="step">Step 1:</span>
+                <span class="title">Choose address, ZIP code, or city and state</span></div>
+            <div class="instructions">Pick the location that you'd like your widget to feature.</div>
+            <form:input path="searchQuery"/>
+        </div>
+
+        <div class="section widgetSize">
+            <div class="step"><span class="step">Step 2:</span>
+                <span class="title">Choose the size</span></div>
+            <div class="instructions">
+                Do you want the widget to be small for
+                your blog, or full page for your Web site?
+            </div>
+            <gsml:errorMessage command="command" field="height" useImage="true" styleClass="warning"/>
+            <gsml:errorMessage command="command" field="width" useImage="true" styleClass="warning"/>
+
+            <div class="dim smallDim">
+                <form:radiobutton path="dimensions" value="300x434" label="Small (300 x 434)"
+                                  onclick="selectDim(300, 434);"/>
+            </div>
+            <div class="dim panDim">
+                <form:radiobutton path="dimensions" value="750x434" label="Panoramic (750 x 434)"
+                                  onclick="selectDim(750, 434);"/>
+            </div>
+            <div class="dim customDim">
+                <form:radiobutton path="dimensions" value="custom" label="Custom:"/>
+                <form:label cssClass="specifyDim" path="width">Width:</form:label><form:input cssClass="specifyDim"
+                                                                                              path="width"
+                                                                                              onclick="customDim();"/>
+                <form:label cssClass="specifyDim" path="height">Height:</form:label><form:input cssClass="specifyDim"
+                                                                                                path="height"
+                                                                                                onclick="customDim();"/>
+            </div>
+            <!-- 300x434 -->
+        </div>
+
+        <div class="section widgetZoom">
+            <div class="step"><span class="step">Step 3:</span>
+                <span class="title">Choose the default zoom level</span></div>
+            <div class="instructions">
+                Use the slider below to set the initial zoom level of your widget.
+            </div>
+            <div id="zoom_container">
+                <img onclick="zoom_control.setValueBy(-1);" src="/res/img/widget/zoomout.png" alt="zoom out"/>
+                <div id="zoom_slider" class="slider">
+                    <div class="handle" id="handle"><!-- break the tags --></div>
+                </div>
+                <img onclick="zoom_control.setValueBy(1);" src="/res/img/widget/zoomin.png" alt="zoom in"/>
+            </div>
+            <form:hidden id="zoom_level" path="zoom"/>
+            <script type="text/javascript">
+                <![CDATA[
+                // <!--
+                function initSlider() {
+                    var zoom_slider = $('zoom_slider');
+                    zoom_control = new Control.Slider(zoom_slider.down('.handle'), zoom_slider, {
+                        range: $R(1, 17),
+                        values: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+                        sliderValue: $('zoom_level').value,
+                        onSlide: function(value) {
+                            $('zoom_level').value = value;
+                        },
+                        onChange: function(value) {
+                            $('zoom_level').value = value;
+                        }
+                    });                    
+                    $('handle').setStyle({background:'transparent url(/res/img/widget/zoomhandle.png) no-repeat'});
+                }
+                // -->
+                ]]>
+            </script>
+            <pageHelper:addOnLoadHandler handler="initSlider()" />
+        </div>
+
+        <div class="section widgetColors">
+            <div class="step"><span class="step">Step 4:</span>
+                <span class="title">Choose your colors</span></div>
+            <div class="instructions">
+                Customize the widget to blend in with
+                your Web site.
+            </div>
+            <div class="colors background">
+                <form:label path="backgroundColorSelect" cssClass="name">Background:</form:label>
+                <form:select path="backgroundColorSelect" onchange="updateColor(this, 'backgroundColor', this.value);">
+                    <form:options items="${requestScope.command.backgroundColorOptions}"/>
+                </form:select>
+                <form:label path="backgroundColor" cssClass="hex">or Hex#</form:label>
+                <form:input path="backgroundColor"/>
+            </div>
+            <div class="colors text">
+                <form:label path="textColorSelect" cssClass="name">Text:</form:label>
+                <form:select path="textColorSelect" onchange="updateColor(this, 'textColor', this.value);">
+                    <form:options items="${requestScope.command.textColorOptions}"/>
+                </form:select>
+                <form:label path="textColor" cssClass="hex">or Hex#</form:label>
+                <form:input path="textColor"/>
+            </div>
+            <div class="colors borders">
+                <form:label path="bordersColorSelect" cssClass="name">Borders:</form:label>
+                <form:select path="bordersColorSelect" onchange="updateColor(this, 'bordersColor', this.value);">
+                    <form:options items="${requestScope.command.bordersColorOptions}"/>
+                </form:select>
+                <form:label path="bordersColor" cssClass="hex">or Hex#</form:label>
+                <form:input path="bordersColor"/>
+            </div>
+            <script type="text/javascript">
+                <![CDATA[
+                // <!--
+                {
+                    var colorSelect;
+                    var i;
+                    var colorOption;
+                    colorSelect = document.getElementById('backgroundColorSelect');
+                    colorSelect.style.backgroundColor = '#' + colorSelect.value;
+                    for (i = 0; i < colorSelect.options.length; i++) {
+                        colorOption = colorSelect.options[i];
+                        colorOption.style.backgroundColor = '#' + colorOption.value;
+                    }
+                    colorSelect = document.getElementById('textColorSelect');
+                    colorSelect.style.backgroundColor = '#' + colorSelect.value;
+                    for (i = 0; i < colorSelect.options.length; i++) {
+                        colorOption = colorSelect.options[i];
+                        colorOption.style.backgroundColor = '#' + colorOption.value;
+                    }
+                    colorSelect = document.getElementById('bordersColorSelect');
+                    colorSelect.style.backgroundColor = '#' + colorSelect.value;
+                    for (i = 0; i < colorSelect.options.length; i++) {
+                        colorOption = colorSelect.options[i];
+                        colorOption.style.backgroundColor = '#' + colorOption.value;
+                    }
+                }
+                // -->
+                ]]>
+            </script>
+        </div>
+
+        <div class="section cobrandSite">
+            <div class="step"><span class="step">Optional Step 5:</span>
+                <span class="title">(for GreatSchools cobrand customers only)</span></div>
+            <div class="instructions">
+                To link directly to your widget, enter the cobrand URL in the field below. <a
+                    href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
+                Otherwise, leave as www.greatschools.net.
+            </div>
+            http://<form:input path="cobrand"/>
+        </div>
+
+        <div class="section email">
+            <div class="step"><span class="step">Step 5:</span>
+                <span class="title">Enter your email address</span></div>
+            <div class="instructions">
+                Required to customize the widget. We'll
+                send your widget code directly to your
+                inbox.
+            </div>
+            <gsml:errorMessage command="command" field="email" useImage="true" styleClass="warning"/>
+            <form:input path="email"/>
+        </div>
+
+        <div class="section terms">
+            <gsml:errorMessage command="command" field="terms" useImage="true" styleClass="warning"/>
+            <form:checkbox path="terms" id="termsBox"/>
+            <form:label path="terms" for="termsBox">
+                I agree to the <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                                 title="GreatSchools Terms of Use"
+                                                 href="/cgi-bin/static/terms.html/CA">GreatSchools Terms of Use.</gsml:popupWindow>
+            </form:label>
+        </div>
+
+        <input type="image" name="preview" value="Preview"
+               src="/res/img/widget/preview_button.gif"
+               onclick="return previewValid();" class="previewButton"/>
+        <input type="image" name="submit" value="Create Widget Code"
+               src="/res/img/widget/create_button.gif"
+               onclick="return inputsValid();" class="submitButton"/>
+    </form:form>
+
+    <p class="questions">Questions? Contact us at <a href="mailto:widget@greatschools.net">widget@greatschools.net</a>.
+    </p>
+</td>
+<td class="rightSide">
+    <div class="wrapper">
+        <div class="preview">Preview your widget:</div>
+        <div id="GS_schoolSearchWidget">
+            <div class="GS_widget_innerBorder">
+                <div id="widget">
+                    <iframe class="greatschools"
+                            src="${requestScope.command.iframeUrl}"
+                            width="${requestScope.command.iframeWidth}" height="${requestScope.command.iframeHeight}"
+                            marginheight="0" marginwidth="0"
+                            frameborder="0" scrolling="no"> Keep from collapsing
+                    </iframe>
+                </div>
+                <div class="GS_widget_footer">
+                    <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img
+                            src="http://www.greatschools.net/res/img/widget/poweredby_logo.gif"
+                            alt="Powered by GreatSchools"/></a>
+
+                    <div class="GS_seo">
+                        <!-- These links should always go to www -->
+                        <div class="GS_city">
+                            <c:choose>
+                                <c:when test="${requestScope.command.city ne null}">
+                                    <c:choose>
+                                        <c:when test="${requestScope.command.city.name eq 'New York' and requestScope.command.city.state eq 'NY'}">
+                                            <link:city city="${requestScope.command.city.name}"
+                                                       state="${requestScope.command.city.state}"
+                                                       styleId="GS_city_SEO"
+                                                       target="_blank">${requestScope.command.city.name} City schools</link:city>
+                                        </c:when>
+                                        <c:when test="${requestScope.command.city.name eq 'Washington' and requestScope.command.city.state eq 'DC'}">
+                                            <link:city city="${requestScope.command.city.name}"
+                                                       state="${requestScope.command.city.state}"
+                                                       styleId="GS_city_SEO"
+                                                       target="_blank">${requestScope.command.city.name}, DC schools</link:city>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <link:city city="${requestScope.command.city.name}"
+                                                       state="${requestScope.command.city.state}"
+                                                       styleId="GS_city_SEO"
+                                                       target="_blank">${requestScope.command.city.name} schools</link:city>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93"
+                                       target="_blank" rel="follow follow"
+                                       id="GS_city_SEO">Fremont schools</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
-
-                        <div class="section widgetSize">
-                            <div class="step"><span class="step">Step 2:</span>
-                                <span class="title">Choose the size</span></div>
-                            <div class="instructions">
-                                Do you want the widget to be small for
-                                your blog, or full page for your Web site?
-                            </div>
-                            <gsml:errorMessage command="command" field="height" useImage="true" styleClass="warning"/>
-                            <gsml:errorMessage command="command" field="width" useImage="true" styleClass="warning"/>
-                            <div class="dim smallDim">
-                                <form:radiobutton path="dimensions" value="300x434" label="Small (300 x 434)"
-                                                  onclick="selectDim(300, 434);"/>
-                            </div>
-                            <div class="dim panDim">
-                                <form:radiobutton path="dimensions" value="750x434" label="Panoramic (750 x 434)"
-                                                  onclick="selectDim(750, 434);"/>
-                            </div>
-                            <div class="dim customDim">
-                                <form:radiobutton path="dimensions" value="custom" label="Custom:"/>
-                                <form:label cssClass="specifyDim" path="width">Width:</form:label><form:input cssClass="specifyDim" path="width" onclick="customDim();"/>
-                                <form:label cssClass="specifyDim" path="height">Height:</form:label><form:input cssClass="specifyDim" path="height" onclick="customDim();"/>
-                            </div>
-                            <!-- 300x434 -->
-                        </div>
-
-                        <div class="section widgetColors">
-                            <div class="step"><span class="step">Step 3:</span>
-                                <span class="title">Choose your colors</span></div>
-                            <div class="instructions">
-                                Customize the widget to blend in with
-                                your Web site.
-                            </div>
-                            <div class="colors background">
-                                <form:label path="backgroundColorSelect" cssClass="name">Background:</form:label>
-                                <form:select path="backgroundColorSelect" onchange="updateColor(this, 'backgroundColor', this.value);">
-                                    <form:options items="${requestScope.command.backgroundColorOptions}"/>
-                                </form:select>
-                                <form:label path="backgroundColor" cssClass="hex">or Hex#</form:label>
-                                <form:input path="backgroundColor"/>
-                            </div>
-                            <div class="colors text">
-                                <form:label path="textColorSelect" cssClass="name">Text:</form:label>
-                                <form:select path="textColorSelect" onchange="updateColor(this, 'textColor', this.value);">
-                                    <form:options items="${requestScope.command.textColorOptions}"/>
-                                </form:select>
-                                <form:label path="textColor" cssClass="hex">or Hex#</form:label>
-                                <form:input path="textColor"/>
-                            </div>
-                            <div class="colors borders">
-                                <form:label path="bordersColorSelect" cssClass="name">Borders:</form:label>
-                                <form:select path="bordersColorSelect" onchange="updateColor(this, 'bordersColor', this.value);">
-                                    <form:options items="${requestScope.command.bordersColorOptions}"/>
-                                </form:select>
-                                <form:label path="bordersColor" cssClass="hex">or Hex#</form:label>
-                                <form:input path="bordersColor"/>
-                            </div>
-                            <script type="text/javascript">
-                            <![CDATA[
-                            // <!--
-                                {
-                                    var colorSelect;
-                                    var i;
-                                    var colorOption;
-                                    colorSelect = document.getElementById('backgroundColorSelect');
-                                    colorSelect.style.backgroundColor = '#' + colorSelect.value;
-                                    for (i=0; i < colorSelect.options.length; i++) {
-                                        colorOption = colorSelect.options[i];
-                                        colorOption.style.backgroundColor = '#' + colorOption.value;
-                                    }
-                                    colorSelect = document.getElementById('textColorSelect');
-                                    colorSelect.style.backgroundColor = '#' + colorSelect.value;
-                                    for (i=0; i < colorSelect.options.length; i++) {
-                                        colorOption = colorSelect.options[i];
-                                        colorOption.style.backgroundColor = '#' + colorOption.value;
-                                    }
-                                    colorSelect = document.getElementById('bordersColorSelect');
-                                    colorSelect.style.backgroundColor = '#' + colorSelect.value;
-                                    for (i=0; i < colorSelect.options.length; i++) {
-                                        colorOption = colorSelect.options[i];
-                                        colorOption.style.backgroundColor = '#' + colorOption.value;
-                                    }
-                                }
-                            // -->
-                            ]]>
-                            </script>
-                        </div>
-
-                        <div class="section cobrandSite">
-                            <div class="step"><span class="step">Optional Step 4:</span>
-                                <span class="title">(for GreatSchools cobrand customers only)</span></div>
-                            <div class="instructions">
-                                To link directly to your widget, enter the cobrand URL in the field below. <a href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
-                                Otherwise, leave as www.greatschools.net.
-                            </div>
-                            http://<form:input path="cobrand"/>
-                        </div>
-
-                        <div class="section email">
-                            <div class="step"><span class="step">Step 5:</span>
-                                <span class="title">Enter your email address</span></div>
-                            <div class="instructions">
-                                Required to customize the widget. We'll
-                                send your widget code directly to your
-                                inbox.
-                            </div>
-                            <gsml:errorMessage command="command" field="email" useImage="true" styleClass="warning"/>
-                            <form:input path="email"/>
-                        </div>
-
-                        <div class="section terms">
-                            <gsml:errorMessage command="command" field="terms" useImage="true" styleClass="warning"/>
-                            <form:checkbox path="terms" id="termsBox"/>
-                            <form:label path="terms" for="termsBox">
-                                I agree to the <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                                                 title="GreatSchools Terms of Use"
-                                                                 href="/cgi-bin/static/terms.html/CA">GreatSchools Terms of Use.</gsml:popupWindow>
-                            </form:label>
-                        </div>
-
-                        <input type="image" name="preview" value="Preview"
-                               src="/res/img/widget/preview_button.gif"
-                               onclick="return previewValid();" class="previewButton"/>
-                        <input type="image" name="submit" value="Create Widget Code"
-                               src="/res/img/widget/create_button.gif"
-                               onclick="return inputsValid();" class="submitButton"/>
-                    </form:form>
-                    <p class="questions">Questions? Contact us at <a href="mailto:widget@greatschools.net">widget@greatschools.net</a>.</p>
-                </td>
-                <td class="rightSide">
-                    <div class="wrapper">
-                        <div class="preview">Preview your widget:</div>
-                        <div id="GS_schoolSearchWidget">
-                            <div class="GS_widget_innerBorder">
-                                <div id="widget">
-                                    <iframe class="greatschools"
-                                            src="${requestScope.command.iframeUrl}"
-                                            width="${requestScope.command.iframeWidth}" height="${requestScope.command.iframeHeight}"
-                                            marginheight="0" marginwidth="0"
-                                            frameborder="0" scrolling="no"> Keep from collapsing </iframe>
-                                </div>
-                                <div class="GS_widget_footer">
-                                    <a href="http://www.greatschools.net/?s_cid=wsbay93" target="_blank"><img src="http://www.greatschools.net/res/img/widget/poweredby_logo.gif"
-                                                                     alt="Powered by GreatSchools"/></a>
-                                    <div class="GS_seo">
-                                        <!-- These links should always go to www -->
-                                        <div class="GS_city">
-                                            <c:choose>
-                                                <c:when test="${requestScope.command.city ne null}">
-                                                    <c:choose>
-                                                        <c:when test="${requestScope.command.city.name eq 'New York' and requestScope.command.city.state eq 'NY'}">
-                                                            <link:city city="${requestScope.command.city.name}"
-                                                               state="${requestScope.command.city.state}"
-                                                               styleId="GS_city_SEO"
-                                                               target="_blank">${requestScope.command.city.name} City schools</link:city>
-                                                        </c:when>
-                                                        <c:when test="${requestScope.command.city.name eq 'Washington' and requestScope.command.city.state eq 'DC'}">
-                                                            <link:city city="${requestScope.command.city.name}"
-                                                               state="${requestScope.command.city.state}"
-                                                               styleId="GS_city_SEO"
-                                                               target="_blank">${requestScope.command.city.name}, DC schools</link:city>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <link:city city="${requestScope.command.city.name}"
-                                                               state="${requestScope.command.city.state}"
-                                                               styleId="GS_city_SEO"
-                                                               target="_blank">${requestScope.command.city.name} schools</link:city>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <a href="http://www.greatschools.net/city/Fremont/CA?s_cid=wsbay93"
-                                                       target="_blank" rel="follow follow"
-                                                       id="GS_city_SEO">Fremont schools</a>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </div>
-                                        <div class="GS_state">
-                                            <c:choose>
-                                                <c:when test="${not empty requestScope.command.city}">
-                                                    <c:choose>
-                                                        <c:when test="${requestScope.command.city.name eq 'New York' and requestScope.command.city.state eq 'NY'}">
-                                                            <link:research state="${requestScope.command.city.state}"
-                                                                           id="GS_state_SEO"
-                                                                           target="_blank">${requestScope.command.city.state.longName} State schools</link:research>
-                                                        </c:when>
-                                                        <c:when test="${requestScope.command.city.name eq 'Washington' and requestScope.command.city.state eq 'DC'}">
-                                                            <link:research state="${requestScope.command.city.state}"
-                                                                           id="GS_state_SEO"
-                                                                           target="_blank"></link:research>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <link:research state="${requestScope.command.city.state}"
-                                                                           id="GS_state_SEO"
-                                                                           target="_blank">${requestScope.command.city.state.longName} schools</link:research>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"
-                                                       target="_blank" rel="follow follow"
-                                                       id="GS_state_SEO">California schools</a>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="GS_getWidget">
-                                <a href="?s_cid=wsbay93">I want this widget for my site</a>
-                            </div>
+                        <div class="GS_state">
+                            <c:choose>
+                                <c:when test="${not empty requestScope.command.city}">
+                                    <c:choose>
+                                        <c:when test="${requestScope.command.city.name eq 'New York' and requestScope.command.city.state eq 'NY'}">
+                                            <link:research state="${requestScope.command.city.state}"
+                                                           id="GS_state_SEO"
+                                                           target="_blank">${requestScope.command.city.state.longName} State schools</link:research>
+                                        </c:when>
+                                        <c:when test="${requestScope.command.city.name eq 'Washington' and requestScope.command.city.state eq 'DC'}">
+                                            <link:research state="${requestScope.command.city.state}"
+                                                           id="GS_state_SEO"
+                                                           target="_blank"></link:research>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <link:research state="${requestScope.command.city.state}"
+                                                           id="GS_state_SEO"
+                                                           target="_blank">${requestScope.command.city.state.longName} schools</link:research>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="http://www.greatschools.net/modperl/go/CA?s_cid=wsbay93"
+                                       target="_blank" rel="follow follow"
+                                       id="GS_state_SEO">California schools</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
-                </td>
-            </tr>
-        </table>
-
-        <div class="divider lower"><hr/></div>
-        
-        <c:choose>
-            <c:when test="${requestScope.command.widgetCode ne null and requestScope.command.widgetCode gt ''}">
-                <c:set var="pageName" value="Widget Code Created"/>
-
-                <div class="widgetCode">
-                    <![CDATA[<a name="widgetCode"></a>]]>
-                    <p>Copy and paste this code into your Web site or blog:</p>
-                    <textarea rows="20"
-                              cols="100"
-                              onfocus="this.select();"
-                              readonly="readonly">${requestScope.command.widgetCode}</textarea>
                 </div>
-                <script type="text/javascript">
-                    window.location.href = document.location.pathname + '#widgetCode';
-                </script>
-                <div class="divider lower"><hr/></div>
-
-            </c:when>
-            <c:otherwise>
-                <c:set var="pageName" value="Customize Widget"/>
-            </c:otherwise>
-        </c:choose>
-
-        <div class="faq">
-            <h2>GreatSchools School Finder Widget FAQ</h2>
-
-            <div class="question">1) Does the School Finder Widget cost anything?</div>
-            <div class="answer">No, it's free! And it's simple to add to your Web site.</div>
-
-            <div class="question">2) How does GreatSchools rate schools?</div>
-            <div class="answer">Public K-12 schools are rated based on a 1-10 scale that reflects
-                the test score performance of a given school relative to other schools in the same state.
-                Public School Ratings appear in pink circles on the map view.</div>
-
-            <div class="question">3) How often is the GreatSchools data updated?</div>
-            <div class="answer">We are constantly updating our data to provide you with the most
-                recent and accurate school data that is available.  Every two weeks we update with new data as it becomes available.</div>
-
-            <div class="question">4) How do I get the School Finder Widget on my Web site?</div>
-            <div class="answer">Complete steps one through five to customize the widget &amp;mdash; show schools
-                near an address or within a city, and choose the size and colors of the widget. Then simply create
-                the widget code, and copy and paste the code anywhere within your site or blog.</div>
+            </div>
+            <div class="GS_getWidget">
+                <a href="?s_cid=wsbay93">I want this widget for my site</a>
+            </div>
         </div>
     </div>
+</td>
+</tr>
+</table>
 
-    <div style="display:none">
-        <mod:tracking pageName="${pageName}"
-                      hier1="Home,ContactUs,Partner Opportunities,SchoolFinder Widget"/>
+<div class="divider lower">
+    <hr/>
+</div>
+
+<c:choose>
+    <c:when test="${requestScope.command.widgetCode ne null and requestScope.command.widgetCode gt ''}">
+        <c:set var="pageName" value="Widget Code Created"/>
+
+        <div class="widgetCode">
+            <![CDATA[<a name="widgetCode"></a>]]>
+            <p>Copy and paste this code into your Web site or blog:</p>
+            <textarea rows="20"
+                      cols="100"
+                      onfocus="this.select();"
+                      readonly="readonly">${requestScope.command.widgetCode}</textarea>
+        </div>
+        <script type="text/javascript">
+            window.location.href = document.location.pathname + '#widgetCode';
+        </script>
+        <div class="divider lower">
+            <hr/>
+        </div>
+
+    </c:when>
+    <c:otherwise>
+        <c:set var="pageName" value="Customize Widget"/>
+    </c:otherwise>
+</c:choose>
+
+<div class="faq">
+    <h2>GreatSchools School Finder Widget FAQ</h2>
+
+    <div class="question">1) Does the School Finder Widget cost anything?</div>
+    <div class="answer">No, it's free! And it's simple to add to your Web site.</div>
+
+    <div class="question">2) How does GreatSchools rate schools?</div>
+    <div class="answer">Public K-12 schools are rated based on a 1-10 scale that reflects
+        the test score performance of a given school relative to other schools in the same state.
+        Public School Ratings appear in pink circles on the map view.
     </div>
+
+    <div class="question">3) How often is the GreatSchools data updated?</div>
+    <div class="answer">We are constantly updating our data to provide you with the most
+        recent and accurate school data that is available. Every two weeks we update with new data as it becomes available.
+    </div>
+
+    <div class="question">4) How do I get the School Finder Widget on my Web site?</div>
+    <div class="answer">Complete steps one through five to customize the widget &amp;mdash; show schools
+        near an address or within a city, and choose the size and colors of the widget. Then simply create
+        the widget code, and copy and paste the code anywhere within your site or blog.
+    </div>
+</div>
+</div>
+
+<div style="display:none">
+    <mod:tracking pageName="${pageName}"
+                  hier1="Home,ContactUs,Partner Opportunities,SchoolFinder Widget"/>
+</div>
 </body>
 </html>
 </jsp:root>

@@ -29,6 +29,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private String _email;
     private int _height = CustomizeSchoolSearchWidgetController.MINIMUM_HEIGHT;
     private int _width = CustomizeSchoolSearchWidgetController.MINIMUM_WIDTH;
+    private int _zoom = 13;
     private String _dimensions = _width + "x" + _height;
     private String _backgroundColor = "BFE9F1";
     private String _textColor = "228899";
@@ -60,6 +61,14 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
 
     public void setEmail(String email) {
         _email = email;
+    }
+
+    public int getZoom() {
+        return _zoom;
+    }
+
+    public void setZoom(int zoom) {
+        _zoom = zoom;
     }
 
     public int getHeight() {
@@ -249,6 +258,9 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         rval += separator  + "width=" + getIframeWidth();
         separator = "&amp;";
         rval += separator  + "height=" + getIframeHeight();
+        rval += separator  + "zoom=" + getZoom();
+
+        
         return rval;
     }
 
