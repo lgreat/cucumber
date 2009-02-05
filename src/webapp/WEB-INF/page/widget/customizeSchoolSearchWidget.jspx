@@ -206,7 +206,8 @@
                         onChange: function(value) {
                             $('zoom_level').value = value;
                         }
-                    });                    
+                    });
+                    // We set the background image here so that it doesn't display until the onload handler runs
                     $('handle').setStyle({background:'transparent url(/res/img/widget/zoomhandle.png) no-repeat'});
                 }
                 // -->
