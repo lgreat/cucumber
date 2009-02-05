@@ -1866,7 +1866,6 @@
         <property name="successView" value="api/success" />
     </bean>
 
-    <!--
     <bean name="/api/registrationSuccess.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName" value="api/registrationSuccess"/>
@@ -1884,5 +1883,5 @@
         <property name="formView" value="api/admin/account" />
         <property name="successView" value="api/success" />
     </bean>
-    -->
+
 </beans>
