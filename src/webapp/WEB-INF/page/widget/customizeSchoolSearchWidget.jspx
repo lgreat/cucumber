@@ -27,16 +27,16 @@
     <style type="text/css">
         /* Widget frame styles */
         div#GS_schoolSearchWidget {
-            border: solid 4px # ${requestScope.command.backgroundColor};
+            border: solid 4px #${requestScope.command.backgroundColor};
             border-bottom-width: 20px;
             background-color: #FFF;
-            width: ${requestScope.command.iframeWidth+2} px;
+            width: ${requestScope.command.iframeWidth+2}px;
             position: relative;
             font-family: "Trebuchet MS", Arial, sans-serif;
         }
 
         div.GS_widget_innerBorder {
-            border: solid 1px # ${requestScope.command.bordersColor};
+            border: solid 1px #${requestScope.command.bordersColor};
         }
 
         div.GS_widget_footer {
@@ -75,7 +75,7 @@
         }
 
         div#GS_schoolSearchWidget div.GS_getWidget a, div#GS_schoolSearchWidget div.GS_getWidget a:hover {
-            color: # ${requestScope.command.textColor};
+            color: #${requestScope.command.textColor};
             font-size: 11px;
         }
     </style>
