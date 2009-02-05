@@ -64,7 +64,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             errors.rejectValue("height", null, "Minimum height is " + MINIMUM_HEIGHT + ".");
         }
 
-        String cobrandName = command.getCobrand();
+        String cobrandName = command.getCobrandSite();
         if (cobrandName != null) {
             cobrandName.trim();
             // remove any prepended http://
@@ -79,9 +79,9 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             // look for the cobrand; if not found, use www.greatschools.net
             Cobrand cobrand = _cobrandDao.getCobrandByHostname(cobrandName);
             if (cobrand == null) {
-                command.setCobrand(DEFAULT_COBRAND);
+                command.setCobrandSite(DEFAULT_COBRAND);
             } else {
-                command.setCobrand(cobrandName);
+                command.setCobrandSite(cobrandName);
             }
         }
 
@@ -204,7 +204,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
 
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_CUSTOMIZATION);
             urlBuilder.addParameter("s_cid", "wsbay93");
-            text = replaceText(text, "WIDGET_CUSTOMIZATION_PAGE", urlBuilder.asFullUrl(command.getCobrand(),80));
+            text = replaceText(text, "WIDGET_CUSTOMIZATION_PAGE", urlBuilder.asFullUrl(command.getCobrandSite(),80));
         } catch (IOException e) {
             _log.error(e);
         } finally {

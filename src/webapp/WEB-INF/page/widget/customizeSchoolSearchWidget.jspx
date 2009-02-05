@@ -286,7 +286,7 @@
                     href="mailto:widget@greatschools.net">Learn more &gt;</a><br/>
                 Otherwise, leave as www.greatschools.net.
             </div>
-            http://<form:input path="cobrand"/>
+            http://<form:input path="cobrandSite"/>
         </div>
 
         <div class="section email">

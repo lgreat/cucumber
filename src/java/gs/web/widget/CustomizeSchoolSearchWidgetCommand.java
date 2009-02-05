@@ -47,11 +47,11 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
         _searchQuery = searchQuery;
     }
 
-    public String getCobrand() {
+    public String getCobrandSite() {
         return _cobrand;
     }
 
-    public void setCobrand(String cobrand) {
+    public void setCobrandSite(String cobrand) {
         _cobrand = cobrand;
     }
 
