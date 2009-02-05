@@ -11,6 +11,11 @@
             http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
        default-autowire="byName" default-lazy-init="true">
 
+    <context:component-scan base-package="gs.web">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
     <!--
     - Application context definition for "springapp" DispatcherServlet.
     -->
