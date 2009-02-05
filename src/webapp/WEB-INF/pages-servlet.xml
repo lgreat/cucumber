@@ -30,7 +30,10 @@
         </property>
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
-
+<!--
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
+          parent="defaultHandlerMapping"/>
+-->
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
         <property name="lazyInitHandlers" value="true"/>
@@ -1852,32 +1855,5 @@
     <bean name="/promo/schoolChoicePackPromo.page"
           class="gs.web.promo.SchoolChoicePackPromoController"
           autowire="byName" lazy-init="true"/>
-
-    <bean name="/api/registration.page"
-          class="gs.web.api.RegistrationController"
-          lazy-init="true">
-        <property name="bindOnNewForm" value="true" />
-        <property name="commandClass" value="gs.data.api.ApiAccount" />
-        <property name="formView" value="api/registration" />
-        <property name="successView" value="api/success" />
-    </bean>
-
-    <bean name="/api/registrationSuccess.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName" value="api/registrationSuccess"/>
-    </bean>
-
-    <bean name="/api/admin/accounts.page"
-          class="gs.web.api.admin.AccountsController" lazy-init="true">
-    </bean>
-
-    <bean name="/api/admin/account.page"
-          class="gs.web.api.admin.AccountController"
-          lazy-init="true">
-        <property name="bindOnNewForm" value="true" />
-        <property name="commandClass" value="gs.data.api.ApiAccount" />
-        <property name="formView" value="api/admin/account" />
-        <property name="successView" value="api/success" />
-    </bean>
 
 </beans>
