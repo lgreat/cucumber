@@ -5,88 +5,111 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community">
+
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schoolName" required="false" description="Name of a school" type="java.lang.String"/>
-    <jsp:directive.attribute name="showBorder" required="true" description="Whether or not to show border around the module" type="java.lang.Boolean"/>
-    <jsp:directive.attribute name="showSchoolChoiceLink" required="true" description="Whether or not to show School Choice Center link in confirmation message" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="showBorder" required="true"
+                             description="Whether or not to show border around the module" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="showSchoolChoiceLink" required="true"
+                             description="Whether or not to show School Choice Center link in confirmation message"
+                             type="java.lang.Boolean"/>
 
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
     <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
-    <pageHelper:externalCss file="/res/css/promo/schoolChoicePackPromo.css" />
+    <pageHelper:externalCss file="/res/css/promo/schoolChoicePackPromo.css"/>
+    <jsp:directive.tag import="gs.web.util.PageHelper"/>
 
+    <community:chooserRegistrationHover/>
+    <script type="text/javascript">
+        var mslHref = '';
+        function sendToDestination() {
+            closeMslFlowDialog();
+            if (mslHref != '') {
+                window.location = mslHref;
+                mslHref = '';
+            }
+        }
+        function storeHrefOpenHover(href) {
+            mslHref = href;
+            return showLoginHover();
+        }
+    </script>
+    <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
 
     <div id="schoolChoicePackPromo" class="${showBorder ?'bordered':''}">
 
-        
-    <div id="form_panel">
-        <gsml:img src="/res/img/promo/clipboard_icon.jpg" styleClass="headicon" alt="Clipboard" />
 
-        <div class="headline">
-            <c:choose>
-                <c:when test="${not empty schoolName}">
-                    Is ${schoolName} Right for Your Child?
-                </c:when>
-                <c:otherwise>
-                    What school is right for your child?
-                </c:otherwise>
-            </c:choose>
-        </div>
-        <div class="blurb">
-           Find the right school with our School Chooser tip sheet. You will also receive emails to help you keep your child on track in school.
-        </div>
-                    <form id="scpp_form" action="">
-        <div>
-            I'm looking for a:
-                <div class="levs">
-                    <div class="left_levs">
-                        <div>
-                            <input type="checkbox" id="p_check" name="p" class="ck" />
-                            <label for="p_check">Preschool</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="e_check" name="e" class="ck" />
-                            <label for="e_check">Elementary school</label>
-                        </div>
-                    </div>
-                    <div class="right_levs">
-                        <div>
-                            <input type="checkbox" id="m_check" name="m" class="ck" />
-                            <label for="m_check">Middle school</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="h_check" name="h" class="ck"/>
-                            <label for="h_check">High school</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="email_go">
-                    <input id="cemail" name="cemail"
-                           class="required email" value="Enter Email Address"/>
-                    <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
-                           onmouseover="this.src='/res/img/splash/goOver.gif';"
-                           class="button" alt="GO" src="/res/img/splash/go.gif" type="image" />
-                </div>
-        </div>
-        <div class="privacy_terms">
-            <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
-            <span id="privacy_terms_text">I agree to the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
-        </div>
-            </form>
-    </div>
+        <div id="form_panel">
+            <gsml:img src="/res/img/promo/clipboard_icon.jpg" styleClass="headicon" alt="Clipboard"/>
 
-    <div id="confirm_panel" style="display:none">
-        <div class="headline">
-            Thank you!
-        </div>
-
-        <div class="blurb">The Chooser packs for the grade level(s) you have selected will be sent to your email shortly.</div>
-        <c:if test="${showSchoolChoiceLink}">
-            <div class="blurb">In the meantime -
-                <link:schoolChoiceCenter>check out our tips for getting started &gt;</link:schoolChoiceCenter>
+            <div class="headline">
+                <c:choose>
+                    <c:when test="${not empty schoolName}">
+                        Is ${schoolName} Right for Your Child?
+                    </c:when>
+                    <c:otherwise>
+                        What school is right for your child?
+                    </c:otherwise>
+                </c:choose>
             </div>
-        </c:if>
-    </div>
+            <div class="blurb">
+                Find the right school with our School Chooser tip sheet. You will also receive emails to help you keep your child on track in school.
+            </div>
+            <form id="scpp_form" action="">
+                <div>
+                    I'm looking for a:
+                    <div class="levs">
+                        <div class="left_levs">
+                            <div>
+                                <input type="checkbox" id="p_check" name="p" class="ck"/>
+                                <label for="p_check">Preschool</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="e_check" name="e" class="ck"/>
+                                <label for="e_check">Elementary school</label>
+                            </div>
+                        </div>
+                        <div class="right_levs">
+                            <div>
+                                <input type="checkbox" id="m_check" name="m" class="ck"/>
+                                <label for="m_check">Middle school</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="h_check" name="h" class="ck"/>
+                                <label for="h_check">High school</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="email_go">
+                        <input id="cemail" name="cemail"
+                               class="required email" value="Enter Email Address"/>
+                        <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
+                               onmouseover="this.src='/res/img/splash/goOver.gif';"
+                               class="button" alt="GO" src="/res/img/splash/go.gif" type="image"
+                               onclick="${mslOnclick}"/>
+                    </div>
+                </div>
+                <div class="privacy_terms">
+                    <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
+                    <span id="privacy_terms_text">I agree to the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
+                </div>
+            </form>
+        </div>
+
+        <div id="confirm_panel" style="display:none">
+            <div class="headline">
+                Thank you!
+            </div>
+
+            <div class="blurb">The Chooser packs for the grade level(s) you have selected will be sent to your email shortly.</div>
+            <c:if test="${showSchoolChoiceLink}">
+                <div class="blurb">In the meantime -
+                    <link:schoolChoiceCenter>check out our tips for getting started &gt;</link:schoolChoiceCenter>
+                </div>
+            </c:if>
+        </div>
     </div>
 </jsp:root>

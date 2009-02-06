@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.146 2009/01/21 10:08:00 eddie Exp $
+ * $Id: UrlBuilder.java,v 1.147 2009/02/06 03:03:36 npatury Exp $
  */
 
 package gs.web.util;
@@ -135,6 +135,10 @@ public class UrlBuilder {
     public static final VPage COMMUNITY_LANDING = new VPage("vpage:communityLanding");
     public static final VPage CHANGE_EMAIL = new VPage("vpage:changeEmail");
     public static final VPage ACCOUNT_INFO = new VPage("vpage:accountInfo");
+     /**
+      * for the four part tip sheet promo
+      */
+    public static final VPage CHOOSER_REGISTRATION_HOVER = new VPage("vpage:chooserRegistrationHover");
 
     /**
      * school profile pages
@@ -782,7 +786,12 @@ public class UrlBuilder {
             }
             sb.append("/preschools/");
             _path = sb.toString();
-        } else {
+        }
+        else if(CHOOSER_REGISTRATION_HOVER.equals(page)){
+            _perlPage = false;
+            _path = "/community/registration/popup/chooserRegistrationHover.page";
+           
+        }else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }

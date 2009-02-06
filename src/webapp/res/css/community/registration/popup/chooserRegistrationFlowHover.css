@@ -1,0 +1,21 @@
+#mslFlowDialog {
+    position: relative;
+    height:500px;
+}
+
+/*#mslFlowDialogTopBar {
+    background-color: #8BCBCB;
+    height: 26px;
+    position: relative;
+}
+
+    #mslFlowDialogTopBar .dialogClose {
+        position: absolute;
+        right: 8px;
+        top: 5px;
+        cursor: pointer;
+    }  */
+
+#mslFlowDialogBody {
+   background: url(/res/img/community/registration/join_pop_body.gif) repeat-y;
+}
