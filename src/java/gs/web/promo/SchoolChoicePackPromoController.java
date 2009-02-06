@@ -9,15 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.web.util.ReadWriteController;
-import gs.web.util.NewSubscriberDetector;
 import gs.web.util.PageHelper;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.JsonBasedOmnitureTracking;
 
@@ -31,7 +27,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
     public static final String LEVELS_PARAM = "levels";
     public static final String PAGE_NAME = "pageName";
     public static final String SCHOOL_CHOICE_PACK_TRIGGER_KEY = "chooser_pack_trigger";
-    public static final String CHOOSER_TIP_SHEET_TRIGGER_KEY = "chooser_tip_sheet_trigger"; 
+    public static final String CHOOSER_SERIES_TRIGGER_KEY = "chooser_series_trigger";
 
     private ISubscriptionDao _subscriptionDao;
     private IUserDao _userDao;
@@ -59,19 +55,8 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
 
             JsonBasedOmnitureTracking omnitureTracking = new JsonBasedOmnitureTracking();
 
-            NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, omnitureTracking);
             omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ChoicePackRequest);
             omnitureTracking.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.CrossPromotion, "Chooser_pack_" + pageName));
-
-            // add PA subscription
-            List<Subscription> subs = new ArrayList<Subscription>();
-            Subscription communityNewsletterSubscription = new Subscription();
-            communityNewsletterSubscription.setUser(user);
-            communityNewsletterSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
-            communityNewsletterSubscription.setState(SessionContextUtil.getSessionContext(request).getStateOrDefault());
-            subs.add(communityNewsletterSubscription);
-
-            _subscriptionDao.addNewsletterSubscriptions(user, subs);
 
             // add each promo level as a new subscription
             for (String level : levels) {
@@ -96,7 +81,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             PageHelper.setMemberCookie(request, response, user);
             triggerPromoPackEmail(user, levels);
             if(user.isCommunityMember()){
-                triggerChooserTipSheet(user);
+                triggerChooserSeries(user);
             }
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
@@ -122,9 +107,9 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
         _exactTargetAPI.sendTriggeredEmail(SCHOOL_CHOICE_PACK_TRIGGER_KEY, user, attributes);
     }
 
-    void triggerChooserTipSheet(User user){
+    void triggerChooserSeries(User user){
 
-        _exactTargetAPI.sendTriggeredEmail(CHOOSER_TIP_SHEET_TRIGGER_KEY,user);
+        _exactTargetAPI.sendTriggeredEmail(CHOOSER_SERIES_TRIGGER_KEY,user);
     }
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
