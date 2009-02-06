@@ -58,8 +58,6 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
         expect(_mockSubscriptionDao.isUserSubscribed(u,
                 SubscriptionProduct.SCHOOL_CHOOSER_PACK_MIDDLE, null)).andReturn(Boolean.FALSE);
         _mockSubscriptionDao.saveSubscription(m_sub);        
-        
-        _mockSubscriptionDao.addNewsletterSubscriptions(u, subs);
 
         replay(_mockSubscriptionDao);
 
@@ -101,8 +99,6 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
         expect(_mockSubscriptionDao.isUserSubscribed(isA(User.class),
                 isA(SubscriptionProduct.class), (Date)isNull())).andReturn(Boolean.FALSE);
         _mockSubscriptionDao.saveSubscription(m_sub);
-
-        _mockSubscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
 
         replay(_mockSubscriptionDao);
 
