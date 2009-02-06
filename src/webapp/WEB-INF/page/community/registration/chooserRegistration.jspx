@@ -4,10 +4,10 @@
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         >
 
     <html lang="en">
@@ -24,7 +24,8 @@
         <pageHelper:externalCss file="/res/css/community/registration/chooserRegistration.css"/>
         <script type="text/javascript">
             <![CDATA[
-            <!--
+            <
+            !--
                     function scrollToError() {
                         window.location.href = document.location.pathname + '#error';
                     }
@@ -72,8 +73,8 @@
                 element.onclick = new Function('return false;');
                 return true;
             }
-            -->
-            ]]>
+            -- >
+                ]]>
         </script>
     </head>
 
@@ -83,106 +84,7 @@
         <div id="chooserRegistration">
 
             <h1>Personalize your school search!</h1>
-
-            <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
-
-                <div id="loginDetails">
-                    <h2>Your login details</h2>
-                    <ul>
-                        <li id="emailLine">
-                            <div class="label"><label for="email">Email address:</label></div>
-                            <spring:bind path="userCmd.user.email">
-                                <input id="email" type="text" name="${status.expression}" value="${status.value}"
-                                       tabindex="6"/>
-                            </spring:bind>
-                            <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
-                        </li>
-
-                        <li>
-                            <div class="label"><label for="firstName">First name:</label></div>
-                            <spring:bind path="userCmd.user.firstName">
-                                <input id="firstName" type="text" name="${status.expression}" value="${status.value}"
-                                       tabindex="5"/>
-                            </spring:bind>
-                            <gsml:errorMessage command="userCmd" field="firstName" useImage="true"
-                                               styleClass="warning"/>
-                        </li>
-
-                        <li id="usernameLine">
-                            <div class="label"><label for="screenName">Username:</label></div>
-                            <spring:bind path="userCmd.screenName">
-                                <input id="screenName" type="text" name="${status.expression}" value="${status.value}"
-                                       tabindex="4"/>
-                            </spring:bind>
-                            <gsml:errorMessage command="userCmd" field="screenName" useImage="true"
-                                               styleClass="warning"/>
-                            <span id="userDetails">6-14 characters</span>
-                        </li>                        
-
-                        <li id="passwordLine">
-                            <div class="label"><label for="password">Password:</label></div>
-                            <spring:bind path="userCmd.password">
-                                <input id="password" type="password" name="${status.expression}" value="" tabindex="7"/>
-                            </spring:bind>
-                            <gsml:errorMessage command="userCmd" field="password" useImage="true" styleClass="warning"/>
-                            <span id="passwordDetails">6-14 characters</span>
-                        </li>
-
-                        <li>
-                            <div class="label"><label for="confirmPassword">Confirm password:</label></div>
-                            <spring:bind path="userCmd.confirmPassword">
-                                <input id="confirmPassword" type="password" name="${status.expression}" value=""
-                                       tabindex="8"/>
-                            </spring:bind>
-                            <gsml:errorMessage command="userCmd" field="confirmPassword" useImage="true"
-                                               styleClass="warning"/>
-                        </li>
-
-                    </ul>
-                </div>
-
-                <div id="schoolChoiceLocation">
-                    <h2>Where are you choosing schools?</h2>
-                    <ul>
-                        <li id="stateline">
-                            <!-- State -->
-                            <div class="label"><label id="stateLabel">State:</label></div>
-                            <spring:bind path="userCmd.state">
-                                <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                                     onChange="stateChange(this);" tabIndex="9"/>
-                            </spring:bind>
-                            <gsml:errorMessage command="userCmd" field="state" useImage="true" styleClass="warning"/>
-                        </li>
-
-                        <li id="cityLine">
-                            <!-- City -->
-                            <div class="label"><label id="cityLabel">City:</label></div>
-                            <span id="city">
-                                <select name="city" tabindex="10">
-                                    <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
-                                        <option selected="selected" value="">Choose city</option>
-                                    </c:if>
-                                    <c:forEach var="cityOption" items="${userCmd.cityList}">
-                                        <![CDATA[<option ]]>
-                                        <c:if test="${userCmd.city eq cityOption.name}">
-                                            selected="selected"
-                                        </c:if>
-                                        <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                                    </c:forEach>
-                                </select>
-                            </span>
-                            <gsml:errorMessage command="userCmd" field="city" useImage="true" styleClass="warning"/>
-                        </li>
-                    </ul>
-
-                    <div id="formSubmit">
-                        <div id="cancel"><link:schoolChoiceCenter>No thanks &amp;gt;</link:schoolChoiceCenter></div>
-                        <div id="submit"><input type="image" src="/res/img/community/registration/join_pop_save.gif" alt="Save" /></div>
-                    </div>
-                </div>
-
-            </gsweb:form>
-
+            <community:chooserRegistration/>
         </div>
 
         <mod:tracking pageName="Short On Page Registration"
