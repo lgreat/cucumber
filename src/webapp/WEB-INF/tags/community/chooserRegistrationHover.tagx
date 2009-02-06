@@ -12,6 +12,8 @@
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"/>
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
 
+   
+
     <script language="JavaScript" type="text/javascript">
         <![CDATA[
         //<!--
@@ -74,8 +76,10 @@
         </div>
         <div id="mslFlowDialogBody">
             <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
-                    width="445" height="440" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                    width="445" height="420" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+            <a href="#" onclick="closeMslFlowDialog();" class="closeWindowClass">CLOSE WINDOW</a>
         </div>
+
         <div id="mslFlowDialogBottomBar">
             <img src="/res/img/community/registration/join_pop_bottom.gif" alt="Close window" onclick="closeMslFlowDialog();"/>
         </div>

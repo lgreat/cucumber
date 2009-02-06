@@ -17,5 +17,12 @@
     }  */
 
 #mslFlowDialogBody {
+   padding-left:15px;
    background: url(/res/img/community/registration/join_pop_body.gif) repeat-y;
+}
+
+.closeWindowClass{
+    font-size:12px;
+    margin-left:180px;
+
 }
