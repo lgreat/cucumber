@@ -142,8 +142,8 @@
     <form:form cssClass="customize" name="customizeForm" method="post">
         <div class="section searchQuery">
             <div class="step"><span class="step">Step 1:</span>
-                <span class="title">Choose address, ZIP code, or city and state</span></div>
-            <div class="instructions">Pick the location that you'd like your widget to feature.</div>
+                <span class="title">Choose address, ZIP code or city and state</span></div>
+            <div class="instructions">Pick the location you'd like your widget to feature.</div>
             <form:input path="searchQuery"/>
         </div>
 
@@ -151,8 +151,7 @@
             <div class="step"><span class="step">Step 2:</span>
                 <span class="title">Choose the size</span></div>
             <div class="instructions">
-                Do you want the widget to be small for
-                your blog, or full page for your Web site?
+                Do you want the widget to be small (for your blog) or full page (for your Web site)?
             </div>
             <gsml:errorMessage command="command" field="height" useImage="true" styleClass="warning"/>
             <gsml:errorMessage command="command" field="width" useImage="true" styleClass="warning"/>
@@ -179,9 +178,9 @@
 
         <div class="section widgetZoom">
             <div class="step"><span class="step">Step 3:</span>
-                <span class="title">Choose the default zoom level</span></div>
+                <span class="title">Select the default zoom level</span></div>
             <div class="instructions">
-                Use the slider below to set the initial zoom level of your widget.
+                Use the slider below to set the automatic zoom level of your widget.
             </div>
             <div id="zoom_container">
                 <img onclick="zoom_control.setValueBy(-1);" src="/res/img/widget/zoomout.png" alt="zoom out"/>
@@ -295,7 +294,7 @@
             <div class="instructions">
                 Required to customize the widget. We'll
                 send your widget code directly to your
-                inbox.
+                in-box.
             </div>
             <gsml:errorMessage command="command" field="email" useImage="true" styleClass="warning"/>
             <form:input path="email"/>
