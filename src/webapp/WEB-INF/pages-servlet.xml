@@ -1218,6 +1218,7 @@
             <ref bean="mailSender"/>
         </property>
         <property name="requireEmailValidation" value="false"/>
+        <property name="chooserRegistration" value="false"/>
         <property name="tableDao">
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
         </property>
@@ -1856,25 +1857,6 @@
           class="gs.web.promo.SchoolChoicePackPromoController"
           autowire="byName" lazy-init="true"/>
 
-       <bean name="/community/registration/popup/chooserRegistrationHover.page"
-             class="gs.web.community.registration.RegistrationController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="userCmd"/>
-        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
-         <property name="formView" value="community/registration/popup/chooserRegistrationHover"/>
-        <property name="successView" value="redirect:/community/registration2.page"/>
-        <property name="errorView" value="/community/registration/registrationSoapError"/>
-        <property name="validators">
-            <list>
-                <ref local="emailValidator"/>
-            </list>
-        </property>
-        <property name="mailSender">
-            <ref bean="mailSender"/>
-        </property>
-     </bean>
-
     <bean name="/api/registration.page"
           class="gs.web.api.RegistrationController"
           autowire="byName" lazy-init="true">
@@ -1903,14 +1885,13 @@
         <property name="successView" value="api/success" />
     </bean>
 
-    <bean name="/community/chooserRegistration.page"
+    <bean name="/community/registration/popup/chooserRegistrationHover.page"
           class="gs.web.community.registration.RegistrationController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
-        <property name="formView" value="/community/registration/chooserRegistration"/>
-        <property name="successView" value="redirect:/community/registration2.page"/>
+        <property name="formView" value="community/registration/popup/chooserRegistrationHover"/>
         <property name="errorView" value="/community/registration/registrationSoapError"/>
         <property name="validators">
             <list>
@@ -1921,11 +1902,27 @@
             <ref bean="mailSender"/>
         </property>
         <property name="requireEmailValidation" value="false"/>
-        <!--
-        <property name="tableDao">
-            <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
+        <property name="chooserRegistration" value="true"/>
+    </bean>
+
+    <bean name="/community/chooserRegistration.page"
+          class="gs.web.community.registration.RegistrationController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="userCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="formView" value="/community/registration/chooserRegistration"/>
+        <property name="errorView" value="/community/registration/registrationSoapError"/>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+            </list>
         </property>
-        -->
+        <property name="mailSender">
+            <ref bean="mailSender"/>
+        </property>
+        <property name="requireEmailValidation" value="false"/>
+        <property name="chooserRegistration" value="true"/>
     </bean>
 
 </beans>

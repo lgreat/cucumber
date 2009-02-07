@@ -50,6 +50,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private boolean _requireEmailValidation = true;
     private String _errorView;
     private CreateOrUpdateUserRequest _soapRequest;
+    private boolean _chooserRegistration;
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
     public static final String TERMS_PARAMETER = "termsStr";
     public static final String BETA_PARAMETER = "betaStr";
@@ -83,6 +84,13 @@ public class RegistrationController extends SimpleFormController implements Read
                     _userDao.updateUser(user);
                 }
             }
+        }
+
+        if (isChooserRegistration()) {
+            userCommand.setTerms(true);
+            userCommand.setNewsletter(false);
+            userCommand.setBeta(false);
+            userCommand.setRedirectUrl("/school-choice/?confirm=true");
         }
     }
 
@@ -172,7 +180,7 @@ public class RegistrationController extends SimpleFormController implements Read
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
         
-        if (userProfile.getNumSchoolChildren() > 0) {
+        if (userProfile.getNumSchoolChildren() != null && userProfile.getNumSchoolChildren() > 0) {
             // send to page 2
             mAndV.setViewName(getSuccessView());
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
@@ -196,9 +204,13 @@ public class RegistrationController extends SimpleFormController implements Read
             if (!notifyCommunity(user, userCommand, mAndV, request)) {
                 return mAndV; // early exit!
             }
-
+            if (isChooserRegistration()) {
+                // TODO GS-7917, GS-7919 - call ExactTarget API to subscribe user to email series?
+            }
             if (!user.isEmailProvisional()) {
-                sendConfirmationEmail(user, userCommand, request);
+                if (!isChooserRegistration()) {
+                    sendConfirmationEmail(user, userCommand, request);
+                }
             }
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
             if (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
@@ -302,6 +314,10 @@ public class RegistrationController extends SimpleFormController implements Read
             user.setUserProfile(userProfile);
 
             ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
+            if (isChooserRegistration()) {
+                user.getUserProfile().setHow("chooser");
+                ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "Chooser Reg"));
+            }
         }
         user.getUserProfile().setUpdated(new Date());        
         if (userProfile.getNumSchoolChildren() == -1) {
@@ -454,5 +470,13 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setTableDao(ITableDao tableDao) {
         _tableDao = tableDao;
+    }
+
+    public boolean isChooserRegistration() {
+        return _chooserRegistration;
+    }
+
+    public void setChooserRegistration(boolean chooserRegistration) {
+        _chooserRegistration = chooserRegistration;
     }
 }

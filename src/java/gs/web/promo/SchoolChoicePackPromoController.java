@@ -81,7 +81,8 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             PageHelper.setMemberCookie(request, response, user);
             triggerPromoPackEmail(user, levels);
             if(user.isCommunityMember()){
-                triggerChooserSeries(user);
+                // TODO GS-7917, GS-7919 - call ExactTarget API to subscribe user to email series?
+                //triggerChooserSeries(user);
             }
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();

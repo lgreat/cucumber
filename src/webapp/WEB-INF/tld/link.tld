@@ -2281,7 +2281,14 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>CSS id</description>
-        </attribute>        
+        </attribute>
+        <attribute>
+            <name>showConfirmation</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>Whether or not to show the school chooser tip sheet confirmation message instead of the form</description>
+        </attribute>
     </tag>
     <tag>
         <name>specialNeeds</name>

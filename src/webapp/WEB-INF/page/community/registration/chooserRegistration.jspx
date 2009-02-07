@@ -24,8 +24,7 @@
         <pageHelper:externalCss file="/res/css/community/registration/chooserRegistration.css"/>
         <script type="text/javascript">
             <![CDATA[
-            <
-            !--
+            <!--
                     function scrollToError() {
                         window.location.href = document.location.pathname + '#error';
                     }
@@ -42,39 +41,8 @@
                     parameters: pars
                 });
             }
-
-            function determinePageState() {
-                var otherGender = $('other');
-                var numChildren = $('numSchoolChildren');
-
-                if (otherGender.checked || numChildren.value == '0') {
-                    // show terms and join, hide next
-                    $('submitButton').src = '/res/img/community/registration/joinbutton.gif';
-                    $('newsletter').show();
-                    $('betaGroup').show();
-                    $('terms').show();
-                    if (otherGender.checked) {
-                        // hide numChildren
-                        $('numChildren').hide();
-                    } else {
-                        $('numChildren').show();
-                    }
-                } else {
-                    // hide terms and join, show next
-                    $('newsletter').hide();
-                    $('betaGroup').hide();
-                    $('terms').hide();
-                    $('numChildren').show();
-                    $('submitButton').src = '/res/img/community/registration/nextbutton.gif';
-                }
-            }
-
-            function doSingleClick(element) {
-                element.onclick = new Function('return false;');
-                return true;
-            }
-            -- >
-                ]]>
+            -->
+            ]]>
         </script>
     </head>
 
@@ -84,7 +52,7 @@
         <div id="chooserRegistration">
 
             <h1>Personalize your school search!</h1>
-            <community:chooserRegistration/>
+            <community:chooserRegistration formAction="/community/chooserRegistration.page"/>
         </div>
 
         <mod:tracking pageName="Short On Page Registration"

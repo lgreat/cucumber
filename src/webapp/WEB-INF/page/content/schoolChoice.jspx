@@ -282,7 +282,7 @@
 
                 <div id="schoolChoicePromo" class="box">
                     <div class="inner">
-                        <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"/>
+                        <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}" showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
                     </div>
                 </div>
 

@@ -15,6 +15,7 @@
     <jsp:directive.attribute name="showSchoolChoiceLink" required="true"
                              description="Whether or not to show School Choice Center link in confirmation message"
                              type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="showConfirmation" required="false" description="Whether or not to show just the confirmation message instead of the form" type="java.lang.Boolean"/>
 
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
@@ -41,8 +42,18 @@
 
     <div id="schoolChoicePackPromo" class="${showBorder ?'bordered':''}">
 
+        <c:choose>
+            <c:when test="${showConfirmation}">
+                <c:set var="formPanelDisplay" value="none"/>
+                <c:set var="confirmPanelDisplay" value="block"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="formPanelDisplay" value="block"/>
+                <c:set var="confirmPanelDisplay" value="none"/>
+            </c:otherwise>
+        </c:choose>
 
-        <div id="form_panel">
+        <div id="form_panel" style="display:${formPanelDisplay}">
             <gsml:img src="/res/img/promo/clipboard_icon.jpg" styleClass="headicon" alt="Clipboard"/>
 
             <div class="headline">
@@ -99,7 +110,7 @@
             </form>
         </div>
 
-        <div id="confirm_panel" style="display:none">
+        <div id="confirm_panel" style="display:${confirmPanelDisplay}">
             <div class="headline">
                 Thank you!
             </div>

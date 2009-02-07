@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.147 2009/02/06 03:03:36 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.148 2009/02/07 02:29:15 yfan Exp $
  */
 
 package gs.web.util;
@@ -532,6 +532,16 @@ public class UrlBuilder {
             _path = "/community/registration.page";
         } else {
             throw new IllegalArgumentException("VPage not valid for this constructor: " + page);
+        }
+    }
+
+    public UrlBuilder(VPage page, boolean showConfirmation) {
+        // GS-7917
+        if (SCHOOL_CHOICE_CENTER.equals(page)) {
+            _perlPage = false;
+            _path = "/school-choice/?confirm=" + showConfirmation;
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
 

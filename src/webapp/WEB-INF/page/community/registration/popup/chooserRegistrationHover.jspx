@@ -40,10 +40,11 @@
 
         </div>
         <div>
-           <community:chooserRegistration/> 
+           <community:chooserRegistration formAction="/community/registration/popup/chooserRegistrationHover.page"/> 
         </div>
 
-       
+        <mod:tracking pageName="Short Registration Hover"
+                      hier1="Account,Registration,Short Registration Hover"/>
 
     </gsml:body>
     </html>
