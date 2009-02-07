@@ -25,12 +25,12 @@
     ]]>
     <title>Join &amp;amp; Sign In - GreatSchools</title>
         <pageHelper:externalCss file="/res/css/community/registration/popup/chooserRegistrationHover.css"/>
-        <pageHelper:externalCss file="/res/css/community/registration/chooserRegistration.css"/>
+        <pageHelper:externalCss file="/res/css/community/registration/chooserRegistrationCommon.css"/>
     </head>
 
     <gsml:body adPageName="community/chooserRegistrationHover">
 
-        <div class="topTextDiv">
+        <div id="topTextDivId">
             <ul>
                 <li>Receive a customized four-part email series to guide you step-by-step through your search
                 </li>
@@ -40,7 +40,7 @@
 
         </div>
         <div>
-           <community:chooserRegistration formAction="/community/registration/popup/chooserRegistrationHover.page"/> 
+           <community:chooserRegistration formAction="/community/registration/popup/chooserRegistrationHover.page"/>
         </div>
 
         <mod:tracking pageName="Short Registration Hover"

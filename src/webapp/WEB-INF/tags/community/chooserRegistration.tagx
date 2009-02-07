@@ -72,7 +72,7 @@
         <div id="schoolChoiceLocation">
             <h2>Where are you choosing schools?</h2>
             <ul>
-                <li id="stateline">
+                <li id="stateLine">
                     <!-- State -->
                     <div class="label"><label id="stateLabel">State:</label></div>
                     <spring:bind path="userCmd.state">

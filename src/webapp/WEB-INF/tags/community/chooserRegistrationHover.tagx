@@ -76,7 +76,7 @@
         </div>
         <div id="mslFlowDialogBody">
             <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
-                    width="445" height="420" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                    width="445" height="427" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
             <a href="#" onclick="closeMslFlowDialog();" class="closeWindowClass">CLOSE WINDOW</a>
         </div>
 

@@ -1,17 +1,64 @@
-.topTextDiv
+#chooserRegistration #loginDetails ul{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+
+#topTextDivId li,#topTextDivId ul
 {
     font-family: Trebuchet MS;
     font-size: 12px;
     color:#666666;
+    margin:8px;
+    padding:0px;
+}
+#chooserRegistration #loginDetails h2 {
+    display:none;
 }
 
-ul,li
-{
-   margin:10px;
-   padding:0px;
+#chooserRegistration #schoolChoiceLocation {
+    width: 420px;
+    height: 150px;
 }
 
+#chooserRegistration #schoolChoiceLocation h2{
+    font-family: Trebuchet MS;
+    font-size: 14px;
+    color:#666666;
+    font-weight:normal;
+    padding-left:30px;
+}
 
+ 
+#chooserRegistration #schoolChoiceLocation ul{
+    list-style: none;
+     margin: 0px;
+     padding: 0px;
+}
 
+#chooserRegistration #schoolChoiceLocation ul li#stateLine{
+   width:150px;
+    float:left;
+    height:40px;
+}
 
+#chooserRegistration #schoolChoiceLocation ul li#cityLine{
+   width:270px;
+    float:left;
+    height:40px;
+
+}
+
+#chooserRegistration #schoolChoiceLocation ul li div.label {
+   padding-left:30px;
+}
+
+#chooserRegistration #schoolChoiceLocation ul li select {
+    margin-top: -2px;
+}
+
+#chooserRegistration #formSubmit div {
+     height: 50px;
+}
 

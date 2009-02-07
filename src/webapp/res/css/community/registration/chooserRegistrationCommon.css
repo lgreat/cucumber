@@ -1,0 +1,81 @@
+#chooserRegistration #loginDetails ul li {
+    position: relative;
+    clear: both;
+    height: 18px;
+    padding-bottom: 14px;
+}
+#chooserRegistration #loginDetails ul li#usernameLine, #chooserRegistration #loginDetails ul li#passwordLine {
+    height: 26px;
+    padding-bottom: 14px;
+}
+
+#chooserRegistration #loginDetails ul li div.label {
+   padding-right: 10px;
+    width: 160px;
+    height: 18px;
+    text-align: right;
+    float: left;
+}
+
+#chooserRegistration #loginDetails ul li label {
+    color: #666666;
+    font-size: 14px;
+}
+
+#chooserRegistration #loginDetails ul li input {
+    border: 1px #a8cedf solid;
+    width: 258px;
+    color: #444444;
+    float: right;
+}
+
+#userDetails, #passwordDetails {
+    font-size: 11px;
+    font-style: italic;
+    color: #999999;
+    width: 160px;
+    position: absolute;
+    text-align: right;
+    top: 21px;
+    left: 0;
+    padding-right: 10px;
+    padding-bottom: 14px;
+}
+   
+#chooserRegistration #loginDetails h2 {
+    background: url(/res/img/community/registration/join_16_1.gif) no-repeat;
+}
+
+
+
+
+#chooserRegistration #schoolChoiceLocation ul li div.label {
+    width: 70px;
+    height: 18px;
+    bottom: 0;
+    float: left;
+    /*background-color: red;*/
+}
+
+
+#chooserRegistration #schoolChoiceLocation ul li {
+    /*clear: both;*/
+    height: 18px;
+    padding-bottom: 14px;
+}
+
+
+#chooserRegistration #schoolChoiceLocation ul li label {
+    color: #666666;
+    font-size: 14px;
+}
+
+#chooserRegistration #schoolChoiceLocation ul li select {
+    margin-top: -2px;
+}
+
+#chooserRegistration #formSubmit a, #chooserRegistration #formSubmit a:link, #chooserRegistration #formSubmit a:visited, #chooserRegistration #formSubmit a:active {
+    text-decoration: underline;
+    color: #3399AA;
+    font-size: 11px;
+}
