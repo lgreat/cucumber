@@ -55,6 +55,7 @@
         <pattern>*/survey/edit.page*</pattern>
         <pattern>*/ads/tacoda/*</pattern>
         <pattern>*/tableMover.page*</pattern>
+        <pattern>*/api/admin/*</pattern>
     </excludes>
 
 </decorators>

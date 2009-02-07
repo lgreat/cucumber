@@ -16,21 +16,31 @@
 
 <head>
     <title>GreatSchools.net API Accounts</title>
-    <meta content="todo" name="description"/>
-    <meta content="todo" name="keywords"/>
 
-    <pageHelper:externalCss file="/res/css/widelayout.css" />
+    <!--<pageHelper:externalCss file="/res/css/widelayout.css" />-->
     <pageHelper:externalCss file="/res/css/api/registration.css" />
 
     <!--<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>-->
 </head>
 
 <body >
-    <div>accounts</div>
-<c:forEach var="account" items="accounts">
-    <h1>account</h1>
-    ${account}
-</c:forEach>
+<div>accounts</div>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Organization</th>
+        <th>Email</th>
+        <th>Active</th>
+    </tr>
+    <c:forEach items="${accounts}" var="account">
+        <tr>
+        <td>${account.name}</td>
+        <td>${account.organization}</td>
+        <td>${account.email}</td>
+        <td>..</td>
+        </tr>
+    </c:forEach>
+</table>
 </body>
 </html>
 </jsp:root>

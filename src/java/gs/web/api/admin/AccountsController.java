@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.api.IApiAccountDao;
 
+import java.util.Map;
+import java.util.HashMap;
+
 /**
  * Created by chriskimm@greatschools.net
  */
@@ -20,10 +23,9 @@ public class AccountsController extends AbstractController {
     private final static String ACCOUNTS_VIEW_NAME = "/api/admin/accounts";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        ModelAndView mAndV = new ModelAndView();
-        mAndV.setViewName(ACCOUNTS_VIEW_NAME);
-        mAndV.getModelMap().addAttribute("accounts", _apiAccountDao.getAllAccounts());
-        return mAndV;
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("accounts", _apiAccountDao.getAllAccounts());
+        return new ModelAndView(ACCOUNTS_VIEW_NAME, model);
     }
 
     public IApiAccountDao getApiAccountDao() {

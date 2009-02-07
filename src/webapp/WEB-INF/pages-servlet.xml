@@ -33,10 +33,7 @@
         </property>
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
-<!--
-    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
-          parent="defaultHandlerMapping"/>
--->
+
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
         <property name="lazyInitHandlers" value="true"/>
@@ -1876,7 +1873,17 @@
         <property name="mailSender">
             <ref bean="mailSender"/>
         </property>
-       </bean>
+     </bean>
+
+    <bean name="/api/registration.page"
+          class="gs.web.api.RegistrationController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true" />
+        <property name="commandName" value="accountCommand" />
+        <property name="commandClass" value="gs.data.api.ApiAccount" />
+        <property name="formView" value="api/registration" />
+        <property name="successView" value="api/success" />
+    </bean>
 
     <bean name="/api/registrationSuccess.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
