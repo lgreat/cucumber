@@ -14,7 +14,7 @@
     <jsp:directive.attribute name="formAction" required="true" description="The url the form should submit to" type="java.lang.String"/>
 
     <gsweb:form action="${formAction}" method="post">
-
+       <div id="chooserRegistration">
         <div id="loginDetails">
             <h2>Your login details</h2>
             <ul>
@@ -109,7 +109,7 @@
                                         alt="Save" tabindex="7"/></div>
             </div>
         </div>
-
+       </div>
         <script type="text/javascript">
             document.getElementById('firstName').focus();
         </script>

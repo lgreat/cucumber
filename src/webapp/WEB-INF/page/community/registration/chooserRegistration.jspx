@@ -50,7 +50,7 @@
     <gsml:body adPageName="community/chooserRegistration">
         <ad:setSlotPrefix slotPrefix="ChooserRegistration"/>
 
-        <div id="chooserRegistration">
+        <div id="chooserRegistrationWrapper">
 
             <h1>Personalize your school search!</h1>
             <community:chooserRegistration formAction="/community/chooserRegistration.page"/>
