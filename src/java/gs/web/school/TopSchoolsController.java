@@ -119,7 +119,7 @@ public class TopSchoolsController extends AbstractController {
      * from a parent and 4 or 5 stars (preferring 5 stars).
      */
     protected Object[] getReviewText(School school) {
-        String reviewText = _schoolDao.getPrincipalSchoolVision(school);
+        String reviewText = _schoolDao.getPrincipalSchoolVision(school, true);
         boolean reviewSubmitterParent = false;
         if (reviewText == null || reviewText.length() < 3) {
             reviewSubmitterParent = true;
