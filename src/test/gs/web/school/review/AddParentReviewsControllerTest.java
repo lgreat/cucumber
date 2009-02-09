@@ -253,10 +253,11 @@ public class AddParentReviewsControllerTest extends BaseControllerTestCase {
         _controller.errorXML(getResponse(), _errors);
 
         assertEquals("application/xml", getResponse().getContentType());
-        assertEquals("<errors>\n" +
-                "<error key=\"addPR_error_confirmation_email\">The confirmation email is not the same as your email.</error>\n" +
-                "<error key=\"addPR_error_comments\">Please enter a review or rating.</error>\n" +
-                "</errors>\n", getResponse().getContentAsString());
+        String lineSeparator = System.getProperty("line.separator");
+        assertEquals("<errors>" + lineSeparator +
+                "<error key=\"addPR_error_confirmation_email\">The confirmation email is not the same as your email.</error>" + lineSeparator +
+                "<error key=\"addPR_error_comments\">Please enter a review or rating.</error>" + lineSeparator +
+                "</errors>" + lineSeparator, getResponse().getContentAsString());
     }
 
     public void testSuccessRest() throws Exception {
