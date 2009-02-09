@@ -55,6 +55,10 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "Please select your state.";
     protected static final String ERROR_CITY_MISSING =
             "Please select your city, or select \"My city is not listed.\"";
+    protected static final String ERROR_SCHOOL_CHOICE_STATE_MISSING =
+            "Please select your state.";
+    protected static final String ERROR_SCHOOL_CHOICE_CITY_MISSING =
+            "Please select your city, or select \"My city is not listed.\"";
     protected static final String ERROR_NUM_CHILDREN_MISSING =
             "Please tell us the number of children you have in K-12 schools.";
     protected static final String ERROR_TERMS_MISSING =
@@ -77,16 +81,22 @@ public class UserCommandValidator implements IRequestAwareValidator {
 
         validateFirstName(command, errors);
         validateUsername(command, user, errors);
-        validateGender(command, errors);
-        validateNumSchoolChildren(command, errors);
-        if ("u".equals(command.getGender()) || (command.getNumSchoolChildren() != null &&
-                command.getNumSchoolChildren() == 0)) {
-            // only validate terms of use if this is final page of registration
-            // which happens if they don't list children
-            validateTerms(command, errors);
+        if (!command.isChooserRegistration()) {
+            validateGender(command, errors);
+            validateNumSchoolChildren(command, errors);
+            if ("u".equals(command.getGender()) || (command.getNumSchoolChildren() != null &&
+                    command.getNumSchoolChildren() == 0)) {
+                // only validate terms of use if this is final page of registration
+                // which happens if they don't list children
+                validateTerms(command, errors);
+            }
         }
         validatePassword(command, errors);
-        validateStateCity(command, errors);
+        if (command.isChooserRegistration()) {
+            validateSchoolChoiceStateCity(command, errors);
+        } else {
+            validateStateCity(command, errors);
+        }
     }
 
     protected User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
@@ -120,6 +130,19 @@ public class UserCommandValidator implements IRequestAwareValidator {
             }
         }
         return user;
+    }
+
+    protected void validateSchoolChoiceStateCity(UserCommand command, Errors errors) {
+        UserProfile userProfile = command.getUserProfile();
+        if (userProfile.getSchoolChoiceState() == null) {
+            errors.rejectValue("schoolChoiceState", null, ERROR_SCHOOL_CHOICE_STATE_MISSING);
+            _log.info("Registration error: " + ERROR_SCHOOL_CHOICE_STATE_MISSING);
+            return; // avoid NPEs
+        }
+        if (StringUtils.isEmpty(userProfile.getSchoolChoiceCity())) {
+            errors.rejectValue("schoolChoiceCity", null, ERROR_SCHOOL_CHOICE_CITY_MISSING);
+            _log.info("Registration error: " + ERROR_SCHOOL_CHOICE_CITY_MISSING);
+        }
     }
 
     protected void validateStateCity(UserCommand command, Errors errors) {

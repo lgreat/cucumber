@@ -1,7 +1,5 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:spring="http://www.springframework.org/tags"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -20,35 +18,11 @@
 
     <head>
         <title>Join - GreatSchools</title>
-        <pageHelper:externalJavascript file="/res/js/prototype.js"/>
         <pageHelper:externalCss file="/res/css/community/registration/chooserRegistration.css"/>
-        <pageHelper:externalCss file="/res/css/community/registration/chooserRegistrationCommon.css"/>
-        <script type="text/javascript">
-            <![CDATA[
-            <!--
-                    function scrollToError() {
-                        window.location.href = document.location.pathname + '#error';
-                    }
-
-            function stateChange(stateSelect) {
-                var url = 'registrationAjax.page';
-                var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true";
-                $('city').innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-                var myAjax = new Ajax.Updater(
-                        'city',
-                        url,
-                {
-                    method: 'get',
-                    parameters: pars
-                });
-            }
-            -->
-            ]]>
-        </script>
     </head>
 
     <gsml:body adPageName="community/chooserRegistration">
-        <ad:setSlotPrefix slotPrefix="ChooserRegistration"/>
+        <ad:setSlotPrefix slotPrefix="Chooser_Registration"/>
 
         <div id="chooserRegistrationWrapper">
 

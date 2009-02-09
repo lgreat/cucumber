@@ -24,10 +24,13 @@ public class UserCommand implements EmailValidator.IEmail {
     private String _redirectUrl;
     private String _referrer;
     private List _cityList;
+    private List _schoolChoiceCityList;
     private boolean _recontact;
     private boolean _terms = true;
     private boolean _newsletter = true;
     private boolean _beta = false;
+
+    private boolean _chooserRegistration = false;
 
     public UserCommand() {
         _user = new User();
@@ -40,6 +43,14 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setCityList(List cityList) {
         _cityList = cityList;
+    }
+
+    public List getSchoolChoiceCityList() {
+        return _schoolChoiceCityList;
+    }
+
+    public void setSchoolChoiceCityList(List cityList) {
+        _schoolChoiceCityList = cityList;
     }
 
     public String getRedirectUrl() {
@@ -150,12 +161,28 @@ public class UserCommand implements EmailValidator.IEmail {
         getUserProfile().setState(state);
     }
 
+    public State getSchoolChoiceState() {
+        return getUserProfile().getSchoolChoiceState();
+    }
+
+    public void setSchoolChoiceState(State state) {
+        getUserProfile().setSchoolChoiceState(state);
+    }
+
     public String getCity() {
         return getUserProfile().getCity();
     }
 
     public void setCity(String city) {
         getUserProfile().setCity(city);
+    }
+
+    public String getSchoolChoiceCity() {
+        return getUserProfile().getSchoolChoiceCity();
+    }
+
+    public void setSchoolChoiceCity(String city) {
+        getUserProfile().setSchoolChoiceCity(city);
     }
 
     public Integer getNumSchoolChildren() {
@@ -228,5 +255,13 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setReferrer(String referrer) {
         _referrer = referrer;
+    }
+
+    public boolean isChooserRegistration() {
+        return _chooserRegistration;
+    }
+
+    public void setChooserRegistration(boolean chooserRegistration) {
+        _chooserRegistration = chooserRegistration;
     }
 }

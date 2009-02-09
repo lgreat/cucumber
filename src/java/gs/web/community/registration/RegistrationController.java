@@ -63,7 +63,12 @@ public class RegistrationController extends SimpleFormController implements Read
 
         UserCommand userCommand = (UserCommand) command;
         userCommand.setRedirectUrl(request.getParameter("redirect"));
-        loadCityList(request, userCommand);
+        if (isChooserRegistration()) {
+            loadSchoolChoiceCityList(request, userCommand);
+            setupChooserRegistration(userCommand);
+        } else {
+            loadCityList(request, userCommand);
+        }
 
         if (StringUtils.isNotEmpty(userCommand.getEmail())) {
             User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
@@ -85,36 +90,54 @@ public class RegistrationController extends SimpleFormController implements Read
                 }
             }
         }
+    }
 
-        if (isChooserRegistration()) {
-            userCommand.setTerms(true);
-            userCommand.setNewsletter(false);
-            userCommand.setBeta(false);
-            userCommand.setRedirectUrl("/school-choice/?confirm=true");
-        }
+    private void setupChooserRegistration(UserCommand userCommand) {
+        userCommand.setChooserRegistration(true);
+        userCommand.setTerms(true);
+        userCommand.setNewsletter(false);
+        userCommand.setBeta(false);
     }
 
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
-        userCommand.setCity(request.getParameter("city"));
+        if (isChooserRegistration()) {
+            userCommand.setSchoolChoiceCity(request.getParameter("schoolChoiceCity"));
+            loadSchoolChoiceCityList(request, userCommand);
+            setupChooserRegistration(userCommand);
+        } else {
+            userCommand.setCity(request.getParameter("city"));
+            loadCityList(request, userCommand);
+        }
         String terms = request.getParameter(TERMS_PARAMETER);
         userCommand.setTerms("on".equals(terms));
         String newsletter = request.getParameter(NEWSLETTER_PARAMETER);
         userCommand.setNewsletter("on".equals(newsletter));
         String beta = request.getParameter(BETA_PARAMETER);
         userCommand.setBeta("on".equals(beta));
-
-        loadCityList(request, userCommand);
     }
 
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
-        State state = userCommand.getState();
+        loadCityListHelper(request, userCommand, false);
+    }
+
+    protected void loadSchoolChoiceCityList(HttpServletRequest request, UserCommand userCommand) {
+        loadCityListHelper(request, userCommand, true);
+    }
+
+    protected void loadCityListHelper(HttpServletRequest request, UserCommand userCommand, boolean isSchoolChoiceLocation) {
+        State state = (isSchoolChoiceLocation ? userCommand.getSchoolChoiceState() : userCommand.getState());
         if (state == null) {
             if (SessionContextUtil.getSessionContext(request).getCity() != null) {
                 City userCity = SessionContextUtil.getSessionContext(request).getCity();
                 state = userCity.getState();
                 SessionContextUtil.getSessionContext(request).setState(state);
-                userCommand.setCity(userCity.getName());
+                if (isSchoolChoiceLocation) {
+                    userCommand.setSchoolChoiceCity(userCity.getName());
+                } else {
+                    userCommand.setCity(userCity.getName());
+                }
+
             } else {
                 state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
             }
@@ -123,7 +146,11 @@ public class RegistrationController extends SimpleFormController implements Read
         City city = new City();
         city.setName("My city is not listed");
         cities.add(0, city);
-        userCommand.setCityList(cities);
+        if (isSchoolChoiceLocation) {
+            userCommand.setSchoolChoiceCityList(cities);
+        } else {
+            userCommand.setCityList(cities);
+        }
     }
 
     public void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) throws Exception {
@@ -213,7 +240,10 @@ public class RegistrationController extends SimpleFormController implements Read
                 }
             }
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
-            if (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
+            if (isChooserRegistration()) {
+                userCommand.setRedirectUrl("/school-choice/?confirm=true");
+            }
+            else if (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                     !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl())) {
                 String redirectUrl = "http://" +
                     SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
@@ -301,10 +331,11 @@ public class RegistrationController extends SimpleFormController implements Read
         UserProfile userProfile;
         if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
             // hack to get provisional accounts working in least amount of development time
+            // note: this code is not reached during Chooser Registration
             userProfile = user.getUserProfile();
-            userProfile.setCity(userCommand.getCity());
             userProfile.setNumSchoolChildren(userCommand.getNumSchoolChildren());
             userProfile.setScreenName(userCommand.getScreenName());
+            userProfile.setCity(userCommand.getCity());
             userProfile.setState(userCommand.getState());
         } else {
             // gotten this far, now let's update their user profile

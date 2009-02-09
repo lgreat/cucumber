@@ -27,9 +27,6 @@
     ]]>
     <title>Join &amp;amp; Sign In - GreatSchools</title>
         <pageHelper:externalCss file="/res/css/community/registration/popup/chooserRegistrationHover.css"/>
-        <pageHelper:externalCss file="/res/css/community/registration/chooserRegistrationCommon.css"/>
-
-
 
       <script language="JavaScript" type="text/javascript">
         <![CDATA[
