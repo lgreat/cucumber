@@ -19,6 +19,8 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
+
+
         <![CDATA[
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
    
@@ -26,7 +28,23 @@
     <title>Join &amp;amp; Sign In - GreatSchools</title>
         <pageHelper:externalCss file="/res/css/community/registration/popup/chooserRegistrationHover.css"/>
         <pageHelper:externalCss file="/res/css/community/registration/chooserRegistrationCommon.css"/>
+
+
+
+      <script language="JavaScript" type="text/javascript">
+        <![CDATA[
+        //<!--
+         function closeRegistrationHover() {
+           parent.window.closeMslFlowDialog();
+        }
+        //-->
+        ]]>
+    </script>
+
+
     </head>
+
+
 
     <gsml:body adPageName="community/chooserRegistrationHover">
 
@@ -41,6 +59,10 @@
         </div>
         <div>
            <community:chooserRegistration formAction="/community/registration/popup/chooserRegistrationHover.page"/>
+
+        </div>
+        <div id="closeWindowDiv">
+             <a href="#" onclick="closeRegistrationHover();" class="closeWindowClass">CLOSE WINDOW</a>
         </div>
 
         <mod:tracking pageName="Short Registration Hover"
@@ -48,4 +70,6 @@
 
     </gsml:body>
     </html>
+
+
 </jsp:root>

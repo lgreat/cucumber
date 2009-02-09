@@ -1,6 +1,6 @@
 #mslFlowDialog {
     position: relative;
-    height:500px;
+    height:600px;
 }
 
 /*#mslFlowDialogTopBar {
@@ -21,8 +21,3 @@
    background: url(/res/img/community/registration/join_pop_body.gif) repeat-y;
 }
 
-.closeWindowClass{
-    font-size:12px;
-    margin-left:180px;
-
-}

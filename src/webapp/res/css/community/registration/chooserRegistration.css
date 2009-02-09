@@ -75,3 +75,18 @@
     color: #3399AA;
     font-size: 11px;
 }
+
+#chooserRegistration #loginDetails ul li input {
+    border: 1px #a8cedf solid;
+    width: 258px;
+    color: #444444;
+    float: right;
+}
+
+#chooserRegistration #schoolChoiceLocation ul li div.label {
+    width: 70px;
+    height: 18px;
+    bottom: 0;
+    float: left;
+    /*background-color: red;*/
+}

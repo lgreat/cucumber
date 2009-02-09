@@ -44,7 +44,7 @@
 
             try {
                 var dwidth = 560;
-                var dheight = 600;
+                var dheight = 200;
                 var scrollTop = 0;
                 if (document.all) {
                     var iebody=(document.compatMode && document.compatMode != "BackCompat")?
@@ -76,9 +76,8 @@
         </div>
         <div id="mslFlowDialogBody">
             <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
-                    width="445" height="427" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
-            <a href="#" onclick="closeMslFlowDialog();" class="closeWindowClass">CLOSE WINDOW</a>
-        </div>
+                    width="445" height="390" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+         </div>
 
         <div id="mslFlowDialogBottomBar">
             <img src="/res/img/community/registration/join_pop_bottom.gif" alt="Close window" onclick="closeMslFlowDialog();"/>

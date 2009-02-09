@@ -17,9 +17,16 @@
     display:none;
 }
 
+#chooserRegistration #loginDetails ul li input {
+    border: 1px #a8cedf solid;
+    width: 230px;
+    color: #444444;
+    float: left;
+}
+
 #chooserRegistration #schoolChoiceLocation {
     width: 420px;
-    height: 150px;
+    height: 100px;
 }
 
 #chooserRegistration #schoolChoiceLocation h2{
@@ -38,27 +45,62 @@
 }
 
 #chooserRegistration #schoolChoiceLocation ul li#stateLine{
-   width:150px;
+   width:130px;
     float:left;
-    height:40px;
+    height:30px;
 }
 
 #chooserRegistration #schoolChoiceLocation ul li#cityLine{
-   width:270px;
+   width:250px;
     float:left;
-    height:40px;
+    height:30px;
 
 }
 
-#chooserRegistration #schoolChoiceLocation ul li div.label {
-   padding-left:30px;
+
+
+#chooserRegistration #schoolChoiceLocation ul  li#stateLine div.label {
+    width: 43px;
+    height: 18px;
+    bottom: 0;
+    float: left;
+    padding-left:30px;
+    /*background-color: red;*/
 }
+
+#chooserRegistration #schoolChoiceLocation ul  li#cityLine div.label {
+    width: 33px;
+    height: 18px;
+    bottom: 0;
+    float: left;
+    /*padding-left:10px;*/
+    /*background-color: red;*/
+}
+
 
 #chooserRegistration #schoolChoiceLocation ul li select {
     margin-top: -2px;
 }
+#chooserRegistration #formSubmit {
+    margin-top:50px;
 
-#chooserRegistration #formSubmit div {
-     height: 50px;
 }
 
+#chooserRegistration #formSubmit div {
+    float: left;
+}
+
+#chooserRegistration #formSubmit #cancel {
+    float: left;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left:260px;
+}
+
+#closeWindowDiv a.closeWindowClass{
+    text-decoration:none;
+    font-size:12px;
+    margin-left:180px;
+    font-family: Trebuchet MS;
+    color:#666666;
+}
