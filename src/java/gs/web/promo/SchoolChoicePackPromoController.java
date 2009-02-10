@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.HashMap;
+import java.net.URLEncoder;
 
 import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
@@ -16,6 +17,9 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.JsonBasedOmnitureTracking;
+
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 
 /**
  * Created by chriskimm@greatschools.net
@@ -58,6 +62,8 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ChoicePackRequest);
             omnitureTracking.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.CrossPromotion, "Chooser_pack_" + pageName));
 
+
+            
             // add each promo level as a new subscription
             for (String level : levels) {
                 SubscriptionProduct prod = SubscriptionProduct.getSubscriptionProduct("chooserpack_" + level);
@@ -84,10 +90,16 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
                 // TODO GS-7917, GS-7919 - call ExactTarget API to subscribe user to email series?
                 //triggerChooserSeries(user);
             }
+
+            SessionContext session = SessionContextUtil.getSessionContext(request);
+            String abVersion = session.getABVersion();
+            String emailEncoded = URLEncoder.encode(email, "UTF-8");
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             out.println("{");
             out.println("\"memid\":\"" + String.valueOf(user.getId()) + "\",");
+            out.println("\"abVersionForRedirect\":\"" + abVersion + "\",");
+            out.println("\"emailEncoded\":\"" + emailEncoded + "\",");
             out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
             out.println("}");                                     
         }

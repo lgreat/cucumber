@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.148 2009/02/07 02:29:15 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.149 2009/02/10 23:46:20 npatury Exp $
  */
 
 package gs.web.util;
@@ -139,6 +139,7 @@ public class UrlBuilder {
       * for the four part tip sheet promo
       */
     public static final VPage CHOOSER_REGISTRATION_HOVER = new VPage("vpage:chooserRegistrationHover");
+    public static final VPage CHOOSER_REGISTRATION = new VPage("vpage:chooserRegistration");
 
     /**
      * school profile pages
@@ -801,7 +802,12 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/community/registration/popup/chooserRegistrationHover.page";
            
-        }else {
+        }
+        else if(CHOOSER_REGISTRATION.equals(page)){
+              _perlPage = false;
+            _path = "/community/chooserRegistration.page";
+        }
+        else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
