@@ -128,3 +128,8 @@ div#schoolChoicePackPromo .privacy_terms a {
 div#schoolChoicePackPromo div.levs div.left_levs {
     float:left;
 }
+
+div#schoolChoicePackPromo div#form_panel div.logoutDiv a{
+    font-size:10px;
+    text-decoration:none;
+}

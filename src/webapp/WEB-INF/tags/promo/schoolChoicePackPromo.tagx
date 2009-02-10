@@ -16,7 +16,7 @@
                              description="Whether or not to show School Choice Center link in confirmation message"
                              type="java.lang.Boolean"/>
     <jsp:directive.attribute name="showConfirmation" required="false" description="Whether or not to show just the confirmation message instead of the form" type="java.lang.Boolean"/>
-
+    
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
     <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
@@ -100,12 +100,12 @@
                         <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
                                onmouseover="this.src='/res/img/splash/goOver.gif';"
                                class="button" alt="GO" src="/res/img/splash/go.gif" type="image"
-                               onclick="${mslOnclick}"/>
+                               />
                     </div>
                      <c:set var="logoutRedirect" value="/content/schoolChoice.page"/>
 
                         <c:if test="${not empty requestScope.context.user.email}">
-                            <div id="logoutDiv">
+                            <div class="logoutDiv">
                             <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
                              </div>
                          </c:if>
@@ -122,9 +122,8 @@
             <div class="headline">
                 Thank you!
             </div>
-
-            <div class="blurb">The Chooser packs for the grade level(s) you have selected will be sent to your email shortly.</div>
-            <c:if test="${showSchoolChoiceLink}">
+            <div class="blurb">The School Chooser tip sheets you requested will arrive in your inbox shortly.</div>
+             <c:if test="${showSchoolChoiceLink}">
                 <div class="blurb">In the meantime -
                     <link:schoolChoiceCenter>check out our tips for getting started &gt;</link:schoolChoiceCenter>
                 </div>
