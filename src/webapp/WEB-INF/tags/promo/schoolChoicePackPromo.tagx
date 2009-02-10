@@ -67,7 +67,7 @@
                 </c:choose>
             </div>
             <div class="blurb">
-                Find the right school with our School Chooser tip sheet. You will also receive emails to help you keep your child on track in school.
+                Find the right school with our School Chooser tip sheet.
             </div>
             <form id="scpp_form" action="">
                 <div>
@@ -96,12 +96,20 @@
                     </div>
                     <div id="email_go">
                         <input id="cemail" name="cemail"
-                               class="required email" value="Enter Email Address"/>
+                               class="required email" value="${(empty requestScope.context.user.email) ? 'Enter Email Address' : requestScope.context.user.email}"/>
                         <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
                                onmouseover="this.src='/res/img/splash/goOver.gif';"
                                class="button" alt="GO" src="/res/img/splash/go.gif" type="image"
                                onclick="${mslOnclick}"/>
                     </div>
+                     <c:set var="logoutRedirect" value="/content/schoolChoice.page"/>
+
+                        <c:if test="${not empty requestScope.context.user.email}">
+                            <div id="logoutDiv">
+                            <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
+                             </div>
+                         </c:if>
+
                 </div>
                 <div class="privacy_terms">
                     <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
