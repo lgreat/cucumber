@@ -61,6 +61,8 @@ public class RegistrationAjaxController implements Controller {
         State state = _stateManager.getState(request.getParameter("state"));
         List cities = _geoDao.findCitiesByState(state);
         String onChange = request.getParameter("onchange");
+        String citySelectName =
+            (request.getParameter("citySelectName") != null ? request.getParameter("citySelectName") : "city");
 
         if (request.getParameter("showNotListed") != null && Boolean.valueOf(request.getParameter("showNotListed"))) {
             City notListed = new City();
@@ -69,7 +71,7 @@ public class RegistrationAjaxController implements Controller {
         }
 
         if (cities.size() > 0) {
-            out.print("<select id=\"citySelect\" name=\"city\" class=\"selectCity\" tabindex=\"10\"" +
+            out.print("<select id=\"citySelect\" name=\"" + citySelectName + "\" class=\"selectCity\" tabindex=\"10\"" +
                  (StringUtils.isNotBlank(onChange) ? " onchange=\"" + onChange + "\"" : "") +  ">");
             outputOption(out, "", "Choose city", true);
             for (int x=0; x < cities.size(); x++) {

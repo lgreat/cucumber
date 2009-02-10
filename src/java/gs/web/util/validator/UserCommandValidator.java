@@ -81,13 +81,13 @@ public class UserCommandValidator implements IRequestAwareValidator {
 
         validateFirstName(command, errors);
         validateUsername(command, user, errors);
-        if (!command.isChooserRegistration()) {
-            validateGender(command, errors);
-            validateNumSchoolChildren(command, errors);
-            if ("u".equals(command.getGender()) || (command.getNumSchoolChildren() != null &&
-                    command.getNumSchoolChildren() == 0)) {
-                // only validate terms of use if this is final page of registration
-                // which happens if they don't list children
+        validateGender(command, errors);
+        validateNumSchoolChildren(command, errors);
+        if ("u".equals(command.getGender()) || (command.getNumSchoolChildren() != null &&
+                command.getNumSchoolChildren() == 0)) {
+            // only validate terms of use if this is final page of registration
+            // which happens if they don't list children
+            if (!command.isChooserRegistration()) {
                 validateTerms(command, errors);
             }
         }

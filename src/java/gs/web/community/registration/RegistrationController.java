@@ -93,10 +93,12 @@ public class RegistrationController extends SimpleFormController implements Read
     }
 
     private void setupChooserRegistration(UserCommand userCommand) {
+        // set up defaults for data not collected in chooser registration
         userCommand.setChooserRegistration(true);
-        userCommand.setTerms(true);
         userCommand.setNewsletter(false);
         userCommand.setBeta(false);
+        userCommand.setGender("u");
+        userCommand.setNumSchoolChildren(0);
     }
 
     public void onBind(HttpServletRequest request, Object command) {
