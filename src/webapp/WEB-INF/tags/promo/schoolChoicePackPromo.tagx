@@ -16,12 +16,14 @@
                              description="Whether or not to show School Choice Center link in confirmation message"
                              type="java.lang.Boolean"/>
     <jsp:directive.attribute name="showConfirmation" required="false" description="Whether or not to show just the confirmation message instead of the form" type="java.lang.Boolean"/>
-    
+    <jsp:directive.attribute name="schoolObjectForRedirect" required="false" description="To redirect if the user logs out by clicking the email id on the promo" type="gs.data.school.School"/>
+
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
     <pageHelper:externalJavascript file="/res/js/schoolChoicePackPromo.js"/>
     <pageHelper:externalCss file="/res/css/promo/schoolChoicePackPromo.css"/>
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
+    <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
 
     <community:chooserRegistrationHover/>
     <script type="text/javascript">
@@ -102,7 +104,22 @@
                                class="button" alt="GO" src="/res/img/splash/go.gif" type="image"
                                />
                     </div>
-                     <c:set var="logoutRedirect" value="/content/schoolChoice.page"/>
+                    <jsp:scriptlet>
+                     String redirectUrl;
+                        UrlBuilder builder;
+                        if(showSchoolChoiceLink){
+                                builder   = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
+                        }
+                        else{
+                            builder = new  UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
+                        }
+
+                        redirectUrl = builder.asSiteRelativeXml(request);
+                        
+                        jspContext.setAttribute("logoutRedirect",redirectUrl);
+
+                    </jsp:scriptlet>
+
 
                         <c:if test="${not empty requestScope.context.user.email}">
                             <div class="logoutDiv">
