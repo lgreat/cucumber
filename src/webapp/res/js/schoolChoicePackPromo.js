@@ -28,15 +28,16 @@ $j(function() {
                             if (data == 'true') {
                                 if (termsChecked) {
                                     $j.post("/promo/schoolChoicePackPromo.page",
-                                    {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName},
+                                    {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : document.getElementById('redirectForConfirm').value},
                                             function(datax){
                                                 createCookie("MEMID", datax.memid);
                                                omnitureEventNotifier.clear();
                                                 omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
                                                 omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
                                                 omnitureEventNotifier.send();
+                                                alert(datax.redirectEncoded);
                                                 if(datax.abVersionForRedirect == 'a'){
-                                                    window.location.href = '/community/chooserRegistration.page?email='+ datax.emailEncoded;
+                                                    window.location.href = '/community/chooserRegistration.page?email='+ datax.emailEncoded+'&redirectUrl='+ datax.redirectEncoded;
                                                 }
                                                 else{
                                                       storeHrefOpenHover(this.href);

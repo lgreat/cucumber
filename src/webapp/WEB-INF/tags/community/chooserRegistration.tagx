@@ -123,10 +123,10 @@
             </ul>
 
             <div id="formSubmit">
-                <div id="cancel"><link:schoolChoiceCenter showConfirmation="true">No thanks &amp;gt;</link:schoolChoiceCenter></div>
+                <div id="cancel"><a href="${userCmd.redirectUrl}">No thanks &amp;gt;</a>   </div>
                 <div id="submit"><input type="image" src="/res/img/community/registration/join_pop_save.gif"
                                         alt="Save" tabindex="7"/></div>
-            </div>
+            </div>                                                                                                       
         </div>
        </div>
         <script type="text/javascript">

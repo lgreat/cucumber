@@ -32,6 +32,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
     public static final String PAGE_NAME = "pageName";
     public static final String SCHOOL_CHOICE_PACK_TRIGGER_KEY = "chooser_pack_trigger";
     public static final String CHOOSER_SERIES_TRIGGER_KEY = "chooser_series_trigger";
+    public static final String REDIRECT_FOR_CONFIRM = "redirectForConfirm";
 
     private ISubscriptionDao _subscriptionDao;
     private IUserDao _userDao;
@@ -43,6 +44,8 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
         String email = request.getParameter(EMAIL_PARAM);
         String level_val= request.getParameter(LEVELS_PARAM);
         String pageName = request.getParameter(PAGE_NAME);
+        String redirectForConfirm = request.getParameter(REDIRECT_FOR_CONFIRM);
+        
         if (level_val != null) {
 
             String[] levels = level_val.split(",");
@@ -98,6 +101,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             PrintWriter out = response.getWriter();
             out.println("{");
             out.println("\"memid\":\"" + String.valueOf(user.getId()) + "\",");
+            out.println("\"redirectEncoded\":\"" + redirectForConfirm + "\",");
             out.println("\"abVersionForRedirect\":\"" + abVersion + "\",");
             out.println("\"emailEncoded\":\"" + emailEncoded + "\",");
             out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());

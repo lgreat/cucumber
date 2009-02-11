@@ -71,8 +71,32 @@
             <div class="blurb">
                 Find the right school with our School Chooser tip sheet.
             </div>
+
+                                <jsp:scriptlet>
+                        String redirectUrl;
+                        String redirectUrlForConfirm;
+                        UrlBuilder builder;
+                        UrlBuilder builderForConfirm;            
+                        if(showSchoolChoiceLink){
+                                builder   = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
+                                builderForConfirm   = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, true,schoolObjectForRedirect);
+                        }
+                        else{
+                            builder = new  UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
+                            builderForConfirm   = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
+                        }
+
+                        redirectUrl = builder.asSiteRelativeXml(request);
+                        redirectUrlForConfirm = builderForConfirm.asSiteRelativeXml(request);
+                        jspContext.setAttribute("logoutRedirect",redirectUrl);
+                        jspContext.setAttribute("redirectForConfirm",redirectUrlForConfirm);
+                                    
+
+                    </jsp:scriptlet>
+
             <form id="scpp_form" action="">
-                <div>
+                <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>
+
                     I'm looking for a:
                     <div class="levs">
                         <div class="left_levs">
@@ -99,26 +123,13 @@
                     <div id="email_go">
                         <input id="cemail" name="cemail"
                                class="required email" value="${(empty requestScope.context.user.email) ? 'Enter Email Address' : requestScope.context.user.email}"/>
+                                                
                         <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
                                onmouseover="this.src='/res/img/splash/goOver.gif';"
                                class="button" alt="GO" src="/res/img/splash/go.gif" type="image"
                                />
                     </div>
-                    <jsp:scriptlet>
-                     String redirectUrl;
-                        UrlBuilder builder;
-                        if(showSchoolChoiceLink){
-                                builder   = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
-                        }
-                        else{
-                            builder = new  UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
-                        }
 
-                        redirectUrl = builder.asSiteRelativeXml(request);
-                        
-                        jspContext.setAttribute("logoutRedirect",redirectUrl);
-
-                    </jsp:scriptlet>
 
 
                         <c:if test="${not empty requestScope.context.user.email}">
@@ -127,7 +138,7 @@
                              </div>
                          </c:if>
 
-                </div>
+
                 <div class="privacy_terms">
                     <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
                     <span id="privacy_terms_text">I agree to the GreatSchools <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp; <link:termsOfUse>Terms of Use</link:termsOfUse>.</span>
