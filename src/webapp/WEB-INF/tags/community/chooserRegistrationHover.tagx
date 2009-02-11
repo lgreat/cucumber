@@ -34,11 +34,9 @@
 
         function showLoginHover(redirectUrlEncoded, emailUrlEncoded) {                            s
             var frameLocation = '' + window.frames['mslFlowDialogIFrame'].window.location;
-            if (frameLocation.indexOf('/community/registration/popup/chooserRegistrationHover.page') == -1) {
-                window.frames['mslFlowDialogIFrame'].window.location =
-                    '/community/registration/popup/chooserRegistrationHover.page?email=' +
-                    emailUrlEncoded + '&redirect=' + redirectUrlEncoded;
-            }
+            window.frames['mslFlowDialogIFrame'].window.location =
+                '/community/registration/popup/chooserRegistrationHover.page?email=' +
+                emailUrlEncoded + '&redirect=' + redirectUrlEncoded;
 
             document.getElementById("mslFlowDialog").style.display="block";
 
