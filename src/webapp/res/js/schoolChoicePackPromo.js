@@ -37,10 +37,10 @@ $j(function() {
                                                 omnitureEventNotifier.send();
                                                 alert(datax.redirectEncoded);
                                                 if(datax.abVersionForRedirect == 'a'){
-                                                    window.location.href = '/community/chooserRegistration.page?email='+ datax.emailEncoded+'&redirectUrl='+ datax.redirectEncoded;
+                                                    window.location.href = '/community/chooserRegistration.page?email='+ datax.emailEncoded+'&redirect='+ datax.redirectEncoded;
                                                 }
                                                 else{
-                                                      storeHrefOpenHover(this.href);
+                                                      storeHrefOpenHover(this.href,datax.redirectEncoded);
                                                 }
                                             }, "json");
                                 } else {

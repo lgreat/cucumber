@@ -64,6 +64,7 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         userCommand.setRedirectUrl(request.getParameter("redirect"));
         if (isChooserRegistration()) {
+            System.out.println("req-----------------------:"+request.getParameter("redirectForConfirm"));
             loadSchoolChoiceCityList(request, userCommand);
             setupChooserRegistration(userCommand);
         } else {
@@ -121,6 +122,13 @@ public class RegistrationController extends SimpleFormController implements Read
         userCommand.setNewsletter("on".equals(newsletter));
         String beta = request.getParameter(BETA_PARAMETER);
         userCommand.setBeta("on".equals(beta));
+
+        /*StringBuilder sb = new StringBuilder();
+        sb.append("http://");
+        sb.append(SessionContextUtil.getSessionContext(request).getHostName());
+        sb.append(request.getParameter("redirectForConfirm"));
+        System.out.println("req:"+request.getParameter("redirectForConfirm"));
+        userCommand.setRedirectUrl(sb.toString()); */
     }
 
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
@@ -220,7 +228,7 @@ public class RegistrationController extends SimpleFormController implements Read
         // (with list_member id) to be commited before the list_member record is
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
-        
+
         if (userProfile.getNumSchoolChildren() != null && userProfile.getNumSchoolChildren() > 0) {
             // send to page 2
             mAndV.setViewName(getSuccessView());
@@ -255,13 +263,19 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
             if (isChooserRegistration()) {
-                userCommand.setRedirectUrl("/school-choice/?confirm=true");
-            }
-            else if (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
+                //userCommand.setRedirectUrl("/school-choice/?confirm=true");
+                //request.getParameter("redirectForConfirm");
+                //StringBuilder sb = new StringBuilder();
+                //sb.append("http://");
+                //sb.append(SessionContextUtil.getSessionContext(request).getHostName());
+                //sb.append(request.getParameter("redirectForConfirm"));
+                //System.out.println("req1:"+request.getParameter("redirectForConfirm"));
+                //userCommand.setRedirectUrl(sb.toString());
+            } else if (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                     !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl())) {
                 String redirectUrl = "http://" +
-                    SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
-                    "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1"; 
+                        SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
+                        "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
                 userCommand.setRedirectUrl(redirectUrl);
             }
             mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
@@ -364,7 +378,7 @@ public class RegistrationController extends SimpleFormController implements Read
                 ot.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "Chooser Reg"));
             }
         }
-        user.getUserProfile().setUpdated(new Date());        
+        user.getUserProfile().setUpdated(new Date());
         if (userProfile.getNumSchoolChildren() == -1) {
             userProfile.setNumSchoolChildren(0);
         }
@@ -412,7 +426,7 @@ public class RegistrationController extends SimpleFormController implements Read
     protected boolean isIPBlocked(HttpServletRequest request) {
         // First, check to see if the request is from a blocked IP address. If so,
         // then, log the attempt and show the error view.
-        String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
+        String requestIP = (String) request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
         if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
             requestIP = request.getRemoteAddr();
         }
@@ -430,10 +444,10 @@ public class RegistrationController extends SimpleFormController implements Read
     protected void notifyCommunity(Integer userId, String screenName, String email, String password,
                                    Date dateCreated,
                                    HttpServletRequest request) throws SoapRequestException {
-        String requestIP = (String)request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
+        String requestIP = (String) request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
         if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
             requestIP = request.getRemoteAddr();
-        }        
+        }
         CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
                 (userId, screenName, email, password, dateCreated, requestIP);
         CreateOrUpdateUserRequest soapRequest = getSoapRequest();
