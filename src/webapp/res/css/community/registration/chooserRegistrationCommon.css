@@ -1,7 +1,7 @@
 #chooserRegistration ul li img.errorIcon {
     left: 170px;
     position: absolute;
-    top: -15px;
+    top: -14px;
 }
 
 #chooserRegistration ul li p.warning {
@@ -10,7 +10,7 @@
     left: 185px;
     line-height: 12px;
     position: absolute;
-    top: -15px;
+    top: -14px;
     width: 275px;
 }
 
@@ -81,12 +81,12 @@
 #chooserRegistration #schoolChoiceLocation ul li img.errorIcon {
     left: 80px;
     position: absolute;
-    top: -17px;
+    top: -16px;
 }
 
 #chooserRegistration #schoolChoiceLocation ul li p.warning {
     left: 95px;
     position: absolute;
-    top: -17px;
+    top: -16px;
     width: 250px;
 }

@@ -26,7 +26,6 @@
    
     ]]>
     <title>Join &amp;amp; Sign In - GreatSchools</title>
-        <pageHelper:externalCss file="/res/css/community/registration/popup/chooserRegistrationHover.css"/>
 
       <script language="JavaScript" type="text/javascript">
         <![CDATA[
@@ -56,6 +55,8 @@
         </div>
         <div>
            <community:chooserRegistration formAction="/community/registration/popup/chooserRegistrationHover.page"/>
+            <!-- put this after the tag so that it can override chooserRegistrationCommon.css --> 
+            <pageHelper:externalCss file="/res/css/community/registration/popup/chooserRegistrationHover.css"/>
 
         </div>
         <div id="closeWindowDiv">

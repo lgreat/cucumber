@@ -110,6 +110,8 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             userCommand.setSchoolChoiceCity(request.getParameter("schoolChoiceCity"));
             loadSchoolChoiceCityList(request, userCommand);
+            // need to call this so that userCommand.isChooserRegistration() == true during validation
+            setupChooserRegistration(userCommand);
         } else {
             userCommand.setCity(request.getParameter("city"));
             loadCityList(request, userCommand);

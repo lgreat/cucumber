@@ -23,51 +23,51 @@
             <h2>Your login details</h2>
             <ul>
                 <li id="emailLine">
-                    <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
                     <div class="label"><label for="email">Email address:</label></div>
                     <spring:bind path="userCmd.user.email">
                         <input id="email" type="text" name="${status.expression}" value="${status.value}" readonly="readonly"/>
                     </spring:bind>
+                    <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
                 </li>
 
                 <li>
-                    <gsml:errorMessage command="userCmd" field="firstName" useImage="true"
-                                       styleClass="warning"/>
                     <div class="label"><label for="firstName">First name:</label></div>
                     <spring:bind path="userCmd.user.firstName">
                         <input id="firstName" type="text" name="${status.expression}" value="${status.value}"
                                tabindex="1"/>
                     </spring:bind>
+                    <gsml:errorMessage command="userCmd" field="firstName" useImage="true"
+                                       styleClass="warning"/>
                 </li>
 
                 <li id="usernameLine">
-                    <gsml:errorMessage command="userCmd" field="screenName" useImage="true"
-                                       styleClass="warning"/>
                     <div class="label"><label for="screenName">Username:</label></div>
                     <spring:bind path="userCmd.screenName">
                         <input id="screenName" type="text" name="${status.expression}" value="${status.value}"
                                tabindex="2"/>
                     </spring:bind>
                     <span id="userDetails">6-14 characters</span>
+                    <gsml:errorMessage command="userCmd" field="screenName" useImage="true"
+                                       styleClass="warning"/>
                 </li>
 
                 <li id="passwordLine">
-                    <gsml:errorMessage command="userCmd" field="password" useImage="true" styleClass="warning"/>
                     <div class="label"><label for="password">Password:</label></div>
                     <spring:bind path="userCmd.password">
                         <input id="password" type="password" name="${status.expression}" value="" tabindex="3"/>
                     </spring:bind>
                     <span id="passwordDetails">6-14 characters</span>
+                    <gsml:errorMessage command="userCmd" field="password" useImage="true" styleClass="warning"/>
                 </li>
 
                 <li>
-                    <gsml:errorMessage command="userCmd" field="confirmPassword" useImage="true"
-                                       styleClass="warning"/>
                     <div class="label"><label for="confirmPassword">Confirm password:</label></div>
                     <spring:bind path="userCmd.confirmPassword">
                         <input id="confirmPassword" type="password" name="${status.expression}" value=""
                                tabindex="4"/>
                     </spring:bind>
+                    <gsml:errorMessage command="userCmd" field="confirmPassword" useImage="true"
+                                       styleClass="warning"/>
                 </li>
 
             </ul>
@@ -81,10 +81,12 @@
                     <div class="label"><label id="stateLabel">State:</label></div>
                     <c:choose>
                         <c:when test="${empty userCmd.schoolChoiceState}">
+                            <spring:bind path="userCmd.schoolChoiceState">
                                 <gsweb:stateSelector state="${status.value}" styleId="userState"
                                                      useNoState="true" noStateLabel="--"
                                                      onChange="stateChange(this);" tabIndex="5"
                                                      name="${status.expression}"/>
+                            </spring:bind>
                         </c:when>
                         <c:otherwise>
                             <spring:bind path="userCmd.schoolChoiceState">

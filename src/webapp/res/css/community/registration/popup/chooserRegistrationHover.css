@@ -13,6 +13,10 @@
     margin:8px;
     padding:0px;
 }
+
+#chooserRegistration #loginDetails {
+    margin-top: 25px;
+}
 #chooserRegistration #loginDetails h2 {
     display:none;
 }
@@ -27,6 +31,7 @@
 #chooserRegistration #schoolChoiceLocation {
     width: 420px;
     height: 100px;
+    margin-left: 12px;
 }
 
 #chooserRegistration #schoolChoiceLocation h2{
@@ -40,7 +45,7 @@
  
 #chooserRegistration #schoolChoiceLocation ul{
     list-style: none;
-     margin: 0px;
+     margin-top: 20px;
      padding: 0px;
 }
 
@@ -53,8 +58,14 @@
 #chooserRegistration #schoolChoiceLocation ul li#cityLine{
    width:250px;
     float:left;
+    margin-left: 2px;
     height:30px;
 
+}
+
+/* TODO-7917 Fix this in a better way? */
+#chooserRegistration ul li p.warning {
+    top: -26px;
 }
 
 
@@ -65,7 +76,6 @@
     bottom: 0;
     float: left;
     padding-left:30px;
-    /*background-color: red;*/
 }
 
 #chooserRegistration #schoolChoiceLocation ul  li#cityLine div.label {
@@ -73,14 +83,39 @@
     height: 18px;
     bottom: 0;
     float: left;
-    /*padding-left:10px;*/
-    /*background-color: red;*/
 }
 
 
 #chooserRegistration #schoolChoiceLocation ul li select {
     margin-top: -2px;
 }
+
+#chooserRegistration #schoolChoiceLocation ul li img.errorIcon {
+    top: -17px;
+}
+
+#chooserRegistration #schoolChoiceLocation ul li p.warning {
+    /* TODO-7917 Fix this in a better way? */
+    top: -28px;
+}
+
+#chooserRegistration #schoolChoiceLocation ul li#stateLine img.errorIcon {
+    left: 75px;
+}
+
+#chooserRegistration #schoolChoiceLocation ul li#stateLine p.warning {
+    left: 90px;
+}
+
+#chooserRegistration #schoolChoiceLocation ul li#cityLine img.errorIcon {
+    left: 35px;
+}
+
+#chooserRegistration #schoolChoiceLocation ul li#cityLine p.warning {
+    left: 50px;
+}
+
+
 #chooserRegistration #formSubmit {
     margin-top:50px;
 
