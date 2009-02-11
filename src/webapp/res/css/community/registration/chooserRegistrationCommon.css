@@ -1,18 +1,42 @@
+#chooserRegistration ul li img.errorIcon {
+    left: 170px;
+    position: absolute;
+    top: -15px;
+}
+
+#chooserRegistration ul li p.warning {
+    color: #CC5566;
+    font-size: 11px;
+    left: 185px;
+    line-height: 12px;
+    position: absolute;
+    top: -15px;
+    width: 275px;
+}
+
+#chooserRegistration ul li p.warning a, #chooserRegistration ul li p.warning a:link, #chooserRegistration ul li p.warning a:visited, #chooserRegistration ul li p.warning a:active {
+    color: #3399AA;
+}
+
 #chooserRegistration #loginDetails ul li {
     position: relative;
     clear: both;
-    height: 18px;
-    padding-bottom: 14px;
+    height: 25px;
+    margin-top: 15px;
 }
+
+#chooserRegistration #loginDetails ul li#emailLine {
+    margin-top: 0;
+}
+
 #chooserRegistration #loginDetails ul li#usernameLine, #chooserRegistration #loginDetails ul li#passwordLine {
-    height: 26px;
-    padding-bottom: 14px;
+    height: 33px;
 }
 
 #chooserRegistration #loginDetails ul li div.label {
    padding-right: 10px;
     width: 160px;
-    height: 18px;
+    height: 25px;
     text-align: right;
     float: left;
 }
@@ -31,7 +55,7 @@
     width: 160px;
     position: absolute;
     text-align: right;
-    top: 21px;
+    top: 18px;
     left: 0;
     padding-right: 10px;
     padding-bottom: 14px;
@@ -42,7 +66,6 @@
 }
 
 #chooserRegistration #schoolChoiceLocation ul li {
-    /*clear: both;*/
     height: 18px;
 }
 
@@ -61,3 +84,9 @@
     color: #3399AA;
     font-size: 11px;
 }
+
+
+/*#emailLine p.warning {*/
+/*padding-left:35px;*/
+/*text-indent:-35px;*/
+/*}*/

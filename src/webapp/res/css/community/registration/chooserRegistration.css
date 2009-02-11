@@ -7,13 +7,13 @@
 
 #chooserRegistration {
     padding-left: 20px;
-    height: 210px;
+    height: 240px;
+    padding-bottom: 25px;
 }
 
 #chooserRegistration #schoolChoiceLocation h2 {
     background: url(/res/img/community/registration/join_16_2.gif) no-repeat;
 }
-
 
 
 #chooserRegistration h2 {
@@ -38,25 +38,24 @@
     width: 345px;
     margin-left: 40px;
     margin-top: 20px;
-    height: 210px;
+    height: 240px;
     position: relative;
 }
 
 
-   #chooserRegistration #schoolChoiceLocation ul li div.label {
+#chooserRegistration #schoolChoiceLocation ul li div.label {
     text-align: right;
     padding-right: 10px;
- }
+}
 
-#chooserRegistration #schoolChoiceLocation ul li {
-    
+#chooserRegistration #schoolChoiceLocation ul li {    
     padding-bottom: 14px;
 }
 
 
 #chooserRegistration #formSubmit {
     position: absolute;
-    right: 30px;
+    right: 60px;
     bottom: 0;
 }
 
@@ -88,5 +87,4 @@
     height: 18px;
     bottom: 0;
     float: left;
-    /*background-color: red;*/
 }

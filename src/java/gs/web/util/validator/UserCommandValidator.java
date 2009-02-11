@@ -43,6 +43,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "Your username may only contain letters and numbers.";
     protected static final String ERROR_SCREEN_NAME_TAKEN =
             "We're sorry, that username is already taken. Please try another username.";
+    protected static final String ERROR_SCREEN_NAME_TAKEN_SHORT =
+            "That username is taken. Please try another username.";
     protected static final String ERROR_EMAIL_MISSING =
             "Please enter your email address.";
     public static final String ERROR_EMAIL_LENGTH = "Your email must be less than 128 characters long.";
@@ -68,6 +70,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
     };
     protected static final String ERROR_FIRST_NAME_BAD = "Please enter your name without numbers or symbols.";
     protected static final String ERROR_EMAIL_TAKEN = "The email address you entered has already been registered with GreatSchools.";
+    protected static final String ERROR_EMAIL_TAKEN_SHORT = "That email address has already been registered.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
@@ -122,7 +125,12 @@ public class UserCommandValidator implements IRequestAwareValidator {
                     UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);
                     builder.addParameter("email",email);
                     String loginUrl = builder.asFullUrl(request);
-                    String errmsg = ERROR_EMAIL_TAKEN + " <a href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
+                    String errmsg;
+                    if (command.isChooserRegistration()) {
+                        errmsg = ERROR_EMAIL_TAKEN_SHORT + " <a href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
+                    } else {
+                        errmsg = ERROR_EMAIL_TAKEN + " <a href=\"" + loginUrl + "\">&nbsp;Log in&nbsp;&gt;</a>";
+                    }
                     errors.rejectValue("email", null, errmsg);
                 } else if (user.isEmailProvisional()) {
                     // let them register, just overwrite previous values
@@ -207,8 +215,13 @@ public class UserCommandValidator implements IRequestAwareValidator {
         if (!snError && _userDao.findUserFromScreenNameIfExists(sn) != null) {
             if (user == null || user.getUserProfile() == null ||
                     !StringUtils.equals(user.getUserProfile().getScreenName(), sn)) {
-                errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_TAKEN);
-                _log.info("Registration error: " + ERROR_SCREEN_NAME_TAKEN);
+                if (command.isChooserRegistration()) {
+                    errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_TAKEN_SHORT);
+                    _log.info("Registration error: " + ERROR_SCREEN_NAME_TAKEN_SHORT);                    
+                } else {
+                    errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_TAKEN);
+                    _log.info("Registration error: " + ERROR_SCREEN_NAME_TAKEN);
+                }
             }
         }
     }
