@@ -46,8 +46,6 @@
     font-size: 14px;
 }
 
-
-
 #userDetails, #passwordDetails {
     font-size: 11px;
     font-style: italic;
@@ -66,7 +64,8 @@
 }
 
 #chooserRegistration #schoolChoiceLocation ul li {
-    height: 18px;
+    position: relative;
+    height: 25px;
 }
 
 
@@ -79,14 +78,15 @@
     margin-top: -2px;
 }
 
-#chooserRegistration #formSubmit a, #chooserRegistration #formSubmit a:link, #chooserRegistration #formSubmit a:visited, #chooserRegistration #formSubmit a:active {
-    text-decoration: underline;
-    color: #3399AA;
-    font-size: 11px;
+#chooserRegistration #schoolChoiceLocation ul li img.errorIcon {
+    left: 80px;
+    position: absolute;
+    top: -17px;
 }
 
-
-/*#emailLine p.warning {*/
-/*padding-left:35px;*/
-/*text-indent:-35px;*/
-/*}*/
+#chooserRegistration #schoolChoiceLocation ul li p.warning {
+    left: 95px;
+    position: absolute;
+    top: -17px;
+    width: 250px;
+}

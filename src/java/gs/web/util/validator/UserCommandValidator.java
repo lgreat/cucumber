@@ -61,6 +61,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "Please select your state.";
     protected static final String ERROR_SCHOOL_CHOICE_CITY_MISSING =
             "Please select your city, or select \"My city is not listed.\"";
+    protected static final String ERROR_SCHOOL_CHOICE_CITY_MISSING_SHORT =
+            "Please select your city.";
     protected static final String ERROR_NUM_CHILDREN_MISSING =
             "Please tell us the number of children you have in K-12 schools.";
     protected static final String ERROR_TERMS_MISSING =
@@ -148,8 +150,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
             return; // avoid NPEs
         }
         if (StringUtils.isEmpty(userProfile.getSchoolChoiceCity())) {
-            errors.rejectValue("schoolChoiceCity", null, ERROR_SCHOOL_CHOICE_CITY_MISSING);
-            _log.info("Registration error: " + ERROR_SCHOOL_CHOICE_CITY_MISSING);
+            errors.rejectValue("schoolChoiceCity", null, ERROR_SCHOOL_CHOICE_CITY_MISSING_SHORT);
+            _log.info("Registration error: " + ERROR_SCHOOL_CHOICE_CITY_MISSING_SHORT);
         }
     }
 
