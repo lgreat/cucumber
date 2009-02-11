@@ -3,7 +3,7 @@ function scrollToError() {
 }
 
 function stateChange(stateSelect) {
-    var url = 'registrationAjax.page';
+    var url = '/community/registrationAjax.page';
     var pars = 'state=' + stateSelect.value + "&type=city&showNotListed=true&citySelectName=schoolChoiceCity";
     $('city').innerHTML = '<select name="schoolChoiceCity" class="selectCity"><option value="">Loading ...</option></select>';
     var myAjax = new Ajax.Updater(
