@@ -151,3 +151,7 @@
 #chooserRegistration #loginDetails ul li div.label {
     width: 135px;
 }
+
+#userDetails, #passwordDetails {
+    left: -25px;
+}
