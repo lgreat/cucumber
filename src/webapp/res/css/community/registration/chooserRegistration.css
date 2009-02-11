@@ -108,3 +108,14 @@
 #chooserRegistration #loginDetails ul li div.label {
     width: 160px;
 }
+
+
+#chooserRegistration ul li img.errorIcon {
+    left: 170px;
+    top: -14px;
+}
+
+#chooserRegistration ul li p.warning {
+    left: 185px;
+    top: -14px;
+}

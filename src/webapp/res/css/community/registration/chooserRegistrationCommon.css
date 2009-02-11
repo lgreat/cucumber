@@ -1,16 +1,12 @@
 #chooserRegistration ul li img.errorIcon {
-    left: 170px;
     position: absolute;
-    top: -14px;
 }
 
 #chooserRegistration ul li p.warning {
     color: #CC5566;
     font-size: 11px;
-    left: 185px;
     line-height: 12px;
     position: absolute;
-    top: -14px;
     width: 275px;
 }
 

@@ -24,7 +24,7 @@
 
 #chooserRegistration #loginDetails ul li input {
     border: 1px #a8cedf solid;
-    width: 230px;
+    width: 258px;
     color: #444444;
     float: left;
 }
@@ -32,7 +32,7 @@
 #chooserRegistration #schoolChoiceLocation {
     width: 420px;
     height: 100px;
-    margin-left: -2px;
+    margin-left: -12px;
 }
 
 #chooserRegistration #schoolChoiceLocation h2{
@@ -69,6 +69,13 @@
     top: -26px;
 }
 
+#chooserRegistration #loginDetails ul li img.errorIcon {
+    left: 145px;
+}
+
+#chooserRegistration #loginDetails ul li p.warning {
+    left: 160px;
+}
 
 
 #chooserRegistration #schoolChoiceLocation ul  li#stateLine div.label {
@@ -91,8 +98,8 @@
     margin-top: -2px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li img.errorIcon {
-    top: -17px;
+#chooserRegistration ul li img.errorIcon {
+    top: -15px;
 }
 
 #chooserRegistration #schoolChoiceLocation ul li p.warning {
@@ -142,5 +149,5 @@
 }
 
 #chooserRegistration #loginDetails ul li div.label {
-    width: 145px;
+    width: 135px;
 }

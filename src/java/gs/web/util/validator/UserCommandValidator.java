@@ -72,7 +72,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
     };
     protected static final String ERROR_FIRST_NAME_BAD = "Please enter your name without numbers or symbols.";
     protected static final String ERROR_EMAIL_TAKEN = "The email address you entered has already been registered with GreatSchools.";
-    protected static final String ERROR_EMAIL_TAKEN_SHORT = "That email address has already been registered.";
+    protected static final String ERROR_EMAIL_TAKEN_SHORT = "That email address has been registered.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
