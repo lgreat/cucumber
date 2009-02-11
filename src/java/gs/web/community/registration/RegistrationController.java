@@ -64,7 +64,6 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         userCommand.setRedirectUrl(request.getParameter("redirect"));
         if (isChooserRegistration()) {
-            System.out.println("req-----------------------:"+request.getParameter("redirectForConfirm"));
             loadSchoolChoiceCityList(request, userCommand);
             setupChooserRegistration(userCommand);
         } else {
@@ -107,11 +106,10 @@ public class RegistrationController extends SimpleFormController implements Read
         if (isChooserRegistration()) {
             if (StringUtils.isNotBlank(request.getParameter("schoolChoiceState"))) {
                 State state = State.fromString(request.getParameter("schoolChoiceState"));
-                userCommand.setSchoolChoiceState(state);                
+                userCommand.setSchoolChoiceState(state);
             }
             userCommand.setSchoolChoiceCity(request.getParameter("schoolChoiceCity"));
             loadSchoolChoiceCityList(request, userCommand);
-            setupChooserRegistration(userCommand);
         } else {
             userCommand.setCity(request.getParameter("city"));
             loadCityList(request, userCommand);
@@ -122,13 +120,6 @@ public class RegistrationController extends SimpleFormController implements Read
         userCommand.setNewsletter("on".equals(newsletter));
         String beta = request.getParameter(BETA_PARAMETER);
         userCommand.setBeta("on".equals(beta));
-
-        /*StringBuilder sb = new StringBuilder();
-        sb.append("http://");
-        sb.append(SessionContextUtil.getSessionContext(request).getHostName());
-        sb.append(request.getParameter("redirectForConfirm"));
-        System.out.println("req:"+request.getParameter("redirectForConfirm"));
-        userCommand.setRedirectUrl(sb.toString()); */
     }
 
     protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
@@ -253,26 +244,14 @@ public class RegistrationController extends SimpleFormController implements Read
             if (!notifyCommunity(user, userCommand, mAndV, request)) {
                 return mAndV; // early exit!
             }
-            if (isChooserRegistration()) {
-                // TODO GS-7917, GS-7919 - call ExactTarget API to subscribe user to email series?
-            }
             if (!user.isEmailProvisional()) {
                 if (!isChooserRegistration()) {
                     sendConfirmationEmail(user, userCommand, request);
                 }
             }
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
-            if (isChooserRegistration()) {
-                //userCommand.setRedirectUrl("/school-choice/?confirm=true");
-                //request.getParameter("redirectForConfirm");
-                //StringBuilder sb = new StringBuilder();
-                //sb.append("http://");
-                //sb.append(SessionContextUtil.getSessionContext(request).getHostName());
-                //sb.append(request.getParameter("redirectForConfirm"));
-                //System.out.println("req1:"+request.getParameter("redirectForConfirm"));
-                //userCommand.setRedirectUrl(sb.toString());
-            } else if (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
-                    !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl())) {
+            if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
+                    !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
                 String redirectUrl = "http://" +
                         SessionContextUtil.getSessionContext(request).getSessionContextUtil().getCommunityHost(request) +
                         "/members/" + user.getUserProfile().getScreenName() + "/profile/interests?registration=1";
