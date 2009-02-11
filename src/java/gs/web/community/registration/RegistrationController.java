@@ -104,6 +104,10 @@ public class RegistrationController extends SimpleFormController implements Read
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
         if (isChooserRegistration()) {
+            if (StringUtils.isNotBlank(request.getParameter("schoolChoiceState"))) {
+                State state = State.fromString(request.getParameter("schoolChoiceState"));
+                userCommand.setSchoolChoiceState(state);                
+            }
             userCommand.setSchoolChoiceCity(request.getParameter("schoolChoiceCity"));
             loadSchoolChoiceCityList(request, userCommand);
             setupChooserRegistration(userCommand);
@@ -136,22 +140,30 @@ public class RegistrationController extends SimpleFormController implements Read
                 SessionContextUtil.getSessionContext(request).setState(state);
                 if (isSchoolChoiceLocation) {
                     userCommand.setSchoolChoiceCity(userCity.getName());
+                    userCommand.setSchoolChoiceState(state);
                 } else {
                     userCommand.setCity(userCity.getName());
                 }
 
             } else {
-                state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+                if (isSchoolChoiceLocation) {
+                    state = SessionContextUtil.getSessionContext(request).getState();
+                } else {
+                    state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+                }
             }
         }
-        List<City> cities = _geoDao.findCitiesByState(state);
-        City city = new City();
-        city.setName("My city is not listed");
-        cities.add(0, city);
-        if (isSchoolChoiceLocation) {
-            userCommand.setSchoolChoiceCityList(cities);
-        } else {
-            userCommand.setCityList(cities);
+
+        if (state != null) {
+            List<City> cities = _geoDao.findCitiesByState(state);
+            City city = new City();
+            city.setName("My city is not listed");
+            cities.add(0, city);
+            if (isSchoolChoiceLocation) {
+                userCommand.setSchoolChoiceCityList(cities);
+            } else {
+                userCommand.setCityList(cities);
+            }
         }
     }
 

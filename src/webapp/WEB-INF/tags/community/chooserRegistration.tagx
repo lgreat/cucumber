@@ -79,10 +79,21 @@
                 <li id="stateLine">
                     <!-- State -->
                     <div class="label"><label id="stateLabel">State:</label></div>
-                    <spring:bind path="userCmd.schoolChoiceState">
-                        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                             onChange="stateChange(this);" tabIndex="5" name="${status.expression}"/>
-                    </spring:bind>
+                    <c:choose>
+                        <c:when test="${empty userCmd.schoolChoiceState}">
+                                <gsweb:stateSelector state="${status.value}" styleId="userState"
+                                                     useNoState="true" noStateLabel="--"
+                                                     onChange="stateChange(this);" tabIndex="5"
+                                                     name="${status.expression}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <spring:bind path="userCmd.schoolChoiceState">
+                                <gsweb:stateSelector state="${status.value}" styleId="userState"
+                                                     onChange="stateChange(this);" tabIndex="5"
+                                                     name="${status.expression}"/>
+                            </spring:bind>
+                        </c:otherwise>
+                    </c:choose>
                     <gsml:errorMessage command="userCmd" field="schoolChoiceState" useImage="true" styleClass="warning"/>
                 </li>
 
@@ -92,16 +103,18 @@
                         <span id="city">
                             <spring:bind path="userCmd.schoolChoiceCity">                            
                                 <select name="${status.expression}" tabindex="6">
-                                    <c:if test="${userCmd.schoolChoiceCityList ne null and (userCmd.schoolChoiceCity eq null or userCmd.schoolChoiceCity eq '')}">
+                                    <c:if test="${empty userCmd.schoolChoiceState or (userCmd.schoolChoiceCityList ne null and (userCmd.schoolChoiceCity eq null or userCmd.schoolChoiceCity eq ''))}">
                                         <option selected="selected" value="">Choose city</option>
                                     </c:if>
-                                    <c:forEach var="cityOption" items="${userCmd.schoolChoiceCityList}">
-                                        <![CDATA[<option ]]>
-                                        <c:if test="${userCmd.schoolChoiceCity eq cityOption.name}">
-                                            selected="selected"
-                                        </c:if>
-                                        <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                                    </c:forEach>
+                                    <c:if test="${not empty userCmd.schoolChoiceState}">
+                                        <c:forEach var="cityOption" items="${userCmd.schoolChoiceCityList}">
+                                            <![CDATA[<option ]]>
+                                            <c:if test="${userCmd.schoolChoiceCity eq cityOption.name}">
+                                                selected="selected"
+                                            </c:if>
+                                            <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                        </c:forEach>
+                                    </c:if>
                                 </select>
                             </spring:bind>
                         </span>
