@@ -104,3 +104,7 @@
     bottom: 0;
     float: left;
 }
+
+#chooserRegistration #loginDetails ul li div.label {
+    width: 160px;
+}

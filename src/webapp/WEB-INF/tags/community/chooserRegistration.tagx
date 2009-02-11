@@ -18,6 +18,10 @@
     <pageHelper:externalCss file="/res/css/community/registration/chooserRegistrationCommon.css"/>
 
     <gsweb:form action="${formAction}" method="post">
+        <spring:bind path="userCmd.redirectUrl">
+            <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}" readonly="readonly"/>
+        </spring:bind>
+
        <div id="chooserRegistration">
         <div id="loginDetails">
             <h2>Your login details</h2>
