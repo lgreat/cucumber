@@ -16,7 +16,7 @@
 
     <jsp:directive.page contentType="text/html"/>
 
-    <head>
+    <head>                                                                  
         <title>Join - GreatSchools</title>
         <pageHelper:externalCss file="/res/css/community/registration/chooserRegistration.css"/>
     </head>
@@ -27,7 +27,20 @@
         <div id="chooserRegistrationWrapper">
 
             <h1>Personalize your school search!</h1>
+
+             <div id="topTextDivId">
+            <ul>
+                <li>Receive a customized four-part email series to guide you step-by-step through your search
+                </li>
+                <li class="liTextDiv">Save Profiles of your top contenders,and compare importnant factors like class size and academic performance
+                </li>
+            </ul>
+
+            </div>
             <community:chooserRegistration formAction="/community/chooserRegistration.page"/>
+
+
+
         </div>
 
         <mod:tracking pageName="Short On Page Registration"

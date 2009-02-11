@@ -32,10 +32,12 @@
             mslFlowDialog.render();
         }
 
-        function showLoginHover() {
+        function showLoginHover(redirectUrlEncoded, emailUrlEncoded) {                            s
             var frameLocation = '' + window.frames['mslFlowDialogIFrame'].window.location;
             if (frameLocation.indexOf('/community/registration/popup/chooserRegistrationHover.page') == -1) {
-                window.frames['mslFlowDialogIFrame'].window.location = '/community/registration/popup/chooserRegistrationHover.page';
+                window.frames['mslFlowDialogIFrame'].window.location =
+                    '/community/registration/popup/chooserRegistrationHover.page?email=' +
+                    emailUrlEncoded + '&redirect=' + redirectUrlEncoded;
             }
 
             document.getElementById("mslFlowDialog").style.display="block";
@@ -76,7 +78,7 @@
         </div>
         <div id="mslFlowDialogBody">
             <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
-                    width="445" height="390" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                    width="445" height="420" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
          </div>
 
         <div id="mslFlowDialogBottomBar">

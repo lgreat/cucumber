@@ -35,9 +35,9 @@
                 mslHref = '';
             }
         }
-        function storeHrefOpenHover(href) {
+        function storeHrefOpenHover(href, redirectUrlEncoded, emailUrlEncoded) {
             mslHref = href;
-            return showLoginHover();
+            return showLoginHover(redirectUrlEncoded, emailUrlEncoded);
         }
     </script>
     <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>

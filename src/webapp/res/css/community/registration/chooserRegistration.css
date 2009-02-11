@@ -11,6 +11,22 @@
     padding-bottom: 25px;
 }
 
+#chooserRegistrationWrapper div#topTextDivId{
+    padding-left:8px;
+
+}
+
+#chooserRegistrationWrapper div#topTextDivId ul li{
+    
+    list-style:disc;
+    font-family: Trebuchet MS;
+    font-size: 12px;
+    color:#666666;
+    margin:8px;
+    padding:0px;
+
+}
+
 #chooserRegistration #schoolChoiceLocation h2 {
     background: url(/res/img/community/registration/join_16_2.gif) no-repeat;
 }

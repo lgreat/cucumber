@@ -35,12 +35,11 @@ $j(function() {
                                                 omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
                                                 omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
                                                 omnitureEventNotifier.send();
-                                                alert(datax.redirectEncoded);
                                                 if(datax.abVersionForRedirect == 'a'){
                                                     window.location.href = '/community/chooserRegistration.page?email='+ datax.emailEncoded+'&redirect='+ datax.redirectEncoded;
                                                 }
                                                 else{
-                                                      storeHrefOpenHover(this.href,datax.redirectEncoded);
+                                                      storeHrefOpenHover(this.href,datax.redirectEncoded,datax.emailEncoded);
                                                 }
                                             }, "json");
                                 } else {
