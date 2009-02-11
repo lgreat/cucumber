@@ -120,9 +120,14 @@
                             </div>
                         </div>
                     </div>
+                
+                <jsp:scriptlet>
+                             request.setAttribute("communityAuth",
+                        Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                         </jsp:scriptlet>
                     <div id="email_go">
                         <input id="cemail" name="cemail"
-                               class="required email" value="${(empty requestScope.context.user.email) ? 'Enter Email Address' : requestScope.context.user.email}"/>
+                               class="required email" value="${(communityAuth) ? requestScope.context.user.email :'Enter Email Address' }"/>
                                                 
                         <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
                                onmouseover="this.src='/res/img/splash/goOver.gif';"
@@ -132,7 +137,7 @@
 
 
 
-                        <c:if test="${not empty requestScope.context.user.email}">
+                        <c:if test="${communityAuth}">
                             <div class="logoutDiv">
                             <a href="/community/logout.page?redirect=${logoutRedirect}">Not ${requestScope.context.user.email}?</a>
                              </div>
