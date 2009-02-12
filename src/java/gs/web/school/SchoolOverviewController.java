@@ -131,7 +131,15 @@ public class SchoolOverviewController extends AbstractSchoolController implement
             model.put("hasElementaryLevelCode", school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL));
             model.put("hasProgramData", hasProgramData(school));
             model.put("hasSurveyData", _surveyDao.hasSurveyData(school));
-            model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request));
+
+            // if confirm=true is passed in as a parameter to the overview page, always show the
+            // school choice pack promo thank you
+            String confirmStr = request.getParameter("confirm");
+            if ("true".equals(confirmStr)) {
+                model.put("showSchoolChooserPackPromo", true);
+            } else {
+                model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request));
+            }
 
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
                 model.put("hasTeacherData", _groupDataTypeDao.hasTeacherData(school));
