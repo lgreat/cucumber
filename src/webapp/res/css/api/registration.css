@@ -1,1 +1,32 @@
 /* api/registration.css */
+div#api_reg {
+    margin: 20px 60px;
+    border: 2px solid;
+    padding: 30px;
+}
+
+form table {
+    text-align: right;
+    vertical-align: text-top;
+}
+
+input, textarea {
+    width: 450px;
+}
+
+textarea {
+    height: 100px;
+}
+
+input#save {
+    width: 150px;
+}
+.contentGS div h2 {
+    font-size: 22px;
+    padding: 0 0 20px 0;
+}
+
+
+td span {
+    color: red;
+}

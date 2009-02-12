@@ -1857,14 +1857,21 @@
           class="gs.web.promo.SchoolChoicePackPromoController"
           autowire="byName" lazy-init="true"/>
 
+    <bean id="apiAccountValidator" class="gs.web.api.ApiAccountCommandValidator"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/api/registration.page"
           class="gs.web.api.RegistrationController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true" />
-        <property name="commandName" value="accountCommand" />
         <property name="commandClass" value="gs.data.api.ApiAccount" />
         <property name="formView" value="api/registration" />
-        <property name="successView" value="api/success" />
+        <property name="successView" value="api/registrationSuccess" />
+        <property name="validators">
+            <list>
+                <ref local="apiAccountValidator"/>
+            </list>
+        </property>        
     </bean>
 
     <bean name="/api/registrationSuccess.page"
@@ -1880,6 +1887,7 @@
           class="gs.web.api.admin.AccountController"
           lazy-init="true">
         <property name="bindOnNewForm" value="true" />
+        <property name="commandName" value="account" />
         <property name="commandClass" value="gs.data.api.ApiAccount" />
         <property name="formView" value="api/admin/account" />
         <property name="successView" value="api/success" />

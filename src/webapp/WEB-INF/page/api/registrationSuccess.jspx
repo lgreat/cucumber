@@ -1,13 +1,9 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
 
 <c:set var="pageName" value="API Registration" />
@@ -26,11 +22,10 @@
     <pageHelper:externalCss file="/res/css/widelayout.css" />
     <pageHelper:externalCss file="/res/css/api/registration.css" />
 
-    <!--<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>-->
 </head>
 
 <body >
-    <div>Registration Success</div>
+    <div>Api Registration Request Email Sent</div>
 </body>
 </html>
 </jsp:root>

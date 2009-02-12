@@ -26,45 +26,56 @@
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/api/registration.css"/>
 
-        <!--<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>-->
     </head>
 
     <body>
-    <div>Registration</div>
-    <!--<form:form commandName="registrationCommand">-->
-    <form:form>
-        <table>
-            <tr>
-                <td>Name:</td>
-                <td><form:input path="name" /></td>
-            </tr>
-            <tr>
-                <td>Organization:</td>
-                <td><form:input path="organization" /></td>
-            </tr>
-            <tr>
-                <td>Website URL:</td>
-                <td><form:input path="website" /></td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td><form:input path="email" /></td>
-            </tr>
-            <tr>
-                <td>Phone Number:</td>
-                <td><form:input path="phone" /></td>
-            </tr>
-            <tr>
-                <td>How will you use the API:</td>
-                <td><form:textarea path="intendedUse" rows="3" cols="25"/></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="Save Changes" />
-                </td>
-            </tr>
-        </table>
-    </form:form>
+    <div id="api_reg">
+        <div><h2>Api Registration</h2></div>
+        <form:form>
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><form:input path="name" /></td>
+                    <td><form:errors path="name" /></td>
+                </tr>
+                <tr>
+                    <td>Organization:</td>
+                    <td><form:input path="organization" /></td>
+                    <td />
+                </tr>
+                <tr>
+                    <td>Website URL:</td>
+                    <td><form:input path="website" /></td>
+                    <td />
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><form:input path="email" /></td>
+                    <td><form:errors path="email" /></td>
+                </tr>
+                <tr>
+                    <td>Confirm Email:</td>
+                    <td><form:input path="confirmEmail" /></td>
+                    <td><form:errors path="confirmEmail" /></td>
+                </tr>
+                <tr>
+                    <td>Phone Number:</td>
+                    <td><form:input path="phone" /></td>
+                    <td />
+                </tr>
+                <tr>
+                    <td>How will you use the API:</td>
+                    <td><form:textarea path="intendedUse" rows="3" cols="25"/></td>
+                    <td />
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input id="save" type="submit" value="Save Changes" />
+                    </td>
+                </tr>
+            </table>
+        </form:form>
+    </div>
     </body>
     </html>
 </jsp:root>
