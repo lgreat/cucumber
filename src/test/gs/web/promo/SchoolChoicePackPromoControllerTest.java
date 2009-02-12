@@ -32,6 +32,7 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
         String email = "foo@bar.net";
         getRequest().setParameter(SchoolChoicePackPromoController.EMAIL_PARAM, email);
         getRequest().setParameter(SchoolChoicePackPromoController.LEVELS_PARAM, "p,m");
+        getRequest().setParameter(SchoolChoicePackPromoController.REDIRECT_FOR_CONFIRM, "/school-choice/?confirm=true");
         User u = new User();
         u.setEmail(email);
         u.setId(12345);
@@ -82,6 +83,7 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
         u.setEmail(email);
         getRequest().setParameter(SchoolChoicePackPromoController.EMAIL_PARAM, email);
         getRequest().setParameter(SchoolChoicePackPromoController.LEVELS_PARAM, "p,m");
+        getRequest().setParameter(SchoolChoicePackPromoController.REDIRECT_FOR_CONFIRM, "/school-choice/?confirm=true");
         expect(_mockUserDao.findUserFromEmailIfExists(email)).andReturn(null);
         _mockUserDao.saveUser(eqUserWithNeverSend());
         replay(_mockUserDao);
