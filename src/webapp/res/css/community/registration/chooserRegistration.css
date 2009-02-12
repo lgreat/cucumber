@@ -5,6 +5,10 @@
     float: left;
 }
 
+* html #chooserRegistration #loginDetails {
+    margin-left: 0;
+}
+
 #chooserRegistration {
     padding-left: 20px;
     height: 240px;

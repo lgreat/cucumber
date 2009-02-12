@@ -80,7 +80,7 @@
          </div>
 
         <div id="mslFlowDialogBottomBar">
-            <img src="/res/img/community/registration/join_pop_bottom.gif" alt="Close window" onclick="closeMslFlowDialog();"/>
+            <img src="/res/img/community/registration/join_pop_bottom.gif" alt="Close window"/>
         </div>
     </div>
 

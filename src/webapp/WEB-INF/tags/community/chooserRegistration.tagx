@@ -137,6 +137,11 @@
        </div>
         <script type="text/javascript">
             document.getElementById('firstName').focus();
+
+            function noThanks() {
+                window.location.href = '${userCmd.redirectUrl}';
+                return false;
+            }
         </script>
 
     </gsweb:form>
