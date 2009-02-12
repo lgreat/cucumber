@@ -60,6 +60,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
                 _userDao.saveUser(user);
             }
 
+
             JsonBasedOmnitureTracking omnitureTracking = new JsonBasedOmnitureTracking();
 
             omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.ChoicePackRequest);
@@ -89,7 +90,6 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             }
             PageHelper.setMemberCookie(request, response, user);
             triggerPromoPackEmail(user, levels);
-
             SessionContext session = SessionContextUtil.getSessionContext(request);
             String abVersion = session.getABVersion();
             String emailEncoded = URLEncoder.encode(email, "UTF-8");
@@ -98,6 +98,10 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             out.println("{");
             out.println("\"memid\":\"" + String.valueOf(user.getId()) + "\",");
             out.println("\"redirectEncoded\":\"" + URLEncoder.encode(redirectForConfirm, "UTF-8") + "\",");
+
+            if(user.isCommunityMember()){
+                out.println("\"isCommunityMember\":\"" + "y" + "\",");
+            }
             out.println("\"abVersionForRedirect\":\"" + abVersion + "\",");
             out.println("\"emailEncoded\":\"" + emailEncoded + "\",");
             out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());

@@ -35,12 +35,19 @@ $j(function() {
                                                 omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
                                                 omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
                                                 omnitureEventNotifier.send();
-                                                if(datax.abVersionForRedirect == 'a'){
+                                                if(datax.isCommunityMember == undefined){
+                                                    if(datax.abVersionForRedirect == 'a'){
                                                     window.location.href = '/community/chooserRegistration.page?email='+ datax.emailEncoded+'&redirect='+ datax.redirectEncoded;
+                                                    }
+                                                    else{
+                                                      storeHrefOpenHover(this.href,datax.redirectEncoded,datax.emailEncoded);
+                                                    }
                                                 }
                                                 else{
-                                                      storeHrefOpenHover(this.href,datax.redirectEncoded,datax.emailEncoded);
+                                                    $j("#form_panel").hide();
+                                                    $j("#confirm_panel").show();
                                                 }
+
                                             }, "json");
                                 } else {
                                     alert ("Please accept the GreatSchools Privacy Policy and Terms of Use.");
