@@ -1,6 +1,7 @@
 package gs.web.util;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.api.admin.AccountController;
 import gs.web.status.MonitorController;
 import gs.web.content.AllArticlesController;
 import gs.web.geo.CityController;
@@ -38,9 +39,12 @@ public class ReadWriteInterceptorTest extends BaseControllerTestCase {
 
         controller = new MonitorController();
         assertReadWriteStatus(controller, false, null);
+
+        Object annotationController = new AccountController();
+        assertReadWriteStatus(annotationController, true, null);
     }
 
-    private void assertReadWriteStatus(Controller controller, boolean isReadOnly, Exception e) throws Exception {
+    private void assertReadWriteStatus(Object controller, boolean isReadOnly, Exception e) throws Exception {
         ReadWriteInterceptor osiv = new ReadWriteInterceptor();
         ServletRequest request = getRequest();
         ServletResponse response = getResponse();

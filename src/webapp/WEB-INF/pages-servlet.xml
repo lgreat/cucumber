@@ -11,10 +11,7 @@
             http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <context:component-scan base-package="gs.web">
-        <context:include-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+    <context:component-scan base-package="gs.web.api" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -33,6 +30,9 @@
         </property>
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
+          parent="defaultHandlerMapping"/>
 
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
@@ -1883,6 +1883,7 @@
           class="gs.web.api.admin.AccountsController" lazy-init="true">
     </bean>
 
+    <!--
     <bean name="/api/admin/account.page"
           class="gs.web.api.admin.AccountController"
           lazy-init="true">
@@ -1892,7 +1893,8 @@
         <property name="formView" value="api/admin/account" />
         <property name="successView" value="api/success" />
     </bean>
-
+    -->
+    
     <bean name="/community/registration/popup/chooserRegistrationHover.page"
           class="gs.web.community.registration.RegistrationController"
           autowire="byName" lazy-init="true">

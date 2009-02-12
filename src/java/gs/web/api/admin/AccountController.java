@@ -1,45 +1,36 @@
 package gs.web.api.admin;
 
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 
 import gs.data.api.IApiAccountDao;
 import gs.data.api.ApiAccount;
-import gs.web.util.ReadWriteController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.logging.Logger;
+import gs.web.util.ReadWriteAnnotationController;
 
 /**
  * @author chriskimm@greatschools.net
  */
-public class AccountController extends SimpleFormController implements ReadWriteController {
+@Controller
+@RequestMapping("/api/admin/account.page")
+public class AccountController implements ReadWriteAnnotationController {
 
-    public static final String MESSAGES = "messages";
+    public static final String MAIN_VIEW = "api/admin/account";
+    
+    //public static final String MESSAGES = "messages";
 
+    @SuppressWarnings({"SpringJavaAutowiringInspection"})
+    @Autowired
     private IApiAccountDao _apiAccountDao;
-    private static final Logger _log = Logger.getLogger("gs.web.api.admin.AccountController");
 
-
-    /**
-     @Override
-    protected Object formBackingObject(HttpServletRequest request) throws Exception {
-        String accountId = request.getParameter("id");
-        try {
-            Integer id = Integer.valueOf(accountId);
-            return _apiAccountDao.getAccountById(id);
-        } catch (NumberFormatException nfe) {
-            _log.warning(nfe.toString());
-            return null;
-        }
-    }
-     */
-
-    @Override
-    protected ModelAndView onSubmit(Object o) throws Exception {
-        ApiAccount command = (ApiAccount)o;
-        _apiAccountDao.save(command);
-        return new ModelAndView(getSuccessView());
+    @RequestMapping(method = RequestMethod.GET)
+    public String setupForm(@RequestParam("id") int id, ModelMap model) {
+        ApiAccount account = getApiAccountDao().getAccountById(id);
+        model.addAttribute("account", account);
+        return MAIN_VIEW;
     }
 
     public IApiAccountDao getApiAccountDao() {
@@ -49,4 +40,5 @@ public class AccountController extends SimpleFormController implements ReadWrite
     public void setApiAccountDao(IApiAccountDao apiAccountDao) {
         _apiAccountDao = apiAccountDao;
     }
+
 }

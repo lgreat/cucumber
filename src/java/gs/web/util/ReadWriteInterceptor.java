@@ -20,7 +20,7 @@ public class ReadWriteInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object controller) throws Exception {
         // Unless it's a read-write controller, default to the read-only databases
-        if (!(controller instanceof ReadWriteController)) {
+        if (!(controller instanceof ReadWriteController) || (controller instanceof ReadWriteAnnotationController)) {
             ThreadLocalTransactionManager.setReadOnly();
         } else {
             // Make sure we're not inheriting any read only connections
