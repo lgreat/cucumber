@@ -373,7 +373,7 @@
             <div class="ad_top">
                 <c:choose>
                     <c:when test="${showSchoolChooserPackPromo}">
-                        <promo:schoolChoicePackPromo schoolName="${school.name}" showBorder="${true}" showSchoolChoiceLink="${true}" schoolObjectForRedirect="${school}"/>
+                        <promo:schoolChoicePackPromo schoolName="${school.name}" showBorder="${true}" showSchoolChoiceLink="${true}" schoolObjectForRedirect="${school}" showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
                     </c:when>
                     <c:otherwise>
                         <ad:Top_300x137/>
