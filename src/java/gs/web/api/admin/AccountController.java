@@ -19,8 +19,6 @@ import gs.web.util.ReadWriteAnnotationController;
 public class AccountController implements ReadWriteAnnotationController {
 
     public static final String MAIN_VIEW = "api/admin/account";
-    
-    //public static final String MESSAGES = "messages";
 
     @SuppressWarnings({"SpringJavaAutowiringInspection"})
     @Autowired
