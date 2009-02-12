@@ -89,10 +89,6 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             }
             PageHelper.setMemberCookie(request, response, user);
             triggerPromoPackEmail(user, levels);
-            if(user.isCommunityMember()){
-                // TODO GS-7917, GS-7919 - call ExactTarget API to subscribe user to email series?
-                //triggerChooserSeries(user);
-            }
 
             SessionContext session = SessionContextUtil.getSessionContext(request);
             String abVersion = session.getABVersion();
@@ -101,7 +97,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             PrintWriter out = response.getWriter();
             out.println("{");
             out.println("\"memid\":\"" + String.valueOf(user.getId()) + "\",");
-            out.println("\"redirectEncoded\":\"" + redirectForConfirm + "\",");
+            out.println("\"redirectEncoded\":\"" + URLEncoder.encode(redirectForConfirm, "UTF-8") + "\",");
             out.println("\"abVersionForRedirect\":\"" + abVersion + "\",");
             out.println("\"emailEncoded\":\"" + emailEncoded + "\",");
             out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
