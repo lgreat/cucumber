@@ -133,3 +133,8 @@ div#schoolChoicePackPromo div#form_panel div.logoutDiv a{
     font-size:10px;
     text-decoration:none;
 }
+
+
+div#schoolChoicePackPromo div#form_panel div.logoutDiv a:hover{
+    text-decoration:underline;
+}
