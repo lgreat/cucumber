@@ -76,7 +76,7 @@
         </div>
         <div id="mslFlowDialogBody">
             <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
-                    width="445" height="442" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                    width="445" height="462" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
          </div>
 
         <div id="mslFlowDialogBottomBar">

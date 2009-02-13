@@ -58,11 +58,6 @@
     background: url(/res/img/community/registration/join_16_1.gif) no-repeat;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li {
-    position: relative;
-    height: 18px;
-}
-
 
 #chooserRegistration #schoolChoiceLocation ul li label {
     color: #666666;

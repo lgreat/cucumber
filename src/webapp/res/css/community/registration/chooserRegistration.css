@@ -139,9 +139,10 @@
     top: -14px;
 }
 
+#chooserRegistration #schoolChoiceLocation ul li {
+    position: relative;
+    height: 18px;
+}
 
 
 
-
-/** html .contentGS ul.fourStepsUlstyle li#img3{
-    background-position:left 2px; */

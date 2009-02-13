@@ -64,6 +64,15 @@
 
 }
 
+
+* html #chooserRegistration #schoolChoiceLocation ul li#cityLine{
+    width:150px;
+    float:left;
+    margin-left: 2px;
+    height:30px;
+}
+
+
 /* TODO-7917 Fix this in a better way? */
 #chooserRegistration ul li p.warning {
     top: -26px;
