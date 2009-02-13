@@ -138,3 +138,13 @@ div#schoolChoicePackPromo div#form_panel div.logoutDiv a{
 div#schoolChoicePackPromo div#form_panel div.logoutDiv a:hover{
     text-decoration:underline;
 }
+
+div#schoolChoicePackPromo div#confirm_panel div.blurb #linkToSchoolChoice{
+     text-decoration:none;
+
+}
+
+div#schoolChoicePackPromo div#confirm_panel div.blurb #linkToSchoolChoice:hover{
+    text-decoration:underline;
+
+}
