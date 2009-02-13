@@ -31,6 +31,17 @@
 
 }
 
+#chooserRegistration #schoolChoiceLocation ul li#stateLine{
+   height:26px;
+}
+
+* html #chooserRegistration #schoolChoiceLocation ul li#stateLine div.label{
+  margin-top:4px;
+}
+
+* html #chooserRegistration #schoolChoiceLocation ul li#cityLine div.label{
+  margin-top:4px;
+}
 #chooserRegistration #schoolChoiceLocation h2 {
     background: url(/res/img/community/registration/join_16_2.gif) no-repeat;
 }
@@ -39,10 +50,14 @@
 #chooserRegistration h2 {
     font-size: 14px;
     color: #666666;
-    padding-bottom: 14px;
+    padding-bottom: 4px;
     text-indent: 30px;
     height: 24px;
     padding-top: 3px;
+}
+
+* html #chooserRegistration #schoolChoiceLocation h2 {
+     padding-bottom: 0px;
 }
 
 #chooserRegistrationWrapper h1 {
@@ -123,3 +138,10 @@
     left: 185px;
     top: -14px;
 }
+
+
+
+
+
+/** html .contentGS ul.fourStepsUlstyle li#img3{
+    background-position:left 2px; */

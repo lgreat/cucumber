@@ -60,7 +60,7 @@
 
 #chooserRegistration #schoolChoiceLocation ul li {
     position: relative;
-    height: 25px;
+    height: 18px;
 }
 
 
@@ -71,6 +71,11 @@
 
 #chooserRegistration #schoolChoiceLocation ul li select {
     margin-top: -2px;
+}
+
+
+* html #chooserRegistration #schoolChoiceLocation ul li select{
+     margin-top: 0px;
 }
 
 #chooserRegistration #schoolChoiceLocation ul li img.errorIcon {
@@ -85,3 +90,4 @@
     top: -16px;
     width: 250px;
 }
+
