@@ -36,7 +36,7 @@ div#schoolChoicePackPromo div.left_levs {
 }
 div#schoolChoicePackPromo div.right_levs {
     margin: 0;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
     width: 115px;
     float: right;
 }
