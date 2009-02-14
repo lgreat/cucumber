@@ -23,6 +23,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private IApiAccountDao _apiAccountDao;
     private EmailHelperFactory _emailHelperFactory;
     private static final Logger _log = Logger.getLogger("gs.web.api.RegistrationController");
+    static final String API_REQUEST_EMAIL_ADDRESS = "chriskimm@greatschools.net";
 
     @Override
     protected ModelAndView onSubmit(Object o) throws Exception {
@@ -43,12 +44,11 @@ public class RegistrationController extends SimpleFormController implements Read
     void sendRequestEmail(ApiAccount account) {
         try {
             EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
-            emailHelper.setToEmail(account.getEmail());
+            emailHelper.setToEmail(API_REQUEST_EMAIL_ADDRESS);
             emailHelper.setFromEmail("api-support@greatschools.net");
             emailHelper.setFromName("GreatSchools API ");
             emailHelper.setSubject("GreatSchools Api Account Request");
             StringBuffer message = new StringBuffer();
-            message.append("account:");
 
             message.append("\nName: ");
             String value = account.getName() != null ? account.getName() : "";
@@ -60,6 +60,10 @@ public class RegistrationController extends SimpleFormController implements Read
 
             message.append("\nOrganization: ");
             value = account.getOrganization() != null ? account.getOrganization() : "";
+            message.append(value);
+
+            message.append("\nIntended Use: ");
+            value = account.getIntendedUse() != null ? account.getIntendedUse() : "";
             message.append(value);
 
             emailHelper.setTextBody(message.toString());

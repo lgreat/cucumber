@@ -19,17 +19,33 @@
     </head>
 
     <body>
+
     <div id="content">
         <div><h2>Api Account Details</h2></div>
         <ul>
             <li>Name: ${account.name}</li>
             <li>Organization: ${account.organization}</li>
             <li>Email: ${account.email}</li>
+            <li>Website: ${account.website}</li>
+            <li>Phone: ${account.phone}</li>
+            <li>Intended Use: ${account.intendedUse}</li>
+            <li>
+                <c:choose>
+                    <c:when test="${not empty account.apiKey}">
+                        Api Key: ${account.apiKey}
+                        <c:set var="key_button" value="Delete Key" />
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="key_button" value="Generate Key" />
+                    </c:otherwise>
+                </c:choose>
+                <form:form>
+                    <input id="save" type="submit" value="${key_button}" />
+                </form:form>
+            </li>
         </ul>
         
-        <form:form>
-            <input id="save" type="submit" value="Generate Api Key" />
-        </form:form>
+
     </div>
     </body>
     </html>

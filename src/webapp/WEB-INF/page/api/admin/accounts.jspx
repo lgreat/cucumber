@@ -17,7 +17,6 @@
 <head>
     <title>GreatSchools.net API Accounts</title>
     <link rel="stylesheet" href="/res/css/api/admin.css" />
-    <!--<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>-->
 </head>
 
 <body >
@@ -37,7 +36,9 @@
         </td>
         <td>${account.organization}</td>
         <td>${account.email}</td>
-        <td>..</td>
+        <td>
+            ${(not empty account.apiKey) ? 'yes' : 'no'}
+        </td>
         </tr>
     </c:forEach>
 </table>

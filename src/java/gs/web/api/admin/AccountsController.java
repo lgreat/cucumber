@@ -1,38 +1,36 @@
 package gs.web.api.admin;
 
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 
 import gs.data.api.IApiAccountDao;
-
-import java.util.Map;
-import java.util.HashMap;
 
 /**
  * Created by chriskimm@greatschools.net
  */
-public class AccountsController extends AbstractController {
+@Controller
+@RequestMapping("/api/admin/accounts.page")
+public class AccountsController {
 
-    /** Spring bean id */
-    public static final String BEAN_NAME = "/api/admin/accounts.page";
-
+    @Autowired
     private IApiAccountDao _apiAccountDao;
-    private final static String ACCOUNTS_VIEW_NAME = "/api/admin/accounts";
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("accounts", _apiAccountDao.getAllAccounts());
-        return new ModelAndView(ACCOUNTS_VIEW_NAME, model);
+    public final static String ACCOUNTS_VIEW_NAME = "/api/admin/accounts";
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String getPage(ModelMap model) {
+        model.addAttribute("accounts", getApiAccountDao().getAllAccounts());
+        return ACCOUNTS_VIEW_NAME;
     }
 
-    public IApiAccountDao getApiAccountDao() {
+    IApiAccountDao getApiAccountDao() {
         return _apiAccountDao;
     }
 
-    public void setApiAccountDao(IApiAccountDao apiAccountDao) {
+    void setApiAccountDao(IApiAccountDao apiAccountDao) {
         _apiAccountDao = apiAccountDao;
     }
 }

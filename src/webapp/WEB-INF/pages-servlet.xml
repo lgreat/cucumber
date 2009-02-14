@@ -32,7 +32,13 @@
     </bean>
 
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
-          parent="defaultHandlerMapping"/>
+          parent="defaultHandlerMapping" >
+        <property name="interceptors">
+            <list>
+                <bean class="gs.web.api.admin.AuthInterceptor"/>
+            </list>
+        </property>
+    </bean>
 
     <bean name="directoryStructureUrlHandlerMapping" parent="defaultHandlerMapping"
           class="gs.web.path.DirectoryStructureUrlHandlerMapping" lazy-init="true">
@@ -1879,22 +1885,6 @@
         <property name="viewName" value="api/registrationSuccess"/>
     </bean>
 
-    <bean name="/api/admin/accounts.page"
-          class="gs.web.api.admin.AccountsController" lazy-init="true">
-    </bean>
-
-    <!--
-    <bean name="/api/admin/account.page"
-          class="gs.web.api.admin.AccountController"
-          lazy-init="true">
-        <property name="bindOnNewForm" value="true" />
-        <property name="commandName" value="account" />
-        <property name="commandClass" value="gs.data.api.ApiAccount" />
-        <property name="formView" value="api/admin/account" />
-        <property name="successView" value="api/success" />
-    </bean>
-    -->
-    
     <bean name="/community/registration/popup/chooserRegistrationHover.page"
           class="gs.web.community.registration.RegistrationController"
           autowire="byName" lazy-init="true">

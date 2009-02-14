@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.150 2009/02/11 17:45:20 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.151 2009/02/14 00:53:14 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -235,6 +235,9 @@ public class UrlBuilder {
     public static final VPage SCHOOL_FINDER_CUSTOMIZATION = new VPage("vpage:schoolFinderCustomization");
 
     public static final VPage SCHOOL_FINDER_WIDGET = new VPage("vpage:schoolFinderWidget");
+
+    /** Api Pages */
+    public static final VPage API_ADMIN_LOGIN = new VPage("vpage:apiAdminLogin");
 
     /**
      * Create a builder to the given site page.
@@ -574,10 +577,7 @@ public class UrlBuilder {
            else {
                throw new IllegalArgumentException("VPage unknown" + page);
            }
-       }
-
-
-
+    }
 
     private void init(VPage page, State state, String param0) {
         _vPage = page;
@@ -830,17 +830,23 @@ public class UrlBuilder {
             }
             sb.append("/preschools/");
             _path = sb.toString();
-        }
-        else if(CHOOSER_REGISTRATION_HOVER.equals(page)){
+        } else if(CHOOSER_REGISTRATION_HOVER.equals(page)){
             _perlPage = false;
             _path = "/community/registration/popup/chooserRegistrationHover.page";
-           
-        }
-        else if(CHOOSER_REGISTRATION.equals(page)){
+
+        } else if(CHOOSER_REGISTRATION.equals(page)){
               _perlPage = false;
             _path = "/community/chooserRegistration.page";
-        }
-        else {
+        } else if (API_ADMIN_LOGIN.equals(page)) {
+            StringBuilder sb = new StringBuilder();
+            _perlPage = false;
+            sb.append("/api/admin_login.page");
+            if (StringUtils.isNotBlank(param0)) {
+                sb.append("?redirect=");
+                sb.append(param0);
+            }
+            _path = sb.toString();
+        } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }

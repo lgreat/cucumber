@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.apache.commons.lang.StringUtils;
 
 import gs.data.api.IApiAccountDao;
 import gs.data.api.ApiAccount;
+import gs.data.api.ApiAccountUtils;
 import gs.web.util.ReadWriteAnnotationController;
 
 /**
@@ -20,22 +22,34 @@ public class AccountController implements ReadWriteAnnotationController {
 
     public static final String MAIN_VIEW = "api/admin/account";
 
-    @SuppressWarnings({"SpringJavaAutowiringInspection"})
     @Autowired
     private IApiAccountDao _apiAccountDao;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(@RequestParam("id") int id, ModelMap model) {
+    public String showPage(@RequestParam("id") int id, ModelMap model) {
         ApiAccount account = getApiAccountDao().getAccountById(id);
         model.addAttribute("account", account);
         return MAIN_VIEW;
     }
 
-    public IApiAccountDao getApiAccountDao() {
+    @RequestMapping(method = RequestMethod.POST)
+    public String toggleActive(@RequestParam("id") int id, ModelMap model) {
+        ApiAccount account = getApiAccountDao().getAccountById(id);
+        if (StringUtils.isBlank(account.getApiKey())) {
+            account.setApiKey(ApiAccountUtils.generateAccountKey(account.getName()));
+        } else {
+            account.setApiKey(null);
+        }
+        getApiAccountDao().save(account);
+        model.addAttribute("account", account);
+        return MAIN_VIEW;
+    }
+
+    protected IApiAccountDao getApiAccountDao() {
         return _apiAccountDao;
     }
 
-    public void setApiAccountDao(IApiAccountDao apiAccountDao) {
+    protected void setApiAccountDao(IApiAccountDao apiAccountDao) {
         _apiAccountDao = apiAccountDao;
     }
 

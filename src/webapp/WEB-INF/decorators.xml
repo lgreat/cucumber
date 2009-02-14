@@ -56,6 +56,7 @@
         <pattern>*/ads/tacoda/*</pattern>
         <pattern>*/tableMover.page*</pattern>
         <pattern>*/api/admin/*</pattern>
+        <pattern>*/api/admin_login.page*</pattern>
     </excludes>
 
 </decorators>
