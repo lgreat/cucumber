@@ -4,16 +4,6 @@
   padding: 0px;
 }
 
-
-#topTextDivId li,#topTextDivId ul
-{
-    font-family: Trebuchet MS;
-    font-size: 12px;
-    color:#666666;
-    margin:8px;
-    padding:0px;
-}
-
 #chooserRegistration #loginDetails {
     margin-top: 25px;
     

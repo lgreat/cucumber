@@ -1,3 +1,12 @@
+div#topTextDivId ul li{
+    list-style-type: disc;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #666666;
+    margin: 8px;
+    padding: 0;
+}
+
 #chooserRegistration ul li img.errorIcon {
     position: absolute;
 }
