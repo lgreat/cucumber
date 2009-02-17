@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.151 2009/02/14 00:53:14 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.152 2009/02/17 22:45:36 yfan Exp $
  */
 
 package gs.web.util;
@@ -299,24 +299,7 @@ public class UrlBuilder {
 
     public UrlBuilder(School school, VPage page) {
         if (SCHOOL_PROFILE.equals(page)) {
-            _perlPage = true;
-
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                // turn spaces and / into hyphens for readable and remove #
-                // yes, this does mean there is no way to deterministically get the school name back
-                _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(),
-                    school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
-                    WordUtils.capitalize(school.getName().replaceAll(" ","-").replaceAll("/","-").replaceAll("#",""), new char[]{'-'}) +
-                    "/" + school.getId() + "/";
-            } else if (school.getType().equals(SchoolType.PRIVATE)) {
-                _path = "/cgi-bin/" +
-                        school.getDatabaseState().getAbbreviationLowerCase() +
-                        "/private/" + school.getId();
-            } else {
-                _path = "/modperl/browse_school/" +
-                        school.getDatabaseState().getAbbreviationLowerCase() +
-                        "/" + school.getId();
-            }
+            handleSchoolProfile(school, false);
         } else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             _perlPage = false;
             _path = "/school/parentReviews.page";
@@ -551,32 +534,37 @@ public class UrlBuilder {
         }
     }
 
+    public void handleSchoolProfile(School school, boolean showConfirmation) {
+        _perlPage = true;
+
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            // turn spaces and / into hyphens for readable and remove #
+            // yes, this does mean there is no way to deterministically get the school name back
+            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(),
+                    school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
+                    WordUtils.capitalize(school.getName().replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", ""), new char[]{'-'}) +
+                    "/" + school.getId() + "/" +
+                    (showConfirmation ? "?confirm=true" : "");
+        } else if (school.getType().equals(SchoolType.PRIVATE)) {
+            _path = "/cgi-bin/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/private/" + school.getId() +
+                    (showConfirmation ? "?confirm=true" : "");
+        } else {
+            _path = "/modperl/browse_school/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/" + school.getId() +
+                    (showConfirmation ? "?confirm=true" : "");
+        }
+    }
+
     public UrlBuilder(VPage page, boolean showConfirmation,School school) {
-           // GS-7917
-           if (SCHOOL_PROFILE.equals(page)) {
-               _perlPage = true;
-
-               if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                   // turn spaces and / into hyphens for readable and remove #
-                   // yes, this does mean there is no way to deterministically get the school name back
-                   _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(),
-                       school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
-                       WordUtils.capitalize(school.getName().replaceAll(" ","-").replaceAll("/","-").replaceAll("#",""), new char[]{'-'}) +
-                       "/" + school.getId() + "/?confirm=" + showConfirmation;
-               } else if (school.getType().equals(SchoolType.PRIVATE)) {
-                   _path = "/cgi-bin/" +
-                           school.getDatabaseState().getAbbreviationLowerCase() +
-                           "/private/" + school.getId() +"?confirm=" + showConfirmation;
-               } else {
-                   _path = "/modperl/browse_school/" +
-                           school.getDatabaseState().getAbbreviationLowerCase() +
-                           "/" + school.getId()+"?confirm=" + showConfirmation;
-               }
-           }
-
-           else {
-               throw new IllegalArgumentException("VPage unknown" + page);
-           }
+        // GS-7917
+        if (SCHOOL_PROFILE.equals(page)) {
+            handleSchoolProfile(school, showConfirmation);
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
     }
 
     private void init(VPage page, State state, String param0) {

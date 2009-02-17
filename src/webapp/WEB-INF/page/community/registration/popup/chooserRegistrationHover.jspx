@@ -44,15 +44,6 @@
 
     <gsml:body adPageName="community/chooserRegistrationHover">
 
-        <div id="topTextDivId">
-            <ul>
-                <li>Receive a customized four-part email series to guide you step-by-step through your search
-                </li>
-                <li class="liTextDiv">Save profiles of your top contenders, and compare important factors like class size and academic performance
-                </li>
-            </ul>
-
-        </div>
         <div>
            <community:chooserRegistration formAction="/community/registration/popup/chooserRegistrationHover.page"/>
             <!-- put this after the tag so that it can override chooserRegistrationCommon.css --> 
