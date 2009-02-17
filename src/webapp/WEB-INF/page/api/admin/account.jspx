@@ -1,5 +1,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:api="urn:jsptagdir:/WEB-INF/tags/api"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
@@ -14,12 +15,13 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>GreatSchools.net API Accounts</title>
         <link rel="stylesheet" href="/res/css/api/admin.css"/>
     </head>
 
     <body>
-
+    <api:nav />
     <div id="content">
         <div><h2>Api Account Details</h2></div>
         <ul>
@@ -44,8 +46,6 @@
                 </form:form>
             </li>
         </ul>
-        
-
     </div>
     </body>
     </html>

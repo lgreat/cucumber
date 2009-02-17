@@ -26,7 +26,13 @@ public class AdminLoginController {
     public static final String MAIN_VIEW = "api/admin_login";
 
     @RequestMapping(method = RequestMethod.GET)
-    public String setupForm(@RequestParam(value="redirect", required=false) String redirect, ModelMap model) {
+    public String getPage(@RequestParam(value="redirect", required=false) String redirect,
+                          @RequestParam(value="action", required=false) String action,
+                          HttpServletResponse response,
+                          ModelMap model) {
+        if (StringUtils.isNotBlank(action) && "logout".equals(action)) {
+            logout(response);
+        }
         LoginCommand command = new LoginCommand();
         command.setRedirect(redirect);
         model.addAttribute("command", command);
@@ -44,15 +50,24 @@ public class AdminLoginController {
             return MAIN_VIEW;
         } else {
             Cookie admin_auth_cookie = new Cookie(API_ADMIN_COOKIE_NAME, command.getEmail());
-            //admin_auth_cookie.setDomain(".greatschools.net");
             admin_auth_cookie.setMaxAge(3600); // 1 hour
             response.addCookie(admin_auth_cookie);
-            String redirect = "/api/admin/accounts";
+            String redirect = "/api/admin/accounts.page";
             if (StringUtils.isNotBlank(command.getRedirect())) {
                 redirect = command.getRedirect();
             }
             return "redirect:" + redirect;
         }
+    }
+
+    /**
+     * Deletes the admin auth cookie.
+     * @param response - HttpServletResponse
+     */
+    protected void logout(HttpServletResponse response) {
+        Cookie admin_auth_cookie = new Cookie(API_ADMIN_COOKIE_NAME, "");
+        admin_auth_cookie.setMaxAge(0);
+        response.addCookie(admin_auth_cookie);
     }
 }
 
@@ -75,7 +90,7 @@ class AdminLoginValidator implements Validator {
 
         String pass = command.getPassword();
         if (StringUtils.isNotBlank(pass)) {
-            if (!"test".equals(pass)) {
+            if (!"gsadmin".equals(pass)) {
                 errors.rejectValue("password", "wrong.pass", "incorrect password");
             }
         } else {
