@@ -27,16 +27,16 @@
     <style type="text/css">
         /* Widget frame styles */
         div#GS_schoolSearchWidget {
-            border: solid 4px #${requestScope.command.backgroundColor};
+            /*border: solid 4px #${requestScope.command.backgroundColor};*/
             border-bottom-width: 20px;
             background-color: #FFF;
-            width: ${requestScope.command.iframeWidth+2}px;
+            /*width: ${requestScope.command.iframeWidth+2}px;*/
             position: relative;
             font-family: "Trebuchet MS", Arial, sans-serif;
         }
 
         div.GS_widget_innerBorder {
-            border: solid 1px #${requestScope.command.bordersColor};
+           /* border: solid 1px #${requestScope.command.bordersColor};*/
         }
 
         div.GS_widget_footer {
@@ -75,7 +75,7 @@
         }
 
         div#GS_schoolSearchWidget div.GS_getWidget a, div#GS_schoolSearchWidget div.GS_getWidget a:hover {
-            color: #${requestScope.command.textColor};
+           /*color: #${requestScope.command.textColor};*/
             font-size: 11px;
         }
     </style>
@@ -112,11 +112,13 @@
             }
             return rval;
         }
+
         // -->
         ]]>
     </script>
 </head>
 <body>
+ <pageHelper:addOnLoadHandler handler="setIFrameSrc()" />
 <div class="top">
     <h1>GreatSchools School Finder Widget</h1>
 
@@ -141,10 +143,10 @@
 <td class="leftSide">
     <form:form cssClass="customize" name="customizeForm" method="post">
         <div class="section searchQuery">
-            <div class="step"><span class="step">Step 1:</span>
+            <div class="step"><span class="step">Step 1: </span>
                 <span class="title">Choose address, zip code or city and state</span></div>
             <div class="instructions">Pick the location you'd like your widget to feature.</div>
-            <form:input path="searchQuery"/>
+            <form:input path="searchQuery" onblur="setIFrameSrc();"/>
         </div>
 
         <div class="section widgetSize">
@@ -168,10 +170,10 @@
                 <form:radiobutton path="dimensions" value="custom" label="Custom:"/>
                 <form:label cssClass="specifyDim" path="width">Width:</form:label><form:input cssClass="specifyDim"
                                                                                               path="width"
-                                                                                              onclick="customDim();"/>
+                                                                                              onclick="customDim();" onblur="setIFrameSrc();"/>
                 <form:label cssClass="specifyDim" path="height">Height:</form:label><form:input cssClass="specifyDim"
                                                                                                 path="height"
-                                                                                                onclick="customDim();"/>
+                                                                                                onclick="customDim();" onblur="setIFrameSrc();"/>
             </div>
             <!-- 300x434 -->
         </div>
@@ -201,15 +203,19 @@
                         sliderValue: $('zoom_level').value,
                         onSlide: function(value) {
                             $('zoom_level').value = value;
+                             setIFrameSrc();
                         },
                         onChange: function(value) {
                             $('zoom_level').value = value;
+                            setIFrameSrc();
                         }
                     });
                     // We set the background image here so that it doesn't display until the onload handler runs
                     $('handle').setStyle({background:'transparent url(/res/img/widget/zoomhandle.png) no-repeat'});
                 }
-                // -->
+
+
+            // -->
                 ]]>
             </script>
             <pageHelper:addOnLoadHandler handler="initSlider()" />
@@ -327,9 +333,9 @@
         <div id="GS_schoolSearchWidget">
             <div class="GS_widget_innerBorder">
                 <div id="widget">
-                    <iframe class="greatschools"
-                            src="${requestScope.command.iframeUrl}"
-                            width="${requestScope.command.iframeWidth}" height="${requestScope.command.iframeHeight}"
+                    <iframe class="greatschools" id="widgetIFrame" name="widgetIFrame"
+                            src=""
+                            width="" height=""
                             marginheight="0" marginwidth="0"
                             frameborder="0" scrolling="no"> Keep from collapsing
                     </iframe>
