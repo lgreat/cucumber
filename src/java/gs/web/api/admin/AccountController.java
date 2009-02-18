@@ -11,7 +11,14 @@ import org.apache.commons.lang.StringUtils;
 import gs.data.api.IApiAccountDao;
 import gs.data.api.ApiAccount;
 import gs.data.api.ApiAccountUtils;
+import gs.data.util.email.EmailHelper;
+import gs.data.util.email.EmailHelperFactory;
 import gs.web.util.ReadWriteAnnotationController;
+
+import javax.mail.MessagingException;
+import java.util.logging.Logger;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author chriskimm@greatschools.net
@@ -20,6 +27,9 @@ import gs.web.util.ReadWriteAnnotationController;
 @RequestMapping("/api/admin/account.page")
 public class AccountController implements ReadWriteAnnotationController {
 
+    public static final String MODEL_MESSAGES = "messages";
+    private EmailHelperFactory _emailHelperFactory;
+    private static final Logger _log = Logger.getLogger("gs.web.api.admin.AccountController");
     public static final String MAIN_VIEW = "api/admin/account";
 
     @Autowired
@@ -37,12 +47,43 @@ public class AccountController implements ReadWriteAnnotationController {
         ApiAccount account = getApiAccountDao().getAccountById(id);
         if (StringUtils.isBlank(account.getApiKey())) {
             account.setApiKey(ApiAccountUtils.generateAccountKey(account.getName()));
+            sendKeyEmail(account);
+            setMessageInModel(model, "Api Key Email sent.");
         } else {
             account.setApiKey(null);
         }
         getApiAccountDao().save(account);
         model.addAttribute("account", account);
         return MAIN_VIEW;
+    }
+
+    void setMessageInModel(ModelMap model, String message) {
+        List<String> messages = (List<String>)model.get(MODEL_MESSAGES);
+        if (messages == null) {
+            messages = new ArrayList<String>();
+        }
+        messages.add(message);
+        model.addAttribute(MODEL_MESSAGES, messages);
+    }
+
+    void sendKeyEmail(ApiAccount account) {
+        try {
+            EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+            emailHelper.setToEmail(account.getEmail());
+            emailHelper.setFromEmail("api-support@greatschools.net");
+            emailHelper.setFromName("GreatSchools API Support");
+            emailHelper.setSubject("GreatSchools Api Key");
+            StringBuffer message = new StringBuffer();
+
+            message.append("\nKey: ");
+            String value = account.getApiKey() != null ? account.getApiKey() : "";
+            message.append(value);
+
+            emailHelper.setTextBody(message.toString());
+            emailHelper.send();
+        } catch (MessagingException e) {
+            _log.warning(e.toString());
+        }
     }
 
     protected IApiAccountDao getApiAccountDao() {
@@ -53,4 +94,11 @@ public class AccountController implements ReadWriteAnnotationController {
         _apiAccountDao = apiAccountDao;
     }
 
+    public EmailHelperFactory getEmailHelperFactory() {
+        return _emailHelperFactory;
+    }
+
+    public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
+        _emailHelperFactory = emailHelperFactory;
+    }    
 }

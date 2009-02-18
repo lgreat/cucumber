@@ -2,11 +2,15 @@ package gs.web.api.admin;
 
 import gs.data.api.ApiAccount;
 import gs.data.api.IApiAccountDao;
+import gs.data.util.email.MockJavaMailSender;
+import gs.data.util.email.EmailHelperFactory;
 import org.springframework.ui.ModelMap;
 import static org.easymock.EasyMock.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.util.List;
 
 /**
  * Created by chriskimm@greatschools.net
@@ -15,6 +19,7 @@ public class AccountControllerTest {
 
     private AccountController _controller;
     private IApiAccountDao _apiAccountDao;
+    private MockJavaMailSender _javaMailSender;
 
     @Before
     public void setUp() throws Exception {
@@ -22,6 +27,11 @@ public class AccountControllerTest {
         _controller = new AccountController();
         _apiAccountDao = createMock(IApiAccountDao.class);
         _controller.setApiAccountDao(_apiAccountDao);
+        EmailHelperFactory _factory = new EmailHelperFactory();
+        _javaMailSender = new MockJavaMailSender();
+        _javaMailSender.setHost("greatschools.net");
+        _factory.setMailSender(_javaMailSender);
+        _controller.setEmailHelperFactory(_factory);
     }
 
     @Test
@@ -47,6 +57,9 @@ public class AccountControllerTest {
         String view = _controller.toggleActive(123, new ModelMap());
         assertEquals(AccountController.MAIN_VIEW, view);
         assertNotNull(account.getApiKey());
+        
+        List messages = _javaMailSender.getSentMessages();
+        assertEquals(1, messages.size());
     }
 
     @Test

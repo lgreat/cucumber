@@ -23,6 +23,15 @@
     <body>
     <api:nav />
     <div id="content">
+        <c:if test="${not empty messages}">
+            <div class="messages">
+                <ul>
+                    <c:forEach var="message" items="${messages}">
+                        <li>${message}</li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </c:if>
         <div><h2>Api Account Details</h2></div>
         <ul>
             <li>Name: ${account.name}</li>

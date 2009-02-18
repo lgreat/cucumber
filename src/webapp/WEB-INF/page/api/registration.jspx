@@ -30,11 +30,14 @@
 
     <body>
     <div id="api_reg">
-        <div><h2>Api Registration</h2></div>
+        <div>
+            <h2>Api Registration</h2>
+            <div class="note">Fields marked with * are required.</div>
+        </div>
         <form:form>
             <table>
                 <tr>
-                    <td>Name:</td>
+                    <td>* Name:</td>
                     <td><form:input path="name" /></td>
                     <td><form:errors path="name" /></td>
                 </tr>
@@ -49,12 +52,12 @@
                     <td />
                 </tr>
                 <tr>
-                    <td>Email:</td>
+                    <td>* Email:</td>
                     <td><form:input path="email" /></td>
                     <td><form:errors path="email" /></td>
                 </tr>
                 <tr>
-                    <td>Confirm Email:</td>
+                    <td>* Confirm Email:</td>
                     <td><form:input path="confirmEmail" /></td>
                     <td><form:errors path="confirmEmail" /></td>
                 </tr>

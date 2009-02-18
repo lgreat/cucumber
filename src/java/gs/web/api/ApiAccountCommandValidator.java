@@ -32,7 +32,10 @@ public class ApiAccountCommandValidator implements Validator {
             errors.rejectValue("email", "invalid.email", INVALID_EMAIL);
         }
 
-        if (email != null && !email.equals(account.getConfirmEmail())) {
+        String confirm = account.getConfirmEmail();
+        if (StringUtils.isBlank(confirm)) {
+            errors.rejectValue("confirmEmail", "field.required", REQUIRED_FIELD);
+        } else if (email != null && !email.equals(confirm)) {
             errors.rejectValue("confirmEmail", "confirm.email.mismatch", EMAIL_CONFIRM_MISMATCH);
         }
     }

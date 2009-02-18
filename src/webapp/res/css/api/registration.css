@@ -30,3 +30,8 @@ input#save {
 td span {
     color: red;
 }
+
+div.note {
+    font-size:13px;
+    margin:0 0 15px 0;
+}

@@ -31,7 +31,7 @@ public class ApiAccountCommandValidatorTest {
         ApiAccount command = new ApiAccount();
         Errors errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
-        assertEquals(2, errors.getErrorCount());
+        assertEquals(3, errors.getErrorCount());
 
         command.setName("name");
         command.setEmail("test@test.com");
