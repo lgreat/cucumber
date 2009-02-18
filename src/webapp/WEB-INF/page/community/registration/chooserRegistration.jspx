@@ -28,7 +28,7 @@
 
             <h1>Personalize your school search</h1>
 
-            <community:chooserRegistration formAction="/community/chooserRegistration.page"/>
+            <community:chooserRegistration formAction="/community/chooserRegistration.page" targetParentFrame="false"/>
 
         </div>
 

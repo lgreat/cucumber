@@ -120,7 +120,7 @@
                                 <p>Join GreatSchools President Bill Jackson and learn how to use our site to choose a school where your child can thrive.</p>
                             </div>
 
-                            <div class="video">
+                            <div class="video" id="schoolChoiceVideo">
                                 <!-- http://validifier.com/ -->
                                 <!-- http://www.howtocreate.co.uk/tutorials/javascript/incorporate -->
                                 <script type="text/javascript">

@@ -38,6 +38,11 @@
                 '/community/registration/popup/chooserRegistrationHover.page?email=' +
                 emailUrlEncoded + '&redirect=' + redirectUrlEncoded;
 
+            var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
+            if (schoolChoiceVideo) {
+                schoolChoiceVideo.style.display = 'none';
+            }
+
             document.getElementById("mslFlowDialog").style.display="block";
 
             mslFlowDialog.show();
@@ -64,6 +69,10 @@
         }
 
         function closeMslFlowDialog() {
+            var schoolChoiceVideo = document.getElementById('schoolChoiceVideo');
+            if (schoolChoiceVideo) {
+                schoolChoiceVideo.style.display = 'none';
+            }
             mslFlowDialog.cancel();
         }
         //-->

@@ -12,6 +12,7 @@
 
     <jsp:directive.attribute name="userCmd" required="false" description="User command" type="gs.web.community.registration.UserCommand"/>
     <jsp:directive.attribute name="formAction" required="true" description="The url the form should submit to" type="java.lang.String"/>
+    <jsp:directive.attribute name="targetParentFrame" required="true" description="Whether or not form submission and No Thanks link should target the parent window (otherwise, self)" type="java.lang.Boolean"/>
 
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalJavascript file="/res/js/community/registration/chooserRegistrationCommon.js"/>
@@ -137,21 +138,24 @@
                 </li>
             </ul>
 
+            <script type="text/javascript">
+                document.getElementById('firstName').focus();
+
+                function noThanks() {
+                    ${targetParentFrame ? 'parent' : 'document'}.
+                    location.href = '${userCmd.redirectUrl}';
+                    return false;
+                }
+            </script>
+
+
             <div id="formSubmit">
-                <div id="cancel"><a href="${userCmd.redirectUrl}">No thanks &amp;gt;</a>   </div>
+                <div id="cancel"><a href="#" onclick="return noThanks();">No thanks &amp;gt;</a></div>
                 <div id="submit"><input type="image" src="/res/img/community/registration/join_pop_save.gif"
                                         alt="Save" tabindex="7"/></div>
             </div>                                                                                                       
         </div>
        </div>
-        <script type="text/javascript">
-            document.getElementById('firstName').focus();
-
-            function noThanks() {
-                window.location.href = '${userCmd.redirectUrl}';
-                return false;
-            }
-        </script>
 
     </gsweb:form>
 
