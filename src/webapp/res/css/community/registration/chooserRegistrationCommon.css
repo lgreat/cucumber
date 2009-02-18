@@ -27,15 +27,15 @@ div#topTextDivId ul li{
     position: relative;
     clear: both;
     height: 25px;
-    margin-top: 15px;
+    margin-top: 9px;
 }
 
 #chooserRegistration #loginDetails ul li#emailLine {
-    margin-top: 0;
+    margin-top: 5px;
 }
 
 #chooserRegistration #loginDetails ul li#usernameLine, #chooserRegistration #loginDetails ul li#passwordLine {
-    height: 33px;
+    height: 25px;
 }
 
 #chooserRegistration #loginDetails ul li div.label {

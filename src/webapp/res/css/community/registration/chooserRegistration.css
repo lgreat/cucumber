@@ -11,8 +11,12 @@
 
 #chooserRegistration {
     padding-left: 20px;
-    height: 240px;
-    padding-bottom: 25px;
+    height: 210px;
+    padding-bottom: 50px;
+}
+
+* html #chooserRegistration {
+    padding-bottom: 40px;
 }
 
 #chooserRegistrationWrapper div#topTextDivId{
@@ -21,6 +25,7 @@
 }
 
 #chooserRegistration #schoolChoiceLocation ul li#stateLine{
+    margin-top: 5px;
    height:26px;
 }
 
@@ -54,7 +59,7 @@
     font-size: 24px;
     font-weight: bold;
     color: #55BBCC;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 
@@ -63,10 +68,17 @@
     width: 345px;
     margin-left: 40px;
     margin-top: 20px;
-    height: 240px;
+    height: 190px;
     position: relative;
 }
 
+* html #chooserRegistration #schoolChoiceLocation {
+    height: 205px;
+}
+
+* + html #chooserRegistration #schoolChoiceLocation {
+    height: 205px;
+}
 
 #chooserRegistration #schoolChoiceLocation ul li div.label {
     text-align: right;
