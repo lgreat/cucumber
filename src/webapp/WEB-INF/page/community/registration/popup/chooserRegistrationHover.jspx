@@ -51,7 +51,7 @@
 
         </div>
         <div id="closeWindowDiv">
-             <a href="#" onclick="return noThanks();" class="closeWindowClass">CLOSE WINDOW</a>
+             <a href="#" onclick="return noThanksTargetSelf();" class="closeWindowClass">CLOSE WINDOW</a>
         </div>
 
         <mod:tracking pageName="Short Registration Hover"
