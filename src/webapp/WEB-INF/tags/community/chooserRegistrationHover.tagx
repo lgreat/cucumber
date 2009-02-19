@@ -23,6 +23,7 @@
             {
                 postmethod: "form",
                 width: "475px",
+                height: "455px",
                 visible: false,
                 draggable: false,
                 modal: true,
