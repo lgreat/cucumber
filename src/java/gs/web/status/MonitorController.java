@@ -195,7 +195,7 @@ public class MonitorController implements ReadWriteController {
         m.put(NON_HEAP_USAGE, nonHeapUsage);
         List<MemoryPoolMXBean> memPoolBeans = ManagementFactory.getMemoryPoolMXBeans();
         for (MemoryPoolMXBean bean : memPoolBeans) {
-            if (bean.getName().equalsIgnoreCase("perm gen")) {
+            if (bean.getName().toLowerCase().contains("perm gen")) {
                 m.put(PERM_GEN_USAGE, bean.getUsage());
             }
         }
