@@ -1473,6 +1473,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>anchor name on destination page ('#' is optional)</description>
+        </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
         </attribute>        
     </tag>
     <tag>
@@ -1555,6 +1562,13 @@
             <type>java.lang.String</type>
             <description>Anchor value</description>
         </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>        
     </tag>
     <tag>
         <name>schoolProfileParentReview</name>
@@ -1773,6 +1787,13 @@
             <type>java.lang.String</type>
             <description>anchor name on destination page ('#' is optional)</description>
         </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>        
     </tag>
     <tag>
         <name>schoolProfileAddParentReview</name>
@@ -2557,6 +2578,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute</description>
         </attribute>
     </tag>
 

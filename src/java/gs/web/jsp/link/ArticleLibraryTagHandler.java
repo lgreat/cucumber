@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLibraryTagHandler.java,v 1.1 2006/04/27 22:53:47 apeterson Exp $
+ * $Id: ArticleLibraryTagHandler.java,v 1.2 2009/02/19 07:20:20 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -8,15 +8,11 @@ package gs.web.jsp.link;
 import gs.web.util.UrlBuilder;
 
 /**
- * Generates My School List tag.
- *
  * @author Andrew Peterson <mailto:apeterson@greatschools.net>
  */
 public class ArticleLibraryTagHandler extends LinkTagHandler {
 
     protected UrlBuilder createUrlBuilder() {
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, getState());
-        return builder;
+        return new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, getState());
     }
-
 }

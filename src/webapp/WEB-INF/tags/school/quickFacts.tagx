@@ -77,7 +77,7 @@
                 <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
                     <div class="mapit">
                         <c:set var="mapImage" value="/res/img/map/mapit.gif" />
-                        <link:mapSchool school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>
+                        <link:mapSchool rel="foaf.based_near" school="${school}"><gsml:img src="${mapImage}" alt="Map ${school.name}"/></link:mapSchool>
                     </div>
                 </c:if>
 

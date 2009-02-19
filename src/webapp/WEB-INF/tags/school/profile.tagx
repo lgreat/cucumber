@@ -323,6 +323,7 @@
     <tr>
         <td>
             <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on GS_CI9_' : ''}"
+                                        rel="sioc.links_to"
                                         title="${school.name}"
                                         styleId="School_Overview_Tab${styleIdSuffix}"
                                         anchor="${(tab eq 'overview') ? '' : headerAnchor}">
@@ -333,6 +334,7 @@
         <c:if test="${schoolType != 'private' and school.levelCode != 'p'}">
             <td>
                 <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on GS_CI9_' : ''}"
+                                          rel="sioc.links_to"
                                           styleId="GreatSchools_Ratings_Tab${styleIdSuffix}"
                                           title="${school.name} GreatSchools Ratings"
                                           anchor="${(tab eq 'ratings') ? '' : headerAnchor}">
@@ -344,6 +346,7 @@
 
         <td>
             <link:schoolProfileParentReview school="${school}"
+                                            rel="sioc.links_to"
                                             styleClass="${(tab eq 'parentReviews') ? 'on GS_CI9_' : ''}"
                                             id="Parent_Reviews_Tab${styleIdSuffix}"
                                             title="${school.name} Parent Reviews"
@@ -356,6 +359,7 @@
         <c:if test="${(schoolType != 'private' || ( state.privateTestScoresState and privateHasTestData) ) and (school.levelCode != 'p')}">
             <td>
                 <link:schoolProfileTestscore school="${school}"
+                                             rel="sioc.links_to"
                                              styleClass="${(tab eq 'testscores') ? 'on GS_CI9_' : ''}"
                                              styleId="Test_Scores_Tab${styleIdSuffix}"
                                              title="${school.name} Test Scores"
@@ -369,6 +373,7 @@
         <!-- This link tag automatically detects private schools and links appropriately -->
         <td>
             <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}"
+                                      rel="sioc.links_to"
                                       styleId="School_Environment_Tab${styleIdSuffix}"
                                       styleClass="GS_CI9_"
                                       anchor="${headerAnchor}">
