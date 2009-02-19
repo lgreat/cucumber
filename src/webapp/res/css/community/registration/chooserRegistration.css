@@ -40,22 +40,22 @@ div#topTextDivId ul li{
 
 /* Error messages */
 
-#chooserRegistration ul li img.errorIcon {
+#chooserRegistration img.errorIcon {
     left: 170px;
     top: -14px;
 }
 
-* html #chooserRegistration ul li p.warning {
+* html #chooserRegistration p.warning {
     left: 185px;
     top: 0;
 }
 
-* html #chooserRegistration ul li img.errorIcon {
+* html #chooserRegistration img.errorIcon {
     left: 170px;
     top: 0;
 }
 
-#chooserRegistration ul li p.warning {
+#chooserRegistration p.warning {
     left: 185px;
     top: -14px;
 }
@@ -124,13 +124,13 @@ div#topTextDivId ul li{
     padding-bottom: 0px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv {
     padding-bottom: 14px;
     position: relative;
     height: 18px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li div.label {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv div.label {
     width: 70px;
     height: 18px;
     bottom: 0;
@@ -139,16 +139,16 @@ div#topTextDivId ul li{
     padding-right: 10px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li#stateLine{
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine{
     margin-top: 5px;
     height:26px;
 }
 
-* html #chooserRegistration #schoolChoiceLocation ul li#stateLine div.label{
+* html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine div.label{
     margin-top:4px;
 }
 
-* html #chooserRegistration #schoolChoiceLocation ul li#cityLine div.label{
+* html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine div.label{
     margin-top:4px;
 }
 

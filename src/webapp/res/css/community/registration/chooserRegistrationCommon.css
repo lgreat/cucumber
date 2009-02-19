@@ -18,11 +18,11 @@ div#topTextDivId ul li{
 
 /* Error messages */
 
-#chooserRegistration ul li img.errorIcon {
+#chooserRegistration img.errorIcon {
     position: absolute;
 }
 
-#chooserRegistration ul li p.warning {
+#chooserRegistration p.warning {
     color: #CC5566;
     font-size: 11px;
     line-height: 12px;
@@ -30,7 +30,7 @@ div#topTextDivId ul li{
     width: 275px;
 }
 
-#chooserRegistration ul li p.warning a, #chooserRegistration ul li p.warning a:link, #chooserRegistration ul li p.warning a:visited, #chooserRegistration ul li p.warning a:active {
+#chooserRegistration p.warning a, #chooserRegistration p.warning a:link, #chooserRegistration p.warning a:visited, #chooserRegistration p.warning a:active {
     color: #3399AA;
 }
 
@@ -80,27 +80,27 @@ div#topTextDivId ul li{
 
 /* School choice location */
 
-#chooserRegistration #schoolChoiceLocation ul li label {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv label {
     color: #666666;
     font-size: 14px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li select {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv select {
     margin-top: -2px;
 }
 
 
-* html #chooserRegistration #schoolChoiceLocation ul li select{
+* html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv select{
      margin-top: 0px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li img.errorIcon {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv img.errorIcon {
     left: 80px;
     position: absolute;
     top: -16px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li p.warning {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv p.warning {
     left: 95px;
     position: absolute;
     top: -14px;

@@ -16,20 +16,20 @@ div#topTextDivId ul li{
 /* Error messages */
 
 /* TODO-7917 Fix this in a better way? */
-#chooserRegistration ul li p.warning {
+#chooserRegistration p.warning {
     top: -26px;
 }
 
-* html #chooserRegistration ul li p.warning {
+* html #chooserRegistration p.warning {
     top: -15px;
 }
 
-* + html #chooserRegistration ul li p.warning {
+* + html #chooserRegistration p.warning {
     top: -15px;
 }
 
 
-#chooserRegistration ul li img.errorIcon {
+#chooserRegistration img.errorIcon {
     top: -15px;
 }
 
@@ -89,11 +89,11 @@ div#topTextDivId ul li{
     left: -25px;
 }
 
-#chooserRegistration #loginDetails ul li img.errorIcon {
+#chooserRegistration #loginDetails img.errorIcon {
     left: 145px;
 }
 
-#chooserRegistration #loginDetails ul li p.warning {
+#chooserRegistration #loginDetails p.warning {
     left: 160px;
 }
 
@@ -105,7 +105,7 @@ div#topTextDivId ul li{
     margin-left: -12px;
 }
 
-#chooserRegistration #schoolChoiceLocation h2{
+#chooserRegistration #schoolChoiceLocation h2 {
     font-family: Trebuchet MS;
     font-size: 14px;
     color:#666666;
@@ -114,19 +114,19 @@ div#topTextDivId ul li{
 }
 
  
-#chooserRegistration #schoolChoiceLocation ul{
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper {
     list-style: none;
      margin-top: 20px;
      padding: 0px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li#stateLine{
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine{
    width:130px;
     float:left;
     height:30px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul  li#stateLine div.label {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine div.label {
     width: 43px;
     height: 18px;
     bottom: 0;
@@ -134,7 +134,7 @@ div#topTextDivId ul li{
     padding-left:30px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li#cityLine{
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine{
    width:250px;
     float:left;
     margin-left: 2px;
@@ -142,42 +142,42 @@ div#topTextDivId ul li{
 
 }
 
-* html #chooserRegistration #schoolChoiceLocation ul li#cityLine{
+* html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine{
     width:150px;
     float:left;
     margin-left: 2px;
     height:30px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul  li#cityLine div.label {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine div.label {
     width: 33px;
     height: 18px;
     bottom: 0;
     float: left;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li select {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv select {
     margin-top: -2px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li p.warning {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv p.warning {
     /* TODO-7917 Fix this in a better way? */
     top: -28px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li#stateLine img.errorIcon {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine img.errorIcon {
     left: 75px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li#stateLine p.warning {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine p.warning {
     left: 90px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li#cityLine img.errorIcon {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine img.errorIcon {
     left: 35px;
 }
 
-#chooserRegistration #schoolChoiceLocation ul li#cityLine p.warning {
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine p.warning {
     left: 50px;
 }
 
