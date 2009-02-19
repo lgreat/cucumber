@@ -164,7 +164,6 @@ div#topTextDivId ul li{
 }
 
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine{
-   /*width:250px;*/
     float:left;
     margin-left: 2px;
     height:18px;
@@ -172,7 +171,6 @@ div#topTextDivId ul li{
 }
 
 * html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine{
-    /*width:150px;*/
     float:left;
     margin-left: 2px;
     height:18px;

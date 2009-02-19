@@ -45,16 +45,6 @@ div#topTextDivId ul li{
     top: -14px;
 }
 
-* html #chooserRegistration p.warning {
-    left: 185px;
-    top: 0;
-}
-
-* html #chooserRegistration img.errorIcon {
-    left: 170px;
-    top: 0;
-}
-
 #chooserRegistration p.warning {
     left: 185px;
     top: -14px;
@@ -157,6 +147,16 @@ div#topTextDivId ul li{
     position: absolute;
     top: -16px;
     width: 250px;
+}
+
+* html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv img.errorIcon {
+    top: -14px;
+    left: 83px;
+}
+
+* html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv p.warning {
+    top: -14px;
+    left: 98px;
 }
 
 /* Form submission */

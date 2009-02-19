@@ -30,6 +30,11 @@ div#topTextDivId ul li{
     width: 275px;
 }
 
+/* http://www.webdeveloper.com/forum/showthread.php?t=150010 */
+#chooserRegistration div.ie6workaround {
+    position: static;
+}
+
 #chooserRegistration p.warning a, #chooserRegistration p.warning a:link, #chooserRegistration p.warning a:visited, #chooserRegistration p.warning a:active {
     color: #3399AA;
 }
@@ -43,10 +48,6 @@ div#topTextDivId ul li{
 
 #chooserRegistration #loginDetails ul li#emailLine {
     margin-top: 5px;
-}
-
-#chooserRegistration #loginDetails ul li#usernameLine, #chooserRegistration #loginDetails ul li#passwordLine {
-    /*height: 25px;*/
 }
 
 #chooserRegistration #loginDetails ul li div.label {
@@ -99,11 +100,3 @@ div#topTextDivId ul li{
     position: absolute;
     top: -16px;
 }
-/*
-#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv p.warning {
-    left: 95px;
-    position: absolute;
-    top: -14px;
-    width: 250px;
-}
-*/
