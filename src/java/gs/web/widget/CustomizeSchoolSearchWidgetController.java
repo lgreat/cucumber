@@ -1,6 +1,7 @@
 package gs.web.widget;
 
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ClassPathResource;
@@ -9,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.ReadWriteController;
@@ -22,9 +24,7 @@ import gs.data.state.State;
 import gs.data.admin.cobrand.ICobrandDao;
 import gs.data.admin.cobrand.Cobrand;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.Date;
 import java.util.Random;
@@ -126,6 +126,24 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
         errors.reject(null, "Show results");
     }
 
+    protected ModelAndView processFormSubmission(HttpServletRequest request,
+                                             HttpServletResponse response,
+                                             Object cmd,
+                                             BindException errors)
+                                      throws Exception {
+        String testerStr = request.getParameter("tester");
+        if(StringUtils.isNotBlank(testerStr)){
+            CustomizeSchoolSearchWidgetCommand command = (CustomizeSchoolSearchWidgetCommand) cmd;
+            String iframeUrl = command.getIframeUrl(request);
+            System.out.println("output:"+iframeUrl);
+            PrintWriter out =response.getWriter();
+            out.write(iframeUrl);
+            return null;
+        }else{
+            return super.processFormSubmission(request,response,cmd,errors);
+        }
+
+    }
     protected void sendWidgetCodeEmail(User user, String widgetCode, HttpServletRequest request) {
         try {
             _schoolFinderWidgetEmail.sendToUser(user, widgetCode, request);

@@ -16,7 +16,7 @@ function previewValid() {
 
 function setIFrameSrc(){
 
-    var separator = "?";
+    /*var separator = "?";
     var customizeForm = document.forms['customizeForm'];
     var searchZipCode = customizeForm.searchQuery.value;
     var textColor = customizeForm.textColor.value;
@@ -43,7 +43,18 @@ function setIFrameSrc(){
     document.getElementById('widgetIFrame').width = iFrameWidth;
     document.getElementById('widgetIFrame').height = iFrameHeight;
     document.getElementById('GS_schoolSearchWidget').style.width = iFrameWidth+2;
+    document.getElementById('GS_schoolSearchWidget').style.border = "solid 4px #"+ backgroundColor;*/
+
+    var customizeForm = document.forms['customizeForm'];
+    var backgroundColor = customizeForm.backgroundColor.value;
+    var iFrameWidth = customizeForm.width.value -10;
+    var iFrameHeight = customizeForm.height.value -66;
+    
     document.getElementById('GS_schoolSearchWidget').style.border = "solid 4px #"+ backgroundColor;
+    document.getElementById('widgetIFrame').width = iFrameWidth;
+    document.getElementById('widgetIFrame').height = iFrameHeight;
+    document.getElementById('GS_schoolSearchWidget').style.width = 740+2;
+    getIFrameSrc();
 }
 
 function inputsValid() {
@@ -81,3 +92,40 @@ function updateColor(selectElement, inputElementId, hexValue) {
     setIFrameSrc();
 
 }
+
+function getIFrameSrc() {
+
+    var form = $('customizeForm');
+    var searchZipCode = form['searchQuery'];
+    var textColor = form['textColor'];
+    var borderColor = form['bordersColor'];
+    var width = form['width'];
+    var height = form['height'];
+    var zoom = form['zoom'];
+    var url = '/schoolfinder/widget/customize.page';
+    var params = {'tester':'foo','searchQuery':$F(searchZipCode),'textColor':$F(textColor),'bordersColor':$F(borderColor),'width':$F(width),'height':$F(height),'zoom':$F(zoom)};
+    
+    //var iFrameWidth = parseInt($F(width))-10;
+    //var iFrameHeight =  parseInt($F(height)) - 66;
+    //var backgroundColor = form['backgroundColor'];
+    //$('widgetIFrame').width = iFrameWidth;
+    //$('widgetIFrame').height = iFrameHeight;
+    //$('GS_schoolSearchWidget').style.width = iFrameWidth+2;
+   // $('GS_schoolSearchWidget').style.border = "solid 4px #"+ $F(backgroundColor);
+    
+    new Ajax.Request(
+            url,
+    {
+        method: 'post',
+        parameters: params,
+        onSuccess: showResponse
+    });
+    
+    function showResponse(x) {
+        $('widgetIFrame').src = x.responseText.replace(/amp;/g,'');
+     }
+
+
+}
+
+

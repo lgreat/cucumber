@@ -27,7 +27,7 @@
     <style type="text/css">
         /* Widget frame styles */
         div#GS_schoolSearchWidget {
-            /*border: solid 4px #${requestScope.command.backgroundColor};*/
+            border: solid 4px #${requestScope.command.backgroundColor};
             border-bottom-width: 20px;
             background-color: #FFF;
             /*width: ${requestScope.command.iframeWidth+2}px;*/
@@ -36,7 +36,7 @@
         }
 
         div.GS_widget_innerBorder {
-           /* border: solid 1px #${requestScope.command.bordersColor};*/
+           border: solid 1px #${requestScope.command.bordersColor};
         }
 
         div.GS_widget_footer {
@@ -75,7 +75,7 @@
         }
 
         div#GS_schoolSearchWidget div.GS_getWidget a, div#GS_schoolSearchWidget div.GS_getWidget a:hover {
-           /*color: #${requestScope.command.textColor};*/
+           color: #${requestScope.command.textColor};
             font-size: 11px;
         }
     </style>
@@ -118,7 +118,6 @@
     </script>
 </head>
 <body>
- <pageHelper:addOnLoadHandler handler="setIFrameSrc()" />
 <div class="top">
     <h1>GreatSchools School Finder Widget</h1>
 
@@ -141,7 +140,7 @@
 <table>
 <tr>
 <td class="leftSide">
-    <form:form cssClass="customize" name="customizeForm" method="post">
+    <form:form cssClass="customize" name="customizeForm" id="customizeForm" method="post">
         <div class="section searchQuery">
             <div class="step"><span class="step">Step 1: </span>
                 <span class="title">Choose address, zip code or city and state</span></div>
@@ -333,9 +332,9 @@
         <div id="GS_schoolSearchWidget">
             <div class="GS_widget_innerBorder">
                 <div id="widget">
-                    <iframe class="greatschools" id="widgetIFrame" name="widgetIFrame"
-                            src=""
-                            width="" height=""
+                    <iframe class="greatschools" id="widgetIFrame"
+                            src="${requestScope.command.iframeUrl}"
+                            width="${requestScope.command.iframeWidth}" height="${requestScope.command.iframeHeight}"
                             marginheight="0" marginwidth="0"
                             frameborder="0" scrolling="no"> Keep from collapsing
                     </iframe>
