@@ -233,7 +233,7 @@
                     <form:options items="${requestScope.command.backgroundColorOptions}"/>
                 </form:select>
                 <form:label path="backgroundColor" cssClass="hex">or Hex#</form:label>
-                <form:input path="backgroundColor"/>
+                <form:input path="backgroundColor" onblur="setIFrameSrc();"/>
             </div>
             <div class="colors text">
                 <form:label path="textColorSelect" cssClass="name">Text:</form:label>
@@ -241,7 +241,7 @@
                     <form:options items="${requestScope.command.textColorOptions}"/>
                 </form:select>
                 <form:label path="textColor" cssClass="hex">or Hex#</form:label>
-                <form:input path="textColor"/>
+                <form:input path="textColor" onblur="setIFrameSrc();"/>
             </div>
             <div class="colors borders">
                 <form:label path="bordersColorSelect" cssClass="name">Borders:</form:label>
@@ -249,7 +249,7 @@
                     <form:options items="${requestScope.command.bordersColorOptions}"/>
                 </form:select>
                 <form:label path="bordersColor" cssClass="hex">or Hex#</form:label>
-                <form:input path="bordersColor"/>
+                <form:input path="bordersColor" onblur="setIFrameSrc();"/>
             </div>
             <script type="text/javascript">
                 <![CDATA[
@@ -315,9 +315,9 @@
             </form:label>
         </div>
 
-        <input type="image" name="preview" value="Preview"
+        <!--<input type="image" name="preview" value="Preview"
                src="/res/img/widget/preview_button.gif"
-               onclick="return previewValid();" class="previewButton"/>
+               onclick="return previewValid();" class="previewButton"/>-->
         <input type="image" name="submit" value="Create Widget Code"
                src="/res/img/widget/create_button.gif"
                onclick="return inputsValid();" class="submitButton"/>
