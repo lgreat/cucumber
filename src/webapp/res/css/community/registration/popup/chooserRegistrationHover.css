@@ -147,12 +147,13 @@ div#topTextDivId ul li{
     list-style: none;
      margin-top: 20px;
      padding: 0px;
+    position: relative;
 }
 
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine{
-   width:130px;
+    width: 100px;
     float:left;
-    height:18px;
+    height: 18px;
 }
 
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine div.label {
@@ -163,7 +164,7 @@ div#topTextDivId ul li{
 }
 
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine{
-   width:250px;
+   /*width:250px;*/
     float:left;
     margin-left: 2px;
     height:18px;
@@ -171,7 +172,7 @@ div#topTextDivId ul li{
 }
 
 * html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine{
-    width:150px;
+    /*width:150px;*/
     float:left;
     margin-left: 2px;
     height:18px;
@@ -188,25 +189,27 @@ div#topTextDivId ul li{
     margin-top: -2px;
 }
 
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv img.errorIcon {
+    top: -17px;
+    left: 0;
+}
+
+* html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv img.errorIcon {
+    left: -229px;
+}
+
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv p.warning {
-    /* TODO-7917 Fix this in a better way? */
     top: -28px;
+    left: 15px;
 }
 
-#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine img.errorIcon {
-    left: 75px;
+* html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv p.warning {
+    top: -17px;
+    left: -214px;
 }
 
-#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine p.warning {
-    left: 90px;
-}
-
-#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine img.errorIcon {
-    left: 35px;
-}
-
-#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine p.warning {
-    left: 50px;
+* + html #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv p.warning {
+    top: -17px;
 }
 
 /* Form submission */

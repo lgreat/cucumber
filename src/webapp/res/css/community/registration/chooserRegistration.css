@@ -152,6 +152,13 @@ div#topTextDivId ul li{
     margin-top:4px;
 }
 
+#chooserRegistration #schoolChoiceLocation div#stateCityWrapper div.locationDiv p.warning {
+    left: 95px;
+    position: absolute;
+    top: -16px;
+    width: 250px;
+}
+
 /* Form submission */
 
 #chooserRegistration #formSubmit {
