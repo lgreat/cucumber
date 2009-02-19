@@ -5,6 +5,15 @@ div#topTextDivId ul li{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 13px;
     color: #666666;
+    margin-top: 3px;
+}
+
+* html div#topTextDivId {
+    margin-top: 0;
+}
+
+* + html div#topTextDivId {
+    margin-top: 0;
 }
 
 /* Error messages */
@@ -30,8 +39,6 @@ div#topTextDivId ul li{
 #chooserRegistration #loginDetails ul li {
     position: relative;
     clear: both;
-    height: 25px;
-    margin-top: 9px;
 }
 
 #chooserRegistration #loginDetails ul li#emailLine {
@@ -39,7 +46,7 @@ div#topTextDivId ul li{
 }
 
 #chooserRegistration #loginDetails ul li#usernameLine, #chooserRegistration #loginDetails ul li#passwordLine {
-    height: 25px;
+    /*height: 25px;*/
 }
 
 #chooserRegistration #loginDetails ul li div.label {

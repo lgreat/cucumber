@@ -73,6 +73,19 @@ div#topTextDivId ul li{
     margin-left: 0;
 }
 
+#chooserRegistration #loginDetails ul li {
+    height: 26px;
+    margin-top: 9px;
+}
+
+* html #chooserRegistration #loginDetails ul li {
+    height: 24px;
+}
+
+* + html #chooserRegistration #loginDetails ul li {
+    height: 23px;
+}
+
 #chooserRegistration #loginDetails ul li input {
     border: 1px #a8cedf solid;
     width: 258px;
