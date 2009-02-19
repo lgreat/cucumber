@@ -126,16 +126,17 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
         errors.reject(null, "Show results");
     }
 
+    //  This implementation of procesFormSubmission is written just to handle successfull submissions.
+    // If an Ajax call is made,the iframe's URL is returned to the call.
     protected ModelAndView processFormSubmission(HttpServletRequest request,
                                              HttpServletResponse response,
                                              Object cmd,
                                              BindException errors)
                                       throws Exception {
-        String testerStr = request.getParameter("tester");
-        if(StringUtils.isNotBlank(testerStr)){
+        String checkAjaxCall = request.getParameter("checkAjaxCall");
+        if(StringUtils.isNotBlank(checkAjaxCall)){
             CustomizeSchoolSearchWidgetCommand command = (CustomizeSchoolSearchWidgetCommand) cmd;
             String iframeUrl = command.getIframeUrl(request);
-            System.out.println("output:"+iframeUrl);
             PrintWriter out =response.getWriter();
             out.write(iframeUrl);
             return null;

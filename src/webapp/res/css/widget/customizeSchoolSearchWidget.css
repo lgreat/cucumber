@@ -11,6 +11,10 @@ div.top {
     padding: 25px 20px;
 }
 
+div.body{
+    position:relative;
+}
+
 div.top h1 {
     font-size: 22px;
     color: #5BC;
@@ -205,7 +209,8 @@ form.customize {
 }
 
 td.rightSide div.wrapper {
-    float: right;
+    left:519px;
+    position:absolute;
 }
 
 td.rightSide div.preview {

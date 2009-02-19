@@ -116,6 +116,7 @@
         // -->
         ]]>
     </script>
+    <pageHelper:addOnLoadHandler handler="initWidth()" />
 </head>
 <body>
 <div class="top">
@@ -328,7 +329,7 @@
 </td>
 <td class="rightSide">
     <div class="wrapper">
-        <div class="preview">Preview your widget:</div>
+        <div id="GS_preview_div" class="preview">Preview your widget:</div>
         <div id="GS_schoolSearchWidget">
             <div class="GS_widget_innerBorder">
                 <div id="widget">
