@@ -146,11 +146,6 @@
                     location.href = '${userCmd.redirectUrl}';
                     return false;
                 }
-
-                function noThanksTargetSelf() {
-                    document.location.href = '${userCmd.redirectUrl}';
-                    return false;
-                }
             </script>
 
 
