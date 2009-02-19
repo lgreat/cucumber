@@ -1,12 +1,29 @@
+/* Wrapper */
+
+#chooserRegistrationWrapper {
+    height: 355px;
+}
+
 /* Bullet points */
 
 div#topTextDivId {
     margin: 0;
+    padding-top: 0;
 }
 
 div#topTextDivId ul {
     padding-left: 20px;
+    padding-top: 0;
+    margin-top: 0;
     margin-left: 0;
+}
+
+* html div#topTextDivId ul {
+    margin-top: -5px;
+}
+
+* + html div#topTextDivId ul {
+    margin-top: -5px;
 }
 
 div#topTextDivId ul li{
@@ -37,10 +54,12 @@ div#topTextDivId ul li{
 
 #chooserRegistration #loginDetails {
     margin-top: 15px;
+    margin-bottom: 0;
+    padding-bottom: 0;
     
 }
 #chooserRegistration #loginDetails h2 {
-    display:none;
+    display: none;
 }
 
 #chooserRegistration #loginDetails ul{
@@ -100,9 +119,20 @@ div#topTextDivId ul li{
 /* School choice location */
 
 #chooserRegistration #schoolChoiceLocation {
-    width: 420px;
-    height: 100px;
-    margin-left: -12px;
+    width: 440px;
+    margin-top: -12px;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-left: 19px;
+}
+
+* html #chooserRegistration #schoolChoiceLocation {
+    margin-top: 0;
+}
+
+* + html #chooserRegistration #schoolChoiceLocation {
+    margin-top: 0;
 }
 
 #chooserRegistration #schoolChoiceLocation h2 {
@@ -110,7 +140,6 @@ div#topTextDivId ul li{
     font-size: 14px;
     color:#666666;
     font-weight:normal;
-    padding-left:30px;
 }
 
  
@@ -123,7 +152,7 @@ div#topTextDivId ul li{
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine{
    width:130px;
     float:left;
-    height:30px;
+    height:18px;
 }
 
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#stateLine div.label {
@@ -131,14 +160,13 @@ div#topTextDivId ul li{
     height: 18px;
     bottom: 0;
     float: left;
-    padding-left:30px;
 }
 
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine{
    width:250px;
     float:left;
     margin-left: 2px;
-    height:30px;
+    height:18px;
 
 }
 
@@ -146,7 +174,7 @@ div#topTextDivId ul li{
     width:150px;
     float:left;
     margin-left: 2px;
-    height:30px;
+    height:18px;
 }
 
 #chooserRegistration #schoolChoiceLocation div#stateCityWrapper div#cityLine div.label {
@@ -183,10 +211,9 @@ div#topTextDivId ul li{
 
 /* Form submission */
 
-
 #chooserRegistration #formSubmit {
     margin-top:50px;
-
+    height: 26px;
 }
 
 #chooserRegistration #formSubmit div {
@@ -197,13 +224,27 @@ div#topTextDivId ul li{
     float: left;
     padding-top: 5px;
     padding-right: 10px;
-    padding-left:260px;
+    padding-left: 233px;
 }
 
-#closeWindowDiv a.closeWindowClass{
+/* Close window */
+
+#closeWindowDiv {
+    text-align: center;
+    margin-top: 15px;
+}
+
+* html #closeWindowDiv {
+    margin-top: -15px;
+}
+
+* + html #closeWindowDiv {
+    margin-top: 8px;
+}
+
+#closeWindowDiv a.closeWindowClass, #closeWindowDiv a.closeWindowClass:active, #closeWindowDiv a.closeWindowClass:hover, #closeWindowDiv a.closeWindowClass:visited {
     text-decoration:none;
     font-size:12px;
-    margin-left:180px;
     font-family: Trebuchet MS;
     color:#666666;
 }

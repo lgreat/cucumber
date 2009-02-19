@@ -27,7 +27,7 @@
         </ul>
     </div>
 
-    <gsweb:form action="${formAction}" method="post">
+    <gsweb:form action="${formAction}" method="post" id="regForm">
         <spring:bind path="userCmd.redirectUrl">
             <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}" readonly="readonly"/>
         </spring:bind>

@@ -29,7 +29,7 @@
 
     <gsml:body adPageName="community/chooserRegistrationHover">
 
-        <div>
+        <div id="chooserRegistrationWrapper">
            <community:chooserRegistration formAction="/community/registration/popup/chooserRegistrationHover.page" targetParentFrame="true"/>
             <!-- put this after the tag so that it can override chooserRegistrationCommon.css --> 
             <pageHelper:externalCss file="/res/css/community/registration/popup/chooserRegistrationHover.css"/>
