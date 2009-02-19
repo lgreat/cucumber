@@ -1,9 +1,13 @@
+/* Bullet points */
+
 div#topTextDivId ul li{
     list-style-type: disc;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 13px;
     color: #666666;
 }
+
+/* Error messages */
 
 #chooserRegistration ul li img.errorIcon {
     position: absolute;
@@ -20,6 +24,8 @@ div#topTextDivId ul li{
 #chooserRegistration ul li p.warning a, #chooserRegistration ul li p.warning a:link, #chooserRegistration ul li p.warning a:visited, #chooserRegistration ul li p.warning a:active {
     color: #3399AA;
 }
+
+/* Login details */
 
 #chooserRegistration #loginDetails ul li {
     position: relative;
@@ -65,6 +71,7 @@ div#topTextDivId ul li{
     background: url(/res/img/community/registration/join_16_1.gif) no-repeat;
 }
 
+/* School choice location */
 
 #chooserRegistration #schoolChoiceLocation ul li label {
     color: #666666;
@@ -92,4 +99,3 @@ div#topTextDivId ul li{
     top: -14px;
     width: 250px;
 }
-

@@ -1,15 +1,44 @@
-#chooserRegistration #loginDetails ul{
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
+/* Bullet points */
+
+div#topTextDivId {
+    margin: 0;
 }
 
+div#topTextDivId ul {
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+div#topTextDivId ul li{
+    margin-left: 0;
+}
+
+/* Error messages */
+
+/* TODO-7917 Fix this in a better way? */
+#chooserRegistration ul li p.warning {
+    top: -26px;
+}
+
+
+#chooserRegistration ul li img.errorIcon {
+    top: -15px;
+}
+
+/* Login details */
+
 #chooserRegistration #loginDetails {
-    margin-top: 25px;
+    margin-top: 15px;
     
 }
 #chooserRegistration #loginDetails h2 {
     display:none;
+}
+
+#chooserRegistration #loginDetails ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
 }
 
 #chooserRegistration #loginDetails ul li input {
@@ -18,6 +47,24 @@
     color: #444444;
     float: left;
 }
+
+#chooserRegistration #loginDetails ul li div.label {
+    width: 135px;
+}
+
+#userDetails, #passwordDetails {
+    left: -25px;
+}
+
+#chooserRegistration #loginDetails ul li img.errorIcon {
+    left: 145px;
+}
+
+#chooserRegistration #loginDetails ul li p.warning {
+    left: 160px;
+}
+
+/* School choice location */
 
 #chooserRegistration #schoolChoiceLocation {
     width: 420px;
@@ -46,6 +93,14 @@
     height:30px;
 }
 
+#chooserRegistration #schoolChoiceLocation ul  li#stateLine div.label {
+    width: 43px;
+    height: 18px;
+    bottom: 0;
+    float: left;
+    padding-left:30px;
+}
+
 #chooserRegistration #schoolChoiceLocation ul li#cityLine{
    width:250px;
     float:left;
@@ -54,35 +109,11 @@
 
 }
 
-
 * html #chooserRegistration #schoolChoiceLocation ul li#cityLine{
     width:150px;
     float:left;
     margin-left: 2px;
     height:30px;
-}
-
-
-/* TODO-7917 Fix this in a better way? */
-#chooserRegistration ul li p.warning {
-    top: -26px;
-}
-
-#chooserRegistration #loginDetails ul li img.errorIcon {
-    left: 145px;
-}
-
-#chooserRegistration #loginDetails ul li p.warning {
-    left: 160px;
-}
-
-
-#chooserRegistration #schoolChoiceLocation ul  li#stateLine div.label {
-    width: 43px;
-    height: 18px;
-    bottom: 0;
-    float: left;
-    padding-left:30px;
 }
 
 #chooserRegistration #schoolChoiceLocation ul  li#cityLine div.label {
@@ -92,13 +123,8 @@
     float: left;
 }
 
-
 #chooserRegistration #schoolChoiceLocation ul li select {
     margin-top: -2px;
-}
-
-#chooserRegistration ul li img.errorIcon {
-    top: -15px;
 }
 
 #chooserRegistration #schoolChoiceLocation ul li p.warning {
@@ -121,6 +147,8 @@
 #chooserRegistration #schoolChoiceLocation ul li#cityLine p.warning {
     left: 50px;
 }
+
+/* Form submission */
 
 
 #chooserRegistration #formSubmit {
@@ -145,12 +173,4 @@
     margin-left:180px;
     font-family: Trebuchet MS;
     color:#666666;
-}
-
-#chooserRegistration #loginDetails ul li div.label {
-    width: 135px;
-}
-
-#userDetails, #passwordDetails {
-    left: -25px;
 }

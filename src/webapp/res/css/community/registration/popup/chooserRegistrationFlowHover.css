@@ -1,20 +1,7 @@
 #mslFlowDialog {
     position: relative;
-    height:520px;
+    height:480px;
 }
-
-/*#mslFlowDialogTopBar {
-    background-color: #8BCBCB;
-    height: 26px;
-    position: relative;
-}
-
-    #mslFlowDialogTopBar .dialogClose {
-        position: absolute;
-        right: 8px;
-        top: 5px;
-        cursor: pointer;
-    }  */
 
 #mslFlowDialogBody {
    padding-left:15px;
