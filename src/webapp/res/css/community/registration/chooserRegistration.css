@@ -5,8 +5,17 @@
     float: left;
 }
 
+div#topTextDivId ul li{
+    margin-left: 30px;
+}
+
 * html #chooserRegistration #loginDetails {
     margin-left: 0;
+}
+
+div#topTextDivId {
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 #chooserRegistration {
@@ -17,11 +26,6 @@
 
 * html #chooserRegistration {
     padding-bottom: 40px;
-}
-
-#chooserRegistrationWrapper div#topTextDivId{
-    padding-left:8px;
-
 }
 
 #chooserRegistration #schoolChoiceLocation ul li#stateLine{
@@ -133,6 +137,16 @@
 #chooserRegistration ul li img.errorIcon {
     left: 170px;
     top: -14px;
+}
+
+* html #chooserRegistration ul li p.warning {
+    left: 185px;
+    top: 0;
+}
+
+* html #chooserRegistration ul li img.errorIcon {
+    left: 170px;
+    top: 0;
 }
 
 #chooserRegistration ul li p.warning {

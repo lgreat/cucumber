@@ -3,8 +3,6 @@ div#topTextDivId ul li{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 13px;
     color: #666666;
-    margin: 8px;
-    padding: 0;
 }
 
 #chooserRegistration ul li img.errorIcon {
@@ -91,7 +89,7 @@ div#topTextDivId ul li{
 #chooserRegistration #schoolChoiceLocation ul li p.warning {
     left: 95px;
     position: absolute;
-    top: -16px;
+    top: -14px;
     width: 250px;
 }
 
