@@ -36,7 +36,7 @@
         }
 
         div.GS_widget_innerBorder {
-           border: solid 1px #${requestScope.command.bordersColor};
+           /*border: solid 1px #${requestScope.command.bordersColor};*/
         }
 
         div.GS_widget_footer {
@@ -331,7 +331,7 @@
     <div class="wrapper">
         <div id="GS_preview_div" class="preview">Preview your widget:</div>
         <div id="GS_schoolSearchWidget">
-            <div class="GS_widget_innerBorder">
+            <div class="GS_widget_innerBorder" id="GS_widget_innerBorder_id">
                 <div id="widget">
                     <iframe class="greatschools" id="widgetIFrame"
                             src="${requestScope.command.iframeUrl}"

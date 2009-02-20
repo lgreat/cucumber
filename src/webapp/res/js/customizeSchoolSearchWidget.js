@@ -54,14 +54,14 @@ function setIFrameSrc() {
     var form = $('customizeForm');
     var searchZipCode = form['searchQuery'];
     var textColor = form['textColor'];
-    var bordersColor = form['bordersColor'];    
+    var bordersColor = form['bordersColor'];
     var backgroundColor = form['backgroundColor'];
     var width = form['width'];
     var height = form['height'];
     var zoom = form['zoom'];
     var url = '/schoolfinder/widget/customize.page';
     var errors = false;
-    
+
     if($F(width) < 300) {
         $('width').value = 300;
         alert("Minimum width is 300");
@@ -97,11 +97,11 @@ function setIFrameSrc() {
     else{
         return;
     }
-    
+
     function showResponse(x) {
         $('widgetIFrame').src = x.responseText.replace(/amp;/g,'');
     }
-    
+
     var iFrameWidth = parseInt($F(width))-10;
     var iFrameHeight =  parseInt($F(height)) - 66;
     $('widgetIFrame').width = iFrameWidth;
@@ -109,7 +109,7 @@ function setIFrameSrc() {
     $('GS_schoolSearchWidget').style.width = iFrameWidth+2;
     $('GS_preview_div').style.width = parseInt($F(width)) -40;
     $('GS_schoolSearchWidget').style.border = "solid 4px #"+ $F(backgroundColor);
-    
+    $('GS_widget_innerBorder_id').style.border = "solid 1px #"+ $F(bordersColor);
 }
 function initWidth(){
     var form = $('customizeForm');
