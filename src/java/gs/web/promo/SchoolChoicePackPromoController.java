@@ -41,6 +41,10 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        User loggedInUser = context.getUser();
+        boolean isLoggedIn = (loggedInUser != null);
+
         String email = request.getParameter(EMAIL_PARAM);
         String level_val= request.getParameter(LEVELS_PARAM);
         String pageName = request.getParameter(PAGE_NAME);
@@ -67,7 +71,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             omnitureTracking.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.CrossPromotion, "Chooser_pack_" + pageName));
 
 
-            
+
             // add each promo level as a new subscription
             for (String level : levels) {
                 SubscriptionProduct prod = SubscriptionProduct.getSubscriptionProduct("chooserpack_" + level);
@@ -88,10 +92,12 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
                     _log.warn ("Could not find subscription product for: " + level);
                 }
             }
-            PageHelper.setMemberCookie(request, response, user);
+
+            if (!isLoggedIn) {
+                PageHelper.setMemberCookie(request, response, user);
+            }
             triggerPromoPackEmail(user, levels);
-            SessionContext session = SessionContextUtil.getSessionContext(request);
-            String abVersion = session.getABVersion();
+            String abVersion = context.getABVersion();
             String emailEncoded = URLEncoder.encode(email, "UTF-8");
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
@@ -99,8 +105,11 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             out.println("\"memid\":\"" + String.valueOf(user.getId()) + "\",");
             out.println("\"redirectEncoded\":\"" + URLEncoder.encode(redirectForConfirm, "UTF-8") + "\",");
 
-            if(user.isCommunityMember()){
-                out.println("\"isCommunityMember\":\"" + "y" + "\",");
+            if(!isLoggedIn && !user.isCommunityMember()){
+                out.println("\"showRegistration\":\"" + "y" + "\",");
+            }
+            if(!isLoggedIn){
+                out.println("\"createMemberCookie\":\"" + "y" + "\",");
             }
             out.println("\"abVersionForRedirect\":\"" + abVersion + "\",");
             out.println("\"emailEncoded\":\"" + emailEncoded + "\",");

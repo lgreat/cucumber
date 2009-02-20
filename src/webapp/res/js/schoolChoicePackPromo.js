@@ -30,20 +30,25 @@ $j(function() {
                                     $j.post("/promo/schoolChoicePackPromo.page",
                                     {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : document.getElementById('redirectForConfirm').value},
                                             function(datax){
-                                                createCookie("MEMID", datax.memid);
+                                                if (datax.createMemberCookie == 'y') {
+                                                    // must create cookie here even though it's in the controller already because
+                                                    // this is an ajax call and we must make sure next page is aware of
+                                                    // the MEMID. if only set in controller, the next page loaded may
+                                                    // not see that cookie.
+                                                    createCookie("MEMID", datax.memid);
+                                                }
                                                omnitureEventNotifier.clear();
                                                 omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
                                                 omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
                                                 omnitureEventNotifier.send();
-                                                if(datax.isCommunityMember == undefined){
+                                                if(datax.showRegistration == 'y'){
                                                     if(datax.abVersionForRedirect == 'a'){
                                                     window.location.href = '/community/chooserRegistration.page?email='+ datax.emailEncoded+'&redirect='+ datax.redirectEncoded;
                                                     }
                                                     else{
                                                       storeHrefOpenHover(this.href,datax.redirectEncoded,datax.emailEncoded);
                                                     }
-                                                }
-                                                else{
+                                                } else {
                                                     $j("#form_panel").hide();
                                                     $j("#confirm_panel").show();
                                                 }
