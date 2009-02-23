@@ -303,3 +303,20 @@
     margin-right: 2px;
     display: inline;
 }
+
+.BadgesLink{
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	color: #3399AA;
+	text-decoration: underline;
+}
+
+.BadgeText{
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 12px;
+    font-style:italic;
+}
+
+#pageWrapper div#main div#content div#top-five-schools div h2{
+   margin-bottom:0;
+}

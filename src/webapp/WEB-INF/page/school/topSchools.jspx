@@ -136,6 +136,7 @@
             <div id="top-five-schools" class="box main-box about-the-awards">
                 <div class="inner cleared">
                     <h2>About the awards</h2>
+                    <span class="BadgeText">Did your school win?</span><span class="BadgesLink"><gsml:a rel="nofollow" href="/school/topHighSchoolsBadges.page">Get a badge for your school's Web site!</gsml:a></span>
                     <ul>
                         <li>
                             <link:article styleClass="badge badge_overall" anchor="overall" target="_blank"
@@ -180,6 +181,7 @@
             <div id="top-five-schools" class="box main-box">
                 <div class="inner cleared">
                     <h2>Top high schools in ${stateName}</h2>
+                    <span class="BadgeText">Did your school win?</span><span class="BadgesLink"><gsml:a rel="nofollow" href="/school/topHighSchoolsBadges.page">Get a badge for your school's Web site!</gsml:a></span>
                     <ul>
                         <c:forEach var="school" items="${topSchools}">
                             <li class="${(school.last)?'lastSchool':''}">
