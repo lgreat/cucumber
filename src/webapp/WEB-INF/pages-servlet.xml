@@ -488,13 +488,23 @@
         </property>
     </bean>
 
-    <bean name="/about/sponsors.page"
+    <bean name="/school/topHighSchoolsBadges.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/topHighSchoolsBadges</value>
+        </property>
+    </bean>
+
+
+   <bean name="/about/sponsors.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/sponsors</value>
         </property>
-    </bean>
+    </bean> 
+    
 
     <bean name="/about/gsNetwork.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
@@ -511,6 +521,8 @@
             <value>about/pressRoom</value>
         </property>
     </bean>
+
+
 
     <bean name="/about/pressRoom/pressReleases.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"

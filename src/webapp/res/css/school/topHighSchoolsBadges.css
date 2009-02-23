@@ -1,0 +1,377 @@
+#topSchoolsWrapper{
+    /*background-color:red;*/
+    height:900px;
+    width:864px;
+}
+
+a.underline:link, a.underline:visited, a.underline:hover {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #3399AA;
+	text-decoration: underline;
+	letter-spacing: 0px;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload{
+    /*background-color:green;*/
+    height:900px;
+    width:580px;
+    float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#topHeading {
+    width:570px;
+    height:170px;
+    padding-top:5px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:13px;
+    color:black;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#topHeading div#topText{
+    /*background-color:pink;*/
+    width:570px;
+    height:170px;
+    padding-top:5px;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:13px;
+    color:black;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#topHeading div#headingText h2{
+    font-family: Trebuchet MS;
+    font-size: 21px;
+    font-weight:bold;
+    color:#D66671;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent{
+    /*background-color:red;*/
+    width:570px;
+    height:730px;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming{
+    height:130px;
+    /*background-color:grey;*/
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingImg{
+   width:300px;
+   height:130px;
+   /*background-color:white;*/
+   float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload{
+   width:270px;
+   height:130px; 
+   /*background-color:black;*/
+   float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingDownloadHeading{
+    margin-bottom:12px;
+
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingLowResJpg{
+      width:135px;
+      float:left;  
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingLowResPng{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingHighResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingHighResPng{
+      width:135px;
+      float:left;
+}
+
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome{
+    height:130px;
+    /*background-color:yellow;*/
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeImg{
+    width:300px;
+   height:130px;
+   /*background-color:black;*/
+   float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload{
+
+   width:270px;
+   height:130px;
+   /*background-color:white;*/
+   float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeDownloadHeading{
+    margin-bottom:12px;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeLowResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeLowResPng{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeHighResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeHighResPng{
+      width:135px;
+      float:left;
+}
+
+
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved{
+    height:130px;
+    /*background-color:grey;*/
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedImg{
+   width:300px;
+   height:130px;
+   /*background-color:white;*/
+   float:left;
+
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload{
+   width:270px;
+   height:130px;
+   /*background-color:black;*/
+   float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedDownloadHeading{
+
+    margin-bottom:12px;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedLowResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedLowResPng{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedHighResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedHighResPng{
+      width:135px;
+      float:left;
+}
+
+
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool{
+    height:130px;
+    /*background-color:yellow;*/
+}
+
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolImg{
+    width:300px;
+   height:130px;
+   /*background-color:black;*/
+   float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload{
+
+     width:270px;
+   height:130px;
+   /*background-color:white;*/
+   float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolDownloadHeading{
+
+    margin-bottom:12px;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolLowResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolLowResPng{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolHighResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolHighResPng{
+      width:135px;
+      float:left;
+}
+
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool{
+    height:130px;
+    /*background-color:grey;*/
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolImg{
+   width:300px;
+   height:130px;
+   /*background-color:white;*/
+   float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload{
+   width:270px;
+   height:130px;
+   /*background-color:black;*/
+   float:left;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolDownloadHeading{
+
+    margin-bottom:12px;
+}
+
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolLowResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolLowResPng{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolHighResJpg{
+      width:135px;
+      float:left;
+}
+#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolHighResPng{
+      width:135px;
+      float:left;
+}
+
+
+#topSchoolsWrapper div#topSchoolsLeft{
+    /*background-color:blue;*/
+    margin-top:20px;
+    height:900px;
+    width:284px;
+    float:left;
+}
+
+
+#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW{
+    height:180px;
+    width:284px;
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox {
+    border:3px solid green;
+    padding:8px;
+    /*background-image: url(/res/img/schoolChoice/schoolchoice_next_bottom.gif);
+    background-repeat: no-repeat;
+    background-position: left bottom;*/
+}
+#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox .outer{
+    /*padding-top: 6px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_next_top.gif);
+    background-repeat: no-repeat;
+    background-position: left top;*/
+}
+#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox .inner {
+    /*padding: 6px 16px 6px 16px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_next_sides.gif);
+    background-repeat: repeat-y;
+    background-position: left top;
+    background-color: transparent;*/
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox .inner div topSchoolsPromoImg{
+ }
+#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox .inner div#topSchoolsBWtext{
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    font-size:13px;
+    color:black;
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox .inner div#topSchoolsBWImg{
+    padding-top:6px;
+    text-align:right;
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays{
+    /*background-color:black;*/
+    height:600px;
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper{
+
+    border:3px solid green;
+    padding:8px;
+    height:600px;
+    /*background-image: url(/res/img/schoolChoice/schoolchoice_next_bottom.gif);
+    background-repeat: no-repeat;
+    background-position: left bottom;*/
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .outer{
+    padding-top: 6px;
+    /*background-image: url(/res/img/schoolChoice/schoolchoice_next_top.gif);
+    background-repeat: no-repeat;
+    background-position: left top;*/
+
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner {
+   /* padding: 6px 16px 6px 16px;
+    background-image: url(/res/img/schoolChoice/schoolchoice_next_sides.gif);
+    background-repeat: repeat-y;
+    background-position: left top;
+    background-color: transparent;*/
+    font-size: 12px;
+
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner h2{
+    font-family: Trebuchet MS;
+    font-size: 18px;
+    font-weight:bold;
+    color:#D66671;
+}
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner div#congratulationsText{
+
+    font-family: Trebuchet MS;
+    font-size: 13px;
+    color:black;
+    padding-bottom:3px;
+    padding-top:5px;
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner li{
+    font-size: 15px;
+    padding-top:10px;
+    color:grey;
+    font-weight:bold;
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner li div.fiveEasyWaysItem span.number {
+   float:left;
+   width:20px;
+}
+
+#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner li div.fiveEasyWaysItem span.text {
+    float:left;
+    width:240px;
+
+}
