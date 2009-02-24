@@ -30,7 +30,6 @@
             border: solid 4px #${requestScope.command.backgroundColor};
             border-bottom-width: 20px;
             background-color: #FFF;
-            /*width: ${requestScope.command.iframeWidth+2}px;*/
             position: relative;
             font-family: "Trebuchet MS", Arial, sans-serif;
         }
@@ -146,7 +145,7 @@
             <div class="step"><span class="step">Step 1: </span>
                 <span class="title">Choose address, zip code or city and state</span></div>
             <div class="instructions">Pick the location you'd like your widget to feature.</div>
-            <form:input path="searchQuery" onblur="setIFrameSrc();"/>
+            <form:input path="searchQuery" onchange="setIFrameSrc();"/>
         </div>
 
         <div class="section widgetSize">
@@ -170,10 +169,10 @@
                 <form:radiobutton path="dimensions" value="custom" label="Custom:"/>
                 <form:label cssClass="specifyDim" path="width">Width:</form:label><form:input cssClass="specifyDim"
                                                                                               path="width"
-                                                                                              onclick="customDim();" onblur="setIFrameSrc();"/>
+                                                                                              onclick="customDim();" onchange="setIFrameSrc();"/>
                 <form:label cssClass="specifyDim" path="height">Height:</form:label><form:input cssClass="specifyDim"
                                                                                                 path="height"
-                                                                                                onclick="customDim();" onblur="setIFrameSrc();"/>
+                                                                                                onclick="customDim();" onchange="setIFrameSrc();"/>
             </div>
             <!-- 300x434 -->
         </div>
@@ -203,7 +202,7 @@
                         sliderValue: $('zoom_level').value,
                         onSlide: function(value) {
                             $('zoom_level').value = value;
-                             setIFrameSrc();
+                             //setIFrameSrc();
                         },
                         onChange: function(value) {
                             $('zoom_level').value = value;
@@ -234,7 +233,7 @@
                     <form:options items="${requestScope.command.backgroundColorOptions}"/>
                 </form:select>
                 <form:label path="backgroundColor" cssClass="hex">or Hex#</form:label>
-                <form:input path="backgroundColor" onblur="setIFrameSrc();"/>
+                <form:input path="backgroundColor" onchange="updateColorSelect('backgroundColorSelect',this)"/>
             </div>
             <div class="colors text">
                 <form:label path="textColorSelect" cssClass="name">Text:</form:label>
@@ -242,7 +241,7 @@
                     <form:options items="${requestScope.command.textColorOptions}"/>
                 </form:select>
                 <form:label path="textColor" cssClass="hex">or Hex#</form:label>
-                <form:input path="textColor" onblur="setIFrameSrc();"/>
+                <form:input path="textColor" onchange="updateColorSelect('textColorSelect',this)"/>
             </div>
             <div class="colors borders">
                 <form:label path="bordersColorSelect" cssClass="name">Borders:</form:label>
@@ -250,7 +249,7 @@
                     <form:options items="${requestScope.command.bordersColorOptions}"/>
                 </form:select>
                 <form:label path="bordersColor" cssClass="hex">or Hex#</form:label>
-                <form:input path="bordersColor" onblur="setIFrameSrc();"/>
+                <form:input path="bordersColor" onchange="updateColorSelect('bordersColorSelect',this)"/>
             </div>
             <script type="text/javascript">
                 <![CDATA[
@@ -316,9 +315,9 @@
             </form:label>
         </div>
 
-        <!--<input type="image" name="preview" value="Preview"
+        <input type="image" name="preview" value="Preview"
                src="/res/img/widget/preview_button.gif"
-               onclick="return previewValid();" class="previewButton"/>-->
+               onclick="return previewValid();" class="previewButton"/>
         <input type="image" name="submit" value="Create Widget Code"
                src="/res/img/widget/create_button.gif"
                onclick="return inputsValid();" class="submitButton"/>

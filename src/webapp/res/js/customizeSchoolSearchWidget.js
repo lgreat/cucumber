@@ -5,7 +5,7 @@ function previewValid() {
         alert("Minimum width is 300");
         return false;
     }
-    if (customizeForm.height.value < 434) {
+    if (customizeForm.height.value < 434) {                                                  
         customizeForm.height.value = 434;
         alert("Minimum height is 434");
         return false;
@@ -46,11 +46,14 @@ function updateColor(selectElement, inputElementId, hexValue) {
     selectElement.style.backgroundColor = "#" + hexValue;
     document.getElementById(inputElementId).value = hexValue;
     setIFrameSrc();
+}
 
+function updateColorSelect(selectElementId, inputElement){
+    setIFrameSrc();
+    document.getElementById(selectElementId).style.backgroundColor = "#" +inputElement.value;
 }
 
 function setIFrameSrc() {
-
     var form = $('customizeForm');
     var searchZipCode = form['searchQuery'];
     var textColor = form['textColor'];
@@ -73,13 +76,13 @@ function setIFrameSrc() {
         errors = true;
     }
 
-    if(($F(backgroundColor).match('[^a-zA-Z0-9]')) != null) {
+    if(($F(backgroundColor).length != 3 && $F(backgroundColor).length != 6) || $F(backgroundColor).match('[^a-fA-F0-9]') != null) {
       $(backgroundColor).value = 'FFFFFF';
     }
-    if(($F(textColor).match('[^a-zA-Z0-9]')) != null) {
+    if(($F(textColor).length != 3 && $F(textColor).length != 6) || $F(textColor).match('[^a-fA-F0-9]') != null) {
       $(textColor).value = 'FFFFFF';
     }
-    if(($F(bordersColor).match('[^a-zA-Z0-9]')) != null) {
+    if(($F(bordersColor).length != 3 && $F(bordersColor).length != 6) || $F(bordersColor).match('[^a-fA-F0-9]') != null) {
       $(bordersColor).value = 'FFFFFF';
     }
 
@@ -102,12 +105,7 @@ function setIFrameSrc() {
         $('widgetIFrame').src = x.responseText.replace(/amp;/g,'');
     }
 
-    var iFrameWidth = parseInt($F(width))-10;
-    var iFrameHeight =  parseInt($F(height)) - 66;
-    $('widgetIFrame').width = iFrameWidth;
-    $('widgetIFrame').height = iFrameHeight;
-    $('GS_schoolSearchWidget').style.width = iFrameWidth+2;
-    $('GS_preview_div').style.width = parseInt($F(width)) -40;
+    setWidthHeight($F(width),$F(height));
     $('GS_schoolSearchWidget').style.border = "solid 4px #"+ $F(backgroundColor);
     $('GS_widget_innerBorder_id').style.border = "solid 1px #"+ $F(bordersColor);
 }
@@ -115,12 +113,16 @@ function initWidth(){
     var form = $('customizeForm');
     var width = form['width'];
     var height = form['height'];
-    var iFrameWidth = parseInt($F(width))-10;
-    var iFrameHeight =  parseInt($F(height)) - 66;
+    setWidthHeight($F(width),$F(height));
+}
+
+function setWidthHeight(width,height){
+    var iFrameWidth = parseInt(width)-10;
+    var iFrameHeight =  parseInt(height) - 66;
     $('widgetIFrame').width = iFrameWidth;
     $('widgetIFrame').height = iFrameHeight;
     $('GS_schoolSearchWidget').style.width = iFrameWidth+2;
-    $('GS_preview_div').style.width = parseInt($F(width)) -40;
+    $('GS_preview_div').style.width = parseInt(width) -40;
 }
 
 
