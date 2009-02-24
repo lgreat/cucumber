@@ -229,11 +229,11 @@
             </div>
             <div class="colors background">
                 <form:label path="backgroundColorSelect" cssClass="name">Background:</form:label>
-                <form:select path="backgroundColorSelect" onchange="updateColor(this, 'backgroundColor', this.value);">
+                <form:select path="backgroundColorSelect" onchange="updateBackgroundColor(this, 'backgroundColor', this.value);">
                     <form:options items="${requestScope.command.backgroundColorOptions}"/>
                 </form:select>
                 <form:label path="backgroundColor" cssClass="hex">or Hex#</form:label>
-                <form:input path="backgroundColor" onchange="updateColorSelect('backgroundColorSelect',this)"/>
+                <form:input path="backgroundColor" onchange="setBackgroundColorDropdown('backgroundColorSelect',this)"/>
             </div>
             <div class="colors text">
                 <form:label path="textColorSelect" cssClass="name">Text:</form:label>
@@ -294,7 +294,7 @@
         </div>
 
         <div class="section email">
-            <div class="step"><span class="step">Step 5:</span>
+            <div class="step"><span class="step">Step 6:</span>
                 <span class="title">Enter your email address</span></div>
             <div class="instructions">
                 Required to customize the widget. We'll

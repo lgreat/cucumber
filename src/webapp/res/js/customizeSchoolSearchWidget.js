@@ -50,7 +50,8 @@ function updateColor(selectElement, inputElementId, hexValue) {
 
 function updateColorSelect(selectElementId, inputElement){
     setIFrameSrc();
-    document.getElementById(selectElementId).style.backgroundColor = "#" +inputElement.value;
+    document.getElementById(selectElementId).style.backgroundColor = "#"+inputElement.value;
+    document.getElementById(selectElementId).value = inputElement.value;
 }
 
 function setIFrameSrc() {
@@ -58,7 +59,7 @@ function setIFrameSrc() {
     var searchZipCode = form['searchQuery'];
     var textColor = form['textColor'];
     var bordersColor = form['bordersColor'];
-    var backgroundColor = form['backgroundColor'];
+
     var width = form['width'];
     var height = form['height'];
     var zoom = form['zoom'];
@@ -76,9 +77,7 @@ function setIFrameSrc() {
         errors = true;
     }
 
-    if(($F(backgroundColor).length != 3 && $F(backgroundColor).length != 6) || $F(backgroundColor).match('[^a-fA-F0-9]') != null) {
-      $(backgroundColor).value = 'FFFFFF';
-    }
+
     if(($F(textColor).length != 3 && $F(textColor).length != 6) || $F(textColor).match('[^a-fA-F0-9]') != null) {
       $(textColor).value = 'FFFFFF';
     }
@@ -106,7 +105,6 @@ function setIFrameSrc() {
     }
 
     setWidthHeight($F(width),$F(height));
-    $('GS_schoolSearchWidget').style.border = "solid 4px #"+ $F(backgroundColor);
     $('GS_widget_innerBorder_id').style.border = "solid 1px #"+ $F(bordersColor);
 }
 function initWidth(){
@@ -125,4 +123,24 @@ function setWidthHeight(width,height){
     $('GS_preview_div').style.width = parseInt(width) -40;
 }
 
+function setBackgroundColorDropdown(selectElementId, inputElement){
+    document.getElementById(selectElementId).style.backgroundColor = "#"+inputElement.value;
+    document.getElementById(selectElementId).value = inputElement.value;
+    setFormBackgroundColor();
+}
 
+function updateBackgroundColor(selectElement, inputElementId, hexValue){
+    selectElement.style.backgroundColor = "#" + hexValue;
+    document.getElementById(inputElementId).value = hexValue;
+    setFormBackgroundColor();
+}
+
+function setFormBackgroundColor(){
+    var form = $('customizeForm');
+     var backgroundColor = form['backgroundColor'];
+     if(($F(backgroundColor).length != 3 && $F(backgroundColor).length != 6) || $F(backgroundColor).match('[^a-fA-F0-9]') != null) {
+      $(backgroundColor).value = 'FFFFFF';
+    }
+    $('GS_schoolSearchWidget').style.border = "solid 4px #"+ $F(backgroundColor);
+
+}
