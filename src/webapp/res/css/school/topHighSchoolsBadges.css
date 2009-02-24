@@ -3,15 +3,19 @@
     height:700px;
     width:864px;
 }
-
-a.underline:link, a.underline:visited, a.underline:hover {
+#topSchoolsWrapper a{
+    color:#3399AA;
+    text-decoration: underline;
+    font-size: 13px;
+}
+/*a.underline:link, a.underline:visited, a.underline:hover {
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
 	color: #3399AA;
 	text-decoration: underline;
 	letter-spacing: 0px;
-}
+}*/
 
 #topSchoolsWrapper div#topSchoolsDownload{
     height:700px;
@@ -28,14 +32,10 @@ a.underline:link, a.underline:visited, a.underline:hover {
 }
 
 #topSchoolsWrapper div#topSchoolsDownload div#topHeading div#topText{
-    /*background-color:pink;*/
-    width:560px;
     height:35px;
     padding-top:5px;
-    font-family:"Trebuchet MS",Arial,sans-serif;
-    font-size:13px;
-    color:black;
 }
+
 #topSchoolsWrapper div#topSchoolsDownload div#topHeading div#headingText h2{
     font-family: Trebuchet MS;
     font-size: 20px;
@@ -43,237 +43,44 @@ a.underline:link, a.underline:visited, a.underline:hover {
     color:#D66671;
 }
 #topSchoolsWrapper div#topSchoolsDownload div#downloadContent{
-    /*background-color:red;*/
     width:540px;
     height:550px;
 }
 
- #topSchoolsWrapper div#topSchoolsDownload div#downloadContent a{
-     color:#3399AA;
- }
 
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming{
+.topSchoolsList{
     height:110px;
-    /*background-color:grey;*/
 }
 
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingImg{
+.topSchoolsListImgDiv{
    width:300px;
    height:110px;
-   /*background-color:white;*/
    float:left;
 }
 
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload{
+.topSchoolsListDownloadDiv{
    width:240px;
    height:110px;
-   /*background-color:black;*/
-   float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingDownloadHeading{
-    margin-top:8px;
-    margin-bottom:8px;
-
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingLowResJpg{
-       width:120px;
-      float:left;  
-}
-
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingLowResPng{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingHighResJpg{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#topPerforming div#topPerformingDownload div#topPerformingHighResPng{
-      width:120px;
-      float:left;
-}
-
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome{
-    height:110px;
-    /*background-color:yellow;*/
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeImg{
-    width:300px;
-   height:110px;
-   /*background-color:black;*/
    float:left;
 }
 
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload{
+.topSchoolsListDownloadHeadingDiv{
+   margin-top:8px;
+   margin-bottom:8px;
+}
 
-   width:240px;
-   height:110px;
-   /*background-color:white;*/
+.topSchoolsListDownloadJPGPNGDiv{
+   width:120px;
    float:left;
 }
 
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeDownloadHeading{
-    margin-bottom:8px;
-    margin-top:8px;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeLowResJpg{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeLowResPng{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeHighResJpg{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#lowIncome div#lowIncomeDownload div#lowIncomeHighResPng{
-      width:120px;
-      float:left;
-}
-
-
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved{
-    height:110px;
-    /*background-color:grey;*/
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedImg{
-   width:300px;
-   height:110px;
-   /*background-color:white;*/
-   float:left;
-
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload{
-   width:240px;
-   height:110px;
-   /*background-color:black;*/
-   float:left;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedDownloadHeading{
-    margin-bottom:8px;
-    margin-top:8px;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedLowResJpg{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedLowResPng{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedHighResJpg{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#mostImproved div#mostImprovedDownload div#mostImprovedHighResPng{
-      width:120px;
-      float:left;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool{
-    height:110px;
-    /*background-color:yellow;*/
-}
-
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolImg{
-    width:300px;
-   height:110px;
-   /*background-color:black;*/
-   float:left;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload{
-
-    width:240px;
-    height:110px;
-   /*background-color:white;*/
-   float:left;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolDownloadHeading{
-    margin-bottom:8px;
-    margin-top:8px;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolLowResJpg{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolLowResPng{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolHighResJpg{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#publicSchool div#publicSchoolDownload div#publicSchoolHighResPng{
-      width:120px;
-      float:left;
-}
-
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool{
-    height:110px;
-    /*background-color:grey;*/
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolImg{
-   width:300px;
-   height:110px;
-   /*background-color:white;*/
-   float:left;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload{
-   width:240px;
-   height:110px;
-   /*background-color:black;*/
-   float:left;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolDownloadHeading{
-    margin-bottom:8px;
-    margin-top:8px;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolLowResJpg{
-      width:120px;
-      float:left;
-      color:#3399AA;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolLowResPng{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolHighResJpg{
-      width:120px;
-      float:left;
-}
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent li#privateSchool div#privateSchoolDownload div#privateSchoolHighResPng{
-      width:120px;
-      float:left;
-}
 .emailText{
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:13px;
 }
 
 #topSchoolsWrapper div#topSchoolsLeft{
-    /*background-color:blue;*/
-    margin-top:20px;
+    margin-top:10px;
     height:700px;
     width:304px;
     float:left;
@@ -323,7 +130,6 @@ a.underline:link, a.underline:visited, a.underline:hover {
 
 
 #topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays{
-    /*background-color:black;*/
     height:450px;
 }
 

@@ -28,60 +28,68 @@
 
     <div id="topSchoolsWrapper">
         <div id="topSchoolsDownload">
-            <div id="topHeading"><link:topSchools state="${Null}" styleClass="underline">Top High Schools &#62;</link:topSchools>Awards &amp; Badges
+            <div id="topHeading"><link:topSchools state="${StateOrNull}" styleClass="underline">Top High Schools &#62;</link:topSchools>Awards &amp; Badges
                 <div id="headingText"><h2>Top Schools Winners: Download Awards and Badges Here!</h2></div>
                 <div id="topText">Use the below badges to promote your achievement as GreatSchools Top School in 2009.<br/>
                 Download the below images and link them to the url of your school's profile on GreatSchools.</div>
             </div>
             <div id="downloadContent">
                   <ul>
-                      <li id="topPerforming">
-                          <div id="topPerformingImg">1</div>
-                          <div id="topPerformingDownload"><div id="topPerformingDownloadHeading">Top Performing</div>
-                              <div id="topPerformingLowResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingLowResJpg">Low-Res:JPEG</a></div>
-                              <div id="topPerformingLowResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingLowResPng">Low-Res:PNG</a></div>
-                              <div id="topPerformingHighResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingHighResJpg">High-Res:JPEG</a></div>
-                              <div id="topPerformingHighResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingHighResPng">High-Res:PNG</a></div>
+                      <li class="topSchoolsList">
+                          <div class="topSchoolsListImgDiv"><img src="/res/img/school/topSchools/badge/badge_lowres_topperf.jpg"
+                            alt="GreatSchools Top Schools, as featured in BusinessWeek"/></div>
+                          <div class="topSchoolsListDownloadDiv"><div class="topSchoolsListDownloadHeadingDiv">Top Performing</div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingLowResJpg">Low-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingLowResPng">Low-Res:PNG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingHighResJpg">High-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingHighResPng">High-Res:PNG</a></div>
                           </div>
                       </li>
 
-                      <li id="lowIncome">
-                          <div id="lowIncomeImg">1</div>
-                          <div id="lowIncomeDownload"><div id="lowIncomeDownloadHeading">Top Performing,Low Income</div>
-                              <div id="lowIncomeLowResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeLowResJpg">Low-Res:JPEG</a></div>
-                              <div id="lowIncomeLowResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeLowResPng">Low-Res:PNG</a></div>
-                              <div id="lowIncomeHighResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeHighResJpg">High-Res:JPEG</a></div>
-                              <div id="lowIncomeHighResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeHighResPng">High-Res:PNG</a></div>
+                      <li class="topSchoolsList">
+                          <div class="topSchoolsListImgDiv"><img src="/res/img/school/topSchools/badge/badge_lowres_topperf_lowin.jpg"
+                            alt="GreatSchools Top Schools, as featured in BusinessWeek"/></div>
+                          <div class="topSchoolsListDownloadDiv"><div class="topSchoolsListDownloadHeadingDiv">Top Performing,Low Income</div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeLowResJpg">Low-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeLowResPng">Low-Res:PNG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeHighResJpg">High-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeHighResPng">High-Res:PNG</a></div>
                           </div>
                       </li>
 
-                      <li id="mostImproved"><div id="mostImprovedImg">1</div>
-                          <div id="mostImprovedDownload"><div id="mostImprovedImgDownloadHeading">Most Improved</div>
-                              <div id="mostImprovedLowResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=mostImprovedLowResJpg">Low-Res:JPEG</a></div>
-                              <div id="mostImprovedLowResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=mostImprovedLowResPng">Low-Res:PNG</a></div>
-                              <div id="mostImprovedHighResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=mostImprovedHighResJpg">High-Res:JPEG</a></div>
-                              <div id="mostImprovedHighResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=mostImprovedHighResPng">High-Res:PNG</a></div>
+                      <li id="mostImproved" class="topSchoolsList">
+                          <div class="topSchoolsListImgDiv"><img src="/res/img/school/topSchools/badge/badge_lowres_improved.jpg"
+                            alt="GreatSchools Top Schools, as featured in BusinessWeek"/></div>
+                          <div class="topSchoolsListDownloadDiv"><div class="topSchoolsListDownloadHeadingDiv">Most Improved</div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=mostImprovedLowResJpg">Low-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=mostImprovedLowResPng">Low-Res:PNG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=mostImprovedHighResJpg">High-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=mostImprovedHighResPng">High-Res:PNG</a></div>
                           </div>
                       </li>
-                      <li id="publicSchool"><div id="publicSchoolImg">1</div>
-                          <div id="publicSchoolDownload"><div id="publicSchoolDownloadHeading">Parent's Choice,Public School</div>
-                              <div id="publicSchoolLowResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolLowResJpg">Low-Res:JPEG</a></div>
-                              <div id="publicSchoolLowResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolLowResPng">Low-Res:PNG</a></div>
-                              <div id="publicSchoolHighResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolHighResJpg">High-Res:JPEG</a></div>
-                              <div id="publicSchoolHighResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolHighResPng">High-Res:PNG</a></div>
+                      <li class="topSchoolsList">
+                          <div class="topSchoolsListImgDiv"><img src="/res/img/school/topSchools/badge/badge_lowres_pchoicepublic.jpg"
+                            alt="GreatSchools Top Schools, as featured in BusinessWeek"/></div>
+                          <div class="topSchoolsListDownloadDiv"><div class="topSchoolsListDownloadHeadingDiv">Parent's Choice,Public School</div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolLowResJpg">Low-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolLowResPng">Low-Res:PNG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolHighResJpg">High-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolHighResPng">High-Res:PNG</a></div>
                           </div>
                       </li>
-                      <li id="privateSchool"><div id="privateSchoolImg">1</div>
-                          <div id="privateSchoolDownload"><div id="privateSchoolDownloadHeading">Parent's Choice,Private School</div>
-                              <div id="privateSchoolLowResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolLowResJpg">Low-Res:JPEG</a></div>
-                              <div id="privateSchoolLowResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolLowResPng">Low-Res:PNG</a></div>
-                              <div id="privateSchoolHighResJpg"><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolHighResJpg">High-Res:JPEG</a></div>
-                              <div id="privateSchoolHighResPng"><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolHighResPng">High-Res:PNG</a></div>
+                      <li id="privateSchool" class="topSchoolsList">
+                          <div class="topSchoolsListImgDiv"><img src="/res/img/school/topSchools/badge/badge_lowres_pchoiceprivate.jpg"
+                            alt="GreatSchools Top Schools, as featured in BusinessWeek"/></div>
+                          <div class="topSchoolsListDownloadDiv"><div class="topSchoolsListDownloadHeadingDiv">Parent's Choice,Private School</div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolLowResJpg">Low-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolLowResPng">Low-Res:PNG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolHighResJpg">High-Res:JPEG</a></div>
+                              <div class="topSchoolsListDownloadJPGPNGDiv"><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolHighResPng">High-Res:PNG</a></div>
                           </div>
                       </li>
                   </ul>
             </div>
-            For any questions,please contact top-schools@greatschools.net
+            <span class="emailText">For any questions,please contact <a href="mailto:top-schools@greatschools.net">top-schools@greatschools.net</a></span>
         </div>
         <div id="topSchoolsLeft">
            <div id="topSchoolsBW">
@@ -91,9 +99,8 @@
                             <div id="topSchoolsPromoImg"><img src="/res/img/school/topSchools/badge/badgepromo.jpg"
                             alt="GreatSchools Top Schools, as featured in BusinessWeek"/></div>
                             <div id="topSchoolsBWtext">Announced January 15, 2009 five high schools were selected from each state that represent the qualities of a great school.
-                            <link:topSchools state="${Null}" styleClass="underline">View top school winners &#62;</link:topSchools></div>
-                            <div id="topSchoolsBWImg"><img src="/res/img/content/research/statepage_top5_bizweek.gif"
-                            alt="GreatSchools Top Schools, as featured in BusinessWeek"/></div>
+                            <br/><link:topSchools state="${StateOrNull}" styleClass="underline">View top school winners &#62;</link:topSchools></div>
+                            <div id="topSchoolsBWImg">As featured in <a target="_blank" href="http://www.businessweek.com"><img src="/res/img/school/topSchools/businessweek.gif" alt="Business Week"></img></a></div>
                         </div>
                     </div>
                 </div>
