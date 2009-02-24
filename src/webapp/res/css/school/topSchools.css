@@ -304,14 +304,14 @@
     display: inline;
 }
 
-.BadgesLink{
+.badgeLink{
     font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	color: #3399AA;
 	text-decoration: underline;
 }
 
-.BadgeText{
+.badgeText{
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 12px;
     font-style:italic;
