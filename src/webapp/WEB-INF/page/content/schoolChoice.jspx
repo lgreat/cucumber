@@ -214,7 +214,7 @@
                         </div>
 
                         <div id="downloadWorksheetDiv">
-                            <p><span id="downloadWorksheetText">Download worksheet for</span>
+                            <p><span id="downloadWorksheetText">Download checklist for</span>
                                 <select id="worksheet">
                                     <option value="/pdf/schq_visit_preschool.pdf">Preschool</option>
                                     <option value="/pdf/schq_visit_elem.pdf">Elementary</option>
