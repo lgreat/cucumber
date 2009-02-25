@@ -120,6 +120,12 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
         verify(_mockSubscriptionDao);
     }
 
+    /**
+     * Regression test for GS-7993.
+     * Verify that a user who is signed in to MSL and submits an email address
+     * -- an email address that's not already registered --
+     * for the chooser tip sheet should be taken to the registration form. 
+     */
     public void testMslUserTakenToRegistration() throws Exception {
         getRequest().setParameter(SchoolChoicePackPromoController.LEVELS_PARAM, "e");
         getRequest().setParameter(SchoolChoicePackPromoController.EMAIL_PARAM, "aroy@greatschools.net");
