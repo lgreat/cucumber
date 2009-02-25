@@ -16,6 +16,13 @@ div#schoolChoicePackPromo img.headicon {
     margin:0 10px 0 0;
 }
 
+div#schoolChoicePackPromo .headlineNoSchoolName {
+    color:#D66671;
+    font-size:17px;
+    padding-top:4px;
+    margin-bottom:10px;
+}
+
 div#schoolChoicePackPromo .headline {
     color:#D66671;
     font-size:17px;

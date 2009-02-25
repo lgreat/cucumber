@@ -112,12 +112,12 @@
 
                 <div id="intro" class="box">
                     <div class="inner cleared">
-                        <h2>Find the right fit</h2>
+                        <h2>GreatSchools 101</h2>
 
                         <div>
 
                             <div class="description">
-                                <p>Join GreatSchools President Bill Jackson and learn how to use our site to choose a school where your child can thrive.</p>
+                                <p>Watch this short video to learn how to use our site and choose a school where your child will thrive.</p>
                             </div>
 
                             <div class="video" id="schoolChoiceVideo">
@@ -174,8 +174,8 @@
 
                         <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number2.gif" alt="2"/> Start your search</h2>
 
-                        <p>Find schools in your area. First, search by school name, city or district. Then narrow
-                           your search by public, charter or private, and by school level.</p>
+                        <p>Find schools in your area. First search by school name, city or district. Then narrow
+                           your search by public, charter or private and by school level.</p>
 
                         <form method="get" action="/stateLauncher.page" onsubmit="return findAndCompareCheck('schoolChoiceQuery', 'searchState', 'p');">
 
@@ -208,9 +208,8 @@
                             <img class="left" src="/res/img/schoolChoice/schoolchoice_prep_image.jpg" alt="Woman and child"/>
 
                             <div class="column">
-                                <p>Once you've narrowed your search to a handful of schools, make appointments to visit
-                                   each one because seeing is believing. Take along our easy-to-use checklist to get
-                                   the most out of your school tours.</p>
+                                <p>Once you've narrowed your list to a handful of schools, make appointments to visit each one, because seeing is believing.
+                                    Take along our School Visit Checklist to get the most out of your tours. </p>
                             </div>
                         </div>
 
@@ -233,8 +232,8 @@
                         <h2><img class="left" src="/res/img/schoolChoice/schoolchoice_number4.gif" alt="4"/> Apply and enroll</h2>
                         <img class="left" src="/res/img/schoolChoice/schoolchoice_apply_image.jpg" alt="Smiling girl"/>
                         <div class="column">
-                            <p>Once you've made your choice, find out the application deadline, assemble all the
-                               necessary documents, and apply. Have a plan B, in case you don't get your first choice.</p>
+                            <p>After you've made your choice, find out the application deadline, assemble all the necessary documents and apply.
+                                Have a plan B, in case you don't get your first choice. </p>
                             <ul>
                                 <li><gsweb:articlelink
                                         articleId="3698">School enrollment requirements</gsweb:articlelink>
@@ -313,7 +312,7 @@
                 <div id="poll" class="box">
                     <div class="outer">
                         <div class="inner">
-                            <h3 id="quotable">Take a poll</h3>
+                            <h3 id="quotable">What do you think?</h3>
 
                             <div id="pollWrapper">
                                 <jsp:include page="/content/schoolChoiceCenterPoll.module"/>
