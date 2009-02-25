@@ -55,6 +55,10 @@
     <title>${gsweb:schoolPageTitle(school)}</title>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 
+    <variant:b>
+        <pageHelper:externalCss file="/res/css/school/overview_b_7970.css"/>    
+    </variant:b>
+
     <style type="text/css">
         #stateSelector2 {
             color:#666666;
@@ -75,6 +79,14 @@
         <link rel="stylesheet" type="text/css" href="/res/css/school/parentReviewForm_ie7.css" />
     <![endif]-->
     ]]>
+    <variant:b>
+    <![CDATA[
+    <!--[if IE 7]>
+        <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7_b_7970.css" />
+    <![endif]-->
+    ]]>
+    </variant:b>
+    
 <c:set var="school" value="${school}"/>
 <school:profile school="${school}" tab="overview">
 
@@ -103,9 +115,14 @@
     </div><!-- end: col_left" -->
 
     <!-- begin center column -->
+    <variant:b>
 
+        <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true" includeSummary='true'/>
+    </variant:b>
     <div id="col_center">
-        <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
+        <variant:a>
+            <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
+        </variant:a>
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
                 <div id="topCompare" style="float:left;" >
                     <school:compareSchool school="${school}"/>

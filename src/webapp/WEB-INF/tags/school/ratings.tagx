@@ -5,32 +5,44 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
         >
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
-    <jsp:directive.attribute name="gsRating" required="true" description="GreatSchools Overall Rating Integer" type="java.lang.Integer"/>
-    <jsp:directive.attribute name="parentRating" required="true" description="Parent Ratings Object" type="gs.data.school.review.Ratings"/>
-    <jsp:directive.attribute name="clickTracking" required="false" description="Implement click tracking" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="gsRating" required="true" description="GreatSchools Overall Rating Integer"
+                             type="java.lang.Integer"/>
+    <jsp:directive.attribute name="parentRating" required="true" description="Parent Ratings Object"
+                             type="gs.data.school.review.Ratings"/>
+    <jsp:directive.attribute name="clickTracking" required="false" description="Implement click tracking"
+                             type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="includeSummary" required="false" description="whether or not to include summary text"
+                             type="java.lang.Boolean"/>
 
     <!-- GS-5684 If clickTracking is true, set the class on the links for click tracking -->
     <c:set var="clickClass" value=""/>
     <c:if test="${clickTracking}">
         <c:set var="clickClass" value="GS_CI9_"/>
     </c:if>
+    <c:set var="clickClass" value=""/>
+    <c:if test="${clickTracking}">
+        <c:set var="clickClass" value="GS_CI9_"/>
+    </c:if>
     <c:choose>
-            <c:when test="${gsRating == 0}">
-                <c:set var="hasGsRating" value="${false}"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="hasGsRating" value="${true}"/>
-            </c:otherwise>
+        <c:when test="${gsRating == 0}">
+            <c:set var="hasGsRating" value="${false}"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="hasGsRating" value="${true}"/>
+        </c:otherwise>
     </c:choose>
     <c:choose>
-            <c:when test="${parentRating.displayOverallRating eq true}">
-                <c:set var="hasParentRating" value="${true}"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="hasParentRating" value="${false}"/>
-            </c:otherwise>
+        <c:when test="${parentRating.displayOverallRating eq true}">
+            <c:set var="hasParentRating" value="${true}"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="hasParentRating" value="${false}"/>
+        </c:otherwise>
     </c:choose>
 
     <c:choose>
@@ -47,6 +59,7 @@
             <c:set var="divId" value="ratingsBoth"/>
         </c:otherwise>
     </c:choose>
+
     <div id="${divId}" class="hreview">
         <h2 class="item"><span class="fn"><c:out value="${school.name} Ratings"/></span></h2>
 
@@ -59,14 +72,21 @@
             </div>
             <div id="rating_gs">
                 <link:schoolProfileRating school="${school}">
-                    <gsml:img src="/res/img/school/overview/ratings_gs_med_${gsRating}.gif" alt="GreatSchools Rating: ${gsRating} out of 10. GreatSchools Ratings are based on test results. 10 is best." />
+                    <gsml:img src="/res/img/school/overview/ratings_gs_med_${gsRating}.gif"
+                              alt="GreatSchools Rating: ${gsRating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
                 </link:schoolProfileRating>
+
                 <p>
                     <link:schoolProfileRating school="${school}">
-                        View all &#62;
+                        What's this? &#62;
                     </link:schoolProfileRating>
                 </p>
-            </div><!-- end: rating_gs -->
+            </div>
+            <!-- end: rating_gs -->
+        </c:if>
+        <c:if test="${includeSummary}">
+
+            <content:ratingsSummary school="${school}" gsRating="${gsRating}" parentRating="${parentRating}"/>
         </c:if>
 
         <div id="rating_parent">
@@ -77,10 +97,18 @@
                             onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                             styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
                             >
-                        <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!"
-                                  styleClass="parentTitle" />
-                        <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars" />
-                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                        <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif"
+                                  alt="Be the first to rate this school!"
+                                  styleClass="parentTitle"/>
+
+                        <variant:a>
+                            <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars"/>
+                            <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                        </variant:a>
+                        <variant:b>
+                            <gsml:img src="/res/img/school/overview/7970_b/stars_0.gif" alt="No Rating" styleClass="stars"/>
+                            <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                        </variant:b>
                     </link:schoolProfileAddParentReview>
                 </c:when>
                 <c:otherwise>
@@ -91,16 +119,35 @@
                         </link:schoolProfileParentReview>
                     </div>
                     <link:schoolProfileParentReview school="${school}">
-                        <gsml:img src="/res/img/school/overview/rating_OverallParentRating.gif" alt="Overall Parent Rating" styleClass="parentTitle" />
-                        <gsml:img src="/res/img/school/overview/stars_${parentRating.overall}.gif" alt="${parentRating.overall} out of 5 stars" styleClass="stars" />
+                        <variant:a>
+                            <gsml:img src="/res/img/school/overview/rating_OverallParentRating.gif"
+                                  alt="Overall Parent Rating" styleClass="parentTitle"/>
+
+                            <gsml:img src="/res/img/school/overview/stars_${parentRating.overall}.gif"
+                                  alt="${parentRating.overall} out of 5 stars" styleClass="stars"/>
+                        </variant:a>
+                        <variant:b>
+                            <gsml:img src="/res/img/school/overview/7970_b/parentRating.gif"
+                                  alt="Overall Parent Rating" styleClass="parentTitle"/>
+                            <gsml:img src="/res/img/school/overview/7970_b/stars_${parentRating.overall}.gif"
+                                  alt="${parentRating.overall} out of 5 stars" styleClass="stars"/>
+                        </variant:b>
+
                     </link:schoolProfileParentReview>
                     <link:schoolProfileAddParentReview
                             school="${school}"
                             onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                             styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
                             >
-                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" />
+                        <variant:a>
+                            <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                        </variant:a>
+                        <variant:b>
+                            <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                        </variant:b>
+                        
                     </link:schoolProfileAddParentReview>
+
                     <p>
                         <link:schoolProfileParentReview school="${school}">
                             View all &#62;
@@ -109,8 +156,10 @@
                 </c:otherwise>
             </c:choose>
 
-        </div><!-- end: rating_parent -->
+        </div>
+        <!-- end: rating_parent -->
 
-    </div><!-- end: ratings -->
+    </div>
+    <!-- end: ratings -->
 
 </jsp:root>
