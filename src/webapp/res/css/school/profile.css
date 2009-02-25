@@ -413,3 +413,34 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
     div.printSchoolProfileHeader{display:block;}
 }
+/* ab test */
+#tools .print, #tools .emailFriend {
+    padding: 10px 0 2px 0px;
+    _padding-bottom: 0;
+}
+
+#tools {
+    width:270px;
+}
+
+
+#tools div#topTools{
+    width: 240px;
+}
+#tools div#bottomTools{
+    width: 270px;
+    float:left;
+    height: 27px;
+}
+
+#breadcurmbs {
+    width: 540px;
+}
+#schoolProfile #schoolName{
+    width:540px;
+}
+
+#schoolProfileHeader #bottomTools p {
+    margin: 10px 0 0 0;
+}
+/* ab test */

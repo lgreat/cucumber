@@ -178,6 +178,7 @@
     <!-- begin tool links : don't show for crawlers -->
     <c:if test="${!requestScope.context.crawler}">
         <div id="tools">
+            <div id="topTools">
             <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img
                     src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
             <link:mySchoolList school="${school}" styleClass="add toolsTxt"
@@ -222,12 +223,29 @@
                     </c:choose>
                 </c:otherwise>
             </c:choose>
+            </div>
+            <div id="bottomTools">
             <c:if test="${school.levelCode != 'p'}">
                 <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img
                         src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
                 <link:schoolCompareSchool school="${school}" from="header"
                                           styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
             </c:if>
+
+            <!-- variant b -->
+            <c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                <gsml:img src="/res/img/school/tools_compare.gif" styleClass="compareImg toolsImg" alt="Compare this school"/>
+                <a class="print toolsTxt" href="javascript:window.print();" title="">Print</a>
+                <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                <gsml:url var="mailToFriendUrl"
+                      value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
+                <gsml:img src="/res/img/school/tools_compare.gif" styleClass="compareImg toolsImg"  alt="Compare this school"/>
+                <gsml:a href="${mailToFriendUrl}" styleClass="emailFriend toolsTxt"
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>
+            </c:if>
+            </div>
+
         </div>
     </c:if>
     <!-- end tools -->
@@ -418,9 +436,14 @@
     </tr>
 </table>
 <!-- end: navigation -->
+<c:set var="subNavClass" value=""/>
 
+<!-- variant b -->
+<c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+    <c:set var="subNavClass" value="hidden"/>
+</c:if>
 
-<div id="subnav">
+<div id="subnav" class="${subNavClass}">
     <c:if test="${!requestScope.context.crawler}">
         <ul>
             <li><a href="javascript:window.print();" title="">Print</a>&amp;#160;|&amp;#160;</li>
