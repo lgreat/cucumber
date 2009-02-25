@@ -35,3 +35,11 @@ div.note {
     font-size:13px;
     margin:0 0 15px 0;
 }
+
+td.tou {
+    text-align:left;
+}
+input#terms {
+    width: 15px;
+    margin:3px 5px 0 0;
+}

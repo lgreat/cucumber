@@ -15,7 +15,7 @@ public class ApiAccountCommandValidator implements Validator {
     // Error message - shown on spring form-bound pages
     public static final String REQUIRED_FIELD = "required";
     public static final String INVALID_EMAIL = "Invalid Address";
-    public static final String EMAIL_CONFIRM_MISMATCH = "Email mismatch";
+    public static final String EMAIL_CONFIRM_MISMATCH = "'Confirm Email' value must match Email of Contact";
 
     public boolean supports(Class aClass) {
         return ApiAccount.class.isAssignableFrom(aClass);
@@ -23,6 +23,8 @@ public class ApiAccountCommandValidator implements Validator {
 
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required", REQUIRED_FIELD);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "field.required", REQUIRED_FIELD);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "intendedUse", "field.required", REQUIRED_FIELD);
 
         ApiAccount account = (ApiAccount)o;
         String email = account.getEmail();

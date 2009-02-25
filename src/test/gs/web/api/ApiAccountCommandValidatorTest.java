@@ -7,6 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.BindException;
 import gs.data.api.ApiAccount;
 
+import java.util.List;
+
 /**
  * Created by chriskimm@greatschools.net
  */
@@ -31,21 +33,35 @@ public class ApiAccountCommandValidatorTest {
         ApiAccount command = new ApiAccount();
         Errors errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
-        assertEquals(3, errors.getErrorCount());
+        assertEquals(5, errors.getErrorCount());
 
         command.setName("name");
         command.setEmail("test@test.com");
         command.setConfirmEmail("test@test.com");
         errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
+        assertEquals(2, errors.getErrorCount());
+
+        command = new ApiAccount();
+        command.setName("name");
+        command.setEmail("test@test.com");
+        command.setConfirmEmail("test@test.com");
+        command.setPhone("(415)-595-0505");
+        command.setIntendedUse("test");
+        errors = new BindException(command, "commmand");
+        _validator.validate(command, errors);
         assertEquals(0, errors.getErrorCount());
+        assertNull(errors.getFieldError("confirmEmail"));
 
         command = new ApiAccount();
         command.setName("name");
         command.setEmail("test@test.com");
         command.setConfirmEmail("testx@test.com");
+        command.setPhone("(415)-595-0505");
+        command.setIntendedUse("test");
         errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
-        assertEquals(1, errors.getErrorCount());        
+        assertEquals(1, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("confirmEmail"));
     }
 }
