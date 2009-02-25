@@ -142,5 +142,5 @@ function setFormBackgroundColor(){
       $(backgroundColor).value = 'FFFFFF';
     }
     $('GS_schoolSearchWidget').style.border = "solid 4px #"+ $F(backgroundColor);
-
+    $('GS_schoolSearchWidget').style.borderBottomWidth = "20px";
 }
