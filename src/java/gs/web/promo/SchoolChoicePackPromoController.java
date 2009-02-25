@@ -93,6 +93,7 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
                 }
             }
 
+            // if there is no logged in user, then sign in the user using the email entered
             if (!isLoggedIn) {
                 PageHelper.setMemberCookie(request, response, user);
             }
@@ -105,9 +106,18 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             out.println("\"memid\":\"" + String.valueOf(user.getId()) + "\",");
             out.println("\"redirectEncoded\":\"" + URLEncoder.encode(redirectForConfirm, "UTF-8") + "\",");
 
-            if(!isLoggedIn && !user.isCommunityMember()){
-                out.println("\"showRegistration\":\"" + "y" + "\",");
+            // if the email entered is not already registered with community
+            if (!user.isCommunityMember()) {
+                // if there is no logged in user, or the logged in user is not a community member already
+                // forward them to registration
+                if (!isLoggedIn || (!PageHelper.isCommunityCookieSet(request))) {
+                    out.println("\"showRegistration\":\"" + "y" + "\",");
+                }
             }
+            // if there is no logged in user, then tell the JS to sign in the user using the email entered.
+            // We have to do this here because the cookie has to be set IMMEDIATELY on the page so that
+            // any AJAX calls to other pages will reflect the signed in status. The PageHelper call above
+            // may not set the cookie until the next request.
             if(!isLoggedIn){
                 out.println("\"createMemberCookie\":\"" + "y" + "\",");
             }

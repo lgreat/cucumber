@@ -1,14 +1,20 @@
 package gs.web.promo;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
 import gs.data.state.State;
-import static org.easymock.EasyMock.*;
+import gs.data.integration.exacttarget.ExactTargetAPI;
+import static org.easymock.classextension.EasyMock.*;
 import org.easymock.IArgumentMatcher;
+import org.springframework.web.servlet.ModelAndView;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by chriskimm@greatschools.net
@@ -18,6 +24,7 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
     private SchoolChoicePackPromoController _controller;
     private IUserDao _mockUserDao;
     private ISubscriptionDao _mockSubscriptionDao;
+    private ExactTargetAPI _exactTargetAPI;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -26,6 +33,8 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
         _controller.setUserDao(_mockUserDao);
         _mockSubscriptionDao = createMock(ISubscriptionDao.class);
         _controller.setSubscriptionDao(_mockSubscriptionDao);
+        _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
+        _controller.setExactTargetAPI(_exactTargetAPI);
     }
 
     public void testHandleRequestInternal() throws Exception {
@@ -68,6 +77,7 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
         verify(_mockSubscriptionDao);
     }
 
+    // Will need to replace exact target mock with bean
     public void xtestExactTargetTrigger() throws Exception {
         User u = new User();
         u.setEmail("tester@greatschools.net");
@@ -108,6 +118,34 @@ public class SchoolChoicePackPromoControllerTest extends BaseControllerTestCase 
 
         verify(_mockUserDao);
         verify(_mockSubscriptionDao);
+    }
+
+    public void testMslUserTakenToRegistration() throws Exception {
+        getRequest().setParameter(SchoolChoicePackPromoController.LEVELS_PARAM, "e");
+        getRequest().setParameter(SchoolChoicePackPromoController.EMAIL_PARAM, "aroy@greatschools.net");
+        getRequest().setParameter(SchoolChoicePackPromoController.REDIRECT_FOR_CONFIRM, "redirect");
+        SessionContext context = SessionContextUtil.getSessionContext(getRequest());
+        User mslUser = new User();
+        context.setUser(mslUser);
+
+        expect(_mockUserDao.findUserFromEmailIfExists("aroy@greatschools.net")).andReturn(null);
+        _mockUserDao.saveUser(isA(User.class));
+
+        expect(_mockSubscriptionDao.isUserSubscribed(isA(User.class), isA(SubscriptionProduct.class), (Date)isNull())).andReturn(true);
+
+        _exactTargetAPI.sendTriggeredEmail(eq("chooser_pack_trigger"), isA(User.class), isA(Map.class));
+        replay(_mockUserDao);
+        replay(_mockSubscriptionDao);
+        replay(_exactTargetAPI);
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verify(_mockUserDao);
+        verify(_mockSubscriptionDao);
+        verify(_exactTargetAPI);
+
+        assertNull(mAndV);
+        assertNotNull(getResponse().getContentAsString());
+        String json = getResponse().getContentAsString();
+        assertTrue("Expect user to be forwarded to registration", StringUtils.contains(json, "\"showRegistration\":\"y\""));
     }
 
     public User eqUserWithNeverSend() {
