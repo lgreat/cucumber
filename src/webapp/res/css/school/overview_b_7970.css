@@ -1,5 +1,5 @@
 
-#ratingsParentOnly, #ratingsBoth {
+#ratingsParentOnly, #ratingsBoth, #ratingsNone {
 	width: 667px;
 }
 
@@ -7,10 +7,10 @@
 	background: url( /res/img/school/overview/7970_b/rating_summary_hed.gif ) no-repeat  left ;
 }
 
-#ratingsParentOnly #rating_parent, #ratingsBoth #rating_parent{ /* has IE 7 equivalent */
+#ratingsParentOnly #rating_parent, #ratingsBoth #rating_parent, #ratingsNone #rating_parent{ /* has IE 7 equivalent */
    background: url( /res/img/school/overview/7970_b/background.gif ) no-repeat  center ;
-	margin: -8px 0px 0 0;
-    padding:15px 20px;
+	margin: 6px 0px 0 0;
+    padding:15px 12px;
 	_margin: 18px 0px 15px 0; /* IE 6 hack */
     _padding:10px 18px; /* IE 6 hack */
 }
@@ -27,6 +27,16 @@
 #ratingsBoth #rating_gs img { /* has IE 7 equivalent */
 	margin-bottom: 10px;
 	_margin-bottom: 9px; /* IE 6 hack */
+}
+
+
+/* ratingsNone: is used when there are neither GS or Parent Ratings */
+
+#ratingsNone #rating_parent{
+    width:135px;
+}
+#ratingsNone a {
+	font-size: 13px;
 }
 
 

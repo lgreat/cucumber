@@ -198,12 +198,19 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         int numberOfParentReviews = 0;
 
+
         //need logic for number of schools: city / district for a level and type?
         //if district is null, use city
         //need to get number of parent reviews for the school
 
-
-        MessageBuilder builder = new MessageBuilder(_school, _school.getDistrict(), _gsRating, numberOfParentReviews, 0 );
+        int parentOverallRating = 0;
+        if (_parentRating != null){
+            if (_parentRating.getDisplayOverallRating()){
+                parentOverallRating = _parentRating.getOverall();
+            }
+            numberOfParentReviews = _parentRating.getCount();
+        }
+        MessageBuilder builder = new MessageBuilder(_school, _school.getDistrict(), _gsRating, numberOfParentReviews, parentOverallRating );
 
         writeOpeningDiv();
         writeParagraph(builder.buildFirstSentence() + "  " + builder.buildSecondSentence());

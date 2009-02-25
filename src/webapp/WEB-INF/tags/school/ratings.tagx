@@ -101,14 +101,18 @@
                                   alt="Be the first to rate this school!"
                                   styleClass="parentTitle"/>
 
-                        <variant:a>
-                            <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars"/>
-                            <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
-                        </variant:a>
-                        <variant:b>
-                            <gsml:img src="/res/img/school/overview/7970_b/stars_0.gif" alt="No Rating" styleClass="stars"/>
-                            <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
-                        </variant:b>
+                        <c:choose>
+                             <!-- variant a -->
+                            <c:when test="${requestScope.context.ABVersion eq 'a' or school.type.schoolTypeName eq 'private' or school.levelCode eq 'p'}">
+                                <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars"/>
+                                <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                            </c:when>
+                            <!-- variant b -->
+                            <c:when test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                                <gsml:img src="/res/img/school/overview/7970_b/stars_0.gif" alt="No Rating" styleClass="stars"/>
+                                <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                            </c:when>
+                        </c:choose>
                     </link:schoolProfileAddParentReview>
                 </c:when>
                 <c:otherwise>
@@ -119,19 +123,23 @@
                         </link:schoolProfileParentReview>
                     </div>
                     <link:schoolProfileParentReview school="${school}">
-                        <variant:a>
-                            <gsml:img src="/res/img/school/overview/rating_OverallParentRating.gif"
-                                  alt="Overall Parent Rating" styleClass="parentTitle"/>
+                        <c:choose>
+                             <!-- variant a -->
+                            <c:when test="${requestScope.context.ABVersion eq 'a' or school.type.schoolTypeName eq 'private' or school.levelCode eq 'p'}">
+                                <gsml:img src="/res/img/school/overview/rating_OverallParentRating.gif"
+                                      alt="Overall Parent Rating" styleClass="parentTitle"/>
 
-                            <gsml:img src="/res/img/school/overview/stars_${parentRating.overall}.gif"
-                                  alt="${parentRating.overall} out of 5 stars" styleClass="stars"/>
-                        </variant:a>
-                        <variant:b>
-                            <gsml:img src="/res/img/school/overview/7970_b/parentRating.gif"
-                                  alt="Overall Parent Rating" styleClass="parentTitle"/>
-                            <gsml:img src="/res/img/school/overview/7970_b/stars_${parentRating.overall}.gif"
-                                  alt="${parentRating.overall} out of 5 stars" styleClass="stars"/>
-                        </variant:b>
+                                <gsml:img src="/res/img/school/overview/stars_${parentRating.overall}.gif"
+                                      alt="${parentRating.overall} out of 5 stars" styleClass="stars"/>
+                            </c:when>
+                            <!-- variant b -->
+                            <c:when test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                                <gsml:img src="/res/img/school/overview/7970_b/parentRating.gif"
+                                      alt="Overall Parent Rating" styleClass="parentTitle"/>
+                                <gsml:img src="/res/img/school/overview/7970_b/stars_${parentRating.overall}.gif"
+                                      alt="${parentRating.overall} out of 5 stars" styleClass="stars"/>
+                            </c:when>
+                        </c:choose>
 
                     </link:schoolProfileParentReview>
                     <link:schoolProfileAddParentReview
@@ -139,12 +147,16 @@
                             onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                             styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
                             >
-                        <variant:a>
-                            <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
-                        </variant:a>
-                        <variant:b>
-                            <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
-                        </variant:b>
+                        <c:choose>
+                             <!-- variant a -->
+                            <c:when test="${requestScope.context.ABVersion eq 'a' or school.type.schoolTypeName eq 'private' or school.levelCode eq 'p'}">
+                                <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                            </c:when>
+                            <!-- variant b -->
+                            <c:when test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                                <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
+                            </c:when>
+                        </c:choose>
                         
                     </link:schoolProfileAddParentReview>
 

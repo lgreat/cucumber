@@ -5,12 +5,14 @@
 	width: 140px;
 }
 
-#ratingsParentOnly #rating_parent {
+#ratingsParentOnly #rating_parent,#ratingsNone #rating_parent {
     float: right;
 	text-align: center;
 	margin: 8px 0px 0 0;
 	width: 135px;
 }
+
+
 
 #ratingsGSOnly #rating_gs img {
 	margin-bottom: 6px;
