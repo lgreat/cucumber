@@ -415,7 +415,11 @@
                 <div class="ad_bottom">
                     <ad:BelowFold_300x250 showAdWord="${false}"/>
                 </div>
-                <![CDATA[<script type="text/javascript"><!-- fetchKellogs(); --></script>]]>
+                <![CDATA[<script type="text/javascript">
+                <!--
+                fetchKellogs();
+                -->
+                </script>]]>
             </c:if>
 
             <div class="belowAdWrapper">
