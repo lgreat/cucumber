@@ -443,4 +443,9 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 #schoolProfileHeader #bottomTools p {
     margin: 10px 0 0 0;
 }
+
+
+.hidden {
+    display: none;
+}
 /* ab test */
