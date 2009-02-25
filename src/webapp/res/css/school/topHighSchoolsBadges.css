@@ -13,6 +13,7 @@ div#topSchoolsDownload{
 }
 
 div#topSchoolsDownload h2{
+    margin-top:8px;
     font-family: Trebuchet MS;
     font-size: 20px;
     font-weight:bold;
@@ -101,7 +102,7 @@ div#fiveEasyWays h2{
 }
 div#fiveEasyWays div#congratulationsText{
     font-size: 13px;
-    padding-bottom:13px;
+    padding-bottom:8px;
     padding-top:5px;
 }
 

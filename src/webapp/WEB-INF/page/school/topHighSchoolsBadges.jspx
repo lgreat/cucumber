@@ -19,7 +19,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="Top High Schools Bagdges"/>
-    <title>Top High Schools Bagdges</title>
+    <title>Top High Schools – 2009 – Winner’s Badges | GreatSchools.net</title>
     <pageHelper:externalCss file="/res/css/school/topHighSchoolsBadges.css"/>
 </head>
 
@@ -28,7 +28,7 @@
 
     <!--<div id="topSchoolsWrapper">-->
         <div id="topSchoolsDownload">
-            <link:topSchools state="${StateOrNull}" styleClass="underline">Top High Schools &#62;</link:topSchools> Awards &amp; Badges
+            <link:topSchools state="${StateOrNull}" styleClass="underline">Top High Schools</link:topSchools> &gt; Awards &amp;amp; Badges
                 <h2>Top Schools Winners: Download Awards and Badges Here!</h2>
                 <p>Use the below badges to promote your achievement as GreatSchools Top School in 2009.</p>
                 <p>Download the below images and link them to the url of your school's profile on GreatSchools.</p>
@@ -42,16 +42,6 @@
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingLowResPng">Low-Res:PNG</a></div>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingHighResJpg">High-Res:JPEG</a></div>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingHighResPng">High-Res:PNG</a></div>
-                  </li>
-
-                  <li>
-                      <img src="/res/img/school/topSchools/badge/badge_lowres_topperf_lowin.jpg"
-                        alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
-                          <h3>Top Performing,Low Income</h3>
-                          <div><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeLowResJpg">Low-Res:JPEG</a></div>
-                          <div><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeLowResPng">Low-Res:PNG</a></div>
-                          <div><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeHighResJpg">High-Res:JPEG</a></div>
-                          <div><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeHighResPng">High-Res:PNG</a></div>
                   </li>
 
                   <li>
@@ -83,7 +73,7 @@
                    </li>
             </ul>
             
-            <div class="emailText">For any questions,please contact <a href="mailto:top-schools@greatschools.net">top-schools@greatschools.net</a></div>
+            <div class="emailText">For any questions, please contact <a href="mailto:top-schools@greatschools.net">top-schools@greatschools.net.</a></div>
         </div>
         <div id="topSchoolsLeft">
            <div id="topSchoolsBW">
@@ -102,9 +92,9 @@
                                 <div id="congratulationsText">Congratulations on being recognized as one of the "Top High Schools" in the United States by GreatSchools and BusinessWeek!</div>
                                 <ul class="fiveEasyWaysList">
                                     <li><div><span class="number">1</span><span class="text">Add the Awards badges to your web site.</span></div></li>
-                                    <li><div><span class="number">2</span><span class="text">Send a press release to local reporters</span></div></li>
+                                    <li><div><span class="number">2</span><span class="text">Send a press release to local reporters.</span></div></li>
                                     <li><div><span class="number">3</span><span class="text">Announce the award in your school newsletters.Thank teachers,staff students and parents for making your school great.</span></div></li>
-                                    <li><div><span class="number">4</span><span class="text"> Include the badge in your email signature</span></div></li>
+                                    <li><div><span class="number">4</span><span class="text"> Include the badge in your email signature.</span></div></li>
                                     <li><div><span class="number">5</span><span class="text"> Create a flyer and post it in common areas for all to see.</span></div></li>
                                 </ul>
                </div>
