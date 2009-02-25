@@ -11,7 +11,8 @@
    background: url( /res/img/school/overview/7970_b/background.gif ) no-repeat  center ;
 	margin: -8px 0px 0 0;
     padding:15px 20px;
-	_margin: 18px 16px 15px 0; /* IE 6 hack */
+	_margin: 18px 0px 15px 0; /* IE 6 hack */
+    _padding:10px 18px; /* IE 6 hack */
 }
 
 #ratingsBoth #rating_gs {
@@ -32,7 +33,7 @@
 #rating_summary {
 	float: left;
 	margin: 0px 10px;
-	_margin: 18px 16px 15px 0; /* IE 6 hack */
+	_margin: 18px 16px 15px 10px; /* IE 6 hack */
     width: 320px;
     height: 145px;
     font-size: 13px;
