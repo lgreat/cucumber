@@ -57,6 +57,7 @@
                 <entry key="/education-topics/**" value="/content/library.page"/>
                 <entry key="/holiday-giving/**" value="/content/holidayGiving.page"/>
                 <entry key="/school-choice/**" value="/content/schoolChoice.page"/>
+                <entry key="/badges/**" value="/school/topHighSchoolsBadges.page"/>
             </map>
         </property>
     </bean>

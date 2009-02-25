@@ -88,6 +88,11 @@
         <url-pattern>/school-choice/*</url-pattern>
     </servlet-mapping>
 
+     <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>/badges/*</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
         <url-pattern>/alabama/*</url-pattern>
@@ -1076,6 +1081,13 @@
 
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
+        <url-pattern>/badges/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
         <url-pattern>/alabama/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
@@ -1834,6 +1846,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/articles/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/badges/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
