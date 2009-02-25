@@ -1,69 +1,41 @@
-#topSchoolsWrapper{
-    height:700px;
-    width:864px;
-}
 
-#topSchoolsWrapper a{
+#contentGS a{
     color:#3399AA;
     text-decoration: underline;
     font-size: 13px;
 }
 
-#topSchoolsWrapper div#topSchoolsDownload{
-    height:700px;
+div#topSchoolsDownload{
     width:560px;
     float:left;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#topHeading {
-    width:560px;
-    height:110px;
-    padding-top:5px;                                                                  
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:13px;
 }
 
-#topSchoolsWrapper div#topSchoolsDownload div#topHeading div#topText{
-    height:35px;
-    padding-top:5px;
-}
-
-#topSchoolsWrapper div#topSchoolsDownload div#topHeading div#headingText h2{
+div#topSchoolsDownload h2{
     font-family: Trebuchet MS;
     font-size: 20px;
     font-weight:bold;
     color:#D66671;
 }
-#topSchoolsWrapper div#topSchoolsDownload div#downloadContent{
-    width:540px;
-    height:550px;
-}
 
-
-.topSchoolsList{
+#topSchoolsDownload li{
     height:110px;
 }
-
-.topSchoolsListImgDiv{
-   width:300px;
-   height:110px;
-   float:left;
+#topSchoolsDownload ul li img{
+    float:left;
+    padding-right:40px;
 }
 
-.topSchoolsListDownloadDiv{
-   width:240px;
-   height:110px;
-   float:left;
+#topSchoolsDownload ul li h3{
+    float:left;
+    width:220px;
+    padding-top:12px;
 }
 
-.topSchoolsListDownloadHeadingDiv{
-   margin-top:8px;
-   margin-bottom:8px;
-}
-
-.topSchoolsListDownloadJPGPNGDiv{
-   width:120px;
-   float:left;
+#topSchoolsDownload ul li div{
+    float:left;
+    width:120px;
 }
 
 .emailText{
@@ -71,72 +43,81 @@
     font-size:13px;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft{
+div#topSchoolsLeft{
     margin-top:10px;
-    height:700px;
     width:304px;
     float:left;
 }
 
 
-#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW{
-    height:190px;
-    width:304px;
+div#topSchoolsLeft div#topSchoolsBW{
+   margin-bottom:20px;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox {
+div#topSchoolsBW .box {
     border:3px solid #BBDD66;
     padding:8px;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox .inner div#topSchoolsBWtext{
+div#topSchoolsBW .bodytext{
     font-family:"Trebuchet MS",Arial,sans-serif;
     font-size:13px;
     color:black;
-    margin-bottom:6px;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft div#topSchoolsBW div#topSchoolsBWBox .inner div#topSchoolsBWImg{
+div#topSchoolsBW .bwImg{
     font-size: 12px;
     font-style: italic;
     text-align:right;
  }
 
-#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays{
+div#topSchoolsBW .topSchoolsLink{
+    text-decoration:underline;
+    margin-bottom:6px;
+    display:block;
+}
+
+div#topSchoolsBW .bwImg a{
+   position:relative;
+   top:3px;
+    
+}
+
+div#topSchoolsLeft div#fiveEasyWays{
     height:450px;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper{
-    border:3px solid #BBDD66;
-    padding:8px;
-    height:450px;
-    font-family: Trebuchet MS;
+div#fiveEasyWays div.box{
+   border:3px solid #BBDD66;
+   padding:8px;
+   height:420px;
+   font-family: Trebuchet MS;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner h2{
+div#fiveEasyWays h2{
     font-size: 18px;
     font-weight:bold;
     color:#D66671;
 }
-#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner div#congratulationsText{
+div#fiveEasyWays div#congratulationsText{
     font-size: 13px;
     padding-bottom:13px;
     padding-top:5px;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner ul li{
+div#fiveEasyWays ul li{
     font-size: 15px;
     color:#808080;
     font-weight:bold;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner li div.fiveEasyWaysItem span.number {
+ul.fiveEasyWaysList span.number {
    float:left;
    width:20px;
    color:#D66671;
 }
 
-#topSchoolsWrapper div#topSchoolsLeft div#fiveEasyWays div#fiveEasyWaysWrapper .inner li div.fiveEasyWaysItem span.text {
+ul.fiveEasyWaysList span.text {
     float:left;
     width:260px;
     margin-bottom:16px;
