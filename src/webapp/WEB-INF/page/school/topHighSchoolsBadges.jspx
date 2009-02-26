@@ -31,7 +31,7 @@
             <link:topSchools state="${StateOrNull}" styleClass="underline">Top High Schools</link:topSchools> &gt; Winners' Badges
                 <h2>Top Schools Winners: Download Award Badges Here!</h2>
                 <p>Use the badges below to promote your achievement as a 2009 GreatSchools "Top School."</p>
-                <p>Download the images and post them on your GreatSchools profile.</p>
+                <p>Download the images and post them on your Web site.</p>
             
              <ul>
                   <li>
@@ -93,7 +93,7 @@
                                 <ul class="fiveEasyWaysList">
                                     <li><div><span class="number">1</span><span class="text">Add the award badge to your school's Web site.</span></div></li>
                                     <li><div><span class="number">2</span><span class="text">Send a press release to local reporters.</span></div></li>
-                                    <li><div><span class="number">3</span><span class="text">Announce the award in your school newsletters.Thank teachers,staff students and parents for making your school great.</span></div></li>
+                                    <li><div><span class="number">3</span><span class="text">Announce the award in your school newsletters.Thank teachers, staff, students and parents for making your school great.</span></div></li>
                                     <li><div><span class="number">4</span><span class="text"> Include the badge in your email signature.</span></div></li>
                                     <li><div><span class="number">5</span><span class="text"> Create a flyer and post it in common areas for all to see.</span></div></li>
                                 </ul>
