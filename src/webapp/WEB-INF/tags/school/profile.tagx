@@ -38,6 +38,11 @@
 <jsp:directive.attribute name="parent_ratings" required="false" description="Parent Ratings Object"
                          type="gs.data.school.review.Ratings"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
+<!-- variant b -->
+<c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+    <pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
+</c:if>
+
 
 <jsp:scriptlet><![CDATA[
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -235,12 +240,12 @@
             <!-- variant b -->
             <c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
                 <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
-                <gsml:img src="/res/img/school/tools_compare.gif" styleClass="compareImg toolsImg" alt="Compare this school"/>
+                <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg" alt="Print this page"/>
                 <a class="print toolsTxt" href="javascript:window.print();" title="">Print</a>
                 <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
                 <gsml:url var="mailToFriendUrl"
                       value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
-                <gsml:img src="/res/img/school/tools_compare.gif" styleClass="compareImg toolsImg"  alt="Compare this school"/>
+                <gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"  alt="Email this page to a friend"/>
                 <gsml:a href="${mailToFriendUrl}" styleClass="emailFriend toolsTxt"
                         onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>
             </c:if>
