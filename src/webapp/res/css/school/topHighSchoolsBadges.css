@@ -1,4 +1,3 @@
-
 #contentGS a{
     color:#3399AA;
     text-decoration: underline;
@@ -18,6 +17,9 @@ div#topSchoolsDownload h2{
     font-size: 20px;
     font-weight:bold;
     color:#D66671;
+}
+#topSchoolsDownload ul{
+    margin-top:20px;
 }
 
 #topSchoolsDownload li{
@@ -84,14 +86,10 @@ div#topSchoolsBW .bwImg a{
     
 }
 
-div#topSchoolsLeft div#fiveEasyWays{
-    height:450px;
-}
-
 div#fiveEasyWays div.box{
    border:3px solid #BBDD66;
    padding:8px;
-   height:420px;
+   height:400px;
    font-family: Trebuchet MS;
 }
 
@@ -121,5 +119,5 @@ ul.fiveEasyWaysList span.number {
 ul.fiveEasyWaysList span.text {
     float:left;
     width:260px;
-    margin-bottom:16px;
+    margin-bottom:8px;
 }
