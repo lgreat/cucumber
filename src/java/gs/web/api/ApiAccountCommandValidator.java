@@ -25,6 +25,7 @@ public class ApiAccountCommandValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "field.required", REQUIRED_FIELD);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "intendedUse", "field.required", REQUIRED_FIELD);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "organization", "field.required", REQUIRED_FIELD);
 
         ApiAccount account = (ApiAccount)o;
         String email = account.getEmail();
@@ -39,6 +40,10 @@ public class ApiAccountCommandValidator implements Validator {
             errors.rejectValue("confirmEmail", "field.required", REQUIRED_FIELD);
         } else if (email != null && !email.equals(confirm)) {
             errors.rejectValue("confirmEmail", "confirm.email.mismatch", EMAIL_CONFIRM_MISMATCH);
+        }
+
+        if (!account.getTermsApproved()) {
+            errors.rejectValue("termsApproved", "field.required", REQUIRED_FIELD);
         }
     }
 }

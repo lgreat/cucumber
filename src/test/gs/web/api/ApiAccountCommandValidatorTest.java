@@ -33,21 +33,25 @@ public class ApiAccountCommandValidatorTest {
         ApiAccount command = new ApiAccount();
         Errors errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
-        assertEquals(5, errors.getErrorCount());
+        assertEquals(7, errors.getErrorCount());
 
         command.setName("name");
         command.setEmail("test@test.com");
         command.setConfirmEmail("test@test.com");
         errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
-        assertEquals(2, errors.getErrorCount());
+        assertEquals(4, errors.getErrorCount());
+        assertNotNull(errors.getFieldError("termsApproved"));
+        assertNotNull(errors.getFieldError("organization"));
 
         command = new ApiAccount();
+        command.setOrganization("Big Co");
         command.setName("name");
         command.setEmail("test@test.com");
         command.setConfirmEmail("test@test.com");
         command.setPhone("(415)-595-0505");
         command.setIntendedUse("test");
+        command.setTermsApproved(true);
         errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
         assertEquals(0, errors.getErrorCount());
@@ -61,7 +65,7 @@ public class ApiAccountCommandValidatorTest {
         command.setIntendedUse("test");
         errors = new BindException(command, "commmand");
         _validator.validate(command, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(3, errors.getErrorCount());
         assertNotNull(errors.getFieldError("confirmEmail"));
     }
 }

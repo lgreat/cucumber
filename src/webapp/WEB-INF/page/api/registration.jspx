@@ -37,9 +37,9 @@
         <form:form>
             <table>
                 <tr>
-                    <td>Company Name:</td>
+                    <td>* Company Name:</td>
                     <td><form:input path="organization" /></td>
-                    <td />
+                    <td><form:errors path="organization" /></td>
                 </tr>
                 <tr>
                     <td>Company Website:</td>
@@ -75,10 +75,11 @@
                 <tr>
                     <td />
                     <td class="tou">
-                        <input type="checkbox" name="terms" id="terms" />
+                        <form:checkbox path="termsApproved" id="terms" />
+                        <!--<input type="checkbox" name="terms" id="terms" />-->
                         <label for="terms">I agree to the GreatSchools Terms of Use.</label>
                     </td>
-                    <td/>
+                    <td><form:errors path="termsApproved" /></td>
                 </tr>
                 <tr>
                     <td colspan="2">
