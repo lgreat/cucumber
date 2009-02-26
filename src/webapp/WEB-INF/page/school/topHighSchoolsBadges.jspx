@@ -19,7 +19,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="Top High Schools Bagdges"/>
-    <title>Top High Schools – 2009 – Winner’s Badges | GreatSchools.net</title>
+    <title>Top High Schools – 2009 – Winners' Badges | GreatSchools.net</title>
     <pageHelper:externalCss file="/res/css/school/topHighSchoolsBadges.css"/>
 </head>
 
@@ -28,10 +28,10 @@
 
     <!--<div id="topSchoolsWrapper">-->
         <div id="topSchoolsDownload">
-            <link:topSchools state="${StateOrNull}" styleClass="underline">Top High Schools</link:topSchools> &gt; Awards &amp;amp; Badges
-                <h2>Top Schools Winners: Download Awards and Badges Here!</h2>
-                <p>Use the below badges to promote your achievement as GreatSchools Top School in 2009.</p>
-                <p>Download the below images and link them to the url of your school's profile on GreatSchools.</p>
+            <link:topSchools state="${StateOrNull}" styleClass="underline">Top High Schools</link:topSchools> &gt; Winners' Badges
+                <h2>Top Schools Winners: Download Award Badges Here!</h2>
+                <p>Use the badges below to promote your achievement as a 2009 GreatSchools "Top School."</p>
+                <p>Download the images and post them on your GreatSchools profile.</p>
             
              <ul>
                   <li>
@@ -56,7 +56,7 @@
                   <li>
                       <img src="/res/img/school/topSchools/badge/badge_lowres_pchoicepublic.jpg"
                         alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
-                          <h3>Parent's Choice,Public School</h3>
+                          <h3>Parents' Choice, Public School</h3>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolLowResJpg">Low-Res:JPEG</a></div>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolLowResPng">Low-Res:PNG</a></div>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=publicSchoolHighResJpg">High-Res:JPEG</a></div>
@@ -65,7 +65,7 @@
                   <li>
                         <img src="/res/img/school/topSchools/badge/badge_lowres_pchoiceprivate.jpg"
                         alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
-                          <h3>Parent's Choice,Private School</h3>
+                          <h3>Parents' Choice, Private School</h3>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolLowResJpg">Low-Res:JPEG</a></div>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolLowResPng">Low-Res:PNG</a></div>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=privateSchoolHighResJpg">High-Res:JPEG</a></div>
@@ -73,25 +73,25 @@
                    </li>
             </ul>
             
-            <div class="emailText">For any questions, please contact <a href="mailto:top-schools@greatschools.net">top-schools@greatschools.net.</a></div>
+            <div class="emailText">For any questions, please contact <a href="mailto:top-schools@greatschools.net">top-schools@greatschools.net</a>.</div>
         </div>
         <div id="topSchoolsLeft">
            <div id="topSchoolsBW">
                <div class="box">
                             <img src="/res/img/school/topSchools/badge/badgepromo.jpg"
                             alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
-                            <div class="bodytext">Announced January 15, 2009 five high schools were selected from each state that represent the qualities of a great school.
+                            <div class="bodytext">Announced January 15, 2009: Five high schools from each state were selected that represent the qualities of a great school.
                             </div>
-                            <link:topSchools state="${StateOrNull}" styleClass="topSchoolsLink">View top school winners &#62;</link:topSchools>
+                            <link:topSchools state="${StateOrNull}" styleClass="topSchoolsLink">View the Top Schools &#62;</link:topSchools>
                             <div class="bwImg">As featured in <a target="_blank" href="http://www.businessweek.com"><img src="/res/img/school/topSchools/businessweek.gif" alt="Business Week"></img></a></div>
                 </div>
            </div>
            <div id="fiveEasyWays">
                <div class="box">
-                   <h2>Five Easy Ways To Promote Your School's Achievement:</h2>
-                                <div id="congratulationsText">Congratulations on being recognized as one of the "Top High Schools" in the United States by GreatSchools and BusinessWeek!</div>
+                   <h2>Five Easy Ways to Promote Your School's Achievement:</h2>
+                                <div id="congratulationsText">Congratulations on being recognized as one of the top U.S. high schools by GreatSchools and <i>BusinessWeek!</i></div>
                                 <ul class="fiveEasyWaysList">
-                                    <li><div><span class="number">1</span><span class="text">Add the Awards badges to your web site.</span></div></li>
+                                    <li><div><span class="number">1</span><span class="text">Add the award badge to your school's Web site.</span></div></li>
                                     <li><div><span class="number">2</span><span class="text">Send a press release to local reporters.</span></div></li>
                                     <li><div><span class="number">3</span><span class="text">Announce the award in your school newsletters.Thank teachers,staff students and parents for making your school great.</span></div></li>
                                     <li><div><span class="number">4</span><span class="text"> Include the badge in your email signature.</span></div></li>
