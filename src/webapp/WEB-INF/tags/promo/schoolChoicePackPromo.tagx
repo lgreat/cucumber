@@ -130,7 +130,7 @@
                          </jsp:scriptlet>
                     <div id="email_go">
                         <input id="cemail" name="cemail"
-                               class="required email" value="${(communityAuth) ? requestScope.context.user.email :'Enter Email Address' }"/>
+                               class="required email" value="${(communityAuth) ? requestScope.context.user.email :'Enter email address' }"/>
                                                 
                         <input id="send" onmouseout="this.src='/res/img/splash/go.gif';"
                                onmouseover="this.src='/res/img/splash/goOver.gif';"
