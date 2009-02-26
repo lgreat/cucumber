@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.19 2008/12/19 23:22:57 eddie Exp $
+ * $Id: AnchorListModelFactory.java,v 1.20 2009/02/26 01:05:55 eddie Exp $
  */
 
 package gs.web.util.list;
@@ -52,7 +52,7 @@ public class AnchorListModelFactory {
      * five or fewer, it sorts them alphabetically. If there are more than 5, it shows them
      * based on size.
      */
-    public AnchorListModel createDistrictList(State state, String cityNameParam, HttpServletRequest request) {
+    public AnchorListModel createDistrictList(State state, String cityNameParam, String cityDisplayName, HttpServletRequest request) {
         AnchorListModel districts = new AnchorListModel();
 
         List list = _districtDao.findDistrictsInCity(state, cityNameParam, true);
@@ -60,14 +60,17 @@ public class AnchorListModelFactory {
 
             boolean needViewAll = false;
 
+ //           cityNameParam = cityNameParam.equals("washington") && state.equals(State.DC) ? 
+ //                   "Washington, DC" : cityNameParam;
+
             if (list.size() <= 5) {
                 _districtDao.sortDistrictsByName(list);
-                districts.setHeading(cityNameParam + " School Districts");
+                districts.setHeading(cityDisplayName + " School Districts");
             } else {
                 // Too many districts to show... just show the largest
                 _districtDao.sortDistrictsByNumberOfSchools(list, false);
                 list = list.subList(0, 4);
-                districts.setHeading("Biggest " + cityNameParam + " Districts");
+                districts.setHeading("Biggest " + cityDisplayName + " Districts");
                 needViewAll = true;
             }
 

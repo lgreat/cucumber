@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.53 2008/09/25 00:58:44 yfan Exp $
+ * $Id: CityController.java,v 1.54 2009/02/26 01:05:55 eddie Exp $
  */
 
 package gs.web.geo;
@@ -134,7 +134,7 @@ public class CityController extends AbstractController {
             //model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
         }
 
-        AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, request);
+        AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, cityDisplayName,request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
 
         List topRatedSchools;

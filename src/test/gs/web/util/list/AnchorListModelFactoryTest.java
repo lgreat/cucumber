@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.10 2008/12/19 23:22:57 eddie Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.11 2009/02/26 01:05:55 eddie Exp $
  */
 
 package gs.web.util.list;
@@ -108,7 +108,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
     }
 
     public void testFindDistricts() throws Exception {
-        AnchorListModel anchorListModel = _anchorListModelFactory.createDistrictList(State.NY, "Dolgeville", _request);
+        AnchorListModel anchorListModel = _anchorListModelFactory.createDistrictList(State.NY, "Dolgeville", "Dolgeville", _request);
 
         List list = anchorListModel.getResults();
         assertTrue(list.size() > 0);
@@ -165,7 +165,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
             mockDao.sortDistrictsByName(returnList);
             replay(mockDao);
 
-            AnchorListModel model = anchorListModelFactory.createDistrictList(State.DC, "Washington", _request);
+            AnchorListModel model = anchorListModelFactory.createDistrictList(State.DC, "Washington", "Washington, DC",_request);
             List list = model.getResults();
             assertTrue(list.size() == 1);
             assertEquals("Arts &amp; Technology", ((Anchor) list.get(0)).getContents());
