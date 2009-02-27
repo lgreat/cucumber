@@ -38,8 +38,8 @@
 <jsp:directive.attribute name="parent_ratings" required="false" description="Parent Ratings Object"
                          type="gs.data.school.review.Ratings"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
-<!-- variant b -->
-<c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+<!-- variant  and c -->
+<c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
     <pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
 </c:if>
 
@@ -184,71 +184,95 @@
     <c:if test="${!requestScope.context.crawler}">
         <div id="tools">
             <div id="topTools">
-            <link:mySchoolList school="${school}" styleClass="addImg toolsImg" anchor="${headerLinkAnchor}"><gsml:img
-                    src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
-            <link:mySchoolList school="${school}" styleClass="add toolsTxt"
-                               anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
+                <link:mySchoolList school="${school}" styleClass="addImg toolsImg"
+                                   anchor="${headerLinkAnchor}"><gsml:img
+                        src="/res/img/school/tools_th_add.gif" alt="Add to My School List"/></link:mySchoolList>
+                <link:mySchoolList school="${school}" styleClass="add toolsTxt"
+                                   anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
 
-            <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
 
-            <link:schoolProfileAddParentReview school="${school}"
-                                               onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                                               styleClass="submodal-344-362 rateImg toolsImg"><gsml:img
-                    src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
-            <link:schoolProfileAddParentReview school="${school}"
-                                               onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
-                                               styleClass="submodal-344-362 rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
+                <link:schoolProfileAddParentReview school="${school}"
+                                                   onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                                                   styleClass="submodal-344-362 rateImg toolsImg"><gsml:img
+                        src="/res/img/school/tools_th_rate.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>
+                <link:schoolProfileAddParentReview school="${school}"
+                                                   onclick="onClick=Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
+                                                   styleClass="submodal-344-362 rate toolsTxt">Rate it!</link:schoolProfileAddParentReview>
 
-            <c:choose>
-                <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
-                    <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                                    styleClass="emailImg toolsImg"><gsml:img src="/res/img/school/tools_th_email.gif"
-                                                                             alt="Email me updates about this school"/></promo:mssHover>
-                    <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                                    styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
-                </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="${school.levelCode == 'p'}">
-                            <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
-                                                  styleClass="emailImg toolsImg"><gsml:img
-                                    src="/res/img/school/tools_th_email.gif"
-                                    alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
-                            <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
-                                                  styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
-                        </c:when>
-                        <c:otherwise>
-                            <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
-                                                  styleClass="emailImg toolsImg"><gsml:img
-                                    src="/res/img/school/tools_th_email.gif"
-                                    alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
-                            <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
-                                                  styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
-                        </c:otherwise>
-                    </c:choose>
-                </c:otherwise>
-            </c:choose>
+                <c:choose>
+                    <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
+                        <!-- variant -->
+                        <c:choose>
+                            <c:when  test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c'}">
+                                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                                                styleClass="emailImg toolsImg"><gsml:img
+                                        src="/res/img/school/overview/7970_b/update_email.gif"
+                                        alt="Send me updates about this school"/></promo:mssHover>
+                                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                                                styleClass="email toolsTxt">Send me updates about this school</promo:mssHover>
+                            </c:when>
+
+                            <c:otherwise>
+                                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                                                styleClass="emailImg toolsImg"><gsml:img
+                                        src="/res/img/school/tools_th_email.gif"
+                                        alt="Email me updates about this school"/></promo:mssHover>
+                                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                                                styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
+                            </c:otherwise>
+                        </c:choose>
+
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${school.levelCode == 'p'}">
+                                <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
+                                                      styleClass="emailImg toolsImg"><gsml:img
+                                        src="/res/img/school/tools_th_email.gif"
+                                        alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                                <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
+                                                      styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+                            </c:when>
+                            <c:otherwise>
+                                <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
+                                                      styleClass="emailImg toolsImg"><gsml:img
+                                        src="/res/img/school/tools_th_email.gif"
+                                        alt="Email me grade-by-grade updates"/></promo:nthGraderHover>
+                                <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
+                                                      styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div id="bottomTools">
-            <c:if test="${school.levelCode != 'p'}">
-                <link:schoolCompareSchool school="${school}" from="header" styleClass="compareImg toolsImg"><gsml:img
-                        src="/res/img/school/tools_compare.gif" alt="Compare this school"/></link:schoolCompareSchool>
-                <link:schoolCompareSchool school="${school}" from="header"
-                                          styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
-            </c:if>
+                <c:if test="${school.levelCode != 'p'}">
+                    <link:schoolCompareSchool school="${school}" from="header"
+                                              styleClass="compareImg toolsImg"><gsml:img
+                            src="/res/img/school/tools_compare.gif"
+                            alt="Compare this school"/></link:schoolCompareSchool>
+                    <link:schoolCompareSchool school="${school}" from="header"
+                                              styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
+                </c:if>
 
-            <!-- variant b -->
-            <c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
-                <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
-                <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg" alt="Print this page"/>
-                <a class="print toolsTxt" href="javascript:window.print();" title="">Print</a>
-                <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
-                <gsml:url var="mailToFriendUrl"
-                      value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
-                <gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"  alt="Email this page to a friend"/>
-                <gsml:a href="${mailToFriendUrl}" styleClass="emailFriend toolsTxt"
-                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>
-            </c:if>
+                <!-- variant b -->
+                <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                    <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                    <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
+                              alt="Print this page"
+                              onclick="javascript:window.print();"/>
+                    <a class="print toolsTxt" href="javascript:window.print();" title="">Print</a>
+
+                    <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
+                    <gsml:url var="mailToFriendUrl"
+                              value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
+                    <gsml:img src="/res/img/school/tools_th_email.gif" styleClass="emailImg toolsImg"
+                              alt="Email this page to a friend"
+                              onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"/>
+                    <gsml:a href="${mailToFriendUrl}" styleClass="emailFriend toolsTxt"
+                            onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>
+                </c:if>
             </div>
 
         </div>
@@ -443,8 +467,8 @@
 <!-- end: navigation -->
 <c:set var="subNavClass" value=""/>
 
-<!-- variant b -->
-<c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+<!-- variant b and c -->
+<c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
     <c:set var="subNavClass" value="hidden"/>
 </c:if>
 
