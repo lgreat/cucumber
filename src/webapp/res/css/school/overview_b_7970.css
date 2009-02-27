@@ -53,6 +53,10 @@
     font-size: 13px;
 }
 
+#ratingsNone #rating_summary,     #ratingsParentOnly #rating_summary{
+    padding-top: 14px;
+}
+
 #rating_summary p{
     margin-top: 3px;
 }
