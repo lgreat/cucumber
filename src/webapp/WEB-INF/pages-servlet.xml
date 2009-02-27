@@ -72,6 +72,15 @@
         </property>
     </bean>
 
+    <bean name="newArticleHandlerMapping" parent="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
+        <property name="urlMap">
+            <map>
+                <entry key="/**/*.article" value="/content/newArticle.page"/>
+            </map>
+        </property>
+    </bean>
+
     <bean name="noInterceptorsHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
           lazy-init="true">
         <!-- controllers that shouldn't have any interceptors other than cache headers running around them -->
@@ -448,6 +457,15 @@
             <value>301</value>
         </property>
     </bean>
+
+    <bean name="/content/newArticle.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>content/newArticle</value>
+        </property>
+    </bean>
+
 
     <bean name="/content/library.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
