@@ -97,18 +97,21 @@
                             onclick="customInsight9ClickEventHandler(event);Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false;"
                             styleClass="submodal-344-362 ${clickClass}" styleId="Ratings_Module"
                             >
-                        <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif"
-                                  alt="Be the first to rate this school!"
-                                  styleClass="parentTitle"/>
 
                         <c:choose>
                             <!-- variant b and c-->
                             <c:when test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                                <gsml:img src="/res/img/school/overview/7970_b/rating_BeTheFirst.gif"
+                                      alt="Be the first to rate this school!"
+                                      styleClass="parentTitle"/>
                                 <gsml:img src="/res/img/school/overview/7970_b/stars_0.gif" alt="No Rating" styleClass="stars"/>
                                 <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
                             </c:when>
                             <!-- variant others -->
                             <c:otherwise>
+                                <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif"
+                                      alt="Be the first to rate this school!"
+                                      styleClass="parentTitle"/>
                                 <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars"/>
                                 <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
                             </c:otherwise>
