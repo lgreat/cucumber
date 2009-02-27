@@ -56,7 +56,7 @@
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 
     <!-- variant b -->
-    <c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+    <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c')and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
         <pageHelper:externalCss file="/res/css/school/overview_b_7970.css"/>    
     </c:if>
 
@@ -82,7 +82,7 @@
     ]]>
 
     <!-- variant b -->
-    <c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+    <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
     <![CDATA[
     <!--[if IE 7]>
         <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7_b_7970.css" />
@@ -118,14 +118,14 @@
     </div><!-- end: col_left" -->
 
     <!-- begin center column -->
-     <!-- variant b -->
-    <c:if test="${requestScope.context.ABVersion eq 'b' and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+     <!-- variant b and c-->
+    <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
         <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true" includeSummary='true'/>
     </c:if>
 
     <div id="col_center">
             <!-- variant a -->
-            <c:if test="${requestScope.context.ABVersion eq 'a' or school.type.schoolTypeName eq 'private' or school.levelCode eq 'p'}">
+            <c:if test="${(requestScope.context.ABVersion ne 'b' and requestScope.context.ABVersion ne 'c') or school.type.schoolTypeName eq 'private' or school.levelCode eq 'p'}">
                 <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
             </c:if>
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
