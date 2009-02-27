@@ -151,7 +151,14 @@
     <link rel="stylesheet" type="text/css" href="/res/css/school/profile_ie7.css" />
 <![endif]-->
 ]]>
-
+<!-- variant b and c -->
+<c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+    <![CDATA[
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="/res/css/school/profile_ie7_b_7970.css" />
+<![endif]-->
+]]>
+</c:if>
 <c:if test="${!requestScope.context.crawler}">
     <script type="text/javascript" language="javascript">
         <![CDATA[
@@ -256,7 +263,7 @@
                                               styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
                 </c:if>
 
-                <!-- variant b -->
+                <!-- variant b and c-->
                 <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
                     <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
                     <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
