@@ -5,6 +5,9 @@
 
 #ratingsBoth h2, #ratingsGSOnly h2, #rating_parent h2{
 	background: url( /res/img/school/overview/7970_b/rating_summary_hed.gif ) no-repeat  left ;
+    background-position: 10px 8px;
+    padding-bottom: 6px;
+    _padding-bottom:0;
 }
 
 #ratingsParentOnly #rating_parent, #ratingsBoth #rating_parent, #ratingsNone #rating_parent, #ratingsGSOnly #rating_parent{ /* has IE 7 equivalent */
