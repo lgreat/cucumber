@@ -72,11 +72,11 @@
         </property>
     </bean>
 
-    <bean name="newArticleHandlerMapping" parent="defaultHandlerMapping"
+    <bean name="cmsArticleHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
         <property name="urlMap">
             <map>
-                <entry key="/**/*.article" value="/content/newArticle.page"/>
+                <entry key="/**/*.article" value="/content/cms/article.page"/>
             </map>
         </property>
     </bean>
@@ -450,6 +450,10 @@
           autowire="byName" lazy-init="true">
     </bean>
 
+    <bean name="/content/cms/article.page"
+          class="gs.web.content.cms.ArticleController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/content/allArticles.page"
           class="gs.web.content.AllArticlesController"
           autowire="byName" lazy-init="true">
@@ -457,15 +461,6 @@
             <value>301</value>
         </property>
     </bean>
-
-    <bean name="/content/newArticle.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>content/newArticle</value>
-        </property>
-    </bean>
-
 
     <bean name="/content/library.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
