@@ -119,6 +119,8 @@
     <pageHelper:addOnLoadHandler handler="initWidth()" />
 </head>
 <body>
+
+
 <div class="top">
     <h1>GreatSchools School Finder Widget</h1>
 
@@ -142,6 +144,7 @@
 <tr>
 <td class="leftSide">
     <form:form cssClass="customize" name="customizeForm" id="customizeForm" method="post">
+        <form:hidden path="widgetCodeCheck" id="widgetCodeCheck"></form:hidden>
         <div class="section searchQuery">
             <div class="step"><span class="step">Step 1: </span>
                 <span class="title">Choose address, zip code or city and state</span></div>
@@ -317,12 +320,11 @@
             </form:label>
         </div>
 
-        <input type="image" name="preview" value="Preview"
-               src="/res/img/widget/preview_button.gif"
-               onclick="return previewValid();" class="previewButton"/>
-        <input type="image" name="submit" value="Create Widget Code"
-               src="/res/img/widget/create_button.gif"
-               onclick="return inputsValid();" class="submitButton"/>
+        <img src="/res/img/widget/preview_button.gif"
+               alt="preview button" onclick="if(previewValid()){document.getElementById('customizeForm').submit()}" class="previewButton"/>
+        <img src="/res/img/widget/create_button.gif" alt="create widget code button"
+               onclick="if(inputsValid()){document.getElementById('customizeForm').submit()}" class="submitButton"/>
+
     </form:form>
 
     <p class="questions">Questions? Contact us at <a href="mailto:widget@greatschools.net">widget@greatschools.net</a>.

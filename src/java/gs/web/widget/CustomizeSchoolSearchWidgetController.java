@@ -97,13 +97,14 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             command.setCity(widgetCommand.getCity());
        }
 
-        if (request.getParameter("submit") != null || request.getParameter("submit.x") != null) {
+        if ("yes".equals(command.getWidgetCodeCheck())) {
             if (!command.isTerms()) {
                 errors.rejectValue("terms", null, "You must agree to the GreatSchools Terms of Use.");
             }
             if (StringUtils.isBlank(command.getEmail())) {
                 errors.rejectValue("email", null, "You must enter an email address.");
             }
+
             if (!errors.hasErrors()) {
                 String email = command.getEmail();
                 User user = getUserDao().findUserFromEmailIfExists(email);

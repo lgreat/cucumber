@@ -10,6 +10,7 @@ function previewValid() {
         alert("Minimum height is 434");
         return false;
     }
+    document.getElementById('widgetCodeCheck').value = "no";
     return true;
 }
 
@@ -28,6 +29,7 @@ function inputsValid() {
         alert("You must agree to the GreatSchools Terms of Use");
         return false;
     }
+    document.getElementById('widgetCodeCheck').value = "yes";
     return true;
 }
 

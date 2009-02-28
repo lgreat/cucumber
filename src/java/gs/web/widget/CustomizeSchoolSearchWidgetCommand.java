@@ -30,6 +30,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private String _searchQuery = "94536";
     private String _cobrand = CustomizeSchoolSearchWidgetController.DEFAULT_COBRAND;
     private String _email;
+    private String _widgetCodeCheck="no";
     private int _height = CustomizeSchoolSearchWidgetController.MINIMUM_HEIGHT;
     private int _width = CustomizeSchoolSearchWidgetController.MINIMUM_WIDTH;
     private int _zoom = 13;
@@ -44,6 +45,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private static Map<String,String> _defaultColorMap;
 
     static{
+        
          _defaultColorMap = new TreeMap<String, String>(new Comparator<String>() {
             public int compare(String o1, String o2) {
                 return colorStringToInt(o2).compareTo(colorStringToInt(o1));
@@ -323,6 +325,15 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
 
     public void setCity(City city) {
         _city = city;
+    }
+
+
+    public String getWidgetCodeCheck() {
+        return _widgetCodeCheck;
+    }
+
+    public void setWidgetCodeCheck(String widgetCodeCheck) {
+        _widgetCodeCheck = widgetCodeCheck;
     }
 
 
