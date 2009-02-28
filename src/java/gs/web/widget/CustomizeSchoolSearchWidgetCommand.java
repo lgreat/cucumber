@@ -41,6 +41,34 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     private String _widgetCode;
     private String _uniqueId;
     private City _city;
+    private static Map<String,String> _defaultColorMap;
+
+    static{
+         _defaultColorMap = new TreeMap<String, String>(new Comparator<String>() {
+            public int compare(String o1, String o2) {
+                return colorStringToInt(o2).compareTo(colorStringToInt(o1));
+            }
+        });
+
+        _defaultColorMap.put("FFFFFF", "");
+        _defaultColorMap.put("BDCFEF", "");
+        _defaultColorMap.put("000000", "");
+        _defaultColorMap.put("82CAFA", "");
+        _defaultColorMap.put("898989", "");
+        _defaultColorMap.put("BBDD66", "");
+        _defaultColorMap.put("EE8888", "");
+        _defaultColorMap.put("0088CC", "");
+        _defaultColorMap.put("66CCFF", "");
+        _defaultColorMap.put("CCBBCC", "");
+        _defaultColorMap.put("FFEE99", "");
+        _defaultColorMap.put("FF9977", "");
+        _defaultColorMap.put("595959", "");
+        _defaultColorMap.put("99BBCC", "");
+        _defaultColorMap.put("993333", "");
+        _defaultColorMap.put("004488", "");
+        _defaultColorMap.put("998899", "");
+        _defaultColorMap.put("FFDD00", "");
+    }
 
     public String getSearchQuery() {
         return _searchQuery;
@@ -123,7 +151,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     }
 
     public void setBackgroundColor(String backgroundColor) {
-        _backgroundColor = backgroundColor;
+        _backgroundColor = backgroundColor.trim();
     }
 
     public String getTextColor() {
@@ -135,7 +163,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     }
 
     public void setTextColor(String textColor) {
-        _textColor = textColor;
+        _textColor = textColor.trim();
     }
 
     public String getBordersColor() {
@@ -147,7 +175,7 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     }
 
     public void setBordersColor(String bordersColor) {
-        _bordersColor = bordersColor;
+        _bordersColor = bordersColor.trim();
     }
 
     public boolean isTerms() {
@@ -159,54 +187,60 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     }
 
     public Map<String, String> getBackgroundColorOptions() {
-        return getDefaultColorMap("BFE9F1");
+        return getDefaultColorMap("BFE9F1",_backgroundColor.trim());
     }
 
     public Map<String, String> getTextColorOptions() {
-        return getDefaultColorMap("228899");
+        return getDefaultColorMap("228899",_textColor.trim());
+
     }
 
     public Map<String, String> getBordersColorOptions() {
-        return getDefaultColorMap("9CD4DB");
+        return getDefaultColorMap("9CD4DB",_bordersColor.trim());
     }
 
-    public Integer colorStringToInt(String colorString) {
-        if (StringUtils.length(colorString) != 6) {
-            return 0;
+    //This method is used to compare the colors so that the colors are ordered from white to black
+    public static Integer colorStringToInt(String colorString) {
+        if (StringUtils.length(colorString) != 6 && StringUtils.length(colorString) != 3) {
+             return 0;
         }
-        return    Integer.parseInt(colorString.substring(0,2), 16)
-                + Integer.parseInt(colorString.substring(2,4), 16)
+        if(StringUtils.length(colorString) == 6)
+        {
+            return    Integer.parseInt(colorString.substring(0,2), 16)*10000
+                + Integer.parseInt(colorString.substring(2,4), 16)*100
                 + Integer.parseInt(colorString.substring(4,6), 16);
+        }
+        if(StringUtils.length(colorString) == 3)
+        {
+            return    Integer.parseInt(colorString.substring(0,2), 16)
+                + Integer.parseInt(colorString.substring(2,3), 16)*10;
+        }
+          return 0;
     }
 
-    protected Map<String, String> getDefaultColorMap(String firstOption) {
+    protected Map<String,String> getDefaultColorMap(){
+        return getDefaultColorMap(null,null);
+    }
+
+    protected Map<String,String> getDefaultColorMap(String firstOption){
+        return getDefaultColorMap(firstOption,null);
+    }
+    
+    protected Map<String, String> getDefaultColorMap(String firstOption,String additionalColor) {
         // sort by approximate order white-to-black
         Map<String, String> rval = new TreeMap<String, String>(new Comparator<String>() {
             public int compare(String o1, String o2) {
                 return colorStringToInt(o2).compareTo(colorStringToInt(o1));
             }
         });
+
         if (StringUtils.isNotBlank(firstOption)) {
             rval.put(firstOption, "");
         }
-        rval.put("FFFFFF", "");
-        rval.put("BDCFEF", "");
-        rval.put("000000", "");
-        rval.put("82CAFA", "");
-        rval.put("898989", "");
-        rval.put("BBDD66", "");
-        rval.put("EE8888", "");
-        rval.put("0088CC", "");
-        rval.put("66CCFF", "");
-        rval.put("CCBBCC", "");
-        rval.put("FFEE99", "");
-        rval.put("FF9977", "");
-        rval.put("595959", "");
-        rval.put("99BBCC", "");
-        rval.put("993333", "");
-        rval.put("004488", "");
-        rval.put("998899", "");
-        rval.put("FFDD00", "");
+        rval.putAll(_defaultColorMap);
+        if(additionalColor != null && StringUtils.isBlank(rval.get(additionalColor))){
+            rval.put(additionalColor,"");
+        }        
         return rval;
     }
 
@@ -290,5 +324,6 @@ public class CustomizeSchoolSearchWidgetCommand implements EmailValidator.IEmail
     public void setCity(City city) {
         _city = city;
     }
+
 
 }

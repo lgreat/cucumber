@@ -49,6 +49,7 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
     protected void onBindAndValidate(HttpServletRequest request, Object commandObj,
                                      BindException errors) throws Exception {
         CustomizeSchoolSearchWidgetCommand command = (CustomizeSchoolSearchWidgetCommand) commandObj;
+        String checkAjaxCall = request.getParameter("checkAjaxCall");
 
         if (StringUtils.isNotBlank(command.getEmail())) {
             EmailValidator emailValidator = new EmailValidator();
@@ -85,13 +86,16 @@ public class CustomizeSchoolSearchWidgetController extends SimpleFormController 
             }
         }
 
-        SchoolSearchWidgetCommand widgetCommand = new SchoolSearchWidgetCommand();
-        BindException widgetErrors = new BindException(widgetCommand, "widgetCommand");
-        _schoolSearchWidgetController.parseSearchQuery(
+        //if its an ajax call for the widget then the parseSearchquery happens when the iframe is rendered we so dont need the below call.
+        if(StringUtils.isBlank(checkAjaxCall)){
+            SchoolSearchWidgetCommand widgetCommand = new SchoolSearchWidgetCommand();
+            BindException widgetErrors = new BindException(widgetCommand, "widgetCommand");
+            _schoolSearchWidgetController.parseSearchQuery(
                 command.getSearchQuery(),
                 _schoolSearchWidgetController.getGoogleApiKey(request.getServerName()),
                 widgetCommand, request, widgetErrors);
-        command.setCity(widgetCommand.getCity());
+            command.setCity(widgetCommand.getCity());
+       }
 
         if (request.getParameter("submit") != null || request.getParameter("submit.x") != null) {
             if (!command.isTerms()) {

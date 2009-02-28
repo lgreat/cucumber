@@ -78,16 +78,16 @@ function setIFrameSrc() {
     }
 
 
-    if(($F(textColor).length != 3 && $F(textColor).length != 6) || $F(textColor).match('[^a-fA-F0-9]') != null) {
+    if(((trimString($F(textColor))).length != 3 && (trimString($F(textColor))).length != 6) || (trimString($F(textColor))).match('[^a-fA-F0-9]') != null) {
       $(textColor).value = 'FFFFFF';
     }
-    if(($F(bordersColor).length != 3 && $F(bordersColor).length != 6) || $F(bordersColor).match('[^a-fA-F0-9]') != null) {
+    if((trimString(($F(bordersColor))).length != 3 && (trimString($F(bordersColor))).length != 6) || (trimString($F(bordersColor))).match('[^a-fA-F0-9]') != null) {
       $(bordersColor).value = 'FFFFFF';
     }
 
 
     if(!errors) {
-       var params = {'checkAjaxCall':'foo','searchQuery':$F(searchZipCode),'textColor':$F(textColor),'bordersColor':$F(bordersColor),'width':$F(width),'height':$F(height),'zoom':$F(zoom)};
+       var params = {'checkAjaxCall':'foo','searchQuery':trimString($F(searchZipCode)),'textColor':trimString($F(textColor)),'bordersColor':trimString($F(bordersColor)),'width':trimString($F(width)),'height':trimString($F(height)),'zoom':trimString($F(zoom))};
         new Ajax.Request(
             url,
         {
@@ -101,7 +101,7 @@ function setIFrameSrc() {
     }
 
     function showResponse(x) {
-        $('widgetIFrame').src = x.responseText.replace(/amp;/g,'');
+      $('widgetIFrame').src = x.responseText.replace(/amp;/g,'');
     }
 
     setWidthHeight($F(width),$F(height));
@@ -124,9 +124,9 @@ function setWidthHeight(width,height){
 }
 
 function setBackgroundColorDropdown(selectElementId, inputElement){
+    setFormBackgroundColor();     
     document.getElementById(selectElementId).style.backgroundColor = "#"+inputElement.value;
     document.getElementById(selectElementId).value = inputElement.value;
-    setFormBackgroundColor();
 }
 
 function updateBackgroundColor(selectElement, inputElementId, hexValue){
@@ -138,9 +138,24 @@ function updateBackgroundColor(selectElement, inputElementId, hexValue){
 function setFormBackgroundColor(){
     var form = $('customizeForm');
      var backgroundColor = form['backgroundColor'];
-     if(($F(backgroundColor).length != 3 && $F(backgroundColor).length != 6) || $F(backgroundColor).match('[^a-fA-F0-9]') != null) {
+     if((trimString(($F(backgroundColor))).length != 3 && (trimString($F(backgroundColor))).length != 6) || (trimString($F(backgroundColor))).match('[^a-fA-F0-9]') != null) {
       $(backgroundColor).value = 'FFFFFF';
     }
     $('GS_schoolSearchWidget').style.border = "solid 4px #"+ $F(backgroundColor);
     $('GS_schoolSearchWidget').style.borderBottomWidth = "20px";
+}
+
+function trimString(sInString) {
+  sInString = sInString.replace( /^\s+/g, "" );// strip leading
+  return sInString.replace( /\s+$/g, "" );// strip trailing
+}
+
+function disableEnterKey(e)
+{
+    var key;
+     if(window.event)
+          key = window.event.keyCode; //IE
+     else
+          key = e.which; //firefox
+     return (key != 13);
 }
