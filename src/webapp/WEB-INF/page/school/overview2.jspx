@@ -400,7 +400,7 @@
                     <!-- variant b and c-->
                     <c:when test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
                         <c:set var="position300x250" value="AboveFold_300x250" />
-                        <ad:AboveFold_300x250 position="${position300x250}"/>
+                        <ad:AboveFold_300x250_B_Test/>
                     </c:when>
                     <c:otherwise>
                         <c:choose>
