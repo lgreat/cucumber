@@ -9,4 +9,7 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         super.setUp();
         _controller = new ArticleController();
     }
+
+    public void testNothing() {
+    }
 }
