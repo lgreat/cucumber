@@ -24,23 +24,6 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
 
-<jsp:scriptlet>
-    boolean hasSeenMSL = false;
-    for(Cookie c : request.getCookies()) {
-        if ("has_seen_msl".equals(c.getName())) {
-            hasSeenMSL = true;
-        }
-    }
-    if (!hasSeenMSL) {
-        Cookie hasSeenMslCookie = new Cookie("has_seen_msl", "viewed");
-        hasSeenMslCookie.setMaxAge(60 * 60 * 24 * 365); // expires in 1 year
-        hasSeenMslCookie.setPath("/");
-        hasSeenMslCookie.setDomain(".greatschools.net");
-        response.addCookie(hasSeenMslCookie);
-    }
-    request.setAttribute("hasSeenMsl", hasSeenMSL);
-</jsp:scriptlet>
-
 <head>
     <title>My School List</title>
     <ad:setSlotPrefix slotPrefix="My_School_List"/>
@@ -72,10 +55,6 @@
 <c:set var="username" value="${(requestScope.context.screenName != null)?requestScope.context.screenName:fn:substringBefore(requestScope.context.user.email, '@')}" />
 <div id="col_left">
 
-    <c:if test="${!hasSeenMsl}">
-        <img src="/res/img/msl_alert.gif" alt="" id="msl_alert"/>
-        <div id="feedback_link_over_image"><a href="${design_feedback_url}">Tell us what you think &gt;</a></div>
-    </c:if>
     <div id="msl_header">
         <div id="msl_header_top">
             <div id="msl_title">My School List</div>
