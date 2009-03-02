@@ -32,7 +32,7 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         private District _district;
 
-        public MessageBuilder(School school, District district, int gsRating, int numberOfParentReviews, int averageParentRating){
+        public MessageBuilder(School school, District district, int gsRating, int numberOfParentReviews, int averageParentRating) {
             _school = school;
             _gsRating = gsRating;
             _numberOfParentReviews = numberOfParentReviews;
@@ -40,68 +40,82 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
             _district = district;
         }
 
-        public String buildFirstSentence()   {
+        public String buildFirstSentence() {
 
             StringBuilder result = new StringBuilder();
             // beginning of sentence
-            if (_school.getName().toUpperCase().charAt(0) < 'M'){
+
+            if (_school.getType() == SchoolType.CHARTER && _school.getGradeLevels() == null) {
+                result.append(_school.getName());
+                result.append(" is a charter school in ");
+                result.append(_school.getCity());
+                result.append(", ");
+                result.append(_school.getStateAbbreviation().getLongName());
+                result.append(".");
+
+                return result.toString();
+            }
+
+            if (_school.getName().toUpperCase().charAt(0) < 'M') {
                 result.append(_school.getName());
                 result.append(", located in ");
                 result.append(_school.getCity());
                 result.append(", ");
-                result.append(_school.getStateAbbreviation().getLongName()) ;
+                result.append(_school.getStateAbbreviation().getLongName());
                 result.append(",");
-            }else{
+            } else {
                 result.append(getPossessive(_school.getCity()));
                 result.append(" ");
                 result.append(_school.getName());
             }
 
+
             if (getNumberOfLevels() > 1) {
                 result.append(" is a");
-                result.append(_school.getType() == SchoolType.CHARTER ?" charter ": " public ");
+                result.append(_school.getType() == SchoolType.CHARTER ? " charter " : " public ");
                 result.append("school that serves grades ");
                 result.append(getGradesServed());
                 result.append(" in the ");
-            }else if (_numberOfSchools > 1){
+            } else if (_numberOfSchools > 1) {
                 result.append(" is one of ");
-                result.append(_numberOfSchools) ;
+                result.append(_numberOfSchools);
                 result.append(" ");
                 result.append(getGradeLevel());
                 result.append(" schools in the ");
-            }else{
+            } else {
                 result.append(" is a");
-                result.append(_school.getType() == SchoolType.CHARTER ?" charter ": " public ");
+                result.append(_school.getType() == SchoolType.CHARTER ? " charter " : " public ");
                 result.append(getGradeLevel());
-                result.append(" school in the ");
             }
 
-            if (_district == null){
-                result.append("city.");
-            }else{
+            if (_district == null) {
+                result.append(".");
+            } else {
+                result.append(" school in the ");
                 result.append(_district.getName());
                 result.append(".");
             }
 
+
             return result.toString();
         }
 
-        public String buildSecondSentence(){
+        public String buildSecondSentence() {
             StringBuilder result = new StringBuilder();
 
             if (_gsRating >= 8) {
-                result.append("It is among the few ")  ;
+                result.append("It is among the few ");
                 result.append(getGradeLevel());
                 result.append(" in ");
                 result.append(_school.getStateAbbreviation().getLongName());
                 result.append(" to receive a distinguished GreatSchools Rating of ");
                 result.append(_gsRating);
                 result.append(" out of 10.");
-            }else if(_gsRating >= 5){
+            } else if (_gsRating >= 5) {
                 result.append("It has received a GreatSchools rating of ");
                 result.append(_gsRating);
                 result.append(" out of 10 based on its performance on state standardized tests.");
-            }else{
+            } else {
                 result.append("Based on its state test results, it has received a GreatSchools Rating of ");
                 result.append(_gsRating);
                 result.append(" out of 10.");
@@ -109,27 +123,28 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
             return result.toString();
         }
-        public String buildThirdSentence(){
+
+        public String buildThirdSentence() {
             StringBuilder result = new StringBuilder();
 
-            if (_numberOfParentReviews >= 50){
+            if (_numberOfParentReviews >= 50) {
                 result.append("More than ");
-                result.append(_numberOfParentReviews - _numberOfParentReviews%10);  // round down to the nearest factor of 10
+                result.append(_numberOfParentReviews - _numberOfParentReviews % 10);  // round down to the nearest factor of 10
                 result.append(" parents have shared their opinion about ");
                 result.append(_school.getName());
                 result.append(" giving it an average Parent Rating of ");
                 result.append(_averageParentRating);
                 result.append(" out of 5 stars.");
-            }else if (_numberOfParentReviews >= 10){
+            } else if (_numberOfParentReviews >= 10) {
                 result.append(_numberOfParentReviews);
                 result.append(" parents have submitted a review for this school, and it has an average Parent Rating of ");
                 result.append(_averageParentRating);
                 result.append(" out of 5 stars.");
-            }else if (_numberOfParentReviews >= 1){
+            } else if (_numberOfParentReviews >= 1) {
                 result.append("Parents have reviewed this school and given it a an average rating of ");
                 result.append(_averageParentRating);
                 result.append(" out of 5 stars.");
-            }else {
+            } else {
                 result.append("Ratings and reviews from parents help tell the story about ");
                 result.append(_school.getName());
                 result.append(".  Be the first to share your review!");
@@ -138,15 +153,16 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
             return result.toString();
         }
 
-        public int getNumberOfLevels(){
+        public int getNumberOfLevels() {
             String[] levels = _school.getLevelCode().toString().split(",");
-            if (levels != null){
+            if (levels != null) {
                 return levels.length;
-            }else{
+            } else {
                 return 0;
             }
         }
-        public String getGradesServed(){
+
+        public String getGradesServed() {
             Grades grades = _school.getGradeLevels();
 
             if (grades != null)
@@ -155,30 +171,38 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
                 return "";
         }
 
-        public String getPossessive(String str){
+        public String getPossessive(String str) {
             return str + "'s";
         }
 
-        public String getGradeLevel(){
+        public String getGradeLevel() {
             StringBuilder result = new StringBuilder();
             String[] levels = _school.getLevelCode().toString().split(",");
 
             int counter = 0;
-            for(String level : levels){
-                switch (level.charAt(0)){
-                    case 'p': result.append("preschool"); break;
-                    case 'e': result.append("elementary"); break;
-                    case 'm': result.append("middle"); break;
-                    case 'h': result.append("high"); break;
+            for (String level : levels) {
+                switch (level.charAt(0)) {
+                    case 'p':
+                        result.append("preschool");
+                        break;
+                    case 'e':
+                        result.append("elementary");
+                        break;
+                    case 'm':
+                        result.append("middle");
+                        break;
+                    case 'h':
+                        result.append("high");
+                        break;
                 }
-                if (levels.length > 2){
-                    if (counter == levels.length -2 ){
+                if (levels.length > 2) {
+                    if (counter == levels.length - 2) {
                         result.append(" and ");
-                    }else if (counter < levels.length -1){
+                    } else if (counter < levels.length - 1) {
                         result.append(", ");
                     }
-                }else if (levels.length > 1){
-                    if (counter == levels.length -2 ){
+                } else if (levels.length > 1) {
+                    if (counter == levels.length - 2) {
                         result.append(" and ");
                     }
                 }
@@ -204,13 +228,13 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
         //need to get number of parent reviews for the school
 
         int parentOverallRating = 0;
-        if (_parentRating != null){
-            if (_parentRating.getDisplayOverallRating()){
+        if (_parentRating != null) {
+            if (_parentRating.getDisplayOverallRating()) {
                 parentOverallRating = _parentRating.getOverall();
             }
             numberOfParentReviews = _parentRating.getCount();
         }
-        MessageBuilder builder = new MessageBuilder(_school, _school.getDistrict(), _gsRating, numberOfParentReviews, parentOverallRating );
+        MessageBuilder builder = new MessageBuilder(_school, _school.getDistrict(), _gsRating, numberOfParentReviews, parentOverallRating);
 
         writeOpeningDiv();
         writeParagraph(builder.buildFirstSentence() + "  " + builder.buildSecondSentence());
@@ -223,6 +247,7 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
         final String OPEN_DIV = "<div id=\"rating_summary\">";
         getJspContext().getOut().write(OPEN_DIV);
     }
+
     public void writeClosingDiv() throws JspException, IOException {
         final String CLOSING_DIV = "</div>";
         getJspContext().getOut().write(CLOSING_DIV);
@@ -232,18 +257,20 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         final String OPEN_PARAGRAPH = "<p>";
         final String CLOSE_PARAGRAPH = "</p>";
-        
-        getJspContext().getOut().write(OPEN_PARAGRAPH + s + CLOSE_PARAGRAPH );
+
+        getJspContext().getOut().write(OPEN_PARAGRAPH + s + CLOSE_PARAGRAPH);
 
     }
 
-    public void setSchool(School value){
+    public void setSchool(School value) {
         _school = value;
     }
-    public void setGsRating(int value){
+
+    public void setGsRating(int value) {
         _gsRating = value;
     }
-    public void setParentRating(Ratings value){
+
+    public void setParentRating(Ratings value) {
         _parentRating = value;
     }
 
