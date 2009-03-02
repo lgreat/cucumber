@@ -2,29 +2,25 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:content="urn:jsptagdir:/tags/content"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:mod="urn:jsptagdir:/tags/mod"
-          xmlns:pageHelper="urn:jsptagdir:/tags/pageHelper"
-          xmlns:gsml="urn:jsptagdir:/tags/gsml"
-          xmlns:gsweb="gstaglib"
-          xmlns:ad="urn:jsptagdir:/tags/ad"
-          xmlns:link="urn:www.greatschools.net/taglib/link"
-          xmlns:variant="urn:jsptagdir:/tags/variant"
-          version="2.0" >
-<html lang="en">
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0">
+    <html lang="en">
     <jsp:directive.page contentType="text/html"/>
     <c:set var="pageName" value="article" scope="request"/>
     <head>
         <title>${requestScope.articleTitle} - GreatSchools.net</title>
         <pageHelper:setPathway pathway="LIBRARY"/>
         <pageHelper:externalCss file="/res/css/content/article.css"/>
+        <pageHelper:externalCss file="/res/css/widelayout.css"/>
 
-        <pageHelper:externalCss file="/res/css/widelayout.css" />
-
-        <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
     </head>
-    <body>FOO</body>
+    <body>
+    <div id="article">
+        <div class="article-title">${article.title}</div>
+        <div id="articleText">
+            ${article.body}
+        </div>
+    </div>
+    </body>
     </html>
 </jsp:root>

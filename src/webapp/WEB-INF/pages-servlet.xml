@@ -451,7 +451,7 @@
     </bean>
 
     <bean name="/content/cms/article.page"
-          class="gs.web.content.cms.ArticleController"
+          class="gs.web.content.cms.CmsArticleController"
           autowire="byName" lazy-init="true"/>
 
     <bean name="/content/allArticles.page"
