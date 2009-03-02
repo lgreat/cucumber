@@ -114,15 +114,15 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsweb:articlelink articleId="536" styleClass="noHover">
-            An Honest Day's Work: Summer Jobs for Youth
+        <gsweb:articlelink articleId="545" styleClass="noHover">
+            What to Ask About a Teen Travel Program 
         </gsweb:articlelink>
     </div>
     <div class="module">
-        Whether it’s finding a job or a travel program, now is the time to start planning for summer.
+        Looking for a summer travel program for your teenager? Asking the right questions will help your teen learn and grow — and ensure that you sleep soundly at night.
         <br/>
         <div align="right">
-            <gsweb:articlelink articleId="536" styleClass="seeFullArticle">
+            <gsweb:articlelink articleId="545" styleClass="seeFullArticle">
                 Learn more &amp;gt;
             </gsweb:articlelink>
         </div>
@@ -247,7 +247,7 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Your child should meet with school counselors and teachers about taking <a href="http://www.collegeboard.com/parents/tests/meet-tests/21297.html" target="_blank">SAT Subject Tests&amp;#8482;</a> in her strong subjects this spring.  
+                               Use an online <a href="http://apps.collegeboard.com/fincalc/efc_welcome.jsp" target="_blank">EFC calculator</a> to find out how much your family can be expected to pay for college.
                            </span><br/>
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan &amp;gt;</a>
                 </td>
@@ -255,7 +255,7 @@
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Use the College <a href="http://apps.collegeboard.com/fincalc/college_savings.jsp" target="_blank">Savings Calculator</a> to find out how much money your family will need for college, whether you're on track to save enough, and how to reach your goal. 
+                               Reading helps prepare your child academically for college. Get reading suggestions from <a href="http://www.collegeboard.com/parents/plan/hs-steps/21276.html" target="_blank">101 Great Books.</a>
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan &amp;gt;</a></td>
             </tr>
@@ -265,13 +265,13 @@
             <tr>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Your child can visit the <a href="http://www.collegeboard.com/student/testing/sat/prep_one/prep_one.html" target="_blank">SAT Preparation Center</a> to focus his practice for upcoming SAT tests. Knowing what to expect on test day will help him succeed.
+                               Now is the time for your child to start looking for a <a href="http://www.collegeboard.com/parents/plan/hs-steps/21283.html" target="_blank">summer job</a>, internship or <a href="http://www.collegeboard.com/parents/plan/hs-steps/21285.html" target="_blank">volunteer opportunity</a>.
                            </span> <br/><!-- GS-6401/10.3 Removed br tag here because on IE it was wrapping to the next line and then created an extra white line.  Put it back when needed. -->
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan &amp;gt;</a></td>
                 <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                 <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                              Most priority financial aid deadlines fall in February. Complete the necessary forms, including <a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21406.html" target="_blank">FAFSA and CSS/Financial Aid PROFILE</a>. 
+                              Your child should meet with her counselor to discuss which <a href="http://www.collegeboard.com/parents/tests/meet-tests/21299.html" target="_blank">AP courses</a> to take senior year. 
                            </span><br />
                     <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan &amp;gt;</a></td>
             </tr>
