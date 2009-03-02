@@ -27,7 +27,7 @@ public class CmsArticleController extends AbstractController {
 
         Map<String, Object> model = new HashMap<String, Object>();
 
-        CmsArticle article = _articleDao.get("/content");
+        CmsArticle article = _articleDao.get(uri);
 
         model.put("article", article);
         return new ModelAndView(VIEW_NAME, model);
