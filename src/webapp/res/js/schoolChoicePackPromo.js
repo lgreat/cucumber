@@ -6,7 +6,7 @@ $j(function() {
 
     // clears the email field
     $j('#cemail').click(function () {
-        if (this.value == 'Enter Email Address') {
+        if (this.value == 'Enter email address') {
             this.value = '';
         }
     });
