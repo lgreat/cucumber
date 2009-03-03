@@ -42,12 +42,7 @@ $j(function() {
                                                 omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
                                                 omnitureEventNotifier.send();
                                                 if(datax.showRegistration == 'y'){
-                                                    if(datax.abVersionForRedirect == 'a'){
-                                                    window.location.href = '/community/chooserRegistration.page?email='+ datax.emailEncoded+'&redirect='+ datax.redirectEncoded;
-                                                    }
-                                                    else{
                                                       storeHrefOpenHover(this.href,datax.redirectEncoded,datax.emailEncoded);
-                                                    }
                                                 } else {
                                                     $j("#form_panel").hide();
                                                     $j("#confirm_panel").show();

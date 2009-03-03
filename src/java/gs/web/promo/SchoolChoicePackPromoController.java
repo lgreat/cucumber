@@ -98,7 +98,6 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
                 PageHelper.setMemberCookie(request, response, user);
             }
             triggerPromoPackEmail(user, levels);
-            String abVersion = context.getABVersion();
             String emailEncoded = URLEncoder.encode(email, "UTF-8");
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
@@ -121,7 +120,6 @@ public class SchoolChoicePackPromoController extends AbstractController implemen
             if(!isLoggedIn){
                 out.println("\"createMemberCookie\":\"" + "y" + "\",");
             }
-            out.println("\"abVersionForRedirect\":\"" + abVersion + "\",");
             out.println("\"emailEncoded\":\"" + emailEncoded + "\",");
             out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
             out.println("}");                                     
