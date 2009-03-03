@@ -1,0 +1,52 @@
+#pageWrapper #main h1 {
+    background:transparent url(/res/img/schoolChoice/schoolchoice_headerbar.gif) no-repeat scroll left top;
+}
+
+.box {
+    background-image: url(/res/img/library/middle-box-bottom.png);
+}
+
+.box .inner {
+    background-image: url(/res/img/library/middle-box-top.png);
+}
+
+.box.thin {
+    background-image: url(/res/img/library/right-box2-bottom.png);
+}
+
+.box.thin .inner {
+    background-image: url(/res/img/library/right-box2-top.png);
+}
+
+#supplement h2 {
+	font-size: 18px;
+	color: #d66671;
+	margin: 10px 0;
+}
+
+.gradeLevelBox {
+    position: relative;
+    padding: 0 0 40px 187px;
+}
+
+.gradeLevelBox img {
+    position: absolute;
+    left: 0;
+}
+
+.gradeLevelBox a {
+    font-size: 14px;
+}
+
+.gradeLevelBox ul.gradeArticleLinksList {
+    width: 230px;
+}
+
+.gradeLevelBox ul.gradeArticleLinksList li {
+    display: inline;
+    padding-right: 15px;
+}
+
+.gradeLevelBox ul.gradeArticleLinksList li a {
+    font-size: 13px;
+}

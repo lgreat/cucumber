@@ -984,7 +984,7 @@
         <property name="viewName" value="/preschool/index2"/>
     </bean>
 
-    <bean id="elementaryLandingPageLinksFactory"
+    <bean id="gradeLevelLandingPageLinksFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBgGszopBhMGYQ"/>
         <property name="visibility" value="public"/>
@@ -996,20 +996,24 @@
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/elementarySchool"/>
         <property name="tableDao">
-            <bean factory-bean="elementaryLandingPageLinksFactory" factory-method="getTableDao"/>
+            <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
         </property>
     </bean>
 
     <bean name="/content/middleSchool.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.content.MiddleLandingPageController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/middleSchool"/>
+        <property name="tableDao">
+            <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
+        </property>
     </bean>
 
     <bean name="/content/highSchool.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/highSchool"/>
+
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"

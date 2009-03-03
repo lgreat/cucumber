@@ -11,17 +11,17 @@
     <jsp:directive.attribute name="cssStyle" required="true" description="Style attribute to be added the top-level div"/>
     <jsp:directive.attribute name="imageAlt" required="true" description="Alt for image"/>
     <jsp:directive.attribute name="imageSrc" required="true" description="Source for image"/>
-    <jsp:directive.attribute name="heading" required="true" description="Heading"/>
+    <jsp:directive.attribute name="heading" required="false" description="Heading"/>
     <jsp:directive.attribute name="text" required="true" description="Text"/>
     <jsp:directive.attribute name="ctaHref" required="true" description="Call to action href"/>
     <jsp:directive.attribute name="ctaText" required="true" description="Call to action text"/>
     <jsp:directive.attribute name="articleList" required="false" type="java.util.List"
                              description="List of NameValuePairs, link text to link url"/>
-    <jsp:directive.attribute name="promoGradeWord" required="true"
+    <jsp:directive.attribute name="promoGradeWord" required="false"
                              description="Lower case grade word, e.g. first grade or kindergarten"/>
-    <jsp:directive.attribute name="promoGradeWordPossessive" required="true"
+    <jsp:directive.attribute name="promoGradeWordPossessive" required="false"
                              description="Possessive lower case grade word, e.g. first grader or kindergartner"/>
-    <jsp:directive.attribute name="promoAutocheck" required="true"
+    <jsp:directive.attribute name="promoAutocheck" required="false"
                              description="Autocheck attribute to pass to nthGraderHover promo, e.g. myk"/>
 
     <div id="${cssId}" class="gradeLevelBox" style="${cssStyle}">
@@ -34,10 +34,13 @@
                 <li><a href="${nameValuePair.value}">${nameValuePair.key}</a>&amp;nbsp; </li>
             </c:forEach>
         </ul>
+        <c:if test="${not empty promoGradeWord}">
         <p class="promo">
             Track your ${promoGradeWordPossessive}'s rapid development.
             <promo:nthGraderHover autocheck="${promoAutocheck}" referredBy="${pageName}" isForm="false">Sign up for our ${promoGradeWord} newsletter &amp;gt;</promo:nthGraderHover>
         </p>
+
+        </c:if>
     </div>
 
 </jsp:root>

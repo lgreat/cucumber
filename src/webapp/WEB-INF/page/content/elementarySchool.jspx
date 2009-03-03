@@ -37,6 +37,7 @@
 
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
+    <pageHelper:externalCss file="/res/css/content/gradeLevelShared.css"/>
     <pageHelper:externalCss file="/res/css/content/elementarySchool.css"/>
 
     <![CDATA[

@@ -37,7 +37,7 @@
 
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
-    <pageHelper:externalCss file="/res/css/content/middleSchool.css"/>
+    <pageHelper:externalCss file="/res/css/content/gradeLevelShared.css"/>
 
     <![CDATA[
     <!--[if IE]>
@@ -64,6 +64,7 @@
     <div id="contentLeft">
         <content:librarySidebar/>
         <ad:Promo_170x92/>
+       
         <!--ad:AboveFold_Left_160x600/-->
     </div>
 
@@ -71,6 +72,45 @@
         <h1>Middle School</h1>
 
         <div id="content">
+              <div id="intro" class="box">
+                <div class="inner cleared">
+                    <h2>Supporting your child in middle school</h2>
+                    <ul id="gradeLinks">
+                        <li class="noborder selected">
+                            In the classroom
+                        </li>
+                        <li>
+                            In the hallway
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div id="topSchools" class="box">
+                <div class="inner cleared">
+                    <h2>Top Elementary Schools: <span class="cityName">${requestScope.userCity}</span></h2>
+                </div>
+            </div>
+            
+            <div id="communityModule" class="box">
+                <div class="inner cleared">
+                    <h2>Build a path to college</h2>
+                    <content:gradeLevelBox cssId="kindergartenBox" cssStyle=""
+                                               imageAlt="Path to college" imageSrc="/res/img/foo.jpg"
+                                               text="${requestScope.teaserText_ms_college}"
+                                               ctaHref="${requestScope.callToAction_ms_collegeUrl}" ctaText="${requestScope.callToAction_ms_college}"
+                                               articleList="${requestScope.articleLink_ms_college}"/>
+                    
+                </div>
+            </div>
+
+            <div id="communityModule" class="box">
+                <div class="inner cleared">
+                    <h2>What do you think?</h2>
+                </div>
+            </div>
+
 
         </div> <!-- end div content -->
 
@@ -81,6 +121,7 @@
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </div>
     </div> <!-- end div main -->
+     
 
 </div> <!-- end div pageWrapper -->
 
