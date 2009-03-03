@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.152 2009/02/17 22:45:36 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.153 2009/03/03 17:30:19 aroy Exp $
  */
 
 package gs.web.util;
@@ -217,6 +217,9 @@ public class UrlBuilder {
     public static final VPage TUTORING = new VPage("vpage:tutoring");
     public static final VPage TRAVEL = new VPage("vpage:travel");
     public static final VPage PRESCHOOL = new VPage("vpage:preschool");
+    public static final VPage ELEMENTARY_SCHOOL = new VPage("vpage:elementarySchool");
+    public static final VPage MIDDLE_SCHOOL = new VPage("vpage:middleSchool");
+    public static final VPage HIGH_SCHOOL = new VPage("vpage:highSchool");
 
     /** test score landing page */
     public static final VPage TEST_SCORE_LANDING = new VPage("vpage:testScoreLanding");
@@ -467,6 +470,12 @@ public class UrlBuilder {
             _path = "/mySchoolListLogin.page";
         } else if (PRESCHOOL.equals(page)) {
             _path = "/preschool/";
+        } else if (ELEMENTARY_SCHOOL.equals(page)) {
+            _path = "/elementary-school/";
+        } else if (MIDDLE_SCHOOL.equals(page)) {
+            _path = "/middle-school/";
+        } else if (HIGH_SCHOOL.equals(page)) {
+            _path = "/high-school/";
         } else if (DONORS_CHOOSE_EXPLAINED.equals(page)) {
             _path = "/content/donorsChooseExplained.html";
         } else if (SUBMIT_PARENT_REVIEW_PRESCHOOL.equals(page)) {

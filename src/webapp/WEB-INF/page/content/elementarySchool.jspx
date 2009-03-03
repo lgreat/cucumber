@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+        >
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<pageHelper:setPathway pathway="COUNTDOWN_COLLEGE"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+
+<jsp:scriptlet>
+    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
+</jsp:scriptlet>
+
+<head>
+    <title>Elementary School Microsite - GreatSchools</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="description"
+          content="Elementary school microsite."/>
+    <meta name="keywords"
+          content="elementary school"/>
+
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
+    <pageHelper:externalCss file="/res/css/content/elementarySchool.css"/>
+
+    <![CDATA[
+    <!--[if IE]>
+        <link rel="stylesheet" href="/res/css/content/landingPageShared_ie_fixes.css" type="text/css" media="screen" charset="utf-8" />
+    <![endif]-->
+    ]]>
+
+    <![CDATA[
+    <script type="text/javascript" language="javascript">
+    <!--
+        // linkElem == a
+        // linkElem.parentNode == li
+        // linkElem.parentNode.parentNode == ul
+        function selectGrade(linkElem, boxId) {
+            var x;
+            // de-select all links
+            var listItemsArr = Element.extend(linkElem.parentNode.parentNode).childElements();
+            for (x=0; x < listItemsArr.length; x++) {
+                listItemsArr[x].removeClassName("selected");
+            }
+            // select current link
+            Element.extend(linkElem.parentNode).addClassName("selected");
+            // hide all boxes, show current box
+            var boxArr = $$('.gradeLevelBox');
+            for (x=0; x < boxArr.length; x++) {
+                if (boxArr[x].id == boxId) {
+                    boxArr[x].show();
+                } else {
+                    boxArr[x].hide();
+                }
+            }
+        }
+        -->
+    </script>
+    ]]>
+
+
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
+    <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
+    <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
+    <jsp:scriptlet>
+        request.setAttribute("elemPage", gs.web.util.UrlBuilder.ELEMENTARY_SCHOOL);
+    </jsp:scriptlet>
+</head>
+
+
+<c:set var="pageName" value="Elementary School Landing Page"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Elementary"/>
+<gsml:body adPageName="elementary-school/index" pageLayout="elementary" startAdHierarchyAtPage="true">
+
+<div id="pageWrapper" class="cleared">
+
+    <div id="contentLeft">
+        <content:librarySidebar/>
+        <ad:Promo_170x92/>
+        <!--ad:AboveFold_Left_160x600/-->
+    </div>
+
+    <div id="main">
+        <h1>Elementary School</h1>
+
+        <div id="content">
+
+            <div id="intro" class="box">
+                <div class="inner cleared">
+                    <h2>Supporting your child grade-by-grade</h2>
+                    <ul id="gradeLinks">
+                        <li class="noborder selected">
+                            <a href="#" onclick="selectGrade(this, 'kindergartenBox'); return false;">Kindergarten</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectGrade(this, 'firstBox'); return false;">1st Grade</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectGrade(this, 'secondBox'); return false;">2nd Grade</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectGrade(this, 'thirdBox'); return false;">3rd Grade</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectGrade(this, 'fourthBox'); return false;">4th Grade</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectGrade(this, 'fifthBox'); return false;">5th Grade</a>
+                        </li>
+                    </ul>
+                    <content:gradeLevelBox cssId="kindergartenBox" cssStyle=""
+                            imageAlt="Kindergarten child" imageSrc="/res/img/foo.jpg"
+                            heading="Kindergarten" text="${requestScope.teaserText_k}"
+                            ctaHref="${requestScope.callToAction_kUrl}" ctaText="${requestScope.callToAction_k}"
+                            articleList="${requestScope.articleLink_k}"
+                            promoGradeWord="kindergarten" promoGradeWordPossessive="kindergartner" promoAutocheck="myk"/>
+                    <content:gradeLevelBox cssId="firstBox" cssStyle="display: none;"
+                            imageAlt="First grade child" imageSrc="/res/img/foo.jpg"
+                            heading="First Grade" text="${requestScope.teaserText_1}"
+                            ctaHref="${requestScope.callToAction_1Url}" ctaText="${requestScope.callToAction_1}"
+                            articleList="${requestScope.articleLink_1}"
+                            promoGradeWord="first grade" promoGradeWordPossessive="first grader" promoAutocheck="my1"/>
+                    <content:gradeLevelBox cssId="secondBox" cssStyle="display: none;"
+                            imageAlt="Second grade child" imageSrc="/res/img/foo.jpg"
+                            heading="Second Grade" text="${requestScope.teaserText_2}"
+                            ctaHref="${requestScope.callToAction_2Url}" ctaText="${requestScope.callToAction_2}"
+                            articleList="${requestScope.articleLink_2}"
+                            promoGradeWord="second grade" promoGradeWordPossessive="second grader" promoAutocheck="my2"/>
+                    <content:gradeLevelBox cssId="thirdBox" cssStyle="display: none;"
+                            imageAlt="Third grade child" imageSrc="/res/img/foo.jpg"
+                            heading="Third Grade" text="${requestScope.teaserText_3}"
+                            ctaHref="${requestScope.callToAction_3Url}" ctaText="${requestScope.callToAction_3}"
+                            articleList="${requestScope.articleLink_3}"
+                            promoGradeWord="third grade" promoGradeWordPossessive="third grader" promoAutocheck="my3"/>
+                    <content:gradeLevelBox cssId="fourthBox" cssStyle="display: none;"
+                            imageAlt="Fourth grade child" imageSrc="/res/img/foo.jpg"
+                            heading="Fourth Grade" text="${requestScope.teaserText_4}"
+                            ctaHref="${requestScope.callToAction_4Url}" ctaText="${requestScope.callToAction_4}"
+                            articleList="${requestScope.articleLink_4}"
+                            promoGradeWord="fourth grade" promoGradeWordPossessive="fourth grader" promoAutocheck="my4"/>
+                    <content:gradeLevelBox cssId="fifthBox" cssStyle="display: none;"
+                            imageAlt="Fifth grade child" imageSrc="/res/img/foo.jpg"
+                            heading="Fifth Grade" text="${requestScope.teaserText_5}"
+                            ctaHref="${requestScope.callToAction_5Url}" ctaText="${requestScope.callToAction_5}"
+                            articleList="${requestScope.articleLink_5}"
+                            promoGradeWord="fifth grade" promoGradeWordPossessive="fifth grader" promoAutocheck="my5"/>
+                </div>
+            </div>
+
+            <div id="topSchools" class="box">
+                <div class="inner cleared">
+                    <h2>Top Elementary Schools: <span class="cityName">${requestScope.userCity}</span></h2>
+                </div>
+            </div>
+
+            <div id="communityModule" class="box">
+                <div class="inner cleared">
+                    <h2>What do you think?</h2>
+                </div>
+            </div>
+
+            <content:funActivitiesThatSupportLearning/>            
+
+        </div> <!-- end div content -->
+
+        <div id="supplement">
+            <div id="findASchool" class="box thin">
+                <div class="inner cleared">
+                    <h2>Find a School</h2>
+                </div>
+            </div>
+
+            <ad:AboveFold_300x250/>
+
+            <div id="schoolChoicePromo" class="box">
+                <div class="inner">
+                    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
+                                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                                 caller="elementarySchool"/>
+                </div>
+            </div>
+
+            <ad:House_Ad_300x137 referredBy="${pageName}"/>
+        </div>
+    </div> <!-- end div main -->
+
+</div> <!-- end div pageWrapper -->
+
+<div style="display: none;">
+    <mod:tracking pageName="${pageName}"
+                  hier1="Article,Elementary School Landing Page"
+                  microsite="${pageName}"/>
+</div>
+</gsml:body>
+</html>
+</jsp:root>

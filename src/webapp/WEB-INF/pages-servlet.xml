@@ -54,6 +54,9 @@
                 <entry key="/top-high-schools/**" value="/schools/topSchools.page"/>
                 <entry key="/schools/**" value="/schools/allInState.page"/>
                 <entry key="/preschool/**" value="/preschool/index.page"/>
+                <entry key="/elementary-school/**" value="/content/elementarySchool.page"/>
+                <entry key="/middle-school/**" value="/content/middleSchool.page"/>
+                <entry key="/high-school/**" value="/content/highSchool.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
                 <entry key="/holiday-giving/**" value="/content/holidayGiving.page"/>
                 <entry key="/school-choice/**" value="/content/schoolChoice.page"/>
@@ -979,6 +982,34 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/preschool/index2"/>
+    </bean>
+
+    <bean id="elementaryLandingPageLinksFactory"
+          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+        <property name="googleKey" value="pHIaC-TrslBgGszopBhMGYQ"/>
+        <property name="visibility" value="public"/>
+        <property name="projection" value="values"/>
+    </bean>
+
+    <bean name="/content/elementarySchool.page"
+          class="gs.web.content.ElementaryLandingPageController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/elementarySchool"/>
+        <property name="tableDao">
+            <bean factory-bean="elementaryLandingPageLinksFactory" factory-method="getTableDao"/>
+        </property>
+    </bean>
+
+    <bean name="/content/middleSchool.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/middleSchool"/>
+    </bean>
+
+    <bean name="/content/highSchool.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/highSchool"/>
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"

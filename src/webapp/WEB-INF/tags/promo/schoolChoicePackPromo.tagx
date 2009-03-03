@@ -17,6 +17,7 @@
                              type="java.lang.Boolean"/>
     <jsp:directive.attribute name="showConfirmation" required="false" description="Whether or not to show just the confirmation message instead of the form" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="schoolObjectForRedirect" required="false" description="To redirect if the user logs out by clicking the email id on the promo" type="gs.data.school.School"/>
+    <jsp:directive.attribute name="caller" required="false" description="Calling page identifier"/>
 
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"/>
@@ -75,27 +76,27 @@
                Use our School Chooser tip sheet to nail down what you want in a school and make the most of your visit.
             </div>
 
-                                <jsp:scriptlet>
-                        String redirectUrl;
-                        String redirectUrlForConfirm;
-                        UrlBuilder builder;
-                        UrlBuilder builderForConfirm;            
-                        if(showSchoolChoiceLink){
-                                builder   = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
-                                builderForConfirm   = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, true,schoolObjectForRedirect);
-                        }
-                        else{
-                            builder = new  UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
-                            builderForConfirm   = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
-                        }
+            <jsp:scriptlet>
+                String redirectUrl;
+                String redirectUrlForConfirm;
+                UrlBuilder builder;
+                UrlBuilder builderForConfirm;            
+                if(showSchoolChoiceLink){
+                        builder   = new UrlBuilder(schoolObjectForRedirect, UrlBuilder.SCHOOL_PROFILE);
+                        builderForConfirm   = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, true,schoolObjectForRedirect);
+                }
+                else{
+                    builder = new  UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER);
+                    builderForConfirm   = new UrlBuilder(UrlBuilder.SCHOOL_CHOICE_CENTER, true);
+                }
 
-                        redirectUrl = builder.asSiteRelativeXml(request);
-                        redirectUrlForConfirm = builderForConfirm.asSiteRelativeXml(request);
-                        jspContext.setAttribute("logoutRedirect",redirectUrl);
-                        jspContext.setAttribute("redirectForConfirm",redirectUrlForConfirm);
-                                    
+                redirectUrl = builder.asSiteRelativeXml(request);
+                redirectUrlForConfirm = builderForConfirm.asSiteRelativeXml(request);
+                jspContext.setAttribute("logoutRedirect",redirectUrl);
+                jspContext.setAttribute("redirectForConfirm",redirectUrlForConfirm);
 
-                    </jsp:scriptlet>
+
+            </jsp:scriptlet>
 
             <form id="scpp_form" action="">
                 <input id="redirectForConfirm" type="hidden" value="${redirectForConfirm}"/>

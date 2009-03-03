@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+
+    <jsp:directive.attribute name="cssId" required="true" description="Style id to be added the top-level div"/>
+    <jsp:directive.attribute name="cssStyle" required="true" description="Style attribute to be added the top-level div"/>
+    <jsp:directive.attribute name="imageAlt" required="true" description="Alt for image"/>
+    <jsp:directive.attribute name="imageSrc" required="true" description="Source for image"/>
+    <jsp:directive.attribute name="heading" required="true" description="Heading"/>
+    <jsp:directive.attribute name="text" required="true" description="Text"/>
+    <jsp:directive.attribute name="ctaHref" required="true" description="Call to action href"/>
+    <jsp:directive.attribute name="ctaText" required="true" description="Call to action text"/>
+    <jsp:directive.attribute name="articleList" required="false" type="java.util.List"
+                             description="List of NameValuePairs, link text to link url"/>
+    <jsp:directive.attribute name="promoGradeWord" required="true"
+                             description="Lower case grade word, e.g. first grade or kindergarten"/>
+    <jsp:directive.attribute name="promoGradeWordPossessive" required="true"
+                             description="Possessive lower case grade word, e.g. first grader or kindergartner"/>
+    <jsp:directive.attribute name="promoAutocheck" required="true"
+                             description="Autocheck attribute to pass to nthGraderHover promo, e.g. myk"/>
+
+    <div id="${cssId}" class="gradeLevelBox" style="${cssStyle}">
+        <img alt="${imageAlt}" src="${imageSrc}" width="177" height="180"/>
+        <h3>${heading}</h3>
+        <p class="text">${text}</p>
+        <a href="${ctaHref}">${ctaText}</a>
+        <ul class="gradeArticleLinksList">
+            <c:forEach items="${articleList}" var="nameValuePair">
+                <li><a href="${nameValuePair.value}">${nameValuePair.key}</a>&amp;nbsp; </li>
+            </c:forEach>
+        </ul>
+        <p class="promo">
+            Track your ${promoGradeWordPossessive}'s rapid development.
+            <promo:nthGraderHover autocheck="${promoAutocheck}" referredBy="${pageName}" isForm="false">Sign up for our ${promoGradeWord} newsletter &amp;gt;</promo:nthGraderHover>
+        </p>
+    </div>
+
+</jsp:root>
