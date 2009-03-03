@@ -26,42 +26,15 @@ import java.util.ArrayList;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class ElementaryLandingPageController extends AbstractController {
-    protected final Log _log = LogFactory.getLog(getClass());
-
-    private String _viewName;
-    private ITableDao _tableDao;
-
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        injectWorksheetName(request);
-
-        Map<String, Object> model = new HashMap<String, Object>();
-        try {
-            List<ITableRow> rows = getTableDao().getAllRows();
-            for (ITableRow row: rows) {
-                String key = row.getString("key");
-                String text = row.getString("text");
-                String url = row.getString("url");
-                if (StringUtils.contains(key, "articleLink")) {
-                    text = StringUtils.replace(text, " ", "&nbsp;");
-                    NameValuePair<String, String> textUrl = new NameValuePair<String, String>(text, url);
-                    List<NameValuePair<String, String>> textUrls = (List<NameValuePair<String, String>>) model.get(key);
-                    if (textUrls == null) {
-                        textUrls = new ArrayList<NameValuePair<String, String>>();
-                    }
-                    textUrls.add(textUrl);
-                    model.put(key, textUrls);
-                } else {
-                    model.put(key, text);
-                    model.put(key + "Url", url);
-                }
-            }
-            //model.put("kTeaserText", getTableDao().getFirstRowByKey("key", "kTeaserText").getString("text"));
-        } catch (Exception e) {
-            _log.error(e, e);
-        }
-
-        SessionContext context = SessionContextUtil.getSessionContext(request);
+public class ElementaryLandingPageController extends AbstractGradeLevelLandingPageController {
+     protected void populateModel(Map<String, Object> model,HttpServletRequest request) {
+        loadTableRowsIntoModel(model,"k");
+        loadTableRowsIntoModel(model,"1");
+        loadTableRowsIntoModel(model,"2");
+        loadTableRowsIntoModel(model,"3");
+        loadTableRowsIntoModel(model,"4");
+        loadTableRowsIntoModel(model,"5");
+         SessionContext context = SessionContextUtil.getSessionContext(request);
         String userCityName = "Los Angeles";
         State userState = context.getStateOrDefault();
         if (context.getCity() != null) {
@@ -69,46 +42,5 @@ public class ElementaryLandingPageController extends AbstractController {
         }
         model.put("userCity", userCityName);
         model.put("userState", userState);
-        return new ModelAndView(getViewName(), model);
-    }
-
-    /**
-     * This could be spring configured, except that it varies depending on what hostname this request
-     * is running off of
-     * @see gs.web.community.CommunityQuestionPromoController
-     */
-    protected void injectWorksheetName(HttpServletRequest request) {
-        GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getTableDao();
-        castDao.getSpreadsheetInfo().setWorksheetName(getWorksheet(request));
-    }
-
-    protected String getWorksheet(HttpServletRequest request) {
-        String worksheetName;
-        if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = "od6";
-        } else if (UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = "od6";
-        } else {
-            worksheetName = "od6";
-        }
-
-        return worksheetName;
-    }
-    
-
-    public ITableDao getTableDao() {
-        return _tableDao;
-    }
-
-    public void setTableDao(ITableDao tableDao) {
-        _tableDao = tableDao;
-    }
-
-    public String getViewName() {
-        return _viewName;
-    }
-
-    public void setViewName(String viewName) {
-        _viewName = viewName;
     }
 }
