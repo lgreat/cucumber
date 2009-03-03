@@ -237,7 +237,11 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
         MessageBuilder builder = new MessageBuilder(_school, _school.getDistrict(), _gsRating, numberOfParentReviews, parentOverallRating);
 
         writeOpeningDiv();
-        writeParagraph(builder.buildFirstSentence() + "  " + builder.buildSecondSentence());
+        String firstParagraph =   builder.buildFirstSentence();
+        if (_gsRating >=1 ){
+            firstParagraph += "  " + builder.buildSecondSentence();
+        }
+        writeParagraph(firstParagraph );
         writeParagraph(builder.buildThirdSentence());
         writeClosingDiv();
 
