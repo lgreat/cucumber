@@ -50,3 +50,7 @@
 .gradeLevelBox ul.gradeArticleLinksList li a {
     font-size: 13px;
 }
+
+#schoolChoicePromo .inner {
+    padding-right: 5px;
+}
