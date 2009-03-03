@@ -38,7 +38,7 @@
         // do nothing
     }
     // False condition is set to disable the survey
-    if (surveyHoverPct > 0 && !context.isCobranded() && context.getABVersion().equalsIgnoreCase("c")){
+    if (surveyHoverPct > 0 && !context.isCobranded() && context.getABVersion().equalsIgnoreCase("b")){
         if (!CookieUtil.hasCookie(request, "survey_seen_popup")) {
             Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligible");
             if (surveyEligableCookie != null) {
