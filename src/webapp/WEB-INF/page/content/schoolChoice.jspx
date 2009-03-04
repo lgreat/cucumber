@@ -11,7 +11,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
 
-<pageHelper:setPathway pathway="SEASONAL"/>
+<pageHelper:setPathway pathway="SCHOOL_CHOICE"/>
 
 <c:set var="pageName" value="School Choice Tips"/>
 <html>

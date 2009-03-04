@@ -236,13 +236,13 @@
     
     <table cellpadding="0" cellspacing="0" id="topnav_subnav">
         <tr>
-            <!--#2--><td><link:articleLibrary
+            <!--#19--><td><link:articleLibrary
                 id="GlobalNav_ArticleLibraryButton"
                 styleClass="topnav_subnav_first ${(pw == tabs.EDUCATION_TOPICS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Popular topics:</link:articleLibrary></td>
-            <!--#7--><td><link:schoolChoiceCenter
+            <!--#20--><td><link:schoolChoiceCenter
                                  id="GlobalNav_ChoosingButton"
-                                 styleClass="${(pw == tabs.SEASONAL ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                                 styleClass="${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Choosing the Right School</link:schoolChoiceCenter></td>
             <!--#15--><td><link:specialNeeds
                                  id="GlobalNav_LDButton"
@@ -252,9 +252,9 @@
                                  id="GlobalNav_TutoringHomeworkButton"
                                  styleClass="${(pw == tabs.TUTORING ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Tutoring &amp;amp; Homework</link:tutoring></td>
-            <!--#9--><td><link:countdownToCollege
+            <!--#21--><td><link:countdownToCollege
                                  id="GlobalNav_CollegePrepButton"
-                                 styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                                 styleClass="${(pw == tabs.COLLEGE_PREP ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >College Prep</link:countdownToCollege></td>
             <!--#17--><td><link:mediaChoices
                                  id="GlobalNav_MediaChildButton"
