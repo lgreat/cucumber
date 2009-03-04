@@ -324,3 +324,8 @@
 #topnav table#topnav_subnav td a:hover {
     text-decoration: underline;
 }
+
+#topnav table#topnav_subnav td a.topnav_subnav_active {
+    text-decoration: underline;
+}
+

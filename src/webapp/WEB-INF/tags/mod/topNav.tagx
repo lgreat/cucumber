@@ -238,31 +238,31 @@
         <tr>
             <!--#2--><td><link:articleLibrary
                 id="GlobalNav_ArticleLibraryButton"
-                styleClass="topnav_subnav_first GS_CI9_ "
+                styleClass="topnav_subnav_first ${(pw == tabs.LIBRARY ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Popular topics:</link:articleLibrary></td>
             <!--#7--><td><link:schoolChoiceCenter
                                  id="GlobalNav_ChoosingButton"
-                                 styleClass=" GS_CI9_ "
+                                 styleClass="${(pw == tabs.SEASONAL ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Choosing the Right School</link:schoolChoiceCenter></td>
-            <!--#--><td><link:specialNeeds
+            <!--#15--><td><link:specialNeeds
                                  id="GlobalNav_LDButton"
-                                 styleClass=" GS_CI9_ "
+                                 styleClass="${(pw == tabs.SPECIAL_NEEDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Learning Disabilities</link:specialNeeds></td>
-            <!--#--><td><link:tutoring
+            <!--#16--><td><link:tutoring
                                  id="GlobalNav_TutoringHomeworkButton"
-                                 styleClass=" GS_CI9_ "
+                                 styleClass="${(pw == tabs.TUTORING ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Tutoring &amp;amp; Homework</link:tutoring></td>
             <!--#9--><td><link:countdownToCollege
                                  id="GlobalNav_CollegePrepButton"
-                                 styleClass=" GS_CI9_ "
+                                 styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >College Prep</link:countdownToCollege></td>
-            <!--#--><td><link:mediaChoices
+            <!--#17--><td><link:mediaChoices
                                  id="GlobalNav_MediaChildButton"
-                                 styleClass=" GS_CI9_ "
+                                 styleClass="${(pw == tabs.MEDIA ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Media &amp;amp; Your Child</link:mediaChoices></td>
-            <!--#--><td><link:healthyKids
+            <!--#18--><td><link:healthyKids
                                  styleId="GlobalNav_HealthyKidsButton"
-                                 styleClass=" GS_CI9_ "
+                                 styleClass="${(pw == tabs.HEALTHY_KIDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Healthy Kids</link:healthyKids></td>
         </tr>
     </table>
