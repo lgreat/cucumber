@@ -23,7 +23,7 @@
 <jsp:directive.page contentType="text/html"/>
 <c:choose>
     <c:when test="${requestScope.pageHelper.pageName eq 'spp_overview'}">
-        <c:set var="profile" value="http://purl.org/NET/ER" />
+        <c:set var="profile" value="http://purl.org/NET/erdf/profile" />
     </c:when>
     <c:otherwise>
         <c:set var="profile" value="" />
