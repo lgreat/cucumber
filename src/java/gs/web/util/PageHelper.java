@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.74 2009/03/04 22:17:37 droy Exp $
+ * $Id: PageHelper.java,v 1.75 2009/03/04 22:34:08 droy Exp $
  */
 
 package gs.web.util;
@@ -60,6 +60,7 @@ public class PageHelper {
         put("TUTORING", "16");
         put("MEDIA", "17");
         put("HEALTHY_KIDS", "18");
+        put("EDUCATION_TOPICS", "19");
     }};
 
     private final SessionContext _sessionContext;

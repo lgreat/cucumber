@@ -10,7 +10,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
 
-<pageHelper:setPathway pathway="LIBRARY"/>
+<pageHelper:setPathway pathway="EDUCATION_TOPICS"/>
 
 <c:set var="pageName" value="Library" />
 <html>

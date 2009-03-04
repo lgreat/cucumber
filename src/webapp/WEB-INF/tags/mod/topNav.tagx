@@ -238,7 +238,7 @@
         <tr>
             <!--#2--><td><link:articleLibrary
                 id="GlobalNav_ArticleLibraryButton"
-                styleClass="topnav_subnav_first ${(pw == tabs.LIBRARY ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                styleClass="topnav_subnav_first ${(pw == tabs.EDUCATION_TOPICS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Popular topics:</link:articleLibrary></td>
             <!--#7--><td><link:schoolChoiceCenter
                                  id="GlobalNav_ChoosingButton"
