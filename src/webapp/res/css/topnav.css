@@ -299,7 +299,7 @@
     margin:0 auto;
 }
 
-#topnav table#subnav {
+#topnav table#topnav_subnav {
     height: 26px;
     width: 865px;
     margin: 4px auto 0 auto;
@@ -308,12 +308,12 @@
     border-bottom: 1px solid #F1F1F1;
 }
 
-#topnav table#subnav td a.subnav_first {
+#topnav table#topnav_subnav td a.topnav_subnav_first {
     color: #D66671;
     padding-left: 4px;
 }
 
-#topnav table#subnav td a {
+#topnav table#topnav_subnav td a {
     font-size: 12px;
     font-family: Trebuchet MS, Arial, sans-serif;
     color: #3399AA;
@@ -321,6 +321,6 @@
     text-decoration: none;
 }
 
-#topnav table#subnav td a:hover {
+#topnav table#topnav_subnav td a:hover {
     text-decoration: underline;
 }
