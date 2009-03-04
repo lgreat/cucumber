@@ -133,6 +133,7 @@
                             imageAlt="Boy studying" imageSrc="/res/img/content/gradeLanding/middle_academics.jpg"
                             text="${requestScope.teaserText_ms_support_classroom}"
                             ctaHref="${requestScope.callToAction_ms_support_classroomUrl}" ctaText="${requestScope.callToAction_ms_support_classroom}"
+                            articleIntro="What your child should know:"
                             articleList="${requestScope.articleLink_ms_support_classroom}"
                             promoGradeWord="Middle School Matters" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
 
@@ -140,6 +141,8 @@
                             imageAlt="Girls whispering to each other" imageSrc="/res/img/content/gradeLanding/middle_socialskills.jpg"
                             text="${requestScope.teaserText_ms_support_hallway}"
                             ctaHref="${requestScope.callToAction_ms_support_hallwayUrl}" ctaText="${requestScope.callToAction_ms_support_hallway}"
+                            articleIntro="What to expect:"
+                            articleListVertical="${true}"
                             articleList="${requestScope.articleLink_ms_support_hallway}"
                             promoGradeWord="Middle School Matters" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
                 </div>
@@ -161,6 +164,7 @@
                                                imageAlt="Mom and daughter" imageSrc="/res/img/content/gradeLanding/middle_momdaughter.jpg"
                                                text="${requestScope.teaserText_ms_college}"
                                                ctaHref="${requestScope.callToAction_ms_collegeUrl}" ctaText="${requestScope.callToAction_ms_college}"
+                                               articleListVertical="${true}"
                                                articleList="${requestScope.articleLink_ms_college}"/>
                 </div>
             </div>

@@ -77,8 +77,14 @@ h2.quotable {
 }
 
 .gradeLevelBox td.right {
+    vertical-align: top;
     padding-left: 10px;
     float:none;
+}
+
+#intro .gradeLevelBox p {
+    margin: 0 0 5px 0;
+    padding: 0;
 }
 
 .gradeLevelBox a {
@@ -89,9 +95,14 @@ h2.quotable {
     width: 230px;
 }
 
-.gradeLevelBox ul.gradeArticleLinksList li {
+#content .gradeLevelBox ul.gradeArticleLinksList li {
     display: inline;
     padding-right: 15px;
+}
+
+#content .gradeLevelBox ul.gradeArticleLinksList.vertical li {
+    display: block;
+    margin-bottom: 0;
 }
 
 .gradeLevelBox ul.gradeArticleLinksList li a {

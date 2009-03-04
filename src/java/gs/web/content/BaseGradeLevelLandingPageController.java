@@ -2,7 +2,6 @@ package gs.web.content;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -102,7 +101,6 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
             String key = row.getString("key");
             String text = row.getString("text");
             String url = row.getString("url");
-            text = StringUtils.replace(text, " ", "&nbsp;");
             NameValuePair<String, String> textUrl = new NameValuePair<String, String>(text, url);
             List<NameValuePair<String, String>> textUrls = (List<NameValuePair<String, String>>) model.get(key);
             if (textUrls == null) {
