@@ -181,3 +181,29 @@
 .more {
 	text-align: right;
 }
+
+ul#supportLinks li {
+    background: 0;
+    list-style:none;
+    margin: 0;
+    padding: 0 5px 0 5px;
+    display: inline;
+    font-size: 12px;
+    border-left: 1px solid #888;
+}
+
+ul#supportLinks li.noborder {
+    border-left: 0;
+    padding-left: 0;
+}
+
+ul#supportLinks li.selected {
+    padding-left: 15px;
+    background: url(/res/img/bullet/greyarrow.gif) no-repeat 5px;
+}
+
+ul#supportLinks li.selected a {
+    text-decoration: none;
+    color: #666;
+    cursor: default;
+}

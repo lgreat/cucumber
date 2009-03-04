@@ -45,6 +45,35 @@
     <![endif]-->
     ]]>
 
+    <![CDATA[
+    <script type="text/javascript" language="javascript">
+    <!--
+        // linkElem == a
+        // linkElem.parentNode == li
+        // linkElem.parentNode.parentNode == ul
+        function selectSupport(linkElem, boxId) {
+            var x;
+            // de-select all links
+            var listItemsArr = Element.extend(linkElem.parentNode.parentNode).childElements();
+            for (x=0; x < listItemsArr.length; x++) {
+                listItemsArr[x].removeClassName("selected");
+            }
+            // select current link
+            Element.extend(linkElem.parentNode).addClassName("selected");
+            // hide all boxes, show current box
+            var boxArr = $$('#intro .gradeLevelBox');
+            for (x=0; x < boxArr.length; x++) {
+                if (boxArr[x].id == boxId) {
+                    boxArr[x].show();
+                } else {
+                    boxArr[x].hide();
+                }
+            }
+        }
+        -->
+    </script>
+    ]]>
+
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
@@ -75,15 +104,28 @@
               <div id="intro" class="box">
                 <div class="inner cleared">
                     <h2>Supporting your child in middle school</h2>
-                    <ul id="gradeLinks">
+                    <ul id="supportLinks">
                         <li class="noborder selected">
-                            In the classroom
+                            <a href="#" onclick="selectSupport(this, 'classroomBox'); return false;">In the classroom</a>
                         </li>
                         <li>
-                            In the hallway
+                            <a href="#" onclick="selectSupport(this, 'hallwayBox'); return false;">In the hallway</a>
                         </li>
 
                     </ul>
+                    <content:gradeLevelBox cssId="classroomBox" cssStyle=""
+                            imageAlt="Support Classroom" imageSrc="/res/img/foo.jpg"
+                            text="${requestScope.teaserText_ms_support_classroom}"
+                            ctaHref="${requestScope.callToAction_ms_support_classroom}" ctaText="${requestScope.callToAction_ms_support_classroom}"
+                            articleList="${requestScope.articleLink_ms_support_classroom}"
+                            promoGradeWord="first grade" promoGradeWordPossessive="first grader" promoAutocheck="my1"/>
+
+                    <content:gradeLevelBox cssId="hallwayBox" cssStyle="display: none;"
+                            imageAlt="Support Hallway" imageSrc="/res/img/foo.jpg"
+                            text="${requestScope.teaserText_ms_support_hallway}"
+                            ctaHref="${requestScope.callToAction_ms_support_hallway}" ctaText="${requestScope.callToAction_ms_support_hallway}"
+                            articleList="${requestScope.articleLink_ms_support_hallway}"
+                            promoGradeWord="first grade" promoGradeWordPossessive="first grader" promoAutocheck="my1"/>
                 </div>
             </div>
 
@@ -93,10 +135,10 @@
                 </div>
             </div>
             
-            <div id="communityModule" class="box">
+            <div id="collegeModule" class="box">
                 <div class="inner cleared">
                     <h2>Build a path to college</h2>
-                    <content:gradeLevelBox cssId="kindergartenBox" cssStyle=""
+                    <content:gradeLevelBox cssId="collegeBox" cssStyle=""
                                                imageAlt="Path to college" imageSrc="/res/img/foo.jpg"
                                                text="${requestScope.teaserText_ms_college}"
                                                ctaHref="${requestScope.callToAction_ms_collegeUrl}" ctaText="${requestScope.callToAction_ms_college}"
