@@ -181,9 +181,6 @@
         <!--<tr>-->
             <!--<td>-->
 
-    <c:set var="preschoolNewDefaultImage" value="/res/img/${(requestScope.context.pathway == tabs.COUNTDOWN_COLLEGE ? 'new_dark_green_bg.gif' : 'new_light_green_bg.gif')}"/>
-    <c:set var="preschoolNewSelectedImage" value="/res/img/new_dark_green_bg.gif"/>
-
     <script type="text/javascript">
     // preload images
     var newOff = new Image();
@@ -204,35 +201,69 @@
         <tr>
             <td width="28px">&amp;#160;</td>
             <c:set var="pw" value="${requestScope.context.pathway}"/>
+            <!-- Numbers in comments signify the pageId in PageHelper.java -->
             <!--#0--><td><link:home
-                styleClass="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')} GS_CI9_ "
-                id="GlobalNav_HomeButton"
+                                styleClass="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')} GS_CI9_ "
+                                id="GlobalNav_HomeButton"
                 >Home</link:home></td>
             <!--#1--><td><link:research
-                styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} GS_CI9_ "
-                state="${requestScope.context.state}"
-                id="GlobalNav_ResearchButton"
-                >Research &amp;amp; Compare</link:research></td>
-             <!--#9--><td class="new"><link:preschool
-                                 onMouseOver="togglePreschoolNewImage(true);"
-                                 onMouseOut="togglePreschoolNewImage(false);"
+                                styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.PRESCHOOL ? 'ractive' : '')} GS_CI9_ "
+                                state="${requestScope.context.state}"
+                                id="GlobalNav_ResearchButton"
+                >Find a School</link:research></td>
+            <!--#11--><td><link:preschool
                                  id="GlobalNav_PreschoolButton"
-                                 styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '') } GS_CI9_ "
-                ><span class="text">Preschools</span><span class="image"><img id="preschoolNew" src="${preschoolNewDefaultImage}" alt="New"/></span></link:preschool></td>
+                                 styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.PRESCHOOL ? 'active' : 'inactive')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'ractive' : '') } GS_CI9_ "
+                >Preschool</link:preschool></td>
+            <!--#12--><td><link:elementary-school
+                                styleClass="${(pw == tabs.PRESCHOOL ? 'lactive' : '')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.MIDDLE_SCHOOL ? 'ractive' : '')} GS_CI9_ "
+                                id="GlobalNav_ElementarySchoolButton"
+                >Elementary School</link:elementary-school></td>
+            <!--#13--><td><link:middle-school
+                                styleClass="${(pw == tabs.ELEMENTARY_SCHOOL ? 'lactive' : '')} ${(pw == tabs.MIDDLE_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.HIGH_SCHOOL ? 'ractive' : '')} GS_CI9_ "
+                                id="GlobalNav_MiddleSchoolButton"
+                >Middle School</link:middle-school></td>
+            <!--#14--><td><link:high-school
+                                styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '')} GS_CI9_ "
+                                id="GlobalNav_HighSchoolButton"
+                >High School</link:high-school></td>
             <!--#10--><td ><gsml:a href="http://${communityHost}"
-                                   styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} GS_CI9_ "
-                                   id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
-
-            <!--#7--><td><link:schoolChoiceCenter
-                                 id="GlobalNav_SeasonalButton"
-                                 styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} GS_CI9_ "
-                >School Choice</link:schoolChoiceCenter></td>
-
+                                styleClass="${(pw == tabs.HIGH_SCHOOL ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active ractive' : 'inactive')} GS_CI9_ "
+                                id="GlobalNav_CommunityButton">Parent Community</gsml:a></td>
+            <td width="28px">&amp;#160;</td>
+        </tr>
+    </table>
+    
+    <table cellpadding="0" cellspacing="0" id="subnav">
+        <tr>
             <!--#2--><td><link:articleLibrary
                 id="GlobalNav_ArticleLibraryButton"
-                styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.LIBRARY ? 'active ractive' : 'inactive')} GS_CI9_ "
-                >Library</link:articleLibrary></td>
-            <td width="28px">&amp;#160;</td>
+                styleClass="subnav_first GS_CI9_ "
+                >Popular topics:</link:articleLibrary></td>
+            <!--#7--><td><link:schoolChoiceCenter
+                                 id="GlobalNav_ChoosingButton"
+                                 styleClass=" GS_CI9_ "
+                >Choosing the Right School</link:schoolChoiceCenter></td>
+            <!--#--><td><link:specialNeeds
+                                 id="GlobalNav_LDButton"
+                                 styleClass=" GS_CI9_ "
+                >Learning Disabilities</link:specialNeeds></td>
+            <!--#--><td><link:tutoring
+                                 id="GlobalNav_TutoringHomeworkButton"
+                                 styleClass=" GS_CI9_ "
+                >Tutoring &amp;amp; Homework</link:tutoring></td>
+            <!--#9--><td><link:countdownToCollege
+                                 id="GlobalNav_CollegePrepButton"
+                                 styleClass=" GS_CI9_ "
+                >College Prep</link:countdownToCollege></td>
+            <!--#--><td><link:mediaChoices
+                                 id="GlobalNav_MediaChildButton"
+                                 styleClass=" GS_CI9_ "
+                >Media &amp;amp; Your Child</link:mediaChoices></td>
+            <!--#--><td><link:healthyKids
+                                 styleId="GlobalNav_HealthyKidsButton"
+                                 styleClass=" GS_CI9_ "
+                >Healthy Kids</link:healthyKids></td>
         </tr>
     </table>
     <!--</td>-->

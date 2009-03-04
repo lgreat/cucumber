@@ -2320,6 +2320,13 @@
             <![CDATA[Link to special needs microsite page.]]>
         </description>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>
+        <attribute>
             <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -2366,6 +2373,13 @@
             <![CDATA[Link to media choices page.]]>
         </description>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+        <attribute>
             <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -2397,6 +2411,13 @@
         <description>
             <![CDATA[Link to Countdown to college microsite page.]]>
         </description>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
         <attribute>
             <name>styleClass</name>
             <required>false</required>
@@ -2459,6 +2480,79 @@
             <description>onMouseOut javascript event handler</description>
         </attribute>
     </tag>
+
+    <tag>
+        <name>elementary-school</name>
+        <tag-class>gs.web.jsp.link.ElementarySchoolTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>elementary-school</display-name>
+        <description>
+            <![CDATA[Link to the elementary school landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>middle-school</name>
+        <tag-class>gs.web.jsp.link.MiddleSchoolTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>middle-school</display-name>
+        <description>
+            <![CDATA[Link to the middle school landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>high-school</name>
+        <tag-class>gs.web.jsp.link.HighSchoolTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>high-school</display-name>
+        <description>
+            <![CDATA[Link to the high school landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+
     <tag>
         <name>stateStandards</name>
         <tag-class>gs.web.jsp.link.microsite.StateStandardsTagHandler</tag-class>
@@ -2532,6 +2626,13 @@
         <description>
             <![CDATA[Link to tutoring microsite page.]]>
         </description>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
         <attribute>
             <name>styleClass</name>
             <required>false</required>

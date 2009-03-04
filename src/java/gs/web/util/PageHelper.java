@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.72 2009/01/03 05:12:27 yfan Exp $
+ * $Id: PageHelper.java,v 1.73 2009/03/04 18:32:09 droy Exp $
  */
 
 package gs.web.util;
@@ -52,6 +52,10 @@ public class PageHelper {
         put("SEASONAL", "7");
         put("COUNTDOWN_COLLEGE", "9");
         put("COMMUNITY_LANDING", "10");
+        put("PRESCHOOL", "11");
+        put("ELEMENTARY_SCHOOL", "12");
+        put("MIDDLE_SCHOOL", "13");
+        put("HIGH_SCHOOL", "14");
     }};
 
     private final SessionContext _sessionContext;
