@@ -24,23 +24,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by IntelliJ IDEA.
- * User: npatury
- * Date: Mar 3, 2009
- * Time: 2:53:06 PM
- * To change this template use File | Settings | File Templates.
+ * Shared behavior between e/m/h landing page controllers. Subclasses should extend populateModel to do
+ * custom processing.
+ *
+ * @author aroy@greatschools.net
+ * @author npatury@greatschools.net
  */
-public abstract class AbstractGradeLevelLandingPageController extends AbstractController {
+public class BaseGradeLevelLandingPageController extends AbstractController {
     private ITableDao _tableDao;
     private String _viewName;
     protected final Log _log = LogFactory.getLog(getClass());
+    private List<String> _keySuffixes;
     
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         injectWorksheetName(request);
         Map<String, Object> model = new HashMap<String, Object>();
         // do grade level specific work on the model here
         try {
-              populateModel(model,request);
+              populateModel(model);
         } catch (Exception e) {
             _log.error(e, e);
         }
@@ -56,6 +57,14 @@ public abstract class AbstractGradeLevelLandingPageController extends AbstractCo
 
         return new ModelAndView(getViewName(),model);
     }
+
+    /**
+     * TODO: Improve performance.
+     * Performance-wise, this method encourages multiple round trips to Google.
+     * Ideally this would get every row in the spreadsheet the first time and cache it locally.
+     * Then subsequent calls would pull from the local cache. For example, the elem controller
+     * calls this method six times for k, 1, 2, 3, 4, and 5.
+     */
     public void loadTableRowsIntoModel(Map<String, Object> model,String keySuffix) {
         ITableRow teaserCollegeRow = getTableDao().getFirstRowByKey("key", "teaserText_"+keySuffix);
         ITableRow callToActionCollegeRow = getTableDao().getFirstRowByKey("key", "callToAction_"+keySuffix);
@@ -88,14 +97,25 @@ public abstract class AbstractGradeLevelLandingPageController extends AbstractCo
         if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
             worksheetName = "od6";
         } else if (UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = "od6";
+            worksheetName = "od7";
         } else {
-            worksheetName = "od6";
+            worksheetName = "od4";
         }
 
         return worksheetName;
     }
-    protected abstract void populateModel(Map<String,Object> model,HttpServletRequest request);
+
+    /**
+     * Extend this method to do custom processing.
+     */
+    protected void populateModel(Map<String,Object> model) {
+        if (getKeySuffixes() != null && getKeySuffixes().size() > 0) {
+            for (String keySuffix: getKeySuffixes()) {
+                _log.info("Loading " + keySuffix + " into model");
+                loadTableRowsIntoModel(model, keySuffix);
+            }
+        }
+    }
     
     public ITableDao getTableDao() {
         return _tableDao;
@@ -113,4 +133,11 @@ public abstract class AbstractGradeLevelLandingPageController extends AbstractCo
         _viewName = viewName;
     }
 
+    public List<String> getKeySuffixes() {
+        return _keySuffixes;
+    }
+
+    public void setKeySuffixes(List<String> keySuffixes) {
+        _keySuffixes = keySuffixes;
+    }
 }
