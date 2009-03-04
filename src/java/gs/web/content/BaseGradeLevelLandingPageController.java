@@ -45,7 +45,9 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
         // do grade level specific work on the model here
         try {
+            loadTableRowsIntoModel(model);
             populateModel(model);
+            model.remove("keyRowMap");
         } catch (Exception e) {
             _log.error(e, e);
         }
@@ -82,21 +84,47 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
     }
 
     /**
-     * TODO: Improve performance.
-     * Performance-wise, this method encourages multiple round trips to Google.
-     * In fact, each get*Row call is doing a round trip. eeek!
-     * Ideally this would get every row in the spreadsheet the first time and cache it locally.
-     * Then subsequent calls would pull from the local cache. For example, the elem controller
-     * calls this method six times for k, 1, 2, 3, 4, and 5, and each method call has 3 round trips,
-     * bringing the total up to 18.
+     * Pre-load google spreadsheet into the model. This is to improve performance by making only a single
+     * round trip to Google. The map is indexed by the value in the column "key"
      */
-    public void loadTableRowsIntoModel(Map<String, Object> model,String keySuffix) {
-        ITableRow teaserCollegeRow = getTableDao().getFirstRowByKey("key", "teaserText_"+keySuffix);
-        ITableRow callToActionCollegeRow = getTableDao().getFirstRowByKey("key", "callToAction_"+keySuffix);
+    protected void loadTableRowsIntoModel(Map<String, Object> model) {
+        List<ITableRow> rows = getTableDao().getAllRows();
+        Map<String, List<ITableRow>> keyRowMap = new HashMap<String, List<ITableRow>>(rows.size());
+        for (ITableRow row: rows) {
+            String key = row.getString("key");
+            List<ITableRow> existingValues = keyRowMap.get(key);
+            if (existingValues == null) {
+                existingValues = new ArrayList<ITableRow>();
+                keyRowMap.put(key, existingValues);
+            }
+            existingValues.add(row);
+        }
+        model.put("keyRowMap", keyRowMap);
+    }
+
+    /**
+     * Convenience method to pull a row out of the map
+     */
+    protected ITableRow getFirstRowFromMap(Map<String, List<ITableRow>> keyRowMap, String key) {
+        List<ITableRow> existingValues = keyRowMap.get(key);
+        if (existingValues != null) {
+            return existingValues.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * This operates off of the local cached map and never makes any round trips to Google.
+     */
+    public void loadTableRowsIntoModel(Map<String, Object> model, String keySuffix) {
+        Map<String, List<ITableRow>> keyRowMap = (Map<String, List<ITableRow>>) model.get("keyRowMap");
+
+        ITableRow teaserCollegeRow = getFirstRowFromMap(keyRowMap, "teaserText_"+keySuffix);
+        ITableRow callToActionCollegeRow = getFirstRowFromMap(keyRowMap, "callToAction_"+keySuffix);
         model.put("teaserText_"+keySuffix, teaserCollegeRow.getString("text"));
         model.put("callToAction_"+keySuffix, callToActionCollegeRow.getString("text"));
         model.put("callToAction_"+keySuffix+"Url", callToActionCollegeRow.getString("url"));
-        List<ITableRow> articleLinkCollegeRows = getTableDao().getRowsByKey("key", "articleLink_"+keySuffix);
+        List<ITableRow> articleLinkCollegeRows = keyRowMap.get("articleLink_"+keySuffix);
         for (ITableRow row : articleLinkCollegeRows) {
             String key = row.getString("key");
             String text = row.getString("text");
