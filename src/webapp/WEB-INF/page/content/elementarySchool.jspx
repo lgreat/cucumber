@@ -11,6 +11,8 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 <html lang="en">
 
@@ -144,47 +146,62 @@
                         </li>
                     </ul>
                     <content:gradeLevelBox cssId="kindergartenBox" cssStyle=""
-                            imageAlt="Kindergarten child" imageSrc="/res/img/foo.jpg"
-                            heading="Kindergarten" text="${requestScope.teaserText_k}"
-                            ctaHref="${requestScope.callToAction_kUrl}" ctaText="${requestScope.callToAction_k}"
-                            articleList="${requestScope.articleLink_k}"
-                            promoGradeWord="kindergarten" promoGradeWordPossessive="kindergartner" promoAutocheck="myk"/>
+                                           imageAlt="Kindergarten child" imageSrc="/res/img/foo.jpg"
+                                           heading="Kindergarten" text="${requestScope.teaserText_k}"
+                                           ctaHref="${requestScope.callToAction_kUrl}"
+                                           ctaText="${requestScope.callToAction_k}"
+                                           articleList="${requestScope.articleLink_k}"
+                                           promoGradeWord="kindergarten" promoGradeWordPossessive="kindergartner"
+                                           promoAutocheck="myk"/>
                     <content:gradeLevelBox cssId="firstBox" cssStyle="display: none;"
-                            imageAlt="First grade child" imageSrc="/res/img/foo.jpg"
-                            heading="First Grade" text="${requestScope.teaserText_1}"
-                            ctaHref="${requestScope.callToAction_1Url}" ctaText="${requestScope.callToAction_1}"
-                            articleList="${requestScope.articleLink_1}"
-                            promoGradeWord="first grade" promoGradeWordPossessive="first grader" promoAutocheck="my1"/>
+                                           imageAlt="First grade child" imageSrc="/res/img/foo.jpg"
+                                           heading="First Grade" text="${requestScope.teaserText_1}"
+                                           ctaHref="${requestScope.callToAction_1Url}"
+                                           ctaText="${requestScope.callToAction_1}"
+                                           articleList="${requestScope.articleLink_1}"
+                                           promoGradeWord="first grade" promoGradeWordPossessive="first grader"
+                                           promoAutocheck="my1"/>
                     <content:gradeLevelBox cssId="secondBox" cssStyle="display: none;"
-                            imageAlt="Second grade child" imageSrc="/res/img/foo.jpg"
-                            heading="Second Grade" text="${requestScope.teaserText_2}"
-                            ctaHref="${requestScope.callToAction_2Url}" ctaText="${requestScope.callToAction_2}"
-                            articleList="${requestScope.articleLink_2}"
-                            promoGradeWord="second grade" promoGradeWordPossessive="second grader" promoAutocheck="my2"/>
+                                           imageAlt="Second grade child" imageSrc="/res/img/foo.jpg"
+                                           heading="Second Grade" text="${requestScope.teaserText_2}"
+                                           ctaHref="${requestScope.callToAction_2Url}"
+                                           ctaText="${requestScope.callToAction_2}"
+                                           articleList="${requestScope.articleLink_2}"
+                                           promoGradeWord="second grade" promoGradeWordPossessive="second grader"
+                                           promoAutocheck="my2"/>
                     <content:gradeLevelBox cssId="thirdBox" cssStyle="display: none;"
-                            imageAlt="Third grade child" imageSrc="/res/img/foo.jpg"
-                            heading="Third Grade" text="${requestScope.teaserText_3}"
-                            ctaHref="${requestScope.callToAction_3Url}" ctaText="${requestScope.callToAction_3}"
-                            articleList="${requestScope.articleLink_3}"
-                            promoGradeWord="third grade" promoGradeWordPossessive="third grader" promoAutocheck="my3"/>
+                                           imageAlt="Third grade child" imageSrc="/res/img/foo.jpg"
+                                           heading="Third Grade" text="${requestScope.teaserText_3}"
+                                           ctaHref="${requestScope.callToAction_3Url}"
+                                           ctaText="${requestScope.callToAction_3}"
+                                           articleList="${requestScope.articleLink_3}"
+                                           promoGradeWord="third grade" promoGradeWordPossessive="third grader"
+                                           promoAutocheck="my3"/>
                     <content:gradeLevelBox cssId="fourthBox" cssStyle="display: none;"
-                            imageAlt="Fourth grade child" imageSrc="/res/img/foo.jpg"
-                            heading="Fourth Grade" text="${requestScope.teaserText_4}"
-                            ctaHref="${requestScope.callToAction_4Url}" ctaText="${requestScope.callToAction_4}"
-                            articleList="${requestScope.articleLink_4}"
-                            promoGradeWord="fourth grade" promoGradeWordPossessive="fourth grader" promoAutocheck="my4"/>
+                                           imageAlt="Fourth grade child" imageSrc="/res/img/foo.jpg"
+                                           heading="Fourth Grade" text="${requestScope.teaserText_4}"
+                                           ctaHref="${requestScope.callToAction_4Url}"
+                                           ctaText="${requestScope.callToAction_4}"
+                                           articleList="${requestScope.articleLink_4}"
+                                           promoGradeWord="fourth grade" promoGradeWordPossessive="fourth grader"
+                                           promoAutocheck="my4"/>
                     <content:gradeLevelBox cssId="fifthBox" cssStyle="display: none;"
-                            imageAlt="Fifth grade child" imageSrc="/res/img/foo.jpg"
-                            heading="Fifth Grade" text="${requestScope.teaserText_5}"
-                            ctaHref="${requestScope.callToAction_5Url}" ctaText="${requestScope.callToAction_5}"
-                            articleList="${requestScope.articleLink_5}"
-                            promoGradeWord="fifth grade" promoGradeWordPossessive="fifth grader" promoAutocheck="my5"/>
+                                           imageAlt="Fifth grade child" imageSrc="/res/img/foo.jpg"
+                                           heading="Fifth Grade" text="${requestScope.teaserText_5}"
+                                           ctaHref="${requestScope.callToAction_5Url}"
+                                           ctaText="${requestScope.callToAction_5}"
+                                           articleList="${requestScope.articleLink_5}"
+                                           promoGradeWord="fifth grade" promoGradeWordPossessive="fifth grader"
+                                           promoAutocheck="my5"/>
                 </div>
             </div>
 
             <div id="topSchools" class="box">
                 <div class="inner cleared">
-                    <h2>Top elementary schools: <span class="cityName">${requestScope.userCity}</span></h2>
+                    <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
+                                                  topRatedSchools="${requestScope.topRatedSchools}"
+                                                  topSchools="${requestScope.topSchools}"
+                                                  levelCode="e" levelCodeName="elementary"/>
                 </div>
             </div>
 
@@ -207,9 +224,10 @@
                 </div>
             </div>
 
-            <content:funActivitiesThatSupportLearning/>            
+            <content:funActivitiesThatSupportLearning/>
 
-        </div> <!-- end div content -->
+        </div>
+        <!-- end div content -->
 
         <div id="supplement">
 
@@ -227,9 +245,11 @@
 
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </div>
-    </div> <!-- end div main -->
+    </div>
+    <!-- end div main -->
 
-</div> <!-- end div pageWrapper -->
+</div>
+<!-- end div pageWrapper -->
 
 <div style="display: none;">
     <mod:tracking pageName="${pageName}"

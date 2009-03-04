@@ -6,15 +6,17 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.data.util.NameValuePair;
 import gs.data.state.State;
+import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
+import gs.data.school.School;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
@@ -32,28 +34,50 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BaseGradeLevelLandingPageController extends AbstractController {
     private ITableDao _tableDao;
+    private ISchoolDao _schoolDao;
+    private IGeoDao _geoDao;
     private String _viewName;
     protected final Log _log = LogFactory.getLog(getClass());
     private List<String> _keySuffixes;
+    private LevelCode _levelCode;
     
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         injectWorksheetName(request);
         Map<String, Object> model = new HashMap<String, Object>();
         // do grade level specific work on the model here
         try {
-              populateModel(model);
+            populateModel(model);
         } catch (Exception e) {
             _log.error(e, e);
         }
-        // populate city for Top [grade level] schools module
+
         SessionContext context = SessionContextUtil.getSessionContext(request);
-        String userCityName = "Los Angeles";
-        State userState = context.getStateOrDefault();
+        City userCity;
         if (context.getCity() != null) {
-            userCityName = context.getCity().getName();
+            userCity = context.getCity();
+        } else {
+            userCity = getGeoDao().findCity(State.CA, "Los Angeles");
         }
-        model.put("userCity", userCityName);
-        model.put("userState", userState);
+        model.put("cityObject", userCity);
+
+        List<ISchoolDao.ITopRatedSchool> topRatedSchools =
+                getSchoolDao().findTopRatedSchoolsInCity(userCity, 1, _levelCode.getLowestLevel(), 5);
+        if (topRatedSchools.size() > 0) {
+            model.put("topRatedSchools", topRatedSchools);
+            List<School> schools = new ArrayList<School>(topRatedSchools.size());
+            for (ISchoolDao.ITopRatedSchool s: topRatedSchools) {
+                schools.add(s.getSchool());
+            }
+            model.put("topSchools", schools);
+        } else {
+            List schools = getSchoolDao().findSchoolsInCity(userCity.getState(), userCity.getName(), false);
+            if (schools.size() > 0) {
+                if (schools.size() > 10) {
+                    schools = schools.subList(0, 10);
+                }
+                model.put("topSchools", schools);
+            }
+        }
 
         return new ModelAndView(getViewName(),model);
     }
@@ -61,9 +85,11 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
     /**
      * TODO: Improve performance.
      * Performance-wise, this method encourages multiple round trips to Google.
+     * In fact, each get*Row call is doing a round trip. eeek!
      * Ideally this would get every row in the spreadsheet the first time and cache it locally.
      * Then subsequent calls would pull from the local cache. For example, the elem controller
-     * calls this method six times for k, 1, 2, 3, 4, and 5.
+     * calls this method six times for k, 1, 2, 3, 4, and 5, and each method call has 3 round trips,
+     * bringing the total up to 18.
      */
     public void loadTableRowsIntoModel(Map<String, Object> model,String keySuffix) {
         ITableRow teaserCollegeRow = getTableDao().getFirstRowByKey("key", "teaserText_"+keySuffix);
@@ -106,7 +132,9 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
     }
 
     /**
-     * Extend this method to do custom processing.
+     * Default behavior is to load the rows listed in keySuffixes into the model.
+     * Extend this method to do custom processing. But remember to call super if you want to keep the
+     * default behavior!
      */
     protected void populateModel(Map<String,Object> model) {
         if (getKeySuffixes() != null && getKeySuffixes().size() > 0) {
@@ -124,6 +152,22 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
         _tableDao = tableDao;
     }
 
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
+    }
+
     public String getViewName() {
         return _viewName;
     }
@@ -138,5 +182,13 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
 
     public void setKeySuffixes(List<String> keySuffixes) {
         _keySuffixes = keySuffixes;
+    }
+
+    public LevelCode getLevelCode() {
+        return _levelCode;
+    }
+
+    public void setLevelCode(LevelCode levelCode) {
+        _levelCode = levelCode;
     }
 }

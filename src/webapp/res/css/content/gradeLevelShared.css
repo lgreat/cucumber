@@ -144,5 +144,35 @@ div.compareSchoolForm input.formButton {
     top: -3px;
 }
 
+#map, #mapContainer {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    top: 10px;
+}
 
+.topRatedSchools th {
+    border-color: #DDD;
+    border-style: solid;
+    border-width: 0 0 1px;
+    color: #999;
+    font-size: x-small;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    vertical-align: bottom;
+}
+
+.topRatedSchools td {
+    font-size: small;
+    margin: 0;
+    padding: 2px 5px 3px 0;
+}
+
+.topRatedSchools .dottedLineBottomBox {
+    padding-bottom: 4px;
+    padding-top: 4px;
+    border: 0 solid #DDD;
+    border-bottom-width: 1px;
+    margin-bottom: 3px;
+}
 

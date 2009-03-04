@@ -1008,6 +1008,7 @@
                 <value>5</value>
             </list>
         </property>
+        <property name="levelCode" value="e"/>
     </bean>
 
     <bean name="/content/middleSchool.page"
@@ -1024,6 +1025,7 @@
                 <value>ms_college</value>
             </list>
         </property>
+        <property name="levelCode" value="m"/>
     </bean>
 
     <bean name="/content/highSchool.page"
@@ -1039,6 +1041,7 @@
                 <value>hs_boost_hallway</value>
             </list>
         </property>
+        <property name="levelCode" value="h"/>
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"

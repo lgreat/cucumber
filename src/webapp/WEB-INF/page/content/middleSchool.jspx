@@ -147,7 +147,10 @@
 
             <div id="topSchools" class="box">
                 <div class="inner cleared">
-                    <h2>Top middle schools: <span class="cityName">${requestScope.userCity}</span></h2>
+                    <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
+                                                  topRatedSchools="${requestScope.topRatedSchools}"
+                                                  topSchools="${requestScope.topSchools}"
+                                                  levelCode="m" levelCodeName="middle"/>
                 </div>
             </div>
             
