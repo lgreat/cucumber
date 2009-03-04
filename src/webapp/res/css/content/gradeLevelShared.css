@@ -24,6 +24,11 @@
 	margin: 10px 0;
 }
 
+#supplement h2 .smaller {
+    font-size: 17px;
+    color: #666;
+}
+
 .gradeLevelBox {
     position: relative;
     padding: 0 0 40px 187px;
@@ -54,3 +59,47 @@
 #schoolChoicePromo .inner {
     padding-right: 5px;
 }
+
+#findASchool {
+    font-size: 13px;
+}
+
+div.findSchoolForm input.formText, div.findSchoolForm select.formState {
+    color: #777;
+    margin-right: 5px;
+    vertical-align: top;
+}
+
+div.findSchoolForm input.formText {
+    width: 160px;
+}
+
+div.findSchoolForm input.formButton {
+    position: relative;
+    top: -3px;
+}
+
+div.withinLine {
+    margin-top: 10px;
+}
+
+div.withinLine span, div.withinLine input.formZip, div.withinLine select {
+    vertical-align: top;
+}
+
+div.compareSchoolForm input.formZip, div.compareSchoolForm select.formLevel, div.compareSchoolForm select.formMiles {
+    color: #777;
+    margin: 0 6px;
+}
+
+div.compareSchoolForm input.formZip {
+    width: 75px;
+}
+
+div.compareSchoolForm input.formButton {
+    position: relative;
+    top: -3px;
+}
+
+
+

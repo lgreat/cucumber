@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsweb="gstaglib"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        >
+    <!--
+        Requires javascript methods
+        textSwitch
+        checkStateSelection
+    -->
+
+<div id="findASchool" class="box thin">
+    <div class="inner cleared">
+        <h2>Find a School</h2>
+        <div class="findSchoolForm">
+            <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial">
+                <input type="hidden" name="c" value="school"/>
+            <input type="text" name="q" class="formText"
+                   value="Enter school, city or district"
+                   onfocus="textSwitch(this, '', 'Enter school, city or district');"
+                   onblur="textSwitch(this, 'Enter school, city or district', '');"/>
+            <gsweb:stateSelector useNoState="${empty requestScope.stateOrNull}"
+                                 styleId="findStateSelector"
+                                 usingLongNames="false"
+                                 state="${requestScope.context.state}" styleClass="formState"/>
+            <input
+                onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
+                onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                onclick="return checkStateSelection('stateSelector3');"
+                class="formButton"
+                alt="Find ${requestScope.context.state.longName} Schools"
+                src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+            </gsweb:form>
+        </div>
+        <div class="hr">
+            <hr/>
+        </div>
+        <h2>Compare Schools <span class="smaller">near an address</span></h2>
+        <div class="compareSchoolForm">
+            <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
+                <input type="hidden" name="sortby" value="distance" />
+                <input type="hidden" name="tab" value="over" />
+                <input type="hidden" name="area" value="m" />
+                <input type="hidden" name="form" value="address" />
+                <div class="showMeLine">
+                    <span>Show me</span>
+                    <select name="level" class="formLevel">
+                        <option value="e">elementary</option>
+                        <option value="m">middle</option>
+                        <option value="h">high</option>
+                    </select>
+                    <span>schools</span>
+                </div>
+                <div class="withinLine">
+                    <span>within</span>
+                    <select name="miles" class="formMiles">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>
+                    </select>
+                    <span>miles of</span>
+                    <input type="text" name="zip" class="formZip" value="zip"
+                           onfocus="textSwitch(this, '', 'zip');"
+                           onblur="textSwitch(this, 'zip', '');"/>
+                    <input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
+                           onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                           class="formButton"
+                           alt="Compare ${requestScope.context.state.longName} Schools"
+                           src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+                </div>
+            </gsweb:form>
+        </div>
+    </div>
+</div>
+
+</jsp:root>

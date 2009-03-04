@@ -10,6 +10,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
 <html lang="en">
 
@@ -71,6 +72,30 @@
                 }
             }
         }
+
+        // Returns true if a state has been selected.
+        function checkStateSelection(id) {
+            var select = document.getElementById(id);
+            if (select.options[select.selectedIndex].value == "") {
+                alert("Please select a state");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function clearIfEqual(input, defaultValue) {
+            if (input.value == defaultValue) {
+                input.value = '';        
+            }
+        }
+
+        function textSwitch(el, target, replace) {
+            if (el.value == replace) {
+                el.value = target;
+            }
+        }
+
         -->
     </script>
     ]]>
@@ -182,11 +207,8 @@
         </div> <!-- end div content -->
 
         <div id="supplement">
-            <div id="findASchool" class="box thin">
-                <div class="inner cleared">
-                    <h2>Find a School</h2>
-                </div>
-            </div>
+
+            <school:findAndCompareNear/>
 
             <ad:AboveFold_300x250/>
 
