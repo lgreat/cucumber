@@ -124,7 +124,7 @@
 
             <div id="intro" class="box">
                 <div class="inner cleared">
-                    <h2>Supporting your child grade-by-grade</h2>
+                    <h2>Laying down the basics</h2>
                     <ul class="horizontalList">
                         <li class="noborder selected">
                             <a href="#" onclick="selectGrade(this, 'kindergartenBox'); return false;">Kindergarten</a>
@@ -207,30 +207,23 @@
 
             <div id="communityModule" class="box">
                 <div class="inner cleared">
-                    <h2 class="quotable">What do you think?</h2>
-
+                    <h2 class="quotable">Talk back</h2>
                     <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
-
                     <div class="column">
                         <c:import
                                 url="/content/editorialLinks.module?page=elementary_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=ElementaryLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
-
                         <p class="more">
                             <gsml:a styleClass="GS_EV5_" id="ElementaryLanding_CommDisc__aMore"
-                                    href="http://${communityHost}/groups/11527">Meet other elementary school parents &amp;gt;</gsml:a>
+                                    href="http://${communityHost}/groups/11527">Join other elementary school parents &amp;gt;</gsml:a>
                         </p>
                     </div>
-
                 </div>
             </div>
 
             <content:funActivitiesThatSupportLearning/>
-
-        </div>
-        <!-- end div content -->
+        </div> <!-- end div content -->
 
         <div id="supplement">
-
             <school:findAndCompareNear/>
 
             <ad:AboveFold_300x250/>
@@ -245,11 +238,8 @@
 
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </div>
-    </div>
-    <!-- end div main -->
-
-</div>
-<!-- end div pageWrapper -->
+    </div> <!-- end div main -->
+</div> <!-- end div pageWrapper -->
 
 <div style="display: none;">
     <mod:tracking pageName="${pageName}"
