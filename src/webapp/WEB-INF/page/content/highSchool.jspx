@@ -121,10 +121,10 @@
                     <h2>Preparing your teen for lift off</h2>
                     <ul class="horizontalList">
                         <li class="noborder selected">
-                            <a href="#" onclick="selectSupport(this, 'classroomBox'); return false;">In the classroom</a>
+                            <a href="#" onclick="selectSupport(this, 'classroomBox'); return false;">Academic skills</a>
                         </li>
                         <li>
-                            <a href="#" onclick="selectSupport(this, 'hallwayBox'); return false;">In the hallway</a>
+                            <a href="#" onclick="selectSupport(this, 'hallwayBox'); return false;">Social skills</a>
                         </li>
 
                     </ul>
