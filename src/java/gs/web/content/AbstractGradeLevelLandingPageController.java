@@ -14,8 +14,11 @@ import java.util.HashMap;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.data.util.NameValuePair;
+import gs.data.state.State;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,11 +38,22 @@ public abstract class AbstractGradeLevelLandingPageController extends AbstractCo
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         injectWorksheetName(request);
         Map<String, Object> model = new HashMap<String, Object>();
+        // do grade level specific work on the model here
         try {
               populateModel(model,request);
         } catch (Exception e) {
             _log.error(e, e);
         }
+        // populate city for Top [grade level] schools module
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        String userCityName = "Los Angeles";
+        State userState = context.getStateOrDefault();
+        if (context.getCity() != null) {
+            userCityName = context.getCity().getName();
+        }
+        model.put("userCity", userCityName);
+        model.put("userState", userState);
+
         return new ModelAndView(getViewName(),model);
     }
     public void loadTableRowsIntoModel(Map<String, Object> model,String keySuffix) {
@@ -47,6 +61,7 @@ public abstract class AbstractGradeLevelLandingPageController extends AbstractCo
         ITableRow callToActionCollegeRow = getTableDao().getFirstRowByKey("key", "callToAction_"+keySuffix);
         model.put("teaserText_"+keySuffix, teaserCollegeRow.getString("text"));
         model.put("callToAction_"+keySuffix, callToActionCollegeRow.getString("text"));
+        model.put("callToAction_"+keySuffix+"Url", callToActionCollegeRow.getString("url"));
         List<ITableRow> articleLinkCollegeRows = getTableDao().getRowsByKey("key", "articleLink_"+keySuffix);
         for (ITableRow row : articleLinkCollegeRows) {
             String key = row.getString("key");

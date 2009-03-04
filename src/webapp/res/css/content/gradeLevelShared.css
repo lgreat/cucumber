@@ -29,6 +29,43 @@
     color: #666;
 }
 
+h2.quotable {
+	background: url(/res/img/library/quote_bubble.png) no-repeat left 4px;
+	min-height: 22px;
+	padding: 2px 0 0 30px;
+}
+
+#intro ul.horizontalList li {
+    background: 0;
+    list-style:none;
+    margin: 0;
+    padding: 0 5px 0 5px;
+    display: inline;
+    font-size: 12px;
+    border-left: 1px solid #888;
+}
+
+#intro ul.horizontalList li.noborder {
+    border-left: 0;
+    padding-left: 0;
+}
+
+#intro ul.horizontalList li.selected {
+    padding-left: 15px;
+    background: url(/res/img/library/arrow-down.png) no-repeat 5px;
+}
+
+#intro ul.horizontalList li.selected a {
+    text-decoration: none;
+    color: #666;
+    cursor: default;
+}
+
+#communityModule div.column {
+    margin: -4px 0 5px 10px;
+    width: 262px;
+}
+
 .gradeLevelBox {
     position: relative;
     padding: 0 0 40px 187px;
@@ -54,6 +91,12 @@
 
 .gradeLevelBox ul.gradeArticleLinksList li a {
     font-size: 13px;
+}
+
+.gradeLevelBox p.promo {
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
 
 #schoolChoicePromo .inner {

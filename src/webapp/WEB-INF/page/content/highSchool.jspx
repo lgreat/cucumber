@@ -10,6 +10,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
 <html lang="en">
 
@@ -37,7 +38,7 @@
 
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
-    <pageHelper:externalCss file="/res/css/content/highSchool.css"/>
+    <pageHelper:externalCss file="/res/css/content/gradeLevelShared.css"/>
 
     <![CDATA[
     <!--[if IE]>
@@ -45,13 +46,57 @@
     <![endif]-->
     ]]>
 
+    <![CDATA[
+    <script type="text/javascript" language="javascript">
+    <!--
+        // linkElem == a
+        // linkElem.parentNode == li
+        // linkElem.parentNode.parentNode == ul
+        function selectSupport(linkElem, boxId) {
+            var x;
+            // de-select all links
+            var listItemsArr = Element.extend(linkElem.parentNode.parentNode).childElements();
+            for (x=0; x < listItemsArr.length; x++) {
+                listItemsArr[x].removeClassName("selected");
+            }
+            // select current link
+            Element.extend(linkElem.parentNode).addClassName("selected");
+            // hide all boxes, show current box
+            var boxArr = $$('#intro .gradeLevelBox');
+            for (x=0; x < boxArr.length; x++) {
+                if (boxArr[x].id == boxId) {
+                    boxArr[x].show();
+                } else {
+                    boxArr[x].hide();
+                }
+            }
+        }
+
+        // Returns true if a state has been selected.
+        function checkStateSelection(id) {
+            var select = document.getElementById(id);
+            if (select.options[select.selectedIndex].value == "") {
+                alert("Please select a state");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        // Swaps text value with another
+        function textSwitch(el, target, replace) {
+            if (el.value == replace) {
+                el.value = target;
+            }
+        }
+        -->
+    </script>
+    ]]>
+
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
-    <jsp:scriptlet>
-        request.setAttribute("elemPage", gs.web.util.UrlBuilder.ELEMENTARY_SCHOOL);
-    </jsp:scriptlet>
 </head>
 
 
@@ -71,12 +116,79 @@
         <h1>High School</h1>
 
         <div id="content">
+              <div id="intro" class="box">
+                <div class="inner cleared">
+                    <h2>Boost your child's success</h2>
+                    <ul class="horizontalList">
+                        <li class="noborder selected">
+                            <a href="#" onclick="selectSupport(this, 'classroomBox'); return false;">In the classroom</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectSupport(this, 'hallwayBox'); return false;">In the hallway</a>
+                        </li>
+
+                    </ul>
+                    <content:gradeLevelBox cssId="classroomBox" cssStyle=""
+                            imageAlt="Support Classroom" imageSrc="/res/img/foo.jpg"
+                            text="${requestScope.teaserText_hs_boost_classroom}"
+                            ctaHref="${requestScope.callToAction_hs_boost_classroomUrl}" ctaText="${requestScope.callToAction_hs_boost_classroom}"
+                            articleList="${requestScope.articleLink_hs_boost_classroom}"
+                            promoGradeWord="High School Matters" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
+
+                    <content:gradeLevelBox cssId="hallwayBox" cssStyle="display: none;"
+                            imageAlt="Support Hallway" imageSrc="/res/img/foo.jpg"
+                            text="${requestScope.teaserText_hs_boost_hallway}"
+                            ctaHref="${requestScope.callToAction_hs_boost_hallwayUrl}" ctaText="${requestScope.callToAction_hs_boost_hallway}"
+                            articleList="${requestScope.articleLink_hs_boost_hallway}"
+                            promoGradeWord="High School Matters" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
+                </div>
+            </div>
+
+            <div id="topSchools" class="box">
+                <div class="inner cleared">
+                    <h2>Top high schools: <span class="cityName">${requestScope.userCity}</span></h2>
+                </div>
+            </div>
+
+            <div id="collegeModule" class="box">
+                <div class="inner cleared">
+                    <h2>Ready, set, college!</h2>
+                </div>
+            </div>
+
+            <div id="communityModule" class="box">
+                <div class="inner cleared">
+                    <h2 class="quotable">What do you think?</h2>
+                    <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
+
+                    <div class="column">
+                        <c:import
+                                url="/content/editorialLinks.module?page=high_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=HighLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
+
+                        <p class="more">
+                            <gsml:a styleClass="GS_EV5_" id="HighLanding_CommDisc__aMore"
+                                    href="http://${communityHost}/groups/11529">Meet other high school parents &amp;gt;</gsml:a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
 
         </div> <!-- end div content -->
 
         <div id="supplement">
 
+            <school:findAndCompareNear/>
+
             <ad:AboveFold_300x250/>
+
+            <div id="schoolChoicePromo" class="box">
+                <div class="inner">
+                    <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
+                                                 showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                                 caller="high"/>
+                </div>
+            </div>
 
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </div>

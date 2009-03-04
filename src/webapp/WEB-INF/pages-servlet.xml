@@ -1010,10 +1010,12 @@
     </bean>
 
     <bean name="/content/highSchool.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.content.HighLandingPageController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/highSchool"/>
-
+        <property name="tableDao">
+            <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
+        </property>
     </bean>
 
     <bean name="/geo/landing/dayton_ohio.page"

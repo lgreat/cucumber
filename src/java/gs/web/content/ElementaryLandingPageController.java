@@ -18,14 +18,5 @@ public class ElementaryLandingPageController extends AbstractGradeLevelLandingPa
         loadTableRowsIntoModel(model,"3");
         loadTableRowsIntoModel(model,"4");
         loadTableRowsIntoModel(model,"5");
-
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        String userCityName = "Los Angeles";
-        State userState = context.getStateOrDefault();
-        if (context.getCity() != null) {
-            userCityName = context.getCity().getName();
-        }
-        model.put("userCity", userCityName);
-        model.put("userState", userState);
     }
 }

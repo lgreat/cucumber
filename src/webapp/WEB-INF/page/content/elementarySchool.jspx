@@ -84,12 +84,7 @@
             }
         }
 
-        function clearIfEqual(input, defaultValue) {
-            if (input.value == defaultValue) {
-                input.value = '';        
-            }
-        }
-
+        // Swaps text value with another
         function textSwitch(el, target, replace) {
             if (el.value == replace) {
                 el.value = target;
@@ -105,9 +100,6 @@
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
-    <jsp:scriptlet>
-        request.setAttribute("elemPage", gs.web.util.UrlBuilder.ELEMENTARY_SCHOOL);
-    </jsp:scriptlet>
 </head>
 
 
@@ -131,7 +123,7 @@
             <div id="intro" class="box">
                 <div class="inner cleared">
                     <h2>Supporting your child grade-by-grade</h2>
-                    <ul id="gradeLinks">
+                    <ul class="horizontalList">
                         <li class="noborder selected">
                             <a href="#" onclick="selectGrade(this, 'kindergartenBox'); return false;">Kindergarten</a>
                         </li>
@@ -198,7 +190,20 @@
 
             <div id="communityModule" class="box">
                 <div class="inner cleared">
-                    <h2>What do you think?</h2>
+                    <h2 class="quotable">What do you think?</h2>
+
+                    <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
+
+                    <div class="column">
+                        <c:import
+                                url="/content/editorialLinks.module?page=elementary_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=ElementaryLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
+
+                        <p class="more">
+                            <gsml:a styleClass="GS_EV5_" id="ElementaryLanding_CommDisc__aMore"
+                                    href="http://${communityHost}/groups/11527">Meet other elementary school parents &amp;gt;</gsml:a>
+                        </p>
+                    </div>
+
                 </div>
             </div>
 
