@@ -111,7 +111,6 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
     protected void populateModel(Map<String,Object> model) {
         if (getKeySuffixes() != null && getKeySuffixes().size() > 0) {
             for (String keySuffix: getKeySuffixes()) {
-                _log.info("Loading " + keySuffix + " into model");
                 loadTableRowsIntoModel(model, keySuffix);
             }
         }

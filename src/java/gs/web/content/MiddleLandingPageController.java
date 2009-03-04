@@ -1,15 +1,10 @@
 package gs.web.content;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 /**
- *  @author Anthony Roy <mailto:aroy@greatschools.net>
+ * TODO: evaluate necessity of this class
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
+ * 
+ * Tell me this isn't beautiful
  */
-public class MiddleLandingPageController extends AbstractGradeLevelLandingPageController {
-
-    protected void populateModel(Map<String, Object> model, HttpServletRequest request) {
-        loadTableRowsIntoModel(model,"ms_support_classroom");
-        loadTableRowsIntoModel(model,"ms_support_hallway");
-        loadTableRowsIntoModel(model,"ms_college");
-    }
+public class MiddleLandingPageController extends BaseGradeLevelLandingPageController {
 }

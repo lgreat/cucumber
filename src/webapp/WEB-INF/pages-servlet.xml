@@ -998,6 +998,16 @@
         <property name="tableDao">
             <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
         </property>
+        <property name="keySuffixes">
+            <list>
+                <value>k</value>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+                <value>4</value>
+                <value>5</value>
+            </list>
+        </property>
     </bean>
 
     <bean name="/content/middleSchool.page"
@@ -1007,6 +1017,13 @@
         <property name="tableDao">
             <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
         </property>
+        <property name="keySuffixes">
+            <list>
+                <value>ms_support_classroom</value>
+                <value>ms_support_hallway</value>
+                <value>ms_college</value>
+            </list>
+        </property>
     </bean>
 
     <bean name="/content/highSchool.page"
@@ -1015,6 +1032,12 @@
         <property name="viewName" value="/content/highSchool"/>
         <property name="tableDao">
             <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
+        </property>
+        <property name="keySuffixes">
+            <list>
+                <value>hs_boost_classroom</value>
+                <value>hs_boost_hallway</value>
+            </list>
         </property>
     </bean>
 

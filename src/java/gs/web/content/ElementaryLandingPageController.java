@@ -1,22 +1,10 @@
 package gs.web.content;
 
-import javax.servlet.http.HttpServletRequest;
-import gs.data.state.State;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.SessionContext;
-
-import java.util.Map;
-
 /**
+ * TODO: evaluate necessity of this class
  * @author Anthony Roy <mailto:aroy@greatschools.net>
+ *
+ * Isn't it brilliant?
  */
-public class ElementaryLandingPageController extends AbstractGradeLevelLandingPageController {
-     protected void populateModel(Map<String, Object> model,HttpServletRequest request) {
-        loadTableRowsIntoModel(model,"k");
-        loadTableRowsIntoModel(model,"1");
-        loadTableRowsIntoModel(model,"2");
-        loadTableRowsIntoModel(model,"3");
-        loadTableRowsIntoModel(model,"4");
-        loadTableRowsIntoModel(model,"5");
-    }
+public class ElementaryLandingPageController extends BaseGradeLevelLandingPageController {
 }
