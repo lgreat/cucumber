@@ -12,7 +12,7 @@
 
 <div id="findASchool" class="box thin">
     <div class="inner cleared">
-        <h2>Find a School</h2>
+        <h2>Find a school</h2>
         <div class="findSchoolForm">
             <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial">
                 <input type="hidden" name="c" value="school"/>
@@ -36,7 +36,7 @@
         <div class="hr">
             <hr/>
         </div>
-        <h2>Compare Schools <span class="smaller">near an address</span></h2>
+        <h2>Compare schools <span class="smaller">near an address</span></h2>
         <div class="compareSchoolForm">
             <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
                 <input type="hidden" name="sortby" value="distance" />
@@ -63,9 +63,9 @@
                         <option value="30">30</option>
                     </select>
                     <span>miles of</span>
-                    <input type="text" name="zip" class="formZip" value="zip"
-                           onfocus="textSwitch(this, '', 'zip');"
-                           onblur="textSwitch(this, 'zip', '');"/>
+                    <input type="text" name="zip" class="formZip" value="ZIP code"
+                           onfocus="textSwitch(this, '', 'ZIP code');"
+                           onblur="textSwitch(this, 'ZIP code', '');"/>
                     <input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                            onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
                            class="formButton"

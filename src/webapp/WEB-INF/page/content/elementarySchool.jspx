@@ -192,7 +192,7 @@
 
             <div id="topSchools" class="box">
                 <div class="inner cleared">
-                    <h2>Top Elementary Schools: <span class="cityName">${requestScope.userCity}</span></h2>
+                    <h2>Top elementary schools: <span class="cityName">${requestScope.userCity}</span></h2>
                 </div>
             </div>
 
