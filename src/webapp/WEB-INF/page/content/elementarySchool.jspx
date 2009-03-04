@@ -146,7 +146,7 @@
                         </li>
                     </ul>
                     <content:gradeLevelBox cssId="kindergartenBox" cssStyle=""
-                                           imageAlt="Kindergarten child" imageSrc="/res/img/foo.jpg"
+                                           imageAlt="Kindergarten child" imageSrc="/res/img/content/gradeLanding/elementary_kindergarten.jpg"
                                            heading="Kindergarten" text="${requestScope.teaserText_k}"
                                            ctaHref="${requestScope.callToAction_kUrl}"
                                            ctaText="${requestScope.callToAction_k}"
@@ -154,7 +154,7 @@
                                            promoGradeWord="kindergarten" promoGradeWordPossessive="kindergartner"
                                            promoAutocheck="myk"/>
                     <content:gradeLevelBox cssId="firstBox" cssStyle="display: none;"
-                                           imageAlt="First grade child" imageSrc="/res/img/foo.jpg"
+                                           imageAlt="First grade child" imageSrc="/res/img/content/gradeLanding/elementary_firstgrade.jpg"
                                            heading="First Grade" text="${requestScope.teaserText_1}"
                                            ctaHref="${requestScope.callToAction_1Url}"
                                            ctaText="${requestScope.callToAction_1}"
@@ -162,7 +162,7 @@
                                            promoGradeWord="first grade" promoGradeWordPossessive="first grader"
                                            promoAutocheck="my1"/>
                     <content:gradeLevelBox cssId="secondBox" cssStyle="display: none;"
-                                           imageAlt="Second grade child" imageSrc="/res/img/foo.jpg"
+                                           imageAlt="Second grade child" imageSrc="/res/img/content/gradeLanding/elementary_2ndgrade.jpg"
                                            heading="Second Grade" text="${requestScope.teaserText_2}"
                                            ctaHref="${requestScope.callToAction_2Url}"
                                            ctaText="${requestScope.callToAction_2}"
@@ -170,7 +170,7 @@
                                            promoGradeWord="second grade" promoGradeWordPossessive="second grader"
                                            promoAutocheck="my2"/>
                     <content:gradeLevelBox cssId="thirdBox" cssStyle="display: none;"
-                                           imageAlt="Third grade child" imageSrc="/res/img/foo.jpg"
+                                           imageAlt="Third grade child" imageSrc="/res/img/content/gradeLanding/elementary_3rdgrade.jpg"
                                            heading="Third Grade" text="${requestScope.teaserText_3}"
                                            ctaHref="${requestScope.callToAction_3Url}"
                                            ctaText="${requestScope.callToAction_3}"
@@ -178,7 +178,7 @@
                                            promoGradeWord="third grade" promoGradeWordPossessive="third grader"
                                            promoAutocheck="my3"/>
                     <content:gradeLevelBox cssId="fourthBox" cssStyle="display: none;"
-                                           imageAlt="Fourth grade child" imageSrc="/res/img/foo.jpg"
+                                           imageAlt="Fourth grade child" imageSrc="/res/img/content/gradeLanding/elementary_4thgrade.jpg"
                                            heading="Fourth Grade" text="${requestScope.teaserText_4}"
                                            ctaHref="${requestScope.callToAction_4Url}"
                                            ctaText="${requestScope.callToAction_4}"
@@ -186,7 +186,7 @@
                                            promoGradeWord="fourth grade" promoGradeWordPossessive="fourth grader"
                                            promoAutocheck="my4"/>
                     <content:gradeLevelBox cssId="fifthBox" cssStyle="display: none;"
-                                           imageAlt="Fifth grade child" imageSrc="/res/img/foo.jpg"
+                                           imageAlt="Fifth grade child" imageSrc="/res/img/content/gradeLanding/elementary_5thgrade.jpg"
                                            heading="Fifth Grade" text="${requestScope.teaserText_5}"
                                            ctaHref="${requestScope.callToAction_5Url}"
                                            ctaText="${requestScope.callToAction_5}"
@@ -208,7 +208,7 @@
             <div id="communityModule" class="box">
                 <div class="inner cleared">
                     <h2 class="quotable">Talk back</h2>
-                    <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
+                    <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
                     <div class="column">
                         <c:import
                                 url="/content/editorialLinks.module?page=elementary_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=ElementaryLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>

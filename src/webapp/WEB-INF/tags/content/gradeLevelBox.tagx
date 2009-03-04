@@ -25,21 +25,28 @@
                              description="Autocheck attribute to pass to nthGraderHover promo, e.g. myk"/>
 
     <div id="${cssId}" class="gradeLevelBox" style="${cssStyle}">
-        <img alt="${imageAlt}" src="${imageSrc}" width="177" height="180"/>
-        <h3>${heading}</h3>
-        <p class="text">${text}</p>
-        <a href="${ctaHref}">${ctaText}</a>
-        <ul class="gradeArticleLinksList">
-            <c:forEach items="${articleList}" var="nameValuePair">
-                <li><a href="${nameValuePair.value}">${nameValuePair.key}</a>&amp;nbsp; </li>
-            </c:forEach>
-        </ul>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="left"><img alt="${imageAlt}" src="${imageSrc}" width="177" height="180"/></td>
+                <td class="right">
+                    <h3>${heading}</h3>
+                    <p class="text">${text}</p>
+                    <a href="${ctaHref}">${ctaText}</a>
+                    <ul class="gradeArticleLinksList">
+                        <c:forEach items="${articleList}" var="nameValuePair">
+                            <li><a href="${nameValuePair.value}">${nameValuePair.key}</a>&amp;nbsp; </li>
+                        </c:forEach>
+                    </ul>
+                </td>
+            </tr>
+        </table>
         <c:if test="${not empty promoGradeWord}">
-        <p class="promo">
-            Track your ${promoGradeWordPossessive}'s rapid development.
-            <promo:nthGraderHover autocheck="${promoAutocheck}" referredBy="${pageName}" isForm="false">Sign up for our ${promoGradeWord} newsletter &amp;gt;</promo:nthGraderHover>
-        </p>
-
+            <p class="promo">
+                Track your ${promoGradeWordPossessive}'s rapid development.
+                <promo:nthGraderHover autocheck="${promoAutocheck}"
+                                      referredBy="${requestScope.pageName}"
+                                      isForm="false">Sign up for our ${promoGradeWord} newsletter &amp;gt;</promo:nthGraderHover>
+            </p>
         </c:if>
     </div>
 

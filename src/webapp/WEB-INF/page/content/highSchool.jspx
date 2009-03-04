@@ -129,14 +129,14 @@
 
                     </ul>
                     <content:gradeLevelBox cssId="classroomBox" cssStyle=""
-                            imageAlt="Support Classroom" imageSrc="/res/img/foo.jpg"
+                            imageAlt="Boy in lab coat" imageSrc="/res/img/content/gradeLanding/high_boyinlab.jpg"
                             text="${requestScope.teaserText_hs_boost_classroom}"
                             ctaHref="${requestScope.callToAction_hs_boost_classroomUrl}" ctaText="${requestScope.callToAction_hs_boost_classroom}"
                             articleList="${requestScope.articleLink_hs_boost_classroom}"
                             promoGradeWord="High School Matters" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
 
                     <content:gradeLevelBox cssId="hallwayBox" cssStyle="display: none;"
-                            imageAlt="Support Hallway" imageSrc="/res/img/foo.jpg"
+                            imageAlt="Boy and girl laughing" imageSrc="/res/img/content/gradeLanding/high_socialskills.jpg"
                             text="${requestScope.teaserText_hs_boost_hallway}"
                             ctaHref="${requestScope.callToAction_hs_boost_hallwayUrl}" ctaText="${requestScope.callToAction_hs_boost_hallway}"
                             articleList="${requestScope.articleLink_hs_boost_hallway}"

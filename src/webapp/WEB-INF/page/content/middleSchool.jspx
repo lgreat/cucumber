@@ -130,14 +130,14 @@
 
                     </ul>
                     <content:gradeLevelBox cssId="classroomBox" cssStyle=""
-                            imageAlt="Support Classroom" imageSrc="/res/img/foo.jpg"
+                            imageAlt="Boy studying" imageSrc="/res/img/content/gradeLanding/middle_academics.jpg"
                             text="${requestScope.teaserText_ms_support_classroom}"
                             ctaHref="${requestScope.callToAction_ms_support_classroomUrl}" ctaText="${requestScope.callToAction_ms_support_classroom}"
                             articleList="${requestScope.articleLink_ms_support_classroom}"
                             promoGradeWord="Middle School Matters" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
 
                     <content:gradeLevelBox cssId="hallwayBox" cssStyle="display: none;"
-                            imageAlt="Support Hallway" imageSrc="/res/img/foo.jpg"
+                            imageAlt="Girls whispering to each other" imageSrc="/res/img/content/gradeLanding/middle_socialskills.jpg"
                             text="${requestScope.teaserText_ms_support_hallway}"
                             ctaHref="${requestScope.callToAction_ms_support_hallwayUrl}" ctaText="${requestScope.callToAction_ms_support_hallway}"
                             articleList="${requestScope.articleLink_ms_support_hallway}"
@@ -158,7 +158,7 @@
                 <div class="inner cleared">
                     <h2>Get on track to college</h2>
                     <content:gradeLevelBox cssId="collegeBox" cssStyle=""
-                                               imageAlt="Path to college" imageSrc="/res/img/foo.jpg"
+                                               imageAlt="Mom and daughter" imageSrc="/res/img/content/gradeLanding/middle_momdaughter.jpg"
                                                text="${requestScope.teaserText_ms_college}"
                                                ctaHref="${requestScope.callToAction_ms_collegeUrl}" ctaText="${requestScope.callToAction_ms_college}"
                                                articleList="${requestScope.articleLink_ms_college}"/>
