@@ -261,6 +261,7 @@ public class RegistrationController extends SimpleFormController implements Read
             // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
             if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true)){
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                _userDao.updateUser(user);
             }
 
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
@@ -354,6 +355,7 @@ public class RegistrationController extends SimpleFormController implements Read
         subs.add(communityNewsletterSubscription);
 
         NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);
+        System.out.println("------------------------"+_subscriptionDao.getUserSubscriptions(user)+"-------------------");
         _subscriptionDao.addNewsletterSubscriptions(user, subs);
     }
 
