@@ -240,6 +240,13 @@ public class RegistrationController extends SimpleFormController implements Read
             mAndV.getModel().put("id", user.getId());
             request.setAttribute("password", userCommand.getPassword());
         } else {
+
+             // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
+            // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
+            if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true)){
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                _userDao.updateUser(user);
+            }
             // complete registration
             // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription - Jira -7968
             if (userCommand.getNewsletter() || (isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true))) {
@@ -255,13 +262,6 @@ public class RegistrationController extends SimpleFormController implements Read
                 if (!isChooserRegistration()) {
                     sendConfirmationEmail(user, userCommand, request);
                 }
-            }
-
-            // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
-            // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
-            if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true)){
-                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-                _userDao.updateUser(user);
             }
 
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
