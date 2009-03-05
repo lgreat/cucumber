@@ -35,7 +35,7 @@
     <div id="${cssId}" class="gradeLevelBox" style="${cssStyle}">
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <td class="left"><img alt="${imageAlt}" src="${imageSrc}"/></td>
+                <td class="left"><img alt="${imageAlt}" src="${imageSrc}"/></td> 
                 <td class="right">
                     <c:if test="${not empty heading}">
                         <h3>${heading}</h3>
@@ -67,5 +67,4 @@
             </p>
         </c:if>
     </div>
-
 </jsp:root>
