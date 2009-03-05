@@ -134,7 +134,7 @@
                             ctaHref="${requestScope.callToAction_hs_boost_classroomUrl}" ctaText="${requestScope.callToAction_hs_boost_classroom}"
                             articleIntro="What your child should know:"
                             articleList="${requestScope.articleLink_hs_boost_classroom}"
-                            promoGradeWord="High School Matters" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
+                            promoGradeWord="high school" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
 
                     <content:gradeLevelBox cssId="hallwayBox" cssStyle="display: none;"
                             imageAlt="Boy and girl laughing" imageSrc="/res/img/content/gradeLanding/high_socialskills.jpg"
@@ -143,11 +143,11 @@
                             articleIntro="What to expect:"
                             articleListVertical="${true}"
                             articleList="${requestScope.articleLink_hs_boost_hallway}"
-                            promoGradeWord="High School Matters" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
+                            promoGradeWord="high school" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
                 </div>
             </div>
 
-            <div id="topSchools" class="box">
+            <div id="topSchools" class="box lower">
                 <div class="inner cleared">
                     <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
                                                   topRatedSchools="${requestScope.topRatedSchools}"
@@ -156,16 +156,16 @@
                 </div>
             </div>
 
-            <div id="collegeModule" class="box">
+            <div id="collegeModule" class="box lower">
                 <div class="inner cleared">
                     <h2>Ready, set, college!</h2>
                 </div>
             </div>
 
-            <div id="communityModule" class="box">
+            <div id="communityModule" class="box lower">
                 <div class="inner cleared">
                     <h2 class="quotable">Talk back</h2>
-                    <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
+                    <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
                     <div class="column">
                         <c:import
                                 url="/content/editorialLinks.module?page=high_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=HighLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>

@@ -135,7 +135,7 @@
                             ctaHref="${requestScope.callToAction_ms_support_classroomUrl}" ctaText="${requestScope.callToAction_ms_support_classroom}"
                             articleIntro="What your child should know:"
                             articleList="${requestScope.articleLink_ms_support_classroom}"
-                            promoGradeWord="Middle School Matters" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
+                            promoGradeWord="middle school" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
 
                     <content:gradeLevelBox cssId="hallwayBox" cssStyle="display: none;"
                             imageAlt="Girls whispering to each other" imageSrc="/res/img/content/gradeLanding/middle_socialskills.jpg"
@@ -144,11 +144,11 @@
                             articleIntro="What to expect:"
                             articleListVertical="${true}"
                             articleList="${requestScope.articleLink_ms_support_hallway}"
-                            promoGradeWord="Middle School Matters" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
+                            promoGradeWord="middle school" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
                 </div>
             </div>
 
-            <div id="topSchools" class="box">
+            <div id="topSchools" class="box lower">
                 <div class="inner cleared">
                     <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
                                                   topRatedSchools="${requestScope.topRatedSchools}"
@@ -157,7 +157,7 @@
                 </div>
             </div>
             
-            <div id="collegeModule" class="box">
+            <div id="collegeModule" class="box lower">
                 <div class="inner cleared">
                     <h2>Get on track to college</h2>
                     <content:gradeLevelBox cssId="collegeBox" cssStyle=""
@@ -169,10 +169,10 @@
                 </div>
             </div>
 
-            <div id="communityModule" class="box">
+            <div id="communityModule" class="box lower">
                 <div class="inner cleared">
                     <h2 class="quotable">Talk back</h2>
-                    <img class="left" src="/res/img/library/child_and_parent.jpg" alt="Child and parent"/>
+                    <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
                     <div class="column">
                         <c:import
                                 url="/content/editorialLinks.module?page=middle_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=MiddleLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>

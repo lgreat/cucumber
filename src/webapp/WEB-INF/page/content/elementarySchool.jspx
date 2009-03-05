@@ -130,19 +130,19 @@
                             <a href="#" onclick="selectGrade(this, 'kindergartenBox'); return false;">Kindergarten</a>
                         </li>
                         <li>
-                            <a href="#" onclick="selectGrade(this, 'firstBox'); return false;">1st Grade</a>
+                            <a href="#" onclick="selectGrade(this, 'firstBox'); return false;">1st grade</a>
                         </li>
                         <li>
-                            <a href="#" onclick="selectGrade(this, 'secondBox'); return false;">2nd Grade</a>
+                            <a href="#" onclick="selectGrade(this, 'secondBox'); return false;">2nd grade</a>
                         </li>
                         <li>
-                            <a href="#" onclick="selectGrade(this, 'thirdBox'); return false;">3rd Grade</a>
+                            <a href="#" onclick="selectGrade(this, 'thirdBox'); return false;">3rd grade</a>
                         </li>
                         <li>
-                            <a href="#" onclick="selectGrade(this, 'fourthBox'); return false;">4th Grade</a>
+                            <a href="#" onclick="selectGrade(this, 'fourthBox'); return false;">4th grade</a>
                         </li>
                         <li>
-                            <a href="#" onclick="selectGrade(this, 'fifthBox'); return false;">5th Grade</a>
+                            <a href="#" onclick="selectGrade(this, 'fifthBox'); return false;">5th grade</a>
                         </li>
                     </ul>
                     <content:gradeLevelBox cssId="kindergartenBox" cssStyle=""
@@ -202,7 +202,7 @@
                 </div>
             </div>
 
-            <div id="topSchools" class="box">
+            <div id="topSchools" class="box lower">
                 <div class="inner cleared">
                     <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
                                                   topRatedSchools="${requestScope.topRatedSchools}"
@@ -211,7 +211,7 @@
                 </div>
             </div>
 
-            <div id="communityModule" class="box">
+            <div id="communityModule" class="box lower">
                 <div class="inner cleared">
                     <h2 class="quotable">Talk back</h2>
                     <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
