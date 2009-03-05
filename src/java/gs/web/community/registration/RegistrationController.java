@@ -355,7 +355,6 @@ public class RegistrationController extends SimpleFormController implements Read
         subs.add(communityNewsletterSubscription);
 
         NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);
-        System.out.println("------------------------"+_subscriptionDao.getUserSubscriptions(user)+"-------------------");
         _subscriptionDao.addNewsletterSubscriptions(user, subs);
     }
 
