@@ -33,7 +33,7 @@
             mslFlowDialog.render();
         }
 
-        function showLoginHover(redirectUrlEncoded, emailUrlEncoded) {                            s
+        function showLoginHover(redirectUrlEncoded, emailUrlEncoded) {
             var frameLocation = '' + window.frames['mslFlowDialogIFrame'].window.location;
             window.frames['mslFlowDialogIFrame'].window.location =
                 '/community/registration/popup/chooserRegistrationHover.page?email=' +
