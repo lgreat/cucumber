@@ -147,8 +147,7 @@
                 document.getElementById('firstName').focus();
 
                 function noThanks() {
-                    ${targetParentFrame ? 'parent' : 'document'}.
-                    location.href = '${userCmd.redirectUrl}';
+                    ${targetParentFrame ? 'parent' : 'document'}.location.href = '${userCmd.redirectUrl}';
                     return false;
                 }
             </script>
