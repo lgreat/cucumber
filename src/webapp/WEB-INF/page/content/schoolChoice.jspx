@@ -9,6 +9,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           version="2.0">
 
 <pageHelper:setPathway pathway="SCHOOL_CHOICE"/>
@@ -287,23 +288,7 @@
 
                 <div id="top5" class="box">
                     <div class="inner">
-                        <div id="top5top">
-                            <a href="#" onclick="return viewTopSchools();"><img class="left" src="/res/img/schoolChoice/choice_topschools_badge02.jpg" alt="GreatSchools Top Schools, as featured in BusinessWeek"/></a>
-                            <div class="column">
-                                <p>Check out five high schools in each state that represent what makes a school great.</p>
-                            </div>
-                        </div>
-
-                        <div id="viewTopSchoolsDiv">
-                            <p><span id="viewTopSchoolsText">View top schools in:</span>
-                                <gsweb:stateSelector useNoState="false"
-                                     usingLongNames="true"
-                                     styleId="top5State"
-                                     state="${requestScope.context.stateOrDefault.abbreviation}"
-                                     styleClass="stateSelect"/>
-                                <a href="#" onclick="return viewTopSchools();"><img src="/res/img/button/go.gif" alt="Go" id="top5Go"/></a>
-                            </p>
-                        </div>
+                        <school:top5/>
                     </div>
                 </div>
 

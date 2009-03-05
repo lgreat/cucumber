@@ -89,6 +89,14 @@
                 el.value = target;
             }
         }
+
+        // GreatSchools Top 5
+        function viewTopSchools() {
+            var selector = document.getElementById('top5State');
+            var longStateName = selector.options[selector.selectedIndex].innerHTML.toLowerCase();
+            window.location.href = '/top-high-schools/' + longStateName + '/';
+            return false;
+        }
         -->
     </script>
     ]]>
@@ -190,6 +198,12 @@
                                                  caller="high"/>
                 </div>
             </div>
+
+            <div id="top5" class="box">
+                <div class="inner">
+                    <school:top5/>
+                </div>
+            </div>            
 
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </div>

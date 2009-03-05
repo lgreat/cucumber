@@ -41,8 +41,9 @@
     color: #666;
 }
 
-#pageWrapper form input, #pageWrapper form select {
+#main input, #main select {
     font-family: "Trebuchet MS", Arial, sans-serif;
+    color: #666;
 }
 
 h2.quotable {
@@ -209,5 +210,46 @@ div.compareSchoolForm input.formButton {
     border: 0 solid #DDD;
     border-bottom-width: 1px;
     margin-bottom: 3px;
+}
+
+#viewTopSchoolsDiv {
+    height: 25px;
+}
+
+#viewTopSchoolsText {
+    margin-top: 2px;
+    float: left;
+}
+
+#top5State {
+    width: 110px;
+    float: left;
+    margin-left: 5px;
+}
+
+#top5Go {
+    float: left;
+    margin-left: 3px;
+    margin-top: -3px;
+}
+
+#top5 {
+	background-image: url(/res/img/library/right-box2-bottom.png);
+}
+
+#top5 .inner {
+	background-image: url(/res/img/library/right-box2-top.png);
+    padding-right: 3px;
+    padding-top:15px;
+}
+
+#top5 .column {
+    float: left;
+	width: 140px;
+	margin: 0 0 5px 0;
+}
+
+#top5top {
+    height: 125px;
 }
 
