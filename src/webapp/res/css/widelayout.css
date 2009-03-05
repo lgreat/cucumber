@@ -12,6 +12,14 @@
     width: 952px;
 }
 
+#topnav table#topnav_subnav {
+    width: 952px;
+}
+
+#topnav table#topnav_subnav td#topnav_subnav_spacer {
+    width: 87px;
+}
+
 #contentGS {
     width: 952px;
     margin: 0 12px 25px;

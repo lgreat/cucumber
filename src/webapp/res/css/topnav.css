@@ -329,3 +329,6 @@
     text-decoration: underline;
 }
 
+#topnav table#topnav_subnav td#topnav_subnav_spacer {
+    width: 0px;
+}
