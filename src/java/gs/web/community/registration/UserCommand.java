@@ -29,6 +29,7 @@ public class UserCommand implements EmailValidator.IEmail {
     private boolean _terms = true;
     private boolean _newsletter = true;
     private boolean _beta = false;
+    private boolean _parentAdvisorNewsletter;
 
     private boolean _chooserRegistration = false;
 
@@ -264,4 +265,13 @@ public class UserCommand implements EmailValidator.IEmail {
     public void setChooserRegistration(boolean chooserRegistration) {
         _chooserRegistration = chooserRegistration;
     }
+    
+    public boolean getParentAdvisorNewsletter() {
+        return _parentAdvisorNewsletter;
+    }
+
+    public void setParentAdvisorNewsletter(boolean parentAdvisorNewsletter) {
+        _parentAdvisorNewsletter = parentAdvisorNewsletter;
+    }    
+
 }

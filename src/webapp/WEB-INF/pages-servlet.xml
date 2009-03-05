@@ -1966,7 +1966,7 @@
             <list>
                 <ref local="apiAccountValidator"/>
             </list>
-        </property>        
+        </property>
     </bean>
 
     <bean name="/api/registrationSuccess.page"
@@ -1992,6 +1992,9 @@
         </property>
         <property name="requireEmailValidation" value="false"/>
         <property name="chooserRegistration" value="true"/>
+                <property name="tableDao">
+            <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
+        </property>
     </bean>
 
     <bean name="/community/chooserRegistration.page"
@@ -2012,6 +2015,9 @@
         </property>
         <property name="requireEmailValidation" value="false"/>
         <property name="chooserRegistration" value="true"/>
+                <property name="tableDao">
+            <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
+        </property>
     </bean>
 
 </beans>

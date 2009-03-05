@@ -210,14 +210,33 @@ div#topTextDivId ul li{
     top: -17px;
 }
 
+#chooserRegistration #parentAdvice{
+    margin-top:45px;
+    width:400px;
+}
+#chooserRegistration #parentAdvice span#chkBox{
+    float:left;
+    height:20px;
+}
+
+* html #chooserRegistration #parentAdvice{
+    margin-top :5px;
+    margin-bottom:0;
+}
+
+* + html #chooserRegistration #parentAdvice{
+    margin-top :5px;
+    margin-bottom:0;
+}
 /* Form submission */
 
 #chooserRegistration #formSubmit {
-    margin-top:50px;
-    height: 26px;
+    /*margin-top:10px;*/
+    /*height: 26px;*/
 }
 
-#chooserRegistration #formSubmit div {
+#chooserRegistration #formSubmit div {    
+    height:26px;
     float: left;
 }
 
@@ -232,15 +251,15 @@ div#topTextDivId ul li{
 
 #closeWindowDiv {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 35px;
 }
 
 * html #closeWindowDiv {
-    margin-top: -15px;
+    margin-top: -20px;
 }
 
 * + html #closeWindowDiv {
-    margin-top: 8px;
+    margin-top: 28px;
 }
 
 #closeWindowDiv a.closeWindowClass, #closeWindowDiv a.closeWindowClass:active, #closeWindowDiv a.closeWindowClass:hover, #closeWindowDiv a.closeWindowClass:visited {

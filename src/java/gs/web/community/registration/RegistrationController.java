@@ -52,6 +52,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private CreateOrUpdateUserRequest _soapRequest;
     private boolean _chooserRegistration;
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
+    public static final String PARENT_ADVISOR_NEWSLETTER = "parentAdvisorNewsletter";
     public static final String TERMS_PARAMETER = "termsStr";
     public static final String BETA_PARAMETER = "betaStr";
     public static final String SPREADSHEET_ID_FIELD = "ip";
@@ -116,6 +117,9 @@ public class RegistrationController extends SimpleFormController implements Read
             userCommand.setCity(request.getParameter("city"));
             loadCityList(request, userCommand);
         }
+
+        String parentAdvisorNewsletter = request.getParameter(PARENT_ADVISOR_NEWSLETTER);
+        userCommand.setParentAdvisorNewsletter("on".equals(parentAdvisorNewsletter));
         String terms = request.getParameter(TERMS_PARAMETER);
         userCommand.setTerms("on".equals(terms));
         String newsletter = request.getParameter(NEWSLETTER_PARAMETER);
@@ -237,7 +241,8 @@ public class RegistrationController extends SimpleFormController implements Read
             request.setAttribute("password", userCommand.getPassword());
         } else {
             // complete registration
-            if (userCommand.getNewsletter()) {
+            // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription - Jira -7968
+            if (userCommand.getNewsletter() || (isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true))) {
                 processNewsletterSubscriptions(user, userCommand, ot);
             }
             if (userCommand.isBeta()) {
@@ -251,6 +256,13 @@ public class RegistrationController extends SimpleFormController implements Read
                     sendConfirmationEmail(user, userCommand, request);
                 }
             }
+
+            // if a user registers for the community through the hover and selects the Parent advisor newsletter subscription
+            // and even if this is their first subscription no do send the NL welcome email. -Jira -7968
+            if(isChooserRegistration() && (userCommand.getParentAdvisorNewsletter() == true)){
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+            }
+
             PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
             if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                     !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
@@ -329,7 +341,16 @@ public class RegistrationController extends SimpleFormController implements Read
         Subscription communityNewsletterSubscription = new Subscription();
         communityNewsletterSubscription.setUser(user);
         communityNewsletterSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
-        communityNewsletterSubscription.setState(userCommand.getState());
+        // When a user registers through a hover then the state and city field are null for that user
+        //instead we use schoolChoiceState and schoolChoiceCity fields.Therefore the if and else block below. Jira - 7915 and 7968(Parent Advisor Newsletter)
+        if(userCommand.getState() != null){
+            communityNewsletterSubscription.setState(userCommand.getState());
+        }
+        else if(userCommand.getSchoolChoiceState() != null)
+        {
+            communityNewsletterSubscription.setState(userCommand.getSchoolChoiceState());
+        }
+
         subs.add(communityNewsletterSubscription);
 
         NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);

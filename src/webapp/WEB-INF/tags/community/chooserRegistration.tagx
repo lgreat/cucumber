@@ -122,7 +122,7 @@
                     <!-- City -->
                     <div class="label"><label id="cityLabel">City:</label></div>
                         <span id="city">
-                            <spring:bind path="userCmd.schoolChoiceCity">                            
+                            <spring:bind path="userCmd.schoolChoiceCity">
                                 <select name="${status.expression}" tabindex="6">
                                     <c:if test="${empty userCmd.schoolChoiceState or (userCmd.schoolChoiceCityList ne null and (userCmd.schoolChoiceCity eq null or userCmd.schoolChoiceCity eq ''))}">
                                         <option selected="selected" value="">Choose city</option>
@@ -153,12 +153,18 @@
                 }
             </script>
 
+            <div id="parentAdvice">
+                <span id="chkBox"><gsml:checkbox styleId="parentAdvisorNewsletter" name="parentAdvisorNewsletter"
+                                   checked="true"/>
+                </span>
+                <span>yes! Sign me up to receive free email newsletters with parenting advice and tips for school success.</span>
+            </div>
 
             <div id="formSubmit">
                 <div id="cancel"><a href="#" onclick="return noThanks();">No thanks &amp;gt;</a></div>
                 <div id="submit"><input type="image" src="/res/img/community/registration/join_pop_save.gif"
                                         alt="Save" tabindex="7"/></div>
-            </div>                                                                                                       
+            </div>
         </div>
        </div>
 
