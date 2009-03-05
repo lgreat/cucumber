@@ -1,7 +1,5 @@
 package gs.web.content;
 
-import gs.data.util.table.ITableRow;
-
 import java.util.Map;
 
 /**
