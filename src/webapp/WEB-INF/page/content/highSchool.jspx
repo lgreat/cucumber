@@ -39,6 +39,7 @@
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
     <pageHelper:externalCss file="/res/css/content/gradeLevelShared.css"/>
+    <pageHelper:externalCss file="/res/css/content/highSchool.css"/>
 
     <![CDATA[
     <!--[if IE]>
@@ -166,7 +167,17 @@
 
             <div id="collegeModule" class="box lower">
                 <div class="inner cleared">
-                    <h2>Ready, set, college!</h2>
+                    <h2>Ready, set, college! <span class="month">${requestScope.hs_actionTipMonth} Action Tips</span></h2>
+                    <img src="/res/img/content/gradeLanding/high_grads.jpg" alt="High school grads"/>
+                    <h3>For Freshman</h3>
+                    <p>${requestScope.hs_actionTipFreshman}</p>
+                    <h3>For Sophomores</h3>
+                    <p>${requestScope.hs_actionTipSophomore}</p>
+                    <h3>For Juniors</h3>
+                    <p>${requestScope.hs_actionTipJunior}</p>
+                    <h3>For Seniors</h3>
+                    <p>${requestScope.hs_actionTipSenior}</p>
+                    <p><link:countdownToCollege>Is your teen on track for college? &amp;gt;</link:countdownToCollege></p>
                 </div>
             </div>
 

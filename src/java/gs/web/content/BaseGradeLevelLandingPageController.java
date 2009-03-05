@@ -116,7 +116,18 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
     /**
      * This operates off of the local cached map and never makes any round trips to Google.
      */
-    public void loadTableRowsIntoModel(Map<String, Object> model, String keySuffix) {
+    protected void loadTableRowIntoModel(Map<String, Object> model, String key) {
+        Map<String, List<ITableRow>> keyRowMap = (Map<String, List<ITableRow>>) model.get("keyRowMap");
+        ITableRow row = getFirstRowFromMap(keyRowMap, key);
+        if (row != null) {
+            model.put(key, row.getString("text"));
+        }
+    }
+
+    /**
+     * This operates off of the local cached map and never makes any round trips to Google.
+     */
+    protected void loadTableRowsIntoModel(Map<String, Object> model, String keySuffix) {
         Map<String, List<ITableRow>> keyRowMap = (Map<String, List<ITableRow>>) model.get("keyRowMap");
 
         ITableRow teaserCollegeRow = getFirstRowFromMap(keyRowMap, "teaserText_"+keySuffix);
