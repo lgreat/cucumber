@@ -3,6 +3,7 @@ package gs.web.jsp;
 import gs.data.content.IArticleDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.review.IReviewDao;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
@@ -24,6 +25,8 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     private static ISchoolDao _schoolDao;
     private static IArticleDao _articleDao;
     private static IDistrictDao _districtDao;
+    private IReviewDao _reviewDao;
+
     protected String _query = "";
     private ApplicationContext _applicationContext;
 
@@ -89,6 +92,14 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
             _districtDao = (IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID);
         }
         return _districtDao;
+    }
+
+
+    protected IReviewDao getReviewDao() {
+        if (_reviewDao == null){
+            _reviewDao = (IReviewDao) getApplicationContext().getBean(IReviewDao.BEAN_ID);
+        }
+        return _reviewDao;
     }
 
     protected String escapeLongstate(String title) {

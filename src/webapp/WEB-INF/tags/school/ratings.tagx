@@ -86,7 +86,7 @@
         </c:if>
         <c:if test="${includeSummary}">
 
-            <content:ratingsSummary school="${school}" gsRating="${gsRating}" parentRating="${parentRating}"/>
+            <content:ratingsSummary school="${school}"/>
         </c:if>
 
         <div id="rating_parent">

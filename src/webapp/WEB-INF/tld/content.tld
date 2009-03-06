@@ -172,20 +172,6 @@
             <type>gs.data.school.School</type>
             <description>School object</description>
         </attribute>
-        <attribute>
-            <name>gsRating</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.Integer</type>
-            <description>GreatSchools Overall Rating Integer</description>
-        </attribute>
-        <attribute>
-            <name>parentRating</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>gs.data.school.review.Ratings</type>
-            <description>Parent Ratings Object</description>
-        </attribute>
     </tag>
 
 
