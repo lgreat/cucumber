@@ -239,41 +239,7 @@
     </div>
 </c:if>
 
-<c:choose>
-    <c:when test="${cityObject.name eq 'San Francisco' and cityObject.state.abbreviation eq 'CA'}">
-        <div class="gsBlog">
-            <div class="header">The GreatSchools Blog: San Francisco</div>
-            <div class="blogInfo">
-                <div class="photo">
-                    <gsml:popupWindow href="http://blogs.greatschools.net/sanfrancisco/" width="917" height="600" left="50"
-                                      top="50"><gsml:img
-                            src="/res/img/content/blogs/katesf.jpg"
-                            alt="GreatSchools Blogger Photo"/></gsml:popupWindow>
-                </div>
-                <div class="caption">
-                    <div class="subheader">About This Blog</div>
-                    Stories from a San Francisco
-                    mom about supporting her
-                    child in kindergarten.
-                </div>
-            </div>
-            <div class="post">
-                <cache:cache scope="application" name="blog" key="katesf">
-                    <content2:blogFeed atomUrl="http://blogs.greatschools.net/sanfrancisco/atom.xml"
-                                  defaultTitle="Surviving kindergarten: A supportive mother's perspective"
-                                  defaultUrl="http://blogs.greatschools.net/sanfrancisco/"
-                                  showDate="true"
-                                  type="gsBlog"/>
-                </cache:cache>
-            </div>
-        </div>
-    </c:when>
-    <c:otherwise>
-        <jsp:include
-                page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
-    </c:otherwise>
-</c:choose>
-
+<jsp:include page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
 
 <jsp:include page="/geo/cityStats.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
 
