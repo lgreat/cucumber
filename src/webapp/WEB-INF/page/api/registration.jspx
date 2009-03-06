@@ -76,7 +76,6 @@
                     <td />
                     <td class="tou">
                         <form:checkbox path="termsApproved" id="terms" />
-                        <!--<input type="checkbox" name="terms" id="terms" />-->
                         <label for="terms">I agree to the GreatSchools Terms of Use.</label>
                     </td>
                     <td><form:errors path="termsApproved" /></td>

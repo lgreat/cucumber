@@ -1974,6 +1974,11 @@
         <property name="viewName" value="api/registrationSuccess"/>
     </bean>
 
+    <bean name="/api/documentation.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName" value="api/documentation"/>
+    </bean>
+
     <bean name="/community/registration/popup/chooserRegistrationHover.page"
           class="gs.web.community.registration.RegistrationController"
           autowire="byName" lazy-init="true">
