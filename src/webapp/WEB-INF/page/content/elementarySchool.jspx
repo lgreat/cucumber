@@ -126,7 +126,7 @@
                 <div class="inner cleared">
                     <h2>Laying down the basics</h2>
                     <ul class="horizontalList">
-                        <li class="noborder selected">
+                        <li class="selected">
                             <a href="#" onclick="selectGrade(this, 'kindergartenBox'); return false;">Kindergarten</a>
                         </li>
                         <li>
@@ -141,7 +141,7 @@
                         <li>
                             <a href="#" onclick="selectGrade(this, 'fourthBox'); return false;">4th grade</a>
                         </li>
-                        <li>
+                        <li class="noborder">
                             <a href="#" onclick="selectGrade(this, 'fifthBox'); return false;">5th grade</a>
                         </li>
                     </ul>
@@ -156,7 +156,7 @@
                                            promoAutocheck="myk"/>
                     <content:gradeLevelBox cssId="firstBox" cssStyle="display: none;"
                                            imageAlt="First grade child" imageSrc="/res/img/content/gradeLanding/elementary_firstgrade.jpg"
-                                           heading="First Grade" text="${requestScope.teaserText_1}"
+                                           heading="First grade" text="${requestScope.teaserText_1}"
                                            ctaHref="${requestScope.callToAction_1Url}"
                                            ctaText="${requestScope.callToAction_1}"
                                            articleIntro="What your child should know:"
@@ -165,7 +165,7 @@
                                            promoAutocheck="my1"/>
                     <content:gradeLevelBox cssId="secondBox" cssStyle="display: none;"
                                            imageAlt="Second grade child" imageSrc="/res/img/content/gradeLanding/elementary_2ndgrade.jpg"
-                                           heading="Second Grade" text="${requestScope.teaserText_2}"
+                                           heading="Second grade" text="${requestScope.teaserText_2}"
                                            ctaHref="${requestScope.callToAction_2Url}"
                                            ctaText="${requestScope.callToAction_2}"
                                            articleIntro="What your child should know:"
@@ -174,7 +174,7 @@
                                            promoAutocheck="my2"/>
                     <content:gradeLevelBox cssId="thirdBox" cssStyle="display: none;"
                                            imageAlt="Third grade child" imageSrc="/res/img/content/gradeLanding/elementary_3rdgrade.jpg"
-                                           heading="Third Grade" text="${requestScope.teaserText_3}"
+                                           heading="Third grade" text="${requestScope.teaserText_3}"
                                            ctaHref="${requestScope.callToAction_3Url}"
                                            ctaText="${requestScope.callToAction_3}"
                                            articleIntro="What your child should know:"
@@ -183,7 +183,7 @@
                                            promoAutocheck="my3"/>
                     <content:gradeLevelBox cssId="fourthBox" cssStyle="display: none;"
                                            imageAlt="Fourth grade child" imageSrc="/res/img/content/gradeLanding/elementary_4thgrade.jpg"
-                                           heading="Fourth Grade" text="${requestScope.teaserText_4}"
+                                           heading="Fourth grade" text="${requestScope.teaserText_4}"
                                            ctaHref="${requestScope.callToAction_4Url}"
                                            ctaText="${requestScope.callToAction_4}"
                                            articleIntro="What your child should know:"
@@ -192,7 +192,7 @@
                                            promoAutocheck="my4"/>
                     <content:gradeLevelBox cssId="fifthBox" cssStyle="display: none;"
                                            imageAlt="Fifth grade child" imageSrc="/res/img/content/gradeLanding/elementary_5thgrade.jpg"
-                                           heading="Fifth Grade" text="${requestScope.teaserText_5}"
+                                           heading="Fifth grade" text="${requestScope.teaserText_5}"
                                            ctaHref="${requestScope.callToAction_5Url}"
                                            ctaText="${requestScope.callToAction_5}"
                                            articleIntro="What your child should know:"

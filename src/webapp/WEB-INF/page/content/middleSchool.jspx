@@ -121,10 +121,10 @@
                 <div class="inner cleared">
                     <h2>Navigating the tween years</h2>
                     <ul class="horizontalList">
-                        <li class="noborder selected">
+                        <li class="selected">
                             <a href="#" onclick="selectSupport(this, 'classroomBox'); return false;">Academic skills</a>
                         </li>
-                        <li>
+                        <li class="noborder">
                             <a href="#" onclick="selectSupport(this, 'hallwayBox'); return false;">Social skills</a>
                         </li>
 
@@ -202,7 +202,6 @@
         </div>
     </div> <!-- end div main -->
 </div> <!-- end div pageWrapper -->
-
 <div style="display: none;">
     <mod:tracking pageName="${pageName}"
                   hier1="Article,Middle School Landing Page"

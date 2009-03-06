@@ -31,7 +31,6 @@
     <c:if test="${articleListVertical eq true}">
         <c:set var="vertical" value="vertical"/>
     </c:if>
-
     <div id="${cssId}" class="gradeLevelBox" style="${cssStyle}">
         <table cellpadding="0" cellspacing="0">
             <tr>

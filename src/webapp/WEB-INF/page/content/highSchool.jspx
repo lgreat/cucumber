@@ -129,10 +129,10 @@
                 <div class="inner cleared">
                     <h2>Preparing your teen for lift off</h2>
                     <ul class="horizontalList">
-                        <li class="noborder selected">
+                        <li class="selected">
                             <a href="#" onclick="selectSupport(this, 'classroomBox'); return false;">Academic skills</a>
                         </li>
-                        <li>
+                        <li class="noborder">
                             <a href="#" onclick="selectSupport(this, 'hallwayBox'); return false;">Social skills</a>
                         </li>
 
@@ -169,13 +169,13 @@
                 <div class="inner cleared">
                     <h2>Ready, set, college! <span class="month">${requestScope.hs_actionTipMonth} Action Tips</span></h2>
                     <img src="/res/img/content/gradeLanding/high_grads.jpg" alt="High school grads"/>
-                    <h3>For Freshman</h3>
+                    <h3>Freshmen</h3>
                     <p>${requestScope.hs_actionTipFreshman}</p>
-                    <h3>For Sophomores</h3>
+                    <h3>Sophomores</h3>
                     <p>${requestScope.hs_actionTipSophomore}</p>
-                    <h3>For Juniors</h3>
+                    <h3>Juniors</h3>
                     <p>${requestScope.hs_actionTipJunior}</p>
-                    <h3>For Seniors</h3>
+                    <h3>Seniors</h3>
                     <p>${requestScope.hs_actionTipSenior}</p>
                     <p><link:countdownToCollege>Is your teen on track for college? &amp;gt;</link:countdownToCollege></p>
                 </div>

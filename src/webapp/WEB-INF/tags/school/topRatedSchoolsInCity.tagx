@@ -15,6 +15,7 @@
 
 
 <h2>Top ${levelCodeName} schools: <span class="cityName">${city.name}</span></h2>
+
 <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
 <table width="100%" cellpadding="0" cellspacing="0">
     <tr>
@@ -30,11 +31,14 @@
 
                 <c:if test="${empty topRatedSchools}">
                     <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
-                        <tr><td style="font-weight: normal">Showing ${fn:length(topSchools)}
-                            school${fn:length(topSchools) > 1 ? 's':''}</td><td
-                                style="font-weight: bold;text-align: right">
-                            <link:city city="${city.name}" state="${city.state}">See all ${city.name} schools &amp;gt;</link:city>
-                        </td>
+                        <tr>
+                            <td style="font-weight: normal">Showing ${fn:length(topSchools)}
+                                school${fn:length(topSchools) > 1 ? 's':''}</td>
+                            <td
+                                    style="font-weight: bold;text-align: right">
+                                <link:city city="${city.name}"
+                                           state="${city.state}">See all ${city.name} schools &amp;gt;</link:city>
+                            </td>
                         </tr>
                     </table>
                 </c:if>
@@ -81,7 +85,8 @@
                         </c:forEach>
                         <tr>
                             <td colspan="2">
-                                <link:schools city="${city}" levelCode="${levelCode}">See all ${city.name} schools &amp;gt;</link:schools>
+                                <link:schools city="${city}"
+                                              levelCode="${levelCode}">See all ${city.name} schools &amp;gt;</link:schools>
                             </td>
                         </tr>
                     </table>
