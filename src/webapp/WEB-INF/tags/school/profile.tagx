@@ -38,8 +38,8 @@
 <jsp:directive.attribute name="parent_ratings" required="false" description="Parent Ratings Object"
                          type="gs.data.school.review.Ratings"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
-<!-- variant  and c -->
-<c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+<!-- ratings summary not shown for other schools -->
+<c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
     <pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
 </c:if>
 
@@ -151,8 +151,8 @@
     <link rel="stylesheet" type="text/css" href="/res/css/school/profile_ie7.css" />
 <![endif]-->
 ]]>
-<!-- variant b and c -->
-<c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+<!-- ratings summary not shown for other schools:  this needs be renamed -->
+<c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
     <![CDATA[
 <!--[if IE 7]>
     <link rel="stylesheet" type="text/css" href="/res/css/school/profile_ie7_b_7970.css" />
@@ -209,27 +209,12 @@
 
                 <c:choose>
                     <c:when test="${(schoolType != 'private') and (school.levelCode != 'p')}">
-                        <!-- variant -->
-                        <c:choose>
-                            <c:when  test="${requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c'}">
-                                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                                                styleClass="emailImg toolsImg"><gsml:img
-                                        src="/res/img/school/overview/7970_b/update_email.gif"
-                                        alt="Send me updates about this school"/></promo:mssHover>
-                                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                                                styleClass="email toolsTxt">Send me updates about this school</promo:mssHover>
-                            </c:when>
-
-                            <c:otherwise>
-                                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                                                styleClass="emailImg toolsImg"><gsml:img
-                                        src="/res/img/school/tools_th_email.gif"
-                                        alt="Email me updates about this school"/></promo:mssHover>
-                                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
-                                                styleClass="email toolsTxt">Email me updates about this school</promo:mssHover>
-                            </c:otherwise>
-                        </c:choose>
-
+                        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                                        styleClass="emailImg toolsImg"><gsml:img
+                                src="/res/img/school/overview/7970_b/update_email.gif"
+                                alt="Send me updates about this school"/></promo:mssHover>
+                        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="false"
+                                        styleClass="email toolsTxt">Send me updates about this school</promo:mssHover>
                     </c:when>
                     <c:otherwise>
                         <c:choose>
@@ -263,8 +248,8 @@
                                               styleClass="compare toolsTxt">Compare this school</link:schoolCompareSchool>
                 </c:if>
 
-                <!-- variant b and c-->
-                <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                <!-- ratings summary on public and charter schools only -->
+                <c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
                     <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
                     <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
                               alt="Print this page"
@@ -474,8 +459,8 @@
 <!-- end: navigation -->
 <c:set var="subNavClass" value=""/>
 
-<!-- variant b and c -->
-<c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+<!-- ratings summary on public and charter schools only -->
+<c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
     <c:set var="subNavClass" value="hidden"/>
 </c:if>
 

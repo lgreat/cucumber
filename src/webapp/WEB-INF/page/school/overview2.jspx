@@ -55,8 +55,8 @@
     <title>${gsweb:schoolPageTitle(school)}</title>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
 
-    <!-- variant b and c-->
-    <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c')and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+    <!-- ratings summary on public and charter schools only -->
+    <c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
         <pageHelper:externalCss file="/res/css/school/overview_b_7970.css"/>    
     </c:if>
 
@@ -81,8 +81,8 @@
     <![endif]-->
     ]]>
 
-    <!-- variant b and c-->
-    <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+    <!-- ratings summary on public and charter schools only -->
+    <c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
     <![CDATA[
     <!--[if IE 7]>
         <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7_b_7970.css" />
@@ -118,14 +118,14 @@
     </div><!-- end: col_left" -->
 
     <!-- begin center column -->
-     <!-- variant b and c-->
-    <c:if test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+     <!-- ratings summary on public and charter schools only -->
+    <c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
         <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true" includeSummary='true'/>
     </c:if>
 
     <div id="col_center">
-            <!-- variant a -->
-            <c:if test="${(requestScope.context.ABVersion ne 'b' and requestScope.context.ABVersion ne 'c') or school.type.schoolTypeName eq 'private' or school.levelCode eq 'p'}">
+            <!-- ratings summary on public and charter schools only -->
+            <c:if test="${school.type.schoolTypeName eq 'private' or school.levelCode eq 'p'}">
                 <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}" clickTracking="true"/>
             </c:if>
             <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
@@ -133,6 +133,7 @@
                     <school:compareSchool school="${school}"/>
                 </div>
             </c:if>
+
 
             <jsp:include page="/community/communityQuestionPromo.module">
                 <jsp:param name="code" value="school/overview.page"/>
@@ -397,10 +398,10 @@
             <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
             <div class="ad_top">
                 <c:choose>
-                    <!-- variant b and c-->
-                    <c:when test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                    <!-- ratings summary on public and charter schools only -->
+                    <c:when test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
                         <c:set var="position300x250" value="AboveFold_300x250" />
-                        <ad:AboveFold_300x250_B_Test/>
+                        <ad:AboveFold_300x250/>
                     </c:when>
                     <c:otherwise>
                         <c:choose>
@@ -418,8 +419,8 @@
             <!---->
             <div class="ad_middle">
                 <c:choose>
-                    <!-- variant b and c-->
-                    <c:when test="${(requestScope.context.ABVersion eq 'b' or requestScope.context.ABVersion eq 'c') and school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                    <!-- ratings summary on public and charter schools only -->
+                    <c:when test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
                         <c:choose>
                             <c:when test="${showSchoolChooserPackPromo}">
                                 <promo:schoolChoicePackPromo schoolName="${school.name}" showBorder="${true}" showSchoolChoiceLink="${true}" schoolObjectForRedirect="${school}" showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"/>
