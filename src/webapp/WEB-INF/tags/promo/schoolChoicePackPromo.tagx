@@ -73,21 +73,21 @@
                     </c:otherwise>
                 </c:choose>
 
-            <c:set var="schoolWord" value="a school"/>
+            <c:set var="schoolWord" value="a school and"/>
             <c:choose>
                 <c:when test="${caller eq 'elementary'}">
-                    <c:set var="schoolWord" value="an elementary school"/>
+                    <c:set var="schoolWord" value="an elementary school and how to"/>
                 </c:when>
                 <c:when test="${caller eq 'middle'}">
-                    <c:set var="schoolWord" value="a middle school"/>
+                    <c:set var="schoolWord" value="a middle school and how to"/>
                 </c:when>
                 <c:when test="${caller eq 'high'}">
-                    <c:set var="schoolWord" value="a high school"/>
+                    <c:set var="schoolWord" value="a high school and how to"/>
                 </c:when>
             </c:choose>
 
             <div class="blurb">
-               Use our School Chooser tip sheet to nail down what you want in ${schoolWord} and make the most of your visit.
+               Use our School Chooser tip sheet to nail down what you want in ${schoolWord} make the most of your visit.
             </div>
 
             <jsp:scriptlet>

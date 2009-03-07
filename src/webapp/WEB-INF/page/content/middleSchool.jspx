@@ -29,12 +29,12 @@
 </jsp:scriptlet>
 
 <head>
-    <title>Middle School Microsite - GreatSchools</title>
+    <title>Choosing a Middle School &amp; Supporting Preteen Education | GreatSchools</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description"
-          content="Middle school microsite."/>
+          content="Select a middle school and get practical parenting tips to support your preteen's learning in school."/>
     <meta name="keywords"
-          content="middle school"/>
+          content="middle school, middle schools, middle school finder, choosing a middle school"/>
 
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
@@ -159,7 +159,7 @@
             
             <div id="collegeModule" class="box lower">
                 <div class="inner cleared">
-                    <h2>Get on track to college</h2>
+                    <h2>Planning for college: Now's the time</h2>
                     <content:gradeLevelBox cssId="collegeBox" cssStyle=""
                                                imageAlt="Mom and daughter" imageSrc="/res/img/content/gradeLanding/middle_momdaughter.jpg"
                                                text="${requestScope.teaserText_ms_college}"

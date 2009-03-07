@@ -29,12 +29,12 @@
 </jsp:scriptlet>
 
 <head>
-    <title>High School Microsite - GreatSchools</title>
+    <title>Choosing a High School &amp; Supporting Your Teenager's Education | GreatSchools </title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description"
-          content="High school microsite."/>
+          content="Select a high school and get practical parenting tips to support your teenager academically, socially and more."/>
     <meta name="keywords"
-          content="high school"/>
+          content="high school, high schools, high school finder, choosing a high school"/>
 
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>

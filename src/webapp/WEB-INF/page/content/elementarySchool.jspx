@@ -31,12 +31,12 @@
 </jsp:scriptlet>
 
 <head>
-    <title>Elementary School Microsite - GreatSchools</title>
+    <title>Choosing an Elementary School &amp; Supporting K-5 Education | GreatSchools </title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description"
-          content="Elementary school microsite."/>
+          content="Select an elementary school and get parenting tips to support your child's learning from kindergarten through fifth grade."/>
     <meta name="keywords"
-          content="elementary school"/>
+          content="elementary school, elementary schools, elementary school finder, choosing an elementary school"/>
 
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
