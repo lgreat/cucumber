@@ -217,6 +217,7 @@ div#topTextDivId ul li{
 #chooserRegistration #parentAdvice span#chkBox{
     float:left;
     height:20px;
+    margin-right:20px;
 }
 
 * html #chooserRegistration #parentAdvice{

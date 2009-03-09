@@ -156,7 +156,7 @@
                 <span id="chkBox"><gsml:checkbox styleId="parentAdvisorNewsletter" name="parentAdvisorNewsletter"
                                    checked="true"/>
                 </span>
-                <span>yes! Sign me up to receive free email newsletters with parenting advice and tips for school success.</span>
+                <span>Yes! Sign me up to receive free email newsletters with parenting advice and tips for school success.</span>
             </div>
 
             <div id="formSubmit">
