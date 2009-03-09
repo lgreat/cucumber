@@ -211,3 +211,7 @@ div.compareSchoolForm input.formButton {
     border-bottom-width: 1px;
     margin-bottom: 3px;
 }
+
+#main p.more a {
+    color: #CE6373;
+}
