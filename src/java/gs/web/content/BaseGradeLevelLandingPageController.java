@@ -52,7 +52,12 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
             _log.error(e, e);
         }
 
-        SessionContext context = SessionContextUtil.getSessionContext(request);
+        loadTopRatedSchools(model, SessionContextUtil.getSessionContext(request));
+
+        return new ModelAndView(getViewName(),model);
+    }
+
+    protected void loadTopRatedSchools(Map<String, Object> model, SessionContext context) {
         City userCity;
         if (context.getCity() != null) {
             userCity = context.getCity();
@@ -60,6 +65,8 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
             userCity = getGeoDao().findCity(State.CA, "Los Angeles");
         }
         model.put("cityObject", userCity);
+
+        loadCityDropdown(model, userCity.getState());
 
         List<ISchoolDao.ITopRatedSchool> topRatedSchools =
                 getSchoolDao().findTopRatedSchoolsInCity(userCity, 1, _levelCode.getLowestLevel(), 5);
@@ -79,8 +86,11 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
                 model.put("topSchools", schools);
             }
         }
+    }
 
-        return new ModelAndView(getViewName(),model);
+    protected void loadCityDropdown(Map<String, Object> model, State state) {
+        List<City> cities = getGeoDao().findAllCitiesByState(state);
+        model.put("cityList", cities);
     }
 
     /**

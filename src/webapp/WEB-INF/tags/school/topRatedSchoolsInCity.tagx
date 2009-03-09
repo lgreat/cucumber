@@ -6,6 +6,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
         >
     <jsp:directive.attribute name="city" required="true" description="City object" type="gs.data.geo.City"/>
     <jsp:directive.attribute name="topRatedSchools" required="true" description="List of TopRatedSchool objects" type="java.util.List"/>
@@ -16,6 +17,25 @@
 
 <h2>Top ${levelCodeName} schools: <span class="cityName">${city.name}</span></h2>
 
+<!-- aroy: hidden for now until it is working -->
+<div style="display:none;">Change city:
+    <select>
+        <c:forEach var="curCity" items="${requestScope.cityList}">
+            <c:choose>
+                <c:when test="${city.name eq curCity.name}">
+                    <option value="${curCity.name}" selected="selected">${curCity.name}</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="${curCity.name}">${curCity.name}</option>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </select>
+    <gsweb:stateSelector useNoState="${false}"
+                         styleId="topSchoolsStateSelector"
+                         usingLongNames="false"
+                         state="${city.state}" styleClass="formState"/>
+</div>
 <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
 <table width="100%" cellpadding="0" cellspacing="0">
     <tr>
