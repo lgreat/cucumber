@@ -256,7 +256,7 @@
                                  id="GlobalNav_CollegePrepButton"
                                  styleClass="${(pw == tabs.COLLEGE_PREP ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >College Prep</link:countdownToCollege></td>
-            <!--#17--><td><link:mediaChoices
+            <!--#17--><td style="padding-left: 9px;"><link:mediaChoices
                                  id="GlobalNav_MediaChildButton"
                                  styleClass="${(pw == tabs.MEDIA ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Media &amp;amp; Your Child</link:mediaChoices></td>
@@ -264,12 +264,8 @@
                                  styleId="GlobalNav_HealthyKidsButton"
                                  styleClass="${(pw == tabs.HEALTHY_KIDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Healthy Kids</link:healthyKids></td>
-            <!-- spacer --><td id="topnav_subnav_spacer"></td>
         </tr>
     </table>
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</table>-->
 </div>
 </div>
 
