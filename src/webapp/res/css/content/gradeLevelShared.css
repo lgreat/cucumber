@@ -226,6 +226,16 @@ div.compareSchoolForm input.formButton {
     margin-bottom: 3px;
 }
 
+#topSchools .topRatedSchools a {
+    display: block;
+    float: left;
+    width: 215px;
+}
+
+.topRatedSchools img.ratingImage {
+    float: right;
+}
+
 #main p.more a {
     color: #CE6373;
 }

@@ -89,9 +89,8 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <td class="dottedLineBottomBox"><gsml:a
-                                        href="${hrefbase}${s.school.id}">${s.name}</gsml:a></td>
-                                <td style="text-align: right" class="dottedLineBottomBox">
+                                <td class="dottedLineBottomBox" colspan="2">
+                                    <gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a>
                                     <c:set var="ratingValue" value="na"/>
                                     <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                     <c:if test="${s.rating > 0}">
@@ -99,7 +98,8 @@
                                     </c:if>
                                     <gsml:img
                                             src="/res/img/school/ratings/${ratingValue}.gif"
-                                            alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                            alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
+                                            styleClass="ratingImage"/>
                                 </td>
                             </tr>
                         </c:forEach>
