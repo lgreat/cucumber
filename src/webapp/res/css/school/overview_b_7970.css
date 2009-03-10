@@ -3,7 +3,7 @@
 	width: 667px;
 }
 
-#ratingsBoth h2, #ratingsGSOnly h2, #rating_parent h2{
+#ratingsBoth h2, #ratingsGSOnly h2{
 	background: url( /res/img/school/overview/7970_b/rating_summary_hed.gif ) no-repeat  left ;
     background-position: 10px 8px;
     padding-bottom: 6px;
@@ -12,8 +12,8 @@
 
 #ratingsParentOnly #rating_parent, #ratingsBoth #rating_parent, #ratingsNone #rating_parent, #ratingsGSOnly #rating_parent{ /* has IE 7 equivalent */
    background: url( /res/img/school/overview/7970_b/background.gif ) no-repeat  center ;
-	margin: 6px 0px 0 0;
-    padding:15px 12px;
+	margin: 6px 0px 16px 0;
+    padding:27px 16px;
 	_margin: 18px 0px 15px 0; /* IE 6 hack */
     _padding:10px 18px; /* IE 6 hack */
 }
@@ -26,9 +26,9 @@
 	text-align: center;
 	border-right: none;
 }
-
+#ratingsBoth #rating_parent, #ratingsGSOnly #rating_parent,
 #ratingsGSOnly #rating_parent{
-    margin-top: -6px ;
+    margin-top: -14px ;
 }
 
 #ratingsBoth #rating_gs img { /* has IE 7 equivalent */
@@ -42,8 +42,19 @@
 #ratingsNone #rating_parent, #ratingsGSOnly #rating_parent{
     width:135px;
 }
+
+#ratingsNone,
+#ratingsParentOnly{
+    height: 166px;
+}
 #ratingsNone a {
 	font-size: 13px;
+}
+#ratingsNone h2,
+#ratingsParentOnly h2{
+    background:#66CCCC url(/res/img/school/overview/7970_b/school_summary_box.gif) ;
+    height:166px;
+
 }
 
 
@@ -51,7 +62,7 @@
 	float: left;
 	margin: 0px 10px;
 	_margin: 18px 16px 15px 10px; /* IE 6 hack */
-    width: 320px;
+    width: 330px;
     height: 145px;
     font-size: 13px;
 }
@@ -62,6 +73,10 @@
 
 #rating_summary p{
     margin-top: 3px;
+}
+
+#rating_summary a{
+    font-size: 12px;
 }
 
 .hidden {

@@ -36,11 +36,12 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         writeParagraph(builder.buildFirstSentence() + "  " + builder.buildSecondSentence());
 
-        writeParagraph(builder.buildThirdSentence());
-
+        String p = builder.buildThirdSentence();
         if (!command.hasParentReviews){
-            writeParagraph(getReviewSchoolLink());
+            p += "  " + getReviewSchoolLink();
         }
+
+        writeParagraph(p);
 
         writeClosingDiv();
     }
