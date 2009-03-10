@@ -41,6 +41,7 @@
 }
 
 /* Ready, set, college! module */
+
 #collegeModule h2 .month {
     color: #666;
     font-weight: normal;
@@ -58,4 +59,22 @@
     font-size: 16px;
     font-weight: bold;
     margin: 0 0 2px 0;
+}
+
+#collegeModule div div {
+    width:170px;
+    float:left;
+    font-size: 13px;
+    margin-top:10px;
+}
+
+.collegeModuleJuniorsSeniorsTip {
+    margin-left:30px;
+}
+
+#collegeModule span#countDownToCollegeLink{
+    width:260px;
+    float:left;
+    font-size: 13px;
+    margin-top:15px;
 }

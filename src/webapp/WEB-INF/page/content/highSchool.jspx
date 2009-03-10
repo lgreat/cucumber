@@ -168,16 +168,12 @@
             <div id="collegeModule" class="box lower">
                 <div class="inner cleared">
                     <h2>Ready, set, college! <span class="month">${requestScope.hs_actionTipMonth} Action Tips</span></h2>
-                    <img src="/res/img/content/gradeLanding/high_grads.jpg" alt="High school grads"/>
-                    <h3>Freshmen</h3>
-                    <p>${requestScope.hs_actionTipFreshman}</p>
-                    <h3>Sophomores</h3>
-                    <p>${requestScope.hs_actionTipSophomore}</p>
-                    <h3>Juniors</h3>
-                    <p>${requestScope.hs_actionTipJunior}</p>
-                    <h3>Seniors</h3>
-                    <p>${requestScope.hs_actionTipSenior}</p>
-                    <p><link:countdownToCollege>Is your teen on track for college? &amp;gt;</link:countdownToCollege></p>
+                    <img src="/res/img/content/gradeLanding/high_landing_collegekids.jpg" alt="High school grads"/>
+                    <div><h3>Freshmen</h3>${requestScope.hs_actionTipFreshman}</div>
+                    <div class="collegeModuleJuniorsSeniorsTip"><h3>Juniors</h3>${requestScope.hs_actionTipJunior}</div>
+                    <div><h3>Sophomores</h3>${requestScope.hs_actionTipSophomore}</div>
+                    <div class="collegeModuleJuniorsSeniorsTip"><h3>Seniors</h3>${requestScope.hs_actionTipSenior}</div>
+                    <span id="countDownToCollegeLink" ><link:countdownToCollege>Is your teen on track for college? &amp;gt;</link:countdownToCollege></span>
                 </div>
             </div>
 
