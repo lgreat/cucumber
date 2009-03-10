@@ -211,7 +211,10 @@ div#topTextDivId ul li{
 }
 
 #chooserRegistration #parentAdvice{
-    margin-top:45px;
+    font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;
+    font-size:13px;
+    margin-top:53px;
+    margin-bottom:10px;
     width:400px;
 }
 #chooserRegistration #parentAdvice span#chkBox{
@@ -221,13 +224,13 @@ div#topTextDivId ul li{
 }
 
 * html #chooserRegistration #parentAdvice{
-    margin-top :5px;
-    margin-bottom:0;
+    margin-top :11px;
+    margin-bottom:8;
 }
 
 * + html #chooserRegistration #parentAdvice{
-    margin-top :5px;
-    margin-bottom:0;
+    margin-top :14px;
+    margin-bottom:8;
 }
 /* Form submission */
 
@@ -252,15 +255,15 @@ div#topTextDivId ul li{
 
 #closeWindowDiv {
     text-align: center;
-    margin-top: 35px;
+    margin-top: 58px;
 }
 
 * html #closeWindowDiv {
-    margin-top: -20px;
+    margin-top: -28px;
 }
 
 * + html #closeWindowDiv {
-    margin-top: 28px;
+    margin-top: 49px;
 }
 
 #closeWindowDiv a.closeWindowClass, #closeWindowDiv a.closeWindowClass:active, #closeWindowDiv a.closeWindowClass:hover, #closeWindowDiv a.closeWindowClass:visited {

@@ -23,7 +23,7 @@
             {
                 postmethod: "form",
                 width: "475px",
-                height: "475px",
+                height: "495px",
                 visible: false,
                 draggable: false,
                 modal: true,
@@ -78,7 +78,7 @@
         </div>
         <div id="mslFlowDialogBody">
             <iframe id="mslFlowDialogIFrame" name="mslFlowDialogIFrame" src=""
-                    width="445" height="417" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
+                    width="445" height="437" frameborder="0" scrolling="no"><!-- don't collapse --></iframe>
          </div>
 
         <div id="mslFlowDialogBottomBar">
