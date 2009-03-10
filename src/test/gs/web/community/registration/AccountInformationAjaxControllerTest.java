@@ -99,11 +99,32 @@ public class AccountInformationAjaxControllerTest extends BaseControllerTestCase
         expect(_geoDao.findCitiesByState(State.CA)).andReturn(cities);
 
         replayAll();
-        _controller.outputCitySelect(State.CA, _pw);
+        _controller.outputCitySelect(State.CA, _pw, true);
         verifyAll();
 
         assertEquals("<option selected=\"selected\" value=\"\">Choose city</option>" +
                 "<option value=\"My city is not listed\">My city is not listed</option>" +
+                "<option value=\"Alameda\">Alameda</option>" +
+                "<option value=\"San Diego\">San Diego</option>" +
+                "", _sw.getBuffer().toString());
+    }
+
+    public void testOutputCitySelectNoNotListed() {
+        List<City> cities = new ArrayList<City>();
+        City city1 = new City();
+        city1.setName("Alameda");
+        City city2 = new City();
+        city2.setName("San Diego");
+        cities.add(city1);
+        cities.add(city2);
+
+        expect(_geoDao.findCitiesByState(State.CA)).andReturn(cities);
+
+        replayAll();
+        _controller.outputCitySelect(State.CA, _pw, false);
+        verifyAll();
+
+        assertEquals("<option selected=\"selected\" value=\"\">Choose city</option>" +
                 "<option value=\"Alameda\">Alameda</option>" +
                 "<option value=\"San Diego\">San Diego</option>" +
                 "", _sw.getBuffer().toString());

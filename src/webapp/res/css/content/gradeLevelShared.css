@@ -193,6 +193,20 @@ div.compareSchoolForm input.formButton {
     margin-bottom: 0;
 }
 
+#topSchools .changeCity {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+#topSchools .changeCity select {
+    position: relative;
+    top: 2px;
+}
+
+#topSchools .changeCity select#topSchoolsStateSelector {
+    margin-left: 5px;
+}
+
 #mapContainer {
     padding-top: 10px;
 }

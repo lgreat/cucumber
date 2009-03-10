@@ -46,57 +46,11 @@
     <![endif]-->
     ]]>
 
-    <![CDATA[
-    <script type="text/javascript" language="javascript">
-    <!--
-        // linkElem == a
-        // linkElem.parentNode == li
-        // linkElem.parentNode.parentNode == ul
-        function selectSupport(linkElem, boxId) {
-            var x;
-            // de-select all links
-            var listItemsArr = Element.extend(linkElem.parentNode.parentNode).childElements();
-            for (x=0; x < listItemsArr.length; x++) {
-                listItemsArr[x].removeClassName("selected");
-            }
-            // select current link
-            Element.extend(linkElem.parentNode).addClassName("selected");
-            // hide all boxes, show current box
-            var boxArr = $$('#intro .gradeLevelBox');
-            for (x=0; x < boxArr.length; x++) {
-                if (boxArr[x].id == boxId) {
-                    boxArr[x].show();
-                } else {
-                    boxArr[x].hide();
-                }
-            }
-        }
-
-        // Returns true if a state has been selected.
-        function checkStateSelection(id) {
-            var select = document.getElementById(id);
-            if (select.options[select.selectedIndex].value == "") {
-                alert("Please select a state");
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        // Swaps text value with another
-        function textSwitch(el, target, replace) {
-            if (el.value == replace) {
-                el.value = target;
-            }
-        }        
-        -->
-    </script>
-    ]]>
-
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
     <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
     <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
     <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
+    <pageHelper:externalJavascript file="/res/js/gradeLevelLandingPages.js"/>
 </head>
 
 
@@ -123,10 +77,10 @@
                     <h2>Navigating the tween years</h2>
                     <ul class="horizontalList">
                         <li class="selected">
-                            <a href="#" onclick="selectSupport(this, 'classroomBox'); return false;">Academic skills</a>
+                            <a href="#" onclick="selectBox(this, 'classroomBox'); return false;">Academic skills</a>
                         </li>
                         <li class="noborder">
-                            <a href="#" onclick="selectSupport(this, 'hallwayBox'); return false;">Social skills</a>
+                            <a href="#" onclick="selectBox(this, 'hallwayBox'); return false;">Social skills</a>
                         </li>
 
                     </ul>

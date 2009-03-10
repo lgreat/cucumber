@@ -18,23 +18,26 @@
 <h2>Top ${levelCodeName} schools: <span class="cityName">${city.name}</span></h2>
 
 <!-- aroy: hidden for now until it is working -->
-<div style="display:none;">Change city:
-    <select>
-        <c:forEach var="curCity" items="${requestScope.cityList}">
-            <c:choose>
-                <c:when test="${city.name eq curCity.name}">
-                    <option value="${curCity.name}" selected="selected">${curCity.name}</option>
-                </c:when>
-                <c:otherwise>
-                    <option value="${curCity.name}">${curCity.name}</option>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-    </select>
+<div class="changeCity">Change city:
+    <span id="topCitiesCityListSpan">
+        <select id="topCitiesCityList" onchange="changeCity(this.value, $('topSchoolsStateSelector').value);">
+            <c:forEach var="curCity" items="${requestScope.cityList}">
+                <c:choose>
+                    <c:when test="${city.name eq curCity.name}">
+                        <option value="${curCity.name}" selected="selected">${curCity.name}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${curCity.name}">${curCity.name}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select>
+    </span>
     <gsweb:stateSelector useNoState="${false}"
                          styleId="topSchoolsStateSelector"
                          usingLongNames="false"
-                         state="${city.state}" styleClass="formState"/>
+                         state="${city.state}" styleClass="formState"
+                         onChange="changeState(this);"/>
 </div>
 <c:set var="stateAbbrevLowerCase" value="${city.state.abbreviationLowerCase}"/>
 <table width="100%" cellpadding="0" cellspacing="0">

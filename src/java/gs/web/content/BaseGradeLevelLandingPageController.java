@@ -52,9 +52,11 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
             _log.error(e, e);
         }
 
+        // check for a change of city
         SessionContext context = SessionContextUtil.getSessionContext(request);
         String cityName = request.getParameter("city");
         if (cityName != null) {
+            // if so update the user's cookie
             String stateAbbr = request.getParameter("state");
             City city = getGeoDao().findCity(State.fromString(stateAbbr), cityName);
             if (city != null) {
