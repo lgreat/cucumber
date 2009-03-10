@@ -2,6 +2,10 @@
     background:transparent url(/res/img/schoolChoice/schoolchoice_headerbar.gif) no-repeat scroll left top;
 }
 
+#pageWrapper {
+	background: url(/res/img/library/grade_bg.jpg) repeat-x 0 top;
+}
+
 .box {
     background-image: url(/res/img/library/middle-box-bottom.png);
 }
