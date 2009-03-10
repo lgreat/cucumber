@@ -4,9 +4,6 @@ import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlBuilder;
 
 import gs.data.school.*;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.district.District;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
