@@ -118,7 +118,8 @@
 
         <div id="content">
               <div id="intro" class="box">
-                <div class="inner cleared">
+                <div class="inner">
+                    <div class="content">
                     <h2>Navigating the tween years</h2>
                     <ul class="horizontalList">
                         <li class="selected">
@@ -145,44 +146,52 @@
                             articleListVertical="${true}"
                             articleList="${requestScope.articleLink_ms_support_hallway}"
                             promoGradeWord="middle school" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
-                </div>
-            </div>
-
-            <div id="topSchools" class="box lower">
-                <div class="inner cleared">
-                    <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
-                                                  topRatedSchools="${requestScope.topRatedSchools}"
-                                                  topSchools="${requestScope.topSchools}"
-                                                  levelCode="m" levelCodeName="middle"/>
-                </div>
-            </div>
-            
-            <div id="collegeModule" class="box lower">
-                <div class="inner cleared">
-                    <h2>Planning for college: Now's the time</h2>
-                    <content:gradeLevelBox cssId="collegeBox" cssStyle=""
-                                               imageAlt="Mom and daughter" imageSrc="/res/img/content/gradeLanding/middle_momdaughter.jpg"
-                                               text="${requestScope.teaserText_ms_college}"
-                                               ctaHref="${requestScope.callToAction_ms_collegeUrl}" ctaText="${requestScope.callToAction_ms_college}"
-                                               articleListVertical="${true}"
-                                               articleList="${requestScope.articleLink_ms_college}"/>
-                </div>
-            </div>
-
-            <div id="communityModule" class="box lower">
-                <div class="inner cleared">
-                    <h2 class="quotable">Talk back</h2>
-                    <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
-                    <div class="column">
-                        <c:import
-                                url="/content/editorialLinks.module?page=middle_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=MiddleLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
-                        <p class="more">
-                            <gsml:a styleClass="GS_EV5_" id="MiddleLanding_CommDisc__aMore"
-                                    href="http://${communityHost}/groups/11528">Join other middle school parents &amp;gt;</gsml:a>
-                        </p>
                     </div>
                 </div>
             </div>
+
+            <div id="topSchools" class="box">
+                <div class="inner">
+                    <div class="content">
+                        <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
+                                                      topRatedSchools="${requestScope.topRatedSchools}"
+                                                      topSchools="${requestScope.topSchools}"
+                                                      levelCode="m" levelCodeName="middle"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="collegeModule" class="box">
+                <div class="inner">
+                    <div class="content">
+                        <h2>Planning for college: Now's the time</h2>
+                        <content:gradeLevelBox cssId="collegeBox" cssStyle=""
+                                                   imageAlt="Mom and daughter" imageSrc="/res/img/content/gradeLanding/middle_momdaughter.jpg"
+                                                   text="${requestScope.teaserText_ms_college}"
+                                                   ctaHref="${requestScope.callToAction_ms_collegeUrl}" ctaText="${requestScope.callToAction_ms_college}"
+                                                   articleListVertical="${true}"
+                                                   articleList="${requestScope.articleLink_ms_college}"/>
+                    </div>
+                </div>
+            </div>
+
+            <div id="communityModule" class="box">
+                <div class="inner">
+                    <div class="content cleared">
+                        <h2 class="quotable">Talk back</h2>
+                        <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
+                        <div class="column">
+                            <c:import
+                                    url="/content/editorialLinks.module?page=middle_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=MiddleLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
+                            <p class="more">
+                                <gsml:a styleClass="GS_EV5_" id="MiddleLanding_CommDisc__aMore"
+                                        href="http://${communityHost}/groups/11528">Join other middle school parents &amp;gt;</gsml:a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br class="cleared"/>
         </div> <!-- end div content -->
 
         <div id="supplement">
@@ -190,7 +199,7 @@
 
             <ad:AboveFold_300x250/>
 
-            <div id="schoolChoicePromo" class="box">
+            <div id="schoolChoicePromo" class="box thin">
                 <div class="inner">
                     <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
                                                  showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"

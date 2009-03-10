@@ -6,20 +6,20 @@
 	background: url(/res/img/library/grade_bg.jpg) repeat-x 0 top;
 }
 
-.box {
-    background-image: url(/res/img/library/middle-box-bottom.png);
+.box .inner .content {
+	padding: 5px 15px 1px;
+	background-color: #fff;
 }
 
-.box.lower {
-    background-image: url(/res/img/library/middle-box2-bottom.png);
+#content .box .inner {
+    padding: 5px 0 0 0;
+    /*padding: 0;*/
+    background-color: transparent;
+    background-image: url(/res/img/content/gradeLanding/middlecontent_top.png);
 }
 
-.box .inner {
-    background-image: url(/res/img/library/middle-box-top.png);
-}
-
-.box.lower .inner {
-    background-image: url(/res/img/library/middle-box2-top.png);
+#content .box {
+    background-image: url(/res/img/content/gradeLanding/middlecontent_bottom.png);
 }
 
 .box.thin {
@@ -138,14 +138,23 @@ h2.quotable {
     font-size: 13px;
 }
 
+#findASchool .inner {
+    padding-right: 10px;
+}
+
 div.findSchoolForm input.formText, div.findSchoolForm select.formState {
     color: #777;
     margin-right: 5px;
     vertical-align: top;
 }
 
+div.findSchoolForm select.formState {
+    margin-right: 1px;
+}
+
 div.findSchoolForm input.formText {
-    width: 160px;
+    width: 170px;
+    font-size: 11px;
 }
 
 div.findSchoolForm input.formButton {
@@ -168,6 +177,7 @@ div.compareSchoolForm input.formZip, div.compareSchoolForm select.formLevel, div
 
 div.compareSchoolForm input.formZip {
     width: 75px;
+    margin-right: 10px;
 }
 
 div.compareSchoolForm input.formButton {

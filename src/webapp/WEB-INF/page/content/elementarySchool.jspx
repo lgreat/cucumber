@@ -124,6 +124,7 @@
 
             <div id="intro" class="box">
                 <div class="inner cleared">
+                    <div class="content">
                     <h2>Laying down the basics</h2>
                     <ul class="horizontalList">
                         <li class="selected">
@@ -199,34 +200,41 @@
                                            articleList="${requestScope.articleLink_5}"
                                            promoGradeWord="fifth grade" promoGradeWordPossessive="fifth grader"
                                            promoAutocheck="my5"/>
+                    </div>
                 </div>
             </div>
 
-            <div id="topSchools" class="box lower">
+            <div id="topSchools" class="box">
                 <div class="inner cleared">
-                    <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
-                                                  topRatedSchools="${requestScope.topRatedSchools}"
-                                                  topSchools="${requestScope.topSchools}"
-                                                  levelCode="e" levelCodeName="elementary"/>
+                    <div class="content">
+                        <school:topRatedSchoolsInCity city="${requestScope.cityObject}"
+                                                      topRatedSchools="${requestScope.topRatedSchools}"
+                                                      topSchools="${requestScope.topSchools}"
+                                                      levelCode="e" levelCodeName="elementary"/>
+                    </div>
                 </div>
             </div>
 
-            <div id="communityModule" class="box lower">
+            <div id="communityModule" class="box">
                 <div class="inner cleared">
-                    <h2 class="quotable">Talk back</h2>
-                    <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
-                    <div class="column">
-                        <c:import
-                                url="/content/editorialLinks.module?page=elementary_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=ElementaryLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
-                        <p class="more">
-                            <gsml:a styleClass="GS_EV5_" id="ElementaryLanding_CommDisc__aMore"
-                                    href="http://${communityHost}/groups/11527">Join other elementary school parents &amp;gt;</gsml:a>
-                        </p>
+                    <div class="content cleared">
+                        <h2 class="quotable">Talk back</h2>
+                        <img class="left" src="/res/img/content/gradeLanding/parentstalk_twowomen.jpg" alt="Two parents talk"/>
+                        <div class="column">
+                            <c:import
+                                    url="/content/editorialLinks.module?page=elementary_WhatDoYouThink&amp;type=all&amp;layout=list&amp;style=bulleted&amp;linkIdPrefix=ElementaryLanding_CommDisc__a&amp;linkStyle=GS_EV5_"/>
+                            <p class="more">
+                                <gsml:a styleClass="GS_EV5_" id="ElementaryLanding_CommDisc__aMore"
+                                        href="http://${communityHost}/groups/11527">Join other elementary school parents &amp;gt;</gsml:a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <content:funActivitiesThatSupportLearning/>
+
+            <br class="cleared"/>
         </div> <!-- end div content -->
 
         <div id="supplement">
@@ -234,7 +242,7 @@
 
             <ad:AboveFold_300x250/>
 
-            <div id="schoolChoicePromo" class="box">
+            <div id="schoolChoicePromo" class="box thin">
                 <div class="inner">
                     <promo:schoolChoicePackPromo showBorder="${false}" showSchoolChoiceLink="${false}"
                                                  showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"

@@ -17,9 +17,9 @@
             <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial">
                 <input type="hidden" name="c" value="school"/>
             <input type="text" name="q" class="formText"
-                   value="Enter school, city or district"
-                   onfocus="textSwitch(this, '', 'Enter school, city or district');"
-                   onblur="textSwitch(this, 'Enter school, city or district', '');"/>
+                   value="Search for school, district or city"
+                   onfocus="textSwitch(this, '', 'Search for school, district or city');"
+                   onblur="textSwitch(this, 'Search for school, district or city', '');"/>
             <gsweb:stateSelector useNoState="${empty requestScope.stateOrNull}"
                                  styleId="findStateSelector"
                                  usingLongNames="false"
