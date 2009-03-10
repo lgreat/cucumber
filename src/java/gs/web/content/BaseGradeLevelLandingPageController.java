@@ -52,7 +52,18 @@ public class BaseGradeLevelLandingPageController extends AbstractController {
             _log.error(e, e);
         }
 
-        loadTopRatedSchools(model, SessionContextUtil.getSessionContext(request));
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        String cityName = request.getParameter("city");
+        if (cityName != null) {
+            String stateAbbr = request.getParameter("state");
+            City city = getGeoDao().findCity(State.fromString(stateAbbr), cityName);
+            if (city != null) {
+                context.getSessionContextUtil().changeCity(context, request, response, city);
+                context.setCity(city); // saves a DB query later
+            }
+        }
+
+        loadTopRatedSchools(model, context);
 
         return new ModelAndView(getViewName(),model);
     }

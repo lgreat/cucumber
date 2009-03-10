@@ -39,7 +39,12 @@ public class AccountInformationAjaxController implements Controller {
         if (grade != null && city != null) {
             outputSchoolSelect(state, city, grade, out);
         } else {
-            outputCitySelect(state, out);
+            boolean showNotListed = true;
+            if (request.getParameter("showNotListed") != null && !Boolean.valueOf(request.getParameter("showNotListed"))) {
+                showNotListed = false;
+            }
+
+            outputCitySelect(state, out, showNotListed);
         }
 
         return null;
@@ -55,11 +60,13 @@ public class AccountInformationAjaxController implements Controller {
         }
     }
 
-    protected void outputCitySelect(State state, PrintWriter out) {
+    protected void outputCitySelect(State state, PrintWriter out, boolean showNotListed) {
         List<City> cities = _geoDao.findCitiesByState(state);
-        City notListed = new City();
-        notListed.setName("My city is not listed");
-        cities.add(0, notListed);
+        if (showNotListed) {
+            City notListed = new City();
+            notListed.setName("My city is not listed");
+            cities.add(0, notListed);
+        }
         if (cities.size() > 0) {
             outputOption(out, "", "Choose city", true);
             for (City city : cities) {
