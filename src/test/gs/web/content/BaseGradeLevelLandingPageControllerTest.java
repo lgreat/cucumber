@@ -11,6 +11,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.ICity;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
+import gs.data.school.School;
 import gs.data.state.State;
 import static org.easymock.EasyMock.*;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class BaseGradeLevelLandingPageControllerTest extends BaseControllerTestCase{
     BaseGradeLevelLandingPageController _controller;
     private ITableDao _tableDao;
-    private ICity _userCity;
+//    private ICity _userCity;
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
 
@@ -38,38 +39,25 @@ public class BaseGradeLevelLandingPageControllerTest extends BaseControllerTestC
         _controller = new BaseGradeLevelLandingPageController();
         _tableDao = createStrictMock(ITableDao.class);
         _controller.setTableDao(_tableDao);
-        _userCity = createMock(ICity.class);
+//        _userCity = createMock(ICity.class);
         _geoDao = createMock(IGeoDao.class);
         _schoolDao = createMock(ISchoolDao.class);
-        _geoDao = (IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID);
-        _schoolDao = (ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID);
+        _controller.setGeoDao(_geoDao);
+        _controller.setSchoolDao(_schoolDao);
 
     }
 
+    public void replayMocks(){
+        replay(_tableDao);
+        replay(_geoDao);
+        replay(_schoolDao);        
+    }
 
-//
-//    public void testloadTableRowsIntoModel(){
-//
-//        HashMapTableRow hashMapTableRow = new HashMapTableRow();
-//        hashMapTableRow.addCell("key", "teaserText_k");
-//        hashMapTableRow.addCell("text", "March is national reading month.Provide your child with many different language and reading experiences that are playful and fun.");
-//        hashMapTableRow.addCell("url","");
-//
-//        List<ITableRow> rows = new ArrayList<ITableRow>();
-//        rows.add(hashMapTableRow);
-//        expect(_tableDao.getAllRows()).andReturn(rows);
-//
-//        Map<String, Object> model = new HashMap<String, Object>();
-//        replay(_tableDao);
-//        _controller.loadTableRowsIntoModel(model);
-//        verify(_tableDao);
-//        assertNotNull(model.get("keyRowMap"));
-//        assertNotNull(hashMapTableRow.get("key"));
-//        Map<String, Object> keyRowMap = (HashMap<String,Object>)model.get("keyRowMap");
-//        List<ITableRow> row = (ArrayList<ITableRow>)keyRowMap.get("teaserText_k");
-//        assertSame(hashMapTableRow,row.get(0));
-//    }
-
+     public void verifyMocks(){
+        verify(_tableDao);
+        verify(_geoDao);
+        verify(_schoolDao);
+    }
    
     public void testLoadTableRowsIntoModel1(){
 
@@ -105,9 +93,9 @@ public class BaseGradeLevelLandingPageControllerTest extends BaseControllerTestC
         _controller.setTableDao(_tableDao);
         expect(_tableDao.getAllRows()).andReturn(rows);
         Map<String,Object> model = new HashMap<String,Object>();
-        replay(_tableDao);
+        replayMocks();
         _controller.loadTableRowsIntoModel(model);
-        verify(_tableDao);
+        verifyMocks();
         assertNotNull(model.get("keyRowMap"));
         Map<String, Object> keyRowMap = (HashMap<String,Object>)model.get("keyRowMap");
         List<ITableRow> row1 = (ArrayList<ITableRow>)keyRowMap.get("teaserText_k");
@@ -141,15 +129,39 @@ public class BaseGradeLevelLandingPageControllerTest extends BaseControllerTestC
         c.setState(State.CA);
         MockSessionContext sessionContext = new MockSessionContext();
         sessionContext.setCity(c);
-        
-        _controller.setGeoDao(_geoDao);
-        _controller.setSchoolDao(_schoolDao);
-        _controller.setLevelCode(LevelCode.ELEMENTARY);
-        _controller.loadTopRatedSchools(model,sessionContext);
+        List<City> cities = new ArrayList<City>();
+        cities.add(c);
 
+        School s = new School();
+
+        _controller.setLevelCode(LevelCode.ELEMENTARY);
+        List<ISchoolDao.ITopRatedSchool> topRatedSchools = new ArrayList<ISchoolDao.ITopRatedSchool>();
+        ISchoolDao.ITopRatedSchool topRatedSchool = createMock(ISchoolDao.ITopRatedSchool.class);
+        topRatedSchools.add(topRatedSchool);
+        expect(_geoDao.findAllCitiesByState(State.CA)).andReturn(cities);
+        expect(_schoolDao.findTopRatedSchoolsInCity(c,1,LevelCode.ELEMENTARY.getLowestLevel(),5)).andReturn(topRatedSchools);
+        expect(topRatedSchool.getSchool()).andReturn(s);
+        replayMocks();
+        replay(topRatedSchool);
+
+        _controller.loadTopRatedSchools(model,sessionContext);
+        verifyMocks();
+        verify(topRatedSchool);
+        
         assertNotNull(model);
+        assertNotNull(model.get("cityObject"));
+        assertSame(c,model.get("cityObject"));
+        assertNotNull(model.get("cityList"));
+        List<City> cityList = (List<City>)model.get("cityList");
+        assertEquals(1,cityList.size());
+        assertEquals("Alameda",cityList.get(0).getName());
+        assertEquals(State.CA,cityList.get(0).getState());
         assertNotNull(model.get("topRatedSchools"));
+        List<School> topRated = (ArrayList<School>)model.get("topRatedSchools");
+        List<School> topSchool = (ArrayList<School>)model.get("topRatedSchools");
+        assertEquals(1,topRated.size());
         assertNotNull(model.get("topSchools"));
+        assertEquals(1,topSchool.size());
 
     }
 

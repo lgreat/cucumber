@@ -8,9 +8,9 @@
 
 <pageHelper:externalCss file="/res/css/content/funActivitiesThatSupportLearning.css" />
 
-<div id="tabbed-info" class="box">
-    <div class="inner cleared">
-        <div class="content cleared">
+<div id="tabbed-info">
+    <div class="inner">
+        <div class="content">
         <h2>Fun Activities That Support Learning</h2>
         <div class="wrapper">
             <h3><a id="preschool" class="active" href="#preschool-contents">Preschool</a></h3>

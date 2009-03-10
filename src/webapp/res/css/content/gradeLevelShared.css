@@ -30,6 +30,10 @@
     background-image: url(/res/img/library/right-box2-top.png);
 }
 
+#pageWrapper #content h2 {
+    margin: 0 0 7px;
+}
+
 #content #intro h2 {
     margin-bottom: 5px;
 }
@@ -140,6 +144,10 @@ h2.quotable {
 
 #findASchool .inner {
     padding-right: 10px;
+}
+
+div.findSchoolForm input.formText{
+    height:19px;
 }
 
 div.findSchoolForm input.formText, div.findSchoolForm select.formState {

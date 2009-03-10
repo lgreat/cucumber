@@ -96,7 +96,7 @@
                             imageAlt="Boy and girl laughing" imageSrc="/res/img/content/gradeLanding/high_socialskills.jpg"
                             text="${requestScope.teaserText_hs_boost_hallway}"
                             ctaHref="${requestScope.callToAction_hs_boost_hallwayUrl}" ctaText="${requestScope.callToAction_hs_boost_hallway}"
-                            articleIntro="What to expect:"
+                            articleIntro="Get informed:"
                             articleListVertical="${true}"
                             articleList="${requestScope.articleLink_hs_boost_hallway}"
                             promoGradeWord="high school" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
@@ -121,8 +121,8 @@
                         <h2>Ready, set, college! <span class="month">${requestScope.hs_actionTipMonth} Action Tips</span></h2>
                         <img src="/res/img/content/gradeLanding/high_landing_collegekids.jpg" alt="High school grads"/>
                         <div><h3>Freshmen</h3>${requestScope.hs_actionTipFreshman}</div>
-                        <div class="collegeModuleJuniorsSeniorsTip"><h3>Juniors</h3>${requestScope.hs_actionTipJunior}</div>
-                        <div><h3>Sophomores</h3>${requestScope.hs_actionTipSophomore}</div>
+                        <div class="collegeModuleJuniorsSeniorsTip"><h3>Sophomores</h3>${requestScope.hs_actionTipSophomore}</div>
+                        <div><h3>Juniors</h3>${requestScope.hs_actionTipJunior}</div>
                         <div class="collegeModuleJuniorsSeniorsTip"><h3>Seniors</h3>${requestScope.hs_actionTipSenior}</div>
                         <span id="countDownToCollegeLink" ><link:countdownToCollege>Is your teen on track for college? &amp;gt;</link:countdownToCollege></span>
                     </div>

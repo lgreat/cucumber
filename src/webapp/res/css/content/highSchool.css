@@ -57,14 +57,14 @@
 }
 
 #collegeModule div.inner div.content div {
-    width:170px;
+    width:205px;
     float:left;
     font-size: 13px;
     margin-top:10px;
 }
 
 .collegeModuleJuniorsSeniorsTip {
-    margin-left:30px;
+    margin-left:15px;
 }
 
 #collegeModule span#countDownToCollegeLink{
