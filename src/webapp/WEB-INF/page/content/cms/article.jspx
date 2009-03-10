@@ -10,14 +10,14 @@
     <head>
         <title>${requestScope.articleTitle} - GreatSchools.net</title>
         <pageHelper:setPathway pathway="LIBRARY"/>
-        <pageHelper:externalCss file="/res/css/content/article.css"/>
+        <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
 
     </head>
     <body>
-    <div id="article">
-        <div class="article-title">${article.title}</div>
-        <div id="articleText">
+    <div id="cmsArticle">
+        <div class="cmsArticleTitle">${article.title}</div>
+        <div id="cmsArticleText">
             ${article.body}
         </div>
     </div>

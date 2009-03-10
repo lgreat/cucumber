@@ -1,0 +1,28 @@
+
+#cmsArticle .cmsArticleTitle {
+    font-size: 21px;
+    font-weight: bold;
+    padding-top: 20px;
+    margin-bottom: 15px;
+}
+
+#cmsArticle h1 {
+	font-size: 218%;
+}
+
+#cmsArticle h2 {
+	font-size: 164%;
+}
+
+#cmsArticle h3 {
+	font-size: 145%;
+}
+
+#cmsArticle h4 {
+	font-size: 118%;
+}
+
+#cmsArticle p {
+    margin-bottom: 1.0em;
+}
+
