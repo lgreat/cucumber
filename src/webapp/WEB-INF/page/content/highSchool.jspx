@@ -119,7 +119,7 @@
                 <div class="inner">
                     <div class="content cleared">
                         <h2>Ready, set, college!
-                            <span class="month">This month's action Tips</span>
+                            <span class="month">This month's action items</span>
                         </h2>
                         <img src="/res/img/content/gradeLanding/high_landing_collegekids.jpg" alt="High school grads"/>
                         <div><h3>Freshmen</h3>${requestScope.hs_actionTipFreshman}</div>

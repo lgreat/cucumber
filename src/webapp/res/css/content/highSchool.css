@@ -85,3 +85,10 @@
     font-size: 13px;
     margin-top:15px;
 }
+
+#collegeModule span#collegeBoardLogo{
+    float:left;
+    margin-left:60px;
+    position:relative;
+    top:10px;
+}
