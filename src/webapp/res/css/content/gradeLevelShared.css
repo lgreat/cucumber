@@ -9,7 +9,7 @@
 .box .inner .content {
 	padding: 5px 15px 1px;
 	background-color: #fff;
-    position: relative;
+    /*position: relative;*/
 }
 
 #content .box .inner {
