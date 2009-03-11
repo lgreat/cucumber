@@ -17,7 +17,6 @@
 
 <h2>Top ${levelCodeName} schools: <span class="cityName">${city.name}</span></h2>
 
-<!-- aroy: hidden for now until it is working -->
 <div class="changeCity">Change city:
     <span id="topCitiesCityListSpan">
         <select id="topCitiesCityList" onchange="changeCity(this.value, $('topSchoolsStateSelector').value);">

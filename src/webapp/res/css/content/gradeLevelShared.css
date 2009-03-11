@@ -204,6 +204,7 @@ div.compareSchoolForm input.formButton {
 #topSchools .changeCity {
     font-size: 12px;
     margin: 4px 0 2px 0;
+    position: relative;
 }
 
 #topSchools .changeCity select {
