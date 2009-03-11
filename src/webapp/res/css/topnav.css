@@ -257,13 +257,14 @@
     text-align: center;
     text-decoration: none;
     font-family: Trebuchet MS, Arial, sans-serif;
-    font-size: 13px;
     font-weight: 800;
-    height: 14px;
+    font-size: 13px;
+    height: 30px;
+    line-height: 30px;
     margin: 0;
     border-right: 1px dashed #99CC67;
     border-left: 1px dashed #99CC67;
-    padding: 6px 14px 10px 14px;
+    padding: 0px 14px;
 }
 
 #topnav table#nav td a:link,
