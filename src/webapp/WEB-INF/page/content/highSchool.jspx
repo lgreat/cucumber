@@ -99,6 +99,7 @@
                             articleListVertical="${true}"
                             articleList="${requestScope.articleLink_hs_boost_hallway}"
                             promoGradeWord="high school" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
+                        <div class="pin">&amp;nbsp;</div>
                     </div>
                 </div>
             </div>

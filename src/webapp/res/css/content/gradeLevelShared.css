@@ -9,6 +9,7 @@
 .box .inner .content {
 	padding: 5px 15px 1px;
 	background-color: #fff;
+    position: relative;
 }
 
 #content .box .inner {
@@ -16,10 +17,12 @@
     /*padding: 0;*/
     background-color: transparent;
     background-image: url(/res/img/content/gradeLanding/middlecontent_top.png);
+    position: relative;
 }
 
 #content .box {
     background-image: url(/res/img/content/gradeLanding/middlecontent_bottom.png);
+    position: relative;
 }
 
 .box.thin {
@@ -58,6 +61,10 @@ h2.quotable {
 	background: url(/res/img/library/quote_bubble.png) no-repeat left 4px;
 	min-height: 22px;
 	padding: 2px 0 0 30px;
+}
+
+#intro, #intro .inner, #intro .inner .content {
+    position: relative;
 }
 
 #intro ul.horizontalList li {
@@ -132,6 +139,10 @@ h2.quotable {
 
 .gradeLevelBox ul.gradeArticleLinksList li a {
     font-size: 13px;
+}
+
+#intro div.pin {
+    font-size: 1px;
 }
 
 #schoolChoicePromo .inner {

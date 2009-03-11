@@ -151,6 +151,7 @@
                                            articleList="${requestScope.articleLink_5}"
                                            promoGradeWord="fifth grade" promoGradeWordPossessive="fifth grader"
                                            promoAutocheck="my5"/>
+                        <div class="pin">&amp;nbsp;</div>
                     </div>
                 </div>
             </div>
