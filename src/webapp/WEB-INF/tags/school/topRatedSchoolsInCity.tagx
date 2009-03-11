@@ -71,6 +71,11 @@
             </td>
         </c:if>
         <td style="vertical-align: top; padding-left: .3em">
+            <c:if test="${empty topRatedSchools}">
+                <div id="noTopSchools">
+                 <p>There are no ${levelCodeName} schools in ${city.name}. <link:nearbyCities city="${city.name}" state="${city.state}">Browse nearby cities &gt;</link:nearbyCities></p>
+                </div>
+            </c:if>
             <c:if test="${not empty topRatedSchools}">
                 <div class="topRatedSchools">
                     <table style="width: 100%" cellpadding="0" cellspacing="0">
