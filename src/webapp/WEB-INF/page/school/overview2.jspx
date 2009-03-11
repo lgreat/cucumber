@@ -442,10 +442,11 @@
                 <![CDATA[<script type="text/javascript">
                 <!--
                 function fetchKellogs() {
+                    document.getElementById('kellogsWidgetWrapper').style.display='none';
                 }
                 -->
                 </script>]]>
-                <div id="kellogsWidgetWrapper" style="display: none;">
+                <div id="kellogsWidgetWrapper">
                     <ad:BelowFold_300x250 showAdWord="${false}"/>
                 </div>
                 <![CDATA[<script type="text/javascript">
