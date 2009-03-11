@@ -261,3 +261,15 @@ div.compareSchoolForm input.formButton {
 #main p.more a {
     color: #CE6373;
 }
+
+#pageWrapper #Top_300x137{
+    margin-top:10px;
+}
+
+#pageWrapper #House_Ad_300x137{
+     margin-top:10px;
+}
+
+#pageWrapper div#schoolChoicePackPromo .blurb{
+margin:0px 13px 5px 0 ;
+}

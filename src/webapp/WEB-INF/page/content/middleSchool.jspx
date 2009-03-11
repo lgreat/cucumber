@@ -39,6 +39,7 @@
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
     <pageHelper:externalCss file="/res/css/content/gradeLevelShared.css"/>
+    <pageHelper:externalCss file="/res/css/content/middleSchool.css"/>
 
     <![CDATA[
     <!--[if IE]>
@@ -62,7 +63,6 @@
 
     <div id="contentLeft">
         <content:librarySidebar/>
-        <ad:Promo_170x92/>
        
         <!--ad:AboveFold_Left_160x600/-->
     </div>
@@ -96,7 +96,7 @@
                             imageAlt="Girls whispering to each other" imageSrc="/res/img/content/gradeLanding/middle_socialskills.jpg"
                             text="${requestScope.teaserText_ms_support_hallway}"
                             ctaHref="${requestScope.callToAction_ms_support_hallwayUrl}" ctaText="${requestScope.callToAction_ms_support_hallway}"
-                            articleIntro="What to expect:"
+                            articleIntro="Get informed:"
                             articleListVertical="${true}"
                             articleList="${requestScope.articleLink_ms_support_hallway}"
                             promoGradeWord="middle school" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
