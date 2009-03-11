@@ -439,7 +439,13 @@
 
             <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
                 <!-- Kellogs widget -->
-                <div class="ad_bottom">
+                <![CDATA[<script type="text/javascript">
+                <!--
+                function fetchKellogs() {
+                }
+                -->
+                </script>]]>
+                <div id="kellogsWidgetWrapper" style="display: none;">
                     <ad:BelowFold_300x250 showAdWord="${false}"/>
                 </div>
                 <![CDATA[<script type="text/javascript">
