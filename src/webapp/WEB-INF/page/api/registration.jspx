@@ -30,57 +30,65 @@
     <body>
     <div id="api_reg">
         <div>
-            <h2>Api Registration</h2>
-            <div class="note">Fields marked with * are required.</div>
+            <h1>Register for GreatSchools Developer Tools</h1>
         </div>
+        <div>
+            <span class="text">Just take a minute to register to join our developer program.</span>
+            <span class="text">
+                Already registered?
+                <a href="">Sign in.</a>
+            </span>
+        </div>
+        <div class="note">Fields marked with * are required.</div>
         <form:form>
             <table>
                 <tr>
-                    <td>* Company Name:</td>
+                    <td class="label">Company Name *</td>
                     <td><form:input path="organization" /></td>
                     <td><form:errors path="organization" /></td>
                 </tr>
                 <tr>
-                    <td>Company Website:</td>
+                    <td class="label">Company Website</td>
                     <td><form:input path="website" /></td>
                     <td />
                 </tr>
                 <tr>
-                    <td>* Name of Contact:</td>
+                    <td class="label">Contact Name *</td>
                     <td><form:input path="name" /></td>
                     <td><form:errors path="name" /></td>
                 </tr>
                 <tr>
-                    <td>* Phone Number:</td>
+                    <td class="label">Phone Number *</td>
                     <td><form:input path="phone" /></td>
                     <td><form:errors path="phone" /></td>
                 </tr>
                 <tr>
-                    <td>* Email of Contact:</td>
+                    <td class="label">Contact Email *</td>
                     <td><form:input path="email" /></td>
                     <td><form:errors path="email" /></td>
                 </tr>
                 <tr>
-                    <td>* Confirm Email:</td>
+                    <td class="label">Confirm Email *</td>
                     <td><form:input path="confirmEmail" /></td>
                     <td><form:errors path="confirmEmail" /></td>
                 </tr>
 
                 <tr>
-                    <td>* Intended Use:</td>
-                    <td><form:textarea path="intendedUse" rows="3" cols="25"/></td>
+                    <td class="label" colspan="3">* What is your intended use of this web service?</td>
+                </tr>
+                <tr class="iuse">
+                    <td colspan="2"><form:textarea path="intendedUse" rows="3" cols="25"/></td>
                     <td><form:errors path="intendedUse" /></td>
                 </tr>
                 <tr>
-                    <td />
-                    <td class="tou">
+                    <td colspan="2" class="tou">
                         <form:checkbox path="termsApproved" id="terms" />
                         <label for="terms">I agree to the GreatSchools Terms of Use.</label>
                     </td>
                     <td><form:errors path="termsApproved" /></td>
                 </tr>
-                <tr>
-                    <td colspan="2">
+                <tr id="submitrow">
+                    <td colspan="3">
                         <input id="save" type="submit" value="Save Changes" />
                     </td>
                 </tr>
