@@ -15,8 +15,8 @@ div#api_reg h1 {
     border-bottom: 5px dotted #BBBBBB;
 }
 
-div#api_reg span.text {
-    font-size: 12px;
+div#api_reg span.text, div#api_reg td.label {
+    font-size: 14px;
 }
 
 div#api_reg form table {
@@ -37,13 +37,14 @@ div#api_reg input#save {
     padding: 0 0 20px 0;
 }
 
-div#api_reg td span {
-    color: red;
+div#api_reg td {
+    padding-bottom:10px;
 }
 
 div#api_reg div.note {
-    font-size:13px;
-    margin:0 0 15px 0;
+    font-size: 13px;
+    font-style: italic;
+    margin: 0 0 15px 0;
 }
 
 div#api_reg td.label {
@@ -56,6 +57,12 @@ div#api_reg td.tou {
 
 div#api_reg tr.iuse {
     text-align: left;
+}
+
+div#api_reg td.error {
+    text-align:left;
+    font-size:13px;
+    color: red;
 }
 
 div#api_reg textarea {
@@ -79,13 +86,20 @@ div#sidebar {
 }
 
 div#getting_started {
-    border:4px solid #AACCDD;
-    padding:13px;
+    border: 4px solid #AACCDD;
+    padding: 13px;
+    margin: 43px 0 0 0;
 }
 
 div#getting_started ul span {
     display: block;
-    color: red;
+    color: #D66671;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div#getting_started li {
+    margin: 0 0 12px 0;
 }
 
 div#getting_started h2 {
@@ -98,4 +112,14 @@ div#finder_promo {
     margin: 15px 0 0 0;
     border: 5px solid #F8F6E9;
     padding: 15px;
+}
+
+div#finder_promo .headline {
+    color: #D66671;
+    font-weight: bold;
+    display: block;
+}
+
+div#finder_promo .blurb {
+    font-size: 13px;
 }

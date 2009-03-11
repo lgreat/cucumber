@@ -34,18 +34,15 @@
         </div>
         <div>
             <span class="text">Just take a minute to register to join our developer program.</span>
-            <span class="text">
-                Already registered?
-                <a href="">Sign in.</a>
-            </span>
+            <!--<span class="text">Already registered? <a href="">Sign in.</a></span>-->
         </div>
-        <div class="note">Fields marked with * are required.</div>
+        <div class="note">Fields marked with an asterisk (*) are required.</div>
         <form:form>
             <table>
                 <tr>
                     <td class="label">Company Name *</td>
                     <td><form:input path="organization" /></td>
-                    <td><form:errors path="organization" /></td>
+                    <td class="error"><form:errors path="organization" /></td>
                 </tr>
                 <tr>
                     <td class="label">Company Website</td>
@@ -55,37 +52,37 @@
                 <tr>
                     <td class="label">Contact Name *</td>
                     <td><form:input path="name" /></td>
-                    <td><form:errors path="name" /></td>
+                    <td class="error"><form:errors path="name" /></td>
                 </tr>
                 <tr>
                     <td class="label">Phone Number *</td>
                     <td><form:input path="phone" /></td>
-                    <td><form:errors path="phone" /></td>
+                    <td class="error"><form:errors path="phone" /></td>
                 </tr>
                 <tr>
                     <td class="label">Contact Email *</td>
                     <td><form:input path="email" /></td>
-                    <td><form:errors path="email" /></td>
+                    <td class="error"><form:errors path="email" /></td>
                 </tr>
                 <tr>
                     <td class="label">Confirm Email *</td>
                     <td><form:input path="confirmEmail" /></td>
-                    <td><form:errors path="confirmEmail" /></td>
+                    <td class="error"><form:errors path="confirmEmail" /></td>
                 </tr>
 
                 <tr>
-                    <td class="label" colspan="3">* What is your intended use of this web service?</td>
+                    <td class="label" colspan="3">What is your intended use of this web service? *</td>
                 </tr>
                 <tr class="iuse">
                     <td colspan="2"><form:textarea path="intendedUse" rows="3" cols="25"/></td>
-                    <td><form:errors path="intendedUse" /></td>
+                    <td class="error"><form:errors path="intendedUse" /></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="tou">
                         <form:checkbox path="termsApproved" id="terms" />
                         <label for="terms">I agree to the GreatSchools Terms of Use.</label>
                     </td>
-                    <td><form:errors path="termsApproved" /></td>
+                    <td class="error"><form:errors path="termsApproved" /></td>
                 </tr>
                 <tr id="submitrow">
                     <td colspan="3">
@@ -108,7 +105,7 @@
                     Check your inbox to confirm your request.
                 </li>
                 <li>
-                    <span class="step">Step 2</span>
+                    <span class="step">Step 3</span>
                     Upon approval, we'll send documentation and an API key.
                 </li>
             </ul>
