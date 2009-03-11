@@ -68,6 +68,10 @@ div#api_reg input#terms {
     margin: 3px 5px 0 0;
 }
 
+div#api_reg tr#submitrow {
+   text-align: left;
+}
+
 div#sidebar {
     width:300px;
     float: right;
@@ -76,7 +80,7 @@ div#sidebar {
 
 div#getting_started {
     border:4px solid #AACCDD;
-    padding:15px;
+    padding:13px;
 }
 
 div#getting_started ul span {
@@ -84,12 +88,14 @@ div#getting_started ul span {
     color: red;
 }
 
+div#getting_started h2 {
+    color: #55BBCC;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 div#finder_promo {
     margin: 15px 0 0 0;
     border: 5px solid #F8F6E9;
     padding: 15px;
-}
-
-div#api_reg tr#submitrow {
-   text-align: left;
 }
