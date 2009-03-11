@@ -47,7 +47,18 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
         UrlBuilder b = new UrlBuilder(_school, UrlBuilder.SCHOOL_PROFILE_ADD_PARENT_REVIEW);
         PageContext pageContext = (PageContext)getJspContext();
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-        return b.asAHref (request, "Be the first to share your review!", "addParentReviewLink submodal-344-362 GS_CI9_");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<a href=\"");
+        sb.append(b.asSiteRelativeXml(request));
+
+        sb.append("\" class=\"submodal-344-362 addParentReviewLink\"");
+        sb.append(" onclick=\"Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false; \"");
+        sb.append(">") ;
+        sb.append("Be the first to share your review!");
+        sb.append("</a>");
+
+        return sb.toString();
     }
 
     public void writeOpeningDiv() throws JspException, IOException {
