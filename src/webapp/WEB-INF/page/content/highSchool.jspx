@@ -117,7 +117,12 @@
             <div id="collegeModule" class="box">
                 <div class="inner">
                     <div class="content cleared">
-                        <h2>Ready, set, college! <span class="month">${requestScope.hs_actionTipMonth} Action Tips</span></h2>
+                        <h2>Ready, set, college!
+                            <span class="month">${requestScope.hs_actionTipMonth} Action Tips</span>
+                            <a href="http://www.collegeboard.com/"><gsml:img
+                                    src="/res/img/content/gradeLanding/collegeboard_logo.gif"
+                                    alt="College Board"/></a>
+                        </h2>
                         <img src="/res/img/content/gradeLanding/high_landing_collegekids.jpg" alt="High school grads"/>
                         <div><h3>Freshmen</h3>${requestScope.hs_actionTipFreshman}</div>
                         <div class="collegeModuleJuniorsSeniorsTip"><h3>Sophomores</h3>${requestScope.hs_actionTipSophomore}</div>
