@@ -21,7 +21,7 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-<pageHelper:setPathway pathway="COUNTDOWN_COLLEGE"/>
+<pageHelper:setPathway pathway="ELEMENTARY_SCHOOL"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
@@ -190,7 +190,7 @@
         </div> <!-- end div content -->
 
         <div id="supplement">
-            <school:findAndCompareNear/>
+            <school:findAndCompareNear gradeLevel="e"/>
 
             <ad:AboveFold_300x250/>
 

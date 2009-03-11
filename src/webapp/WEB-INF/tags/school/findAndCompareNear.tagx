@@ -2,8 +2,10 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsweb="gstaglib"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
+<jsp:directive.attribute name="gradeLevel" required="true" description="To select the appropriate default Grade level in the drop down"/>
     <!--
         Requires javascript methods
         textSwitch
@@ -45,11 +47,12 @@
                 <input type="hidden" name="form" value="address" />
                 <div class="showMeLine">
                     <span>Show me</span>
-                    <select name="level" class="formLevel">
-                        <option value="e">elementary</option>
-                        <option value="m">middle</option>
-                        <option value="h">high</option>
-                    </select>
+                     <select name="level" class="formLevel">
+                            <gsml:selectOption value="e" selected="${gradeLevel eq 'e'}">elementary</gsml:selectOption>
+                            <gsml:selectOption value="m" selected="${gradeLevel eq 'm'}">middle</gsml:selectOption>
+                            <gsml:selectOption value="h" selected="${gradeLevel eq 'h'}">high</gsml:selectOption>
+
+                        </select>
                     <span>schools</span>
                 </div>
                 <div class="withinLine">
