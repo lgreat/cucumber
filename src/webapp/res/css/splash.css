@@ -43,7 +43,8 @@
     background-repeat: no-repeat; /* Phark */
 }
 
-#findAndCompare h3 em {
+#findAndCompare h3 em,
+#compareSchoolsNearZipHeader h3 em{
     font-weight: bold;
     color: #9c6;
 }
@@ -56,13 +57,18 @@
 
 
 #findAndCompare #findAndCompareSchoolsNationwide h3 {
-    background-image: url( /res/img/splash/findAndCompare.gif ); /* Phark */
+    background-image: url( /res/img/splash/findaschool.gif ); /* Phark */
     margin-bottom: 9px;
 }
 
 #findAndCompare #getIdeasAndLearnMoreAbout h3 {
     background-image: url( /res/img/splash/getIdeasAndLearnMoreAboutTrans.gif ); /* Phark */
     margin-bottom: 2px;
+}
+
+#findAndCompare #compareSchoolsNearZipHeader h3{
+    background-image: url( /res/img/splash/compareschool.gif ); /* Phark */
+    margin-bottom: 9px;
 }
 
 
@@ -88,6 +94,10 @@
 #findAndCompare input,
     #findAndCompare select {
     color: #444;
+}
+
+select.miles {
+    display:none;
 }
 #splashStateSelector {
     width:48px;
