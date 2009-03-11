@@ -46,6 +46,7 @@ function changeState(stateSelect) {
     var citySelect = $('topCitiesCityList');
 
     Element.remove(citySelect);
+    Element.hide(stateSelect);
     cityDiv.update("<span>Loading ...</span>");
     new Ajax.Updater(
             'topCitiesCityList',
@@ -53,13 +54,14 @@ function changeState(stateSelect) {
             {
                 method: 'get',
                 parameters: pars,
-                onComplete: updateElementContents('topCitiesCityListSpan', citySelect)
+                onComplete: updateCityAndShowState('topCitiesCityListSpan', citySelect, stateSelect)
             });
 }
 
-function updateElementContents(elemIdToUpdate, elemToAdd) {
+function updateCityAndShowState(elemIdToUpdate, elemToAdd, stateSelect) {
     $(elemIdToUpdate).update(elemToAdd);
     elemToAdd.show();
+    Element.show(stateSelect);
 }
 
 function changeCity(cityName, stateAbbr) {

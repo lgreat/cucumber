@@ -223,17 +223,23 @@ div.compareSchoolForm input.formButton {
     top: 2px;
 }
 
+.changeCity select#topCitiesCityList {
+    width: 175px;
+}
+
 #topSchools .changeCity select#topSchoolsStateSelector {
     margin-left: 5px;
 }
 
 #mapContainer {
     padding-top: 10px;
+    position: relative;
 }
 
 #map {
     width: 150px;
     height: 180px;
+    position: relative;
 }
 
 .topRatedSchools th {
