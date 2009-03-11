@@ -88,7 +88,7 @@
                             imageAlt="Boy studying" imageSrc="/res/img/content/gradeLanding/middle_academics.jpg"
                             text="${requestScope.teaserText_ms_support_classroom}"
                             ctaHref="${requestScope.callToAction_ms_support_classroomUrl}" ctaText="${requestScope.callToAction_ms_support_classroom}"
-                            articleIntro="What your child should know:"
+                            articleIntro="What to expect in the classroom:"
                             articleList="${requestScope.articleLink_ms_support_classroom}"
                             promoGradeWord="middle school" promoGradeWordPossessive="middle schooler" promoAutocheck="myMs"/>
 

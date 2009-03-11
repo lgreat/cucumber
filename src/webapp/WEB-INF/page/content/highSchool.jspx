@@ -87,7 +87,7 @@
                             imageAlt="Boy in lab coat" imageSrc="/res/img/content/gradeLanding/high_boyinlab.jpg"
                             text="${requestScope.teaserText_hs_boost_classroom}"
                             ctaHref="${requestScope.callToAction_hs_boost_classroomUrl}" ctaText="${requestScope.callToAction_hs_boost_classroom}"
-                            articleIntro="What your child should know:"
+                            articleIntro="What to expect in the classroom:"
                             articleList="${requestScope.articleLink_hs_boost_classroom}"
                             promoGradeWord="high school" promoGradeWordPossessive="high schooler" promoAutocheck="myHs"/>
 
