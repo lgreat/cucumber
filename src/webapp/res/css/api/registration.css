@@ -1,24 +1,24 @@
 /* api/registration.css */
 div#api_reg {
-    margin: 20px 60px;
-    border: 2px solid;
-    padding: 30px;
+    float:left;
+    margin: 0;
+    padding: 0 10px 0 15px;
 }
 
-form table {
+div#api_reg form table {
     text-align: right;
     vertical-align: text-top;
 }
 
-input, textarea {
-    width: 450px;
+div#api_reg input, div#api_reg textarea {
+    width: 400px;
 }
 
-textarea {
+div#api_reg textarea {
     height: 100px;
 }
 
-input#save {
+div#api_reg input#save {
     width: 150px;
 }
 .contentGS div h2 {
@@ -26,20 +26,42 @@ input#save {
     padding: 0 0 20px 0;
 }
 
-
-td span {
+div#api_reg td span {
     color: red;
 }
 
-div.note {
+div#api_reg div.note {
     font-size:13px;
     margin:0 0 15px 0;
 }
 
-td.tou {
-    text-align:left;
+div#api_reg td.tou {
+    text-align: left;
 }
-input#terms {
+
+div#api_reg input#terms {
     width: 15px;
-    margin:3px 5px 0 0;
+    margin: 3px 5px 0 0;
+}
+
+div#sidebar {
+    width:300px;
+    float: right;
+    padding: 0 15px 0 0;
+}
+
+div#getting_started {
+    border:4px solid #AACCDD;
+    padding:15px;
+}
+
+div#getting_started ul span {
+    display: block;
+    color: red;
+}
+
+div#finder_promo {
+    margin: 15px 0 0 0;
+    border: 5px solid;
+    padding: 15px;
 }

@@ -25,7 +25,6 @@
 
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/api/registration.css"/>
-
     </head>
 
     <body>
@@ -87,6 +86,29 @@
                 </tr>
             </table>
         </form:form>
+    </div>
+    <div id="sidebar">
+        <div id="getting_started">
+            <h2>Getting Started with Developer Tools</h2>
+            <ul>
+                <li>
+                    <span class="step">Step 1</span>
+                    Register to request an API key.
+                </li>
+                <li>
+                    <span class="step">Step 2</span>
+                    Check your inbox to confirm your request.
+                </li>
+                <li>
+                    <span class="step">Step 2</span>
+                    Upon approval, we'll send documentation and an API key.
+                </li>
+            </ul>
+        </div>
+        <div id="finder_promo">
+            <span class="headline">Developer tools too high-tech?</span>
+            <span class="blurb">Get our SchoolFinder Widget. All the school data easily dropped on your site or blog.</span>
+        </div>
     </div>
     </body>
     </html>
