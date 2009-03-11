@@ -42,7 +42,9 @@
                     </select>
                     <div class="zipCodeInput">
                         <p>near</p>
-                        <input type="text" name="zip" class="zip formText"/>
+                        <input type="text" id="findZipCodeInput" name="zip" class="zip formText" value="zip code"
+                           onfocus="textSwitch(this, '', 'zip code');"
+                           onblur="textSwitch(this, 'zip code', '');"/>
                         <div class="submitButton">
                             <input
                             onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
@@ -65,6 +67,6 @@
                         </c:otherwise-->
                     </c:choose>
 
- 
+
     </gsweb:form>
 </jsp:root>

@@ -49,6 +49,12 @@
     color: #9c6;
 }
 
+div.compareNearZip{
+    font-size:small;
+    font-style:normal;
+    font-weight:normal;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+}
 div.compareNearZip div.zipCodeInput {
     height: 24px;
     margin-top:12px;
