@@ -9,7 +9,7 @@
 <c:set var="showStateInfo" value="${requestScope.statewide.state ne 'DC'}"/>
 <c:if test="${not empty bpCensus}">
 <!-- For gsblog module on SF city page, design required a bottom border of a different color -->
-<div id="cityStats" class="statsModule ${(displayName eq 'San Francisco' and param.state eq 'CA')?'belowGSBlog':''}">
+<div id="cityStats" class="statsModule">
 
 <h3>What's it like to live in ${displayName}?</h3>
 <table cellpadding="0" cellspacing="0" class="census">
