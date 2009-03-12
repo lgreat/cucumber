@@ -8,3 +8,8 @@
 #tabbed-info{
    margin-top:10px;     
 }
+
+#tabbed-info .inner{
+  background-image:url(/res/img/content/gradeLanding/activities_header.png);
+  padding-top: 5px;
+}
