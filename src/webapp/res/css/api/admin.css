@@ -51,3 +51,7 @@ div#admin_login input.field {
 div#admin_login td span {
     color:red;
 }
+
+.hide {
+    display:none;
+}

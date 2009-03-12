@@ -74,7 +74,22 @@ public class AccountControllerTest {
         replay(_apiAccountDao);
         assertNotNull(account.getApiKey());
         String view = _controller.toggleActive(123, new ModelMap());
+        verify(_apiAccountDao);
         assertEquals(AccountController.MAIN_VIEW, view);
         assertNull(account.getApiKey());
+    }
+
+    @Test
+    public void updatePremiumOptions() {
+        ApiAccount account = new ApiAccount();
+        account.setId(123);
+        account.setName("foo");
+        account.setEmail("foo@bar.com");
+        account.setApiKey("blah");
+        expect(_apiAccountDao.getAccountById(123)).andReturn(account);
+        _apiAccountDao.save(account);
+        replay(_apiAccountDao);
+        _controller.update(account, 123, new ModelMap());
+        verify(_apiAccountDao);
     }
 }
