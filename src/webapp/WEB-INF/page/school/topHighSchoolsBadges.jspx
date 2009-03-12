@@ -43,6 +43,16 @@
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingHighResJpg">High-Res:JPEG</a></div>
                           <div><a href="/about/downloadLogo.page?badgeTypeAndName=topPerformingHighResPng">High-Res:PNG</a></div>
                   </li>
+                 
+                  <li>
+                      <img src="/res/img/school/topSchools/badge/badge_lowres_closegap.jpg"
+                        alt="GreatSchools Top Schools, as featured in BusinessWeek"/>
+                          <h3>Low Income</h3>
+                          <div><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeLowResJpg">Low-Res:JPEG</a></div>
+                          <div><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeLowResPng">Low-Res:PNG</a></div>
+                          <div><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeHighResJpg">High-Res:JPEG</a></div>
+                          <div><a href="/about/downloadLogo.page?badgeTypeAndName=lowIncomeHighResPng">High-Res:PNG</a></div>
+                  </li>
 
                   <li>
                       <img src="/res/img/school/topSchools/badge/badge_lowres_improved.jpg"

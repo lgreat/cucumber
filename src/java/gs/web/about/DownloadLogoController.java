@@ -56,10 +56,10 @@ public class DownloadLogoController implements Controller {
     final static String TOP_PERFORMING_HIGH_RES_PNG = "smbadge_highres_topperf.png";
     final static String TOP_PERFORMING_LOW_RES_PNG = "smbadge_lowres_topperf.png";
 
-    final static String LOW_INCOME_HIGH_RES_JPEG = "smbadge_highres_topperf_lowin.jpg";
-    final static String LOW_INCOME_LOW_RES_JPEG = "smbadge_lowres_topperf_lowin.jpg";
-    final static String LOW_INCOME_HIGH_RES_PNG = "smbadge_highres_topperf_lowin.png";
-    final static String LOW_INCOME_LOW_RES_PNG = "smbadge_lowres_topperf_lowin.png";
+    final static String CLOSE_GAP_HIGH_RES_JPEG = "smbadge_highres_topperf_closegap.jpg";
+    final static String CLOSE_GAP_LOW_RES_JPEG = "smbadge_lowres_topperf_closegap.jpg";
+    final static String CLOSE_GAP_HIGH_RES_PNG = "smbadge_highres_topperf_closegap.png";
+    final static String CLOSE_GAP_LOW_RES_PNG = "smbadge_lowres_topperf_closegap.png";
 
     final static String MOST_IMPROV_HIGH_RES_JPEG = "smbadge_highres_improved.jpg";
     final static String MOST_IMPROV_LOW_RES_JPEG = "smbadge_lowres_improved.jpg";
@@ -98,13 +98,13 @@ public class DownloadLogoController implements Controller {
          }else if(PARAM_VAL_TOP_PERFORMING_LOW_RES_PNG.equals(typeAndName)){
              return TOP_PERFORMING_LOW_RES_PNG;
          }else if(PARAM_VAL_LOW_INCOME_HIGH_RES_JPEG.equals(typeAndName)){
-             return LOW_INCOME_HIGH_RES_JPEG;
+             return CLOSE_GAP_HIGH_RES_JPEG;
          }else if(PARAM_VAL_LOW_INCOME_LOW_RES_JPEG.equals(typeAndName)){
-             return LOW_INCOME_LOW_RES_JPEG;
+             return CLOSE_GAP_LOW_RES_JPEG;
          }else if(PARAM_VAL_LOW_INCOME_HIGH_RES_PNG.equals(typeAndName)){
-             return LOW_INCOME_HIGH_RES_PNG;
+             return CLOSE_GAP_HIGH_RES_PNG;
          }else if(PARAM_VAL_LOW_INCOME_LOW_RES_PNG.equals(typeAndName)){
-             return LOW_INCOME_LOW_RES_PNG;
+             return CLOSE_GAP_LOW_RES_PNG;
          }else if(PARAM_VAL_MOST_IMPROV_HIGH_RES_JPEG.equals(typeAndName)){
              return MOST_IMPROV_HIGH_RES_JPEG;
          }else if(PARAM_VAL_MOST_IMPROV_LOW_RES_JPEG.equals(typeAndName)){
