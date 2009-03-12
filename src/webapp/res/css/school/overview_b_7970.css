@@ -67,8 +67,8 @@
 
 #rating_summary {
 	float: left;
-	margin: 20px 10px 0;
-	_margin: 18px 16px 15px 10px; /* IE 6 hack */
+	margin: 10px 10px 0;
+	_margin: 10px 16px 15px 10px; /* IE 6 hack */
     width: 330px;
     width:320px;
     height: 145px;
