@@ -240,10 +240,6 @@
                 id="GlobalNav_ArticleLibraryButton"
                 styleClass="topnav_subnav_first ${(pw == tabs.EDUCATION_TOPICS ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Popular topics:</link:articleLibrary></td>
-            <!--#20--><td><link:schoolChoiceCenter
-                                 id="GlobalNav_ChoosingButton"
-                                 styleClass="${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')} GS_CI9_ "
-                >Choosing the Right School</link:schoolChoiceCenter></td>
             <!--#15--><td><link:specialNeeds
                                  id="GlobalNav_LDButton"
                                  styleClass="${(pw == tabs.SPECIAL_NEEDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
@@ -260,6 +256,10 @@
                                  id="GlobalNav_MediaChildButton"
                                  styleClass="${(pw == tabs.MEDIA ? 'topnav_subnav_active' : '')} GS_CI9_ "
                 >Media &amp;amp; Your Child</link:mediaChoices></td>
+            <!--#20--><td><link:schoolChoiceCenter
+                                 id="GlobalNav_ChoosingButton"
+                                 styleClass="${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')} GS_CI9_ "
+                >Choosing the Right School</link:schoolChoiceCenter></td>
             <!--#18--><td><link:healthyKids
                                  styleId="GlobalNav_HealthyKidsButton"
                                  styleClass="${(pw == tabs.HEALTHY_KIDS ? 'topnav_subnav_active' : '')} GS_CI9_ "
