@@ -30,7 +30,7 @@
     padding: 18px 8px 10px 9px;
     margin: 0;
     width: 249px;
-    height: 234px;
+    height: 257px;
 }
 
 #findAndCompare h3 {
@@ -86,7 +86,7 @@ div.compareNearZip div.zipCodeInput .submitButton input {
 
 #findAndCompare #findAndCompareSchoolsNationwide {
     padding-bottom: 2ex;
-    border-bottom: 2px dotted #bdfce8;
+    border-bottom: 2px dotted #CCCCCC;
     margin-bottom: 3ex;
 }
 
