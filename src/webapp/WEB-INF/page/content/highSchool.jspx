@@ -127,7 +127,7 @@
                         <div><h3>Juniors</h3>${requestScope.hs_actionTipJunior}</div>
                         <div class="collegeModuleJuniorsSeniorsTip"><h3>Seniors</h3>${requestScope.hs_actionTipSenior}</div>
                         <span id="countDownToCollegeLink" ><link:countdownToCollege>Is your teen on track for college? &amp;gt;</link:countdownToCollege></span>
-                        <span id="collegeBoardLogo" ><a href="http://www.collegeboard.com/"><gsml:img
+                        <span id="collegeBoardLogo" ><a href="http://www.collegeboard.com/" target="_blank"><gsml:img
                                     src="/res/img/content/gradeLanding/collegeboard_logo.gif"
                                     alt="College Board"/></a></span>
                     </div>
