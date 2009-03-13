@@ -90,6 +90,10 @@ function changeCity(cityName, stateAbbr) {
                 // show javascript alert
                 alert("Please select a state.");
                 returnVal = false;
+            } else if (noSearchTerms && !noState) {
+                // go to state R&C (/school/research.page)
+                window.location.href = '/school/research.page';
+                returnVal = false;
             }
 
             return returnVal;
