@@ -1,0 +1,38 @@
+table.call_params  {
+    border-collapse: collapse;
+    width: 600px;
+}
+
+table.call_params tbody td {
+    border: 1px solid #999999;
+    border-collapse: collapse;
+}
+
+table.call_params thead .fields td {
+   background-color: #999999;
+   border-left: 1px solid #999999;
+    border-top: 1px solid #999999;
+    border-right: 1px solid #999999;
+   margin:0;
+   padding: 0;
+}
+
+div.content {
+    width: 600px;
+    float:left;
+}
+
+div#sidebar {
+    width:200px;
+    float:right;
+    padding:10px;
+    border: 1px solid;
+}
+
+div#sidebar ul.sub-toc {
+    margin: 0 0 0 15px;
+}
+
+div#sidebar .current {
+    font-weight:bold;
+}

@@ -1974,9 +1974,9 @@
         <property name="viewName" value="api/registrationSuccess"/>
     </bean>
 
-    <bean name="/api/documentation.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName" value="api/documentation"/>
+    <bean name="/api/docs/*"
+          class="gs.web.mvc.WildcardViewController" lazy-init="true">
+        <property name="basePath" value="api/docs"/>
     </bean>
 
     <bean name="/community/registration/popup/chooserRegistrationHover.page"

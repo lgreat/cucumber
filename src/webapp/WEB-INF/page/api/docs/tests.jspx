@@ -1,6 +1,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:apidoc="urn:jsptagdir:/WEB-INF/tags/api/docs"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
@@ -22,13 +23,12 @@
         <title>GreatSchools.net API Registration</title>
         <meta content="todo" name="description"/>
         <meta content="todo" name="keywords"/>
-
-        <!--<pageHelper:externalCss file="/res/css/api/api_docs.css"/>-->
+        <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
     </head>
 
     <body>
     <div id="api_docs">
-        
+        <apidoc:sidebar current="tests"/>
     </div>
     </body>
     </html>

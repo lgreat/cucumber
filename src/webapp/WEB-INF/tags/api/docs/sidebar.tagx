@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.net/taglib/link" >
+
+<jsp:directive.attribute name="current" type="java.lang.String" description="current page" required="false"/>
+
+<div id="sidebar">
+    <ul class="toc">
+        <li>
+            <a href="/api/docs/main.page" class="${current eq 'main' ? 'current' : ''}">Overview</a>            
+        </li>
+        <li>
+            <a href="/api/docs/schools.page" class="${current eq 'schools' ? 'current' : ''}">Schools</a>
+            <ul class="sub-toc">
+                <li><a href="">Get School</a></li>
+                <li><a href="">School Browse</a></li>
+                <li><a href="">Schools Nearby</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/api/docs/tests.page" class="${current eq 'tests' ? 'current' : ''}">Tests</a>
+            <ul class="sub-toc">
+                <li><a href="">test</a></li>
+                <li><a href="">test</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</jsp:root>
