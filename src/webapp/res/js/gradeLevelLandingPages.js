@@ -72,3 +72,25 @@ function changeCity(cityName, stateAbbr) {
     newHref = newHref + '?city=' + encodeURIComponent(cityName) + '&state=' + stateAbbr;
     window.location.href = newHref;
 }
+
+
+ function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
+            var returnVal = true;
+            var queryVal = document.getElementById(queryId).value;
+            var stateVal = document.getElementById(stateSelectorId).value;
+
+            var noSearchTerms = (queryVal == 'Search for school, district or city');
+            var noState = (stateVal == ("-" + "-") || stateVal == "");
+
+            if (noSearchTerms && noState) {
+                // go to national R&C (/school/research.page)
+                window.location.href = '/school/research.page';
+                returnVal = false;
+            } else if (!noSearchTerms && noState) {
+                // show javascript alert
+                alert("Please select a state.");
+                returnVal = false;
+            }
+
+            return returnVal;
+        }

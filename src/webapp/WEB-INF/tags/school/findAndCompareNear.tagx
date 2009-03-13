@@ -16,7 +16,7 @@
     <div class="inner cleared">
         <h2>Find a school</h2>
         <div class="findSchoolForm">
-            <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial">
+            <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial" onsubmit="return findAndCompareCheck('q', 'findStateSelector', 'p');">
                 <input type="hidden" name="c" value="school"/>
             <input type="text" name="q" class="formText"
                    value="Search for school, district or city"
@@ -29,7 +29,6 @@
             <input
                 onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                 onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                onclick="return checkStateSelection('stateSelector3');"
                 class="formButton"
                 alt="Find ${requestScope.context.state.longName} Schools"
                 src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
