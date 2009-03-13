@@ -75,26 +75,39 @@ function changeCity(cityName, stateAbbr) {
 
 
  function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
-            var returnVal = true;
-            var queryVal = document.getElementById(queryId).value;
-            var stateVal = document.getElementById(stateSelectorId).value;
+    var returnVal = true;
+    var queryVal = document.getElementById(queryId).value;
+    var stateVal = document.getElementById(stateSelectorId).value;
 
-            var noSearchTerms = (queryVal == 'Search for school, district or city');
-            var noState = (stateVal == ("-" + "-") || stateVal == "");
+    var noSearchTerms = (queryVal == 'Search for school, district or city');
+    var noState = (stateVal == ("-" + "-") || stateVal == "");
 
-            if (noSearchTerms && noState) {
-                // go to national R&C (/school/research.page)
-                window.location.href = '/school/research.page';
-                returnVal = false;
-            } else if (!noSearchTerms && noState) {
-                // show javascript alert
-                alert("Please select a state.");
-                returnVal = false;
-            } else if (noSearchTerms && !noState) {
-                // go to state R&C (/school/research.page)
-                window.location.href = '/school/research.page?state='+stateVal;
-                returnVal = false;
-            }
+    if (noSearchTerms && noState) {
+        // go to national R&C (/school/research.page)
+        window.location.href = '/school/research.page';
+        returnVal = false;
+    } else if (!noSearchTerms && noState) {
+        // show javascript alert
+        alert("Please select a state.");
+        returnVal = false;
+    } else if (noSearchTerms && !noState) {
+        // go to state R&C (/school/research.page)
+        window.location.href = '/school/research.page?state='+stateVal;
+        returnVal = false;
+    }
+    return returnVal;
+}
 
-            return returnVal;
-        }
+ function validateZipCode(zip) {
+    var zipCode = document.getElementById(zip).value;
+//    var zipcodeDiv = document.getElementById('zipcodeError');
+    var zipPattern = /^[0-9]{5}$/;
+    if(!zipPattern.test(zipCode)){
+        alert("Enter a valid zipcode");
+//        zipcodeDiv.className ="zipcodeErrorDisplay";
+        return false;
+    }
+    else{
+        return true;
+    }
+}

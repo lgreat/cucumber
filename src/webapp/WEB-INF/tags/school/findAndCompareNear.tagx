@@ -39,7 +39,7 @@
         </div>
         <h2>Compare schools <span class="smaller">near an address</span></h2>
         <div class="compareSchoolForm">
-            <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
+            <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial" onsubmit="return validateZipCode('zipCode');">
                 <input type="hidden" name="sortby" value="distance" />
                 <input type="hidden" name="tab" value="over" />
                 <input type="hidden" name="area" value="m" />
@@ -65,7 +65,7 @@
                         <option value="30">30</option>
                     </select>
                     <span>miles of</span>
-                    <input type="text" name="zip" class="formZip" value="ZIP code"
+                    <input type="text" name="zip" id="zipCode" class="formZip" value="ZIP code"
                            onfocus="textSwitch(this, '', 'ZIP code');"
                            onblur="textSwitch(this, 'ZIP code', '');"/>
                     <input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
@@ -74,6 +74,7 @@
                            alt="Compare ${requestScope.context.state.longName} Schools"
                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
                 </div>
+                <!--<div id="zipcodeError" class="zipcodeErrorNoDisplay">Enter a valid zip</div>-->
             </gsweb:form>
         </div>
     </div>
