@@ -16,9 +16,9 @@
     <div class="inner cleared">
         <h2>Find a school</h2>
         <div class="findSchoolForm">
-            <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial" onsubmit="return findAndCompareCheck('q', 'findStateSelector', 'p');">
+            <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial" onsubmit="return findAndCompareCheck('schoolSearchText', 'findStateSelector', 'p');">
                 <input type="hidden" name="c" value="school"/>
-            <input type="text" name="q" class="formText"
+            <input type="text" name="q" id="schoolSearchText" class="formText"
                    value="Search for school, district or city"
                    onfocus="textSwitch(this, '', 'Search for school, district or city');"
                    onblur="textSwitch(this, 'Search for school, district or city', '');"/>
