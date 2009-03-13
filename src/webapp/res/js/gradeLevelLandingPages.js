@@ -111,3 +111,10 @@ function changeCity(cityName, stateAbbr) {
         return true;
     }
 }
+
+function viewTopSchools() {
+    var selector = document.getElementById('top5State');
+    var longStateName = selector.options[selector.selectedIndex].innerHTML.toLowerCase();
+    window.location.href = '/top-high-schools/' + longStateName + '/';
+    return false;
+}
