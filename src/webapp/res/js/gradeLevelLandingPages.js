@@ -115,6 +115,6 @@ function changeCity(cityName, stateAbbr) {
 function viewTopSchools() {
     var selector = document.getElementById('top5State');
     var longStateName = selector.options[selector.selectedIndex].innerHTML.toLowerCase();
-    window.location.href = '/top-high-schools/' + longStateName + '/';
+    window.location.href = '/top-high-schools/' + longStateName.replace(' ', '-') + '/';
     return false;
 }
