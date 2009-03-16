@@ -2,7 +2,7 @@
 #ratingsParentOnly #rating_parent,#ratingsNone #rating_parent,#ratingsBoth #rating_parent, #ratingsGSOnly #rating_parent {
     float: right;
 	text-align: center;
-
+    width: 138px;
 }
 
 #ratingsParentOnly #rating_parent,#ratingsNone #rating_parent {
