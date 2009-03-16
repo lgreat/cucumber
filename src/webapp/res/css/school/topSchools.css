@@ -166,8 +166,17 @@
     background: url( /res/img/school/topSchools/topperforming.jpg ) no-repeat;
 }
 
+#pageWrapper #top-five-schools li.lowincome{
+    padding-bottom:20px;
+}
+
+* html #pageWrapper #top-five-schools li.lowincome, * + html #pageWrapper #top-five-schools li.lowincome {
+    padding-bottom:13px;
+}
+/* low_income is now called closing the gap */
 #pageWrapper #top-five-schools .badge_lowincome {
     background: url( /res/img/school/topSchools/badge_gap.jpg ) no-repeat;
+    padding-top:83px;
 }
 
 #pageWrapper #top-five-schools .badge_improved {
