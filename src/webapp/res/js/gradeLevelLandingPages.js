@@ -103,7 +103,7 @@ function changeCity(cityName, stateAbbr) {
 //    var zipcodeDiv = document.getElementById('zipcodeError');
     var zipPattern = /^[0-9]{5}$/;
     if(!zipPattern.test(zipCode)){
-        alert("Enter a valid zipcode");
+        alert("Please enter a valid ZIP code.");
 //        zipcodeDiv.className ="zipcodeErrorDisplay";
         return false;
     }
