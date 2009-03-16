@@ -10,12 +10,15 @@
     _padding-bottom:0;
 }
 
-#ratingsParentOnly #rating_parent, #ratingsBoth #rating_parent, #ratingsNone #rating_parent, #ratingsGSOnly #rating_parent{ /* has IE 7 equivalent */
-   background: url( /res/img/school/overview/7970_b/background.gif ) no-repeat  center ;
+#ratingsParentOnly #rating_parent,
+    #ratingsBoth #rating_parent,
+    #ratingsNone #rating_parent,
+    #ratingsGSOnly #rating_parent{ /* has IE 7 equivalent */
+    background: url( /res/img/school/overview/7970_b/background.gif ) no-repeat   ;
 	margin: 6px 0px 16px 0;
-    padding:27px 16px;
-	_margin: 18px 0px 15px 0; /* IE 6 hack */
-    _padding:0px 18px; /* IE 6 hack */
+    padding:27px 6px;
+	_margin: 18px 20px 15px 0; /* IE 6 hack */
+    _padding:0px 0px; /* IE 6 hack */
     _height: 150px;
 }
 #ratingsParentOnly #rating_parent a img.parentTitle, #ratingsBoth #rating_parent a img.parentTitle,
@@ -44,8 +47,11 @@
 
 /* ratingsNone: is used when there are neither GS or Parent Ratings */
 
-#ratingsNone #rating_parent, #ratingsGSOnly #rating_parent{
-    width:135px;
+#ratingsNone #rating_parent, #ratingsGSOnly #rating_parent, #ratingsBoth #rating_parent, #ratingsParentOnly #rating_parent{
+    width: 138px;
+    _width:148px;
+    margin-right:10px;
+    _margin-right:6px;
 }
 
 #ratingsNone,
@@ -69,13 +75,13 @@
 	float: left;
 	margin: 10px 10px 0;
 	_margin: 10px 16px 15px 10px; /* IE 6 hack */
-    width: 330px;
     width:320px;
     height: 145px;
     font-size: 13px;
 }
 
-#ratingsNone #rating_summary,     #ratingsParentOnly #rating_summary{
+#ratingsNone #rating_summary,
+#ratingsParentOnly #rating_summary{
     padding-top: 14px;
 }
 

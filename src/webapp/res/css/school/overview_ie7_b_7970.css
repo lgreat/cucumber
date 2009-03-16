@@ -2,21 +2,23 @@
 #ratingsParentOnly #rating_parent,#ratingsNone #rating_parent,#ratingsBoth #rating_parent, #ratingsGSOnly #rating_parent {
     float: right;
 	text-align: center;
-    width: 135px;
+
 }
 
 #ratingsParentOnly #rating_parent,#ratingsNone #rating_parent {
-	margin: 8px 0px 0 0;
+	margin: 8px 10px 0 0;
 }
 
 #ratingsBoth #rating_parent {
-	margin: -20px 0px 0 0;
+	margin: -20px 10px 0 0;
 }
 #ratingsGSOnly #rating_parent{
-	margin: -30px 0px 0 0;
+	margin: -10px 10px 0 0;
 }
 
-
+#ratingsGSOnly .parentTitle{
+    margin-top:5px;
+}
 #ratingsGSOnly #rating_gs img,  #ratingsBoth #rating_gs img {
 	margin-bottom: 6px;
 }
