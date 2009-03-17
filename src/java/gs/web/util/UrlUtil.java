@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.75 2009/03/17 19:39:03 aroy Exp $
+ * $Id: UrlUtil.java,v 1.76 2009/03/17 22:26:24 yfan Exp $
  */
 
 package gs.web.util;
@@ -37,7 +37,7 @@ public final class UrlUtil {
     public static Map<String, String> getParamsFromQueryString(String queryString) {
         Map<String, String> params = new HashMap<String, String>();
         if (StringUtils.isNotBlank(queryString)) {
-            String[] nameValuePairs = queryString.split("&");
+            String[] nameValuePairs = queryString.split("&amp;");
             for (String nameValuePair: nameValuePairs) {
                 String[] nameAndValue = nameValuePair.split("=");
                 try {
