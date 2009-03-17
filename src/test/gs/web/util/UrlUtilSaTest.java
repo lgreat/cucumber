@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.59 2009/03/17 22:26:24 yfan Exp $
+ * $Id: UrlUtilSaTest.java,v 1.60 2009/03/17 22:45:05 aroy Exp $
  */
 
 package gs.web.util;
@@ -399,14 +399,14 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals(1, params.size());
         assertEquals("bar", params.get("foo"));
 
-        params = UrlUtil.getParamsFromQueryString("a=b&amp;c=d&amp;e=f");
+        params = UrlUtil.getParamsFromQueryString("a=b&c=d&e=f");
         assertNotNull(params);
         assertEquals(3, params.size());
         assertEquals("b", params.get("a"));
         assertEquals("d", params.get("c"));
         assertEquals("f", params.get("e"));
 
-        params = UrlUtil.getParamsFromQueryString("state=CA&amp;city=San+Francisco");
+        params = UrlUtil.getParamsFromQueryString("state=CA&city=San+Francisco");
         assertNotNull(params);
         assertEquals(2, params.size());
         assertEquals("CA", params.get("state"));

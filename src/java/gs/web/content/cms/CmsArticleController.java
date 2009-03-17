@@ -40,29 +40,36 @@ public class CmsArticleController extends AbstractController {
 
         CmsArticle article = _articleDao.get(uri);
 
-        replaceGreatSchoolsUrls(article, request);
+        replaceGreatSchoolsUrlsInArticle(article, request);
 
         model.put("article", article);
         return new ModelAndView(VIEW_NAME, model);
     }
 
     /**
-     * Replace GS URL codes in body with relative paths to the respective pages. This depends on
-     * UrlBuilder.
+     * Replace GS URL codes in body and summary with relative paths to the respective pages.
      */
-    protected void replaceGreatSchoolsUrls(CmsArticle article, HttpServletRequest request) {
-        String body = article.getBody();
-        if (StringUtils.isNotBlank(body)) {
-            Matcher matcher = _pattern.matcher(body);
-            StringBuffer sb = new StringBuffer();
-            while (matcher.find()) {
-                String vpagePattern = matcher.group(1);
-                UrlBuilder urlBuilder = new UrlBuilder(vpagePattern);
-                matcher.appendReplacement(sb, urlBuilder.asSiteRelative(request));
-            }
-            matcher.appendTail(sb);
-            article.setBody(sb.toString());
+    protected void replaceGreatSchoolsUrlsInArticle(CmsArticle article, HttpServletRequest request) {
+        article.setBody(replaceGreatSchoolsUrlInString(article.getBody(), request));
+        article.setSummary(replaceGreatSchoolsUrlInString(article.getSummary(), request));
+    }
+
+    /**
+     * Replace GS URL codes in provided string. This depends on UrlBuilder
+     */
+    protected String replaceGreatSchoolsUrlInString(String text, HttpServletRequest request) {
+        if (StringUtils.isBlank(text)) {
+            return text;
         }
+        Matcher matcher = _pattern.matcher(text);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            String vpagePattern = matcher.group(1);
+            UrlBuilder urlBuilder = new UrlBuilder(vpagePattern);
+            matcher.appendReplacement(sb, urlBuilder.asSiteRelative(request));
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
     }
 
     public void setCmsArticleDao(ICmsArticleDao articleDao) {

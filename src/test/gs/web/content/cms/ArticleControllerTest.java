@@ -25,11 +25,18 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         article.setBody("Hello! Visit us " +
                 "<a href=\"gs://home?foo=bar&taz=whatcomesnext\">here</a>." +
                 " Also, you may want to go <a href=\"gs://home?foo=bar&taz=whatcomesnext\">here</a>.");
+
+        article.setSummary("Hello again! Visit us " +
+                "<a href=\"gs://home?foo=bar&taz=whatcomesnext\">here</a>." +
+                " Also, you may want to go <a href=\"gs://home?foo=bar&taz=whatcomesnext\">here</a>.");
         replay(_cmsArticleDao);
-        _controller.replaceGreatSchoolsUrls(article, getRequest());
+        _controller.replaceGreatSchoolsUrlsInArticle(article, getRequest());
         verify(_cmsArticleDao);
 
         assertEquals("Hello! Visit us <a href=\"/\">here</a>." +
                 " Also, you may want to go <a href=\"/\">here</a>.", article.getBody());
+
+        assertEquals("Hello again! Visit us <a href=\"/\">here</a>." +
+                " Also, you may want to go <a href=\"/\">here</a>.", article.getSummary());
     }
 }
