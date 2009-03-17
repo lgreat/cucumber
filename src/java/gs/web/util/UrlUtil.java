@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.74 2009/01/22 19:05:37 aroy Exp $
+ * $Id: UrlUtil.java,v 1.75 2009/03/17 19:39:03 aroy Exp $
  */
 
 package gs.web.util;
@@ -14,6 +14,10 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.util.Map;
+import java.util.HashMap;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Wrapping and URL munging tools.
@@ -25,6 +29,26 @@ import java.net.URL;
  */
 public final class UrlUtil {
     private static final Log _log = LogFactory.getLog(UrlUtil.class);
+
+    /**
+     * Returns a map of param name to param value extracted from the provided query string.
+     * The query string should not start with a question mark!
+     */
+    public static Map<String, String> getParamsFromQueryString(String queryString) {
+        Map<String, String> params = new HashMap<String, String>();
+        if (StringUtils.isNotBlank(queryString)) {
+            String[] nameValuePairs = queryString.split("&");
+            for (String nameValuePair: nameValuePairs) {
+                String[] nameAndValue = nameValuePair.split("=");
+                try {
+                    params.put(nameAndValue[0], URLDecoder.decode(nameAndValue[1], "UTF-8"));
+                } catch (UnsupportedEncodingException uee) {
+                    _log.warn("Can't decode param: " + nameValuePair);
+                }
+            }
+        }
+        return params;
+    }
 
     /**
      * Given a hostname, extracts the cobrand, or what looks like

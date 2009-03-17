@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.57 2009/01/22 19:05:37 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.58 2009/03/17 19:39:03 aroy Exp $
  */
 
 package gs.web.util;
@@ -11,6 +11,8 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import java.util.Map;
 
 /**
  * Tests UrlUtil
@@ -379,5 +381,35 @@ public class UrlUtilSaTest extends TestCase {
         }
 
         assertEquals("Expected valid article URL", "/cgi-bin/showarticle/5", UrlUtil.buildArticleUrl(5));
+    }
+
+    public void testGetParamsFromQueryString() {
+        Map<String, String> params;
+
+        params = UrlUtil.getParamsFromQueryString(null);
+        assertNotNull(params);
+        assertEquals(0, params.size());
+
+        params = UrlUtil.getParamsFromQueryString("");
+        assertNotNull(params);
+        assertEquals(0, params.size());
+
+        params = UrlUtil.getParamsFromQueryString("foo=bar");
+        assertNotNull(params);
+        assertEquals(1, params.size());
+        assertEquals("bar", params.get("foo"));
+
+        params = UrlUtil.getParamsFromQueryString("a=b&c=d&e=f");
+        assertNotNull(params);
+        assertEquals(3, params.size());
+        assertEquals("b", params.get("a"));
+        assertEquals("d", params.get("c"));
+        assertEquals("f", params.get("e"));
+
+        params = UrlUtil.getParamsFromQueryString("state=CA&city=San+Francisco");
+        assertNotNull(params);
+        assertEquals(2, params.size());
+        assertEquals("CA", params.get("state"));
+        assertEquals("Expect URL decoding to occur", "San Francisco", params.get("city"));
     }
 }

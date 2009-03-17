@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.96 2009/01/21 10:08:00 eddie Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.97 2009/03/17 19:39:03 aroy Exp $
  */
 
 package gs.web.util;
@@ -559,5 +559,32 @@ public class UrlBuilderSaTest extends TestCase {
         schoolTypes.add(SchoolType.CHARTER);
         UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", schoolTypes, LevelCode.ELEMENTARY);
         assertEquals("Unexpected URL", "/alaska/anchorage/public-charter/elementary-schools/", builder.asSiteRelative(request));
+    }
+
+    public void testVpageEquality() {
+        UrlBuilder.VPage vpage = new UrlBuilder.VPage("vpage:home");
+        assertEquals(UrlBuilder.HOME, vpage);
+    }
+
+    public void testStringConstructor() {
+        // home page
+        UrlBuilder urlBuilder = new UrlBuilder("home");
+        assertEquals("/", urlBuilder.asSiteRelative(getMockRequest()));
+
+        urlBuilder = new UrlBuilder("home?a=b&c=d");
+        assertEquals("/", urlBuilder.asSiteRelative(getMockRequest()));
+
+        // research & compare
+        // national
+        urlBuilder = new UrlBuilder("research");
+        assertEquals("/school/research.page", urlBuilder.asSiteRelative(getMockRequest()));        
+
+        // Maryland
+        urlBuilder = new UrlBuilder("research?state=MD");
+        assertEquals("/modperl/go/MD", urlBuilder.asSiteRelative(getMockRequest()));
+
+        // Bogus
+        urlBuilder = new UrlBuilder("research?state=Bogus");
+        assertEquals("/school/research.page", urlBuilder.asSiteRelative(getMockRequest()));
     }
 }

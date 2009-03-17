@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.153 2009/03/03 17:30:19 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.154 2009/03/17 19:39:03 aroy Exp $
  */
 
 package gs.web.util;
@@ -69,11 +69,25 @@ public class UrlBuilder {
      * Provides type-safety for identifying our unique "pages".
      */
     public static class VPage {
-
         private String _name;
 
-        private VPage(String s) {
+        protected VPage(String s) {
             _name = s;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            VPage vPage = (VPage) o;
+
+            return _name.equals(vPage._name);
+        }
+
+        @Override
+        public int hashCode() {
+            return _name.hashCode();
         }
     }
 
@@ -241,6 +255,40 @@ public class UrlBuilder {
 
     /** Api Pages */
     public static final VPage API_ADMIN_LOGIN = new VPage("vpage:apiAdminLogin");
+
+    /**
+     * Creates a builder to the page specified in the provided URL code. This only supports the
+     * pages needed for the CMS.
+     */
+    public UrlBuilder(String gsUrl) {
+        int paramIndex = gsUrl.indexOf("?");
+        String vpageName;
+        Map<String, String> params = new HashMap<String, String>(0);
+        if (paramIndex > 0) {
+            vpageName = gsUrl.substring(0, paramIndex);
+            // want part after the ?
+            params = UrlUtil.getParamsFromQueryString(gsUrl.substring(paramIndex+1));
+        } else {
+            vpageName = gsUrl;
+        }
+        VPage vPage = new VPage("vpage:" + vpageName);
+
+        if (HOME.equals(vPage)) {
+            init(HOME, null, null);
+        } else if (SCHOOL_PROFILE.equals(vPage)) {
+            //handleSchoolProfile(school, false);
+        } else if (RESEARCH.equals(vPage)) {
+            State state = null;
+            if (params.get("state") != null) {
+                try {
+                    state = State.fromString(params.get("state"));
+                } catch (IllegalArgumentException iae) {
+                    _log.warn("Cannot find state " + params.get("state"));
+                }
+            }
+            init(RESEARCH, state, null);
+        }
+    }
 
     /**
      * Create a builder to the given site page.
