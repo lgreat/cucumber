@@ -39,7 +39,7 @@
                          type="gs.data.school.review.Ratings"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
 <!-- ratings summary not shown for other schools -->
-<c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+<c:if test="${school.levelCode ne 'p'}">
     <pageHelper:externalCss file="/res/css/school/profile_b_7970.css"/>
 </c:if>
 
@@ -152,7 +152,7 @@
 <![endif]-->
 ]]>
 <!-- ratings summary not shown for other schools:  this needs be renamed -->
-<c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+<c:if test="${school.levelCode ne 'p'}">
     <![CDATA[
 <!--[if IE 7]>
     <link rel="stylesheet" type="text/css" href="/res/css/school/profile_ie7_b_7970.css" />
@@ -249,7 +249,7 @@
                 </c:if>
 
                 <!-- ratings summary on public and charter schools only -->
-                <c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                <c:if test="${school.levelCode ne 'p'}">
                     <p>&amp;#160;|&amp;#160;</p><!-- pipe divider as opposed to link border, as per client request -->
                     <gsml:img src="/res/img/school/overview/7970_b/print.gif" styleClass="emailImg toolsImg"
                               alt="Print this page"
@@ -460,7 +460,7 @@
 <c:set var="subNavClass" value=""/>
 
 <!-- ratings summary on public and charter schools only -->
-<c:if test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+<c:if test="${school.levelCode ne 'p'}">
     <c:set var="subNavClass" value="hidden"/>
 </c:if>
 

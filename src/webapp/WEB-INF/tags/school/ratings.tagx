@@ -100,7 +100,7 @@
 
                         <c:choose>
                             <!-- ratings summary on public and charter schools only -->
-                            <c:when test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                            <c:when test="${school.levelCode ne 'p'}">
                                 <gsml:img src="/res/img/school/overview/7970_b/rating_BeTheFirst.gif"
                                       alt="Be the first to rate this school!"
                                       styleClass="parentTitle"/>
@@ -128,7 +128,7 @@
                     <link:schoolProfileParentReview school="${school}">
                         <c:choose>
                             <!-- ratings summary not shown for other schools -->
-                            <c:when test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                            <c:when test="${school.levelCode ne 'p'}">
                                 <gsml:img src="/res/img/school/overview/7970_b/parentRating.gif"
                                       alt="Overall Parent Rating" styleClass="parentTitle"/>
                                 <gsml:img src="/res/img/school/overview/7970_b/stars_${parentRating.overall}.gif"
@@ -152,7 +152,7 @@
                             >
                         <c:choose>
                             <!-- ratings summary not shown for other schools -->
-                            <c:when test="${school.type.schoolTypeName ne 'private' and school.levelCode ne 'p'}">
+                            <c:when test="${school.levelCode ne 'p'}">
                                 <gsml:img src="/res/img/school/overview/7970_b/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
                             </c:when>
                             <!-- ratings summary not shown for other schools -->
