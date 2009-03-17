@@ -3,6 +3,7 @@
           xmlns:api="urn:jsptagdir:/WEB-INF/tags/api"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
+          xmlns:apitag="urn:www.greatschools.net/taglib/api"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0" xmlns:form="http://www.springframework.org/tags/form">
 
@@ -22,8 +23,7 @@
     <body>
     <api:nav />
     <div id="content">
-        image:
-        <img src="/apiservice/reports/report.png?key=1234abc" alt="foo"/>
+        <apitag:report reportUrl="http://localhost:8080/apiservice/reports/all?key=1234abc" />
     </div>
     </body>
     </html>

@@ -29,6 +29,7 @@
                 <directory>src/java</directory>
                 <includes>
                     <include>**/*.xml</include>
+                    <include>**/*.xsl</include>
                     <include>**/*.txt</include>
                 </includes>
             </resource>
