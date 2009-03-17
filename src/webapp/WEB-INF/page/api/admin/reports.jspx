@@ -23,7 +23,14 @@
     <body>
     <api:nav />
     <div id="content">
-        <apitag:report reportUrl="http://localhost:8080/apiservice/reports/all?key=1234abc" />
+        <span class="report-title">Total Requests Per Day</span>
+        <apitag:report type="callsByDay" display="table"/>
+        <br /><br />
+        <span class="report-title">Top API calls</span>
+        <apitag:report type="topCalls" display="table"/>
+        <br /><br />
+        <span class="report-title">Top Users</span>
+        <apitag:report type="topKeys" display="table"/>
     </div>
     </body>
     </html>

@@ -2,6 +2,7 @@ package gs.web.api;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.apache.commons.httpclient.HttpClient;
@@ -42,33 +43,35 @@ public class ReportTagHandlerTest {
 
     @Test
     public void doTag() throws Exception {
-        String url = "/reports/test?key=1234";
+        String url = "/reports/all?key=1234";
         GetMethod getMethod = new GetMethod(url) {
             public String getResponseBodyAsString() throws IOException {
                 return "foo fala";
             }
         };
-        _tag.setReportUrl(url);
+        _tag.setType("all");
         _tag.setMethod(getMethod);
         expect(_httpClient.executeMethod(getMethod)).andReturn(HttpStatus.SC_OK);
         replay(_httpClient);
+
+        assertEquals ("http://localhost/apiservice/reports/all", _tag.getReportUrl());
+        
         _tag.doTag();
         verify(_httpClient);
         System.out.println (_out.getOutputBuffer().toString());
     }
 
-    //@Test
     public void debugTest() throws Exception {
-        String url = "http://api.dev.greatschools.net/reports/all?key=1234abc";
         ReportTagHandler _tag = new ReportTagHandler();
-        
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, new MockSessionContext());
         request.setAttribute(PageContext.PAGECONTEXT, new MockPageContext());
+        request.setLocalPort(8080);
         MockPageContext pageContext = new MockPageContext(new MockServletContext(), request);
         _out = (MockJspWriter) pageContext.getOut();
         _tag.setJspContext(pageContext);
-        _tag.setReportUrl(url);
+        _tag.setType("all");
+        _tag.setDisplay("table");
         _tag.doTag();
         System.out.println (_out.getOutputBuffer().toString());
     }

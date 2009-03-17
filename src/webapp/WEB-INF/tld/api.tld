@@ -22,11 +22,21 @@
             <![CDATA[Makes a call to the GSApi requesting report data.]]>
         </description>
         <attribute>
-             <name>reportUrl</name>
+            <name>type</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Url to gs-api report call</description>
+            <description>The report type</description>
+        </attribute>
+        <attribute>
+            <name>display</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>
+                Determines what display mark-up is delivered. Accepted values are [div, table].
+                Defaults to div.
+            </description>
         </attribute>
     </tag>
 </taglib>

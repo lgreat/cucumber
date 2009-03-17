@@ -3,25 +3,25 @@
     <xsl:output method='html' version='1.0' encoding='utf-8' indent='no'/>
     <xsl:output indent="yes"/>
     <xsl:template match="/report">
-        <div class="report">
+        <table class="report">
             <xsl:apply-templates select="result" />
-        </div>
+        </table>
     </xsl:template>
 
     <xsl:template match="result">
-        <div class="result">
+        <tr class="result">
             <xsl:apply-templates select="field" />
-        </div>
+        </tr>
     </xsl:template>
 
     <xsl:template match="field">
-        <div class="field">
+        <td class="field">
             <span>
                 <xsl:attribute name="class">
                     <xsl:value-of select="@type" />
                 </xsl:attribute>
                 <xsl:value-of select="value"/>
             </span>
-        </div>
+        </td>
     </xsl:template>
 </xsl:stylesheet>
