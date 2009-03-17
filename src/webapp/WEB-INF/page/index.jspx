@@ -243,7 +243,7 @@
             <div class="wrapper-inner">
                 <div class="wrapper-content" style="width: 261px; height: 264px; position: relative;">
                     <!-- Define width (and alternatively height) on .wrapper-content -->
-                    <img class="heading" src="/res/img/home/tools_header.gif" alt="The Latest Tools and Advice"
+                    <img class="heading" src="/res/img/home/whats_new.jpg" alt="Whats New?"
                          title=""/>
                     <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter"/>
 
