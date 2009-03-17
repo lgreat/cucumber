@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.154 2009/03/17 19:39:03 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.155 2009/03/17 21:28:44 yfan Exp $
  */
 
 package gs.web.util;
@@ -10,9 +10,11 @@ import gs.data.geo.ICity;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.LevelCode;
+import gs.data.school.ISchoolDao;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.data.util.SpringUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
@@ -276,7 +278,11 @@ public class UrlBuilder {
         if (HOME.equals(vPage)) {
             init(HOME, null, null);
         } else if (SCHOOL_PROFILE.equals(vPage)) {
-            //handleSchoolProfile(school, false);
+            State state = State.fromString(params.get("state"));
+            String schoolIdStr = params.get("id");
+            ISchoolDao schoolDao = (ISchoolDao) SpringUtil.getApplicationContext().getBean(ISchoolDao.BEAN_ID);
+            School school = schoolDao.getSchoolById(state, Integer.parseInt(schoolIdStr));
+            handleSchoolProfile(school, false);
         } else if (RESEARCH.equals(vPage)) {
             State state = null;
             if (params.get("state") != null) {
@@ -287,6 +293,16 @@ public class UrlBuilder {
                 }
             }
             init(RESEARCH, state, null);
+        } else if (DISTRICT_PROFILE.equals(vPage)) {
+           State state = State.fromString(params.get("state"));
+           String districtIdStr = params.get("id");
+           init(DISTRICT_PROFILE, state, districtIdStr);
+        } else if (CITY_PAGE.equals(vPage)) {
+            State state = State.fromString(params.get("state"));
+            String city = params.get("city");
+            init(CITY_PAGE, state, city);
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + vpageName);
         }
     }
 

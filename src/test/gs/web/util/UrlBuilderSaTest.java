@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.97 2009/03/17 19:39:03 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.98 2009/03/17 21:28:44 yfan Exp $
  */
 
 package gs.web.util;
@@ -586,5 +586,17 @@ public class UrlBuilderSaTest extends TestCase {
         // Bogus
         urlBuilder = new UrlBuilder("research?state=Bogus");
         assertEquals("/school/research.page", urlBuilder.asSiteRelative(getMockRequest()));
+
+        // district profile
+        urlBuilder = new UrlBuilder("districtProfile?state=NC&id=566");
+        assertEquals("/cgi-bin/nc/district_profile/566", urlBuilder.asSiteRelative(getMockRequest()));
+
+        // city page
+        urlBuilder = new UrlBuilder("city?state=CA&city=San+Francisco");
+        assertEquals("/city/San_Francisco/CA", urlBuilder.asSiteRelative(getMockRequest()));
+
+        // school profile page
+        urlBuilder = new UrlBuilder("schoolProfile?state=AK&id=20");
+        assertEquals("/modperl/browse_school/ak/20", urlBuilder.asSiteRelative(getMockRequest()));
     }
 }
