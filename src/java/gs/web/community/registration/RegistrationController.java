@@ -264,7 +264,7 @@ public class RegistrationController extends SimpleFormController implements Read
                 }
             }
 
-            PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
+            PageHelper.setMemberAuthorized(request, response, _userDao.findUserFromEmailIfExists(userCommand.getEmail())); // auto-log in to community
             if (!isChooserRegistration() && (StringUtils.isEmpty(userCommand.getRedirectUrl()) ||
                     !UrlUtil.isCommunityContentLink(userCommand.getRedirectUrl()))) {
                 String redirectUrl = "http://" +
