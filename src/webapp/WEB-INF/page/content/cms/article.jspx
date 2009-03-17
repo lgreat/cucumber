@@ -17,6 +17,11 @@
     <body>
     <div id="cmsArticle">
         <div class="cmsArticleTitle">${article.title}</div>
+        <div class="cmsArticleImage">
+            <img src="${article.imageUrl}" alt="Article Image"/>
+            <br/>
+            ${article.imageTitle}
+        </div>
         <div id="cmsArticleText">
             ${article.body}
         </div>

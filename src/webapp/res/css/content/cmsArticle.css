@@ -9,6 +9,10 @@
     margin-bottom: 15px;
 }
 
+#cmsArticle .cmsArticleImage {
+    margin-bottom: 15px;
+}
+
 #cmsArticle h1 {
 	font-size: 218%;
 }
