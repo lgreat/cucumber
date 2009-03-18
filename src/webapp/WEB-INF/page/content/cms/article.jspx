@@ -8,7 +8,7 @@
     <jsp:directive.page contentType="text/html"/>
     <c:set var="pageName" value="article" scope="request"/>
     <head>
-        <title>${requestScope.articleTitle} - GreatSchools.net</title>
+        <title>${requestScope.article.title} - GreatSchools.net</title>
         <pageHelper:setPathway pathway="LIBRARY"/>
         <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
@@ -18,12 +18,16 @@
     <div id="cmsArticle">
         <div class="cmsArticleTitle">${article.title}</div>
         <div class="cmsArticleLicensorImage">
-            <img src="${article.licensorLogoUrl}" alt="Licensor Image"/>
+            <c:if test="${article.licensorLogoUrl ne null}">
+                <img src="${article.licensorLogoUrl}" alt="Licensor Image"/>
+            </c:if>
             <br/>
             ${article.licensorName}
         </div>
         <div class="cmsArticleImage">
-            <img src="${article.imageUrl}" alt="Article Image"/>
+            <c:if test="${article.imageUrl ne null}">
+                <img src="${article.imageUrl}" alt="Article Image"/>
+            </c:if>
             <br/>
             ${article.imageTitle}
         </div>
