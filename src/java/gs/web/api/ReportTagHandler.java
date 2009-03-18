@@ -75,7 +75,7 @@ public class ReportTagHandler extends SimpleTagSupport {
             pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
         }
 
-        String host = pc.getRequest().getLocalName();
+        String host = pc.getRequest().getServerName();
         if (host.contains("dev.")) {
             sb.append("api.dev.greatschols.net");
         } else if (host.contains("staging.")) {
@@ -87,6 +87,8 @@ public class ReportTagHandler extends SimpleTagSupport {
                 sb.append(":").append(port);
             }
             sb.append("/apiservice");
+        } else {
+            sb.append("api.greatschols.net");
         }
 
         sb.append("/reports/").append(getType());
