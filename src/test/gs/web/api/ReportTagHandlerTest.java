@@ -2,6 +2,7 @@ package gs.web.api;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
 import static org.junit.Assert.*;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -12,6 +13,7 @@ import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
+import gs.web.BaseTestCase;
 
 import javax.servlet.jsp.PageContext;
 
@@ -22,13 +24,13 @@ import java.io.IOException;
 /**
  * @author chriskimm@greatschools.net
  */
-public class ReportTagHandlerTest {
+public class ReportTagHandlerTest extends BaseTestCase {
 
     private ReportTagHandler _tag;
     private MockJspWriter _out;
     private HttpClient _httpClient;
 
-    @Before
+    @Override
     public void setUp() throws Exception {
         _tag = new ReportTagHandler();
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -41,8 +43,7 @@ public class ReportTagHandlerTest {
         _tag.setHttpClient(_httpClient);        
     }
 
-    @Test
-    public void doTag() throws Exception {
+    public void testDoTag() throws Exception {
         String url = "/reports/all?key=1234";
         GetMethod getMethod = new GetMethod(url) {
             public String getResponseBodyAsString() throws IOException {
@@ -61,6 +62,17 @@ public class ReportTagHandlerTest {
         System.out.println (_out.getOutputBuffer().toString());
     }
 
+    public void testDecorateWithAccountInfo() {
+        String input = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><report><result>" +
+                "<field type=\"api_key\"><value>1234abc</value></field><field type=\"count\"><value>50</value></field>" +
+                "</result><result><field type=\"api_key\"><value>1234abcx</value></field><field type=\"count\">" +
+                "<value>3</value></field></result></report>";
+
+        _tag.setApplicationContext(getApplicationContext());
+        _tag.decorateWithAccountInfo(input);
+    }
+
+    @Ignore
     public void debugTest() throws Exception {
         ReportTagHandler _tag = new ReportTagHandler();
         MockHttpServletRequest request = new MockHttpServletRequest();

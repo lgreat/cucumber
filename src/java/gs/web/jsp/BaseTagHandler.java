@@ -8,18 +8,13 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
  * This abstract class provides access to varios DAOs.
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public abstract class BaseTagHandler extends SimpleTagSupport {
+public abstract class BaseTagHandler extends SpringTagHandler {
 
     protected static final Logger _log = Logger.getLogger(BaseTagHandler.class);
     private static ISchoolDao _schoolDao;
@@ -28,27 +23,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     private IReviewDao _reviewDao;
 
     protected String _query = "";
-    private ApplicationContext _applicationContext;
 
-    private ApplicationContext getApplicationContext() {
-        if (_applicationContext == null) {
-            SessionContext sc = getSessionContext();
-            _applicationContext = sc.getApplicationContext();
-        }
-        return _applicationContext;
-    }
-
-    /**
-     * Used for unit testing.
-     * @param context Spring ApplicationContext
-     */
-    public void setApplicationContext(ApplicationContext context) {
-        _applicationContext = context;
-    }
-
-    /**
-     * @return <code>ISchoolDao</code>
-     */
     protected ISchoolDao getSchoolDao() {
         if (_schoolDao == null) {
             _schoolDao = (ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID);
@@ -84,16 +59,12 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         return school;
     }
 
-    /**
-     * @return <code>IDistrictDao</code>
-     */
     protected IDistrictDao getDistrictDao() {
         if (_districtDao == null) {
             _districtDao = (IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID);
         }
         return _districtDao;
     }
-
 
     protected IReviewDao getReviewDao() {
         if (_reviewDao == null){
@@ -106,15 +77,6 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         String stateString = getStateOrDefault().getLongName();
         String outString = title.replace('$', ' ');
         return outString.replaceAll("LONGSTATE", stateString);
-    }
-
-    protected SessionContext getSessionContext() {
-        JspContext jspContext = getJspContext();
-        SessionContext sc = null;
-        if (jspContext != null) {
-            sc = (SessionContext) jspContext.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, PageContext.REQUEST_SCOPE);
-        }
-        return sc;
     }
 
     /**

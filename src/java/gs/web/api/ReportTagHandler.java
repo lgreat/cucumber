@@ -4,8 +4,11 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.ClassPathResource;
+import org.jdom.input.SAXBuilder;
+import org.jdom.JDOMException;
+import org.jdom.Element;
+import org.jdom.output.XMLOutputter;
 
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -15,24 +18,30 @@ import javax.xml.transform.Source;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.List;
 
 import gs.web.util.UrlUtil;
+import gs.web.jsp.SpringTagHandler;
+import gs.data.api.IApiAccountDao;
+import gs.data.api.ApiAccount;
 
 /**
  * @author chriskimm@greatschools.net
  */
-public class ReportTagHandler extends SimpleTagSupport {
+public class ReportTagHandler extends SpringTagHandler {
 
     private String _type;
     private HttpClient _httpClient;
     private GetMethod _method;
     private String _display = "div"; // default
     private String _key = "1234abc"; // default
+    private IApiAccountDao _accountDao;
 
     public void doTag() throws JspException, IOException {
         getHttpClient().executeMethod(getMethod());
-        String response = getMethod().getResponseBodyAsString();
-        Source source = new StreamSource(new StringReader(response));
+        String xml = getMethod().getResponseBodyAsString();
+        String decoratedXml = decorateWithAccountInfo(xml);
+        Source source = new StreamSource(new StringReader(decoratedXml));
         Source xsltSource = getXsltSource();
         JspWriter out = getJspContext().getOut();
         StringWriter wr = new StringWriter();
@@ -136,5 +145,48 @@ public class ReportTagHandler extends SimpleTagSupport {
         }
         ClassPathResource cpr = new ClassPathResource(xsl);
         return new StreamSource(cpr.getInputStream());
+    }
+
+    public String decorateWithAccountInfo(String response) {
+        String decoratedXml = response;
+        try {
+            SAXBuilder builder = new SAXBuilder();
+            org.jdom.Document doc = builder.build(new StringReader(response));
+            Element root = doc.getRootElement();
+            List<Element> results = root.getChildren("result");
+            for (Element result : results) {
+                List<Element> fields = result.getChildren("field");
+                for (Element field : fields) {
+                    if ("api_key".equals(field.getAttributeValue("type"))) {
+                        Element value = field.getChild("value");
+                        ApiAccount account = getAccountDao().getAccountByKey(value.getTextTrim());
+                        field.setAttribute("type", "account");
+                        if (account != null) {
+                            value.setText(account.getName());
+                        } else {
+                            value.setText("null");
+                        }
+                    }
+                }
+            }
+            XMLOutputter out = new XMLOutputter();
+            decoratedXml = out.outputString(doc);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } catch (JDOMException je) {
+            je.printStackTrace();
+        }
+        return decoratedXml;
+    }
+
+    public IApiAccountDao getAccountDao() {
+        if (_accountDao == null) {
+            _accountDao = (IApiAccountDao)getApplicationContext().getBean(IApiAccountDao.BEAN_ID);
+        }
+        return _accountDao;
+    }
+
+    public void setAccountDao(IApiAccountDao accountDao) {
+        _accountDao = accountDao;
     }
 }
