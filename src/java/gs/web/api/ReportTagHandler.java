@@ -77,9 +77,9 @@ public class ReportTagHandler extends SimpleTagSupport {
 
         String host = pc.getRequest().getServerName();
         if (host.contains("dev.")) {
-            sb.append("api.dev.greatschols.net");
+            sb.append("api.dev.greatschools.net");
         } else if (host.contains("staging.")) {
-            sb.append("api.staging.greatschols.net");
+            sb.append("api.staging.greatschools.net");
         } else if (UrlUtil.isDeveloperWorkstation(host)) {
             sb.append(host);
             String port = String.valueOf(pc.getRequest().getLocalPort());
@@ -88,7 +88,7 @@ public class ReportTagHandler extends SimpleTagSupport {
             }
             sb.append("/apiservice");
         } else {
-            sb.append("api.greatschols.net");
+            sb.append("api.greatschools.net");
         }
 
         sb.append("/reports/").append(getType());
