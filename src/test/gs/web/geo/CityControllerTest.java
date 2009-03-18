@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.20 2008/09/06 00:41:52 cpickslay Exp $
+ * $Id: CityControllerTest.java,v 1.21 2009/03/18 17:52:31 droy Exp $
  */
 
 package gs.web.geo;
@@ -108,7 +108,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertNotNull(city);
 
         Object schools = modelAndView.getModel().get("schools");
-        assertNull(schools);
+        assertNull("Expected no schools in Oakland", schools);
     }
 
     public void testAlamedaHasSchools() throws Exception {
