@@ -17,6 +17,11 @@
     <body>
     <div id="cmsArticle">
         <div class="cmsArticleTitle">${article.title}</div>
+        <div class="cmsArticleLicensorImage">
+            <img src="${article.licensorLogoUrl}" alt="Licensor Image"/>
+            <br/>
+            ${article.licensorName}
+        </div>
         <div class="cmsArticleImage">
             <img src="${article.imageUrl}" alt="Article Image"/>
             <br/>
@@ -24,6 +29,10 @@
         </div>
         <div id="cmsArticleText">
             ${article.body}
+        </div>
+
+        <div id="cmsArticleLicensorAttribution">
+            ${article.licensorAttribution}
         </div>
     </div>
     </body>
