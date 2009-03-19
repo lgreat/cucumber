@@ -74,7 +74,6 @@
                            alt="Compare ${requestScope.context.state.longName} Schools"
                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
                 </div>
-                <!--<div id="zipcodeError" class="zipcodeErrorNoDisplay">Enter a valid zip</div>-->
             </gsweb:form>
         </div>
     </div>

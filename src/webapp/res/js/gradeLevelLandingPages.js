@@ -100,11 +100,9 @@ function changeCity(cityName, stateAbbr) {
 
  function validateZipCode(zip) {
     var zipCode = document.getElementById(zip).value;
-//    var zipcodeDiv = document.getElementById('zipcodeError');
     var zipPattern = /^[0-9]{5}$/;
     if(!zipPattern.test(zipCode)){
         alert("Please enter a valid ZIP code.");
-//        zipcodeDiv.className ="zipcodeErrorDisplay";
         return false;
     }
     else{
