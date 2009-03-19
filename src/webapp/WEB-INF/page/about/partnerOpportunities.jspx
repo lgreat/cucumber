@@ -20,6 +20,16 @@
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/about/gsFaq.css"/>
 
+    <script type="text/javascript" charset="utf-8">
+    function downloadWorksheet(pdfFileName) {
+        var path ='/pdf/'+pdfFileName;
+        var newWindow = window.open(path, '_blank');
+        newWindow.focus();
+        return false;
+    }
+    </script>
+
+
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>Great Schools Partner Opportunities</title>
@@ -32,38 +42,36 @@
         <div id="contentFAQ" class="contentFAQ">
             <h1>Partner with GreatSchools</h1>
             <ul class="pageNav">
-                <li><a href="#advertise">Advertise on GreatSchools.net</a></li>
+                <li><a href="#advertise">Advertise on GreatSchools</a></li>
                 <li><a href="#license">License our Content</a></li>
                 <li><a href="#related">Related Information</a></li>
             </ul>
 
             <![CDATA[ <a name="advertise"></a> ]]>
 
-            <h2>Advertise on GreatSchools.Net</h2>
+            <h2>Advertise on GreatSchools</h2>
 
-            <p>Advertise on GreatSchools.net and get your message in front of our large audience of active,
+            <p>Advertise on GreatSchools and get your message in front of our large audience of active,
                 educated and affluent parents. GreatSchools can target your campaign by state or grade level;
                 we offer all traditional ad units as well as newsletter sponsorships.
                 Advertisers include Crayola, Century 21, Disney, Johnson <![CDATA[&amp;]]> Johnson, K-12, Kaplan, Nissan, Quaker,
                 SCORE! Educational Centers, Staples, Target, Zip Realty and many more.</p>
 
             <p>
-                For advertising information, opportunities and rates, please contact the:<br/>
-                Advertising Sales Team <br/>
-                <a href="mailto:sponsorshipinfo@greatschools.net">sponsorshipinfo@greatschools.net</a><br/>                
-            </p>
+                For advertising information and opportunities, you can download our ad sales media kit here: <a href="#" onclick="return downloadWorksheet('GreatSchools+2009+Licensing+Media+Kit.pdf');">GreatSchools 2009 Advertizing Media Kit</a> <br/><br/>
+                For additional questions or to get started today,please contact <a href="mailto:sponsorshipinfo@greatschools.net">sponsorshipinfo@greatschools.net</a><br/>
+             </p>
             <![CDATA[ <a name="license"></a> ]]>
 
             <h2>License our Content</h2>
 
-            <p>Looking to add content from GreatSchools.net to your print materials or Web site?
-                If so, please contact
-                <a href="mailto:businessdevelopment@greatschools.net">businessdevelopment@greatschools.net</a>
-                for pricing information.</p>
-
-            <p>Greatschools offers co-branding of our Web site content, an XML feed for school data and
+            <p>Looking to add content from GreatSchools to your print materials or website? Greatschools offers co-branding of our Web site content, an XML feed for school data and
                 opportunities to republish articles from <a href="http://www.greatschools.net">www.GreatSchools.net</a>.
             </p>
+
+            <p>For more details,our licencing media kit is available here: <a href="#" onclick="return downloadWorksheet('GreatSchools+Advertising+Media+Kit+2009.pdf');">Greatschools 2009 Licensing Solutions</a></p>
+
+            <p>Questions? Send us an email at <a href="mailto:bizdev@greatschools.net">bizdev@greatschools.net</a></p>
 
             <p>See examples of GreatSchools content integration on partner Web sites:
                 <br/><a href="http://education.yahoo.com/k12/" target="_blank">Yahoo! Education</a>
