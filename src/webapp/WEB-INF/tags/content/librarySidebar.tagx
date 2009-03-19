@@ -30,7 +30,7 @@
                         <a href="#grade-tips" id="gradeTips">By Grade</a>
                         <div class="toggle">
                             <ul id="grade-tips">
-                                <li><link:preschool>Preschool</link:preschool></li>
+                                <li><link:articleCategoryBrowse categoryId="103">Preschool</link:articleCategoryBrowse></li>
                                 <li><link:articleCategoryBrowse categoryId="33">Kindergarten</link:articleCategoryBrowse></li>
                                 <li><link:articleCategoryBrowse categoryId="32">1st Grade</link:articleCategoryBrowse></li>
                                 <li><link:articleCategoryBrowse categoryId="34">2nd Grade</link:articleCategoryBrowse></li>
@@ -41,24 +41,7 @@
                                 <li class="last"><link:articleCategoryBrowse categoryId="104">High School</link:articleCategoryBrowse></li>
                             </ul>
                         </div>
-                    </li>
-                    <li class="last">
-                        <a href="#topic-tips" id="topicTips">By Topics</a>
-                        <div class="toggle">
-                            <ul id="topic-tips">
-                                <li><link:schoolChoiceCenter>School Choice</link:schoolChoiceCenter></li>
-                                <li><link:movingWithKids>Moving With Kids</link:movingWithKids></li>
-                                <li><link:countdownToCollege>College Prep</link:countdownToCollege></li>
-                                <li><link:tutoring>Tutoring</link:tutoring></li>
-                                <li><link:tutoring>Homework Help</link:tutoring></li>
-                                <li><link:specialNeeds>Learning Disabilities</link:specialNeeds></li>
-                                <li><link:travel>Travel and Learning</link:travel></li>
-                                <li><link:mediaChoices>Media and Your Child</link:mediaChoices></li>
-                                <li><link:healthyKids>Healthy Kids</link:healthyKids></li>
-                                <li class="last"><link:stateStandards>Learning Standards</link:stateStandards></li>
-                            </ul>
-                        </div>
-                    </li>
+                    </li>                    
                 </ul>
                 </div>
             </div>
