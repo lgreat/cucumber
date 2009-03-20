@@ -26,7 +26,7 @@
         </div>
         <div class="cmsArticleImage">
             <c:if test="${article.imageUrl ne null}">
-                <img src="${article.imageUrl}" alt="Article Image"/>
+                <img src="${article.imageUrl}" alt="${article.imageAltText}"/>
             </c:if>
             <br/>
             ${article.imageTitle}
