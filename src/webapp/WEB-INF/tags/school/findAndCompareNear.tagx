@@ -23,8 +23,8 @@
                    onfocus="textSwitch(this, '', 'Search for school, district or city');"
                    onblur="textSwitch(this, 'Search for school, district or city', '');"/>
             <gsweb:stateSelector useNoState="${empty requestScope.context.state}"
-                                 noStateLabel="--"
                                  styleId="findStateSelector"
+                                 noStateLabel="--"
                                  usingLongNames="false"
                                  state="${requestScope.context.state}" styleClass="formState"/>
             <input
