@@ -20,23 +20,29 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>GreatSchools.net API Accounts</title>
         <link rel="stylesheet" href="/res/css/api/admin.css"/>
+        <link rel="stylesheet" href="/res/css/api/reports.css"/>
     </head>
 
     <body>
     <api:nav />
-    <div id="content">
-        <span class="report-title">Total Requests Per Day</span>
-        <apitag:report type="callsByDay" display="table"/>
-        <br /><br />
-        <span class="report-title">Top API calls</span>
-        <apitag:report type="topCalls" display="table"/>
-        <br /><br />
-        <span class="report-title">Top Users</span>
-        <apitag:report type="topKeys" display="table"/>
-        <br /><br />
-        <span class="report-title">Calls by Http Status - </span>&#32;&#32;
-        <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html"> Info on status codes</a>
-        <apitag:report type="status" display="table"/>        
+    <div id="content" class="api-report">
+        <div>
+            <span class="report-title">Total Requests Per Day</span>
+            <apitag:report type="callsByDay" display="table"/>
+        </div>
+        <div>
+            <span class="report-title">Top API calls</span>
+            <apitag:report type="topCalls" display="table"/>
+        </div>
+        <div>
+            <span class="report-title">Top Users</span>
+            <apitag:report type="topKeys" display="table"/>
+        </div>
+        <div>
+            <span class="report-title">Calls by Http Status - </span>&#32;&#32;
+            <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html"> Info on status codes</a>
+            <apitag:report type="status" display="table"/>
+        </div>
     </div>
     </body>
     </html>
