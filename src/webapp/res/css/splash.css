@@ -194,28 +194,29 @@ div#footer { padding-top:2px; }
 
 .more {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
 }
 
 .more.right {
     right: 10px;
+    bottom:10px;
 }
 
 .findMore {
     position: absolute;
-    bottom: 10px;
+    bottom: 25px;
     right: 65px;
 }
 
 #rightSchoolDiv {
     float: left;
-    width: 164px;
+    width: 244px;
     padding-left: 10px;
 }
 
 #rightSchoolLinksDiv {
     margin-left: 0px;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 .adBox .wrapper-content {
