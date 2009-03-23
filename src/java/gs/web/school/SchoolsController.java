@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.78 2008/10/29 23:09:25 chriskimm Exp $
+ * $Id: SchoolsController.java,v 1.79 2009/03/23 15:24:33 aroy Exp $
  */
 
 package gs.web.school;
@@ -183,7 +183,10 @@ public class SchoolsController extends AbstractController implements IDirectoryS
                 String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
                 return new ModelAndView(new RedirectView301(redirectUrl));
             } else if (!shouldHandleRequest(fields)) {
-                throw new IllegalStateException("Should not be in SchoolsController for city browse if expected fields not populated.");
+                BadRequestLogger.logBadRequest(_log, request, "Missing required fields (maybe city?) in request to SchoolsController.");
+                model.put("showSearchControl", Boolean.TRUE);
+                model.put("title", "Required fields not found");
+                return new ModelAndView("status/error", model);
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.48 2008/10/20 20:46:29 aroy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.49 2009/03/23 15:24:33 aroy Exp $
  */
 
 package gs.web.school;
@@ -241,6 +241,18 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setParameter(SchoolsController.PARAM_CITY, "Cardiff-By-The-Sea");
         expectedRedirectURI = "/california/cardiff_by_the_sea/schools/";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
+    }
+
+    public void testErrorPageOnNoCity() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+
+        request.removeAllParameters();
+        request.setRequestURI("/schools.page");
+        request.setParameter("state", "AK");
+        request.setQueryString("state=AK");
+        _sessionContextUtil.updateStateFromParam(getSessionContext(), request, getResponse());
+        ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
+        assertEquals("status/error", mAndV.getViewName());
     }
 
     public void testCityBrowseModel() throws Exception {
