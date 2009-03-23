@@ -89,3 +89,9 @@
 	list-style-type: disc;
     font-size: 13px;
 }
+
+#adobeImg{
+    margin-left:10px;
+    position:relative;
+    top:5px;
+}
