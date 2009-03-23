@@ -47,6 +47,7 @@
 <c:set var="districtObject" value="${requestScope.districtObject}"/>
 <c:set var="heading1" value="${requestScope.heading1}"/>
 <c:set var="activeColumn" value="${sortColumn ne null and sortColumn ne '' ? sortColumn : 'schoolResultsHeader' }"/>
+<c:set var="showAllThreshold" value="100"/>
 
 
 <c:choose>
@@ -531,9 +532,10 @@ function reloadPageWithFilters(sortColId) {
                                    selected="${results.pageSize eq 25}">25</gsml:selectOption>
                 <gsml:selectOption id="rppOption50" value="50"
                                    selected="${results.pageSize eq 50}">50</gsml:selectOption>
-                <gsml:selectOption id="rppOptionAll" value="-1"
-                                   selected="${not empty param.showall}">All</gsml:selectOption>
-
+                <c:if test="${results.total le showAllThreshold}">
+                    <gsml:selectOption id="rppOptionAll" value="-1"
+                                       selected="${not empty param.showall}">All</gsml:selectOption>
+                </c:if>
             </select>
 
             <div class="resultsPerPage"><strong>Results per page:</strong></div>
@@ -562,7 +564,7 @@ function reloadPageWithFilters(sortColId) {
     </c:if>
 
     <search:schoolsPagination currentPage="${(empty param.p) ? 1 : param.p}"
-                              resultCount="${results.total}" pageSize="${pageSize}"
+                              resultCount="${results.total}" pageSize="${pageSize}" showAllThreshold="${showAllThreshold}"
                               schoolTypes="${st}" levelCode="${lc}" districtId="${district}" cityName="${cityName}"/>
 
     <div id="preschoolsRatingNote">
