@@ -137,6 +137,7 @@ function reloadPageWithFilters(sortColId) {
     var rppOption10 = document.getElementById('rppOption10');
     var rppOption25 = document.getElementById('rppOption25');
     var rppOption50 = document.getElementById('rppOption50');
+    var rppOption100 = document.getElementById('rppOption100');
     var rppOptionAll = document.getElementById('rppOptionAll');
 
     var reloadUrl;
@@ -226,6 +227,9 @@ function reloadPageWithFilters(sortColId) {
     }
     if (rppOption50 != undefined && rppOption50.selected) {
         reloadUrl += "&pageSize=50";
+    }
+    if (rppOption100 != undefined && rppOption100.selected) {
+        reloadUrl += "&pageSize=100";
     }
     if (rppOptionAll != undefined && rppOptionAll.selected) {
         reloadUrl += "&showall=1";
@@ -532,6 +536,8 @@ function reloadPageWithFilters(sortColId) {
                                    selected="${results.pageSize eq 25}">25</gsml:selectOption>
                 <gsml:selectOption id="rppOption50" value="50"
                                    selected="${results.pageSize eq 50}">50</gsml:selectOption>
+                <gsml:selectOption id="rppOption100" value="100"
+                                   selected="${results.pageSize eq 100}">100</gsml:selectOption>
                 <c:if test="${results.total le showAllThreshold}">
                     <gsml:selectOption id="rppOptionAll" value="-1"
                                        selected="${not empty param.showall}">All</gsml:selectOption>
