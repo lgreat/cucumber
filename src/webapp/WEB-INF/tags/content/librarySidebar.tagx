@@ -26,7 +26,7 @@
                 <h3>Browse Articles</h3>
                 <div class="inner-links">
                 <ul id="browse-tips">
-                    <li>
+                    <li class="last">
                         <a href="#grade-tips" id="gradeTips">By Grade</a>
                         <div class="toggle">
                             <ul id="grade-tips">
@@ -41,7 +41,7 @@
                                 <li class="last"><link:articleCategoryBrowse categoryId="104">High School</link:articleCategoryBrowse></li>
                             </ul>
                         </div>
-                    </li>                    
+                    </li>
                 </ul>
                 </div>
             </div>

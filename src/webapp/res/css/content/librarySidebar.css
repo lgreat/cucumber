@@ -69,13 +69,6 @@
 	padding: 0 0 10px;
 }
 
-* + html #browse-tips li {
-    padding: 0 0 0px;
-}
-
-* html #browse-tips li {
-    padding: 0 0 4px;
-}
 
 #browse-tips .last {
 	padding-bottom: 0;
@@ -127,7 +120,7 @@
 }
 
 div.inner-links {
-    padding:10px 0 0px 0;
+    padding:10px 0 10px 0;
 }
 
 .white div.inner-links {
