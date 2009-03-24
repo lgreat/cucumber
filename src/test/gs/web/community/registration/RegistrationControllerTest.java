@@ -107,11 +107,13 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.getUser().setId(345); // to fake the database save
 
         _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), null);
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), userCommand.getUser());
         _userDao.saveUser(userCommand.getUser());
         _userDao.updateUser(userCommand.getUser());
         _userDao.updateUser(userCommand.getUser());
         _userControl.replay();
 
+        
         getRequest().addParameter("next", "next"); // submit button for 2-step process
 
         // no calls expected if "next" is clicked
@@ -122,49 +124,20 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         replay(_soapRequest);
     }
 
-    private void setupRedirectUrlTest(UserCommand userCommand) throws SoapRequestException {
-        String email = "testRegistration@RegistrationControllerTest.com";
-        String password = "foobar";
-        userCommand.setEmail(email);
-        userCommand.setPassword(password);
-        userCommand.setConfirmPassword(password);
-        userCommand.setState(State.CA);
-        userCommand.setScreenName("screeny");
-        userCommand.setNumSchoolChildren(0);
-        userCommand.setNewsletter(false);
-
-        userCommand.getUser().setId(345); // to fake the database save
-
-        //_userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), null);
-        //_userDao.saveUser(userCommand.getUser());
-        //_userDao.updateUser(userCommand.getUser());
-        //_userDao.updateUser(userCommand.getUser());
-        //_userControl.replay();
-
-        getRequest().addParameter("next", "next"); // submit button for 2-step process
-
-        // no calls expected if "next" is clicked
-        //_subscriptionDaoMock.replay();
-
-        //_soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        //_soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        //replay(_soapRequest);
-    }
-
     /**
      * Test successful registration with a new user
      *
      * @throws Exception
      */
-    public void xtestRegistration() throws Exception {
+    public void testRegistration() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         setupRegistrationTest(userCommand);
-
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
         _userControl.verify();
         _subscriptionDaoMock.verify();
         verify(_soapRequest);
+        verify(_userDao);
     }
 
 
@@ -174,7 +147,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      *
      * @throws Exception
      */
-    public void xtestRegistrationWithRedirect() throws Exception {
+    public void testRegistrationWithRedirect() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         String testRedirectUrl = "community.greatschools.net/advice/write";
@@ -193,7 +166,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      *
      * @throws Exception
      */
-    public void xtestRegistrationWithRedirectAndParameters() throws Exception {
+    public void testRegistrationWithRedirectAndParameters() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         String testRedirectUrl = "community.greatschools.net/advice/write?id=2112";
@@ -209,7 +182,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
 
-    public void xtestRegistrationSubscribesToCommunityNewsletter() throws Exception {
+    public void testRegistrationSubscribesToCommunityNewsletter() throws Exception {
         UserCommand userCommand = new UserCommand();
         userCommand.setEmail("a");
         userCommand.getUser().setId(new Integer(345)); // to fake the database save
@@ -226,22 +199,17 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         _subscriptionDao.addNewsletterSubscriptions((User)notNull(), (List)notNull());
         replay(_subscriptionDao);
-
-        // user dao behavior is validated elsewhere
-        setUpNiceUserDao();
-
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        replay(_soapRequest);
-
+        setUpFindUserFromEmailIfExistsAndSoapRequest(userCommand);
+        
         userCommand.setNewsletter(true);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
 
         verify(_subscriptionDao);
         verify(_soapRequest);
+        verify(_userDao);
     }
 
-    public void xtestRegistrationSubscribesToBeta() throws Exception {
+    public void testRegistrationSubscribesToBeta() throws Exception {
         UserCommand userCommand = new UserCommand();
         userCommand.setEmail("a");
         userCommand.getUser().setId(345); // to fake the database save
@@ -259,12 +227,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _subscriptionDao.saveSubscription(betaSubscription);
         replay(_subscriptionDao);
 
-        // user dao behavior is validated elsewhere
-        setUpNiceUserDao();
-
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        replay(_soapRequest);
+        setUpFindUserFromEmailIfExistsAndSoapRequest(userCommand);
 
         userCommand.setBeta(true);
         userCommand.setNewsletter(false);
@@ -272,10 +235,11 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         verify(_subscriptionDao);
         verify(_soapRequest);
+        verify(_userDao);
     }
 
 
-    public void xtestSetRedirectUrl() throws Exception {
+    public void testSetRedirectUrl() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         setupRegistrationTest(userCommand);
@@ -286,7 +250,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         //verify(_soapRequest);
     }
 
-    public void xtestRegistrationDoesntSubscribeToBetaIfAlreadySubscribed() throws Exception {
+    public void testRegistrationDoesntSubscribeToBetaIfAlreadySubscribed() throws Exception {
         UserCommand userCommand = new UserCommand();
         userCommand.setEmail("a");
         userCommand.getUser().setId(345); // to fake the database save
@@ -299,19 +263,15 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // no subscription saved
         replay(_subscriptionDao);
 
-        // user dao behavior is validated elsewhere
-        setUpNiceUserDao();
-
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        replay(_soapRequest);
-
+        setUpFindUserFromEmailIfExistsAndSoapRequest(userCommand);
+        
         userCommand.setBeta(true);
         userCommand.setNewsletter(false);
         _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
 
         verify(_subscriptionDao);
         verify(_soapRequest);
+        verify(_userDao);
     }
 
     public void testIPAddressBlockingWithAttributeOnly() throws Exception {
@@ -345,7 +305,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
                 mAndV.getViewName().contains("redirect:http://community.greatschools.net"));
     }
 
-    public void xtestIPAddressBlockingWithNoIP() throws Exception {
+    public void testIPAddressBlockingWithNoIP() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         setupRegistrationTest(userCommand);
@@ -366,7 +326,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
                 _controller.getErrorView(), mAndV.getViewName());
     }
 
-    public void xtestRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {
+    public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {
         UserCommand userCommand = new UserCommand();
         userCommand.setEmail("a");
         userCommand.getUser().setId(new Integer(345)); // to fake the database save
@@ -378,18 +338,14 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // no calls expected
         _subscriptionDaoMock.replay();
 
-        // user dao behavior is validated elsewhere
-        setUpNiceUserDao();
-
-        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
-        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
-        replay(_soapRequest);
-
+        setUpFindUserFromEmailIfExistsAndSoapRequest(userCommand);
+        
         userCommand.setNewsletter(false);
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
 
         _subscriptionDaoMock.verify();
         verify(_soapRequest);
+        verify(_userDao);
     }
 
 
@@ -398,7 +354,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      *
      * @throws NoSuchAlgorithmException
      */
-    public void xtestExistingUser() throws Exception {
+    public void testExistingUser() throws Exception {
         String email = "testExistingUser@greatschools.net";
         Integer userId = 346;
 
@@ -416,20 +372,24 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         assertTrue(userCommand.getUser().isPasswordEmpty());
         assertFalse(userCommand.getUser().isEmailProvisional());
 
-        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email),
-                userCommand.getUser());
+//        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email),
+//                userCommand.getUser());
+         expect(_userDao.findUserFromEmailIfExists(email)).andReturn(userCommand.getUser());
         _userDao.updateUser(userCommand.getUser());
         _userDao.updateUser(userCommand.getUser());
-        _userControl.replay();
+//        _userControl.replay();
 
         _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(userCommand.getUser());
         replay(_soapRequest);
+        replay(_userDao);
 
         try {
             _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
             _userControl.verify();
             verify(_soapRequest);
+            verify(_userDao);
             assertTrue(userCommand.getUser().isEmailProvisional());
             assertFalse(userCommand.getUser().isPasswordEmpty());
         } catch (Exception e) {
@@ -440,7 +400,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     /**
      * Regression testing for GS-4065
      */
-    public void xtestExistingUserWithOtherGender() throws Exception {
+    public void testExistingUserWithOtherGender() throws Exception {
         String email = "testExistingUser@greatschools.net";
         Integer userId = 346;
 
@@ -463,20 +423,25 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         dbUser.setId(userId);
         dbUser.setEmail(email);
 
-        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email),
-                dbUser);
+//        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email),
+//                dbUser);
+        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(dbUser);
         _userDao.updateUser(dbUser);
         _userDao.updateUser(dbUser);
-        _userControl.replay();
-
+//        _userControl.replay();
+        
         _soapRequest.setTarget("http://community.greatschools.net/soap/user");
         _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        expect(_userDao.findUserFromEmailIfExists(email)).andReturn(dbUser);
         replay(_soapRequest);
+        replay(_userDao);
 
         try {
             _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
-            _userControl.verify();
+//            _userControl.verify();
             verify(_soapRequest);
+            verify(_userDao);
+
             assertTrue(userCommand.getUser().isEmailProvisional());
             assertFalse(userCommand.getUser().isPasswordEmpty());
             // following line is test for GS-4065
@@ -737,9 +702,21 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     }
 
     private void setUpNiceUserDao() {
-        _userControl = MockControl.createNiceControl(IUserDao.class);
-        _userDao = (IUserDao) _userControl.getMock();
-        _controller.setUserDao(_userDao);
-        _userControl.replay();
+       _userControl = MockControl.createNiceControl(IUserDao.class);
+       _userDao = (IUserDao) _userControl.getMock();
+       _controller.setUserDao(_userDao);
+       _userControl.replay();
+    }
+    private void setUpFindUserFromEmailIfExistsAndSoapRequest(UserCommand userCommand) throws Exception{
+        _soapRequest.setTarget("http://community.greatschools.net/soap/user");
+        _soapRequest.createOrUpdateUserRequest(isA(CreateOrUpdateUserRequestBean.class));
+        expect(_userDao.findUserFromEmailIfExists(userCommand.getEmail())).andReturn(null);
+        expect(_userDao.findUserFromEmailIfExists(userCommand.getEmail())).andReturn(userCommand.getUser());
+        _userDao.saveUser(userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser());
+        replay(_soapRequest);
+        replay(_userDao);
+
     }
 }
