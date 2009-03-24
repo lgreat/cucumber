@@ -67,25 +67,25 @@ public class AccountController implements ReadWriteAnnotationController {
         return MAIN_VIEW;
     }
 
-
-
     @RequestMapping(method = RequestMethod.POST, params = "action=update")
     public String update(@ModelAttribute("account") ApiAccount acct,
                          @RequestParam("id") int id,
                          ModelMap model) {
 
-        if (acct != null) {
-            ApiAccount account = getApiAccountDao().getAccountById(id);
-            account.setType(acct.getType());
-            String opts;
-            if (acct.getPremiumOptions() != null) {
-                opts = StringUtils.join(acct.getPremiumOptions(), ",");
-                account.getConfig().set("premium_options", opts);
-            }
-            getApiAccountDao().save(account);
+        ApiAccount account = getApiAccountDao().getAccountById(id);
+        String type = acct.getType();
+        account.setType(type);
+        String opts;
+        if ("f".equals(type)) {
+            account.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, "");            
+        } else if (acct.getPremiumOptions() != null) {
+            opts = StringUtils.join(acct.getPremiumOptions(), ",");
+            account.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, opts);
         }
+        getApiAccountDao().save(account);
 
         setMessageInModel(model, "Account settings updated.");
+        model.addAttribute(MODEL_ACCOUNT, account);
         model.addAttribute(MODEL_PREMIUM_OPTIONS, ApiAccount.PREMIUM_OPTIONS);
         return MAIN_VIEW;
     }

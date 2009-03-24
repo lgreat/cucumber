@@ -1,6 +1,11 @@
 $(function() {
     $('.accountType').click(function () {
-        $('#premium_options').toggle();
+        if ("f" == $('input[name=type]:checked').val()) {
+            $('#premium_options').hide();
+        } else {
+            $('#premium_options').show();
+        }
+
     });
 
     $('.accountConfig').click(function () {

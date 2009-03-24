@@ -64,9 +64,11 @@
         
         <div id="">
             <form:form commandName="account">
-                <form:radiobuttons path="type" items="${account.typeOptions}" cssClass="accountType accountConfig"/>
-                <div id="premium_options" class="${account.type eq 'f' ? 'hide' : ''}">
-                    <form:checkboxes path="premiumOptions" items="${account.premiumOptionTypes}" cssClass="accountConfig"/>
+                <div>
+                    <form:radiobuttons path="type" items="${account.typeOptions}" cssClass="accountType accountConfig" />
+                    <div id="premium_options" class="${account.type ne 'p' ? 'hide' : ''}">
+                        <form:checkboxes path="premiumOptions" items="${account.premiumOptionTypes}" cssClass="accountConfig"/>
+                    </div>
                 </div>
                 <input id="update" type="submit" value="Save Changes" class="hide"/>
                 <input type="hidden" name="action" value="update" />
