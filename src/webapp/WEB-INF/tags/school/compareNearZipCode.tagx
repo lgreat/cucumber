@@ -17,13 +17,13 @@
     <script type="text/javascript" language="javascript">
                 <!--
                 function checkZipCode(zip){
-                    var re5digit=/^\d{5}$/ //regular expression defining a 5 digit number
+                    var re5digit=/^\d{5}/ //regular expression defining a 5 digit number
+                    elem = document.getElementById("errorMessageZip");
                     if (zip.value.search(re5digit)==-1){ //if match failed
-                        elem = document.getElementById("errorMessageZip");
                         elem.style.display = "block";
                         return false;
                     }
-
+                    elem.style.display = "none";
                     return true;
                 }
                     -->
