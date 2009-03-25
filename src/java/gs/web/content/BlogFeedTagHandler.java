@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.14 2009/03/25 01:27:22 eddie Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.15 2009/03/25 18:33:45 eddie Exp $
  */
 
 package gs.web.content;
@@ -138,8 +138,8 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                 strippedtext = text.substring(0,text.indexOf("<div class=\"feedflare\""));
             }
             //strippedtext = strippedtext.substring(0,70-title.length());
-            strippedtext = Util.abbreviateAtWhitespace(strippedtext, 73-title.length());
-            out.print("<span class=\"blogpromo_description\">" + strippedtext + "..." + "</span>");
+            strippedtext = Util.abbreviateAtWhitespace(strippedtext, 68-title.length());
+            out.print("<span class=\"blogpromo_description\">" + strippedtext + "</span>");
         }
         out.print("</div>");
         out.print("</div>");

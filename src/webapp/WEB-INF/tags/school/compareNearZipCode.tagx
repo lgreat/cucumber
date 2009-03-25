@@ -72,10 +72,8 @@
                         src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
             </div>
         </div>
-        <div id = "errorMessageZip" style="display:none;">
-                    <span style="color:red;">
-                                <c:out value="Please enter a valid ZIP code" escapeXml="true" />
-                            </span>
+        <div id = "errorMessageZip" >
+            <c:out value="Please enter a valid ZIP code" escapeXml="true" />
         </div>
         <c:choose>
             <c:when test="${not empty ziperror}">

@@ -84,6 +84,12 @@ div.compareNearZip div.zipCodeInput .submitButton input {
     width:41px;
 }
 
+#errorMessageZip{
+    font-family:"Century Gothic",Arial,sans-serif;
+    display:none;
+    color:red;
+}
+
 #findAndCompare #findAndCompareSchoolsNationwide {
     padding-bottom: 2ex;
     border-bottom: 2px dotted #CCCCCC;
