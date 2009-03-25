@@ -20,7 +20,7 @@
         <c:if test="${article.otherLanguageUri gt ''}">
             <div class="otherLanguageLink">
                 <a href="${article.otherLanguageUri}">
-                    See this article in
+                    Read this article in
                     <c:choose>
                         <c:when test="${article.language eq 'ES'}">
                             English
