@@ -26,7 +26,7 @@ public class HomePageIntegrationTest extends BaseHtmlUnitIntegrationTestCase {
         _webClient.setJavaScriptEnabled(true);
         final HtmlPage page = (HtmlPage) _webClient.getPage(PAGE_URL + "?cobrand=framed");
 
-        assertTrue(page.getTitleText().contains("Great Schools"));
+        assertTrue(page.getTitleText().contains("GreatSchools"));
 
         // Test the search form
         HtmlForm form = (HtmlForm) page.getFirstByXPath("//form[@action='/stateLauncher.page']");
