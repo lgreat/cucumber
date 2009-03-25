@@ -33,7 +33,7 @@
 <gsml:url var="stateWidgetUrl" value="/miniSelectAState.page"/>
 
 <head>
-    <title>Great Schools - Public and Private School Ratings, Reviews and Parent Community</title>
+    <title>GreatSchools - Public and Private School Ratings, Reviews and Parent Community</title>
 
     <meta name="description"
           content="Compare K-12 school ratings nationwide to find the best schools. View parent ratings, reviews and test scores and choose the right preschool, elementary, middle or high school for public or private education."/>
