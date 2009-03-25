@@ -5,6 +5,8 @@ import gs.web.jsp.MockPageContext;
 import junit.framework.TestCase;
 
 import javax.servlet.jsp.JspContext;
+import javax.servlet.jsp.JspException;
+import java.io.IOException;
 
 /**
  * @author thuss
@@ -29,6 +31,26 @@ public class BlogFeedTagHandlerTest extends TestCase {
 
     public void testVoid() {
         assertTrue(true);
+    }
+    public void xtestDoTag() throws IOException, JspException {
+        _tag.setAtomUrl("http://blogs.greatschools.net/billsblog/atom.xml");
+        _tag.setDefaultTitle("Bill's thoughts on education");
+        _tag.setDefaultUrl("http://blogs.greatschools.net/billsblog/");
+        _tag.setType("splashBlog");
+        _tag.setShowDate(true);
+        _tag.doTag();
+        String output = getJspContextOutput();
+        System.out.println(output);
+    }
+    public void testBlogTag() throws IOException, JspException {
+        _tag.setAtomUrl("http://feeds2.feedburner.com/GreatschoolsBlogAdvanced");
+
+        _tag.setDefaultUrl("http://blogs.greatschools.net/billsblog/");
+        _tag.setType("splashBlog");
+        _tag.setShowDate(true);
+        _tag.doTag();
+        String output = getJspContextOutput();
+        System.out.println(output);
     }
     /*
     public void testDoTag() throws IOException, JspException {

@@ -140,8 +140,8 @@
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
 <div id="contentTop">
-<div id="houseAd">
-    <![CDATA[
+    <div id="houseAd">
+        <![CDATA[
 
                 <script type="text/javascript">
                     <!--
@@ -192,48 +192,48 @@
                     </a>
                 </noscript>
                 ]]>
-</div>
+    </div>
 
-<div id="contentTopDivider">
-    <!-- don't collapse -->
-</div>
+    <div id="contentTopDivider">
+        <!-- don't collapse -->
+    </div>
 
-<div id="findAndCompareWrapper">
-    <div id="findAndCompare">
+    <div id="findAndCompareWrapper">
+        <div id="findAndCompare">
 
-        <gsml:url var="go" value="/res/img/splash/go.gif"/>
-        <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
+            <gsml:url var="go" value="/res/img/splash/go.gif"/>
+            <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
 
-        <div id="findAndCompareSchoolsNationwide">
-            <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
-            <gsweb:form method="get"
-                        action="/stateLauncher.page"
-                        onsubmit="return findAndCompareCheck('q', 'splashStateSelector', 'p')">
-                <input name="p" id="p" type="hidden" value="search_single"/>
-                <input name="type" type="hidden" value="school"/>
-                <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                    <input type="hidden" name="st" value="charter"/>
-                </c:if>
-                <input type="text" value="Enter school, city or district" name="q" id="q" size="21" class="textInput"
+            <div id="findAndCompareSchoolsNationwide">
+                <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
+                <gsweb:form method="get"
+                            action="/stateLauncher.page"
+                            onsubmit="return findAndCompareCheck('q', 'splashStateSelector', 'p')">
+                    <input name="p" id="p" type="hidden" value="search_single"/>
+                    <input name="type" type="hidden" value="school"/>
+                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                        <input type="hidden" name="st" value="charter"/>
+                    </c:if>
+                    <input type="text" value="Enter school, city or district" name="q" id="q" size="21" class="textInput"
                            onfocus="textSwitch(this, '', 'Enter school, city or district');"
                            onblur="textSwitch(this, 'Enter school, city or district', '');"/>
-                
-                <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
-                                     useNoState="${not requestScope.context.hasSearched}"
-                                     styleId="splashStateSelector"
-                                     noStateLabel="--"/>
-                <br/>
-                <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
-                       class="button" onmouseover="this.src='${goOver}';"
-                       onmouseout="this.src='${go}';" onclick="s_objectID='splash_schools_go';"/>
-            </gsweb:form>
 
-        </div>
-        <div class="compareNearZip">
-            <school:compareNearZipCode/>
+                    <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
+                                         useNoState="${not requestScope.context.hasSearched}"
+                                         styleId="splashStateSelector"
+                                         noStateLabel="--"/>
+                    <br/>
+                    <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
+                           class="button" onmouseover="this.src='${goOver}';"
+                           onmouseout="this.src='${go}';" onclick="s_objectID='splash_schools_go';"/>
+                </gsweb:form>
+
+            </div>
+            <div class="compareNearZip">
+                <school:compareNearZipCode/>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <div id="contentMiddle">
@@ -246,7 +246,7 @@
                     <img class="heading" src="/res/img/home/choose_school_header.gif" alt="Choosing the right school"
                          title=""/>
 
-<img class="leadoff" src="/res/img/home/blog_frontdoor_pencils.jpg" alt="Pencils"/>
+                    <img class="leadoff" src="/res/img/home/blog_frontdoor_pencils.jpg" alt="Pencils"/>
                     <!--
                     <div style="width: 85px; height: 171px; float: left;">
                         <img class="leadoff left" src="/res/img/home/pencil_apple.jpg" alt="Pencil and apple"/>
@@ -277,45 +277,14 @@
             <div class="wrapper-inner">
                 <div class="wrapper-content" style="width: 241px; height: 263px;">
                     <img class="leadoff" src="/res/img/home/blog_frontdoor_hed.jpg" width="241" height="110" alt="Mother and daughter"/>
-                    <!--
-                    <p class="description" style="margin:0 10px 10px;">News, stories and advice about issues impacting parents, kids and schools</p>
-                    -->
-                    <div style="height:60px;margin-bottom:10px;">
-                        <div style="float:left;height:60px;">
-                            <img src="/res/img/blog_bill.jpg"
-                                 alt="Bill Jackson"
-                                 width="40"
-                                 height="40"
-                                 style="border:1px solid #cccccc;padding:1px;margin:0 5px;"
-                                    />
-                        </div>
-                        <div style="height:50px;width:170px;float:left;font-family:georgia,times new roman,times,serif;padding:0 5px;">
-                            <a style="color:#000000;font-size:13px;line-height:17px;" href="">
-                                Unlimited friends and even family
-                            </a>
-                            <span style="color:#666666;font-size:13px;line-height:17px;">
-                                You can invite an unlimited number...
-                            </span>
-                        </div>
-                    </div>
-                    <div style="height:60px;margin-bottom:10px;">
-                        <div style="float:left;height:60px;">
-                            <img src="/res/img/blog_bill.jpg"
-                                 alt="Bill Jackson"
-                                 width="40"
-                                 height="40"
-                                 style="border:1px solid #cccccc;padding:1px;margin:0 5px;"
-                                    />
-                        </div>
-                        <div style="height:50px;width:170px;float:left;font-family:georgia,times new roman,times,serif;padding:0 5px;">
-                            <a style="color:#000000;font-size:13px;line-height:17px;" href="">
-                                Unlimited friends and even family 
-                            </a>
-                            <span style="color:#666666;font-size:13px;line-height:17px;">
-                                You can invite an unlimited number...
-                            </span>
-                        </div>
-                    </div>
+                    <cache:cache scope="application" name="blog" key="bill3">
+                        <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlogAdvanced"
+                                          defaultTitle="GreatSchools blog"
+                                          defaultUrl="http://blogs.greatschools.net/billsblog/"
+                                          type="splashBlog"
+                                          showDate = "true"
+                                />
+                    </cache:cache>
                 </div>
             </div>
         </div>
@@ -350,16 +319,16 @@
     <div class="moduleBox">
         <div class="wrapper-outer">
             <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 261px; height: 235px; position: relative;">
+                <div class="wrapper-content" style="width: 261px; height: 215px; position: relative;">
                     <!-- Define width (and alternatively height) on .wrapper-content -->
-                    <img class="heading" src="/res/img/home/tools_header.gif" alt="The Latest Tools and Advice"
+                    <img class="heading" src="/res/img/home/whats_new.jpg" alt="What's New?"
                          title=""/>
                     <img class="leadoff" src="/res/img/home/mother_daughter.jpg" alt="Mother and daughter"/>
 
                     <ul class="arrows">
-                    <c:import
-                            url="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list&amp;&amp;omitUl=true"/>
-                   </ul>
+                        <c:import
+                                url="/content/splashLinks.module?page=latest_tools&amp;type=all&amp;layout=list&amp;&amp;omitUl=true"/>
+                    </ul>
 
                     <div class="sponsor_ad"><ad:Homepage_185x28/></div>
                 </div>
@@ -370,7 +339,7 @@
     <div class="moduleBox">
         <div class="wrapper-outer">
             <div class="wrapper-inner">
-                <div class="wrapper-content" style="width: 574px; height: 235px; position: relative;">
+                <div class="wrapper-content" style="width: 574px; height: 215px; position: relative;">
                     <div class="blue"> <!-- If you'd prefer not to use an IE-specific stylesheet, uncomment the cleared div below and remove 'cleared' -->
 
                         <img class="heading" src="/res/img/home/blue_module/parent_to_parent.png" alt="Parent to Parent"

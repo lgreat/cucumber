@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.13 2008/10/09 01:11:08 aroy Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.14 2009/03/25 01:27:22 eddie Exp $
  */
 
 package gs.web.content;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 import org.apache.commons.logging.Log;
@@ -19,7 +20,12 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.HashMap;
 import java.text.SimpleDateFormat;
+
+import gs.web.jsp.Util;
 
 /**
  * Provides...
@@ -32,6 +38,8 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
     private static final Log _log = LogFactory.getLog(BlogFeedTagHandler.class);
     private static final String TYPE_BILLS_BLOG = "billsBlog";
     private static final String TYPE_GS_BLOG = "gsBlog";
+    private static final String TYPE_SPLASH_BLOG = "splashBlog";
+    private static final String TYPE_RESEARCH_BLOG = "researchBlog";
     private String _defaultTitle;
     private String _atomUrl;
     private String _defaultUrl;
@@ -43,8 +51,14 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         super.doTag();
         String link = _defaultUrl;
         String text = "";
+        String author = "";
         String title = _defaultTitle;
         Date date = null;
+        String link2 = _defaultUrl;
+        String text2 = "";
+        String author2 = "";
+        String title2 = _defaultTitle;
+        Date date2 = null;
         URL feedUrl = new URL(_atomUrl);
         try {
             System.setProperty("sun.net.client.defaultConnectTimeout", "5000");
@@ -52,35 +66,175 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(feedUrl));
             SyndEntry entry = (SyndEntry) feed.getEntries().get(0);
-
             title = entry.getTitle();
             link = entry.getLink();
             text = entry.getDescription().getValue();
+            author = entry.getAuthor();
             if (isShowDate()) {
                 date = entry.getPublishedDate();
+                if(date == null || date.equals(null)){
+                    date = entry.getUpdatedDate();
+                }
+                if(date == null || date.equals(null)){
+                    date = new Date(System.currentTimeMillis());
+                }
+            }
+
+            if (TYPE_SPLASH_BLOG.equals(_type)) {
+                SyndEntry entry2 = (SyndEntry) feed.getEntries().get(1);
+                title2 = entry2.getTitle();
+                link2 = entry2.getLink();
+                text2 = entry2.getDescription().getValue();
+                author2 = entry2.getAuthor();
+                if (isShowDate()) {
+                    date2 = entry2.getPublishedDate();
+                    if(date2 == null || date2.equals(null)){
+                        date2 = entry2.getUpdatedDate();
+                    }
+                    if(date2 == null || date2.equals(null)){
+                        date2 = new Date(System.currentTimeMillis());
+                    }
+                }
             }
 
         } catch (Exception e) {
             _log.error("Unable to access feed at " + feedUrl);
             // ignore inability to get feed download
         }
+        if (TYPE_SPLASH_BLOG.equals(_type)) {
+            displaySplashBlog(title, link, text, author, date);
+            displaySplashBlog(title2, link2, text2, author2, date2);
+        }else{
+            display(title, link, text, author, date);
 
-        display(title, link, text, date);
+        }
     }
 
-    private void display(String title, String link, String text, Date date) throws IOException {
+    private void displaySplashBlog(String title, String link, String text, String author, Date date) throws IOException {
+        JspWriter out = getJspContext().getOut();
+
+        out.print("<div class=\"blogpromo\">");
+        out.print("<div class=\"blogpromo_image_wrap\">");
+        String authorImage = getAuthorImage(author);
+        if(authorImage != null){
+            out.print("<img class=\"blogpromo_image\" src=\""
+                    + authorImage + "\" alt=\"" + author + "\"/>") ;
+        }else{
+            out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>") ;
+        }
+        out.print("</div>");
+        out.print("<div class=\"blogpromo_entry\">");
+        out.print("<a onclick=\"Popup=window.open('" +
+                link +
+                "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
+                " href=\"" +
+                link +
+                "\">" +
+                title +
+                "</a> ");
+        if (!StringUtils.isBlank(text)) {
+            String strippedtext = text;
+            if(text.indexOf("<div class=\"feedflare\"") > 0){
+                strippedtext = text.substring(0,text.indexOf("<div class=\"feedflare\""));
+            }
+            //strippedtext = strippedtext.substring(0,70-title.length());
+            strippedtext = Util.abbreviateAtWhitespace(strippedtext, 73-title.length());
+            out.print("<span class=\"blogpromo_description\">" + strippedtext + "..." + "</span>");
+        }
+        out.print("</div>");
+        out.print("</div>");
+    }
+
+    private String getAuthorImage(String author){
+        Map imageAuthor = new HashMap();
+        imageAuthor.put("GreatSchools","/res/img/blog_bill.jpg");
+        imageAuthor.put("Bill Jackson","/res/img/blog_billjackson.jpg");
+        imageAuthor.put("Kelsey Parker","/res/img/blog_kelseyparker.jpg");
+        imageAuthor.put("Dave Steer","/res/img/blog_davesteer.jpg");
+
+        /* Uncomment this to use community gifs
+        imageAuthor.put("Bill Jackson","http://community.greatschools.net/avatar?id=1000&height=94&width=94");
+        imageAuthor.put("Kelsey Parker","http://community.greatschools.net/avatar?id=2694028&height=94&width=94");
+        imageAuthor.put("Dave Steer","http://community.greatschools.net/avatar?id=3090256&height=94&width=94");
+        */
+        
+        return imageAuthor.get(author).toString();
+
+    }
+
+    private void display(String title, String link, String text, String author, Date date) throws IOException {
         JspWriter out = getJspContext().getOut();
 
         if (TYPE_BILLS_BLOG.equals(_type)) {
-            out.print(text);
-            out.print("<div style='padding-top: 9px;padding-bottom: 9px;'> ");
-            out.print("<a onclick=\"Popup=window.open('" +
+            out.println("<div class=\"blogTop\">");
+            out.println("<div class=\"blogPhoto\">");
+            out.println("<a onclick=\"Popup=window.open('" +
                     link +
-                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
-                    " href=\"" +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\" "
+                    + " href=\"" + link +"\">"
+                    + "<img src=\"/res/img/about/aboutus_blogphoto.jpg\" "
+                    + "alt=\"GreatSchools Blog On School Improvement\"/></a>");
+
+            out.println("</div>");
+            out.println("<div class=\"blogDescription\">");
+            if (!StringUtils.isBlank(text)) {
+                String strippedtext = text;
+                if(text.indexOf("<div class=\"feedflare\"") > 0){
+                    strippedtext = text.substring(0,text.indexOf("<div class=\"feedflare\""));
+                }
+                strippedtext = Util.abbreviateAtWhitespace(strippedtext, 130-title.length());
+                out.println(strippedtext);
+            }
+            out.println("</div>");
+            out.println("</div>");
+            out.println("<div class=\"rss\">");
+            out.println("<div class=\"blogTitle\">");
+            out.println("<a onclick=\"Popup=window.open('" +
                     link +
-                    "\">Read more about \"" + title + "\" &gt;</a>");
-            out.print("</div> ");
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\" "
+                    + " href=\"" + link +"\">"
+                    + "Read more about \"" + title + "\" &gt;"
+                    + "</a>");
+            out.println("</div>");
+            out.println("<div id=\"readBillsBlog\">");
+            out.println("<a onclick=\"Popup=window.open('" +
+                    link +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\" "
+                    + " href=\"" + link +"\">"
+                    + "<img  class=\"readBlogImage\" " +
+                    "alt=\"Read Bill's Blog\" src=\"/res/img/button/read.gif\"/></a>");
+            out.println("</div>");
+            out.println("</div>");
+        } else if (TYPE_RESEARCH_BLOG.equals(_type)) {
+            out.println("<div class=\"blogImg\">");
+            String authorImage = getAuthorImage(author);
+            if(authorImage != null){
+                out.println("<img height=\"94\" width=\"94\" src=\""
+                        + authorImage + "\" alt=\"" + author + "\"/>") ;
+            }else{
+                out.println("<img height=\"94\" width=\"94\" src=\"/res/img/pixel.gif\" alt=\"GreatSchools Blog\"/>");
+            }
+            out.println("</div>");
+            out.println("<div class=\"blueTitleText\">GreatSchools Blog</div>");
+            out.println("<img src=\"/res/img/header/clear_pix.gif\" width=\"1\" height=\"6\" alt=\"\"/>");
+            out.println("<br/>News, stories and advice about issues impacting parents, kids and schools.");
+                            out.println("<div class=\"blogBlurb\">");
+            if (!StringUtils.isBlank(text)) {
+                String strippedtext = text;
+                if(text.indexOf("<div class=\"feedflare\"") > 0){
+                    strippedtext = text.substring(0,text.indexOf("<div class=\"feedflare\""));
+                }
+                strippedtext = Util.abbreviateAtWhitespace(strippedtext, 105-title.length());
+                out.println(strippedtext);
+            }
+            out.println("<a onclick=\"Popup=window.open('" +
+                    link +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\" "
+                    + " href=\"" + link +"\">"
+                    + "Read more about \"" + title + "\" &gt;"
+                    + "</a>");
+
+            out.println("</div>");
         } else if (TYPE_GS_BLOG.equals(_type)) {
             if (date != null) {
                 if (_sdf == null) {

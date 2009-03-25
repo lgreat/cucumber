@@ -12,60 +12,82 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
-    <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
+    <![CDATA[
+
+    <script type="text/javascript" language="javascript">
+                <!--
+                function checkZipCode(zip){
+                    var re5digit=/^\d{5}$/ //regular expression defining a 5 digit number
+                    if (zip.value.search(re5digit)==-1){ //if match failed
+                        elem = document.getElementById("errorMessageZip");
+                        elem.style.display = "block";
+                        return false;
+                    }
+
+                    return true;
+                }
+                    -->
+                </script>
+                ]]>
+
+    <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial"
+                onsubmit="return checkZipCode(this.zip)">
         <input type="hidden" name="sortby" value="distance" />
         <input type="hidden" name="tab" value="over" />
         <input type="hidden" name="area" value="m" />
         <input type="hidden" name="form" value="address" />
 
 
-                    <h3 id="compareSchoolsNearZipHeader">
-                        <em>COMPARE SCHOOLS</em>near an address:
-                    </h3>
-                    <div class="levelSelector">
-                    Show me
-                    <select name="level" class="school formText">
-                        <option value="e">elementary</option>
-                        <option value="m">middle</option>
-                        <option value="h">high</option>
-                    </select>
-                    schools
-                    </div>
+        <h3 id="compareSchoolsNearZipHeader">
+            <em>COMPARE SCHOOLS</em>near an address:
+        </h3>
+        <div class="levelSelector">
+            Show me
+            <select name="level" class="school formText">
+                <option value="e">elementary</option>
+                <option value="m">middle</option>
+                <option value="h">high</option>
+            </select>
+            schools
+        </div>
 
-                    <select name="miles" class="miles formText">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                        <option value="25">25</option>
-                        <option value="30">30</option>
-                    </select>
-                    <div class="zipCodeInput">
-                        <p>near</p>
-                        <input type="text" id="findZipCodeInput" name="zip" class="zip formText" value="zip code"
-                           onfocus="textSwitch(this, '', 'zip code');"
-                           onblur="textSwitch(this, 'zip code', '');"/>
-                        <div class="submitButton">
-                            <input
-                            onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
-                            onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                            alt="Compare ${requestScope.context.state.longName} Schools"
-                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
-                        </div>
-                    </div>
-
-
-                  <c:choose>
-                        <c:when test="${not empty ziperror}">
+        <select name="miles" class="miles formText">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+        </select>
+        <div class="zipCodeInput">
+            <p>near</p>
+            <input type="text" id="findZipCodeInput" name="zip" class="zip formText" value="ZIP code"
+                   onfocus="textSwitch(this, '', 'ZIP code');"
+                   onblur="textSwitch(this, 'ZIP code', '');"/>
+            <div class="submitButton">
+                <input
+                        onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
+                        onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                        alt="Compare ${requestScope.context.state.longName} Schools"
+                        src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+            </div>
+        </div>
+        <div id = "errorMessageZip" style="display:none;">
+                    <span style="color:red;">
+                                <c:out value="Please enter a valid ZIP code" escapeXml="true" />
+                            </span>
+        </div>
+        <c:choose>
+            <c:when test="${not empty ziperror}">
                             <span style="color:red;">
                                 <c:out value="${ziperror}" escapeXml="true" />
                             </span>
-                        </c:when>
-                        <!--c:otherwise>
-                            <img style="width: 198px;height: 31px;" alt=""
-                                 src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                        </c:otherwise-->
-                    </c:choose>
+            </c:when>
+            <!--c:otherwise>
+                <img style="width: 198px;height: 31px;" alt=""
+                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+            </c:otherwise-->
+        </c:choose>
 
 
     </gsweb:form>
