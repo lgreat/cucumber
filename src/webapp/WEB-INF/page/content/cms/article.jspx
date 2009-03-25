@@ -8,7 +8,7 @@
     <jsp:directive.page contentType="text/html"/>
     <c:set var="pageName" value="article" scope="request"/>
     <head>
-        <title>${requestScope.article.title} - GreatSchools.net</title>
+        <title>${article.title} - GreatSchools.net</title>
         <pageHelper:setPathway pathway="LIBRARY"/>
         <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
         <pageHelper:externalCss file="/res/css/widelayout.css"/>
