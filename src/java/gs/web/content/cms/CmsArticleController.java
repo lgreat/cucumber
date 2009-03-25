@@ -52,6 +52,7 @@ public class CmsArticleController extends AbstractController {
     protected void replaceGreatSchoolsUrlsInArticle(CmsArticle article, HttpServletRequest request) {
         article.setBody(replaceGreatSchoolsUrlInString(article.getBody(), request));
         article.setSummary(replaceGreatSchoolsUrlInString(article.getSummary(), request));
+        article.setSidebar(replaceGreatSchoolsUrlInString(article.getSidebar(), request));
     }
 
     /**

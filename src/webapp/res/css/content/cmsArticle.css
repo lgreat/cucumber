@@ -17,8 +17,18 @@
     margin-bottom: 15px;
 }
 
-#cmsArticle .cmsArticleLicensorAttribution {
-    font-size:
+#cmsArticle #cmsArticleSidebar {
+    border: 1px dotted #666666;
+    padding: 15px;
+    margin-left: 20px;
+    font-size: 10px;
+    float: right;
+    width: 200px;
+    clear: right;
+}
+
+#cmsArticle #cmsArticleLicensorAttribution {
+    font-size: 10px;
 }
 
 #cmsArticle h1 {

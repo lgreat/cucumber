@@ -17,7 +17,7 @@
     <body>
     <div id="cmsArticle">
         <div class="cmsArticleTitle">${article.title}</div>
-        <c:if test="${article.otherLanguageUri gt ''}">
+        <c:if test="${not empty article.otherLanguageUri}">
             <div class="otherLanguageLink">
                 <a href="${article.otherLanguageUri}">
                     Read this article in
@@ -32,9 +32,9 @@
                 </a>
             </div>
         </c:if>
-        <c:if test="${article.licensorName gt ''}">
+        <c:if test="${not empty article.licensorName}">
             <div class="cmsArticleLicensorImage">
-                <c:if test="${article.licensorLogoUrl ne null}">
+                <c:if test="${not empty article.licensorLogoUrl}">
                     <img src="${article.licensorLogoUrl}" alt="Licensor Image"/>
                 </c:if>
                 <br/>
@@ -42,17 +42,24 @@
             </div>
         </c:if>
         <div class="cmsArticleImage">
-            <c:if test="${article.imageUrl ne null}">
+            <c:if test="${not empty article.imageUrl}">
                 <img src="${article.imageUrl}" alt="${article.imageAltText}"/>
             </c:if>
             <br/>
             ${article.imageTitle}
         </div>
+
+        <c:if test="${not empty article.sidebar}">
+            <div id="cmsArticleSidebar">
+                ${article.sidebar}
+            </div>
+        </c:if>
+
         <div id="cmsArticleText">
             ${article.body}
         </div>
 
-        <c:if test="${article.licensorAttribution gt ''}">
+        <c:if test="${not empty article.licensorAttribution}">
             <div id="cmsArticleLicensorAttribution">
                 ${article.licensorAttribution}
             </div>
