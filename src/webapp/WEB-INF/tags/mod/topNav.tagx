@@ -181,22 +181,6 @@
         <!--<tr>-->
             <!--<td>-->
 
-    <script type="text/javascript">
-    // preload images
-    var newOff = new Image();
-    newOff.src = '${preschoolNewDefaultImage}';
-    var newOn = new Image();
-    newOn.src = '${preschoolNewSelectedImage}';
-    function togglePreschoolNewImage(selected) {
-        var img = document.getElementById('preschoolNew');
-        if (selected) {
-            img.src = newOn.src;
-        } else {
-            img.src = newOff.src;
-        }
-    }
-    </script>
-
     <table cellpadding="0" cellspacing="0" id="nav" class="${navBarClass}">
         <tr>
             <td width="28px">&amp;#160;</td>
