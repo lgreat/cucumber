@@ -11,11 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: jnorton
- * Date: Feb 23, 2009
- * Time: 5:50:41 PM
- * To change this template use File | Settings | File Templates.
+ * @author jnorton@greatschools.net
  */
 public class RatingsSummaryTagHandler extends BaseTagHandler {
 
@@ -24,16 +20,15 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
     public void doTag() throws JspException, IOException {
 
-
         SchoolSummaryHelper helper = new SchoolSummaryHelper();
-        SchoolSummaryHelper.RatingsSummaryCommand command = helper.buildRatingsSummaryCommand(_school, this.getSchoolDao(), this.getReviewDao()) ;
-        SchoolSummaryHelper.SchoolMessageBuilder builder = helper.getMessageBuilder(command);
+        RatingsSummaryCommand command = helper.buildRatingsSummaryCommand(_school, this.getSchoolDao(), this.getReviewDao()) ;
+        SchoolMessageBuilder builder = helper.getMessageBuilder(command);
 
         writeOpeningDiv();
 
-        writeParagraph(builder.buildFirstSentence() + "  " + builder.buildSecondSentence());
+        writeParagraph(builder.buildFirstSentence(command) + "  " + builder.buildSecondSentence(command));
 
-        String p = builder.buildThirdSentence();
+        String p = builder.buildThirdSentence(command);
         if (!command.hasParentReviews){
             p += "  " + getReviewSchoolLink();
         }
