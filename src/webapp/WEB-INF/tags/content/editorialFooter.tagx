@@ -161,17 +161,11 @@
                                       border="0" alt=""/><br/>
 
                     <div class="billsBlog">
-                        <div class="billsBlogImg">Photo of Bill Jackson</div>
-
-                        <div class="blueTitleText">Bill's Blog</div>
-
-                        <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="6" alt=""/>
-
-                        <cache:cache scope="application" name="blog" key="bill3">
-                            <content:blogFeed atomUrl="http://blogs.greatschools.net/billsblog/atom.xml"
+                        <cache:cache scope="application" name="blog" key="blog1">
+                            <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlogAdvanced"
                                               defaultTitle="Bill's thoughts on education"
                                               defaultUrl="http://blogs.greatschools.net/billsblog/"
-                                              type="billsBlog"/>
+                                              type="researchBlog"/>
                         </cache:cache>
                     </div></td>
                 <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"

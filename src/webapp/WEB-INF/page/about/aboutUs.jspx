@@ -60,28 +60,15 @@
                 </div>
 
                 <div id="billsBlog">
-                    <gsml:popupWindow href="http://blogs.greatschools.net/billsblog/" width="917" height="600" left="50"
-                                      top="50"><gsml:img src="/res/img/about/billsblog.gif"
-                                                         alt="Bill's Blog On School Improvement"/></gsml:popupWindow>
+                    <img title="" alt="GreatSchools Blog" src="/res/img/about/aboutus_blogtitle.gif" class="heading"/>
 
-                    <div class="rss">
-                        <cache:cache scope="application" name="blog" key="bill3">
-                            <content:blogFeed atomUrl="http://blogs.greatschools.net/billsblog/atom.xml"
-                                              defaultTitle="Bill's thoughts on education"
-                                              defaultUrl="http://blogs.greatschools.net/billsblog/"
-                                              type="billsBlog"/>
-                        </cache:cache>
-
-                        <gsml:url var="read" value="/res/img/button/read.gif"/>
-                        <div id="readBillsBlog">
-                            <gsml:popupWindow href="http://blogs.greatschools.net/billsblog/" width="917" height="600" left="50"
-                                          top="50"><img
-                                src="${read}"
-                                alt="Read Bill's Blog"
-                                style="margin: 5px 0 4px -2px"/></gsml:popupWindow>
-                        </div>
-<!--                        -->
-                    </div>
+                    <cache:cache scope="application" name="blog" key="blog2">
+                        <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlogAdvanced"
+                                          defaultTitle="GreatSchools Blog"
+                                          defaultUrl="http://blogs.greatschools.net/billsblog/"
+                                          type="billsBlog"/>
+                    </cache:cache>
+                    
                 </div>
 
             </div>

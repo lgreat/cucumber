@@ -77,6 +77,34 @@
 }
 
 /* bill's blog */
+#billsBlog{
+}
+
+.blogTop{
+     height:80px;
+}
+
+.blogPhoto{
+    float:left;
+}
+
+.blogDescription{
+    float:left;
+    height:60px;
+    width:150px;
+    font-size:13px;
+    line-height:20px;
+    padding-left:10px;
+}
+
+.blogTitle{
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.readBlogImage{
+    margin: 5px 0pt 4px -2px;
+}
 
 #billsBlog div.rss {
     margin-top: 10px;
