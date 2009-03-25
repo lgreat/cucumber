@@ -18,7 +18,7 @@
     <div id="cmsArticle">
         <div class="cmsArticleTitle">${article.title}</div>
         <div class="otherLanguageLink">
-            <c:if test="${article.otherLanguageUri && article.otherLanguageUri != ''}">
+            <c:if test="${article.otherLanguageUri and article.otherLanguageUri != ''}">
                 <a href="${article.otherLanguageUri}">Other Language</a>
             </c:if>
         </div>
