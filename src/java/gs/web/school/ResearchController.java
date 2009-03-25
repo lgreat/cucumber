@@ -119,7 +119,7 @@ public class ResearchController extends AbstractController {
                     // the zip.  We could use validators, Spring binding, etc. to handle
                     // this, but though the following is kinda whack, it makes things simpler
                     // and allows all of the controller logic to be in one place.
-                    mAndV.getModel().put("ziperror", "Please enter a valid zip code.");
+                    mAndV.getModel().put("ziperror", "Please enter a valid ZIP code.");
                 }
 
             } else if ("cities".equals(form)) {
