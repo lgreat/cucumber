@@ -17,18 +17,30 @@
     <body>
     <div id="cmsArticle">
         <div class="cmsArticleTitle">${article.title}</div>
-        <div class="otherLanguageLink">
-            <c:if test="${article.otherLanguageUri and article.otherLanguageUri != ''}">
-                <a href="${article.otherLanguageUri}">Other Language</a>
-            </c:if>
-        </div>
-        <div class="cmsArticleLicensorImage">
-            <c:if test="${article.licensorLogoUrl ne null}">
-                <img src="${article.licensorLogoUrl}" alt="Licensor Image"/>
-            </c:if>
-            <br/>
-            ${article.licensorName}
-        </div>
+        <c:if test="${article.otherLanguageUri gt ''}">
+            <div class="otherLanguageLink">
+                <a href="${article.otherLanguageUri}">
+                    See this article in
+                    <c:choose>
+                        <c:when test="${article.language eq 'ES'}">
+                            English
+                        </c:when>
+                        <c:otherwise>
+                            Spanish
+                        </c:otherwise>
+                    </c:choose>
+                </a>
+            </div>
+        </c:if>
+        <c:if test="${article.licensorName gt ''}">
+            <div class="cmsArticleLicensorImage">
+                <c:if test="${article.licensorLogoUrl ne null}">
+                    <img src="${article.licensorLogoUrl}" alt="Licensor Image"/>
+                </c:if>
+                <br/>
+                ${article.licensorName}
+            </div>
+        </c:if>
         <div class="cmsArticleImage">
             <c:if test="${article.imageUrl ne null}">
                 <img src="${article.imageUrl}" alt="${article.imageAltText}"/>
@@ -40,9 +52,11 @@
             ${article.body}
         </div>
 
-        <div id="cmsArticleLicensorAttribution">
-            ${article.licensorAttribution}
-        </div>
+        <c:if test="${article.licensorAttribution gt ''}">
+            <div id="cmsArticleLicensorAttribution">
+                ${article.licensorAttribution}
+            </div>
+        </c:if>
     </div>
     </body>
     </html>
