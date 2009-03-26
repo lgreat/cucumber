@@ -1,0 +1,62 @@
+
+
+#pageWrapper #main{
+    float:left;
+    width:650px;
+}
+
+#pageWrapper #contentRight{
+    float:left;
+    width:300px;
+}
+
+#intro{
+    height:250px;
+}
+
+#ratingAndInfo{
+    height:100px;
+}
+
+#browseSchools{
+    height:350px;
+}
+
+#compareSchools{
+    height:50px;
+}
+#parentReviews{
+    height:150px;
+}
+
+#ad{
+    height:150px;
+}
+
+#houseAd{
+    height:150px;
+}
+
+
+
+.outer {
+background-image:url(/res/img/schoolChoice/schoolchoice_poll_top.gif);
+background-position:left top;
+background-repeat:no-repeat;
+padding-top:6px;
+}
+
+.inner {
+background-color:transparent;
+background-image:url(/res/img/schoolChoice/schoolchoice_pol_sides.gif);
+background-position:left top;
+background-repeat:repeat-y;
+padding:6px 16px;
+}
+
+#nearByDistricts,#citySnapShot {
+background-image:url(/res/img/schoolChoice/schoolchoice_poll_bottom.gif);
+background-position:left bottom;
+background-repeat:no-repeat;
+padding-bottom:6px;
+}

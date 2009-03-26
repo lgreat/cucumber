@@ -1974,6 +1974,12 @@
         <property name="viewName" value="api/registrationSuccess"/>
     </bean>
 
+    <bean name="/district/districtHome.page"
+          class="gs.web.district.DistrictHomeController"
+          autowire="byName" lazy-init="true">
+    <property name="viewName" value="district/districtHome"/>
+    </bean>
+    
     <bean name="/api/docs/*"
           class="gs.web.mvc.WildcardViewController" lazy-init="true">
         <property name="basePath" value="api/docs"/>
@@ -2002,6 +2008,8 @@
         </property>
     </bean>
 
+
+
     <bean name="/community/chooserRegistration.page"
           class="gs.web.community.registration.RegistrationController"
           autowire="byName" lazy-init="true">
@@ -2024,5 +2032,9 @@
             <bean factory-bean="communityRegistrationTableFactory" factory-method="getTableDao"/>
         </property>
     </bean>
+
+
+
+
 
 </beans>

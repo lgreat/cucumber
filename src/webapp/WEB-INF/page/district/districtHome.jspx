@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<head>
+    <title>Choosing an Elementary School &amp;amp; Supporting K-5 Education | GreatSchools </title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <pageHelper:externalCss file="/res/css/district/districtHome.css"/>
+</head>
+
+<gsml:body adPageName="district-home">
+    <div id="pageWrapper"></div>
+    <div id="main">
+        <div id="intro"><h3>District intro and boilerplate</h3></div>
+        <div id="ratingAndInfo"><h3>District rating and info</h3></div>
+        <div id="browseSchools"><h3>Browse Schools</h3></div>
+        <div id="compareSchools"><h3>Compare Schools</h3></div>
+        <div id="parentReviews"><h3>Parent reviews</h3></div>
+    </div>
+    <div id="contentRight">
+        <div id="ad"><h3>Ad</h3></div>
+        <div id="nearByDistricts" class="box">
+            <div class="outer">
+                <div class="inner">
+                    <span>Near By districts</span>
+                </div>
+            </div>
+        </div>
+        <div id="houseAd"><h3>House ad</h3></div>
+        <div id="citySnapShot">
+            <div class="outer">
+                <div class="inner">
+                    <span>City Snapshot</span>
+                </div>
+            </div>
+        </div>
+    </div>
+ </gsml:body>
+</html>
+</jsp:root>
