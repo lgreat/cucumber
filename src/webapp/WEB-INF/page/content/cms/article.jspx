@@ -38,12 +38,12 @@
         </c:if>
         <c:if test="${not empty article.licensorName}">
             <div class="cmsArticleLicensorImage">
-                <c:if test="${not empty article.licensorLogoUrl}">
-                    <img src="${article.licensorLogoUrl}" alt="Licensor Image"/>
-                </c:if>
-                <br/>
-                ${article.licensorName}
-            </div>
+                        <c:if test="${article.licensorLogoUrl ne null}">
+                            <img src="${article.licensorLogoUrl}" alt="${article.licensorLogoAltText}"/>
+                        </c:if>
+                        <br/>
+                        ${article.licensorName}
+                    </div>
         </c:if>
         <div class="cmsArticleImage">
             <c:if test="${not empty article.imageUrl}">
