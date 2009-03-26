@@ -276,8 +276,8 @@
         <div class="wrapper-outer">
             <div class="wrapper-inner">
                 <div class="wrapper-content" style="width: 241px; height: 263px;">
-                    <a href="http://blogs.greatschools.net" onclick="Popup=window.open('http://blogs.greatschools.net','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50');
-                    return false;"><img class="leadoff" src="/res/img/home/blog_frontdoor_hed.jpg" width="241" height="110" alt="Blog header"/></a>
+                    <a href="http://blogs.greatschools.net"
+                       onclick="Popup=window.open('http://blogs.greatschools.net','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;"><img class="leadoff" src="/res/img/home/blog_frontdoor_hed.jpg" width="241" height="110" alt="Blog header"/></a>
                     <cache:cache scope="application" name="blog" key="bill3">
                         <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlogAdvanced"
                                           defaultTitle="GreatSchools blog"
