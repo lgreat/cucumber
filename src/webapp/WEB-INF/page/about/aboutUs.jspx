@@ -65,7 +65,7 @@
                     <cache:cache scope="application" name="blog" key="blog2">
                         <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlogAdvanced"
                                           defaultTitle="GreatSchools Blog"
-                                          defaultUrl="http://blogs.greatschools.net/billsblog/"
+                                          defaultUrl="http://blogs.greatschools.net"
                                           type="billsBlog"/>
                     </cache:cache>
                     

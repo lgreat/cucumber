@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.15 2009/03/25 18:33:45 eddie Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.16 2009/03/26 21:27:02 eddie Exp $
  */
 
 package gs.web.content;
@@ -117,8 +117,15 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         out.print("<div class=\"blogpromo_image_wrap\">");
         String authorImage = getAuthorImage(author);
         if(authorImage != null){
+            out.print("<a onclick=\"Popup=window.open('" +
+                    link +
+                    "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\"\n" +
+                    " href=\"" +
+                    link +
+                    "\">");
             out.print("<img class=\"blogpromo_image\" src=\""
                     + authorImage + "\" alt=\"" + author + "\"/>") ;
+            out.print("</a>");
         }else{
             out.print("<img class=\"blogpromo_image\" src=\"/res/img/pixel.gif\" alt=\"\" + author + \"\"/>") ;
         }
@@ -206,19 +213,25 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             out.println("</div>");
             out.println("</div>");
         } else if (TYPE_RESEARCH_BLOG.equals(_type)) {
-            out.println("<div class=\"blogImg\">");
-            String authorImage = getAuthorImage(author);
-            if(authorImage != null){
-                out.println("<img height=\"94\" width=\"94\" src=\""
-                        + authorImage + "\" alt=\"" + author + "\"/>") ;
-            }else{
-                out.println("<img height=\"94\" width=\"94\" src=\"/res/img/pixel.gif\" alt=\"GreatSchools Blog\"/>");
-            }
-            out.println("</div>");
+            /*
+            <div class="billsBlogImg">
+            Photo of Bill Jackson
+            </div>
+
+            <div class="blueTitleText">
+            GreatSchools Blog
+            </div>
+
+            <img width="1" height="6" src="http://www.greatschools.net/res/img/header/clear_pix.gif" alt=""/>
+            Since President Barack Obama assumed office two months ago, he's put forth an...
+            <div style="padding-top: 9px; padding-bottom: 9px;">
+            <a href="http://feedproxy.google.com/~r/typepad/GreatSchools/billsblog/~3/kC3FHFt9l7c/obamas-call-for-parent-involvement.html" onclick="Popup=window.open('http://feedproxy.google.com/~r/typepad/GreatSchools/billsblog/~3/kC3FHFt9l7c/obamas-call-for-parent-involvement.html','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;">Read more about "ObamaÕs call for parent involvement" ></a>
+            </div>
+             */
+            out.println("<div class=\"billsBlogImg\">Photo of Bill Jackson</div>");
             out.println("<div class=\"blueTitleText\">GreatSchools Blog</div>");
-            out.println("<img src=\"/res/img/header/clear_pix.gif\" width=\"1\" height=\"6\" alt=\"\"/>");
-            out.println("<br/>News, stories and advice about issues impacting parents, kids and schools.");
-                            out.println("<div class=\"blogBlurb\">");
+            out.println("News, stories and advice about issues impacting parents, kids and schools.");
+            out.println("<div class=\"blogBlurb\">");
             if (!StringUtils.isBlank(text)) {
                 String strippedtext = text;
                 if(text.indexOf("<div class=\"feedflare\"") > 0){

@@ -34,61 +34,61 @@
 <div id="editorialFooter" style="margin: 0; padding: 0;">
 <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="600" height="${topPadding}" border="0" alt=""/>
 <table cellspacing="0" cellpadding="0" class="content" border="0">
-    <tr>
-        <!-- K-12 Success Title -->
-        <td valign="top" colspan="2" class="leftmostBox"><gsml:img
-                src="/res/img/content/research/t_k12_success.gif" alt="K-12 Success"/>
-        </td>
+<tr>
+    <!-- K-12 Success Title -->
+    <td valign="top" colspan="2" class="leftmostBox"><gsml:img
+            src="/res/img/content/research/t_k12_success.gif" alt="K-12 Success"/>
+    </td>
 
-        <td valign="top" class="leftmostBox"><img style="width: 8px; height: 19px;" alt=""
-                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-        <td valign="top" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" alt=""
-                              border="0"/></td>
+    <td valign="top" class="leftmostBox"><img style="width: 8px; height: 19px;" alt=""
+                                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+    <td valign="top" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" alt=""
+                                              border="0"/></td>
 
-        <!-- You Might Also Like Title -->
-        <td valign="top" colspan="${secondBoxColspan}"><gsml:img src="/res/img/content/research/t_might_like.gif"
-                              alt="You Might Also Like"/></td>
+    <!-- You Might Also Like Title -->
+    <td valign="top" colspan="${secondBoxColspan}"><gsml:img src="/res/img/content/research/t_might_like.gif"
+                                                             alt="You Might Also Like"/></td>
 
-        <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" alt=""
-                              border="0"/></td>
-        <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
-        </td>
+    <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" alt=""
+                          border="0"/></td>
+    <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
+    </td>
 
-        <!-- Editor's Picks Title -->
-        <td valign="top"><gsml:img
-                src="/res/img/content/research/t_editor_pick.gif" alt="Editor's Picks"/>
-        </td>
+    <!-- Editor's Picks Title -->
+    <td valign="top"><gsml:img
+            src="/res/img/content/research/t_editor_pick.gif" alt="Editor's Picks"/>
+    </td>
 
-        <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" border="0"
-                              alt=""/></td>
-    </tr>
+    <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" border="0"
+                          alt=""/></td>
+</tr>
 
-    <tr>
-        <td valign="top" bgcolor="#FFBB00" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                                height="1" alt="" border="0"/></td>
-        <td valign="top" bgcolor="#FFBB00" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="202"
-                                                height="1" alt="" border="0"/></td>
-        <td valign="top" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
-        </td>
-        <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                                height="1" alt="" border="0"/></td>
-        <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="439"
-                                                height="1" alt="" border="0"/></td>
-        <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                                height="1" alt="" border="0"/></td>
-        <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
-        </td>
-        <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201"
-                                                height="1" alt="" border="0"/></td>
-        <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                                height="1" alt="" border="0"/></td>
-    </tr>
-
-    <!-- CONTENT -->
-
-    <tr>
+<tr>
     <td valign="top" bgcolor="#FFBB00" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                                height="1" alt="" border="0"/></td>
+    <td valign="top" bgcolor="#FFBB00" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="202"
+                                                                height="1" alt="" border="0"/></td>
+    <td valign="top" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
+    </td>
+    <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
                                             height="1" alt="" border="0"/></td>
+    <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="439"
+                                            height="1" alt="" border="0"/></td>
+    <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                            height="1" alt="" border="0"/></td>
+    <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
+    </td>
+    <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201"
+                                            height="1" alt="" border="0"/></td>
+    <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                            height="1" alt="" border="0"/></td>
+</tr>
+
+<!-- CONTENT -->
+
+<tr>
+    <td valign="top" bgcolor="#FFBB00" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                                height="1" alt="" border="0"/></td>
 
     <!-- K-12 Success -->
     <td valign="top" class="leftmostBox">
@@ -120,7 +120,7 @@
                                 <input type="hidden" name="c" value="topic" />
                                 <input type="text" name="q" class="keyword formText" style="margin-right:10px;"/>
                                 <gsml:inputImage src="/res/img/content/research/go_pink.gif" alt="GO"
-                                        styleClass="goImageButton"/>
+                                                 styleClass="goImageButton"/>
                             </gsweb:form>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                         <cache:cache scope="application" name="blog" key="blog1">
                             <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlogAdvanced"
                                               defaultTitle="Bill's thoughts on education"
-                                              defaultUrl="http://blogs.greatschools.net/billsblog/"
+                                              defaultUrl="http://blogs.greatschools.net"
                                               type="researchBlog"/>
                         </cache:cache>
                     </div></td>
@@ -181,7 +181,7 @@
                             <gsml:a href="/content/tutoring_Homework_Help.page" styleClass="border10Links">Learn More ></gsml:a>
                         </div>
 
-                       
+
                         <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
                             <center>
                             <span class="sponsorLogo">
@@ -219,31 +219,31 @@
 
     <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
                                             height="1" alt="" border="0"/></td>
-    </tr>
-    <tr>
-        <td valign="top" bgcolor="#FFBB00" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                                height="8" alt="" border="0"/></td>
-        <td valign="top" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="202" height="8" alt=""
-                              border="0"/></td>
-        <td valign="top" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="8" alt=""/>
-        </td>
-        <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                                height="8" alt="" border="0"/></td>
-        <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="439" height="8"
-                              border="0" alt=""/></td>
-        <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                                height="8" alt="" border="0"/></td>
-        <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="8" alt=""/>
-        </td>
-        <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201" height="8" alt=""
-                              border="0"/></td>
-        <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                                height="8" alt="" border="0"/></td>
-    </tr>
-    <tr>
-        <td colspan="9" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
-                                               height="1" alt="" border="0"/></td>
-    </tr>
+</tr>
+<tr>
+    <td valign="top" bgcolor="#FFBB00" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                                height="8" alt="" border="0"/></td>
+    <td valign="top" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="202" height="8" alt=""
+                                              border="0"/></td>
+    <td valign="top" class="leftmostBox"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="8" alt=""/>
+    </td>
+    <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                            height="8" alt="" border="0"/></td>
+    <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="439" height="8"
+                          border="0" alt=""/></td>
+    <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                            height="8" alt="" border="0"/></td>
+    <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="8" alt=""/>
+    </td>
+    <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201" height="8" alt=""
+                          border="0"/></td>
+    <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                            height="8" alt="" border="0"/></td>
+</tr>
+<tr>
+    <td colspan="9" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                           height="1" alt="" border="0"/></td>
+</tr>
 </table>
 <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="600" height="${bottomPadding}" border="0" alt=""/>
 </div>
