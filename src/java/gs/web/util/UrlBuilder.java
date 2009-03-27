@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.155 2009/03/17 21:28:44 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.156 2009/03/27 01:14:12 aroy Exp $
  */
 
 package gs.web.util;
@@ -301,8 +301,22 @@ public class UrlBuilder {
             State state = State.fromString(params.get("state"));
             String city = params.get("city");
             init(CITY_PAGE, state, city);
+        } else if (TEST_SCORE_LANDING.equals(vPage)) {
+            State state = State.fromString(params.get("state"));
+            init(TEST_SCORE_LANDING, state, params.get("tid"));
+        } else if (checkMicrosites(vPage)) {
+            // good
         } else {
-            throw new IllegalArgumentException("VPage unknown" + vpageName);
+            throw new IllegalArgumentException("VPage unknown: " + vpageName);
+        }
+    }
+
+    protected boolean checkMicrosites(VPage vpage) {
+        try {
+            init(vpage);
+            return true;
+        } catch (IllegalArgumentException iae) {
+            return false;
         }
     }
 
@@ -499,7 +513,10 @@ public class UrlBuilder {
      * @param page VPage
      */
     public UrlBuilder(VPage page) {
-        _vPage = page;
+        init(page);
+    }
+
+    protected void init(VPage page) {
         _perlPage = false;
 
         if (SCHOOL_CHOICE_CENTER.equals(page)) {
@@ -551,7 +568,7 @@ public class UrlBuilder {
         } else if (SCHOOL_FINDER_WIDGET.equals(page)) {
             _path = SchoolSearchWidgetController.BEAN_ID;
         } else {
-            throw new IllegalArgumentException("VPage unknown" + page);
+            throw new IllegalArgumentException("VPage unknown: " + page);
         }
     }
 

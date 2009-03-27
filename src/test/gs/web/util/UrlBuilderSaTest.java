@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.98 2009/03/17 21:28:44 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.99 2009/03/27 01:14:12 aroy Exp $
  */
 
 package gs.web.util;
@@ -598,5 +598,20 @@ public class UrlBuilderSaTest extends TestCase {
         // school profile page
         urlBuilder = new UrlBuilder("schoolProfile?state=AK&id=20");
         assertEquals("/modperl/browse_school/ak/20", urlBuilder.asSiteRelative(getMockRequest()));
+
+        // test score page
+        urlBuilder = new UrlBuilder("testScoreLanding?state=CA&tid=2");
+        assertEquals("/test/landing.page?state=CA&tid=2", urlBuilder.asSiteRelative(getMockRequest()));
+
+        // microsites
+        urlBuilder = new UrlBuilder("schoolChoiceCenter");
+        assertEquals("/school-choice/", urlBuilder.asSiteRelative(getMockRequest()));
+
+        try {
+            new UrlBuilder("notAMicrosite");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
+
     }
 }
