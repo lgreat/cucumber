@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.8 2008/05/30 19:26:27 cpickslay Exp $
+ * $Id: RecentParentReviewsControllerTest.java,v 1.9 2009/03/27 05:26:55 droy Exp $
  */
 
 package gs.web.school.review;
@@ -36,7 +36,7 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
         RecentParentReviewsController.DEFAULT_MAX_AGE = 99999;
     }
 
-    public void testRecentParentReviewsController() throws Exception {
+    public void testWithCity() throws Exception {
         IReviewDao reviewDao = createMock(IReviewDao.class);
         expect(reviewDao.findRecentReviewsInCity(State.AK,"Anchorage", 10, RecentParentReviewsController.DEFAULT_MAX_AGE)).
                 andReturn(new ArrayList<Integer>());
@@ -56,4 +56,82 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
 
         assertNotNull(parentReviewList);
     }
+
+    public void testWithDistrict() throws Exception {
+        IReviewDao reviewDao = createMock(IReviewDao.class);
+        expect(reviewDao.findRecentReviewsInDistrict(State.CA,1, 3, RecentParentReviewsController.DEFAULT_MAX_AGE)).
+                andReturn(new ArrayList<Integer>());
+        replay(reviewDao);
+        _controller.setReviewDao(reviewDao);
+
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter("state", "CA");
+        request.setParameter(RecentParentReviewsController.PARAM_DISTRICT_ID, "1");
+        request.setParameter(RecentParentReviewsController.PARAM_MAX, "3");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+                (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
+
+        assertNotNull(parentReviewList);
+    }
+
+    public void testWithBlankDistrict() throws Exception {
+        IReviewDao reviewDao = createMock(IReviewDao.class);
+        // Expect no DAO methods to be called if the district id is blank
+        replay(reviewDao);
+        _controller.setReviewDao(reviewDao);
+
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter("state", "CA");
+        request.setParameter(RecentParentReviewsController.PARAM_DISTRICT_ID, "");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+                (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
+
+        assertNotNull(parentReviewList);
+    }
+
+    public void testWithNullDistrict() throws Exception {
+        IReviewDao reviewDao = createMock(IReviewDao.class);
+        // Expect no DAO methods to be called if the district id is blank
+        replay(reviewDao);
+        _controller.setReviewDao(reviewDao);
+
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter("state", "CA");
+        request.setParameter(RecentParentReviewsController.PARAM_DISTRICT_ID, (String)null);
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+                (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
+
+        assertNotNull(parentReviewList);
+    }
+
+    public void testWithNothing() throws Exception {
+        IReviewDao reviewDao = createMock(IReviewDao.class);
+        // Expect no DAO methods to be called if the city or district is not specified
+        replay(reviewDao);
+        _controller.setReviewDao(reviewDao);
+
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter("state", "CA");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        List<RecentParentReviewsController.IParentReviewModel> parentReviewList =
+                (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
+
+        assertNotNull(parentReviewList);
+    }
+
 }

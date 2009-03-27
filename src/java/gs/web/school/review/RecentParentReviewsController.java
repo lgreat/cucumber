@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.18 2008/04/29 00:26:48 aroy Exp $
+ * $Id: RecentParentReviewsController.java,v 1.19 2009/03/27 05:26:55 droy Exp $
  */
 
 package gs.web.school.review;
@@ -41,6 +41,7 @@ public class RecentParentReviewsController extends AbstractController {
      * Optional city. Otherwise state-wide values are retrieved.
      */
     public static final String PARAM_CITY = "city";
+    public static final String PARAM_DISTRICT_ID = "district_id";
     public static final String PARAM_MAX = "max";
     public static final String PARAM_MAX_AGE = "maxage"; // in days
 
@@ -71,15 +72,27 @@ public class RecentParentReviewsController extends AbstractController {
         SessionContext sc = SessionContextUtil.getSessionContext(request);
         State state = sc.getState();
 
-        String city = request.getParameter(PARAM_CITY);
         int maxReviews = DEFAULT_MAX;
         if (request.getParameter(PARAM_MAX) != null) {
             maxReviews = Integer.parseInt(request.getParameter(PARAM_MAX));
         }
 
-        List<Integer> reviewIds =
-                _reviewDao.findRecentReviewsInCity(state, city, maxReviews, DEFAULT_MAX_AGE);
+        int maxAge = DEFAULT_MAX_AGE;
+        if (request.getParameter(PARAM_MAX_AGE) != null) {
+            maxAge = Integer.parseInt(request.getParameter(PARAM_MAX_AGE));
+        }
 
+        List <Integer> reviewIds = new ArrayList<Integer>();
+        String city = request.getParameter(PARAM_CITY);
+        if (city != null) {
+            reviewIds = _reviewDao.findRecentReviewsInCity(state, city, maxReviews, maxAge);
+        } else {
+            String district_id_param = request.getParameter(PARAM_DISTRICT_ID);
+            if (!StringUtils.isBlank(district_id_param) && StringUtils.isNumeric(district_id_param)) {
+                int district_id = Integer.parseInt(request.getParameter(PARAM_DISTRICT_ID));
+                reviewIds = _reviewDao.findRecentReviewsInDistrict(state, district_id, maxReviews, maxAge);               
+            }
+        }
 
         List<ReviewFacade> reviews = new ArrayList<ReviewFacade>();
         for (Integer reviewId : reviewIds) {
