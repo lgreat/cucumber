@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.79 2009/03/23 15:24:33 aroy Exp $
+ * $Id: SchoolsController.java,v 1.80 2009/03/27 20:55:20 jnorton Exp $
  */
 
 package gs.web.school;
@@ -232,7 +232,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         }
         model.put(MODEL_PAGE, Integer.toString(page));
 
-        int pageSize = 10;
+        int pageSize = 25;
         try {
             Integer paramPageSize = new Integer(request.getParameter(PARAM_RESULTS_PER_PAGE));
             if (paramPageSize > 1) {

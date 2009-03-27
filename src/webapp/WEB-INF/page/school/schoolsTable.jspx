@@ -134,7 +134,7 @@ function reloadPageWithFilters(sortColId) {
     var publicBox = document.getElementById('type_schools_public');
     var privateBox = document.getElementById('type_schools_private');
 
-    var rppOption10 = document.getElementById('rppOption10');
+
     var rppOption25 = document.getElementById('rppOption25');
     var rppOption50 = document.getElementById('rppOption50');
     var rppOption100 = document.getElementById('rppOption100');
@@ -219,9 +219,7 @@ function reloadPageWithFilters(sortColId) {
     }
 
 
-    if (rppOption10 != undefined && rppOption10.selected) {
-        reloadUrl += "&pageSize=10";
-    }
+
     if (rppOption25 != undefined && rppOption25.selected) {
         reloadUrl += "&pageSize=25";
     }
@@ -529,9 +527,6 @@ function reloadPageWithFilters(sortColId) {
         </c:if>
         <c:if test="${not empty results.schools}">
             <select id="resultsPerPageSelector" onchange="setSortSelectionPageSize(this.value); reloadPageWithFilters();">
-
-                <gsml:selectOption id="rppOption10" value="10"
-                                   selected="${results.pageSize eq 10}">10</gsml:selectOption>
                 <gsml:selectOption id="rppOption25" value="25"
                                    selected="${results.pageSize eq 25}">25</gsml:selectOption>
                 <gsml:selectOption id="rppOption50" value="50"

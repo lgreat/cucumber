@@ -194,7 +194,7 @@ public class SearchController extends AbstractFormController {
             model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
         }
 
-        int pageSize = 10;
+        int pageSize = 25;
 
         String pageSizeParam = request.getParameter("pageSize");
         if (StringUtils.isNotBlank(pageSizeParam)) {
