@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.49 2009/03/23 15:24:33 aroy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.50 2009/03/27 21:25:11 jnorton Exp $
  */
 
 package gs.web.school;
@@ -355,7 +355,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.setParameter(SchoolsController.PARAM_SHOW_ALL, (String) null);
         mav = _controller.handleRequestInternal(request, getResponse());
         modelResults = (Map) mav.getModel().get("results");
-        assertEquals(10, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
+        assertEquals(25, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
     }
@@ -375,7 +375,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         Map modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_TOTAL));
         assertTrue((Boolean)model.get(SchoolsController.MODEL_IS_CITY_BROWSE));
         assertFalse((Boolean)model.get(SchoolsController.MODEL_IS_DISTRICT_BROWSE));
@@ -434,7 +434,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         Map modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_TOTAL));
         assertTrue((Boolean)model.get(SchoolsController.MODEL_IS_DISTRICT_BROWSE));
         assertFalse((Boolean)model.get(SchoolsController.MODEL_IS_CITY_BROWSE));
@@ -484,7 +484,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         Map modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p1schools) {
@@ -506,7 +506,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p2schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p2schools) {
@@ -515,15 +515,15 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
             assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
         }
 
-        // OK, jump to page #10
-        request.setParameter("p", "10");
+        // OK, jump to page #4
+        request.setParameter("p", "4");
         mav = _controller.handleRequestInternal(request, getResponse());
 
         model = mav.getModel();
         modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p10schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p10schools) {
@@ -533,15 +533,15 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
             assertTrue("Found the same school on two pages", p2schools.indexOf(s) == -1);
         }
 
-        // Check page #11
-        request.setParameter("p", "11");
+        // Check page #5
+        request.setParameter("p", "5");
         mav = _controller.handleRequestInternal(request, getResponse());
 
         model = mav.getModel();
         modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p11schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         assertEquals(2, p11schools.size());
@@ -570,7 +570,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         Map modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(77), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(77), modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p1schools) {
@@ -595,7 +595,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(32), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(32), modelResults.get(SchoolsController.MODEL_TOTAL));
         p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p1schools) {
@@ -627,7 +627,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         Map modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(74), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(74), modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p1schools) {
@@ -651,7 +651,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         modelResults = (Map) model.get("results");
 
         assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_TOTAL));
         p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p1schools) {
