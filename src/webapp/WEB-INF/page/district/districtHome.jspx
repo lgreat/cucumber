@@ -18,17 +18,108 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <head>
-    <title>Choosing an Elementary School &amp;amp; Supporting K-5 Education | GreatSchools </title>
+    <title>District Home</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
+    <pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/effects.js"/>
+    <pageHelper:externalJavascript file="http://partner.googleadservices.com/gampad/google_service.js"/>
+    <pageHelper:externalJavascript file="/res/js/library/interface.js"/>
     <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/district/districtHome.css"/>
+     <![CDATA[
+            <script type="text/javascript">
+                <!--
+
+function showPopup(event)
+    {
+        var e = window.event;
+        /* get the mouse left position */
+        x =   event.pageX;
+        /* get the mouse top position  */
+        y =  event.pageY;
+        /* display the pop-up */
+
+        var popUp = document.getElementById('popup');
+        popUp.style.display="block";
+        popUp.style.backgroundColor="white";
+        /* set the pop-up's left */
+        popUp.style.left = x;
+        /* set the pop-up's top */
+        popUp.style.top = y;
+    }
+    /* this function hides the pop-up when
+     user moves the mouse out of the link */
+    function hidePopup()
+    {
+        /* hide the pop-up */
+          var popUp = document.getElementById('popup');
+        popUp.style.display="none";
+    }
+                
+
+    function selectBox(linkElem, boxId) {
+    var x;
+    // de-select all links
+    var listItemsArr = Element.extend(linkElem.parentNode.parentNode).childElements();
+    for (x=0; x < listItemsArr.length; x++) {
+        listItemsArr[x].removeClassName("selected");
+    }
+    // select current link
+    Element.extend(linkElem.parentNode).addClassName("selected");
+    // hide all boxes, show current box
+    var boxArr = $$('#intro .boilerPlate');
+    for (x=0; x < boxArr.length; x++) {
+        if (boxArr[x].id == boxId) {
+            boxArr[x].show();
+        } else {
+            boxArr[x].hide();
+        }
+    }
+}
+  -->
+            </script>
+            ]]>
 </head>
 
 <gsml:body adPageName="district-home">
     <div id="pageWrapper"></div>
     <div id="main">
-        <div id="intro"><h3>District intro and boilerplate</h3></div>
-        <div id="ratingAndInfo"><h3>District rating and info</h3></div>
+        <div id="intro">
+            <div id="introTab"><span class="districtName">${district.name}</span>
+                <ul  class="horizontalList">
+                    <li class="selected">
+                        <a href="#" onclick="selectBox(this, 'districtBox'); return false;">About ${empty acronym?district.name:acronym}</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="selectBox(this, 'stateBox'); return false;">About Public School Enrollment in ${district.physicalAddress.state}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="introText">
+                <h3 >Know your school choice options in ${district.physicalAddress.city} <a href="#"  onmouseout="hidePopup();"  onmouseover="showPopup(event);" >Test</a></h3>
+                <span id="districtBox" class="boilerPlate" style=""><!--${boilerplate}--> San Francisco Unified School District (SFUSD) has a choice-based system called the Student Assignment System. On the application form, you list seven schools in order of preference. To have the best chance of getting your school of choice, apply before the January deadline. Students are admitted based on the family’s choice and available space. Most families get one of their choices. Through a separate process, you can also apply to charter schools or schools outside the district. </span>
+                <span id="stateBox"  class="boilerPlate" style="display: none;">tyutyutyu</span>
+
+                <div id="popup" class="transparent">
+                    <div>
+                        testing testing testing
+                    </div>
+                </div>
+
+                <ul class="horizontalList">
+                    <li class="firstLink">
+                        <a href="#">Read more about ${empty acronym?district.name:acronym} enrollment</a>
+                    </li>
+                    <li>
+                        <a href="#">View ${empty acronym?district.name:acronym} boundries</a>
+                    </li>
+                </ul>
+                <span><i>Notice an innaccuracy? </i><a href="#">Let us know!</a></span>
+            </div>
+        </div>
+
+        <div id="ratingAndInfo"><h2>District rating and info</h2></div>
         <div id="browseSchools"><h3>Browse Schools</h3></div>
         <div id="compareSchools"><h3>Compare Schools</h3></div>
         <div id="parentReviews">

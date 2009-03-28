@@ -1,4 +1,8 @@
-
+body{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #666666;
+    font-size: 13px;
+}
 
 #pageWrapper #main{
     float:left;
@@ -11,7 +15,66 @@
 }
 
 #intro{
-    height:250px;
+    font-size: 13px;
+    width:550px;
+    border-left:1px solid #66CCCC;
+    border-right:1px solid #66CCCC;
+    border-bottom:1px solid #66CCCC;
+}
+#introTab{
+    background-color:#66CCCC;
+}
+
+#introTab ul.horizontalList li {
+    background-color:white;
+    margin: 0 5px 0 5px;
+    display: inline;
+    font-size: 13px;
+    font-weight:bold;
+}
+
+.introText{
+    margin:0 15px 10px 15px;
+}
+
+#intro h3{
+    margin-top:8px;
+    margin-bottom:6px;
+    color:#D66671;
+    font-size:18px;
+}
+
+.districtName{
+    font-size: 25px;
+    font-weight:bold;
+    color:white;
+    padding-left:20px;
+}
+
+div.introText ul.horizontalList{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+div.introText ul.horizontalList li{
+    display: inline;
+    margin: 0 10px 0 0;
+    padding: 0 10px 0 0;
+
+}
+.firstLink{
+    border-right: 1px solid #888;
+}
+
+#intro div.introText a{
+    text-decoration:underline;
+}
+
+ .transparent {
+    display:none;
+    position:absolute;
+    border:1px solid #66CCCC;
+    z-index: 9001;
 }
 
 #ratingAndInfo{
