@@ -234,6 +234,7 @@
                                 <promo:nthGraderHover autocheck="mypk" referredBy="schoolProfile" isForm="false"
                                                       styleClass="email toolsTxt">Email me grade-by-grade updates</promo:nthGraderHover>
                             </c:when>
+                            
                             <c:otherwise>
                                 <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
                                                       styleClass="emailImg toolsImg"><gsml:img
