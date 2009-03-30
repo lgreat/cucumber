@@ -42,7 +42,18 @@ public class CmsArticleController extends AbstractController {
 
         replaceGreatSchoolsUrlsInArticle(article, request);
 
+        // paginate after transforms have been done on entire body
+        String pageNum = request.getParameter("page");
+        if (StringUtils.isNotBlank(pageNum) && StringUtils.isNumeric(pageNum)) {
+            try {
+                article.setCurrentPageNum(Integer.parseInt(pageNum));
+            } catch (NumberFormatException e) {
+                _log.warn("Invalid page number " + pageNum + " for article uri " + uri);
+            }
+        }
+
         model.put("article", article);
+        model.put("uri", uri);
         return new ModelAndView(VIEW_NAME, model);
     }
 

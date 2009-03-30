@@ -61,8 +61,24 @@
         </c:if>
 
         <div id="cmsArticleText">
-            ${article.body}
+            ${article.currentPage}
         </div>
+
+        <c:if test="${article.numPages > 1}">
+            <div id="cmsArticlePagination">
+                <c:forEach begin="1" end="${article.numPages}" var="pageNum" varStatus="status">
+                    <c:choose>
+                        <c:when test="${pageNum == article.currentPageNum}">
+                            ${pageNum}
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${uri}?page=${pageNum}">${pageNum}</a>
+                        </c:otherwise>
+                        <c:if test="${!status.last}"> | </c:if>
+                    </c:choose>
+                </c:forEach>
+            </div>
+        </c:if>
 
         <c:if test="${not empty article.licensorAttribution}">
             <div id="cmsArticleLicensorAttribution">
