@@ -74,8 +74,8 @@
                         <c:otherwise>
                             <a href="${uri}?page=${pageNum}">${pageNum}</a>
                         </c:otherwise>
-                        <c:if test="${!status.last}"> | </c:if>
                     </c:choose>
+                    <c:if test="${!status.last}"> | </c:if>
                 </c:forEach>
             </div>
         </c:if>
