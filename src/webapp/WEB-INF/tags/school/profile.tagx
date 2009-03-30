@@ -219,8 +219,8 @@
                      <c:when test="${(schoolType == 'private') and (school.levelCode != 'p')}">
                        <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
                                                       styleClass="emailImg toolsImg"><gsml:img
-                                        src="/res/img/school/tools_th_email.gif"
-                                        alt="Send me grade-by-grade updates"/></promo:nthGraderHover>
+                                       src="/res/img/school/overview/7970_b/update_email.gif"
+                                       alt="Send me grade-by-grade updates"/></promo:nthGraderHover>
                        <promo:nthGraderHover referredBy="schoolProfile" isForm="false"
                                                       styleClass="email toolsTxt">Send me grade-by-grade updates</promo:nthGraderHover>
                     </c:when>
