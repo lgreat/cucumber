@@ -29,8 +29,10 @@ import java.util.*;
 public class DistrictHomeController extends AbstractController {
     public static final String PARAM_DISTRICT_ID = "district_id";
     String _viewName;
-    private ITableDao _tableDao;
+    private ITableDao _boilerPlateTableDao;
+    private ITableDao _definitionsTableDao;
     private IDistrictDao _districtDao;
+    public static final String DEV_DEFINITIONS = "od6";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -38,6 +40,7 @@ public class DistrictHomeController extends AbstractController {
         final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         State state = sessionContext.getStateOrDefault();
         String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
+        HashMap definitions = getSpreadSheetRow1(model);
         if (!StringUtils.isBlank(districtIdStr) && StringUtils.isNumeric(districtIdStr)) {
             int districtId = Integer.parseInt(districtIdStr);
             District district = _districtDao.findDistrictById(state, districtId);
@@ -45,18 +48,22 @@ public class DistrictHomeController extends AbstractController {
             getSpreadSheetRow("CA","717",model);
 //            getSpreadSheetRow(state.getAbbreviation(),districtIdStr,model);
         }
-        
+
+
         return new ModelAndView(getViewName(), model);
     }
 
     protected void injectWorksheetName(HttpServletRequest request) {
-        GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getTableDao();
+        GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
         castDao.getSpreadsheetInfo().setWorksheetName(getWorksheet(request));
+        GoogleSpreadsheetDao castDao1 = (GoogleSpreadsheetDao) getDefinitionsTableDao();
+        castDao1.getSpreadsheetInfo().setWorksheetName(getWorksheet(request));
     }
-     protected String getWorksheet(HttpServletRequest request) {
-        String worksheetName;
+
+    protected String getWorksheet(HttpServletRequest request) {
+        String worksheetName ="";
         if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = "od6";
+            worksheetName = DEV_DEFINITIONS;
         } else if (UrlUtil.isStagingServer(request.getServerName())) {
             worksheetName = "od7";
         } else {
@@ -67,7 +74,8 @@ public class DistrictHomeController extends AbstractController {
     }
 
     protected HashMap getSpreadSheetRow(String state,String districtId, Map model){
-        List<ITableRow> rows = getTableDao().getRowsByKey("id",districtId);
+
+        List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
         HashMap<String,String> map = new HashMap<String, String>();
         for(ITableRow row :rows){
             if(row.get("state").equals(state)){
@@ -79,6 +87,16 @@ public class DistrictHomeController extends AbstractController {
         }
         return null;
     }
+ protected HashMap getSpreadSheetRow1( Map model){
+
+        List<ITableRow> rows = getDefinitionsTableDao().getAllRows();
+        HashMap<String,String> map = new HashMap<String, String>();
+        for(ITableRow row :rows){
+            model.put(row.get("key"),row.get("value"));
+        }
+        return map;
+    }
+     
 
     public IDistrictDao getDistrictDao() {
         return _districtDao;
@@ -95,13 +113,21 @@ public class DistrictHomeController extends AbstractController {
     public void setViewName(String viewName) {
         _viewName = viewName;
     }
-
-    public ITableDao getTableDao() {
-        return _tableDao;
+    public ITableDao getBoilerPlateTableDao() {
+        return _boilerPlateTableDao;
     }
 
-    public void setTableDao(ITableDao tableDao) {
-        _tableDao = tableDao;
+    public void setBoilerPlateTableDao(ITableDao boilerPlateTableDao) {
+        _boilerPlateTableDao = boilerPlateTableDao;
     }
+
+    public ITableDao getDefinitionsTableDao() {
+        return _definitionsTableDao;
+    }
+
+    public void setDefinitionsTableDao(ITableDao definitionsTableDao) {
+        _definitionsTableDao = definitionsTableDao;
+    }
+
 
 }

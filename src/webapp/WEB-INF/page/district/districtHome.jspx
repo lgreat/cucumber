@@ -37,7 +37,7 @@ function showPopup(event)
         /* get the mouse left position */
         x =   event.pageX;
         /* get the mouse top position  */
-        y =  event.pageY;
+        y =  event.pageY- 300;
         /* display the pop-up */
 
         var popUp = document.getElementById('popup');
@@ -45,7 +45,10 @@ function showPopup(event)
         popUp.style.backgroundColor="white";
         /* set the pop-up's left */
         popUp.style.left = x;
+        popUp.style.position = relative;
+
         /* set the pop-up's top */
+        alert(y);
         popUp.style.top = y;
     }
     /* this function hides the pop-up when
@@ -98,7 +101,7 @@ function showPopup(event)
             </div>
             <div class="introText">
                 <h3 >Know your school choice options in ${district.physicalAddress.city} <a href="#"  onmouseout="hidePopup();"  onmouseover="showPopup(event);" >Test</a></h3>
-                <span id="districtBox" class="boilerPlate" style=""><!--${boilerplate}--> San Francisco Unified School District (SFUSD) has a choice-based system called the Student Assignment System. On the application form, you list seven schools in order of preference. To have the best chance of getting your school of choice, apply before the January deadline. Students are admitted based on the family’s choice and available space. Most families get one of their choices. Through a separate process, you can also apply to charter schools or schools outside the district. </span>
+                <span id="districtBox" class="boilerPlate" style="">${boilerplate}</span>
                 <span id="stateBox"  class="boilerPlate" style="display: none;">tyutyutyu</span>
 
                 <div id="popup" class="transparent">

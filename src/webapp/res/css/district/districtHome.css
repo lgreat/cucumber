@@ -35,6 +35,7 @@ body{
 
 .introText{
     margin:0 15px 10px 15px;
+    position:relative;
 }
 
 #intro h3{
