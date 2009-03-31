@@ -8,7 +8,7 @@
     <jsp:directive.page contentType="text/html"/>
     <c:set var="pageName" value="article" scope="request"/>
     <head>
-        <title>${article.title} - ${article.primaryKategoryName} | GreatSchools</title>
+        <title>${article.promo} - ${article.primaryKategoryName} | GreatSchools</title>
         <meta name="description"
               content="${article.metaDescription}"/>
         <meta name="keywords"
@@ -36,13 +36,11 @@
                 </a>
             </div>
         </c:if>
-        <c:if test="${not empty article.licensorName}">
+        <c:if test="${not empty article.licensorLogoUrl}">
             <div class="cmsArticleLicensorImage">
                 <c:if test="${article.licensorLogoUrl ne null}">
                     <img src="${article.licensorLogoUrl}" alt="${article.licensorLogoAltText}"/>
                 </c:if>
-                <br/>
-                ${article.licensorName}
             </div>
         </c:if>
 
