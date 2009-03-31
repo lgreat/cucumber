@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:gsweb="gstaglib">
+
+    <div id="mapHeader"><h3>Browse ${district.name} Schools</h3></div>
+    <div id="map">&#160;
+        <noscript>JavaScript is required in order to view a map of the schools.
+        </noscript>
+    </div>
+    <map:schoolsWithRatings id="map"
+                            lat="${district.lat}"
+                            lon="${district.lon}"
+                            schools="${schoolsWithRatings}"
+            />
+    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="e">
+        <c:out value="${district.name}"/> Elementary Schools</link:allSchoolsInDistrict> (<c:out value="${numElementarySchools}"/>)
+    </div>
+    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="m">
+        <c:out value="${district.name}"/> Middle Schools</link:allSchoolsInDistrict> (<c:out value="${numMiddleSchools}"/>)
+    </div>
+    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="h">
+        <c:out value="${district.name}"/> High Schools</link:allSchoolsInDistrict> (<c:out value="${numHighSchools}"/>)
+    </div>
+</jsp:root>

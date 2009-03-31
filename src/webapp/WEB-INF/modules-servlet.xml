@@ -19,6 +19,11 @@
           autowire="byName">
     </bean>
 
+    <bean name="/district/nearbySchoolsInDistrict.module"
+          class="gs.web.district.NearbySchoolsInDistrictController"
+          autowire="byName">
+    </bean>
+
     <bean id="communityQuestionPromoTableFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pmY-74KD4CbXrSKtrPdEnSg"/>

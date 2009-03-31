@@ -80,14 +80,15 @@ div.introText ul.horizontalList li{
 
 #ratingAndInfo{
     height:100px;
+    border: red solid medium;
 }
 
 #browseSchools{
-    height:350px;
 }
 
 #compareSchools{
     height:50px;
+    border: red solid medium;
 }
 #parentReviews{
 }
@@ -184,3 +185,25 @@ div.recentParentReviews table tr td {
 }
 
 /* END Recent Parent Reviews */
+
+/* BEGIN google map */
+
+div#mapHeader {
+    background-color: #66CCCC;
+    height: 25px;
+    width: 551px;
+}
+
+div#mapHeader h3 {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+div#map {
+    height: 300px;                
+    width: 551px;
+}
+
+/* END google map */

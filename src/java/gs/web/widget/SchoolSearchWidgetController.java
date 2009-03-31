@@ -299,7 +299,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                 i++;
             }
 
-            loadRatingsIntoSchoolList(schools, state);
+            _reviewDao.loadRatingsIntoSchoolList(schools, state);
             command.setSchools(schools);
             command.setMapLocationPrefix("Schools near ");
             command.setMapLocationString(address);
@@ -318,7 +318,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         applyLevelCodeFilters(schools, command); // edits list in place
         if (schools != null && schools.size() > 0) {
             hasResults = true;
-            loadRatingsIntoSchoolList(schools, state);
+            _reviewDao.loadRatingsIntoSchoolList(schools, state);
             command.setSchools(schools);
             command.setMapLocationPrefix("All schools in ");
             command.setMapLocationString(city.getName() + ", " + state.getAbbreviation());
@@ -338,46 +338,46 @@ public class SchoolSearchWidgetController extends SimpleFormController {
      * This then loops through the school list, looks up the associated ratings object
      * in one of the maps, and attaches it to the data structure.
      */
-    protected void loadRatingsIntoSchoolList(List<SchoolWithRatings> schools, State state) {
-        long start = System.currentTimeMillis();
-
-        // Two lists: grade schools, preschools
-        List<Integer> gradeSchoolIds = new ArrayList<Integer>();
-        List<Integer> preschoolIds = new ArrayList<Integer>();
-        // for each school, group it into one of the above lists
-        for (SchoolWithRatings schoolWithRatings: schools) {
-            School school = schoolWithRatings.getSchool();
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                preschoolIds.add(school.getId());
-            } else {
-                gradeSchoolIds.add(school.getId());
-            }
-        }
-        // Retrieve parent ratings
-        // grade schools
-        Map<Integer, Ratings> gradeSchoolMap = null;
-        if (gradeSchoolIds.size() > 0) {
-            gradeSchoolMap = _reviewDao.findGradeSchoolRatingsByIdList(gradeSchoolIds, state);
-        }
-        // preschools
-        Map<Integer, Ratings> preschoolMap = null;
-        if (preschoolIds.size() > 0) {
-            preschoolMap = _reviewDao.findPreschoolRatingsByIdList(preschoolIds, state);
-        }
-        // for each school, look up its rating in one of the above maps and attach it to
-        // the data structure
-        for (SchoolWithRatings schoolWithRatings: schools) {
-            School school = schoolWithRatings.getSchool();
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                schoolWithRatings.setParentRatings(preschoolMap.get(school.getId()));
-            } else {
-                schoolWithRatings.setParentRatings(gradeSchoolMap.get(school.getId()));
-            }
-        }
-        long end = System.currentTimeMillis();
-
-        _log.info("Bulk retrieval of parent ratings took " + ((float)(end - start)) / 1000.0 + "s");
-    }
+//    protected void loadRatingsIntoSchoolList(List<SchoolWithRatings> schools, State state) {
+//        long start = System.currentTimeMillis();
+//
+//        // Two lists: grade schools, preschools
+//        List<Integer> gradeSchoolIds = new ArrayList<Integer>();
+//        List<Integer> preschoolIds = new ArrayList<Integer>();
+//        // for each school, group it into one of the above lists
+//        for (SchoolWithRatings schoolWithRatings: schools) {
+//            School school = schoolWithRatings.getSchool();
+//            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+//                preschoolIds.add(school.getId());
+//            } else {
+//                gradeSchoolIds.add(school.getId());
+//            }
+//        }
+//        // Retrieve parent ratings
+//        // grade schools
+//        Map<Integer, Ratings> gradeSchoolMap = null;
+//        if (gradeSchoolIds.size() > 0) {
+//            gradeSchoolMap = _reviewDao.findGradeSchoolRatingsByIdList(gradeSchoolIds, state);
+//        }
+//        // preschools
+//        Map<Integer, Ratings> preschoolMap = null;
+//        if (preschoolIds.size() > 0) {
+//            preschoolMap = _reviewDao.findPreschoolRatingsByIdList(preschoolIds, state);
+//        }
+//        // for each school, look up its rating in one of the above maps and attach it to
+//        // the data structure
+//        for (SchoolWithRatings schoolWithRatings: schools) {
+//            School school = schoolWithRatings.getSchool();
+//            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+//                schoolWithRatings.setParentRatings(preschoolMap.get(school.getId()));
+//            } else {
+//                schoolWithRatings.setParentRatings(gradeSchoolMap.get(school.getId()));
+//            }
+//        }
+//        long end = System.currentTimeMillis();
+//
+//        _log.info("Bulk retrieval of parent ratings took " + ((float)(end - start)) / 1000.0 + "s");
+//    }
 
     /**
      * Manually filter out schools with level codes that don't match the filter.

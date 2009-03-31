@@ -2129,6 +2129,13 @@
             <type>java.lang.String</type>
             <description>value of link title attribute, for tooltip</description>
         </attribute>
+        <attribute>
+            <name>levelCode</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Level code</description>
+        </attribute>
     </tag>
     <tag>
         <name>allSchoolsInState</name>

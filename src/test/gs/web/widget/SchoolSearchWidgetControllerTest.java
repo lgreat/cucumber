@@ -226,8 +226,7 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         struct1.setSchool(school1);
         schools.add(struct1);
         expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(schools);
-        expect(_reviewDao.findGradeSchoolRatingsByIdList(isA(List.class), isA(State.class))).
-                andReturn(new HashMap<Integer, Ratings>());
+        _reviewDao.loadRatingsIntoSchoolList(isA(List.class), isA(State.class));
         replayAll();
         assertTrue("Expect results", _controller.loadResultsForCity(city, State.CA, _command));
         verifyAll();
@@ -242,40 +241,6 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         } catch (IllegalStateException ise) {
             // ok
         }
-    }
-
-    public void testLoadRatingsIntoSchoolList() {
-        List<SchoolWithRatings> schools = new ArrayList<SchoolWithRatings>();
-        SchoolWithRatings struct2 = new SchoolWithRatings();
-        School school2 = new School();
-        school2.setId(2);
-        school2.setLevelCode(LevelCode.PRESCHOOL);
-        struct2.setSchool(school2);
-        schools.add(struct2);
-        SchoolWithRatings struct1 = new SchoolWithRatings();
-        School school1 = new School();
-        school1.setId(1);
-        school1.setLevelCode(LevelCode.ELEMENTARY);
-        struct1.setSchool(school1);
-        schools.add(struct1);
-
-        Map<Integer, Ratings> gradeMap = new HashMap<Integer, Ratings>();
-        Ratings ratings1 = new Ratings();
-        gradeMap.put(1, ratings1);
-        Map<Integer, Ratings> preschoolMap = new HashMap<Integer, Ratings>();
-        Ratings ratings2 = new Ratings();
-        preschoolMap.put(2, ratings2);
-        expect(_reviewDao.findGradeSchoolRatingsByIdList(isA(List.class), isA(State.class))).
-                andReturn(gradeMap);
-        expect(_reviewDao.findPreschoolRatingsByIdList(isA(List.class), isA(State.class))).
-                andReturn(preschoolMap);
-
-        replayAll();
-        _controller.loadRatingsIntoSchoolList(schools, State.CA);
-        verifyAll();
-
-        assertSame(ratings1, struct1.getParentRatings());
-        assertSame(ratings2, struct2.getParentRatings());
     }
 
     public void testOnBindOnNewForm() throws Exception {
@@ -320,8 +285,7 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         // look up school and GS rating
         expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(schools);
         // look up parent ratings
-        expect(_reviewDao.findGradeSchoolRatingsByIdList(isA(List.class), isA(State.class))).
-                andReturn(new HashMap<Integer, Ratings>());
+        _reviewDao.loadRatingsIntoSchoolList(isA(List.class), isA(State.class));
 
         expect(_cobrandDao.getCobrandByHostname(getRequest().getServerName())).andReturn(null);
 
