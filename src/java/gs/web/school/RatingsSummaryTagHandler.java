@@ -50,7 +50,7 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
         sb.append("\" class=\"submodal-344-362 addParentReviewLink\"");
         sb.append(" onclick=\"Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=344,height=362,left=50,top=50'); return false; \"");
         sb.append(">") ;
-        sb.append("Be the first to share your review!");
+        sb.append("Share your review!");
         sb.append("</a>");
 
         return sb.toString();
