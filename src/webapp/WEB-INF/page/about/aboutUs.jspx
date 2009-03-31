@@ -63,9 +63,9 @@
                     <img title="" alt="GreatSchools Blog" src="/res/img/about/aboutus_blogtitle.gif" class="heading"/>
 
                     <cache:cache scope="application" name="blog" key="blog2">
-                        <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlogAdvanced"
+                        <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
                                           defaultTitle="GreatSchools Blog"
-                                          defaultUrl="http://blogs.greatschools.net"
+                                          defaultUrl="http://blogs.greatschools.net/greatschoolsblog"
                                           type="billsBlog"/>
                     </cache:cache>
                     

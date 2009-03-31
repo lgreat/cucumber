@@ -162,9 +162,9 @@
 
                     <div class="billsBlog">
                         <cache:cache scope="application" name="blog" key="blog1">
-                            <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlogAdvanced"
+                            <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
                                               defaultTitle="Bill's thoughts on education"
-                                              defaultUrl="http://blogs.greatschools.net"
+                                              defaultUrl="http://blogs.greatschools.net/greatschoolsblog"
                                               type="researchBlog"/>
                         </cache:cache>
                     </div></td>
