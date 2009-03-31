@@ -144,7 +144,7 @@
             <c:if test="${(not empty latestReviewsModel) }">
 
                 <c:choose>
-                    <c:when test="${school.levelCode ne 'p'}">
+                    <c:when test="${school.levelCode ne 'p' and school.type.schoolTypeName ne 'private'}">
                          <c:if test="${(not empty latestReviewsModel.latestRating) and
                                  (not empty latestReviewsModel.randomCategory) and
                                  (not empty latestReviewsModel.randomRating) and

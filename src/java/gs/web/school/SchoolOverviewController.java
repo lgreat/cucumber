@@ -276,7 +276,7 @@ public class SchoolOverviewController extends AbstractSchoolController implement
 
         List<Review> reviews = getReviewDao().getPublishedReviewsBySchool(school);
         if (reviews != null && reviews.size() != 0) {
-            if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
+            if (school.getLevelCode().equals(LevelCode.PRESCHOOL)|| school.getType().equals(SchoolType.PRIVATE)) {
                 doMultiParentReviews(reviews, latestReviewsModel);
                 if ((latestReviewsModel.get("randomRating") == null) &&
                         (latestReviewsModel.get("schoolReviews") == null)) {
