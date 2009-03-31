@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.16 2009/03/26 21:27:02 eddie Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.17 2009/03/31 18:09:54 eddie Exp $
  */
 
 package gs.web.content;
@@ -176,9 +176,9 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             out.println("<div class=\"blogTop\">");
             out.println("<div class=\"blogPhoto\">");
             out.println("<a onclick=\"Popup=window.open('" +
-                    link +
+                    "http://blogs.greatschools.net" +
                     "','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;\" "
-                    + " href=\"" + link +"\">"
+                    + " href=\"" + "http://blogs.greatschools.net" +"\">"
                     + "<img src=\"/res/img/about/aboutus_blogphoto.jpg\" "
                     + "alt=\"GreatSchools Blog On School Improvement\"/></a>");
 
