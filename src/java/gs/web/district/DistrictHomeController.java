@@ -36,34 +36,42 @@ public class DistrictHomeController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
-        injectWorksheetName(request);
         final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         State state = sessionContext.getStateOrDefault();
         String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
-        HashMap definitions = getSpreadSheetRow1(model);
+        HashMap definitions = getKeyTermDefinitionsFromSpreadSheet(request);
+
         if (!StringUtils.isBlank(districtIdStr) && StringUtils.isNumeric(districtIdStr)) {
             int districtId = Integer.parseInt(districtIdStr);
             District district = _districtDao.findDistrictById(state, districtId);
             model.put("district", district);
-            getSpreadSheetRow("CA","717",model);
+            getBoilerPlateForDistrict("CA","717",model,request);
+            getBoilerPlateForState("CA",model,request);
 //            getSpreadSheetRow(state.getAbbreviation(),districtIdStr,model);
+            if(model.get("acronym")!= null && !"".equals(model.get("acronym"))){
+                model.put("arconymOrName",model.get("acronym"));
+            }else{
+                model.put("arconymOrName",district.getName());
+            }
         }
-
-
+        getBoilerPlateWithKeyTerms(model,definitions);
         return new ModelAndView(getViewName(), model);
     }
 
-    protected void injectWorksheetName(HttpServletRequest request) {
-        GoogleSpreadsheetDao castDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
-        castDao.getSpreadsheetInfo().setWorksheetName(getWorksheet(request));
-        GoogleSpreadsheetDao castDao1 = (GoogleSpreadsheetDao) getDefinitionsTableDao();
-        castDao1.getSpreadsheetInfo().setWorksheetName(getWorksheet(request));
+    protected void injectWorksheetNameForBoilerPlates(HttpServletRequest request,boolean isDistrict) {
+        GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
+        boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,isDistrict));
+
     }
 
-    protected String getWorksheet(HttpServletRequest request) {
+    protected String getWorksheetForBoilerPlates(HttpServletRequest request,boolean isDistrict) {
         String worksheetName ="";
         if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = DEV_DEFINITIONS;
+            if(isDistrict){
+                worksheetName = DEV_DEFINITIONS;
+            }else{
+                worksheetName = "od4";
+            }
         } else if (UrlUtil.isStagingServer(request.getServerName())) {
             worksheetName = "od7";
         } else {
@@ -73,28 +81,72 @@ public class DistrictHomeController extends AbstractController {
         return worksheetName;
     }
 
-    protected HashMap getSpreadSheetRow(String state,String districtId, Map model){
+     protected String getWorksheetForDefinition(HttpServletRequest request) {
+        String worksheetName ="";
+        if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
+            worksheetName = DEV_DEFINITIONS;
+
+        } else if (UrlUtil.isStagingServer(request.getServerName())) {
+            worksheetName = "od7";
+        } else {
+            worksheetName = "od4";
+        }
+
+        return worksheetName;
+    }
+
+    protected void injectWorksheetNameForDefinitions(HttpServletRequest request) {
+        GoogleSpreadsheetDao definitionsCastDao = (GoogleSpreadsheetDao) getDefinitionsTableDao();
+        definitionsCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForDefinition(request));
+    }
+
+    protected void getBoilerPlateForDistrict(String state,String districtId, Map model,HttpServletRequest request){
+        injectWorksheetNameForBoilerPlates(request,true);
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
-        HashMap<String,String> map = new HashMap<String, String>();
         for(ITableRow row :rows){
             if(row.get("state").equals(state)){
                 for (Object columnName : row.getColumnNames()) {
                     model.put(columnName.toString(),row.get(columnName).toString());
-                }
-                return map;
-            }
+                 }
+             }
         }
-        return null;
     }
- protected HashMap getSpreadSheetRow1( Map model){
+
+    protected void getBoilerPlateForState(String state, Map model,HttpServletRequest request){
+        injectWorksheetNameForBoilerPlates(request,false);
+        
+        List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
+        model.put("stateBoilerPlate",rows.get(0).get("boilerplate"));
+    }
+
+
+    protected HashMap getKeyTermDefinitionsFromSpreadSheet(HttpServletRequest request){
+        injectWorksheetNameForDefinitions(request);
 
         List<ITableRow> rows = getDefinitionsTableDao().getAllRows();
-        HashMap<String,String> map = new HashMap<String, String>();
+         HashMap<String,String> map = new HashMap<String, String>();
         for(ITableRow row :rows){
-            model.put(row.get("key"),row.get("value"));
+            map.put(row.get("key").toString(),row.get("value").toString());
         }
         return map;
+    }
+
+    protected void getBoilerPlateWithKeyTerms(Map model,HashMap definitions){
+
+        String boilerplate = model.get("boilerplate").toString();
+        Set s = definitions.keySet();
+        Iterator i = s.iterator();
+        StringBuffer definitionsDiv = new StringBuffer();
+
+        while(i.hasNext()){
+            String key = i.next().toString();
+            String span = "<span class=\"keyTerms\" onmouseout=\"hidePopup('"+key.replaceAll(" ","")+"');\"  onmouseover=\"showPopup(event,'"+key.replaceAll(" ","")+"');\">"+key+"</span>";
+            String boilerPlateWithDefinitions = boilerplate.replaceAll("\\b"+key+"\\b",span);
+            definitionsDiv.append("<div id=\""+key.replaceAll(" ","")+"\" class=\"transparent\"><div class=\"keyTermsWrapper\"><h3>Key Terms</h3><div class=\"keyTermDefinition\">"+key+"</div>"+definitions.get(key)+"</div></div>");
+            model.put("boilerplate",boilerPlateWithDefinitions);
+        }
+        model.put("definitionsDiv",definitionsDiv);
     }
      
 

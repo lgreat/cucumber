@@ -27,6 +27,7 @@
             </div>
         </c:when>
         <c:otherwise>
+            <c:if test="${param.putMoving eq null or param.putMoving eq false}">
             <div class="compareCitiesNear compareVertical">
                 <gsweb:form id="compareVertical" action="/cities.page" method="get">
                     <input type="hidden" name="includeState" value="${param['includeState']}"/>
@@ -53,6 +54,8 @@
                                      name="submit" onclick="return verifyCity('verticalCompareCitySelect');"/>
                 </gsweb:form>
             </div>
+            </c:if>
+
         </c:otherwise>
     </c:choose>
 
@@ -90,6 +93,7 @@
                  </link:topSchools>
              </div>
             </c:when>
+
             <c:otherwise>
                 <link:movingWithKids>
                     <gsml:img src="/res/img/moving_image.jpg"
@@ -110,6 +114,28 @@
             </c:otherwise>
         </c:choose>
     </div>
+
+     <c:if test="${param.putMoving ne null and param.putMoving eq true}">
+             <div class="editorialChoosing">
+                 <link:movingWithKids>
+                    <gsml:img src="/res/img/moving_image.jpg"
+                              alt="Moving? View our tips to help your child with the transition"/>
+                </link:movingWithKids>
+                <gsml:img src="/res/img/moving.gif" alt="Moving?" styleClass="word"/>
+                <ul class="contentList">
+                    <gsweb:articlelink articleId="826" wrappingElement="li">
+                        Choosing a Mover
+                    </gsweb:articlelink>
+                    <gsweb:articlelink articleId="455" wrappingElement="li">
+                        Making a Smooth Transition
+                    </gsweb:articlelink>
+                    <gsweb:articlelink articleId="60" wrappingElement="li">
+                        Adjusting to a New School
+                    </gsweb:articlelink>
+                </ul>
+                 </div>
+            </c:if>
+
     <div class="editorialChoosing">
         <c:choose>
             <c:when test="${param.preschoolOnly eq true}">

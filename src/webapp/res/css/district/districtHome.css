@@ -4,12 +4,11 @@ body{
     font-size: 13px;
 }
 
-#pageWrapper #main{
+#main{
     float:left;
     width:650px;
 }
-
-#pageWrapper #contentRight{
+#contentRight{
     float:left;
     width:300px;
 }
@@ -25,17 +24,23 @@ body{
     background-color:#66CCCC;
 }
 
+ul.horizontalList li{
+    display: inline;
+}
+
 #introTab ul.horizontalList li {
     background-color:white;
     margin: 0 5px 0 5px;
-    display: inline;
     font-size: 13px;
     font-weight:bold;
 }
 
 .introText{
     margin:0 15px 10px 15px;
-    position:relative;
+}
+
+.keyTerms{
+    color:green;
 }
 
 #intro h3{
@@ -45,7 +50,7 @@ body{
     font-size:18px;
 }
 
-.districtName{
+div#introTab h2{
     font-size: 25px;
     font-weight:bold;
     color:white;
@@ -57,30 +62,43 @@ div.introText ul.horizontalList{
     margin-bottom:10px;
 }
 
-div.introText ul.horizontalList li{
-    display: inline;
-    margin: 0 10px 0 0;
-    padding: 0 10px 0 0;
 
-}
-.firstLink{
-    border-right: 1px solid #888;
+div.introText ul.horizontalList li.firstLink{
+    border-left: 1px solid #888;
+    padding: 0 0 0 10px;
+    margin: 0 0px 0 10px;
 }
 
 #intro div.introText a{
     text-decoration:underline;
 }
 
- .transparent {
+.transparent {
     display:none;
+    width:200px;
     position:absolute;
     border:1px solid #66CCCC;
     z-index: 9001;
 }
 
+.letUsKnow{
+    font-style:italic;
+}
+
+.keyTermDefinition{
+    font-weight:bold;
+}
+div.transparent div.keyTermsWrapper{
+    margin:5px 10px 10px 5px;
+}
+
+
 #ratingAndInfo{
     height:100px;
     border: red solid medium;
+}
+span#districtBox{
+    clear:right;
 }
 
 #browseSchools{

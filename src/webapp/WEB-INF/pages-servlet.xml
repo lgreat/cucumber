@@ -1995,7 +1995,7 @@
 
     <bean id="districtHomePageDefinitionsFactory"
           class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
-        <property name="googleKey" value="pHIaC-TrslBgPGzlkP-QdZA"/>
+        <property name="googleKey" value="pHIaC-TrslBhmJpsPT_qvdQ"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
     </bean>
