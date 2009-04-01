@@ -45,7 +45,6 @@ public class AccountController implements ReadWriteAnnotationController {
     @RequestMapping(method = RequestMethod.GET)
     public String showPage(@RequestParam("id") int id, ModelMap model) {
         ApiAccount account = getApiAccountDao().getAccountById(id);
-        String options = account.getConfig().get(ApiAccount.AccountConfig.PREMIUM_OPTIONS);
         model.addAttribute(MODEL_ACCOUNT, account);
         model.addAttribute(MODEL_PREMIUM_OPTIONS, ApiAccount.PREMIUM_OPTIONS);
         return MAIN_VIEW;
