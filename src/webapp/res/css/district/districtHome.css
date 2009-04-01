@@ -125,7 +125,13 @@ span#districtBox{
 }
 
 
-
+.dottedLineBottomBox {
+    padding-bottom: 4px;
+    padding-top: 4px;
+    border: 0 solid #DDD;
+    border-bottom-width: 1px;
+    margin-bottom: 3px;
+}
 .outer {
 background-image:url(/res/img/schoolChoice/schoolchoice_poll_top.gif);
 background-position:left top;

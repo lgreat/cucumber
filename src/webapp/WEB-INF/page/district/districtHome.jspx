@@ -149,7 +149,7 @@
                 </ul>
                  </c:if>
                 <div><span class="letUsKnow">Notice an innaccuracy? </span> <a href="#">Let us know!</a></div>
-                ${definitionsDiv}                
+                ${definitionsDiv}
             </div>            
         </div>
 
@@ -196,12 +196,14 @@
         <div id="citySnapShot">
             <div class="outer">
                 <div class="inner">
-                    <span>City Snapshot</span>
+                     <school:topRatedSchoolsInCityList city="${cityObject}"
+                                                      topRatedSchools="${topRatedSchools}"
+                                                      topSchools="${topSchools}"/>
                 </div>
             </div>
         </div>
     </div>
-    <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${cityObject.name}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopSchoolsFooter=${'true'}&amp;linkToSchoolChoice=${'true'}&amp;putMoving=${'true'}" />
+    <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${district.physicalAddress.city}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopSchoolsFooter=${'true'}&amp;linkToSchoolChoice=${'true'}&amp;putMoving=${'true'}" />
  </gsml:body>
 </html>
 </jsp:root>

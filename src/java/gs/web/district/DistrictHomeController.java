@@ -11,12 +11,16 @@ import java.util.HashMap;
 
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 
 import gs.data.util.table.ITableRow;
 import gs.data.util.table.ITableDao;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.UrlUtil;
 
@@ -32,6 +36,8 @@ public class DistrictHomeController extends AbstractController {
     private ITableDao _boilerPlateTableDao;
     private ITableDao _definitionsTableDao;
     private IDistrictDao _districtDao;
+    private ISchoolDao _schoolDao;
+    private IGeoDao _geoDao;
     public static final String DEV_DEFINITIONS_TAB = "od6";
     public static final String STAGING_DEFINITIONS_TAB = "od6";
     public static final String LIVE_DEFINITIONS_TAB = "od6";
@@ -64,6 +70,7 @@ public class DistrictHomeController extends AbstractController {
             }
         }
         getBoilerPlateWithKeyTerms(model,definitions);
+        loadTopRatedSchools(model,sessionContext);
         return new ModelAndView(getViewName(), model);
     }
 
@@ -72,13 +79,16 @@ public class DistrictHomeController extends AbstractController {
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,true));
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
-        for(ITableRow row :rows){
-            if(row.get("state").equals(state)){
-                for (Object columnName : row.getColumnNames()) {
-                    model.put(columnName.toString(),row.get(columnName).toString());
-                 }
-             }
+        if(rows.size() > 0){
+            for(ITableRow row :rows){
+                if(row.get("state").equals(state)){
+                    for (Object columnName : row.getColumnNames()) {
+                        model.put(columnName.toString(),row.get(columnName).toString());
+                    }
+                }
+            }
         }
+
     }
 
     protected void getBoilerPlateForState(String state, Map model,HttpServletRequest request){
@@ -86,7 +96,10 @@ public class DistrictHomeController extends AbstractController {
         boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,false));
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
-        model.put("stateBoilerPlate",rows.get(0).get("boilerplate"));
+        if(rows.size() >0){
+            model.put("stateBoilerPlate",rows.get(0).get("boilerplate"));    
+        }
+
     }
 
 
@@ -95,10 +108,13 @@ public class DistrictHomeController extends AbstractController {
         definitionsCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForDefinition(request));
 
         List<ITableRow> rows = getDefinitionsTableDao().getAllRows();
-         HashMap<String,String> map = new HashMap<String, String>();
-        for(ITableRow row :rows){
-            map.put(row.get("key").toString(),row.get("value").toString());
+        HashMap<String,String> map = new HashMap<String, String>();
+        if(rows.size() >0){
+            for(ITableRow row :rows){
+                map.put(row.get("key").toString(),row.get("value").toString());
+            }
         }
+
         return map;
     }
 
@@ -121,6 +137,27 @@ public class DistrictHomeController extends AbstractController {
         model.put("boilerplate",boilerPlate);
         model.put("definitionsDiv",definitionsDiv);
     }
+
+    protected void loadTopRatedSchools(Map<String, Object> model, SessionContext context) {
+           City userCity = null;
+           if (context.getCity() != null) {
+               userCity = context.getCity();
+           }
+           model.put("cityObject", userCity);
+
+           List<ISchoolDao.ITopRatedSchool> topRatedSchools =
+                   getSchoolDao().findTopRatedSchoolsInCity(userCity, 1, null, 5);
+           if (topRatedSchools.size() > 0) {
+               model.put("topRatedSchools", topRatedSchools);
+               List<School> schools = new ArrayList<School>(topRatedSchools.size());
+               for (ISchoolDao.ITopRatedSchool s: topRatedSchools) {
+                   schools.add(s.getSchool());
+               }
+               model.put("topSchools", schools);
+           }
+       }
+
+
      
     protected String getWorksheetForBoilerPlates(HttpServletRequest request,boolean isDistrict) {
         String worksheetName ="";
@@ -190,6 +227,22 @@ public class DistrictHomeController extends AbstractController {
 
     public void setDefinitionsTableDao(ITableDao definitionsTableDao) {
         _definitionsTableDao = definitionsTableDao;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 
 
