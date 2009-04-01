@@ -32,7 +32,15 @@ public class DistrictHomeController extends AbstractController {
     private ITableDao _boilerPlateTableDao;
     private ITableDao _definitionsTableDao;
     private IDistrictDao _districtDao;
-    public static final String DEV_DEFINITIONS = "od6";
+    public static final String DEV_DEFINITIONS_TAB = "od6";
+    public static final String STAGING_DEFINITIONS_TAB = "od6";
+    public static final String LIVE_DEFINITIONS_TAB = "od6";
+    public static final String DEV_DISTRICT_BOILERPLATE_TAB = "od6";
+    public static final String STAGING_DISTRICT_BOILERPLATE_TAB = "od6";
+    public static final String LIVE_DISTRICT_BOILERPLATE_TAB = "od6";
+    public static final String DEV_STATE_BOILERPLATE_TAB = "od4";
+    public static final String STAGING_STATE_BOILERPLATE_TAB = "od4";
+    public static final String LIVE_STATE_BOILERPLATE_TAB = "od4";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -41,6 +49,7 @@ public class DistrictHomeController extends AbstractController {
         String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
         HashMap definitions = getKeyTermDefinitionsFromSpreadSheet(request);
 
+        // TODO: What should the behavior be if there is no district_id specified
         if (!StringUtils.isBlank(districtIdStr) && StringUtils.isNumeric(districtIdStr)) {
             int districtId = Integer.parseInt(districtIdStr);
             District district = _districtDao.findDistrictById(state, districtId);
@@ -58,50 +67,9 @@ public class DistrictHomeController extends AbstractController {
         return new ModelAndView(getViewName(), model);
     }
 
-    protected void injectWorksheetNameForBoilerPlates(HttpServletRequest request,boolean isDistrict) {
-        GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
-        boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,isDistrict));
-
-    }
-
-    protected String getWorksheetForBoilerPlates(HttpServletRequest request,boolean isDistrict) {
-        String worksheetName ="";
-        if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            if(isDistrict){
-                worksheetName = DEV_DEFINITIONS;
-            }else{
-                worksheetName = "od4";
-            }
-        } else if (UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = "od7";
-        } else {
-            worksheetName = "od4";
-        }
-
-        return worksheetName;
-    }
-
-     protected String getWorksheetForDefinition(HttpServletRequest request) {
-        String worksheetName ="";
-        if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = DEV_DEFINITIONS;
-
-        } else if (UrlUtil.isStagingServer(request.getServerName())) {
-            worksheetName = "od7";
-        } else {
-            worksheetName = "od4";
-        }
-
-        return worksheetName;
-    }
-
-    protected void injectWorksheetNameForDefinitions(HttpServletRequest request) {
-        GoogleSpreadsheetDao definitionsCastDao = (GoogleSpreadsheetDao) getDefinitionsTableDao();
-        definitionsCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForDefinition(request));
-    }
-
     protected void getBoilerPlateForDistrict(String state,String districtId, Map model,HttpServletRequest request){
-        injectWorksheetNameForBoilerPlates(request,true);
+        GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
+        boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,true));
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
         for(ITableRow row :rows){
@@ -114,15 +82,17 @@ public class DistrictHomeController extends AbstractController {
     }
 
     protected void getBoilerPlateForState(String state, Map model,HttpServletRequest request){
-        injectWorksheetNameForBoilerPlates(request,false);
-        
+        GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
+        boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,false));
+
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
         model.put("stateBoilerPlate",rows.get(0).get("boilerplate"));
     }
 
 
     protected HashMap getKeyTermDefinitionsFromSpreadSheet(HttpServletRequest request){
-        injectWorksheetNameForDefinitions(request);
+        GoogleSpreadsheetDao definitionsCastDao = (GoogleSpreadsheetDao) getDefinitionsTableDao();
+        definitionsCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForDefinition(request));
 
         List<ITableRow> rows = getDefinitionsTableDao().getAllRows();
          HashMap<String,String> map = new HashMap<String, String>();
@@ -134,7 +104,7 @@ public class DistrictHomeController extends AbstractController {
 
     protected void getBoilerPlateWithKeyTerms(Map model,HashMap definitions){
 
-        String boilerplate = model.get("boilerplate").toString();
+        String boilerPlate = model.get("boilerplate").toString().replaceAll("\n","<br/>");
         Set s = definitions.keySet();
         Iterator i = s.iterator();
         StringBuffer definitionsDiv = new StringBuffer();
@@ -142,13 +112,54 @@ public class DistrictHomeController extends AbstractController {
         while(i.hasNext()){
             String key = i.next().toString();
             String span = "<span class=\"keyTerms\" onmouseout=\"hidePopup('"+key.replaceAll(" ","")+"');\"  onmouseover=\"showPopup(event,'"+key.replaceAll(" ","")+"');\">"+key+"</span>";
-            String boilerPlateWithDefinitions = boilerplate.replaceAll("\\b"+key+"\\b",span);
-            definitionsDiv.append("<div id=\""+key.replaceAll(" ","")+"\" class=\"transparent\"><div class=\"keyTermsWrapper\"><h3>Key Terms</h3><div class=\"keyTermDefinition\">"+key+"</div>"+definitions.get(key)+"</div></div>");
-            model.put("boilerplate",boilerPlateWithDefinitions);
+            int length = boilerPlate.length();
+            boilerPlate = boilerPlate.replaceAll("\\b"+key+"\\b",span);
+            if(length < boilerPlate.length()){
+                definitionsDiv.append("<div id=\""+key.replaceAll(" ","")+"\" class=\"transparent\"><div class=\"keyTermsWrapper\"><h3>Key Terms</h3><div class=\"keyTermDefinition\">"+key+"</div>"+definitions.get(key)+"</div></div>");
+            }                       
         }
+        model.put("boilerplate",boilerPlate);
         model.put("definitionsDiv",definitionsDiv);
     }
      
+    protected String getWorksheetForBoilerPlates(HttpServletRequest request,boolean isDistrict) {
+        String worksheetName ="";
+        if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
+            if(isDistrict){
+                worksheetName = DEV_DISTRICT_BOILERPLATE_TAB;
+            }else{
+                worksheetName = DEV_STATE_BOILERPLATE_TAB;
+            }
+        } else if (UrlUtil.isStagingServer(request.getServerName())) {
+            if(isDistrict){
+                worksheetName = STAGING_DISTRICT_BOILERPLATE_TAB;
+            }else{
+                worksheetName = STAGING_STATE_BOILERPLATE_TAB;
+            }
+        } else {
+            if(isDistrict){
+                worksheetName = LIVE_DISTRICT_BOILERPLATE_TAB;
+            }else{
+                worksheetName = LIVE_STATE_BOILERPLATE_TAB;
+            }
+        }
+
+        return worksheetName;
+    }
+
+     protected String getWorksheetForDefinition(HttpServletRequest request) {
+        String worksheetName ="";
+        if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
+            worksheetName = DEV_DEFINITIONS_TAB;
+
+        } else if (UrlUtil.isStagingServer(request.getServerName())) {
+            worksheetName = STAGING_DEFINITIONS_TAB;
+        } else {
+            worksheetName = LIVE_DEFINITIONS_TAB;
+        }
+
+        return worksheetName;
+    }
 
     public IDistrictDao getDistrictDao() {
         return _districtDao;

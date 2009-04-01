@@ -6,7 +6,7 @@ body{
 
 #main{
     float:left;
-    width:650px;
+    width:550px;
 }
 #contentRight{
     float:left;
@@ -15,7 +15,6 @@ body{
 
 #intro{
     font-size: 13px;
-    width:550px;
     border-left:1px solid #66CCCC;
     border-right:1px solid #66CCCC;
     border-bottom:1px solid #66CCCC;
@@ -33,6 +32,9 @@ ul.horizontalList li{
     margin: 0 5px 0 5px;
     font-size: 13px;
     font-weight:bold;
+}
+#introTab ul.horizontalList li a:hover{
+    text-decoration:none;
 }
 
 .introText{
@@ -209,7 +211,6 @@ div.recentParentReviews table tr td {
 div#mapHeader {
     background-color: #66CCCC;
     height: 25px;
-    width: 551px;
 }
 
 div#mapHeader h3 {
@@ -220,8 +221,7 @@ div#mapHeader h3 {
 }
 
 div#map {
-    height: 300px;                
-    width: 551px;
+    height: 300px;  
 }
 
 /* END google map */
