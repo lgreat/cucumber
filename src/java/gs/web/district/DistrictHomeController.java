@@ -58,9 +58,9 @@ public class DistrictHomeController extends AbstractController {
             getBoilerPlateForState("CA",model,request);
 //            getSpreadSheetRow(state.getAbbreviation(),districtIdStr,model);
             if(model.get("acronym")!= null && !"".equals(model.get("acronym"))){
-                model.put("arconymOrName",model.get("acronym"));
+                model.put("acronymOrName",model.get("acronym"));
             }else{
-                model.put("arconymOrName",district.getName());
+                model.put("acronymOrName",district.getName());
             }
         }
         getBoilerPlateWithKeyTerms(model,definitions);

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.1 2009/03/31 23:42:06 droy Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.2 2009/04/01 19:53:04 droy Exp $
  */
 
 package gs.web.district;
@@ -39,11 +39,13 @@ public class NearbySchoolsInDistrictController extends AbstractController {
 
     public static final String PARAM_DISTRICT_ID = "district_id";
     public static final String PARAM_STATE = "state";
+    public static final String PARAM_ACRONYM_OR_NAME = "acronymOrName";
     public static final String MODEL_SCHOOL_LIST = "schoolsWithRatings";
     public static final String MODEL_DISTRICT = "district";
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
     public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
     public static final String MODEL_NUM_HIGH_SCHOOLS = "numHighSchools";
+    public static final String MODEL_ACRONYM_OR_NAME = "acronymOrName";
     private IDistrictDao _districtDao;
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
@@ -59,6 +61,8 @@ public class NearbySchoolsInDistrictController extends AbstractController {
         int districtId = Integer.parseInt(districtIdParam);
         District district = _districtDao.findDistrictById(state, districtId);
 
+        String acronymOrName = request.getParameter(PARAM_ACRONYM_OR_NAME);
+                
         List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true);
         List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
         _reviewDao.loadRatingsIntoSchoolList(schoolsWithRatings, state);
@@ -73,53 +77,11 @@ public class NearbySchoolsInDistrictController extends AbstractController {
         modelAndView.addObject(MODEL_NUM_ELEMENTARY_SCHOOLS, num_elementary_schools);
         modelAndView.addObject(MODEL_NUM_MIDDLE_SCHOOLS, num_middle_schools);
         modelAndView.addObject(MODEL_NUM_HIGH_SCHOOLS, num_high_schools);
+        modelAndView.addObject(MODEL_ACRONYM_OR_NAME, acronymOrName);
 
         return modelAndView;
     }
     
-/*
-    protected void loadRatingsIntoSchoolList(List<SchoolWithRatings> schools, State state) {
-        long start = System.currentTimeMillis();
-
-        // Two lists: grade schools, preschools
-        List<Integer> gradeSchoolIds = new ArrayList<Integer>();
-        List<Integer> preschoolIds = new ArrayList<Integer>();
-        // for each school, group it into one of the above lists
-        for (SchoolWithRatings schoolWithRatings: schools) {
-            School school = schoolWithRatings.getSchool();
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                preschoolIds.add(school.getId());
-            } else {
-                gradeSchoolIds.add(school.getId());
-            }
-        }
-        // Retrieve parent ratings
-        // grade schools
-        Map<Integer, Ratings> gradeSchoolMap = null;
-        if (gradeSchoolIds.size() > 0) {
-            gradeSchoolMap = _reviewDao.findGradeSchoolRatingsByIdList(gradeSchoolIds, state);
-        }
-        // preschools
-        Map<Integer, Ratings> preschoolMap = null;
-        if (preschoolIds.size() > 0) {
-            preschoolMap = _reviewDao.findPreschoolRatingsByIdList(preschoolIds, state);
-        }
-        // for each school, look up its rating in one of the above maps and attach it to
-        // the data structure
-        for (SchoolWithRatings schoolWithRatings: schools) {
-            School school = schoolWithRatings.getSchool();
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                schoolWithRatings.setParentRatings(preschoolMap.get(school.getId()));
-            } else {
-                schoolWithRatings.setParentRatings(gradeSchoolMap.get(school.getId()));
-            }
-        }
-        long end = System.currentTimeMillis();
-
-        _log.info("Bulk retrieval of parent ratings took " + ((float)(end - start)) / 1000.0 + "s");
-    }
-*/
-
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
     }

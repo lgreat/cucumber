@@ -8,23 +8,55 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:gsweb="gstaglib">
 
-    <div id="mapHeader"><h3>Browse ${district.name} Schools</h3></div>
-    <div id="map">&#160;
-        <noscript>JavaScript is required in order to view a map of the schools.
-        </noscript>
-    </div>
-    <map:schoolsWithRatings id="map"
-                            lat="${district.lat}"
-                            lon="${district.lon}"
-                            schools="${schoolsWithRatings}"
-            />
-    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="e">
-        <c:out value="${district.name}"/> Elementary Schools</link:allSchoolsInDistrict> (<c:out value="${numElementarySchools}"/>)
-    </div>
-    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="m">
-        <c:out value="${district.name}"/> Middle Schools</link:allSchoolsInDistrict> (<c:out value="${numMiddleSchools}"/>)
-    </div>
-    <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="h">
-        <c:out value="${district.name}"/> High Schools</link:allSchoolsInDistrict> (<c:out value="${numHighSchools}"/>)
+    <div id="nearbySchoolsInDistrict">
+        <div id="mapHeader"><h3>Browse ${acronymOrName} Schools</h3></div>
+        <div id="map">&#160;
+            <noscript>JavaScript is required in order to view a map of the schools.
+            </noscript>
+        </div>
+        <div id="mapFooter">
+            <div id="mapFooterKey">Show:</div>
+            <ul>
+                <li>
+                    <gsml:checkbox name="elementary"
+                                   styleId="filter_e"
+                                   checked="${requestScope.command.elementaryFilterChecked}"
+                                   onclick="toggleFilter('e', this.checked, '${requestScope.command.searchQuery}');"/>
+                    <label for="filter_e">Elementary</label>
+                </li>
+                <li>
+                    <gsml:checkbox name="middle"
+                                   styleId="filter_m"
+                                   checked="${requestScope.command.middleFilterChecked}"
+                                   onclick="toggleFilter('m', this.checked, '${requestScope.command.searchQuery}');"/>
+                    <label for="filter_m">Middle</label>
+                </li>
+                <li>
+                    <gsml:checkbox name="high"
+                                   styleId="filter_h"
+                                   checked="${requestScope.command.highFilterChecked}"
+                                   onclick="toggleFilter('h', this.checked, '${requestScope.command.searchQuery}');"/>
+                    <label for="filter_h">High</label>
+                </li>
+            </ul>
+        </div>
+
+        <div id="schoolBrowseLinks">
+            <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="e">
+                <c:out value="${district.name}"/> Elementary Schools</link:allSchoolsInDistrict> (<c:out value="${numElementarySchools}"/>)
+            </div>
+            <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="m">
+                <c:out value="${district.name}"/> Middle Schools</link:allSchoolsInDistrict> (<c:out value="${numMiddleSchools}"/>)
+            </div>
+            <div><link:allSchoolsInDistrict districtId="${district.id}" levelCode="h">
+                <c:out value="${district.name}"/> High Schools</link:allSchoolsInDistrict> (<c:out value="${numHighSchools}"/>)
+            </div>
+        </div>
+
+        <map:schoolsWithRatings id="map"
+                                lat="${district.lat}"
+                                lon="${district.lon}"
+                                schools="${schoolsWithRatings}"
+                />
     </div>
 </jsp:root>
