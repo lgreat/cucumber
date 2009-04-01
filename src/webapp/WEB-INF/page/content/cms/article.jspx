@@ -44,6 +44,17 @@
             </div>
         </c:if>
 
+        <c:if test="${not empty article.authors}">
+            <div id="authors">
+                By
+                <c:forEach var="author"
+                           items="${article.authors}"
+                           varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
+            </div>
+            <br/>
+        </c:if>
+
+      <c:if test="${not empty article.imageUrl}">
         <div class="cmsArticleImage">
             <c:if test="${not empty article.imageUrl}">
                 <img src="${article.imageUrl}" alt="${article.imageAltText}"/>
@@ -51,6 +62,7 @@
             <br/>
             ${article.imageTitle}
         </div>
+      </c:if>
 
         <c:if test="${not empty article.sidebar}">
             <div id="cmsArticleSidebar">
